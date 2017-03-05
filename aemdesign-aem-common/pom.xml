@@ -278,7 +278,7 @@
                                 </goals>
                                 <configuration>
                                     <targetURL>http://${publish.crx.host}:${publish.crx.port}/crx/packmgr/service.jsp</targetURL>
-                                    <username>${publish.crx.username}</username>
+                                    <userId>${publish.crx.username}</userId>
                                     <password>${publish.crx.password}</password>
                                 </configuration>
                             </execution>
@@ -327,7 +327,7 @@
                                 </goals>
                                 <configuration>
                                     <targetURL>http://${dev.crx.host}:${dev.crx.port}/crx/packmgr/service.jsp</targetURL>
-                                    <username>${dev.crx.username}</username>
+                                    <userId>${dev.crx.username}</userId>
                                     <password>${dev.crx.password}</password>
                                 </configuration>
                             </execution>
