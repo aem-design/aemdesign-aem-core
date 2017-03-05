@@ -1,9 +1,9 @@
 //topic filter - functions
-window.WKCD = window.WKCD || {};
-window.WKCD.jQuery = window.jQuery || {};
-window.WKCD.$ = window.jQuery || $;
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.topicFilter = WKCD.components.topicFilter || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.jQuery = window.jQuery || {};
+window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.topicFilter = AEMDESIGN.components.topicFilter || {};
 
 ;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
@@ -59,11 +59,11 @@ window.WKCD.components.topicFilter = WKCD.components.topicFilter || {};
             }
         }
 
-        log.log("alreadyLoaded: "+alreadyLoaded);
+        log.info("alreadyLoaded: "+alreadyLoaded);
 
         if (!alreadyLoaded) {
-            log.log("loading topicFilters");
-            //console.log(["loading topicFilters",soft]);
+            log.info("loading topicFilters");
+            //log.info(["loading topicFilters",soft]);
             ns.initFilter(base, soft);
 
             base.data("modulesloaded","topicFilters");
@@ -91,7 +91,7 @@ window.WKCD.components.topicFilter = WKCD.components.topicFilter || {};
 
         //Function to be invoked because event click
         _self.select = function () {
-            log.log(["FilterLine","selected",_self.name()]);
+            log.info(["FilterLine","selected",_self.name()]);
 
             //This is Observable
             _self.selected(true);
@@ -99,7 +99,7 @@ window.WKCD.components.topicFilter = WKCD.components.topicFilter || {};
         };
 
         _self.unselect = function () {
-            log.log(["FilterLine","unselected",_self.name()]);
+            log.info(["FilterLine","unselected",_self.name()]);
             _self.selected(false);
         };
 
@@ -119,7 +119,7 @@ window.WKCD.components.topicFilter = WKCD.components.topicFilter || {};
      */
     ns.FilterModel = function(filters) {
 
-        //console.log(["FilterModel", filters,"ns.topicFilterNotify.subscribe:"]);
+        //log.info(["FilterModel", filters,"ns.topicFilterNotify.subscribe:"]);
 
 
         var _self = this;
@@ -131,29 +131,29 @@ window.WKCD.components.topicFilter = WKCD.components.topicFilter || {};
 
         //listen for selections in the filters - watch for global events and update local value
         ns.topicFilterNotify.subscribe(function(filterLine) {
-            log.log(["FilterModel", "ns.topicFilterNotify.subscribe:",filterLine.name()]);
+            log.info(["FilterModel", "ns.topicFilterNotify.subscribe:",filterLine.name()]);
             var currentFilter = _self.currentFilter()[0].filter();
             var newFilter = filterLine.filter();
-            //log.log(["FilterModel", "index check",currentFilter,newFilter]);
+            //log.info(["FilterModel", "index check",currentFilter,newFilter]);
             if (currentFilter !== newFilter) {
-                //log.log("changing filter");
+                //log.info("changing filter");
                 if (_self.currentFilter().length > 0) {
-                    log.log("index check");
+                    log.info("index check");
                     _self.currentFilter()[0].unselect();
                     _self.currentFilter().pop();
                 }
-                log.log(["FilterModel", "index check", filterLine ]);
+                log.info(["FilterModel", "index check", filterLine ]);
                 _self.currentFilter().push(filterLine);
             } else {
-                log.log(["FilterModel", "already selected filter"]);
+                log.info(["FilterModel", "already selected filter"]);
             }
         }, _self, ns.topicQueue());
-        //console.log(["Finished topicFilterNotify"]);
+        //log.info(["Finished topicFilterNotify"]);
 
         //add filters to array
         _.each(filters, function(filter) {
 
-            //console.log(["filter", filter["name"],filter["filter"],filter["isdefault"]]);
+            //log.info(["filter", filter["name"],filter["filter"],filter["isdefault"]]);
             var newindex = _self.filters.push(new ns.FilterLine(filter["name"],filter["filter"],filter["isdefault"]));
             var isDefault = filter["isdefault"]?filter["isdefault"]:false;
             if (isDefault) {
@@ -162,20 +162,20 @@ window.WKCD.components.topicFilter = WKCD.components.topicFilter || {};
                 _self.currentFilter()[0].selected(true);
                 ns.topicFilterNotify.notifySubscribers(_self.currentFilter()[0], ns.topicQueue());
             }
-            log.log(["FilterModel", _self.filters().length,newindex,_self.filters()[newindex-1],filter["name"],filter["filter"],filter["isdefault"]]);
-            //log.log(["FilterModel", _self.filters().length,newindex,_self.filters()[newindex-1],filter["name"],filter["filter"],filter["isdefault"],_self.currentFilter()[0].name()]);
+            log.info(["FilterModel", _self.filters().length,newindex,_self.filters()[newindex-1],filter["name"],filter["filter"],filter["isdefault"]]);
+            //log.info(["FilterModel", _self.filters().length,newindex,_self.filters()[newindex-1],filter["name"],filter["filter"],filter["isdefault"],_self.currentFilter()[0].name()]);
         });
 
         //After the rendition, it notifies the subscribers the default filter
         _self.renderedHandler = function(elements, data) {
-            //console.log(["Trying to fire the default value as filter",data]);
+            //log.info(["Trying to fire the default value as filter",data]);
             if(data.isdefault() == true){
-                //console.log(["Firing the default value as filter",data]);
+                //log.info(["Firing the default value as filter",data]);
                 ns.topicFilterNotify.notifySubscribers(data, ns.topicQueue());
             }
         };
 
-        //console.log(["Finished each"]);
+        //log.info(["Finished each"]);
 
 
     };
@@ -196,14 +196,14 @@ window.WKCD.components.topicFilter = WKCD.components.topicFilter || {};
 
         //listen for selections in the filters - watch for global events and update local value
         ns.topicFilterNotify.subscribe(function(filterLine) {
-            log.log(["FilterListen","ns.topicFilterNotify.subscribe:",filterLine.name()]);
+            log.info(["FilterListen","ns.topicFilterNotify.subscribe:",filterLine.name()]);
             if (_self.currentFilter().length > 0) {
                 _self.currentFilter().pop();
             }
             _self.currentFilter().push(filterLine);
             _self.currentFilterText(filterLine.name());
 
-            log.log(["FilterListen","new filter",filterLine.name()]);
+            log.info(["FilterListen","new filter",filterLine.name()]);
         }, _self, ns.topicQueue());
 
     };
@@ -223,7 +223,7 @@ window.WKCD.components.topicFilter = WKCD.components.topicFilter || {};
            _topicQueue = $(soft).data("topicqueue");
         }
 
-        log.log(["init topic filters ", availableFilters, ns.topicQueue()]);
+        log.info(["init topic filters ", availableFilters, ns.topicQueue()]);
 
         ko.applyBindings(new ns.FilterModel(availableFilters), soft); // This makes Knockout get to work
 
@@ -231,4 +231,4 @@ window.WKCD.components.topicFilter = WKCD.components.topicFilter || {};
     };
 
 
-})(WKCD.jQuery,_,ko, WKCD.components.topicFilter, WKCD.log, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.topicFilter, AEMDESIGN.log, this); //pass in additional dependencies

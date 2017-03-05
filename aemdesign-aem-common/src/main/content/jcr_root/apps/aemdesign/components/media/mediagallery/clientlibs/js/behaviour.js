@@ -1,8 +1,8 @@
-//slidergallery
-window.WKCD = window.WKCD || {};
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.slidergallery = WKCD.components.slidergallery || {};
-window.WKCD.components.slidergallery.behaviour = WKCD.components.slidergallery.behaviour || {};
+//slidergallery - behaviour.js
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.slidergallery = AEMDESIGN.components.slidergallery || {};
+window.AEMDESIGN.components.slidergallery.behaviour = AEMDESIGN.components.slidergallery.behaviour || {};
 
 (function($, ns, window, undefined) {
 
@@ -24,10 +24,10 @@ window.WKCD.components.slidergallery.behaviour = WKCD.components.slidergallery.b
                     this.captionData = this.element.data();
                 },
                 afterShow: function() {
-                    WKCD.components.slidergallery.function.generateGalleryCaption(this.captionData);
+                    AEMDESIGN.components.slidergallery.function.generateGalleryCaption(this.captionData);
                 }
             }).each(function () {
-                WKCD.components.slidergallery.function.generateGalleryRollover($(this));
+                AEMDESIGN.components.slidergallery.function.generateGalleryRollover($(this));
             });
 
             //$container.isotope({
@@ -177,4 +177,4 @@ window.WKCD.components.slidergallery.behaviour = WKCD.components.slidergallery.b
     });
 
 
-})(WKCD.jQuery, WKCD.components.slidergallery.behaviour, this);
+})(AEMDESIGN.jQuery, AEMDESIGN.components.slidergallery.behaviour, this);

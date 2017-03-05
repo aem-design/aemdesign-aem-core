@@ -1,7 +1,7 @@
 //aemdesign.utils.js
 window.AEMDESIGN = window.AEMDESIGN || {};
 window.AEMDESIGN.utils = window.AEMDESIGN.utils || {};
-(function ($, ko, ns, log, window, undefined) {
+(function ($, ko, ns, log, http, window, undefined) {
 
     "use strict";
     var _version = "0.1";
@@ -111,7 +111,78 @@ window.AEMDESIGN.utils = window.AEMDESIGN.utils || {};
         return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     };
 
+    ns.patchText = function(text, snippets) {
+        if (snippets) {
+            if (!$.isArray(snippets)) {
+                text = text.replace("{0}", snippets);
+            } else {
+                for (var i=0; i < snippets.length; i++) {
+                    text = text.replace(("{" + i + "}"), snippets[i]);
+                }
+            }
+        }
+        return text;
+    };
 
+    ns.htmlEncode = function(value) {
+        return !value ? value : String(value).replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+    };
+
+    ns.htmlDecode = function(value) {
+        return !value ? value : String(value).replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
+    };
+
+
+
+    ns.reload = function(win, url, preventHistory) {
+        if (!win) win = window;
+        if (!url) {
+            url = http.noCaching(win.location.href);
+        }
+
+        if (preventHistory) {
+            win.location.replace(url);
+        } else {
+            win.location.href = url;
+        }
+    };
+
+    ns.load = function(url, preventHistory) {
+        ns.reload(window, url, preventHistory);
+    };
+
+    ns.open = function(url, win, name, options) {
+        if (!win) win = window;
+        if (!url) {
+            return;
+        }
+
+        if (!name) {
+            name = "";
+        }
+        if (!options) {
+            options = "";
+        }
+
+        return win.open(url, name, options);
+    };
+
+    ns.ellipsis = function(value, length, word) {
+        if (value && value.length > length) {
+            if (word) {
+                var vs = value.substr(0, length - 2);
+                var index = Math.max(vs.lastIndexOf(' '), vs.lastIndexOf('.'), vs.lastIndexOf('!'), vs.lastIndexOf('?'), vs.lastIndexOf(';'));
+                if (index == -1 || index < (length - 15)) {
+                    return value.substr(0, length - 3) + "...";
+                } else {
+                    return vs.substr(0, index) + "...";
+                }
+            } else {
+                return value.substr(0, length - 3) + "...";
+            }
+        }
+        return value;
+    };
 
     /* ko error handler*/
     var ErrorHandlingBindingProvider = function() {
@@ -127,9 +198,9 @@ window.AEMDESIGN.utils = window.AEMDESIGN.utils || {};
                 result = original.getBindings(node, bindingContext);
             }
             catch (e) {
-                if (window.console && console.log) {
-                    WKCD.log.log("Error in binding: " + e.message);
-                    WKCD.log.log([node, bindingContext]);
+                if (window.console && window.console.log) {
+                    log.info("Error in binding: " + e.message);
+                    log.info([node, bindingContext]);
                 }
             }
 
@@ -146,4 +217,4 @@ window.AEMDESIGN.utils = window.AEMDESIGN.utils || {};
     });
 
 
-})(jQuery, ko, AEMDESIGN.utils, AEMDESIGN.log, this);
+})(jQuery, ko, AEMDESIGN.utils, AEMDESIGN.log, AEMDESIGN.http, this);

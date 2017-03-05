@@ -1,9 +1,9 @@
 //filter - behaviour
-window.WKCD = window.WKCD || {};
-window.WKCD.jQuery = window.jQuery || {};
-window.WKCD.$ = window.jQuery || $;
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.jQuery = window.jQuery || {};
+window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.newsfilter = AEMDESIGN.components.newsfilter || {};
 
 ;(function ($, _, ko, ns, window, undefined) { //add additional dependencies
 
@@ -50,4 +50,4 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
     });
 
-})(WKCD.jQuery,_,ko, WKCD.components.newsfilter, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.newsfilter, this); //pass in additional dependencies

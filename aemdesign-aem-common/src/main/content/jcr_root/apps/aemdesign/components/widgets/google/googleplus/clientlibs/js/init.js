@@ -14,4 +14,4 @@
 
     });
 
-})(WKCD.jQuery);
+})(AEMDESIGN.jQuery);

@@ -14,9 +14,9 @@
     Object[][] assetFields = {
             {DamConstants.DC_TITLE, StringUtils.EMPTY},
             {DamConstants.DC_DESCRIPTION, StringUtils.EMPTY},
-            {WKCD_DAM_CAPTION, StringUtils.EMPTY},
-            {WKCD_DAM_ALT_TITLE, StringUtils.EMPTY},
-            {WKCD_DAM_SOURCE_URL, StringUtils.EMPTY}
+            {DAM_CAPTION, StringUtils.EMPTY},
+            {DAM_ALT_TITLE, StringUtils.EMPTY},
+            {DAM_SOURCE_URL, StringUtils.EMPTY}
     };
 
     Object[][] componentFields = {
@@ -62,9 +62,9 @@
 
         image.setTitle(componentProperties.get(DamConstants.DC_TITLE, String.class));
         image.setDescription(componentProperties.get(DamConstants.DC_DESCRIPTION, String.class));
-        image.setAlt(componentProperties.get(WKCD_DAM_ALT_TITLE, String.class));
+        image.setAlt(componentProperties.get(DAM_ALT_TITLE, String.class));
         //Don't set linkURL because there is no option for Image.class to make anchor to open new Tab
-        //image.set(ImageResource.PN_LINK_URL, componentProperties.get(WKCD_DAM_SOURCE_URL, String.class));
+        //image.set(ImageResource.PN_LINK_URL, componentProperties.get(DAM_SOURCE_URL, String.class));
 
         String imageTargetURL = StringUtils.EMPTY;
 
@@ -82,7 +82,7 @@
         if (StringUtils.isEmpty(imageTargetURL)) {
             //Source URL does not use pathfield option
             //Garbage in Garbage Out
-            imageTargetURL = componentProperties.get(WKCD_DAM_SOURCE_URL, StringUtils.EMPTY);
+            imageTargetURL = componentProperties.get(DAM_SOURCE_URL, StringUtils.EMPTY);
 
         }
 
@@ -262,7 +262,7 @@
 
 <%
     //Set linkURL for tracking only
-    image.set(ImageResource.PN_LINK_URL, componentProperties.get(WKCD_DAM_SOURCE_URL, String.class));
+    image.set(ImageResource.PN_LINK_URL, componentProperties.get(DAM_SOURCE_URL, String.class));
 %>
 <%
     if (StringUtils.isNotEmpty(divId)){

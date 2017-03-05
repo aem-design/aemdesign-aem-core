@@ -1,12 +1,12 @@
 //footer - behaviour
 
-;(function($, _, ko, utils, window, undefined) {
+;(function($, _, ko, utils, log, window, undefined) {
 
     //postcode
     $(document).ready(function() {
 
         //if (utils.getParameterByName("show")) {
-        //    WKCD.log.log("hiding footer");
+        //    log.info("hiding footer");
         //
         //    $(".footer").each(function() {
         //
@@ -18,4 +18,4 @@
     });
 
 
-})(WKCD.jQuery, _, ko,  WKCD.utils, this);
+})(AEMDESIGN.jQuery, _, ko, AEMDESIGN.utils, AEMDESIGN.log, this);

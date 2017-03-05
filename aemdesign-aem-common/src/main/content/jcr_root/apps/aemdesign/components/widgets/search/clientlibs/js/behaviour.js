@@ -1,16 +1,16 @@
 //search - behaviour
 
-;(function($, _, ko, search, window, undefined) {
+;(function($, _, ko, search, log, window, undefined) {
 
     $(document).ready(function() {
         $("[data-modules='search']").each(function() {
 
             var base = $(this);
-            WKCD.log.log("loading search box");
+            log.info("loading search box");
             search.init(base);
 
         });
     });
 
 
-})(WKCD.jQuery, _, ko,  WKCD.components.search, this);
+})(AEMDESIGN.jQuery, _, ko,  AEMDESIGN.components.search, AEMDESIGN.log, this);

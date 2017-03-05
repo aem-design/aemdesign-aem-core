@@ -1,16 +1,16 @@
 //sharebutton - function
-window.WKCD = window.WKCD || {};
-window.WKCD.jQuery = window.jQuery || {};
-window.WKCD.$ = window.jQuery || $;
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.sharebutton = WKCD.components.sharebutton || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.jQuery = window.jQuery || {};
+window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.sharebutton = AEMDESIGN.components.sharebutton || {};
 
 
 
 ;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
 
-    log.log("ShareButton Start !!!");
+    log.info("ShareButton Start !!!");
 
     "use strict";
     var _version = "0.1";
@@ -39,7 +39,7 @@ window.WKCD.components.sharebutton = WKCD.components.sharebutton || {};
             (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script_tag);
 
             _addThisLoaded = true;
-            log.log("Loaded addThis widget.js " + pubId);
+            log.info("Loaded addThis widget.js " + pubId);
         }
     };
 
@@ -51,7 +51,7 @@ window.WKCD.components.sharebutton = WKCD.components.sharebutton || {};
 
         var pubId = base.data("pubid");
 
-        log.log("Binding Loaded addThis widget.js "+  pubId);
+        log.info("Binding Loaded addThis widget.js "+  pubId);
 
 
         $(el).find(".share > a").bind('click', function(a){
@@ -74,5 +74,5 @@ window.WKCD.components.sharebutton = WKCD.components.sharebutton || {};
 
    // log.disableLog();
 
-})(WKCD.jQuery,_,ko, WKCD.components.sharebutton, WKCD.log, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.sharebutton, AEMDESIGN.log, this); //pass in additional dependencies
 

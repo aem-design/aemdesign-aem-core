@@ -1,8 +1,8 @@
-window.WKCD = window.WKCD || {};
-window.WKCD.jQuery = window.jQuery || {};
-window.WKCD.$ = window.jQuery || $;
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.image = WKCD.components.image || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.jQuery = window.jQuery || {};
+window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.image = AEMDESIGN.components.image || {};
 
 
 ;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
@@ -18,7 +18,7 @@ window.WKCD.components.image = WKCD.components.image || {};
 
     ns.picturefill = function (context) {
 
-        log.log("picturefill functions is called ");
+        log.info("picturefill functions is called ");
 
         var undefined;
         if (context === undefined) {
@@ -52,4 +52,4 @@ window.WKCD.components.image = WKCD.components.image || {};
     };
 
 
-})(WKCD.jQuery, _, ko, WKCD.components.image, WKCD.log,  this); //pass in additional dependencies
+})(AEMDESIGN.jQuery, _, ko, AEMDESIGN.components.image, AEMDESIGN.log,  this); //pass in additional dependencies

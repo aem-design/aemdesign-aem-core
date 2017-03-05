@@ -1,16 +1,16 @@
 //googleanalytics - function.js
-window.WKCD = window.WKCD || {};
-window.WKCD.jQuery = window.jQuery || {};
-window.WKCD.$ = window.jQuery || $;
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.googleanalytics = WKCD.components.googleanalytics || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.jQuery = window.jQuery || {};
+window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.googleanalytics = AEMDESIGN.components.googleanalytics || {};
 
 
 
 ;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
 
-    log.log("Google Analytics Start !!!");
+    log.info("Google Analytics Start !!!");
 
     "use strict";
     var _version = "0.1";
@@ -46,7 +46,7 @@ window.WKCD.components.googleanalytics = WKCD.components.googleanalytics || {};
 
             _googleanalyticsLoaded = true;
 
-            log.log("Loaded Google Analytics analytics.js ");
+            log.info("Loaded Google Analytics analytics.js ");
         }
     };
 
@@ -58,7 +58,7 @@ window.WKCD.components.googleanalytics = WKCD.components.googleanalytics || {};
         var cookiedomain = base.data("cookiedomain");
         var trackingname = base.data("trackingname");
 
-        log.log("Binding Loaded analytics.js "+  trackingId);
+        log.info("Binding Loaded analytics.js "+  trackingId);
 
         ns.loadGoogleAnalytics();
 
@@ -78,6 +78,6 @@ window.WKCD.components.googleanalytics = WKCD.components.googleanalytics || {};
 
     // log.disableLog();
 
-})(WKCD.jQuery,_,ko, WKCD.components.googleanalytics, WKCD.log, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.googleanalytics, AEMDESIGN.log, this); //pass in additional dependencies
 
 

@@ -37,4 +37,4 @@
         });
     });
 
-})(WKCD.jQuery);
+})(AEMDESIGN.jQuery);

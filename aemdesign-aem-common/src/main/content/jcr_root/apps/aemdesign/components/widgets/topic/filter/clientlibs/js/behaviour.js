@@ -1,9 +1,9 @@
 //topic - behaviour
-window.WKCD = window.WKCD || {};
-window.WKCD.jQuery = window.jQuery || {};
-window.WKCD.$ = window.jQuery || $;
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.topicFilter = WKCD.components.topicFilter || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.jQuery = window.jQuery || {};
+window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.topicFilter = AEMDESIGN.components.topicFilter || {};
 
 ;(function ($, _, ko, ns, window, undefined) { //add additional dependencies
 
@@ -11,11 +11,11 @@ window.WKCD.components.topicFilter = WKCD.components.topicFilter || {};
 
 
         $("[data-modules='topicFilters']").each(function () {
-            //WKCD.log.enableLog();
+            //AEMDESIGN.log.enableLog();
             ns.loadTopicFilters(this);
 
         });
 
     });
 
-})(WKCD.jQuery,_,ko, WKCD.components.topicFilter, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.topicFilter, this); //pass in additional dependencies

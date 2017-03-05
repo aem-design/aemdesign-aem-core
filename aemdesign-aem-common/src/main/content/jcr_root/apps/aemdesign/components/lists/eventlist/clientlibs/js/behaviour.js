@@ -1,20 +1,20 @@
 //eventlist - behaviour
-window.WKCD = window.WKCD || {};
-window.WKCD.jQuery = window.jQuery || {};
-window.WKCD.$ = window.jQuery || $;
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.eventfilter = WKCD.components.eventfilter || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.jQuery = window.jQuery || {};
+window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.eventfilter = AEMDESIGN.components.eventfilter || {};
 
-;(function ($, _, ko, ns, window, undefined) { //add additional dependencies
+;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
     $(document).ready(function () {
 
         $("[data-modules='eventList']").each(function () {
 
-            //console.log(["this", this, $(this), $(this)]);
+            //log.info(["this", this, $(this), $(this)]);
             ns.loadIsotopeGrid(this);
 
         });
     });
 
-})(WKCD.jQuery,_,ko, WKCD.components.eventfilter, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.eventfilter, AEMDESIGN.log, this); //pass in additional dependencies

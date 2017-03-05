@@ -1,10 +1,10 @@
-//slidergallery
-window.WKCD = window.WKCD || {};
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.slidergallery = WKCD.components.slidergallery || {};
-window.WKCD.components.slidergallery.function = WKCD.components.slidergallery.function || {};
+//slidergallery - functions.js
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.slidergallery = AEMDESIGN.components.slidergallery || {};
+window.AEMDESIGN.components.slidergallery.function = AEMDESIGN.components.slidergallery.function || {};
 
-(function ($, _, ns, window, undefined) {
+(function ($, _, ns, log, window, undefined) {
 
     "use strict";
     var _version = "0.1";
@@ -39,12 +39,12 @@ window.WKCD.components.slidergallery.function = WKCD.components.slidergallery.fu
 
 
     ns.generateGalleryCaption = function($currentItem) {
-        //WKCD.log.log("generating caption");
+        //log.info("generating caption");
         //$(this).inner.find('.caption-content').remove();
 
         // get thumbnail data
         var captionData =  $currentItem;//.data();
-        //WKCD.log.log(captionData);
+        //log.info(captionData);
         // clone custom caption template to use in modal
         var $customCaption = $('.caption-content').clone().removeClass('hide');
         // placeholder for option row
@@ -118,5 +118,5 @@ window.WKCD.components.slidergallery.function = WKCD.components.slidergallery.fu
     };
 
 
-})(jQuery, _, WKCD.components.slidergallery.function, this);
+})(jQuery, _, AEMDESIGN.components.slidergallery.function, AEMDESIGN.log, this);
 

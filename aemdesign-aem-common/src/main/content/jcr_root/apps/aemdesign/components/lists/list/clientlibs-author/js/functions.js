@@ -1,8 +1,8 @@
 //list functions - author
-window.WKCD = window.WKCD || {};
-window.WKCD.author = WKCD.author || {};
-window.WKCD.author.components = WKCD.author.components || {};
-window.WKCD.author.components.list = WKCD.author.components.list || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.author = AEMDESIGN.author || {};
+window.AEMDESIGN.author.components = AEMDESIGN.author.components || {};
+window.AEMDESIGN.author.components.list = AEMDESIGN.author.components.list || {};
 
 
 ;(function ($, ns, nsDialog, CQ, Granite, window, undefined) { //add additional dependencies
@@ -23,4 +23,4 @@ window.WKCD.author.components.list = WKCD.author.components.list || {};
     };
 
 
-})(WKCD.jQuery, WKCD.author.components.list, WKCD.dialog, CQ, Granite, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery, AEMDESIGN.author.components.list, AEMDESIGN.dialog, CQ, Granite, this); //pass in additional dependencies

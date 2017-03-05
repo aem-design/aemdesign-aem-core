@@ -64,7 +64,7 @@
 
     <div class="page_scrolling wrapper" id="${componentProperties.prefix}">
         <a href="${componentProperties.componentPath}" title="<c:out value="${componentProperties.loadMoreTender}"/>"
-           onclick="return WKCD.components.list.linkClick(this, '${componentProperties.prefix}');
+           onclick="return AEMDESIGN.components.list.linkClick(this, '${componentProperties.prefix}');
                    <%--CQ_Analytics.record({event: 'loadMorePages', values: { listPageStart: '0' },collect:  false, options: { obj: this }, componentPath: 'wcm\/foundation\/components\/list>'});--%>">
             ${componentProperties.loadMoreTender}
         </a>

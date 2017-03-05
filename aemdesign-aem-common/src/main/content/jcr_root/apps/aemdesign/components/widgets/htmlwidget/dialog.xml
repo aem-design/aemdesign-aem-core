@@ -18,7 +18,7 @@
                                 name="./html"
                                 height="220"
                                 xtype="htmleditor"
-                                validate="function() {return WKCD.components.htmlWidget.validate(this);}"
+                                validate="function() {return AEMDESIGN.components.htmlWidget.validate(this);}"
                         />
                     </items>
                 </htmlWidgetTab>

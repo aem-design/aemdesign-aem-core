@@ -3,8 +3,8 @@
     jcr:primaryType="cq:Dialog"
     helpPath="en/cq/current/wcm/default_components.html#List"
     title="List"
-    selectTab="function(tabToSelect) { WKCD.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,false); }"
-    hideTab="function(tabToHide) { WKCD.author.components.list.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
+    selectTab="function(tabToSelect) { AEMDESIGN.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,false); }"
+    hideTab="function(tabToHide) { AEMDESIGN.author.components.list.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
     xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">

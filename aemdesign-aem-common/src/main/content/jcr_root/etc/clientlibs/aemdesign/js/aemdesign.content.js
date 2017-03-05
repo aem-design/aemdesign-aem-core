@@ -50,11 +50,11 @@ window.AEMDESIGN.content = window.AEMDESIGN.content || {};
 
         return (new sling.PostRequest()
             .setURL(url)
-            .addHashContent(endPoint, WKCD.components.defaults.PAGE_COMPONENT, WKCD.components.defaults.PAGE_TEMPLATE)
+            .addHashContent(endPoint, AEMDESIGN.components.defaults.PAGE_COMPONENT, AEMDESIGN.components.defaults.PAGE_TEMPLATE)
             .setNameHintParam(nameHint,"")
-            .prepareCreateComponent(WKCD.components.Page())
-            .prepareCreateComponent(WKCD.components.PageContent())
-            .prepareCreateComponent(WKCD.components.Parsys())
+            .prepareCreateComponent(AEMDESIGN.components.Page())
+            .prepareCreateComponent(AEMDESIGN.components.PageContent())
+            .prepareCreateComponent(AEMDESIGN.components.Parsys())
             .prepareCreateComponents(components)
             .send().done(function (data) {
                 /**

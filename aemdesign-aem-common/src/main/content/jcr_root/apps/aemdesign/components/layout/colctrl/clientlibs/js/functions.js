@@ -1,7 +1,7 @@
 //colctrl.js
-window.WKCD = window.WKCD || {};
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.colctrl = WKCD.components.colctrl || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.colctrl = AEMDESIGN.components.colctrl || {};
 
 ;(function ($, ns, window, undefined) {
 
@@ -14,5 +14,5 @@ window.WKCD.components.colctrl = WKCD.components.colctrl || {};
 
 
 
-})(jQuery, WKCD.components.colctrl, this);
+})(jQuery, AEMDESIGN.components.colctrl, this);
 

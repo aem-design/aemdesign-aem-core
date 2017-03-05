@@ -1,13 +1,13 @@
 //onlinemedia - function
-window.WKCD = window.WKCD || {};
-window.WKCD.jQuery = window.jQuery || {};
-window.WKCD.$ = window.jQuery || $;
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.onlinemedia = WKCD.components.onlinemedia || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.jQuery = window.jQuery || {};
+window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.onlinemedia = AEMDESIGN.components.onlinemedia || {};
 
 ;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
-    log.log("OnlineMedia Start !!!");
+    log.info("OnlineMedia Start !!!");
 
     "use strict";
     var _version = "0.1";
@@ -32,7 +32,7 @@ window.WKCD.components.onlinemedia = WKCD.components.onlinemedia || {};
             (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script_tag);
 
             _issuuViewerLoaded = true;
-            log.log("Loaded Issuu Viewer ");
+            log.info("Loaded Issuu Viewer ");
         }
     };
 
@@ -42,7 +42,7 @@ window.WKCD.components.onlinemedia = WKCD.components.onlinemedia || {};
 
         var provider = base.data("provider");
 
-        log.log("Binding Loaded widget.js "+  provider);
+        log.info("Binding Loaded widget.js "+  provider);
 
         if (provider == 'issuu'){
 
@@ -80,5 +80,5 @@ window.WKCD.components.onlinemedia = WKCD.components.onlinemedia || {};
 
     // log.disableLog();
 
-})(WKCD.jQuery,_,ko, WKCD.components.onlinemedia, WKCD.log, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.onlinemedia, AEMDESIGN.log, this); //pass in additional dependencies
 

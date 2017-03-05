@@ -87,4 +87,4 @@
 
     });
 
-})(WKCD.jQuery);
+})(AEMDESIGN.jQuery);

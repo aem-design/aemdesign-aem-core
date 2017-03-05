@@ -1,4 +1,2 @@
 #base=js
 
-//functions_notused.js
-//behaviour_notused.js

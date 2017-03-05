@@ -15,4 +15,4 @@
 
     });
 
-})(WKCD.jQuery);
+})(AEMDESIGN.jQuery);

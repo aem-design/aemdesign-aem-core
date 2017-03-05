@@ -256,8 +256,8 @@
             String copyright = asset.getMetadataValue(DamConstants.DC_RIGHTS);
             String creator = asset.getMetadataValue(DamConstants.DC_CREATOR);
             String disclaimer = asset.getMetadataValue("dc:disclaimer");
-            String sourceURL = asset.getMetadataValue(WKCD_DAM_SOURCE_URL);
-            String videoURL = asset.getMetadataValue(WKCD_DAM_VIDEO_URL);
+            String sourceURL = asset.getMetadataValue(DAM_SOURCE_URL);
+            String videoURL = asset.getMetadataValue(DAM_VIDEO_URL);
             String url = asset.getPath();
   
             boolean hasVideoSource = false;
@@ -774,8 +774,8 @@
             String copyright = asset.getMetadataValue(DamConstants.DC_RIGHTS);
             String creator = asset.getMetadataValue(DamConstants.DC_CREATOR);
             String disclaimer = asset.getMetadataValue("dc:disclaimer");
-            String sourceURL = asset.getMetadataValue(WKCD_DAM_SOURCE_URL);
-            String videoURL = asset.getMetadataValue(WKCD_DAM_VIDEO_URL);
+            String sourceURL = asset.getMetadataValue(DAM_SOURCE_URL);
+            String videoURL = asset.getMetadataValue(DAM_VIDEO_URL);
             String url = asset.getPath();
             boolean hasVideoSource = false;
             boolean hasOtherSource = false;

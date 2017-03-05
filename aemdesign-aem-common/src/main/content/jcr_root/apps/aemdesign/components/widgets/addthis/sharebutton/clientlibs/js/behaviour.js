@@ -1,9 +1,9 @@
 //sharebutton - behaviour
-window.WKCD = window.WKCD || {};
-window.WKCD.jQuery = window.jQuery || {};
-window.WKCD.$ = window.jQuery || $;
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.sharebutton = WKCD.components.sharebutton || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.jQuery = window.jQuery || {};
+window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.sharebutton = AEMDESIGN.components.sharebutton || {};
 
 ;(function ($, _, ko, ns, window, undefined) { //add additional dependencies
 
@@ -19,4 +19,4 @@ window.WKCD.components.sharebutton = WKCD.components.sharebutton || {};
 
     });
 
-})(WKCD.jQuery,_,ko, WKCD.components.sharebutton, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.sharebutton, this); //pass in additional dependencies

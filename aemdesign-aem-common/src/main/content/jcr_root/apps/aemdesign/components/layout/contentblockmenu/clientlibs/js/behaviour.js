@@ -1,10 +1,10 @@
 //contentblockMenu - behaviour
 
-;(function($, _, ko, contentblockMenu, window, undefined) {
+;(function($, _, ko, contentblockMenu, log, window, undefined) {
 
     //contentblockjs
     $(document).ready(function() {
-        WKCD.log.log("loading contentblockjs");
+        log.info("loading contentblockjs");
 
 
         $('.section-panel').scrollClass({
@@ -68,4 +68,4 @@
     });
 
 
-})(WKCD.jQuery, _, ko, WKCD.components.contentblockMenu, this);
+})(AEMDESIGN.jQuery, _, ko, AEMDESIGN.components.contentblockmenu, AEMDESIGN.log, this);

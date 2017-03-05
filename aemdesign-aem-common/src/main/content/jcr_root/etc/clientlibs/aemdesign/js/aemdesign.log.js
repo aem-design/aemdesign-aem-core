@@ -6,12 +6,56 @@ window.AEMDESIGN.log = window.AEMDESIGN.log || {};
 
     //"use strict";
     var _version = "0.1";
-    var settings = {
-        enableLog: false
-    };
-
     ns.version = function () {
         return _version;
+    };
+
+
+    var logLevels = {
+        0: " OFF ",
+        1: "FATAL",
+        2: "ERROR",
+        3: "WARN ",
+        4: "INFO ",
+        5: "DEBUG",
+        6: "TRACE",
+        7: " ALL "
+    };
+
+    ns.LEVEL = {
+        OFF: 0,
+        FATAL: 1,
+        ERROR: 2,
+        WARN: 3,
+        INFO: 4,
+        DEBUG: 5,
+        TRACE: 6,
+        ALL: 7
+    };
+
+    ns.getInitialLogLevel = function() {
+        if (window.aemdesign_init_log_level) {
+            if (typeof window.aemdesign_init_log_level === "string") {
+                for (var i in logLevelNames) {
+                    if (logLevels[i].indexOf(window.aemdesign_init_log_level) >= 0) {
+                        return i;
+                    }
+                }
+            } else if (typeof window.aemdesign_init_log_level === "number") {
+                return window.aemdesign_init_log_level;
+            }
+        }
+        return settings.initLogLevel;
+    };
+
+    var settings = {
+        enableLog: false,
+        logLevel: ns.getInitialLogLevel(),
+        initLogLevel: 4
+    };
+
+    ns.setLevel = function(level) {
+        settings.logLevel = level;
     };
 
     ns.enableLog = function() {
@@ -38,6 +82,8 @@ window.AEMDESIGN.log = window.AEMDESIGN.log || {};
         ns.log(data);
     };
 
+
+
     ns.log = function(data) {
 
         if (window.console && window.console.log) {
@@ -53,11 +99,55 @@ window.AEMDESIGN.log = window.AEMDESIGN.log || {};
             };
 
             if (settings.enableLog) {
-                console.log([url,data,debug]);
+                log.info([url,data,debug]);
             }
         }
 
     };
+
+    ns.logex = function(level, message, snippets) {
+        if (settings.logLevel >= level) {
+            var text = (++logCounter)+"";
+            var i = text.length;
+            while ((4-i) > 0) {
+                text = "0"+text;
+                i++;
+            }
+            text += " " + logLevels[level];
+            text += " " + new Date().toLocaleDateString();
+            text += " " + AEMDESIGN.utils.patchText(message, snippets);
+            try {
+                console.log(text);
+            } catch (e) {
+            }
+        }
+    };
+
+    ns.fatalex = function(message, snippets) {
+        ns.logex(ns.LEVEL["FATAL"], message, snippets);
+    };
+
+    ns.errorex = function(message, snippets) {
+        ns.logex(ns.LEVEL["ERROR"], message, snippets);
+    };
+
+    ns.warnex = function(message, snippets) {
+        ns.logex(ns.LEVEL["WARN"], message, snippets);
+    };
+
+    ns.infoex = function(message, snippets) {
+        ns.logex(ns.LEVEL["INFO"], message, snippets);
+    };
+
+    ns.debugex = function(message, snippets) {
+        ns.logex(ns.LEVEL["DEBUG"], message, snippets);
+    };
+
+    ns.traceex = function(message, snippets) {
+        ns.logex(ns.LEVEL["TRACE"], message, snippets);
+    };
+
+
 
 })(jQuery, AEMDESIGN.log, this);
 

@@ -87,7 +87,7 @@ window.AEMDESIGN.dialog = window.AEMDESIGN.dialog || {};
                 }
             }
         } catch (ex) {
-            //console.log(["error","manageTabs",tabPanels, tabPanels.hiddenTabs, tabToSelectName, noSwitch, noHide, ex])
+            //log.info(["error","manageTabs",tabPanels, tabPanels.hiddenTabs, tabToSelectName, noSwitch, noHide, ex])
             log.error(["manageTabs",tabPanels, tabPanels.hiddenTabs, tabToSelectName, noSwitch, noHide, ex]);
         }
     };

@@ -34,7 +34,7 @@
         <ttl>1800</ttl>
         <language>en</language>
         <link><%= url %></link>
-        <copyright>WKCD</copyright>
+        <copyright>AEM.Design</copyright>
 
         <%
             Iterator<Page> pageIterator = list.getPages();

@@ -1,9 +1,9 @@
 //filter - functions
-window.WKCD = window.WKCD || {};
-window.WKCD.jQuery = window.jQuery || {};
-window.WKCD.$ = window.jQuery || $;
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.jQuery = window.jQuery || {};
+window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.newsfilter = AEMDESIGN.components.newsfilter || {};
 
 ;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
@@ -59,10 +59,10 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
             }
         }
 
-        log.log("alreadyLoaded: "+alreadyLoaded);
+        log.info("alreadyLoaded: "+alreadyLoaded);
 
         if (!alreadyLoaded) {
-            log.log("loading isotopeGrid");
+            log.info("loading isotopeGrid");
 
             ns.init(base);
 
@@ -82,15 +82,15 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
             }
         }
 
-        log.log("alreadyLoaded: "+alreadyLoaded);
+        log.info("alreadyLoaded: "+alreadyLoaded);
 
         if (!alreadyLoaded) {
-            log.log("loading isotopeFiltersStatus");
+            log.info("loading isotopeFiltersStatus");
 
             ns.initFilterListen(base);
 
             base.data("modulesloaded","isotopeFiltersStatus");
-            log.log("loaded isotopeFiltersStatus");
+            log.info("loaded isotopeFiltersStatus");
         }
 
     };
@@ -108,10 +108,10 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
             }
         }
 
-        log.log("alreadyLoaded: "+alreadyLoaded);
+        log.info("alreadyLoaded: "+alreadyLoaded);
 
         if (!alreadyLoaded) {
-            log.log("loading isotopeFilters");
+            log.info("loading isotopeFilters");
             ns.initFilters(base);
 
             base.data("modulesloaded","isotopeFilters");
@@ -131,15 +131,15 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
             }
         }
 
-        log.log("alreadyLoaded: "+alreadyLoaded);
+        log.info("alreadyLoaded: "+alreadyLoaded);
 
         if (!alreadyLoaded) {
-            log.log("loading isotopeSortStatus");
+            log.info("loading isotopeSortStatus");
 
             ns.initSortListen(base);
 
             base.data("modulesloaded","isotopeSortStatus");
-            log.log("loaded isotopeSortStatus");
+            log.info("loaded isotopeSortStatus");
         }
 
 
@@ -157,14 +157,14 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
             }
         }
 
-        log.log("alreadyLoaded: "+alreadyLoaded);
+        log.info("alreadyLoaded: "+alreadyLoaded);
 
         if (!alreadyLoaded) {
-            log.log("loading isotopeSortBy");
+            log.info("loading isotopeSortBy");
             ns.initSortBy(base);
 
             base.data("modulesloaded","isotopeSortBy");
-            log.log("loaded isotopeSortBy");
+            log.info("loaded isotopeSortBy");
         }
 
     };
@@ -183,16 +183,16 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
             }
         }
 
-        log.log("alreadyLoaded: "+alreadyLoaded);
+        log.info("alreadyLoaded: "+alreadyLoaded);
 
         if (!alreadyLoaded) {
-            log.log("loading isotopeAppendByList");
+            log.info("loading isotopeAppendByList");
 
             // ns.initSortBy(base);
             ns.initAppendBy(base);
 
             base.data("modulesloaded","isotopeAppendByList");
-            log.log("loaded isotopeAppendByList");
+            log.info("loaded isotopeAppendByList");
         }
 
     };
@@ -213,13 +213,13 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
         _self.isdefault = ko.observable(isdefault || false);
 
         _self.select = function () {
-            log.log(["FilterLine","selected",_self.name()]);
+            log.info(["FilterLine","selected",_self.name()]);
             _self.selected(true);
             ns.isotopeNotify.notifySubscribers(_self, "filterLineSelected");
         };
 
         _self.unselect = function () {
-            log.log(["FilterLine","unselected",_self.name()]);
+            log.info(["FilterLine","unselected",_self.name()]);
             _self.selected(false);
         };
 
@@ -238,27 +238,27 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         //tell everyone that current filter has changed - when current filter is updated send to watchers
         _self.currentFilter.subscribe(function(filterLine) {
-            log.log(["FilterModel", "_self.currentFilter.subscribe:",filterLine.name()]);
+            log.info(["FilterModel", "_self.currentFilter.subscribe:",filterLine.name()]);
             ns.isotopeNotify.notifySubscribers(filterLine, "filter");
         });
 
         //listen for selections in the filters - watch for global events and update local value
         ns.isotopeNotify.subscribe(function(filterLine) {
-            log.log(["FilterModel", "ns.isotopeNotify.subscribe:",filterLine.name()]);
+            log.info(["FilterModel", "ns.isotopeNotify.subscribe:",filterLine.name()]);
             var currentFilter = _self.currentFilter()[0].filter();
             var newFilter = filterLine.filter();
-            log.log(["FilterModel", "index check",currentFilter,newFilter]);
+            log.info(["FilterModel", "index check",currentFilter,newFilter]);
             if (currentFilter !== newFilter) {
-                log.log("changing filter");
+                log.info("changing filter");
                 if (_self.currentFilter().length > 0) {
-                    log.log("index check");
+                    log.info("index check");
                     _self.currentFilter()[0].unselect();
                     _self.currentFilter().pop(0);
                 }
-                log.log(["FilterModel", "index check", filterLine ]);
+                log.info(["FilterModel", "index check", filterLine ]);
                 _self.currentFilter().push(filterLine);
             } else {
-                log.log(["FilterModel", "already selected filter"]);
+                log.info(["FilterModel", "already selected filter"]);
             }
         }, _self, "filterLineSelected");
 
@@ -272,7 +272,7 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
                 _self.currentFilter()[0].selected(true);
                 ns.isotopeNotify.notifySubscribers(_self.currentFilter()[0], "filterLineSelected");
             }
-            //log.log(["FilterModel", _self.filters().length,newindex,_self.filters()[newindex-1],filter["name"],filter["filter"],filter["isdefault"],_self.currentFilter()[0].name()]);
+            //log.info(["FilterModel", _self.filters().length,newindex,_self.filters()[newindex-1],filter["name"],filter["filter"],filter["isdefault"],_self.currentFilter()[0].name()]);
         });
 
     };
@@ -288,14 +288,14 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         //listen for selections in the filters - watch for global events and update local value
         ns.isotopeNotify.subscribe(function(filterLine) {
-            log.log(["FilterListen","ns.isotopeNotify.subscribe:",filterLine.name()]);
+            log.info(["FilterListen","ns.isotopeNotify.subscribe:",filterLine.name()]);
             if (_self.currentFilter().length > 0) {
                 _self.currentFilter().pop(0);
             }
             _self.currentFilter().push(filterLine);
             _self.currentFilterText(filterLine.name());
 
-            log.log(["FilterListen","new filter",filterLine.name()]);
+            log.info(["FilterListen","new filter",filterLine.name()]);
         }, _self, "filterLineSelected");
 
     };
@@ -308,13 +308,13 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
         _self.isdefault = ko.observable(isdefault || false);
 
         _self.select = function () {
-            log.log(["SortLine","selected",_self.name()]);
+            log.info(["SortLine","selected",_self.name()]);
             _self.selected(true);
             ns.isotopeNotify.notifySubscribers(_self, "sortByLineSelected");
         };
 
         _self.unselect = function () {
-            log.log(["SortLine","unselected",_self.name()]);
+            log.info(["SortLine","unselected",_self.name()]);
             _self.selected(false);
         };
 
@@ -325,7 +325,7 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         var _self = this;
 
-        log.log(["SortModel",sortList]);
+        log.info(["SortModel",sortList]);
 
         _self.sortByList = ko.observableArray();
 
@@ -335,26 +335,26 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         //tell everyone that current sort has changed - when current sort is updated send to watchers
         _self.currentSortBy.subscribe(function(sortLine) {
-            log.log(["SortModel","_self.currentSortBy.subscribe:",sortLine.name()]);
+            log.info(["SortModel","_self.currentSortBy.subscribe:",sortLine.name()]);
             ns.isotopeNotify.notifySubscribers(sortLine, "sort");
         });
 
         //listen for selections in the sorts - watch for global events and update local value
         ns.isotopeNotify.subscribe(function(sortLine) {
-            log.log(["SortModel","ns.isotopeNotify.subscribe:",sortLine.name()]);
+            log.info(["SortModel","ns.isotopeNotify.subscribe:",sortLine.name()]);
             var currentSort = _self.currentSortBy()[0].sortBy();
             var newSort = sortLine.sortBy();
-            log.log(["SortModel","index check",currentSort,newSort]);
+            log.info(["SortModel","index check",currentSort,newSort]);
             if (currentSort !== newSort) {
-                log.log(["SortModel","changing sort"]);
+                log.info(["SortModel","changing sort"]);
                 if (_self.currentSortBy().length > 0) {
-                    log.log(["SortModel","index check"]);
+                    log.info(["SortModel","index check"]);
                     _self.currentSortBy()[0].unselect();
                     _self.currentSortBy().pop(0);
                 }
                 _self.currentSortBy().push(sortLine);
             } else {
-                log.log(["SortModel","already selected sort"]);
+                log.info(["SortModel","already selected sort"]);
             }
         }, _self, "sortByLineSelected");
 
@@ -368,10 +368,10 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
                 _self.currentSortBy()[0].selected(true);
                 ns.isotopeNotify.notifySubscribers(_self.currentSortBy()[0], "sortByLineSelected");
             }
-            log.log(["SortModel",_self.sortByList().length,newindex,_self.sortByList()[newindex-1],sort["name"],sort["sort-by"],sort["isdefault"],_self.currentSortBy()[0].name()]);
+            log.info(["SortModel",_self.sortByList().length,newindex,_self.sortByList()[newindex-1],sort["name"],sort["sort-by"],sort["isdefault"],_self.currentSortBy()[0].name()]);
         });
 
-        log.log(["SortModel","loaded"]);
+        log.info(["SortModel","loaded"]);
     };
 
     ns.SortListen = function() {
@@ -385,14 +385,14 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         //listen for selections in the filters - watch for global events and update local value
         ns.isotopeNotify.subscribe(function(sortLine) {
-            log.log(["SortListen","ns.isotopeNotify.subscribe:",sortLine.name()]);
+            log.info(["SortListen","ns.isotopeNotify.subscribe:",sortLine.name()]);
             if (_self.currentSortBy().length > 0) {
                 _self.currentSortBy().pop(0);
             }
             _self.currentSortBy().push(sortLine);
             _self.currentSortByText(sortLine.name());
 
-            log.log(["SortListen","new sortby",sortLine.name()]);
+            log.info(["SortListen","new sortby",sortLine.name()]);
         }, _self, "sortByLineSelected");
 
     };
@@ -405,13 +405,13 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
         _self.isdefault = ko.observable(isdefault || false);
 
         _self.select = function () {
-            log.log(["AppendLine","selected",_self.name()]);
+            log.info(["AppendLine","selected",_self.name()]);
             _self.selected(true);
             ns.isotopeNotify.notifySubscribers(_self, "appendByLineSelected");
         };
 
         _self.unselect = function () {
-            log.log(["AppendLine","unselected",_self.name()]);
+            log.info(["AppendLine","unselected",_self.name()]);
             _self.selected(false);
         };
 
@@ -422,7 +422,7 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         var _self = this;
 
-        log.log(["AppendModel",appendList]);
+        log.info(["AppendModel",appendList]);
 
         _self.appendByList = ko.observableArray();
 
@@ -432,28 +432,28 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         //tell everyone that current append has changed - when current append is updated send to watchers
         _self.currentAppendBy.subscribe(function(appendList) {
-            log.log(["AppendModel","_self.currentAppendBy.subscribe:",appendList.name()]);
+            log.info(["AppendModel","_self.currentAppendBy.subscribe:",appendList.name()]);
             ns.isotopeNotify.notifySubscribers(appendList, "append");
         });
 
         //listen for selections in the sorts - watch for global events and update local value
         ns.isotopeNotify.subscribe(function(appendLine) {
-            log.log(["AppendModel","ns.isotopeNotify.subscribe:",appendLine.name()]);
+            log.info(["AppendModel","ns.isotopeNotify.subscribe:",appendLine.name()]);
 
             var currentAppend = _self.currentAppendBy()[0].appendBy();
             var newAppend = appendLine.appendBy(); //.filter();
-            log.log(["AppendModel", "index check",currentAppend,newAppend]);
+            log.info(["AppendModel", "index check",currentAppend,newAppend]);
             if (currentAppend !== newAppend) {
-                log.log("changing append");
+                log.info("changing append");
                 if (_self.currentAppendBy().length > 0) {
-                    log.log("index check");
+                    log.info("index check");
                     _self.currentAppendBy()[0].unselect();
                     _self.currentAppendBy().pop(0);
                 }
-                log.log(["AppendModel", "index check", appendLine ]);
+                log.info(["AppendModel", "index check", appendLine ]);
                 _self.currentAppendBy().push(appendLine);
             } else {
-                log.log(["AppendModel", "already selected append"]);
+                log.info(["AppendModel", "already selected append"]);
             }
 
         }, _self, "appendByLineSelected");
@@ -470,10 +470,10 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
                 //remove the default 0 item
                 _self.appendByList.pop(0);
             }
-            log.log(["AppendModel",_self.appendByList().length,newindex,_self.appendByList()[newindex-1],append["name"],append["append-by"],append["isdefault"],_self.currentAppendBy()[0].name()]);
+            log.info(["AppendModel",_self.appendByList().length,newindex,_self.appendByList()[newindex-1],append["name"],append["append-by"],append["isdefault"],_self.currentAppendBy()[0].name()]);
         });
 
-        log.log(["AppendModel","loaded"]);
+        log.info(["AppendModel","loaded"]);
     };
 
     ns.AppendListen = function() {
@@ -487,14 +487,14 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         //listen for selections in the filters - watch for global events and update local value
         ns.isotopeNotify.subscribe(function(appendLine) {
-            log.log(["AppendListen","ns.isotopeNotify.subscribe:",appendLine.name()]);
+            log.info(["AppendListen","ns.isotopeNotify.subscribe:",appendLine.name()]);
             if (_self.currentAppendBy().length > 0) {
                 _self.currentAppendBy().pop(0);
             }
             _self.currentAppendBy().push(appendLine);
             _self.currentAppendByText(appendLine.name());
 
-            log.log(["AppendListen","new appendby",appendLine.name()]);
+            log.info(["AppendListen","new appendby",appendLine.name()]);
         }, _self, "appendByLineSelected");
 
     };
@@ -513,7 +513,7 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         //listen for selections in the filters - watch for global events and update local value
         ns.isotopeNotify.subscribe(function(sortLine) {
-            log.log(["SortListen","ns.isotopeNotify.subscribe:",sortLine.name()]);
+            log.info(["SortListen","ns.isotopeNotify.subscribe:",sortLine.name()]);
             if (_self.currentSortBy().length > 0) {
                 _self.currentSortBy().pop(0);
             }
@@ -522,7 +522,7 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
             _self.grid.isotope({ sortBy: sortLine.sortBy() });
 
-            log.log(["SortListen","new sortby",sortLine.name()]);
+            log.info(["SortListen","new sortby",sortLine.name()]);
         }, _self, "sortByLineSelected");
 
         //register current filter as observable
@@ -531,7 +531,7 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         //listen for selections in the filters - watch for global events and update local value
         ns.isotopeNotify.subscribe(function(filterLine) {
-            log.log(["GridModel", "Filter","ns.isotopeNotify.subscribe:",filterLine.name()]);
+            log.info(["GridModel", "Filter","ns.isotopeNotify.subscribe:",filterLine.name()]);
             if (_self.currentFilter().length > 0) {
                 _self.currentFilter().pop(0);
             }
@@ -542,7 +542,7 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
             filterValue = ns.filterFns[ filterValue ] || filterValue;
             _self.grid.isotope({ filter: filterValue });
 
-            log.log(["GridModel","Listen","new filter",filterLine.name()]);
+            log.info(["GridModel","Listen","new filter",filterLine.name()]);
         }, _self, "filterLineSelected");
 
 
@@ -552,7 +552,7 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         //listen for selections in the filters - watch for global events and update local value
         ns.isotopeNotify.subscribe(function(appendLine) {
-            log.log(["GridModel","AppendListen","ns.isotopeNotify.subscribe:",appendLine.name()]);
+            log.info(["GridModel","AppendListen","ns.isotopeNotify.subscribe:",appendLine.name()]);
             if (_self.currentAppendBy().length > 0) {
                 _self.currentAppendBy().pop(0);
             }
@@ -569,11 +569,11 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
             }
 
-            log.log(["GridModel","AppendListen","new Append",appendLine.name()]);
+            log.info(["GridModel","AppendListen","new Append",appendLine.name()]);
         }, _self, "appendByLineSelected");
 
 
-        log.log(["GridModel","loaded"]);
+        log.info(["GridModel","loaded"]);
     };
 
 
@@ -585,7 +585,7 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         ko.applyBindings(new ns.FilterModel(availableFilters), $el[0]); // This makes Knockout get to work
 
-        log.log("init isotope filters");
+        log.info("init isotope filters");
 
         return $el; //chaining
     };
@@ -595,7 +595,7 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         ko.applyBindings(new ns.FilterListen(), $el[0]); // This makes Knockout get to work
 
-        log.log("init isotope filter listen");
+        log.info("init isotope filter listen");
 
         return $el; //chaining
     };
@@ -607,7 +607,7 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         ko.applyBindings(new ns.SortModel(availableSortBy), $el[0]); // This makes Knockout get to work
 
-        log.log("init isotope sortby");
+        log.info("init isotope sortby");
 
         return $el; //chaining
     };
@@ -620,7 +620,7 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         ko.applyBindings(new ns.AppendModel(availableAppendBy), $el[0]); // This makes Knockout get to work
 
-        log.log("init isotope appendBy");
+        log.info("init isotope appendBy");
 
         return $el; //chaining
     };
@@ -630,7 +630,7 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         ko.applyBindings(new ns.SortListen(), $el[0]); // This makes Knockout get to work
 
-        log.log("init isotope sort listen");
+        log.info("init isotope sort listen");
 
         return $el; //chaining
     };
@@ -640,7 +640,7 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
 
         ko.applyBindings(new ns.AppendListen(), $el[0]); // This makes Knockout get to work
 
-        log.log("init isotope append listen");
+        log.info("init isotope append listen");
 
         return $el; //chaining
     };
@@ -663,9 +663,9 @@ window.WKCD.components.newsfilter = WKCD.components.newsfilter || {};
         });
 
         ko.applyBindings(new ns.GridModel($container), $el[0]); // This makes Knockout get to work
-        log.log("init isotope vertical");
+        log.info("init isotope vertical");
         return $el; //chaining
 
     };
 
-})(WKCD.jQuery,_,ko, WKCD.components.newsfilter, WKCD.log, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.newsfilter, AEMDESIGN.log, this); //pass in additional dependencies

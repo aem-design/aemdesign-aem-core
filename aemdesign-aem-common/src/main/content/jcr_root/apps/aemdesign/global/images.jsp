@@ -17,10 +17,10 @@
 
 <%!
 
-	final String WKCD_DAM_ALT_TITLE = "dam:titleAlt";
-	final String WKCD_DAM_CAPTION = "dam:caption";
-	final String WKCD_DAM_SOURCE_URL = "dam:sourceUrl";
-	final String WKCD_DAM_VIDEO_URL = "dam:sourceUrl";
+	final String DAM_ALT_TITLE = "dam:titleAlt";
+	final String DAM_CAPTION = "dam:caption";
+	final String DAM_SOURCE_URL = "dam:sourceUrl";
+	final String DAM_VIDEO_URL = "dam:sourceUrl";
 
 	final String DEFAULT_IMAGE_THUMB_SELECTOR = ".thumbnail.319.319.png";
 	final String SMALL_IMAGE_THUMB_SELECTOR = ".thumbnail.140.100.png";

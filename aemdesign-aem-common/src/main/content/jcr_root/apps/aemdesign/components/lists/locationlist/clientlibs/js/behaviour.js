@@ -1,9 +1,9 @@
 //locationlist - behaviour
-window.WKCD = window.WKCD || {};
-window.WKCD.jQuery = window.jQuery || {};
-window.WKCD.$ = window.jQuery || $;
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.locationlist = WKCD.components.locationlist || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.jQuery = window.jQuery || {};
+window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || {};
 
 ;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
@@ -12,13 +12,13 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
 
         $("[data-modules='map']").each(function () {
 
-            log.log("Start to process Google Map");
+            log.info("Start to process Google Map");
 
             //var mapKey = $("[data-modules='map']").data("mapapikey");
 
             ns.loadGoogleMap(this);
 
-            log.log("Finished to process Google Map");
+            log.info("Finished to process Google Map");
 
 
         });
@@ -26,4 +26,4 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
 
     });
 
-})(WKCD.jQuery,_,ko, WKCD.components.locationlist, WKCD.log, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.locationlist, AEMDESIGN.log, this); //pass in additional dependencies

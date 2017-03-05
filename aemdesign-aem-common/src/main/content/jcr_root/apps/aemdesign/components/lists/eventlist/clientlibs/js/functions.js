@@ -1,9 +1,9 @@
 //filter - functions
-window.WKCD = window.WKCD || {};
-window.WKCD.jQuery = window.jQuery || {};
-window.WKCD.$ = window.jQuery || $;
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.eventfilter = WKCD.components.eventfilter || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.jQuery = window.jQuery || {};
+window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.eventfilter = AEMDESIGN.components.eventfilter || {};
 
 ;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
@@ -35,10 +35,10 @@ window.WKCD.components.eventfilter = WKCD.components.eventfilter || {};
             }
         }
 
-        log.log("alreadyLoaded: "+alreadyLoaded);
+        log.info("alreadyLoaded: "+alreadyLoaded);
 
         if (!alreadyLoaded) {
-            log.log("loading eventList");
+            log.info("loading eventList");
 
             ns.init(base, soft);
 
@@ -58,16 +58,16 @@ window.WKCD.components.eventfilter = WKCD.components.eventfilter || {};
 
         _self.grid = gridContainer;
 
-        log.log("topicIsotopeGridModel is started !!! ");
+        log.info("topicIsotopeGridModel is started !!! ");
 
         //register current filter as observable
         _self.currentFilter =  ko.observableArray();
         _self.currentFilterText = ko.observable();
 
         //listen for selections in the filters - watch for global events and update local value
-        window.WKCD.components.topicFilter.topicFilterNotify.subscribe( function(filterLine) {
+        window.AEMDESIGN.components.topicFilter.topicFilterNotify.subscribe( function(filterLine) {
 
-            log.log(["GridModel", "Filter","ns.isotopeNotify.subscribe:",filterLine.name()]);
+            log.info(["GridModel", "Filter","ns.isotopeNotify.subscribe:",filterLine.name()]);
             if (_self.currentFilter().length > 0) {
                 _self.currentFilter().pop();
             }
@@ -75,7 +75,7 @@ window.WKCD.components.eventfilter = WKCD.components.eventfilter || {};
             _self.currentFilterText(filterLine.name());
 
             var filterValue = filterLine.filter();
-            if (window.WKCD.components.topicFilter.CONST_ALL().test(filterLine.filter())){
+            if (window.AEMDESIGN.components.topicFilter.CONST_ALL().test(filterLine.filter())){
                 filterValue = "*";
             }else{
                 filterValue = "." +filterValue.replace(/[^a-zA-Z]/g, '-');
@@ -84,16 +84,16 @@ window.WKCD.components.eventfilter = WKCD.components.eventfilter || {};
 
             _self.grid.isotope({ filter: filterValue });
 
-            log.log(["GridModel","Listen","new filter",filterLine.name()]);
+            log.info(["GridModel","Listen","new filter",filterLine.name()]);
 
         } , _self, ns.topicQueue());
 
-        log.log(["topicIsotopeGridModel","loaded"]);
+        log.info(["topicIsotopeGridModel","loaded"]);
     };
 
     //functions
     ns.topicEventListFilterAction = function(filterLine) {
-        console.log(["topicEventListFilterAction",this.currentFilter(),this.currentFilter()]);
+        log.info(["topicEventListFilterAction",this.currentFilter(),this.currentFilter()]);
         if (this.currentFilter().length > 0) {
             this.currentFilter().pop();
         }
@@ -104,7 +104,7 @@ window.WKCD.components.eventfilter = WKCD.components.eventfilter || {};
         filterValue = ns.filterFns[ filterValue ] || filterValue;
         this.grid.isotope({ filter: filterValue });
 
-        log.log(["topicEventListFilterAction","Listen","new filter",filterLine.name()]);
+        log.info(["topicEventListFilterAction","Listen","new filter",filterLine.name()]);
 
     };
 
@@ -138,9 +138,9 @@ window.WKCD.components.eventfilter = WKCD.components.eventfilter || {};
         }
 
         ko.applyBindings(new ns.topicIsotopeGridModel($container), $element); // This makes Knockout get to work
-        log.log("init isotope vertical");
+        log.info("init isotope vertical");
         return $el; //chaining
 
     };
 
-})(WKCD.jQuery,_,ko, WKCD.components.eventfilter, WKCD.log, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.eventfilter, AEMDESIGN.log, this); //pass in additional dependencies

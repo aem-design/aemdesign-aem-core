@@ -1,9 +1,9 @@
 //locationlist - functions
-window.WKCD = window.WKCD || {};
-window.WKCD.jQuery = window.jQuery || {};
-window.WKCD.$ = window.jQuery || $;
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.locationlist = WKCD.components.locationlist || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.jQuery = window.jQuery || {};
+window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || {};
 
 ;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
@@ -40,12 +40,12 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
         ns.currentFilter =  ko.observableArray();
         ns.currentFilterText = ko.observable();
 
-        //console.log(["topicMapModelNS",ns.topicQueue]);
+        //log.info(["topicMapModelNS",ns.topicQueue]);
 
         //listen for selections in the filters - watch for global events and update local value
-        window.WKCD.components.topicFilter.topicFilterNotify.subscribe(function(filterLine) {
+        window.AEMDESIGN.components.topicFilter.topicFilterNotify.subscribe(function(filterLine) {
 
-            //console.log(["MapModel", "Filter","ns.isotopeNotify.subscribe:",filterLine.name()]);
+            //log.info(["MapModel", "Filter","ns.isotopeNotify.subscribe:",filterLine.name()]);
             if (ns.currentFilter().length > 0) {
                 ns.currentFilter().pop();
             }
@@ -54,7 +54,7 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
 
         } , ns, ns.topicQueue);
 
-        //console.log(["MapModel","loaded","topicMapModel2",ns.currentFilter()]);
+        //log.info(["MapModel","loaded","topicMapModel2",ns.currentFilter()]);
     };
 
 
@@ -69,7 +69,7 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
         //monitor initla filter selection before maps have loaded
         ns.topicMapModelNS();
 
-        //console.log(["MapModel","loaded"]);
+        //log.info(["MapModel","loaded"]);
 
         if(ns.googleMapLoaded == undefined || ns.googleMapLoaded == false) {
 
@@ -81,11 +81,11 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
 
             var script_tag = document.createElement('script');
             script_tag.setAttribute("type", "text/javascript");
-            script_tag.setAttribute("src", "//maps.googleapis.com/maps/api/js?callback=window.WKCD.components.locationlist.googleMapCallback"+googleApiKey);
+            script_tag.setAttribute("src", "//maps.googleapis.com/maps/api/js?callback=window.AEMDESIGN.components.locationlist.googleMapCallback"+googleApiKey);
             script_tag.setAttribute("async", "false");
             (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script_tag);
             ns.googleMapLoaded = true;
-            log.log("Loaded Google Map API with key = " +googleApiKey);
+            log.info("Loaded Google Map API with key = " +googleApiKey);
         }
     };
 
@@ -151,7 +151,7 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
      */
     ns.initMap = function(targetDiv, mapOptions) {
 
-        log.log("initMap !!! "+targetDiv);
+        log.info("initMap !!! "+targetDiv);
 
         // Create a map.
         var map = new google.maps.Map(targetDiv, {
@@ -173,24 +173,24 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
      */
     ns.initProjectionSystem = function(el,map) {
 
-        log.log("initProjectionSystem !!! ");
+        log.info("initProjectionSystem !!! ");
 
         var base = $(el);
 
         var projectionType = base.data("map");
 
-        log.log("initProjectionSystem projectionType = "+projectionType);
+        log.info("initProjectionSystem projectionType = "+projectionType);
 
         if (projectionType === 'gallPeters'){
 
             var imageSourceUrl = base.data("mapimagesrc");
-            log.log("initProjectionSystem imageSourceUrl = "+imageSourceUrl);
+            log.info("initProjectionSystem imageSourceUrl = "+imageSourceUrl);
 
             var GALL_PETERS_RANGE_Y = base.data("mapimagey");
-            log.log("initProjectionSystem GALL_PETERS_RANGE_Y = "+GALL_PETERS_RANGE_Y);
+            log.info("initProjectionSystem GALL_PETERS_RANGE_Y = "+GALL_PETERS_RANGE_Y);
 
             var GALL_PETERS_RANGE_X = base.data("mapimagex");
-            log.log("initProjectionSystem GALL_PETERS_RANGE_X = "+GALL_PETERS_RANGE_X);
+            log.info("initProjectionSystem GALL_PETERS_RANGE_X = "+GALL_PETERS_RANGE_X);
 
             // Fetch Gall-Peters tiles stored locally on our server.
             var gallPetersMapType = new google.maps.ImageMapType({
@@ -239,7 +239,7 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
 
         }else {
 
-            log.log("projectionType is not defined");
+            log.info("projectionType is not defined");
         }
 
         return map;
@@ -271,7 +271,7 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
                     if (event.feature[property] != undefined && event.feature[property].hasOwnProperty('events')){
 
                         var p = event.feature[property];
-                        //log.log(ns.renderInfoWindows(p));
+                        //log.info(ns.renderInfoWindows(p));
                         _.first(ns.googleMapInfowindows).setContent(ns.renderInfoWindows(p));
 
                         _.first(ns.googleMapInfowindows).setPosition(event.feature.getGeometry().get());
@@ -297,7 +297,7 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
      * @returns {*}
      */
     ns.updateGeoJson = function(el, map) {
-        log.log("updateGeoJson !!! ");
+        log.info("updateGeoJson !!! ");
 
         var base = $(el);
         var locationsJsonString = base.data("maplocationsid");
@@ -319,7 +319,7 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
      */
     ns.updateMarkers = function(el, map) {
 
-        log.log("updateMarkers !!! ");
+        log.info("updateMarkers !!! ");
         // Add some markers to the map.
         map.data.setStyle(function(feature) {
             var venue = feature.getProperty('venue');
@@ -357,7 +357,7 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
      */
     ns.showCoordinationMessage = function (el, map){
 
-        log.log("showCoordinationMessage !!! ");
+        log.info("showCoordinationMessage !!! ");
 
         var base = $(el);
 
@@ -384,7 +384,7 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
 
     ns.handleResponsiveMap = function(map){
         google.maps.event.addDomListener(window, "resize", function() {
-            //console.log("Resize !!!!");
+            //log.info("Resize !!!!");
             google.maps.event.trigger(map, "resize");
             map.setCenter( {lat: 0, lng: 0});
         });
@@ -404,7 +404,7 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
 
     ns.googleMapCallback = function () {
 
-        log.log(["googleMapCallback start !!!",ns.currentFilter()]);
+        log.info(["googleMapCallback start !!!",ns.currentFilter()]);
         $("[data-modules='map']").each(function () {
 
             var map = ns.initMap($(this).get(0));
@@ -427,7 +427,7 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
 
             ns.topicQueue = $(this).data("topicqueue");
 
-            //console.log(["need to select defauts1",map,ns.currentFilter()]);
+            //log.info(["need to select defauts1",map,ns.currentFilter()]);
             /**
              * TODO:handle the default is not all
              */
@@ -439,7 +439,7 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
                 ns.filterMap(map,ns.currentFilter()[0]);
             }
         });
-        log.log("googleMapCallback end !!! ");
+        log.info("googleMapCallback end !!! ");
     };
 
     /***
@@ -449,15 +449,15 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
      */
     ns.filterMap = function(map,filterLine) {
 
-        if (window.WKCD.components.topicFilter.CONST_ALL().test(filterLine.filter())){
+        if (window.AEMDESIGN.components.topicFilter.CONST_ALL().test(filterLine.filter())){
 
             //default remove all
             map.data.forEach(function(feature) {
                 map.data.remove(feature);
             });
-            //console.log(["geoFeatureCollections ",_.first(this.geoFeatureCollections)]);
+            //log.info(["geoFeatureCollections ",_.first(this.geoFeatureCollections)]);
 
-            //console.log(["actualVar ",this.geoFeatureCollections]);
+            //log.info(["actualVar ",this.geoFeatureCollections]);
             map.data.addGeoJson(_.first(this.geoFeatureCollections));
 
         }else {
@@ -474,30 +474,30 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
                         var category = event.category.split(',');
 
                         if (_.contains(category, filterLine.filter())) {
-                            // console.log(["feature.properties.events.category ", event.category]);
+                            // log.info(["feature.properties.events.category ", event.category]);
                             return event;
                         }
 
                     });
 
-                    //console.log(["feature.properties.events ",events]);
+                    //log.info(["feature.properties.events ",events]);
 
                     if (events != undefined && events.length > 0) {
                         feature.properties.events = events;
-                        //console.log(["feature ",feature]);
+                        //log.info(["feature ",feature]);
                         return feature;
                     }
                 }
 
             });
 
-            //console.log(["filteredLocation ",filteredOutLocations]);
-            log.log(["filteredLocation ", filteredOutLocations]);
+            //log.info(["filteredLocation ",filteredOutLocations]);
+            log.info(["filteredLocation ", filteredOutLocations]);
 
             //default remove all
             map.data.forEach(function (feature) {
                 //If you want, check here for some constraints.
-                //console.log(["removeFeature ",feature]);
+                //log.info(["removeFeature ",feature]);
                 map.data.remove(feature);
             });
             //Adding back the marker
@@ -507,7 +507,7 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
             };
             filterFeatureCollection.features = filteredOutLocations;
 
-            //console.log(["filterFeatures ",filterFeatureCollection]);
+            //log.info(["filterFeatures ",filterFeatureCollection]);
             map.data.addGeoJson(filterFeatureCollection);
 
         }
@@ -523,15 +523,15 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
         //_self.grid = gridContainer;
 
         //listen for selections in the filters - watch for global events and update local value
-        window.WKCD.components.topicFilter.topicFilterNotify.subscribe(ns.topicMapFilterAction , _self, ns.topicQueue);
+        window.AEMDESIGN.components.topicFilter.topicFilterNotify.subscribe(ns.topicMapFilterAction , _self, ns.topicQueue);
 
-        log.log(["MapModel","loaded"]);
+        log.info(["MapModel","loaded"]);
     };
 
 
     ns.topicMapFilterAction = function(filterLine) {
 
-        //console.log(["mapModel", "Filter",this.currentFilter(),filterLine,filterLine.name(),filterLine.filter(),filterLine.isdefault(), this]);
+        //log.info(["mapModel", "Filter",this.currentFilter(),filterLine,filterLine.name(),filterLine.filter(),filterLine.isdefault(), this]);
 
         //Close infowindow before filter
         _.first(this.googleMapInfowindows).close();
@@ -540,8 +540,8 @@ window.WKCD.components.locationlist = WKCD.components.locationlist || {};
 
         ns.filterMap(map,filterLine);
 
-        log.log(["mapModel","Listen","new filter",filterLine.name()]);
+        log.info(["mapModel","Listen","new filter",filterLine.name()]);
 
     }
 
-})(WKCD.jQuery,_,ko, WKCD.components.locationlist, WKCD.log, window); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.locationlist, AEMDESIGN.log, window); //pass in additional dependencies

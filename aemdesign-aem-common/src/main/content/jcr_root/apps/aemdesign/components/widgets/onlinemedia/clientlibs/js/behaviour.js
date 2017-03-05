@@ -1,9 +1,9 @@
 //onlinemedia - behaviour
-window.WKCD = window.WKCD || {};
-window.WKCD.jQuery = window.jQuery || {};
-window.WKCD.$ = window.jQuery || $;
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.onlinemedia = WKCD.components.onlinemedia || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.jQuery = window.jQuery || {};
+window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.onlinemedia = AEMDESIGN.components.onlinemedia || {};
 
 ;(function ($, _, ko, ns, window, undefined) { //add additional dependencies
 
@@ -17,4 +17,4 @@ window.WKCD.components.onlinemedia = WKCD.components.onlinemedia || {};
 
     });
 
-})(WKCD.jQuery,_,ko, WKCD.components.onlinemedia, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.onlinemedia, this); //pass in additional dependencies

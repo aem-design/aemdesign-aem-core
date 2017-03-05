@@ -1,10 +1,10 @@
 //list
-window.WKCD = window.WKCD || {};
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.list = WKCD.components.list || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.list = AEMDESIGN.components.list || {};
 
 
-;(function ($, _, ko, ns, window, undefined) { //add additional dependencies
+;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
 
     "use strict";
@@ -122,7 +122,7 @@ window.WKCD.components.list = WKCD.components.list || {};
         if (targetList) {
             targetList.outerHTML = content;
         }
-    }
+    };
 
 
     ns.linkClick = function(element, listId) {
@@ -190,7 +190,7 @@ window.WKCD.components.list = WKCD.components.list || {};
 
 
                     var useQueryString = ns.combineQueryStrings(currentQueryString, queryString);
-                    //console.log(["currentQueryString",currentQueryString,"queryString",queryString,"useQueryString",useQueryString]);
+                    //log.info(["currentQueryString",currentQueryString,"queryString",queryString,"useQueryString",useQueryString]);
 
                     var currentState = {
                         listId: listId,
@@ -200,7 +200,7 @@ window.WKCD.components.list = WKCD.components.list || {};
                     window.history.pushState(currentState, null, currentUrl + "?" + useQueryString);
                 }
             }
-        }
+        };
         xhr.open("GET", goToLink, true);
         xhr.send();
 
@@ -225,4 +225,4 @@ window.WKCD.components.list = WKCD.components.list || {};
     };
 
 
-})(WKCD.jQuery,_,ko, WKCD.components.list, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.list, AEMDESIGN.log, this); //pass in additional dependencies

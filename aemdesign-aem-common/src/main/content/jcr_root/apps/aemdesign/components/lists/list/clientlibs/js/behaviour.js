@@ -1,7 +1,7 @@
 //list
-window.WKCD = window.WKCD || {};
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.list = WKCD.components.list || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.list = AEMDESIGN.components.list || {};
 
 
 ;(function ($, _, ko, ns, window, undefined) { //add additional dependencies
@@ -10,4 +10,4 @@ window.WKCD.components.list = WKCD.components.list || {};
         ns.bindHistoryPopStateEvent();
     });
 
-})(WKCD.jQuery,_,ko, WKCD.components.list, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.list, this); //pass in additional dependencies

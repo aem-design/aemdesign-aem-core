@@ -1,7 +1,7 @@
 //contentblock
-window.WKCD = window.WKCD || {};
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.contentblock = WKCD.components.contentblock || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.contentblock = AEMDESIGN.components.contentblock || {};
 
 ;(function ($, ns, window, undefined) {
 
@@ -14,5 +14,5 @@ window.WKCD.components.contentblock = WKCD.components.contentblock || {};
 
 
 
-})(jQuery, WKCD.components.contentblock, this);
+})(jQuery, AEMDESIGN.components.contentblock, this);
 

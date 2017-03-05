@@ -1,7 +1,7 @@
 //mainnav
-window.WKCD = window.WKCD || {};
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.mainnav = WKCD.components.mainnav || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.mainnav = AEMDESIGN.components.mainnav || {};
 
 ;(function ($, ns, window, undefined) {
 
@@ -14,5 +14,5 @@ window.WKCD.components.mainnav = WKCD.components.mainnav || {};
 
 
 
-})(jQuery, WKCD.components.mainnav, this);
+})(jQuery, AEMDESIGN.components.mainnav, this);
 

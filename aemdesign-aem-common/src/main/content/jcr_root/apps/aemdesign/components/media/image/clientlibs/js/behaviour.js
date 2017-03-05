@@ -1,7 +1,7 @@
 //image
-window.WKCD = window.WKCD || {};
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.image = WKCD.components.image || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.image = AEMDESIGN.components.image || {};
 
 
 ;(function ($, _, ko, ns, window, undefined) { //add additional dependencies
@@ -17,4 +17,4 @@ window.WKCD.components.image = WKCD.components.image || {};
     })
 
 
-})(WKCD.jQuery, _, ko, WKCD.components.image, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery, _, ko, AEMDESIGN.components.image, this); //pass in additional dependencies

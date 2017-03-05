@@ -8,4 +8,4 @@
     });
 
 
-})(WKCD.jQuery, _, ko,  WKCD.utils, this);
+})(AEMDESIGN.jQuery, _, ko,  AEMDESIGN.utils, this);

@@ -1,9 +1,9 @@
 //googleanalytics - behaviour.js
-window.WKCD = window.WKCD || {};
-window.WKCD.jQuery = window.jQuery || {};
-window.WKCD.$ = window.jQuery || $;
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.googleanalytics = WKCD.components.googleanalytics || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.jQuery = window.jQuery || {};
+window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.googleanalytics = AEMDESIGN.components.googleanalytics || {};
 
 ;(function ($, _, ko, ns, window, undefined) { //add additional dependencies
 
@@ -19,4 +19,4 @@ window.WKCD.components.googleanalytics = WKCD.components.googleanalytics || {};
 
     });
 
-})(WKCD.jQuery,_,ko, WKCD.components.googleanalytics, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.googleanalytics, this); //pass in additional dependencies

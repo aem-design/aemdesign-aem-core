@@ -1,7 +1,7 @@
 //search
-window.WKCD = window.WKCD || {};
-window.WKCD.components = WKCD.components || {};
-window.WKCD.components.search = WKCD.components.search || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
 
 ;(function ($, _, ko, ns, window, undefined) {
 
@@ -129,5 +129,5 @@ window.WKCD.components.search = WKCD.components.search || {};
         return $el;
     };
 
-})(WKCD.jQuery,_,ko, WKCD.components.search, this);
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.search, this);
 

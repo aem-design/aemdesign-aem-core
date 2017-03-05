@@ -1,14 +1,14 @@
 //list behaviour- author
-window.WKCD = window.WKCD || {};
-window.WKCD.author = WKCD.author || {};
-window.WKCD.author.components = WKCD.author.components || {};
-window.WKCD.author.components.list = WKCD.author.components.list || {};
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.author = AEMDESIGN.author || {};
+window.AEMDESIGN.author.components = AEMDESIGN.author.components || {};
+window.AEMDESIGN.author.components.list = AEMDESIGN.author.components.list || {};
 
 
-;(function ($, ns, CQ, Granite, window, undefined) { //add additional dependencies
+;(function ($, ns, log, CQ, Granite, window, undefined) { //add additional dependencies
 
     CQ.Ext.onReady(function() {
-        //console.log("extjs list author behaviour");
+        //log.info("extjs list author behaviour");
     });
 
-})(WKCD.jQuery, WKCD.author.components.list, CQ, Granite,  this); //pass in additional dependencies
+})(AEMDESIGN.jQuery, AEMDESIGN.author.components.list, AEMDESIGN.log, CQ, Granite,  this); //pass in additional dependencies
