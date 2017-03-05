@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="cq:Page">
+    <jcr:content
+            cq:doctype="html_5"
+            jcr:isCheckedOut="{Boolean}true"
+            jcr:mixinTypes="[cq:ReplicationStatus,mix:versionable]"
+            jcr:primaryType="nt:unstructured"
+            jcr:title="AEM.Design Design"
+            sling:resourceType="wcm/core/components/designer">
+        <twocolumn jcr:primaryType="nt:unstructured">
+            <header jcr:primaryType="nt:unstructured">
+                <parsys
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="foundation/components/parsys"
+                        components="[group:Content,group:Details,group:Layout,group:Forms,group:Lists,group:Widgets]">
+                    <section jcr:primaryType="nt:unstructured"/>
+                </parsys>
+            </header>
+            <banner jcr:primaryType="nt:unstructured">
+                <parsys
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="foundation/components/parsys"
+                        components="[group:Content,group:Details,group:Layout,group:Forms,group:Lists,group:Widgets]">
+                    <section jcr:primaryType="nt:unstructured"/>
+                </parsys>
+            </banner>
+            <parsys
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="foundation/components/parsys"
+                    components="[group:Content,group:Details,group:Layout,group:Forms,group:Lists,group:Widgets]">
+                <section jcr:primaryType="nt:unstructured"/>
+            </parsys>
+            <footer jcr:primaryType="nt:unstructured">
+                <parsys
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="foundation/components/parsys"
+                        components="[group:Content,group:Details,group:Layout,group:Forms,group:Lists,group:Widgets]">
+                    <section jcr:primaryType="nt:unstructured"/>
+                </parsys>
+            </footer>
+            <aside
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/admin/aside"
+                    componentId="side"
+                    componentModifiers="[component-style:modifier/special/aside]">
+                <parsys
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="foundation/components/parsys"
+                        components="[group:Content,group:Details,group:Layout,group:Forms,group:Lists,group:Widgets]">
+                    <section jcr:primaryType="nt:unstructured"/>
+                </parsys>
+            </aside>
+            <article
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/admin/article"
+                    componentModifiers="[component-style:modifier/special/asidewitharticle]">
+                <parsys
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="foundation/components/parsys"
+                        components="[group:Content,group:Details,group:Layout,group:Forms,group:Lists,group:Widgets]">
+                    <contentBlock
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="aemdesign/components/layout/contentBlock"
+                            componentTheme="[component-style:theme/contentBlock/section]"
+                            variant="section">
+                        <parsys
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="foundation/components/parsys"
+                                components="[group:Content,group:Details,group:Layout,group:Forms,group:Lists,group:Widgets]">
+                            <text
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="aemdesign/components/content/text"
+                                    componentTheme="[component-style:theme/rte/pageIntro]"
+                                    textIsRich="true"
+                                    variant="section"/>
+                            <section jcr:primaryType="nt:unstructured"/>
+                            <image
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="aemdesign/components/media/image"/>
+                            <pageDetails jcr:primaryType="nt:unstructured">
+                                <breadcrumb
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                        absParent="3"
+                                        componentId="breadcrumbs"/>
+                            </pageDetails>
+                            <newsDetails jcr:primaryType="nt:unstructured">
+                                <breadcrumb
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                        absParent="3"
+                                        componentId="breadcrumbs"/>
+                            </newsDetails>
+                            <tenderDetails jcr:primaryType="nt:unstructured">
+                                <breadcrumb
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                        absParent="3"
+                                        componentId="breadcrumbs"/>
+                            </tenderDetails>
+                        </parsys>
+                    </contentBlock>
+                    <section jcr:primaryType="nt:unstructured"/>
+                    <pageDetails jcr:primaryType="nt:unstructured">
+                        <breadcrumb
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                absParent="3"
+                                componentId="breadcrumbs"/>
+                    </pageDetails>
+                    <newsDetails jcr:primaryType="nt:unstructured">
+                        <breadcrumb
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                absParent="3"
+                                componentId="breadcrumbs"/>
+                    </newsDetails>
+                    <tenderDetails jcr:primaryType="nt:unstructured">
+                        <breadcrumb
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                absParent="3"
+                                componentId="breadcrumbs"/>
+                    </tenderDetails>
+                    <eventDetails jcr:primaryType="nt:unstructured">
+                        <breadcrumb
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                absParent="3"
+                                componentId="breadcrumbs"/>
+                    </eventDetails>
+                    <contactDetails jcr:primaryType="nt:unstructured">
+                        <breadcrumb
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                absParent="3"
+                                componentId="breadcrumbs"/>
+                    </contactDetails>
+                    <image
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="aemdesign/components/media/image"
+                            adaptiveImageMapping="[320.medium=320,767.medium=767,1025.medium=1025,1365.medium=1365,full=1]"
+                            componentTheme="[]"
+                            maxHeight="500"
+                            maxWidth="500"
+                            minHeight="100"
+                            minWidth="100"
+                            renditionImageMapping="[48=1,140=140,319=319,1280=1280]"
+                            responsiveImageMapping="[48x80=300,148x180=600,248x380=1200,319x319=600]"/>
+                    <mediagallery
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="aemdesign/components/media/mediagallery"
+                            titleAltPrefixText="Read more about "/>
+                </parsys>
+            </article>
+        </twocolumn>
+        <onecolumn jcr:primaryType="nt:unstructured">
+            <article
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/admin/article">
+                <parsys
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="foundation/components/parsys"
+                        components="[group:Content,group:Details,group:Layout,group:Forms,group:Lists,group:Widgets]">
+                    <contentBlock
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="aemdesign/components/layout/contentBlock"
+                            componentTheme="[component-style:theme/contentBlock/section]"
+                            variant="section">
+                        <parsys
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="foundation/components/parsys"
+                                components="[group:Content,group:Details,group:Layout,group:Forms,group:Lists,group:Widgets]">
+                            <text
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="aemdesign/components/content/text"
+                                    componentTheme="[component-style:theme/rte/pageIntro]"
+                                    textIsRich="true"
+                                    variant="section"/>
+                            <list
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="aemdesign/components/lists/list"
+                                    componentTheme="[component-style:components]"
+                                    imageRotate="0"
+                                    listFrom="children"
+                                    listLinkTitle="More Items"
+                                    listType="list"
+                                    paginationType="loadMorePages"
+                                    showlistItemLink="false"
+                                    showListLink="false"
+                                    tagsMatch="any"/>
+                            <section jcr:primaryType="nt:unstructured"/>
+                            <pageDetails jcr:primaryType="nt:unstructured">
+                                <breadcrumb
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                        absParent="3"
+                                        componentId="breadcrumbs"/>
+                            </pageDetails>
+                            <newsDetails jcr:primaryType="nt:unstructured">
+                                <breadcrumb
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                        absParent="3"
+                                        componentId="breadcrumbs"/>
+                            </newsDetails>
+                            <tenderDetails jcr:primaryType="nt:unstructured">
+                                <breadcrumb
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                        absParent="3"
+                                        componentId="breadcrumbs"/>
+                            </tenderDetails>
+                        </parsys>
+                    </contentBlock>
+                    <section jcr:primaryType="nt:unstructured"/>
+                    <pageDetails jcr:primaryType="nt:unstructured">
+                        <breadcrumb
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                absParent="3"
+                                componentId="breadcrumbs"/>
+                    </pageDetails>
+                    <newsDetails jcr:primaryType="nt:unstructured">
+                        <breadcrumb
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                absParent="3"
+                                componentId="breadcrumbs"/>
+                    </newsDetails>
+                    <tenderDetails jcr:primaryType="nt:unstructured">
+                        <breadcrumb
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                absParent="3"
+                                componentId="breadcrumbs"/>
+                    </tenderDetails>
+                    <eventDetails jcr:primaryType="nt:unstructured">
+                        <breadcrumb
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                absParent="3"
+                                componentId="breadcrumbs"/>
+                    </eventDetails>
+                    <contactDetails jcr:primaryType="nt:unstructured">
+                        <breadcrumb
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                absParent="3"
+                                componentId="breadcrumbs"/>
+                    </contactDetails>
+                    <image
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="aemdesign/components/media/image"
+                            adaptiveImageMapping="[320.medium=320,767.medium=767,1025.medium=1025,1365.medium=1365,full=1]"
+                            componentTheme="[]"
+                            maxHeight="1000"
+                            maxWidth="1000"
+                            minHeight="100"
+                            minWidth="100"
+                            renditionImageMapping="[48=1,140=140,319=319,1280=1280]"
+                            responsiveImageMapping="[48x80=300,148x180=600,248x380=1200,319x319=600]"/>
+                </parsys>
+            </article>
+            <header
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/admin/header"
+                    cancelInheritParent="true">
+                <parsys
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="foundation/components/parsys"
+                        components="[group:Content,group:Details,group:Layout,group:Forms,group:Lists,group:Widgets]">
+                    <section jcr:primaryType="nt:unstructured"/>
+                </parsys>
+                <bgimage
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="foundation/components/image"
+                        imageRotate="0"/>
+                <logo
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="foundation/components/image"
+                        imageRotate="0"/>
+            </header>
+            <footer jcr:primaryType="nt:unstructured">
+                <parsys
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="foundation/components/parsys"
+                        components="group:Content">
+                    <section jcr:primaryType="nt:unstructured"/>
+                </parsys>
+            </footer>
+            <banner
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/admin/header"
+                    cancelInheritParent="true">
+                <bgimage
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="foundation/components/image"
+                        imageRotate="0"/>
+                <logo
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="foundation/components/image"
+                        imageRotate="0"/>
+            </banner>
+        </onecolumn>
+    </jcr:content>
+    <clientlibs-common-components-author/>
+    <clientlibs-common-components-publish/>
+    <clientlibs-author/>
+    <clientlibs-common-body/>
+    <clientlibs-common-components/>
+    <clientlibs-common-head/>
+    <clientlibs-desktop/>
+    <clientlibs-iefix/>
+    <clientlibs-mobile/>
+    <clientlibs-publish/>
+    <css/>
+    <fonts/>
+    <js/>
+    <icons/>
+    <staticdata/>
+    <vendor/>
+</jcr:root>
