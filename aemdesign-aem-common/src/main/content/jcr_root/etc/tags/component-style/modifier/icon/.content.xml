@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:description="Font Awesome Tweaking&#xa;&#xa;https://fortawesome.github.io/Font-Awesome/examples/"
+    jcr:lastModified="{Date}2016-02-13T16:58:42.297+08:00"
+    jcr:lastModifiedBy="admin"
+    jcr:primaryType="cq:Tag"
+    jcr:title="Icon"
+    sling:resourceType="cq/tagging/components/tag"
+    tagID="component-style:modifier/icon"
+    tagPath="/etc/tags/component-style/modifier/icon">
+    <size/>
+    <list/>
+    <animation/>
+    <rotation/>
+    <flip/>
+    <position/>
+    <box/>
+    <fa-stack/>
+</jcr:root>
