@@ -1,0 +1,33 @@
+/*
+
+This file is used to add style that are used by the CQ Dialogs
+
+*/
+
+#CQ td {
+    /* defines the style for viewing */
+}
+
+#CQrte td {
+    /* defines the style for editing */
+}
+
+.monospace {
+    font-family: Monospace;
+}
+
+.verdana {
+    font-family: Verdana;
+}
+
+.color1 {
+    color: #51a714;
+}
+
+.color2 {
+    color: #ff7c74;
+}
+
+.color3 {
+    color: blue;
+}

@@ -1,0 +1,18 @@
+/*wkcd.css*/
+
+.cq-info {
+    /* #EEE49D */
+    border: 1px dashed #999;
+    background-color: #eeecd8;
+    color: #333;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 10px;
+}
+
+
+/* hide component badges in preview */
+.cq-wcm-preview details.component.badge, .cq-wcm-preview .cq-info{
+    display: none;
+}
+
