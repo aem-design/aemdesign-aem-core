@@ -28,7 +28,7 @@
                             fieldLabel="Categories"
                             fieldDescription="Tags that should be searchable through dropdown"
                             name="./categories"
-                            namespaces="[wkcd]"
+                            namespaces="[aemdesign]"
                             xtype="tags" />
 
                         <pagination

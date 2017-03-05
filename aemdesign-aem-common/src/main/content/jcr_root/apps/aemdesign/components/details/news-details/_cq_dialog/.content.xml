@@ -52,7 +52,7 @@
                                     allowCreate="{Boolean}false"
                                     allowBulkEdit="{Boolean}false"
                                     multiple="{Boolean}false"
-                                    rootPath="/etc/tags/wkcd"
+                                    rootPath="/etc/tags/aemdesign"
                                     sling:resourceType="cq/gui/components/common/tagspicker"/>
                         </items>
                     </column>

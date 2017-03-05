@@ -163,19 +163,19 @@
                         jcr:primaryType="cq:Widget"
                         fieldDescription="Alternative alt text that overrides the existing image alt text from DAM"
                         fieldLabel="Alt Text"
-                        name="./wkcd_dam:titleAlt"
+                        name="./dam:titleAlt"
                         xtype="textfield"/>
                 <caption
                         jcr:primaryType="cq:Widget"
                         fieldDescription="A brief explanation accompanying an illustration"
                         fieldLabel="Caption"
-                        name="./wkcd_dam:caption"
+                        name="./dam:caption"
                         xtype="textfield"/>
                 <sourceURL
                         jcr:primaryType="cq:Widget"
                         fieldDescription="Alternative destination URL overrides the existing value from DAM"
                         fieldLabel="Source URL"
-                        name="./wkcd_dam:sourceUrl"
+                        name="./dam:sourceUrl"
                         xtype="textfield"/>
 
             </items>
@@ -216,7 +216,7 @@
                         fieldDescription="this will be displayed as Primary Category on the page and on cards in grids"
                         allowBlank="{Boolean}true"
                         name="./cq:tags"
-                        namespaces="[wkcd]"
+                        namespaces="[aemdesign]"
                         xtype="tags"/>
 
                 <subCategory
@@ -225,7 +225,7 @@
                         fieldDescription="this will be display as Secondary Category on cards in grids"
                         allowBlank="{Boolean}true"
                         name="./subCategory"
-                        namespaces="[wkcd]"
+                        namespaces="[aemdesign]"
                         xtype="tags"/>
 
                 <!-- Adding Mixin [cq:Taggable] into the resource to make cq:Tags work -->

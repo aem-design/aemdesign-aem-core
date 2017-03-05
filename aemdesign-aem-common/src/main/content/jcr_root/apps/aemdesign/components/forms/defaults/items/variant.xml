@@ -19,9 +19,9 @@
                 value="ootb"
                 text="Out of the Box"/>
                 -->
-        <wkcd
+        <aemdesign
                 jcr:primaryType="nt:unstructured"
-                value="wkcd"
-                text="WKCD Style"/>
+                value="aemdesign"
+                text="AEM.Design Style"/>
     </options>
 </jcr:root>

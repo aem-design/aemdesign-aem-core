@@ -26,7 +26,7 @@
                             value=""
                             fieldLabel="Filter List"
                             name="./filterList"
-                            namespaces="[wkcd]"
+                            namespaces="[aemdesign]"
                             xtype="tags"/>
                         <defaultFilters jcr:primaryType="cq:Widget"
                                     allowBlank="{Boolean}true"
@@ -34,7 +34,7 @@
                                     value=""
                                     fieldLabel="Default Filter"
                                     name="./defaultFilters"
-                                    namespaces="[wkcd]"
+                                    namespaces="[aemdesign]"
                                     xtype="tags"/>
                         <variant
                                 jcr:primaryType="cq:Widget"

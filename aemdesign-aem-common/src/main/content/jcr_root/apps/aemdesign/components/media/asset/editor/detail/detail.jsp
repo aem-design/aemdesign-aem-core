@@ -43,7 +43,7 @@
 
 
         try {
-            Object descObj = asset.getMetadata("wkcd_dam:authorDescription");
+            Object descObj = asset.getMetadata("authorDescription");
             if (descObj instanceof Object[]) {
                 Object[] descArray = (Object[]) descObj;
                 authorDescription = (descArray.length > 0) ? descArray[0].toString() : "";

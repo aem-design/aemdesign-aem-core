@@ -14,7 +14,7 @@
 
     Object[][] componentFields = {
             {"variant", "aemdesign"},
-            {"meta/namespace", "wkcd_dam"},
+            {"meta/namespace", "dam"},
             {"meta/localPart", StringUtils.EMPTY},
             {"meta/type", "String"},
             {"meta/label", null},

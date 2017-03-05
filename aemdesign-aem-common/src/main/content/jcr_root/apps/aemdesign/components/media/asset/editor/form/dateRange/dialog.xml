@@ -14,7 +14,7 @@
                     xtype="textfield"/>
                 <fromDateField jcr:primaryType="cq:Widget"
                     fieldLabel="From Date Field Name"
-                    fieldDescription="Namespace:localpart such as 'wkcd_dam:startDate'.If no inputted is entered, this field will not be displayed"
+                    fieldDescription="Namespace:localpart such as 'dam:startDate'.If no inputted is entered, this field will not be displayed"
                     name="./fromDateField"
                     xtype="textfield"/>
                 <fromDatePattern jcr:primaryType="cq:Widget"
@@ -24,7 +24,7 @@
                     xtype="textfield"/>
                 <toDateField jcr:primaryType="cq:Widget"
                     fieldLabel="To Date Field Name"
-                    fieldDescription="Namespace:localpart such as 'wkcd_dam:finishDate'.If no inputted is entered, this field will not be displayed"
+                    fieldDescription="Namespace:localpart such as 'dam:finishDate'.If no inputted is entered, this field will not be displayed"
                     name="./toDateField"
                     xtype="textfield"/>
                 <toDatePattern jcr:primaryType="cq:Widget"

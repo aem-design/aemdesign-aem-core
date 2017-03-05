@@ -23,7 +23,7 @@
                                 fieldDescription="this will be displayed as categorization of Roles on the page"
                                 allowBlank="{Boolean}false"
                                 name="./cq:tags"
-                                namespaces="[wkcd]"
+                                namespaces="[aemdesign]"
                                 xtype="tags"/>
 
                     </items>

@@ -51,7 +51,7 @@
                                     fieldLabel="Category"
                                     fieldDescription="Specifies the event category"
                                     name="./eventCategory"
-                                    namespaces="[wkcd]"
+                                    namespaces="[aemdesign]"
                                     xtype="tags"/>
                                 <eventAction  jcr:primaryType="cq:Widget"
                                     allowBlank="{Boolean}true"
@@ -60,7 +60,7 @@
                                     fieldLabel="Action"
                                     fieldDescription="Specifies the event action"
                                     name="./eventAction"
-                                    namespaces="[wkcd]"
+                                    namespaces="[aemdesign]"
                                     xtype="tags"/>
                                 <eventLabel  jcr:primaryType="cq:Widget"
                                     allowBlank="{Boolean}true"

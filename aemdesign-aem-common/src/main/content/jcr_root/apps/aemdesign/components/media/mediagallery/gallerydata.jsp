@@ -393,7 +393,7 @@
             }
 
             String title = getAssetTitle(asset);
-            String description = asset.getMetadataValue("wkcd_dam:authorDescription");
+            String description = asset.getMetadataValue("dam:authorDescription");
             String copyright = asset.getMetadataValue(DamConstants.DC_RIGHTS);
 
             String creator = asset.getMetadataValue(DamConstants.DC_CREATOR);

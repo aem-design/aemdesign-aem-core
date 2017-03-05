@@ -32,17 +32,13 @@
 
     // set title and description
     String withImage = hideThumbnail ? "" : "withImage";
-//    String title = getMetadataStringForKey(asset, "dc:title");
-//    String description = getMetadataStringForKey(asset, "dc:description");
-//    String category = getMetadataStringForKey(asset, "wkcd_dam:category");
-//    String sourceUrl = getMetadataStringForKey(asset, "wkcd_dam:videoUrl");
 
     Resource metadataResource = thisResource.getChild("jcr:content/metadata");
     ValueMap map = ResourceUtil.getValueMap(metadataResource);
     String title = (String)map.get("dc:title");
     String description = (String)map.get("dc:description");
-    String category = (String)map.get("wkcd_dam:category");
-    String sourceUrl = (String)map.get("wkcd_dam:videoUrl");
+    String category = (String)map.get("dam:category");
+    String sourceUrl = (String)map.get("dam:sourceUrl");
 
     if (StringUtils.isBlank(title)) {
         title = asset.getName();

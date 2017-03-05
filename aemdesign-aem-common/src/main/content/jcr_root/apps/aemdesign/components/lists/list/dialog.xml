@@ -264,7 +264,7 @@
                             jcr:primaryType="cq:Widget"
                             fieldLabel="Tags/Keywords"
                             name="./tags"
-                            namespaces="[wkcd]"
+                            namespaces="[aemdesign]"
                             xtype="tags"/>
                         <match
                             jcr:primaryType="cq:Widget"
