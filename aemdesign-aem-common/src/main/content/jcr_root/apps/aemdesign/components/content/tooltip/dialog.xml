@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    helpPath="en/cq/current/wcm/default_components.html#Text"
+    title="Tool Tip"
+    xtype="tabpanel">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <text jcr:primaryType="cq:Panel" title="Text">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <title
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Title"
+                        name="./title"
+                        xtype="textfield"/>
+                <description
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Description"
+                        name="./description"
+                        xtype="textfield"/>
+            </items>
+        </text>
+        <styleTab
+                jcr:primaryType="cq:Widget"
+                path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                xtype="cqinclude" />
+    </items>
+</jcr:root>

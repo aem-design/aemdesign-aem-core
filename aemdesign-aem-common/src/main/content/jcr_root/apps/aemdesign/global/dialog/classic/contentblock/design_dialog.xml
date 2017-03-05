@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Dialog"
+    title="Content Block (Design)"
+    xtype="dialog">
+     <items
+        jcr:primaryType="nt:unstructured"
+        helpPath="en/cq/current/wcm/default_components.html#Text"
+        title="Text"
+        xtype="tabpanel">
+	    <items jcr:primaryType="cq:WidgetCollection">
+	    	<tab_basic
+                jcr:primaryType="cq:Panel"
+                border="false"
+                height=""
+                title="Basic"
+                width=""
+                xtype="panel">
+                	<items jcr:primaryType="cq:WidgetCollection">
+				        <toplink-label
+				            jcr:primaryType="cq:Widget"
+				            fieldLabel="Top Link Label"
+				            name="./topLinkLabel"
+				            xtype="textfield"/>
+				        <toplink-title
+				            jcr:primaryType="cq:Widget"
+				            fieldLabel="Top Link Title"
+				            name="./topLinkTitle"
+				            xtype="textfield"/>
+				    </items>
+			 </tab_basic>
+			 <tab_style
+	            jcr:primaryType="cq:Widget"
+	            path="/apps/aemdesign/components/layout/contentblock/dialog/items/items/tab_style.infinity.json"
+	            xtype="cqinclude" />
+	    </items>
+	 </items>
+</jcr:root>
+

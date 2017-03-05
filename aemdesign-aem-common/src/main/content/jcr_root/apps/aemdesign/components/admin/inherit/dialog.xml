@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          helpPath="en/cq/current/wcm/default_components.html#Text"
+          jcr:primaryType="cq:Dialog" title="Inherit for Toolbar"
+          xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <inheritTab
+                        jcr:primaryType="cq:Panel"
+                        title="Inherit">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <cancelinheritparent
+                                jcr:primaryType="cq:Widget"
+                                checked="false"
+                                defaultValue="false"
+                                fieldLabel="Cancel Inherit Parent"
+                                name="./cancelInheritParent"
+                                type="checkbox"
+                                xtype="selection"/>
+                    </items>
+                </inheritTab>
+            </items>
+        </tabs>
+    </items>
+</jcr:root>
+

@@ -1,0 +1,9 @@
+{
+  "prevLinkText ((mediagallery))": "Previous",
+  "nextLinkText ((mediagallery))": "Next",
+  "closeText ((mediagallery))": "Close",
+  "titleAltPrefixText ((mediagallery))": "Read more about ",
+  "titleAltReadMore ((assetviewer))": "Read more",
+  "textField ((assetviewer))": "Text Field",
+  "dateRangeField ((assetviewer))": "Date Range Field"
+}

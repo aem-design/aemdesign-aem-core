@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          jcr:primaryType="cq:Dialog"
+          title="Theme"
+          xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <themeTab
+                        jcr:primaryType="cq:Widget"
+                        title="Theme"
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <backgroundColor
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Background Color"
+                                name="./backgroundColor"
+                                showHexValue="{Boolean}true"
+                                xtype="colorfield"/>
+                        <backgroundTextColor
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Background Text Color"
+                                name="./backgroundTextColor"
+                                showHexValue="{Boolean}true"
+                                xtype="colorfield"/>
+                        <backgroundAccentColor
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Background Accent Color"
+                                name="./backgroundAccentColor"
+                                showHexValue="{Boolean}true"
+                                xtype="colorfield"/>
+                        <featureBackgroundColor
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Feature Background Color"
+                                name="./featureBackgroundColor"
+                                showHexValue="{Boolean}true"
+                                xtype="colorfield"/>
+                        <featureTextColor
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Feature Text Color"
+                                name="./featureTextColor"
+                                showHexValue="{Boolean}true"
+                                xtype="colorfield"/>
+                        <navigationHighlightColor
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Navigation Highlight Color"
+                                name="./navigationHighlightColor"
+                                showHexValue="{Boolean}true"
+                                xtype="colorfield"/>
+
+                        <cssPath
+                                jcr:primaryType="cq:Widget"
+                                allowBlank="{Boolean}true"
+                                rootPath="/etc/designs/aemdesign/css/main/minisite"
+                                fieldLabel="Style Path"
+                                name="./cssPath"
+                                width="155"
+                                xtype="pathfield"/>
+
+                    </items>
+                </themeTab>
+                <layoutTab
+                        jcr:primaryType="cq:Widget"
+                        title="Layout"
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <variant
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Variant"
+                                name="./variant"
+                                type="select"
+                                xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default
+                                        jcr:primaryType="nt:unstructured"
+                                        value=""
+                                        text="Default"/>
+                            </options>
+                        </variant>
+                    </items>
+                </layoutTab>
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude"/>
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

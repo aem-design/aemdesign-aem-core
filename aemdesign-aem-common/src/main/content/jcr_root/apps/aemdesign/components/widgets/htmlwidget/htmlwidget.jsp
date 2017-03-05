@@ -1,0 +1,33 @@
+<%@ page import="com.day.cq.wcm.api.WCMMode" %>
+<%@ page import="com.day.cq.wcm.foundation.External" %>
+<%@ page import="org.apache.commons.lang3.StringUtils"%>
+<%@ include file="/apps/aemdesign/global/global.jsp"%>
+<%@ include file="/apps/aemdesign/global/components.jsp"%>
+<%
+
+    Object[][] componentFields = {
+            {"html", ""},
+            {"variant", "default"}
+    };
+
+    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
+    componentProperties.putAll(getComponentStyleProperties(pageContext));
+
+    componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties,_component,_sling));
+    String html = (String)componentProperties.get("html");
+    html = html.replaceAll("&nbsp;", " ");
+    html = html.replaceAll("\\s+", " ");
+    html = html.replaceAll(" = ", "=");
+    componentProperties.put("html", org.apache.commons.lang.StringEscapeUtils.unescapeHtml(html));
+
+%>
+<c:set var="componentProperties" value="<%= componentProperties %>"/>
+<c:choose>
+    <c:when test="${componentProperties.variant == 'default' and not empty componentProperties.html}">
+        <%@ include file="style.default.jsp" %>
+    </c:when>
+    <c:otherwise>
+        <%@ include file="style.empty.jsp" %>
+    </c:otherwise>
+</c:choose>
+<%@include file="/apps/aemdesign/global/component-badge.jsp" %>

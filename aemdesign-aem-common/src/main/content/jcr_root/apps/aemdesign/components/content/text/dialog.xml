@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="cq:Dialog"
+          helpPath="en/cq/current/wcm/default_components.html#Text"
+          title="Rich Text"
+          xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <tab-text
+                        jcr:primaryType="cq:Panel"
+                        path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced.infinity.json"
+                        xtype="cqinclude"/>
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude"/>
+                <tab_display
+                        jcr:primaryType="cq:Panel"
+                        border="false"
+                        height=""
+                        title="Display"
+                        width=""
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <title
+                                jcr:primaryType="cq:Widget"
+                                collapsed="false"
+                                collapsible="false"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <variant
+                                        jcr:primaryType="cq:Widget"
+                                        defaultValue=""
+                                        fieldLabel="Variant"
+                                        name="./variant"
+                                        allowBlank="{Boolean}true"
+                                        value=""
+                                        type="select"
+                                        xtype="selection">
+                                    <options jcr:primaryType="cq:WidgetCollection">
+                                        <default
+                                                jcr:primaryType="nt:unstructured"
+                                                value=""
+                                                text="Default"/>
+                                        <plain
+                                                jcr:primaryType="nt:unstructured"
+                                                value="simple"
+                                                text="Simple"/>
+                                    </options>
+                                </variant>
+                            </items>
+                        </title>
+                    </items>
+                </tab_display>
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

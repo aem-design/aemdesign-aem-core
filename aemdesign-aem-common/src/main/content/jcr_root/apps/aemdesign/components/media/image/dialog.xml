@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"  xmlns:rep="internal"
+          jcr:primaryType="cq:Dialog"
+          jcr:mixinTypes="[rep:AccessControllable]"
+          description="Image Component"
+          title="Image"
+          xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <imageTab
+                        jcr:primaryType="cq:Widget"
+                            path="/apps/aemdesign/global/dialog/classic/common/items/imageTab.infinity.json"
+                        xtype="cqinclude"/>
+                <overrideImageMetadataTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/overrideImageMetadataTab.infinity.json"
+                        xtype="cqinclude"/>
+                <layoutTab
+                        jcr:primaryType="cq:Widget"
+                        title="Layout"
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <variant
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Variant"
+                                name="./variant"
+                                type="select"
+                                xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default
+                                        jcr:primaryType="nt:unstructured"
+                                        value=""
+                                        text="Default"/>
+                                <imageOnly
+                                        jcr:primaryType="nt:unstructured"
+                                        value="imageOnly"
+                                        text="Image only" />
+                                <!--
+                                <imageCaptionPageLink
+                                        jcr:primaryType="nt:unstructured"
+                                        value="imageCaptionPageLink"
+                                        text="Image with caption and page link"/>
+                                -->
+                                <imageTitleDescription
+                                        jcr:primaryType="nt:unstructured"
+                                        value="imageTitleDescription"
+                                        text="Image with title &amp; description overlay at bottom and page link"/>
+                            </options>
+                        </variant>
+                        <imageOption jcr:primaryType="cq:Widget"
+                                       fieldLabel="Image Option"
+                                       fieldDescription="Note: If this option is checked then the Image Size fields will be ignored"
+                                       allowBlank="{Boolean}true"
+                                       name="./imageOption"
+                                       type="select"
+                                       defaultValue=""
+                                       value=""
+                                       xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default
+                                        jcr:primaryType="nt:unstructured"
+                                        value=""
+                                        text="Default"/>
+                                <asIs
+                                        jcr:primaryType="nt:unstructured"
+                                        value="asIs"
+                                        text="As is" />
+                                <fixedImageGenerated
+                                        jcr:primaryType="nt:unstructured"
+                                        value="fixedImageGenerated"
+                                        text="Fixed Image Generated" />
+                                <!--
+                                <fixedImageRendition
+                                        jcr:primaryType="nt:unstructured"
+                                        value="fixedImageRendition"
+                                        text="Fixed Image Rendition" />
+                                <responsiveGenerated
+                                        jcr:primaryType="nt:unstructured"
+                                        value="responsiveGenerated"
+                                        text="Responsive Generated"/>
+                                        -->
+                                <responsiveRendition
+                                        jcr:primaryType="nt:unstructured"
+                                        value="responsiveRendition"
+                                        text="Responsive Rendition"/>
+                                <responsiveRenditionOverride
+                                        jcr:primaryType="nt:unstructured"
+                                        value="responsiveRenditionOverride"
+                                        text="Responsive Rendition Override"/>
+                            </options>
+                        </imageOption>
+
+                        <pageURL
+                                jcr:primaryType="cq:Widget"
+                                fieldDescription="Note: This option will apply to all variants except default variant."
+                                fieldLabel="Page Link"
+                                name="./pageURL"
+                                xtype="pathfield"/>
+
+                        <fixedImageGeneratedGroup
+                                jcr:primaryType="cq:Widget"
+                                collapsed="{Boolean}false"
+                                collapsible="{Boolean}true"
+                                fieldDescription="Note: Image Size fields will only apply when Image Option has selected Fixed Image Generated. If no value is filles then the original image will be used."
+                                fieldLabel=" "
+                                title="Fixed Image Generated"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <imageSize
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Image Size"
+                                        fieldDescription="Note: Image Size fields when only apply when Image Option has selected Custom Size."
+                                        widthParameter="./width"
+                                        heightParameter="./height"
+                                        xtype="sizefield"/>
+                            </items>
+                        </fixedImageGeneratedGroup>
+                    </items>
+                </layoutTab>
+                <advancedTab
+                        jcr:primaryType="cq:Widget"
+                        title="Advanced"
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <responsiveRenditionSize
+                                jcr:primaryType="cq:Widget"
+                                path="/apps/aemdesign/components/media/image/design_dialog/items/tabs/items/layoutTab/items/responsiveRenditionSize.infinity.json"
+                                xtype="cqinclude"/>
+                    </items>
+                </advancedTab>
+
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude" />
+            </items>
+        </tabs>
+    </items>
+</jcr:root>
+

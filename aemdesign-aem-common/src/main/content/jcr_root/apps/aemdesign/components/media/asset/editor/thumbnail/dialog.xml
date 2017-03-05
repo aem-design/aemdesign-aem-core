@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    height="270"
+    xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <panel
+            jcr:primaryType="nt:unstructured"
+            xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <showCopyrightOwner jcr:primaryType="cq:Widget"
+                                fieldLabel="Show Copyright Owner"
+                                allowBlank="{Boolean}true"
+                                name="./showCopyrightOwner"
+                                options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                type="select"
+                                defaultValue=""
+                                value=""
+                                xtype="selection"/>
+
+            </items>
+        </panel>
+    </items>
+</jcr:root>

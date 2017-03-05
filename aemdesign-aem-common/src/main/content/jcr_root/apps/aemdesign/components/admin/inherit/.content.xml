@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:description="If the ./cancelInheritParent flag is not set, this component will go to the parent page to look for the same component in the same subpath, until the top or there a same component with the ./cancelInheritParent flag set."
+    jcr:primaryType="cq:Component"
+    jcr:title="Inherit Component"
+    allowedParents="[]"
+    componentGroup=".hidden"/>

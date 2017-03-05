@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Dialog"
+    title="Search Box"
+    xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+
+                <generalTab jcr:primaryType="cq:Panel"
+                           title="Search">
+
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <searchURL
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Search URL"
+                                name="./searchURL"
+                                xtype="textfield" />
+
+                        <formMethod
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Form Submit Method"
+                                name="./formMethod"
+                                xtype="textfield" />
+
+                        <formParameterName
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Form Parameter Name"
+                                name="./formParameterName"
+                                xtype="textfield" />
+
+                    </items>
+
+                </generalTab>
+
+                <layoutTab
+                        jcr:primaryType="cq:Widget"
+                        title="Layout"
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <variant
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Variant"
+                                name="./variant"
+                                type="select"
+                                xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default
+                                        jcr:primaryType="nt:unstructured"
+                                        value=""
+                                        text="Default"/>
+                                <!--
+                                                                <quick
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        value="quick"
+                                                                        text="Quick Search" />
+                                -->
+                            </options>
+                        </variant>
+                        <placeholderText
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Placeholder Text"
+                                name="./placeholderText"
+                                xtype="textfield" />
+                        <legendText
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Legend Text"
+                                name="./legendText"
+                                xtype="textfield" />
+                        <labelText
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Label Text"
+                                name="./labelText"
+                                xtype="textfield" />
+                        <searchButtonText
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Search Button Text"
+                                name="./searchButtonText"
+                                xtype="textfield" />
+
+                    </items>
+                </layoutTab>
+
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude" />
+
+                <feedsTab
+                        jcr:primaryType="cq:Panel"
+                        title="Quick Search"
+                        hidden="{Boolean}true">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <feeds
+                                jcr:primaryType="cq:Widget"
+                                fieldDescription="Click the '+' to add a new urls, these urls will be used for quick search"
+                                fieldLabel="List of Feeds"
+                                name="./feedUrl"
+                                xtype="multifield">
+                            <fieldConfig
+                                    jcr:primaryType="cq:Widget"
+                                    allowBlank="{Boolean}true"
+                                    width="155"
+                                    xtype="textfield"/>
+                        </feeds>
+                    </items>
+                </feedsTab>
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

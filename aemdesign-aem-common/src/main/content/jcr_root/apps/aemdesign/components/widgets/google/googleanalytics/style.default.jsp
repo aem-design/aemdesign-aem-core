@@ -1,0 +1,2 @@
+<div ${componentProperties.dataAttributes}>
+</div>

@@ -1,0 +1,18 @@
+{
+  "prevLinkText ((listNav))": "Previous",
+  "nextLinkText ((listNav))": "Next",
+  "backLinkText ((listNav))": "Back",
+  "mainMenu ((sitenav))": "Main Menu",
+  "subMenu ((sitenav))": "Sub Menu",
+  "goToTopOfPage ((sitenav))": "Go to top of page",
+  "linkTitlePrefix ((sitenav))": "Go to ",
+  "loadMoreNewsText ((newslist))": "Load More News",
+  "loadMoreTenderText ((tenderlist))": "Load More Tenders",
+  "filterText ((list))": "All",
+  "langSimpleToen ((langSelect))": "EN",
+  "langSimpleTozh_RU ((langSelect))": "Switch to Traditional Chinese",
+  "langSimpleTozh_DE-CN ((langSelect))": "Switch to Simplified Chinese",
+  "langSwitchToen ((langSelect))": "Switch to English",
+  "langSwitchTozh_RU ((langSelect))": "Switch to Traditional Chinese",
+  "langSwitchTozh_DE-CN ((langSelect))": "Switch to Simplified Chinese"
+}

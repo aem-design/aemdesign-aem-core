@@ -1,0 +1,134 @@
+/*AddThis Share Button*/
+
+.toolbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+}
+
+@media screen and (max-width: 767px){
+    .actions {
+        margin: 10px;
+    }
+    .actions li {
+        display: block;
+        text-align: center;
+        margin-bottom: 1px;
+    }
+    .actions li:last-child {
+        margin: 0;
+    }
+    .actions li > a {
+        display: block;
+        padding: 0;
+    }
+    .actions .share > a {
+        background-position: center 0;
+    }
+    .actions .invite > a {
+        background-position: center -31px;
+    }
+    .actions .register > a {
+        background-position: center -62px;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .actions {
+        margin: 0 10px 0 20px;
+    }
+    .actions li {
+        display: block;
+        text-align: right;
+        margin-bottom: 1px;
+    }
+
+    .actions li:last-child {
+        margin: 0;
+    }
+
+    .actions li>a {
+        background-color: #2C3E50;
+        background-image: url(http://www.westkowloon.hk/static/img/actions.png);
+        background-repeat: no-repeat;
+        display: inline-block;
+        height: 28px;
+        font-size: 14px;
+        color: #fff;
+        line-height: 30px;
+        text-transform: uppercase;
+        white-space: nowrap;
+        padding: 0 35px 0 10px;
+        border-bottom: 2px solid #000;
+        -webkit-transition: background-color .2s ease-in-out;
+        -moz-transition: background-color .2s ease-in-out;
+        -o-transition: background-color .2s ease-in-out;
+        transition: background-color .2s ease-in-out;
+    }
+
+    .actions li>a.focus,.actions li>a:focus,.actions li>a:hover {
+        background-color: #616E7C;
+    }
+
+    .actions .share>a {
+        background-position: right 0;
+    }
+
+    .actions .invite>a {
+        background-position: right -31px;
+    }
+
+    .actions .register>a {
+        background-position: right -62px;
+    }
+}
+
+aside .toolbar {
+    top: 20px;
+}
+
+
+
+.addthis_toolbox {
+    background: #fff;
+    margin-top: 1px!important;
+    display: none;
+}
+
+.addthis_toolbox a {
+    background-image: url(http://www.westkowloon.hk/static/img/social-share.png)!important;
+    background-repeat: no-repeat!important;
+    width: 30px!important;
+    height: 30px!important;
+    padding: 0!important;
+    margin-left: 1px!important;
+}
+
+.addthis_toolbox a:first-child {
+    margin-left: 0!important;
+}
+
+.addthis_button_facebook {
+    background-position: 0 0!important;
+}
+
+.addthis_button_twitter {
+    background-position: -30px 0!important;
+}
+
+.addthis_button_google_plusone_share {
+    background-position: -60px 0!important;
+}
+
+.addthis_button_sinaweibo {
+    background-position: -90px 0!important;
+}
+
+.addthis_button_email {
+    background-position: -120px 0!important;
+}
+
+.addthis_toolbox a * {
+    visibility: hidden!important;
+}

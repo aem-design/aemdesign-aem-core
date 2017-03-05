@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          jcr:primaryType="cq:Dialog"
+          description="Contact Details component"
+          title="Contact Details"
+          xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <!-- basic information tab -->
+                <contentTab jcr:primaryType="cq:Panel"
+                         title="Contact Details">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <title
+                                jcr:primaryType="cq:Widget"
+                                path="/apps/aemdesign/global/dialog/classic/common/items/pageBasicTab/items/title.infinity.json"
+                                xtype="cqinclude"/>
+
+                        <!--categorization of Roles-->
+                        <catRole
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Categorization of Roles"
+                                fieldDescription="this will be displayed as categorization of Roles on the page"
+                                allowBlank="{Boolean}false"
+                                name="./cq:tags"
+                                namespaces="[wkcd]"
+                                xtype="tags"/>
+
+                    </items>
+                </contentTab>
+
+                <layoutTab
+                        jcr:primaryType="cq:Panel"
+                        path="/apps/aemdesign/components/details/page-details/dialog/items/tabs/items/layoutTab.infinity.json"
+                        xtype="cqinclude"/>
+
+                <advancedTab jcr:primaryType="cq:Panel"
+                             path="/apps/aemdesign/global/dialog/classic/common/items/pageAdvancedTab.infinity.json"
+                             xtype="cqinclude" />
+
+                <styleTab
+                        jcr:primaryType="cq:Panel"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude"/>
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

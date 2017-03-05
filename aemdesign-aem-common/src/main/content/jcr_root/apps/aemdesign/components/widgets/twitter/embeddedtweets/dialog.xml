@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Dialog"
+    title="Twitter Embedded Tweets"
+    xtype="dialog">
+
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <tab_basic jcr:primaryType="cq:Panel" title="Twitter Embedded Tweets">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <statusId
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Status/Tweet id"
+                            name="./statusId"
+                            xtype="textfield" />
+                        <user
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="User"
+                            name="./twitterfollow/user"
+                            fieldDescription="Twitter User to follow"
+                            xtype="textfield" />
+                        <embeddedTweet
+                        	jcr:primaryType="cq:Widget"
+                            fieldLabel="Embedded Tweet"
+                            fieldDescription="Enter the Embedded Tweet HTML from Twitter"
+                            name="./embeddedTweet"
+                            xtype="textfield" />
+                    </items>
+                </tab_basic>
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

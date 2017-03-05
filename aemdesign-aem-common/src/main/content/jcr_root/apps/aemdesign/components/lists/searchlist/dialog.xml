@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    helpPath="en/cq/current/wcm/default_components.html#List"
+    selectTab="function(tabToSelect) { WKCD.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,false); }"
+    hideTab="function(tabToHide) { WKCD.author.components.list.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
+    title="List"
+    xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+
+                <searchTab
+                    jcr:primaryType="cq:Widget"
+                    title="Search settings"
+                    xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <rootPath
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Content to search"
+                            fieldDescription="Search the base of the searchable information"
+                            name="./searchIn"
+                            xtype="pathfield" />
+
+                        <categories
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Categories"
+                            fieldDescription="Tags that should be searchable through dropdown"
+                            name="./categories"
+                            namespaces="[wkcd]"
+                            xtype="tags" />
+
+                        <pagination
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Paginate after"
+                            name="./pageMax"
+                            xtype="numberfield"/>
+
+                        <paginationGroupSize
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Paginate group size"
+                            name="./pageGroupSize"
+                            xtype="numberfield"/>
+
+                    </items>
+                </searchTab>
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

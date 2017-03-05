@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    xtype="dialog">
+    <items
+        jcr:primaryType="nt:unstructured"
+        helpPath="en/cq/current/wcm/default_components.html#Text"
+        title="Text"
+        xtype="tabpanel">
+        <items jcr:primaryType="cq:WidgetCollection">
+            <tab_basic
+                jcr:primaryType="cq:Panel"
+                border="false"
+                title="Basic"
+                xtype="panel">
+                <items jcr:primaryType="cq:WidgetCollection">
+
+                    <hide_bullets
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Hide bullets"
+                        name="./hideBullets"
+                        type="checkbox"
+                        xtype="selection"/>
+
+                    <horizontal-menu
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Display horizontally"
+                        name="./horizontalMenu"
+                        type="checkbox"
+                        xtype="selection"/>
+
+                    <tabs-menu
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Display In Tabs"
+                            name="./tabsMenu"
+                            type="checkbox"
+                            xtype="selection"/>
+
+                    <displayType
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Content Display Type"
+                            name="./displayType"
+                            type="select"
+                            xtype="selection">
+                                <options jcr:primaryType="cq:WidgetCollection">
+                                    <pageparsys jcr:primaryType="nt:unstructured" value="page" text="Page Parsys" />
+                                    <relative jcr:primaryType="nt:unstructured" value="relative" text="Relative" />
+                                </options>
+                    </displayType>
+
+
+                </items>
+            </tab_basic>
+            <style
+                    jcr:primaryType="cq:Panel"
+                    title="CSS">
+                <items jcr:primaryType="cq:WidgetCollection">
+                    <cssClass
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="CSS for Navigation"
+                            name="./cssClass"
+                            xtype="textfield"/>
+                </items>
+            </style>
+        </items>
+    </items>
+</jcr:root>

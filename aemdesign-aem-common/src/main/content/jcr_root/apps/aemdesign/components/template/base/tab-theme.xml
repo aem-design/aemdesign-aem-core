@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Panel"
+    title="Theme">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <sitetheme
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Site Theme"
+            name="./siteTheme"
+            type="select"
+            xtype="selection">
+            <options jcr:primaryType="cq:WidgetCollection">
+                <default-option
+                	jcr:primaryType="nt:unstructured"
+                	text="Default"
+                	value="global"
+                />
+            </options>
+        </sitetheme>
+    </items>
+</jcr:root>

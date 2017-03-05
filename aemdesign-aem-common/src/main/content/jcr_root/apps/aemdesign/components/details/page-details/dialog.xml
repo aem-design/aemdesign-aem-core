@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Dialog"
+        description="Page Details is to save additional info for the Page Properties"
+        title="Page Details"
+        xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <contentTab jcr:primaryType="cq:Panel"
+                    path="/apps/aemdesign/global/dialog/classic/common/items/pageBasicTab.infinity.json"
+                    xtype="cqinclude" />
+
+                <secondaryImageTab jcr:primaryType="cq:Widget"
+                                   path="/apps/aemdesign/global/dialog/classic/common/items/pageSecondaryImageTab.infinity.json"
+                                   xtype="cqinclude"/>
+                <layoutTab jcr:primaryType="cq:Panel"
+                         title="Layout">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <variant
+                            jcr:primaryType="cq:Widget"
+                            allowBlank="{Boolean}true"
+                            defaultValue=""
+                            value=""
+                            fieldLabel="Variant"
+                            name="./variant"
+                            type="select"
+                            xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default
+                                        jcr:primaryType="nt:unstructured"
+                                        value=""
+                                        text="Default" />
+                            </options>
+                        </variant>
+                        <promotionSize jcr:primaryType="cq:Widget"
+                            fieldLabel="Block Size"
+                            fieldDescription="this will be used as card size in grids"
+                            allowBlank="{Boolean}true"
+                            name="./promoSize"
+                            options="/etc/tags/component-style/components/grid/size.valuelist.json"
+                            type="select"
+                            defaultValue=""
+                            value=""
+                            xtype="selection"/>
+                        <titleFormats
+                                jcr:primaryType="cq:Widget"
+                                collapsed="{Boolean}false"
+                                collapsible="{Boolean}true"
+                                title="Title Formats"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <titleFormat jcr:primaryType="cq:Widget"
+                                             fieldLabel="Title Format"
+                                             fieldDescription="Format of Title to be used for display"
+                                             allowBlank="{Boolean}true"
+                                             name="./titleFormat"
+                                             options="/etc/tags/component-style/components/page-details/format/title.valuelist.pathvalue.json"
+                                             type="select"
+                                             defaultValue=""
+                                             xtype="selection"/>
+                            </items>
+                        </titleFormats>
+                    </items>
+                </layoutTab>
+
+                <advancedTab jcr:primaryType="cq:Panel"
+                     path="/apps/aemdesign/global/dialog/classic/common/items/pageAdvancedTab.infinity.json"
+                     xtype="cqinclude" />
+
+                <styleTab jcr:primaryType="cq:Panel"
+                    path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                    xtype="cqinclude" />
+
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

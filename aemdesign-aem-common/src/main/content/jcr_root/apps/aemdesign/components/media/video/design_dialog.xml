@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"  xmlns:rep="internal"
+    jcr:primaryType="cq:Dialog"
+    title="Video (Design)"
+    xtype="dialog">
+<items jcr:primaryType="cq:WidgetCollection">
+<tabs jcr:primaryType="cq:TabPanel"
+          xtype="tabpanel">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <layout
+                jcr:primaryType="cq:Widget"
+                title="Layout"
+                xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <assetTitlePrefix
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Prefix text for hover"
+                        name="./assetTitlePrefix"
+                        xtype="textfield"/>
+                <thumbnail_size
+                        jcr:primaryType="cq:Widget"
+                        fieldDescription="Note: If these fields has no value then it will use original image size."
+                        fieldLabel="Video Thumbnail Size"
+                        heightParameter="./thumbnailHeight"
+                        heightSuffix=""
+                        widthParameter="./thumbnailWidth"
+                        widthSuffix=""
+                        xtype="sizefield"/>
+            </items>
+        </layout>
+        <styleTab
+                jcr:primaryType="cq:Widget"
+                path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                xtype="cqinclude" />
+    </items>
+  </tabs>
+</items>
+    <rep:policy jcr:primaryType="rep:ACL">
+        <deny
+                jcr:primaryType="rep:DenyACE"
+                rep:principalName="contributor"
+                rep:privileges="{Name}[jcr:read]" />
+    </rep:policy>
+</jcr:root>

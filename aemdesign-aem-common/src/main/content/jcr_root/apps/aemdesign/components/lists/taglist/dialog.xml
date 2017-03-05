@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    helpPath="en/cq/current/wcm/default_components.html#List"
+    selectTab="function(tabToSelect) { WKCD.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,false); }"
+    hideTab="function(tabToHide) { WKCD.author.components.list.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
+    title="Tags List"
+    xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <tagsTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/lists/list/dialog/items/tagsTab.infinity.json"
+                        xtype="cqinclude" />
+
+                <advancedTab
+                        jcr:primaryType="cq:Panel"
+                        border="false"
+                        height=""
+                        title="Advanced"
+                        width=""
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <showTitle
+                                jcr:primaryType="cq:Widget"
+                                defaultValue="{Boolean}false"
+                                fieldLabel="Show Title"
+                                name="./showTitle"
+                                type="checkbox"
+                                xtype="selection"/>
+
+                        <title
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Title"
+                                name="./title"
+                                xtype="textfield"/>
+
+                        <displayType
+                                jcr:primaryType="cq:Widget"
+                                defaultValue="list"
+                                fieldLabel="List Display Type"
+                                name="./displayType"
+                                type="select"
+                                xtype="selection">
+                        <options jcr:primaryType="cq:WidgetCollection">
+                            <optionList
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Option List"
+                                    value="optionList"/>
+                            <list
+                                    jcr:primaryType="nt:unstructured"
+                                    text="List"
+                                    value="list"/>
+                        </options>
+                        </displayType>
+                        <imagePath
+                                jcr:primaryType="cq:Widget"
+                                fieldDescription="Path to the BigSelector Images"
+                                fieldLabel="Image Path"
+                                rootPath="/content/dam"
+                                name="./imagePath"
+                                xtype="pathfield"/>
+                        <disclaimer
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Disclaimer"
+                                name="./disclaimer"
+                                xtype="textfield"/>
+                    </items>
+                </advancedTab>
+                <styleTab
+                        jcr:primaryType="cq:Panel"
+                        border="false"
+                        height=""
+                        title="Style"
+                        width=""
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <css
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="CSS Class name"
+                                name="./cssClass"
+                                xtype="textfield"/>
+                        <id
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Id"
+                                name="./Id"
+                                xtype="textfield"/>
+                    </items>
+                </styleTab>
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    xtype="dialog">
+    <items
+        jcr:primaryType="nt:unstructured"
+        helpPath="en/cq/current/wcm/default_components.html#Text"
+        title="Text"
+        xtype="tabpanel">
+        <items jcr:primaryType="cq:WidgetCollection">
+            <tab_basic
+                jcr:primaryType="cq:Panel"
+                border="false"
+                height=""
+                title="Basic"
+                width=""
+                xtype="panel">
+                <items jcr:primaryType="cq:WidgetCollection">
+                    <layout
+                        jcr:primaryType="cq:Widget"
+                        defaultValue="MREC"
+                        fieldLabel="Layout Size"
+                        name="./layout"
+                        type="select"
+                        xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <box jcr:primaryType="nt:unstructured" value="mrec" text="MREC" />
+                                <banner jcr:primaryType="nt:unstructured" value="leaderboard" text="Leader Board" />
+                                <gutter jcr:primaryType="nt:unstructured" value="gutter" text="Gutter" />
+                                <halfbox jcr:primaryType="nt:unstructured" value="halfmrec" text="Half-MREC" />
+                                <custom jcr:primaryType="nt:unstructured" value="custom" text="Custom" />
+                                <none jcr:primaryType="nt:unstructured" value="" text="None" />
+                            </options>
+                    </layout>
+                    <customLayout
+                            jcr:primaryType="cq:Widget"
+                            fieldDescription="custom size"
+                            fieldLabel="Custom Width and Height"
+                            xtype="sizefield"/>
+                    <locked
+                            jcr:primaryType="cq:Widget"
+                            checked="true"
+                            defaultValue="{Boolean}true"
+                            fieldLabel="Content Locked"
+                            fieldDescription="content locked from updates"
+                            name="./locked"
+                            type="radio"
+                            xtype="selection">
+                        <options jcr:primaryType="cq:WidgetCollection">
+                            <false jcr:primaryType="nt:unstructured" text="Unlocked" value="false" />
+                            <true jcr:primaryType="nt:unstructured" text="Locked" value="true" />
+                        </options>
+                    </locked>
+                </items>
+            </tab_basic>
+        </items>
+    </items>
+</jcr:root>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    height="270"
+    xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <dateRange
+            jcr:primaryType="nt:unstructured"
+            xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <title jcr:primaryType="cq:Widget"
+                    fieldLabel="Field Title"
+                    name="./title"
+                    xtype="textfield"/>
+                <fromDateField jcr:primaryType="cq:Widget"
+                    fieldLabel="From Date Field Name"
+                    fieldDescription="Namespace:localpart such as 'wkcd_dam:startDate'.If no inputted is entered, this field will not be displayed"
+                    name="./fromDateField"
+                    xtype="textfield"/>
+                <fromDatePattern jcr:primaryType="cq:Widget"
+                    fieldLabel="From Date Pattern"
+                    fieldDescription="Default pattern is 'yyyy'. "
+                    name="./fromDatePattern"
+                    xtype="textfield"/>
+                <toDateField jcr:primaryType="cq:Widget"
+                    fieldLabel="To Date Field Name"
+                    fieldDescription="Namespace:localpart such as 'wkcd_dam:finishDate'.If no inputted is entered, this field will not be displayed"
+                    name="./toDateField"
+                    xtype="textfield"/>
+                <toDatePattern jcr:primaryType="cq:Widget"
+                    fieldLabel="To Date Pattern"
+                    fieldDescription="Default pattern is 'yyyy' "
+                    name="./toDatePattern"
+                    xtype="textfield"/>
+                <seperator jcr:primaryType="cq:Widget"
+                    fieldLabel="Separator"
+                    fieldDescription="Default separator is '-' "
+                    allowBlank="{Boolean}true"
+                    name="./separator"
+                    xtype="textfield"/>
+            </items>
+        </dateRange>
+    </items>
+</jcr:root>

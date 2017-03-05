@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    activeTab="{Long}0"
+    helpPath="en/cq/current/wcm/default_components.html#Image"
+    title="Content Block"
+    xtype="tabpanel">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tab_basic
+            jcr:primaryType="cq:Panel"
+            border="false"
+            height=""
+            title="Basic"
+            width=""
+            xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <title
+                    jcr:primaryType="cq:Widget"
+                    collapsed="false"
+                    collapsible="false"
+                    xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <title
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Title"
+                            name="./title"
+                            xtype="textfield"/>
+                        <hideTitle
+                                jcr:primaryType="cq:Widget"
+                                checked="true"
+                                defaultValue="true"
+                                fieldLabel="Hide Title"
+                                name="./hideTitle"
+                                type="radio"
+                                xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <true jcr:primaryType="nt:unstructured" text="Hidden" value="true" />
+                                <false jcr:primaryType="nt:unstructured" text="Visible" value="false" />
+                            </options>
+                        </hideTitle>
+                        <hideTitleSeparator
+                            jcr:primaryType="cq:Widget"
+                            checked="false"
+                            defaultValue="true"
+                            fieldLabel="Title underline"
+                            name="./hideTitleSeparator"
+                            type="radio"
+                            xtype="selection">
+                                <options jcr:primaryType="cq:WidgetCollection">
+                                    <true jcr:primaryType="nt:unstructured" text="Hidden" value="true" />
+                                    <false jcr:primaryType="nt:unstructured" text="Visible" value="false" />
+                                </options>
+                        </hideTitleSeparator>
+
+                        <hideTopLink
+                            jcr:primaryType="cq:Widget"
+                            checked="false"
+                            defaultValue="true"
+                            fieldLabel="Top link on bottom component"
+                            name="./hideTopLink"
+                            type="radio"
+                            xtype="selection">
+
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <true jcr:primaryType="nt:unstructured" text="Hidden" value="true" />
+                                <false jcr:primaryType="nt:unstructured" text="Visible" value="false" />
+                            </options>
+
+                        </hideTopLink>
+
+
+                        <hideInContentMenu
+                            jcr:primaryType="cq:Widget"
+                            checked="false"
+                            defaultValue="true"
+                            fieldLabel="Title in content block menu"
+                            name="./hideInMenu"
+                            type="radio"
+                            xtype="selection">
+
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <true jcr:primaryType="nt:unstructured" text="Hidden" value="false" />
+                                <false jcr:primaryType="nt:unstructured" text="Visible" value="true" />
+                            </options>
+
+                        </hideInContentMenu>
+
+
+                        <style
+                            jcr:primaryType="cq:Widget"
+                            defaultValue="none"
+                            fieldLabel="Floating style"
+                            name="./displayStyle"
+                            type="select"
+                            xtype="selection">
+
+                                <options jcr:primaryType="cq:WidgetCollection">
+                                    <none jcr:primaryType="nt:unstructured" value="none" text="No floating style" />
+                                    <left jcr:primaryType="nt:unstructured" value="left-float" text="Float left" />
+                                    <right jcr:primaryType="nt:unstructured" value="right-float" text="Float right" />
+                                    <middle jcr:primaryType="nt:unstructured" value="middle-align" text="Align middle" />
+                                    <left-align jcr:primaryType="nt:unstructured" value="left-align" text="Align left" />
+                                    <right-align jcr:primaryType="nt:unstructured" value="right-align" text="Align right" />
+                                </options>
+
+                        </style>
+                    </items>
+                </title>
+            </items>
+        </tab_basic>
+        <tab_style
+                jcr:primaryType="cq:Panel"
+                title="Adv Style">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <css
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="CSS Class name"
+                        name="./cssClass"
+                        xtype="textfield"/>
+                <attrId
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Id Attribute"
+                        name="./attrId"
+                        xtype="textfield"/>
+                <showdataTitle
+                        jcr:primaryType="cq:Widget"
+                        checked="false"
+                        defaultValue="false"
+                        fieldLabel="Show dataTitle in section"
+                        fieldDescritpion="show dataTitle for section"
+                        name="./showdataTitle"
+                        type="checkbox"
+                        xtype="selection"/>
+                <showdataScroll
+                        jcr:primaryType="cq:Widget"
+                        checked="false"
+                        defaultValue="false"
+                        fieldLabel="Show dataScroll in section"
+                        fieldDescritpion="show dataScroll for section"
+                        name="./showdataScroll"
+                        type="checkbox"
+                        xtype="selection"/>
+            </items>
+        </tab_style>
+        <tab_linkLeft
+                jcr:primaryType="cq:Panel"
+                title="Left Links">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <linksLeft
+                        jcr:primaryType="cq:Widget"
+                        fieldDescription="These links will appear on the left title"
+                        fieldLabel="Left Links"
+                        name="./linkPagesLeft"
+                        xtype="multifield">
+                    <fieldConfig
+                            jcr:primaryType="cq:Widget"
+                            allowBlank="{Boolean}true"
+                            xtype="pathfield"/>
+                </linksLeft>
+            </items>
+        </tab_linkLeft>
+        <tab_linkRight
+                jcr:primaryType="cq:Panel"
+                title="Right Links">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <title
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Title"
+                        fieldDescription="These links will appear on the right title"
+                        name="./linksRightTitle"
+                        xtype="textfield"/>
+                <linksRight
+                        jcr:primaryType="cq:Widget"
+                        fieldDescription="These links will appear on the right title"
+                        fieldLabel="Right Links"
+                        name="./linkPagesRight"
+                        xtype="multifield">
+                    <fieldConfig
+                            jcr:primaryType="cq:Widget"
+                            allowBlank="{Boolean}true"
+                            xtype="pathfield"/>
+                </linksRight>
+            </items>
+        </tab_linkRight>
+        <tab_bg
+                jcr:primaryType="cq:Widget"
+                allowUpload="{Boolean}false"
+                name="./bgimage/file"
+                title="Background Image"
+                ddGroups="[media]"
+                cropParameter="./bgimage/imageCrop"
+                fileNameParameter="./bgimage/fileName"
+                fileReferenceParameter="./bgimage/fileReference"
+                rotateParameter="./bgimage/imageRotate"
+                mapParameter="./bgimage/imageMap"
+                xtype="html5smartimage"
+                />
+    </items>
+</jcr:root>

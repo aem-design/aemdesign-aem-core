@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    helpPath="en/cq/current/wcm/default_components.html#Text"
+    title="Source"
+    xtype="tabpanel">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <sourceCode
+            jcr:primaryType="cq:Widget"
+            anchor="100%"
+            title="Source Content"
+            xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <warning
+                        jcr:primaryType="cq:Widget"
+                        text="WARNING: this content will be included in the page as is."
+                        xtype="label"/>
+                <source
+                    jcr:primaryType="cq:Widget"
+                    fieldLabel="Raw Source"
+                    hideLabel="{Boolean}true"
+                    grow="{Boolean}true"
+                    name="./source"
+                    xtype="textarea"/>
+            </items>
+        </sourceCode>
+    </items>
+</jcr:root>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          helpPath="en/cq/current/wcm/default_components.html#Text"
+          jcr:primaryType="cq:Dialog"
+          title="Google Analytics"
+          xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <contentTab jcr:primaryType="cq:Panel"
+                            title="Google Analytics">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <trackingid jcr:primaryType="cq:Widget"
+                                    fieldLabel="Tracking ID"
+                                    allowBlank="{Boolean}true"
+                                    name="./trackingId"
+                                    xtype="textfield"/>
+                        <cookiedomain jcr:primaryType="cq:Widget"
+                                      fieldLabel="Cookie Domain"
+                                      allowBlank="{Boolean}true"
+                                      name="./cookieDomain"
+                                      xtype="textfield"/>
+                        <trackingname jcr:primaryType="cq:Widget"
+                                      fieldLabel="Tracking Name"
+                                      name="./trackingName"
+                                      xtype="textfield"/>
+                    </items>
+                </contentTab>
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

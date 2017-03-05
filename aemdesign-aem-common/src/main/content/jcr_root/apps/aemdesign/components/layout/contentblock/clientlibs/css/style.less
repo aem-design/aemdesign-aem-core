@@ -1,0 +1,66 @@
+//Rules for viewing at wider than 800px
+
+.floatingBox {
+  h6 {
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .left-float, .right-float {
+    z-index: 11;
+    padding: 10px;
+  }
+  .left-float {
+    padding-left: 0;
+    float: left;
+  }
+  .right-float {
+    padding-right: 0;
+    float: right;
+  }
+  .middle-align {
+    .table {
+      text-align: center;
+      .tableStyle {
+        display: inline-block;
+      }
+
+    }
+    iframe, .mediavideo {
+      margin: 0 auto;
+      display: block;
+    }
+    .image {
+      text-align: center;
+      img, .img-wrapper {
+        display: inline-block;
+      }
+    }
+
+    .mediavideo img table iframe {
+      margin: 0 auto;
+      display: block;
+      float: left;
+      clear: right;
+    }
+  }
+
+  .left-align {
+    .mediavideo img table iframe {
+      margin: 0 auto;
+      display: block;
+      float: left;
+      clear: right;
+    }
+  }
+
+  .right-align {
+    .mediavideo img table iframe {
+      margin: 0 auto;
+      display: block;
+      float: right;
+      clear: left;
+    }
+  }
+
+}

@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="cq:Dialog"
+          helpPath="en/cq/current/wcm/default_components.html#List"
+          title="Common Page Fields for Classic UI"
+          xtype="tabpanel">
+
+    <items jcr:primaryType="cq:WidgetCollection">
+
+        <image
+                jcr:primaryType="cq:Widget"
+                cropParameter="./image/imageCrop"
+                ddGroups="[media]"
+                fileNameParameter="./image/fileName"
+                fileReferenceParameter="./image/fileReference"
+                mapParameter="./image/imageMap"
+                name="./image/file"
+                renditionSuffix="/_jcr_content/renditions/original"
+                requestSuffix=".img.png"
+                rotateParameter="./image/imageRotate"
+                title="Image"
+                xtype="html5smartimage"/>
+
+
+
+        <styleTab jcr:primaryType="cq:Panel"
+                   title="Style">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <componentId jcr:primaryType="cq:Widget"
+                             fieldLabel="ID"
+                             name="./componentId"
+                             allowBlank="{Boolean}true"
+                             xtype="textfield"/>
+
+                <componentTheme jcr:primaryType="cq:Widget"
+                                allowBlank="{Boolean}true"
+                                defaultValue=""
+                                value=""
+                                fieldLabel="Theme"
+                                name="./componentTheme"
+                                namespaces="[component-style]"
+                                xtype="tags"/>
+
+                <componentModifiers jcr:primaryType="cq:Widget"
+                                    allowBlank="{Boolean}true"
+                                    defaultValue=""
+                                    value=""
+                                    fieldLabel="Modifiers"
+                                    name="./componentModifiers"
+                                    namespaces="[component-style]"
+                                    xtype="tags"/>
+
+                <componentModule jcr:primaryType="cq:Widget"
+                                 allowBlank="{Boolean}true"
+                                 defaultValue=""
+                                 value=""
+                                 fieldLabel="Module"
+                                 name="./componentModule"
+                                 namespaces="[component-style]"
+                                 xtype="tags"/>
+
+                <componentChevron jcr:primaryType="cq:Widget"
+                                  allowBlank="{Boolean}true"
+                                  defaultValue=""
+                                  value=""
+                                  fieldLabel="Chevron"
+                                  name="./componentChevron"
+                                  namespaces="[component-style]"
+                                  xtype="tags"/>
+
+                <componentIcon jcr:primaryType="cq:Widget"
+                               allowBlank="{Boolean}true"
+                               defaultValue=""
+                               value=""
+                               fieldLabel="Icon"
+                               name="./componentIcon"
+                               namespaces="[component-style]"
+                               xtype="tags"/>
+
+                <position
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}true"
+                        collapsible="{Boolean}true"
+                        title="Position coordinates"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <positions
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Positions"
+                                fieldDescription="The X and Y values of the Position"
+                                widthParameter="./positionX"
+                                widthSuffix="X position"
+                                heightParameter="./positionY"
+                                heightSuffix="Y position"
+                                xtype="sizefield"/>
+                    </items>
+                </position>
+            </items>
+
+
+        </styleTab>
+
+        <!--This standard tab is being cqincluded by other components.-->
+        <imageTab
+                jcr:primaryType="cq:Widget"
+                allowUpload="false"
+                cropParameter="./imageCrop"
+                ddGroups="[media]"
+                fileNameParameter="./fileName"
+                fileReferenceParameter="./fileReference"
+                mapParameter="./imageMap"
+                name="./file"
+                requestSuffix=".img.png"
+                rotateParameter="./imageRotate"
+                title="Image"
+                xtype="html5smartimage">
+            <cropConfig jcr:primaryType="nt:unstructured">
+                <aspectRatios jcr:primaryType="nt:unstructured">
+                    <freehand
+                            jcr:primaryType="nt:unstructured"
+                            value="0,0"
+                            text="Free hand"/>
+                    <twobythree
+                            jcr:primaryType="nt:unstructured"
+                            value="2,3"
+                            text="2 x 3"/>
+                    <threebyfive
+                            jcr:primaryType="nt:unstructured"
+                            value="3,5"
+                            text="3 x 5"/>
+                    <sixteenbynine
+                            jcr:primaryType="nt:unstructured"
+                            value="16,9"
+                            text="16 x 9"/>
+                    <square
+                            jcr:primaryType="nt:unstructured"
+                            value="1,1"
+                            text="Square"/>
+                </aspectRatios>
+            </cropConfig>
+        </imageTab>
+
+        <overrideImageMetadataTab
+                jcr:primaryType="cq:Widget"
+                description="This tab is being cqincluded by other component. Fields are to override image metadata"
+                title="Override Image Metadata"
+                xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <title
+                        jcr:primaryType="cq:Widget"
+                        fieldDescription="Alternative title that overrides the existing image title from DAM"
+                        fieldLabel="Title"
+                        name="./dc:title"
+                        xtype="textfield"/>
+                <description
+                        jcr:primaryType="cq:Widget"
+                        fieldDescription="Alternative description that overrides the existing image description from DAM"
+                        fieldLabel="Description"
+                        name="./dc:description"
+                        xtype="textarea"/>
+                <altText
+                        jcr:primaryType="cq:Widget"
+                        fieldDescription="Alternative alt text that overrides the existing image alt text from DAM"
+                        fieldLabel="Alt Text"
+                        name="./wkcd_dam:titleAlt"
+                        xtype="textfield"/>
+                <caption
+                        jcr:primaryType="cq:Widget"
+                        fieldDescription="A brief explanation accompanying an illustration"
+                        fieldLabel="Caption"
+                        name="./wkcd_dam:caption"
+                        xtype="textfield"/>
+                <sourceURL
+                        jcr:primaryType="cq:Widget"
+                        fieldDescription="Alternative destination URL overrides the existing value from DAM"
+                        fieldLabel="Source URL"
+                        name="./wkcd_dam:sourceUrl"
+                        xtype="textfield"/>
+
+            </items>
+        </overrideImageMetadataTab>
+
+
+        <pageBasicTab jcr:primaryType="cq:Panel"
+                  title="Page Details">
+            <items jcr:primaryType="cq:WidgetCollection">
+
+                <title
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Title"
+                        fieldDescription="Leave empty to use current page title"
+                        name="./title"
+                        xtype="textfield"/>
+                <descriptionLabel
+                        jcr:primaryType="cq:Widget"
+                        text="Description"
+                        xtype="label"/>
+                <description jcr:primaryType="cq:Widget"
+                             fieldLabel="Description"
+                             fieldDescription="Leave empty to use current page description"
+                             hideLabel="{Boolean}true"
+                             name="./description"
+                             xtype="richtext">
+                    <rteplugins jcr:primaryType="nt:unstructured"
+                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rteplugins.infinity.json"
+                                xtype="cqinclude" />
+                </description>
+
+                <!-- if using cq:tags, that field is for taxonomy on Content only -->
+
+                <!-- Category is the additional value on top of cq:Content's cq:tags -->
+                <category
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Primary Category"
+                        fieldDescription="this will be displayed as Primary Category on the page and on cards in grids"
+                        allowBlank="{Boolean}true"
+                        name="./cq:tags"
+                        namespaces="[wkcd]"
+                        xtype="tags"/>
+
+                <subCategory
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Secondary Category"
+                        fieldDescription="this will be display as Secondary Category on cards in grids"
+                        allowBlank="{Boolean}true"
+                        name="./subCategory"
+                        namespaces="[wkcd]"
+                        xtype="tags"/>
+
+                <!-- Adding Mixin [cq:Taggable] into the resource to make cq:Tags work -->
+                <mixinTypes jcr:primaryType="cq:Widget"
+                            allowBlank="{Boolean}false"
+                            fieldLabel="cq:Taggable"
+                            defaultValue="cq:Taggable"
+                            value="cq:Taggable"
+                            name="./jcr:mixinTypes"
+                            xtype="hidden"/>
+
+                <mixinTypesHint
+                        jcr:primaryType="cq:Widget"
+                        ignoreData="{Boolean}true"
+                        name="./jcr:mixinTypes@TypeHint"
+                        value="jcr:mixinTypes"
+                        xtype="hidden"/>
+
+            </items>
+        </pageBasicTab>
+
+        <pageSecondaryImageTab jcr:primaryType="cq:Widget"
+            cropParameter="./secondaryImage/imageCrop"
+            ddGroups="[media]"
+            fileNameParameter="./secondaryImage/fileName"
+            fileReferenceParameter="./secondaryImage/fileReference"
+            mapParameter="./secondaryImage/imageMap"
+            name="./secondaryImage/file"
+            rotateParameter="./secondaryImage/imageRotate"
+            title="Secondary Image"
+            xtype="html5smartimage"/>
+
+        <pageAdvancedTab jcr:primaryType="cq:Panel"
+                         title="Advanced">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <menuConfigGroup
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}false"
+                        collapsible="{Boolean}true"
+                        title="Menu Configuration"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <menuColor jcr:primaryType="cq:Widget"
+                                   fieldLabel="Color"
+                                   fieldDescription="Color to be used for highlighting in Site Menu"
+                                   allowBlank="{Boolean}true"
+                                   name="./menuColor"
+                                   options="/etc/tags/component-style/components/sitenav/color.valuelist.json"
+                                   type="select"
+                                   defaultValue=""
+                                   xtype="selection"/>
+                    </items>
+                </menuConfigGroup>
+                <accessibilityConfigGroup
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}false"
+                        collapsible="{Boolean}true"
+                        title="Web Accessibility Configuration"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <accesskey jcr:primaryType="cq:Widget"
+                                   fieldLabel="Access Key"
+                                   name="./accesskey"
+                                   allowBlank="{Boolean}true"
+                                   xtype="textfield"/>
+
+                    </items>
+                </accessibilityConfigGroup>
+
+
+                <compositionConfigGroup
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}true"
+                        collapsible="{Boolean}true"
+                        title="Detail Component Composition"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <showBreadcrumb jcr:primaryType="cq:Widget"
+                                        fieldLabel="Show Breadcrumb"
+                                        allowBlank="{Boolean}true"
+                                        name="./showBreadcrumb"
+                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                        type="select"
+                                        defaultValue=""
+                                        value=""
+                                        xtype="selection"/>
+
+                        <showToolbar jcr:primaryType="cq:Widget"
+                                     fieldLabel="Show Toolbar"
+                                     allowBlank="{Boolean}true"
+                                     name="./showToolbar"
+                                     options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                     type="select"
+                                     defaultValue=""
+                                     value=""
+                                     xtype="selection"/>
+
+                        </items>
+                </compositionConfigGroup>
+<!--
+                <seoConfigGroup
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}true"
+                        collapsible="{Boolean}true"
+                        title="SEO Configuration"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <changeFrequency jcr:primaryType="cq:Widget"
+                                         fieldDescription="How frequently the page is likely to change. The crawler considers it as a hint and not a command"
+                                         fieldLabel="change Frequency"
+                                         allowBlank="{Boolean}true"
+                                         name="./changefreq"
+                                         type="select"
+                                         defaultValue=""
+                                         value=""
+                                         xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default
+                                        jcr:primaryType="nt:unstructured"
+                                        value=""
+                                        text="Default" />
+                                <always
+                                        jcr:primaryType="nt:unstructured"
+                                        value="always"
+                                        text="Always" />
+                                <hourly
+                                        jcr:primaryType="nt:unstructured"
+                                        value="hourly"
+                                        text="Hourly" />
+                                <daily
+                                        jcr:primaryType="nt:unstructured"
+                                        value="daily"
+                                        text="Daily" />
+                                <weekly
+                                        jcr:primaryType="nt:unstructured"
+                                        value="weekly"
+                                        text="Weekly" />
+                                <monthly
+                                        jcr:primaryType="nt:unstructured"
+                                        value="monthly"
+                                        text="Monthly" />
+                                <yearly
+                                        jcr:primaryType="nt:unstructured"
+                                        value="yearly"
+                                        text="Yearly" />
+                                <never
+                                        jcr:primaryType="nt:unstructured"
+                                        value="never"
+                                        text="Never" />
+                            </options>
+                        </changeFrequency>
+                        <priority jcr:primaryType="cq:Widget"
+                                  fieldDescription="The priority of this page relative to other URLs on your site. Valid values range from 0.0 to 1.0. This value does not affect how your pages are compared to pages on other sites. It only lets the search engines know which pages you deem most important for the crawlers."
+                                  fieldLabel="Priority"
+                                  allowBlank="{Boolean}true"
+                                  name="./priority"
+                                  type="select"
+                                  defaultValue=""
+                                  value=""
+                                  xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default
+                                        jcr:primaryType="nt:unstructured"
+                                        value=""
+                                        text="Default" />
+                                <priority00
+                                        jcr:primaryType="nt:unstructured"
+                                        value="0.0"
+                                        text="0.0" />
+                                <priority01
+                                        jcr:primaryType="nt:unstructured"
+                                        value="0.1"
+                                        text="0.1" />
+                                <priority02
+                                        jcr:primaryType="nt:unstructured"
+                                        value="0.2"
+                                        text="0.2" />
+                                <priority03
+                                        jcr:primaryType="nt:unstructured"
+                                        value="0.3"
+                                        text="0.3" />
+                                <priority04
+                                        jcr:primaryType="nt:unstructured"
+                                        value="0.4"
+                                        text="0.4" />
+                                <priority05
+                                        jcr:primaryType="nt:unstructured"
+                                        value="0.5"
+                                        text="0.5" />
+                                <priority06
+                                        jcr:primaryType="nt:unstructured"
+                                        value="0.6"
+                                        text="0.6" />
+                                <priority07
+                                        jcr:primaryType="nt:unstructured"
+                                        value="0.7"
+                                        text="0.7" />
+                                <priority08
+                                        jcr:primaryType="nt:unstructured"
+                                        value="0.8"
+                                        text="0.8" />
+                                <priority09
+                                        jcr:primaryType="nt:unstructured"
+                                        value="0.9"
+                                        text="0.9" />
+                                <priority10
+                                        jcr:primaryType="nt:unstructured"
+                                        value="1.0"
+                                        text="1.0" />
+                            </options>
+                        </priority>
+                    </items>
+                </seoConfigGroup>
+-->
+            </items>
+        </pageAdvancedTab>
+
+
+        <linkTab jcr:primaryType="cq:Panel"
+                 title="Link">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <linkUrl
+                        jcr:primaryType="cq:Widget"
+                        allowBlank="{Boolean}true"
+                        fieldLabel="Target URL"
+                        name="./linkUrl"
+                        xtype="pathfield"/>
+                <hrefTargets
+                        jcr:primaryType="cq:Widget"
+                        defaultValue="{Boolean}false"
+                        fieldLabel="Rendering Options"
+                        name="./hrefTargets"
+                        type="select"
+                        xtype="selection">
+                    <options jcr:primaryType="cq:WidgetCollection">
+                        <o2
+                                jcr:primaryType="nt:unstructured"
+                                text="Load page in a new browser window"
+                                value="_blank"/>
+                        <o3
+                                jcr:primaryType="nt:unstructured"
+                                text="Load page in current window"
+                                value="_self"/>
+                        <o4
+                                jcr:primaryType="nt:unstructured"
+                                text="Load the page in the parent/superior frame"
+                                value="_parent"/>
+                        <o5
+                                jcr:primaryType="nt:unstructured"
+                                text="Cancel all frames, and loads in full browser window"
+                                value="_top"/>
+                    </options>
+                </hrefTargets>
+            </items>
+        </linkTab>
+
+        <overlayTab
+                jcr:primaryType="cq:Widget"
+                allowUpload="{Boolean}false"
+                name="./overlay/file"
+                title="Image"
+                ddGroups="[media]"
+                cropParameter="./overlay/imageCrop"
+                fileNameParameter="./overlay/fileName"
+                fileReferenceParameter="./overlay/fileReference"
+                rotateParameter="./overlay/imageRotate"
+                mapParameter="./overlay/imageMap"
+                xtype="html5smartimage"/>
+
+
+
+        <advancedTab jcr:primaryType="cq:Panel" title="Advanced">
+
+            <items jcr:primaryType="cq:WidgetCollection">
+                <hide_site_title
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Hide site title"
+                        name="./hideSiteTitle"
+                        defaultValue="false"
+                        type="checkbox"
+                        xtype="selection"/>
+                <hide_separator
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Hide separator"
+                        name="./hideSeparator"
+                        type="checkbox"
+                        xtype="selection"/>
+
+                <hide_summary
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Hide summary"
+                        name="./hideSummary"
+                        type="checkbox"
+                        xtype="selection"/>
+
+
+            </items>
+        </advancedTab>
+
+
+        <menuIconTab
+                jcr:primaryType="cq:Panel"
+                title="Menu Icon">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <showAsIcon
+                        jcr:primaryType="cq:Widget"
+                        defaultValue="false"
+                        fieldLabel="Show As Icon"
+                        fieldDescription="When showing this page in menu show this as Icon"
+                        name="./menuIcon"
+                        type="checkbox"
+                        xtype="selection"/>
+                <icon
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Icon Path"
+                        name="./menuIconPath"
+                        rootPath="/content/dam"
+                        fieldDescription="The location of the icon to use"
+                        xtype="pathfield"/>
+
+            </items>
+        </menuIconTab>
+        <tabIconTab
+                jcr:primaryType="cq:Panel"
+                title="Tab Icon"
+                description="Icon used in Tabs">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <showAsIcon
+                        jcr:primaryType="cq:Widget"
+                        defaultValue="false"
+                        fieldLabel="Show As Icon"
+                        fieldDescription="When showing this page in a tab show this as Icon"
+                        name="./tabIcon"
+                        type="checkbox"
+                        xtype="selection"/>
+                <icon
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Icon Path"
+                        name="./tabIconPath"
+                        rootPath="/content/dam"
+                        fieldDescription="The location of the icon to use"
+                        xtype="pathfield"/>
+            </items>
+        </tabIconTab>
+        <titleIconTab
+                jcr:primaryType="cq:Panel"
+                title="Title Icon"
+                description="Icon used in Titles">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <showAsIcon
+                        jcr:primaryType="cq:Widget"
+                        defaultValue="false"
+                        fieldLabel="Show As Icon"
+                        fieldDescription="When showing this page links show this as Icon"
+                        name="./titleIcon"
+                        type="checkbox"
+                        xtype="selection"/>
+                <icon
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Icon Path"
+                        name="./titleIconPath"
+                        rootPath="/content/dam"
+                        fieldDescription="The location of the icon to use"
+                        xtype="pathfield"/>
+            </items>
+        </titleIconTab>
+
+    </items>
+
+</jcr:root>
+
+
+

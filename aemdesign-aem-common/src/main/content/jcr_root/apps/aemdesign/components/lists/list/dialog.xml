@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    helpPath="en/cq/current/wcm/default_components.html#List"
+    title="List"
+    selectTab="function(tabToSelect) { WKCD.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,false); }"
+    hideTab="function(tabToHide) { WKCD.author.components.list.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
+    xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <listTab
+                    jcr:primaryType="cq:Widget"
+                    title="List"
+                    xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <listFrom
+                            jcr:primaryType="cq:Widget"
+                            defaultValue=""
+                            fieldLabel="Build list using"
+                            name="./listFrom"
+                            type="select"
+                            xtype="selection">
+                            <listeners
+                                jcr:primaryType="nt:unstructured"
+                                loadcontent="function(){ this.findParentByType('dialog').selectTab(this.getValue());}"
+                                selectionchanged="function(box,value){ box.findParentByType('dialog').selectTab(value); }"/>
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <children
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Child pages"
+                                    value="children"/>
+                                <descendants
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Descendant pages"
+                                    value="descendants"/>
+                                <static
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Fixed list"
+                                    value="static"/>
+                                <tags
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Tags"
+                                    value="tags"/>
+                                <search
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Search"
+                                    value="search"/>
+                                <querybuilder
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Advanced Search"
+                                    value="querybuilder"/>
+                            </options>
+                        </listFrom>
+
+                        <orderBy
+                            jcr:primaryType="cq:Widget"
+                            fieldDescription="Enter a property like 'jcr:created'"
+                            fieldLabel="Order by"
+                            name="./orderBy"
+                            type="select"
+                            xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <title
+                                    jcr:primaryType="nt:unstructured"
+                                    value="jcr:title"/>
+                                <created
+                                    jcr:primaryType="nt:unstructured"
+                                    value="jcr:created"/>
+                                <modified
+                                    jcr:primaryType="nt:unstructured"
+                                    value="cq:lastModified"/>
+                                <template
+                                    jcr:primaryType="nt:unstructured"
+                                    value="cq:template"/>
+                            </options>
+                        </orderBy>
+                        <limit
+                            jcr:primaryType="cq:Widget"
+                            fieldDescription="Maximum number of items displayed in list"
+                            fieldLabel="Limit"
+                            name="./limit"
+                            xtype="numberfield"/>
+                        <pagination
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Paginate after"
+                            name="./pageMax"
+                            xtype="numberfield"/>
+
+                        <paginationType
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Pagination Type"
+                                name="./paginationType"
+                                type="select"
+                                xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Default"
+                                        value=""/>
+                               <prev_next_pages
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Previous and Next Pages"
+                                        value="default"/>
+                            </options>
+                        </paginationType>
+
+                        <listType
+                                jcr:primaryType="cq:Widget"
+                                defaultValue="list"
+                                value="list"
+                                allowBlank="{Boolean}true"
+                                fieldLabel="List Type"
+                                name="./listType"
+                                type="select"
+                                xtype="selection">
+
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <list
+                                        jcr:primaryType="nt:unstructured"
+                                        value="list"
+                                        text="List" />
+                                <gallery
+                                        jcr:primaryType="nt:unstructured"
+                                        value="gallery"
+                                        text="Gallery List" />
+                            </options>
+
+                        </listType>
+                        <detailsBadge
+                            jcr:primaryType="cq:Widget"
+                            defaultValue=""
+                            value=""
+                            allowBlank="{Boolean}true"
+                            fieldLabel="Badges"
+                            fieldDescription="Which badge to use from Details component"
+                            name="./detailsBadge"
+                            type="select"
+                            xtype="selection">
+
+                                <options jcr:primaryType="cq:WidgetCollection">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            value=""
+                                            text="List" />
+                                    <image
+                                            jcr:primaryType="nt:unstructured"
+                                            value="image"
+                                            text="Image List" />
+                                    <imageTitle
+                                            jcr:primaryType="nt:unstructured"
+                                            value="imageTitle"
+                                            text="Image Title List" />
+                                    <imageTitleDescription
+                                            jcr:primaryType="nt:unstructured"
+                                            value="imageTitleDescription"
+                                            text="Image Title Description List" />
+                                    <imageTitleLinks
+                                            jcr:primaryType="nt:unstructured"
+                                            value="imageTitleLinks"
+                                            text="image Title Links List" />
+                                    <bullet
+                                            jcr:primaryType="nt:unstructured"
+                                            value="bullet"
+                                            text="Bullet List" />
+                                </options>
+
+                        </detailsBadge>
+
+                    </items>
+                </listTab>
+                <childrenTab
+                    jcr:primaryType="cq:Widget"
+                    title="Child pages"
+                    xtype="panel"
+                    name="children">
+                    <listeners
+                        jcr:primaryType="nt:unstructured"
+                        render="function() { this.findParentByType('dialog').hideTab(this); }"/>
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <parentPage
+                            jcr:primaryType="cq:Widget"
+                            fieldDescription="Leave empty to use current page"
+                            fieldLabel="Parent page"
+                            name="./parentPage"
+                            xtype="pathfield"/>
+                    </items>
+                </childrenTab>
+                <descendantsTab
+                    jcr:primaryType="cq:Widget"
+                    title="Descendant pages"
+                    xtype="panel"
+                    name="descendants">
+                    <listeners
+                        jcr:primaryType="nt:unstructured"
+                        render="function() { this.findParentByType('dialog').hideTab(this); }"/>
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <ancestorPage
+                            jcr:primaryType="cq:Widget"
+                            fieldDescription="Leave empty to use current page"
+                            fieldLabel="Parent page"
+                            name="./ancestorPage"
+                            xtype="pathfield"/>
+                    </items>
+                    <children
+                        jcr:primaryType="cq:Widget"
+                        title="Child pages"
+                        xtype="panel">
+                        <listeners
+                            jcr:primaryType="nt:unstructured"
+                            render="function() { this.findParentByType('dialog').hideTab(this); }"/>
+                        <items jcr:primaryType="cq:WidgetCollection">
+                            <parentPage
+                                jcr:primaryType="cq:Widget"
+                                fieldDescription="Leave empty to use current page"
+                                fieldLabel="Parent page"
+                                name="./parentPage"
+                                xtype="pathfield"/>
+                        </items>
+                    </children>
+                </descendantsTab>
+                <staticTab
+                    jcr:primaryType="cq:Widget"
+                    title="Fixed list"
+                    xtype="panel"
+                    name="static">
+                    <listeners
+                        jcr:primaryType="nt:unstructured"
+                        render="function() { this.findParentByType('dialog').hideTab(this); }"/>
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <pages
+                            jcr:primaryType="cq:Widget"
+                            fieldDescription="Click the '+' to add a new page"
+                            fieldLabel="Pages"
+                            name="./pages"
+                            xtype="multifield">
+                            <fieldConfig
+                                jcr:primaryType="cq:Widget"
+                                allowBlank="{Boolean}true"
+                                width="155"
+                                xtype="pathfield"/>
+                        </pages>
+                    </items>
+                </staticTab>
+                <tagsTab
+                    jcr:primaryType="cq:Widget"
+                    title="Tags"
+                    xtype="panel"
+                    name="tags">
+                    <listeners
+                        jcr:primaryType="nt:unstructured"
+                        render="function() { this.findParentByType('dialog').hideTab(this); }"/>
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <parentPage
+                            jcr:primaryType="cq:Widget"
+                            fieldDescription="Leave empty to use current page"
+                            fieldLabel="Parent page"
+                            name="./tagsSearchRoot"
+                            xtype="pathfield"/>
+                        <tags
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Tags/Keywords"
+                            name="./tags"
+                            namespaces="[wkcd]"
+                            xtype="tags"/>
+                        <match
+                            jcr:primaryType="cq:Widget"
+                            defaultValue="any"
+                            fieldLabel="Match"
+                            name="./tagsMatch"
+                            type="select"
+                            xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <any
+                                    jcr:primaryType="nt:unstructured"
+                                    text="any tag"
+                                    value="any"/>
+                                <all
+                                    jcr:primaryType="nt:unstructured"
+                                    text="all tags"
+                                    value="all"/>
+                            </options>
+                        </match>
+                    </items>
+                </tagsTab>
+                <searchTab
+                    jcr:primaryType="cq:Widget"
+                    title="Search"
+                    xtype="panel"
+                    name="search">
+                    <listeners
+                        jcr:primaryType="nt:unstructured"
+                        render="function() { this.findParentByType('dialog').hideTab(this); }"/>
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <searchIn
+                            jcr:primaryType="cq:Widget"
+                            fieldDescription="Leave empty to use current site (eg. /content/mysite)"
+                            fieldLabel="Start in"
+                            name="./searchIn"
+                            xtype="pathfield"/>
+                        <query
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Search query"
+                            name="./query"
+                            xtype="textfield"/>
+                    </items>
+                </searchTab>
+                <querybuilderTab
+                    jcr:primaryType="cq:Widget"
+                    title="Advanced Search"
+                    xtype="panel"
+                    name="querybuilder">
+                    <listeners
+                        jcr:primaryType="nt:unstructured"
+                        render="function() { this.findParentByType('dialog').hideTab(this); }"/>
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <savedquery
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Querybuilder predicate notation"
+                            name="./savedquery"
+                            xtype="textarea"/>
+                    </items>
+                </querybuilderTab>
+
+                <advancedTab
+                    jcr:primaryType="cq:Widget"
+                    border="false"
+                    height=""
+                    title="Advanced"
+                    width=""
+                    xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <printStructure jcr:primaryType="cq:Widget"
+                                        fieldLabel="Print List Structure"
+                                        fieldDescription="Don't print structure of the list, omit (OL/UL and LI tags)"
+                                        allowBlank="{Boolean}true"
+                                        name="./printStructure"
+                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                        type="select"
+                                        defaultValue=""
+                                        value=""
+                                        xtype="selection"/>
+                        <showTitle
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Show Title"
+                            name="./showTitle"
+                            type="checkbox"
+                            xtype="selection"/>
+
+                        <title
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Title"
+                            name="./title"
+                            xtype="textfield"/>
+
+                        <title_link
+                            jcr:primaryType="cq:Widget"
+                            allowBlank="{Boolean}true"
+                            fieldLabel="Title links to"
+                            name="./titleLink"
+                            xtype="pathfield"/>
+
+                        <image_link
+                            jcr:primaryType="cq:Widget"
+                            allowBlank="{Boolean}true"
+                            fieldDescription="Image is loaded from page properties of target"
+                            fieldLabel="Image link"
+                            name="./imageLink"
+                            xtype="pathfield"/>
+
+                        <split
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Split list into two columns"
+                            name="./splitList"
+                            type="checkbox"
+                            xtype="selection"/>
+
+                        <hide-thumbnail
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Hide thumbnails"
+                            name="./hideThumbnail"
+                            type="checkbox"
+                            xtype="selection"/>
+
+                    </items>
+                </advancedTab>
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude" />
+                <styleItemsTab
+                    jcr:primaryType="cq:Panel"
+                    border="false"
+                    height=""
+                    title="Style Items"
+                    width=""
+                    xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <listStyle
+                                jcr:primaryType="cq:Widget"
+                                collapsed="{Boolean}true"
+                                collapsible="{Boolean}true"
+                                title="List"
+                                xtype="dialogfieldset">
+                                <items jcr:primaryType="cq:WidgetCollection">
+                                    <showLink
+                                            jcr:primaryType="cq:Widget"
+                                            checked="false"
+                                            fieldLabel="List Link"
+                                            fieldDescription="show a link at the bottom of list"
+                                            name="./showListLink"
+                                            type="radio"
+                                            xtype="selection">
+                                        <options jcr:primaryType="cq:WidgetCollection">
+                                            <false jcr:primaryType="nt:unstructured" text="Hidden" value="false" />
+                                            <true jcr:primaryType="nt:unstructured" text="Visible" value="true" />
+                                        </options>
+                                    </showLink>
+                                    <linkPath
+                                            jcr:primaryType="cq:Widget"
+                                            fieldDescription="Leave empty to use list query path"
+                                            fieldLabel="Link Path"
+                                            name="./listLinkPath"
+                                            xtype="pathfield"/>
+                                    <text
+                                            jcr:primaryType="cq:Widget"
+                                            fieldLabel="Text"
+                                            fieldDescription="shows as a link text tag"
+                                            name="./listLinkText"
+                                            xtype="textfield"/>
+                                    <title
+                                            jcr:primaryType="cq:Widget"
+                                            fieldLabel="Title"
+                                            fieldDescription="shows as a link title tag"
+                                            defaultValue="More Items"
+                                            name="./listLinkTitle"
+                                            xtype="textfield"/>
+                                   <cssIncludeTags
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Class Includes Filter Tags"
+                                        name="./cssIncludeTags"
+                                        type="checkbox"
+                                        xtype="selection"/>
+                                </items>
+                        </listStyle>
+                        <itemStyle
+                                jcr:primaryType="cq:Widget"
+                                collapsed="{Boolean}true"
+                                collapsible="{Boolean}true"
+                                title="List Item"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <showLink
+                                        jcr:primaryType="cq:Widget"
+                                        checked="false"
+                                        fieldLabel="Item Link"
+                                        fieldDescription="show a link at the end of text summary poiting to the article"
+                                        name="./showlistItemLink"
+                                        type="radio"
+                                        xtype="selection">
+                                    <options jcr:primaryType="cq:WidgetCollection">
+                                        <false jcr:primaryType="nt:unstructured" text="Hidden" value="false" />
+                                        <true jcr:primaryType="nt:unstructured" text="Visible" value="true" />
+                                    </options>
+                                </showLink>
+                                <linkTarget
+                                        jcr:primaryType="cq:Widget"
+                                        checked="false"
+                                        fieldLabel="Item Link Target"
+                                        fieldDescription="target for the href link to open up in the browser"
+                                        name="./itemLinkTarget"
+                                        type="select"
+                                        xtype="selection">
+
+                                <options
+                                        jcr:primaryType="cq:WidgetCollection">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value="" />
+                                    <blank
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Blank"
+                                            value="_blank" />
+                                    <self
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Self"
+                                            value="_self" />
+                                    <parent
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Parent"
+                                            value="_parent" />
+                                    <top
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Top"
+                                            value="_top" />
+                                </options>
+                                </linkTarget>
+                                <text
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Text"
+                                        fieldDescription="shows as a link text tag"
+                                        name="./listItemLinkText"
+                                        xtype="textfield"/>
+                                <title
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Title"
+                                        fieldDescription="shows as a link title tag"
+                                        name="./listItemLinkTitle"
+                                        xtype="textfield"/>
+                                <titleLengthMax
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Title Max Length"
+                                        fieldDescription="crop Title text after this many characters"
+                                        name="./listItemTitleLengthMax"
+                                        xtype="numberfield"/>
+                                <titleLengthMaxSuffix
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Title Max Length Suffix"
+                                        fieldDescription="add the following text as suffix when cropping Title"
+                                        name="./listItemTitleLengthMaxSuffix"
+                                        xtype="textfield"/>
+                                <summaryLengthMax
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Summary Max Length"
+                                        fieldDescription="crop Summary text after this many characters"
+                                        name="./listItemSummaryLengthMax"
+                                        xtype="numberfield"/>
+                                <summaryLengthMaxSuffix
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Summary Max Length Suffix"
+                                        fieldDescription="add the following text as suffix when cropping Summary"
+                                        name="./listItemSummaryLengthMaxSuffix"
+                                        xtype="textfield"/>
+                                <displayOverlayIcon
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Display Overlay Icon"
+                                        name="./displayOverlayIcon"
+                                        xtype="selection"
+                                        type="select">
+                                        <options
+                                            jcr:primaryType="cq:WidgetCollection">
+                                            <default
+                                                jcr:primaryType="nt:unstructured"
+                                                text="default"
+                                                value="" />
+                                            <on
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Display"
+                                                value="true" />
+                                            <off
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Do not display"
+                                                value="false" />
+                                        </options>
+                                </displayOverlayIcon>
+                                <showRedirectIcon
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Display Redirect Icon"
+                                        fieldDescription="display an icon to indicate that the page link redirects"
+                                        name="./redirectIcon"
+                                        type="checkbox"
+                                        xtype="selection"/>
+                                <addPageNameAsIcon
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Add Page Name as Icon"
+                                        fieldDescription="add an icon with page name: icon-{page name}"
+                                        name="./addPageNameAsIcon"
+                                        type="checkbox"
+                                        xtype="selection"/>
+                            </items>
+                        </itemStyle>
+                        <thumbnailStyle
+                            jcr:primaryType="cq:Widget"
+                            collapsed="{Boolean}true"
+                            collapsible="{Boolean}true"
+                            title="Thumbnail"
+                            xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <thumbnailCustom
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Generate Thumbnail"
+                                        fieldDescription="Default pick rendition from DAM, Custom generate rendition"
+                                        name="./thumbnailCustom"
+                                        type="radio"
+                                        xtype="selection">
+                                    <options jcr:primaryType="cq:WidgetCollection">
+                                        <false jcr:primaryType="nt:unstructured" text="Default" value="" />
+                                        <true jcr:primaryType="nt:unstructured" text="Generate" value="true" />
+                                    </options>
+                                </thumbnailCustom>
+                                <size
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Icon Size (w,h)"
+                                        fieldDescription="blank values are not added as attributes"
+                                        heightParameter="./thumbnailHeight"
+                                        widthParameter="./thumbnailWidth"
+                                        xtype="sizefield"/>
+                            </items>
+                        </thumbnailStyle>
+                    </items>
+                </styleItemsTab>
+                <advancedStyleTab
+                        jcr:primaryType="cq:Panel"
+                        title="Advanced CSS">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <title
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="CSS for Title"
+                                name="./cssClassTitle"
+                                xtype="textfield"/>
+                        <titleLink
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="CSS for Title Link"
+                                name="./cssClassTitleLink"
+                                xtype="textfield"/>
+                        <listcontainer
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="CSS for List Container"
+                                name="./cssClassListContainer"
+                                xtype="textfield"/>
+                        <list
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="CSS for List"
+                                name="./cssClassList"
+                                xtype="textfield"/>
+                        <item
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="CSS for Item"
+                                name="./cssClassItem"
+                                xtype="textfield"/>
+                        <itemlink
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="CSS for Item Link"
+                                name="./cssClassItemLink"
+                                xtype="textfield"/>
+                        <pageinationcontainer
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="CSS for Pagination Container"
+                                name="./cssClassPaginationContainer"
+                                xtype="textfield"/>
+                    </items>
+                </advancedStyleTab>
+                <thumbnailTab
+                        jcr:primaryType="cq:Widget"
+                        allowUpload="false"
+                        cropParameter="./imageCrop"
+                        ddGroups="[media]"
+                        fileNameParameter="./fileName"
+                        fileReferenceParameter="./defaultThumbnailImage"
+                        mapParameter="./imageMap"
+                        name="./defaultThumbnailImage"
+                        requestSuffix=".img.png"
+                        rotateParameter="./imageRotate"
+                        title="Default Thumbnail"
+                        xtype="html5smartimage"/>
+                <feedTab
+                        jcr:primaryType="cq:Panel"
+                        border="false"
+                        height=""
+                        title="Feed"
+                        width=""
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <feedEnabled
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Enable Feed"
+                                name="./feedEnabled"
+                                type="checkbox"
+                                xtype="selection"/>
+                        <feedType
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                fieldLabel="Feed Type"
+                                fieldDescription="type of feed to show as icon"
+                                name="./feedType"
+                                type="select"
+                                xtype="selection">
+
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default jcr:primaryType="nt:unstructured" value="none" text="" />
+                                <rss jcr:primaryType="nt:unstructured" value="rss" text="RSS" />
+                                <atom jcr:primaryType="nt:unstructured" value="atom" text="Atom" />
+                            </options>
+
+                        </feedType>
+
+                    </items>
+                </feedTab>
+
+
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

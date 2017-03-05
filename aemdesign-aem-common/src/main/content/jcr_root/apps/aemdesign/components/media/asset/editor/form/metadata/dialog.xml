@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    activeTab="{Long}0"
+    height="400"
+    xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabpanel
+            jcr:primaryType="cq:Widget"
+            activeTab="{Long}0"
+            xtype="tabpanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <generalTab
+                    jcr:primaryType="nt:unstructured"
+                    title="General"
+                    xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <basicMetaData
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Metadata"
+                            name="./meta"
+                            vtype="itemname"
+                            xtype="metadata"/>
+
+                        <multiValueSeparator jcr:primaryType="cq:Widget"
+                                             fieldLabel="Multi Value Separator"
+                                             fieldDescription="Default is ', '"
+                                             allowBlank="{Boolean}true"
+                                             name="./multiValueSeparator"
+                                             value=""
+                                             xtype="textfield"/>
+
+                    </items>
+                </generalTab>
+            </items>
+        </tabpanel>
+    </items>
+</jcr:root>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="cq:Dialog"
+          helpPath="en/cq/current/wcm/default_components.html#Text"
+          description="Link "
+          title="Link"
+          xtype="dialog">
+
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <contentTab
+                        jcr:primaryType="cq:Widget"
+                        title="Attributes">
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <label
+                                jcr:primaryType="cq:Widget"
+                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/link/items/label.infinity.json"
+                                xtype="cqinclude"/>
+                        <linkUrl
+                                jcr:primaryType="cq:Widget"
+                                path="/apps/aemdesign/global/dialog/classic/common/items/linkTab/items/linkUrl.infinity.json"
+                                xtype="cqinclude"/>
+                        <hrefTarget
+                                jcr:primaryType="cq:Widget"
+                                path="/apps/aemdesign/global/dialog/classic/common/items/linkTab/items/hrefTargets.infinity.json"
+                                xtype="cqinclude"/>
+
+                        <gaConfigGroup
+                                jcr:primaryType="cq:Widget"
+                                collapsed="{Boolean}true"
+                                collapsible="{Boolean}true"
+                                title="Google Analytics"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <hitType jcr:primaryType="cq:Widget"
+                                    fieldLabel="Hit Type"
+                                    fieldDescription="The type of hit. Must be one of 'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'."
+                                    allowBlank="{Boolean}true"
+                                    name="./hitType"
+                                    type="select"
+                                    defaultValue=""
+                                    value="event"
+                                    xtype="hidden"/>
+                                <eventCategory  jcr:primaryType="cq:Widget"
+                                    allowBlank="{Boolean}true"
+                                    defaultValue=""
+                                    value=""
+                                    fieldLabel="Category"
+                                    fieldDescription="Specifies the event category"
+                                    name="./eventCategory"
+                                    namespaces="[wkcd]"
+                                    xtype="tags"/>
+                                <eventAction  jcr:primaryType="cq:Widget"
+                                    allowBlank="{Boolean}true"
+                                    defaultValue=""
+                                    value=""
+                                    fieldLabel="Action"
+                                    fieldDescription="Specifies the event action"
+                                    name="./eventAction"
+                                    namespaces="[wkcd]"
+                                    xtype="tags"/>
+                                <eventLabel  jcr:primaryType="cq:Widget"
+                                    allowBlank="{Boolean}true"
+                                    fieldDescription="Specifies the event label"
+                                    fieldLabel="Label"
+                                    name="./eventLabel"
+                                    xtype="textfield"/>
+                            </items>
+                        </gaConfigGroup>
+
+                    </items>
+                </contentTab>
+                <layoutTab
+                        jcr:primaryType="cq:Widget"
+                        title="Layout"
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <variant
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Variant"
+                                name="./variant"
+                                type="select"
+                                xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default
+                                        jcr:primaryType="nt:unstructured"
+                                        value=""
+                                        text="Default"/>
+                                <none
+                                        jcr:primaryType="nt:unstructured"
+                                        value="none"
+                                        text="None"/>
+                            <!--    <adobeAnalytics
+                                        jcr:primaryType="nt:unstructured"
+                                        value="aa"
+                                        text="Adobe Analytics"/> -->
+                                <googleanalytics
+                                        jcr:primaryType="nt:unstructured"
+                                        value="ga"
+                                        text="Google Analytics"/>
+                            </options>
+                        </variant>
+                        <class
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="CSS"
+                                name="./css"
+                                xtype="textfield"/>
+                        <id
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="ID"
+                                name="./id"
+                                xtype="textfield"/>
+                    </items>
+                </layoutTab>
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude"/>
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

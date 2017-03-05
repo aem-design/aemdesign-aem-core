@@ -1,0 +1,1 @@
+<div ${fn:replace(componentProperties.componentAttributes, 'class="', 'class="issuuembed ')}  data-configid="${componentProperties.mediaId}" ${componentProperties.dataAttributes} ${componentProperties.inlineStyle}>&nbsp;</div>

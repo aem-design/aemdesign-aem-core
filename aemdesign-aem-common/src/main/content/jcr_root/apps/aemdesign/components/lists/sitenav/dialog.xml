@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:rep="internal"
+    jcr:primaryType="cq:Dialog"
+    helpPath="en/cq/current/wcm/default_components.html#List"
+    title="Site Nav"
+    selectTab="function(tabToSelect) { WKCD.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,false); }"
+    hideTab="function(tabToHide) { WKCD.author.components.list.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
+    xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <inheritTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/admin/inherit/dialog/items/tabs/items/inheritTab.infinity.json"
+                        xtype="cqinclude" />
+                <listTab
+                        jcr:primaryType="cq:Widget"
+                        title="Site Nav"
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <listFrom
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                fieldLabel="Build list using"
+                                name="./listFrom"
+                                type="select"
+                                xtype="selection">
+                            <listeners
+                                    jcr:primaryType="nt:unstructured"
+                                    loadcontent="function(){ this.findParentByType('dialog').selectTab(this.getValue());}"
+                                    selectionchanged="function(box,value){ box.findParentByType('dialog').selectTab(value); }"/>
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <children
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Child pages"
+                                        value="children"/>
+                                <static
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Fixed list"
+                                        value="static"/>
+                            </options>
+                        </listFrom>
+                    </items>
+                </listTab>
+                <childrenTab
+                        jcr:primaryType="cq:Widget"
+                        title="Child pages"
+                        xtype="panel"
+                        name="children">
+                    <listeners
+                            jcr:primaryType="nt:unstructured"
+                            render="function() { this.findParentByType('dialog').hideTab(this); }"/>
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <parentPage
+                                jcr:primaryType="cq:Widget"
+                                fieldDescription="Leave empty to use current page"
+                                fieldLabel="Parent page"
+                                name="./parentPage"
+                                xtype="pathfield"/>
+                    </items>
+                </childrenTab>
+                <staticTab
+                        jcr:primaryType="cq:Widget"
+                        title="Fixed list"
+                        xtype="panel"
+                        name="static">
+                    <listeners
+                            jcr:primaryType="nt:unstructured"
+                            render="function() { this.findParentByType('dialog').hideTab(this); }"/>
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <pages
+                                jcr:primaryType="cq:Widget"
+                                fieldDescription="Click the '+' to add a new page"
+                                fieldLabel="Pages"
+                                name="./pages"
+                                xtype="multifield">
+                            <fieldConfig
+                                    jcr:primaryType="cq:Widget"
+                                    allowBlank="{Boolean}true"
+                                    width="155"
+                                    xtype="pathfield"/>
+                        </pages>
+                    </items>
+                </staticTab>
+                <layoutTab
+                    jcr:primaryType="cq:Panel"
+                    title="Layout">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <variant
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Variant"
+                                name="./variant"
+                                type="select"
+                                xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default
+                                        jcr:primaryType="nt:unstructured"
+                                        value=""
+                                        text="Default"/>
+                                <mainnav
+                                        jcr:primaryType="nt:unstructured"
+                                        value="mainnav"
+                                        text="Main Nav" />
+                                <simple
+                                        jcr:primaryType="nt:unstructured"
+                                        value="simple"
+                                        text="Simple" />
+                            </options>
+                        </variant>
+                        <showLangNav jcr:primaryType="cq:Widget"
+                                     fieldLabel="Show Lang Nav"
+                                     allowBlank="{Boolean}true"
+                                     name="./showLangNav"
+                                     options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                     type="select"
+                                     defaultValue=""
+                                     value=""
+                                     xtype="selection"/>
+                        <showBackToTop jcr:primaryType="cq:Widget"
+                                     fieldLabel="Show Back To Top link"
+                                     allowBlank="{Boolean}true"
+                                     name="./showBackToTop"
+                                     options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                     type="select"
+                                     defaultValue=""
+                                     value=""
+                                     xtype="selection"/>
+                        <showSearch jcr:primaryType="cq:Widget"
+                                     fieldLabel="Show Search Field"
+                                     allowBlank="{Boolean}true"
+                                     name="./showSearch"
+                                     options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                     type="select"
+                                     defaultValue=""
+                                     value=""
+                                     xtype="selection"/>
+                        <linkTitlePrefix
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Title Prefix"
+                                fieldDescription="Text prefix for Nav link title '{Prefix} {Link Title}'"
+                                name="./linkTitlePrefix"
+                                xtype="textfield"/>
+                    </items>
+                </layoutTab>
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude" />
+
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

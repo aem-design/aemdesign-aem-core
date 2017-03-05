@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    cq:isContainer="{Boolean}false"
+    jcr:description="This is a sitemap XML component that is not visible unless queried as an XML document."
+    jcr:primaryType="cq:Component"
+    jcr:title="Sitemap XML"
+    componentGroup=".hidden"/>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    activeTab="{Long}0"
+    height="{Long}400"
+    helpPath="en/cq/current/wcm/default_components.html#Forms Dropdown List"
+    width="{Long}650"
+    xtype="tabpanel">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <first
+            jcr:primaryType="nt:unstructured"
+            title="Title and Text"
+            xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <items
+                    jcr:primaryType="nt:unstructured"
+                    path="/apps/aemdesign/components/forms/defaults/items.infinity.json"
+                    xtype="cqinclude"/>
+                <multiSelection
+                    jcr:primaryType="cq:Widget"
+                    fieldLabel="Multi Selectable"
+                    inputValue="true"
+                    name="./multiSelection"
+                    type="checkbox"
+                    xtype="selection"/>
+                <multiValues
+                    jcr:primaryType="cq:Widget"
+                    fieldDescription="Enter values in the form {value}={text}."
+                    fieldLabel="Items"
+                    name="./options"
+                    xtype="multifield"/>
+                <!--
+                <multiValuePath
+                    jcr:primaryType="cq:Widget"
+                    fieldLabel="Items Load Path"
+                    name="./optionsLoadPath"
+                    xtype="textfield"/>
+                    -->
+            </items>
+        </first>
+        <second
+            jcr:primaryType="nt:unstructured"
+            title="Initial Values"
+            xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <value
+                    jcr:primaryType="cq:Widget"
+                    fieldLabel="Default Values"
+                    name="./defaultValue"
+                    xtype="multifield"/>
+            </items>
+        </second>
+        <fourth
+            jcr:primaryType="nt:unstructured"
+            title="Constraints"
+            xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <required
+                    jcr:primaryType="cq:Widget"
+                    fieldLabel="Required"
+                    inputValue="true"
+                    name="./required"
+                    type="checkbox"
+                    xtype="selection"/>
+                <requiredMessage
+                    jcr:primaryType="cq:Widget"
+                    fieldLabel="Required Message"
+                    name="./requiredMessage"
+                    xtype="textarea"/>
+            </items>
+        </fourth>
+        <five
+            jcr:primaryType="nt:unstructured"
+            title="Styling"
+            xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <width
+                    jcr:primaryType="cq:Widget"
+                    anchor=""
+                    fieldLabel="Width"
+                    name="./width"
+                    width="48"
+                    xtype="textfield"/>
+                <class
+                    jcr:primaryType="cq:Widget"
+                    anchor=""
+                    fieldLabel="CSS"
+                    name="./css"
+                    xtype="textfield"/>
+            </items>
+        </five>
+    </items>
+</jcr:root>

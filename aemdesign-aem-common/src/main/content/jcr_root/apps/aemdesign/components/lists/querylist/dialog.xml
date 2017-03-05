@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    helpPath="en/cq/current/wcm/default_components.html#List"
+    selectTab="function(tabToSelect) { WKCD.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,false); }"
+    hideTab="function(tabToHide) { WKCD.author.components.list.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
+    title="List"
+    xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <listTab
+                    jcr:primaryType="cq:Widget"
+                    title="List"
+                    xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <rootPath
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Root path"
+                            name="./searchIn"
+                            xtype="pathfield" />
+
+                        <query
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Query"
+                            name="./query"
+                            defaultValue=""
+                            xtype="hidden" />
+
+                        <limit
+                            jcr:primaryType="cq:Widget"
+                            fieldDescription="Maximum number of items displayed in list"
+                            fieldLabel="Limit"
+                            name="./limit"
+                            xtype="numberfield"/>
+
+                        <pagination
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Paginate after"
+                            name="./pageMax"
+                            xtype="numberfield"/>
+                        <paginationGroupSize
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Paginate group size"
+                            name="./pageGroupSize"
+                            xtype="numberfield"/>
+                    </items>
+                </listTab>
+
+                <advancedTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/advancedTab.infinity.json"
+                    xtype="cqinclude" />
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/lists/list/dialog/items/styleTab.infinity.json"
+                        xtype="cqinclude" />
+                <feedTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/lists/list/dialog/items/feedTab.infinity.json"
+                        xtype="cqinclude" />
+                <othersTab
+                        jcr:primaryType="cq:Widget"
+                        title="Others"
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <allItemsPath
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="All Items Path"
+                                fieldDescription=""
+                                name="./allItemsPath"
+                                xtype="pathfield"/>
+                    </items>
+                </othersTab>
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

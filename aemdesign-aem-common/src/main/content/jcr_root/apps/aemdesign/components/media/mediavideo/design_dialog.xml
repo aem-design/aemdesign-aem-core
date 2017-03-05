@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Dialog"
+    title="Profile details"
+    xtype="dialog">
+
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+
+                <!-- basic information tab -->
+                <tab_basic jcr:primaryType="cq:Panel" title="Defaults">
+
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <playerSource
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Player Source"
+                                name="./player-source"
+                                fieldDescription="Source for player (url or path)"
+                                xtype="pathfield" />
+
+                        <streamSource
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Steam Source"
+                                name="./stream-source"
+                                fieldDescription="URL to a streaming server"
+                                xtype="textfield" />
+
+                        <poster
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Video preview"
+                                name="./poster-url"
+                                fieldDescription="The poster for the video preview"
+                                xtype="pathfield" />
+
+                        <provider jcr:primaryType="cq:Widget"
+                                  fieldLabel="Video type"
+                                  name="./video-type"
+                                  type="radio"
+                                  xtype="selection">
+
+                            <options jcr:primaryType="cq:WidgetCollection">
+
+                                <default
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Default"
+                                        value="http"/>
+
+                                <rtmp
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Stream"
+                                        value="rtmp"/>
+
+
+                            </options>
+
+                        </provider>
+
+                    </items>
+
+                </tab_basic>
+
+            </items>
+        </tabs>
+    </items>
+
+
+</jcr:root>

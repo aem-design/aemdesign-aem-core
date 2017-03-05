@@ -1,0 +1,11 @@
+div.image {
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+div.image img {
+    display: block;
+}
+div.image small {
+    display: block;
+}

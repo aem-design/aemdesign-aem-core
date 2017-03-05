@@ -1,0 +1,58 @@
+/*List Navigation*/
+
+.pagination {
+    margin: 0 10px 20px 0
+}
+
+.pagination ul {
+    text-align: right
+}
+
+.pagination li {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-left: 1px
+}
+
+.pagination li>* {
+    background-image: url(http://www.westkowloon.hk/static/img/pagination.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 30px;
+    height: 28px;
+    font-size: 0;
+    line-height: 0;
+    text-indent: -90000px;
+    vertical-align: top
+}
+
+.pagination li a,.pagination li span {
+    background-color: #2C3E50;
+    border-bottom: 2px solid #000;
+    -webkit-transition: background-color .2s ease-in-out;
+    -moz-transition: background-color .2s ease-in-out;
+    -o-transition: background-color .2s ease-in-out;
+    transition: background-color .2s ease-in-out
+}
+
+.pagination li a:focus,.pagination li a:hover {
+    background-color: #616E7C
+}
+
+.pagination li span {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=25)";
+    opacity: .25
+}
+
+.pagination .previous>* {
+    background-position: 0 0
+}
+
+.pagination .all>* {
+    background-position: -31px 0
+}
+
+.pagination .next>* {
+    background-position: -62px 0
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:description="Account settings for AddThis access"
+    jcr:primaryType="cq:Template"
+    jcr:title="AddThis Connect Configuration"
+    sling:resourceSuperType="cq/cloudserviceconfigs/templates/configpage"
+    allowedPaths="[/etc/cloudservices/addthisconnect(/.*)?]"
+    ranking="{Long}50">
+    <jcr:content
+        cq:cloudservicename="addthis"
+        jcr:primaryType="cq:PageContent"
+        sling:resourceType="aemdesign/components/template/cloudconfig/addthisconnect/config"/>
+</jcr:root>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    manageTabs="function(tab,noSwitch){var tabs=['props','children','static'];var index=tabs.indexOf(tab);if(index==-1) return;for(var i=1;i&lt;tabs.length;i++){if(index==i){this.unhideTabStripItem(i);}else{this.hideTabStripItem(i);}}this.doLayout();if(!noSwitch)this.activate(index);}"
+    xtype="tabpanel">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs
+                jcr:primaryType="cq:Widget"
+                title="Tabs"
+                xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <listFrom
+                        jcr:primaryType="cq:Widget"
+                        defaultValue=""
+                        fieldLabel="Build Tab's list using"
+                        name="./listFrom"
+                        type="select"
+                        xtype="selection">
+                    <listeners
+                            jcr:primaryType="nt:unstructured"
+                            loadcontent="function(){this.findParentByType('tabpanel').manageTabs(this.getValue(),true);}"
+                            selectionchanged="function(box,value){box.findParentByType('tabpanel').manageTabs(value);}"/>
+                    <options jcr:primaryType="cq:WidgetCollection">
+                        <children
+                                jcr:primaryType="nt:unstructured"
+                                text="Child pages"
+                                value="children"/>
+                        <static
+                                jcr:primaryType="nt:unstructured"
+                                text="Fixed list"
+                                value="static"/>
+                    </options>
+                </listFrom>
+            </items>
+        </tabs>
+        <children
+                jcr:primaryType="cq:Widget"
+                title="Child pages"
+                xtype="panel">
+            <listeners
+                    jcr:primaryType="nt:unstructured"
+                    render="function() { this.findParentByType('tabpanel').hideTabStripItem(1); }"/>
+            <items jcr:primaryType="cq:WidgetCollection">
+                <pathToParent
+                        jcr:primaryType="cq:Widget"
+                        allowBlank="{Boolean}true"
+                        fieldDescription="The path of parent page to the Content Tab Contents"
+                        fieldLabel="Path To Parent Page"
+                        name="./pathToParent"
+                        xtype="pathfield"/>
+            </items>
+        </children>
+        <static
+                jcr:primaryType="cq:Widget"
+                title="Fixed list"
+                xtype="panel">
+            <listeners
+                    jcr:primaryType="nt:unstructured"
+                    render="function() { this.findParentByType('tabpanel').hideTabStripItem(2); }"/>
+            <items jcr:primaryType="cq:WidgetCollection">
+                <pages
+                        jcr:primaryType="cq:Widget"
+                        fieldDescription="Click the '+' to add a new page"
+                        fieldLabel="Pages"
+                        name="./tabPages"
+                        xtype="multifield">
+                    <fieldConfig
+                            jcr:primaryType="cq:Widget"
+                            allowBlank="{Boolean}true"
+                            width="155"
+                            xtype="pathfield"/>
+                </pages>
+            </items>
+        </static>
+        <style
+            jcr:primaryType="cq:Panel"
+            border="false"
+            height=""
+            title="Style"
+            width=""
+            xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+
+                <tabPosition
+                        jcr:primaryType="cq:Widget"
+                        defaultValue=""
+                        fieldLabel="Tabs Position"
+                        fieldDescription="position of tabs in relation to content"
+                        name="./tabPosition"
+                        type="select"
+                        xtype="selection">
+
+                    <options jcr:primaryType="cq:WidgetCollection">
+                        <top jcr:primaryType="nt:unstructured" value="top" text="Top" />
+                        <bottom jcr:primaryType="nt:unstructured" value="bottom" text="Bottom" />
+                    </options>
+
+                </tabPosition>
+                <css
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="CSS Class name"
+                        name="./cssClass"
+                        xtype="textfield"/>
+                <cssTheme
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/layout/contentblock/dialog/items/tab_style/items/css.infinity.json"
+                    xtype="cqinclude" />
+            </items>
+        </style>
+    </items>
+</jcr:root>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Dialog"
+    title="List Nav"
+    xtype="tabpanel">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <generalTab
+                jcr:primaryType="cq:Panel"
+                border="false"
+                title="Lang Nav"
+                xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+
+                <languageSet
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Language Set"
+                        fieldDescription="Language Set and Its Ordering"
+                        allowBlank="{Boolean}true"
+                        name="./languageSet"
+                        namespaces="[language]"
+                        xtype="tags"/>
+
+                <searchlogic
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Search Logic"
+                        fieldDescription="When language is not available"
+                        allowBlank="{Boolean}true"
+                        defaultValue=""
+                        value=""
+                        name="./searchlogic"
+                        type="select"
+                        xtype="selection">
+                   <options jcr:primaryType="cq:WidgetCollection">
+                            <default
+                                    jcr:primaryType="nt:unstructured"
+                                    value=""
+                                    text="Default" />
+                            <showRoot
+                                    jcr:primaryType="nt:unstructured"
+                                    value="showRoot"
+                                    text="Show Root" />
+                            <showNearestParent
+                                    jcr:primaryType="nt:unstructured"
+                                    value="showNearestParent"
+                                    text="Show Nearest Parent" />
+                            <showNothing
+                                    jcr:primaryType="nt:unstructured"
+                                    value="showNothing"
+                                    text="Show Nothing" />
+                        </options>
+                </searchlogic>
+            </items>
+        </generalTab>
+        <styleTab
+                jcr:primaryType="cq:Widget"
+                path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                xtype="cqinclude" />
+    </items>
+
+</jcr:root>

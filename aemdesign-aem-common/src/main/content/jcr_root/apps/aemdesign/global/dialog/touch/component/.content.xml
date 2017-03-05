@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Common Touch UI"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    helpPath="en/cq/current/wcm/default_components.html#Text">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/container"/>
+        <items jcr:primaryType="nt:unstructured">
+            <showinpage
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/form/select"
+                    fieldLabel="Show In Page"
+                    name="./showInPage">
+                <items jcr:primaryType="nt:unstructured">
+                    <yes-option
+                            jcr:primaryType="nt:unstructured"
+                            text="Yes"
+                            selected="true"
+                            value="yes"/>
+                    <no-option
+                            jcr:primaryType="nt:unstructured"
+                            text="No"
+                            value="no"/>
+                </items>
+            </showinpage>
+        </items>
+    </content>
+</jcr:root>

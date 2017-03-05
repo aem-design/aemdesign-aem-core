@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Dialog"
+    title="Media video"
+    xtype="dialog">
+
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+
+                <!-- basic information tab -->
+                <tab_basic jcr:primaryType="cq:Panel" title="Basic">
+
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <provider jcr:primaryType="cq:Widget"
+                                fieldLabel="Video type"
+                                name="./video-type"
+                                type="radio"
+                                xtype="selection">
+
+                                <options jcr:primaryType="cq:WidgetCollection">
+
+                                    <default
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Default"
+                                        value="http"/>
+
+                                    <rtmp
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Stream"
+                                        value="rtmp"/>
+
+
+                                </options>
+
+                        </provider>
+
+                        <embed
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Video URL"
+                            name="./video-url"
+                            fieldDescription="The location of the video we stream"
+                            xtype="pathfield" />
+
+                        <poster
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Video preview"
+                            name="./poster-url"
+                            fieldDescription="The poster for the video preview"
+                            xtype="pathfield" />
+
+                        <videoSize
+                            jcr:primaryType="cq:Widget"
+                            defaultValue=""
+                            fieldLabel="Size of video"
+                            name="./video-size"
+                            type="select"
+                            width="200"
+                            xtype="selection">
+
+                            <options jcr:primaryType="cq:WidgetCollection">
+
+                                <option_1
+                                    jcr:primaryType="nt:unstructured"
+                                    text="320x240 (4:3)"
+                                    value="320,240"/>
+
+                                <option_2
+                                    jcr:primaryType="nt:unstructured"
+                                    text="640x480 (4:3)"
+                                    value="640,480"/>
+
+                                <option_3
+                                    jcr:primaryType="nt:unstructured"
+                                    text="400x225 (16:9)"
+                                    value="400,225"/>
+
+                                <option_4
+                                    jcr:primaryType="nt:unstructured"
+                                    text="640x360 (16:9)"
+                                    value="640,360"/>
+
+                                <option_5
+                                    jcr:primaryType="nt:unstructured"
+                                    text="1000x563 (16:9)"
+                                    value="1000,563"/>
+
+                                <custom
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Custom ..."
+                                    value="custom"/>
+
+                            </options>
+                        </videoSize>
+
+                        <width
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Width"
+                            fieldDescription="Leave width and height empty for autofit"
+                            name="./custom-width"
+                            xtype="numberfield" />
+
+                        <height
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Height"
+                            fieldDescription="Leave width and height empty for autofit"
+                            name="./custom-height"
+                            xtype="numberfield" />
+
+                    </items>
+
+                </tab_basic>
+
+
+            </items>
+        </tabs>
+    </items>
+
+
+</jcr:root>

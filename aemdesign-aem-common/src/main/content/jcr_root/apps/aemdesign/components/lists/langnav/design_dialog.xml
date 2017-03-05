@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:rep="internal"
+    jcr:primaryType="cq:Dialog"
+    jcr:mixinTypes="[rep:AccessControllable]"
+    title="List Nav (Design)"
+    xtype="tabpanel">
+
+    <items jcr:primaryType="cq:WidgetCollection">
+        <general
+                jcr:primaryType="cq:Widget"
+                path="/apps/aemdesign/components/lists/langnav/dialog/items/general.infinity.json"
+                xtype="cqinclude" />
+        <styleTab
+                jcr:primaryType="cq:Widget"
+                path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                xtype="cqinclude" />
+    </items>
+    <rep:policy jcr:primaryType="rep:ACL">
+        <deny
+                jcr:primaryType="rep:DenyACE"
+                rep:principalName="contributor"
+                rep:privileges="{Name}[jcr:read]" />
+    </rep:policy>
+</jcr:root>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:rep="internal"
+    jcr:primaryType="cq:Dialog"
+	jcr:mixinTypes="[rep:AccessControllable]"
+    title="News details"
+    xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <!-- basic information tab -->
+				<basicTab jcr:primaryType="cq:Panel" title="Basic">
+					<items jcr:primaryType="cq:WidgetCollection">
+						 <size
+							jcr:primaryType="cq:Widget"
+							fieldLabel="Size of Image Icon"
+							heightParameter="./height"
+							widthParameter="./width"
+							xtype="sizefield"/>
+					</items>
+				</basicTab>
+				<imageTab
+					jcr:primaryType="cq:Widget"
+					allowUpload="false"
+					cropParameter="./imageCrop"
+					ddGroups="[media]"
+					fileNameParameter="./fileName"
+					fileReferenceParameter="./fileReference"
+					mapParameter="./imageMap"
+					name="./defaultImage"
+					requestSuffix=".img.png"
+					rotateParameter="./imageRotate"
+					title="Default Image Icon"
+					xtype="html5smartimage"/>
+				<styleTab
+					jcr:primaryType="cq:Widget"
+					path="/apps/aemdesign/components/lists/list/dialog/items/styleTab.infinity.json"
+					xtype="cqinclude" />
+            </items>
+        </tabs>
+    </items>
+	<rep:policy jcr:primaryType="rep:ACL">
+		<deny
+				jcr:primaryType="rep:DenyACE"
+				rep:principalName="contributor"
+				rep:privileges="{Name}[jcr:read]" />
+	</rep:policy>
+</jcr:root>

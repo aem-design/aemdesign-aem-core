@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    helpPath="en/cq/current/wcm/default_components.html#List"
+    selectTab="function(tabToSelect) { WKCD.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,false); }"
+    hideTab="function(tabToHide) { WKCD.author.components.list.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
+    title="Asset List"
+    xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <listTab
+                    jcr:primaryType="cq:Widget"
+                    title="Fixed List"
+                    name="./listFrom"
+                    xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <pages
+                            jcr:primaryType="cq:Widget"
+                            fieldDescription="Click the '+' to add a new page"
+                            fieldLabel="Media items"
+                            name="./mediaItems"
+                            xtype="multifield">
+                            <fieldConfig
+                                jcr:primaryType="cq:Widget"
+                                allowBlank="{Boolean}true"
+                                rootPath="/content/dam"
+                                width="155"
+                                xtype="pathfield"/>
+                        </pages>
+
+                        <detailsBadge
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                fieldLabel="Badges"
+                                fieldDescripton="Which badge to select from the Details component on the page"
+                                name="./detailsBadge"
+                                type="select"
+                                xtype="selection">
+
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <imageCategory
+                                        jcr:primaryType="nt:unstructured"
+                                        value="imageCategory"
+                                        text="Image Category"/>
+
+                                <imageCategoryTitleDescription
+                                        jcr:primaryType="nt:unstructured"
+                                        value="imageCategoryTitleDescription"
+                                        text="Image Category Title Description"/>
+
+                                <imageCategoryTitleDirectorArtisticStatement
+                                        jcr:primaryType="nt:unstructured"
+                                        value="imageCategoryTitleDirectorArtisticStatement"
+                                        text="Image Category Title Director ArtisticStatement"/>
+
+                            </options>
+
+                        </detailsBadge>
+
+                    </items>
+                </listTab>
+
+                <layout
+                        jcr:primaryType="cq:Widget"
+                        title="Layout"
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <variant
+                                jcr:primaryType="cq:Widget"
+                                allowBlank="{Boolean}true"
+                                defaultValue=""
+                                value=""
+                                fieldLabel="Variant"
+                                name="./variant"
+                                type="select"
+                                xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default
+                                        jcr:primaryType="nt:unstructured"
+                                        value=""
+                                        text="Default"/>
+                                <masonry
+                                        jcr:primaryType="nt:unstructured"
+                                        value="masonry"
+                                        text="Masonry"/>
+                            </options>
+                        </variant>
+
+                    </items>
+
+                </layout>
+
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude" />
+
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

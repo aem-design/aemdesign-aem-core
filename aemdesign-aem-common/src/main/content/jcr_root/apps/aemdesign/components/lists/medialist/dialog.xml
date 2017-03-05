@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    helpPath="en/cq/current/wcm/default_components.html#List"
+    selectTab="function(tabToSelect) { WKCD.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,false); }"
+    hideTab="function(tabToHide) { WKCD.author.components.list.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
+    title="List"
+    xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <listTab
+                    jcr:primaryType="cq:Widget"
+                    title="Fixed List"
+                    name="./listFrom"
+                    xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <pages
+                            jcr:primaryType="cq:Widget"
+                            fieldDescription="Click the '+' to add a new page"
+                            fieldLabel="Media items"
+                            name="./mediaItems"
+                            xtype="multifield">
+                            <fieldConfig
+                                jcr:primaryType="cq:Widget"
+                                allowBlank="{Boolean}true"
+                                rootPath="/content/dam"
+                                width="155"
+                                xtype="pathfield"/>
+                        </pages>
+
+                        <showIcons
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Show icons"
+                            name="./showIcons"
+                            xtype="selection"
+                            type="checkbox" />
+
+                        <showShareButton
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Show share button"
+                            name="./showShareButton"
+                            xtype="selection"
+                            type="checkbox" />
+
+                    </items>
+                </listTab>
+
+                <advancedTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/advancedTab.infinity.json"
+                    xtype="cqinclude" />
+
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/lists/list/dialog/items/styleTab.infinity.json"
+                        xtype="cqinclude" />
+
+                <advancedStyleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/lists/list/dialog/items/advancedStyleTab.infinity.json"
+                        xtype="cqinclude" />
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

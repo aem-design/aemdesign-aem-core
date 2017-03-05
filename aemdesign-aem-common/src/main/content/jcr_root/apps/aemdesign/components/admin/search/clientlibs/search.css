@@ -1,0 +1,60 @@
+div.search {
+    padding:0 1px 0 0;
+}
+
+div.searchRight {
+    border-left: 1px solid #dddddd;
+    float: right;
+    width: 150px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+div.searchTrends {
+    text-align: justify;
+}
+
+div.searchRight p {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+div.search span.icon img {
+    width: 16px;
+    height: 16px;
+}
+div.search span.icon  {
+    padding: 0 2px 8px 0;
+    background: url(../../../../../etc/designs/admin/images/icons/default.gif) no-repeat
+}
+div.search span.icon.type_doc  {
+    background: url(../../../../../etc/designs/admin/images/icons/doc.gif) no-repeat
+}
+div.search span.icon.type_eps  {
+    background: url(../../../../../etc/designs/admin/images/icons/eps.gif) no-repeat
+}
+div.search span.icon.type_gif  {
+    background: url(../../../../../etc/designs/admin/images/icons/zip.gif) no-repeat
+}
+div.search span.icon.type_jpg  {
+    background: url(../../../../../etc/designs/admin/images/icons/jpg.gif) no-repeat
+}
+div.search span.icon.type_pdf  {
+    background: url(../../../../../etc/designs/admin/images/icons/pdf.gif) no-repeat
+}
+div.search span.icon.type_ppt  {
+    background: url(../../../../../etc/designs/admin/images/icons/ppt.gif) no-repeat
+}
+div.search span.icon.type_tif  {
+    background: url(../../../../../etc/designs/admin/images/icons/tif.gif) no-repeat
+}
+div.search span.icon.type_txt  {
+    background: url(../../../../../etc/designs/admin/images/icons/txt.gif) no-repeat
+}
+div.search span.icon.type_xls  {
+    background: url(../../../../../etc/designs/admin/images/icons/xls.gif) no-repeat
+}
+div.search span.icon.type_zip  {
+    background: url(../../../../../etc/designs/admin/images/icons/zip.gif) no-repeat
+}

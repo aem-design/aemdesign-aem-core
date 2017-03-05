@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    title="Accordion"
+    width="800"
+    xtype="dialog">
+  <items jcr:primaryType="cq:WidgetCollection">
+    <tabs jcr:primaryType="cq:TabPanel">
+        <items jcr:primaryType="cq:WidgetCollection">
+            <Basic jcr:primaryType="cq:Panel"
+                   title="Basic">
+            <items jcr:primaryType="cq:WidgetCollection">
+            <list
+                    jcr:primaryType="cq:Widget"
+                    fieldLabel="List Of Content"
+                    name="./list"
+                    orderable="{Boolean}true"
+                    xtype="multifield">
+                <fieldConfig
+                        jcr:primaryType="cq:Widget"
+                        xtype="multifieldpanel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <title
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Title"
+                                key="title"
+                                width="350"
+                                xtype="richtext">
+                            <rteplugins jcr:primaryType="nt:unstructured"
+                                        path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rteplugins.infinity.json"
+                                        xtype="cqinclude" />
+
+                        </title>
+                        <Description
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Description"
+                                key="desc"
+                                width="350"
+                                xtype="richtext">
+                            <rteplugins jcr:primaryType="nt:unstructured"
+                                        path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rteplugins.infinity.json"
+                                        xtype="cqinclude" />
+
+                        </Description>
+                        <image
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Image Path"
+                                key="image"
+                                width="350"
+                                xtype="pathfield"/>
+                        <imageSize
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Image Size"
+                                fieldDescription="Leave empty to set as 80% of container width and height"
+                                key="imageSize"
+                                heightParameter="imageHeight"
+                                widthParameter="widthHeight"
+                                xtype="sizefield"/>
+                    </items>
+                </fieldConfig>
+            </list>
+            </items>
+        </Basic>
+        <layout
+                jcr:primaryType="cq:Widget"
+                title="Layout"
+                xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <size
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Accordion Size"
+                        fieldDescription="Leave empty to set as 80% of container width and height"
+                        heightSuffix="%"
+                        widthSuffix="%"
+                        xtype="sizefield"/>
+            </items>
+        </layout>
+        <styleTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                    xtype="cqinclude" />
+
+        </items>
+     </tabs>
+  </items>
+</jcr:root>
