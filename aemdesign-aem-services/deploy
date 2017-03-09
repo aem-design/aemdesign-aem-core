@@ -1,0 +1,16 @@
+#!/bin/bash
+
+function set_term_title() {
+   echo -en "\033]0;$1\a"
+}
+
+set_term_title "Deploying Project"
+#mvn -DskipTests clean install -P autoCleanInstallPackage
+#mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallBundle,autoInstallPackage,autoInstallPackagePublish
+#mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallBundle,autoInstallPackage
+mvn -Dvault.useProxy=false -DskipTests clean -P turnoffdamworkflow
+mvn -Dvault.useProxy=false -DskipTests install -P autoInstallBundle,autoInstallPackage
+mvn -Dvault.useProxy=false -DskipTests clean -P turnondamworkflow
+
+set_term_title "Deployed"
+
