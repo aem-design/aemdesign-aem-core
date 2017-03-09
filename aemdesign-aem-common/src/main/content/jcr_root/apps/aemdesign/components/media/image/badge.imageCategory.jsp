@@ -30,8 +30,8 @@
     Resource metadataResource = thisResource.getChild("jcr:content/metadata");
     ValueMap map = ResourceUtil.getValueMap(metadataResource);
     String title = (String)map.get("dc:title");
-    String category = (String)map.get("dam:category");
-    String sourceUrl = (String)map.get("dam:sourceUrl");
+    String category = (String)map.get("category");
+    String sourceUrl = (String)map.get("sourceUrl");
 
     if (StringUtils.isBlank(title)) {
         title = asset.getName();

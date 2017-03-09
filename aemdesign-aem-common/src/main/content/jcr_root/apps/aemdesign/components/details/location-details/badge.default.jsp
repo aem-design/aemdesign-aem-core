@@ -122,7 +122,7 @@ zIndex: <c:out value='${componentProperties.zIndex}'/><c:if test="${fn:length(co
     image:"http://d3fveiluhe0xc2.cloudfront.net/media/w140/artspavilion-1.jpg",
     title:"M+ Pavilion",
     description:"",
-    url:"http://www.westkowloon.hk/en/the-district/architecture-facilities/m-4",
+    url:"en/the-district/architecture-facilities/m-4",
     category:""
 --%>
 </c:if>

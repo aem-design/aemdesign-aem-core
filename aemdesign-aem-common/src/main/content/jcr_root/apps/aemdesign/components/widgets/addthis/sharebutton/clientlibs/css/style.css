@@ -50,7 +50,7 @@
 
     .actions li>a {
         background-color: #2C3E50;
-        background-image: url(http://www.westkowloon.hk/static/img/actions.png);
+        background-image: url(static/img/actions.png);
         background-repeat: no-repeat;
         display: inline-block;
         height: 28px;
@@ -97,7 +97,7 @@ aside .toolbar {
 }
 
 .addthis_toolbox a {
-    background-image: url(http://www.westkowloon.hk/static/img/social-share.png)!important;
+    background-image: url(static/img/social-share.png)!important;
     background-repeat: no-repeat!important;
     width: 30px!important;
     height: 30px!important;

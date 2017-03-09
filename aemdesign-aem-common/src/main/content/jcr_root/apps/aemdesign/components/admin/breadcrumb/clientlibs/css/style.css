@@ -11,7 +11,7 @@
 
 #breadcrumbs ul:before {
     background-color: #2C3E50;
-    background-image: url(http://www.westkowloon.hk/static/img/breadcrumbs.png);
+    background-image: url(static/img/breadcrumbs.png);
     background-position: center center;
     background-repeat: no-repeat;
     content: "";

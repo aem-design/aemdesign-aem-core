@@ -6,7 +6,7 @@
 <entry key="version">1.0-SNAPSHOT</entry>
 <entry key="dependencies" />
 <entry key="packageFormatVersion">2</entry>
-<entry key="description">AEM Common Package</entry>
+<entry key="description">AEM.Design Common Components Package</entry>
 <entry key="group">AEM.Design</entry>
 <entry key="name">aemdesign-aem-common</entry>
 <entry key="path">/etc/packages/aemdesign/aemdesign-aem-common-1.0-SNAPSHOT.zip</entry>

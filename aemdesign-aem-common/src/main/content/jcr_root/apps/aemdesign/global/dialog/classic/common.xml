@@ -163,19 +163,19 @@
                         jcr:primaryType="cq:Widget"
                         fieldDescription="Alternative alt text that overrides the existing image alt text from DAM"
                         fieldLabel="Alt Text"
-                        name="./dam:titleAlt"
+                        name="./titleAlt"
                         xtype="textfield"/>
                 <caption
                         jcr:primaryType="cq:Widget"
                         fieldDescription="A brief explanation accompanying an illustration"
                         fieldLabel="Caption"
-                        name="./dam:caption"
+                        name="./caption"
                         xtype="textfield"/>
                 <sourceURL
                         jcr:primaryType="cq:Widget"
                         fieldDescription="Alternative destination URL overrides the existing value from DAM"
                         fieldLabel="Source URL"
-                        name="./dam:sourceUrl"
+                        name="./sourceUrl"
                         xtype="textfield"/>
 
             </items>

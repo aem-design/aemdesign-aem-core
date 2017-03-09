@@ -16,7 +16,7 @@
 }
 
 .pagination li>* {
-    background-image: url(http://www.westkowloon.hk/static/img/pagination.png);
+    background-image: url(static/img/pagination.png);
     background-repeat: no-repeat;
     display: inline-block;
     width: 30px;

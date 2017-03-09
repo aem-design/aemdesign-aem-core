@@ -23,7 +23,7 @@
     }
 
     String FIELD_METADATA_TITLE = "dam:title";
-    String FIELD_METADATA_DIRECTOR = "dam:director";
+    String FIELD_METADATA_DIRECTOR = "director";
     String FIELD_METADATA_PAGE_LINK = "dam:pagelink";
     String FIELD_METADATA_SOURCE = "dam:source";
     String FIELD_METADATA_URL = "dam:url";
@@ -37,8 +37,8 @@
     ValueMap map = ResourceUtil.getValueMap(metadataResource);
     String title = (String)map.get("dc:title");
     String description = (String)map.get("dc:description");
-    String category = (String)map.get("dam:category");
-    String sourceUrl = (String)map.get("dam:sourceUrl");
+    String category = (String)map.get("category");
+    String sourceUrl = (String)map.get("sourceUrl");
 
     if (StringUtils.isBlank(title)) {
         title = asset.getName();
