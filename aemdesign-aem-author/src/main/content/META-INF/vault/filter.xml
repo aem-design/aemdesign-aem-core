@@ -4,6 +4,11 @@
     <!--        This change can make the AEM content removed      -->
     <!--    http://jackrabbit.apache.org/filevault/filter.html    -->
     <!--                        W A R N I N G                     -->
-    <filter root="/apps/cq" mode="update"/>
     <filter root="/apps/dam/widgets/source/widgets/form" mode="update"/>
+
+    <filter root="/apps/cq" mode="update"/>
+    <filter root="/apps/foundation" mode="update"/>
+    <filter root="/apps/sling" mode="update"/>
+
+
 </workspaceFilter>
