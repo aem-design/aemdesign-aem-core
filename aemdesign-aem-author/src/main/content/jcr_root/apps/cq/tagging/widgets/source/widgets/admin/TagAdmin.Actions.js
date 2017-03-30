@@ -1,3 +1,8 @@
+/*
+Author: Max Barrass
+URL: http://aem.design
+Description Compiles a JSON-formatted list of child tags
+*/
 if(CQ.Ext.form.VTypes && CQ.I18n.getMessage) {
     // register "tagPath" vtype
     CQ.Ext.apply(CQ.Ext.form.VTypes, {

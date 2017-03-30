@@ -1,7 +1,7 @@
 <%@page session="false"%><%--
-
-  Compiles a JSON-formatted list of child tags
-
+Author: Max Barrass
+URL: http://aem.design
+Description Compiles a JSON-formatted list of child tags
 --%><%
 %><%@ page import="com.day.cq.tagging.Tag,
                    org.apache.commons.lang3.StringUtils,
