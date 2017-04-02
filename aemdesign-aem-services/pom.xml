@@ -168,6 +168,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <!-- ====================================================================== -->
@@ -194,7 +200,7 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>aemdesign-aem.aemdesign-aem-services</Bundle-SymbolicName>
-                        <Embed-Dependency>gson</Embed-Dependency>
+                        <Embed-Dependency>gson,javax.inject</Embed-Dependency>
                         <Sling-Model-Packages>
                             design.aem.aem.models
                         </Sling-Model-Packages>
