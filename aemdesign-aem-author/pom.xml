@@ -21,9 +21,9 @@
     <description>Updates to OOTB AEM</description>
 
     <scm>
-	<connection>scm:git:ssh://git@bitbucket.org/aemdesign/aemdesign-aem-author.git</connection>
-	<developerConnection>scm:git:ssh://git@bitbucket.org/aemdesign/aemdesign-aem-author.git</developerConnection>
-	<url>https://bitbucket.org/aemdesign/aemdesign-aem-author.git</url>
+    <connection>scm:git:ssh://git@bitbucket.org/aemdesign/aemdesign-aem-author.git</connection>
+    <developerConnection>scm:git:ssh://git@bitbucket.org/aemdesign/aemdesign-aem-author.git</developerConnection>
+    <url>https://bitbucket.org/aemdesign/aemdesign-aem-author.git</url>
     </scm>
 
 
@@ -146,7 +146,7 @@
     <!-- ====================================================================== -->
     <build>
         <resources>
-	    <!-- define the resources that will go into the package -->
+        <!-- define the resources that will go into the package -->
             <resource>
                 <directory>src/main/content/jcr_root</directory>
                 <filtering>false</filtering>
@@ -167,7 +167,7 @@
         </resources>
 
         <plugins>
-	    <!--
+        <!--
                 we want to keep some of the META-INF files and not configure
                 everything in the plugin (mainly the filters).
 
@@ -176,10 +176,29 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-				<!-- ensure that the empty directories are copied -->
+                <!-- ensure that the empty directories are copied -->
                 <configuration>
                     <includeEmptyDirs>true</includeEmptyDirs>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/vault-work/META-INF</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/content/META-INF</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <!-- ====================================================================== -->
             <!-- V A U L T    P A C K A G E    P L U G I N                              -->
@@ -189,14 +208,14 @@
                 <artifactId>content-package-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-                    <group>AEM.Design</group>
+                    <group>${package.group}</group>
                     <filterSource>src/main/content/META-INF/vault/filter.xml</filterSource>
                     <targetURL>http://${crx.host}:${crx.port}/crx/packmgr/service.jsp</targetURL>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-	
+
     <!-- ====================================================================== -->
     <!-- P R O F I L E S                                                        -->
     <!-- ====================================================================== -->
@@ -215,55 +234,10 @@
                                 <goals>
                                     <goal>install</goal>
                                 </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>autoInstallPackagePublish</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.day.jcr.vault</groupId>
-                        <artifactId>content-package-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>install-content-package-publish</id>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>install</goal>
-                                </goals>
                                 <configuration>
-                                    <targetURL>http://${publish.crx.host}:${publish.crx.port}/crx/packmgr/service.jsp</targetURL>
-                                    <username>${publish.crx.username}</username>
-                                    <password>${publish.crx.password}</password>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>autoInstallPackageDev</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.day.jcr.vault</groupId>
-                        <artifactId>content-package-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>install-content-package-publish</id>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>install</goal>
-                                </goals>
-                                <configuration>
-                                    <targetURL>http://${dev.crx.host}:${dev.crx.port}/crx/packmgr/service.jsp</targetURL>
-                                    <username>${dev.crx.username}</username>
-                                    <password>${dev.crx.password}</password>
+                                    <targetURL>http://${localdev.host}:${dev.crx.port}/crx/packmgr/service.jsp</targetURL>
+                                    <username>${crx.username}</username>
+                                    <password>${crx.password}</password>
                                 </configuration>
                             </execution>
                         </executions>
