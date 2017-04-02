@@ -18,12 +18,13 @@
     <artifactId>aemdesign-aem-common</artifactId>
     <packaging>content-package</packaging>
     <name>AEM Design AEM Common components</name>
-    <description>Main component package</description>
+    <description>AEM Design package with all common components</description>
+    <version>0.0.0-SNAPSHOT</version>
 
     <scm>
-    <connection>scm:git:ssh://git@bitbucket.org/aemdesign/aemdesign-aem-common.git</connection>
-    <developerConnection>scm:git:ssh://git@bitbucket.org/aemdesign/aemdesign-aem-common.git</developerConnection>
-    <url>https://bitbucket.org/aemdesign/aemdesign-aem-common.git</url>
+        <connection>scm:git:ssh://git@bitbucket.org/aemdesign/aemdesign-aem-common.git</connection>
+        <developerConnection>scm:git:ssh://git@bitbucket.org/aemdesign/aemdesign-aem-common.git</developerConnection>
+        <url>https://bitbucket.org/aemdesign/aemdesign-aem-common.git</url>
     </scm>
 
     <dependencies>
@@ -93,6 +94,7 @@
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
+            <version>2.5</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -182,9 +184,7 @@
         </resources>
 
         <plugins>
-
-
-            <!--
+        <!--
             we want to keep some of the META-INF files and not configure
             everything in the plugin (mainly the filters).
 
@@ -197,6 +197,24 @@
                 <configuration>
                     <includeEmptyDirs>true</includeEmptyDirs>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>copy-metainf-vault-resources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/vault-work/META-INF</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/content/META-INF</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <!-- ====================================================================== -->
             <!-- V A U L T    P A C K A G E    P L U G I N                              -->
@@ -206,11 +224,86 @@
                 <artifactId>content-package-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-                    <group>AEM.Design</group>
+                    <group>${package.group}</group>
                     <filterSource>src/main/content/META-INF/vault/filter.xml</filterSource>
                     <targetURL>http://${crx.host}:${crx.port}/crx/packmgr/service.jsp</targetURL>
+
+                    <properties>
+                        <description>${project.description}</description>
+                        <created>${buildNumber}</created>
+                        <createdBy>${package.createdBy}</createdBy>
+                        <acHandling>merge_preserve</acHandling>
+                    </properties>
+
+                    <!-- embedded dependencies in the content package -->
+                    <embeddeds>
+                        <embedded>
+                            <groupId>${parent.groupId}</groupId>
+                            <artifactId>aemdesign-aem-services</artifactId>
+                            <target>/apps/aemdesign/install</target>
+                        </embedded>
+                    </embeddeds>
+
+                    <dependencies>
+                        <dependency>
+                            <group>${package.group}</group>
+                            <name>aemdesign-aem-config</name>
+                            <version>[0.0.0-SNAPSHOT,)</version>
+                        </dependency>
+                    </dependencies>
                 </configuration>
             </plugin>
+
+            <!-- use the buildnumber plugin to generate a ISO8601 timestamp -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <format>{0,date,yyyyMMdd}</format>
+                    <items>
+                        <item>timestamp</item>
+                    </items>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <inherited>true</inherited>
+                <configuration>
+                    <attach>false</attach>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <executions>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <serverId>privateregistry</serverId>
+                    <skipStaging>true</skipStaging>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
@@ -232,6 +325,11 @@
                                 <goals>
                                     <goal>install</goal>
                                 </goals>
+                                <configuration>
+                                    <targetURL>http://${crx.host}:${crx.port}/crx/packmgr/service.jsp</targetURL>
+                                    <username>${crx.username}</username>
+                                    <password>${crx.password}</password>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -251,6 +349,8 @@
                                     <arguments>
                                         <argument>-u</argument>
                                         <argument>${crx.username}:${crx.password}</argument>
+                                        <argument>-H</argument>
+                                        <argument>User-Agent:curl</argument>
                                         <argument>-X</argument>
                                         <argument>POST</argument>
                                         <argument>http://${crx.host}:${crx.port}/system/console/slingjsp</argument>
@@ -259,101 +359,24 @@
                             </execution>
                         </executions>
                     </plugin>
+
+
                 </plugins>
             </build>
         </profile>
         <profile>
-            <id>autoInstallPackagePublish</id>
+            <id>autoInstallBundle</id>
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>com.day.jcr.vault</groupId>
-                        <artifactId>content-package-maven-plugin</artifactId>
+                        <groupId>org.apache.sling</groupId>
+                        <artifactId>maven-sling-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>install-content-package-publish</id>
-                                <phase>install</phase>
+                                <id>install-bundle</id>
                                 <goals>
                                     <goal>install</goal>
                                 </goals>
-                                <configuration>
-                                    <targetURL>http://${publish.crx.host}:${publish.crx.port}/crx/packmgr/service.jsp</targetURL>
-                                    <userId>${publish.crx.username}</userId>
-                                    <password>${publish.crx.password}</password>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.2</version>
-                        <executions>
-                            <execution>
-                                <id>clean-jsp-clean</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>curl</executable>
-                                    <arguments>
-                                        <argument>-u</argument>
-                                        <argument>${publish.crx.username}:${publish.crx.password}</argument>
-                                        <argument>-X</argument>
-                                        <argument>POST</argument>
-                                        <argument>http://${publish.crx.host}:${publish.crx.port}/system/console/slingjsp</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>autoInstallPackageDev</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.day.jcr.vault</groupId>
-                        <artifactId>content-package-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>install-content-package-publish</id>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>install</goal>
-                                </goals>
-                                <configuration>
-                                    <targetURL>http://${dev.crx.host}:${dev.crx.port}/crx/packmgr/service.jsp</targetURL>
-                                    <userId>${dev.crx.username}</userId>
-                                    <password>${dev.crx.password}</password>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.2</version>
-                        <executions>
-                            <execution>
-                                <id>clean-jsp-clean</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>curl</executable>
-                                    <arguments>
-                                        <argument>-u</argument>
-                                        <argument>${dev.crx.username}:${dev.crx.password}</argument>
-                                        <argument>-X</argument>
-                                        <argument>POST</argument>
-                                        <argument>http://${dev.crx.host}:${dev.crx.port}/system/console/slingjsp</argument>
-                                    </arguments>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

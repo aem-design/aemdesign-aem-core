@@ -10,10 +10,10 @@
         <exclude pattern="/apps/aemdesign/config(.*)?"/>
     </filter>
 
-    <filter root="/etc/workflow" mode="update">
-        <!-- Exclude the instances to avoid overriding -->
-        <exclude pattern="/etc/workflow/instances(/.*)?"/>
-    </filter>
+    <!--<filter root="/etc/workflow" mode="update">-->
+        <!--&lt;!&ndash; Exclude the instances to avoid overriding &ndash;&gt;-->
+        <!--<exclude pattern="/etc/workflow/instances(/.*)?"/>-->
+    <!--</filter>-->
 
     <filter root="/etc/designs/aemdesign">
         <!-- Exclude the content.xml to avoid overriding
