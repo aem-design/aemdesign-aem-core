@@ -6,7 +6,7 @@
 <%@ page import="com.day.cq.wcm.api.Page" %>
 <%!
 
-    private static final String PAR_PAGEDETAILS = "par/pagedetails";
+    private static final String PAR_PAGEDETAILS = "par/page-details";
     private static final String DETAILS_MENU_ICON = "menuIcon";
     private static final String DETAILS_MENU_ICONPATH = "menuIconPath";
     private static final String DETAILS_TAB_ICON = "tabIcon";
@@ -55,16 +55,16 @@
             infoStruct.put("path", page.getPath());
             infoStruct.put("contentPath", page.getContentResource(PAR_CONTENTS).getPath());
 
-            Node page-details = getDetailsNode(page,PAR_PAGEDETAILS);
-            if (page-details!=null) {
+            Node pageDetails = getDetailsNode(page,PAR_PAGEDETAILS);
+            if (pageDetails!=null) {
 
                 String title="";
                 boolean showAsMenuIcon = false;
                 String showAsMenuIconPath = "";
                 try {
-                    title = (String) getPropertyWithDefault(page-details, DETAILS_TITLE, page.getTitle());
-                    showAsMenuIcon = Boolean.parseBoolean(getPropertyWithDefault(page-details, DETAILS_MENU_ICON,"false"));
-                    showAsMenuIconPath = (String) getPropertyWithDefault(page-details, DETAILS_MENU_ICONPATH,"");
+                    title = (String) getPropertyWithDefault(pageDetails, DETAILS_TITLE, page.getTitle());
+                    showAsMenuIcon = Boolean.parseBoolean(getPropertyWithDefault(pageDetails, DETAILS_MENU_ICON,"false"));
+                    showAsMenuIconPath = (String) getPropertyWithDefault(pageDetails, DETAILS_MENU_ICONPATH,"");
                 } catch (Exception ex) {
                     getLogger().warn("JCR ERROR: {}",ex);
                 }
@@ -75,8 +75,8 @@
                 boolean showAsTabIcon = false;
                 String showAsTabIconPath = "";
                 try {
-                    showAsTabIcon = Boolean.parseBoolean(getPropertyWithDefault(page-details, DETAILS_TAB_ICON,"false"));
-                    showAsTabIconPath = (String) getPropertyWithDefault(page-details, DETAILS_TAB_ICONPATH,"");
+                    showAsTabIcon = Boolean.parseBoolean(getPropertyWithDefault(pageDetails, DETAILS_TAB_ICON,"false"));
+                    showAsTabIconPath = (String) getPropertyWithDefault(pageDetails, DETAILS_TAB_ICONPATH,"");
                 } catch (Exception ex) {
                     getLogger().warn("JCR ERROR: {}",ex);
                 }

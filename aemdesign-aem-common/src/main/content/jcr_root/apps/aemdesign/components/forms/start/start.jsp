@@ -30,7 +30,8 @@
             <%@include file="style.default.jsp" %>
         </c:when>
         <c:otherwise>
-            <sling:include path="/libs/foundation/components/form/start/start.jsp" />
+            <%@include file="style.default.jsp" %>
+            <%--<sling:include path="/libs/foundation/components/form/start/start.jsp" />--%>
         </c:otherwise>
     </c:choose>
 

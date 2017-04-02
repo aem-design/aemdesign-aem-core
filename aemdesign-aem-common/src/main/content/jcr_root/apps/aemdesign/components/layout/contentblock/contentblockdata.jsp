@@ -4,7 +4,7 @@
 <%@ page import="java.util.Map" %>
 <%!
 
-    private static final String PAR_PAGEDETAILS = "par/pagedetails";
+    private static final String PAR_PAGEDETAILS = "par/page-details";
     private static final String DETAILS_MENU_ICON = "menuIcon";
     private static final String DETAILS_MENU_ICONPATH = "menuIconPath";
     private static final String DETAILS_TAB_ICON = "tabIcon";
@@ -86,16 +86,16 @@
 
                 String[] supportedDetails = {PAR_PAGEDETAILS};
 
-                Node page-details = getDetailsNode(child,supportedDetails);
-                if (page-details!=null) {
+                Node pageDetails = getDetailsNode(child,supportedDetails);
+                if (pageDetails!=null) {
 
                     String title="";
                     boolean showAsMenuIcon = false;
                     String showAsMenuIconPath = "";
                     try {
-                        title = getPropertyWithDefault(page-details, DETAILS_TITLE, child.getTitle());
-                        showAsMenuIcon = Boolean.parseBoolean(getPropertyWithDefault(page-details, DETAILS_MENU_ICON,"false"));
-                        showAsMenuIconPath = getPropertyWithDefault(page-details, DETAILS_MENU_ICONPATH,"");
+                        title = getPropertyWithDefault(pageDetails, DETAILS_TITLE, child.getTitle());
+                        showAsMenuIcon = Boolean.parseBoolean(getPropertyWithDefault(pageDetails, DETAILS_MENU_ICON,"false"));
+                        showAsMenuIconPath = getPropertyWithDefault(pageDetails, DETAILS_MENU_ICONPATH,"");
                     } catch (Exception ex) {
                         getLogger().warn("JCR ERROR: {}",ex);
                     }
@@ -106,8 +106,8 @@
                     boolean showAsTabIcon = false;
                     String showAsTabIconPath = "";
                     try {
-                        showAsTabIcon = Boolean.parseBoolean(getPropertyWithDefault(page-details, DETAILS_TAB_ICON,"false"));
-                        showAsTabIconPath = getPropertyWithDefault(page-details, DETAILS_TAB_ICONPATH,"");
+                        showAsTabIcon = Boolean.parseBoolean(getPropertyWithDefault(pageDetails, DETAILS_TAB_ICON,"false"));
+                        showAsTabIconPath = getPropertyWithDefault(pageDetails, DETAILS_TAB_ICONPATH,"");
                     } catch (Exception ex) {
                         getLogger().warn("JCR ERROR: {}",ex);
                     }
@@ -117,8 +117,8 @@
                     boolean showAsTitleIcon = false;
                     String showAsTitleIconPath = "";
                     try {
-                        showAsTitleIcon = Boolean.parseBoolean(getPropertyWithDefault(page-details, DETAILS_TITLE_ICON,"false"));
-                        showAsTitleIconPath = getPropertyWithDefault(page-details, DETAILS_TITLE_ICONPATH,"");
+                        showAsTitleIcon = Boolean.parseBoolean(getPropertyWithDefault(pageDetails, DETAILS_TITLE_ICON,"false"));
+                        showAsTitleIconPath = getPropertyWithDefault(pageDetails, DETAILS_TITLE_ICONPATH,"");
                     } catch (Exception ex) {
                         getLogger().warn("JCR ERROR: {}",ex);
                     }

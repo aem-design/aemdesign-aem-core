@@ -9,14 +9,15 @@
 <%@ page import="org.apache.sling.api.resource.NonExistingResource" %>
 <%!
 
-    private static final String PAR_PAGEDETAILS = "par/pagedetails";
+    private static final String PAR_PAGEDETAILS = "par/page-details";
     private static final String DETAILS_MENU_ICON = "menuIcon";
     private static final String DETAILS_MENU_ICONPATH = "menuIconPath";
     private static final String DETAILS_MENU_COLOR = "menuColor";
+    private static final String DETAILS_MENU_COLOR_DEFAULT = "default";
     private static final String DETAILS_MENU_ACCESSKEY = "accesskey";
     private static final String DETAILS_TAB_ICON = "tabIcon";
     private static final String DETAILS_TAB_ICONPATH = "tabIconPath";
-    private static final String DETAILS_TAB_GALLERYBGIMAGE = "par/pagedetails/gallerybgimage";
+    private static final String DETAILS_TAB_GALLERYBGIMAGE = "par/page-details/gallerybgimage";
     private static final String DETAILS_TITLE = "title";
 
     protected List<Map> getSimpleMenuPageList(PageManager pageManager, String[] paths, Page currentPage, SlingHttpServletRequest req) throws RepositoryException {
@@ -77,17 +78,17 @@
 
         Map infoStruct = new HashMap();
 
-        Node page-details = getDetailsNode(currentPage, PAR_PAGEDETAILS);
-        if (page-details != null) {
+        Node pageDetails = getDetailsNode(currentPage, PAR_PAGEDETAILS);
+        if (pageDetails != null) {
 
 
             String title = "";
             boolean showAsMenuIcon = false;
             String showAsMenuIconPath = "";
             try {
-                title = getPropertyWithDefault(page-details, DETAILS_TITLE, getPageNavTitle(currentPage));
-                showAsMenuIcon = Boolean.parseBoolean(getPropertyWithDefault(page-details, DETAILS_MENU_ICON, "false"));
-                showAsMenuIconPath = getPropertyWithDefault(page-details, DETAILS_MENU_ICONPATH, "");
+                title = getPropertyWithDefault(pageDetails, DETAILS_TITLE, getPageNavTitle(currentPage));
+                showAsMenuIcon = Boolean.parseBoolean(getPropertyWithDefault(pageDetails, DETAILS_MENU_ICON, "false"));
+                showAsMenuIconPath = getPropertyWithDefault(pageDetails, DETAILS_MENU_ICONPATH, "");
             } catch (Exception ex) {
                 getLogger().warn("showAsMenuIcon: ", ex);
             }
@@ -98,8 +99,8 @@
             boolean showAsTabIcon = false;
             String showAsTabIconPath = "";
             try {
-                showAsTabIcon = Boolean.parseBoolean(getPropertyWithDefault(page-details, DETAILS_TAB_ICON, "false"));
-                showAsTabIconPath = getPropertyWithDefault(page-details, DETAILS_TAB_ICONPATH, "");
+                showAsTabIcon = Boolean.parseBoolean(getPropertyWithDefault(pageDetails, DETAILS_TAB_ICON, "false"));
+                showAsTabIconPath = getPropertyWithDefault(pageDetails, DETAILS_TAB_ICONPATH, "");
             } catch (Exception ex) {
                 getLogger().warn("showAsTabIcon: ", ex);
             }
@@ -123,7 +124,7 @@
 
             String color = "";
             try {
-                color = getPropertyWithDefault(page-details, DETAILS_MENU_COLOR, "");
+                color = getPropertyWithDefault(pageDetails, DETAILS_MENU_COLOR, "");
             } catch (Exception ex) {
                 getLogger().warn("color: ", ex);
             }
@@ -132,7 +133,7 @@
 
             String accesskey = "";
             try {
-                accesskey = getPropertyWithDefault(page-details, DETAILS_MENU_ACCESSKEY, "");
+                accesskey = getPropertyWithDefault(pageDetails, DETAILS_MENU_ACCESSKEY, "");
             } catch (Exception ex) {
                 getLogger().warn("accesskey: ", ex);
             }
@@ -193,14 +194,15 @@
                 infoStruct.put("currentPath", currentPath);
 
 
-                if (!currentPath.isEmpty()) {
+                if (StringUtils.isNotEmpty(currentPath)) {
 
                     //if menu item is of same level as current path then grab its children
                     String section = Text.getAbsoluteParent(currentPath, 3);
 
                     infoStruct.put("current", section.equals(child.getPath()));
-                    if (!isThemeExists)
+                    if (!isThemeExists) {
                         infoStruct.put("menuColor", getMenuColor(req, child));
+                    }
 
                     List<Map> children = getChildren(child, currentPath, 3, req, isThemeExists);
                     infoStruct.put("children", children);
@@ -225,7 +227,7 @@
      * recursevley build a tree for page up defined by levels
      * @param page starting page
      * @param currentPath curret path used to determined active pages
-     * @param levels levels to gather
+     * @param level level to gather
      * @param req
      * @return
      */
@@ -254,8 +256,9 @@
                     }
 
                     info.put("current", current);
-                    if (!isThemeExists)
+                    if (!isThemeExists) {
                         info.put("menuColor", getMenuColor(req, nextchild));
+                    }
 
                     if (level > 0) {
                         //keep going
@@ -389,23 +392,23 @@
     }
 
     private String getMenuColor(SlingHttpServletRequest request, Page page) {
-        if (page == null) return null;
+        if (page == null) {
+            return null;
+        }
+        String menuColor = DETAILS_MENU_COLOR_DEFAULT;
+        try {
+            Node detailNode = findDetailNode(page);
 
-        String path = page.getPath() + "/jcr:content/article/par/page-details";
-        Resource resource = request.getResourceResolver().resolve(path);
+            if (detailNode != null) {
+                if (detailNode.hasProperty(DETAILS_MENU_COLOR)) {
+                    menuColor = detailNode.getProperty(DETAILS_MENU_COLOR).getString();
+                }
+            }
+        } catch (Exception ex) {
 
-        if (resource instanceof NonExistingResource)
-            resource = request.getResourceResolver().resolve(path.toLowerCase());
+        }
 
-        ValueMap properties = resource.adaptTo(ValueMap.class);
-        if (properties == null)
-            return getMenuColor(request, page.getParent());
-
-        String menuColor = (String)properties.get("menuColor");
-        if (menuColor == null)
-            return getMenuColor(request, page.getParent());
-
-        return "default".equalsIgnoreCase(menuColor) ? null : menuColor;
+        return "default".equalsIgnoreCase(menuColor) ? "" : menuColor;
     }
 
 %>

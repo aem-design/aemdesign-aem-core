@@ -47,11 +47,7 @@
 
     //Multi Resource
     boolean multiRes = FormResourceEdit.isMultiResource(_slingRequest);
-    //<c:if test="${status.index == 0 && componentProperties.multiRes}">
-    //  <span class="mr_write">
-    //      <input type="checkbox" name="${xss:encodeForHTMLAttr(xssAPI,componentProperties.mrName)}" id="${xss:encodeForHTMLAttr(xssAPI,componentProperties.mrName)}" value="true" <c:if test="${requestScope[componentProperties.mrName]}">  checked="checked" </c:if> >
-    //  </span>
-    //</c:if>
+
     componentProperties.put("multiRes", multiRes);
 
 
@@ -86,44 +82,15 @@
 
         }
         componentProperties.put("textFormatMap", textFormatMap);
-        /*<c:set var="formatedName" value="${xss:encodeForHTMLAttr(xssAPI, componentProperties.name)}" />
-            <input type="hidden" disabled name="${formatedName}">
-            ${textFormatMap[status.index]}
-        */
+
         componentProperties.put("htmlInputTag", HTML_INPUT_TAGS[0]);
     }else if("hidden".equals(componentProperties.get("type", String.class))){
         componentProperties.put("htmlInputTag", HTML_INPUT_TAGS[1]);
     }else if("submit".equals(componentProperties.get("type", String.class))){
         componentProperties.put("htmlInputTag", HTML_INPUT_TAGS[2]);
     }else if (componentProperties.get("rows", Integer.class).equals(Integer.valueOf(1))){
-        /*<c:set var="currentId" value="${status.index == 0 ? componentProperties.id : componentProperties.id + '-' + status.index}" />
-          <input class="${componentProperties.inputCss}"
-            id="${xss:encodeForHTMLAttr(xssAPI, currentId)}"
-            name="${formatedName}"
-            value="${xss:encodeForHTMLAttr(xssAPI, actualValue)}"
-            size="${xss:encodeForHTMLAttr(xssAPI,componentProperties.cols)}"
-            type="${xss:encodeForHTMLAttr(xssAPI,componentProperties.type)}"
-            placeHolder="${xss:encodeForHTMLAttr(xssAPI,componentProperties.placeHolder)}"
-            <c:if test="${not empty componentProperties.width}">
-               style="width:${xss:getValidInteger(xssAPI,componentProperties.width, 100)}px;"
-            </c:if>
-            onkeydown="${xss:encodeForHTMLAttr(xssAPI,componentProperties.mrChangeHandler)}" >
-        */
         componentProperties.put("htmlInputTag", HTML_INPUT_TAGS[3]);
     }else{
-        /*<c:set var="currentId" value="${status.index == 0 ? componentProperties.id : componentProperties.id + '-' + status.index}" />
-        <textarea class="${componentProperties.textAreaCss}"
-            id="${xss:encodeForHTMLAttr(xssAPI, currentId)}"
-            name="${formatedName}"
-            rows="${xss:encodeForHTMLAttr(xssAPI,componentProperties.rows)}"
-            cols="${xss:encodeForHTMLAttr(xssAPI,componentProperties.cols)}"
-            <c:if test="${not empty componentProperties.width}">
-                style="width:${xss:getValidInteger(xssAPI,componentProperties.width, 100)}px;"
-            </c:if>
-            onkeydown="${xss:encodeForHTMLAttr(xssAPI,componentProperties.mrChangeHandler)}" >
-            ${xss:encodeForHTML(xssAPI, actualValue)}
-        </textarea>
-         */
         componentProperties.put("htmlInputTag", HTML_INPUT_TAGS[4]);
     }
 

@@ -8,13 +8,13 @@
         --><li>
             <c:set var="currentId" value="${componentProperties.id }'-'${status.index}" />
             <label>
-                <input name="${xss:encodeForHTMLAttr(xssAPI, componentProperties.name)}" id="${xss:encodeForHTMLAttr(xssAPI, currentId)}"
+                <input name="${componentProperties.name}" id="${currentId}"
                 <c:if test="${fn:contains(componentProperties.values, val.key)}" >
                        checked="checked"
                 </c:if>
-                       title="${xss:encodeForHTMLAttr(xssAPI, val.value)}"
+                       title="${val.value}"
                        type="checkbox"
-                       value="${xss:encodeForHTMLAttr(xssAPI, val.key)}">
+                       value="${val.key}">
                     ${val.value}<span></span>
             </label>
         </li><!--
@@ -25,13 +25,13 @@
         <c:forEach var="val" varStatus="status" items="${componentProperties.displayValues}">
             <c:set var="currentId" value="${componentProperties.id }'-'${status.index}" />
             <label>
-                <input name="${xss:encodeForHTMLAttr(xssAPI, componentProperties.name)}" id="${xss:encodeForHTMLAttr(xssAPI, currentId)}"
+                <input name="${componentProperties.name}" id="${currentId}"
                 <c:if test="${fn:contains(componentProperties.values, val.key)}" >
                        checked="checked"
                 </c:if>
-                       title="${xss:encodeForHTMLAttr(xssAPI, val.value)}"
+                       title="${val.value}"
                        type="checkbox"
-                       value="${xss:encodeForHTMLAttr(xssAPI, val.key)}">
+                       value="${val.key}">
                     ${val.value}<span></span>
             </label>
         </c:forEach>
