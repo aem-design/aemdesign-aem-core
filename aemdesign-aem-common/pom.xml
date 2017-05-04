@@ -17,7 +17,7 @@
 
     <artifactId>aemdesign-aem-common</artifactId>
     <packaging>content-package</packaging>
-    <name>AEM Design AEM Common components</name>
+    <name>AEM Design - AEM Common components</name>
     <description>AEM Design package with all common components</description>
     <version>0.0.0-SNAPSHOT</version>
 
@@ -98,9 +98,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
+            <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>1.3.2</version>
+            <version>2.5</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -238,7 +238,7 @@
                     <!-- embedded dependencies in the content package -->
                     <embeddeds>
                         <embedded>
-                            <groupId>${parent.groupId}</groupId>
+                            <groupId>${project.parent.groupId}</groupId>
                             <artifactId>aemdesign-aem-services</artifactId>
                             <target>/apps/aemdesign/install</target>
                         </embedded>
@@ -278,6 +278,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
                 <inherited>true</inherited>
                 <configuration>
                     <attach>false</attach>
