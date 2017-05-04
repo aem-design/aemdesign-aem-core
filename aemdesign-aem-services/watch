@@ -18,7 +18,7 @@ function lowercase() {
 }
 
 
-if [ "$OS" == "windowsnt" ]; then
+if [[ "$OS" == "windowsnt" || "$OS" == *"mingw"* || "$OS" == *"cygwin"*  ]]; then
     OS=windows
     if [[ "false" == "$(which watch && echo true || echo false)" ]]; then
         echo "You need to install 'procps-ng' package"
