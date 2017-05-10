@@ -41,7 +41,7 @@
             </footer>
             <aside
                     jcr:primaryType="nt:unstructured"
-                    sling:resourceType="aemdesign/components/admin/aside"
+                    sling:resourceType="aemdesign/components/layout/aside"
                     componentId="side"
                     componentModifiers="[component-style:modifier/special/aside]">
                 <parsys
@@ -53,7 +53,7 @@
             </aside>
             <article
                     jcr:primaryType="nt:unstructured"
-                    sling:resourceType="aemdesign/components/admin/article"
+                    sling:resourceType="aemdesign/components/layout/article"
                     componentModifiers="[component-style:modifier/special/asidewitharticle]">
                 <parsys
                         jcr:primaryType="nt:unstructured"
@@ -81,21 +81,21 @@
                             <page-details jcr:primaryType="nt:unstructured">
                                 <breadcrumb
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                        sling:resourceType="aemdesign/components/layout/breadcrumb"
                                         absParent="3"
                                         componentId="breadcrumbs"/>
                             </page-details>
                             <news-details jcr:primaryType="nt:unstructured">
                                 <breadcrumb
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                        sling:resourceType="aemdesign/components/layout/breadcrumb"
                                         absParent="3"
                                         componentId="breadcrumbs"/>
                             </news-details>
                             <tender-details jcr:primaryType="nt:unstructured">
                                 <breadcrumb
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                        sling:resourceType="aemdesign/components/layout/breadcrumb"
                                         absParent="3"
                                         componentId="breadcrumbs"/>
                             </tender-details>
@@ -105,35 +105,35 @@
                     <page-details jcr:primaryType="nt:unstructured">
                         <breadcrumb
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                sling:resourceType="aemdesign/components/layout/breadcrumb"
                                 absParent="3"
                                 componentId="breadcrumbs"/>
                     </page-details>
                     <news-details jcr:primaryType="nt:unstructured">
                         <breadcrumb
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                sling:resourceType="aemdesign/components/layout/breadcrumb"
                                 absParent="3"
                                 componentId="breadcrumbs"/>
                     </news-details>
                     <tender-details jcr:primaryType="nt:unstructured">
                         <breadcrumb
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                sling:resourceType="aemdesign/components/layout/breadcrumb"
                                 absParent="3"
                                 componentId="breadcrumbs"/>
                     </tender-details>
                     <event-details jcr:primaryType="nt:unstructured">
                         <breadcrumb
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                sling:resourceType="aemdesign/components/layout/breadcrumb"
                                 absParent="3"
                                 componentId="breadcrumbs"/>
                     </event-details>
                     <contact-details jcr:primaryType="nt:unstructured">
                         <breadcrumb
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                sling:resourceType="aemdesign/components/layout/breadcrumb"
                                 absParent="3"
                                 componentId="breadcrumbs"/>
                     </contact-details>
@@ -158,7 +158,7 @@
         <onecolumn jcr:primaryType="nt:unstructured">
             <article
                     jcr:primaryType="nt:unstructured"
-                    sling:resourceType="aemdesign/components/admin/article">
+                    sling:resourceType="aemdesign/components/layout/article">
                 <parsys
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="foundation/components/parsys"
@@ -194,21 +194,21 @@
                             <page-details jcr:primaryType="nt:unstructured">
                                 <breadcrumb
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                        sling:resourceType="aemdesign/components/layout/breadcrumb"
                                         absParent="3"
                                         componentId="breadcrumbs"/>
                             </page-details>
                             <news-details jcr:primaryType="nt:unstructured">
                                 <breadcrumb
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                        sling:resourceType="aemdesign/components/layout/breadcrumb"
                                         absParent="3"
                                         componentId="breadcrumbs"/>
                             </news-details>
                             <tender-details jcr:primaryType="nt:unstructured">
                                 <breadcrumb
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                        sling:resourceType="aemdesign/components/layout/breadcrumb"
                                         absParent="3"
                                         componentId="breadcrumbs"/>
                             </tender-details>
@@ -218,35 +218,35 @@
                     <page-details jcr:primaryType="nt:unstructured">
                         <breadcrumb
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                sling:resourceType="aemdesign/components/layout/breadcrumb"
                                 absParent="3"
                                 componentId="breadcrumbs"/>
                     </page-details>
                     <news-details jcr:primaryType="nt:unstructured">
                         <breadcrumb
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                sling:resourceType="aemdesign/components/layout/breadcrumb"
                                 absParent="3"
                                 componentId="breadcrumbs"/>
                     </news-details>
                     <tender-details jcr:primaryType="nt:unstructured">
                         <breadcrumb
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                sling:resourceType="aemdesign/components/layout/breadcrumb"
                                 absParent="3"
                                 componentId="breadcrumbs"/>
                     </tender-details>
                     <event-details jcr:primaryType="nt:unstructured">
                         <breadcrumb
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                sling:resourceType="aemdesign/components/layout/breadcrumb"
                                 absParent="3"
                                 componentId="breadcrumbs"/>
                     </event-details>
                     <contact-details jcr:primaryType="nt:unstructured">
                         <breadcrumb
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="aemdesign/components/admin/breadcrumb"
+                                sling:resourceType="aemdesign/components/layout/breadcrumb"
                                 absParent="3"
                                 componentId="breadcrumbs"/>
                     </contact-details>
@@ -265,7 +265,7 @@
             </article>
             <header
                     jcr:primaryType="nt:unstructured"
-                    sling:resourceType="aemdesign/components/admin/header"
+                    sling:resourceType="aemdesign/components/layout/header"
                     cancelInheritParent="true">
                 <parsys
                         jcr:primaryType="nt:unstructured"
@@ -292,7 +292,7 @@
             </footer>
             <banner
                     jcr:primaryType="nt:unstructured"
-                    sling:resourceType="aemdesign/components/admin/header"
+                    sling:resourceType="aemdesign/components/layout/header"
                     cancelInheritParent="true">
                 <bgimage
                         jcr:primaryType="nt:unstructured"
