@@ -24,9 +24,6 @@
 <%@ include file="/apps/aemdesign/global/security.jsp" %>
 <%!
 
-    //public static final String SITE_INCLUDE = "siteinclude";
-    //public static final String SITE_INCLUDE_PATHS = "includePaths";
-
     public static final int COUNT_CONTENT_NODE = 1;
     public static final int DEPTH_ROOTNODE = 1;
     public static final int DEPTH_HOMEPAGE = 2;
@@ -348,7 +345,7 @@
             Object fieldDefaultValue = field[1];
             Object fieldValue = getComponentProperty(pageContext, fieldName, fieldDefaultValue, true);
             //Empty array with empty string will set the default value
-            if (fieldValue instanceof String && fieldValue.toString().isEmpty()) {
+            if (fieldValue instanceof String && StringUtils.isEmpty(fieldValue.toString())) {
                 fieldValue = fieldDefaultValue;
             }else if (fieldValue instanceof String [] && fieldValue != null && (StringUtils.isEmpty(StringUtils.join((String[]) fieldValue, "")))) {
                 fieldValue = fieldDefaultValue;
@@ -608,6 +605,7 @@
      * disables edit mode for the request
      * @param request
      */
+    @SuppressWarnings("unchecked")
     public void disableEditMode(ComponentContext componentContext, IncludeOptions includeOptions, SlingHttpServletRequest request) {
         forceNoDecoration(componentContext,includeOptions);
 
@@ -624,7 +622,7 @@
      * @param request
      */
 
-
+    @SuppressWarnings("unchecked")
     public void enableEditMode(WCMMode toWCMMode, ComponentContext componentContext, String defDecoration, IncludeOptions includeOptions, SlingHttpServletRequest request) {
         setDecoration(componentContext,includeOptions,defDecoration);
 
