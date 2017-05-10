@@ -1,5 +1,6 @@
 /*aemdesign.author.css*/
 
+/* TODO: need to align to [badge badge-pill badge-{default,primary,success,info,warning,danger}] */
 .cq-info {
     /* #EEE49D */
     border: 1px dashed #999;

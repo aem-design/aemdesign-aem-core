@@ -1,6 +1,7 @@
 ../vendor/jquery/jquery.js
-../vendor/jquery/cookie/js.cookie.min.js
+../vendor/bootstrap/js/bootstrap.js
 
+../vendor/jquery/cookie/js.cookie.min.js
 ../vendor/jquery/isotope/isotope.js
 ../vendor/jquery/scrollclass/scrollClass.min.js
 ../vendor/jquery-ui/jquery-ui.js
