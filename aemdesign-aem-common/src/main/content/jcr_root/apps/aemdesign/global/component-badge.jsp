@@ -4,7 +4,7 @@
 
 <c:if test="${PRINT_COMPONENT_BADGE}">
     <c:if test="${CURRENT_WCMMODE == WCMMODE_EDIT || CURRENT_WCMMODE == WCMMODE_PREVIEW}">
-    <details class="component badge cq-info">
+    <details class="component badge badge-pill cq-info">
         <%
             String originLocation = "";
             try {
