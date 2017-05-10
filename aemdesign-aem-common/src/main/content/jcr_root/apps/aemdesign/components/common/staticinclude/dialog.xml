@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    height="400"
+    width="400"
+    xtype="dialog">
+    <items
+        jcr:primaryType="nt:unstructured"
+        title="Site Include"
+        xtype="tabpanel">
+        <items jcr:primaryType="cq:WidgetCollection">
+            <inheritTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/common/inherit/dialog/items/tabs/items/inheritTab.infinity.json"
+                    xtype="cqinclude" />
+            <tab_basic
+                jcr:primaryType="cq:Panel"
+                border="false"
+                title="Site Include"
+                xtype="panel">
+                <items jcr:primaryType="cq:WidgetCollection">
+                    <showContentPreview
+                            jcr:primaryType="cq:Widget"
+                            checked="false"
+                            defaultValue="false"
+                            fieldLabel="Show Content Preview"
+                            fieldDescritpion="hide/show include, only applies in Edit mode."
+                            name="./showContentPreview"
+                            type="checkbox"
+                            xtype="selection"/>
+                    <showContent
+                            jcr:primaryType="cq:Widget"
+                            checked="false"
+                            defaultValue="false"
+                            fieldLabel="Show Content"
+                            fieldDescritpion="don't show content visually, content will be used by other components"
+                            name="./showContent"
+                            type="checkbox"
+                            xtype="selection"/>
+                </items>
+            </tab_basic>
+            <tab_include
+                    jcr:primaryType="cq:Widget"
+                    title="Include list"
+                    xtype="panel">
+                <items jcr:primaryType="cq:WidgetCollection">
+                    <pages
+                            jcr:primaryType="cq:Widget"
+                            fieldDescription="Click the '+' to add a new page"
+                            fieldLabel="Pages"
+                            name="./includePaths"
+                            xtype="multifield">
+                        <fieldConfig
+                                jcr:primaryType="cq:Widget"
+                                allowBlank="{Boolean}true"
+                                width="155"
+                                xtype="pathfield"/>
+                    </pages>
+                </items>
+            </tab_include>
+
+        </items>
+    </items>
+</jcr:root>

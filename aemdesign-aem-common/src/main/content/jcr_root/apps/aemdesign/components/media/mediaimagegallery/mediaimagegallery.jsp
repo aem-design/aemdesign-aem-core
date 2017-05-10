@@ -6,7 +6,7 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/media.jsp" %>
 <%@ include file="gallerydata.jsp" %>
-<%@ include file="/apps/aemdesign/components/admin/mainnav/mainnavData.jsp" %>
+<%@ include file="/apps/aemdesign/components/layout/navbar/mainnavdata.jsp" %>
 
 <%
     // init

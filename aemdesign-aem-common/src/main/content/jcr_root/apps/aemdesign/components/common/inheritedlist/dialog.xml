@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    helpPath="en/cq/current/wcm/default_components.html#List"
+    selectTab="function(tabToSelect) { AEMDESIGN.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,false); }"
+    hideTab="function(tabToHide) { AEMDESIGN.author.components.list.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
+    title="List"
+    xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+
+                <listTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/listTab.infinity.json"
+                    xtype="cqinclude" />
+
+                <childrenTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/childrenTab.infinity.json"
+                    xtype="cqinclude" />
+
+                <descendantsTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/descendantsTab.infinity.json"
+                    xtype="cqinclude" />
+
+                <staticTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/staticTab.infinity.json"
+                    xtype="cqinclude" />
+
+                <tagsTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/tagsTab.infinity.json"
+                    xtype="cqinclude" />
+                <searchTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/lists/list/dialog/items/searchTab.infinity.json"
+                        xtype="cqinclude" />
+
+                <querybuilderTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/lists/list/dialog/items/querybuilderTab.infinity.json"
+                        xtype="cqinclude" />
+
+                <advancedTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/advancedTab.infinity.json"
+                    xtype="cqinclude" />
+                <inheritTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/common/inherit/dialog/items/tabs/items/inheritTab.infinity.json"
+                        xtype="cqinclude" />
+            </items>
+        </tabs>
+    </items>
+</jcr:root>

@@ -10,7 +10,7 @@
 <%@page session="false" %>
 
 <%!
-    // /content/aemdesign-showcase/en/admin/header
+    // /content/aemdesign-showcase/en/layout/header
     private Page getPage(SlingHttpServletRequest request, String path) {
         ResourceResolver resourceResolver = request.getResourceResolver();
         Resource resource = resourceResolver.getResource(path);
@@ -24,7 +24,7 @@
         return resource.adaptTo(Page.class);
     }
 
-    // /content/aemdesign-showcase/en/admin/header/jcr:content/article/par/theme
+    // /content/aemdesign-showcase/en/layout/header/jcr:content/article/par/theme
     private Node getNode(SlingHttpServletRequest request, String path) throws RepositoryException {
         ResourceResolver resourceResolver = request.getResourceResolver();
         Resource resource = resourceResolver.getResource(path);

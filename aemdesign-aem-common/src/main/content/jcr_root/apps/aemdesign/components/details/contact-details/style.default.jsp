@@ -1,10 +1,10 @@
 <div class="wrapper visible">
     <c:if test="${componentProperties.showBreadcrumb }">
-        <cq:include path="breadcrumb" resourceType="aemdesign/components/admin/breadcrumb"/>
+        <cq:include path="breadcrumb" resourceType="aemdesign/components/layout/breadcrumb"/>
     </c:if>
 
     <c:if test="${componentProperties.showToolbar }">
-        <cq:include path="toolbar" resourceType="aemdesign/components/admin/toolbar"/>
+        <cq:include path="toolbar" resourceType="aemdesign/components/layout/navbar"/>
     </c:if>
 </div>
 

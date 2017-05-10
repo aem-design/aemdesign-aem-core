@@ -11,7 +11,7 @@
             <items jcr:primaryType="cq:WidgetCollection">
                 <inheritTab
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/components/admin/inherit/dialog/items/tabs/items/inheritTab.infinity.json"
+                        path="/apps/aemdesign/components/common/inherit/dialog/items/tabs/items/inheritTab.infinity.json"
                         xtype="cqinclude" />
                 <listTab
                         jcr:primaryType="cq:Widget"

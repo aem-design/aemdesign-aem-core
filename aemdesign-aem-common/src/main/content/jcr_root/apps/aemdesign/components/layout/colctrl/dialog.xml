@@ -26,36 +26,5 @@
                 jcr:primaryType="cq:Widget"
                 path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
                 xtype="cqinclude" />
-        <tab-advanced-css
-                jcr:primaryType="cq:Panel"
-                title="Advanced CSS">
-            <items jcr:primaryType="cq:WidgetCollection">
-                <jumbotron
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="CSS for Jumbotron"
-                        name="./cssClassJumbotron"
-                        xtype="textfield"/>
-                <layout
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="CSS for Layout"
-                        name="./cssClassLayout"
-                        xtype="textfield"/>
-                <background
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="CSS for Background"
-                        name="./cssClassBackground"
-                        xtype="textfield"/>
-                <row
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="CSS for Row"
-                        name="./cssClassRow"
-                        xtype="textfield"/>
-                <column
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="CSS for Column"
-                        name="./cssClassColumn"
-                        xtype="textfield"/>
-            </items>
-        </tab-advanced-css>
     </items>
 </jcr:root>
