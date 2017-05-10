@@ -24,6 +24,7 @@
     <filter root="/etc/tags/component-style" mode="update"/>
     <filter root="/etc/tags/component-dialog" mode="update"/>
     <filter root="/etc/tags/component-topic" mode="update"/>
+    <filter root="/etc/tags/component-aria" mode="update"/>
 
 <!--
     <filter root="/etc/tags/content-type"/>
