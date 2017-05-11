@@ -40,10 +40,10 @@
 <cq:includeClientLib categories="granite.csrf.standalone"/>
 <c:choose>
     <c:when test="${componentProperties.variant == 'advanced'}">
-        <%@ include file="style.quick.jsp" %>
+        <%@ include file="variant.quick.jsp" %>
     </c:when>
     <c:otherwise>
-        <%@ include file="style.default.jsp" %>
+        <%@ include file="variant.default.jsp" %>
     </c:otherwise>
 </c:choose>
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>

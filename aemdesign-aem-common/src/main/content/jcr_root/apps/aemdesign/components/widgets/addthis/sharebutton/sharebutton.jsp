@@ -45,13 +45,13 @@
 
 <c:choose>
     <c:when test="${not empty componentProperties.pubId}">
-        <%@ include file="style.default.jsp"  %>
+        <%@ include file="variant.default.jsp"  %>
     </c:when>
     <c:when test="${empty componentProperties.pubId}">
-        <%@ include file="style.empty.jsp"  %>
+        <%@ include file="variant.empty.jsp"  %>
     </c:when>
     <c:otherwise>
-        <%@ include file="style.hidden.jsp" %>
+        <%@ include file="variant.hidden.jsp" %>
     </c:otherwise>
 </c:choose>
 
