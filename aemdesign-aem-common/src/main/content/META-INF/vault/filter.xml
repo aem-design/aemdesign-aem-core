@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspaceFilter version="1.0">
-    <!--                        W A R N I N G                     -->
-    <!--        This change can make the AEM content removed      -->
-    <!--    http://jackrabbit.apache.org/filevault/filter.html    -->
-    <!--                        W A R N I N G                     -->
+
     <filter root="/apps/aemdesign">
         <!-- The type of the first pattern defines the default behavior, so that the filter is more natural to write.
         If the first pattern is include, then the default is exclude and vice versa.  -->
@@ -26,16 +23,10 @@
     <filter root="/etc/tags/component-topic" mode="update"/>
     <filter root="/etc/tags/component-aria" mode="update"/>
 
-<!--
-    <filter root="/etc/tags/content-type"/>
-    <filter root="/etc/tags/component-style"/>
-    <filter root="/etc/tags/component-dialog"/>
-    <filter root="/etc/tags/component-topic"/>
--->
-
     <filter root="/etc/tags/language" mode="update"/>
 
     <filter root="/etc/tags/.content.xml" mode="update"/>
 
+    <filter root="/etc/cloudservices/rest" mode="update"/>
 
 </workspaceFilter>

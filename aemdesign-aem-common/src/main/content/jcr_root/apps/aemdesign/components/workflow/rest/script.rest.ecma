@@ -1,0 +1,568 @@
+/*
+
+ Available Objects
+ Java Class                                                   Script variable name            Description
+ ------------------------------------------------------------ ------------------------------- ---------------------------------------------------
+ com.adobe.granite.workflow.exec.WorkItem                     workItem                 The current step instance.
+ com.adobe.granite.workflow.WorkflowSession                   workflowSession          The workflow session of the current step instance.
+ String[] (contains process arguments)                        args                            The step arguments.
+ com.adobe.granite.workflow.metadata.MetaDataMap              metaData                        The meta data of the current step instance.
+ org.apache.sling.scripting.core.impl.InternalScriptHelper    sling                           Provides access to the Sling runtime environment.
+
+
+ */
+
+var TYPE_JCR_PATH = "JCR_PATH";
+var NODE_TYPE_NAME = "nodeType";
+var NODE_TYPE_VALUE = "fp:submittedForm";
+
+var FIELDS = {
+
+    SERVICEURL: "serviceurl", //cloudservice:dialog - serviceurl
+    USER: "user", //cloudservice:dialog - user
+    PASSWORD: "password", //cloudservice:dialog - password
+
+
+    TITLE: "jcr:title", // dialog:common - title
+    DESCRIPTION: "jcr:description", // dialog:common - description
+    SERVICEPATH: "servicePath", // dialog:general - servicePath
+    CLOUDCONFIG: "cq:cloudserviceconfig", // dialog:general - configuration
+
+    SAVEREQUEST: "saveRequest", // dialog:request
+    SENDMETADATA: "sendMetaData", // dialog:request
+    SENDCONTENTTYPE: "sendMetaDataType", // dialog:request
+    SENDMETHOD: "sendMethod", // dialog:request
+    REQUESTFIELDS: "requestFields", // dialog:request
+    REQUESTHEADERS: "requestHeader", // dialog:request
+    REQUESTTEMPLATEPATH: "requestTemplatePath", // dialog:request
+    REQUESTTEMPLATE: "requestTemplate", // dialog:request
+
+    SAVERESPONSE: "saveResponse", // dialog:response
+    RESPONSEHEADERS: "responseHeader", // dialog:request
+    RESPONSEFIELDS: "responseFields", // dialog:response
+    RESPONSEFIELD_NAME: "metadataname",
+    RESPONSEFIELD_REGEX: "regex",
+
+    RESPONSERAW: "responseraw",
+
+    RESPONSECONTENTTYPE: "responseContentType",
+
+    FILES: "files",
+    FILEURL: "fileUrl",
+    FILETYPE: "fileType",
+    FILENAME: "fileName", //dorFileName
+    FILELOCATION: "location",
+    PROCESS_ERROR: "error",
+    PROCESS_ARGS: "PROCESS_ARGS",
+    URL: "URL",
+    PW: "PW",
+    UID: "UID",
+    TYPE: "TYPE",
+    AGENT: "AGENT",
+    SERVICECONFIGPATH: "configPath"
+};
+
+var DEFAULTS = {
+    HTTP_USERAGENT: "AEM 6.2 Workflow Client"
+};
+
+var CONTENTYPE = {
+    XML: 'xml',
+    JSON: 'json',
+    FORM: 'form',
+    FILE: 'file'
+};
+
+var SENDMETHOD = {
+    GET: 'GET',
+    POST: 'POST',
+    PUT: 'PUT',
+    DELETE: 'DELETE'
+};
+
+var workflowData = workItem.getWorkflowData();
+
+log.info(">> step meta={}", metaData);
+log.info(">> step fields={}", JSON.stringify(FIELDS));
+log.info(">> step defaults={}", JSON.stringify(DEFAULTS));
+
+log.info(">> rest process called, args # {}", Packages.java.util.Arrays.toString(args));
+
+if (TYPE_JCR_PATH == workflowData.getPayloadType()) {
+
+    var path = workflowData.getPayload().toString();
+
+    if (!workflowSession.getSession().itemExists(path)) {
+        log.info(">> path does not exist: {}", path);
+    } else {
+        log.info(">> path exist: {}", path);
+        try {
+
+            var node = workflowSession.getSession().getItem(path);
+
+            //if (NODE_TYPE_VALUE == node.getProperty(NODE_TYPE_NAME).toString()) {
+
+                // GET INFO
+                var formInfo = getArgsMap(metaData, node, resource, workItem, workflowData, workflowSession, log);
+                log.info(">> formInfo get: {}={}", FIELDS.SERVICEPATH, formInfo[FIELDS.SERVICEPATH]);
+
+                if (formInfo[FIELDS.PROCESS_ERROR]) {
+                    log.error(">> error occurred with processing metadata, aborting reason: {}", formInfo[FIELDS.PROCESS_ERROR]);
+                    workItem.getWorkflowData().getMetaDataMap().put(FIELDS.PROCESS_ERROR, formInfo[FIELDS.PROCESS_ERROR]);
+                } else {
+
+                    log.info(">> formInfo script: {}", formInfo);
+
+                    var configInfo = getConfig(metaData, resource, sling, log);
+
+                    if (configInfo[FIELDS.PROCESS_ERROR]) {
+
+                        log.error(">> error getting service config, aborting reason: {}", configInfo[PROCESS_ERROR]);
+                        workItem.getWorkflowData().getMetaDataMap().put(PROCESS_ERROR, configInfo[PROCESS_ERROR]);
+
+                    } else {
+                        var dataMap = {
+                            'u': configInfo[FIELDS.USER],
+                            'pw': configInfo[FIELDS.PASSWORD]
+                        };
+
+                        log.info(">> formInfo get: {}={}", FIELDS.SERVICEPATH, formInfo[FIELDS.SERVICEPATH]);
+                        log.info(">> formInfo get: {}={}", FIELDS.SERVICEURL, configInfo[FIELDS.SERVICEURL]);
+
+                        formInfo[FIELDS.URL] = configInfo[FIELDS.SERVICEURL] + formInfo[FIELDS.SERVICEPATH];
+
+                        log.info(">> formInfo={},dataMap={}", formInfo, dataMap);
+
+                        if (formInfo[FIELDS.SENDMETHOD].toLowerCase() == SENDMETHOD.GET.toLowerCase()) {
+
+                            var getContent = doGet(formInfo, dataMap, workItem, sling, log);
+
+                            log.info(">> rest get output: {}", getContent);
+
+                            for (var key in getContent) {
+
+                                log.error(">> saving returned content: {}={}", key, getContent[key]);
+                                workItem.getWorkflowData().getMetaDataMap().put(key, getContent[key]);
+
+                            }
+
+
+                        } else if (formInfo[FIELDS.SENDMETHOD].toLowerCase() == SENDMETHOD.POST.toLowerCase()) {
+                            var dataMap = {
+                                text: formInfo[FIELDS.DESCRIPTION]
+                            };
+
+
+                            var postContent = doPost(formInfo, dataMap, workItem, sling, log);
+                            log.info(">> rest post output: {}", postContent);
+
+                            // for (var key in postContent) {
+                            //
+                            //     log.error(">> saving returned content: {}={}", key, postContent[key]);
+                            //     workItem.getWorkflowData().getMetaDataMap().put(key, postContent[key]);
+                            //
+                            // }
+
+                        } else {
+                            log.error(">> error send method {} not implemented", formInfo[FIELDS.SENDMETHOD].toUpperCase());
+                        }
+
+
+
+                        // //update workflowdata
+                        // log.info(">> updating workflow data: {}={}", FIELDS.URL, formInfo[FIELDS.URL]);
+                        // workItem.getWorkflowData().getMetaDataMap().put(FIELDS.URL, formInfo[FIELDS.URL]);
+                        // workItem.getWorkflowData().getMetaDataMap().put("urlResponse", getContent);
+                    }
+                }
+
+                // //save workflowdata
+                // workflowSession.updateWorkflowData(workItem.getWorkflow(), workItem.getWorkflowData());
+
+            //} else {
+            //    log.info("Not a valid resource type, skipping payload {}", path);
+            //}
+        } catch (e) {
+            log.error(e);
+        }
+    }
+
+
+
+
+}
+
+function getConfig(_metaData,_resource,_sling,_log) {
+    var configInfo = {};
+    var cfgMgr = _resource.getResourceResolver().adaptTo(Packages.com.day.cq.wcm.webservicesupport.ConfigurationManager);
+    var config = null;
+    if (cfgMgr != null) {
+        var cfgPath = _metaData.get(FIELDS.CLOUDCONFIG);
+        config = cfgMgr.getConfiguration(cfgPath);
+        configInfo[FIELDS.SERVICECONFIGPATH]=cfgPath;
+    }
+
+    if (config != null) {
+
+        _log.info(">> getConfig: loading config from: {}",configInfo[FIELDS.SERVICECONFIGPATH]);
+
+        configInfo[FIELDS.SERVICEURL] = config.getInherited(FIELDS.SERVICEURL, '');
+        configInfo[FIELDS.USER] = config.getInherited(FIELDS.USER, '');
+        var password = config.getInherited(FIELDS.PASSWORD, new Packages.java.lang.String);
+
+        _log.info(">> getConfig: {}={}", FIELDS.SERVICEURL, configInfo[FIELDS.SERVICEURL]);
+        _log.info(">> getConfig: {}={}", FIELDS.USER, configInfo[FIELDS.USER]);
+        _log.info(">> getConfig: encryptedPass={}", password);
+
+        var cryptoSupport = _sling.getService(Packages.com.adobe.granite.crypto.CryptoSupport);
+
+        _log.info(">> getConfig: isPassEncrypted={}", cryptoSupport.isProtected(password));
+
+        try {
+            _log.info(">> getConfig: tying to decrypt service config password.");
+
+            configInfo[FIELDS.PASSWORD] = (cryptoSupport.isProtected(password) ? cryptoSupport.unprotect(password) : password);
+        } catch (ex) {
+            _log.error("unable to decrypt password {}",ex);
+            configInfo[FIELDS.PROCESS_ERROR]="ERR-REST-010: unable to decrypt password";
+        } finally {
+            _log.info(">> getConfig: decrypt service config password finished");
+        }
+    }
+
+
+    return configInfo;
+}
+
+/*
+ * Helper method to evaluate script arguments.
+ *
+ */
+function getArgsMap(_metaData,payloadNode,_resource,_workItem,_workflowData,_workflowSession,_log){
+
+    _log.info(">> getArgsMap: metaData={}", _metaData);
+    _log.info(">> getArgsMap: payloadNode={}", payloadNode);
+
+    var argsInfo = {};
+
+    // legacy, using 'PROCESS_ARGS' if set
+    if(_metaData.get(FIELDS.PROCESS_ARGS)){
+        _log.info(">> using PROCESS_ARGS metaData = " + _metaData.get(FIELDS.PROCESS_ARGS));
+
+        var args = _metaData.get(FIELDS.PROCESS_ARGS).split(",");
+
+        _log.info(">> legacy args: #{},{}",args.length, Packages.java.util.Arrays.toString(args));
+
+        argsInfo[FIELDS.SERVICEPATH] = args[0].toString();
+        _log.info(">> legacy {}={}",FIELDS.SERVICEPATH,argsInfo[FIELDS.SERVICEPATH]);
+        try {
+            _log.info(">> legacy args: {}",Packages.java.util.Arrays.toString(args));
+            for (var i = 1; i < args.length; i++) {
+                if (payloadNode.hasProperty(args[i])) {
+                    argsInfo["" + args[i] + ""] = payloadNode.getProperty(args[i]).getString(); //meta.get(args[i], "");
+                    _log.info(">> form info item: {}={}", args[i], argsInfo["" + args[i] + ""]);
+                } else {
+                    argsInfo["" + args[i] + ""] = "";
+                    _log.info(">> form info item: {} does not exist", args[i]);
+                }
+
+            }
+        } catch (ex) {
+            _log.error("legacy info is not supported {}",ex);
+            argsInfo[FIELDS.PROCESS_ERROR]="ERR-REST-002: not able to evaluate legacy args";
+        }
+    } else if(_metaData.get(FIELDS.SERVICEPATH)){
+        _log.info(">> using metaData");
+
+        for (var key in FIELDS) {
+            argsInfo[FIELDS[key]] = _metaData.get(FIELDS[key]) ? _metaData.get(FIELDS[key]) : "";
+            _log.info(">> getArgsMap: collecting metadata {}={}", key,argsInfo[FIELDS[key]]);
+        }
+
+        var blankArray = new Packages.org.apache.commons.lang3.StringUtils.split(" ");
+        var metaDataFields = _workItem.getNode().getMetaDataMap().get(FIELDS.REQUESTFIELDS,blankArray);
+        //this dont work as the String[] is turned into String
+        //var metaDataFields = _metaData.get(PROCESS_METADATAFIELD,blankArray);
+        try {
+            for (var i = 0; i < metaDataFields.length; i++) {
+                var fieldMetaArray = metaDataFields[i].split("=");
+                if (fieldMetaArray[0]!="") {
+                    var fieldMeta=fieldMetaArray[0];
+                    if (payloadNode.hasProperty(fieldMeta)) {
+                        argsInfo["" + fieldMeta + ""] = payloadNode.getProperty(fieldMeta).getString(); //meta.get(args[i], "");
+                        _log.info(">> form info item2: [{}]=[{}]", fieldMeta, argsInfo["" + fieldMeta + ""]);
+                    } else {
+                        argsInfo["" + fieldMeta + ""] = "";
+                        _log.info(">> form info item2 [{}] does not exist", fieldMeta);
+                    }
+                }
+            }
+        } catch (ex) {
+            _log.error("could not process metadata info. {}",ex);
+            argsInfo[FIELDS.PROCESS_ERROR]="ERR-REST-003: not able to evaluate legacy args";
+        }
+    }
+    else {
+        _log.error(">> no valid parameter configurations passed.");
+        argsInfo[FIELDS.PROCESS_ERROR]="ERR-REST-001: not able to evaluate args";
+    }
+
+    return argsInfo;
+
+}
+
+function doGet(argsMap,dataMap,_workItem,_sling,_log) {
+    var responseInfo = {};
+    _log.info(">> doGet: argsMap={},dataMap={}", argsMap,dataMap);
+
+    var client = new Packages.org.apache.commons.httpclient.HttpClient();
+    client.getParams().setParameter("http.useragent", DEFAULTS.HTTP_USERAGENT);
+
+    _log.info(">> doGet: creating URI from {}",argsMap[FIELDS.URL]);
+    //var uriBuilder = new Packages.org.apache.shindig.common.uri.UriBuilder();
+    var uriBuilder = new Packages.org.apache.http.client.utils.URIBuilder(argsMap[FIELDS.URL]);
+    for (var key in dataMap) {
+        uriBuilder.addParameter(key,dataMap[key]);
+    }
+
+    var method = new Packages.org.apache.commons.httpclient.methods.GetMethod(uriBuilder.build());
+
+    var params = new Packages.org.apache.commons.httpclient.params.HttpClientParams();
+    params.setAuthenticationPreemptive(true);
+    client.setParams(params);
+
+    var state = new Packages.org.apache.commons.httpclient.HttpState();
+    state.setCredentials(Packages.org.apache.commons.httpclient.auth.AuthScope.ANY, new Packages.org.apache.commons.httpclient.UsernamePasswordCredentials(argsMap[FIELDS.UID],argsMap[FIELDS.PW]));
+    client.setState(state);
+
+    var messageResponse = "";
+    try{
+        var returnCode = client.executeMethod(method);
+        //client.executeMethod(method);
+
+        _log.info(">> doGet: returnCode={}", returnCode);
+
+        messageResponse = method.getResponseBodyAsString();
+
+        _log.info(">> doGet: messageResponse={}", messageResponse);
+
+        var blankArray = new Packages.org.apache.commons.lang3.StringUtils.split(" ");
+        var responseHeadersMetadata = _workItem.getNode().getMetaDataMap().get(FIELDS.RESPONSEHEADERS,blankArray);
+
+        try {
+            for (var i = 0; i < responseHeadersMetadata.length; i++) {
+                var fieldMetaArray = responseHeadersMetadata[i].split("=");
+                if (fieldMetaArray[0]!="" && fieldMetaArray.length == 2) {
+                    var fieldMeta=fieldMetaArray[0];
+                    var responseHeaderName=fieldMetaArray[1];
+                    var responseHeader = method.getResponseHeader(responseHeaderName);
+                    if (responseHeader != null) {
+                        var responseHeaderValue = responseHeader.getValue();
+                        responseInfo[fieldMeta]=responseHeaderValue;
+                        _log.info(">> response header: {}={}", responseHeader, responseHeaderValue);
+                    } else {
+                        _log.info(">> response header not set: {}", responseHeader);
+                    }
+                }
+            }
+        } catch (ex) {
+            _log.error("could not process metadata info. {}",ex);
+            argsInfo[FIELDS.PROCESS_ERROR]="ERR-REST-003: not able to evaluate legacy args";
+        }
+
+
+        var responseContentType = method.getResponseHeader("Content-Type");
+
+        _log.info(">> doGet: responseContentType={}", responseContentType);
+
+        var blankArray = new Packages.org.apache.commons.lang3.StringUtils.split(" ");
+        var metaDataFields = _workItem.getNode().getMetaDataMap().get(FIELDS.RESPONSEFIELDS,blankArray);
+
+
+        if (responseContentType.toString().indexOf(CONTENTYPE.XML)) {
+            _log.info(">> doGet: processing xml");
+
+            try {
+                for (var i = 0; i < metaDataFields.length; i++) {
+                    var metaItem = JSON.parse(metaDataFields[i]);
+                    _log.info(">> doGet: field name {}",metaItem[FIELDS.RESPONSEFIELD_NAME]);
+                    _log.info(">> doGet: field regex {}",metaItem[FIELDS.RESPONSEFIELD_REGEX]);
+
+                    if (metaItem[FIELDS.RESPONSEFIELD_NAME] && metaItem[FIELDS.RESPONSEFIELD_REGEX]) {
+                        var fieldName = metaItem[FIELDS.RESPONSEFIELD_NAME];
+
+                        var fieldValueSearchRex = new RegExp(metaItem[FIELDS.RESPONSEFIELD_REGEX]);
+                        _log.info(">> doGet: field regex parsed {}",fieldValueSearchRex);
+                        var fieldValueSearchResult = messageResponse.match(fieldValueSearchRex);
+                        _log.info(">> doGet: regex result {}",fieldValueSearchResult.toString());
+                        responseInfo[fieldName]=fieldValueSearchResult.length >1 ? fieldValueSearchResult[1] : "";
+                        _log.info(">> doGet: output {}={}",fieldName,responseInfo[fieldName]);
+                    }
+
+                }
+            } catch (ex) {
+                _log.error("could not process xml response. {}",ex);
+                argsInfo[FIELDS.PROCESS_ERROR]="ERR-REST-020: could not process xml response";
+            }
+
+
+        } else if (responseContentType.toString().indexOf(CONTENTYPE.JSON)) {
+            _log.info(">> doGet: processing json");
+        } else {
+            _log.info(">> doGet: processing form");
+        }
+
+
+        if (returnCode != 200) {
+            _log.error(">> doGet: got error {} with content: {}", returnCode, messageResponse);
+
+        } else {
+            _log.error(">> doGet: got success {} with content: {}", returnCode, messageResponse);
+        }
+
+    } catch (ex) {
+        _log.error(">> doGet: could not post {}", ex);
+    } finally {
+        method.releaseConnection();
+    }
+
+    responseInfo[FIELDS.RESPONSERAW]=messageResponse;
+
+    return responseInfo;
+    //return client.executeMethod(method);
+}
+
+/*
+
+
+var dataMap = {
+ fileUrl: '/content/forms/portal/render.dor.pdf/WC3KE6OVIHQPUDZPOVUJGKSUXQ'
+ fileType: 'application/pdf'
+ fileName: 'Leave application - Max Barrass - 2016-08-11 2016-08-12 2016-08-15.pdf'
+ fileType: 'local'
+}
+* */
+
+function doPost(argsMap,dataMap,_workItem,_sling,_log) {
+
+    log.info(">> doPost: argsMap={},dataMap={}", argsMap, dataMap);
+
+    var client = new Packages.org.apache.commons.httpclient.HttpClient();
+    client.getParams().setParameter("http.useragent", DEFAULTS.HTTP_USERAGENT);
+
+    log.info(">> doPost url: {}", argsMap[FIELDS.URL]);
+
+    var uriBuilder = new Packages.org.apache.http.client.utils.URIBuilder(argsMap[FIELDS.URL]);
+    //var uriBuilder = new Packages.org.apache.shindig.common.uri.UriBuilder(argsMap[FIELDS.URL]);
+
+
+    var method = new Packages.org.apache.commons.httpclient.methods.PostMethod(uriBuilder.build());
+
+    // var params = new Packages.org.apache.commons.httpclient.params.HttpClientParams();
+    // params.setAuthenticationPreemptive(true);
+    // client.setParams(params);
+
+    if (argsMap[FIELDS.UID] != "") {
+        var state = new Packages.org.apache.commons.httpclient.HttpState();
+        state.setCredentials(Packages.org.apache.commons.httpclient.auth.AuthScope.ANY, new Packages.org.apache.commons.httpclient.UsernamePasswordCredentials(argsMap[FIELDS.UID], argsMap[FIELDS.PW]));
+        client.setState(state);
+    }
+
+    var requestEntity = null;
+
+    log.info(">> doPost method: {}", argsMap[FIELDS.SENDCONTENTTYPE].toLowerCase());
+
+    if (argsMap[FIELDS.SENDCONTENTTYPE].toLowerCase() == CONTENTYPE.JSON.toLowerCase()) {
+        var jsonObject = new Packages.org.apache.sling.commons.json.JSONObject();
+        //var JSON_STRING = "{}";
+
+        for (var key in dataMap) {
+            jsonObject.put(key, dataMap[key]);
+        }
+
+        log.info(">> doPost new json payload: {}", jsonObject.toString());
+
+        requestEntity = new Packages.org.apache.commons.httpclient.methods.StringRequestEntity(
+            jsonObject.toString(),
+            "application/json",
+            "UTF-8");
+
+        method.setRequestEntity(requestEntity);
+    }
+
+
+
+    if (argsMap[FIELDS.SENDCONTENTTYPE].toLowerCase() == CONTENTYPE.FORM.toLowerCase()) {
+        for (var key in dataMap) {
+            method.addParameter(key,dataMap[key]);
+        }
+    }
+    // xml, "text/xml", "ISO-8859-1"
+
+    if (requestEntity != null) {
+        method.setRequestEntity(requestEntity);
+    }
+
+    if (argsMap[FIELDS.SENDCONTENTTYPE].toLowerCase() == CONTENTYPE.FILE.toLowerCase()) {
+
+        var _fileUrl = dataMap[FIELDS.FILES][0][FIELDS.FILEURL];
+        var _fileType = dataMap[FIELDS.FILES][0][FIELDS.FILETYPE];
+        var _fileName = dataMap[FIELDS.FILES][0][FIELDS.FILENAME];
+        var _location = dataMap[FIELDS.FILES][0][FIELDS.FILELOCATION];
+
+        var out = new Packages.java.io.ByteArrayOutputStream();
+
+        if (_location == "local") {
+            var _requestResponseFactory = sling.getService(Packages.com.day.cq.contentsync.handler.util.RequestResponseFactory);
+            log.info(">> _requestResponseFactory: {}", _requestResponseFactory);
+
+            var req = _requestResponseFactory.createRequest("GET", _fileUrl);
+            var resp = _requestResponseFactory.createResponse(out);
+
+            _requestProcessor.processRequest(req, resp, request.getResourceResolver());
+
+        }
+
+        method.setRequestHeader("Content-Type", "multipart/mixed"); //multipart/form-data
+
+        if (out != null) {
+            var file = new Packages.org.apache.commons.httpclient.methods.multipart.FilePart(
+                    "files",
+                    new org.apache.commons.httpclient.methods.multipart.ByteArrayPartSource(_fileName, out.toByteArray()),
+                    _fileType,
+                    null
+            );
+
+            var parts = new Packages.org.apache.commons.httpclient.methods.multipart.Part[0];
+            parts[0] = file;
+
+            method.setRequestEntity(new MultipartRequestEntity(parts, post.getParams()));
+        }
+    }
+
+    var messageResponse = "";
+    try{
+        var returnCode = client.executeMethod(method);
+        //client.executeMethod(method);
+
+        log.info(">> doPost: returnCode={}", returnCode);
+
+        messageResponse = method.getResponseBodyAsString();
+
+        log.info(">> doPost: messageResponse={}", messageResponse);
+
+        if (returnCode != 200) {
+            log.error(">> doPost: got error {} with content: {}", ex, messageResponse);
+
+        } else {
+            log.error(">> doPost: got success {} with content: {}", ex, messageResponse);
+        }
+
+    } catch (ex) {
+        log.error(">> doPost: could not post {}", ex);
+    } finally {
+        method.releaseConnection();
+        //if(br != null) try { br.close(); } catch (Exception fe) {}
+    }
+    return messageResponse;
+}

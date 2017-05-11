@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    xtype="tabpanel">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <proxy
+            jcr:primaryType="nt:unstructured"
+            html="&lt;i>These credentials are used to connect to external REST Services&lt;i>"
+            title="Config Settings"
+            xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <serviceurl
+                        jcr:primaryType="cq:Widget"
+                        allowBlank="false"
+                        fieldDescription="Enter the Service URL"
+                        fieldLabel="Service URL"
+                        name="./serviceurl"
+                        xtype="textfield"/>
+                <user
+                    jcr:primaryType="cq:Widget"
+                    fieldLabel="Username"
+                    name="./user"
+                    xtype="textfield"/>
+                <password
+                    jcr:primaryType="cq:Widget"
+                    fieldLabel="Password"
+                    name="./password"
+                    xtype="password"/>
+                <passwordencryption
+                    jcr:primaryType="cq:Widget"
+                    name="./password@Encrypted"
+                    xtype="hidden"/>
+            </items>
+        </proxy>
+    </items>
+</jcr:root>
