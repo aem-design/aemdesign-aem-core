@@ -1,4 +1,4 @@
-package design.aem.aem.components;
+package design.aem.components;
 
 import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
@@ -70,6 +70,7 @@ abstract class AbstractComponent {
         return this.slingRequest;
     }
 
+    @SuppressWarnings("unchecked")
     protected final ComponentContext getComponentContext() {
         if (this.componentContext == null) {
             this.componentContext = WCMUtils.getComponentContext(this.slingRequest);
@@ -175,6 +176,7 @@ abstract class AbstractComponent {
 
     }
 
+    @SuppressWarnings("unchecked")
     public final boolean isEditMode() {
         if (this.editMode == null) {
             this.editMode = WCMMode.fromRequest(getSlingRequest()) == WCMMode.EDIT;
@@ -182,6 +184,7 @@ abstract class AbstractComponent {
         return this.editMode;
     }
 
+    @SuppressWarnings("unchecked")
     public final boolean isPreviewMode() {
         if (this.previewMode == null) {
             this.previewMode = WCMMode.fromRequest(getSlingRequest()) == WCMMode.PREVIEW;
@@ -189,6 +192,7 @@ abstract class AbstractComponent {
         return this.previewMode;
     }
 
+    @SuppressWarnings("unchecked")
     public final boolean isPublishMode() {
         if (this.publishMode == null) {
             this.publishMode = WCMMode.fromRequest(getSlingRequest()) == WCMMode.DISABLED;
@@ -196,6 +200,7 @@ abstract class AbstractComponent {
         return this.publishMode;
     }
 
+    @SuppressWarnings("unchecked")
     public final boolean isDesignMode() {
         if (this.designMode == null) {
             this.designMode = WCMMode.fromRequest(getSlingRequest()) == WCMMode.DESIGN;

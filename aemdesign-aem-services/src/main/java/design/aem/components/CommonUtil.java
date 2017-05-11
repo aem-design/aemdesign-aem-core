@@ -1,19 +1,20 @@
-package design.aem.aem.components;
+package design.aem.components;
 
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
+import com.day.cq.wcm.api.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
+
+import javax.jcr.RepositoryException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-
-import com.day.cq.wcm.api.Page;
-import javax.jcr.RepositoryException;
-import java.util.Iterator;
 
 /**
  * Create static class for common functions

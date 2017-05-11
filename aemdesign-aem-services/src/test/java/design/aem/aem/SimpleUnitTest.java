@@ -1,4 +1,4 @@
-package design.aem.aem;
+package design.aem;
 
 import org.junit.Test;
 

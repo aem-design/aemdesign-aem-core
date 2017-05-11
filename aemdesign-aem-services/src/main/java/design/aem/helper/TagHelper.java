@@ -1,9 +1,9 @@
-package design.aem.aem.helper;
+package design.aem.helper;
 
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.google.gson.Gson;
-import design.aem.aem.models.DataTag;
+import design.aem.models.DataTag;
 import org.apache.sling.api.resource.Resource;
 
 import java.util.ArrayList;

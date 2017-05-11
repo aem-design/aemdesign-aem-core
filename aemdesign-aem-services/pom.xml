@@ -23,11 +23,11 @@
 
 
     <scm>
-    <connection>scm:git:ssh://git@bitbucket.org/aemdesign/aemdesign-aem-services.git</connection>
-    <developerConnection>scm:git:ssh://git@bitbucket.org/aemdesign/aemdesign-aem-services.git</developerConnection>
-    <url>https://bitbucket.org/aemdesign/aemdesign-aem-services.git</url>
-      <tag>0.0.0</tag>
-  </scm>
+        <connection>scm:git:ssh://git@bitbucket.org/aemdesign/aemdesign-aem-services.git</connection>
+        <developerConnection>scm:git:ssh://git@bitbucket.org/aemdesign/aemdesign-aem-services.git</developerConnection>
+        <url>https://bitbucket.org/aemdesign/aemdesign-aem-services.git</url>
+        <tag>0.0.0</tag>
+    </scm>
 
     <dependencies>
 
@@ -199,18 +199,15 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Bundle-SymbolicName>aemdesign-aem.aemdesign-aem-services</Bundle-SymbolicName>
+                        <Bundle-SymbolicName>design.aem.aemdesign-aem-services</Bundle-SymbolicName>
                         <Embed-Dependency>gson,javax.inject</Embed-Dependency>
                         <Sling-Model-Packages>
-                            design.aem.aem.models
+                            design.aem.models
                         </Sling-Model-Packages>
                     </instructions>
                 </configuration>
             </plugin>
             <plugin>
-                <!--    Note that this requires /apps/aemdesign-aem-services/install to exist!!	-->
-                <!--    This is typically the case when aemdesign-aem-common is deployed first	-->
-                <!--    Otherwise, create /apps/aemdesign-aem-common/install manually (CRXDE|Lite)-->
                 <groupId>org.apache.sling</groupId>
                 <artifactId>maven-sling-plugin</artifactId>
                 <configuration>

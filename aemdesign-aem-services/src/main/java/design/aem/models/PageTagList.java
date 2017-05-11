@@ -1,4 +1,4 @@
-package design.aem.aem.models;
+package design.aem.models;
 
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
