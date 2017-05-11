@@ -9,7 +9,6 @@
                <c:if test="${empty componentProperties.lightboxWidth ||  empty componentProperties.lightboxHeight}">
                   data-width="${componentProperties.videoWidth}" data-height="${componentProperties.videoHeight}"
                </c:if>
-
             ></a>
             <img src="${componentProperties.thumbnail}"  style="width:${componentProperties.thumbnailWidth}px; height:${componentProperties.thumbnailHeight}px;" />
         </div>
