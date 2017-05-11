@@ -1,0 +1,7 @@
+To: ${toEmail}
+Subject: DAM Asset Expiry
+
+Hello ${username},
+
+Some of your assets are going to expire. Please take a look at the following report
+Asset Expiry Report: ${authorPath}${reportLink}

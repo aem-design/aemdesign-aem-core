@@ -1,0 +1,85 @@
+Subject: An approver has completed their task
+To: ${lastModifiedByEmail}
+To: ${completedByEmail}
+To: ${ownerEmail}
+
+<body style="background-color: #FFFFFF; padding: 0; margin:0; ">
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+        <td align="left">
+            <table width="600" border="0" cellspacing="0" cellpadding="0" height="60">
+                <tr>
+                    <td valign="middle" style="background-image: url(data:image/png;base64,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); background-repeat: no-repeat; background-color: silver; background-position: 15px; color: white; text-transform:uppercase; letter-spacing: 2px; font-family:Arial, Helvetica, sans-serif; display: flex; padding: 0 0 0 0; padding-right: 30px; margin: 0; height: 60px; justify-content: center; flex-direction: column; text-align: right; font-size: 1.2rem;">
+                        ${emailSubject}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#FFFFFF" height="25">&nbsp;</td>
+    </tr>
+    <tr>
+        <td bgcolor="#FFFFFF">
+            <table width="600" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="30">&nbsp;</td>
+                    <td style="font-family:Arial, Helvetica, sans-serif" align="left"><font face="Helvetica, Arial, sans-serif">
+                        <span style="font-size:18px; font-weight:bold">Hello ${lastModifiedByName},</span></font>
+                    </td>
+                    <td width="30">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="30" colspan=3>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="30">&nbsp;</td>
+                    <td><font style="font-family:Arial, Helvetica, sans-serif;">An approver has completed their task:<br>
+                        <li><a target="_blank" href="${authorPath}/mnt/overlay/cq/core/content/projects/properties.html?item=${resourcePath}">Details</a></li>
+                        <li><a target="_blank" href="${authorPath}${detailsHref}${resourcePath}">Workspace</a></li>
+                        <li><a target="_blank" href="${authorPath}/mnt/overlay/cq/core/content/projects/teampage.html?item=${resourcePath}">Team</a></li>
+                        <li><a target="_blank" href="${authorPath}/mnt/overlay/cq/core/content/projects/showtasks.html?item=${resourcePath}">Task List</a></li>
+                    </font>
+                    </td>
+                    <td width="30">&nbsp;</td>
+                </tr>
+
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td bgcolor="#FFFFFF" height="25">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td bgcolor="silver">
+            <table width="600" border="0" cellspacing="0" cellpadding="0">
+                <tr><td>&nbsp;</td></tr>
+                <tr>
+                    <td>
+                        <table width="600" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td width="30">&nbsp;</td>
+                                <td style="" align="left"><span style="font-family:Arial, Helvetica, sans-serif; color:#FFFFFF">
+                    <p>From<br/>
+                    Projects Team
+                    </p>
+                    <hr>
+                    This is an automatically generated message. Please do not reply.
+                    </span>
+                                </td>
+                                <td width="30">&nbsp;
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="25">&nbsp;</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>

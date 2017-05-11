@@ -1,0 +1,9 @@
+Subject: You have been assigned a task
+To: ${assigneeEmail}
+
+Hello ${assigneeName},
+
+You have been assigned a task, to view details click on the below links:
+Task Details: ${authorPath}/mnt/overlay/cq/core/content/projects/showtasks/taskdetails.html?item=${payloadPath}
+Workspace: ${authorPath}/projects/details.html${projectPath}
+Details: ${authorPath}/mnt/overlay/cq/core/content/projects/properties.html?item=${projectPath}

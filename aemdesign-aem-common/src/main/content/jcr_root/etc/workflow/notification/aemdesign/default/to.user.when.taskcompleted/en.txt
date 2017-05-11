@@ -1,0 +1,12 @@
+Subject: An approver has completed their task
+To: ${lastModifiedByEmail}
+To: ${completedByEmail}
+To: ${ownerEmail}
+
+Hello ${lastModifiedByName},
+
+An approver has completed their task:
+Task Details: ${authorPath}/mnt/overlay/cq/core/content/projects/showtasks/taskdetails.html?item=${payloadPath}
+Tasks: ${authorPath}/mnt/overlay/cq/core/content/projects/showtasks.html?item=${projectPath}
+Workspace: ${authorPath}/projects/details.html${projectPath}
+Details: ${authorPath}/mnt/overlay/cq/core/content/projects/properties.html?item=${projectPath}

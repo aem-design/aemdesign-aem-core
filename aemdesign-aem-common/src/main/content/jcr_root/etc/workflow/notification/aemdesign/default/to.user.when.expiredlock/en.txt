@@ -1,0 +1,7 @@
+To: ${toEmail}
+Subject: Asset(s) lock expired
+
+Hello ${username},
+
+Your lock(s) expired:
+${emailBody}
