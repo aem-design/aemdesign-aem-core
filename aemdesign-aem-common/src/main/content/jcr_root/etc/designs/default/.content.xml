@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:vlt="http://www.day.com/jcr/vault/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:lastModified="{Date}2016-09-21T07:58:02.275+10:00"
+        cq:lastModifiedBy="admin"
+        jcr:primaryType="nt:unstructured"
+        jcr:title="Default Design"
+        sling:resourceType="wcm/core/components/designer">
+        <model jcr:primaryType="nt:unstructured">
+            <flow
+                jcr:lastModified="{Date}2016-09-21T07:58:02.254+10:00"
+                jcr:lastModifiedBy="admin"
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="cq/flow/components/parsys"
+                components="[group:AEM Design Workflow,group:DAM Workflow,group:Projects,group:WCM Workflow,group:Workflow]">
+                <section jcr:primaryType="nt:unstructured"/>
+            </flow>
+        </model>
+    </jcr:content>
+</jcr:root>

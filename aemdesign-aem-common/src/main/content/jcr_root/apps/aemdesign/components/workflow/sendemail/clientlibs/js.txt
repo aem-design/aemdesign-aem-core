@@ -1,0 +1,4 @@
+#base=js
+metadataKeyValueField.js
+metadataKeyValueActions.js
+metadataKeyValueActionField.js

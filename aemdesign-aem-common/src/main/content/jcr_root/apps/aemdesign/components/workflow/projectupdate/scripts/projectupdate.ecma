@@ -1,0 +1,89 @@
+
+var workflowData = workItem.getWorkflowData();
+
+
+var session = workflowSession.getSession();
+var resolver = sling.getService(Packages.org.apache.sling.jcr.resource.JcrResourceResolverFactory).getResourceResolver(session);
+var externalizer = resolver.adaptTo(Packages.com.day.cq.commons.Externalizer);
+var userPropertiesService = sling.getService(Packages.com.adobe.granite.security.user.UserPropertiesService);
+var userPropertiesManager = userPropertiesService.createUserPropertiesManager(session, resolver);
+var userManager = resolver.adaptTo(Packages.org.apache.jackrabbit.api.security.user.UserManager);
+var acMgr = session.getAccessControlManager();
+
+
+var path = workflowData.getPayload().toString();
+
+log.info(">> projectupdate: {}",path);
+
+
+//update project node
+try {
+    var updates = removeProjectDefaultDenyPolicies(path);
+    log.info(">> removed {} policies from {}",updates,path);
+} catch (ex) {
+    log.error(">> could not update project node: path={},error={}",path,ex);
+}
+
+//update project damFolderPath
+var damFolderPath="";
+try {
+    var updates = 0;
+    var projectResource = resolver.getResource(path);
+    if (projectResource != null) {
+        var projectContent = projectResource.getChild("jcr:content");
+        if (projectContent != null) {
+            var projectContentNode = projectContent.adaptTo(Packages.javax.jcr.Node);
+            if (projectContentNode != null) {
+
+                if (projectContentNode.hasProperty("damFolderPath")) {
+                    var projectContentNode = projectContentNode.getProperty("damFolderPath");
+                    if (projectContentNode) {
+                        damFolderPath = projectContentNode.toString();
+                        if (damFolderPath != "") {
+                            updates = removeProjectDefaultDenyPolicies(damFolderPath);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    if (updates != 0) {
+        log.info(">> removed {} policies from {}",updates,damFolderPath);
+    } else {
+        log.info(">> could not update project damFolderPath={}",damFolderPath);
+    }
+
+
+} catch (ex) {
+    log.error(">> could not update project damFolderPath node: path={},error={}",damFolderPath,ex);
+}
+
+function removeProjectDefaultDenyPolicies(_path) {
+    var count = 0;
+    var acl  = Packages.org.apache.jackrabbit.commons.jackrabbit.authorization.AccessControlUtils.getAccessControlList(acMgr, _path);
+    var accessControlEntries = acl.getAccessControlEntries();
+    for (var acei in accessControlEntries) {
+        var ace = accessControlEntries[acei];
+        var principal = ace.getPrincipal();
+        var authorizable = userManager.getAuthorizable(principal);
+
+        log.info(">> projectupdate: isAllow={}",ace.isAllow());
+
+        if (!ace.isAllow() && principal.getName() == "projects-administrators") {
+            log.info(">> projectupdate: {}","projects-administrators");
+            acl.removeAccessControlEntry(ace);
+            acMgr.setPolicy(_path, acl);
+            workflowSession.getSession().save();
+            count++;
+        }
+        if (!ace.isAllow() && principal.getName() == "projects-users") {
+            log.info(">> projectupdate: {}","projects-users");
+            acl.removeAccessControlEntry(ace);
+            acMgr.setPolicy(_path, acl);
+            workflowSession.getSession().save();
+            count++;
+        }
+    }
+    return count;
+}

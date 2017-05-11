@@ -1,0 +1,972 @@
+/*
+
+ Available Objects
+ Java Class                                                   Script variable name            Description
+ ------------------------------------------------------------ ------------------------------- ---------------------------------------------------
+ com.adobe.granite.workflow.exec.WorkItem                     workItem                        The current step instance.
+ com.adobe.granite.workflow.WorkflowSession                   workflowSession                 The workflow session of the current step instance.
+ String[] (contains process arguments)                        args                            The step arguments.
+ com.adobe.granite.workflow.metadata.MetaDataMap              metaData                        The meta data of the current step instance.
+ org.apache.sling.scripting.core.impl.InternalScriptHelper    sling                           Provides access to the Sling runtime environment.
+ com.adobe.granite.workflow.exec.WorkItem                     graniteWorkItem	              The current step instance.
+ com.adobe.granite.workflow.WorkflowSession	                  graniteWorkflowSession	      The workflow session of the current step instance.
+
+ */
+
+var TYPE_JCR_PATH = "JCR_PATH";
+var NODE_TYPE_NAME = "nodeType";
+var NODE_TYPE_VALUE = "fp:submittedForm";
+var DEFAULT_PROCESS_ARGS = "PROCESS_ARGS";
+var DEFAULT_CONTENT_NODE_NAME = "jcr:content";
+// var PAYLOAD_NODE_TYPE_CHECK = "sling:resourceType";
+// var PAYLOAD_NODE_TYPE_CHECK_VALUE = "cq/gui/components/projects/admin/card/projectcard";
+
+var DEFAULT_PROCESS_TEMPLATEPATH = "/etc/workflow/notification/aemdesign/default/to.user.when.submitted/en.txt";
+// var DEFAULT_PROCESS_TEMPLATEPATH = "/etc/notification/email/aemdesign/default/to.user.when.submitted/en.html";
+var DEFAULT_PATHMATCH =/(.+)\/([^/]+)/i;
+
+
+var FIELDS = {
+    EMAIL_TO_LIST: "toEmailList",
+    EMAIL_FROM: "fromEmail",
+    EMAIL_TO: "toEmail",
+    EMAIL_SUBJECT: "emailSubject",
+    PROCESS_TEMPLATEPATH: "templatePath",
+    PROCESS_METADATAFIELD: "metaDataFields",
+
+
+
+    PROCESS_FIELDCONFIG: "fieldconfig",
+    PROCESS_FIELDCONFIG_KEY: "key",
+    PROCESS_FIELDCONFIG_VALUE: "value",
+    PROCESS_FIELDCONFIG_ACTION: "action",
+
+    PROCESS_ATTACH: "attach",
+    PROCESS_ATTACHURL: "attachurl",
+    PROCESS_ATTACHCONTENTYPE: "attachcontenttype",
+    PROCESS_ATTACHTITLE: "attachtitle",
+    PROCESS_ATTACHTITLEFORMATTED: "attachtitleformatted",
+    PROCESS_ATTACHTERROR: "attacherror",
+
+    PROCESS_PAYLOADPROCESS: "payloadPath",
+    PROCESS_ERROR: "error",
+    PAYLOAD_PATH: "payloadPath",
+    PAYLOAD_RESOURCEPATH: "resourcePath",
+
+    PAYLOAD_AUTHORPATH: "authorPath",
+    PAYLOAD_PUBLISHPATH: "publishPath",
+    PAYLOAD_EXTERNALPATH: "externalPath",
+
+    PAYLOAD_LOCKEDBY: "jcr:lockOwner",
+    PAYLOAD_LOCKEDBYNAME: "lockedByName",
+    PAYLOAD_LOCKEDBYEMAIL: "lockedByEmail",
+
+    PAYLOAD_CREATED: "jcr:created",
+    PAYLOAD_CREATEDBY: "jcr:createdBy",
+    PAYLOAD_CREATEDBYNAME: "createdByName",
+    PAYLOAD_CREATEDBYEMAIL: "createdByEmail",
+    PAYLOAD_MODIFIED: "jcr:lastModified",
+    PAYLOAD_MODIFIEDBY: "jcr:lastModifiedBy",
+    PAYLOAD_MODIFIEDBYALT: "lastModifiedBy",
+    PAYLOAD_MODIFIEDBYNAME: "lastModifiedByName",
+    PAYLOAD_MODIFIEDBYEMAIL: "lastModifiedByEmail",
+
+    PAYLOAD_DELEGATEDTOUSER: "delegatetouser",
+    PAYLOAD_DELEGATEDTOUSERNAME: "delegateToUserName",
+    PAYLOAD_DELEGATEDTOUSEREMAIL: "delegateToUserEmail",
+
+    PAYLOAD_ASIGNEE: "assignee",
+    PAYLOAD_ASIGNEENAME: "assigneeName",
+    PAYLOAD_ASIGNEEEMAIL: "assigneeEmail",
+
+    PAYLOAD_COMPLETEDBY: "completedBy",
+    PAYLOAD_COMPLETEDBYNAME: "completedByName",
+    PAYLOAD_COMPLETEDBYEMAIL: "completedByEmail",
+
+    PAYLOAD_OWNER: "owner",
+    PAYLOAD_OWNERNAME: "ownerName",
+    PAYLOAD_OWNEREMAIL: "ownerEmail",
+
+    PAYLOAD_EMAIL_BODY: "emailBody",
+    PAYLOAD_EMAIL_SUBJECT: "emailSubject",
+    PAYLOAD_EMAIL_FROM: "fromEmail",
+    PAYLOAD_EMAIL_TO: "toEmail"
+};
+
+
+var workflowData = workItem.getWorkflowData();
+
+var logger = Packages.org.slf4j.LoggerFactory.getLogger("SendEmail.ecma");
+
+log.info(">> step meta, # {}", metaData);
+
+log.info(">> sendemail process called, args # {}", Packages.java.util.Arrays.toString(args));
+
+var session = workflowSession.getSession();
+var resolver = sling.getService(Packages.org.apache.sling.jcr.resource.JcrResourceResolverFactory).getResourceResolver(session);
+var externalizer = resolver.adaptTo(Packages.com.day.cq.commons.Externalizer);
+var userPropertiesService = sling.getService(Packages.com.adobe.granite.security.user.UserPropertiesService);
+var userPropertiesManager = userPropertiesService.createUserPropertiesManager(session, resolver);
+var userManager = resolver.adaptTo(Packages.org.apache.jackrabbit.api.security.user.UserManager);
+
+if (TYPE_JCR_PATH == workflowData.getPayloadType()) {
+
+    var path = workflowData.getPayload().toString();
+
+    if (!workflowSession.getSession().itemExists(path)) {
+        log.info(">> path does not exist: {}", path);
+    } else {
+        log.info(">> path exist: {}", path);
+        try
+        {
+
+            var node = workflowSession.getSession().getItem(path);
+
+            var isPlayloadValid = true;
+            // log.info(">> gathering form info: metaData={},node={}", node.hasProperty(PAYLOAD_NODE_TYPE_CHECK), node.getProperty(PAYLOAD_NODE_TYPE_CHECK).toString());
+            // if (node.hasProperty(PAYLOAD_NODE_TYPE_CHECK)) {
+            //     if (PAYLOAD_NODE_TYPE_CHECK_VALUE == node.getProperty(PAYLOAD_NODE_TYPE_CHECK).toString()) {
+            //         isPlayloadValid = true;
+            //     }
+            // }
+
+            if (isPlayloadValid)
+            {
+
+                log.info(">> gathering form info: metaData={},node={}", metaData, node);
+
+                // GET INFO
+                var fieldMap = getArgsMap(metaData, node, workItem, workflowData, workflowSession, log);
+
+                //dont send emails if cant read metadata, save error code
+                if (fieldMap[FIELDS.PROCESS_ERROR]) {
+                    log.error(">> error occurred with processing metadata, aborting reason: {}", fieldMap[FIELDS.PROCESS_ERROR]);
+                    workItem.getWorkflowData().getMetaDataMap().put(FIELDS.PROCESS_ERROR, fieldMap[FIELDS.PROCESS_ERROR]);
+                }
+                else
+                {
+
+                    var messageGatewayService = sling.getService(Packages.com.day.cq.mailer.MessageGatewayService);
+
+                    log.info(">> MessageGatewayService: {}", messageGatewayService);
+
+                    var messageGateway = messageGatewayService.getGateway(Packages.org.apache.commons.mail.Email);
+
+                    log.info(">> messageGateway: {}", messageGateway);
+
+
+                    /*
+
+                     SEND TEMPLATED EMAIL
+
+                     */
+
+                    if (!workflowSession.getSession().itemExists(fieldMap[FIELDS.PROCESS_TEMPLATEPATH])) {
+                        log.info(">> template does not exist: {}", fieldMap[FIELDS.PROCESS_TEMPLATEPATH]);
+                    } else {
+
+                        try {
+
+                            log.info(">> template: {}", fieldMap[FIELDS.PROCESS_TEMPLATEPATH]);
+
+                            var templatePath = fieldMap[FIELDS.PROCESS_TEMPLATEPATH];
+                            if (templatePath.endsWith(".html")) {
+
+                                sendMailHtml(fieldMap[FIELDS.PROCESS_TEMPLATEPATH],fieldMap,workflowSession);
+
+                            } else {
+
+                                sendMailText(fieldMap[FIELDS.PROCESS_TEMPLATEPATH],fieldMap,workflowSession);
+
+                            }
+
+                        } catch (ex) {
+                            log.info(">> could not send email. {}", ex);
+                        }
+
+                    }
+                }
+
+                //add fields to workflow data
+                for (var item in fieldMap) {
+
+                    log.info(">> updating workflow data: {}={}", item, fieldMap[item]);
+                    workItem.getWorkflowData().getMetaDataMap().put(item, fieldMap[item]);
+
+                }
+
+
+            }
+            else
+            {
+                log.info("Not a valid resource type, skipping payload {}", path);
+            }
+
+            //save workflow data
+            updateWorkflow();
+
+        } catch (e) {
+            log.error(e);
+        }
+    }
+
+
+
+
+} else {
+    var fieldMap = getArgsMapSimple(metaData, workItem, workflowData, workflowSession, log);
+
+    log.info(">> fieldMap: {}", fieldMap);
+
+    var emailTemplate = metaData.get(FIELDS.PROCESS_TEMPLATEPATH);
+
+    updateMetadata(FIELDS.PROCESS_TEMPLATEPATH,emailTemplate);
+
+    if (!workflowSession.getSession().itemExists(emailTemplate)) {
+        log.info(">> template does not exist: {}", emailTemplate);
+    } else {
+        log.info("send email using this template {}", emailTemplate);
+
+        sendMailHtml(emailTemplate,fieldMap,workflowSession);
+    }
+
+}
+
+
+
+function sendMailText(_emailTemplatePath,_fieldMap,_workflowSession) {
+    var templateType = Packages.org.apache.commons.mail.SimpleEmail;
+
+    log.info(">> sendMailText templateType: {}", templateType);
+
+    var mailTemplate = Packages.com.day.cq.commons.mail.MailTemplate.create(_emailTemplatePath, _workflowSession.getSession());
+
+    log.info(">> sendMailText mailTemplate: {}", mailTemplate);
+
+    var templatedEmail = mailTemplate.getEmail(Packages.org.apache.commons.lang.text.StrLookup.mapLookup(_fieldMap), templateType);
+
+    var toListString = fieldMap[FIELDS.EMAIL_TO_LIST];
+    if (toListString) {
+        var toList = toListString.split(",");
+        log.info(">> send email to address list: {}", toList);
+        for (var to in toList) {
+            var toAddress = toList[to];
+            if (_isNotBlank(toAddress)) {
+                templatedEmail.addTo(toAddress);
+                log.info(">> adding To recipient to email {}", toAddress);
+            }
+        }
+    }
+
+    log.info(">> sendMailText templatedEmail: {}", templatedEmail);
+
+    var messageGatewayService = sling.getService(Packages.com.day.cq.mailer.MessageGatewayService);
+
+    log.info(">> sendMailText MessageGatewayService: {}", messageGatewayService);
+
+    var messageGateway = messageGatewayService.getGateway(Packages.org.apache.commons.mail.Email);
+
+    log.info(">> sendMailText messageGateway: {}", messageGateway);
+
+    log.info(">> sendMailText sending email");
+
+    try {
+        messageGateway.send(templatedEmail);
+    } catch (ex) {
+        log.info(">> sendMailText email sent error {}",ex);
+    }
+    log.info(">> sendMailText email sent");
+}
+
+function sendMailHtml(_emailTemplatePath,_fieldMap,_workflowSession) {
+    var templateType = Packages.org.apache.commons.mail.HtmlEmail;
+
+    log.info(">> sendMailHtml templateType: {}", templateType);
+
+    var mailTemplate = Packages.com.day.cq.commons.mail.MailTemplate.create(_emailTemplatePath, _workflowSession.getSession());
+
+    log.info(">> sendMailHtml mailTemplate: {}", mailTemplate);
+
+    var templatedEmail = mailTemplate.getEmail(Packages.org.apache.commons.lang.text.StrLookup.mapLookup(_fieldMap), templateType);
+
+    var toListString = fieldMap[FIELDS.EMAIL_TO_LIST];
+    if (toListString) {
+        var toList = toListString.split(",");
+        log.info(">> send email to address list: {}", toList);
+        for (var to in toList) {
+            var toAddress = toList[to];
+            if (_isNotBlank(toAddress)) {
+                templatedEmail.addTo(toAddress);
+                log.info(">> adding To recipient to email {}", toAddress);
+            }
+        }
+    }
+
+    log.info(">> sendMailHtml templatedEmail: {}", templatedEmail.toString());
+
+    var messageGatewayService = sling.getService(Packages.com.day.cq.mailer.MessageGatewayService);
+
+    log.info(">> sendMailHtml MessageGatewayService: {}", messageGatewayService);
+
+    var messageGateway = messageGatewayService.getGateway(Packages.org.apache.commons.mail.Email);
+
+    log.info(">> sendMailHtml messageGateway: {}", messageGateway);
+
+    log.info(">> sendMailHtml sending email");
+
+    try {
+        messageGateway.send(templatedEmail);
+    } catch (ex) {
+        log.info(">> sendMailHtml email sent error {}",ex);
+    }
+    log.info(">> sendMailHtml email sent");
+}
+
+function updateMetadata(name,value) {
+    workItem.getWorkflowData().getMetaDataMap().put(name, value);
+}
+
+function updateWorkflow() {
+    workflowSession.updateWorkflowData(workItem.getWorkflow(), workItem.getWorkflowData());
+}
+
+
+
+/*
+ * Helper method to evaluate script arguments.
+ *
+ */
+//Simple collection of Fields from Workflow
+function getArgsMapSimple(_metaData,_workItem,_workflowData,_workflowSession,_log) {
+    //var blankArray = new Packages.org.apache.commons.lang3.StringUtils.split(" ");
+    // var fieldConfig = _workItem.getNode().getMetaDataMap().get(FIELDS.PROCESS_FIELDCONFIG,_blankArray);
+
+    var argsInfo = {};
+
+    var strTemplatePath = _metaData.get(FIELDS.PROCESS_TEMPLATEPATH);
+    _log.info(">> using this template {}",strTemplatePath);
+
+    //check template path to make sure it exist
+    if (strTemplatePath.match(DEFAULT_PATHMATCH)) {
+        if (!workflowSession.getSession().itemExists(strTemplatePath)) {
+            _log.info(">> template does not exist using default: {}", DEFAULT_PROCESS_TEMPLATEPATH);
+            argsInfo[FIELDS.PROCESS_TEMPLATEPATH] = DEFAULT_PROCESS_TEMPLATEPATH
+        } else {
+            argsInfo[FIELDS.PROCESS_TEMPLATEPATH] = strTemplatePath;
+        }
+    }
+
+    //copy values from metadata into our array
+    try {
+        var wfmeta = _workItem.getWorkflowData().getMetaDataMap();
+        var items = new Packages.java.util.ArrayList(wfmeta.keySet());
+        log.info(">> items {},{}", items,items.size());
+        for (var i=0; i < items.size();i++) {
+            var entry = items.get(i);
+            log.info(">> item {}={}", entry, wfmeta.get(entry,""));
+
+            argsInfo[entry] = wfmeta.get(entry,"");
+        }
+    } catch (ex) {
+        _log.error("load field config. {}",ex);
+        argsInfo[FIELDS.PROCESS_ERROR]="ERR-SENDEMAIL-010: could not load field config";
+    }
+
+    //get paths
+    argsInfo[FIELDS.PAYLOAD_AUTHORPATH]  = getAuthorAddress();
+    argsInfo[FIELDS.PAYLOAD_PUBLISHPATH]  = getPublishAddress();
+    argsInfo[FIELDS.PAYLOAD_EXTERNALPATH]  = getExternalAddress();
+
+
+    var manualFromEmail = argsInfo[FIELDS.EMAIL_FROM];
+    var manualToEmail = argsInfo[FIELDS.EMAIL_TO];
+    var manualEmailSubject = argsInfo[FIELDS.EMAIL_SUBJECT];
+
+
+    if (_isBlank(manualFromEmail) && _isNotBlank(_metaData.get(FIELDS.EMAIL_FROM))) {
+        _log.info(">> using manual email fields: manualFromEmail={}", manualFromEmail);
+        argsInfo[FIELDS.EMAIL_FROM] = _metaData.get(FIELDS.EMAIL_FROM);
+    }
+    if (_isBlank(manualToEmail) && _isNotBlank(_metaData.get(FIELDS.EMAIL_TO))) {
+        _log.info(">> using manual email fields: manualToEmail={}", manualToEmail);
+        argsInfo[FIELDS.EMAIL_TO] = _metaData.get(FIELDS.EMAIL_TO);
+    }
+    if (_isBlank(manualEmailSubject) && _isNotBlank(_metaData.get(FIELDS.EMAIL_SUBJECT))) {
+        _log.info(">> using manual email fields: manualEmailSubject={}", manualEmailSubject);
+        argsInfo[FIELDS.EMAIL_SUBJECT] = _metaData.get(FIELDS.EMAIL_SUBJECT);
+    }
+
+
+    return argsInfo;
+}
+
+
+// Advanced collection of metadata from Payload Node.
+function getArgsMap(_metaData,payloadNode,_workItem,_workflowData,_workflowSession,_log) {
+
+    _log.info(">> getArgsMap: metaData={}", _metaData);
+    _log.info(">> getArgsMap: payloadNode={}", payloadNode);
+
+    var argsInfo = {};
+    var strTemplatePath = "";
+    var boolDORAttach = false;
+
+    // legacy, using 'PROCESS_ARGS' if set
+    if (_metaData.get(DEFAULT_PROCESS_ARGS)) {
+        _log.info(">> using PROCESS_ARGS metaData = {}", _metaData.get(DEFAULT_PROCESS_ARGS));
+
+        var args = _metaData.get(DEFAULT_PROCESS_ARGS).split(",");
+
+        _log.info(">> legacy args: #{},{}", args.length, Packages.java.util.Arrays.toString(args));
+
+        strTemplatePath = args[0].toString();
+        _log.info(">> legacy strTemplatePath: {}", argsInfo[FIELDS.PROCESS_TEMPLATEPATH]);
+        try {
+            _log.info(">> legacy args: {}", Packages.java.util.Arrays.toString(args));
+            for (var i = 1; i < args.length; i++) {
+                if (payloadNode.hasProperty(args[i])) {
+                    var prop = payloadNode.getProperty(args[i]);
+                    if (prop) {
+                        argsInfo["" + args[i] + ""] = payloadNode.getProperty(args[i]).getString(); //meta.get(args[i], "");
+                    } else {
+                        _log.info(">> payload info item is null: {}={}", args[i], argsInfo["" + args[i] + ""]);
+                    }
+                    _log.info(">> payload info item: {}={}", args[i], argsInfo["" + args[i] + ""]);
+                } else {
+                    argsInfo["" + args[i] + ""] = "";
+                    _log.info(">> payload info item: {} does not exist", args[i]);
+                }
+
+            }
+        } catch (ex) {
+            _log.error("could not process legacy info. {}", ex);
+            argsInfo[FIELDS.PROCESS_ERROR] = "ERR-SENDEMAIL-002: not able to evaluate legacy args";
+        }
+    }
+    else if (_metaData.get(FIELDS.PROCESS_TEMPLATEPATH)) {
+        _log.info(">> using metaData");
+
+        //read fixed fields
+        strTemplatePath = _metaData.get(FIELDS.PROCESS_TEMPLATEPATH);
+        _log.info(">> using metaData: templatePath={}", strTemplatePath);
+
+        var manualFromEmail = _metaData.get(FIELDS.EMAIL_FROM);
+        var manualToEmail = _metaData.get(FIELDS.EMAIL_TO);
+        var manualEmailSubject = _metaData.get(FIELDS.EMAIL_SUBJECT);
+
+
+        if (manualFromEmail != null) {
+            _log.info(">> using manual email fields: manualFromEmail={}", manualFromEmail);
+            argsInfo[FIELDS.EMAIL_FROM] = manualFromEmail;
+        }
+        if (manualToEmail != null) {
+            _log.info(">> using manual email fields: manualToEmail={}", manualToEmail);
+            argsInfo[FIELDS.EMAIL_TO] = manualToEmail;
+        }
+        if (manualEmailSubject != null) {
+            _log.info(">> using manual email fields: manualEmailSubject={}", manualEmailSubject);
+            argsInfo[FIELDS.EMAIL_SUBJECT] = manualEmailSubject;
+        }
+
+
+        var blankArray = new Packages.org.apache.commons.lang3.StringUtils.split(" ");
+        var metaDataFields = _workItem.getNode().getMetaDataMap().get(FIELDS.PROCESS_METADATAFIELD, blankArray);
+        //this don't work as the String[] is turned into String
+        //var metaDataFields = _metaData.get(FIELDS.PROCESS_METADATAFIELD,blankArray);
+        try {
+            for (var i = 0; i < metaDataFields.length; i++) {
+                if (payloadNode.hasProperty(metaDataFields[i])) {
+                    //use node resource
+                    var prop = payloadNode.getProperty(metaDataFields[i]);
+                    if (prop) {
+                        argsInfo["" + metaDataFields[i] + ""] = prop.getString(); //meta.get(args[i], "");
+                        _log.info(">> meta info item: {}={}", metaDataFields[i], argsInfo["" + metaDataFields[i] + ""]);
+                    } else {
+                        _log.info(">> meta info item: {} is null", metaDataFields[i]);
+                    }
+                } else {
+                    argsInfo["" + metaDataFields[i] + ""] = "";
+                    _log.info(">> meta info item: {} does not exist", metaDataFields[i]);
+                }
+            }
+        } catch (ex) {
+            _log.error("could not process metadata info. {}", ex);
+            argsInfo[FIELDS.PROCESS_ERROR] = "ERR-SENDEMAIL-003: not able to evaluate legacy args";
+        }
+
+
+        //var blankArray = new Packages.org.apache.commons.lang3.StringUtils.split(" ");
+        var fieldConfig = _workItem.getNode().getMetaDataMap().get(FIELDS.PROCESS_FIELDCONFIG,blankArray);
+
+        try {
+            for (var i = 0; i < fieldConfig.length; i++) {
+                var metaItem = JSON.parse(fieldConfig[i]);
+                var fieldName = metaItem[FIELDS.PROCESS_FIELDCONFIG_KEY];
+                var fieldPath = metaItem[FIELDS.PROCESS_FIELDCONFIG_VALUE];
+                var fieldAction = metaItem[FIELDS.PROCESS_FIELDCONFIG_ACTION] || "";
+
+                _log.info(">> payload item: field name {}",fieldName);
+                _log.info(">> payload item: field path {}",fieldPath);
+                _log.info(">> payload item: field action [{}]",fieldAction);
+
+                if (fieldName && fieldPath) {
+                    var fieldValue = getNodePropertyAsString(payloadNode, fieldPath, "");
+                    if (_isNotEmpty(fieldAction)) {
+                        var fieldValuePostAction="";
+                        fieldValuePostAction = performAction(fieldValue,fieldAction);
+                        _log.info(">> form info item: action {}={}",fieldValue,fieldValuePostAction);
+                        fieldValue = fieldValuePostAction;
+                    }
+                    argsInfo[fieldName] = fieldValue;
+                    _log.info(">> form info item: output {}={}",fieldName,fieldValue);
+                } else {
+                    argsInfo[FIELDS.PROCESS_ERROR]="ERR-SENDEMAIL-004: field in not complete";
+                }
+
+            }
+        } catch (ex) {
+            _log.error("could not process xml response. {}",ex);
+            argsInfo[FIELDS.PROCESS_ERROR]="ERR-SENDEMAIL-005: could not field config";
+        }
+
+    }
+    else {
+        _log.error(">> not able to evaluate args, return empty array instead.");
+        argsInfo[FIELDS.PROCESS_ERROR] = "ERR-SENDEMAIL-001: not able to evaluate args or not template is specified.";
+    }
+
+    //save payload path
+    var playloadPath = payloadNode.getPath();
+    var resourcePath = payloadNode.getPath();
+    var parentNode = payloadNode;
+
+    //move up to parent from resource nodes
+    argsInfo[FIELDS.PAYLOAD_PATH] = playloadPath;
+    if (playloadPath.indexOf(DEFAULT_CONTENT_NODE_NAME)) {
+        resourcePath = playloadPath.substring(0,playloadPath.indexOf(DEFAULT_CONTENT_NODE_NAME)-1);
+    }
+
+    argsInfo[FIELDS.PAYLOAD_RESOURCEPATH] = resourcePath;
+
+    argsInfo[FIELDS.PAYLOAD_CREATED] = getNodePropertyAsString(payloadNode, FIELDS.PAYLOAD_ASIGNEE, "", true);
+    argsInfo[FIELDS.PAYLOAD_CREATEDBY] = getNodePropertyAsString(payloadNode, FIELDS.PAYLOAD_CREATEDBY, "", true);
+    argsInfo[FIELDS.PAYLOAD_MODIFIED] = getNodePropertyAsString(payloadNode, FIELDS.PAYLOAD_MODIFIED, "", true);
+    argsInfo[FIELDS.PAYLOAD_MODIFIEDBY] = getNodePropertyAsString(payloadNode, FIELDS.PAYLOAD_MODIFIEDBY, "", true);
+    argsInfo[FIELDS.PAYLOAD_LOCKEDBY] = getNodePropertyAsString(payloadNode, FIELDS.PAYLOAD_LOCKEDBY, "", true);
+
+    argsInfo[FIELDS.PAYLOAD_MODIFIEDBYALT] = getNodePropertyAsString(parentNode, FIELDS.PAYLOAD_MODIFIEDBYALT, "");
+    argsInfo[FIELDS.PAYLOAD_DELEGATEDTOUSER] = getNodePropertyAsString(parentNode, FIELDS.PAYLOAD_DELEGATEDTOUSER, "");
+    argsInfo[FIELDS.PAYLOAD_ASIGNEE] = getNodePropertyAsString(parentNode, FIELDS.PAYLOAD_ASIGNEE, "");
+    argsInfo[FIELDS.PAYLOAD_COMPLETEDBY] = getNodePropertyAsString(parentNode, FIELDS.PAYLOAD_COMPLETEDBY, "");
+    // argsInfo[FIELDS.PAYLOAD_OWNER] = getNodePropertyAsString(parentNode, FIELDS.PAYLOAD_OWNER, "");
+
+
+    if (_isNotEmpty(argsInfo[FIELDS.PAYLOAD_CREATEDBY])) {
+        argsInfo[FIELDS.PAYLOAD_CREATEDBYNAME] = getFormatedUserName(resolver, argsInfo[FIELDS.PAYLOAD_CREATEDBY]);
+        argsInfo[FIELDS.PAYLOAD_CREATEDBYEMAIL] = getUserEmail(userManager,userPropertiesManager, argsInfo[FIELDS.PAYLOAD_CREATEDBY]);
+    }
+
+    if (_isNotEmpty(argsInfo[FIELDS.PAYLOAD_LOCKEDBY])) {
+        argsInfo[FIELDS.PAYLOAD_LOCKEDBYNAME] = getFormatedUserName(resolver, argsInfo[FIELDS.PAYLOAD_LOCKEDBY]);
+        argsInfo[FIELDS.PAYLOAD_LOCKEDBYEMAIL] = getUserEmail(userManager,userPropertiesManager, argsInfo[FIELDS.PAYLOAD_LOCKEDBY]);
+    }
+
+    if (_isNotEmpty(argsInfo[FIELDS.PAYLOAD_MODIFIEDBY])) {
+        argsInfo[FIELDS.PAYLOAD_MODIFIEDBYNAME] = getFormatedUserName(resolver, argsInfo[FIELDS.PAYLOAD_MODIFIEDBY]);
+        argsInfo[FIELDS.PAYLOAD_MODIFIEDBYEMAIL] = getUserEmail(userManager,userPropertiesManager, argsInfo[FIELDS.PAYLOAD_MODIFIEDBY]);
+    } else {
+        if (_isNotEmpty(argsInfo[FIELDS.PAYLOAD_MODIFIEDBYALT])) {
+            argsInfo[FIELDS.PAYLOAD_MODIFIEDBYNAME] = getFormatedUserName(resolver, argsInfo[FIELDS.PAYLOAD_MODIFIEDBYALT]);
+            argsInfo[FIELDS.PAYLOAD_MODIFIEDBYEMAIL] = getUserEmail(userManager,userPropertiesManager, argsInfo[FIELDS.PAYLOAD_MODIFIEDBYALT]);
+        }
+    }
+
+
+    if (_isNotEmpty(argsInfo[FIELDS.PAYLOAD_DELEGATEDTOUSER])) {
+        argsInfo[FIELDS.PAYLOAD_DELEGATEDTOUSERNAME] = getFormatedUserName(resolver, argsInfo[FIELDS.PAYLOAD_DELEGATEDTOUSER]);
+        argsInfo[FIELDS.PAYLOAD_DELEGATEDTOUSEREMAIL] = getUserEmail(userManager,userPropertiesManager, argsInfo[FIELDS.PAYLOAD_DELEGATEDTOUSER]);
+    }
+
+    if (_isNotEmpty(argsInfo[FIELDS.PAYLOAD_ASIGNEE])) {
+        argsInfo[FIELDS.PAYLOAD_ASIGNEENAME] = getFormatedUserName(resolver, argsInfo[FIELDS.PAYLOAD_ASIGNEE]);
+        argsInfo[FIELDS.PAYLOAD_ASIGNEEEMAIL] = getUserEmail(userManager,userPropertiesManager, argsInfo[FIELDS.PAYLOAD_ASIGNEE]);
+    }
+
+    if (_isNotEmpty(argsInfo[FIELDS.PAYLOAD_COMPLETEDBY])) {
+        argsInfo[FIELDS.PAYLOAD_COMPLETEDBYNAME] = getFormatedUserName(resolver, argsInfo[FIELDS.PAYLOAD_COMPLETEDBY]);
+        argsInfo[FIELDS.PAYLOAD_COMPLETEDBYEMAIL] = getUserEmail(userManager,userPropertiesManager, argsInfo[FIELDS.PAYLOAD_COMPLETEDBY]);
+    }
+
+    if (_isNotEmpty(argsInfo[FIELDS.PAYLOAD_OWNER])) {
+        argsInfo[FIELDS.PAYLOAD_OWNERNAME] = getFormatedUserName(resolver, argsInfo[FIELDS.PAYLOAD_OWNER]);
+        argsInfo[FIELDS.PAYLOAD_OWNEREMAIL] = getUserEmail(userManager,userPropertiesManager, argsInfo[FIELDS.PAYLOAD_OWNER]);
+    }
+
+
+    //check template path to make sure it exist
+    if (strTemplatePath.match(DEFAULT_PATHMATCH)) {
+        if (!workflowSession.getSession().itemExists(strTemplatePath)) {
+            _log.info(">> template does not exist using default: {}", DEFAULT_PROCESS_TEMPLATEPATH);
+            argsInfo[FIELDS.PROCESS_TEMPLATEPATH] = DEFAULT_PROCESS_TEMPLATEPATH
+        } else {
+            argsInfo[FIELDS.PROCESS_TEMPLATEPATH] = strTemplatePath;
+        }
+    }
+
+    //get author path
+    argsInfo[FIELDS.PAYLOAD_AUTHORPATH]  = getAuthorAddress();
+    return argsInfo;
+
+}
+
+function getAuthorAddress() {
+    //get author path without backslash
+    var serverAddress = getAuthorLink(externalizer, "/");
+    if (serverAddress.lastIndexOf("/") == (serverAddress.length() - 1)) {
+        serverAddress = serverAddress.substring(0, serverAddress.lastIndexOf("/"))
+    }
+    return serverAddress;
+}
+
+function getPublishAddress() {
+    //get author path without backslash
+    var serverAddress = getPublisherLink(externalizer, "/");
+    if (serverAddress.lastIndexOf("/") == (serverAddress.length() - 1)) {
+        serverAddress = serverAddress.substring(0, serverAddress.lastIndexOf("/"))
+    }
+    return serverAddress;
+}
+
+function getExternalAddress() {
+    //get author path without backslash
+    var serverAddress = getExternalLink(externalizer, "/");
+    if (serverAddress.lastIndexOf("/") == (serverAddress.length() - 1)) {
+        serverAddress = serverAddress.substring(0, serverAddress.lastIndexOf("/"))
+    }
+    return serverAddress;
+}
+
+function getPublisherLink(externalizer,path) {
+    return externalizer.publishLink(resolver, path);
+}
+function getAuthorLink(externalizer,path) {
+    return externalizer.authorLink(resolver, path);
+}
+function getExternalLink(externalizer,path) {
+    return externalizer.externalLink(resolver, "local", path);
+}
+
+function getUserEmail(_userManager,_userPropertiesManager,userId) {
+    return getUserEmail(resolver,userId,defaultValue,undefined);
+}
+function getUserEmail(_userManager,_userPropertiesManager,userId,defaultValue) {
+    try {
+        if (!defaultValue) {
+            defaultValue = "";
+        }
+        var userAuth = _userManager.getAuthorizable(userId);
+        if (userAuth!=null) {
+            var userProps = _userPropertiesManager.getUserProperties(userAuth, "profile");
+            if (userProps != null) {
+                var email = userProps.getProperty("email");
+
+                log.info(">> getUserEmail: userId: {}, email: {}", userId, email);
+            } else {
+                log.info(">> getUserEmail: userId: {}, has not profile", userId);
+            }
+
+            if (!email) {
+                email = defaultValue;
+            }
+        } else {
+            log.info(">> getUserEmail: userId: {}, does not exist1", userId);
+        }
+        return email;
+    } catch (ex) {
+        log.info("could not get users email {}, {}",userId,ex);
+        return defaultValue || "";
+    }
+}
+
+
+function getFormatedUserName(resolver,userId) {
+    return getFormatedUserName(resolver,userId,defaultValue,undefined);
+}
+function getFormatedUserName(resolver,userId,defaultValue) {
+    if (!defaultValue) {
+        defaultValue = "External User";
+    }
+    var formatedUserName = "";
+    if (userId == "") {
+        formatedUserName = defaultValue;
+    } else {
+        try {
+            formatedUserName = Packages.com.adobe.granite.security.user.util.AuthorizableUtil.getFormattedName(resolver, userId);
+        } catch (ex) {
+            formatedUserName = defaultValue;
+        }
+    }
+    return formatedUserName;
+}
+
+
+function getNodePropertyAsString(node,nodeName,defaultValue,inherited) {
+    if (!inherited) {
+        inherited = false;
+    }
+    if(node != undefined && node != null) {
+        if (node.hasProperty(nodeName)) {
+            var prop = node.getProperty(nodeName);
+            if (prop) {
+                return prop.toString();
+            }
+        } else if (inherited) {
+            if (node.getParent().hasProperty(nodeName)) {
+                var prop = node.getParent().getProperty(nodeName);
+                if (prop) {
+                    return prop.toString();
+                }
+            }
+        }
+    }
+    return defaultValue;
+}
+
+function geResourcePropertyAsString(resource,propName,defaultValue) {
+
+    if(resource != undefined && resource != null) {
+
+        var resourceIVM = new Packages.com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap(resource);
+        return resourceIVM.getInherited(propName,"");
+    } else {
+        return defaultValue;
+    }
+}
+
+function attachUrl(url,contentType,attachtitle,_fieldMap,_templatedEmail,_workItem,_sling,_workflowSession,_request) {
+
+    if (contentType == "") {
+        contentType = "application/octet-stream";
+    }
+
+
+
+    try {
+        log.info(">> updating workflow data: {}={}", FIELDS.PROCESS_ATTACHURL, url);
+        _workItem.getWorkflowData().getMetaDataMap().put(FIELDS.PROCESS_ATTACHURL, url);
+
+        log.info(">> updating workflow data: {}={}", FIELDS.PROCESS_ATTACHCONTENTYPE, contentType);
+        _workItem.getWorkflowData().getMetaDataMap().put(FIELDS.PROCESS_ATTACHCONTENTYPE, contentType);
+
+        var _slingRepository = _sling.getService(Packages.org.apache.sling.jcr.api.SlingRepository);
+        var _resolverFactory = _sling.getService(Packages.org.apache.sling.api.resource.ResourceResolverFactory);
+        var _resolver = _sling.getService(Packages.org.apache.sling.jcr.resource.JcrResourceResolverFactory).getResourceResolver(_workflowSession.getSession());
+        var _requestResponseFactory = _sling.getService(Packages.com.day.cq.contentsync.handler.util.RequestResponseFactory);
+        var _requestProcessor = _sling.getService(Packages.org.apache.sling.engine.SlingRequestProcessor);
+        var _session = _workflowSession.getSession();
+
+        log.info(">> _session: {}", _session);
+        log.info(">> _slingRepository: {}", _slingRepository);
+        log.info(">> _resolverFactory: {}", _resolverFactory);
+        log.info(">> _resolver: {}", _resolver);
+        log.info(">> _request: {}", _request);
+        log.info(">> _requestResponseFactory: {}", _requestResponseFactory);
+        log.info(">> _requestProcessor: {}", _requestProcessor);
+        log.info(">> _workflowSession.getUser(): {}", _workflowSession.getUser());
+
+        /* Process request through Sling */
+        var _req = _requestResponseFactory.createRequest("GET", url);
+        var _out = new Packages.java.io.ByteArrayOutputStream();
+        var _resp = _requestResponseFactory.createResponse(_out);
+
+        _requestProcessor.processRequest(_req, _resp, _request.getResourceResolver());
+
+        var _attachment = new Packages.javax.mail.util.ByteArrayDataSource(out.toByteArray(), contentType);
+
+        //var fileName = Packages.java.text.MessageFormat(FORM_DOR_NAME_FORMAT,);
+
+        var attachmentFileName = messageFormat(attachtitle, _fieldMap);
+
+        log.info(">> formatted file name {}", attachmentFileName);
+
+        log.info(">> updating workflow data: {}={}", FIELDS.PROCESS_ATTACHTITLEFORMATTED, attachmentFileName);
+        _workItem.getWorkflowData().getMetaDataMap().put(FIELDS.PROCESS_ATTACHTITLEFORMATTED, attachmentFileName);
+
+        log.info(">> updating workflow data");
+
+        _templatedEmail.attach(_attachment, attachmentFileName, attachmentFileName);
+    } catch (ex) {
+        log.info("ERR-ATTACH-001: could not attach url {}",url);
+        log.info(ex);
+        _workItem.getWorkflowData().getMetaDataMap().put(FIELDS.PROCESS_ATTACHTERROR, "ERR-ATTACH-001: could not attach url");
+    }
+}
+
+
+
+/* UTILS */
+
+function messageFormat(template,fieldMap) {
+    try {
+        var substitutor = new Packages.org.apache.commons.lang3.text.StrSubstitutor(fieldMap);
+        return substitutor.replace(template);
+    } catch (ex) {
+
+    }
+    return "";
+}
+
+
+
+function _isBlank(source) {
+    if (source) {
+        return Packages.org.apache.commons.lang3.StringUtils.isBlank(source);
+    }
+    return true;
+}
+function _isNotBlank(source) {
+    if (source) {
+        return Packages.org.apache.commons.lang3.StringUtils.isNotBlank(source);
+    }
+    return false;
+}
+function _isNotEmpty(source) {
+    if (source) {
+        return Packages.org.apache.commons.lang3.StringUtils.isNotEmpty(source);
+    }
+    return false;
+}
+function _blankArray() {
+    return new Packages.org.apache.commons.lang3.StringUtils.split(" ");
+}
+
+/* ACTIONS */
+
+function performAction(field,action) {
+    try {
+        switch (action) {
+            case "getProjectIdFromGroup":
+                return getProjectIdFromGroup(field);
+            case "getProjectTeamEmailsFromGroup":
+                return getProjectTeamEmailsFromGroup(field);
+            case "getProjectTeamNamesFromGroup":
+                return getProjectTeamNamesFromGroup(field);
+            case "getTaskUrl":
+                return getTaskUrl(field);
+            case "getEmailFromUserName":
+                return getEmailFromUserName(field);
+            case "getNameFromUserName":
+                return getNameFromUserName(field);
+            case "getAuthorLinksFromPaths":
+                return getAuthorLinksFromPaths(field);
+        }
+    } catch (ex) {
+        log.info("ERR-ACTION-001: could perform action on field {}",field,action);
+    }
+    return field;
+}
+
+function getProjectTeamEmailsFromGroup(value) {
+    var emails = "";
+    if (_isNotEmpty(value)) {
+        var primaryGroup = userManager.getAuthorizable(value);
+        var members = primaryGroup.getDeclaredMembers();
+        var emailList= [];
+        while (members.hasNext())
+        {
+            var auth = members.next();
+            if (auth != null)
+            {
+                var memberId = auth.getID();
+                emailList.push(getUserEmail(userManager,userPropertiesManager, memberId));
+                emails = emailList.join(",");
+            }
+        }
+    }
+    return emails;
+}
+
+
+function getProjectTeamNamesFromGroup(value) {
+    var names = "";
+    if (_isNotEmpty(value)) {
+        var primaryGroup = userManager.getAuthorizable(value);
+        var members = primaryGroup.getDeclaredMembers();
+        var namesList= [];
+        while (members.hasNext())
+        {
+            var auth = members.next();
+            if (auth != null)
+            {
+                var memberId = auth.getID();
+                namesList.push(getFormatedUserName(resolver, memberId));
+                names = namesList.join("<br>");
+            }
+        }
+    }
+    return names;
+}
+
+function getProjectIdFromGroup(value) {
+    var match = value.split("-");
+    if (match) {
+        if (match.length > 2) {
+            return match[1];
+        }
+    }
+    return "";
+}
+
+
+function getTaskUrl(value) {
+    if (value == "dam:review") {
+        return "/mnt/overlay/cq/core/content/projects/showtasks/reviewtd.html?item=";
+    } else {
+        return "/mnt/overlay/cq/core/content/projects/showtasks.html?item=";
+    }
+}
+
+function getEmailFromUserName(value) {
+    var email = "";
+    if (_isNotEmpty(value)) {
+        var auth = userManager.getAuthorizable(value);
+        if (auth != null)
+        {
+            var memberId = auth.getID();
+            email = getUserEmail(userManager,userPropertiesManager, memberId);
+        }
+    }
+    return email;
+}
+
+function getNameFromUserName(value) {
+    var name = "";
+    if (_isNotEmpty(value)) {
+        var auth = userManager.getAuthorizable(value);
+        if (auth != null)
+        {
+            var memberId = auth.getID();
+            name = getFormatedUserName(resolver, memberId);
+        }
+    }
+    return name;
+}
+
+function getAuthorLinksFromPaths(paths) {
+    var pathLinks = "";
+    if (paths) {
+        if (Array.isArray(paths) && paths.length > 0) {
+            var authPath = getAuthorAddress();
+            for (var index in paths) {
+                var path = paths[index];
+                if (path!="") {
+                    var href=authPath+"/assetdetails.html"+path;
+                    pathLinks+="<li><a href=\""+href+"\">"+path+"</a></li>";
+                }
+
+            }
+
+        }
+    }
+    return "<ul>"+pathLinks+"</ul>";
+}

@@ -4,9 +4,9 @@
     cq:inherit="{Boolean}true"
     jcr:primaryType="cq:EditConfig">
     <cq:formParameters
-        jcr:description="Interact with remote hosts using REST"
+        jcr:description="A process to send email using form metadata"
         jcr:primaryType="nt:unstructured"
-        jcr:title="REST"
-        PROCESS="/apps/aemdesign/components/workflows/rest/scripts/rest.ecma"
+        jcr:title="Send Email"
+        PROCESS="/apps/aemdesign/components/workflow/sendemail/scripts/sendemail.ecma"
         PROCESS_AUTO_ADVANCE="true"/>
 </jcr:root>

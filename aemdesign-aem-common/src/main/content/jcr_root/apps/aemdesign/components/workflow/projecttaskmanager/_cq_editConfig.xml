@@ -4,9 +4,10 @@
     cq:inherit="{Boolean}true"
     jcr:primaryType="cq:EditConfig">
     <cq:formParameters
-        jcr:description="Interact with remote hosts using REST"
+        jcr:description="A process for managing tasks in a project"
         jcr:primaryType="nt:unstructured"
-        jcr:title="REST"
-        PROCESS="/apps/aemdesign/components/workflows/rest/scripts/rest.ecma"
-        PROCESS_AUTO_ADVANCE="true"/>
+        jcr:title="Project Task Manager"
+        PROCESS="/apps/aemdesign/components/workflow/projecttaskmanager/scripts/projecttaskmanager.ecma"
+        PROCESS_AUTO_ADVANCE="false"
+        PROCESS_PERSIST_ANONYMOUS_WORKITEM="true"/>
 </jcr:root>

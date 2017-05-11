@@ -12,15 +12,15 @@
                     xtype="cqinclude"/>
                 <processargs
                     jcr:primaryType="cq:Widget"
-                    path="/apps/maxbarrass-tools/components/workflows/rest/processargs.infinity.json"
+                    path="/apps/aemdesign/components/workflows/rest/processargs.infinity.json"
                     xtype="cqinclude"/>
                 <request
                         jcr:primaryType="cq:Widget"
-                        path="/apps/maxbarrass-tools/components/workflows/rest/request.infinity.json"
+                        path="/apps/aemdesign/components/workflows/rest/request.infinity.json"
                         xtype="cqinclude"/>
                 <response
                         jcr:primaryType="cq:Widget"
-                        path="/apps/maxbarrass-tools/components/workflows/rest/response.infinity.json"
+                        path="/apps/aemdesign/components/workflows/rest/response.infinity.json"
                         xtype="cqinclude"/>
             </items>
         </tabs>
