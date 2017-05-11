@@ -17,6 +17,8 @@
         <exclude pattern="/etc/designs/aemdesign/jcr:.*"/> -->
     </filter>
 
+    <filter root="/etc/designs/default" mode="update"/>
+
     <filter root="/etc/tags/content-type" mode="update"/>
     <filter root="/etc/tags/component-style" mode="update"/>
     <filter root="/etc/tags/component-dialog" mode="update"/>
@@ -28,5 +30,11 @@
     <filter root="/etc/tags/.content.xml" mode="update"/>
 
     <filter root="/etc/cloudservices/rest" mode="update"/>
+
+
+
+    <filter root="/etc/workflow/models/aemdesign" mode="update"/>
+    <filter root="/etc/workflow/notification/aemdesign" mode="update"/>
+    <filter root="/etc/workflow/launcher/config/aemdesign" mode="update"/>
 
 </workspaceFilter>
