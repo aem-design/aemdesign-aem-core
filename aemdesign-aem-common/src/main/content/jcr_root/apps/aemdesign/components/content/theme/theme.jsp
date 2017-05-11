@@ -21,5 +21,5 @@
     componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties,_component,_sling));
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
-<%@include file="style.empty.jsp" %>
+<%@include file="variant.empty.jsp" %>
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>

@@ -18,10 +18,10 @@
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
     <c:when test="${not empty list}">
-        <%@include file="style.default.jsp" %>
+        <%@include file="variant.default.jsp" %>
     </c:when>
     <c:when test="${CURRENT_WCMMODE eq WCMMODE_EDIT}">
-        <%@include file="style.empty.jsp" %>
+        <%@include file="variant.empty.jsp" %>
     </c:when>
 
 </c:choose>

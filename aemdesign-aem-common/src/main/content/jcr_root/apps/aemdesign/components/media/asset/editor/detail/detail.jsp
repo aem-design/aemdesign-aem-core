@@ -65,6 +65,6 @@
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>" />
 
-    <%@ include file="style.default.jsp" %>
+    <%@ include file="variant.default.jsp" %>
 
 <%--<%@include file="/apps/aemdesign/global/component-badge.jsp" %>--%>

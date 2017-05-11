@@ -58,25 +58,25 @@
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
     <c:when test="${componentProperties.variant == 'descriptionlist'}">
-        <%@ include file="style.descriptionlist.jsp" %>
+        <%@ include file="variant.descriptionlist.jsp" %>
     </c:when>
     <c:when test="${componentProperties.variant == 'fieldset'}">
-        <%@ include file="style.fieldset.jsp" %>
+        <%@ include file="variant.fieldset.jsp" %>
     </c:when>
     <c:when test="${componentProperties.variant == 'advsection'}">
-        <%@ include file="style.advanced.jsp" %>
+        <%@ include file="variant.advanced.jsp" %>
     </c:when>
     <c:when test="${componentProperties.variant == 'floating'}">
-        <%@ include file="style.floating.jsp" %>
+        <%@ include file="variant.floating.jsp" %>
     </c:when>
     <c:when test="${componentProperties.variant == 'container'}">
-        <%@ include file="style.container.jsp" %>
+        <%@ include file="variant.container.jsp" %>
     </c:when>
     <c:when test="${componentProperties.variant == 'section'}">
-        <%@ include file="style.section.jsp" %>
+        <%@ include file="variant.section.jsp" %>
     </c:when>
     <c:otherwise>
-        <%@ include file="style.default.jsp" %>
+        <%@ include file="variant.default.jsp" %>
     </c:otherwise>
 </c:choose>
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>

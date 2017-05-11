@@ -48,11 +48,11 @@
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
     <c:when test="${componentProperties.displayStyle == 'default'}">
-        <%@include file="style.default.jsp" %>
+        <%@include file="variant.default.jsp" %>
     </c:when>
 
     <c:otherwise>
-        <%@include file="style.default.jsp" %>
+        <%@include file="variant.default.jsp" %>
     </c:otherwise>
 </c:choose>
 

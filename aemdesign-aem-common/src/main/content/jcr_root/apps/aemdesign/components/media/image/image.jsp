@@ -11,6 +11,8 @@
 <%@ include file="imagedata.jsp" %>
 <%
 
+    final String DEFAULT_ARIA_ROLE = "banner";
+
     Object[][] assetFields = {
             {DamConstants.DC_TITLE, StringUtils.EMPTY},
             {DamConstants.DC_DESCRIPTION, StringUtils.EMPTY},
@@ -19,17 +21,26 @@
             {DAM_SOURCE_URL, StringUtils.EMPTY}
     };
 
+    // {
+    //   1 required - property name,
+    //   2 required - default value,
+    //   3 optional - compile into a data-{name} attribute
+    // }
     Object[][] componentFields = {
-            {"variant", "imageOnly"},
+            {"variant", "default"},
             {"imageOption", IMAGE_OPTION_RESPONSIVE_RENDITION},
             {ImageResource.PN_WIDTH, 0},
             {ImageResource.PN_HEIGHT, 0},
             {"renditionImageMapping", new String[0]},
             {"adaptiveImageMapping", new String[0]},
-            {"pageURL",StringUtils.EMPTY}
+            {"pageURL",StringUtils.EMPTY},
+            {"ariaRole",DEFAULT_ARIA_ROLE},
     };
 
     ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields) ;
+    componentProperties.putAll(getComponentStyleProperties(pageContext));
+
+    componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties,_component,_sling));
 
     //Only support the Drag and Drop Images
     Image image = new Image(_resource);
@@ -68,8 +79,7 @@
 
         String imageTargetURL = StringUtils.EMPTY;
 
-        //ImageOnly does not apply pageURL
-        if (componentProperties.get("variant", StringUtils.EMPTY).equals("imageOnly") == false) {
+        if (componentProperties.get("variant", StringUtils.EMPTY).equals("default") == false) {
 
             imageTargetURL = componentProperties.get("pageURL", StringUtils.EMPTY);
             Page imageTargetPage = _pageManager.getPage(imageTargetURL);
@@ -179,96 +189,28 @@
             LOG.error("failed to create Width and Image Mapping : " + ex.getMessage(), ex);
         }
 
-        ResourceResolver adminResourceResolver = this.openAdminResourceResolver(_sling);
-
-        try {
-            TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
-
-            componentProperties.putAll(getComponentStyleProperties(pageContext));
-
-            componentProperties.put("componentAttributes", compileComponentAttributes(_adminTagManager, componentProperties, _component));
-
-            List<Tag> tags = getTags(_adminTagManager, _currentNode, TagConstants.PN_TAGS);
-
-            componentProperties.put("tags", tags);
-
-        } catch (Exception ex) {
-            out.write(Throwables.getStackTraceAsString(ex));
-        } finally {
-            this.closeAdminResourceResolver(adminResourceResolver);
-        }
     }
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
-
     <c:when test="${componentProperties.imageHasContent eq false}">
-        <div id="<%= xssAPI.encodeForHTMLAttr(divId) %>"><% image.draw(out); %></div>
+        <%@include file="variant.empty.jsp" %>
+    </c:when>
+    <c:when test="${componentProperties.variant eq 'default'}">
+        <%@include file="variant.default.jsp" %>
     </c:when>
     <c:when test="${componentProperties.variant eq 'imageTitleDescription'}">
-        <div ${componentProperties.componentAttributes} role="banner">
-            <figure style="opacity: 1;">
-                <c:if test="${not empty componentProperties.imageTargetURL}">
-                    <a href="${componentProperties.imageTargetURL}"> ${componentProperties.image.title}</a>
-                </c:if>
-                <c:choose>
-                    <%-- Responsive Image --%>
-                    <c:when test="${componentProperties.imageOption eq 'fixedImageRendition' ||
+        <%@include file="variant.imageTitleDescription.jsp" %>
+    </c:when>
+    <c:when test="${componentProperties.imageOption eq 'fixedImageRendition' ||
                                     componentProperties.imageOption eq 'responsiveRendition' ||
                                     componentProperties.imageOption eq 'responsiveRenditionOverride'||
                                     componentProperties.imageOption eq 'responsiveGenerated'}">
-                        <%@include file="template.responsiveImage.jsp" %>
-                    </c:when>
-                    <%-- Normal Image --%>
-                    <c:otherwise>
-                        <%@include file="template.normalImage.jsp" %>
-                    </c:otherwise>
-                </c:choose>
-
-                <figcaption>
-                    <c:if test="${not empty componentProperties.imageTargetURL}">
-                    <a href="${componentProperties.imageTargetURL}" title="${componentProperties.image.title}">
-                        </c:if>
-                        <strong>${componentProperties.image.title}</strong>
-                        <c:if test="${not empty componentProperties.imageTargetURL}">
-                    </a>
-                    </c:if>
-                    <p>${componentProperties.image.description}</p>
-                </figcaption>
-            </figure>
-
-        </div>
+        <%@include file="variant.responsiveImage.jsp" %>
     </c:when>
     <c:otherwise>
-        <div ${componentProperties.componentAttributes}>
-            <c:choose>
-                <%-- Responsive Image --%>
-                <c:when test="${componentProperties.imageOption eq 'fixedImageRendition' ||
-                                    componentProperties.imageOption eq 'responsiveRendition' ||
-                                    componentProperties.imageOption eq 'responsiveRenditionOverride'||
-                                    componentProperties.imageOption eq 'responsiveGenerated'}">
-                    <%@include file="template.responsiveImage.jsp" %>
-                </c:when>
-                <%-- Normal Image --%>
-                <c:otherwise>
-                    <%@include file="template.normalImage.jsp" %>
-                </c:otherwise>
-            </c:choose>
-        </div>
+        <%@include file="variant.normalImage.jsp" %>
     </c:otherwise>
 </c:choose>
-
-<%-- for OOTB tracking  --%>
-
-<%
-    //Set linkURL for tracking only
-    image.set(ImageResource.PN_LINK_URL, componentProperties.get(DAM_SOURCE_URL, String.class));
-%>
-<%
-    if (StringUtils.isNotEmpty(divId)){
-%>
 <%@include file="tracking-js.jsp" %>
-<%
-    }
-%>
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>

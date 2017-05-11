@@ -60,23 +60,23 @@
 <c:choose>
 
     <c:when test="${componentProperties.displayStyle == 'hidden'}">
-        <%@ include file="style.hidden.jsp" %>
+        <%@ include file="variant.hidden.jsp" %>
     </c:when>
 
     <c:when test="${componentProperties.displayStyle == 'simple'}">
-        <%@ include file="style.simple.jsp" %>
+        <%@ include file="variant.simple.jsp" %>
     </c:when>
 
     <c:when test="${componentProperties.displayStyle == 'parsys'}">
-        <%@ include file="style.parsys.jsp" %>
+        <%@ include file="variant.parsys.jsp" %>
     </c:when>
 
     <c:when test="${componentProperties.displayStyle == 'parsys-parent'}">
-        <%@ include file="style.parsysparent.jsp" %>
+        <%@ include file="variant.parsysparent.jsp" %>
     </c:when>
 
     <c:otherwise>
-        <%@ include file="style.default.jsp" %>
+        <%@ include file="variant.default.jsp" %>
     </c:otherwise>
 
 </c:choose>

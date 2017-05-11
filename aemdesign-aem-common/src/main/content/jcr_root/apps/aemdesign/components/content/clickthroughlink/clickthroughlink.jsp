@@ -60,7 +60,7 @@
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 
 
-<%@ include file="style.default.jsp" %>
+<%@ include file="variant.default.jsp" %>
 <c:choose>
     <c:when test="${componentProperties.variant eq 'aa'}">
         <%@include file="aa-tracking-js.jsp" %>

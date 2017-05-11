@@ -1,7 +1,6 @@
 <%@ page session="false" import="org.apache.commons.lang3.StringUtils"%>
 <%@ page import="com.day.cq.wcm.api.Page"%>
 <%@ page import="com.day.cq.wcm.foundation.Image" %>
-<%@ page import="com.day.cq.wcm.foundation.Image" %>
 <%@ page import="java.text.MessageFormat" %>
 
 <%@ include file="/apps/aemdesign/global/global.jsp"%>
@@ -33,11 +32,11 @@
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
     <c:when test="${componentProperties.variant == 'default'}">
-        <%@include file="style.default.jsp" %>
+        <%@include file="variant.default.jsp" %>
     </c:when>
 
     <c:otherwise>
-        <%@include file="style.default.jsp" %>
+        <%@include file="variant.default.jsp" %>
     </c:otherwise>
 </c:choose>
 

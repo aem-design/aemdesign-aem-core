@@ -1,4 +1,9 @@
 <%@page session="false"%>
+<c:if test="${not empty componentProperties.componentId}">
+<%
+    //Set linkURL for tracking only
+    image.set(ImageResource.PN_LINK_URL, componentProperties.get(DAM_SOURCE_URL, String.class));
+%>
 <script type="text/javascript">
     (function() {
         try {
@@ -30,3 +35,4 @@
         }
     })();
 </script>
+</c:if>

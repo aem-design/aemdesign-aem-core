@@ -11,7 +11,8 @@
     //   3 optional - compile into a data-{name} attribute
     // }
     Object[][] componentFields = {
-            {"ariaRole",DEFAULT_ARIA_ROLE},
+        {"ariaRole",DEFAULT_ARIA_ROLE},
+        {"variant", "default"},
     };
 
     ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
@@ -21,7 +22,13 @@
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
-<article role="${componentProperties.ariaRole}" ${componentProperties.componentAttributes}>
-    <cq:include path="par" resourceType="foundation/components/parsys"/>
-    <%@include file="/apps/aemdesign/global/component-badge.jsp" %>
-</article>
+<c:choose>
+    <c:when test="${componentProperties.variant eq 'default'}">
+        <%@ include file="variant.default.jsp" %>
+    </c:when>
+    <c:otherwise>
+        <%@ include file="variant.default.jsp" %>
+    </c:otherwise>
+</c:choose>
+<%@include file="/apps/aemdesign/global/component-badge.jsp" %>
+

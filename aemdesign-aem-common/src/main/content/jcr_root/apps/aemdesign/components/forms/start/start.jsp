@@ -27,10 +27,10 @@
 
     <c:choose>
         <c:when test="${componentProperties.variant eq 'aemdesign'}" >
-            <%@include file="style.default.jsp" %>
+            <%@include file="variant.default.jsp" %>
         </c:when>
         <c:otherwise>
-            <%@include file="style.default.jsp" %>
+            <%@include file="variant.default.jsp" %>
             <%--<sling:include path="/libs/foundation/components/form/start/start.jsp" />--%>
         </c:otherwise>
     </c:choose>

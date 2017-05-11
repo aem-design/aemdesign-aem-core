@@ -194,14 +194,14 @@
 <c:set var="componentProperties" value="<%= componentProperties %>" />
 <c:choose>
     <c:when test="${componentProperties.variant == 'mainnav'}">
-        <%@ include file="style.desktop.jsp" %>
-        <%@ include file="style.mobile.jsp" %>
+        <%@ include file="variant.desktop.jsp" %>
+        <%@ include file="variant.mobile.jsp" %>
     </c:when>
     <c:when test="${componentProperties.variant == 'simple'}">
-        <%@ include file="style.simple.jsp" %>
+        <%@ include file="variant.simple.jsp" %>
     </c:when>
     <c:otherwise>
-        <%@ include file="style.default.jsp" %>
+        <%@ include file="variant.default.jsp" %>
     </c:otherwise>
 </c:choose>
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>

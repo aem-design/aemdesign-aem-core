@@ -166,10 +166,10 @@
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
     <c:when test="${(fn:length(componentProperties.nextPages) > 0 || fn:length(componentProperties.previousPages) > 0)}">
-        <%@include file="style.default.jsp" %>
+        <%@include file="variant.default.jsp" %>
     </c:when>
     <c:otherwise>
-        <%@ include file="style.empty.jsp"  %>
+        <%@ include file="variant.empty.jsp"  %>
     </c:otherwise>
 </c:choose>
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>

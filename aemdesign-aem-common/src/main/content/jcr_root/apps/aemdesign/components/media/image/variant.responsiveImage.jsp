@@ -1,5 +1,6 @@
+<div role="${componentProperties.ariaRole}" ${componentProperties.componentAttributes}>
 <c:if test="${not empty componentProperties.imageTargetURL && componentProperties.variant ne 'imageTitleDescription'}">
-    <a href="${componentProperties.imageTargetURL}">
+<a href="${componentProperties.imageTargetURL}">
 </c:if>
 <div data-picture data-alt="${componentProperties.image.alt}">
     <c:forEach var="rendition" items="${componentProperties.responsiveImageSet}">
@@ -11,5 +12,6 @@
     </noscript>
 </div>
 <c:if test="${not empty componentProperties.imageTargetURL && componentProperties.variant ne 'imageTitleDescription'}">
-    </a>
+</a>
 </c:if>
+</div>

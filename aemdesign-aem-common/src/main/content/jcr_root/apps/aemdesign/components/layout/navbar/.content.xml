@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    jcr:description="Main Navigation Component"
+    cq:isContainer="{Boolean}true"
     jcr:primaryType="cq:Component"
-    jcr:title="Main Navigation Component"
+    jcr:title="Navigation Component"
     sling:resourceSuperType="aemdesign/components/common/inherit"
     allowedParents="[]"
-    componentGroup="hidden"/>
+    componentGroup="Layout"/>

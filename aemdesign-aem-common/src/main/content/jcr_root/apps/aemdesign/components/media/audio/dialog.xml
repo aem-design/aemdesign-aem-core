@@ -7,25 +7,21 @@
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
-
-                <!-- basic information tab -->
-                <tab_basic jcr:primaryType="cq:Panel" title="Basic">
-
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude" />
+                <basicTab jcr:primaryType="cq:Panel" title="Basic">
                     <items jcr:primaryType="cq:WidgetCollection">
-
                         <embed
                             jcr:primaryType="cq:Widget"
                             fieldLabel="Audio URL"
-                            name="./audio-url"
+                            name="./audioUrl"
                             rootPath="/content/dam"
                             fieldDescription="The location of the audio to play"
                             xtype="pathfield" />
-
                     </items>
-
-                </tab_basic>
-
-
+                </basicTab>
             </items>
         </tabs>
     </items>
