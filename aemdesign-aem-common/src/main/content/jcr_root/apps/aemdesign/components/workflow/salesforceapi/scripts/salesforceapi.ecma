@@ -1,0 +1,578 @@
+/*
+ * Fields
+ * 
+ */
+
+var FIELDS = {
+    CONFIG_METADATA: "metaData/",
+    CONFIG_CLIENTID: "clientId",
+    CONFIG_CLIENTSECRET: "clientSecret",
+    CONFIG_REDIRECTURI: "redirectUri",
+    CONFIG_ENVIRONMENT: "environment",
+    CONFIG_GRANTTYPE: "grant_type",
+    CONFIG_USER: "user",
+    CONFIG_PASSWORD: "password",
+    CONFIG_SERVICECONFIGPATH: "configPath",
+
+    TYPE_JCR_PATH: "JCR_PATH",
+    WORKFLOW_ERROR: "workflow.error",
+
+    PROCESS_ERROR: "error",
+    PROCESS_ARGS: "PROCESS_ARGS",
+    PROCESS_ADV: true,
+    REQUESTFIELDS: "requestFields",
+
+    FORM_FIELD_SUBMITID: "submitID"
+
+}
+
+var workflowData = workItem.getWorkflowData();
+
+var session = workflowSession.getSession();
+var resolver = sling.getService(Packages.org.apache.sling.jcr.resource.JcrResourceResolverFactory).getResourceResolver(session);
+var externalizer = resolver.adaptTo(Packages.com.day.cq.commons.Externalizer);
+var userPropertiesService = sling.getService(Packages.com.adobe.granite.security.user.UserPropertiesService);
+var userPropertiesManager = userPropertiesService.createUserPropertiesManager(session, resolver);
+var userManager = resolver.adaptTo(Packages.org.apache.jackrabbit.api.security.user.UserManager);
+var resolverFactory = sling.getService(Packages.org.apache.sling.api.resource.ResourceResolverFactory);
+
+var isMetadatValid = validateMetadata(metaData,workflowSession,workItem);
+
+log.error(">> isMetadatValid: {}", isMetadatValid);
+
+if (isMetadatValid) {
+
+    var payloadPath = workflowData.getPayload().toString();
+
+    log.info(">> payload path: {}", payloadPath);
+
+    var payloadNode = workflowSession.getSession().getItem(payloadPath);
+
+    log.info(">> payload payloadNode: {}", payloadNode);
+
+    var isPlayloadValid = validatePlayload(payloadNode);
+
+    log.info(">> isPlayloadValid: {}", isPlayloadValid);
+
+    if (isPlayloadValid) {
+        try {
+
+            log.info(">> gathering form info: metaData={},payloadNode={}", metaData, payloadNode);
+
+            // GET INFO
+            var formInfo = getArgsMap(metaData, payloadNode, resource, workItem, workflowData, workflowSession, log);
+
+            var formMap = getArgsMapSimple(metaData, workItem, workflowData, workflowSession, log);
+
+            // GET SERVICE INFO
+            var configInfo = getConfig(metaData, resource, sling, log);
+
+            if (configInfo[FIELDS.PROCESS_ERROR]) {
+
+                log.error(">> error getting service config, aborting reason: {}", configInfo[PROCESS_ERROR]);
+                workItem.getWorkflowData().getMetaDataMap().put(PROCESS_ERROR, configInfo[PROCESS_ERROR]);
+
+            } else {
+
+                log.info(">> formInfo={}", formInfo);
+                log.info(">> configInfo={}", configInfo);
+                log.info(">> formMap={}", formMap);
+                //log.error(">> configInfo[environment]={}", configInfo["environment"]);
+                log.error(">> formInfo[submitID]={}", formInfo[FIELDS.FORM_FIELD_SUBMITID]);
+
+                log.error(">> configInfo[clientId]={}", configInfo["clientId"]);
+                log.error(">> configInfo[clientSecret]={}", configInfo["clientSecret"]);
+                //log.error(">> configInfo[redirectUri]={}", configInfo["redirectUri"]);
+
+				var formID = formInfo[FIELDS.FORM_FIELD_SUBMITID];
+
+                var serviceURL = configInfo["redirectUri"];
+                var authURL = configInfo["environment"];
+
+                log.error(">> serviceURL={}", serviceURL);
+                log.error(">> authURL={}", authURL);
+
+
+				var accessToken = getTokenOAuth(authURL,configInfo["clientId"],configInfo["clientSecret"],serviceURL,log);
+				log.error(">> accessToken={}", accessToken);
+
+				var root = new Packages.org.apache.sling.commons.json.JSONArray();
+
+        		var obj_item = new Packages.org.apache.sling.commons.json.JSONObject();
+                var obj_item_keys = new Packages.org.apache.sling.commons.json.JSONObject();
+
+                obj_item_keys.put("Lead_ID","LEAD_"+formID);
+
+                var obj_item_values = new Packages.org.apache.sling.commons.json.JSONObject(formInfo);
+
+                //obj_item_values.remove(FIELDS.FORM_FIELD_SUBMITID);
+
+                //obj_item_values.putAll(formInfo);
+
+				obj_item.put("keys",obj_item_keys);
+                obj_item.put("values",obj_item_values);
+
+                root.put(obj_item);
+
+
+                //postJson(configInfo["environment"],"",'{"test":"yo!!!","cool":"to the moon"}',log);
+                postJson(serviceURL,accessToken, root ,log); //serviceurl
+
+                log.error(">> XXXXX DONE");
+
+            }
+
+            //save workflow data
+            updateWorkflow();
+
+        } catch (ex) {
+            log.error(ex);
+        }
+
+    }
+
+}
+
+function postJson(_url,_accessToken,_jsonData,_log) {
+	var postresponse = false;
+
+    try {
+
+        var client = new Packages.org.apache.commons.httpclient.HttpClient();
+        var method = new Packages.org.apache.commons.httpclient.methods.PostMethod(_url);
+
+        if (_accessToken!="") {
+            method.addRequestHeader("Authorization", "Bearer " + _accessToken);
+        }
+        method.addRequestHeader,("Accept", "application/json");
+        method.addRequestHeader,("Content-type", "application/json");
+
+		var requestEntity = new Packages.org.apache.commons.httpclient.methods.StringRequestEntity(_jsonData.toString(),"application/json","UTF-8");
+
+        method.setRequestEntity(requestEntity);
+
+        var response = client.executeMethod(method);
+        //var status = response.getStatusLine().getStatusCode();
+		_log.info(">> reponse: "+response);
+
+
+        var responseBody = method.getResponseBodyAsString();
+        updateMetadata("SFMC-Response",responseBody);
+        _log.error(">> responseBody:"+ responseBody);
+
+        if (response != "200") {
+            updateMetadata("ERR-SFMC-200","Couldn't post data to: "+_url);
+            _log.error(">> ERR-SFMC-200 Couldn't post data to: "+_url);
+        } 
+
+        postresponse= true;
+    } catch (ex) {
+        updateMetadata("ERR-SFMC-201","Couldn't post data to socket error: "+_url);
+        updateMetadata("ERR-SFMC-201-Error",ex);
+        _log.error(">> ERR-SFMC-201 Couldn't post data to socket error"+_url);
+        _log.error(ex);
+    }
+
+
+    return postresponse;
+}
+
+
+
+
+function getTokenOAuth(_url,_clientId,_clientSecret,_redirectUri,_log) {
+    var token = "";
+
+    try {
+
+        
+        var client = new Packages.org.apache.commons.httpclient.HttpClient();
+        var method = new Packages.org.apache.commons.httpclient.methods.PostMethod(_url);
+        method.addParameter("grantType","authorization_code");
+        method.addParameter("clientId",_clientId);
+        method.addParameter("clientSecret",_clientSecret);
+        method.addParameter("redirectUri",_redirectUri);
+
+        var response = client.executeMethod(method);
+
+        var responseBody = method.getResponseBodyAsString();
+
+        _log.error(">> "+ responseBody);
+        
+        var json = new Packages.org.apache.sling.commons.json.JSONObject(responseBody);
+        var accessToken = json.getString("accessToken");
+        var expiresIn = json.getString("expiresIn");
+        //TODO: Use this to validate session instead of expiring on browser close.
+        token = accessToken;
+        updateMetadata("SFMC-Token",token);
+        updateMetadata("SFMC-IssuedAt",expiresIn);
+
+    } catch (ex) {
+        updateMetadata("ERR-SFMC-210","Could not authenticate: "+_url);
+        updateMetadata("ERR-SFMC-210-Error",ex);
+        _log.error(">> ERR-SFMC-210 Could not post data to: "+ex);
+        _log.error(ex);
+    }
+    return token;
+
+}
+
+/*
+ * Helper method to evaluate script arguments.
+ * 
+ */
+
+
+function getConfig(_metaData,_resource,_sling,_log) {
+    var configInfo = {};
+    var cfgMgr = _resource.getResourceResolver().adaptTo(Packages.com.day.cq.wcm.webservicesupport.ConfigurationManager);
+    var config = null;
+    if (cfgMgr != null) {
+        var cfgPath = _metaData.get("cq:cloudserviceconfig");
+        config = cfgMgr.getConfiguration(cfgPath);
+        configInfo[FIELDS.SERVICECONFIGPATH]=cfgPath;
+    }
+
+    if (config != null) {
+
+        _log.info(">> getConfig: loading config from: {}",configInfo[FIELDS.SERVICECONFIGPATH]);
+
+        configInfo[FIELDS.CONFIG_CLIENTID] = config.getInherited(FIELDS.CONFIG_METADATA + FIELDS.CONFIG_CLIENTID, '');
+        configInfo[FIELDS.CONFIG_REDIRECTURI] = config.getInherited(FIELDS.CONFIG_METADATA + FIELDS.CONFIG_REDIRECTURI, '');
+        configInfo[FIELDS.CONFIG_ENVIRONMENT] = config.getInherited(FIELDS.CONFIG_METADATA + FIELDS.CONFIG_ENVIRONMENT, '');
+        configInfo[FIELDS.CONFIG_GRANTTYPE] = config.getInherited(FIELDS.CONFIG_METADATA + FIELDS.CONFIG_GRANTTYPE, '');        
+        configInfo[FIELDS.CONFIG_USER] = config.getInherited(FIELDS.CONFIG_METADATA + FIELDS.CONFIG_USER, '');
+
+        var password = config.getInherited(FIELDS.CONFIG_METADATA + FIELDS.CONFIG_PASSWORD, new Packages.java.lang.String);
+        var clientsecret = config.getInherited(FIELDS.CONFIG_METADATA + FIELDS.CONFIG_CLIENTSECRET, new Packages.java.lang.String);
+
+        _log.info(">> getConfig: {}={}", FIELDS.CONFIG_CLIENTID, configInfo[FIELDS.CONFIG_CLIENTID]);
+        _log.info(">> getConfig: {}={}", FIELDS.CONFIG_REDIRECTURI, configInfo[FIELDS.CONFIG_REDIRECTURI]);
+        _log.info(">> getConfig: {}={}", FIELDS.CONFIG_ENVIRONMENT, configInfo[FIELDS.CONFIG_ENVIRONMENT]);
+        _log.info(">> getConfig: {}={}", FIELDS.CONFIG_GRANTTYPE, configInfo[FIELDS.CONFIG_GRANTTYPE]);
+        _log.info(">> getConfig: {}={}", FIELDS.CONFIG_USER, configInfo[FIELDS.CONFIG_USER]);
+        _log.info(">> getConfig: encryptedClientSecret={}", clientsecret);
+        _log.info(">> getConfig: encryptedPass={}", password);
+
+        var cryptoSupport = _sling.getService(Packages.com.adobe.granite.crypto.CryptoSupport);
+
+        _log.info(">> getConfig: isPassEncrypted={}", cryptoSupport.isProtected(password));
+        _log.info(">> getConfig: isClientSecretEncrypted={}", cryptoSupport.isProtected(clientsecret));
+
+        try {
+            _log.info(">> getConfig: tying to decrypt service config password.");
+
+            configInfo[FIELDS.PASSWORD] = (cryptoSupport.isProtected(password) ? cryptoSupport.unprotect(password) : password);
+        } catch (ex) {
+            _log.error(">> getConfig: unable to decrypt password {}",ex);
+            configInfo[FIELDS.PROCESS_ERROR]="ERR-SFMC-010: unable to decrypt password";
+        } finally {
+            _log.info(">> getConfig: decrypt service config password finished");
+        }
+
+        try {
+            _log.info(">> getConfig: tying to decrypt service config client secret.");
+
+            configInfo[FIELDS.CONFIG_CLIENTSECRET] = (cryptoSupport.isProtected(clientsecret) ? cryptoSupport.unprotect(clientsecret) : clientsecret);
+        } catch (ex) {
+            _log.error(">> getConfig: unable to decrypt client secret {}",ex);
+            configInfo[FIELDS.PROCESS_ERROR]="ERR-SFMC-020: unable to decrypt client secret";
+        } finally {
+            _log.info(">> getConfig: decrypt service config client secret finished");
+        }
+
+    } else {
+        _log.info(">> getConfig: no configurations is set");
+    }
+
+
+    return configInfo;
+}
+
+//Simple collection of Fields from Workflow
+function getArgsMapSimple(_metaData,_workItem,_workflowData,_workflowSession,_log) {
+    var argsInfo = {};
+
+    //copy values from metadata into our array
+    try {
+        var wfmeta = _workItem.getWorkflowData().getMetaDataMap();
+        var items = new Packages.java.util.ArrayList(wfmeta.keySet());
+        log.info(">> getArgsMapSimple: items {},{}", items,items.size());
+        for (var i=0; i < items.size();i++) {
+            var entry = items.get(i);
+            log.info(">> getArgsMapSimple: item {}={}", entry, wfmeta.get(entry,""));
+
+            argsInfo[entry] = wfmeta.get(entry,"");
+        }
+    } catch (ex) {
+        _log.error(">> getArgsMapSimple: load field config. {}",ex);
+        argsInfo[FIELDS.PROCESS_ERROR]="ERR-SFCM-015: could not load field config";
+    }
+
+
+    return argsInfo;
+}
+
+//getArgsMap(metaData, payloadNode, workItem, workflowData, workflowSession, log)
+
+function getArgsMap(_metaData,payloadNode,_resource,_workItem,_workflowData,_workflowSession,_log){
+
+    _log.info(">> getArgsMap: metaData={}", _metaData);
+    _log.info(">> getArgsMap: payloadNode={}", payloadNode);
+
+    var argsInfo = {};
+
+    // legacy, using 'PROCESS_ARGS' if set
+    if(_metaData.get(FIELDS.PROCESS_ARGS)){
+        _log.info(">> using PROCESS_ARGS metaData = " + _metaData.get(FIELDS.PROCESS_ARGS));
+
+        var args = _metaData.get(FIELDS.PROCESS_ARGS).split(",");
+
+        _log.info(">> legacy args: #{},{}",args.length, Packages.java.util.Arrays.toString(args));
+
+        argsInfo[FIELDS.CMD] = args[0].toString();
+        _log.info(">> legacy {}={}",FIELDS.CMD,argsInfo[FIELDS.CMD]);
+        try {
+            _log.info(">> legacy args: {}",Packages.java.util.Arrays.toString(args));
+            for (var i = 1; i < args.length; i++) {
+                if (payloadNode.hasProperty(args[i])) {
+                    argsInfo["" + args[i] + ""] = payloadNode.getProperty(args[i]).getString(); //meta.get(args[i], "");
+                    _log.info(">> form info item: {}={}", args[i], argsInfo["" + args[i] + ""]);
+                } else {
+                    argsInfo["" + args[i] + ""] = "";
+                    _log.info(">> form info item: {} does not exist", args[i]);
+                }
+
+            }
+        } catch (ex) {
+            _log.error("legacy info is not supported {}",ex);
+            argsInfo[FIELDS.PROCESS_ERROR]="ERR-SFMC-002: not able to evaluate legacy args";
+        }
+    } else if(!_metaData.get(FIELDS.PROCESS_ARGS)) {
+        _log.info(">> using metaData");
+
+        /*for (var key in FIELDS) {
+            argsInfo[FIELDS[key]] = _metaData.get(FIELDS[key]) ? _metaData.get(FIELDS[key]) : "";
+            _log.info(">> getArgsMap: collecting metadata {}={}", key,argsInfo[FIELDS[key]]);
+        }*/
+
+        //ONLY READING THE FIELDS THAT HAVE BEEN SELECTED IN WORKFLOW STEP
+        var blankArray = _blankArray();
+        var metaDataFields = _workItem.getNode().getMetaDataMap().get(FIELDS.REQUESTFIELDS,blankArray);
+        //this dont work as the String[] is turned into String
+        //var metaDataFields = _metaData.get(PROCESS_METADATAFIELD,blankArray);
+        try {
+            for (var i = 0; i < metaDataFields.length; i++) {
+                _log.info(">> field: {}",metaDataFields[i]);
+                var fieldMetaArray = metaDataFields[i].split("=");
+                if (fieldMetaArray[0]!="") {
+                    var fieldMeta=fieldMetaArray[0];
+                    var fieldValue=fieldMetaArray[1];
+                    if (payloadNode.hasProperty(fieldMeta)) {
+
+                        var prop = payloadNode.getProperty(fieldMeta);
+                        if (!prop.isMultiple()) {
+                            argsInfo["" + fieldValue + ""] = prop.getString(); //meta.get(args[i], "");
+                            _log.info(">> form info item single: {}={}", fieldMeta, argsInfo["" + fieldValue + ""]);
+                        } else {
+                            argsInfo["" + fieldValue + ""] = prop.getValues(); //meta.get(args[i], "");
+                            _log.info(">> form info item multi: {}={}", fieldMeta, argsInfo["" + fieldValue + ""]);
+                        }
+
+                    } else {
+                        argsInfo["" + fieldMeta + ""] = "";
+                        _log.info(">> form info item [{}] does not exist", fieldMeta);
+                    }
+                }
+            }
+        } catch (ex) {
+            _log.error("could not process metadata info. {}",ex);
+            argsInfo[FIELDS.PROCESS_ERROR]="ERR-SFMC-003: not able to evaluate legacy args";
+        }
+    }
+    else {
+        _log.error(">> no valid parameter configurations passed.");
+        argsInfo[FIELDS.PROCESS_ERROR]="ERR-SFMC-001: not able to evaluate args";
+    }
+
+    return argsInfo;
+
+}
+
+
+
+/* JCR FUNCTIONS */
+function getNodePropertyAsString(_node,_nodeName,_defaultValue,_inherited) {
+    if (!_inherited) {
+        _inherited = false;
+    }
+    if(_node != undefined && _node != null) {
+        if (_node.hasProperty(_nodeName)) {
+            var prop = _node.getProperty(_nodeName);
+            if (prop) {
+                return prop.toString();
+            }
+        } else if (_inherited) {
+            if (_node.getParent().hasProperty(_nodeName)) {
+                var prop = _node.getParent().getProperty(_nodeName);
+                if (prop) {
+                    return prop.toString();
+                }
+            }
+        }
+    }
+    return _defaultValue;
+}
+
+function geResourcePropertyAsString(resource,propName,defaultValue) {
+
+    if(resource != undefined && resource != null) {
+
+        var resourceIVM = new Packages.com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap(resource);
+        return resourceIVM.getInherited(propName,"");
+    } else {
+        return defaultValue;
+    }
+}
+
+
+/* GENERIC WORFKLOW FUNCTIONS */
+
+
+function saveSession(_workflowSession) {
+    _workflowSession.getSession().save();
+}
+
+function updateMetadata(name,value) {
+    workItem.getWorkflowData().getMetaDataMap().put(name, value);
+}
+
+function replaceMetadata(name,value) {
+
+    log.info("-> replaceMetadata {}, {}",name,value);
+    try {
+        log.info(">> remove {}", name);
+        // workItem.getWorkflowData().getMetaDataMap().setMetaDataProperty
+
+        workItem.getWorkflowData().getMetaDataMap().remove(name);
+        workItem.getMetaDataMap().remove(name);
+        // saveSession();
+//        workflowSession.updateWorkflowData(workItem.getWorkflow(), workItem.getWorkflowData());
+        log.info(">> saved {}", workItem.getWorkflowData().getMetaDataMap());
+        log.info(">> add {}, {}", name, value);
+        workItem.getMetaDataMap().put(name, value);
+        workItem.getWorkflowData().getMetaDataMap().put(name, value);
+//        saveSession();
+  //      workflowSession.updateWorkflowData(workItem.getWorkflow(), workItem.getWorkflowData());
+        log.info(">> saved {}", workItem.getWorkflowData().getMetaDataMap());
+    } catch (ex) {
+        log.error("Could not replace metadata item {} with {}",name,value);
+    }
+}
+
+function _converToValues(array) {
+    return Packages.com.adobe.granite.workflow.core.metadata.MetaDataUtilImpl.convertToValues(array);
+}
+
+function updateWorkflow() {
+    workflowSession.updateWorkflowData(workItem.getWorkflow(), workItem.getWorkflowData());
+}
+
+
+function validateMetadata(_metadata,_workflowSession,_workItem) {
+    try {
+        if (FIELDS.TYPE_JCR_PATH == workflowData.getPayloadType()) {
+            var path = _workItem.getWorkflowData().getPayload().toString();
+
+            if (_workflowSession.getSession().itemExists(path)) {
+                return true;
+            } else {
+                updateMetadata(FIELDS.WORKFLOW_ERROR, "payload path does not exist");
+            }
+
+        } else {
+            updateMetadata(FIELDS.WORKFLOW_ERROR, "invalid playload type");
+        }
+        return false;
+    } catch (ex) {
+        updateMetadata(FIELDS.WORKFLOW_ERROR, ex);
+    }
+    return false;
+}
+
+function validatePlayload(payloadNode) {
+    return true;
+}
+
+/*
+* HELPER FUNCTIONS
+* */
+
+function parseDate(dateString)
+{
+    var cal = Packages.java.util.Calendar.getInstance();
+    try {
+        var dateStringDate = Packages.com.day.cq.dam.commons.util.DateParser.parseDate(dateString);
+        cal.setTime(dateStringDate);
+    } catch(ex) {
+        log.error("Could not parse time {}, {}",dateString,ex);
+    }
+    return cal;
+}
+
+
+function messageFormat(template,fieldMap) {
+    try {
+        var substitutor = new Packages.org.apache.commons.lang3.text.StrSubstitutor(fieldMap);
+        return substitutor.replace(template);
+    } catch (ex) {
+
+    }
+    return "";
+}
+
+function _isBlank(source) {
+    return Packages.org.apache.commons.lang3.StringUtils.isBlank(source);
+}
+function _isNotBlank(source) {
+    return Packages.org.apache.commons.lang3.StringUtils.isNotBlank(source);
+}
+function _isNotEmpty(source) {
+    return Packages.org.apache.commons.lang3.StringUtils.isNotEmpty(source);
+}
+function _blankArray() {
+    return Packages.org.apache.commons.lang3.StringUtils.split(" ");
+}
+
+function _split(string,separator) {
+    return Packages.org.apache.commons.lang3.StringUtils.split(string,separator);
+}
+
+function _join(array,separator) {
+    return Packages.org.apache.commons.lang3.StringUtils.join(array,separator);
+}
+
+function _push(array,newitem) {
+    return Packages.org.apache.commons.lang3.ArrayUtils.add(array,newitem);
+}
+
+
+function _createValidName(_name){
+    return Packages.com.day.cq.commons.jcr.JcrUtil.createValidName(_name)
+}
+
+function _getOrCreateUniqueByPath(_node,_name,_type) {
+    return Packages.org.apache.jackrabbit.commons.JcrUtils.getOrCreateUniqueByPath(_node,_name,_type);
+}
+
+
+function isAsset(_resourceResolver, _resourcePath) {
+    if (_isBlank(_resourcePath)) {
+        return false;
+    }
+    var resource = _resourceResolver.getResource(_resourcePath);
+    if (resource != null) {
+        return resource.adaptTo(Packages.com.adobe.granite.asset.api.Asset) != null;
+    }
+    return false;
+}

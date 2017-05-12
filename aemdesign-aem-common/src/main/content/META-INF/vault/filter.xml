@@ -30,6 +30,7 @@
     <filter root="/etc/tags/.content.xml" mode="update"/>
 
     <filter root="/etc/cloudservices/rest" mode="update"/>
+    <filter root="/etc/cloudservices/salesforceapi" mode="update"/>
 
 
 
