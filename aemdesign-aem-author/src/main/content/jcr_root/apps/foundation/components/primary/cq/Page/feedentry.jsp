@@ -1,21 +1,4 @@
-<%--
- Copyright 1997-2009 Day Management AG
- Barfuesserplatz 6, 4001 Basel, Switzerland
- All Rights Reserved.
-
- This software is the confidential and proprietary information of
- Day Management AG, ("Confidential Information"). You shall not
- disclose such Confidential Information and shall use it only in
- accordance with the terms of the license agreement you entered into
- with Day.
-
- ==============================================================================
-
- Atom feed entry renderer for cq:Page nodes
-
- Draws the current page as a feed entry.
-
---%><%@ page session="false" %><%
+<%@ page session="false" %><%
 %><%@ page import="java.util.Date,
                    com.day.cq.commons.Externalizer,
                    java.util.ArrayList,
@@ -48,7 +31,7 @@
         Externalizer externalizer = sling.getService(Externalizer.class);
         String url = externalizer.absoluteLink(slingRequest, slingRequest.getScheme(), entryPage.getPath());
 
-        String link = url + ".html";
+        String link = url.concat(DEFAULT_EXTENTION);
         String title = entryPage.getTitle() !=null ?
                 entryPage.getTitle() : currentNode.getName();
         String desc = entryPage.getDescription() != null ?
@@ -116,7 +99,7 @@
                 %><atom:content><%
                 int i = 0;
                 for (Paragraph par : contentPars) {
-                    String path = par.getPath() + ".html";
+                    String path = par.getPath().concat(".html");
                     %><sling:include path="<%= path %>"/><%
                     if (++i == 4) {
                         break;
