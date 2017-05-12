@@ -22,7 +22,28 @@
                 title="Image"
                 xtype="html5smartimage"/>
 
-
+        <basicTab
+                jcr:primaryType="cq:Panel"
+                title="Basic">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <variant
+                        jcr:primaryType="cq:Widget"
+                        defaultValue=""
+                        value=""
+                        allowBlank="{Boolean}true"
+                        fieldLabel="Variant"
+                        name="./variant"
+                        type="select"
+                        xtype="selection">
+                    <options jcr:primaryType="cq:WidgetCollection">
+                        <default
+                                jcr:primaryType="nt:unstructured"
+                                value=""
+                                text="Default"/>
+                    </options>
+                </variant>
+            </items>
+        </basicTab>
 
         <styleTab jcr:primaryType="cq:Panel"
                    title="Style">
