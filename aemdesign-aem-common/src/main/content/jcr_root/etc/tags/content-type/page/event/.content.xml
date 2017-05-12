@@ -3,8 +3,6 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Event Page"
     jcr:title.en="Event"
-    jcr:title.de-ch="活动"
-    jcr:title.ru="活動"
     sling:resourceType="cq/tagging/components/tag"
     tagID="tags:content-type/event"
     tagPath="/etc/tags/content-type/event"/>

@@ -3,8 +3,6 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Location Page"
     jcr:title.en="Location"
-    jcr:title.de-ch="位置"
-    jcr:title.ru="位置"
     sling:resourceType="cq/tagging/components/tag"
     tagID="tags:content-type/location"
     tagPath="/etc/tags/content-type/location"/>
