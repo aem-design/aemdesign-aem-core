@@ -1,4 +1,3 @@
-<%@taglib prefix="xss" uri="http://www.adobe.com/consulting/acs-aem-commons/xss" %>
 <%@page session="false"%>
 <%@include file="/apps/aemdesign/global/global.jsp" %>
 <%@include file="/apps/aemdesign/global/components.jsp" %>
@@ -96,14 +95,14 @@
 
     //Add Multi Value
     if ((componentProperties.get("readOnly", false)== false) && (componentProperties.get("multivalue", false))){
-    //<c:set value='${componentProperties.width eq null ? "null" : ("\'" + xss:getValidInteger(xssAPI, componentProperties.width, 100) +"\'")}' var="width"/>
-    //<span class="form_mv_add" onclick="CQ_form_addMultivalue('${xss:encodeForJSString(xssAPI, componentProperties.name)}', ${componentProperties.rows}, ${width});${componentProperties.forceMrChangeHandler}">[+]</span>
+    //<c:set value='${componentProperties.width eq null ? "null" : ("\'" + xssAPI.getValidInteger(componentProperties.width, 100) +"\'")}' var="width"/>
+    //<span class="form_mv_add" onclick="CQ_form_addMultivalue('${xssAPI.encodeForJSString(componentProperties.name)}', ${componentProperties.rows}, ${width});${componentProperties.forceMrChangeHandler}">[+]</span>
         componentProperties.put("addMultiValue", true);
     }
 
     //Remove Multi Value
     if ((componentProperties.get("values", new String [0]).length > 1) ){
-        // <span class="form_mv_remove" onclick="CQ_form_removeMultivalue('${xss:encodeForJSString(xssAPI, componentProperties.name)}',${status.index});${componentProperties.forceMrChangeHandler}">&nbsp;[&ndash;]</span>
+        // <span class="form_mv_remove" onclick="CQ_form_removeMultivalue('${xssAPI.encodeForJSString(componentProperties.name)}',${status.index});${componentProperties.forceMrChangeHandler}">&nbsp;[&ndash;]</span>
         componentProperties.put("removeMultiValue", true);
     }
 

@@ -10,8 +10,3 @@
         </header>
     </div>
 </div>
-<%-- Quick way to update
-Window title
-Metadata keywords, OG Image
-<script type="text/javascript"> document.title = document.title + " ${xss:encodeForJSString(xssAPI, componentProperties.pageTitle)}" </script>
---%>

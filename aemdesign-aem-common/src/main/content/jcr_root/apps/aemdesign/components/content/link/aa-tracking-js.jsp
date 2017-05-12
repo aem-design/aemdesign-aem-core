@@ -1,9 +1,8 @@
-<%@ taglib prefix="xss" uri="http://www.adobe.com/consulting/acs-aem-commons/xss" %>
 <script type="text/javascript">
     (function() {
-        var linkDiv = document.getElementById("${xss:encodeForJSString(xssAPI, componentProperties.divId)}");
-        var linkLabel = '"${xss:encodeForJSString(xssAPI, componentProperties.label)}"';
-        var linkEvars = '{ linkLabel: '+linkLabel+' , linkTarget: "${xss:encodeForJSString(xssAPI, componentProperties.linkUrl)}" }';
+        var linkDiv = document.getElementById("${xssAPI.encodeForJSString(componentProperties.divId)}");
+        var linkLabel = '"${xssAPI.encodeForJSString(componentProperties.label)}"';
+        var linkEvars = '{ linkLabel: '+linkLabel+' , linkTarget: "${xssAPI.encodeForJSString(omponentProperties.linkUrl)}" }';
         try {
             var tagNodes = linkDiv.getElementsByTagName('A');
             for (var i = 0; i < tagNodes.length; i++) {

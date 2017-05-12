@@ -1,13 +1,12 @@
-<%@ taglib prefix="xss" uri="http://www.adobe.com/consulting/acs-aem-commons/xss" %>
 <script type="text/javascript">
     (function() {
 
-        var linkDiv = document.getElementById("${xss:encodeForJSString(xssAPI, componentProperties.divId)}");
+        var linkDiv = document.getElementById("${xssAPI.encodeForJSString(componentProperties.divId)}");
         var linkEvars = '{ ' +
-                '"hitType": "${xss:encodeForJSString(xssAPI, componentProperties.hitType)}", ' +
-                '"eventCategory": "${xss:encodeForJSString(xssAPI, componentProperties.eventCategory)}", ' +
-                '"eventAction": "${xss:encodeForJSString(xssAPI, componentProperties.eventAction)}", ' +
-                '"eventLabel": "${xss:encodeForJSString(xssAPI, componentProperties.eventLabel)}"' +
+                '"hitType": "${xssAPI.encodeForJSString(componentProperties.hitType)}", ' +
+                '"eventCategory": "${xssAPI.encodeForJSString(componentProperties.eventCategory)}", ' +
+                '"eventAction": "${xssAPI.encodeForJSString(componentProperties.eventAction)}", ' +
+                '"eventLabel": "${xssAPI.encodeForJSString(componentProperties.eventLabel)}"' +
         '}';
 
         try {

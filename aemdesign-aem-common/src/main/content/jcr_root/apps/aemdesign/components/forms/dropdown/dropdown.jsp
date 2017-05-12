@@ -1,5 +1,4 @@
 <%@page session="false"%>
-<%@taglib prefix="xss" uri="http://www.adobe.com/consulting/acs-aem-commons/xss" %>
 <%@include file="/apps/aemdesign/global/global.jsp" %>
 <%@include file="/apps/aemdesign/global/components.jsp" %>
 <%@include file="../formsData.jsp" %>

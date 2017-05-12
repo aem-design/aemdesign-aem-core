@@ -23,7 +23,7 @@
                        placeholder="${componentProperties.placeHolder}"
                        type="${componentProperties.type}"
                 <c:if test="${not empty componentProperties.width}">
-                       style="width:${xss:getValidInteger(xssAPI,componentProperties.width, 100)}px;"
+                       style="width:${xssAPI.getValidInteger(componentProperties.width, 100)}px;"
                 </c:if>
                        onkeydown="${componentProperties.mrChangeHandler}"
                        title="${componentProperties.title}" >
@@ -45,7 +45,7 @@
                           rows="${componentProperties.rows}"
                           cols="${componentProperties.cols}"
                         <c:if test="${not empty componentProperties.width}">
-                            style="width:${xss:getValidInteger(xssAPI,componentProperties.width, 100)}px;"
+                            style="width:${xssAPI.getValidInteger(componentProperties.width, 100)}px;"
                         </c:if>
                           onkeydown="${componentProperties.mrChangeHandler}"
                           title="${componentProperties.title}">
@@ -64,7 +64,7 @@
                    size="${componentProperties.cols}"
                    type="${componentProperties.type}"
             <c:if test="${not empty componentProperties.width}">
-                   style="width:${xss:getValidInteger(xssAPI,componentProperties.width, 100)}px;"
+                   style="width:${xssAPI.getValidInteger(componentProperties.width, 100)}px;"
             </c:if>
             >
         </c:forEach>
@@ -83,7 +83,7 @@
                    size="${componentProperties.cols}"
                    type="${componentProperties.type}"
             <c:if test="${not empty componentProperties.width}">
-                   style="width:${xss:getValidInteger(xssAPI,componentProperties.width, 100)}px;"
+                   style="width:${xssAPI.getValidInteger(componentProperties.width, 100)}px;"
             </c:if>
             >
         </c:forEach>
