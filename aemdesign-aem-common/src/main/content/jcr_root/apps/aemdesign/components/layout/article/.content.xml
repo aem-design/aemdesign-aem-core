@@ -3,6 +3,5 @@
     cq:isContainer="{Boolean}true"
     jcr:primaryType="cq:Component"
     jcr:title="Article"
-    sling:resourceSuperType="aemdesign/components/common/inherit"
     allowedParents="[]"
     componentGroup=".hidden"/>
