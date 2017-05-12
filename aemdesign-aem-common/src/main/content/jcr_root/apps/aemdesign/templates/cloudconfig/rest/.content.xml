@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    jcr:description="REST Endpoin Server Settings"
+    jcr:description="REST Endpoint Server Settings"
     jcr:primaryType="cq:Template"
     jcr:title="REST Configuration"
     sling:resourceSuperType="cq/cloudserviceconfigs/templates/configpage"
     allowedPaths="[/etc/cloudservices/rest(/.*)?]"
     ranking="{Long}90">
     <jcr:content
-        cq:cloudservicename="REST"
-        cq:designPath="/etc/designs/cloudservices/rest"
+        cq:cloudservicename="rest"
         jcr:primaryType="cq:PageContent"
-        sling:resourceType="maxbarrass-tools/components/cloudservices/rest/global"/>
+        sling:resourceType="aemdesign/components/cloudservices/rest"/>
 </jcr:root>

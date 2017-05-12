@@ -6,7 +6,7 @@
         <proxy
             jcr:primaryType="nt:unstructured"
             html="&lt;i>These credentials are used to connect to external REST Services&lt;i>"
-            title="Config Settings"
+            title="Rest Settings"
             xtype="panel">
             <items jcr:primaryType="cq:WidgetCollection">
                 <serviceurl
