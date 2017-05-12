@@ -3,12 +3,12 @@
     (function() {
         var linkDiv = document.getElementById("${xss:encodeForJSString(xssAPI, componentProperties.divId)}");
         var linkLabel = '"${xss:encodeForJSString(xssAPI, componentProperties.label)}"';
-        var linkEvars = '{ clickthroughLinkLabel: '+linkLabel+' , clickthroughLinkTarget: "${xss:encodeForJSString(xssAPI, componentProperties.linkUrl)}" }';
+        var linkEvars = '{ linkLabel: '+linkLabel+' , linkTarget: "${xss:encodeForJSString(xssAPI, componentProperties.linkUrl)}" }';
         try {
             var tagNodes = linkDiv.getElementsByTagName('A');
             for (var i = 0; i < tagNodes.length; i++) {
                 var link = tagNodes.item(i);
-                link.setAttribute('onclick', 'CQ_Analytics.record({event: "clickthroughLinkClick", values: ' + linkEvars + ', collect:  false, options: { obj: this }, componentPath: "<%=resource.getResourceType()%>"})');
+                link.setAttribute('onclick', 'CQ_Analytics.record({event: "linkClick", values: ' + linkEvars + ', collect:  false, options: { obj: this }, componentPath: "<%=resource.getResourceType()%>"})');
             }
         } catch (ex) {
             //error
