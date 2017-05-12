@@ -96,10 +96,10 @@
                                         jcr:primaryType="nt:unstructured"
                                         value="none"
                                         text="None"/>
-                            <!--    <adobeAnalytics
+                                <adobeAnalytics
                                         jcr:primaryType="nt:unstructured"
                                         value="aa"
-                                        text="Adobe Analytics"/> -->
+                                        text="Adobe Analytics"/>
                                 <googleanalytics
                                         jcr:primaryType="nt:unstructured"
                                         value="ga"
