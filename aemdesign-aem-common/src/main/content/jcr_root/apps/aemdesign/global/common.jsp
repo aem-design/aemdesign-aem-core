@@ -38,9 +38,6 @@
             "Sep", "Oct", "Nov", "Dec"
     };
 
-    final String DEFAULT_PAGE_EXTENTION = ".html";
-
-
     /**
      * sling resource type property name
      */
@@ -76,7 +73,7 @@
             if (page.getProperties().get("redirectTarget") != null) {
                 pageUrl = escapeBody(page.getProperties().get("redirectTarget").toString());
             } else {
-                pageUrl = page.getPath().concat(".html");
+                pageUrl = page.getPath().concat(DEFAULT_EXTENTION);
             }
         }
 
@@ -815,7 +812,7 @@
      * @return
      */
     protected String linkToPage(PageManager _pageManager, Resource _resource) {
-        return _pageManager.getContainingPage(_resource).getPath().concat(DEFAULT_PAGE_EXTENTION);
+        return _pageManager.getContainingPage(_resource).getPath().concat(DEFAULT_EXTENTION);
     }
 
 

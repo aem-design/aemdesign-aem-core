@@ -129,7 +129,7 @@
         String linkTitle = _properties.get("listLinkTitle", _currentStyle.get("listLinkTitle", (String) "More"));
         String linkPath = _properties.get("listLinkPath", _currentStyle.get("listLinkPath", searchIn));
         String linkText = _properties.get("listLinkText", _currentStyle.get("listLinkText", (String) "More"));
-        String relativeLink = _externalizer.relativeLink(_slingRequest, linkPath + ".html");
+        String relativeLink = _externalizer.relativeLink(_slingRequest, linkPath.concat(DEFAULT_EXTENTION));
 
         %><a href="<%= relativeLink %>" title="<%= escapeBody(linkTitle) %>" class="linkMore"><%= escapeBody(linkText) %></a><%
     }

@@ -13,6 +13,8 @@
      *
      */
 
+    public static final String DEFAULT_EXTENTION = ".html";
+
     //Do not update unless you have verified all components work
     public static Boolean REMOVEDECORATION = true; //change this if you want component decoration removed
 

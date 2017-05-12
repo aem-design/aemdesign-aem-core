@@ -7,6 +7,10 @@
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
+                <basicTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/basicTab.infinity.json"
+                        xtype="cqinclude" />
                 <styleTab
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"

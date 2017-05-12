@@ -42,10 +42,10 @@
                 if (redirectTarget.contains("http:")){
                     infoStruct.put("href", redirectTarget);
                 } else {
-                    infoStruct.put("href", redirectTarget + ".html");
+                    infoStruct.put("href", redirectTarget.concat(DEFAULT_EXTENTION));
                 }
 
-                infoStruct.put("authHref", child.getPath() + ".html");
+                infoStruct.put("authHref", child.getPath().concat(DEFAULT_EXTENTION));
                 infoStruct.put("pathHref", child.getPath());
 
                 Resource parSys = child.getContentResource("par");
@@ -157,7 +157,7 @@
                 Map infoStruct = new HashMap();
 
                 infoStruct.put("title", child.getTitle());
-                infoStruct.put("href", child.getPath() + ".html");
+                infoStruct.put("href", child.getPath().concat(DEFAULT_EXTENTION));
                 //infoStruct.put("alt",child.getProperties().get("redirectTarget","#"));
 
                 Image image = getPageImage(child);

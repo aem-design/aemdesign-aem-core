@@ -4,7 +4,6 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%
     final String DEFAULT_DELIMITER = "";
-    final String DEFAULT_EXTENTION = ".html";
     final String DEFAULT_TRAIL = "";
     final String DEFAULT_ARIA_ROLE = "navigation";
     final String DEFAULT_ARIA_LABEL = "breadcrumb";
@@ -51,7 +50,7 @@
             HashMap<String, String> pagetrailvalues = new HashMap<String, String>();
 
             pagetrailvalues.put("path",pagetrail.getPath());
-            pagetrailvalues.put("url",pagetrail.getPath()+DEFAULT_EXTENTION);
+            pagetrailvalues.put("url",pagetrail.getPath().concat(DEFAULT_EXTENTION);
             pagetrailvalues.put("name",pagetrail.getName());
             pagetrailvalues.put("title",getPageTitle(pagetrail));
 

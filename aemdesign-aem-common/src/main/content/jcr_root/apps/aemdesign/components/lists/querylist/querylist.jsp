@@ -133,15 +133,15 @@
                     <%-- when there is a link but no image --%>
                     <c:when test="<%= titleLink != null && imageSource == null %>">
                         <h2>
-                            <a href="<%= titleLink.concat(".html") %>"><%= escapeBody(title) %></a>
+                            <a href="<%= titleLink.concat(DEFAULT_EXTENTION) %>"><%= escapeBody(title) %></a>
                         </h2>
                     </c:when>
 
                     <%-- when there is a link and image --%>
                     <c:when test="<%= titleLink != null && imageSource != null %>">
                         <h2>
-                            <a href="<%= titleLink.concat(".html") %>"><%= escapeBody(title) %></a>
-                            <a href="<%= imagePage.getPath().concat(".html") %>">
+                            <a href="<%= titleLink.concat(DEFAULT_EXTENTION) %>"><%= escapeBody(title) %></a>
+                            <a href="<%= imagePage.getPath().concat(DEFAULT_EXTENTION) %>">
                                 <img src="<%= imageSource %>" alt="<%= escapeBody(getPageTitle(imagePage)) %>" />
                             </a>
                         </h2>

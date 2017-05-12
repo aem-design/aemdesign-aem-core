@@ -46,7 +46,7 @@
 
         SimpleDateFormat sdFormat = new SimpleDateFormat(SITEMAP_FORMAT);
 
-        info.put("location", escapeBody(mappedUrl(resolver, page.getPath()).concat(".html")));
+        info.put("location", escapeBody(mappedUrl(resolver, page.getPath()).concat(DEFAULT_EXTENTION)));
         info.put("lastModified", sdFormat.format(lastModCal.getTime()));
 
         return info;

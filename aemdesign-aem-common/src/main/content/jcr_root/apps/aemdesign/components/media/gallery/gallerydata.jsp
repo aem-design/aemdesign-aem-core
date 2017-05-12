@@ -426,8 +426,8 @@
             if (variant.endsWith(".assetviewer") && StringUtils.isNotEmpty(assetViewerPagePath)){
                 // /content/dam/aemdesign-showcase/galleries/m-plus-collection/2012-12-1.jpg.form.html/content/aemdesign-showcase/en/component/media/media-gallery-assetviewer/asset-viewer/av1.html
 
-                String suffix = mappedUrl(_resourceResolver, assetViewerPagePath) + DEFAULT_PAGE_EXTENTION;
-                href = url + FORM_CHOOSER_SELECTOR_SERVLET + DEFAULT_PAGE_EXTENTION + suffix;
+                String suffix = mappedUrl(_resourceResolver, assetViewerPagePath).concat(DEFAULT_EXTENTION);
+                href = url.concat(FORM_CHOOSER_SELECTOR_SERVLET).concat(DEFAULT_EXTENTION).concat(suffix);
             }
 
             Resource thumbnailResource = null;

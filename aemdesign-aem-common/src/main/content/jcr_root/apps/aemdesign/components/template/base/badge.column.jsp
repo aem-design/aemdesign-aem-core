@@ -19,7 +19,7 @@
     String displayTitle = getPageNavTitle(thisPage);
 
     String displayDescription = thisPage.getDescription();
-    String pagePath = thisPage.getPath().concat(".html");
+    String pagePath = thisPage.getPath().concat(DEFAULT_EXTENTION);
 
 %>
 <div class="p highlight_highlight">

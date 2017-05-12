@@ -56,7 +56,7 @@
     if (StringUtils.isNotEmpty(componentProperties.get("eventRefLink", String.class))){
         String eventRefLink = componentProperties.get("eventRefLink", String.class);
         if (_pageManager.getPage(eventRefLink) != null){
-            eventRefLink =  mappedUrl(_resourceResolver, _pageManager.getPage(eventRefLink).getPath()) + DEFAULT_PAGE_EXTENTION;
+            eventRefLink =  mappedUrl(_resourceResolver, _pageManager.getPage(eventRefLink).getPath()).concat(DEFAULT_EXTENTION);
         }
         componentProperties.put("eventRefLink", eventRefLink);
     }

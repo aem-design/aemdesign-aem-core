@@ -40,7 +40,7 @@
     }
 %>
 <div class="<%= cssClass %>">
-    <a href="<%= thisPage.getPath().concat(".html") %>" class="linkTxt">
+    <a href="<%= thisPage.getPath().concat(DEFAULT_EXTENTION) %>" class="linkTxt">
         <%= displayTitle %>
     </a>
     <div class="longTxt">

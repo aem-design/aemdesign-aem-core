@@ -53,7 +53,7 @@
     componentProperties.put("url",mappedUrl(_resourceResolver, url));
     String eventRefLink = componentProperties.get("eventRefLink", String.class);
     if (_pageManager.getPage(eventRefLink) != null){
-        eventRefLink = getPageUrl(_pageManager.getPage(eventRefLink)) + DEFAULT_PAGE_EXTENTION;
+        eventRefLink = getPageUrl(_pageManager.getPage(eventRefLink)).concat(DEFAULT_EXTENTION);
     }
     componentProperties.put("eventRefLink", eventRefLink);
 

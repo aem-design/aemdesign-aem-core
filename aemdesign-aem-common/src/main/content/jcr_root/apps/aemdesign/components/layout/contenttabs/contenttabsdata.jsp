@@ -51,7 +51,7 @@
 
             infoStruct.put("title", page.getTitle());
             infoStruct.put("name", page.getName());
-            infoStruct.put("href", page.getPath() + ".html");
+            infoStruct.put("href", page.getPath().concat(DEFAULT_EXTENTION));
             infoStruct.put("path", page.getPath());
             infoStruct.put("contentPath", page.getContentResource(PAR_CONTENTS).getPath());
 

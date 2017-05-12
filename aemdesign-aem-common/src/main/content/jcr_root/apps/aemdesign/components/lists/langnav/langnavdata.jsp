@@ -67,7 +67,7 @@
                         if (p != null){
                             Map<String, String> aLanguage = new HashMap<String, String>();
 
-                            aLanguage.put("path", mappedUrl(resourceResolver, p.getPath()) + ".html");
+                            aLanguage.put("path", mappedUrl(resourceResolver, p.getPath()).concat(DEFAULT_EXTENTION));
                             aLanguage.put("langSwitchTo", i18n.get("langSwitchTo"+language.getLocale().toString(), "langSelect"));
                             aLanguage.put("langSimpleTo", i18n.get("langSimpleTo"+language.getLocale().toString(), "langSelect"));
 
@@ -86,11 +86,11 @@
                         aLanguage.put("hreflang", ConvertLocaleToLanguageBcp47(resourceResolver, language));
 
                         if (p != null && p.isValid() && !p.isHideInNav()){
-                            aLanguage.put("path", mappedUrl(resourceResolver, p.getPath()) + ".html");
+                            aLanguage.put("path", mappedUrl(resourceResolver, p.getPath()).concat(DEFAULT_EXTENTION));
                         }else{
                             p = findMissingLanguagePath(currentPage, resourceResolver, languageManager, isShowRoot, language,  pageManager);
                             if (p != null) {
-                                aLanguage.put("path", mappedUrl(resourceResolver, p.getPath()) + ".html");
+                                aLanguage.put("path", mappedUrl(resourceResolver, p.getPath()).concat(DEFAULT_EXTENTION));
                             }
                         }
 

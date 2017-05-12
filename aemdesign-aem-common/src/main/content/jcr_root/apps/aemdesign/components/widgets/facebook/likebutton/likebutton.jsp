@@ -1,4 +1,4 @@
-<%@include file="/libs/foundation/global.jsp"%>
+<%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ page session="false" import="com.day.cq.commons.Externalizer,
                  com.day.cq.i18n.I18n,
                  org.apache.sling.api.resource.ResourceResolver,
@@ -11,7 +11,7 @@
     ResourceResolver resolver = sling.getService(ResourceResolver.class);
     String currentPageURL = "";
     if(externalizer != null){
-        currentPageURL = externalizer.publishLink(resolver, currentPage.getPath()) + ".html";
+        currentPageURL = externalizer.publishLink(resolver, currentPage.getPath()).concat(DEFAULT_EXTENTION);
     }
 	currentPageURL = currentPageURL.replaceFirst("//localhost","//127.0.0.1");
 

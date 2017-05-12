@@ -301,16 +301,16 @@
             if (redirectTarget.contains("http:")) {
                 info.put("href", redirectTarget);
             } else {
-                info.put("href", redirectTarget + ".html");
+                info.put("href", redirectTarget.concat(DEFAULT_EXTENTION));
 //                //respect vanity URLs
 //                if (isNotEmpty(vanityPath)){
 //                    info.put("href", vanityPath);
 //                } else {
-//                    info.put("href", redirectTarget + ".html");
+//                    info.put("href", redirectTarget.concat(DEFAULT_EXTENTION));
 //                }
             }
 
-            info.put("authHref", page.getPath() + ".html");
+            info.put("authHref", page.getPath().concat(DEFAULT_EXTENTION));
             info.put("pathHref", page.getPath());
 
         }
@@ -357,7 +357,7 @@
                 Map infoStruct = new HashMap();
 
                 infoStruct.put("title", getPageNavTitle(child));
-                infoStruct.put("href", child.getPath() + ".html");
+                infoStruct.put("href", child.getPath().concat(DEFAULT_EXTENTION));
                 //infoStruct.put("alt",child.getProperties().get("redirectTarget","#"));
 
                 Image image = getPageImage(child);

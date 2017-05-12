@@ -10,7 +10,6 @@
     final String LANGUAGE_TAG_PATH = "/etc/tags/language";
     final String LANGUAGE_DEFAULT = Locale.ENGLISH.getLanguage();
     final String HTML_ATTR_LANGUAGE = "lang";
-    final String DEFAULT_PAGE_EXT = ".html";
     final String PAGE_PROP_REDIRECT = "redirectTarget";
 
     /**
@@ -37,7 +36,7 @@
             if ( protocolIndex > -1 && (queryIndex == -1 || queryIndex > protocolIndex) ) {
                 redirectPath = location;
             } else {
-                redirectPath = _slingRequest.getResourceResolver().map(request, location) + DEFAULT_PAGE_EXT;
+                redirectPath = _slingRequest.getResourceResolver().map(request, location).concat(DEFAULT_EXTENTION);
             }
             response.sendRedirect(redirectPath);
         } else {

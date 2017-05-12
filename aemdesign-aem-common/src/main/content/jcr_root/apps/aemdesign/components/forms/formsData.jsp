@@ -31,7 +31,7 @@
 
                 if (redirectPage != null){
 
-                    postToURL = mappedUrl(_slingRequest.getResourceResolver(), redirectPage.getPath() + DEFAULT_PAGE_EXTENTION);
+                    postToURL = mappedUrl(_slingRequest.getResourceResolver(), redirectPage.getPath().concat(DEFAULT_EXTENTION));
 
                     Node node = findFormStartNode(redirectPage);
 

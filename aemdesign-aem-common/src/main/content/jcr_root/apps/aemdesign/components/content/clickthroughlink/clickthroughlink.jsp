@@ -32,8 +32,8 @@
             new URL(linkUrl);
         } catch (MalformedURLException e) {
 
-            if(!linkUrl.endsWith(DEFAULT_PAGE_EXTENTION) && !linkUrl.contains("#")){
-                linkUrl= linkUrl+ DEFAULT_PAGE_EXTENTION;
+            if(!linkUrl.endsWith(DEFAULT_EXTENTION) && !linkUrl.contains("#")){
+                linkUrl= linkUrl.concat(DEFAULT_EXTENTION);
             }
 
         }

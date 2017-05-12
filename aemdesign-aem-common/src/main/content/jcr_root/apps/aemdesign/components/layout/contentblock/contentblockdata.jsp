@@ -76,7 +76,7 @@
                 Map infoStruct = new HashMap();
 
                 //infoStruct.put("title",child.getTitle());
-                infoStruct.put("href", child.getPath() + ".html");
+                infoStruct.put("href", child.getPath().concat(DEFAULT_EXTENTION));
 
                 Image image = getPageImage(child);
 
