@@ -3,5 +3,4 @@
     cq:isContainer="{Boolean}true"
     jcr:primaryType="cq:Component"
     jcr:title="Article"
-    allowedParents="[]"
-    componentGroup=".hidden"/>
+    componentGroup="Layout"/>
