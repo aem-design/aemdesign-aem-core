@@ -1,3 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    jcr:primaryType="sling:Folder"/>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:description="Base Page Template with Two Column"
+    jcr:primaryType="cq:Template"
+    jcr:title="Base - Full Page"
+    allowedPaths="/content(.*)"
+    ranking="{Long}1001">
+    <jcr:content
+            jcr:primaryType="cq:PageContent"
+            cq:tags="[content-type:page]"
+            sling:resourceType="aemdesign/components/template/base">
+        <par jcr:primaryType="nt:unstructured"
+             sling:resourceType="foundation/components/parsys">
+        </par>
+    </jcr:content>
+</jcr:root>

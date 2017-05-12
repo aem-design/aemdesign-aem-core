@@ -3,5 +3,5 @@
     jcr:description="Event Details Page Template"
     jcr:primaryType="cq:Component"
     jcr:title="Event Details Page"
-    sling:resourceSuperType="aemdesign/components/template/onecolumn"
+    sling:resourceSuperType="aemdesign/components/template/column/one"
     componentGroup=".hidden"/>

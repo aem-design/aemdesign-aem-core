@@ -4,7 +4,7 @@
 <%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
 <%@ page import="org.apache.sling.api.resource.NonExistingResource" %>
 <%!
-    // /content/aemdesign-showcase/en/layout/header
+    // /content/aemdesign-showcase/en/admin/header
     private Page getPage(SlingHttpServletRequest request, String path) {
         ResourceResolver resourceResolver = request.getResourceResolver();
         Resource resource = resourceResolver.getResource(path);
@@ -12,13 +12,13 @@
         if (resource instanceof NonExistingResource)
             resource = request.getResourceResolver().resolve(path.toLowerCase());
 
-        if (resource instanceof NonExistingResource)
+        if (resource instanceof NonExistingResource || resource == null)
             return null;
 
         return resource.adaptTo(Page.class);
     }
 
-    // /content/aemdesign-showcase/en/layout/header/jcr:content/article/par/theme
+    // /content/aemdesign-showcase/en/admin/header/jcr:content/article/par/theme
     private Node getNode(SlingHttpServletRequest request, String path) throws RepositoryException {
         ResourceResolver resourceResolver = request.getResourceResolver();
         Resource resource = resourceResolver.getResource(path);
@@ -26,7 +26,7 @@
         if (resource instanceof NonExistingResource)
             resource = request.getResourceResolver().resolve(path.toLowerCase());
 
-        if (resource instanceof NonExistingResource)
+        if (resource instanceof NonExistingResource || resource == null)
             return null;
 
         return resource.adaptTo(Node.class);
@@ -39,7 +39,7 @@
         if (resource instanceof NonExistingResource)
             resource = page.getContentResource(path.toLowerCase());
 
-        if (resource instanceof NonExistingResource)
+        if (resource instanceof NonExistingResource || resource == null)
             return null;
 
         return resource.adaptTo(Node.class);
@@ -120,7 +120,7 @@
         favIcon = null;
     } else {
         // make sure it maps.
-        favIcon = mappedUrl(favIcon);
+        favIcon = mappedUrl(_resourceResolver, favIcon);
     }
 
     // get home page - to get clientlib for sites
@@ -149,7 +149,7 @@
     String description = _properties.get("description", "");
 
     //get canonical url - if the hostname does not start with www., append it.
-    String canonicalUrl = mappedUrl(request.getPathInfo());
+    String canonicalUrl = mappedUrl(_resourceResolver, request.getPathInfo());
 
     String sectionColorStylesheetUrl = "";
 

@@ -31,7 +31,7 @@
             </c:when>
             <c:otherwise>
                 <p class="highlightItem"
-                   style="background-image: url('<%= mappedUrl(fileReference) %>'); background-position: top center;"><!----></p>
+                   style="background-image: url('<%= mappedUrl(_resourceResolver, fileReference) %>'); background-position: top center;"><!----></p>
             </c:otherwise>
         </c:choose>
     </a>
