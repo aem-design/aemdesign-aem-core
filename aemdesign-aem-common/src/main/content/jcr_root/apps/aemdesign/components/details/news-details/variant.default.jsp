@@ -1,6 +1,6 @@
 <div class="wrapper visible">
     <c:if test="${componentProperties.showBreadcrumb }">
-        <cq:include path="breadcrumb" resourceType="aemdesign/components/common/breadcrumb"/>
+        <cq:include path="breadcrumb" resourceType="aemdesign/components/layout/breadcrumb"/>
     </c:if>
 
 
