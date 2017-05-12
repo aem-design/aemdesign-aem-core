@@ -4,5 +4,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Site Navigation"
     sling:resourceSuperType="aemdesign/components/common/inherit"
-    allowedParents="[]"
     componentGroup="Lists"/>

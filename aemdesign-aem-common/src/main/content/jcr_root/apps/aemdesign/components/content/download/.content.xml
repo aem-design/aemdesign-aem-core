@@ -3,5 +3,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="File Download Link"
     sling:resourceSuperType="foundation/components/download"
-    allowedParents="[]"
     componentGroup="Content"/>

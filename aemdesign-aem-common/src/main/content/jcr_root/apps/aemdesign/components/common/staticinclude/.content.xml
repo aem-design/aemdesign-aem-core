@@ -4,5 +4,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Static Content Include"
     sling:resourceSuperType="aemdesign/components/common/inherit"
-    allowedParents="[]"
     componentGroup=".hidden"/>

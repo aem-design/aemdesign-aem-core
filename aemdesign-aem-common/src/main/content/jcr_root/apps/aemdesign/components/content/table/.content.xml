@@ -3,5 +3,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Table"
     sling:resourceSuperType="foundation/components/table"
-    allowedParents="[]"
     componentGroup="Content"/>
