@@ -6,5 +6,5 @@
     jcr:title.en="German (Switzerland)"
     jcr:title.ru="Немецкий (Швейцария)"
     jcr:title.de-ch="Deutsch (Schweiz)"
-    value="en"
+    value="DE-CH"
     sling:resourceType="cq/tagging/components/tag"/>

@@ -6,5 +6,5 @@
     jcr:title.en="Russian"
     jcr:title.ru="Русский"
     jcr:title.de-ch="Russisch"
-    value="en"
+    value="ru"
     sling:resourceType="cq/tagging/components/tag"/>
