@@ -33,6 +33,8 @@
 
     public static final String NODE_DETAILS = "*-details";
 
+    public static final String DEFAULT_VARIANT = "default";
+    public static final String DEFAULT_BADGE = "default";
 
     /** Local logging container. */
     private final Logger LOG = LoggerFactory.getLogger(getClass());
@@ -768,3 +770,4 @@
     }
 
 %>
+<c:set var="DEFAULT_VARIANT" value="<%= DEFAULT_VARIANT %>"/>

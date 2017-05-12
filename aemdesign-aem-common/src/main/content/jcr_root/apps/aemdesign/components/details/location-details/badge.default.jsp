@@ -10,8 +10,7 @@
 
 <%
 
-    final String DEFAULT_STYLE = "default";
-    final String I18N_CATEGORY = "locationdetail";
+    final String I18N_CATEGORY = "location-detail";
 
 
     final String DEFAULT_DETAILS_MARKER_ICONPATH = "fontawesome.markers.MAP_MARKER";

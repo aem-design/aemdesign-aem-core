@@ -7,15 +7,14 @@
 
     final String DEFAULT_SHOW_BREADCRUMB = "yes";
     final String DEFAULT_SHOW_TOOLBAR = "yes";
-    final String DEFAULT_STYLE = "default";
-    final String I18N_CATEGORY = "contactdetail";
+    final String I18N_CATEGORY = "contact-detail";
 
     Object[][] componentFields = {
             {"title", _pageProperties.get(JcrConstants.JCR_TITLE, StringUtils.EMPTY)},
             {TagConstants.PN_TAGS, new String[]{}},
             {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
             {"showToolbar", DEFAULT_SHOW_TOOLBAR},
-            {"displayStyle", DEFAULT_STYLE},
+            {"variant", DEFAULT_VARIANT},
     };
 
     ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
@@ -47,7 +46,7 @@
 
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
-    <c:when test="${componentProperties.displayStyle == 'default'}">
+    <c:when test="${componentProperties.variant eq DEFAULT_VARIANT}">
         <%@include file="variant.default.jsp" %>
     </c:when>
 

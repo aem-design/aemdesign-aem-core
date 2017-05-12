@@ -11,7 +11,6 @@
     final String DEFAULT_HIDE_SITE_TITLE = "false";
     final String DEFAULT_HIDE_SEPARATOR = "false";
     final String DEFAULT_HIDE_SUMMARY = "false";
-    final String DEFAULT_STYLE = "default";
     final String DEFAULT_SHOW_BREADCRUMB = "yes";
     final String DEFAULT_SHOW_TOOLBAR = "yes";
 
@@ -23,7 +22,7 @@
             {"description", DEFAULT_DESCRIPTION},
             {"hideSeparator", DEFAULT_HIDE_SEPARATOR},
             {"hideSummary", DEFAULT_HIDE_SUMMARY},
-            {"displayStyle", DEFAULT_STYLE},
+            {"variant", DEFAULT_VARIANT},
             {"cssClass", ""},
             {"cssClassRow", ""},
             {"useParentPageTitle", false},
@@ -59,19 +58,19 @@
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
 
-    <c:when test="${componentProperties.displayStyle == 'hidden'}">
+    <c:when test="${componentProperties.varaint eq 'hidden'}">
         <%@ include file="variant.hidden.jsp" %>
     </c:when>
 
-    <c:when test="${componentProperties.displayStyle == 'simple'}">
+    <c:when test="${componentProperties.varaint eq 'simple'}">
         <%@ include file="variant.simple.jsp" %>
     </c:when>
 
-    <c:when test="${componentProperties.displayStyle == 'parsys'}">
+    <c:when test="${componentProperties.varaint eq 'parsys'}">
         <%@ include file="variant.parsys.jsp" %>
     </c:when>
 
-    <c:when test="${componentProperties.displayStyle == 'parsys-parent'}">
+    <c:when test="${componentProperties.varaint eq 'parsys-parent'}">
         <%@ include file="variant.parsysparent.jsp" %>
     </c:when>
 

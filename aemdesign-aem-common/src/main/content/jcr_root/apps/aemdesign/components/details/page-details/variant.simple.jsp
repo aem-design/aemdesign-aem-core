@@ -6,7 +6,7 @@
     <c:when test="<%= !overlayImage.hasContent() %>">
         <header class="content__header" role="banner">
             <div class="styled-banner">
-                <div class="styled-overlay ${componentProperties.displayStyle}">
+                <div class="styled-overlay ${componentProperties.varaint}">
                     <c:if test="${not componentProperties.hideSiteTitle}">
                         <h1>${componentProperties.titleFormatted}</h1>
                     </c:if>
@@ -22,7 +22,7 @@
     <c:otherwise>
         <header class="content__header" role="banner">
             <div class="styled-banner" style="background-image: url('<%= mappedUrl(_resourceResolver, overlayImage.getSrc()) %>')">
-                <div class="styled-overlay ${componentProperties.displayStyle}">
+                <div class="styled-overlay ${componentProperties.varaint}">
                     <c:if test="${not componentProperties.hideSiteTitle}">
                         <h1>${componentProperties.titleFormatted}</h1>
                     </c:if>

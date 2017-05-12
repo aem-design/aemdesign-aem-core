@@ -1,4 +1,4 @@
-<div class="styled-overlay ${componentProperties.displayStyle}">
+<div class="styled-overlay ${componentProperties.varaint}">
     <c:if test="${componentProperties.useParentPageTitle}">
         <h2>${componentProperties.parentPageTitle}</h2>
     </c:if>

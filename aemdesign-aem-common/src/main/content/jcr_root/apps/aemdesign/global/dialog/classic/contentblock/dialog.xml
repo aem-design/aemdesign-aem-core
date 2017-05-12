@@ -85,25 +85,6 @@
 
                         </hideInContentMenu>
 
-
-                        <style
-                            jcr:primaryType="cq:Widget"
-                            defaultValue="none"
-                            fieldLabel="Floating style"
-                            name="./displayStyle"
-                            type="select"
-                            xtype="selection">
-
-                                <options jcr:primaryType="cq:WidgetCollection">
-                                    <none jcr:primaryType="nt:unstructured" value="none" text="No floating style" />
-                                    <left jcr:primaryType="nt:unstructured" value="left-float" text="Float left" />
-                                    <right jcr:primaryType="nt:unstructured" value="right-float" text="Float right" />
-                                    <middle jcr:primaryType="nt:unstructured" value="middle-align" text="Align middle" />
-                                    <left-align jcr:primaryType="nt:unstructured" value="left-align" text="Align left" />
-                                    <right-align jcr:primaryType="nt:unstructured" value="right-align" text="Align right" />
-                                </options>
-
-                        </style>
                     </items>
                 </title>
             </items>

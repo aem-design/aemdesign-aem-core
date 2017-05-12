@@ -14,14 +14,13 @@
     final String DEFAULT_EVENT_REF_LABEL = "";
     final String DEFAULT_EVENT_REF_LINK = "";
     final String DEFAULT_META_DATA_SEP = "";
-    final String DEFAULT_STYLE = "default";
     final String DEFAULT_SHOW_BREADCRUMB = "yes";
     final String DEFAULT_SHOW_TOOLBAR = "yes";
     final String DEFAULT_FORMAT_TITLE = "${title}";
     final String DEFAULT_FORMAT_SUBTITLE = "${eventStartDateText} to ${eventEndDateText}";
     final String DEFAULT_FORMAT_DISPLAYDATE = "${eventStartDateText} to ${eventEndDateText}";
     final String DEFAULT_FORMAT_DISPLAYTIME = "${eventStartTimeText} to ${eventEndTimeText}";
-    final String I18N_CATEGORY = "eventdetail";
+    final String I18N_CATEGORY = "event-detail";
     final String componentPath = "./"+PATH_DEFAULT_CONTENT+"/event-details";
 
 

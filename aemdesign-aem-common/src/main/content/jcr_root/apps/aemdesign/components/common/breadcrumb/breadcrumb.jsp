@@ -3,7 +3,6 @@
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%
-    final String DEFAULT_STYLE = "default";
     final String DEFAULT_DELIMITER = "";
     final String DEFAULT_EXTENTION = ".html";
     final String DEFAULT_TRAIL = "";
@@ -15,7 +14,6 @@
     final long DEFAULT_LEVEL_END = 1L;
 
     Object[][] componentFields = {
-            {"displayStyle", DEFAULT_STYLE},
             {"delimiter", DEFAULT_DELIMITER},
             {"trail", DEFAULT_TRAIL},
             {"startLevel", DEFAULT_LEVEL_START},
@@ -24,6 +22,7 @@
             {"hideCurrent", DEFAULT_HIDE_CURRENT},
             {"ariaRole",DEFAULT_ARIA_ROLE},
             {"ariaLabel",DEFAULT_ARIA_LABEL},
+            {"variant", DEFAULT_VARIANT},
     };
 
     ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
@@ -66,7 +65,7 @@
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
 
-    <c:when test="${componentProperties.displayStyle == 'default'}">
+    <c:when test="${componentProperties.variant eq DEFAULT_VARIANT}">
         <%@ include file="variant.default.jsp" %>
     </c:when>
 

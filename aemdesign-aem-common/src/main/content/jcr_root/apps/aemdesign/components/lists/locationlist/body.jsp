@@ -40,7 +40,6 @@
 
     Iterator<Page> items = list.getPages();
 
-    final String DEFAULT_STYLE = "default";
 
     //Only support the Drag and Drop Images
     String fileReference = _properties.get("fileReference", StringUtils.EMPTY);
@@ -60,12 +59,12 @@
             {"imageWidth", imageWidth, "mapimagex"},
             {"wcmMode", CURRENT_WCMMODE.name().toLowerCase(), "wcmmode"},
             {"topicQueue", StringUtils.EMPTY, "topicqueue"},
-            {"variant", DEFAULT_STYLE}
+            {"variant", DEFAULT_VARIANT}
     };
 
     ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
 
-    String badgeSelector = _properties.get("variant", "default");
+    String badgeSelector = _properties.get("variant", DEFAULT_BADGE);
 
 %>
 <c:set var="componentProperties" value="<%= _componentContext.getAttribute("componentProperties") %>"/>

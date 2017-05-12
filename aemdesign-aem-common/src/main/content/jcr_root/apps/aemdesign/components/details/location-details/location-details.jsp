@@ -9,8 +9,7 @@
 
 <%
 
-    final String DEFAULT_STYLE = "default";
-    final String I18N_CATEGORY = "locationdetail";
+    final String I18N_CATEGORY = "location-detail";
 
 
     Object[][] componentFields = {
@@ -18,7 +17,7 @@
             {"latitude", 0.0},
             {"longitude", 0.0},
             {"pages", new String[0]},
-            {"variant", DEFAULT_STYLE}
+            {"variant", DEFAULT_VARIANT}
     };
 
 
@@ -31,7 +30,7 @@
 
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
-    <c:when test="${componentProperties.variant == 'default'}">
+    <c:when test="${componentProperties.variant eq DEFAULT_VARIANT}">
         <%@include file="variant.default.jsp" %>
     </c:when>
 

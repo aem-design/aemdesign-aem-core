@@ -2,7 +2,6 @@
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%
-
     final String DEFAULT_ARIA_ROLE = "article";
 
     // {
@@ -12,7 +11,7 @@
     // }
     Object[][] componentFields = {
         {"ariaRole",DEFAULT_ARIA_ROLE},
-        {"variant", "default"},
+        {"variant", DEFAULT_VARIANT},
     };
 
     ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
@@ -23,7 +22,7 @@
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
-    <c:when test="${componentProperties.variant eq 'default'}">
+    <c:when test="${componentProperties.variant eq DEFAULT_VARIANT}">
         <%@ include file="variant.default.jsp" %>
     </c:when>
     <c:otherwise>

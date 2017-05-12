@@ -3,7 +3,7 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%
     final String DEFAULT_TOOLTIP_COORDS_FORMAT = "px";
-    final String DEFAULT_ARIA_ROLE = "article";
+    final String DEFAULT_ARIA_ROLE = "tooltip";
 
     Object[][] componentFields = {
         {"cssClass", ""},
@@ -14,6 +14,7 @@
         {"positionFormatX", DEFAULT_TOOLTIP_COORDS_FORMAT},
         {"positionFormatY", DEFAULT_TOOLTIP_COORDS_FORMAT},
         {"ariaRole", DEFAULT_ARIA_ROLE},
+        {"variant", DEFAULT_VARIANT},
     };
 
     ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
@@ -23,8 +24,15 @@
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
-<span role="${componentProperties.ariaRole}" class="tooltip ${componentProperties.cssClass}"
-      style="top: ${componentProperties.positionY}${componentProperties.positionFormatY};
-              left: ${componentProperties.positionX}${componentProperties.positionFormatY};"
-      data-title="${componentProperties.title}" data-content="${componentProperties.description}"></span>
+<c:choose>
+
+    <c:when test="${componentProperties.variant eq DEFAULT_VARIANT}">
+        <%@ include file="variant.default.jsp" %>
+    </c:when>
+
+    <c:otherwise>
+        <%@ include file="variant.default.jsp" %>
+    </c:otherwise>
+
+</c:choose>
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>
