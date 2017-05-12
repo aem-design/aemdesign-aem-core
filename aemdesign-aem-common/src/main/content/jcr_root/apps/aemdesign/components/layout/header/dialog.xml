@@ -33,7 +33,7 @@
                         jcr:primaryType="cq:Widget"
                         allowUpload="{Boolean}false"
                         name="./logo/file"
-                        title="Logo (Max Size [xx]px by [xx]px)"
+                        title="Logo"
                         ddGroups="[media]"
                         cropParameter="./logo/imageCrop"
                         fileNameParameter="./logo/fileName"
