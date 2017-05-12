@@ -71,7 +71,7 @@
                             <text
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="aemdesign/components/content/text"
-                                    componentTheme="[component-style:theme/rte/pageIntro]"
+                                    componentTheme="[component-style:theme/text/pageIntro]"
                                     textIsRich="true"
                                     variant="section"/>
                             <section jcr:primaryType="nt:unstructured"/>
@@ -175,7 +175,7 @@
                             <text
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="aemdesign/components/content/text"
-                                    componentTheme="[component-style:theme/rte/pageIntro]"
+                                    componentTheme="[component-style:theme/text/pageIntro]"
                                     textIsRich="true"
                                     variant="section"/>
                             <list
