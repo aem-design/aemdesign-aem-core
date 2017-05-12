@@ -21,7 +21,7 @@
     </c:when>
     <c:otherwise>
         <header class="content__header" role="banner">
-            <div class="styled-banner" style="background-image: url('<%= mappedUrl(overlayImage.getSrc()) %>')">
+            <div class="styled-banner" style="background-image: url('<%= mappedUrl(_resourceResolver, overlayImage.getSrc()) %>')">
                 <div class="styled-overlay ${componentProperties.displayStyle}">
                     <c:if test="${not componentProperties.hideSiteTitle}">
                         <h1>${componentProperties.titleFormatted}</h1>

@@ -52,10 +52,10 @@
         if (p.getPath().startsWith(thisPage.getPath()) && (p.getDepth() - currentPageDepth == 1)){
 
             String subPageLevel1 = getPageUrl(p);
-            subPageLevel1Map.put(mappedUrl(subPageLevel1), p);
+            subPageLevel1Map.put(mappedUrl(_resourceResolver, subPageLevel1), p);
         }
     }
-    componentProperties.put("url", mappedUrl(url));
+    componentProperties.put("url", mappedUrl(_resourceResolver, url));
     componentProperties.put("subPageLevel1Map", subPageLevel1Map);
     componentProperties.put("isSubPageLevel1", isSubPageLevel1);
 

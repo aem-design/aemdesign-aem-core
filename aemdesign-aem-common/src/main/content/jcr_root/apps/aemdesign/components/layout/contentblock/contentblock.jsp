@@ -43,7 +43,7 @@
     String bgImageFile = _properties.get("bgimage/fileReference", "");
 
     if (isNotEmpty(bgImageFile)) {
-        attributes += MessageFormat.format("style=\"background-image: url({0})\"", mappedUrl(bgImageFile));
+        attributes += MessageFormat.format("style=\"background-image: url({0})\"", mappedUrl(_resourceResolver, bgImageFile));
     }
 
     if (componentProperties.get("showdataTitle",false)) {

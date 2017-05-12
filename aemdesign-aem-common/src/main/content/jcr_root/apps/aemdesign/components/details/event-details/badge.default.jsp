@@ -37,7 +37,7 @@
 
     ComponentProperties componentProperties = getComponentProperties(thisPage, componentPath, componentFields);
 
-    componentProperties.put("url", mappedUrl(url));
+    componentProperties.put("url", mappedUrl(_resourceResolver, url));
     componentProperties.put("title", displayTitle);
     componentProperties.put("imgAlt", _i18n.get("filterByText", "eventdetail", displayTitle));
 

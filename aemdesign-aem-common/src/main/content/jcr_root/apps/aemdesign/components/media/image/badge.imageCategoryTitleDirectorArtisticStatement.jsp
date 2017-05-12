@@ -55,7 +55,7 @@
 <div style="float: left; overflow: hidden; clear: none; width: 100%; max-width: 220px; background-color: #111; position: relative; margin: 10px; z-index: 1; padding: 0; display: inline-block;">
     <div style="height: 270px; opacity: 1; filter: none; width: 220px;">
         <div style="position: relative;">
-            <a title="<%= escapeBody(category) %>" onclick="window.open('<%= mappedUrl(sourceUrl) %>','<%= escapeBody(title) %>','width=600,height=400,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-200)+'');return false;" href="<%= mappedUrl(sourceUrl) %>" target="_blank">
+            <a title="<%= escapeBody(category) %>" onclick="window.open('<%= mappedUrl(_resourceResolver, sourceUrl) %>','<%= escapeBody(title) %>','width=600,height=400,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-200)+'');return false;" href="<%= mappedUrl(_resourceResolver, sourceUrl) %>" target="_blank">
                 <img alt="<%= escapeBody(title) %>" src="<%= thumbnailUrl %>" height="138" width="220" />
             </a>
         </div>
@@ -66,7 +66,7 @@
                     Director:&nbsp;<%= escapeBody(director) %>
                 <%}%>
                 <br /><br />
-                <a style="color: #ffffff;" title="Google" onclick="window.open('<%= mappedUrl(artisticStatement) %>','The Strange Studio','width=1050,height=400,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-200)+'');return false;" href="<%= mappedUrl(artisticStatement) %>" target="_blank">Artistic Statement</a>
+                <a style="color: #ffffff;" title="Google" onclick="window.open('<%= mappedUrl(_resourceResolver, artisticStatement) %>','The Strange Studio','width=1050,height=400,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-200)+'');return false;" href="<%= mappedUrl(_resourceResolver, artisticStatement) %>" target="_blank">Artistic Statement</a>
             </p>
         </div>
     </div>

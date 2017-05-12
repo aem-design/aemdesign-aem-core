@@ -3,7 +3,8 @@
     page import="java.text.SimpleDateFormat" %><%@
     page import="java.util.ArrayList" %><%@
     page import="javax.jcr.query.*" %><%@
-    page import="java.util.GregorianCalendar" %><%!
+    page import="java.util.GregorianCalendar" %>
+<%@ page import="jdk.management.resource.ResourceRequest" %><%!
 
     /**
      * Last modified property
@@ -26,7 +27,7 @@
      * @param page is the page to create a map for
      * @return the map information
      */
-    protected Map newPage(Node page, Node jcrContent) throws RepositoryException {
+    protected Map newPage(ResourceResolver resolver, Node page, Node jcrContent) throws RepositoryException {
         if (!jcrContent.hasProperty(PROPERTY_LAST_MODIFIED)) {
             return null;
         }
@@ -45,7 +46,7 @@
 
         SimpleDateFormat sdFormat = new SimpleDateFormat(SITEMAP_FORMAT);
 
-        info.put("location", escapeBody(mappedUrl(page.getPath()).concat(".html")));
+        info.put("location", escapeBody(mappedUrl(resolver, page.getPath()).concat(".html")));
         info.put("lastModified", sdFormat.format(lastModCal.getTime()));
 
         return info;
@@ -211,7 +212,7 @@
      * @return a list of sitemap map information
      * @throws RepositoryException
      */
-    private List<Map> getSitemapListFromQuery(Query pagesQuery) throws RepositoryException {
+    private List<Map> getSitemapListFromQuery(ResourceResolver resolver, Query pagesQuery) throws RepositoryException {
         QueryResult pagesResults = pagesQuery.execute();
 
         RowIterator rowIterator = pagesResults.getRows();
@@ -224,7 +225,7 @@
             Node jcrContentNode = pageNode.getNode(JcrConstants.JCR_CONTENT);
 
             // convert to map and store if succesful.
-            Map sitemapPage = newPage(pageNode, jcrContentNode);
+            Map sitemapPage = newPage(resolver, pageNode, jcrContentNode);
 
             if (sitemapPage != null) {
                 sitemap.add(sitemapPage);
@@ -260,6 +261,6 @@
         String excludedQuery = this.getExclusionExpression(roots, basePathList);
         Query pagesQuery = qManager.createQuery(excludedQuery, Query.JCR_SQL2);
 
-        return this.getSitemapListFromQuery(pagesQuery);
+        return this.getSitemapListFromQuery(currentPage.adaptTo(ResourceResolver.class),  pagesQuery);
     }
 %>

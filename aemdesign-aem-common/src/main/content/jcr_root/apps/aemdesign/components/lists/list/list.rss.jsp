@@ -10,8 +10,8 @@
 %><%@ include file="/apps/aemdesign/global/global.jsp" %><%
 %><%@ include file="/apps/aemdesign/global/components.jsp" %><%
     String
-        url = mappedUrl(_resource.getPath() + ".html"),
-        link = mappedUrl(_resource.getPath() + ".rss"),
+        url = mappedUrl(_resourceResolver, _resource.getPath() + ".html"),
+        link = mappedUrl(_resourceResolver, _resource.getPath() + ".rss"),
         title = getPageTitle(_currentPage),
         subTitle = getFeedDescription(_currentPage, _properties);
 
@@ -62,7 +62,7 @@
                     <description><%= pageDescription %></description>
                 </c:if>
 
-                <link><%= mappedUrl(listPage.getPath()) + ".html" %></link>
+                <link><%= mappedUrl(_resourceResolver, listPage.getPath()) + ".html" %></link>
                 <guid><%= getUniquePageIdentifier(listPage) %></guid>
 
                 <c:if test="<%= !StringUtils.isBlank(rssDate) %>">
@@ -70,7 +70,7 @@
                 </c:if>
 
                 <c:if test="<%= listPageImage.hasContent() %>">
-                    <image><%= mappedUrl(listPageImage.getSrc()) %></image>
+                    <image><%= mappedUrl(_resourceResolver, listPageImage.getSrc()) %></image>
                 </c:if>
             </item>
 

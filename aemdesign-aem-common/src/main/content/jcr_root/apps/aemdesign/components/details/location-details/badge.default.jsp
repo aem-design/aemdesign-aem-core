@@ -74,7 +74,7 @@
         Page p = _pageManager.getPage(targetPage);
         if (p != null){
             Map<String, String> eventMap = new HashMap<String, String>();
-            eventMap.put("url", mappedUrl(getPageUrl(p)));
+            eventMap.put("url", mappedUrl(_resourceResolver, getPageUrl(p)));
             eventMap.put("title", StringEscapeUtils.escapeEcmaScript(getPageDetailsField(p, "title")));
             eventMap.put("description",StringEscapeUtils.escapeEcmaScript(getPageDetailsField(p,"description")));
             String img = this.getPageImgReferencePath(p);

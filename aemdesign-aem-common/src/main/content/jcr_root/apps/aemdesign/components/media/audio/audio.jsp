@@ -28,7 +28,7 @@
 
     if (StringUtils.isNotEmpty(audioUrl)) {
         if (audioUrl.startsWith("/content")) {
-            audioUrl = mappedUrl(_resourceResolver,audioUrl);
+            audioUrl = mappedUrl(_resourceResolver, audioUrl);
         }
     }
     componentProperties.put("audioUrl", audioUrl);

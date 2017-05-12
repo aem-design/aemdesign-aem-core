@@ -53,7 +53,7 @@
 <div style="float: left; overflow: hidden; clear: none; width: 100%; max-width: 310px; background-color: #000000; position: relative; margin: 10px; z-index: 1; padding: 0; display: inline-block;">
     <div style="height: 280px; opacity: 1; filter: none; width: 310px;">
         <div style="position: relative;">
-            <a title="<%= escapeBody(category) %>" href="<%= mappedUrl(sourceUrl) %>">
+            <a title="<%= escapeBody(category) %>" href="<%= mappedUrl(_resourceResolver, sourceUrl) %>">
                 <img alt="<%= escapeBody(category) %>" src="<%= thumbnailUrl %>" width="310" />
             </a>
         </div>

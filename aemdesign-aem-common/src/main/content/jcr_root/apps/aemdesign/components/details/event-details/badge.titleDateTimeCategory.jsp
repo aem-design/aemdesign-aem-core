@@ -56,17 +56,17 @@
         this.closeAdminResourceResolver(adminResourceResolver);
     }
 
-    componentProperties.put("url",mappedUrl(url));
+    componentProperties.put("url",mappedUrl(_resourceResolver, url));
 
     if (StringUtils.isNotEmpty(componentProperties.get("eventRefLink", String.class))){
         String eventRefLink = componentProperties.get("eventRefLink", String.class);
         if (_pageManager.getPage(eventRefLink) != null){
-            eventRefLink =  mappedUrl(_pageManager.getPage(eventRefLink).getPath());
+            eventRefLink =  mappedUrl(_resourceResolver, _pageManager.getPage(eventRefLink).getPath());
         }
         componentProperties.put("eventRefLink", eventRefLink);
     }
 
-    componentProperties.put("img",mappedUrl(img));
+    componentProperties.put("img",mappedUrl(_resourceResolver, img));
     componentProperties.put("imgAlt", _i18n.get("readMoreAboutText","eventdetail") + componentProperties.get("title"));
     componentProperties.put("pastEvent", _i18n.get("pastEventText","eventdetail"));
 

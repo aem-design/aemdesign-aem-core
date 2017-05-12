@@ -50,7 +50,7 @@
         this.closeAdminResourceResolver(adminResourceResolver);
     }
 
-    componentProperties.put("url",mappedUrl(url));
+    componentProperties.put("url",mappedUrl(_resourceResolver, url));
     String eventRefLink = componentProperties.get("eventRefLink", String.class);
     if (_pageManager.getPage(eventRefLink) != null){
         eventRefLink = getPageUrl(_pageManager.getPage(eventRefLink)) + DEFAULT_PAGE_EXTENTION;

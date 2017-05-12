@@ -5,7 +5,7 @@
 %>
 <div class="more">
     <c:if test="<%= showIcons %>">
-        <img src="<%= mappedUrl(iconPath) %>" />
+        <img src="<%= mappedUrl(_resourceResolver, iconPath) %>" />
     </c:if>
 
     <c:if test="<%= showSocial %>">

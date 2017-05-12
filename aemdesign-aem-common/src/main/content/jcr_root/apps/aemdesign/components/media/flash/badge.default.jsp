@@ -44,7 +44,7 @@
     <a
         role="popup"
         rel="flash"
-        href="<%= mappedUrl(asset.getPath()) %>"
+        href="<%= mappedUrl(_resourceResolver, asset.getPath()) %>"
         class="linkTxt">
             <%= escapeBody(displayTitle) %>
     </a>
@@ -58,7 +58,7 @@
             <a
                 role="popup"
                 rel="flash"
-                href="<%= mappedUrl(asset.getPath()) %>"
+                href="<%= mappedUrl(_resourceResolver, asset.getPath()) %>"
                 class="linkTxt">
                     <img class="list-thumbnail-image" src="<%= img.getPath() %>" />
             </a>

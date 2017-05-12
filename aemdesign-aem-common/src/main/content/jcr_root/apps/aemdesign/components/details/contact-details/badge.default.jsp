@@ -39,7 +39,7 @@
         this.closeAdminResourceResolver(adminResourceResolver);
     }
 
-    componentProperties.put("url",mappedUrl(url));
+    componentProperties.put("url",mappedUrl(_resourceResolver, url));
     componentProperties.put("img",img);
     componentProperties.put("imgAlt", (_i18n.get("readMoreAboutText","contactdetail") + componentProperties.get("title", String.class)));
 

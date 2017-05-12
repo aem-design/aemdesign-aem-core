@@ -39,7 +39,7 @@
     <a
         role="popup"
         rel="image"
-        href="<%= mappedUrl(asset.getPath()) %>" class="linkTxt">
+        href="<%= mappedUrl(_resourceResolver, asset.getPath()) %>" class="linkTxt">
                 <%= escapeBody(displayTitle) %>
     </a>
     <div class="longTxt">
@@ -53,7 +53,7 @@
             <a
                 role="popup"
                 rel="image"
-                href="<%= mappedUrl(asset.getPath()) %>" class="linkTxt">
+                href="<%= mappedUrl(_resourceResolver, asset.getPath()) %>" class="linkTxt">
                     <img
                         src="<%= thumbnailUrl %>"
                         class="list-thumbnail-image"

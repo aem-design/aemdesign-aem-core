@@ -45,7 +45,7 @@
 <div style="float: left; overflow: hidden; clear: none; width: 100%; max-width: 200px; background-color: #000000; position: relative; margin: 10px; z-index: 1; padding: 0; display: inline-block;">
     <div style="height: 120px; opacity: 1; filter: none; width: 200px;">
         <div style="position: relative;">
-            <a title="<%= escapeBody(category) %>" onclick="window.open('<%= mappedUrl(sourceUrl) %>','<%= escapeBody(title) %>','width=600,height=400,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-200)+'');return false;" href="<%= mappedUrl(sourceUrl) %>" target="_blank">
+            <a title="<%= escapeBody(category) %>" onclick="window.open('<%= mappedUrl(_resourceResolver, sourceUrl) %>','<%= escapeBody(title) %>','width=600,height=400,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-200)+'');return false;" href="<%= mappedUrl(_resourceResolver, sourceUrl) %>" target="_blank">
                 <img alt="<%= escapeBody(title) %>" src="<%= thumbnailUrl %>" width="200" />
             </a>
         </div>

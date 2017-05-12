@@ -80,14 +80,14 @@
                         //previous pages
                         if (i > 0){
                             tmp = getPageUrl(pageList.get(i-1));
-                            previousPages.add(mappedUrl(tmp));
+                            previousPages.add(mappedUrl(_resourceResolver, tmp));
                             componentProperties.put("previousPages", previousPages);
                         }
 
                         //next pages
                         if (i < (pageList.size()-1)){
                             tmp = getPageUrl(pageList.get(i+1));
-                            nextPages.add(mappedUrl(tmp));
+                            nextPages.add(mappedUrl(_resourceResolver, tmp));
                             componentProperties.put("nextPages", nextPages);
 
                         }
@@ -96,7 +96,7 @@
                 }
                 String searchInPage = componentProperties.get("searchInPath", String.class);
                 if (_pageManager.getPage(searchInPage) != null){
-                    searchInPage = mappedUrl(getPageUrl(_pageManager.getPage(searchInPage)));
+                    searchInPage = mappedUrl(_resourceResolver, getPageUrl(_pageManager.getPage(searchInPage)));
                 }
 
                 componentProperties.put("backPage",  searchInPage);
@@ -145,7 +145,7 @@
 
                 String backPage = componentProperties.get("backPage", String.class);
                 if (_pageManager.getPage(backPage) != null){
-                    backPage = mappedUrl(getPageUrl(_pageManager.getPage(backPage)));
+                    backPage = mappedUrl(_resourceResolver, getPageUrl(_pageManager.getPage(backPage)));
                 }
 
                 componentProperties.put("backPage",  backPage);

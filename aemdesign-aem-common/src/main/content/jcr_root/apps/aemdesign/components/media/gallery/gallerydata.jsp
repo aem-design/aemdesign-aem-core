@@ -334,8 +334,8 @@
                 pictureInfo.put("creator", creator);
                 pictureInfo.put("disclaimer", disclaimer);
                 pictureInfo.put("body", escapeBody(body));
-                pictureInfo.put("thumbnail", mappedUrl(thumbnailUrl));
-                pictureInfo.put("href", mappedUrl(href));
+                pictureInfo.put("thumbnail", mappedUrl(resolver, thumbnailUrl));
+                pictureInfo.put("href", mappedUrl(resolver, href));
                 pictureInfo.put("isvideo", isVideo);
                 pictureInfo.put("isimage", isImage);
                 pictureInfo.put("isaudio", isAudio);
@@ -421,12 +421,12 @@
             boolean isVideo = !StringUtils.isBlank(mimeType) && mimeType.startsWith("video");
             boolean isAudio = !StringUtils.isBlank(mimeType) && mimeType.startsWith("audio");
 
-            String href  =  mappedUrl(url);
+            String href  =  mappedUrl(_resourceResolver, url);
 
             if (variant.endsWith(".assetviewer") && StringUtils.isNotEmpty(assetViewerPagePath)){
                 // /content/dam/aemdesign-showcase/galleries/m-plus-collection/2012-12-1.jpg.form.html/content/aemdesign-showcase/en/component/media/media-gallery-assetviewer/asset-viewer/av1.html
 
-                String suffix = mappedUrl(assetViewerPagePath) + DEFAULT_PAGE_EXTENTION;
+                String suffix = mappedUrl(_resourceResolver, assetViewerPagePath) + DEFAULT_PAGE_EXTENTION;
                 href = url + FORM_CHOOSER_SELECTOR_SERVLET + DEFAULT_PAGE_EXTENTION + suffix;
             }
 
@@ -489,7 +489,7 @@
                 pictureInfo.put("creator", creator);
                 pictureInfo.put("disclaimer", disclaimer);
                 pictureInfo.put("body", escapeBody(body));
-                pictureInfo.put("thumbnail", mappedUrl(thumbnailUrl));
+                pictureInfo.put("thumbnail", mappedUrl(_resourceResolver, thumbnailUrl));
                 pictureInfo.put("href", href);
                 pictureInfo.put("isvideo", isVideo);
                 pictureInfo.put("isimage", isImage);
@@ -595,7 +595,7 @@
                 pictureInfo.put("copyright", copyright==null?"":escapeBody(copyright));
                 pictureInfo.put("description", description==null?"":description);
                 pictureInfo.put("disclaimer", disclaimer==null?"":disclaimer);
-                pictureInfo.put("thumbnail", mappedUrl(thumbnailUrl));
+                pictureInfo.put("thumbnail", mappedUrl(resolver, thumbnailUrl));
                 pictureInfo.put("body", escapeBody(body));
 //                pictureInfo.put("tags", dataMap.get("types")==null?"":" " + dataMap.get("types"));
 //                pictureInfo.put("types", dataMap.get("types")==null?"":dataMap.get("types"));
@@ -608,8 +608,8 @@
                 //pictureInfo.put("models", dataMap.get("models")==null?"":dataMap.get("models"));
                 //pictureInfo.put("tags", tags);
                 //pictureInfo.put("tags", tags);
-                //pictureInfo.put("href", mappedUrl(imageUrl));
-                pictureInfo.put("href", mappedUrl(href));
+                //pictureInfo.put("href", mappedUrl(_resourceResolver, imageUrl));
+                pictureInfo.put("href", mappedUrl(resolver, href));
                 pictureInfo.put("isvideo", isVideo);
                 pictures.add(pictureInfo);
             }
@@ -702,8 +702,8 @@
                 pictureInfo.put("description", description==null?"":description);
                 pictureInfo.put("copyright", escapeBody(copyright));
                 pictureInfo.put("disclaimer", disclaimer==null?"":disclaimer);
-                pictureInfo.put("image", mappedUrl(imageUrl));
-                pictureInfo.put("thumbnail", mappedUrl(thumbnailUrl));
+                pictureInfo.put("image", mappedUrl(resolver, imageUrl));
+                pictureInfo.put("thumbnail", mappedUrl(resolver, thumbnailUrl));
                 pictureInfo.put("isvideo", isVideo);
                 pictureInfo.put("body", escapeBody(body));
 //                pictureInfo.put("tags", dataMap.get("types")==null?"":" " + dataMap.get("types"));
@@ -714,8 +714,8 @@
 //                    pictureInfo.put("models", dataMap.get("models")==null?"":dataMap.get("models"));
                 }
 //                pictureInfo.put("options", dataMap.get("options")==null?"":dataMap.get("options"));
-                //pictureInfo.put("href", mappedUrl(imageUrl));
-                pictureInfo.put("href", mappedUrl(href));
+                //pictureInfo.put("href", mappedUrl(_resourceResolver, imageUrl));
+                pictureInfo.put("href", mappedUrl(resolver, href));
                 //pictureInfo.put("tags", tags);
 
                 pictures.add(pictureInfo);
@@ -726,7 +726,7 @@
                 docInfo.put("title", escapeBody(title));
                 docInfo.put("description", escapeBody(description));
                 docInfo.put("tags", tags);
-                docInfo.put("thumbnail", mappedUrl(thumbnailUrl));
+                docInfo.put("thumbnail", mappedUrl(_resourceResolver, thumbnailUrl));
                 pictures.add(docInfo);
             } else {
 
@@ -840,11 +840,11 @@
                 pictureInfo.put("copyright", StringUtils.isBlank(escapeBody(copyright)) ? "" : "&amp;copy;"+ escapeBody(copyright));
                 pictureInfo.put("disclaimer", disclaimer);
                 pictureInfo.put("creator", creator);
-                pictureInfo.put("image", mappedUrl(url));
+                pictureInfo.put("image", mappedUrl(resolver, url));
                 pictureInfo.put("body", escapeBody(body));
-                pictureInfo.put("thumbnail", mappedUrl(thumbnailUrl));
+                pictureInfo.put("thumbnail", mappedUrl(resolver, thumbnailUrl));
                 pictureInfo.put("tags", " " + tagList);
-                pictureInfo.put("href", mappedUrl(href));
+                pictureInfo.put("href", mappedUrl(resolver, href));
                 pictureInfo.put("models", tagList);
                 pictureInfo.put("isvideo", isVideo);
                 pictureInfo.put("isimage", isImage);
@@ -868,7 +868,7 @@
                 docInfo.put("title", escapeBody(title));
                 docInfo.put("description", escapeBody(description));
                 docInfo.put("tags", tags);
-                docInfo.put("thumbnail", mappedUrl(thumbnailUrl));
+                docInfo.put("thumbnail", mappedUrl(resolver, thumbnailUrl));
                 pictures.add(docInfo);
             } else {
 
@@ -938,8 +938,8 @@
                 pictureInfo.put("title", escapeBody(title));
                 pictureInfo.put("description", escapeBody(description));
                 pictureInfo.put("copyright", escapeBody(copyright));
-                pictureInfo.put("image", mappedUrl(imageUrl));
-                pictureInfo.put("thumbnail", mappedUrl(thumbnailUrl));
+                pictureInfo.put("image", mappedUrl(resolver, imageUrl));
+                pictureInfo.put("thumbnail", mappedUrl(resolver, thumbnailUrl));
                 pictureInfo.put("tags", tagList);
                 //pictureInfo.put("tags", tags);
 
@@ -951,7 +951,7 @@
                 docInfo.put("title", escapeBody(title));
                 docInfo.put("description", escapeBody(description));
                 docInfo.put("tags", tags);
-                docInfo.put("thumbnail", mappedUrl(thumbnailUrl));
+                docInfo.put("thumbnail", mappedUrl(resolver, thumbnailUrl));
                 pictures.add(docInfo);
             } else {
 

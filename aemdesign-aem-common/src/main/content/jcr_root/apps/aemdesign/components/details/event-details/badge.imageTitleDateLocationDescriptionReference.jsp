@@ -49,12 +49,12 @@
         this.closeAdminResourceResolver(adminResourceResolver);
     }
 
-    componentProperties.put("url",mappedUrl(url));
+    componentProperties.put("url",mappedUrl(_resourceResolver, url));
 
     if (StringUtils.isNotEmpty(componentProperties.get("eventRefLink", String.class))){
         String eventRefLink = componentProperties.get("eventRefLink", String.class);
         if (_pageManager.getPage(eventRefLink) != null){
-            eventRefLink =  mappedUrl(_pageManager.getPage(eventRefLink).getPath()) + DEFAULT_PAGE_EXTENTION;
+            eventRefLink =  mappedUrl(_resourceResolver, _pageManager.getPage(eventRefLink).getPath()) + DEFAULT_PAGE_EXTENTION;
         }
         componentProperties.put("eventRefLink", eventRefLink);
     }

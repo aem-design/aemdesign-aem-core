@@ -49,7 +49,7 @@
         componentProperties.put("assetDescription", getDownloadDescription(_properties, description));
         componentProperties.put("useDocumentIcon", _properties.get("useDocumentIcon", false));
         componentProperties.put("mimeType", _i18n.get(mimeType, "download"));
-        componentProperties.put("href", mappedUrl(dld.getHref()));
+        componentProperties.put("href", mappedUrl(_resourceResolver, dld.getHref()));
         componentProperties.put("thumbnailWidth", _properties.get("thumbnailWidth", StringUtils.EMPTY));
         componentProperties.put("thumbnailHeight", _properties.get("thumbnailHeight", StringUtils.EMPTY));
         componentProperties.put("contentSize", getFormattedDownloadSize(dld));
