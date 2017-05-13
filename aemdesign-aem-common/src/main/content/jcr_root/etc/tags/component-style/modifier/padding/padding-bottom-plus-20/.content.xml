@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    jcr:lastModified="{Date}2016-03-03T12:00:51.557+08:00"
-    jcr:primaryType="cq:Tag"
-    jcr:title="Padding-Bottom-Plus-20"
-    sling:resourceType="cq/tagging/components/tag"
-    tagID="component-style:modifier/padding/padding-bottom-plus-20"
-    tagPath="/etc/tags/component-style/modifier/padding/padding-bottom-plus-20"
-    value="padding-bottom-plus-20"/>
