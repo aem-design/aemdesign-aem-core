@@ -9,14 +9,14 @@
     final String DEFAULT_ARIA_LABEL = "breadcrumb";
     final boolean DEFAULT_SHOW_HIDDEN = false;
     final boolean DEFAULT_HIDE_CURRENT = false;
-    final long DEFAULT_LEVEL_START = 2L;
-    final long DEFAULT_LEVEL_END = 1L;
+    final int DEFAULT_LEVEL_START = 1;
+    final int DEFAULT_LEVEL_END = 1;
 
     Object[][] componentFields = {
             {"delimiter", DEFAULT_DELIMITER},
             {"trail", DEFAULT_TRAIL},
-            {"startLevel", DEFAULT_LEVEL_START},
-            {"endLevel", DEFAULT_LEVEL_END},
+            {"startLevel", ""},
+            {"endLevel", ""},
             {"showHidden", DEFAULT_SHOW_HIDDEN},
             {"hideCurrent", DEFAULT_HIDE_CURRENT},
             {"ariaRole",DEFAULT_ARIA_ROLE},
@@ -33,16 +33,34 @@
 
     List<Map> values = new ArrayList<Map>();
 
-    long startLevel = Long.getLong(componentProperties.get("startLevel").toString(), DEFAULT_LEVEL_START);
-    long endLevel = Long.getLong(componentProperties.get("endLevel").toString(), DEFAULT_LEVEL_END);
+    int startLevel = tryParseInt(componentProperties.get("startLevel").toString(), DEFAULT_LEVEL_START);
+    int endLevel = tryParseInt(componentProperties.get("endLevel").toString(), DEFAULT_LEVEL_END);
     int currentLevel = currentPage.getDepth();
+
+    if (isBlank(componentProperties.get("endLevel").toString())) {
+        endLevel = currentLevel;
+    }
+
     boolean showHidden = componentProperties.get("showHidden", DEFAULT_SHOW_HIDDEN);
     boolean hideCurrent = componentProperties.get("hideCurrent", DEFAULT_SHOW_HIDDEN);
 
-    while (startLevel < currentLevel - endLevel) {
-        Page pagetrail = currentPage.getAbsoluteParent((int) startLevel);
+    out.write("<!--");
+    out.write("s:"+startLevel+";");
+    out.write("e:"+endLevel+";");
+    out.write("c:"+currentLevel+";");
+    out.write("hc:"+hideCurrent+";");
+    out.write("sh:"+showHidden+";");
+    for (int i = startLevel; i <= endLevel; i++) {
+        Page pagetrail = currentPage.getAbsoluteParent(i);
         if (pagetrail == null) {
-            break;
+            out.write("x:"+i+";");
+            continue;
+        }
+        if (hideCurrent) {
+            if (i==currentLevel-1) {
+                out.write("xc:"+i+";");
+                continue;
+            }
         }
 
         if (pagetrail != null && (!pagetrail.isHideInNav() || showHidden)) {
@@ -50,13 +68,16 @@
             HashMap<String, String> pagetrailvalues = new HashMap<String, String>();
 
             pagetrailvalues.put("path",pagetrail.getPath());
-            pagetrailvalues.put("url",pagetrail.getPath().concat(DEFAULT_EXTENTION);
+            pagetrailvalues.put("url",pagetrail.getPath().concat(DEFAULT_EXTENTION));
             pagetrailvalues.put("name",pagetrail.getName());
             pagetrailvalues.put("title",getPageTitle(pagetrail));
 
             values.add(pagetrailvalues);
+        } else {
+            out.write("sx:"+i+";");
         }
     }
+    out.write("-->");
 
     componentProperties.put("values", values);
 
