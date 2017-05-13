@@ -1,20 +1,32 @@
-<%@page session="false"%>
-<%@page import="java.util.HashSet,
+<%@page session="false"%><%--
+  Copyright 1997-2009 Day Management AG
+  Barfuesserplatz 6, 4001 Basel, Switzerland
+  All Rights Reserved.
+
+  This software is the confidential and proprietary information of
+  Day Management AG, ("Confidential Information"). You shall not
+  disclose such Confidential Information and shall use it only in
+  accordance with the terms of the license agreement you entered into
+  with Day.
+
+  ==============================================================================
+
+  Default parsys component
+
+  Includes all child resources but respects the columns control resources and
+  layouts the HTML accordingly.
+
+--%><%@page import="java.util.HashSet,
                     java.util.Set,
                     com.day.cq.commons.jcr.JcrConstants,
                     com.day.cq.wcm.api.WCMMode,
                     com.day.cq.wcm.api.components.IncludeOptions,
                     com.day.cq.wcm.foundation.Paragraph,
                     com.day.cq.wcm.foundation.ParagraphSystem" %><%
-%><%@include file="/apps/aemdesign/global/global.jsp"%>
-<%@include file="/apps/aemdesign/global/components.jsp" %>
-<%@include file="/apps/aemdesign/global/utils.jsp" %>
-<%@include file="/apps/aemdesign/global/paragraph.jsp"%><%
+%><%@include file="/libs/foundation/global.jsp"%><%
 
     ParagraphSystem parSys = ParagraphSystem.create(resource, slingRequest);
     String newType = resource.getResourceType() + "/new";
-
-    HashMap<String, Object> currentRowStyle = new HashMap<String, Object>();
 
     boolean hasColumns = false;
     for (Paragraph par: parSys.paragraphs()) {
@@ -25,9 +37,7 @@
             case START:
                 if (hasColumns) {
                     // close in case missing END
-                    closeCol(null,out);
-                    closeRow(par,out,false);
-                    currentRowStyle.clear();
+                    %></div></div><%
                 }
                 if (editContext != null) {
                     // draw 'edit' bar
@@ -37,11 +47,10 @@
                     IncludeOptions.getOptions(request, true).getCssClassNames().addAll(addedClasses);
                     %><sling:include resource="<%= par %>"/><%
                 }
-
-                currentRowStyle.putAll(getRowStyle(par));
-                openRow(parSys,par,out, currentRowStyle);
-                openCol(parSys,par,out, currentRowStyle);
-
+                // open outer div
+                %><div class="parsys_column <%= par.getBaseCssClass()%>"><%
+                // open column div
+                %><div class="parsys_column <%= par.getCssClass() %>"><%
                 hasColumns = true;
                 break;
             case BREAK:
@@ -50,10 +59,8 @@
                     IncludeOptions.getOptions(request, true).getCssClassNames().add("section");
                     %><sling:include resource="<%= par %>" resourceType="<%= newType %>"/><%
                 }
-
-                closeCol(par,out);
-                openCol(parSys,par,out, currentRowStyle);
-
+                // open next column div
+                %></div><div class="parsys_column <%= par.getCssClass() %>"><%
                 break;
             case END:
                 if (editContext != null) {
@@ -62,9 +69,8 @@
                     %><sling:include resource="<%= par %>" resourceType="<%= newType %>"/><%
                 }
                 if (hasColumns) {
-                    // close divs
-                    closeCol(null,out);
-                    closeRow(par,out,false);
+                    // close divs and clear floating
+                    %></div></div><div style="clear:both"></div><%
                     hasColumns = false;
                 }
                 if (editContext != null && WCMMode.fromRequest(request) == WCMMode.EDIT) {
@@ -85,26 +91,13 @@
                 	String anchorID = path.replace("/", "_").replace(":", "_");
                     %><a name="<%= anchorID %>" style="visibility:hidden"></a><%
                 }
-
-                String defDecor =_componentContext.getDefaultDecorationTagName();
-
-                if (REMOVEDECORATION && WCMMode.DISABLED == WCMMode.fromRequest(request)) {
-                    forceNoDecoration(_componentContext,IncludeOptions.getOptions(request, true));
-                }
-
                 %><sling:include resource="<%= par %>"/><%
-
-                if (REMOVEDECORATION && WCMMode.DISABLED == WCMMode.fromRequest(request)) {
-                    setDecoration(_componentContext,IncludeOptions.getOptions(request, true),defDecor);
-                }
-
                 break;
         }
     }
     if (hasColumns) {
         // close divs in case END missing. and clear floating
-        closeCol(null,out);
-        closeRow(out,false);
+        %></div></div><div style="clear:both"></div><%
     }
     if (editContext != null) {
         editContext.setAttribute("currentResource", null);
@@ -113,3 +106,4 @@
         %><cq:include path="*" resourceType="<%= newType %>"/><%
     }
 %>
+
