@@ -3,4 +3,5 @@
     jcr:description=""
     jcr:primaryType="cq:Tag"
     jcr:title="Left"
+    value="float-left"
     sling:resourceType="cq/tagging/components/tag"/>

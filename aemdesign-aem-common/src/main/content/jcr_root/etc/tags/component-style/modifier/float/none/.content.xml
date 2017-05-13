@@ -3,4 +3,5 @@
     jcr:description=""
     jcr:primaryType="cq:Tag"
     jcr:title="None"
+    value="clearfix"
     sling:resourceType="cq/tagging/components/tag"/>
