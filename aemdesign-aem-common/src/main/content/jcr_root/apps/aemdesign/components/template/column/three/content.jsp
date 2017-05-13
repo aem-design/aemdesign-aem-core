@@ -1,7 +1,6 @@
-<%@include file="/apps/aemdesign/global/global.jsp" %>
-<% if (WCMMode.DISABLED != CURRENT_WCMMODE) { %>
-<cq:include path="redirectnotification" resourceType="aemdesign/components/common/redirectnotification" />
-<% } %>
+<c:if test="${CURRENT_WCMMODE ne WCMMODE_DISABLED}">
+    <cq:include path="redirectnotification" resourceType="aemdesign/components/common/redirectnotification" />
+</c:if>
 <article id="main" role="main">
     <div class="wrapper visible">
         <cq:include path="aside-left" resourceType="aemdesign/components/layout/aside"/>

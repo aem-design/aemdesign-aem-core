@@ -7,8 +7,6 @@
 <%@ page import="javax.jcr.Value" %>
 <%@ page import="org.apache.sling.api.scripting.SlingScriptHelper" %>
 <%@ page import="java.util.*" %>
-
-
 <%!
 
     final String TAG_VALUE = "value";

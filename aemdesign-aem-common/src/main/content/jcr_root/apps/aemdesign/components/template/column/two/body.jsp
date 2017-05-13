@@ -1,4 +1,5 @@
-<%@ page %>
+<%@page session="false"
+        contentType="text/html; charset=utf-8"%>
 <%@include file="/apps/aemdesign/global/global.jsp" %><%
     StringBuffer cls = new StringBuffer();
     for (String c: componentContext.getCssClassNames()) {
@@ -14,13 +15,7 @@
     }
 %><body id="top" class="<%= cls %>">
 <%--<cq:include path="clientcontext" resourceType="cq/personalization/components/clientcontext"/>--%>
-<%
-    if (isNewEdit) { //this so that authoring works
-%>
 
-<%
-    }
-%>
 <cq:include script="pageheader.jsp"/>
 <div id="content" role="main">
     <cq:include script="contentheader.jsp"/>

@@ -1,4 +1,5 @@
-<%@ page %>
+<%@page session="false"
+        contentType="text/html; charset=utf-8"%>
 <%@include file="/apps/aemdesign/global/global.jsp" %><%
     StringBuffer cls = new StringBuffer();
     for (String c: componentContext.getCssClassNames()) {
@@ -12,23 +13,17 @@
             break;
         }
     }
-%><body id="top" class="<%= cls %>">
+%><body ${componentProperties.componentAttributes}>
 <%--<cq:include path="clientcontext" resourceType="cq/personalization/components/clientcontext"/>--%>
-<%
-    if (isNewEdit) { //this so that authoring works
-%>
-
-<%
-    }
-%>
-<cq:include script="pageheader.jsp"/>
-<div id="content">
-    <cq:include script="contentheader.jsp"/>
+<div class=".container-fluid">
+    <cq:include script="pageheader.jsp"/>
+    <div id="row">
     <cq:include script="content.jsp"/>
+    </div>
     <cq:include script="footer.jsp"/>
-</div>
-<!-- common -->
-<cq:includeClientLib js="aemdesign.common.body"/>
+    <!-- common -->
+    <cq:includeClientLib js="aemdesign.common.body"/>
 
-<cq:include path="cloudservices" resourceType="cq/cloudserviceconfigs/components/servicecomponents"/>
+    <cq:include path="cloudservices" resourceType="cq/cloudserviceconfigs/components/servicecomponents"/>
+</div>
 </body>
