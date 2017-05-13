@@ -17,6 +17,8 @@
         <exclude pattern="/etc/designs/aemdesign/jcr:.*"/> -->
     </filter>
 
+    <filter root="/etc/clientlibs/aemdesign"/>
+
     <filter root="/etc/designs/default" mode="update"/>
 
     <filter root="/etc/tags/content-type" mode="update"/>
