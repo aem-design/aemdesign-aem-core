@@ -1,10 +1,12 @@
-/**
- * Initializes the audio player components on the page
- */
-(function($, undefined) {
+/*audio - behaviour*/
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.audio = AEMDESIGN.components.audio || {};
+
+(function ($, _, ko, utils, log, ns, window, undefined) { //add additional dependencies
 
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         // var audioPlayerId = 0;
         //
@@ -37,4 +39,5 @@
         // });
     });
 
-})(AEMDESIGN.jQuery);
+
+})(AEMDESIGN.jQuery, _, ko, AEMDESIGN.utils, AEMDESIGN.log, AEMDESIGN.components.audio, this); //pass in additional dependencies

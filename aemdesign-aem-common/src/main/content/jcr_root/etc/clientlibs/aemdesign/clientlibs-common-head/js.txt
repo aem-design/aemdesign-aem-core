@@ -1,6 +1,7 @@
-../vendor/require/require.js
-../vendor/jquery/jquery.js
 ../vendor/tether/js/tether.js
+
+#../vendor/require/require.js
+../vendor/jquery/jquery.js
 ../vendor/bootstrap/js/bootstrap.js
 ../vendor/knockout/knockout.js
 ../vendor/underscore/underscore.js

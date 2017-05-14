@@ -1,13 +1,11 @@
 //html - function
-window.AEMDESIGN = window.AEMDESIGN || {};
-window.AEMDESIGN.jQuery = window.jQuery || {};
-window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
-window.AEMDESIGN.components.htmlWidget = AEMDESIGN.components.htmlWidget || {};
+window.AEMDESIGN.components.embedsource = AEMDESIGN.components.embedsource || {};
 
-;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
+(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
-    log.info("Html Start !!!");
+    //log.info("Html Start !!!");
 
     "use strict";
     var _version = "0.1";
@@ -29,5 +27,5 @@ window.AEMDESIGN.components.htmlWidget = AEMDESIGN.components.htmlWidget || {};
 
     // log.disableLog();
 
-})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.htmlWidget, AEMDESIGN.log, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.embedsource, AEMDESIGN.log, this); //pass in additional dependencies
 

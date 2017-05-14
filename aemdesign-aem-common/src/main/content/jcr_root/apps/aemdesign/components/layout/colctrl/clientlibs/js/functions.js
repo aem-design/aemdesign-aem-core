@@ -1,9 +1,9 @@
 //colctrl - functions
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.colctrl = AEMDESIGN.components.colctrl || {};
 
-;(function ($, ns, window, undefined) {
+(function ($, ns, window, undefined) {
 
     "use strict";
     var _version = "0.2";
@@ -14,5 +14,5 @@ window.AEMDESIGN.components.colctrl = AEMDESIGN.components.colctrl || {};
 
 
 
-})(jQuery, AEMDESIGN.components.colctrl, this);
+})(AEMDESIGN.jQuery, AEMDESIGN.components.colctrl, this);
 

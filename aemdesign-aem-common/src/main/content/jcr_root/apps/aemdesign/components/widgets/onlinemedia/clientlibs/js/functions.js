@@ -1,11 +1,9 @@
-//onlinemedia - function
-window.AEMDESIGN = window.AEMDESIGN || {};
-window.AEMDESIGN.jQuery = window.jQuery || {};
-window.AEMDESIGN.$ = window.jQuery || $;
+//onlinemedia - functions
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.onlinemedia = AEMDESIGN.components.onlinemedia || {};
 
-;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
+(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
     log.info("OnlineMedia Start !!!");
 

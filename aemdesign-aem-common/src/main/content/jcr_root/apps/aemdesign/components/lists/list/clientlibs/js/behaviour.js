@@ -1,10 +1,10 @@
-//list
-window.AEMDESIGN = window.AEMDESIGN || {};
+//list - behaviour
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.list = AEMDESIGN.components.list || {};
 
 
-;(function ($, _, ko, ns, window, undefined) { //add additional dependencies
+(function ($, _, ko, ns, window, undefined) { //add additional dependencies
 
     $(document).ready(function () {
         //ns.bindHistoryPopStateEvent();

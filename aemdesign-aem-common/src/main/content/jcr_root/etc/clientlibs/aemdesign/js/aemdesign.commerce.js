@@ -1,5 +1,5 @@
 //aemdesign.commerce.js
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.commerce = window.AEMDESIGN.commerce || {};
 
 (function ($, _, ns, http, services, utils, window, undefined) {
@@ -84,5 +84,5 @@ window.AEMDESIGN.commerce = window.AEMDESIGN.commerce || {};
     };
 
 
-})(jQuery, _, AEMDESIGN.commerce, AEMDESIGN.http, AEMDESIGN.services, AEMDESIGN.utils, this);
+})(AEMDESIGN.jQuery, _, AEMDESIGN.commerce, AEMDESIGN.http, AEMDESIGN.services, AEMDESIGN.utils, this);
 

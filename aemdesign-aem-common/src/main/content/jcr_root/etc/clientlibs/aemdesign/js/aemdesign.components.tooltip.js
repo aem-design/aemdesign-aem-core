@@ -1,9 +1,9 @@
 //aemdesign.components.tooltip.js
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.tooltip = AEMDESIGN.components.tooltip || {};
 
-;(function ($, _, ko, ns, components, window, undefined) {
+(function ($, _, ko, ns, components, window, undefined) {
 
 
     $(document).ready(function() {
@@ -30,4 +30,4 @@ window.AEMDESIGN.components.tooltip = AEMDESIGN.components.tooltip || {};
 
     });
 
-})(jQuery, _, ko, AEMDESIGN.components.tooltip, AEMDESIGN.components, this);
+})(AEMDESIGN.jQuery, _, ko, AEMDESIGN.components.tooltip, AEMDESIGN.components, this);

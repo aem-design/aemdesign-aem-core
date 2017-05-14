@@ -1,10 +1,12 @@
 //footer - behaviour
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.footer = AEMDESIGN.components.footer || {};
 
-;(function($, _, ko, utils, log, window, undefined) {
+(function ($, _, ko, utils, log, ns, window, undefined) { //add additional dependencies
 
-    //postcode
-    $(document).ready(function() {
 
+    $(document).ready(function () {
         //if (utils.getParameterByName("show")) {
         //    log.info("hiding footer");
         //
@@ -14,8 +16,7 @@
         //    });
         //
         //};
-
     });
 
 
-})(AEMDESIGN.jQuery, _, ko, AEMDESIGN.utils, AEMDESIGN.log, this);
+})(AEMDESIGN.jQuery, _, ko, AEMDESIGN.utils, AEMDESIGN.log, AEMDESIGN.components.footer, this); //pass in additional dependencies

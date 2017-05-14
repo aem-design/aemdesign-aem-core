@@ -1,5 +1,5 @@
 //aemdesign.components.js
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = window.AEMDESIGN.components || {};
 (function ($, ns, sling, window, undefined) {
 
@@ -131,5 +131,5 @@ window.AEMDESIGN.components = window.AEMDESIGN.components || {};
         };
     };
 
-})(jQuery, AEMDESIGN.components, AEMDESIGN.sling, this);
+})(AEMDESIGN.jQuery, AEMDESIGN.components, AEMDESIGN.sling, this);
 

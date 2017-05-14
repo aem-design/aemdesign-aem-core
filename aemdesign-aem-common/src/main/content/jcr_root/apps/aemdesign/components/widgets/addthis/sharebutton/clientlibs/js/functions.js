@@ -1,16 +1,12 @@
 //sharebutton - function
-window.AEMDESIGN = window.AEMDESIGN || {};
-window.AEMDESIGN.jQuery = window.jQuery || {};
-window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.sharebutton = AEMDESIGN.components.sharebutton || {};
 
+(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
 
-;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
-
-
-    log.info("ShareButton Start !!!");
+    // log.info("ShareButton Start !!!");
 
     "use strict";
     var _version = "0.1";

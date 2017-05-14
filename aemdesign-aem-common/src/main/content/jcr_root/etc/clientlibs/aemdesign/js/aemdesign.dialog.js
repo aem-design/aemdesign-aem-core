@@ -1,6 +1,7 @@
 //aemdesign.dialog.js
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.dialog = window.AEMDESIGN.dialog || {};
+
 (function ($, ns, utils, log, CQ, window, undefined) {
 
     "use strict";
@@ -180,4 +181,4 @@ window.AEMDESIGN.dialog = window.AEMDESIGN.dialog || {};
 
     }
 
-})(jQuery, AEMDESIGN.dialog, AEMDESIGN.utils, AEMDESIGN.http,  AEMDESIGN.log, CQ, this);
+})(AEMDESIGN.jQuery, AEMDESIGN.dialog, AEMDESIGN.utils, AEMDESIGN.http,  AEMDESIGN.log, CQ, this);

@@ -1,9 +1,12 @@
 //contentblockmenu - behaviour
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.contentblockmenu = AEMDESIGN.components.contentblockmenu || {};
 
-;(function($, _, ko, contentblockMenu, log, window, undefined) {
+(function ($, _, ko, utils, log, ns, window, undefined) { //add additional dependencies
 
-    //contentblockjs
-    $(document).ready(function() {
+
+    $(document).ready(function () {
         // log.info("loading contentblockjs");
         //
         //
@@ -63,9 +66,8 @@
         // });
         //
         // $(window).trigger('scroll');
-
-
     });
 
 
-})(AEMDESIGN.jQuery, _, ko, AEMDESIGN.components.contentblockmenu, AEMDESIGN.log, this);
+})(AEMDESIGN.jQuery, _, ko, AEMDESIGN.utils, AEMDESIGN.log, AEMDESIGN.components.contentblockmenu, this); //pass in additional dependencies
+

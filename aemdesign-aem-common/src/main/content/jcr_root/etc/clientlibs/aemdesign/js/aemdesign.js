@@ -1,5 +1,5 @@
 //aemdesign.js - Namespace
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.jQuery = window.jQuery || {};
 window.AEMDESIGN.$ = window.jQuery || $;
 
@@ -26,4 +26,4 @@ window.AEMDESIGN.$ = window.jQuery || $;
     $.ajaxSettings.traditional = true;
 
 
-})(jQuery, AEMDESIGN, AEMDESIGN.http, this);
+})(AEMDESIGN.jQuery, AEMDESIGN, AEMDESIGN.http, this);

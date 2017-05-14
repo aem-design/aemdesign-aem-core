@@ -1,9 +1,9 @@
 //aemdesign.model.postcode
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.model = AEMDESIGN.model || {};
 window.AEMDESIGN.model.postcode = AEMDESIGN.model.postcode || {};
 
-;(function ($, ko, notify, ns, window, undefined) {
+(function ($, ko, notify, ns, window, undefined) {
 
     "use strict";
     var _version = "0.1";
@@ -52,5 +52,5 @@ window.AEMDESIGN.model.postcode = AEMDESIGN.model.postcode || {};
     };
 
 
-})(jQuery, ko, AEMDESIGN.components.notify, AEMDESIGN.model.postcode, this);
+})(AEMDESIGN.jQuery, ko, AEMDESIGN.components.notify, AEMDESIGN.model.postcode, this);
 

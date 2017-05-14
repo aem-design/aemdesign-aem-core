@@ -1,12 +1,10 @@
 //image - functions
-window.AEMDESIGN = window.AEMDESIGN || {};
-window.AEMDESIGN.jQuery = window.jQuery || {};
-window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.image = AEMDESIGN.components.image || {};
 
 
-;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
+(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
     // Enable strict mode
     "use strict";

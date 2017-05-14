@@ -1,5 +1,5 @@
 /*aemdesign.events.js*/
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 
 /**
  * Provides observer pattern for basic eventing

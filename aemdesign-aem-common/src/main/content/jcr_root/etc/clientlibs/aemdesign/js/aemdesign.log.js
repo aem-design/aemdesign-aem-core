@@ -1,5 +1,5 @@
 //aemdesign.log.js
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.log = window.AEMDESIGN.log || {};
 
 (function ($, ns, window, undefined) {
@@ -10,6 +10,7 @@ window.AEMDESIGN.log = window.AEMDESIGN.log || {};
         return _version;
     };
 
+    var DEFAULT_LOG_LEVEL = 4;
 
     var logLevels = {
         0: " OFF ",
@@ -45,13 +46,13 @@ window.AEMDESIGN.log = window.AEMDESIGN.log || {};
                 return window.aemdesign_init_log_level;
             }
         }
-        return settings.initLogLevel;
+        return DEFAULT_LOG_LEVEL;
     };
 
     var settings = {
         enableLog: false,
-        logLevel: ns.getInitialLogLevel(),
-        initLogLevel: 4
+        initLogLevel: DEFAULT_LOG_LEVEL,
+        logLevel: ns.getInitialLogLevel()
     };
 
     ns.setLevel = function(level) {
@@ -149,5 +150,5 @@ window.AEMDESIGN.log = window.AEMDESIGN.log || {};
 
 
 
-})(jQuery, AEMDESIGN.log, this);
+})(AEMDESIGN.jQuery, AEMDESIGN.log, this);
 

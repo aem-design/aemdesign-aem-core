@@ -4,7 +4,7 @@
           xmlns:rep="internal"
           jcr:primaryType="cq:Dialog"
           jcr:mixinTypes="[rep:AccessControllable]"
-          title="Html Widget (Design)"
+          title="Embed Source Widget (Design)"
           xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
         <styleTab

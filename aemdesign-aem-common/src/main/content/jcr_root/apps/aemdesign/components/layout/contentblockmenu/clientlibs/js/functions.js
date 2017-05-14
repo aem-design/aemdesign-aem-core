@@ -1,9 +1,9 @@
 //contentblock - functions
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.contentblockmenu = AEMDESIGN.components.contentblockmenu || {};
 
-;(function ($, ns, window, undefined) {
+(function ($, ns, window, undefined) {
 
     "use strict";
     var _version = "0.1";
@@ -75,5 +75,5 @@ window.AEMDESIGN.components.contentblockmenu = AEMDESIGN.components.contentblock
 
 
 
-})(jQuery, AEMDESIGN.components.contentblockmenu, this);
+})(AEMDESIGN.jQuery, AEMDESIGN.components.contentblockmenu, this);
 

@@ -1,6 +1,7 @@
 //aemdesign.sling.js
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.sling = window.AEMDESIGN.sling || {};
+
 (function ($, ns, http, log, window, undefined) {
 
     "use strict";
@@ -450,5 +451,5 @@ window.AEMDESIGN.sling = window.AEMDESIGN.sling || {};
         }
     }
 
-})(jQuery, AEMDESIGN.sling, AEMDESIGN.http, AEMDESIGN.log, this);
+})(AEMDESIGN.jQuery, AEMDESIGN.sling, AEMDESIGN.http, AEMDESIGN.log, this);
 

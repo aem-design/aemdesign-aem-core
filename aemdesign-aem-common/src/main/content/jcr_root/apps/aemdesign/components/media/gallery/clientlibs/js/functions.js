@@ -1,8 +1,7 @@
-//slidergallery - functions.js
-window.AEMDESIGN = window.AEMDESIGN || {};
-window.AEMDESIGN.components = AEMDESIGN.components || {};
-window.AEMDESIGN.components.slidergallery = AEMDESIGN.components.slidergallery || {};
-window.AEMDESIGN.components.slidergallery.function = AEMDESIGN.components.slidergallery.function || {};
+//gallery - functions
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
+window.AEMDESIGN.components = window.AEMDESIGN.components || {};
+window.AEMDESIGN.components.gallery = window.AEMDESIGN.components.gallery || {};
 
 (function ($, _, ns, log, window, undefined) {
 
@@ -118,5 +117,5 @@ window.AEMDESIGN.components.slidergallery.function = AEMDESIGN.components.slider
     };
 
 
-})(jQuery, _, AEMDESIGN.components.slidergallery.function, AEMDESIGN.log, this);
+})(AEMDESIGN.jQuery, _, AEMDESIGN.components.gallery, AEMDESIGN.log, this);
 

@@ -1,6 +1,7 @@
 //aemdesign.http.js
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.http = window.AEMDESIGN.http || {};
+
 (function ($, ns, log, window, undefined) {
 
     "use strict";
@@ -285,4 +286,4 @@ window.AEMDESIGN.http = window.AEMDESIGN.http || {};
     };
 
 
-})(jQuery, AEMDESIGN.http, AEMDESIGN.log, this);
+})(AEMDESIGN.jQuery, AEMDESIGN.http, AEMDESIGN.log, this);

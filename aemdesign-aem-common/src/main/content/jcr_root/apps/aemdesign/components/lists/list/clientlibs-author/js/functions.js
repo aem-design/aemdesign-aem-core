@@ -1,11 +1,11 @@
 //list functions - author
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.author = AEMDESIGN.author || {};
 window.AEMDESIGN.author.components = AEMDESIGN.author.components || {};
 window.AEMDESIGN.author.components.list = AEMDESIGN.author.components.list || {};
 
 
-;(function ($, ns, nsDialog, CQ, Granite, window, undefined) { //add additional dependencies
+(function ($, ns, nsDialog, CQ, Granite, window, undefined) { //add additional dependencies
 
     "use strict";
     var _version = "0.1";

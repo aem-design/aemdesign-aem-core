@@ -1,11 +1,9 @@
-//filter - functions
-window.AEMDESIGN = window.AEMDESIGN || {};
-window.AEMDESIGN.jQuery = window.jQuery || {};
-window.AEMDESIGN.$ = window.jQuery || $;
+//eventfilter - functions
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.eventfilter = AEMDESIGN.components.eventfilter || {};
 
-;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
+(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
     "use strict";
     var _version = "0.1";
@@ -20,7 +18,7 @@ window.AEMDESIGN.components.eventfilter = AEMDESIGN.components.eventfilter || {}
 
     ns.topicQueue = function() {
         return _topicQueue;
-    }
+    };
 
 
     ns.loadIsotopeGrid = function(soft) {

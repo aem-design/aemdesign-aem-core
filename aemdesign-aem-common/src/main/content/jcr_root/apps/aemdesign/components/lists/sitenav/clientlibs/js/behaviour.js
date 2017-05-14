@@ -1,11 +1,9 @@
 //sitenav - behaviour
-window.AEMDESIGN = window.AEMDESIGN || {};
-window.AEMDESIGN.jQuery = window.jQuery || {};
-window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.sitenav = AEMDESIGN.components.sitenav || {};
 
-;(function ($, _, ko, ns, window, undefined) { //add additional dependencies
+(function ($, _, ko, ns, window, undefined) { //add additional dependencies
 
     $(document).ready(function () {
 

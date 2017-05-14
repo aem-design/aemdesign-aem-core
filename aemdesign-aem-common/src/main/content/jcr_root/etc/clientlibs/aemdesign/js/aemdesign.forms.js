@@ -1,5 +1,5 @@
 //aemdesign.forms.js
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.forms = window.AEMDESIGN.forms || {};
 
 (function ($, ns, sling, content, log, window, undefined) {
@@ -55,5 +55,5 @@ window.AEMDESIGN.forms = window.AEMDESIGN.forms || {};
 
     };
 
-})(jQuery, AEMDESIGN.forms, AEMDESIGN.sling, AEMDESIGN.content, AEMDESIGN.log, this);
+})(AEMDESIGN.jQuery, AEMDESIGN.forms, AEMDESIGN.sling, AEMDESIGN.content, AEMDESIGN.log, this);
 

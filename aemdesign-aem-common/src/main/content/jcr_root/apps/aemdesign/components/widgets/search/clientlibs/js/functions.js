@@ -1,9 +1,9 @@
-//search
-window.AEMDESIGN = window.AEMDESIGN || {};
+//search - functions
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
 
-;(function ($, _, ko, ns, window, undefined) {
+(function ($, _, ko, ns, window, undefined) {
 
     "use strict";
     var _version = "0.1";

@@ -1,5 +1,5 @@
 //aemdesign.utils.js
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.utils = window.AEMDESIGN.utils || {};
 (function ($, ko, ns, log, http, window, undefined) {
 
@@ -217,4 +217,4 @@ window.AEMDESIGN.utils = window.AEMDESIGN.utils || {};
     });
 
 
-})(jQuery, ko, AEMDESIGN.utils, AEMDESIGN.log, AEMDESIGN.http, this);
+})(AEMDESIGN.jQuery, ko, AEMDESIGN.utils, AEMDESIGN.log, AEMDESIGN.http, this);

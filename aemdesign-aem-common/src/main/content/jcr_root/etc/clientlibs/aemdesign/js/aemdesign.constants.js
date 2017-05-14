@@ -1,5 +1,5 @@
 //aemdesign.constants.js
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.constants = window.AEMDESIGN.constants || {};
 (function ($, ns, window, undefined) {
 
@@ -14,5 +14,5 @@ window.AEMDESIGN.constants = window.AEMDESIGN.constants || {};
     //var PATH_SEPARATOR = "/";
 
 
-})(jQuery, AEMDESIGN.constants, this);
+})(AEMDESIGN.jQuery, AEMDESIGN.constants, this);
 

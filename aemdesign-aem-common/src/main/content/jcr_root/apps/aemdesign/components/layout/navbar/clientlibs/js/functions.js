@@ -1,9 +1,9 @@
-//navbar
-window.AEMDESIGN = window.AEMDESIGN || {};
+//navbar - functions
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.navbar = AEMDESIGN.components.navbar || {};
 
-;(function ($, ns, window, undefined) {
+(function ($, ns, window, undefined) {
 
     "use strict";
     var _version = "0.1";
@@ -14,5 +14,5 @@ window.AEMDESIGN.components.navbar = AEMDESIGN.components.navbar || {};
 
 
 
-})(jQuery, AEMDESIGN.components.navbar, this);
+})(AEMDESIGN.jQuery, AEMDESIGN.components.navbar, this);
 

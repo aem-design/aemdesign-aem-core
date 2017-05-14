@@ -1,9 +1,9 @@
 //aemdesign.components.section.js
-window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.section = AEMDESIGN.components.section || {};
 
-;(function ($, _, ko, ns, components, window, undefined) {
+(function ($, _, ko, ns, components, window, undefined) {
 
     $(document).ready(function () {
 
@@ -19,4 +19,4 @@ window.AEMDESIGN.components.section = AEMDESIGN.components.section || {};
 
 
 
-})(jQuery, _, ko, AEMDESIGN.components.section, AEMDESIGN.components, this);
+})(AEMDESIGN.jQuery, _, ko, AEMDESIGN.components.section, AEMDESIGN.components, this);

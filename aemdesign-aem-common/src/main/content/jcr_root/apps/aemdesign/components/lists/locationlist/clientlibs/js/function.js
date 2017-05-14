@@ -1,11 +1,9 @@
 //locationlist - functions
-window.AEMDESIGN = window.AEMDESIGN || {};
-window.AEMDESIGN.jQuery = window.jQuery || {};
-window.AEMDESIGN.$ = window.jQuery || $;
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || {};
 
-;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
+(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
     "use strict";
     var _version = "0.1";

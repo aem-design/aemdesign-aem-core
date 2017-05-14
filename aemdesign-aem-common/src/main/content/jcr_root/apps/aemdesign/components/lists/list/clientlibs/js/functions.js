@@ -1,10 +1,10 @@
-//list
-window.AEMDESIGN = window.AEMDESIGN || {};
+//list - functions
+window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.list = AEMDESIGN.components.list || {};
 
 
-;(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
+(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
 
     "use strict";

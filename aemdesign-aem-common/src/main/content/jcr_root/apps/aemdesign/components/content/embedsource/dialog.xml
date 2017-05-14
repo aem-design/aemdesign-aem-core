@@ -1,28 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-    jcr:primaryType="cq:Dialog"
-    helpPath="en/cq/current/wcm/default_components.html#Text"
-    title="Source"
-    xtype="tabpanel">
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          jcr:primaryType="cq:Dialog"
+          title="Embed Source Widget"
+          xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
-        <sourceCode
-            jcr:primaryType="cq:Widget"
-            anchor="100%"
-            title="Source Content"
-            xtype="panel">
+        <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <warning
-                        jcr:primaryType="cq:Widget"
-                        text="WARNING: this content will be included in the page as is."
-                        xtype="label"/>
-                <source
+                <sourceTab
                     jcr:primaryType="cq:Widget"
-                    fieldLabel="Raw Source"
-                    hideLabel="{Boolean}true"
-                    grow="{Boolean}true"
-                    name="./source"
-                    xtype="textarea"/>
+                    title="Embed Source Widget"
+                    xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <source
+                                jcr:primaryType="cq:Widget"
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Html"
+                                name="./html"
+                                height="220"
+                                xtype="htmleditor"
+                                validate="function() {return AEMDESIGN.components.embedsource.validate(this);}"
+                        />
+                    </items>
+                </sourceTab>
+                <layoutTab
+                        jcr:primaryType="cq:Widget"
+                        title="Layout"
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <variant
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Variant"
+                                name="./variant"
+                                type="select"
+                                xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default
+                                        jcr:primaryType="nt:unstructured"
+                                        value=""
+                                        text="Default"/>
+                            </options>
+                        </variant>
+                    </items>
+                </layoutTab>
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude"/>
             </items>
-        </sourceCode>
+        </tabs>
     </items>
 </jcr:root>
