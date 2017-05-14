@@ -17,9 +17,6 @@ import java.util.List;
 import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
 
-/**
- * Created by yawly on 5/15/2016.
- */
 public class PageTagList {
 
     Logger LOG = LoggerFactory.getLogger(getClass());

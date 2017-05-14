@@ -21,12 +21,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-/**
- * Abstract Class for CQ5 Components.
- *
- * @author yawly
- * @date 19.05.2016
- */
 abstract class AbstractComponent {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractComponent.class);

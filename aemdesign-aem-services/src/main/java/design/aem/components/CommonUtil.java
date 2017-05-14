@@ -16,11 +16,6 @@ import java.util.Map;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-/**
- * Create static class for common functions
- *
- * Created by yawly on 5/15/2016.
- */
 public final class CommonUtil {
 
     public static String compileSubstituteMessage(String formatTagPath, String defaultFormat,

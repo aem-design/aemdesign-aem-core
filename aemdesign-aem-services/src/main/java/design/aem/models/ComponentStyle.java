@@ -11,9 +11,6 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by yawly on 12/05/2016.
- */
 @Model(adaptables = Resource.class)
 public class ComponentStyle {
 

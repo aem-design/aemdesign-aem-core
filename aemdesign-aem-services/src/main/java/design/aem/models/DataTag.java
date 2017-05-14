@@ -1,8 +1,5 @@
 package design.aem.models;
 
-/**
- * Created by yawly on 17/05/16.
- */
 public class DataTag {
 
     private String title;

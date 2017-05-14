@@ -12,12 +12,6 @@ import java.util.List;
 
 import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
-/**
- * Helper class for handling Tags.
- *
- * @author yawly
- * @date 07.06.2016
- */
 public class TagHelper {
 
     /**
