@@ -36,7 +36,7 @@
 
 	final String SMALL_IMAGE_PATH_SELECTOR = "cq5dam" + SMALL_IMAGE_THUMB_SELECTOR;
 	final String DEFAULT_IMAGE_PATH_SELECTOR = "cq5dam" + DEFAULT_IMAGE_THUMB_SELECTOR;
-	final String DEFAULT_DOWNLOAD_THUMB_ICON = "/etc/clientlibs/aemdesign/css/img/placeholder-doc.png";
+	final String DEFAULT_DOWNLOAD_THUMB_ICON = "/etc/clientlibs/aemdesign/icons/file/file.gif";
 
 	final String MEDIUM_THUMBNAIL_SIZE = "320";
 	final String LARGE_THUMBNAIL_SIZE = "480";
