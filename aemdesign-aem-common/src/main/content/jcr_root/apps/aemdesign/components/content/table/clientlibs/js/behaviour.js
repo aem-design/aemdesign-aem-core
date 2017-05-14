@@ -1,0 +1,20 @@
+/*table - behaviour*/
+window.AEMDESIGN = window.AEMDESIGN || {};
+window.AEMDESIGN.components = AEMDESIGN.components || {};
+window.AEMDESIGN.components.table = AEMDESIGN.components.table || {};
+
+
+;(function ($, _, ko, ns, window, undefined) { //add additional dependencies
+
+
+    $(document).ready(function () {
+        // $("#article .alternating-table").each(function() {
+        //     var table = $(this);
+        //
+        //     table.find("tr:odd").toggleClass("odd", true);
+        //     table.find("tr:even").toggleClass("even", true);
+        // });
+    })
+
+
+})(AEMDESIGN.jQuery, _, ko, AEMDESIGN.components.table, this); //pass in additional dependencies

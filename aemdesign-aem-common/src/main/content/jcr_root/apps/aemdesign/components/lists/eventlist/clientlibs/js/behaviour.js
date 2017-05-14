@@ -9,10 +9,10 @@ window.AEMDESIGN.components.eventfilter = AEMDESIGN.components.eventfilter || {}
 
     $(document).ready(function () {
 
-        $("[data-modules='eventList']").each(function () {
+        $("[data-modules='eventlist']").each(function () {
 
             //log.info(["this", this, $(this), $(this)]);
-            ns.loadIsotopeGrid(this);
+            //ns.loadIsotopeGrid(this);
 
         });
     });

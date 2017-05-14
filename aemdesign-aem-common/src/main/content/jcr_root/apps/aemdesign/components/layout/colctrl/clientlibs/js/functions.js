@@ -1,4 +1,4 @@
-//colctrl.js
+//colctrl - functions
 window.AEMDESIGN = window.AEMDESIGN || {};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.colctrl = AEMDESIGN.components.colctrl || {};

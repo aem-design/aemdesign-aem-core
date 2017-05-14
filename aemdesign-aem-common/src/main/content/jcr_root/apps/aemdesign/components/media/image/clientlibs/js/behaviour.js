@@ -1,4 +1,4 @@
-//image
+//image - behaviour
 window.AEMDESIGN = window.AEMDESIGN || {};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.image = AEMDESIGN.components.image || {};
@@ -9,11 +9,11 @@ window.AEMDESIGN.components.image = AEMDESIGN.components.image || {};
 
     $(document).ready(function () {
         // Run on debounced resize and domready
-        ns.picturefill();
-
-        $(window).on("debouncedresize", function () {
-            ns.picturefill();
-        });
+        // ns.picturefill();
+        //
+        // $(window).on("debouncedresize", function () {
+        //     ns.picturefill();
+        // });
     })
 
 

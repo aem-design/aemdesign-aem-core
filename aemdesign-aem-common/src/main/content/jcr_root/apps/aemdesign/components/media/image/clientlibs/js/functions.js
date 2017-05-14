@@ -1,3 +1,4 @@
+//image - functions
 window.AEMDESIGN = window.AEMDESIGN || {};
 window.AEMDESIGN.jQuery = window.jQuery || {};
 window.AEMDESIGN.$ = window.jQuery || $;

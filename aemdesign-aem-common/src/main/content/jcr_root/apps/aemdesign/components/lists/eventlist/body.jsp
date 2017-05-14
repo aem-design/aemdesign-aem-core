@@ -12,7 +12,7 @@
     }
 
     Object[][] componentFields = {
-            {"modules", "eventList", "modules"},
+            {"modules", "eventlist", "modules"},
             //  {"wcmMode", CURRENT_WCMMODE.name().toLowerCase(), "wcmmode"},
             {"topicQueue", StringUtils.EMPTY, "topicqueue"}
 

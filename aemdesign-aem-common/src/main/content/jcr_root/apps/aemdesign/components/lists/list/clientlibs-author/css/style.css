@@ -1,8 +1,1 @@
-/*list*/
-.list-inline {
-    display: inline-flex;
-}
-.list-inline > li {
-    display: inline;
-    list-style-type: none;
-}
+/*list author*/

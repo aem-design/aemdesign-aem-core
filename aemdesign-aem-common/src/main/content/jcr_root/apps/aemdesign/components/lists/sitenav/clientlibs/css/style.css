@@ -1,8 +1,1 @@
-#side_nav #site_nav .side_nav #lang_nav.desktop-only {
-    display: block !important;
-}
-
-/* search div in sidenav */
-#site_nav > .side_nav div.search {
-    width: 100% !important;
-}
+/*sitenav*/

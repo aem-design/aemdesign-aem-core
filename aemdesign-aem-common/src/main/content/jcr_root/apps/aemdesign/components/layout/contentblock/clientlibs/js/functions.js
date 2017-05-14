@@ -1,4 +1,4 @@
-//contentblock
+//contentblock - functions
 window.AEMDESIGN = window.AEMDESIGN || {};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.contentblock = AEMDESIGN.components.contentblock || {};

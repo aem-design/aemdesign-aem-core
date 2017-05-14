@@ -9,7 +9,7 @@ window.AEMDESIGN.components.sitenav = AEMDESIGN.components.sitenav || {};
 
     $(document).ready(function () {
 
-        ns.setSectionColorStylesheet(this);
+        // ns.setSectionColorStylesheet(this);
 
     });
 

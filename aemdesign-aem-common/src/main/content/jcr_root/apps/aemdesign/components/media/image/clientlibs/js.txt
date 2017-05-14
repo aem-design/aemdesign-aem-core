@@ -1,4 +1,4 @@
 #base=js
 
-behaviour.js
 functions.js
+behaviour.js
