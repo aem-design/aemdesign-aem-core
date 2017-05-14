@@ -1,16 +1,18 @@
+../vendor/require/require.js
 ../vendor/jquery/jquery.js
+../vendor/tether/js/tether.js
 ../vendor/bootstrap/js/bootstrap.js
+../vendor/knockout/knockout.js
+../vendor/underscore/underscore.js
+../vendor/stacktrace/js/stacktrace-gps.js
+../vendor/stacktrace/js/stacktrace.js
 
-../vendor/jquery/cookie/js.cookie.min.js
+../vendor/jquery/cookie/js.cookie.js
 ../vendor/jquery/isotope/isotope.js
-../vendor/jquery/scrollclass/scrollClass.min.js
+../vendor/jquery/scrollclass/scrollclass.js
 ../vendor/jquery-ui/jquery-ui.js
 ../vendor/jsonpath/jsonpath.js
-../vendor/underscore/underscore.min.js
-../vendor/knockout/knockout.min.js
-../vendor/require/require.min.js
-../vendor/stacktrace/stacktrace.js
-../vendor/masonry/masonry.min.js
+../vendor/masonry/masonry.js
 
 ../js/aemdesign.js
 ../js/aemdesign.class.js
