@@ -3,6 +3,4 @@
     jcr:description="Great to use when different icon widths throw off alignment. Especially useful in things like nav lists &amp; list groups."
     jcr:primaryType="cq:Tag"
     jcr:title="Fixed Width"
-    sling:resourceType="cq/tagging/components/tag"
-    tagID="component-style:modifier/icon/box/fa-fw"
-    tagPath="/etc/tags/component-style/modifier/icon/box/fa-fw"/>
+    sling:resourceType="cq/tagging/components/tag"/>

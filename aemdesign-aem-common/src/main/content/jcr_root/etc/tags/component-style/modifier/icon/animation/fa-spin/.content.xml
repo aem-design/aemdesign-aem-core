@@ -3,6 +3,4 @@
     jcr:description="Class to get icon to rotate"
     jcr:primaryType="cq:Tag"
     jcr:title="Spin"
-    sling:resourceType="cq/tagging/components/tag"
-    tagID="component-style:modifier/icon/animation/fa-spin"
-    tagPath="/etc/tags/component-style/modifier/icon/animation/fa-spin"/>
+    sling:resourceType="cq/tagging/components/tag"/>

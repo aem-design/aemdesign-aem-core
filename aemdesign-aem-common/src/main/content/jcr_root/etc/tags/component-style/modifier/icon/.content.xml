@@ -5,15 +5,5 @@
     jcr:lastModifiedBy="admin"
     jcr:primaryType="cq:Tag"
     jcr:title="Icon"
-    sling:resourceType="cq/tagging/components/tag"
-    tagID="component-style:modifier/icon"
-    tagPath="/etc/tags/component-style/modifier/icon">
-    <size/>
-    <list/>
-    <animation/>
-    <rotation/>
-    <flip/>
-    <position/>
-    <box/>
-    <fa-stack/>
+    sling:resourceType="cq/tagging/components/tag">
 </jcr:root>

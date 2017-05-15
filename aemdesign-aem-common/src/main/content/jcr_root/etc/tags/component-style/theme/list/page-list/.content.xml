@@ -4,5 +4,5 @@
     value="page_list"
     jcr:title="Page List"
     sling:resourceType="cq/tagging/components/tag"
-    tagID="component-style:theme/list/page_list"
+    tagID="component-style:theme/list/page-list"
     tagPath="/etc/tags/component-style/theme/list/page_list"/>

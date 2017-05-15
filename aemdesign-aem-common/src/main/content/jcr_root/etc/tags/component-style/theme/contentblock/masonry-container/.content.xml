@@ -5,6 +5,4 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Masonary Container"
     sling:resourceType="cq/tagging/components/tag"
-    tagID="component-style:theme/contentblock/masonry_container"
-    tagPath="/etc/tags/component-style/theme/contentblock/masonry_container"
     value="wrapper masonry"/>

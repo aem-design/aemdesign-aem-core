@@ -4,6 +4,4 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Masonry Grid Major"
     sling:resourceType="cq/tagging/components/tag"
-    tagID="component-style:theme/contentblock/masonry_grid_major"
-    tagPath="/etc/tags/component-style/theme/contentblock/masonry_grid_major"
     value="major module"/>

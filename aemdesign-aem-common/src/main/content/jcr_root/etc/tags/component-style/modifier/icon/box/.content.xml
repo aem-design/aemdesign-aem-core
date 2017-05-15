@@ -4,9 +4,5 @@
     jcr:lastModifiedBy="admin"
     jcr:primaryType="cq:Tag"
     jcr:title="Box"
-    sling:resourceType="cq/tagging/components/tag"
-    tagID="component-style:modifier/icon/box"
-    tagPath="/etc/tags/component-style/modifier/icon/box">
-    <fa-fw/>
-    <fa-border/>
+    sling:resourceType="cq/tagging/components/tag">
 </jcr:root>

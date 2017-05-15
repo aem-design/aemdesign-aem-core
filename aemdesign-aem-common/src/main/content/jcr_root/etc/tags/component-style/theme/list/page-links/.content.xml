@@ -3,5 +3,5 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Page Links"
     sling:resourceType="cq/tagging/components/tag"
-    tagID="component-style:theme/list/page_links"
+    tagID="component-style:theme/list/page-links"
     tagPath="/etc/tags/component-style/theme/list/page_links"/>
