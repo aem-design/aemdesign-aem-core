@@ -45,6 +45,66 @@
             </items>
         </basicTab>
 
+        <siteThemeTab jcr:primaryType="cq:Panel"
+                   title="Style">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <themeStyleList
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}false"
+                        collapsible="{Boolean}true"
+                        title="Site Theme"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <themeStyle jcr:primaryType="cq:Widget"
+                                   fieldLabel="Site Theme"
+                                   fieldDescription="Site theme Category to include"
+                                   allowBlank="{Boolean}true"
+                                   name="./themeStyle"
+                                   options="/etc/tags/component-style/theme/site/category.valuelist.json"
+                                   type="select"
+                                   defaultValue=""
+                                   xtype="selection"/>
+                    </items>
+                </themeStyleList>
+                <themeColorList
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}false"
+                        collapsible="{Boolean}true"
+                        title="Theme Color"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <themeColor jcr:primaryType="cq:Widget"
+                                   fieldLabel="Theme Color"
+                                   fieldDescription="Used by browsers for Tab and Browser windows colors"
+                                   allowBlank="{Boolean}true"
+                                   name="./themeColor"
+                                   options="/etc/tags/component-style/theme/site/titlecolor.valuelist.json"
+                                   type="select"
+                                   defaultValue=""
+                                   xtype="selection"/>
+                    </items>
+                </themeColorList>
+                <tileColorList
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}false"
+                        collapsible="{Boolean}true"
+                        title="Tile Color"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <tileColor jcr:primaryType="cq:Widget"
+                                   fieldLabel="Tile Color"
+                                   fieldDescription="Used by browsers for Tab and Browser tile colors"
+                                   allowBlank="{Boolean}true"
+                                   name="./tileColor"
+                                   options="/etc/tags/component-style/theme/site/tilecolor.valuelist.json"
+                                   type="select"
+                                   defaultValue=""
+                                   xtype="selection"/>
+                    </items>
+                </tileColorList>
+            </items>
+        </siteThemeTab>
+
         <styleTab jcr:primaryType="cq:Panel"
                    title="Style">
             <items jcr:primaryType="cq:WidgetCollection">
@@ -121,6 +181,8 @@
 
 
         </styleTab>
+
+
 
         <!--This standard tab is being cqincluded by other components.-->
         <imageTab
