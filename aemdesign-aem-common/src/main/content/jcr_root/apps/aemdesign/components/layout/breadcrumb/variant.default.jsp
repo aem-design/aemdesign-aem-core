@@ -1,4 +1,4 @@
-<nav aria-label="${componentProperties.ariaLabel}" role="${componentProperties.ariaRole}" ${componentProperties.componentAttributes}>
+<nav ${componentProperties.componentAttributes}>
     <ol class="breadcrumb">
         <c:forEach items="${componentProperties.values}" var="link" varStatus="loop">
             <c:if test="${not empty componentProperties.delimiter}">${componentProperties.delimiter}</c:if>

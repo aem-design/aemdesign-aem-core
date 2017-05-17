@@ -681,6 +681,7 @@
                 {"componentIcon", new String[]{}},
                 {"positionX", ""},
                 {"positionY", ""},
+
         };
 
         return getComponentProperties(pageContext,styleFields);
@@ -725,7 +726,8 @@
         String valueModule = getTagsAsValues(tagManager," ",componentProperties.get("componentModule",new String[]{}));
         String valueChevron = getTagsAsValues(tagManager," ",componentProperties.get("componentChevron",new String[]{}));
         String valueIcon = getTagsAsValues(tagManager," ",componentProperties.get("componentIcon",new String[]{}));
-
+        String valueAriaLabel = componentProperties.get("ariaLabel","");
+        String valueAriaRole = componentProperties.get("ariaRole","");
 
         String attrTheme = MessageFormat.format("class=\"{0}\"", addClasses(component.getName().trim(),valueTheme,valueModifiers,valueChevron,valueIcon));
 
@@ -739,7 +741,17 @@
             attrModule = MessageFormat.format("data-modules=\"{0}\"", valueModule);
         }
 
-        return addClasses(attrId,attrTheme,attrModule);
+        String attrAriaLabel="";
+        if (isNotEmpty(valueAriaLabel)) {
+            attrAriaLabel = MessageFormat.format("aria-label=\"{0}\"", valueAriaLabel);
+        }
+
+        String attrAriaRole="";
+        if (isNotEmpty(valueAriaRole)) {
+            attrAriaRole = MessageFormat.format("role=\"{0}\"", valueAriaRole);
+        }
+
+        return addClasses(attrId,attrTheme,attrModule,attrAriaLabel,attrAriaRole);
     }
 
     /***
