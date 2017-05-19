@@ -2,7 +2,7 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:isCheckedOut="{Boolean}false"
     jcr:primaryType="cq:WorkflowModel"
-    jcr:uuid="31025e4a-dbe4-4227-bcb1-cf4d7813f928"
+    jcr:uuid="31025e4a-dbe4-4927-bcb1-cf4d7813f928"
     sling:resourceType="cq/workflow/components/model"
     description="No Description"
     title="Asset Locked-Unlocked Notification">
