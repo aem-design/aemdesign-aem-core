@@ -353,6 +353,73 @@
         return tagValue;
     }
 
+
+    /**
+     * Get list of Tags from a list of tag paths
+     * @param sling
+     * @param tagPaths
+     * @param locale
+     * @return
+     * @throws RepositoryException
+     */
+    private LinkedList<Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale) throws RepositoryException {
+        LinkedList<Map> tags = new LinkedList<>();
+
+        if (sling == null || tagPaths == null || tagPaths.length == 0) {
+            return tags;
+        }
+
+
+        ResourceResolver adminResourceResolver  = openAdminResourceResolver(sling);
+        try {
+            TagManager tagManager = adminResourceResolver.adaptTo(TagManager.class);
+
+            for (String path : tagPaths) {
+                Map<String, String> tagValues = new HashMap<>();
+
+                Tag tag = tagManager.resolve(path);
+                if (tag != null) {
+                    tagValues.put("title",tag.getTitle());
+                    tagValues.put("description",tag.getDescription());
+                    tagValues.put("tagid",tag.getTagID());
+                    tagValues.put("path",tag.getPath());
+
+                    ValueMap tagVM = tag.adaptTo(Resource.class).getValueMap();
+                    String tagValue = tag.getName();
+
+                    if (tagVM.containsKey(TAG_VALUE)) {
+                        tagValue = tagVM.get(TAG_VALUE, tag.getName());
+                    }
+
+                    if (locale != null) {
+                        String titleLocal = JcrConstants.JCR_TITLE.concat(".").concat(org.apache.jackrabbit.util.Text.escapeIllegalJcrChars(locale.toString().toLowerCase()));
+                        if (tagVM.containsKey(titleLocal)) {
+                            tagValues.put("title", tagVM.get(titleLocal, tag.getName()));
+                        }
+                        tagValues.put("tagid",tag.getLocalTagID());
+
+                        String valueLocal = TAG_VALUE.concat(".").concat(org.apache.jackrabbit.util.Text.escapeIllegalJcrChars(locale.toString().toLowerCase()));
+                        if (tagVM.containsKey(valueLocal)) {
+                            tagValue = tagVM.get(valueLocal, tag.getName());
+                        }
+                    }
+
+                    tagValues.put("value",tagValue);
+
+                }
+                tags.add(tagValues);
+            }
+
+        } catch (Exception ex) {
+            Logger LOG = LoggerFactory.getLogger(getClass());
+            LOG.error("getTagValueAsAdmin: " + ex.getMessage(), ex);
+        } finally {
+            closeAdminResourceResolver(adminResourceResolver);
+        }
+        return tags;
+    }
+
+
     /**
      * Get Tag values
      * @param tagManager
