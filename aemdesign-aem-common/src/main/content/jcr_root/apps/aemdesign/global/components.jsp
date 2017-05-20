@@ -512,56 +512,56 @@
         return componentProperties;
     }
 
-
-    /**
-     * returns component values with defaults
-     * @param page current page
-     * @param fieldDefaults list of component fields
-     * @return
-     */
-    @Deprecated
-    public ComponentProperties getComponentProperties(Page page, String componentPath, Object[][] fieldDefaults) {
-        ComponentProperties componentProperties = new ComponentProperties();
-
-        Resource resource = page.adaptTo(Resource.class);
-
-        Resource componentResource = page.getContentResource(componentPath);
-
-        if (componentResource == null) {
-            return componentProperties;
-        }
-
-        Designer designer = resource.getResourceResolver().adaptTo(Designer.class);
-
-        Style currentStyle = designer.getStyle(resource);
-
-        for (int i = 0; i < fieldDefaults.length; i++) {
-            Object[] field = fieldDefaults[i];
-            if (field.length != 2) {
-                throw new IllegalArgumentException("Key Value pair expected");
-            }
-            String fieldName = field[0].toString();
-            Object fieldDefaultValue = field[1];
-
-            ValueMap properties = componentResource.adaptTo(ValueMap.class);
-
-            Object fieldValue = StringUtils.EMPTY;
-
-            if (currentStyle != null) {
-                fieldValue = properties.get(fieldName, currentStyle.get(fieldName, fieldDefaultValue));
-            } else {
-                fieldValue = properties.get(fieldName, fieldDefaultValue);
-            }
-
-            try {
-                componentProperties.put(fieldName, fieldValue);
-            } catch (Exception ex) {
-                LOG.error("error adding value. " + ex);
-            }
-        }
-
-        return componentProperties;
-    }
+//
+//    /**
+//     * returns component values with defaults
+//     * @param page current page
+//     * @param fieldDefaults list of component fields
+//     * @return
+//     */
+//    @Deprecated
+//    public ComponentProperties getComponentProperties(Page page, String componentPath, Object[][] fieldDefaults) {
+//        ComponentProperties componentProperties = new ComponentProperties();
+//
+//        Resource resource = page.adaptTo(Resource.class);
+//
+//        Resource componentResource = page.getContentResource(componentPath);
+//
+//        if (componentResource == null) {
+//            return componentProperties;
+//        }
+//
+//        Designer designer = resource.getResourceResolver().adaptTo(Designer.class);
+//
+//        Style currentStyle = designer.getStyle(resource);
+//
+//        for (int i = 0; i < fieldDefaults.length; i++) {
+//            Object[] field = fieldDefaults[i];
+//            if (field.length != 2) {
+//                throw new IllegalArgumentException("Key Value pair expected");
+//            }
+//            String fieldName = field[0].toString();
+//            Object fieldDefaultValue = field[1];
+//
+//            ValueMap properties = componentResource.adaptTo(ValueMap.class);
+//
+//            Object fieldValue = StringUtils.EMPTY;
+//
+//            if (currentStyle != null) {
+//                fieldValue = properties.get(fieldName, currentStyle.get(fieldName, fieldDefaultValue));
+//            } else {
+//                fieldValue = properties.get(fieldName, fieldDefaultValue);
+//            }
+//
+//            try {
+//                componentProperties.put(fieldName, fieldValue);
+//            } catch (Exception ex) {
+//                LOG.error("error adding value. " + ex);
+//            }
+//        }
+//
+//        return componentProperties;
+//    }
 
 
 

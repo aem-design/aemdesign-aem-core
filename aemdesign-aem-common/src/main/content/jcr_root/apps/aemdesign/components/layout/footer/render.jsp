@@ -13,10 +13,12 @@
         {"ariaRole",DEFAULT_ARIA_ROLE},
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
-    componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties,_component,_sling));
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>

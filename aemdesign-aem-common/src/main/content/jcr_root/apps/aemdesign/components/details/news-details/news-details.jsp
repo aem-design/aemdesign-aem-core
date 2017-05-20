@@ -20,7 +20,11 @@
             {"variant", DEFAULT_VARIANT}
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields, DEFAULT_FIELDS_STYLE, DEFAULT_FIELDS_ACCESSIBILITY);
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     componentProperties.put("showBreadcrumb", BooleanUtils.toBoolean(componentProperties.get("showBreadcrumb", String.class)));
     componentProperties.put("showToolbar", BooleanUtils.toBoolean(componentProperties.get("showToolbar", String.class)));
@@ -48,7 +52,7 @@
     String newsDateStatusText = _i18n.get("newsDateStatusText", I18N_CATEGORY, publishDateText, publishDisplayDateText);
     componentProperties.put("newsDateStatusText",newsDateStatusText);
 
-    String[] tags = getMultiplePropertyString(_currentNode,TagConstants.PN_TAGS);
+    String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
 
     componentProperties.put("tags",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));
 

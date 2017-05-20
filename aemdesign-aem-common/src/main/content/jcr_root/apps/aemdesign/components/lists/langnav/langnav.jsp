@@ -3,7 +3,7 @@
 <%@ page import="org.apache.sling.api.SlingException" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
-<%@ include file="langnavdata.jsp" %>
+<%@include file="/apps/aemdesign/global/i18n.jsp" %>
 
 <%
     //no lambada is available so this is the best that can be done
@@ -14,66 +14,55 @@
             {"searchlogic", "showNearestParent"}
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
-
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
-
-
-    ResourceResolver adminResourceResolver  = this.openAdminResourceResolver(_sling);
-
-    try {
-
-        TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
-
-        componentProperties.put("componentAttributes", compileComponentAttributes(_adminTagManager,componentProperties,_component));
-
-        Map<Locale, Map<String, String>> languageToggleMap = new LinkedHashMap<Locale, Map<String, String>>();
-
-        String appearanceOption = componentProperties.get("searchlogic", String.class);
-
-        boolean isShowRoot =  ("showRoot").equals(appearanceOption);
-
-        boolean isShowNothing =  ("showNothing").equals(appearanceOption);
-
-        LinkedHashMap<String, Tag>  languageMap = getTagsMap(_adminTagManager, _currentNode,  "languageSet");
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
 
-        // out.println("tagsMap : "+tagsMap);
+    Map<Locale, Map<String, String>> languageToggleMap = new LinkedHashMap<Locale, Map<String, String>>();
 
-        if (isShowNothing == false && languageMap != null){
+    String appearanceOption = componentProperties.get("searchlogic", String.class);
 
-            Set<Language> languageSet = new LinkedHashSet<Language>();
+    boolean isShowRoot =  ("showRoot").equals(appearanceOption);
 
-            for (String key : languageMap.keySet()){
-                Tag langTag = languageMap.get(key);
-                String langName = langTag.getName();
-                languageSet.add(new Language(langName));
-            }
+    boolean isShowNothing =  ("showNothing").equals(appearanceOption);
 
-            if (languageSet != null && languageSet.size() > 0){
-                languageToggleMap = this.getLanguageList(languageSet, _currentPage, adminResourceResolver, _languageManager,  isShowRoot, _pageManager, _i18n);
-            }
+    String[] tagsFilterList = componentProperties.get("languageSet", new String[]{});
 
+    LinkedHashMap<String, Map> languageMap = getTagsAsAdmin(_sling, tagsFilterList, _slingRequest.getLocale());
+
+    // out.println("tagsMap : "+tagsMap);
+
+    if (isShowNothing == false && languageMap != null){
+
+        Set<Language> languageSet = new LinkedHashSet<Language>();
+
+        for (String key : languageMap.keySet()){
+            Map<String, String> langTag = languageMap.get(key);
+            String langName = langTag.get("name");
+            languageSet.add(new Language(langName));
         }
-        %>
-        <c:set var="componentProperties" value="<%= componentProperties %>"/>
-        <c:set var="languageToggleMap" value="<%= languageToggleMap %>"/>
 
-        <c:choose>
-            <c:when test="${componentProperties.searchlogic eq 'showRoot' || componentProperties.searchlogic eq 'showNearestParent' }">
-                <%@include file="variant.default.jsp" %>
-            </c:when>
-            <c:otherwise>
-                <%@include file="variant.hidden.jsp" %>
-            </c:otherwise>
-        </c:choose>
-        <%
-    } catch (Exception ex) {
+        if (languageSet != null && languageSet.size() > 0){
+            languageToggleMap = this.getLanguageList(_sling, languageSet, _currentPage, _languageManager,  isShowRoot, _pageManager, _i18n);
+        }
 
-        out.write( Throwables.getStackTraceAsString(ex) );
-
-    } finally {
-        this.closeAdminResourceResolver(adminResourceResolver);
     }
+
+    componentProperties.put("language", getPageLanguage(_sling,_currentPage));
+
 %>
+<c:set var="componentProperties" value="<%= componentProperties %>"/>
+<c:set var="languageToggleMap" value="<%= languageToggleMap %>"/>
+
+<c:choose>
+    <c:when test="${componentProperties.searchlogic eq 'showRoot' || componentProperties.searchlogic eq 'showNearestParent' }">
+        <%@include file="variant.default.jsp" %>
+    </c:when>
+    <c:otherwise>
+        <%@include file="variant.hidden.jsp" %>
+    </c:otherwise>
+</c:choose>
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>

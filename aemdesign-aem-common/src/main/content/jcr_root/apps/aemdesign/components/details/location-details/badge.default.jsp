@@ -37,7 +37,11 @@
     };
 
 
-    ComponentProperties componentProperties = getComponentProperties(thisPage, componentPath, componentFields);
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            thisPage,
+            componentPath,
+            componentFields);
 
     String[] pageList = componentProperties.get("pages", new String[0]);
 
@@ -81,7 +85,10 @@
             eventMap.put("image",img);
             String category = StringUtils.EMPTY;
             if (p.getContentResource().adaptTo(Node.class) != null){
-                LinkedHashMap<String, Tag> categoryMap = this.getTagsMap(_tagManager, p.getContentResource().adaptTo(Node.class) , TagConstants.PN_TAGS);
+                String[] categoryMapTags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
+
+                LinkedHashMap<String, Map> categoryMap = getTagsAsAdmin(_sling, categoryMapTags, _slingRequest.getLocale());
+
                 if (categoryMap != null && categoryMap.size() > 0){
                     category = StringUtils.join(categoryMap.keySet(), ",");
                 }

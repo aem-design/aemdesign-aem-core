@@ -29,29 +29,19 @@
             {"titleFormat",""}
     };
 
-    ComponentProperties componentProperties = getComponentProperties(thisPage, componentPath, componentFields);
+
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            thisPage,
+            componentPath,
+            componentFields);
+
+    String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
+
+    componentProperties.put("category",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));
 
     String pageTitle = getPageTitle(thisPage);
-
-    ResourceResolver adminResourceResolver = null;
-
-    try {
-
-        adminResourceResolver = this.openAdminResourceResolver(_sling);
-
-        TagManager adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
-
-        String category = this.getTags(adminTagManager, componentProperties.get("cq:tags", new String[]{}));
-
-        componentProperties.put("category", category);
-
-    } catch (Exception ex) {
-        out.write(Throwables.getStackTraceAsString(ex));
-    } finally {
-        this.closeAdminResourceResolver(adminResourceResolver);
-    }
-
-   // componentProperties.put("title", pageTitle);
+    // componentProperties.put("title", pageTitle);
     componentProperties.put("url", url);
     componentProperties.put("imgAlt", _i18n.get("readMoreAboutText", "pagedetail") + pageTitle);
 

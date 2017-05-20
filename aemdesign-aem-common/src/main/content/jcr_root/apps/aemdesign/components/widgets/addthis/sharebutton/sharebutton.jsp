@@ -8,8 +8,11 @@
             {"cssClassRow", ""}
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     ResourceResolver adminResourceResolver  = this.openAdminResourceResolver(_sling);
 
@@ -29,9 +32,6 @@
         }
 
         componentProperties.put("pubId",pubid);
-
-        TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
-        componentProperties.put("componentAttributes", compileComponentAttributes(_adminTagManager,componentProperties,_component));
 
     } catch (Exception ex) {
 

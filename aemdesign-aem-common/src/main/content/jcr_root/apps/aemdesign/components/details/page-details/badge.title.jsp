@@ -18,7 +18,11 @@
             {"title", getPageTitle(thisPage)}
     };
 
-    ComponentProperties componentProperties = getComponentProperties(thisPage, componentPath, componentFields);
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            thisPage,
+            componentPath,
+            componentFields);
 
     // set title and description
     String displayTitle = getPageTitle(thisPage);

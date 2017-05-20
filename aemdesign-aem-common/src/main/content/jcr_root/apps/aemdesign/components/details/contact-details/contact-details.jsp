@@ -17,30 +17,18 @@
             {"variant", DEFAULT_VARIANT},
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     componentProperties.put("showBreadcrumb", BooleanUtils.toBoolean(componentProperties.get("showBreadcrumb", String.class)));
     componentProperties.put("showToolbar", BooleanUtils.toBoolean(componentProperties.get("showToolbar", String.class)));
 
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
+    String[] tags = getMultiplePropertyString(_currentNode,TagConstants.PN_TAGS);
 
-    ResourceResolver adminResourceResolver  = this.openAdminResourceResolver(_sling);
-
-    try {
-        TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
-
-        componentProperties.put("componentAttributes", compileComponentAttributes(_adminTagManager, componentProperties, _component));
-
-        List<Tag> tags = getTags(_adminTagManager, _currentNode, TagConstants.PN_TAGS);
-
-        componentProperties.put("tags",tags);
-
-    } catch (Exception ex) {
-        out.write( Throwables.getStackTraceAsString(ex) );
-    } finally {
-        this.closeAdminResourceResolver(adminResourceResolver);
-    }
-
+    componentProperties.put("tags",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));
 
 %>
 

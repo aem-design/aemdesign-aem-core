@@ -1,4 +1,4 @@
-<div class="${componentProperties.inputCss}">
+<div class="${componentProperties.inputCss}" ${componentProperties.componentAttributes}>
     <mark role="log">${fn:join(componentProperties.singleFieldErrorMessages, ',')}</mark>
     <span><b>${componentProperties.hideTitle == false ? componentProperties.title : ""}</b> <i>${componentProperties['jcr:description']}</i></span>
     <c:if test="${fn:length(componentProperties.displayValues) > 1}">

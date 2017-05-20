@@ -20,9 +20,11 @@
             {"feedUrl", new String[0],"feed-urls"},
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
-    componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties,_component,_sling));
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
 
     String placeholderText = _properties.get("placeholderText","");

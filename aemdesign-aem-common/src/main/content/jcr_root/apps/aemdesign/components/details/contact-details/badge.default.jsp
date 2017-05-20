@@ -9,7 +9,7 @@
     // init
     Page thisPage = (Page) request.getAttribute("badgePage");
 
-    String componentPath = "./"+PATH_DEFAULT_CONTENT+"/contactdetails";
+    String componentPath = "./"+PATH_DEFAULT_CONTENT+"/contact-details";
 
     String img = this.getPageImgReferencePath(thisPage);
     img = getThumbnail(img, SMALL_IMAGE_PATH_SELECTOR, _resourceResolver);
@@ -22,23 +22,16 @@
             {TagConstants.PN_TAGS, new String[]{}}
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            thisPage,
+            componentPath,
+            componentFields);
 
-    ResourceResolver adminResourceResolver  = this.openAdminResourceResolver(_sling);
+    String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
 
-    try {
-
-        TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
-        componentProperties.put("componentAttributes", compileComponentAttributes(_adminTagManager, componentProperties, _component));
-        List<Tag> tags = getTags(_adminTagManager, getComponentNode(thisPage,componentPath), TagConstants.PN_TAGS);
-        componentProperties.put("tags",tags);
-
-    } catch (Exception ex) {
-        out.write( Throwables.getStackTraceAsString(ex) );
-    } finally {
-        this.closeAdminResourceResolver(adminResourceResolver);
-    }
-
+    componentProperties.put("tags",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));
+    
     componentProperties.put("url",mappedUrl(_resourceResolver, url));
     componentProperties.put("img",img);
     componentProperties.put("imgAlt", (_i18n.get("readMoreAboutText","contactdetail") + componentProperties.get("title", String.class)));

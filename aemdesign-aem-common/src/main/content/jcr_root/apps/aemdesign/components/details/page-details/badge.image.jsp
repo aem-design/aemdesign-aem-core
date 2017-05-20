@@ -15,34 +15,38 @@
 <%
 
 
-	//init
-	Page thisPage = (Page) request.getAttribute("badgePage");
+    //init
+    Page thisPage = (Page) request.getAttribute("badgePage");
 
-	String componentPath = "./"+PATH_DEFAULT_CONTENT+"/page-details";
-	
-	//Url
-	Object[][] componentFields = {
-			{"title", thisPage.getTitle()}
-	};
+    String componentPath = "./"+PATH_DEFAULT_CONTENT+"/page-details";
 
-	ComponentProperties componentProperties = getComponentProperties(thisPage, componentPath, componentFields);
+    //Url
+    Object[][] componentFields = {
+            {"title", thisPage.getTitle()}
+    };
 
-	String pageTitle = getPageTitle(thisPage);
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            thisPage,
+            componentPath,
+            componentFields);
 
-	//componentProperties.put("title", pageTitle);
+    String pageTitle = getPageTitle(thisPage);
 
-	String img =  this.getPageImgReferencePath(thisPage);
-	img = getThumbnail(img, DEFAULT_IMAGE_PATH_SELECTOR, _resourceResolver);
+    //componentProperties.put("title", pageTitle);
 
-	String url = getPageUrl(thisPage);
-	componentProperties.put("img", img);
+    String img =  this.getPageImgReferencePath(thisPage);
+    img = getThumbnail(img, DEFAULT_IMAGE_PATH_SELECTOR, _resourceResolver);
 
-	componentProperties.put("url", url);
-	componentProperties.put("title", thisPage.getTitle());
-	componentProperties.put("imgAlt", _i18n.get("readMoreAboutText","pagedetail",pageTitle) );
+    String url = getPageUrl(thisPage);
+    componentProperties.put("img", img);
 
-	String altImg = getSecondaryImageReferencePath(thisPage, "article/par/page-details/secondaryImage");
-	componentProperties.put("secondaryImage", getThumbnail(altImg, DEFAULT_IMAGE_PATH_SELECTOR, _resourceResolver));
+    componentProperties.put("url", url);
+    componentProperties.put("title", thisPage.getTitle());
+    componentProperties.put("imgAlt", _i18n.get("readMoreAboutText","pagedetail",pageTitle) );
+
+    String altImg = getSecondaryImageReferencePath(thisPage, "article/par/page-details/secondaryImage");
+    componentProperties.put("secondaryImage", getThumbnail(altImg, DEFAULT_IMAGE_PATH_SELECTOR, _resourceResolver));
 
 
 %>
@@ -50,10 +54,10 @@
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 
 <ul>
-	<li>
-		<a class="external_link" href="${componentProperties.url}" title="${componentProperties.imgAlt}" target="_blank">
-			<img src="${componentProperties.img}" alt="${componentProperties.imgAlt}"
-				 <c:if test="${not empty componentProperties.secondaryImage}">class="rollover" data-img-rollover="${componentProperties.secondaryImage}"</c:if>	>
-		</a>
-	</li>
+    <li>
+        <a class="external_link" href="${componentProperties.url}" title="${componentProperties.imgAlt}" target="_blank">
+            <img src="${componentProperties.img}" alt="${componentProperties.imgAlt}"
+                 <c:if test="${not empty componentProperties.secondaryImage}">class="rollover" data-img-rollover="${componentProperties.secondaryImage}"</c:if>	>
+        </a>
+    </li>
 </ul>

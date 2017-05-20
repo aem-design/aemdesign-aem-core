@@ -385,20 +385,20 @@
 
             Resource imgResource = page.getContentResource("image");
 
-            LOG.error("imgResource 1 : "+ imgResource +" size " +width);
+            LOG.info("imgResource 1 : "+ imgResource +" size " +width);
             Image image1 = new Image(imgResource);
 
             if (image1.hasContent()) {
-                LOG.error("imgResource 1 : hasContent");
+                LOG.info("imgResource 1 : hasContent");
             }
             imgResource = page.getContentResource().getResourceResolver().getResource(page.getPath() + "/jcr:content/image");
 
             Image image2 = new Image(imgResource);
 
             if (image2.hasContent()) {
-                LOG.error("imgResource 2 : hasContent");
+                LOG.info("imgResource 2 : hasContent");
             }
-            LOG.error("imgResource 2 : "+ imgResource +" size " +width);
+            LOG.info("imgResource 2 : "+ imgResource +" size " +width);
             int originalHeight = 0;
             int originalWidth = 0;
 
@@ -411,11 +411,11 @@
                 if (image.hasContent()) {
 
                     Layer layer = image.getLayer(false, false, false);//imageHelper.scaleThisImage(image, 460, 0, null);
-                    LOG.error("imgResource 3 : hasContent");
+                    LOG.info("imgResource 3 : hasContent");
                     originalHeight = layer.getHeight();
                     originalWidth = layer.getWidth();
-                    LOG.error("imgResource 3 : originalHeight " + originalHeight);
-                    LOG.error("imgResource 3 : originalWidth " + originalWidth);
+                    LOG.info("imgResource 3 : originalHeight " + originalHeight);
+                    LOG.info("imgResource 3 : originalWidth " + originalWidth);
 
 
                     org.osgi.service.cm.ConfigurationAdmin configAdmin = _sling.getService(org.osgi.service.cm.ConfigurationAdmin.class);

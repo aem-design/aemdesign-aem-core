@@ -24,11 +24,11 @@
             {"numOfFetchItems", 1}
         };
 
-        ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
-
-        componentProperties.putAll(getComponentStyleProperties(pageContext));
-
-        componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties,_component,_sling));
+        ComponentProperties componentProperties = getComponentProperties(
+                pageContext,
+                componentFields,
+                DEFAULT_FIELDS_STYLE,
+                DEFAULT_FIELDS_ACCESSIBILITY);
 
         Page searchInPath = _pageManager.getPage(componentProperties.get("searchInPath", String.class));
         Page filterPage = _pageManager.getPage(componentProperties.get("filterPage", String.class));

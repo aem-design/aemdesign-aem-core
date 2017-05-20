@@ -33,11 +33,11 @@
 
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
-
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
-
-    componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties,_component,_sling));
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     String listPath = componentProperties.get("listPath", String.class);
     String listFrom = componentProperties.get("listFrom", "children");

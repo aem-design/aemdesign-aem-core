@@ -74,7 +74,10 @@
 
         String category = StringUtils.EMPTY;
         if (listItem.getContentResource().adaptTo(Node.class) != null){
-            LinkedHashMap<String, Tag> categoryMap = this.getTagsMap(_tagManager, listItem.getContentResource().adaptTo(Node.class) ,"cq:tags");
+            String[] categoryMapTags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
+
+            LinkedHashMap<String, Map> categoryMap = getTagsAsAdmin(_sling, categoryMapTags, _slingRequest.getLocale());
+
             if (categoryMap != null && categoryMap.size() > 0){
                 //reformat the filter for attribute
                 category = StringUtils.join(categoryMap.keySet(), " ");

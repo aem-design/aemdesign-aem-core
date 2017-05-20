@@ -38,10 +38,11 @@
             {"ariaRole",DEFAULT_ARIA_ROLE},
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields) ;
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
-
-    componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties,_component,_sling));
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     //Only support the Drag and Drop Images
     Image image = new Image(_resource);

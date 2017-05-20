@@ -31,24 +31,16 @@
 
     };
 
-    ComponentProperties componentProperties = getComponentProperties(thisPage, componentPath, componentFields);
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            thisPage,
+            componentPath,
+            componentFields);
 
-    ResourceResolver adminResourceResolver = null;
+    String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
 
-    try {
+    componentProperties.put("category",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));
 
-        adminResourceResolver = this.openAdminResourceResolver(_sling);
-
-        TagManager adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
-
-        String category = this.getTags(adminTagManager,  componentProperties.get("cq:tags", new String[]{}));
-        componentProperties.put("category", category);
-
-    } catch (Exception ex) {
-        out.write( Throwables.getStackTraceAsString(ex) );
-    } finally {
-        this.closeAdminResourceResolver(adminResourceResolver);
-    }
 
     componentProperties.put("url",mappedUrl(_resourceResolver, url));
     String eventRefLink = componentProperties.get("eventRefLink", String.class);

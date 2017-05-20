@@ -20,10 +20,11 @@
 
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
-
-    componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties,_component,_sling));
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     componentProperties.put("rows", _xssAPI.getValidInteger(componentProperties.get("rows",String.class), 1));
     componentProperties.put("cols", _xssAPI.getValidInteger(componentProperties.get("cols",String.class), 35));

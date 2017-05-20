@@ -35,7 +35,11 @@
 
     };
 
-    ComponentProperties componentProperties = getComponentProperties(thisPage, componentPath, componentFields);
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            thisPage,
+            componentPath,
+            componentFields);
 
     componentProperties.put("url", mappedUrl(_resourceResolver, url));
     componentProperties.put("title", displayTitle);

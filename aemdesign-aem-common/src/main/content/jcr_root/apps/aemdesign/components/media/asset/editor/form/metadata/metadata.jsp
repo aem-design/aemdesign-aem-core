@@ -24,9 +24,11 @@
             {"rows", "1"}
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
-
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     String name = "./jcr:content/metadata/" +  componentProperties.get("meta/namespace", String.class) + ":" + componentProperties.get("meta/localPart", String.class) ;
 

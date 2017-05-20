@@ -141,9 +141,11 @@
             {"parentPage", getPrimaryPath(_slingRequest)},
             {"linkTitlePrefix", _i18n.get("linkTitlePrefix","sitenav")}
     };
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
-    componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties,_component,_sling));
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     String variant = componentProperties.get("variant",DEFAULT_VARIANT);
 

@@ -32,7 +32,11 @@
             {"description", thisPage.getDescription()}
     };
 
-    ComponentProperties componentProperties = getComponentProperties(thisPage, componentPath, componentFields);
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            thisPage,
+            componentPath,
+            componentFields);
 
     String pageTitle = getPageTitle(thisPage);
 

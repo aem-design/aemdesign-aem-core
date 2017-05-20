@@ -1,6 +1,6 @@
 <%@ page import="java.util.*" %>
 <%!
-
+        @SuppressWarnings("unchecked")
         public org.apache.sling.api.resource.ResourceResolver openAdminResourceResolver(org.apache.sling.api.scripting.SlingScriptHelper _sling){
 
             org.apache.sling.api.resource.ResourceResolver _adminResourceResolver  = null;

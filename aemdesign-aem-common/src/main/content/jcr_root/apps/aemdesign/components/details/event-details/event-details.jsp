@@ -33,22 +33,30 @@
             {"eventDisplayDateFormat",""}
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     componentProperties.put("showBreadcrumb", BooleanUtils.toBoolean(componentProperties.get("showBreadcrumb", String.class)));
     componentProperties.put("showToolbar", BooleanUtils.toBoolean(componentProperties.get("showToolbar", String.class)));
 
+
     ResourceResolver adminResourceResolver = this.openAdminResourceResolver(_sling);
-    TagManager adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
+    try {
+        TagManager adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
 
-    String category = this.getTags(adminTagManager,  componentProperties.get("cq:tags", new String[]{}), _currentPage.getLanguage(true));
+        String category = this.getTags(adminTagManager, componentProperties.get("cq:tags", new String[]{}), _currentPage.getLanguage(true));
 
-    componentProperties.put("category", category);
+        componentProperties.put("category", category);
 
-
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
-
-    componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties,_component,_sling));
+    } catch (Exception ex) {
+        LOG.error("event-details: " + ex.getMessage(), ex);
+        //out.write( Throwables.getStackTraceAsString(ex) );
+    } finally {
+        closeAdminResourceResolver(adminResourceResolver);
+    }
 
     // retrieve component title
     componentProperties.put("componentTitle", _component.getTitle());

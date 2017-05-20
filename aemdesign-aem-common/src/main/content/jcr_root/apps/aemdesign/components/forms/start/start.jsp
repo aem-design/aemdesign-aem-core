@@ -10,15 +10,15 @@
             {"variant","aemdesign"}
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     Page p = _pageManager.getPage(componentProperties.get("redirect", String.class));
 
     componentProperties.put("redirectPage", p);
-
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
-
-    componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties,_component,_sling));
 
 
 %>

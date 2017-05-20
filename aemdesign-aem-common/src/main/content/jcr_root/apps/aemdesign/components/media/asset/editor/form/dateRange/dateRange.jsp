@@ -23,9 +23,11 @@
 
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
-
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     List<Resource> resources = FormResourceEdit.getResources(_slingRequest);
 

@@ -27,8 +27,11 @@
             {"title", ""}
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     componentProperties.put("instanceName",_currentNode.getName());
 
@@ -38,7 +41,7 @@
     // init
     Map<String, Object> info = new HashMap<String, Object>();
 
-    String attributes = compileComponentAttributesAsAdmin(componentProperties,_component,_sling);
+    String attributes = componentProperties.get("componentAttributes","");
 
     String bgImageFile = _properties.get("bgimage/fileReference", "");
 

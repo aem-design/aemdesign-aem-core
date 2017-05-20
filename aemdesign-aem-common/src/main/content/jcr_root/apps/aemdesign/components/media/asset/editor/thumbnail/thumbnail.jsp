@@ -20,9 +20,11 @@
             {"showCopyrightOwner", DEFAULT_SHOW_COPYRIGHT_OWNER}
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
-
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     componentProperties.put("showCopyrightOwner", BooleanUtils.toBoolean(componentProperties.get("showCopyrightOwner", String.class)));
 

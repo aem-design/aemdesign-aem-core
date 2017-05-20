@@ -10,6 +10,8 @@
 <%!
 
     final String TAG_VALUE = "value";
+    final String TAG_ISDEFAULT = "isdefault";
+    final String TAG_ISDEFAULT_VALUE = "false";
 
     //private final Logger LOG = LoggerFactory.getLogger(getClass());
 
@@ -135,44 +137,6 @@
                 Tag jcrTag = tagManager.resolve(tagValue);
                 if (jcrTag != null) {
                     tags.put(jcrTag.getTagID(), jcrTag);
-                }
-            }
-        }
-        return tags;
-    }
-
-
-    /**
-     * Get tag values from a JCR node
-     * @param tagManager
-     * @param thisNode
-     * @param tagPropertyName
-     * @return List<Tag>
-     */
-    private LinkedHashMap<String, Tag> getTagsMap(TagManager tagManager, Node thisNode, String tagPropertyName) throws RepositoryException {
-        //quick fail
-        if (tagManager==null || thisNode==null) {
-            return null;
-        }
-
-        Value[] pageTagValues = null;
-        if (thisNode.hasProperty(tagPropertyName)) {
-            pageTagValues = thisNode.getProperty(tagPropertyName).getValues();
-        }
-
-        if (pageTagValues == null || pageTagValues.length == 0) {
-            return null;
-        }
-
-        LinkedHashMap<String, Tag> tags = new LinkedHashMap<String, Tag>();
-        for (Value tagValue : pageTagValues) {
-            if (tagValue != null) {
-                String path = tagValue.getString();
-                if (path != null) {
-                    Tag jcrTag = tagManager.resolve(path);
-                    if (jcrTag != null) {
-                        tags.put(jcrTag.getTagID(), jcrTag);
-                    }
                 }
             }
         }
@@ -362,8 +326,8 @@
      * @return
      * @throws RepositoryException
      */
-    private LinkedList<Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale) throws RepositoryException {
-        LinkedList<Map> tags = new LinkedList<>();
+    private LinkedHashMap<String, Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale) throws RepositoryException {
+        LinkedHashMap<String, Map> tags = new LinkedHashMap<>();
 
         if (sling == null || tagPaths == null || tagPaths.length == 0) {
             return tags;
@@ -381,7 +345,6 @@
                 if (tag != null) {
                     tagValues.put("title",tag.getTitle());
                     tagValues.put("description",tag.getDescription());
-                    tagValues.put("tagid",tag.getTagID());
                     tagValues.put("path",tag.getPath());
 
                     ValueMap tagVM = tag.adaptTo(Resource.class).getValueMap();
@@ -389,6 +352,10 @@
 
                     if (tagVM.containsKey(TAG_VALUE)) {
                         tagValue = tagVM.get(TAG_VALUE, tag.getName());
+                    }
+
+                    if (tagVM.containsKey(TAG_ISDEFAULT)) {
+                        tagValue = tagVM.get(TAG_ISDEFAULT, TAG_ISDEFAULT_VALUE);
                     }
 
                     if (locale != null) {
@@ -407,7 +374,7 @@
                     tagValues.put("value",tagValue);
 
                 }
-                tags.add(tagValues);
+                tags.put(tag.getTagID(),tagValues);
             }
 
         } catch (Exception ex) {

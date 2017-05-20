@@ -24,10 +24,11 @@
             {"variant", DEFAULT_VARIANT},
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
-
-    componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties,_component,_sling));
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     componentProperties.put("componentPath",resource.getPath());
 
@@ -74,7 +75,7 @@
 
             values.add(pagetrailvalues);
         } else {
-            out.write("sx:"+i+";");
+            out.write("xh:"+i+";");
         }
     }
     out.write("-->");

@@ -24,11 +24,15 @@
 
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, thisPage, componentPath, componentFields);
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            thisPage,
+            componentPath,
+            componentFields);
 
-    String[] tags = getMultiplePropertyString(getComponentNode(thisPage,componentPath),TagConstants.PN_TAGS);
+    String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
 
-    componentProperties.put("tags",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));
+    componentProperties.put("category",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));
 
     componentProperties.put("url", mappedUrl(_resourceResolver, url));
     componentProperties.put("img", img);
@@ -39,7 +43,7 @@
 <section class="col-3 left">
     <div class="minor module news twin">
         <div class="body">
-            <h3><a href="<c:out value="${componentProperties.url}"/>" title="<c:out value="${componentProperties.imgAlt}"/>">${componentProperties.tags[0].localizedTitles[LOCALE]}</a></h3>
+            <h3><a href="<c:out value="${componentProperties.url}"/>" title="<c:out value="${componentProperties.imgAlt}"/>">${componentProperties.category[0].title}</a></h3>
             <p>
                 <b><a href="<c:out value="${componentProperties.url}"/>" title="<c:out value="${componentProperties.imgAlt}"/>">${componentProperties.title}</a></b>
             </p>

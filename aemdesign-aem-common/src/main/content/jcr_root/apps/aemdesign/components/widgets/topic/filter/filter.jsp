@@ -16,60 +16,47 @@
             {"variant", "default"}
     };
 
-    ResourceResolver adminResourceResolver  = this.openAdminResourceResolver(_sling);
 
-    try {
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
-        TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
-        LinkedHashMap<String, Tag> filterTag = getTagsMap(_adminTagManager,  _currentNode, "filterList");
-        LinkedHashMap<String, Tag> defaultFilter = getTagsMap(_adminTagManager,  _currentNode, "defaultFilters");
+    String[] tagsFilterList = componentProperties.get("filterList", new String[]{});
+    String[] tagsDefaultFilters = componentProperties.get("defaultFilters", new String[]{});
 
-        JSONArray jsonArray = new JSONArray() ;
-        if( filterTag != null){
-            for (String key : filterTag.keySet()){
+    LinkedHashMap<String, Map> filterTag = getTagsAsAdmin(_sling, tagsFilterList, _slingRequest.getLocale());
+    LinkedHashMap<String, Map> defaultFilter = getTagsAsAdmin(_sling, tagsDefaultFilters, _slingRequest.getLocale());
 
-                HashMap event = new HashMap();
-                event.put("name", filterTag.get(key).getTitle());
-                event.put("filter", filterTag.get(key).getTagID());
+    //construct default filter list
+    JSONArray jsonArray = new JSONArray() ;
+    if( filterTag != null){
+        for (String key : filterTag.keySet()){
 
-                Resource res = filterTag.get(key).adaptTo(Resource.class);
+            HashMap event = new HashMap();
+            event.put("name", filterTag.get(key).get("title"));
+            event.put("filter", filterTag.get(key).get("tagid"));
 
-                if (defaultFilter != null) {
-                    if (defaultFilter.get(key) != null) {
-                        event.put(DEFALT_ATTRIBUTE_NAME_ISDEFAULT, true);
-                    } else {
-                        event.put(DEFALT_ATTRIBUTE_NAME_ISDEFAULT, false);
-                    }
+            if (defaultFilter != null) {
+                if (defaultFilter.get(key) != null) {
+                    event.put(DEFALT_ATTRIBUTE_NAME_ISDEFAULT, true);
                 } else {
-                    if (jsonArray.length() != 0) {
-                        event.put(DEFALT_ATTRIBUTE_NAME_ISDEFAULT, false);
-                    } else {
-                        event.put(DEFALT_ATTRIBUTE_NAME_ISDEFAULT, true);
-                    }
-
+                    event.put(DEFALT_ATTRIBUTE_NAME_ISDEFAULT, false);
                 }
-
-                jsonArray.put(event);
-                componentFields[0][1] = jsonArray.toString();
+            } else {
+                if (jsonArray.length() != 0) {
+                    event.put(DEFALT_ATTRIBUTE_NAME_ISDEFAULT, false);
+                } else {
+                    event.put(DEFALT_ATTRIBUTE_NAME_ISDEFAULT, true);
+                }
             }
+
+            jsonArray.put(event);
         }
 
-
-    } catch (Exception ex) {
-
-        out.write( Throwables.getStackTraceAsString(ex) );
-
-    } finally {
-        this.closeAdminResourceResolver(adminResourceResolver);
     }
-
-    ComponentProperties componentProperties = getComponentStyleProperties(pageContext);
-
-    //out.println("dataAttributes before 1:" + componentProperties.get("dataAttributes", String.class));
-    componentProperties.putAll(getComponentProperties(pageContext, componentFields));
-    //out.println("dataAttributes before :" + componentProperties.get("dataAttributes", String.class));
-    componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties, _component, _sling));
-    //out.println("dataAttributes after :" + componentProperties.get("dataAttributes", String.class));
+    componentProperties.put("defaultFilters",jsonArray.toString());
 
 
 %>
