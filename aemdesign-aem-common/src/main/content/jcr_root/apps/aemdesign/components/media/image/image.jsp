@@ -13,6 +13,9 @@
 
     final String DEFAULT_ARIA_ROLE = "banner";
 
+    // {
+    //   { name, defaultValue, attributeName, valueTypeClass }
+    // }
     Object[][] assetFields = {
             {DamConstants.DC_TITLE, StringUtils.EMPTY},
             {DamConstants.DC_DESCRIPTION, StringUtils.EMPTY},
@@ -22,9 +25,7 @@
     };
 
     // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - compile into a data-{name} attribute
+    //   { name, defaultValue, attributeName, stringValueTypeClass }
     // }
     Object[][] componentFields = {
             {"variant", "default"},

@@ -7,7 +7,6 @@
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="gallerydata.jsp" %>
-<%@ include file="/apps/aemdesign/components/lists/sitenav/sitenavData.jsp" %>
 <%
     Object[][] componentFields = {
 
