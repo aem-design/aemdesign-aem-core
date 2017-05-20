@@ -5,19 +5,18 @@
     final String DEFAULT_ARIA_ROLE = "article";
 
     // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - compile into a data-{name} attribute
+    //   { name, defaultValue, attributeName, valueTypeClass }
     // }
     Object[][] componentFields = {
         {"ariaRole",DEFAULT_ARIA_ROLE},
         {"variant", DEFAULT_VARIANT},
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
-
-    componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties,_component,_sling));
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
