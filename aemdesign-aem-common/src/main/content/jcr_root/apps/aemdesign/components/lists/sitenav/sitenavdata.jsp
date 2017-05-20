@@ -14,7 +14,7 @@
     private static final String DETAILS_MENU_ICONPATH = "menuIconPath";
     private static final String DETAILS_MENU_COLOR = "menuColor";
     private static final String DETAILS_MENU_COLOR_DEFAULT = "default";
-    private static final String DETAILS_MENU_ACCESSKEY = "accesskey";
+    private static final String DETAILS_MENU_ACCESSKEY = "ariaAccessKey";
     private static final String DETAILS_TAB_ICON = "tabIcon";
     private static final String DETAILS_TAB_ICONPATH = "tabIconPath";
     private static final String DETAILS_TAB_GALLERYBGIMAGE = "par/page-details/gallerybgimage";
