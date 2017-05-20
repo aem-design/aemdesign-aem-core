@@ -31,6 +31,22 @@
                     jcr:primaryType="cq:Widget"
                     path="/libs/foundation/components/page/tab_cloudservices.infinity.json"
                     xtype="cqinclude"/>
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude" />
+                <siteThemeTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/siteThemeTab.infinity.json"
+                        xtype="cqinclude" />
+                <accessibilityTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                        xtype="cqinclude" />
+                <metadataTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/metadataTab.infinity.json"
+                        xtype="cqinclude" />
             </items>
         </tabs>
     </items>
