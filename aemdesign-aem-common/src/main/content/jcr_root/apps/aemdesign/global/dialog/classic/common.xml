@@ -46,64 +46,52 @@
         </basicTab>
 
         <siteThemeTab jcr:primaryType="cq:Panel"
-                   title="Style">
+                   title="Theme">
             <items jcr:primaryType="cq:WidgetCollection">
-                <themeStyleList
-                        jcr:primaryType="cq:Widget"
-                        collapsed="{Boolean}false"
-                        collapsible="{Boolean}true"
-                        title="Site Theme"
-                        xtype="dialogfieldset">
-                    <items jcr:primaryType="cq:WidgetCollection">
-                        <themeStyle jcr:primaryType="cq:Widget"
+                <siteThemeCategory jcr:primaryType="cq:Widget"
                                    fieldLabel="Site Theme"
                                    fieldDescription="Site theme Category to include"
                                    allowBlank="{Boolean}true"
-                                   name="./themeStyle"
-                                   options="/etc/tags/component-style/theme/site/category.valuelist.json"
+                                   name="./siteThemeCategory"
+                                   options="/etc/tags/component-style/theme/site/themecategory.valuelist.json"
                                    type="select"
                                    defaultValue=""
                                    xtype="selection"/>
-                    </items>
-                </themeStyleList>
-                <themeColorList
-                        jcr:primaryType="cq:Widget"
-                        collapsed="{Boolean}false"
-                        collapsible="{Boolean}true"
-                        title="Theme Color"
-                        xtype="dialogfieldset">
-                    <items jcr:primaryType="cq:WidgetCollection">
-                        <themeColor jcr:primaryType="cq:Widget"
-                                   fieldLabel="Theme Color"
-                                   fieldDescription="Used by browsers for Tab and Browser windows colors"
-                                   allowBlank="{Boolean}true"
-                                   name="./themeColor"
-                                   options="/etc/tags/component-style/theme/site/titlecolor.valuelist.json"
-                                   type="select"
-                                   defaultValue=""
-                                   xtype="selection"/>
-                    </items>
-                </themeColorList>
-                <tileColorList
-                        jcr:primaryType="cq:Widget"
-                        collapsed="{Boolean}false"
-                        collapsible="{Boolean}true"
-                        title="Tile Color"
-                        xtype="dialogfieldset">
-                    <items jcr:primaryType="cq:WidgetCollection">
-                        <tileColor jcr:primaryType="cq:Widget"
-                                   fieldLabel="Tile Color"
-                                   fieldDescription="Used by browsers for Tab and Browser tile colors"
-                                   allowBlank="{Boolean}true"
-                                   name="./tileColor"
-                                   options="/etc/tags/component-style/theme/site/tilecolor.valuelist.json"
-                                   type="select"
-                                   defaultValue=""
-                                   xtype="selection"/>
-                    </items>
-                </tileColorList>
+                <siteThemeColor jcr:primaryType="cq:Widget"
+                                fieldLabel="Theme Color"
+                                fieldDescription="Used by browsers for Tab and Browser windows colors"
+                                allowBlank="{Boolean}true"
+                                name="./siteThemeColor"
+                                options="/etc/tags/component-style/theme/site/themecolor.valuelist.json"
+                                type="select"
+                                defaultValue=""
+                                xtype="selection"/>
+                <siteTileColor jcr:primaryType="cq:Widget"
+                           fieldLabel="Tile Color"
+                           fieldDescription="Used by browsers for Tab and Browser tile colors"
+                           allowBlank="{Boolean}true"
+                           name="./siteTileColor"
+                           options="/etc/tags/component-style/theme/site/tilecolor.valuelist.json"
+                           type="select"
+                           defaultValue=""
+                           xtype="selection"/>
             </items>
         </siteThemeTab>
+
+        <metadataTab jcr:primaryType="cq:Panel"
+                      title="Metadata">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <contentType jcr:primaryType="cq:Widget"
+                                   fieldLabel="OG Content Type"
+                                   fieldDescription="Used to include specific content metadata"
+                                   allowBlank="{Boolean}true"
+                                   name="./metadataContentType"
+                                   options="/etc/tags/content-type/page.valuelist.json"
+                                   type="select"
+                                   defaultValue=""
+                                   xtype="selection"/>
+            </items>
+        </metadataTab>
 
         <styleTab jcr:primaryType="cq:Panel"
                    title="Style">
@@ -177,11 +165,101 @@
                                 xtype="sizefield"/>
                     </items>
                 </position>
+
             </items>
 
 
         </styleTab>
 
+
+        <accessibilityTab jcr:primaryType="cq:Panel"
+                  title="Accessibility">
+            <items jcr:primaryType="cq:WidgetCollection">
+
+                <ariaLabel jcr:primaryType="cq:Widget"
+                           fieldLabel="Aria Label"
+                           fieldDescription="Defines a string value that labels the current element."
+                           name="./ariaLabel"
+                           allowBlank="{Boolean}true"
+                           xtype="textfield"/>
+
+                <ariaRole jcr:primaryType="cq:Widget"
+                          fieldLabel="Aria Role"
+                          fieldDescription="Main indicator of type. This semantic association allows tools to present and support interaction with the object in a manner that is consistent with user expectations about other objects of that type."
+                          allowBlank="{Boolean}true"
+                          name="./ariaRole"
+                          options="/etc/tags/component-aria/role.valuelist.json"
+                          type="select"
+                          defaultValue=""
+                          xtype="selection"/>
+
+                <ariaDescribedBy jcr:primaryType="cq:Widget"
+                           fieldLabel="Aria Described By"
+                           fieldDescription="Identifies the element (or elements) that describes the object."
+                           name="./ariaDescribedBy"
+                           allowBlank="{Boolean}true"
+                           xtype="textfield"/>
+
+                <ariaLabelledBy jcr:primaryType="cq:Widget"
+                           fieldLabel="Aria Labelled By"
+                           fieldDescription="Identifies the element (or elements) that labels the current element."
+                           name="./ariaLabelledBy"
+                           allowBlank="{Boolean}true"
+                           xtype="textfield"/>
+
+                <ariaControls jcr:primaryType="cq:Widget"
+                                fieldLabel="Aria Controls"
+                                fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
+                                name="./ariaControls"
+                                allowBlank="{Boolean}true"
+                                xtype="textfield"/>
+
+                <ariaLive jcr:primaryType="cq:Widget"
+                          fieldLabel="Aria Live"
+                          fieldDescription="Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region."
+                          allowBlank="{Boolean}true"
+                          name="./ariaLive"
+                          options="/etc/tags/component-aria/live.valuelist.json"
+                          type="select"
+                          defaultValue=""
+                          xtype="selection"/>
+
+                <ariaHidden jcr:primaryType="cq:Widget"
+                            fieldLabel="Aria Hidden"
+                            fieldDescription="Indicates that the element and all of its descendants are not visible or perceivable to any user as implemented by the author."
+                            allowBlank="{Boolean}true"
+                            name="./ariaHidden"
+                            options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                            type="select"
+                            defaultValue=""
+                            xtype="selection"/>
+
+                <ariaHaspopup jcr:primaryType="cq:Widget"
+                            fieldLabel="Aria Has-Popup"
+                            fieldDescription="Indicates that the element has a popup context menu or sub-level menu."
+                            allowBlank="{Boolean}true"
+                            name="./ariaHaspopup"
+                            options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                            type="select"
+                            defaultValue=""
+                            xtype="selection"/>
+
+                <ariaAccessKey jcr:primaryType="cq:Widget"
+                               fieldLabel="Access Key"
+                               fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
+                               name="./ariaAccessKey"
+                               allowBlank="{Boolean}true"
+                               xtype="textfield"/>
+
+            </items>
+
+            <!--aria-expanded-->
+            <!--aria-controls-->
+            <!--aria-pressed (booo)-->
+            <!--aria-haspopup-->
+
+
+        </accessibilityTab>
 
 
         <!--This standard tab is being cqincluded by other components.-->
@@ -290,6 +368,12 @@
                                 xtype="cqinclude" />
                 </description>
 
+                <author
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Author"
+                        name="./author"
+                        xtype="textfield"/>
+
                 <!-- if using cq:tags, that field is for taxonomy on Content only -->
 
                 <!-- Category is the additional value on top of cq:Content's cq:tags -->
@@ -362,22 +446,6 @@
                                    xtype="selection"/>
                     </items>
                 </menuConfigGroup>
-                <accessibilityConfigGroup
-                        jcr:primaryType="cq:Widget"
-                        collapsed="{Boolean}false"
-                        collapsible="{Boolean}true"
-                        title="Web Accessibility Configuration"
-                        xtype="dialogfieldset">
-                    <items jcr:primaryType="cq:WidgetCollection">
-                        <accesskey jcr:primaryType="cq:Widget"
-                                   fieldLabel="Access Key"
-                                   name="./accesskey"
-                                   allowBlank="{Boolean}true"
-                                   xtype="textfield"/>
-
-                    </items>
-                </accessibilityConfigGroup>
-
 
                 <compositionConfigGroup
                         jcr:primaryType="cq:Widget"
