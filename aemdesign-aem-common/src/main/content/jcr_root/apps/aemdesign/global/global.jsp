@@ -61,6 +61,11 @@
     // can put language, wcmmode here
     final WCMMode CURRENT_WCMMODE = WCMMode.fromRequest(request);
     final String DESIGN_PATH = _currentDesign.getPath();
+    final boolean INCLUDE_PAGE_TIMING = true;
+    final boolean INCLUDE_PAGE_CLOUDSERVICES = true;
+    final boolean INCLUDE_PAGE_COMPONENTINIT = true;
+    final boolean INCLUDE_PAGE_CONTEXTHUB = true;       //used in Touch UI
+    final boolean INCLUDE_PAGE_CLIENTCONTEXT = false;   //used in Classic UI
 
     //remove decoration for all components
     if (CURRENT_WCMMODE != WCMMode.EDIT && CURRENT_WCMMODE != WCMMode.DESIGN) {
@@ -74,7 +79,14 @@
 
         }
     }
-
+    String[] selectors = slingRequest.getRequestPathInfo().getSelectors();
+    boolean MODE_TOUCHUI = false;
+    for (String selector : selectors) {
+        if (selector.equals("touchedit")) {
+            MODE_TOUCHUI = true;
+            break;
+        }
+    }
 
 %>
 
@@ -87,3 +99,9 @@
 <c:set var="DESIGN_PATH" value="<%= DESIGN_PATH %>"/>
 <c:set var="LOCALE" value="<%= _currentPage.getLanguage(true) %>"/>
 <c:set var="REMOVEDECORATION" value="<%= REMOVEDECORATION %>"/>
+<c:set var="INCLUDE_PAGE_TIMING" value="<%= INCLUDE_PAGE_TIMING %>"/>
+<c:set var="INCLUDE_PAGE_CONTEXTHUB" value="<%= INCLUDE_PAGE_CONTEXTHUB %>"/>
+<c:set var="INCLUDE_PAGE_CLIENTCONTEXT" value="<%= INCLUDE_PAGE_CLIENTCONTEXT%>"/>
+<c:set var="INCLUDE_PAGE_CLOUDSERVICES" value="<%= INCLUDE_PAGE_CLOUDSERVICES %>"/>
+<c:set var="INCLUDE_PAGE_COMPONENTINIT" value="<%= INCLUDE_PAGE_COMPONENTINIT %>"/>
+<c:set var="MODE_TOUCHUI" value="<%= MODE_TOUCHUI %>"/>
