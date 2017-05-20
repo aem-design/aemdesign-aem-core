@@ -1,11 +1,14 @@
 <%@ page import="com.day.cq.wcm.foundation.ELEvaluator" %>
+<%@ page import="com.day.cq.commons.Externalizer" %>
 <%@ page import="org.apache.sling.api.SlingHttpServletResponse" %><%!
 
     final String PAGE_PROP_REDIRECT = "redirectTarget";
 
+    final String DEFAULT_MAP_CONFIG_SCHEMA = "http";
+    final String SECURE_MAP_CONFIG_SCHEMA = "https";
 
     /**
-     * This method maps an absolute path to the canonical URL in the correct domain.
+     * map path using resolver
      *
      * @param path is the path to map to an actual URL
      */
@@ -13,10 +16,46 @@
         if (path == null) {
             return null;
         }
-
         return resolver.map(path);
     }
 
+    /**
+     * This method maps an absolute path to the canonical URL for HTTP
+     *
+     * @param path is the path to map to an actual URL
+     */
+    public String mappedUrl(ResourceResolver resolver, SlingHttpServletRequest slingRequest, String path) {
+        return mappedUrl(resolver, slingRequest, path, false);
+    }
+
+    /**
+     * This method maps an absolute path to the canonical URL in the correct domain.
+     *
+     * @param path is the path to map to an actual URL
+     */
+    public String mappedUrl(ResourceResolver resolver, SlingHttpServletRequest slingRequest, String path, Boolean secure) {
+        if (path == null || resolver == null || slingRequest == null) {
+            return null;
+        }
+        Externalizer externalizer = resolver.adaptTo(Externalizer.class);
+        if (secure) {
+            return externalizer.absoluteLink(slingRequest, SECURE_MAP_CONFIG_SCHEMA, resolver.map(path));
+        } else {
+            return externalizer.absoluteLink(slingRequest, DEFAULT_MAP_CONFIG_SCHEMA, resolver.map(path));
+        }
+    }
+
+    /**
+     * check if page redirect URL has been set
+     * @param _properties
+     * @param _currentPage
+     * @param _slingRequest
+     * @param response
+     * @param request
+     * @param _pageContext
+     * @return
+     * @throws Exception
+     */
     public boolean checkRedirect(ValueMap _properties, Page _currentPage, SlingHttpServletRequest _slingRequest, HttpServletResponse response, HttpServletRequest request, PageContext _pageContext) throws Exception {
 
         // read the redirect target from the 'page properties' and perform the
