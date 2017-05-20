@@ -9,7 +9,11 @@
             {"cssClass", StringUtils.EMPTY},
             {"Id", StringUtils.EMPTY}
     };
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     List<Tag> tags = getTags(_tagManager,_currentNode,"tags");
     componentProperties.put("tags", tags);

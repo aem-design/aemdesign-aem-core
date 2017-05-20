@@ -14,6 +14,7 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
+    //TODO: move this admin session usage into function
     ResourceResolver adminResourceResolver  = this.openAdminResourceResolver(_sling);
 
     try {

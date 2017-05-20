@@ -9,7 +9,11 @@
             {"path", StringUtils.EMPTY}
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     String target = _properties.get("path", String.class);
     Resource targetResource = resourceResolver.resolve(target);

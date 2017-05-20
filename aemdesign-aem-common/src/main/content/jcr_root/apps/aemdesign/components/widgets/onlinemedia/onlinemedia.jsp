@@ -13,13 +13,11 @@
             {"variant", DEFAULT_VARIANT}
     };
 
-
-    ComponentProperties componentProperties = getComponentStyleProperties(pageContext);
-    //out.println("dataAttributes before 1:" + componentProperties.get("componentAttributes", String.class));
-    componentProperties.putAll(getComponentProperties(pageContext, componentFields));
-    //out.println("dataAttributes before :" + componentProperties.get("componentAttributes", String.class));
-    componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties, _component, _sling));
-    //out.println("dataAttributes after :" + componentProperties.get("dataAttributes", String.class));
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
 //    String inlineStyle = "style=\"width:100%, height:100%\"";
     String inlineStyle = "";

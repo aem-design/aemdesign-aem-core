@@ -42,7 +42,7 @@
     componentProperties.put("showBreadcrumb", BooleanUtils.toBoolean(componentProperties.get("showBreadcrumb", String.class)));
     componentProperties.put("showToolbar", BooleanUtils.toBoolean(componentProperties.get("showToolbar", String.class)));
 
-
+    //TODO: move this admin session usage into function
     ResourceResolver adminResourceResolver = this.openAdminResourceResolver(_sling);
     try {
         TagManager adminTagManager = adminResourceResolver.adaptTo(TagManager.class);

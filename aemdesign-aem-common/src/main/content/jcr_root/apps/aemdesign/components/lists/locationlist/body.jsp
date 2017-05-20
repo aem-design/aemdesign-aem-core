@@ -13,6 +13,7 @@
         return;
     }
 
+    //TODO: move this admin session usage into function
     ResourceResolver adminResourceResolver  =  null;
     String googleApiKey = "";
     try {
@@ -62,7 +63,11 @@
             {"variant", DEFAULT_VARIANT}
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
     String badgeSelector = _properties.get("variant", DEFAULT_BADGE);
 

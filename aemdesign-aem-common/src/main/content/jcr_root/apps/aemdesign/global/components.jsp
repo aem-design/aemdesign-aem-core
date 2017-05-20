@@ -208,21 +208,6 @@
      * @param defaultValue default value to return if not set
      * @return
      */
-    @Deprecated
-    public String getComponentProperty(PageContext pageContext, String name, String defaultValue) {
-        if (pageContext == null) {
-            return "";
-        }
-        return getComponentProperty(pageContext, name, defaultValue, false);
-    }
-
-    /**
-     * Read properties for the Component do not use styles
-     * @param pageContext current page context
-     * @param name name of the property
-     * @param defaultValue default value to return if not set
-     * @return
-     */
     public Object getComponentProperty(PageContext pageContext, String name, Object defaultValue) {
         if (pageContext == null) {
             return "";
@@ -230,30 +215,6 @@
         return getComponentProperty(pageContext, name, defaultValue, false);
     }
 
-    /**
-     * Read properties for the Component, use component style to override properties if they are not set
-     * @param pageContext current page context
-     * @param name name of the property
-     * @param defaultValue default value for the property
-     * @param useStyle use styles properties if property is missing
-     * @return
-     */
-    @Deprecated
-    public String getComponentProperty(PageContext pageContext, String name, String defaultValue, Boolean useStyle) {
-        //quick fail
-        if (pageContext == null) {
-            return "";
-        }
-
-        ValueMap properties = (ValueMap) pageContext.getAttribute("properties");
-
-        if (useStyle) {
-            Style currentStyle = (Style) pageContext.getAttribute("currentStyle");
-            return getComponentProperty(properties,currentStyle,name,defaultValue,useStyle).toString();
-        } else {
-            return getComponentProperty(properties,null,name,defaultValue,useStyle).toString();
-        }
-    }
 
     /**
      * Read properties for the Component, use component style to override properties if they are not set
@@ -512,59 +473,6 @@
         return componentProperties;
     }
 
-//
-//    /**
-//     * returns component values with defaults
-//     * @param page current page
-//     * @param fieldDefaults list of component fields
-//     * @return
-//     */
-//    @Deprecated
-//    public ComponentProperties getComponentProperties(Page page, String componentPath, Object[][] fieldDefaults) {
-//        ComponentProperties componentProperties = new ComponentProperties();
-//
-//        Resource resource = page.adaptTo(Resource.class);
-//
-//        Resource componentResource = page.getContentResource(componentPath);
-//
-//        if (componentResource == null) {
-//            return componentProperties;
-//        }
-//
-//        Designer designer = resource.getResourceResolver().adaptTo(Designer.class);
-//
-//        Style currentStyle = designer.getStyle(resource);
-//
-//        for (int i = 0; i < fieldDefaults.length; i++) {
-//            Object[] field = fieldDefaults[i];
-//            if (field.length != 2) {
-//                throw new IllegalArgumentException("Key Value pair expected");
-//            }
-//            String fieldName = field[0].toString();
-//            Object fieldDefaultValue = field[1];
-//
-//            ValueMap properties = componentResource.adaptTo(ValueMap.class);
-//
-//            Object fieldValue = StringUtils.EMPTY;
-//
-//            if (currentStyle != null) {
-//                fieldValue = properties.get(fieldName, currentStyle.get(fieldName, fieldDefaultValue));
-//            } else {
-//                fieldValue = properties.get(fieldName, fieldDefaultValue);
-//            }
-//
-//            try {
-//                componentProperties.put(fieldName, fieldValue);
-//            } catch (Exception ex) {
-//                LOG.error("error adding value. " + ex);
-//            }
-//        }
-//
-//        return componentProperties;
-//    }
-
-
-
     /**
      * Depending on whether we're looking at the homepage get the page title from navigation title first
      * otherwise just get the page title
@@ -778,86 +686,6 @@
         return node;
     }
 
-
-    /**
-     * load default style properties form the component
-     * @param pageContext
-     * @return
-     */
-    @Deprecated
-    public ComponentProperties getComponentStyleProperties(PageContext pageContext) {
-
-        return getComponentProperties(pageContext,DEFAULT_FIELDS_STYLE);
-
-    }
-
-    @Deprecated
-    public String compileComponentAttributesAsAdmin(ComponentProperties componentProperties, Component component, SlingScriptHelper sling) {
-        String componentAttributes="";
-
-        if (component == null || sling == null) {
-            return componentAttributes;
-        }
-
-        ResourceResolver adminResourceResolver  = openAdminResourceResolver(sling);
-        try {
-            TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
-
-            componentAttributes = compileComponentAttributes(_adminTagManager, componentProperties, component);
-
-        } catch (Exception ex) {
-            LOG.error("compileComponentAttributesAsAdmin: " + ex.getMessage(), ex);
-            //out.write( Throwables.getStackTraceAsString(ex) );
-        } finally {
-            closeAdminResourceResolver(adminResourceResolver);
-        }
-
-        return componentAttributes;
-    }
-
-    /**
-     * compile component tag attributes based on default styling structure
-     * @param tagManager
-     * @param componentProperties
-     * @param component
-     * @return
-     */
-    @Deprecated
-    public String compileComponentAttributes(TagManager tagManager, ComponentProperties componentProperties, Component component) {
-
-        String valueId = componentProperties.get("componentId", "");
-        String valueTheme = getTagsAsValues(tagManager, " ", componentProperties.get("componentTheme", new String[]{}));
-        String valueModifiers = getTagsAsValues(tagManager, " ", componentProperties.get("componentModifiers", new String[]{}));
-        String valueModule = getTagsAsValues(tagManager, " ", componentProperties.get("componentModule", new String[]{}));
-        String valueChevron = getTagsAsValues(tagManager, " ", componentProperties.get("componentChevron", new String[]{}));
-        String valueIcon = getTagsAsValues(tagManager, " ", componentProperties.get("componentIcon", new String[]{}));
-        String valueAriaLabel = componentProperties.get("ariaLabel", "");
-        String valueAriaRole = componentProperties.get("ariaRole", "");
-
-        String attrTheme = MessageFormat.format("class=\"{0}\"", addClasses(component.getName().trim(), valueTheme, valueModifiers, valueChevron, valueIcon));
-
-        String attrId = "";
-        if (isNotEmpty(valueId)) {
-            attrId = MessageFormat.format("id=\"{0}\"", valueId);
-        }
-
-        String attrModule = "";
-        if (isNotEmpty(valueModule)) {
-            attrModule = MessageFormat.format("data-modules=\"{0}\"", valueModule);
-        }
-
-        String attrAriaLabel = "";
-        if (isNotEmpty(valueAriaLabel)) {
-            attrAriaLabel = MessageFormat.format("aria-label=\"{0}\"", valueAriaLabel);
-        }
-
-        String attrAriaRole = "";
-        if (isNotEmpty(valueAriaRole)) {
-            attrAriaRole = MessageFormat.format("role=\"{0}\"", valueAriaRole);
-        }
-
-        return addClasses(attrId, attrTheme, attrModule, attrAriaLabel, attrAriaRole);
-    }
 
     /***
      * compile a message from component properties using one of the component format tag fields

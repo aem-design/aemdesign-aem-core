@@ -70,7 +70,7 @@
         values = FormsHelper.getValues(_slingRequest, _resource, name);
 
         if (componentProperties.get("meta/type", "String").equals("Tags")){
-
+            //TODO: move this admin session usage into function
             ResourceResolver adminResourceResolver  = this.openAdminResourceResolver(_sling);
 
             try {
