@@ -1,5 +1,6 @@
 <%@include file="/apps/aemdesign/global/global.jsp" %>
 <%@include file="/apps/aemdesign/global/components.jsp" %>
+<%@include file="/apps/aemdesign/global/images.jsp" %>
 <%@include file="/apps/aemdesign/global/i18n.jsp" %>
 <%@page session="false"
         contentType="text/html; charset=utf-8"
@@ -13,20 +14,22 @@
         return;
     }
 
+
     // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - compile into a data-{name} attribute
+    //   { name, defaultValue, attributeName, valueTypeClass }
     // }
     Object[][] componentFields = {
             {"jcr:description", ""},
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
+    ComponentProperties templateProperties = getComponentProperties(
+                pageContext,
+                componentFields,
+                DEFAULT_FIELDS_STYLE,
+                DEFAULT_FIELDS_ACCESSIBILITY,
+                DEFAULT_FIELDS_METADATA);
 
-    componentProperties.put("componentAttributes", compileComponentAttributesAsAdmin(componentProperties,_component,_sling));
-    componentProperties.put("faviconsPath", "/etc/clientlibs/aemdesign/icons/favicon");
+    templateProperties.put("faviconsPath", "/etc/clientlibs/aemdesign/icons/favicon");
 
     //TODO: Add theme support or use OOTB theme
     //TODO: move Favicon config toto cloud config
@@ -51,10 +54,16 @@
 
     String[] tags = _properties.get(TagConstants.PN_TAGS,new String[0]);
 
-    componentProperties.put("keywords", getTagsAsKeywords(_tagManager,",",tags,_slingRequest.getLocale()));
-    componentProperties.put("pageTitle", currentPageTitle.concat(rootTitle));
-    componentProperties.put("description", _properties.get("description", ""));
-    componentProperties.put("canonicalUrl", mappedUrl(_resourceResolver, request.getPathInfo()));
+    templateProperties.put("keywords", getTagsAsKeywords(_tagManager,",",tags,_slingRequest.getLocale()));
+    templateProperties.put("keywordsList", getTagsAsAdmin(_sling,tags,_slingRequest.getLocale()));
+    templateProperties.put("tags", tags);
+    templateProperties.put("pageTitle", currentPageTitle.concat(rootTitle));
+    templateProperties.put("description", _properties.get("description", ""));
+    templateProperties.put("canonicalUrl", mappedUrl(_resourceResolver, _slingRequest, request.getPathInfo()));
+    templateProperties.put("imageUrl", mappedUrl(_resourceResolver, _slingRequest, getThumbnailUrl(_currentPage,_resourceResolver)));
+    templateProperties.put("imageUrlSecure", mappedUrl(_resourceResolver, _slingRequest, getThumbnailUrl(_currentPage,_resourceResolver), true));
+
+
 
     // set doctype
     if (_currentDesign != null) {
@@ -62,13 +71,16 @@
     }
 
     //this allow manually overriding language codes if needed
-    componentProperties.put("language", getPageLanguage(_sling,_currentPage));
+    templateProperties.put("language", getPageLanguage(_sling,_currentPage));
 
+    request.setAttribute("templateProperties",templateProperties);
 %>
-<c:set var="componentProperties" value="<%= componentProperties %>"/>
+<c:set var="templateProperties" value="<%= templateProperties %>"/>
 <!DOCTYPE html>
-<html lang="${componentProperties.language}">
+<html lang="${templateProperties.language}">
 <cq:include script="head.jsp"/>
 <cq:include script="body.jsp"/>
-<%--<cq:include path="timing" resourceType="foundation/components/timing"/>--%>
+<c:if test="${INCLUDE_PAGE_TIMING}">
+    <cq:include path="timing" resourceType="foundation/components/timing"/>
+</c:if>
 </html>
