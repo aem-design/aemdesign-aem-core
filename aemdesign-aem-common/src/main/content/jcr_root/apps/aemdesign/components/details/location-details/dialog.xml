@@ -78,14 +78,13 @@
                                 jcr:primaryType="cq:Widget"
                                 path="/apps/aemdesign/global/dialog/classic/common/items/pageAdvancedTab/items/menuConfigGroup.infinity.json"
                                 xtype="cqinclude"/>
-                        <accessibilityConfigGroup
-                                jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/global/dialog/classic/common/items/pageAdvancedTab/items/accessibilityConfigGroup.infinity.json"
-                                xtype="cqinclude"/>
                     </items>
                 </advancedTab>
                 <styleTab jcr:primaryType="cq:Panel"
                         path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude" />
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
                         xtype="cqinclude" />
 
             </items>
