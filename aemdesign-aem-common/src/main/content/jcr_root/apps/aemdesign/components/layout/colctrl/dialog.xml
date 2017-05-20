@@ -3,28 +3,35 @@
           jcr:primaryType="cq:Dialog"
           helpPath="en/cq/current/wcm/default_components.html#Columns"
           title="Column Control"
-          xtype="tabpanel">
+          xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
-        <tab-layout
-                jcr:primaryType="cq:Panel"
-                title="Layout"
-                xtype="panel">
+        <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <layout
+                <tab-layout
+                        jcr:primaryType="cq:Panel"
+                        title="Layout"
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <layout
+                                jcr:primaryType="cq:Widget"
+                                allowBlank="true"
+                                defaultValue=""
+                                value=""
+                                fieldLabel="Column Layout"
+                                name="./layout"
+                                options="/etc/tags/component-dialog/layout/colctrl.valuelist.json"
+                                type="select"
+                                xtype="selection"/>
+                    </items>
+                </tab-layout>
+                <styleTab
                         jcr:primaryType="cq:Widget"
-                        allowBlank="true"
-                        defaultValue=""
-                        value=""
-                        fieldLabel="Column Layout"
-                        name="./layout"
-                        options="/etc/tags/component-dialog/layout/colctrl.valuelist.json"
-                        type="select"
-                        xtype="selection"/>
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude"/>
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                                  xtype="cqinclude"/>
             </items>
-        </tab-layout>
-        <styleTab
-                jcr:primaryType="cq:Widget"
-                path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
-                xtype="cqinclude" />
+        </tabs>
     </items>
 </jcr:root>

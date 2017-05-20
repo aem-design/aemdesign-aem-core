@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:rep="internal"
     jcr:primaryType="cq:Dialog"
-    jcr:mixinTypes="[rep:AccessControllable]"
     title="Redirect Notification"
     xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
@@ -15,13 +14,10 @@
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
                         xtype="cqinclude" />
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                                  xtype="cqinclude" />
             </items>
         </tabs>
     </items>
-    <rep:policy jcr:primaryType="rep:ACL">
-        <deny
-            jcr:primaryType="rep:DenyACE"
-            rep:principalName="contributor"
-            rep:privileges="{Name}[jcr:read]" />
-    </rep:policy>
 </jcr:root>

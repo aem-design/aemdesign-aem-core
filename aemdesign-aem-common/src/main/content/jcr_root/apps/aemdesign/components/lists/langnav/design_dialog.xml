@@ -3,17 +3,23 @@
     jcr:primaryType="cq:Dialog"
     jcr:mixinTypes="[rep:AccessControllable]"
     title="List Nav (Design)"
-    xtype="tabpanel">
-
+          xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
-        <general
-                jcr:primaryType="cq:Widget"
-                path="/apps/aemdesign/components/lists/langnav/dialog/items/general.infinity.json"
-                xtype="cqinclude" />
-        <styleTab
-                jcr:primaryType="cq:Widget"
-                path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
-                xtype="cqinclude" />
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <general
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/lists/langnav/dialog/items/general.infinity.json"
+                        xtype="cqinclude" />
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude" />
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                                  xtype="cqinclude" />
+            </items>
+        </tabs>
     </items>
     <rep:policy jcr:primaryType="rep:ACL">
         <deny

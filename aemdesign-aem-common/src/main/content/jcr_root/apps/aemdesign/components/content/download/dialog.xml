@@ -1,79 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    jcr:primaryType="cq:Dialog"
-    helpPath="en/cq/current/wcm/default_components.html#Download"
-    title="Download"
-    xtype="tabpanel">
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:rep="internal"
+          jcr:primaryType="cq:Dialog"
+          helpPath="en/cq/current/wcm/default_components.html#Download"
+          title="Download"
+          xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
-       <download
-               jcr:primaryType="cq:Widget"
-               title="File Download"
-               xtype="panel">
-               <items jcr:primaryType="cq:WidgetCollection">
-                    <alternative_title
-                            jcr:primaryType="cq:Widget"
-                            fieldLabel="Alternative title"
-                            name="./alt-title"
-                            xtype="textfield"/>
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <download
+                        jcr:primaryType="cq:Widget"
+                        title="File Download"
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <alternative_title
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Alternative title"
+                                name="./alt-title"
+                                xtype="textfield"/>
 
-                    <description
-                            jcr:primaryType="cq:Widget"
-                            fieldLabel="Description"
-                            name="./description"
-                            xtype="textarea"/>
+                        <description
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Description"
+                                name="./description"
+                                xtype="textarea"/>
 
-                   <useDocumentIcon
-                           jcr:primaryType="cq:Widget"
-                           fieldLabel="Use Document Icon"
-                           name="./useDocumentIcon"
-                           defaultValue="false"
-                           type="checkbox"
-                           xtype="selection"/>
+                        <useDocumentIcon
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Use Document Icon"
+                                name="./useDocumentIcon"
+                                defaultValue="false"
+                                type="checkbox"
+                                xtype="selection"/>
 
-                   <thumbnailStyle
-                           jcr:primaryType="cq:Widget"
-                           title="Thumbnail"
-                           xtype="dialogfieldset">
-                       <items jcr:primaryType="cq:WidgetCollection">
-                           <thumbnailCustom
-                                   jcr:primaryType="cq:Widget"
-                                   defaultValue=""
-                                   value=""
-                                   allowBlank="{Boolean}true"
-                                   fieldLabel="Generate Thumbnail"
-                                   fieldDescription="Default pick rendition from DAM, Custom generate rendition"
-                                   options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                   name="./thumbnailCustom"
-                                   type="select"
-                                   xtype="selection">
-                           </thumbnailCustom>
-                           <size
-                                   jcr:primaryType="cq:Widget"
-                                   fieldLabel="Icon Size (w,h)"
-                                   fieldDescription="blank values are not added as attributes"
-                                   heightParameter="./thumbnailHeight"
-                                   widthParameter="./thumbnailWidth"
-                                   xtype="sizefield"/>
-                       </items>
-                   </thumbnailStyle>
+                        <thumbnailStyle
+                                jcr:primaryType="cq:Widget"
+                                title="Thumbnail"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <thumbnailCustom
+                                        jcr:primaryType="cq:Widget"
+                                        defaultValue=""
+                                        value=""
+                                        allowBlank="{Boolean}true"
+                                        fieldLabel="Generate Thumbnail"
+                                        fieldDescription="Default pick rendition from DAM, Custom generate rendition"
+                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                        name="./thumbnailCustom"
+                                        type="select"
+                                        xtype="selection">
+                                </thumbnailCustom>
+                                <size
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Icon Size (w,h)"
+                                        fieldDescription="blank values are not added as attributes"
+                                        heightParameter="./thumbnailHeight"
+                                        widthParameter="./thumbnailWidth"
+                                        xtype="sizefield"/>
+                            </items>
+                        </thumbnailStyle>
 
-                    <file
-                            jcr:primaryType="cq:Widget"
-                            allowUpload="{Boolean}false"
-                            allowBlank="{Boolean}true"
-                            autoUploadDelay="1"
-                            ddGroups="[media]"
-                            fieldLabel="File"
-                            fileNameParameter="./fileName"
-                            fileReferenceParameter="./fileReference"
-                            name="./file"
-                            xtype="html5smartfile"/>
-                </items>
-        </download>
+                        <file
+                                jcr:primaryType="cq:Widget"
+                                allowUpload="{Boolean}false"
+                                allowBlank="{Boolean}true"
+                                autoUploadDelay="1"
+                                ddGroups="[media]"
+                                fieldLabel="File"
+                                fileNameParameter="./fileName"
+                                fileReferenceParameter="./fileReference"
+                                name="./file"
+                                xtype="html5smartfile"/>
+                    </items>
+                </download>
 
-        <styleTab
-                jcr:primaryType="cq:Panel"
-                path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
-                xtype="cqinclude" />
+                <styleTab
+                        jcr:primaryType="cq:Panel"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude"/>
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                                  xtype="cqinclude"/>
+            </items>
+        </tabs>
     </items>
 </jcr:root>

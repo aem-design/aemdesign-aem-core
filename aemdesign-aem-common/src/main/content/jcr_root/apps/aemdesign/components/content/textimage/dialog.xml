@@ -5,7 +5,7 @@
     helpPath="en/cq/current/wcm/default_components.html#Text Image"
     xtype="tabpanel">
     <items jcr:primaryType="cq:WidgetCollection">
-        <tab1
+        <basicTab
             jcr:primaryType="cq:Widget"
             anchor="100%"
             title="Text"
@@ -117,8 +117,8 @@
                     value="true"
                     xtype="hidden"/>
             </items>
-        </tab1>
-        <tab2
+        </basicTab>
+        <imageTab
             jcr:primaryType="cq:Widget"
             allowUpload="{Boolean}false"
             cropParameter="./image/imageCrop"
@@ -132,7 +132,7 @@
             sizeLimit="100"
             title="Image"
             xtype="html5smartimage"/>
-        <tab3
+        <advancedTab
             jcr:primaryType="cq:Widget"
             title="Advanced Image Properties"
             xtype="panel">
@@ -218,11 +218,14 @@
                         xtype="selection"
                     />
             </items>
-        </tab3>
-        <tab4
+        </advancedTab>
+        <styleTab
                 jcr:primaryType="cq:Widget"
                 path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
                 xtype="cqinclude" />
+        <accessibilityTab jcr:primaryType="cq:Panel"
+                          path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                          xtype="cqinclude" />
 
     </items>
 </jcr:root>

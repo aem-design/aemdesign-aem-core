@@ -1,85 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-    jcr:primaryType="cq:Dialog"
-    activeTab="{Long}0"
-    helpPath="en/cq/current/wcm/default_components.html#Image"
-    title="Content Block"
-    xtype="tabpanel">
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="cq:Dialog"
+          activeTab="{Long}0"
+          helpPath="en/cq/current/wcm/default_components.html#Image"
+          title="Content Block"
+          xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
-        <tab_basic
-            jcr:primaryType="cq:Panel"
-            border="false"
-            height=""
-            title="Basic"
-            width=""
-            xtype="panel">
+        <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <title
-                    jcr:primaryType="cq:Widget"
-                    collapsed="false"
-                    collapsible="false"
-                    xtype="dialogfieldset">
+                <tab_basic
+                        jcr:primaryType="cq:Panel"
+                        border="false"
+                        height=""
+                        title="Basic"
+                        width=""
+                        xtype="panel">
                     <items jcr:primaryType="cq:WidgetCollection">
                         <title
-                            jcr:primaryType="cq:Widget"
-                            path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/title.infinity.json"
-                            xtype="cqinclude" />
-                        <hideTitle
-                            jcr:primaryType="cq:Widget"
-                            path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/hideTitle.infinity.json"
-                            xtype="cqinclude" />
+                                jcr:primaryType="cq:Widget"
+                                collapsed="false"
+                                collapsible="false"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <title
+                                        jcr:primaryType="cq:Widget"
+                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/title.infinity.json"
+                                        xtype="cqinclude"/>
+                                <hideTitle
+                                        jcr:primaryType="cq:Widget"
+                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/hideTitle.infinity.json"
+                                        xtype="cqinclude"/>
 
-                        <hideTitleSeparator
-                            jcr:primaryType="cq:Widget"
-                            path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/hideTitleSeparator.infinity.json"
-                            xtype="cqinclude" />
+                                <hideTitleSeparator
+                                        jcr:primaryType="cq:Widget"
+                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/hideTitleSeparator.infinity.json"
+                                        xtype="cqinclude"/>
 
-                        <variant
-                            jcr:primaryType="cq:Widget"
-                                defaultValue=""
-                                fieldLabel="Variant"
-                                name="./variant"
-                                type="select"
-                                xtype="selection">
+                                <variant
+                                        jcr:primaryType="cq:Widget"
+                                        defaultValue=""
+                                        fieldLabel="Variant"
+                                        name="./variant"
+                                        type="select"
+                                        xtype="selection">
 
-                            <options jcr:primaryType="cq:WidgetCollection">
-                                <default
-                                        jcr:primaryType="nt:unstructured"
-                                        value=""
-                                        text="Default" />
-                                <section
-                                        jcr:primaryType="nt:unstructured"
-                                        value="section"
-                                        text="Section (With Wrapper)" />
-                                <container
-                                        jcr:primaryType="nt:unstructured"
-                                        value="container"
-                                        text="Container (No Wrapper)" />
-                                <floating
-                                        jcr:primaryType="nt:unstructured"
-                                        value="floating"
-                                        text="Floating Section" />
-                                <advsection
-                                        jcr:primaryType="nt:unstructured"
-                                        value="advsection"
-                                        text="Advanced Section" />
-                                <fieldset
-                                        jcr:primaryType="nt:unstructured"
-                                        value="fieldset"
-                                        text="Field Set in Form" />
-                                <descriptionlist
-                                        jcr:primaryType="nt:unstructured"
-                                        value="descriptionlist"
-                                        text="Description List" />
-                            </options>
-                        </variant>
+                                    <options jcr:primaryType="cq:WidgetCollection">
+                                        <default
+                                                jcr:primaryType="nt:unstructured"
+                                                value=""
+                                                text="Default"/>
+                                        <section
+                                                jcr:primaryType="nt:unstructured"
+                                                value="section"
+                                                text="Section (With Wrapper)"/>
+                                        <container
+                                                jcr:primaryType="nt:unstructured"
+                                                value="container"
+                                                text="Container (No Wrapper)"/>
+                                        <floating
+                                                jcr:primaryType="nt:unstructured"
+                                                value="floating"
+                                                text="Floating Section"/>
+                                        <advsection
+                                                jcr:primaryType="nt:unstructured"
+                                                value="advsection"
+                                                text="Advanced Section"/>
+                                        <fieldset
+                                                jcr:primaryType="nt:unstructured"
+                                                value="fieldset"
+                                                text="Field Set in Form"/>
+                                        <descriptionlist
+                                                jcr:primaryType="nt:unstructured"
+                                                value="descriptionlist"
+                                                text="Description List"/>
+                                    </options>
+                                </variant>
+                            </items>
+                        </title>
                     </items>
-                </title>
+                </tab_basic>
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude"/>
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                                  xtype="cqinclude"/>
             </items>
-        </tab_basic>
-        <styleTab
-                jcr:primaryType="cq:Widget"
-                path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
-                xtype="cqinclude" />
+        </tabs>
     </items>
 </jcr:root>

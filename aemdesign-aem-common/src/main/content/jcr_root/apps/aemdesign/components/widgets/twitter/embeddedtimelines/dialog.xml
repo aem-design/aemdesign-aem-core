@@ -4,7 +4,7 @@
           title="Twitter Embedded Timeline"
           xtype="tabpanel">
     <items jcr:primaryType="cq:WidgetCollection">
-        <tab_basic
+        <basicTab
                 jcr:primaryType="cq:Panel"
                 title="Twitter">
             <items jcr:primaryType="cq:WidgetCollection">
@@ -36,8 +36,8 @@
                         name="./widgetScriptSrc"
                         xtype="textfield"/>
             </items>
-        </tab_basic>
-        <tab-text
+        </basicTab>
+        <textTab
                 jcr:primaryType="cq:Widget"
                 anchor="100%"
                 title="Text"
@@ -48,97 +48,9 @@
                         path="/apps/aemdesign/global/dialog/text-full.infinity.json"
                         xtype="cqinclude" />
             </items>
-        </tab-text>
+        </textTab>
 
-        <!--<style
-                jcr:primaryType="cq:Widget"
-                title="Style"
-                xtype="panel">
-            <items jcr:primaryType="cq:WidgetCollection">
-                <widthheight
-                        jcr:primaryType="cq:Widget"
-                        fieldDescription="custom size"
-                        fieldLabel="Custom Width and Height"
-                        xtype="sizefield"/>
-
-                <theme
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Theme"
-                        name="./theme"
-                        xtype="textfield" />
-                <linkColor
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Link Color"
-                        name="./linkColor"
-                        xtype="textfield" />
-                <chrome
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Chrome"
-                        name="./chrome"
-                        xtype="textfield" />
-
-                <borderColor
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Border Color"
-                        name="./borderColor"
-                        xtype="textfield" />
-
-                <language
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Language"
-                        name="./language"
-                        xtype="textfield" />
-
-                <limit
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Tweet Limit"
-                        name="./limit"
-                        xtype="textfield" />
-
-                <related
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Web Intent Related Users"
-                        name="./related"
-                        xtype="textfield" />
-                <polite
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="ARIA politeness"
-                        name="./polite"
-                        xtype="textfield" />
-
-                <screenName
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Screen Name"
-                        name="./screenName"
-                        xtype="textfield" />
-                <listOwnerScreenName
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="List Owner Screen Name"
-                        name="./listOwnerScreenName"
-                        xtype="textfield" />
-                <listSlug
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Lists"
-                        name="./listSlug"
-                        xtype="textfield" />
-                <showReplies
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Show Replies"
-                        name="./showReplies"
-                        xtype="textfield" />
-                <favoritesScreenName
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Favorites Screen Name"
-                        name="./favoritesScreenName"
-                        xtype="textfield" />
-                <favoritesScreenId
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Favorites Screen Id"
-                        name="./favoritesScreenId"
-                        xtype="textfield" />
-            </items>
-        </style>-->
-        <tab2
+        <imageTab
                 jcr:primaryType="cq:Widget"
                 allowUpload="{Boolean}false"
                 cropParameter="./imageCrop"
@@ -155,6 +67,9 @@
                 jcr:primaryType="cq:Widget"
                 path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
                 xtype="cqinclude" />
+        <accessibilityTab jcr:primaryType="cq:Panel"
+                          path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                          xtype="cqinclude"/>
 
         <advancedStyle
                 jcr:primaryType="cq:Panel"

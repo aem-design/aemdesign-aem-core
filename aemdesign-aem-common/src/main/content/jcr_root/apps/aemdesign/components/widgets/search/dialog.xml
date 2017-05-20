@@ -89,6 +89,9 @@
                         path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
                         xtype="cqinclude" />
 
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                                  xtype="cqinclude"/>
                 <feedsTab
                         jcr:primaryType="cq:Panel"
                         title="Quick Search"
