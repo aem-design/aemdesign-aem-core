@@ -2,7 +2,4 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Tag"
     jcr:title="Event Page"
-    jcr:title.en="Event"
-    sling:resourceType="cq/tagging/components/tag"
-    tagID="tags:content-type/event"
-    tagPath="/etc/tags/content-type/event"/>
+    sling:resourceType="cq/tagging/components/tag"/>
