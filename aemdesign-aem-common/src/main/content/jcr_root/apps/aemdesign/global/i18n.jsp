@@ -2,18 +2,24 @@
 <%@page session="false"%>
 <%!
 
-    final String LANGUAGE_TAG_PATH = "/etc/tags/language";
-    final String LANGUAGE_DEFAULT = Locale.ENGLISH.getLanguage();
+    public static String LANGUAGE_TAG_PATH = "/etc/tags/language";
+    public static String LANGUAGE_DEFAULT = Locale.ENGLISH.getLanguage();
+    public static String LANGUAGE_DEFAULT_LABEL = "Missing Label";
 
 
     public static String getDefaultLabelIfEmpty(String currentLabel, String currentCategory, String defaultCode, String defaultCategory, com.day.cq.i18n.I18n i18n, String... params) {
-
+        String label = "";
         if (StringUtils.isEmpty(currentLabel)) {
-            return i18n.get(defaultCode, defaultCategory, params);
+            label = i18n.get(defaultCode, defaultCategory, params);
         } else {
-            return i18n.get(currentLabel, currentCategory, params);
+            label = i18n.get(currentLabel, currentCategory, params);
         }
 
+        if (isEmpty(label)) {
+            label = LANGUAGE_DEFAULT_LABEL;
+        }
+
+        return label;
     }
 
 
