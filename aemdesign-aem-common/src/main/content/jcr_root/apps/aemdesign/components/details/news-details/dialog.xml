@@ -19,6 +19,10 @@
                                 jcr:primaryType="cq:Widget"
                                 path="/apps/aemdesign/global/dialog/classic/common/items/pageBasicTab/items/description.infinity.json"
                                 xtype="cqinclude"/>
+                        <author
+                                jcr:primaryType="cq:Widget"
+                                path="/apps/aemdesign/global/dialog/classic/common/items/pageBasicTab/items/author.infinity.json"
+                                xtype="cqinclude"/>
                         <publishDate
                                 jcr:primaryType="cq:Widget"
                                 fieldLabel="Publish Date"
@@ -56,13 +60,16 @@
                         xtype="cqinclude"/>
 
                 <advancedTab jcr:primaryType="cq:Panel"
-                             path="/apps/aemdesign/global/dialog/classic/common/items/pageAdvancedTab.infinity.json"
-                             xtype="cqinclude" />
+                        path="/apps/aemdesign/global/dialog/classic/common/items/pageAdvancedTab.infinity.json"
+                        xtype="cqinclude" />
 
                 <styleTab
                         jcr:primaryType="cq:Panel"
                         path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
                         xtype="cqinclude"/>
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                        xtype="cqinclude" />
             </items>
         </tabs>
     </items>

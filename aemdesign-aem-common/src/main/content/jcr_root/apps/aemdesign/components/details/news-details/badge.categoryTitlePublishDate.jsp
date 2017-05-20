@@ -24,23 +24,11 @@
 
     };
 
-    ComponentProperties componentProperties = getComponentProperties(thisPage, componentPath, componentFields);
+    ComponentProperties componentProperties = getComponentProperties(pageContext, thisPage, componentPath, componentFields);
 
-    ResourceResolver adminResourceResolver  = this.openAdminResourceResolver(_sling);
+    String[] tags = getMultiplePropertyString(getComponentNode(thisPage,componentPath),TagConstants.PN_TAGS);
 
-    try {
-
-
-        TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
-        componentProperties.put("componentAttributes", compileComponentAttributes(_adminTagManager, componentProperties, _component));
-        List<Tag> tags = getTags(_adminTagManager, getComponentNode(thisPage,componentPath), TagConstants.PN_TAGS);
-        componentProperties.put("tags",tags);
-
-    } catch (Exception ex) {
-        out.write( Throwables.getStackTraceAsString(ex) );
-    } finally {
-        this.closeAdminResourceResolver(adminResourceResolver);
-    }
+    componentProperties.put("tags",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));
 
     componentProperties.put("url", mappedUrl(_resourceResolver, url));
     componentProperties.put("img", img);

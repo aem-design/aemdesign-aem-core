@@ -15,53 +15,42 @@
             {"description", _pageProperties.get(JcrConstants.JCR_DESCRIPTION, StringUtils.EMPTY)},
             {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
             {"showToolbar", DEFAULT_SHOW_TOOLBAR},
+            {"author", ""},
             {TagConstants.PN_TAGS, new String[]{}},
             {"variant", DEFAULT_VARIANT}
     };
 
-    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields);
+    ComponentProperties componentProperties = getComponentProperties(pageContext, componentFields, DEFAULT_FIELDS_STYLE, DEFAULT_FIELDS_ACCESSIBILITY);
 
     componentProperties.put("showBreadcrumb", BooleanUtils.toBoolean(componentProperties.get("showBreadcrumb", String.class)));
     componentProperties.put("showToolbar", BooleanUtils.toBoolean(componentProperties.get("showToolbar", String.class)));
-
-    componentProperties.putAll(getComponentStyleProperties(pageContext));
 
     Calendar publishDate = _properties.get("publishDate",_pageProperties.get(JcrConstants.JCR_CREATED, Calendar.getInstance()));
 
     componentProperties.put("publishDate",publishDate);
 
+    //get format strings from dictionary
     String dateFormatString = _i18n.get("publishDateFormat",I18N_CATEGORY);
     String dateDisplayFormatString = _i18n.get("publishDateDisplayFormat",I18N_CATEGORY);
 
+    //format date into formatted date
     SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString);
     String publishDateText = dateFormat.format(publishDate.getTime());
 
+    //format date into display date
     dateFormat = new SimpleDateFormat(dateDisplayFormatString);
     String publishDisplayDateText = dateFormat.format(publishDate.getTime());
 
     componentProperties.put("publishDateText",publishDateText);
     componentProperties.put("publishDisplayDateText",publishDisplayDateText);
 
-    String newsStatusLabel = _i18n.get("newsDateStatusText", I18N_CATEGORY, publishDateText, publishDisplayDateText);
-    componentProperties.put("newsStatusLabel",newsStatusLabel);
+    //get full published date display text
+    String newsDateStatusText = _i18n.get("newsDateStatusText", I18N_CATEGORY, publishDateText, publishDisplayDateText);
+    componentProperties.put("newsDateStatusText",newsDateStatusText);
 
-    ResourceResolver adminResourceResolver  = this.openAdminResourceResolver(_sling);
+    String[] tags = getMultiplePropertyString(_currentNode,TagConstants.PN_TAGS);
 
-    try {
-        TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
-
-        componentProperties.put("componentAttributes", compileComponentAttributes(_adminTagManager, componentProperties, _component));
-
-        List<Tag> tags = getTags(_adminTagManager, _currentNode, TagConstants.PN_TAGS);
-
-        componentProperties.put("tags",tags);
-
-    } catch (Exception ex) {
-        out.write( Throwables.getStackTraceAsString(ex) );
-    } finally {
-        this.closeAdminResourceResolver(adminResourceResolver);
-    }
-
+    componentProperties.put("tags",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));
 
 %>
 

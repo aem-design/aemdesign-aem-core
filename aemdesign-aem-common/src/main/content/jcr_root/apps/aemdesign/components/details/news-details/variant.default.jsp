@@ -1,24 +1,28 @@
-<div class="wrapper visible">
-    <c:if test="${componentProperties.showBreadcrumb }">
-        <cq:include path="breadcrumb" resourceType="aemdesign/components/layout/breadcrumb"/>
+<div ${componentProperties.componentAttributes}>
+    <c:if test="${not empty componentProperties.title}">
+    <h1>${componentProperties.title}</h1>
     </c:if>
-
-
-    <c:if test="${componentProperties.showToolbar }">
-        <cq:include path="toolbar" resourceType="aemdesign/components/layout/navbar"/>
+    <c:if test="${not empty componentProperties.author}">
+    <div class="author">${componentProperties.author}</div>
     </c:if>
-</div>
-
-<div class="wrapper">
-    <div ${componentProperties.componentAttributes}>
-        <header class="page_header">
-            <div class="hgroup">
-                <h1>${componentProperties.title}</h1>
-            </div>
-            <c:if test="${not empty componentProperties.tags}">
-                <span class="label">${componentProperties.tags[0].localizedTitles[LOCALE]}</span>
-            </c:if>
-            ${componentProperties.newsStatusLabel}
-        </header>
+    <c:if test="${not empty componentProperties.tags}">
+        <div class="tags">
+        <c:forEach items="${templateProperties.keywordsList}" var="tag">
+            <span class="tag badge badge-default" data-value="${tag.value}">${tag.title}</span>
+        </c:forEach>
+        </div>
+    </c:if>
+    <c:if test="${not empty componentProperties.newsDateStatusText}">
+    <div class="published">${componentProperties.newsDateStatusText}</div>
+    </c:if>
+    <c:if test="${not empty componentProperties.showBreadcrumb and not empty componentProperties.showToolbar}">
+    <div class="tools">
+        <c:if test="${componentProperties.showBreadcrumb }">
+            <cq:include path="breadcrumb" resourceType="aemdesign/components/layout/breadcrumb"/>
+        </c:if>
+        <c:if test="${componentProperties.showToolbar }">
+            <cq:include path="toolbar" resourceType="aemdesign/components/layout/navbar"/>
+        </c:if>
     </div>
+    </c:if>
 </div>
