@@ -6,6 +6,7 @@
 
 <!--contexthub: start-->
 <c:if test="${INCLUDE_PAGE_CONTEXTHUB}">
+    <!-- include granite/contexthub/components/contexthub -->
     <sling:include path="contexthub" resourceType="granite/contexthub/components/contexthub" />
 </c:if>
 <!--contexthub: end-->
