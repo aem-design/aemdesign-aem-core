@@ -93,6 +93,46 @@
             </items>
         </metadataTab>
 
+        <analyticsTab jcr:primaryType="cq:Panel"
+                  title="Analytics">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <analyticsHitType jcr:primaryType="cq:Widget"
+                                   fieldLabel="Hit Type"
+                                   allowBlank="{Boolean}true"
+                                   name="./analyticsHitType"
+                                   options="/etc/tags/component-analytics/hittype.valuelist.json"
+                                   type="select"
+                                   defaultValue=""
+                                   xtype="selection"/>
+                <analyticsEventCategory  jcr:primaryType="cq:Widget"
+                                allowBlank="{Boolean}true"
+                                defaultValue=""
+                                value=""
+                                fieldLabel="Event Category"
+                                fieldDescription="Specifies the event category"
+                                name="./analyticsEventCategory"
+                                namespaces="[aemdesign]"
+                                xtype="tags"/>
+                <analyticsEventAction  jcr:primaryType="cq:Widget"
+                              allowBlank="{Boolean}true"
+                              defaultValue=""
+                              value=""
+                              fieldLabel="Event Action"
+                              fieldDescription="Specifies the event action"
+                              name="./analyticsEventAction"
+                              namespaces="[aemdesign]"
+                              xtype="tags"/>
+                <analyticsEventLabel  jcr:primaryType="cq:Widget"
+                             allowBlank="{Boolean}true"
+                             fieldDescription="Specifies the event label"
+                             fieldLabel="Event Label"
+                             name="./analyticsEventLabel"
+                             xtype="textfield"/>
+            </items>
+        </analyticsTab>
+
+
+
         <styleTab jcr:primaryType="cq:Panel"
                    title="Style">
             <items jcr:primaryType="cq:WidgetCollection">
@@ -440,7 +480,7 @@
                                    fieldDescription="Color to be used for highlighting in Site Menu"
                                    allowBlank="{Boolean}true"
                                    name="./menuColor"
-                                   options="/etc/tags/component-style/components/sitenav/color.valuelist.json"
+                                   options="/etc/tags/component-style/components/navlist/color.valuelist.json"
                                    type="select"
                                    defaultValue=""
                                    xtype="selection"/>
