@@ -58,7 +58,7 @@
         TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
 
 
-        String path = "component-style:components/sitenav/color/" + componentProperties.put("menuColor", String.class);
+        String path = "component-style:components/navlist/color/" + componentProperties.put("menuColor", String.class);
         Tag tag = _adminTagManager.resolve(path);
 
         componentProperties.put("menuColorCode", (tag == null ? "": tag.getDescription()));
