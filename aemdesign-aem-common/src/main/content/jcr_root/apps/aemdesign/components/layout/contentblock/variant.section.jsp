@@ -1,5 +1,3 @@
-<div class="wrapper visible">
-    <div ${componentProperties.componentAttributes}>
+<section ${componentProperties.componentAttributes}>
     <cq:include path="par" resourceType="foundation/components/parsys"/>
-    </div>
-</div>
+</section>

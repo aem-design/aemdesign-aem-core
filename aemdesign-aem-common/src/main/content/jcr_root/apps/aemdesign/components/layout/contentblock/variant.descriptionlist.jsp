@@ -1,5 +1,5 @@
-<div ${componentProperties.componentAttributes}>
-    <dl role="row">
+<section ${componentProperties.componentAttributes}>
+    <dl role="row" ${componentProperties.componentAttributes}>
         <cq:include path="par" resourceType="foundation/components/parsys"/>
     </dl>
-</div>
+</section>

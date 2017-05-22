@@ -53,11 +53,7 @@
                                         <section
                                                 jcr:primaryType="nt:unstructured"
                                                 value="section"
-                                                text="Section (With Wrapper)"/>
-                                        <container
-                                                jcr:primaryType="nt:unstructured"
-                                                value="container"
-                                                text="Container (No Wrapper)"/>
+                                                text="Section"/>
                                         <floating
                                                 jcr:primaryType="nt:unstructured"
                                                 value="floating"
