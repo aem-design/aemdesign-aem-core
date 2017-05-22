@@ -1,5 +1,5 @@
 <div ${componentProperties.componentAttributes}>
-    <form ${componentProperties.dataAttributes} name="search" action="${componentProperties.searchURL}"
+    <form ${componentProperties.componentAttributes} name="search" action="${componentProperties.searchURL}"
                                                 method="${componentProperties.formMethod}"
                                                 data-modules="Search">
         <input type="search"

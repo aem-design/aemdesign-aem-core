@@ -42,7 +42,7 @@
     String listStartTag =
             (list.isOrdered() ? "<ol " : "<ul ") +
                     "class=\"list_row " + (splitList ? "split-list " : "") + _xssAPI.encodeForHTML(cls) + " " + cssClass + "\"" +
-                    componentProperties.get("dataAttributes", String.class) +
+                    componentProperties.get("componentAttributes", String.class) +
                     " >";
 
     String listEndTag = list.isOrdered() ? "</ol>" : "</ul>";

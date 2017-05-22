@@ -76,7 +76,7 @@
 <c:set var="innerComponentProperties" value="<%=componentProperties %>"/>
 
 
-<div ${componentProperties.componentAttributes} ${innerComponentProperties.dataAttributes}
+<div ${componentProperties.componentAttributes}
         <c:if test="${CURRENT_WCMMODE != WCMMODE_DISABLED}">
             style="height: ${innerComponentProperties.imageLength}px; width: ${innerComponentProperties.imageWidth}px"
         </c:if>
