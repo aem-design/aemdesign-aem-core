@@ -1,7 +1,7 @@
 //searchlist - behaviour
 window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
-window.AEMDESIGN.components.sitenav = AEMDESIGN.components.searchlist || {};
+window.AEMDESIGN.components.searchlist = AEMDESIGN.components.searchlist || {};
 
 (function ($, _, ko, ns, window, undefined) { //add additional dependencies
 
@@ -17,4 +17,4 @@ window.AEMDESIGN.components.sitenav = AEMDESIGN.components.searchlist || {};
 
     });
 
-})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.sitenav, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.searchlist, this); //pass in additional dependencies
