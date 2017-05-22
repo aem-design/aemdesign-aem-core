@@ -1,6 +1,6 @@
 <header role="banner" class="dropdown_nav topmenu">
     <c:set var="menuColor" value=""/>
-    <nav id="site_nav" role="navigation" aria-labelledby="firstLabel" data-modules='sitenav' current-menu-color="${componentProperties.currentMenuColor}">
+    <nav id="site_nav" role="navigation" aria-labelledby="firstLabel" data-modules='navlist' current-menu-color="${componentProperties.currentMenuColor}">
         <h2 span id="firstLabel" class="hidden">${componentProperties.mainMenu}</h2>
         <div class="wrapper">
             <c:if test="${not empty(componentProperties.menuItems)}">

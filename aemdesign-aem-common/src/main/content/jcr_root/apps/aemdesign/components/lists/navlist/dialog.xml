@@ -2,7 +2,7 @@
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:rep="internal"
     jcr:primaryType="cq:Dialog"
     helpPath="en/cq/current/wcm/default_components.html#List"
-    title="Site Nav"
+    title="Nav List"
     selectTab="function(tabToSelect) { AEMDESIGN.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,false); }"
     hideTab="function(tabToHide) { AEMDESIGN.author.components.list.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
     xtype="dialog">
@@ -15,7 +15,7 @@
                         xtype="cqinclude" />
                 <listTab
                         jcr:primaryType="cq:Widget"
-                        title="Site Nav"
+                        title="Nav List"
                         xtype="panel">
                     <items jcr:primaryType="cq:WidgetCollection">
                         <listFrom
@@ -104,6 +104,10 @@
                                         jcr:primaryType="nt:unstructured"
                                         value="mainnav"
                                         text="Main Nav" />
+                                <full
+                                        jcr:primaryType="nt:unstructured"
+                                        value="full"
+                                        text="Full Nav" />
                                 <simple
                                         jcr:primaryType="nt:unstructured"
                                         value="simple"
