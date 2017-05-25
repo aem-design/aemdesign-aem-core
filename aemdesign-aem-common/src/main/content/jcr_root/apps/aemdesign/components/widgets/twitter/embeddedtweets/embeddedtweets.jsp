@@ -9,7 +9,7 @@
 <c:choose>
     <c:when test="${not empty statusId and not empty embeddedTweet}">
         <div class="twitter-wrapper">
-            <cq:include resourceType="nrl/components/content/image" path="image" />
+            <cq:include resourceType="aemdesign/components/content/image" path="image" />
             ${embeddedTweet}
             <ul class="twt-actions">
                 <li>
