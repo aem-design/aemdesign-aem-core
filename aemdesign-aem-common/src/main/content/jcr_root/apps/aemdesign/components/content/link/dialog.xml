@@ -3,10 +3,9 @@
           xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="cq:Dialog"
           helpPath="en/cq/current/wcm/default_components.html#Text"
-          description="Link "
+          description="Call to Acton can be a Link, Button etc"
           title="Link"
           xtype="dialog">
-
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
@@ -27,64 +26,13 @@
                                 jcr:primaryType="cq:Widget"
                                 path="/apps/aemdesign/global/dialog/classic/common/items/linkTab/items/hrefTargets.infinity.json"
                                 xtype="cqinclude"/>
-
-                        <gaConfigGroup
-                                jcr:primaryType="cq:Widget"
-                                collapsed="{Boolean}true"
-                                collapsible="{Boolean}true"
-                                title="Google Analytics"
-                                xtype="dialogfieldset">
-                            <items jcr:primaryType="cq:WidgetCollection">
-                                <hitType jcr:primaryType="cq:Widget"
-                                    fieldLabel="Hit Type"
-                                    fieldDescription="The type of hit. Must be one of 'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'."
-                                    allowBlank="{Boolean}true"
-                                    name="./hitType"
-                                    type="select"
-                                    defaultValue=""
-                                    value="event"
-                                    xtype="hidden"/>
-                                <eventCategory  jcr:primaryType="cq:Widget"
-                                    allowBlank="{Boolean}true"
-                                    defaultValue=""
-                                    value=""
-                                    fieldLabel="Category"
-                                    fieldDescription="Specifies the event category"
-                                    name="./eventCategory"
-                                    namespaces="[aemdesign]"
-                                    xtype="tags"/>
-                                <eventAction  jcr:primaryType="cq:Widget"
-                                    allowBlank="{Boolean}true"
-                                    defaultValue=""
-                                    value=""
-                                    fieldLabel="Action"
-                                    fieldDescription="Specifies the event action"
-                                    name="./eventAction"
-                                    namespaces="[aemdesign]"
-                                    xtype="tags"/>
-                                <eventLabel  jcr:primaryType="cq:Widget"
-                                    allowBlank="{Boolean}true"
-                                    fieldDescription="Specifies the event label"
-                                    fieldLabel="Label"
-                                    name="./eventLabel"
-                                    xtype="textfield"/>
-                            </items>
-                        </gaConfigGroup>
-
-                    </items>
-                </contentTab>
-                <layoutTab
-                        jcr:primaryType="cq:Widget"
-                        title="Layout"
-                        xtype="panel">
-                    <items jcr:primaryType="cq:WidgetCollection">
                         <variant
                                 jcr:primaryType="cq:Widget"
                                 defaultValue=""
-                                value=""
-                                allowBlank="{Boolean}true"
                                 fieldLabel="Variant"
                                 name="./variant"
+                                allowBlank="{Boolean}true"
+                                value=""
                                 type="select"
                                 xtype="selection">
                             <options jcr:primaryType="cq:WidgetCollection">
@@ -92,32 +40,42 @@
                                         jcr:primaryType="nt:unstructured"
                                         value=""
                                         text="Default"/>
-                                <none
+                                <plain
                                         jcr:primaryType="nt:unstructured"
-                                        value="none"
-                                        text="None"/>
-                                <adobeAnalytics
+                                        value="button"
+                                        text="Button"/>
+                            </options>
+                        </variant>
+                        <analyticsType
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                fieldLabel="Analytics Type"
+                                name="./analyticsType"
+                                allowBlank="{Boolean}true"
+                                value=""
+                                type="select"
+                                xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default
                                         jcr:primaryType="nt:unstructured"
-                                        value="aa"
-                                        text="Adobe Analytics"/>
-                                <googleanalytics
+                                        value=""
+                                        text="Default"/>
+                                <ga
                                         jcr:primaryType="nt:unstructured"
                                         value="ga"
                                         text="Google Analytics"/>
+                                <aa
+                                        jcr:primaryType="nt:unstructured"
+                                        value="aa"
+                                        text="Adobe Analytics"/>
                             </options>
-                        </variant>
-                        <class
-                                jcr:primaryType="cq:Widget"
-                                fieldLabel="CSS"
-                                name="./css"
-                                xtype="textfield"/>
-                        <id
-                                jcr:primaryType="cq:Widget"
-                                fieldLabel="ID"
-                                name="./id"
-                                xtype="textfield"/>
+                        </analyticsType>
                     </items>
-                </layoutTab>
+                </contentTab>
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/analyticsTab.infinity.json"
+                        xtype="cqinclude"/>
                 <styleTab
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"

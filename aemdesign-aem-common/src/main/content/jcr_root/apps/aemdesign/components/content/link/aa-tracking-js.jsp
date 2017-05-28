@@ -1,8 +1,8 @@
 <script type="text/javascript">
     (function() {
-        var linkDiv = document.getElementById("${xssAPI.encodeForJSString(componentProperties.divId)}");
-        var linkLabel = '"${xssAPI.encodeForJSString(componentProperties.label)}"';
-        var linkEvars = '{ linkLabel: '+linkLabel+' , linkTarget: "${xssAPI.encodeForJSString(omponentProperties.linkUrl)}" }';
+        var linkDiv = document.getElementById("${componentProperties.componentId}");
+        var linkLabel = '"${componentProperties.label}"';
+        var linkEvars = '{ linkLabel: '+linkLabel+' , linkTarget: "${componentProperties.linkUrl}" }';
         try {
             var tagNodes = linkDiv.getElementsByTagName('A');
             for (var i = 0; i < tagNodes.length; i++) {

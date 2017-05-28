@@ -1,12 +1,12 @@
 <script type="text/javascript">
     (function() {
 
-        var linkDiv = document.getElementById("${xssAPI.encodeForJSString(componentProperties.divId)}");
+        var linkDiv = document.getElementById("${componentProperties.divId}");
         var linkEvars = '{ ' +
-                '"hitType": "${xssAPI.encodeForJSString(componentProperties.hitType)}", ' +
-                '"eventCategory": "${xssAPI.encodeForJSString(componentProperties.eventCategory)}", ' +
-                '"eventAction": "${xssAPI.encodeForJSString(componentProperties.eventAction)}", ' +
-                '"eventLabel": "${xssAPI.encodeForJSString(componentProperties.eventLabel)}"' +
+                '"hitType": "${componentProperties.hitType}", ' +
+                '"eventCategory": "${componentProperties.eventCategory}", ' +
+                '"eventAction": "${componentProperties.eventAction}", ' +
+                '"eventLabel": "${componentProperties.eventLabel}"' +
         '}';
 
         try {

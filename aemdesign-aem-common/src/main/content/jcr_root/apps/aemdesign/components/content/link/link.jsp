@@ -6,17 +6,9 @@
 <%
 
     Object[][] componentFields = {
-            {"variant", "none"},
-
-            {"hitType", StringUtils.EMPTY},
-            {"eventCategory", StringUtils.EMPTY},
-            {"eventAction", StringUtils.EMPTY},
-            {"eventLabel", StringUtils.EMPTY},
-
-            {"css", StringUtils.EMPTY},
             {"hrefTargets", StringUtils.EMPTY},
-            {"id", StringUtils.EMPTY},
-            {"linkUrl", StringUtils.EMPTY},
+            {"linkUrl", StringUtils.EMPTY, "data-href"},
+            {"analyticsType", StringUtils.EMPTY},
             {"label", _i18n.get("Edit Me")},
     };
 
@@ -24,7 +16,8 @@
             pageContext,
             componentFields,
             DEFAULT_FIELDS_STYLE,
-            DEFAULT_FIELDS_ACCESSIBILITY);
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS);
 
     String linkUrl = componentProperties.get("linkUrl", StringUtils.EMPTY);
 
@@ -41,11 +34,6 @@
         linkUrl = _xssAPI.getValidHref(linkUrl);
         componentProperties.put("linkUrl", linkUrl);
     }
-    String css = componentProperties.get("css", StringUtils.EMPTY);
-    if (css.length() > 0){
-        css = " class=\"" + _xssAPI.encodeForHTMLAttr(css) +"\"";
-        componentProperties.put("css", css);
-    }
 
     String hrefTargets = componentProperties.get("hrefTargets", StringUtils.EMPTY);
     if (hrefTargets.length() > 0){
@@ -60,13 +48,20 @@
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 
-
-<%@ include file="variant.default.jsp" %>
 <c:choose>
-    <c:when test="${componentProperties.variant eq 'aa'}">
+    <c:when test="${componentProperties.variant eq 'button'}">
+        <%@ include file="variant.button.jsp" %>
+    </c:when>
+    <c:otherwise>
+        <%@ include file="variant.default.jsp" %>
+    </c:otherwise>
+</c:choose>
+
+<c:choose>
+    <c:when test="${componentProperties.analyticsType eq 'aa'}">
         <%@include file="aa-tracking-js.jsp" %>
     </c:when>
-    <c:when test="${componentProperties.variant eq 'ga'}">
+    <c:when test="${componentProperties.analyticsType eq 'ga'}">
         <%@include file="ga-tracking-js.jsp" %>
     </c:when>
     <c:otherwise>
