@@ -103,22 +103,28 @@
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
     public static final Object[][] DEFAULT_FIELDS_ANALYTICS = {
-            {"analyticsHitType", ""},
-            {"analyticsEventCategory", ""},
-            {"analyticsEventAction", ""},
-            {"analyticsEventLabel", ""},
+            {"analyticsHitType", "", "data-analytics-hit-type"},
+            {"analyticsEventCategory", "", "data-analytics-event-category"},
+            {"analyticsEventAction", "", "data-analytics-event-action"},
+            {"analyticsEventLabel", "", "data-analytics-event-label"},
+            {"analyticsTransport", "", "data-analytics-transport"},
+            {"analyticsNonInteraction", "", "data-analytics-noninteraction"},
+    };
+
+    // {
+    //   1 required - property name,
+    //   2 required - default value,
+    //   3 optional - name of component attribute to add value into
+    //   4 optional - canonical name of class for handling multivalues, String or Tag
+    // }
+    public static final Object[][] DEFAULT_FIELDS_ATTRIBUTES = {
+            {"dataType", "", "type"},
+            {"dataTarget", "", "data-target"},
+            {"dataToggle", "", "data-toggle"},
     };
 
     /** Local logging container. */
     private final Logger LOG = LoggerFactory.getLogger(getClass());
-
-
-    /**
-     * TODO: make site RESPONSIVE and remove this crap
-     */
-    public final void setMobile(HttpServletRequest request) {
-        request.setAttribute(COMPONENTS_RENDER_MOBILE,true);
-    }
 
     /**
      *
