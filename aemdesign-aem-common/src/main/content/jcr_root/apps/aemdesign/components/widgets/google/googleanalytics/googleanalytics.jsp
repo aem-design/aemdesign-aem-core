@@ -42,7 +42,6 @@
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
-<!-- ${componentProperties} -->
 <c:choose>
     <c:when test="${not empty componentProperties.trackingId }">
         <%@ include file="variant.default.jsp"  %>
