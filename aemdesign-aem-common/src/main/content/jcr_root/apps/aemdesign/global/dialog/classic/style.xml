@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="cq:Dialog"
+          helpPath="en/cq/current/wcm/default_components.html#List"
+          title="Common Page Fields for Classic UI"
+          xtype="tabpanel">
+
+    <items jcr:primaryType="cq:WidgetCollection">
+
+        <common jcr:primaryType="cq:Panel"
+                   title="Style">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <componentId jcr:primaryType="cq:Widget"
+                             fieldLabel="ID"
+                             name="./componentId"
+                             allowBlank="{Boolean}true"
+                             xtype="textfield"/>
+
+                <componentTheme jcr:primaryType="cq:Widget"
+                                allowBlank="{Boolean}true"
+                                defaultValue=""
+                                value=""
+                                fieldLabel="Theme"
+                                name="./componentTheme"
+                                namespaces="[component-style]"
+                                xtype="tags"/>
+
+                <componentModifiers jcr:primaryType="cq:Widget"
+                                    allowBlank="{Boolean}true"
+                                    defaultValue=""
+                                    value=""
+                                    fieldLabel="Modifiers"
+                                    name="./componentModifiers"
+                                    namespaces="[component-style]"
+                                    xtype="tags"/>
+
+                <componentModule jcr:primaryType="cq:Widget"
+                                 allowBlank="{Boolean}true"
+                                 defaultValue=""
+                                 value=""
+                                 fieldLabel="Module"
+                                 name="./componentModule"
+                                 namespaces="[component-style]"
+                                 xtype="tags"/>
+
+                <componentChevron jcr:primaryType="cq:Widget"
+                                  allowBlank="{Boolean}true"
+                                  defaultValue=""
+                                  value=""
+                                  fieldLabel="Chevron"
+                                  name="./componentChevron"
+                                  namespaces="[component-style]"
+                                  xtype="tags"/>
+
+                <componentIcon jcr:primaryType="cq:Widget"
+                               allowBlank="{Boolean}true"
+                               defaultValue=""
+                               value=""
+                               fieldLabel="Icon"
+                               name="./componentIcon"
+                               namespaces="[component-style]"
+                               xtype="tags"/>
+
+                <position
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}true"
+                        collapsible="{Boolean}true"
+                        title="Position coordinates"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <positions
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Positions"
+                                fieldDescription="The X and Y values of the Position"
+                                widthParameter="./positionX"
+                                widthSuffix="X position"
+                                heightParameter="./positionY"
+                                heightSuffix="Y position"
+                                xtype="sizefield"/>
+                    </items>
+                </position>
+
+            </items>
+
+
+        </common>
+
+    </items>
+
+</jcr:root>
+
+
+

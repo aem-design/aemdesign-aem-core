@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="cq:Dialog"
+          helpPath="en/cq/current/wcm/default_components.html#List"
+          title="Common Page Fields for Classic UI"
+          xtype="tabpanel">
+
+    <items jcr:primaryType="cq:WidgetCollection">
+
+
+        <common jcr:primaryType="cq:Panel"
+                  title="Accessibility">
+            <items jcr:primaryType="cq:WidgetCollection">
+
+                <ariaLabel jcr:primaryType="cq:Widget"
+                           fieldLabel="Aria Label"
+                           fieldDescription="Defines a string value that labels the current element."
+                           name="./ariaLabel"
+                           allowBlank="{Boolean}true"
+                           xtype="textfield"/>
+
+                <ariaRole jcr:primaryType="cq:Widget"
+                          fieldLabel="Aria Role"
+                          fieldDescription="Main indicator of type. This semantic association allows tools to present and support interaction with the object in a manner that is consistent with user expectations about other objects of that type."
+                          allowBlank="{Boolean}true"
+                          name="./ariaRole"
+                          options="/etc/tags/component-aria/role.valuelist.json"
+                          type="select"
+                          defaultValue=""
+                          xtype="selection"/>
+
+                <ariaDescribedBy jcr:primaryType="cq:Widget"
+                           fieldLabel="Aria Described By"
+                           fieldDescription="Identifies the element (or elements) that describes the object."
+                           name="./ariaDescribedBy"
+                           allowBlank="{Boolean}true"
+                           xtype="textfield"/>
+
+                <ariaLabelledBy jcr:primaryType="cq:Widget"
+                           fieldLabel="Aria Labelled By"
+                           fieldDescription="Identifies the element (or elements) that labels the current element."
+                           name="./ariaLabelledBy"
+                           allowBlank="{Boolean}true"
+                           xtype="textfield"/>
+
+                <ariaControls jcr:primaryType="cq:Widget"
+                                fieldLabel="Aria Controls"
+                                fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
+                                name="./ariaControls"
+                                allowBlank="{Boolean}true"
+                                xtype="textfield"/>
+
+                <ariaLive jcr:primaryType="cq:Widget"
+                          fieldLabel="Aria Live"
+                          fieldDescription="Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region."
+                          allowBlank="{Boolean}true"
+                          name="./ariaLive"
+                          options="/etc/tags/component-aria/live.valuelist.json"
+                          type="select"
+                          defaultValue=""
+                          xtype="selection"/>
+
+                <ariaHidden jcr:primaryType="cq:Widget"
+                            fieldLabel="Aria Hidden"
+                            fieldDescription="Indicates that the element and all of its descendants are not visible or perceivable to any user as implemented by the author."
+                            allowBlank="{Boolean}true"
+                            name="./ariaHidden"
+                            options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                            type="select"
+                            defaultValue=""
+                            xtype="selection"/>
+
+                <ariaHaspopup jcr:primaryType="cq:Widget"
+                            fieldLabel="Aria Has-Popup"
+                            fieldDescription="Indicates that the element has a popup context menu or sub-level menu."
+                            allowBlank="{Boolean}true"
+                            name="./ariaHaspopup"
+                            options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                            type="select"
+                            defaultValue=""
+                            xtype="selection"/>
+
+                <ariaAccessKey jcr:primaryType="cq:Widget"
+                               fieldLabel="Access Key"
+                               fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
+                               name="./ariaAccessKey"
+                               allowBlank="{Boolean}true"
+                               xtype="textfield"/>
+
+            </items>
+
+            <!--aria-expanded-->
+            <!--aria-controls-->
+            <!--aria-pressed (booo)-->
+            <!--aria-haspopup-->
+
+
+        </common>
+
+    </items>
+
+</jcr:root>
+
+
+

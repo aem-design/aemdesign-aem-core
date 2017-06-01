@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="cq:Dialog"
+          helpPath="en/cq/current/wcm/default_components.html#List"
+          title="Data Attributes Tabs"
+          xtype="tabpanel">
+
+    <items jcr:primaryType="cq:WidgetCollection">
+
+        <common jcr:primaryType="cq:Panel"
+                          title="Data Attributes">
+            <items jcr:primaryType="cq:WidgetCollection">
+
+                <dataType jcr:primaryType="cq:Widget"
+                          fieldLabel="Type"
+                          fieldDescription="type attribute"
+                          allowBlank="{Boolean}true"
+                          name="./dataType"
+                          options="/etc/tags/component-dialog/html/type.valuelist.json"
+                          type="select"
+                          defaultValue=""
+                          xtype="selection"/>
+
+                <dataTarget jcr:primaryType="cq:Widget"
+                           fieldLabel="Target"
+                           fieldDescription="dataTarget attribute"
+                           name="./dataTarget"
+                           allowBlank="{Boolean}true"
+                           xtype="textfield"/>
+
+                <dataToggle jcr:primaryType="cq:Widget"
+                          fieldLabel="Toggle"
+                          fieldDescription="dataToggle attribute"
+                          allowBlank="{Boolean}true"
+                          name="./dataToggle"
+                          options="/etc/tags/component-dialog/html/toggle.valuelist.json"
+                          type="select"
+                          defaultValue=""
+                          xtype="selection"/>
+
+            </items>
+        </common>
+
+    </items>
+
+</jcr:root>
+
+
+
