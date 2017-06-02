@@ -732,5 +732,22 @@
 
     }
 
+    /**
+     * get path of resource in jcr:content
+     * @param resource
+     * @return
+     */
+    public String getResourceContentPath(Resource resource) {
+        String returnPath = resource.getPath(); //StringUtils.split(resource.getPath(),JcrConstants.JCR_CONTENT)
+
+        if (StringUtils.contains(returnPath, org.apache.jackrabbit.JcrConstants.JCR_CONTENT)) {
+            String[] pathParts = StringUtils.splitByWholeSeparator(returnPath,org.apache.jackrabbit.JcrConstants.JCR_CONTENT);
+            if (pathParts.length > 1) {
+                returnPath = pathParts[1];
+            }
+        }
+
+        return returnPath;
+    }
 %>
 <c:set var="DEFAULT_VARIANT" value="<%= DEFAULT_VARIANT %>"/>
