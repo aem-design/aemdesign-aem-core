@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:rep="internal"
           jcr:primaryType="cq:Dialog"
           activeTab="0"
           xtype="tabpanel">
     <items jcr:primaryType="cq:WidgetCollection">
         <link jcr:primaryType="cq:Panel"
-               title="Link RTE" description="Link RTE">
+               title="Link RTE" description="Authors have ability to add Link Rich Text Text, Admins can add HTML content">
             <items jcr:primaryType="cq:WidgetCollection">
                 <label jcr:primaryType="cq:Widget"
                     fieldLabel="Label"
@@ -14,7 +14,7 @@
                     name="./label"
                     removeSingleParagraphContainer="{Boolean}true"
                     xtype="richtext">
-                    <rteplugins jcr:primaryType="nt:unstructured">
+                    <rtePlugins jcr:primaryType="nt:unstructured">
                         <format
                             jcr:primaryType="nt:unstructured"
                             features="[bold,underline,italic]"/>
@@ -27,7 +27,21 @@
                         <lists
                             jcr:primaryType="nt:unstructured"
                             features="[]"/>
-                    </rteplugins>
+                        <misctools
+                                jcr:primaryType="nt:unstructured"
+                                features="[specialchars,sourceedit]">
+                            <specialCharsConfig jcr:primaryType="nt:unstructured"
+                                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/misctools/specialCharsConfig.infinity.json"
+                                                xtype="cqinclude" />
+                            <rep:policy jcr:primaryType="rep:ACL">
+                                <deny
+                                        jcr:primaryType="rep:DenyACE"
+                                        rep:principalName="contributor"
+                                        rep:privileges="{Name}[jcr:read]" />
+                            </rep:policy>
+                        </misctools>
+
+                    </rtePlugins>
                 </label>
             </items>
         </link>
@@ -40,7 +54,7 @@
                       hideLabel="{Boolean}true"
                       name="./text"
                       xtype="richtext">
-                    <rteplugins jcr:primaryType="nt:unstructured">
+                    <rtePlugins jcr:primaryType="nt:unstructured">
                         <format
                                 jcr:primaryType="nt:unstructured"
                                 features="*"/>
@@ -56,7 +70,7 @@
                         <subsuperscript
                                 jcr:primaryType="nt:unstructured"
                                 features="[]"/>
-                    </rteplugins>
+                    </rtePlugins>
                 </text>
 
                 <richFlag
@@ -94,7 +108,7 @@
                         hideLabel="{Boolean}true"
                         name="./text"
                         xtype="richtext">
-                    <rteplugins jcr:primaryType="nt:unstructured">
+                    <rtePlugins jcr:primaryType="nt:unstructured">
                         <table
                                 jcr:primaryType="nt:unstructured"
                                 features="*"/>
@@ -162,26 +176,24 @@
                                         description="Blockquote"/>
                                 </formats>
                         </paraformat>
-                        <!--<styles-->
-                                <!--jcr:primaryType="nt:unstructured"-->
-                                <!--features="*">-->
-                            <!--<styles jcr:primaryType="cq:WidgetCollection">-->
-                                <!--<hi-->
-                                        <!--jcr:primaryType="nt:unstructured"-->
-                                        <!--cssName="color1"-->
-                                        <!--text="Green"/>-->
-                                <!--<mid-->
-                                        <!--jcr:primaryType="nt:unstructured"-->
-                                        <!--cssName="color2"-->
-                                        <!--text="Red"/>-->
-<!--&lt;!&ndash;-->
-                                <!--<lo-->
-                                        <!--jcr:primaryType="nt:unstructured"-->
-                                        <!--cssName="color3"-->
-                                        <!--text="Blue"/>-->
-<!--&ndash;&gt;-->
-                            <!--</styles>-->
-                        <!--</styles>-->
+                        <styles
+                                jcr:primaryType="nt:unstructured"
+                                features="*">
+                            <styles jcr:primaryType="cq:WidgetCollection">
+                                <hi
+                                        jcr:primaryType="nt:unstructured"
+                                        cssName="color1"
+                                        text="Green"/>
+                                <mid
+                                        jcr:primaryType="nt:unstructured"
+                                        cssName="color2"
+                                        text="Red"/>
+                                <lo
+                                        jcr:primaryType="nt:unstructured"
+                                        cssName="color3"
+                                        text="Blue"/>
+                            </styles>
+                        </styles>
 
 
                         <subsuperscript
@@ -318,7 +330,7 @@
                         <colorpicker
                                 jcr:primaryType="nt:unstructured"
                                 features="*"/>
-                    </rteplugins>
+                    </rtePlugins>
                 </text>
                 <richFlag
                         jcr:primaryType="cq:Widget"
@@ -337,7 +349,7 @@
                         fieldLabel="Text"
                         name="./text"
                         xtype="richtext">
-                    <rteplugins jcr:primaryType="nt:unstructured">
+                    <rtePlugins jcr:primaryType="nt:unstructured">
                         <table
                                 jcr:primaryType="nt:unstructured"
                                 features="*"/>
@@ -349,7 +361,7 @@
                                 features="*"/>
                         <edit
                                 jcr:primaryType="nt:unstructured"
-                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rteplugins/edit.infinity.json"
+                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/edit.infinity.json"
                                 xtype="cqinclude" />
                         <justify
                                 jcr:primaryType="nt:unstructured"
@@ -359,11 +371,11 @@
                                 features="*"/>
                         <paraformat
                                 jcr:primaryType="nt:unstructured"
-                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rteplugins/paraformat.infinity.json"
+                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/paraformat.infinity.json"
                                 xtype="cqinclude" />
                         <styles
                                 jcr:primaryType="nt:unstructured"
-                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rteplugins/styles.infinity.json"
+                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/styles.infinity.json"
                                 xtype="cqinclude" />
                         <subsuperscript
                                 jcr:primaryType="nt:unstructured"
@@ -372,13 +384,19 @@
                                 jcr:primaryType="nt:unstructured"
                                 features="[specialchars,sourceedit]">
                             <specialCharsConfig jcr:primaryType="nt:unstructured"
-                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rteplugins/misctools/specialCharsConfig.infinity.json"
+                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/misctools/specialCharsConfig.infinity.json"
                                 xtype="cqinclude" />
+                            <rep:policy jcr:primaryType="rep:ACL">
+                                <deny
+                                        jcr:primaryType="rep:DenyACE"
+                                        rep:principalName="contributor"
+                                        rep:privileges="{Name}[jcr:read]" />
+                            </rep:policy>
                         </misctools>
 
                         <links
                                 jcr:primaryType="nt:unstructured"
-                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rteplugins/links.infinity.json"
+                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/links.infinity.json"
                                 xtype="cqinclude" />
 
                         <spellcheck
@@ -391,7 +409,7 @@
                         <image
                                 jcr:primaryType="nt:unstructured"
                                 features="*"/>
-                    </rteplugins>
+                    </rtePlugins>
 
                 </text>
                 <richFlag
@@ -410,7 +428,7 @@
                 name="./tableData"
                 title="Table2"
                 xtype="tableedit2">
-            <rteplugins jcr:primaryType="nt:unstructured">
+            <rtePlugins jcr:primaryType="nt:unstructured">
                 <!--<links jcr:primaryType="nt:unstructured">
                     <linkDialogConfig
                             jcr:primaryType="nt:unstructured"
@@ -457,7 +475,7 @@
                 </links>-->
                 <links
                         jcr:primaryType="nt:unstructured"
-                        path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rteplugins/links.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/links.infinity.json"
                         xtype="cqinclude" />
 
                 <edit
@@ -466,12 +484,12 @@
 
                 <paraformat
                         jcr:primaryType="nt:unstructured"
-                        path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rteplugins/paraformat.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/paraformat.infinity.json"
                         xtype="cqinclude" />
 
                 <styles
                         jcr:primaryType="nt:unstructured"
-                        path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rteplugins/styles.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/styles.infinity.json"
                         xtype="cqinclude" />
 
                 <findreplace
@@ -490,11 +508,11 @@
                         jcr:primaryType="nt:unstructured"
                         features="[specialchars]">
                     <specialCharsConfig jcr:primaryType="nt:unstructured"
-                                        path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rteplugins/misctools/specialCharsConfig.infinity.json"
+                                        path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/misctools/specialCharsConfig.infinity.json"
                                         xtype="cqinclude" />
                 </misctools>
 
-            </rteplugins>
+            </rtePlugins>
         </table>
     </items>
 </jcr:root>
