@@ -72,9 +72,6 @@
     <c:when test="${componentProperties.variant == 'floating'}">
         <%@ include file="variant.floating.jsp" %>
     </c:when>
-    <c:when test="${componentProperties.variant == 'container'}">
-        <%@ include file="variant.container.jsp" %>
-    </c:when>
     <c:when test="${componentProperties.variant == 'section'}">
         <%@ include file="variant.section.jsp" %>
     </c:when>
