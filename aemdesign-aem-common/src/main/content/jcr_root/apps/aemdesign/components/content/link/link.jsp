@@ -6,10 +6,13 @@
 <%
 
     Object[][] componentFields = {
-            {"hrefTargets", StringUtils.EMPTY},
-            {"linkUrl", StringUtils.EMPTY, "data-href"},
-            {"analyticsType", StringUtils.EMPTY},
+            {"linkTarget", StringUtils.EMPTY, "target"},
+            {"linkUrl", StringUtils.EMPTY, "href"},
+            {"analyticsType", StringUtils.EMPTY, "data-analytics-type"},
+            {"variant", StringUtils.EMPTY},
+            {"linkId", _xssAPI.encodeForHTMLAttr(_resource.getPath())},
             {"label", _i18n.get("Edit Me")},
+            {"componentPath", getResourceContentPath(resource) , "data-component-path"},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -17,7 +20,8 @@
             componentFields,
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY,
-            DEFAULT_FIELDS_ANALYTICS);
+            DEFAULT_FIELDS_ANALYTICS,
+            DEFAULT_FIELDS_ATTRIBUTES);
 
     String linkUrl = componentProperties.get("linkUrl", StringUtils.EMPTY);
 
@@ -35,16 +39,6 @@
         componentProperties.put("linkUrl", linkUrl);
     }
 
-    String hrefTargets = componentProperties.get("hrefTargets", StringUtils.EMPTY);
-    if (hrefTargets.length() > 0){
-        hrefTargets = " target=\"" + _xssAPI.encodeForHTMLAttr(hrefTargets) +"\"";
-        componentProperties.put("hrefTargets", hrefTargets);
-    }
-
-    String divId = "cq-ctalink-jsp-" + _resource.getPath();
-    divId = _xssAPI.encodeForHTMLAttr(divId);
-    componentProperties.put("divId", divId);
-
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 
@@ -54,18 +48,6 @@
     </c:when>
     <c:otherwise>
         <%@ include file="variant.default.jsp" %>
-    </c:otherwise>
-</c:choose>
-
-<c:choose>
-    <c:when test="${componentProperties.analyticsType eq 'aa'}">
-        <%@include file="aa-tracking-js.jsp" %>
-    </c:when>
-    <c:when test="${componentProperties.analyticsType eq 'ga'}">
-        <%@include file="ga-tracking-js.jsp" %>
-    </c:when>
-    <c:otherwise>
-
     </c:otherwise>
 </c:choose>
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>

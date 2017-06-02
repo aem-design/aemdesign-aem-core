@@ -24,7 +24,7 @@
                                 xtype="cqinclude"/>
                         <hrefTarget
                                 jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/global/dialog/classic/common/items/linkTab/items/hrefTargets.infinity.json"
+                                path="/apps/aemdesign/global/dialog/classic/common/items/linkTab/items/linkTarget.infinity.json"
                                 xtype="cqinclude"/>
                         <variant
                                 jcr:primaryType="cq:Widget"
@@ -40,7 +40,7 @@
                                         jcr:primaryType="nt:unstructured"
                                         value=""
                                         text="Default"/>
-                                <plain
+                                <button
                                         jcr:primaryType="nt:unstructured"
                                         value="button"
                                         text="Button"/>
@@ -74,16 +74,17 @@
                 </contentTab>
                 <styleTab
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/analyticsTab.infinity.json"
-                        xtype="cqinclude"/>
-                <styleTab
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/style/items/common.infinity.json"
                         xtype="cqinclude"/>
                 <accessibilityTab jcr:primaryType="cq:Panel"
-                                  path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/common.infinity.json"
                                   xtype="cqinclude" />
-
+                <dataAttributesTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/attributes/items/common.infinity.json"
+                                  xtype="cqinclude" />
+                <analyticsTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/analytics/items/common.infinity.json"
+                                  xtype="cqinclude" />
             </items>
         </tabs>
     </items>

@@ -1,3 +1,3 @@
-<button type="button" ${componentProperties.hrefTargets} ${componentProperties.componentAttributes}>
+<button ${componentProperties.componentAttributes}>
     ${componentProperties.label}
 </button>

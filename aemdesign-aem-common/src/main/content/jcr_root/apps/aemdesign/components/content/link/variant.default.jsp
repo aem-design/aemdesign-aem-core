@@ -1,4 +1,3 @@
-<link ${componentProperties.componentAttributes}
-    href="${componentProperties.linkUrl}" ${componentProperties.hrefTargets}>
+<a ${componentProperties.componentAttributes}>
     ${componentProperties.label}
-</link>
+</a>
