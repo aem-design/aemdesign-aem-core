@@ -93,45 +93,6 @@
             </items>
         </metadataTab>
 
-        <analyticsTab jcr:primaryType="cq:Panel"
-                  title="Analytics">
-            <items jcr:primaryType="cq:WidgetCollection">
-                <analyticsHitType jcr:primaryType="cq:Widget"
-                                   fieldLabel="Hit Type"
-                                   allowBlank="{Boolean}true"
-                                   name="./analyticsHitType"
-                                   options="/etc/tags/component-analytics/hittype.valuelist.json"
-                                   type="select"
-                                   defaultValue=""
-                                   xtype="selection"/>
-                <analyticsEventCategory  jcr:primaryType="cq:Widget"
-                                allowBlank="{Boolean}true"
-                                defaultValue=""
-                                value=""
-                                fieldLabel="Event Category"
-                                fieldDescription="Specifies the event category"
-                                name="./analyticsEventCategory"
-                                namespaces="[aemdesign]"
-                                xtype="tags"/>
-                <analyticsEventAction  jcr:primaryType="cq:Widget"
-                              allowBlank="{Boolean}true"
-                              defaultValue=""
-                              value=""
-                              fieldLabel="Event Action"
-                              fieldDescription="Specifies the event action"
-                              name="./analyticsEventAction"
-                              namespaces="[aemdesign]"
-                              xtype="tags"/>
-                <analyticsEventLabel  jcr:primaryType="cq:Widget"
-                             allowBlank="{Boolean}true"
-                             fieldDescription="Specifies the event label"
-                             fieldLabel="Event Label"
-                             name="./analyticsEventLabel"
-                             xtype="textfield"/>
-            </items>
-        </analyticsTab>
-
-
 
         <styleTab jcr:primaryType="cq:Panel"
                    title="Style">
@@ -301,7 +262,6 @@
 
         </accessibilityTab>
 
-
         <!--This standard tab is being cqincluded by other components.-->
         <imageTab
                 jcr:primaryType="cq:Widget"
@@ -403,8 +363,8 @@
                              hideLabel="{Boolean}true"
                              name="./description"
                              xtype="richtext">
-                    <rteplugins jcr:primaryType="nt:unstructured"
-                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rteplugins.infinity.json"
+                    <rtePlugins jcr:primaryType="nt:unstructured"
+                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins.infinity.json"
                                 xtype="cqinclude" />
                 </description>
 
@@ -644,32 +604,15 @@
                         fieldLabel="Target URL"
                         name="./linkUrl"
                         xtype="pathfield"/>
-                <hrefTargets
-                        jcr:primaryType="cq:Widget"
-                        defaultValue="{Boolean}false"
-                        fieldLabel="Rendering Options"
-                        name="./hrefTargets"
-                        type="select"
-                        xtype="selection">
-                    <options jcr:primaryType="cq:WidgetCollection">
-                        <o2
-                                jcr:primaryType="nt:unstructured"
-                                text="Load page in a new browser window"
-                                value="_blank"/>
-                        <o3
-                                jcr:primaryType="nt:unstructured"
-                                text="Load page in current window"
-                                value="_self"/>
-                        <o4
-                                jcr:primaryType="nt:unstructured"
-                                text="Load the page in the parent/superior frame"
-                                value="_parent"/>
-                        <o5
-                                jcr:primaryType="nt:unstructured"
-                                text="Cancel all frames, and loads in full browser window"
-                                value="_top"/>
-                    </options>
-                </hrefTargets>
+                <linkTarget jcr:primaryType="cq:Widget"
+                           fieldLabel="Link Target"
+                           fieldDescription="Where should the link be loaded when link is clicked"
+                           allowBlank="{Boolean}true"
+                           name="./linkTarget"
+                           options="/etc/tags/component-dialog/html/linktarget.valuelist.json"
+                           type="select"
+                           defaultValue=""
+                           xtype="selection"/>
             </items>
         </linkTab>
 
