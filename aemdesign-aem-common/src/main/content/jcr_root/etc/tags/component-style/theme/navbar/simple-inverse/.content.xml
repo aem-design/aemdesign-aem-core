@@ -4,4 +4,4 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Simple Inverse"
     sling:resourceType="cq/tagging/components/tag"
-    value="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top"/>
+    value="navbar-toggleable-md navbar-inverse bg-inverse fixed-top"/>

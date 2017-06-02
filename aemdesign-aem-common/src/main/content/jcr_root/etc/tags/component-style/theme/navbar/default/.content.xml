@@ -4,4 +4,4 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Default"
     sling:resourceType="cq/tagging/components/tag"
-    value="map"/>
+    value=""/>
