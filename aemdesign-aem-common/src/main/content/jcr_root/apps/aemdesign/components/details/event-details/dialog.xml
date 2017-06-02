@@ -29,8 +29,8 @@
                             hideLabel="{Boolean}true"
                             name="./description"
                             xtype="richtext">
-                            <rteplugins jcr:primaryType="nt:unstructured"
-                                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rteplugins.infinity.json"
+                            <rtePlugins jcr:primaryType="nt:unstructured"
+                                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins.infinity.json"
                                                 xtype="cqinclude" />
                         </description>
                         <eventStartDate

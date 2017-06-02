@@ -17,7 +17,7 @@
                     hideLabel="{Boolean}true"
                     name="./text"
                     xtype="richtext">
-                    <rteplugins jcr:primaryType="nt:unstructured">
+                    <rtePlugins jcr:primaryType="nt:unstructured">
                         <links jcr:primaryType="nt:unstructured">
                             <linkDialogConfig
                                 jcr:primaryType="nt:unstructured"
@@ -108,7 +108,7 @@
                         <undo
                             jcr:primaryType="nt:unstructured"
                             features="*"/>
-                    </rteplugins>
+                    </rtePlugins>
                 </text>
                 <richFlag
                     jcr:primaryType="cq:Widget"
