@@ -23,7 +23,7 @@
     <scm>
     <connection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-aem-author.git</connection>
     <developerConnection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-aem-author.git</developerConnection>
-    <url>https://bitbucket.org/aemdesign/aemdesign-aem-author.git</url>
+    <url>https://gitlab.com/aem.design/aemdesign-aem-author.git</url>
     </scm>
 
 
