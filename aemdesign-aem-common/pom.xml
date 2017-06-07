@@ -22,8 +22,8 @@
     <version>0.0.0-SNAPSHOT</version>
 
     <scm>
-        <connection>scm:git:ssh://git@bitbucket.org/aemdesign/aemdesign-aem-common.git</connection>
-        <developerConnection>scm:git:ssh://git@bitbucket.org/aemdesign/aemdesign-aem-common.git</developerConnection>
+        <connection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-aem-common.git</connection>
+        <developerConnection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-aem-common.git</developerConnection>
         <url>https://bitbucket.org/aemdesign/aemdesign-aem-common.git</url>
     </scm>
 
