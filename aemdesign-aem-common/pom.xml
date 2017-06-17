@@ -156,6 +156,11 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.mickleroy</groupId>
+            <artifactId>aem-sass-compiler</artifactId>
+            <version>1.0.1</version>
+        </dependency>
     </dependencies>
 
     <!-- ====================================================================== -->
@@ -240,6 +245,11 @@
                         <embedded>
                             <groupId>${project.parent.groupId}</groupId>
                             <artifactId>aemdesign-aem-services</artifactId>
+                            <target>/apps/aemdesign/install</target>
+                        </embedded>
+                        <embedded>
+                            <groupId>com.github.mickleroy</groupId>
+                            <artifactId>aem-sass-compiler</artifactId>
                             <target>/apps/aemdesign/install</target>
                         </embedded>
                     </embeddeds>
@@ -328,7 +338,7 @@
                                 </goals>
                                 <configuration>
                                     <targetURL>http://${crx.host}:${crx.port}/crx/packmgr/service.jsp</targetURL>
-                                    <username>${crx.username}</username>
+                                    <userId>${crx.username}</userId>
                                     <password>${crx.password}</password>
                                 </configuration>
                             </execution>
