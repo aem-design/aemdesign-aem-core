@@ -3,4 +3,4 @@
     jcr:primaryType="cq:Component"
     jcr:description="Google Analytics Component"
     jcr:title="Google Analytics"
-    componentGroup="Widgets"/>
+    componentGroup="AEM.Design - Widgets"/>

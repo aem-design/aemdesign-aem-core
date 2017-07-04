@@ -4,4 +4,4 @@
     jcr:title="List with search controls"
     sling:resourceSuperType="/apps/aemdesign/components/lists/querylist"
     allowedParents="[*/parsys]"
-    componentGroup=".hidden" />
+    componentGroup="AEM.Design - Lists" />

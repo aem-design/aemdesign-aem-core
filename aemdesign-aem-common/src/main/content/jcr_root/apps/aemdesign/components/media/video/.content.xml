@@ -3,4 +3,4 @@
     jcr:primaryType="cq:Component"
     jcr:description="Video component"
     jcr:title="Video"
-    componentGroup="Content"/>
+    componentGroup="AEM.Design - Media"/>

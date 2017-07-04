@@ -5,4 +5,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Rich Text"
     sling:resourceSuperType="foundation/components/text"
-    componentGroup="Content"/>
+    componentGroup="AEM.Design - Content"/>

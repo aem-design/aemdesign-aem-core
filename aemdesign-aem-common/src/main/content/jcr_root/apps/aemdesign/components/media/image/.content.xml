@@ -3,5 +3,4 @@
     jcr:primaryType="cq:Component"
     jcr:description="Image Component"
     jcr:title="Image"
-
-    componentGroup="Media"/>
+    componentGroup="AEM.Design - Media"/>

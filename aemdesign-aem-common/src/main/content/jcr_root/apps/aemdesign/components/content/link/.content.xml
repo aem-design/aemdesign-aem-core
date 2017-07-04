@@ -4,4 +4,4 @@
     jcr:title="Link"
     sling:resourceSuperType="foundation/components/parbase"
     allowedParents="[*/parsys]"
-    componentGroup="Content"/>
+    componentGroup="AEM.Design - Content"/>

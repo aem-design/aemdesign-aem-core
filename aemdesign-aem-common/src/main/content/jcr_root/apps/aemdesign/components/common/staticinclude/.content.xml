@@ -4,4 +4,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Static Content Include"
     sling:resourceSuperType="aemdesign/components/common/inherit"
-    componentGroup=".hidden"/>
+    componentGroup="AEM.Design - Common"/>

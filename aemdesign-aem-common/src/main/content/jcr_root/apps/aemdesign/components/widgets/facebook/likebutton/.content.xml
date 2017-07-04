@@ -3,4 +3,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Facebook Like Button"
     sling:resourceSuperType="/libs/social/plugins/facebook/like"
-    componentGroup="hidden"/>
+    componentGroup="AEM.Design - Widgets"/>

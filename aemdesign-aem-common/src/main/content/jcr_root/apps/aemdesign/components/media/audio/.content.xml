@@ -4,4 +4,4 @@
             jcr:description="Media audio component"
             jcr:primaryType="cq:Component"
             jcr:title="Media Audio"
-            componentGroup="hidden"/>
+            componentGroup="AEM.Design - Media"/>

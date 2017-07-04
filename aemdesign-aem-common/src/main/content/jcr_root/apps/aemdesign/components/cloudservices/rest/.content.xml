@@ -3,4 +3,4 @@
     cq:defaultView="html"
     jcr:primaryType="cq:Component"
     sling:resourceSuperType="cq/cloudserviceconfigs/components/configpage"
-    componentGroup=".hidden"/>
+    componentGroup="AEM.Design - Cloud Services"/>

@@ -4,4 +4,4 @@
           jcr:primaryType="cq:Component"
     jcr:title="Breadcrumb"
     sling:resourceSuperType="foundation/components/breadcrumb"
-    componentGroup="hidden"/>
+    componentGroup="AEM.Design - Layout"/>

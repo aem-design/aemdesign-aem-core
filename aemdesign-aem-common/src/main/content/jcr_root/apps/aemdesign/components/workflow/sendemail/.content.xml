@@ -5,4 +5,4 @@
     jcr:title="Send Form Email"
     sling:resourceSuperType="cq/workflow/components/model/process"
     allowedParents="[*/parsys]"
-    componentGroup="AEM Design Workflow"/>
+    componentGroup="AEM.Design - Workflow"/>

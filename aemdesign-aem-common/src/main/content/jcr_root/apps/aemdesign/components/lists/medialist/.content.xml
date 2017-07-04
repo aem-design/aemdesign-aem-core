@@ -4,4 +4,4 @@
     jcr:title="Media List"
     sling:resourceSuperType="aemdesign/components/lists/list"
     allowedParents="[*/parsys]"
-    componentGroup="hidden" />
+    componentGroup="AEM.Design - Lists"/>

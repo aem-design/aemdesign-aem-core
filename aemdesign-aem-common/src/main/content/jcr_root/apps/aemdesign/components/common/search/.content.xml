@@ -5,4 +5,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Search Box"
     allowedParents="[*/parsys]"
-    componentGroup=".hidden"/>
+    componentGroup="AEM.Design - Common"/>

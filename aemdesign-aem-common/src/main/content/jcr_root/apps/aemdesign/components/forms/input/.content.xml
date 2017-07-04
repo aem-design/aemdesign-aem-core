@@ -5,4 +5,4 @@
     jcr:description="Input Field Component"
     jcr:title="Input Field"
     allowedParents="[*/parsys]"
-    componentGroup="Forms"/>
+    componentGroup="AEM.Design - Forms"/>

@@ -5,4 +5,4 @@
     jcr:title="Event List"
     sling:resourceSuperType="aemdesign/components/lists/list"
     allowedParents="[*/parsys]"
-    componentGroup="Lists" />
+    componentGroup="AEM.Design - Lists"/>

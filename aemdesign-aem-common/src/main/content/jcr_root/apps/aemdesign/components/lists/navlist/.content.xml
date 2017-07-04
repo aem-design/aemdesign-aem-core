@@ -4,4 +4,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Nav List"
     sling:resourceSuperType="aemdesign/components/common/inherit"
-    componentGroup="Lists"/>
+    componentGroup="AEM.Design - Lists"/>

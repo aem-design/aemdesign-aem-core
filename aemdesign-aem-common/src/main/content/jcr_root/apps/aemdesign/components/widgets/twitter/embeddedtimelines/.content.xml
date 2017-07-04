@@ -4,4 +4,4 @@
     jcr:description="Twitter Embedded Timeline"
     jcr:primaryType="cq:Component"
     jcr:title="Twitter Embedded Timeline"
-    componentGroup="hidden"/>
+    componentGroup="AEM.Design - Widgets"/>

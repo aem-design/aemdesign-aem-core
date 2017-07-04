@@ -4,4 +4,4 @@
     jcr:description="Contact Details component"
     jcr:title="Contact Details"
     jcr:primaryType="cq:Component"
-    componentGroup="Details"/>
+    componentGroup="AEM.Design - Details"/>

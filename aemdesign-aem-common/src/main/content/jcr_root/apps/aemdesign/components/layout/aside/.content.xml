@@ -6,4 +6,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Aside"
     sling:resourceSuperType="aemdesign/components/common/inherit"
-    componentGroup="Layout"/>
+    componentGroup="AEM.Design - Layout"/>

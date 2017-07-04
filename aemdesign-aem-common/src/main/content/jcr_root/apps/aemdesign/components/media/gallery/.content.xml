@@ -4,4 +4,4 @@
             jcr:description="Media Gallery component"
             jcr:primaryType="cq:Component"
             jcr:title="Media Gallery"
-            componentGroup="Media"/>
+            componentGroup="AEM.Design - Media"/>

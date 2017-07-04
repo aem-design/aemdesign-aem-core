@@ -4,4 +4,4 @@
     jcr:description="Content Tabs"
     jcr:primaryType="cq:Component"
     jcr:title="Content Tabs"
-    componentGroup="Layout"/>
+    componentGroup="AEM.Design - Layout"/>

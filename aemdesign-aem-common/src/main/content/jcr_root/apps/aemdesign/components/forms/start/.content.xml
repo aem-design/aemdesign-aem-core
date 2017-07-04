@@ -6,4 +6,4 @@
     jcr:description="Form Component"
     jcr:title="Form"
     allowedParents="[*/parsys]"
-    componentGroup="Forms"/>
+    componentGroup="AEM.Design - Forms"/>

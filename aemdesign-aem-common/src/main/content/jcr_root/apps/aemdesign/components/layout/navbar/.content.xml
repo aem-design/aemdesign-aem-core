@@ -4,4 +4,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Nav Bar"
     sling:resourceSuperType="aemdesign/components/common/inherit"
-    componentGroup="Layout"/>
+    componentGroup="AEM.Design - Layout"/>

@@ -4,4 +4,4 @@
     jcr:description="Page Details is to save additional info for the Page Properties"
     jcr:primaryType="cq:Component"
     jcr:title="Page Details"
-    componentGroup="Details"/>
+    componentGroup="AEM.Design - Details"/>

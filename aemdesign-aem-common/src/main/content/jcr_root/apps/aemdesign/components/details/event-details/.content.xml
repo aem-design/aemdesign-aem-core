@@ -4,4 +4,4 @@
     jcr:description="Event Details component"
     jcr:primaryType="cq:Component"
     jcr:title="Event Details"
-    componentGroup="Details"/>
+    componentGroup="AEM.Design - Details"/>

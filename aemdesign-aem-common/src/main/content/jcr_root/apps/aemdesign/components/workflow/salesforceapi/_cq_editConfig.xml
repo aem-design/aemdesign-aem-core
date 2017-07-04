@@ -7,7 +7,7 @@
         jcr:description="A process to call Salesforce API"
         jcr:primaryType="nt:unstructured"
         jcr:title="Salesforce Post"
-        PROCESS="/apps/sas-forms/components/workflow/salesforceapi/scripts/salesforceapi.ecma"
+        PROCESS="/apps/aemdesign/components/workflow/salesforceapi/scripts/salesforceapi.ecma"
         PROCESS_ADV="{Boolean}true"
         PROCESS_AUTO_ADVANCE="true"/>
 </jcr:root>

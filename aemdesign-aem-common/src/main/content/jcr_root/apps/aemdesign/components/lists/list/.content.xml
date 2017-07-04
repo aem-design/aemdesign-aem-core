@@ -3,4 +3,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="List"
     allowedParents="[*/parsys]"
-    componentGroup="Lists" />
+    componentGroup="AEM.Design - Lists"/>

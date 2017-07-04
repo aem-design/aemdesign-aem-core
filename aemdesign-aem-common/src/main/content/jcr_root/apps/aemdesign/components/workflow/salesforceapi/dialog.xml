@@ -12,7 +12,7 @@
                     xtype="cqinclude"/>
                 <processargs
                     jcr:primaryType="cq:Widget"
-                    path="/apps/sas-forms/components/workflow/salesforceapi/processargs.infinity.json"
+                    path="/apps/aemdesign/components/workflow/salesforceapi/processargs.infinity.json"
                     xtype="cqinclude"/>
             </items>
         </tabs>

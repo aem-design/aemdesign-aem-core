@@ -5,4 +5,4 @@
           jcr:description="The location list component references structured content from location detail components and present it in a format that the content authors pick, such as a map. The current iteration uses Fixed list as the sole methodology of authoring the list of locations"
           sling:resourceSuperType="aemdesign/components/lists/list"
           allowedParents="[*/parsys]"
-          componentGroup="Lists" />
+          componentGroup="AEM.Design - Lists"/>

@@ -5,4 +5,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Tool Tip"
     sling:resourceSuperType="foundation/components/text"
-    componentGroup="hiddne"/>
+    componentGroup="AEM.Design - Content"/>

@@ -4,4 +4,4 @@
     jcr:title="Flash"
     sling:resourceSuperType="/libs/foundation/components/flash"
     allowedParents="[*/parsys]"
-    componentGroup="hidden"/>
+    componentGroup=".hidden"/>
