@@ -10,7 +10,8 @@
     //   3 optional - compile into a data-{name} attribute
     // }
     Object[][] componentFields = {
-        {"ariaRole",DEFAULT_ARIA_ROLE},
+        {"ariaRole",DEFAULT_ARIA_ROLE, "role"},
+        {"variant", "default"},
     };
 
     ComponentProperties componentProperties = getComponentProperties(

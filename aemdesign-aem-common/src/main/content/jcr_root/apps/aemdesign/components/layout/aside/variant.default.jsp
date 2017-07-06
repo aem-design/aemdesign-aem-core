@@ -1,3 +1,3 @@
-<aside role="${componentProperties.ariaRole}" ${componentProperties.componentAttributes}>
+<aside ${componentProperties.componentAttributes}>
     <cq:include path="par" resourceType="foundation/components/parsys"/>
 </aside>

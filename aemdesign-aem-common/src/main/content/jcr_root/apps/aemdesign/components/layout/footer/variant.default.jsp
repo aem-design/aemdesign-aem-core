@@ -1,3 +1,3 @@
-<footer role="${componentProperties.ariaRole}" ${componentProperties.componentAttributes}>
+<footer ${componentProperties.componentAttributes}>
     <cq:include path="par" resourceType="foundation/components/parsys"/>
 </footer>

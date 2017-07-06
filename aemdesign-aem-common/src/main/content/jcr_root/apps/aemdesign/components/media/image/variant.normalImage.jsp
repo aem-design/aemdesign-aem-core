@@ -1,4 +1,4 @@
-<div role="${componentProperties.ariaRole}" ${componentProperties.componentAttributes}>
+<div ${componentProperties.componentAttributes}>
 <c:if test="${not empty componentProperties.imageTargetURL}">
 <a href="${componentProperties.imageTargetURL}">
 </c:if>

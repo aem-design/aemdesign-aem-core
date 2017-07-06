@@ -35,7 +35,7 @@
             {"renditionImageMapping", new String[0]},
             {"adaptiveImageMapping", new String[0]},
             {"pageURL",StringUtils.EMPTY},
-            {"ariaRole",DEFAULT_ARIA_ROLE},
+            {"ariaRole",DEFAULT_ARIA_ROLE, "role"},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
