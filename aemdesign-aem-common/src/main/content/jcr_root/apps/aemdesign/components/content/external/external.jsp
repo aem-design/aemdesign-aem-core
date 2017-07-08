@@ -19,8 +19,6 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    componentProperties.put("instanceName", _currentNode.getName());
-
 
     String scrolling = componentProperties.get("showScrollbar","");
     if (isNotEmpty(scrolling)) {

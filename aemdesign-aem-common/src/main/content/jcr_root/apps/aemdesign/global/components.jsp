@@ -369,9 +369,14 @@
             itemAttr.add("class", component.getName().trim());
         }
 
-
         ResourceResolver adminResourceResolver  = openAdminResourceResolver(sling);
         try {
+
+            Node currentNode = (javax.jcr.Node)  pageContext.getAttribute("currentNode");
+            if (currentNode != null) {
+                componentProperties.put("instanceName", currentNode.getName());
+            }
+
             TagManager tagManager = adminResourceResolver.adaptTo(TagManager.class);
 
             boolean useStyles = true;
