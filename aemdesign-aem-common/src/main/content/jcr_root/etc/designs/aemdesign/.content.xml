@@ -65,8 +65,7 @@
                         <contentblock
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="aemdesign/components/layout/contentblock"
-                                componentTheme="[]"
-                                variant="section">
+                                componentTheme="[]">
                             <parsys
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="foundation/components/parsys"
@@ -75,8 +74,7 @@
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="aemdesign/components/content/text"
                                         componentTheme="[]"
-                                        textIsRich="true"
-                                        variant="section"/>
+                                        textIsRich="true"/>
                                 <section jcr:primaryType="nt:unstructured"/>
                                 <image
                                         jcr:primaryType="nt:unstructured"
@@ -197,8 +195,7 @@
                     <contentblock
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="aemdesign/components/layout/contentblock"
-                            componentTheme="[]"
-                            variant="section">
+                            componentTheme="[]">
                         <parsys
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="foundation/components/parsys"
@@ -207,8 +204,7 @@
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="aemdesign/components/content/text"
                                     componentTheme="[]"
-                                    textIsRich="true"
-                                    variant="section"/>
+                                    textIsRich="true"/>
                             <section jcr:primaryType="nt:unstructured"/>
                             <image
                                     jcr:primaryType="nt:unstructured"
@@ -287,8 +283,7 @@
                     <contentblock
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="aemdesign/components/layout/contentblock"
-                            componentTheme="[]"
-                            variant="section">
+                            componentTheme="[]">
                         <parsys
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="foundation/components/parsys"
@@ -297,8 +292,7 @@
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="aemdesign/components/content/text"
                                     componentTheme="[]"
-                                    textIsRich="true"
-                                    variant="section"/>
+                                    textIsRich="true"/>
                             <list
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="aemdesign/components/lists/list"
@@ -422,8 +416,7 @@
                     <contentblock
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="aemdesign/components/layout/contentblock"
-                            componentTheme="[]"
-                            variant="section">
+                            componentTheme="[]">
                         <parsys
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="foundation/components/parsys"
@@ -432,8 +425,7 @@
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="aemdesign/components/content/text"
                                     componentTheme="[]"
-                                    textIsRich="true"
-                                    variant="section"/>
+                                    textIsRich="true"/>
                             <list
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="aemdesign/components/lists/list"
