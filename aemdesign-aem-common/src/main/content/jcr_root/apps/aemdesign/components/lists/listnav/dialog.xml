@@ -2,14 +2,21 @@
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Dialog"
     title="List Nav"
-    selectTab="function(tabToSelect) { AEMDESIGN.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,false); }"
+    selectTab="function(tabToSelect) { AEMDESIGN.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,true); }"
     hideTab="function(tabToHide) { AEMDESIGN.author.components.list.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
     xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">
             <items jcr:primaryType="cq:WidgetCollection">
                 <!-- basic information tab -->
-                <listTab jcr:primaryType="cq:Panel" title="Basic">
+                <listTab
+                        jcr:primaryType="cq:Panel"
+                        title="Basic"
+                        name="listTab"
+                        xtype="panel">
+                    <listeners
+                            jcr:primaryType="nt:unstructured"
+                            render="function() { this.findParentByType('dialog').includeTab(this); }"/>
 
                     <items jcr:primaryType="cq:WidgetCollection">
                         <listFrom

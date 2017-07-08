@@ -4,8 +4,9 @@
           jcr:primaryType="cq:Dialog"
           helpPath="en/cq/current/wcm/default_components.html#List"
           title="Page List"
-          selectTab="function(tabToSelect) { AEMDESIGN.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,false); }"
+          selectTab="function(tabToSelect) { AEMDESIGN.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,true); }"
           hideTab="function(tabToHide) { AEMDESIGN.author.components.list.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
+          includeTab="function(tabToInclude) { AEMDESIGN.dialog.includeTab(tabToInclude, this.findByType('tabpanel')[0]); }"
           xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel"
@@ -14,7 +15,11 @@
                 <listTab
                         jcr:primaryType="cq:Widget"
                         title="Page List"
+                        name="listTab"
                         xtype="panel">
+                    <listeners
+                            jcr:primaryType="nt:unstructured"
+                            render="function() { this.findParentByType('dialog').includeTab(this); }"/>
                     <items jcr:primaryType="cq:WidgetCollection">
                         <listFrom
                                 jcr:primaryType="cq:Widget"

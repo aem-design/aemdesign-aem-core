@@ -3,7 +3,7 @@
     jcr:primaryType="cq:Dialog"
     helpPath="en/cq/current/wcm/default_components.html#List"
     title="Nav List"
-    selectTab="function(tabToSelect) { AEMDESIGN.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,false); }"
+    selectTab="function(tabToSelect) { AEMDESIGN.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,true); }"
     hideTab="function(tabToHide) { AEMDESIGN.author.components.list.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
     xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
@@ -16,7 +16,11 @@
                 <listTab
                         jcr:primaryType="cq:Widget"
                         title="Nav List"
+                        name="listTab"
                         xtype="panel">
+                    <listeners
+                            jcr:primaryType="nt:unstructured"
+                            render="function() { this.findParentByType('dialog').includeTab(this); }"/>
                     <items jcr:primaryType="cq:WidgetCollection">
                         <listFrom
                                 jcr:primaryType="cq:Widget"
