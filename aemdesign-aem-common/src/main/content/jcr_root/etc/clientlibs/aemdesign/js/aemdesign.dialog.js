@@ -65,8 +65,10 @@ window.AEMDESIGN.dialog = window.AEMDESIGN.dialog || {};
             var tabsFound = tabPanels.find("name",tabToSelectName);
             var tabToSelect;
             if (tabsFound.length == 0) {
-                //quick fail
-                return;
+                if(tabPanels.includeTabs){
+                    tabToSelect = tabPanels.includeTabs[0];
+                    tabPanels.unhideTabStripItem(tabPanels.includeTabs[0]);
+                }
             } else {
                 tabToSelect = tabsFound[0];
             }
@@ -75,7 +77,9 @@ window.AEMDESIGN.dialog = window.AEMDESIGN.dialog || {};
                 if (!noHide) {
                     for (var index in tabPanels.hiddenTabs) {
                         if (tabToSelect == tabPanels.hiddenTabs[index]) {
-                            tabPanels.unhideTabStripItem(tabPanels.hiddenTabs[index]);
+                            if (tabToSelect.isVisible() == false) {
+                                tabPanels.unhideTabStripItem(tabPanels.hiddenTabs[index]);
+                            }
                         } else {
                             tabPanels.hideTabStripItem(tabPanels.hiddenTabs[index]);
                         }
@@ -93,6 +97,19 @@ window.AEMDESIGN.dialog = window.AEMDESIGN.dialog || {};
         }
     };
 
+
+    ns.includeTab = function (tabToInclude, tabPanels) {
+        try {
+            //init array if not there
+            if(!tabPanels.includeTabs){
+                tabPanels.includeTabs=[];
+            }
+            //remember this tab for unhiding
+            tabPanels.includeTabs.push(tabToInclude);
+        } catch (ex) {
+            log.error(["useTab", tabToInclude, tabPanels, ex]);
+        }
+    };
 
     ns.hideTab = function (tabToHide, tabPanels) {
         try {
