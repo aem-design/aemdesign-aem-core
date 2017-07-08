@@ -2,8 +2,6 @@
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="cq:Dialog"
     helpPath="en/cq/current/wcm/default_components.html#List"
-    selectTab="function(tabToSelect) { AEMDESIGN.author.components.list.manageTabs(this.findByType('tabpanel')[0],tabToSelect,false); }"
-    hideTab="function(tabToHide) { AEMDESIGN.author.components.list.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
     title="List"
     xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
