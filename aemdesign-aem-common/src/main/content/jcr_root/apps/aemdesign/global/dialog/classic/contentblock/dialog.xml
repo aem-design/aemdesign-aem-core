@@ -25,66 +25,45 @@
                             fieldLabel="Title"
                             name="./title"
                             xtype="textfield"/>
-                        <hideTitle
-                                jcr:primaryType="cq:Widget"
-                                checked="true"
-                                defaultValue="true"
-                                fieldLabel="Hide Title"
-                                name="./hideTitle"
-                                type="radio"
-                                xtype="selection">
-                            <options jcr:primaryType="cq:WidgetCollection">
-                                <true jcr:primaryType="nt:unstructured" text="Hidden" value="true" />
-                                <false jcr:primaryType="nt:unstructured" text="Visible" value="false" />
-                            </options>
-                        </hideTitle>
-                        <hideTitleSeparator
-                            jcr:primaryType="cq:Widget"
-                            checked="false"
-                            defaultValue="true"
-                            fieldLabel="Title underline"
-                            name="./hideTitleSeparator"
-                            type="radio"
-                            xtype="selection">
-                                <options jcr:primaryType="cq:WidgetCollection">
-                                    <true jcr:primaryType="nt:unstructured" text="Hidden" value="true" />
-                                    <false jcr:primaryType="nt:unstructured" text="Visible" value="false" />
-                                </options>
-                        </hideTitleSeparator>
+                        <hideTitle jcr:primaryType="cq:Widget"
+                                        fieldLabel="Hide Title"
+                                        allowBlank="{Boolean}true"
+                                        name="./hideTitle"
+                                        options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                        type="select"
+                                        defaultValue=""
+                                        value=""
+                                        xtype="selection"/>
 
-                        <hideTopLink
-                            jcr:primaryType="cq:Widget"
-                            checked="false"
-                            defaultValue="true"
-                            fieldLabel="Top link on bottom component"
-                            name="./hideTopLink"
-                            type="radio"
-                            xtype="selection">
+                        <hideTitleSeparator jcr:primaryType="cq:Widget"
+                                        fieldLabel="Hide Title Underline"
+                                        allowBlank="{Boolean}true"
+                                        name="./hideTitleSeparator"
+                                        options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                        type="select"
+                                        defaultValue=""
+                                        value=""
+                                        xtype="selection"/>
 
-                            <options jcr:primaryType="cq:WidgetCollection">
-                                <true jcr:primaryType="nt:unstructured" text="Hidden" value="true" />
-                                <false jcr:primaryType="nt:unstructured" text="Visible" value="false" />
-                            </options>
+                        <hideTopLink jcr:primaryType="cq:Widget"
+                                        fieldLabel="Hide Top link on bottom component"
+                                        allowBlank="{Boolean}true"
+                                        name="./hideTopLink"
+                                        options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                        type="select"
+                                        defaultValue=""
+                                        value=""
+                                        xtype="selection"/>
 
-                        </hideTopLink>
-
-
-                        <hideInContentMenu
-                            jcr:primaryType="cq:Widget"
-                            checked="false"
-                            defaultValue="true"
-                            fieldLabel="Title in content block menu"
-                            name="./hideInMenu"
-                            type="radio"
-                            xtype="selection">
-
-                            <options jcr:primaryType="cq:WidgetCollection">
-                                <true jcr:primaryType="nt:unstructured" text="Hidden" value="false" />
-                                <false jcr:primaryType="nt:unstructured" text="Visible" value="true" />
-                            </options>
-
-                        </hideInContentMenu>
-
+                        <hideInContentMenu jcr:primaryType="cq:Widget"
+                                        fieldLabel="Hide Title in content block menu"
+                                        allowBlank="{Boolean}true"
+                                        name="./hideInMenu"
+                                        options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                        type="select"
+                                        defaultValue=""
+                                        value=""
+                                        xtype="selection"/>
                     </items>
                 </title>
             </items>
