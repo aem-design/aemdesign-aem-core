@@ -1,6 +1,6 @@
 <section ${componentProperties.componentAttributes}>
     <fieldset>
-        <legend class="${componentProperties.styleTitleClass}" ${componentProperties.hideTitle ? "hidden":"" }>${componentProperties.title}</legend>
+        <legend class="legend">${componentProperties.title}</legend>
         <cq:include path="par" resourceType="foundation/components/parsys"/>
     </fieldset>
 </section>
