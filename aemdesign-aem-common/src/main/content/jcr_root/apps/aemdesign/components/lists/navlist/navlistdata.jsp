@@ -10,13 +10,8 @@
 <%!
 
     private static final String PAR_PAGEDETAILS = "par/page-details";
-    private static final String DETAILS_MENU_ICON = "menuIcon";
-    private static final String DETAILS_MENU_ICONPATH = "menuIconPath";
-    private static final String DETAILS_MENU_COLOR = "menuColor";
     private static final String DETAILS_MENU_COLOR_DEFAULT = "default";
     private static final String DETAILS_MENU_ACCESSKEY = "ariaAccessKey";
-    private static final String DETAILS_TAB_ICON = "tabIcon";
-    private static final String DETAILS_TAB_ICONPATH = "tabIconPath";
     private static final String DETAILS_TAB_GALLERYBGIMAGE = "par/page-details/gallerybgimage";
     private static final String DETAILS_TITLE = "title";
 

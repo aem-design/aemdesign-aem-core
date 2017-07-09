@@ -7,10 +7,6 @@
 <%!
 
     private static final String PAR_PAGEDETAILS = "par/page-details";
-    private static final String DETAILS_MENU_ICON = "menuIcon";
-    private static final String DETAILS_MENU_ICONPATH = "menuIconPath";
-    private static final String DETAILS_TAB_ICON = "tabIcon";
-    private static final String DETAILS_TAB_ICONPATH = "tabIconPath";
     private static final String DETAILS_TITLE = "title";
     private static final String PAR_CONTENTS = "par";
     /**
