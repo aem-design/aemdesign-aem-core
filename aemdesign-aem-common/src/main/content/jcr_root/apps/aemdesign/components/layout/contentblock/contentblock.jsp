@@ -7,24 +7,27 @@
 <%@ include file="contentblockdata.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
+<%@ include file="/apps/aemdesign/global/i18n.jsp" %>
 <%
 
+    final String DEFAULT_I18N_CATEGORY = "contentblock";
+    final String DEFAULT_I18N_BACKTOTOP_LABEL = "backtotoplabel";
+    final String DEFAULT_I18N_BACKTOTOP_TITLE = "backtotoptitle";
+    final String DEFAULT_TITLE_TYPE = "h1";
+
     Object[][] componentFields = {
-            {"variant", ""},
-            {"hideTitle", true},
-            {"hideTitleSeparator", true},
-            {"hideTopLink", true},
-            {"topLinkLabel", true},
-            {"topLinkTitle", true},
-            {"styleTitleContainerClass", "heading"},
+            {"variant", DEFAULT_VARIANT},
+            {"hideTitle", false},
+            {"hideTopLink", false},
+            {"linksLeftTitle", ""},
             {"linksRightTitle", ""},
             {"dataTitle", ""},
             {"dataScroll", ""},
-            {"showdataTitle", false},
-            {"showdataScroll", false},
-            {"linkPagesRight", new String[]{}},
-            {"linkPagesLeft", new String[]{}},
-            {"title", ""}
+            {"linksRight", new String[]{}},
+            {"linksLeft", new String[]{}},
+            {"titleType", DEFAULT_TITLE_TYPE},
+            {"title", ""},
+            {"ariaLabelledBy", "heading-".concat(_currentNode.getName()),"aria-labelledby"},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -33,10 +36,12 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    componentProperties.put("instanceName",_currentNode.getName());
+    componentProperties.put("linksRightList",getContentPageList(_pageManager, componentProperties.get("linksRight", new String[]{})));
+    componentProperties.put("linksLeftList",getContentPageList(_pageManager, componentProperties.get("linksLeft", new String[]{})));
 
-    componentProperties.put("listPagesRight",getContentPageList(_pageManager, componentProperties.get("linkPagesRight", new String[]{})));
-    componentProperties.put("listPagesLeft",getContentPageList(_pageManager, componentProperties.get("linkPagesLeft", new String[]{})));
+    componentProperties.put("topLinkLabel",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_LABEL,DEFAULT_I18N_CATEGORY,_i18n));
+    componentProperties.put("topLinkTitle",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_TITLE,DEFAULT_I18N_CATEGORY,_i18n));
+
 
     // init
     Map<String, Object> info = new HashMap<String, Object>();
@@ -49,31 +54,24 @@
         attributes += MessageFormat.format("style=\"background-image: url({0})\"", mappedUrl(_resourceResolver, bgImageFile));
     }
 
-    if (componentProperties.get("showdataTitle",false)) {
-        attributes += MessageFormat.format("data-fixed-menu-title=\"{0}\"", componentProperties.get("linkPagesLeft",""));
-    }
-    if (componentProperties.get("showdataScroll",false)) {
-        attributes += MessageFormat.format("data-scroll-class=\"{0}\"", "animate-in");
-    }
 
-    componentProperties.put("componentAttributes",attributes);
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
-    <c:when test="${componentProperties.variant == 'descriptionlist'}">
+    <c:when test="${componentProperties.variant eq 'descriptionlist'}">
         <%@ include file="variant.descriptionlist.jsp" %>
     </c:when>
-    <c:when test="${componentProperties.variant == 'fieldset'}">
+    <c:when test="${componentProperties.variant eq 'fieldset'}">
         <%@ include file="variant.fieldset.jsp" %>
     </c:when>
-    <c:when test="${componentProperties.variant == 'advsection'}">
+    <c:when test="${componentProperties.variant eq 'advsection'}">
         <%@ include file="variant.advanced.jsp" %>
     </c:when>
-    <c:when test="${componentProperties.variant == 'floating'}">
+    <c:when test="${componentProperties.variant eq 'floating'}">
         <%@ include file="variant.floating.jsp" %>
     </c:when>
-    <c:when test="${componentProperties.variant == 'section'}">
-        <%@ include file="variant.section.jsp" %>
+    <c:when test="${componentProperties.variant eq 'container'}">
+        <%@ include file="variant.container.jsp" %>
     </c:when>
     <c:otherwise>
         <%@ include file="variant.default.jsp" %>
