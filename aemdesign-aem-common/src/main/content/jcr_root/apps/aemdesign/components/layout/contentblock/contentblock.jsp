@@ -13,7 +13,7 @@
     final String DEFAULT_I18N_CATEGORY = "contentblock";
     final String DEFAULT_I18N_BACKTOTOP_LABEL = "backtotoplabel";
     final String DEFAULT_I18N_BACKTOTOP_TITLE = "backtotoptitle";
-    final String DEFAULT_TITLE_TYPE = "h1";
+    final String DEFAULT_TITLE_TAG_TYPE = "h2";
 
     Object[][] componentFields = {
             {"variant", DEFAULT_VARIANT},
@@ -25,7 +25,7 @@
             {"dataScroll", ""},
             {"linksRight", new String[]{}},
             {"linksLeft", new String[]{}},
-            {"titleType", DEFAULT_TITLE_TYPE},
+            {"titleType", DEFAULT_TITLE_TAG_TYPE},
             {"title", ""},
             {"ariaLabelledBy", "heading-".concat(_currentNode.getName()),"aria-labelledby"},
     };
