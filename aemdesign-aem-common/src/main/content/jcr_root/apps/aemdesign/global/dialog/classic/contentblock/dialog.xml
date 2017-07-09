@@ -35,18 +35,9 @@
                                         value=""
                                         xtype="selection"/>
 
-                        <hideTitleSeparator jcr:primaryType="cq:Widget"
-                                        fieldLabel="Hide Title Underline"
-                                        allowBlank="{Boolean}true"
-                                        name="./hideTitleSeparator"
-                                        options="/etc/tags/component-dialog/common/true-false.valuelist.json"
-                                        type="select"
-                                        defaultValue=""
-                                        value=""
-                                        xtype="selection"/>
-
                         <hideTopLink jcr:primaryType="cq:Widget"
-                                        fieldLabel="Hide Top link on bottom component"
+                                        fieldLabel="Hide Back to Top link"
+                                        fieldDescription="will hide link Back to Top at the bottom of section"
                                         allowBlank="{Boolean}true"
                                         name="./hideTopLink"
                                         options="/etc/tags/component-dialog/common/true-false.valuelist.json"
@@ -57,6 +48,7 @@
 
                         <hideInContentMenu jcr:primaryType="cq:Widget"
                                         fieldLabel="Hide Title in content block menu"
+                                        fieldDescription="will hide this section from Content Block List"
                                         allowBlank="{Boolean}true"
                                         name="./hideInMenu"
                                         options="/etc/tags/component-dialog/common/true-false.valuelist.json"
@@ -64,6 +56,18 @@
                                         defaultValue=""
                                         value=""
                                         xtype="selection"/>
+
+                        <titleType jcr:primaryType="cq:Widget"
+                                   fieldLabel="Title Type"
+                                   fieldDescription="which paragraph tag to use for Title display"
+                                   allowBlank="{Boolean}true"
+                                   name="./titleType"
+                                   options="/etc/tags/component-dialog/html/heading.valuelist.json"
+                                   type="select"
+                                   defaultValue=""
+                                   value=""
+                                   xtype="selection"/>
+
                     </items>
                 </title>
             </items>
