@@ -5,15 +5,8 @@
 <%!
 
     private static final String PAR_PAGEDETAILS = "par/page-details";
-    private static final String DETAILS_MENU_ICON = "menuIcon";
-    private static final String DETAILS_MENU_ICONPATH = "menuIconPath";
-    private static final String DETAILS_TAB_ICON = "tabIcon";
-    private static final String DETAILS_TAB_ICONPATH = "tabIconPath";
-    private static final String DETAILS_TITLE_ICON = "titleIcon";
-    private static final String DETAILS_TITLE_ICONPATH = "titleIconPath";
+    private static final String ARTICLE_PAR_PAGEDETAILS = "article/par/page-details";
     private static final String DETAILS_TITLE = "title";
-    private static final String STYLE_CLASS = "cssClass";
-    private static final String STYLE_THEME_CLASS = "cssThemeClass";
 
     /**
      * Return a JCR node for the news details of <code>thisPage</code>
@@ -84,7 +77,7 @@
                     infoStruct.put("pageImage", image.getFileReference());
                 }
 
-                String[] supportedDetails = {PAR_PAGEDETAILS};
+                String[] supportedDetails = {PAR_PAGEDETAILS,ARTICLE_PAR_PAGEDETAILS};
 
                 Node pageDetails = getDetailsNode(child,supportedDetails);
                 if (pageDetails!=null) {
