@@ -52,7 +52,7 @@
                     </c:otherwise>
                 </c:choose>
                 <c:if test="${not componentProperties.hideTitle and not empty componentProperties.title}">
-                    <${componentProperties.titleType} id="${componentProperties.ariaLabelledBy}">${componentProperties.title}</h2>
+                    <${componentProperties.titleType} class="heading" id="${componentProperties.ariaLabelledBy}">${componentProperties.title}</${componentProperties.titleType}>
                 </c:if>
             </div>
         </c:if>
