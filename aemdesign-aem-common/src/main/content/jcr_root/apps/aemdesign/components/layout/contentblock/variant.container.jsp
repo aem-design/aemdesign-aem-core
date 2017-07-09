@@ -1,3 +1,3 @@
-<section ${componentProperties.componentAttributes}>
+<div ${componentProperties.componentAttributes}>
     <cq:include path="par" resourceType="foundation/components/parsys"/>
-</section>
+</div>
