@@ -435,6 +435,7 @@
                         title="Menu Configuration"
                         xtype="dialogfieldset">
                     <items jcr:primaryType="cq:WidgetCollection">
+
                         <menuColor jcr:primaryType="cq:Widget"
                                    fieldLabel="Color"
                                    fieldDescription="Color to be used for highlighting in Site Menu"
@@ -444,6 +445,25 @@
                                    type="select"
                                    defaultValue=""
                                    xtype="selection"/>
+
+                        <menuIcon jcr:primaryType="cq:Widget"
+                                    fieldLabel="Show As Icon"
+                                    fieldDescription="When showing this page in menu show this as Icon"
+                                    allowBlank="{Boolean}true"
+                                    name="./menuIcon"
+                                    options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                    type="select"
+                                    defaultValue=""
+                                    xtype="selection"/>
+
+                        <menuIconPath
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Icon Path"
+                                name="./menuIconPath"
+                                rootPath="/content/dam"
+                                fieldDescription="The location of the icon to use"
+                                xtype="pathfield"/>
+
                     </items>
                 </menuConfigGroup>
 
@@ -476,6 +496,65 @@
 
                         </items>
                 </compositionConfigGroup>
+
+                <tabIconTab
+                        jcr:primaryType="cq:Widget"
+                        title="Tab Configuration"
+                        description="Icon used in Tabs"
+                        collapsed="{Boolean}true"
+                        collapsible="{Boolean}true"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <tabIcon jcr:primaryType="cq:Widget"
+                                  fieldLabel="Show As Icon"
+                                  fieldDescription="When showing this page in a tab show this as Icon"
+                                  allowBlank="{Boolean}true"
+                                  name="./tabIcon"
+                                  options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                  type="select"
+                                  defaultValue=""
+                                  xtype="selection"/>
+
+                        <tabIconPath
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Icon Path"
+                                name="./tabIconPath"
+                                rootPath="/content/dam"
+                                fieldDescription="The location of the icon to use"
+                                xtype="pathfield"/>
+                    </items>
+                </tabIconTab>
+
+                <titleIconTab
+                        jcr:primaryType="cq:Widget"
+                        title="Title Configuration"
+                        description="Icon used in Titles"
+                        collapsed="{Boolean}true"
+                        collapsible="{Boolean}true"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <titleIcon jcr:primaryType="cq:Widget"
+                                 fieldLabel="Show As Icon"
+                                 fieldDescription="When showing this page links show this as Icon"
+                                 allowBlank="{Boolean}true"
+                                 name="./titleIcon"
+                                 options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                 type="select"
+                                 defaultValue=""
+                                 xtype="selection"/>
+
+                        <titleIconPath
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Icon Path"
+                                name="./titleIconPath"
+                                rootPath="/content/dam"
+                                fieldDescription="The location of the icon to use"
+                                xtype="pathfield"/>
+                    </items>
+                </titleIconTab>
+
 <!--
                 <seoConfigGroup
                         jcr:primaryType="cq:Widget"
@@ -659,73 +738,6 @@
             </items>
         </advancedTab>
 
-
-        <menuIconTab
-                jcr:primaryType="cq:Panel"
-                title="Menu Icon">
-            <items jcr:primaryType="cq:WidgetCollection">
-                <showAsIcon
-                        jcr:primaryType="cq:Widget"
-                        defaultValue="false"
-                        fieldLabel="Show As Icon"
-                        fieldDescription="When showing this page in menu show this as Icon"
-                        name="./menuIcon"
-                        type="checkbox"
-                        xtype="selection"/>
-                <icon
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Icon Path"
-                        name="./menuIconPath"
-                        rootPath="/content/dam"
-                        fieldDescription="The location of the icon to use"
-                        xtype="pathfield"/>
-
-            </items>
-        </menuIconTab>
-        <tabIconTab
-                jcr:primaryType="cq:Panel"
-                title="Tab Icon"
-                description="Icon used in Tabs">
-            <items jcr:primaryType="cq:WidgetCollection">
-                <showAsIcon
-                        jcr:primaryType="cq:Widget"
-                        defaultValue="false"
-                        fieldLabel="Show As Icon"
-                        fieldDescription="When showing this page in a tab show this as Icon"
-                        name="./tabIcon"
-                        type="checkbox"
-                        xtype="selection"/>
-                <icon
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Icon Path"
-                        name="./tabIconPath"
-                        rootPath="/content/dam"
-                        fieldDescription="The location of the icon to use"
-                        xtype="pathfield"/>
-            </items>
-        </tabIconTab>
-        <titleIconTab
-                jcr:primaryType="cq:Panel"
-                title="Title Icon"
-                description="Icon used in Titles">
-            <items jcr:primaryType="cq:WidgetCollection">
-                <showAsIcon
-                        jcr:primaryType="cq:Widget"
-                        defaultValue="false"
-                        fieldLabel="Show As Icon"
-                        fieldDescription="When showing this page links show this as Icon"
-                        name="./titleIcon"
-                        type="checkbox"
-                        xtype="selection"/>
-                <icon
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Icon Path"
-                        name="./titleIconPath"
-                        rootPath="/content/dam"
-                        fieldDescription="The location of the icon to use"
-                        xtype="pathfield"/>
-            </items>
-        </titleIconTab>
 
     </items>
 
