@@ -28,14 +28,15 @@
             {"useParentPageTitle", false},
             {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
             {"showToolbar", DEFAULT_SHOW_TOOLBAR},
-            {"titleFormat",""}
+            {"titleFormat",""},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
             pageContext,
             componentFields,
             DEFAULT_FIELDS_STYLE,
-            DEFAULT_FIELDS_ACCESSIBILITY);
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_PAGEDETAILS);
 
     componentProperties.put("showBreadcrumb", BooleanUtils.toBoolean(componentProperties.get("showBreadcrumb", String.class)));
     componentProperties.put("showToolbar", BooleanUtils.toBoolean(componentProperties.get("showToolbar", String.class)));
