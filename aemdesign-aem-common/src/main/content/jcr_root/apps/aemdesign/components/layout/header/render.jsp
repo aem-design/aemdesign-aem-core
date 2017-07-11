@@ -20,6 +20,8 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
+    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,"bgimage"));
+
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
