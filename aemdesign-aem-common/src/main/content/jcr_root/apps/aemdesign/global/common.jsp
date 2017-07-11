@@ -81,6 +81,29 @@
     }
 
     /**
+     * get resource last modified attribute
+     * @param resource
+     * @return
+     */
+
+    protected Long getLastModified(Resource resource) {
+        long lastMod = 0L;
+        ValueMap values = resource.adaptTo(ValueMap.class);
+        if(values != null) {
+            Long value = values.get("jcr:lastModified", Long.class);
+            if(value == null) {
+                value = values.get("jcr:created", Long.class);
+            }
+
+            if(value != null) {
+                lastMod = value.longValue();
+            }
+        }
+
+        return lastMod;
+    }
+
+    /**
      * Get a page's title, nv title navigation title, or name
      *
      * @param page is the page to get the title for
