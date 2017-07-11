@@ -162,6 +162,16 @@
                     </items>
                 </advsection>
 
+                <imageBackgroundTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/imageBackgroundTab.infinity.json"
+                        xtype="cqinclude"/>
+
+                <imageBackgroundTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/imageBackgroundTabResourceType.infinity.json"
+                        xtype="cqinclude"/>
+
                 <styleTab
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
