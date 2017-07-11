@@ -52,6 +52,9 @@
     private static final String DETAILS_TITLE_ICON = "titleIcon";
     private static final String DETAILS_TITLE_ICONPATH = "titleIconPath";
 
+    private static final String DEFAULT_IMAGE_RESOURCETYPE = "aemdesign/components/media/image";
+
+    private static final String COMPONENT_ATTRIBUTES = "componentAttributes";
 
     // {
     //   1 required - property name,
@@ -358,6 +361,8 @@
     }
 
 
+
+
     /**
      * returns component values with defaults from pageContent Properties
      * @param pageContext current page context
@@ -507,7 +512,7 @@
             }
 
             if (!itemAttr.isEmpty()) {
-                componentProperties.put("componentAttributes", itemAttr.build());
+                componentProperties.put(COMPONENT_ATTRIBUTES, itemAttr.build());
             }
 
 
@@ -519,6 +524,21 @@
         }
 
         return componentProperties;
+    }
+
+    public String addComponentBackgroundToAttributes(ComponentProperties componentProperties, Resource resource, String imageResourceName) {
+        String componentAttributes = componentProperties.get(COMPONENT_ATTRIBUTES, "");
+        Resource imageResource = resource.getChild(imageResourceName);
+        if (imageResource != null) {
+            String imageSrc = "";
+            if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE)) {
+                Long lastModified = getLastModified(imageResource);
+                imageSrc = MessageFormat.format("{0}.img.png/{1}.png", imageResource.getPath(), lastModified.toString());
+            }
+            componentAttributes += MessageFormat.format(" style=\"background-image: url({0})\"", mappedUrl(resource.getResourceResolver(), imageSrc));
+        }
+
+        return componentAttributes;
     }
 
     /**
