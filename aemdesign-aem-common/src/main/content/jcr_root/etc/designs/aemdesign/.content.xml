@@ -12,13 +12,13 @@
             <parsys
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="foundation/components/parsys"
-                    components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                 <section jcr:primaryType="nt:unstructured"/>
                 <header jcr:primaryType="nt:unstructured">
                     <parsys
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="foundation/components/parsys"
-                            components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                            components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                         <section jcr:primaryType="nt:unstructured"/>
                     </parsys>
                 </header>
@@ -26,21 +26,21 @@
                     <parsys
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="foundation/components/parsys"
-                            components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                            components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                         <section jcr:primaryType="nt:unstructured"/>
                     </parsys>
                 </banner>
                 <parsys
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="foundation/components/parsys"
-                        components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                        components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                     <section jcr:primaryType="nt:unstructured"/>
                 </parsys>
                 <footer jcr:primaryType="nt:unstructured">
                     <parsys
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="foundation/components/parsys"
-                            components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                            components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                         <section jcr:primaryType="nt:unstructured"/>
                     </parsys>
                 </footer>
@@ -51,7 +51,7 @@
                     <parsys
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="foundation/components/parsys"
-                            components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                            components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                         <section jcr:primaryType="nt:unstructured"/>
                     </parsys>
                 </aside>
@@ -61,7 +61,7 @@
                     <parsys
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="foundation/components/parsys"
-                            components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                            components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                         <contentblock
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="aemdesign/components/layout/contentblock"
@@ -69,7 +69,7 @@
                             <parsys
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="foundation/components/parsys"
-                                    components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                                 <text
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="aemdesign/components/content/text"
@@ -148,7 +148,7 @@
                 <parsys
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="foundation/components/parsys"
-                        components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                        components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                     <section jcr:primaryType="nt:unstructured"/>
                 </parsys>
             </header>
@@ -156,21 +156,21 @@
                 <parsys
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="foundation/components/parsys"
-                        components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                        components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                     <section jcr:primaryType="nt:unstructured"/>
                 </parsys>
             </banner>
             <parsys
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="foundation/components/parsys"
-                    components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                 <section jcr:primaryType="nt:unstructured"/>
             </parsys>
             <footer jcr:primaryType="nt:unstructured">
                 <parsys
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="foundation/components/parsys"
-                        components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                        components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                     <section jcr:primaryType="nt:unstructured"/>
                 </parsys>
             </footer>
@@ -181,7 +181,7 @@
                 <parsys
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="foundation/components/parsys"
-                        components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                        components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                     <section jcr:primaryType="nt:unstructured"/>
                 </parsys>
             </aside>
@@ -191,7 +191,7 @@
                 <parsys
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="foundation/components/parsys"
-                        components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                        components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                     <contentblock
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="aemdesign/components/layout/contentblock"
@@ -199,7 +199,7 @@
                         <parsys
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="foundation/components/parsys"
-                                components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                                components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                             <text
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="aemdesign/components/content/text"
@@ -279,7 +279,7 @@
                 <parsys
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="foundation/components/parsys"
-                        components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                        components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                     <contentblock
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="aemdesign/components/layout/contentblock"
@@ -287,7 +287,7 @@
                         <parsys
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="foundation/components/parsys"
-                                components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                                components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                             <text
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="aemdesign/components/content/text"
@@ -371,7 +371,7 @@
                 <parsys
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="foundation/components/parsys"
-                        components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                        components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                     <section jcr:primaryType="nt:unstructured"/>
                 </parsys>
                 <bgimage
@@ -412,7 +412,7 @@
                 <parsys
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="foundation/components/parsys"
-                        components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                        components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                     <contentblock
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="aemdesign/components/layout/contentblock"
@@ -420,7 +420,7 @@
                         <parsys
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="foundation/components/parsys"
-                                components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                                components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                             <text
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="aemdesign/components/content/text"
@@ -504,7 +504,7 @@
                 <parsys
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="foundation/components/parsys"
-                        components="[group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
+                        components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]">
                     <section jcr:primaryType="nt:unstructured"/>
                 </parsys>
                 <bgimage
@@ -520,7 +520,7 @@
                 <parsys
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="foundation/components/parsys"
-                        components="group:AEM.Design - Content,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets">
+                        components="group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets">
                     <section jcr:primaryType="nt:unstructured"/>
                 </parsys>
             </footer>
