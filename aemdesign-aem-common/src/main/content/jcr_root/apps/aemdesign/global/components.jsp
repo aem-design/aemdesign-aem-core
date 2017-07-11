@@ -530,14 +530,23 @@
         String componentAttributes = componentProperties.get(COMPONENT_ATTRIBUTES, "");
         Resource imageResource = resource.getChild(imageResourceName);
         if (imageResource != null) {
-            String imageSrc = "";
-            if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE)) {
-                Long lastModified = getLastModified(imageResource);
-                imageSrc = MessageFormat.format("{0}.img.png/{1}.png", imageResource.getPath(), lastModified.toString());
+            Resource fileReference = imageResource.getChild("fileReference");
+            if (fileReference != null) {
+                String imageSrc = "";
+                if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE)) {
+                    Long lastModified = getLastModified(imageResource);
+                    imageSrc = MessageFormat.format("{0}.img.png/{1}.png", imageResource.getPath(), lastModified.toString());
+                }
+                componentAttributes += MessageFormat.format(" style=\"background-image: url({0})\"", mappedUrl(resource.getResourceResolver(), imageSrc));
             }
-            componentAttributes += MessageFormat.format(" style=\"background-image: url({0})\"", mappedUrl(resource.getResourceResolver(), imageSrc));
         }
 
+        return componentAttributes;
+    }
+
+    public String addComponentAttributes(ComponentProperties componentProperties, String attributeName, String attrbuteValue) {
+        String componentAttributes = componentProperties.get(COMPONENT_ATTRIBUTES, "");
+        componentAttributes += MessageFormat.format("{0}=\"{1}\"",attributeName,attrbuteValue);
         return componentAttributes;
     }
 
