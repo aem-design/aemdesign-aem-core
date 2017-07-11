@@ -262,7 +262,6 @@
 
         </accessibilityTab>
 
-        <!--This standard tab is being cqincluded by other components.-->
         <imageTab
                 jcr:primaryType="cq:Widget"
                 allowUpload="false"
@@ -301,6 +300,64 @@
                 </aspectRatios>
             </cropConfig>
         </imageTab>
+
+        <imageBackgroundTab
+                jcr:primaryType="cq:Widget"
+                allowUpload="{Boolean}false"
+                name="./bgimage/file"
+                title="Background Image"
+                ddGroups="[media]"
+                cropParameter="./bgimage/imageCrop"
+                fileNameParameter="./bgimage/fileName"
+                fileReferenceParameter="./bgimage/fileReference"
+                rotateParameter="./bgimage/imageRotate"
+                mapParameter="./bgimage/imageMap"
+                xtype="html5smartimage">
+            <cropConfig jcr:primaryType="nt:unstructured">
+                <aspectRatios jcr:primaryType="nt:unstructured">
+                    <freehand
+                            jcr:primaryType="nt:unstructured"
+                            value="0,0"
+                            text="Free hand"/>
+                    <twobythree
+                            jcr:primaryType="nt:unstructured"
+                            value="2,3"
+                            text="2 x 3"/>
+                    <threebyfive
+                            jcr:primaryType="nt:unstructured"
+                            value="3,5"
+                            text="3 x 5"/>
+                    <sixteenbynine
+                            jcr:primaryType="nt:unstructured"
+                            value="16,9"
+                            text="16 x 9"/>
+                    <square
+                            jcr:primaryType="nt:unstructured"
+                            value="1,1"
+                            text="Square"/>
+                </aspectRatios>
+            </cropConfig>
+        </imageBackgroundTab>
+
+        <imageBackgroundTabResourceType
+                jcr:primaryType="cq:Panel"
+                title="Background Image Metadata"
+                fieldDescription="Background Image Metadat  additional fields for saving content of Background Image"
+                xtype="panel">
+            <listeners
+                    jcr:primaryType="nt:unstructured"
+                    render="function() { this.findParentByType('dialog').hideTab(this); }"/>
+            <items jcr:primaryType="cq:WidgetCollection">
+                <imageBackgroundTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        ignoreData="{Boolean}true"
+                        name="./bgimage/sling:resourceType"
+                        value="aemdesign/components/media/image"
+                        xtype="textfield"/>
+            </items>
+        </imageBackgroundTabResourceType>
+
+
 
         <overrideImageMetadataTab
                 jcr:primaryType="cq:Widget"
