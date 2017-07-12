@@ -2,11 +2,15 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%
     final String DEFAULT_ARIA_ROLE = "navigation";
-    final String DEFAULT_ARIA_LABEL = "main nav";
 
+    // {
+    //   1 required - property name,
+    //   2 required - default value,
+    //   3 optional - compile into a data-{name} attribute
+    // }
     Object[][] componentFields = {
-        {"ariaRole",DEFAULT_ARIA_ROLE},
-        {"variant", "default"},
+        {"ariaRole",DEFAULT_ARIA_ROLE, DEFAULT_ARIA_ROLE_ATTRIBUTE},
+        {"variant", DEFAULT_VARIANT},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -14,6 +18,8 @@
             componentFields,
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
+
+    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,"bgimage"));
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
