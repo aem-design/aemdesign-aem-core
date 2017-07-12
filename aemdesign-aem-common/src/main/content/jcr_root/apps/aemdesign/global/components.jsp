@@ -41,6 +41,8 @@
 
     public static final String DEFAULT_VARIANT = "default";
     public static final String DEFAULT_BADGE = "default";
+    public static final String DEFAULT_ARIA_ROLE_ATTRIBUTE = "role";
+
 
     public static final String DEFAULT_RSS_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss";
 
@@ -83,7 +85,7 @@
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
     public static final Object[][] DEFAULT_FIELDS_ACCESSIBILITY = {
-            {"ariaRole", "","role"},
+            {"ariaRole", "", DEFAULT_ARIA_ROLE_ATTRIBUTE},
             {"ariaLabel", "","aria-label"},
             {"ariaDescribedBy", "","aria-describedby"},
             {"ariaLabelledBy", "","aria-labelledby"},

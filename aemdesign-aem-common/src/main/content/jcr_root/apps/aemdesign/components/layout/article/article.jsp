@@ -8,7 +8,7 @@
     //   { name, defaultValue, attributeName, valueTypeClass }
     // }
     Object[][] componentFields = {
-        {"ariaRole",DEFAULT_ARIA_ROLE, "role"},
+        {"ariaRole",DEFAULT_ARIA_ROLE, DEFAULT_ARIA_ROLE_ATTRIBUTE},
         {"variant", DEFAULT_VARIANT},
     };
 
