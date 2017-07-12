@@ -546,7 +546,7 @@
 
     public String addComponentAttributes(ComponentProperties componentProperties, String attributeName, String attrbuteValue) {
         String componentAttributes = componentProperties.get(COMPONENT_ATTRIBUTES, "");
-        componentAttributes += MessageFormat.format("{0}=\"{1}\"",attributeName,attrbuteValue);
+        componentAttributes += MessageFormat.format(" {0}=\"{1}\"",attributeName,attrbuteValue);
         return componentAttributes;
     }
 
