@@ -28,7 +28,6 @@
             {"linksLeft", new String[]{}},
             {"titleType", DEFAULT_TITLE_TAG_TYPE},
             {"title", ""},
-            {"ariaLabelledBy", "heading-".concat(_currentNode.getName()),"aria-labelledby"},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -45,7 +44,15 @@
 
     componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,"bgimage"));
 
+    if (componentProperties.get("variant", "").equals("advsection")) {
+        String ariaLabelledBy = componentProperties.get("ariaLabelledBy", "");
+        if (isEmpty(ariaLabelledBy)) {
+            String labelId = "heading-".concat(_currentNode.getName());
+            componentProperties.put("ariaLabelledBy", labelId);
+            componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties,"aria-labelledby",labelId));
+        }
 
+    }
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
