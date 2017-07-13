@@ -346,7 +346,7 @@
                 xtype="panel">
             <listeners
                     jcr:primaryType="nt:unstructured"
-                    render="function() { this.findParentByType('dialog').hideTab(this); }"/>
+                    render="function() { AEMDESIGN.dialog.hideTab(this, this.findParentByType('dialog').findByType('tabpanel')[0]); }"/>
             <items jcr:primaryType="cq:WidgetCollection">
                 <imageBackgroundTabResourceType
                         jcr:primaryType="cq:Widget"
