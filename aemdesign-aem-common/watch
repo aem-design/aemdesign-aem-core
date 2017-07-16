@@ -9,7 +9,7 @@ function lowercase() {
 }
 
 function getOS() {
-    lowercase "$(uname -a | grep Microsoft -q & echo windowsnt || uname)"
+    OS=$(lowercase "$(uname -a | grep Microsoft -q & echo windowsnt || uname)")
     echo "OS=${OS}"
 }
 
@@ -21,11 +21,12 @@ function main() {
         if [[ "false" == "$(which watch && echo true || echo false)" ]]; then
             echo "You need to install 'procps-ng' package"
         else
+            # shellcheck disable=SC2050
             while [ "1" == "1" ];
             do
                 set_term_title "Monitoring changes"
                 #TODO: does this work?
-                WAIT_FOR=$(watch -g -t -d ls -lR)
+                watch -g -t -d ls -lR
                 ./deploy
                 set_term_title "Up-to-date"
                 sleep 1
@@ -41,10 +42,11 @@ function main() {
         if [[ "false" == "$(which inotifywait && echo true || echo false)" ]]; then
             echo "You need to install 'inotify-tools'"
         else
+            # shellcheck disable=SC2050
             while [ "1" == "1" ];
             do
                 set_term_title "Monitoring changes"
-                inotifywait -e modify -e create -r *
+                inotifywait -e modify -e create -r ./*
                 ./deploy
                 set_term_title "Up-to-date"
                 sleep 1
@@ -57,6 +59,7 @@ function main() {
         if [[ "false" == "$(which fswatch && echo true || echo false)" ]]; then
             echo "Install FSWatch install https://github.com/wildone/fswatch"
         else
+            # shellcheck disable=SC2050
             while [ "1" == "1" ];
             do
                 set_term_title "Monitoring changes"
