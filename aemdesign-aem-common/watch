@@ -9,7 +9,7 @@ function lowercase() {
 }
 
 function getOS() {
-    lowercase "$(uname -a | grep Microsoft -q && echo windowsnt || uname)"
+    lowercase "$(uname -a | grep Microsoft -q & echo windowsnt || uname)"
     echo "OS=${OS}"
 }
 
