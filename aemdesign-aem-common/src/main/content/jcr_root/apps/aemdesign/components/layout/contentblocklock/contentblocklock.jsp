@@ -1,69 +1,94 @@
+<%@page session="false" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="com.day.cq.wcm.api.components.DropTarget" %>
+<%@ page import="com.day.cq.commons.*" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
+<%@ include file="/apps/aemdesign/components/layout/contentblock/contentblockdata.jsp" %>
+<%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
-
+<%@ include file="/apps/aemdesign/global/i18n.jsp" %>
 <%
 
-    // init
-    Map<String, Object> info = new HashMap<String, Object>();
+    final String DEFAULT_I18N_CATEGORY = "contentblock";
+    final String DEFAULT_I18N_BACKTOTOP_LABEL = "backtotoplabel";
+    final String DEFAULT_I18N_BACKTOTOP_TITLE = "backtotoptitle";
+    final String DEFAULT_TITLE_TAG_TYPE = "h2";
 
-    info.put("componentName", _component.getProperties().get(JcrConstants.JCR_TITLE,""));
-    info.put("cssClass", _currentStyle.get("cssClass", ""));
-    info.put("locked", _properties.get("locked", true));
+    Object[][] componentFields = {
+            {"variant", DEFAULT_VARIANT},
+            {"hideTitle", false},
+            {"hideTopLink", false},
+            {"linksLeftTitle", ""},
+            {"linksRightTitle", ""},
+            {"dataTitle", ""},
+            {"dataScroll", ""},
+            {"linksRight", new String[]{}},
+            {"linksLeft", new String[]{}},
+            {"titleType", DEFAULT_TITLE_TAG_TYPE},
+            {"title", ""},
+    };
 
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
-    // layout value
-    String layoutValue = _properties.get("layout", (String) null);
-    if ( StringUtils.isBlank(layoutValue) || layoutValue.equals("none")) {
-        layoutValue = "mrec";
-    }
-    info.put("layout", layoutValue);
+    componentProperties.put("linksRightList",getContentPageList(_pageManager, componentProperties.get("linksRight", new String[]{})));
+    componentProperties.put("linksLeftList",getContentPageList(_pageManager, componentProperties.get("linksLeft", new String[]{})));
 
-    if (layoutValue=="custom") {
-        info.put("width", _properties.get("width", ""));
-        info.put("height", _properties.get("height", ""));
+    componentProperties.put("topLinkLabel",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_LABEL,DEFAULT_I18N_CATEGORY,_i18n));
+    componentProperties.put("topLinkTitle",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_TITLE,DEFAULT_I18N_CATEGORY,_i18n));
 
-        StringBuilder strB = new StringBuilder();
-        strB.append("style=\"");
+    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,"bgimage"));
 
-        if (StringUtils.isNotEmpty(info.get("width").toString())) {
-            strB.append("width:"+info.get("width").toString()+"px;");
+    if (componentProperties.get("variant", "").equals("advsection")) {
+        String ariaLabelledBy = componentProperties.get("ariaLabelledBy", "");
+        if (isEmpty(ariaLabelledBy)) {
+            String labelId = "heading-".concat(_currentNode.getName());
+            componentProperties.put("ariaLabelledBy", labelId);
+            componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties,"aria-labelledby",labelId));
         }
-        if (StringUtils.isNotEmpty(info.get("height").toString())) {
-            strB.append("height:"+info.get("height").toString()+"px;");
-        }
 
-        strB.append("\"");
-
-        info.put("customSizeCSS", strB.toString());
     }
 
     String instanceName = _component.getCellName();
     if (_currentNode !=null ) {
         instanceName = _currentNode.getName();
     }
-    info.put("instanceName", instanceName);
+    componentProperties.put("instanceName", instanceName);
 
-    info.put("title", _properties.get("title", ""));
+    componentProperties.put("editMode", CURRENT_WCMMODE == WCMMode.EDIT);
 
-    info.put("editMode", CURRENT_WCMMODE == WCMMode.EDIT);
-
-    info.put("target", _currentNode.getPath());
-
-    info.put("ddClassName", DropTarget.CSS_CLASS_PREFIX + "paragraph");
-
-    getLogger().warn("locked par: {}",info.get("target").toString());
 %>
-<c:set var="info" value="<%= info %>" />
-<div id="${info.instanceName}" class="${info.cssClass}${info.layout}"${not empty info.customSizeCSS ? ' ' + info.customSizeCSS : ''}>
+<c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
     <c:when test="${not info.locked}">
-        <cq:include path="par" resourceType="foundation/components/parsys"/>
+        <c:choose>
+            <c:when test="${componentProperties.variant eq 'descriptionlist'}">
+                <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.descriptionlist.jsp" %>
+            </c:when>
+            <c:when test="${componentProperties.variant eq 'fieldset'}">
+                <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.fieldset.jsp" %>
+            </c:when>
+            <c:when test="${componentProperties.variant eq 'advsection'}">
+                <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.advanced.jsp" %>
+            </c:when>
+            <c:when test="${componentProperties.variant eq 'floating'}">
+                <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.floating.jsp" %>
+            </c:when>
+            <c:when test="${componentProperties.variant eq 'container'}">
+                <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.container.jsp" %>
+            </c:when>
+            <c:otherwise>
+                <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.default.jsp" %>
+            </c:otherwise>
+        </c:choose>
     </c:when>
     <c:otherwise>
-        <c:if test="${info.editMode}">
+        <c:if test="${componentProperties.editMode}">
             <%
             String defDecor =_componentContext.getDefaultDecorationTagName();
 
@@ -85,7 +110,4 @@
         </c:if>
     </c:otherwise>
 </c:choose>
-</div>
-<c:if test="${info.editMode}">
-    <p class="cq-info"><small>${info.componentName} - Layout: ${info.layout}; Locked: ${info.locked};</small></p>
-</c:if>
+<%@include file="/apps/aemdesign/global/component-badge.jsp" %>

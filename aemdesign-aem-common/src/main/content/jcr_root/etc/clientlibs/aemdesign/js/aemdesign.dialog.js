@@ -2,7 +2,7 @@
 window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.dialog = window.AEMDESIGN.dialog || {};
 
-(function ($, ns, utils, log, CQ, window, undefined) {
+(function ($, ns, utils, http, log, CQ, window, undefined) {
 
     "use strict";
     var _version = "0.1";
@@ -196,6 +196,35 @@ window.AEMDESIGN.dialog = window.AEMDESIGN.dialog || {};
             log.error(["generateElementNameFromTitle", component, ex]);
         }
 
-    }
+    };
+
+    ns.checkDialogPermissions = function (component, dialog) {
+        //console.log(["disableDialog",component, dialog, component.find("name","permissionCheckTabAccessCheck")]);
+        if (component.find("name","permissionCheckTabAccessCheck").length==0) {
+            //console.log(["disabling components",dialog.findByType("panel",true)]);
+            var items = dialog.buttons;
+            dialog.editLock = true;
+            //console.log([items]);
+            for (var item in items) {
+                //console.log(items[item]);
+                if (items[item]["text"]==dialog.okText) {
+                    items[item].setDisabled(true);
+                }
+            }
+
+            var fields = CQ.Util.findFormFields(dialog);
+            for (var name in fields) {
+                if (name.startsWith("./")) {
+                    for (var i = 0; i < fields[name].length; i++) {
+                        //console.log([fields[name][i]]);
+                        fields[name][i].setDisabled(true);
+                    }
+                }
+            }
+
+        } else {
+            ns.hideTab(component, dialog.findByType('tabpanel')[0]);
+        }
+    };
 
 })(AEMDESIGN.jQuery, AEMDESIGN.dialog, AEMDESIGN.utils, AEMDESIGN.http,  AEMDESIGN.log, CQ, this);

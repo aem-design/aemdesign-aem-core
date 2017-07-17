@@ -2,29 +2,10 @@
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:rep="internal"
     jcr:primaryType="cq:Dialog"
     jcr:mixinTypes="[rep:AccessControllable]"
-    title="Advertising Block (Design)"
+    title="Content Block Lock (Design)"
     xtype="dialog">
-    <items jcr:primaryType="cq:WidgetCollection">
-        <tab_basic
-                jcr:primaryType="cq:Panel"
-                border="false"
-                height=""
-                title="Basic"
-                width=""
-                xtype="panel">
-            <items jcr:primaryType="cq:WidgetCollection">
-                <css
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="CSS Class name"
-                        name="./cssClass"
-                        xtype="textfield"/>
-            </items>
-        </tab_basic>
-    </items>
-    <rep:policy jcr:primaryType="rep:ACL">
-        <deny
-                jcr:primaryType="rep:DenyACE"
-                rep:principalName="contributor"
-                rep:privileges="{Name}[jcr:read]" />
-    </rep:policy>
+    <items
+            jcr:primaryType="cq:Widget"
+            path="/apps/aemdesign/components/layout/contentblocklock/dialog/items.infinity.json"
+            xtype="cqinclude" />
 </jcr:root>

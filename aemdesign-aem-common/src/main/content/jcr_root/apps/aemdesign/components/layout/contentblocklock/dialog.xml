@@ -1,58 +1,203 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:rep="internal"
     jcr:primaryType="cq:Dialog"
+    helpPath="en/cq/current/wcm/default_components.html#Image"
+    selectTab="function(tabToSelect) { AEMDESIGN.dialog.manageTabs(this.findByType('tabpanel')[0],tabToSelect,true); }"
+    hideTab="function(tabToHide) { AEMDESIGN.dialog.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
+    includeTab="function(tabToInclude) { AEMDESIGN.dialog.includeTab(tabToInclude, this.findByType('tabpanel')[0]); }"
+    title="Content Block"
     xtype="dialog">
-    <items
-        jcr:primaryType="nt:unstructured"
-        helpPath="en/cq/current/wcm/default_components.html#Text"
-        title="Text"
-        xtype="tabpanel">
-        <items jcr:primaryType="cq:WidgetCollection">
-            <tab_basic
-                jcr:primaryType="cq:Panel"
-                border="false"
-                height=""
-                title="Basic"
-                width=""
-                xtype="panel">
-                <items jcr:primaryType="cq:WidgetCollection">
-                    <layout
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">
+            <listeners
+                    jcr:primaryType="nt:unstructured"
+                    render="function() { console.log('loaded tabpanel') }"/>
+            <items jcr:primaryType="cq:WidgetCollection">
+                <permissionCheckTab jcr:primaryType="cq:Panel"
+                                    path="/apps/aemdesign/global/dialog/classic/common/items/permissionCheckTab.infinity.json"
+                                    xtype="cqinclude"/>
+
+                <tabBasic
+                        jcr:primaryType="cq:Panel"
+                        title="Basic"
+                        name="tabBasic"
+                        xtype="panel">
+                    <listeners
+                            jcr:primaryType="nt:unstructured"
+                            render="function() { this.findParentByType('dialog').includeTab(this); }"/>
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <locked jcr:primaryType="cq:Widget"
+                                fieldLabel="Content Locked"
+                                fieldDescription="content locked from updates"
+                                allowBlank="{Boolean}true"
+                                name="./locked"
+                                options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                type="select"
+                                defaultValue=""
+                                value=""
+                                xtype="selection"/>
+                        <title
+                                jcr:primaryType="cq:Widget"
+                                collapsed="false"
+                                collapsible="false"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <title
+                                        jcr:primaryType="cq:Widget"
+                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/title.infinity.json"
+                                        xtype="cqinclude"/>
+                                <hideTitle
+                                        jcr:primaryType="cq:Widget"
+                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/hideTitle.infinity.json"
+                                        xtype="cqinclude"/>
+
+                                <hideTopLink
+                                        jcr:primaryType="cq:Widget"
+                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/hideTopLink.infinity.json"
+                                        xtype="cqinclude"/>
+
+                                <hideInContentMenu
+                                        jcr:primaryType="cq:Widget"
+                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/hideInContentMenu.infinity.json"
+                                        xtype="cqinclude"/>
+
+                                <variant
+                                        jcr:primaryType="cq:Widget"
+                                        defaultValue=""
+                                        fieldLabel="Variant"
+                                        name="./variant"
+                                        type="select"
+                                        xtype="selection">
+                                    <listeners
+                                            jcr:primaryType="nt:unstructured"
+                                            loadcontent="function(){ this.findParentByType('dialog').selectTab(this.getValue());}"
+                                            selectionchanged="function(box,value){ box.findParentByType('dialog').selectTab(value); }"/>
+                                    <options jcr:primaryType="cq:WidgetCollection">
+                                        <default
+                                                jcr:primaryType="nt:unstructured"
+                                                value=""
+                                                text="Default"/>
+                                        <container
+                                                jcr:primaryType="nt:unstructured"
+                                                value="container"
+                                                text="Container"/>
+                                        <floating
+                                                jcr:primaryType="nt:unstructured"
+                                                value="floating"
+                                                text="Floating Section"/>
+                                        <advsection
+                                                jcr:primaryType="nt:unstructured"
+                                                value="advsection"
+                                                text="Advanced Section"/>
+                                        <fieldset
+                                                jcr:primaryType="nt:unstructured"
+                                                value="fieldset"
+                                                text="Field Set in Form"/>
+                                        <descriptionlist
+                                                jcr:primaryType="nt:unstructured"
+                                                value="descriptionlist"
+                                                text="Description List"/>
+                                    </options>
+                                </variant>
+                            </items>
+                        </title>
+                    </items>
+                </tabBasic>
+                <advsection
+                        jcr:primaryType="cq:Panel"
+                        title="Advanced Links"
+                        name="advsection"
+                        xtype="panel">
+                    <listeners
+                            jcr:primaryType="nt:unstructured"
+                            render="function() { this.findParentByType('dialog').hideTab(this); }"/>
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <titleType
+                                jcr:primaryType="cq:Widget"
+                                path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/titleType.infinity.json"
+                                xtype="cqinclude"/>
+
+                        <linksLeft
+                                jcr:primaryType="cq:Widget"
+                                collapsed="{Boolean}true"
+                                collapsible="{Boolean}true"
+                                title="Links to show on left of Title"
+                                fieldDescription="Links to show on LEFT of Title"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <linksLeftTitle
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Title for Links"
+                                        name="./linksLeftTitle"
+                                        xtype="textfield"/>
+
+                                <linksLeft
+                                        jcr:primaryType="cq:Widget"
+                                        fieldDescription="Click the '+' to add a new page"
+                                        fieldLabel="Pages"
+                                        name="./linksLeft"
+                                        xtype="multifield">
+                                    <fieldConfig
+                                            jcr:primaryType="cq:Widget"
+                                            allowBlank="{Boolean}true"
+                                            width="155"
+                                            xtype="pathfield"/>
+                                </linksLeft>
+                            </items>
+                        </linksLeft>
+
+                        <linksRight
+                                jcr:primaryType="cq:Widget"
+                                collapsed="{Boolean}true"
+                                collapsible="{Boolean}true"
+                                title="Links to show on right of Title"
+                                fieldDescription="Links to show on RIGHT of Title"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <linksRightTitle
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Title for Links"
+                                        name="./linksRightTitle"
+                                        xtype="textfield"/>
+
+                                <linksRight
+                                        jcr:primaryType="cq:Widget"
+                                        fieldDescription="Click the '+' to add a new page"
+                                        fieldLabel="Pages"
+                                        name="./linksRight"
+                                        xtype="multifield">
+                                    <fieldConfig
+                                            jcr:primaryType="cq:Widget"
+                                            allowBlank="{Boolean}true"
+                                            width="155"
+                                            xtype="pathfield"/>
+                                </linksRight>
+                            </items>
+                        </linksRight>
+
+                    </items>
+                </advsection>
+
+                <imageBackgroundTab
                         jcr:primaryType="cq:Widget"
-                        defaultValue="MREC"
-                        fieldLabel="Layout Size"
-                        name="./layout"
-                        type="select"
-                        xtype="selection">
-                            <options jcr:primaryType="cq:WidgetCollection">
-                                <box jcr:primaryType="nt:unstructured" value="mrec" text="MREC" />
-                                <banner jcr:primaryType="nt:unstructured" value="leaderboard" text="Leader Board" />
-                                <gutter jcr:primaryType="nt:unstructured" value="gutter" text="Gutter" />
-                                <halfbox jcr:primaryType="nt:unstructured" value="halfmrec" text="Half-MREC" />
-                                <custom jcr:primaryType="nt:unstructured" value="custom" text="Custom" />
-                                <none jcr:primaryType="nt:unstructured" value="" text="None" />
-                            </options>
-                    </layout>
-                    <customLayout
-                            jcr:primaryType="cq:Widget"
-                            fieldDescription="custom size"
-                            fieldLabel="Custom Width and Height"
-                            xtype="sizefield"/>
-                    <locked
-                            jcr:primaryType="cq:Widget"
-                            checked="true"
-                            defaultValue="{Boolean}true"
-                            fieldLabel="Content Locked"
-                            fieldDescription="content locked from updates"
-                            name="./locked"
-                            type="radio"
-                            xtype="selection">
-                        <options jcr:primaryType="cq:WidgetCollection">
-                            <false jcr:primaryType="nt:unstructured" text="Unlocked" value="false" />
-                            <true jcr:primaryType="nt:unstructured" text="Locked" value="true" />
-                        </options>
-                    </locked>
-                </items>
-            </tab_basic>
-        </items>
+                        path="/apps/aemdesign/global/dialog/classic/common/items/imageBackgroundTab.infinity.json"
+                        xtype="cqinclude"/>
+
+                <imageBackgroundTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/imageBackgroundTabResourceType.infinity.json"
+                        xtype="cqinclude"/>
+
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude"/>
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                                  xtype="cqinclude"/>
+
+            </items>
+        </tabs>
     </items>
 </jcr:root>
