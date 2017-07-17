@@ -6,7 +6,7 @@
           xtype="tabpanel">
     <items jcr:primaryType="cq:WidgetCollection">
         <link jcr:primaryType="cq:Panel"
-               title="Link RTE" description="Authors have ability to add Link Rich Text Text, Admins can add HTML content">
+               title="Link RTE" description="Authors have ability to add Link Rich Text Text">
             <items jcr:primaryType="cq:WidgetCollection">
                 <label jcr:primaryType="cq:Widget"
                     fieldLabel="Label"
@@ -33,12 +33,6 @@
                             <specialCharsConfig jcr:primaryType="nt:unstructured"
                                                 path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/misctools/specialCharsConfig.infinity.json"
                                                 xtype="cqinclude" />
-                            <rep:policy jcr:primaryType="rep:ACL">
-                                <deny
-                                        jcr:primaryType="rep:DenyACE"
-                                        rep:principalName="contributor"
-                                        rep:privileges="{Name}[jcr:read]" />
-                            </rep:policy>
                         </misctools>
 
                     </rtePlugins>
@@ -386,12 +380,7 @@
                             <specialCharsConfig jcr:primaryType="nt:unstructured"
                                 path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/misctools/specialCharsConfig.infinity.json"
                                 xtype="cqinclude" />
-                            <rep:policy jcr:primaryType="rep:ACL">
-                                <deny
-                                        jcr:primaryType="rep:DenyACE"
-                                        rep:principalName="contributor"
-                                        rep:privileges="{Name}[jcr:read]" />
-                            </rep:policy>
+
                         </misctools>
 
                         <links
