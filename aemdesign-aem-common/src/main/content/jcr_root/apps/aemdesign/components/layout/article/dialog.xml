@@ -7,6 +7,10 @@
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
+                <permissionCheckTab jcr:primaryType="cq:Panel"
+                                    path="/apps/aemdesign/global/dialog/classic/common/items/permissionCheckTab.infinity.json"
+                                    xtype="cqinclude"/>
+
                 <basicTab
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/common/items/basicTab.infinity.json"
@@ -32,10 +36,4 @@
             </items>
         </tabs>
     </items>
-    <rep:policy jcr:primaryType="rep:ACL">
-        <deny
-            jcr:primaryType="rep:DenyACE"
-            rep:principalName="contributor"
-            rep:privileges="{Name}[jcr:read]" />
-    </rep:policy>
 </jcr:root>

@@ -2,10 +2,10 @@
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:rep="internal"
     jcr:primaryType="cq:Dialog"
     jcr:mixinTypes="[rep:AccessControllable]"
-    title="Content Block (Design)"
+    title="Nav Bar (Design)"
     xtype="dialog">
     <items
             jcr:primaryType="cq:Widget"
-            path="/apps/aemdesign/components/layout/contentblock/dialog/items.infinity.json"
+            path="/apps/aemdesign/components/layout/navbar/dialog/items.infinity.json"
             xtype="cqinclude" />
 </jcr:root>

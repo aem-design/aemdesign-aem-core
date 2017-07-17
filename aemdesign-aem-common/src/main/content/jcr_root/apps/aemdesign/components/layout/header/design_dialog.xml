@@ -8,10 +8,4 @@
             jcr:primaryType="cq:Widget"
             path="/apps/aemdesign/components/layout/header/dialog/items.infinity.json"
             xtype="cqinclude" />
-    <rep:policy jcr:primaryType="rep:ACL">
-        <deny
-            jcr:primaryType="rep:DenyACE"
-            rep:principalName="contributor"
-            rep:privileges="{Name}[jcr:read]" />
-    </rep:policy>
 </jcr:root>

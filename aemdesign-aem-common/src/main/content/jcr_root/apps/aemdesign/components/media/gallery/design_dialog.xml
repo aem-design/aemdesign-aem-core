@@ -4,36 +4,30 @@
     jcr:mixinTypes="[rep:AccessControllable]"
     title="Gallery (Design)"
     xtype="dialog">
-<items jcr:primaryType="cq:WidgetCollection">
- <tabs jcr:primaryType="cq:TabPanel">
     <items jcr:primaryType="cq:WidgetCollection">
-        <layout
-                jcr:primaryType="cq:Widget"
-                title="Layout"
-                xtype="panel">
-            <items jcr:primaryType="cq:WidgetCollection">
-                <titleAltPrefixText
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Prefix text for hover"
-                        name="./titleAltPrefixText"
-                        xtype="textfield"/>
-            </items>
-        </layout>
-        <styleTab
-                jcr:primaryType="cq:Widget"
-                path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
-                xtype="cqinclude" />
-        <accessibilityTab jcr:primaryType="cq:Panel"
-                          path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
-                          xtype="cqinclude" />
+     <tabs jcr:primaryType="cq:TabPanel">
+        <items jcr:primaryType="cq:WidgetCollection">
+            <layout
+                    jcr:primaryType="cq:Widget"
+                    title="Layout"
+                    xtype="panel">
+                <items jcr:primaryType="cq:WidgetCollection">
+                    <titleAltPrefixText
+                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Prefix text for hover"
+                            name="./titleAltPrefixText"
+                            xtype="textfield"/>
+                </items>
+            </layout>
+            <styleTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                    xtype="cqinclude" />
+            <accessibilityTab jcr:primaryType="cq:Panel"
+                              path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                              xtype="cqinclude" />
 
+        </items>
+     </tabs>
     </items>
- </tabs>
-</items>
-    <rep:policy jcr:primaryType="rep:ACL">
-        <deny
-                jcr:primaryType="rep:DenyACE"
-                rep:principalName="contributor"
-                rep:privileges="{Name}[jcr:read]" />
-    </rep:policy>
 </jcr:root>
