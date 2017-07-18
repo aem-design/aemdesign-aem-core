@@ -26,16 +26,6 @@
                             jcr:primaryType="nt:unstructured"
                             render="function() { this.findParentByType('dialog').includeTab(this); }"/>
                     <items jcr:primaryType="cq:WidgetCollection">
-                        <locked jcr:primaryType="cq:Widget"
-                                fieldLabel="Content Locked"
-                                fieldDescription="content locked from updates"
-                                allowBlank="{Boolean}true"
-                                name="./locked"
-                                options="/etc/tags/component-dialog/common/true-false.valuelist.json"
-                                type="select"
-                                defaultValue=""
-                                value=""
-                                xtype="selection"/>
                         <title
                                 jcr:primaryType="cq:Widget"
                                 collapsed="false"
