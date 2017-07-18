@@ -199,14 +199,10 @@ window.AEMDESIGN.dialog = window.AEMDESIGN.dialog || {};
     };
 
     ns.checkDialogPermissions = function (component, dialog) {
-        //console.log(["disableDialog",component, dialog, component.find("name","permissionCheckTabAccessCheck")]);
         if (component.find("name","permissionCheckTabAccessCheck").length==0) {
-            //console.log(["disabling components",dialog.findByType("panel",true)]);
             var items = dialog.buttons;
             dialog.editLock = true;
-            //console.log([items]);
             for (var item in items) {
-                //console.log(items[item]);
                 if (items[item]["text"]==dialog.okText) {
                     items[item].setDisabled(true);
                 }
@@ -223,7 +219,8 @@ window.AEMDESIGN.dialog = window.AEMDESIGN.dialog || {};
             }
 
         } else {
-            ns.hideTab(component, dialog.findByType('tabpanel')[0]);
+            dialog.findByType('tabpanel')[0].setActiveTab(1);
+            dialog.findByType('tabpanel')[0].hideTabStripItem(0);
         }
     };
 
