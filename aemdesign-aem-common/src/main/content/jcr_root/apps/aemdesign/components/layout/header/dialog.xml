@@ -3,15 +3,10 @@
     jcr:primaryType="cq:Dialog"
     jcr:mixinTypes="[rep:AccessControllable]"
     title="Header"
-    hideTab="function(tabToHide) { if(!this.hiddenTabs){this.hiddenTabs=[];} this.hiddenTabs.push(tabToHide); this.findByType('tabpanel')[0].hideTabStripItem(tabToHide); }"
     xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <permissionCheckTab jcr:primaryType="cq:Panel"
-                                    path="/apps/aemdesign/global/dialog/classic/common/items/permissionCheckTab.infinity.json"
-                                    xtype="cqinclude"/>
-
                 <inheritTab
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/components/common/inherit/dialog/items/tabs/items/inheritTab.infinity.json"
