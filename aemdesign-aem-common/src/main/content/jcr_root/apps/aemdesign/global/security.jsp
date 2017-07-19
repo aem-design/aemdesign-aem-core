@@ -1,4 +1,9 @@
-<%@ page import="java.util.*" %>
+<%@ page import="org.apache.jackrabbit.api.security.user.Authorizable" %>
+<%@ page import="org.apache.jackrabbit.api.security.user.Group" %>
+<%@ page import="org.apache.jackrabbit.api.security.user.User" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.Map" %>
 <%!
         @SuppressWarnings("unchecked")
         public org.apache.sling.api.resource.ResourceResolver openAdminResourceResolver(org.apache.sling.api.scripting.SlingScriptHelper _sling){
@@ -28,5 +33,28 @@
                 _adminResourceResolver.close();
             }
 
+        }
+
+        public boolean isUserMemberOf(Authorizable authorizable, List<String> groups) {
+            if (authorizable instanceof User) {
+                User authUser = (User) authorizable;
+                if (authUser.isAdmin()) {
+                    // admin has access by default
+                    return true;
+                }
+            }
+
+            try {
+                Iterator<Group> groupIt = authorizable.memberOf();
+                while (groupIt.hasNext()) {
+                    Group group = groupIt.next();
+                    if (groups.contains(group.getPrincipal().getName())) {
+                        return true;
+                    }
+                }
+            } catch (Exception e) {
+
+            }
+            return false;
         }
 %>
