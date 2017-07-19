@@ -359,10 +359,8 @@
 
         <permissionCheckTab
                 jcr:primaryType="cq:Panel"
+                id="permissionCheckTab"
                 title="Locked">
-            <listeners
-                    jcr:primaryType="nt:unstructured"
-                    render="function() { AEMDESIGN.dialog.checkDialogPermissions(this, this.findParentByType('dialog')); }"/>
             <items jcr:primaryType="cq:WidgetCollection">
                 <descriptionLabel
                         jcr:primaryType="cq:Widget"
