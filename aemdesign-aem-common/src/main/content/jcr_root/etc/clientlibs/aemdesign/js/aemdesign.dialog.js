@@ -198,29 +198,46 @@ window.AEMDESIGN.dialog = window.AEMDESIGN.dialog || {};
 
     };
 
-    ns.checkDialogPermissions = function (component, dialog) {
-        if (component.find("name","permissionCheckTabAccessCheck").length==0) {
-            var items = dialog.buttons;
-            dialog.editLock = true;
-            for (var item in items) {
-                if (items[item]["text"]==dialog.okText) {
-                    items[item].setDisabled(true);
-                }
-            }
-
+    ns.checkDialogPermissions = function (permissionsTab, dialog) {
+        //console.log(["checkDialogPermissions",permissionsTab, dialog]);
+        var hideTab = false;
+        if (permissionsTab.find("name","permissionCheckTabAccessCheck").length==0) {
             var fields = CQ.Util.findFormFields(dialog);
-            for (var name in fields) {
-                if (name.startsWith("./")) {
-                    for (var i = 0; i < fields[name].length; i++) {
-                        //console.log([fields[name][i]]);
-                        fields[name][i].setDisabled(true);
+            var lockFieds = true;
+            var isLocked = fields["./islocked"];
+            //console.log(["isLocked",isLocked,isLocked[0]["value"],isLocked[0]["value"]=="false"]);
+            if (isLocked) {
+                if (isLocked.length != 0) {
+                    if (isLocked[0]["value"] == "false") {
+                        lockFieds = false;
+                        hideTab=true;
                     }
                 }
             }
 
+            if (lockFieds) {
+                var items = dialog.buttons;
+                dialog.editLock = true;
+                for (var item in items) {
+                    if (items[item]["text"] == dialog.okText) {
+                        items[item].setDisabled(true);
+                    }
+                }
+
+                CQ.utils.Util.disableFields(dialog);
+
+            }
         } else {
+            hideTab = true;
+        }
+
+        if (hideTab) {
             dialog.findByType('tabpanel')[0].setActiveTab(1);
-            dialog.findByType('tabpanel')[0].hideTabStripItem(0);
+            dialog.findByType('tabpanel')[0].hideTabStripItem("permissionCheckTab");
+        } else {
+            dialog.findByType('tabpanel')[0].setActiveTab("permissionCheckTab");
+            dialog.findByType('tabpanel')[0].unhideTabStripItem("permissionCheckTab");
+
         }
     };
 
