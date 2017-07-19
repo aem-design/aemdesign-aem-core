@@ -1,9 +1,5 @@
 <%@page session="false" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="com.day.cq.commons.*" %>
+<%@ page import="org.apache.jackrabbit.api.security.user.Authorizable" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/components/layout/contentblock/contentblockdata.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
@@ -15,11 +11,15 @@
     final String DEFAULT_I18N_BACKTOTOP_LABEL = "backtotoplabel";
     final String DEFAULT_I18N_BACKTOTOP_TITLE = "backtotoptitle";
     final String DEFAULT_TITLE_TAG_TYPE = "h2";
+    final String FIELD_LOCKED = "islocked";
+
+
 
     Object[][] componentFields = {
             {"variant", DEFAULT_VARIANT},
             {"hideTitle", false},
             {"hideTopLink", false},
+            {FIELD_LOCKED, true},
             {"linksLeftTitle", ""},
             {"linksRightTitle", ""},
             {"dataTitle", ""},
@@ -60,12 +60,17 @@
     }
     componentProperties.put("instanceName", instanceName);
 
-    componentProperties.put("editMode", CURRENT_WCMMODE == WCMMode.EDIT);
+    final Authorizable authorizable = resourceResolver.adaptTo(Authorizable.class);
+    final List<String> groups = Arrays.asList(componentProperties.get("groups", new String[]{"administrators"}));
+
+    if (isUserMemberOf(authorizable,groups)) {
+        componentProperties.put(FIELD_LOCKED, false);
+    }
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
-    <c:when test="${not info.locked}">
+    <c:when test="${CURRENT_WCMMODE eq WCMMODE_DISABLED or ( CURRENT_WCMMODE eq WCMMODE_EDIT and not componentProperties.islocked )}">
         <c:choose>
             <c:when test="${componentProperties.variant eq 'descriptionlist'}">
                 <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.descriptionlist.jsp" %>
@@ -88,26 +93,24 @@
         </c:choose>
     </c:when>
     <c:otherwise>
-        <c:if test="${componentProperties.editMode}">
-            <%
-            String defDecor =_componentContext.getDefaultDecorationTagName();
+        <%
+        String defDecor =_componentContext.getDefaultDecorationTagName();
 
-            try {
+        try {
 
-                disableEditMode(_componentContext, IncludeOptions.getOptions(request, true), _slingRequest);
+            disableEditMode(_componentContext, IncludeOptions.getOptions(request, true), _slingRequest);
 
-                %><cq:include path="par" resourceType="foundation/components/parsys"/><%
-            }
-            catch (Exception ex) {
-                %><p class="cq-error">Missing content.</p><%
-            }
-            finally {
+            %><cq:include path="par" resourceType="foundation/components/parsys"/><%
+        }
+        catch (Exception ex) {
+            %><p class="cq-error">Missing content.</p><%
+        }
+        finally {
 
-                enableEditMode(CURRENT_WCMMODE, _componentContext, defDecor, IncludeOptions.getOptions(request, true), _slingRequest);
+            enableEditMode(CURRENT_WCMMODE, _componentContext, defDecor, IncludeOptions.getOptions(request, true), _slingRequest);
 
-            }
-            %>
-        </c:if>
+        }
+        %>
     </c:otherwise>
 </c:choose>
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>
