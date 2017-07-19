@@ -7,16 +7,15 @@
     includeTab="function(tabToInclude) { AEMDESIGN.dialog.includeTab(tabToInclude, this.findByType('tabpanel')[0]); }"
     title="Content Block"
     xtype="dialog">
+    <listeners
+            jcr:primaryType="nt:unstructured"
+            loadcontent="function() { AEMDESIGN.dialog.checkDialogPermissions(this.find('id','permissionCheckTab')[0], this); }"/>
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">
-            <listeners
-                    jcr:primaryType="nt:unstructured"
-                    render="function() { console.log('loaded tabpanel') }"/>
             <items jcr:primaryType="cq:WidgetCollection">
                 <permissionCheckTab jcr:primaryType="cq:Panel"
                                     path="/apps/aemdesign/global/dialog/classic/common/items/permissionCheckTab.infinity.json"
                                     xtype="cqinclude"/>
-
                 <tabBasic
                         jcr:primaryType="cq:Panel"
                         title="Basic"
@@ -26,6 +25,16 @@
                             jcr:primaryType="nt:unstructured"
                             render="function() { this.findParentByType('dialog').includeTab(this); }"/>
                     <items jcr:primaryType="cq:WidgetCollection">
+                        <locked jcr:primaryType="cq:Widget"
+                                fieldLabel="Content Locked"
+                                fieldDescription="content locked from updates"
+                                allowBlank="{Boolean}true"
+                                name="./islocked"
+                                options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                type="select"
+                                defaultValue=""
+                                value=""
+                                xtype="selection"/>
                         <title
                                 jcr:primaryType="cq:Widget"
                                 collapsed="false"
