@@ -8,60 +8,66 @@
         title="Text"
         xtype="tabpanel">
         <items jcr:primaryType="cq:WidgetCollection">
-            <tab_basic
+            <basicTab
                 jcr:primaryType="cq:Panel"
                 border="false"
                 title="Basic"
                 xtype="panel">
                 <items jcr:primaryType="cq:WidgetCollection">
-
-                    <hide_bullets
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Hide bullets"
-                        name="./hideBullets"
-                        type="checkbox"
-                        xtype="selection"/>
-
-                    <horizontal-menu
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Display horizontally"
-                        name="./horizontalMenu"
-                        type="checkbox"
-                        xtype="selection"/>
-
-                    <tabs-menu
+                    <menuSource
                             jcr:primaryType="cq:Widget"
-                            fieldLabel="Display In Tabs"
-                            name="./tabsMenu"
-                            type="checkbox"
-                            xtype="selection"/>
-
-                    <displayType
-                            jcr:primaryType="cq:Widget"
-                            fieldLabel="Content Display Type"
-                            name="./displayType"
+                            defaultValue=""
+                            value=""
+                            allowBlank="{Boolean}true"
+                            fieldLabel="Menu Source"
+                            fieldDescription="Which container to use as source"
+                            name="./menuSource"
                             type="select"
                             xtype="selection">
-                                <options jcr:primaryType="cq:WidgetCollection">
-                                    <pageparsys jcr:primaryType="nt:unstructured" value="page" text="Page Parsys" />
-                                    <relative jcr:primaryType="nt:unstructured" value="relative" text="Relative" />
-                                </options>
-                    </displayType>
+                        <options jcr:primaryType="cq:WidgetCollection">
+                            <default
+                                    jcr:primaryType="nt:unstructured"
+                                    value=""
+                                    text="Default"/>
+                            <parent
+                                    jcr:primaryType="nt:unstructured"
+                                    value="parent"
+                                    text="Parent Container"/>
+                            <pagepath
+                                    jcr:primaryType="nt:unstructured"
+                                    value="pagepath"
+                                    text="Page Path"/>
+                        </options>
+                    </menuSource>
 
+                    <menuSourcePagePath jcr:primaryType="cq:Widget"
+                                 fieldLabel="Page Path"
+                                 fieldDescription="Enter path relative to page content [page/jcr:content/...]"
+                                 name="./menuSourcePagePath"
+                                 allowBlank="{Boolean}true"
+                                 xtype="textfield"/>
 
                 </items>
-            </tab_basic>
-            <style
-                    jcr:primaryType="cq:Panel"
-                    title="CSS">
-                <items jcr:primaryType="cq:WidgetCollection">
-                    <cssClass
-                            jcr:primaryType="cq:Widget"
-                            fieldLabel="CSS for Navigation"
-                            name="./cssClass"
-                            xtype="textfield"/>
-                </items>
-            </style>
+            </basicTab>
+
+            <imageBackgroundTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/global/dialog/classic/common/items/imageBackgroundTab.infinity.json"
+                    xtype="cqinclude"/>
+
+            <imageBackgroundTabResourceType
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/global/dialog/classic/common/items/imageBackgroundTabResourceType.infinity.json"
+                    xtype="cqinclude"/>
+
+            <styleTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                    xtype="cqinclude"/>
+            <accessibilityTab jcr:primaryType="cq:Panel"
+                              path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                              xtype="cqinclude"/>
+
         </items>
     </items>
 </jcr:root>

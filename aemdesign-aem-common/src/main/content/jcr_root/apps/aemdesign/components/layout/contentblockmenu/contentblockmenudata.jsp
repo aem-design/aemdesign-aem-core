@@ -10,9 +10,10 @@
     private boolean isContentBlockComponent(Node childNode) throws RepositoryException {
 
         return
-            childNode.getName().startsWith("contentblock") &&
-            childNode.hasProperty("sling:resourceType") &&
-            childNode.getProperty("sling:resourceType").getString().endsWith("contentblock");
+            (childNode.hasProperty("sling:resourceType") &&
+                childNode.getProperty("sling:resourceType").getString().endsWith("contentblock") ) ||
+            (childNode.hasProperty("sling:resourceType") &&
+                childNode.getProperty("sling:resourceType").getString().endsWith("contentblocklock") );
 
     }
 
@@ -28,13 +29,10 @@
      */
     private boolean isVisibleInMenu(Node childNode) throws RepositoryException {
         return
-                childNode.hasProperty("title") &&
-                (
-                    // not been set? it's visible
-                    !childNode.hasProperty("hideInMenu") ||
-                    // set to true? it's visible.
-                    "true".equals(childNode.getProperty("hideInMenu").getString())
-                );
+            // not been set? it's visible
+            !childNode.hasProperty(FIELD_HIDEINMENU) ||
+            // set to true? it's visible.
+            "true".equals(childNode.getProperty(FIELD_HIDEINMENU).getString());
     }
 
     /**
@@ -45,8 +43,7 @@
      * @throws RepositoryException
      */
     private Map<String, String> getContentBlockMenu(Resource parSys) throws RepositoryException {
-
-
+        Map<String, String> contentMenu = new LinkedHashMap<String, String>();
 
         if (parSys != null) {
 
@@ -56,9 +53,6 @@
             // iterate over children
             if (nodeIterator != null) {
 
-                // ordered map
-                Map<String, String> contentMenu = new LinkedHashMap<String, String>();
-
                 while (nodeIterator.hasNext()) {
 
                     Node childNode = nodeIterator.nextNode();
@@ -67,15 +61,17 @@
                     }
 
                     if (isContentBlockComponent(childNode) && isVisibleInMenu(childNode)) {
-                        String childTitle = childNode.getProperty("title").getString();
+                        String childTitle = childNode.getName();
+                        String childName = childNode.getName();
 
-                        // make sure the title has something inside
-                        if (childTitle != null && !childTitle.trim().equals("")) {
-                            contentMenu.put(
-                                    childNode.getName(),
-                                    escapeBody(childNode.getProperty("title").getString())
-                            );
+                        if (childNode.hasProperty("title")) {
+                            childTitle = childNode.getProperty("title").getString();
+                            if (isEmpty(childTitle)) {
+                                childTitle = childName;
+                            }
                         }
+
+                        contentMenu.put( childName, childTitle );
 
                     }
                 }
@@ -84,7 +80,7 @@
             }
         }
 
-        return null;
+        return contentMenu;
     }
 
 %>
