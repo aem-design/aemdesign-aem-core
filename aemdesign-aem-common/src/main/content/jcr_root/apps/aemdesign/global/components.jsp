@@ -39,6 +39,7 @@
 
     public static final String NODE_DETAILS = "*-details";
 
+    public static final String FIELD_VARIANT = "variant";
     public static final String DEFAULT_VARIANT = "default";
     public static final String DEFAULT_BADGE = "default";
     public static final String DEFAULT_ARIA_ROLE_ATTRIBUTE = "role";
@@ -53,6 +54,9 @@
     private static final String DETAILS_TAB_ICONPATH = "tabIconPath";
     private static final String DETAILS_TITLE_ICON = "titleIcon";
     private static final String DETAILS_TITLE_ICONPATH = "titleIconPath";
+
+    private static final String FIELD_HIDEINMENU = "hideInMenu";
+
 
     private static final String DEFAULT_IMAGE_RESOURCETYPE = "aemdesign/components/media/image";
 
