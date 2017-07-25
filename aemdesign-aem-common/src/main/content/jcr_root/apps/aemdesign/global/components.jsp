@@ -814,5 +814,29 @@
 
         return returnPath;
     }
+
+
+    /**
+     * Return a JCR node for a first found matching path
+     *
+     * @param thisPage is the page to inspect for newsdetails
+     * @return a JCR node or null when not found
+     */
+    private Node getDetailsNode(Page thisPage,String[] nodePaths) {
+        if (thisPage == null) {
+            return null;
+        }
+
+        Node detailsNode = null;
+
+        for (String nodePath : nodePaths) {
+            Resource detailResource = thisPage.getContentResource(nodePath);
+            if (detailResource != null) {
+                detailsNode = detailResource.adaptTo(Node.class);
+                return detailsNode;
+            }
+        }
+        return null;
+    }
 %>
 <c:set var="DEFAULT_VARIANT" value="<%= DEFAULT_VARIANT %>"/>
