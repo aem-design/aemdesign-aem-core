@@ -1,12 +1,7 @@
-<%@ page import="java.util.Iterator"%>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
 <%@ page import="com.day.cq.wcm.api.Page" %>
+<%@ page import="java.util.*" %>
 <%!
 
-    private static final String PAR_PAGEDETAILS = "par/page-details";
     private static final String DETAILS_TITLE = "title";
     private static final String PAR_CONTENTS = "par";
     /**
@@ -32,10 +27,13 @@
     protected List<Map> getTabPageList(PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList) {
         List<Map> pages = new ArrayList<Map>();
 
-        while (pageList.hasNext()) {
-            Page child = pageList.next();
+        if (pageList != null) {
 
-            pages.add(getTabInfo(child));
+            while (pageList.hasNext()) {
+                Page child = pageList.next();
+
+                pages.add(getTabInfo(child));
+            }
         }
         return pages;
     }
@@ -49,9 +47,24 @@
             infoStruct.put("name", page.getName());
             infoStruct.put("href", page.getPath().concat(DEFAULT_EXTENTION));
             infoStruct.put("path", page.getPath());
-            infoStruct.put("contentPath", page.getContentResource(PAR_CONTENTS).getPath());
+            //infoStruct.put("contentPath", page.getContentResource(ARTICLE_CONTENTS).getPath());
 
-            Node pageDetails = getDetailsNode(page,PAR_PAGEDETAILS);
+
+            String[] supportedDetails = {PAR_CONTENTS,ARTICLE_CONTENTS};
+
+            Node pageDetails = getDetailsNode(page,supportedDetails);
+
+            if (pageDetails != null) {
+                try {
+                    infoStruct.put("contentPath", pageDetails.getPath());
+                } catch (Exception ex) {
+                    getLogger().warn("JCR ERROR: {}",ex);
+                    infoStruct.put("error", ex.toString());
+                }
+            } else {
+                infoStruct.put("pageDetailsIsNull", true);
+            }
+
             if (pageDetails!=null) {
 
                 String title="";
@@ -87,22 +100,4 @@
         return infoStruct;
     }
 
-    /**
-     * Return a JCR node for the news details of <code>thisPage</code>
-     *
-     * @param thisPage is the page to inspect for newsdetails
-     * @return a JCR node or null when not found
-     */
-    private Node getDetailsNode(Page thisPage,String nodePath) {
-        if (thisPage == null) {
-            return null;
-        }
-
-        Resource detailResource = thisPage.getContentResource(nodePath);
-        Node detailsNode = null;
-        if (detailResource != null) {
-            detailsNode = detailResource.adaptTo(Node.class);
-        }
-        return detailsNode;
-    }
 %>
