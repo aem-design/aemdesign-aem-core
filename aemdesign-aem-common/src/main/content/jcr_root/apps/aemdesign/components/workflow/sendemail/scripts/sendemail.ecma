@@ -781,7 +781,7 @@ function attachUrl(url,contentType,attachtitle,_fieldMap,_templatedEmail,_workIt
 
         _requestProcessor.processRequest(_req, _resp, _request.getResourceResolver());
 
-        var _attachment = new Packages.javax.mail.util.ByteArrayDataSource(out.toByteArray(), contentType);
+        var _attachment = new Packages.javax.mail.util.ByteArrayDataSource(_out.toByteArray(), contentType);
 
         //var fileName = Packages.java.text.MessageFormat(FORM_DOR_NAME_FORMAT,);
 
