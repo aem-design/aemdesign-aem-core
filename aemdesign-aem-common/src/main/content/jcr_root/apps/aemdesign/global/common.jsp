@@ -1,4 +1,5 @@
-<%@ page session="false" import="com.day.cq.dam.api.Asset" %>
+<%@ page session="false" import="com.day.cq.contentsync.handler.util.RequestResponseFactory" %>
+<%@ page import="com.day.cq.dam.api.Asset" %>
 <%@ page import="com.day.cq.tagging.Tag" %>
 <%@ page import="com.day.cq.tagging.TagConstants" %>
 <%@ page import="com.day.cq.tagging.TagManager" %>
@@ -7,12 +8,14 @@
 <%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
 <%@ page import="org.apache.commons.lang3.text.StrSubstitutor" %>
 <%@ page import="org.apache.sling.api.resource.ResourceResolver" %>
+<%@ page import="org.apache.sling.api.wrappers.SlingHttpServletResponseWrapper" %>
+<%@ page import="org.apache.sling.engine.SlingRequestProcessor" %>
+<%@ page import="org.apache.sling.api.scripting.SlingScriptHelper" %>
 <%@ page import="javax.jcr.Node" %>
 <%@ page import="javax.jcr.NodeIterator" %>
 <%@ page import="javax.jcr.Property" %>
 <%@ page import="javax.jcr.Value" %>
-<%@ page import="java.io.IOException" %>
-<%@ page import="java.io.UnsupportedEncodingException" %>
+<%@ page import="java.io.*" %>
 <%@ page import="java.math.BigInteger" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.security.MessageDigest" %>
@@ -923,5 +926,109 @@
         StrSubstitutor sub = new StrSubstitutor(map);
         return sub.replace(template);
     }
+
+
+
+    /***
+     * request a resource similar to sling:include
+     * @param path resource to include
+     * @param response current response
+     * @param request current request
+     * @return html string of output
+     */
+    public String resourceIncludeAsHtml(String path, SlingHttpServletResponse response, SlingHttpServletRequest request)
+    {
+        try
+        {
+            final Writer buffer = new StringWriter();
+
+
+
+            final ServletOutputStream stream = new ServletOutputStream()
+            {
+                @Override
+                public void write(int b)
+                        throws IOException
+                {
+                    buffer.append((char)b);
+                }
+
+                @Override
+                public boolean isReady() {
+                    return false;
+                }
+
+                @Override
+                public void setWriteListener(WriteListener writeListener) {
+
+                }
+            };
+
+            SlingHttpServletResponseWrapper wrapper = new SlingHttpServletResponseWrapper(response)
+            {
+                public ServletOutputStream getOutputStream()
+                {
+                    return stream;
+                }
+
+                public PrintWriter getWriter()
+                        throws IOException
+                {
+                    return new PrintWriter(buffer);
+                }
+
+                public SlingHttpServletResponse getSlingResponse()
+                {
+                    return super.getSlingResponse();
+                }
+            };
+            RequestDispatcher dispatcher = request.getRequestDispatcher(path + ".html");
+
+            dispatcher.include(request, wrapper);
+            return buffer.toString();
+        }
+        catch (Exception e)
+        {
+            getLogger().error("Exception occured: " + e.getMessage(), e);
+            return e.getMessage();
+        }
+    }
+
+    /***
+     * render a resource path as HTML to include in components that reuse content in other resources
+     * @param path path to resources
+     * @param resourceResolver resource resolver for request
+     * @param sling sling helper
+     * @param mode mode to request resource with
+     * @return html string of output
+     */
+    public String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling, WCMMode mode)
+    {
+        try
+        {
+            final RequestResponseFactory _requestResponseFactory = sling.getService(RequestResponseFactory.class);
+            final SlingRequestProcessor _requestProcessor = sling.getService(SlingRequestProcessor.class);
+
+            String requestUrl =  path.concat(".html");
+
+            final HttpServletRequest _req = _requestResponseFactory.createRequest("GET", requestUrl);
+            if (mode != null) {
+                _req.setAttribute(WCMMode.class.getName(), mode);
+            }
+            final ByteArrayOutputStream _out = new ByteArrayOutputStream();
+            final HttpServletResponse _resp = _requestResponseFactory.createResponse(_out);
+
+
+            _requestProcessor.processRequest(_req, _resp, resourceResolver);
+
+            return _out.toString();
+        }
+        catch (Exception e)
+        {
+            getLogger().error("Exception occured: " + e.getMessage(), e);
+            return e.getMessage();
+        }
+    }
+
 
 %>
