@@ -9,7 +9,6 @@
 <%@ page import="org.apache.sling.api.resource.NonExistingResource" %>
 <%!
 
-    private static final String PAR_PAGEDETAILS = "par/page-details";
     private static final String DETAILS_MENU_COLOR_DEFAULT = "default";
     private static final String DETAILS_MENU_ACCESSKEY = "ariaAccessKey";
     private static final String DETAILS_TAB_GALLERYBGIMAGE = "par/page-details/gallerybgimage";
@@ -420,25 +419,6 @@
 
         return info;
 
-    }
-
-    /**
-     * Return a JCR node for the news details of <code>thisPage</code>
-     *
-     * @param thisPage is the page to inspect for newsdetails
-     * @return a JCR node or null when not found
-     */
-    private Node getDetailsNode(Page thisPage, String nodePath) {
-        if (thisPage == null) {
-            return null;
-        }
-
-        Resource detailResource = thisPage.getContentResource(nodePath);
-        Node detailsNode = null;
-        if (detailResource != null) {
-            detailsNode = detailResource.adaptTo(Node.class);
-        }
-        return detailsNode;
     }
 
     /**

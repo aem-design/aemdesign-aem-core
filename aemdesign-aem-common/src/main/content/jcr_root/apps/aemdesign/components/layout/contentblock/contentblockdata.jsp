@@ -4,28 +4,7 @@
 <%@ page import="java.util.Map" %>
 <%!
 
-    private static final String PAR_PAGEDETAILS = "par/page-details";
-    private static final String ARTICLE_PAR_PAGEDETAILS = "article/par/page-details";
     private static final String DETAILS_TITLE = "title";
-
-    /**
-     * Return a JCR node for the news details of <code>thisPage</code>
-     *
-     * @param thisPage is the page to inspect for newsdetails
-     * @return a JCR node or null when not found
-     */
-    private Node getDetailsNode(Page thisPage,String nodePath) {
-        if (thisPage == null) {
-            return null;
-        }
-
-        Resource detailResource = thisPage.getContentResource(nodePath);
-        Node detailsNode = null;
-        if (detailResource != null) {
-            detailsNode = detailResource.adaptTo(Node.class);
-        }
-        return detailsNode;
-    }
 
 
     /**

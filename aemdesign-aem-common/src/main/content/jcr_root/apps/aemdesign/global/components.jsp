@@ -62,6 +62,11 @@
 
     private static final String COMPONENT_ATTRIBUTES = "componentAttributes";
 
+    private static final String PAR_PAGEDETAILS = "par/page-details";
+    private static final String ARTICLE_PAR_PAGEDETAILS = "article/par/page-details";
+    private static final String ARTICLE_CONTENTS = "article/par";
+
+
     // {
     //   1 required - property name,
     //   2 required - default value,
@@ -838,5 +843,27 @@
         }
         return null;
     }
+
+
+    /**
+     * Return a JCR node for the news details of <code>thisPage</code>
+     *
+     * @param thisPage is the page to inspect for newsdetails
+     * @return a JCR node or null when not found
+     */
+    private Node getDetailsNode(Page thisPage,String nodePath) {
+        if (thisPage == null) {
+            return null;
+        }
+
+        Resource detailResource = thisPage.getContentResource(nodePath);
+        Node detailsNode = null;
+        if (detailResource != null) {
+            detailsNode = detailResource.adaptTo(Node.class);
+        }
+        return detailsNode;
+    }
+
+
 %>
 <c:set var="DEFAULT_VARIANT" value="<%= DEFAULT_VARIANT %>"/>
