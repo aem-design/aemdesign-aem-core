@@ -32,26 +32,13 @@ while (null != curPage) {
 
         if (curResourceTypeMatch && curCancelInheritParent) {
             haveInheritance = true;
-
+            WCMMode currentMode = WCMMode.fromRequest(_slingRequest);
             String defDecor =_componentContext.getDefaultDecorationTagName();
 
-            try {
+            disableEditMode(_componentContext, IncludeOptions.getOptions(request, true), _slingRequest);
+            out.write(resourceIncludeAsHtml(curResource.getPath(), (SlingHttpServletResponse) response, (SlingHttpServletRequest) request));
+            enableEditMode(currentMode, _componentContext, defDecor, IncludeOptions.getOptions(request, true), _slingRequest);
 
-                disableEditMode(_componentContext, IncludeOptions.getOptions(request, true), _slingRequest);
-
-                %><sling:include resource="<%= curResource %>" /><%
-
-
-            }
-            catch (Exception ex) {
-                if (!"JspException".equals(ex.getClass().getSimpleName())) {
-                    throw ex;
-                }
-                %><p class="cq-error">Variation not found for this content type</p><%
-            }
-            finally {
-                enableEditMode(CURRENT_WCMMODE, _componentContext, defDecor, IncludeOptions.getOptions(request, true), _slingRequest);
-            }
 
             break;
         }

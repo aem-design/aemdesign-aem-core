@@ -38,30 +38,13 @@ while (null != curPage) {
 
         if (curResourceTypeMatch && curCancelInheritParent) {
             haveInheritance = true;
-            String key = "apps.aemdesign.components.default.inherit.loop:" + curResource.getPath();
-            if (request.getAttribute(key) == null) {
-                request.setAttribute(key, Boolean.FALSE);
-            }
-
-            request.setAttribute(INHERITED_RESOURCE, curResource);
-
+            WCMMode currentMode = WCMMode.fromRequest(_slingRequest);
             String defDecor =_componentContext.getDefaultDecorationTagName();
 
-            WCMMode currentMode = WCMMode.fromRequest(_slingRequest);
+            disableEditMode(_componentContext, IncludeOptions.getOptions(request, true), _slingRequest);
+            out.write(resourceIncludeAsHtml(curResource.getPath(), (SlingHttpServletResponse) response, (SlingHttpServletRequest) request));
+            enableEditMode(currentMode, _componentContext, defDecor, IncludeOptions.getOptions(request, true), _slingRequest);
 
-            try {
-                disableEditMode(_componentContext, IncludeOptions.getOptions(request, true), _slingRequest);
-                %><sling:include resource="<%= curResource %>" /><%
-            }
-            catch (Exception ex) {
-                if (!"JspException".equals(ex.getClass().getSimpleName())) {
-                    throw ex;
-                }
-                %><p class="cq-error">Variation not found for this content type</p><%
-            }
-            finally {
-                enableEditMode(currentMode, _componentContext, defDecor, IncludeOptions.getOptions(request, true), _slingRequest);
-            }
 
             break;
         }
