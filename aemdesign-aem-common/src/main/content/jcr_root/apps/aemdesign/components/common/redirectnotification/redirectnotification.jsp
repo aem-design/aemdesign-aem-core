@@ -8,6 +8,8 @@
     // }
     Object[][] componentFields = {
             {"variant", DEFAULT_VARIANT},
+            {"redirectTitle", "Invalid content path"},
+            {"redirectUrl", "#"},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -17,27 +19,16 @@
             DEFAULT_FIELDS_ACCESSIBILITY);
 
     String redirectTarget = _pageProperties.get("redirectTarget", "");
-    String redirectTitle = "";
-    String redirectUrl = "";
+    componentProperties.put("redirectTarget",redirectTarget);
 
     if (StringUtils.isNotEmpty(redirectTarget) && redirectTarget.startsWith("/content")) {
         Page targetPage = _pageManager.getPage(redirectTarget);
 
-        // found page?
         if (targetPage != null) {
-            redirectUrl = redirectTarget.concat(DEFAULT_EXTENTION);
-            redirectTitle = getPageTitle(targetPage);
-        }
-
-        // set to invalid text.
-        else {
-            redirectTitle = "Invalid content path";
-            redirectUrl = "#";
+            componentProperties.put("redirectUrl",redirectTarget.concat(DEFAULT_EXTENTION));
+            componentProperties.put("redirectTitle",getPageTitle(targetPage));
         }
     }
-    componentProperties.put("redirectUrl",redirectUrl);
-    componentProperties.put("redirectTitle",redirectTitle);
-    componentProperties.put("redirectTarget",redirectTarget);
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>

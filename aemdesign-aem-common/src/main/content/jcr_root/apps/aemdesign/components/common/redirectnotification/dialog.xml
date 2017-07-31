@@ -6,17 +6,28 @@
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <basicTab
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/basicTab.infinity.json"
-                        xtype="cqinclude" />
-                <styleTab
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
-                        xtype="cqinclude" />
-                <accessibilityTab jcr:primaryType="cq:Panel"
-                                  path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
-                                  xtype="cqinclude" />
+                <configTab
+                        jcr:primaryType="cq:Panel"
+                        title="Config">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <noteLabel
+                                jcr:primaryType="cq:Widget"
+                                html="&lt;span style=&quot;color: red; font-weight: bold; font-size: large&quot;>This component is only visible in Author and Preview Mode&lt;/span>"
+                                xtype="label"/>
+                        <redirectTitle jcr:primaryType="cq:Widget"
+                                       fieldLabel="Redirect Title"
+                                       fieldDescription="Text to show when target is missing"
+                                       name="./redirectTitle"
+                                       allowBlank="{Boolean}true"
+                                       xtype="textfield"/>
+                        <redirectUrl jcr:primaryType="cq:Widget"
+                                     fieldLabel="Redirect Url"
+                                     fieldDescription="Url to use when target is missing"
+                                     name="./redirectUrl"
+                                     allowBlank="{Boolean}true"
+                                     xtype="textfield"/>
+                    </items>
+                </configTab>
             </items>
         </tabs>
     </items>
