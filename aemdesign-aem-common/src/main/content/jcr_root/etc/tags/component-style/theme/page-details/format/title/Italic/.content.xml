@@ -6,5 +6,5 @@
     jcr:title="Italic"
     sling:resourceType="cq/tagging/components/tag"
     tagID="component-style:components/event-details/format/title/Italic"
-    tagPath="/etc/tags/component-style/components/event-details/format/title/Italic"
+    tagPath="/etc/tags/component-style/theme/event-details/format/title/Italic"
     value="&lt;i>${title}&lt;/i>"/>
