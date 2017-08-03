@@ -17,5 +17,6 @@
   "X-M4V ((download))": " m4v file",
   "MPEG ((download))": " mpeg file",
   "3GPP ((download))": " 3gpp file",
-  "PLAIN ((download))": " txt file"
+  "PLAIN ((download))": " txt file",
+  "linklabel ((link))": "Link",
 }

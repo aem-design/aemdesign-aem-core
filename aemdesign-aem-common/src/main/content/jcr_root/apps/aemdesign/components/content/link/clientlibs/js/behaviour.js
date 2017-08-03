@@ -16,6 +16,10 @@ window.AEMDESIGN.components.link = AEMDESIGN.components.link || {};
             var link = $(this);
             ns.enableGA(link);
         });
+        $("button.link[href]").each(function() {
+            var button = $(this);
+            ns.enableButton(button);
+        });
     })
 
 
