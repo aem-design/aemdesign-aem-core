@@ -8,34 +8,54 @@
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
-            <tableTab
-                    jcr:primaryType="cq:Panel"
-                    path="/apps/aemdesign/global/dialog/classic/rteprofile/items/table.infinity.json"
-                    xtype="cqinclude"/>
-            <!-- basic information tab -->
-            <advancedTab jcr:primaryType="cq:Widget" title="Advanced" xtype="panel">
+                <tabTable
+                        jcr:primaryType="cq:Panel"
+                        path="/apps/aemdesign/global/dialog/classic/rteprofile/items/table.infinity.json"
+                        xtype="cqinclude"/>
 
-                <items jcr:primaryType="cq:WidgetCollection">
-
-                    <alternate
+                <styleTab
                         jcr:primaryType="cq:Widget"
-                        fieldLabel="Alternate row colour"
-                        name="./alternate"
-                        type="checkbox"
-                        xtype="selection" />
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude" />
 
-                </items>
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                                  xtype="cqinclude" />
 
-            </advancedTab>
-
-            <styleTab
-                    jcr:primaryType="cq:Widget"
-                    path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
-                    xtype="cqinclude" />
-            <accessibilityTab jcr:primaryType="cq:Panel"
-                              path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
-                              xtype="cqinclude" />
-
+                <tabDisplay
+                        jcr:primaryType="cq:Panel"
+                        border="false"
+                        height=""
+                        title="Display"
+                        width=""
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <title
+                                jcr:primaryType="cq:Widget"
+                                collapsed="false"
+                                collapsible="false"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <variant
+                                        jcr:primaryType="cq:Widget"
+                                        defaultValue=""
+                                        fieldLabel="Variant"
+                                        name="./variant"
+                                        allowBlank="{Boolean}true"
+                                        value=""
+                                        type="select"
+                                        xtype="selection">
+                                    <options jcr:primaryType="cq:WidgetCollection">
+                                        <default
+                                                jcr:primaryType="nt:unstructured"
+                                                value=""
+                                                text="Default"/>
+                                    </options>
+                                </variant>
+                            </items>
+                        </title>
+                    </items>
+                </tabDisplay>
 
         </items>
         </tabs>
