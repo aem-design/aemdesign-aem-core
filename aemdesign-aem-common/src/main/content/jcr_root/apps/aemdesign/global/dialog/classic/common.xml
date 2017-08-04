@@ -522,7 +522,7 @@
                                    fieldDescription="Color to be used for highlighting in Site Menu"
                                    allowBlank="{Boolean}true"
                                    name="./menuColor"
-                                   options="/etc/tags/component-style/components/navlist/color.valuelist.json"
+                                   options="/etc/tags/component-style/theme/navlist/color.valuelist.json"
                                    type="select"
                                    defaultValue=""
                                    xtype="selection"/>
