@@ -145,7 +145,7 @@
                                        fieldDescription="this will be used as card size in grids"
                                        allowBlank="{Boolean}true"
                                        name="./promoSize"
-                                       options="/etc/tags/component-style/components/grid/size.valuelist.json"
+                                       options="/etc/tags/component-style/theme/grid/size.valuelist.json"
                                        type="select"
                                        defaultValue=""
                                        value=""
@@ -163,7 +163,7 @@
                                              fieldDescription="Format of Title to be used for display"
                                              allowBlank="{Boolean}true"
                                              name="./titleFormat"
-                                             options="/etc/tags/component-style/components/event-details/format/title.valuelist.pathvalue.json"
+                                             options="/etc/tags/component-style/theme/event-details/format/title.valuelist.pathvalue.json"
                                              type="select"
                                              defaultValue=""
                                              xtype="selection"/>
@@ -172,7 +172,7 @@
                                                 fieldDescription="Format of Sub Title to be used for display"
                                                 allowBlank="{Boolean}true"
                                                 name="./subTitleFormat"
-                                                options="/etc/tags/component-style/components/event-details/format/subtitle.valuelist.pathvalue.json"
+                                                options="/etc/tags/component-style/theme/event-details/format/subtitle.valuelist.pathvalue.json"
                                                 type="select"
                                                 defaultValue=""
                                                 xtype="selection"/>
@@ -181,7 +181,7 @@
                                                 fieldDescription="Format of Event Date to be used for display"
                                                 allowBlank="{Boolean}true"
                                                 name="./eventDisplayDateFormat"
-                                                options="/etc/tags/component-style/components/event-details/format/displaydate.valuelist.pathvalue.json"
+                                                options="/etc/tags/component-style/theme/event-details/format/displaydate.valuelist.pathvalue.json"
                                                 type="select"
                                                 defaultValue=""
                                                 xtype="selection"/>
