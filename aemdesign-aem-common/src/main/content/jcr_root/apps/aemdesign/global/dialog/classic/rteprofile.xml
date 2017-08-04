@@ -415,7 +415,7 @@
                 jcr:primaryType="cq:Widget"
                 hideLabel="{Boolean}true"
                 name="./tableData"
-                title="Table2"
+                title="Table"
                 xtype="tableedit2">
             <rtePlugins jcr:primaryType="nt:unstructured">
                 <!--<links jcr:primaryType="nt:unstructured">
