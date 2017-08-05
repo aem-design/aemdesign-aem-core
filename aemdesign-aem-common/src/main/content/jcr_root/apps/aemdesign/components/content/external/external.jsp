@@ -5,11 +5,17 @@
 <%@ include file="/apps/aemdesign/global/components.jsp"%>
 <%
 
+    // {
+    //   1 required - property name,
+    //   2 required - default value,
+    //   3 optional - compile into a data-{name} attribute
+    // }
+
     Object[][] componentFields = {
-            {"target", ""},
-            {"height", ""},
-            {"width", ""},
-            {"showScrollbar", "yes"},
+            {"target", "", "src"},
+            {"height", "", "height"},
+            {"width", "", "width"},
+            {"showScrollbar", "yes", "scrolling"},
             {"variant", "default"}
     };
 
@@ -18,14 +24,6 @@
             componentFields,
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
-
-
-    String scrolling = componentProperties.get("showScrollbar","");
-    if (isNotEmpty(scrolling)) {
-        scrolling = MessageFormat.format("scrolling=\"{0}\"",scrolling);
-    }
-
-    componentProperties.put("scrollingAttr", scrolling);
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
