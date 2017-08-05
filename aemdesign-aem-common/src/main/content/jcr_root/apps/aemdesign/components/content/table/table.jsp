@@ -2,8 +2,6 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%
     Object[][] componentFields = {
-            {"cssClass",""},
-            {"alternate",false},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -14,17 +12,12 @@
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
-<div ${componentProperties.componentAttributes}>
-
-    <c:if test="${componentProperties.alternate}">
-    <div class="table table-resposive alternating-table">
-    </c:if>
-        <cq:text property="tableData"
-                 escapeXml="false"
-                 placeholder="<img src=\"/libs/cq/ui/resources/0.gif\" class=\"cq-table-placeholder\" alt=\"\" />"
-            />
-        <%@include file="/apps/aemdesign/global/component-badge.jsp" %>
-    <c:if test="${componentProperties.alternate}">
-    </div>
-    </c:if>
-</div>
+<c:choose>
+    <c:when test="${empty componentProperties.variant}">
+        <%@ include file="variant.default.jsp" %>
+    </c:when>
+    <c:otherwise>
+        <%@ include file="variant.default.jsp" %>
+    </c:otherwise>
+</c:choose>
+<%@include file="/apps/aemdesign/global/component-badge.jsp" %>
