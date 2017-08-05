@@ -6,7 +6,7 @@
     title="Content Block"
     xtype="tabpanel">
     <items jcr:primaryType="cq:WidgetCollection">
-        <tab_basic
+        <basicTab
             jcr:primaryType="cq:Panel"
             border="false"
             height=""
@@ -71,8 +71,8 @@
                     </items>
                 </title>
             </items>
-        </tab_basic>
-        <tab_style
+        </basicTab>
+        <styleTab
                 jcr:primaryType="cq:Panel"
                 title="Adv Style">
             <items jcr:primaryType="cq:WidgetCollection">
@@ -105,8 +105,8 @@
                         type="checkbox"
                         xtype="selection"/>
             </items>
-        </tab_style>
-        <tab_linkLeft
+        </styleTab>
+        <linkLeftTab
                 jcr:primaryType="cq:Panel"
                 title="Left Links">
             <items jcr:primaryType="cq:WidgetCollection">
@@ -122,8 +122,8 @@
                             xtype="pathfield"/>
                 </linksLeft>
             </items>
-        </tab_linkLeft>
-        <tab_linkRight
+        </linkLeftTab>
+        <linkRightTab
                 jcr:primaryType="cq:Panel"
                 title="Right Links">
             <items jcr:primaryType="cq:WidgetCollection">
@@ -145,8 +145,8 @@
                             xtype="pathfield"/>
                 </linksRight>
             </items>
-        </tab_linkRight>
-        <tab_bg
+        </linkRightTab>
+        <backgroundTab
                 jcr:primaryType="cq:Widget"
                 allowUpload="{Boolean}false"
                 name="./bgimage/file"

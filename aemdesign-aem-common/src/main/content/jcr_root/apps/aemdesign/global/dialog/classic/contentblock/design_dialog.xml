@@ -9,7 +9,7 @@
         title="Text"
         xtype="tabpanel">
         <items jcr:primaryType="cq:WidgetCollection">
-            <tab_basic
+            <basicTab
                 jcr:primaryType="cq:Panel"
                 border="false"
                 height=""
@@ -28,8 +28,8 @@
                             name="./topLinkTitle"
                             xtype="textfield"/>
                     </items>
-             </tab_basic>
-             <tab_style
+             </basicTab>
+             <styleTab
                 jcr:primaryType="cq:Widget"
                 path="/apps/aemdesign/components/layout/contentblock/dialog/items/items/tab_style.infinity.json"
                 xtype="cqinclude" />

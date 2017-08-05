@@ -6,7 +6,7 @@
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <tab_basic jcr:primaryType="cq:Panel" title="Facebook">
+                <basicTab jcr:primaryType="cq:Panel" title="Facebook">
 
                     <items jcr:primaryType="cq:WidgetCollection">
                             <href
@@ -156,8 +156,8 @@
                                 </options>
                            </allowTransparency>
                     </items>
-                </tab_basic>
-                <tab-text
+                </basicTab>
+                <textTab
                     jcr:primaryType="cq:Widget"
                     anchor="100%"
                     title="Text"
@@ -168,8 +168,8 @@
                         path="/apps/aemdesign/global/dialog/text-full.infinity.json"
                         xtype="cqinclude" />
                     </items>
-                </tab-text>
-                <tab2
+                </textTab>
+                <imageTab
                         jcr:primaryType="cq:Widget"
                         allowUpload="{Boolean}false"
                         cropParameter="./imageCrop"

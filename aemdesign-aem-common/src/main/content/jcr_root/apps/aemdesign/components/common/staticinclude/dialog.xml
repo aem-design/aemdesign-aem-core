@@ -13,7 +13,7 @@
                     jcr:primaryType="cq:Widget"
                     path="/apps/aemdesign/components/common/inherit/dialog/items/tabs/items/inheritTab.infinity.json"
                     xtype="cqinclude" />
-            <tab_basic
+            <basicTab
                 jcr:primaryType="cq:Panel"
                 border="false"
                 title="Site Include"
@@ -38,8 +38,8 @@
                             type="checkbox"
                             xtype="selection"/>
                 </items>
-            </tab_basic>
-            <tab_include
+            </basicTab>
+            <includeTab
                     jcr:primaryType="cq:Widget"
                     title="Include list"
                     xtype="panel">
@@ -57,7 +57,7 @@
                                 xtype="pathfield"/>
                     </pages>
                 </items>
-            </tab_include>
+            </includeTab>
 
         </items>
     </items>

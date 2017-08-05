@@ -8,7 +8,7 @@
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <tabTable
+                <tableTab
                         jcr:primaryType="cq:Panel"
                         path="/apps/aemdesign/global/dialog/classic/rteprofile/items/table.infinity.json"
                         xtype="cqinclude"/>
@@ -22,7 +22,7 @@
                                   path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
                                   xtype="cqinclude" />
 
-                <tabDisplay
+                <layoutTab
                         jcr:primaryType="cq:Panel"
                         border="false"
                         height=""
@@ -55,7 +55,7 @@
                             </items>
                         </title>
                     </items>
-                </tabDisplay>
+                </layoutTab>
 
         </items>
         </tabs>

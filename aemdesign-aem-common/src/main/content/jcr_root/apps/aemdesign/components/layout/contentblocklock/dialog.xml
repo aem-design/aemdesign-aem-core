@@ -16,7 +16,7 @@
                 <permissionCheckTab jcr:primaryType="cq:Panel"
                                     path="/apps/aemdesign/global/dialog/classic/common/items/permissionCheckTab.infinity.json"
                                     xtype="cqinclude"/>
-                <tabBasic
+                <basicTab
                         jcr:primaryType="cq:Panel"
                         title="Basic"
                         name="tabBasic"
@@ -101,7 +101,7 @@
                             </items>
                         </title>
                     </items>
-                </tabBasic>
+                </basicTab>
                 <advsection
                         jcr:primaryType="cq:Panel"
                         title="Advanced Links"

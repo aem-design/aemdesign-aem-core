@@ -7,7 +7,7 @@
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <tab-layout
+                <layoutTab
                         jcr:primaryType="cq:Panel"
                         title="Layout"
                         xtype="panel">
@@ -23,7 +23,7 @@
                                 type="select"
                                 xtype="selection"/>
                     </items>
-                </tab-layout>
+                </layoutTab>
                 <styleTab
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"

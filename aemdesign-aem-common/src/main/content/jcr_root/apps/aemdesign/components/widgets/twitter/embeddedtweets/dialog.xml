@@ -7,7 +7,7 @@
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <tab_basic jcr:primaryType="cq:Panel" title="Twitter Embedded Tweets">
+                <basicTab jcr:primaryType="cq:Panel" title="Twitter Embedded Tweets">
                     <items jcr:primaryType="cq:WidgetCollection">
                         <statusId
                             jcr:primaryType="cq:Widget"
@@ -27,7 +27,7 @@
                             name="./embeddedTweet"
                             xtype="textfield" />
                     </items>
-                </tab_basic>
+                </basicTab>
             </items>
         </tabs>
     </items>

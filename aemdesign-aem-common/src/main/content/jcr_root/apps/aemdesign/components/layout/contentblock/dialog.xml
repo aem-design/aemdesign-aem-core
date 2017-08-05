@@ -10,7 +10,7 @@
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <tabBasic
+                <basicTab
                         jcr:primaryType="cq:Panel"
                         title="Basic"
                         name="tabBasic"
@@ -85,7 +85,7 @@
                             </items>
                         </title>
                     </items>
-                </tabBasic>
+                </basicTab>
                 <advsection
                         jcr:primaryType="cq:Panel"
                         title="Advanced Links"

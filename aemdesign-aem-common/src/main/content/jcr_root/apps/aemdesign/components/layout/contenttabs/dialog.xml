@@ -10,7 +10,7 @@
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <tabBasic
+                <basicTab
                         jcr:primaryType="cq:Panel"
                         title="Basic"
                         name="tabBasic"
@@ -42,7 +42,7 @@
                             </options>
                         </listFrom>
                     </items>
-                </tabBasic>
+                </basicTab>
                 <children
                         jcr:primaryType="cq:Panel"
                         title="Child pages"
