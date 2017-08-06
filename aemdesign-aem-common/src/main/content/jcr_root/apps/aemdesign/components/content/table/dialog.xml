@@ -26,7 +26,7 @@
                         jcr:primaryType="cq:Panel"
                         border="false"
                         height=""
-                        title="Display"
+                        title="Layout"
                         width=""
                         xtype="panel">
                     <items jcr:primaryType="cq:WidgetCollection">
