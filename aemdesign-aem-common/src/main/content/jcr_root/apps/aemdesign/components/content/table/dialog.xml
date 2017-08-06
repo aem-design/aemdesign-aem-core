@@ -30,7 +30,7 @@
                         width=""
                         xtype="panel">
                     <items jcr:primaryType="cq:WidgetCollection">
-                        <title
+                        <variant
                                 jcr:primaryType="cq:Widget"
                                 collapsed="false"
                                 collapsible="false"
@@ -53,7 +53,7 @@
                                     </options>
                                 </variant>
                             </items>
-                        </title>
+                        </variant>
                     </items>
                 </layoutTab>
 
