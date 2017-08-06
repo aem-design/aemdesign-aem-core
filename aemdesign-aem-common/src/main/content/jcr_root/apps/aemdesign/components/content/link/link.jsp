@@ -21,7 +21,6 @@
     Object[][] componentFields = {
             {"linkTarget", StringUtils.EMPTY, "target"},
             {FIELD_LINKURL, StringUtils.EMPTY},
-            {"analyticsType", StringUtils.EMPTY, "data-analytics-type"},
             {"variant", StringUtils.EMPTY},
             {"linkId", _xssAPI.encodeForHTMLAttr(_resource.getPath())},
             {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},

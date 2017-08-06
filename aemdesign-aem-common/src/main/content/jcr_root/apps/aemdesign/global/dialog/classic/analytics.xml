@@ -12,6 +12,30 @@
         <common jcr:primaryType="cq:Panel"
                   title="Analytics">
             <items jcr:primaryType="cq:WidgetCollection">
+                <analyticsType
+                        jcr:primaryType="cq:Widget"
+                        defaultValue=""
+                        fieldLabel="Analytics Type"
+                        name="./analyticsType"
+                        allowBlank="{Boolean}true"
+                        value=""
+                        type="select"
+                        xtype="selection">
+                    <options jcr:primaryType="cq:WidgetCollection">
+                        <default
+                                jcr:primaryType="nt:unstructured"
+                                value=""
+                                text="Default"/>
+                        <ga
+                                jcr:primaryType="nt:unstructured"
+                                value="ga"
+                                text="Google Analytics"/>
+                        <aa
+                                jcr:primaryType="nt:unstructured"
+                                value="aa"
+                                text="Adobe Analytics"/>
+                    </options>
+                </analyticsType>
                 <analyticsHitType jcr:primaryType="cq:Widget"
                                    fieldLabel="Hit Type"
                                    fieldDescription="Specifies the event category [AA,GA]"
