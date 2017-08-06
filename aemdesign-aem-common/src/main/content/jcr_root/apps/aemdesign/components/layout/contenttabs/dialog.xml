@@ -13,7 +13,7 @@
                 <basicTab
                         jcr:primaryType="cq:Panel"
                         title="Basic"
-                        name="tabBasic"
+                        name="basicTab"
                         xtype="panel">
                     <listeners
                             jcr:primaryType="nt:unstructured"

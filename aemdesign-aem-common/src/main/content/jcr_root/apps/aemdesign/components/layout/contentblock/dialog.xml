@@ -13,7 +13,7 @@
                 <basicTab
                         jcr:primaryType="cq:Panel"
                         title="Basic"
-                        name="tabBasic"
+                        name="basicTab"
                         xtype="panel">
                     <listeners
                             jcr:primaryType="nt:unstructured"
@@ -27,21 +27,21 @@
                             <items jcr:primaryType="cq:WidgetCollection">
                                 <title
                                         jcr:primaryType="cq:Widget"
-                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/title.infinity.json"
+                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/basicTab/items/title/items/title.infinity.json"
                                         xtype="cqinclude"/>
                                 <hideTitle
                                         jcr:primaryType="cq:Widget"
-                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/hideTitle.infinity.json"
+                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/basicTab/items/title/items/hideTitle.infinity.json"
                                         xtype="cqinclude"/>
 
                                 <hideTopLink
                                         jcr:primaryType="cq:Widget"
-                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/hideTopLink.infinity.json"
+                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/basicTab/items/title/items/hideTopLink.infinity.json"
                                         xtype="cqinclude"/>
 
                                 <hideInContentMenu
                                         jcr:primaryType="cq:Widget"
-                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/hideInContentMenu.infinity.json"
+                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/basicTab/items/title/items/hideInContentMenu.infinity.json"
                                         xtype="cqinclude"/>
 
                                 <variant
@@ -98,7 +98,7 @@
 
                         <titleType
                                 jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/tab_basic/items/title/items/titleType.infinity.json"
+                                path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/basicTab/items/title/items/titleType.infinity.json"
                                 xtype="cqinclude"/>
 
                         <linksLeft
