@@ -1,18 +1,17 @@
-<%@ page import="com.day.cq.commons.Doctype" %>
-<%@ page import="com.day.cq.wcm.foundation.Image" %>
-<%@ page import="org.apache.sling.api.resource.Resource" %>
 <%@ page import="com.day.cq.dam.api.Asset" %>
+<%@ page import="com.day.cq.dam.api.DamConstants" %>
 <%@ page import="com.day.cq.dam.api.Rendition" %>
 <%@ page import="com.day.cq.dam.commons.util.DamUtil" %>
+<%@ page import="com.day.cq.wcm.api.Page" %>
+<%@ page import="com.day.cq.wcm.foundation.Image" %>
+<%@ page import="com.day.image.Layer" %>
+<%@ page import="org.apache.commons.lang3.StringUtils" %>
+<%@ page import="org.apache.commons.lang3.time.DateUtils" %>
+<%@ page import="org.apache.sling.api.resource.Resource" %>
+<%@ page import="javax.jcr.Node" %>
 <%@ page import="javax.jcr.RepositoryException" %>
 <%@ page import="java.util.List" %>
-<%@ page import="javax.jcr.Node" %>
-<%@ page import="com.day.cq.wcm.api.Page" %>
-<%@ page import="org.apache.commons.lang3.StringUtils" %>
-<%@ page import="com.day.cq.dam.api.DamConstants" %>
-<%@ page import="org.apache.commons.lang3.math.NumberUtils" %>
-<%@ page import="java.util.regex.Matcher" %>
-<%@ page import="com.day.image.Layer" %>
+<%@ page import="com.adobe.xmp.XMPDateTime" %>
 
 
 <%!
@@ -41,9 +40,14 @@
     final String SMALL_IMAGE_PATH_SELECTOR = "cq5dam" + SMALL_IMAGE_THUMB_SELECTOR;
     final String DEFAULT_IMAGE_PATH_SELECTOR = "cq5dam" + DEFAULT_IMAGE_THUMB_SELECTOR;
     final String DEFAULT_DOWNLOAD_THUMB_ICON = "/etc/clientlibs/aemdesign/icons/file/file.gif";
+    final String DEFAULT_IMAGE_BLANK = "/libs/cq/ui/resources/0.gif"; // /etc/designs/default/0.gif
 
     final String MEDIUM_THUMBNAIL_SIZE = "320";
     final String LARGE_THUMBNAIL_SIZE = "480";
+
+    final String DAM_FIELD_LICENSE_COPYRIGHT_OWNER = "xmpRights:Owner";
+    final String DAM_FIELD_LICENSE_USAGETERMS = "xmpRights:UsageTerms";
+    final String DAM_FIELD_LICENSE_EXPIRY = "prism:expirationDate";
 
     /***
      * get attributes from asset
@@ -191,19 +195,28 @@
      * @param renditionName is the specific redition of interest
      * @return the thumbnail path
      */
-    protected Resource getThumbnail(Asset asset, String renditionName) throws RepositoryException {
-        List<Rendition> renditions = asset.getRenditions();
-
-        if (renditions == null || renditions.size() == 0) {
+    protected Resource getThumbnail(Asset asset, String renditionName) {
+        if (asset == null) {
             return null;
         }
 
-        // cycle through renditions to find the specific rendition
-        for (Rendition rendition : renditions) {
-            if (rendition.getName().equals(renditionName))
-                return rendition.adaptTo(Resource.class);
-        }
+        try {
 
+            List<Rendition> renditions = asset.getRenditions();
+
+            if (renditions == null || renditions.size() == 0) {
+                return null;
+            }
+
+            // cycle through renditions to find the specific rendition
+            for (Rendition rendition : renditions) {
+                if (rendition.getName().equals(renditionName))
+                    return rendition.adaptTo(Resource.class);
+            }
+
+        } catch (Exception ex) {
+            getLogger().error("Exception occurred: " + ex.getMessage(), ex);
+        }
         return null;
     }
 
@@ -344,6 +357,29 @@
 
         return image;
     }
+
+    /***
+     * get image url for a resource if defined
+     * @param resource
+     * @param imageResourceName
+     * @return
+     */
+    protected String getResourceImageCustomHref(Resource resource, String imageResourceName) {
+        String imageSrc="";
+        Resource imageResource = resource.getChild(imageResourceName);
+        if (imageResource != null) {
+            Resource fileReference = imageResource.getChild("fileReference");
+            if (fileReference != null) {
+                if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE)) {
+                    Long lastModified = getLastModified(imageResource);
+                    imageSrc = MessageFormat.format("{0}.img.png/{1}.png", imageResource.getPath(), lastModified.toString());
+                    imageSrc = mappedUrl(resource.getResourceResolver(), imageSrc);
+                }
+            }
+        }
+        return imageSrc;
+    }
+
 
     protected String getPageImgReferencePath(Page page) throws RepositoryException{
         String imgReference = "";
@@ -500,4 +536,69 @@
         }
         return imgPath;
     }
+
+    /***
+     * get asset metadata value and return default value if its empty
+     * @param asset asset to use
+     * @param name name of metadata field
+     * @param defaultValue default value to return
+     * @return
+     */
+    protected String getAssetPropertyValueWithDefault(Asset asset, String name, String defaultValue) {
+        String valueReturn = defaultValue;
+        if (asset == null) {
+            return valueReturn;
+        }
+
+        try {
+
+            String assetValue = asset.getMetadataValue(name);
+
+            if (isNotEmpty(assetValue)) {
+                return assetValue;
+            }
+
+        } catch (Exception ex) {
+            getLogger().error("Exception occurred: " + ex.getMessage(), ex);
+        }
+
+        return valueReturn;
+    }
+
+    /***
+     * get formatted copyright info text for an asset
+     * @param asset asset to use
+     * @param format format to use with fields merge
+     * @return
+     */
+    protected String getAssetCopyrightInfo(Asset asset, String format) {
+        String copyrightInfo = "";
+        if (asset == null) {
+            return copyrightInfo;
+        }
+
+        try {
+            String assetCreator = getAssetPropertyValueWithDefault(asset, DamConstants.DC_CREATOR, "");
+            String assetContributor = getAssetPropertyValueWithDefault(asset, DamConstants.DC_CONTRIBUTOR, "");
+            String assetLicense = getAssetPropertyValueWithDefault(asset, DamConstants.DC_RIGHTS, "");
+            String assetCopyrightOwner = getAssetPropertyValueWithDefault(asset, DAM_FIELD_LICENSE_COPYRIGHT_OWNER, "");
+            String assetExpiresYear = "";
+            Object assetExpires = asset.getMetadata(DAM_FIELD_LICENSE_EXPIRY);
+            if (assetExpires != null) {
+                XMPDateTime assetExpiresDate = (XMPDateTime)assetExpires;
+                assetExpiresYear = Integer.toString(assetExpiresDate.getCalendar().get(Calendar.YEAR));
+            }
+
+            String values = StringUtils.join(assetCreator, assetContributor, assetLicense, assetCopyrightOwner, assetExpiresYear).trim();
+            if (isNotEmpty(values)) {
+                copyrightInfo = MessageFormat.format(format, assetCreator, assetContributor, assetLicense, assetCopyrightOwner, assetExpiresYear);
+            }
+        } catch (Exception ex) {
+            getLogger().error("Exception occurred: " + ex.getMessage(), ex);
+        }
+
+        return copyrightInfo;
+
+    }
+
 %>
