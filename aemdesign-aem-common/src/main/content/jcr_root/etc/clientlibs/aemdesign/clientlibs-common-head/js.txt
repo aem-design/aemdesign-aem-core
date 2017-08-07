@@ -23,6 +23,7 @@
 ../js/aemdesign.utils.js
 ../js/aemdesign.sling.js
 ../js/aemdesign.services.js
+../js/aemdesign.analytics.js
 ../js/aemdesign.components.js
 ../js/aemdesign.content.js
 ../js/aemdesign.commerce.js
