@@ -24,6 +24,12 @@
     final String DAM_SOURCE_URL = "sourceUrl";
     final String DAM_VIDEO_URL = "sourceUrl";
 
+    final int DEFAULT_THUMB_WIDTH_XSM = 140;
+    final int DEFAULT_THUMB_WIDTH_SM = 319;
+    final int DEFAULT_THUMB_WIDTH_MD = 800;
+    final int DEFAULT_THUMB_WIDTH_LG = 1280;
+    final int DEFAULT_THUMB_WIDTH_XLG = 1600;
+    final int DEFAULT_THUMB_WIDTH_XXLG = 1900;
     final String DEFAULT_IMAGE_THUMB_SELECTOR = ".thumb.319.319.png";
     final String SMALL_IMAGE_THUMB_SELECTOR = ".thumb.140.100.png";
     final String DEFAULT_THUMB_SELECTOR_XSM = ".thumb.140.140.png";
@@ -220,6 +226,28 @@
         return null;
     }
 
+
+    /***
+     * get rendition matching selected width
+     * @param asset asset to use
+     * @param minWidth width to find
+     * @return
+     */
+    protected Rendition getThumbnail(Asset asset, int minWidth) {
+        if (asset == null) {
+            return null;
+        }
+
+        try {
+
+            return DamUtil.getBestFitRendition(minWidth, asset.getRenditions());
+
+        } catch (Exception ex) {
+            getLogger().error("Exception occurred: " + ex.getMessage(), ex);
+        }
+        return null;
+    }
+
     protected String getThumbnailUrl(Page page, ResourceResolver _resourceResolver) {
         return _resourceResolver.map(page.getPath().concat(DEFAULT_THUMB_SELECTOR_MD));
     }
@@ -348,7 +376,10 @@
      * @param relativePath is the relative path
      * @param maxWidth is the maximum width
      * @return is the image object that we will render.
+     *
+     * @deprecated use Image Server to do this
      */
+    @Deprecated
     protected Image getScaledProcessedImage(Resource resource, String relativePath, int maxWidth) {
         Image image = this.getProcessedImage(resource, relativePath);
 
@@ -366,9 +397,12 @@
      */
     protected String getResourceImageCustomHref(Resource resource, String imageResourceName) {
         String imageSrc="";
+        if (resource == null || isEmpty(imageResourceName)) {
+            return imageSrc;
+        }
         Resource imageResource = resource.getChild(imageResourceName);
         if (imageResource != null) {
-            Resource fileReference = imageResource.getChild("fileReference");
+            Resource fileReference = imageResource.getChild(IMAGE_FILEREFERENCE);
             if (fileReference != null) {
                 if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE)) {
                     Long lastModified = getLastModified(imageResource);
@@ -380,32 +414,58 @@
         return imageSrc;
     }
 
-
-    protected String getPageImgReferencePath(Page page) throws RepositoryException{
-        String imgReference = "";
-        Resource imgResource = page.getContentResource("image");
-        if(imgResource != null){
-            Node imgNode = imgResource.adaptTo(Node.class);
-            if(imgNode != null){
-                if(imgNode.hasProperty("fileReference")){
-                    imgReference = imgNode.getProperty("fileReference").getString();
-                }
-            }
-        }
-        return imgReference;
+    /***
+     * get asset reference for image node
+     * @param page
+     * @return
+     * @throws RepositoryException
+     */
+    protected String getPageImgReferencePath(Page page) {
+        return getResourceImagePath(page.getContentResource(),"image");
     }
 
-    protected String getSecondaryImageReferencePath(Page thisPage, String componentPath)throws RepositoryException{
-        String imagePath = "";
-        Node secondaryImage = null;
-        if (thisPage != null && componentPath != null) {
-            Resource componentResource = thisPage.getContentResource(componentPath);
-            if (componentResource != null) {
-                secondaryImage = componentResource.adaptTo(Node.class);
-                if(secondaryImage.hasProperty("fileReference")){
-                    imagePath = secondaryImage.getProperty("fileReference").getString();
+    /***
+     * get fileReference from image node of a resource
+     * @param resource resource to use
+     * @param imageResourceName image node name
+     * @return
+     */
+    protected String getResourceImagePath(Resource resource, String imageResourceName) {
+        String fileReferencPath = "";
+        if (resource == null || isEmpty(imageResourceName)) {
+            return fileReferencPath;
+        }
+        try {
+            Resource fileReference = resource.getChild(imageResourceName);
+            if (fileReference != null) {
+                Node fileReferenceNode = fileReference.adaptTo(Node.class);
+                if (fileReferenceNode != null) {
+                    if (fileReferenceNode.hasProperty(IMAGE_FILEREFERENCE)) {
+                        fileReferencPath = fileReferenceNode.getProperty(IMAGE_FILEREFERENCE).getString();
+                    }
                 }
             }
+        } catch (Exception ex) {
+            getLogger().error("Exception occurred: " + ex.getMessage(), ex);
+        }
+        return fileReferencPath;
+    }
+
+    protected String getSecondaryImageReferencePath(Page thisPage, String componentPath) {
+        String imagePath = "";
+        try {
+            Node secondaryImage = null;
+            if (thisPage != null && componentPath != null) {
+                Resource componentResource = thisPage.getContentResource(componentPath);
+                if (componentResource != null) {
+                    secondaryImage = componentResource.adaptTo(Node.class);
+                    if (secondaryImage.hasProperty(IMAGE_FILEREFERENCE)) {
+                        imagePath = secondaryImage.getProperty(IMAGE_FILEREFERENCE).getString();
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            getLogger().error("Exception occurred: " + ex.getMessage(), ex);
         }
         return imagePath;
     }
