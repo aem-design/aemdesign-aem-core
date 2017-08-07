@@ -142,12 +142,13 @@
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
     public static final Object[][] DEFAULT_FIELDS_ANALYTICS = {
-            {"analyticsHitType", "", "data-analytics-hit-type"},
-            {"analyticsEventCategory", "", "data-analytics-event-category"},
-            {"analyticsEventAction", "", "data-analytics-event-action"},
-            {"analyticsEventLabel", "", "data-analytics-event-label"},
-            {"analyticsTransport", "", "data-analytics-transport"},
-            {"analyticsNonInteraction", "", "data-analytics-noninteraction"},
+            {"analyticsType", StringUtils.EMPTY, "data-analytics-type"},
+            {"analyticsHitType", StringUtils.EMPTY, "data-analytics-hit-type"},
+            {"analyticsEventCategory", StringUtils.EMPTY, "data-analytics-event-category"},
+            {"analyticsEventAction", StringUtils.EMPTY, "data-analytics-event-action"},
+            {"analyticsEventLabel", StringUtils.EMPTY, "data-analytics-event-label"},
+            {"analyticsTransport", StringUtils.EMPTY, "data-analytics-transport"},
+            {"analyticsNonInteraction", StringUtils.EMPTY, "data-analytics-noninteraction"},
     };
 
     // {
@@ -537,6 +538,13 @@
         return componentProperties;
     }
 
+    /***
+     * add style tag to component attributes collection
+     * @param componentProperties component attributes collection
+     * @param resource resource to search for image
+     * @param imageResourceName image node name
+     * @return
+     */
     public String addComponentBackgroundToAttributes(ComponentProperties componentProperties, Resource resource, String imageResourceName) {
         String componentAttributes = componentProperties.get(COMPONENT_ATTRIBUTES, "");
         Resource imageResource = resource.getChild(imageResourceName);
@@ -555,10 +563,40 @@
         return componentAttributes;
     }
 
-    public String addComponentAttributes(ComponentProperties componentProperties, String attributeName, String attrbuteValue) {
+
+    /***
+     * add a new attribute to existing component attributes collection
+     * @param componentProperties existing map of component attirbutes
+     * @param keyValue attribute name and value list
+     * @return
+     */
+    public String addComponentAttributes(ComponentProperties componentProperties, Object[][] keyValue) {
+
         String componentAttributes = componentProperties.get(COMPONENT_ATTRIBUTES, "");
-        componentAttributes += MessageFormat.format(" {0}=\"{1}\"",attributeName,attrbuteValue);
+
+        for (Object[] item : keyValue) {
+            if (item.length >= 1) {
+                String attributeName = item[0].toString();
+                String attrbuteValue = item[1].toString();
+
+                componentAttributes += MessageFormat.format(" {0}=\"{1}\"",attributeName,attrbuteValue);
+            }
+        }
+
         return componentAttributes;
+    }
+
+    /***
+     * add a new attribute to existing component attributes collection
+     * @param componentProperties existing map of component attirbutes
+     * @param attributeName attribute name
+     * @param attrbuteValue attribute value
+     * @return
+     */
+    public String addComponentAttributes(ComponentProperties componentProperties, String attributeName, String attrbuteValue) {
+
+        return  addComponentAttributes(componentProperties, new Object[][] {{attributeName,attrbuteValue}});
+
     }
 
     /**
