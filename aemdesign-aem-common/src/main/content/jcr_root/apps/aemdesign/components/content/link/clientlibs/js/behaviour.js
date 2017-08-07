@@ -4,23 +4,23 @@ window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.link = AEMDESIGN.components.link || {};
 
 
-(function ($, _, ko, ns, window, undefined) { //add additional dependencies
+(function ($, _, ko, ns, analytics, window, undefined) { //add additional dependencies
 
 
     $(document).ready(function () {
         $("a[data-analytics-type=aa]").each(function() {
             var link = $(this);
-            ns.enableAA(link); //this has been depreciated
+            analytics.enableAA(link);
         });
         $("a[data-analytics-type=ga]").each(function() {
             var link = $(this);
-            ns.enableGA(link);
+            analytics.enableGA(link);
         });
         $("button.link[href]").each(function() {
             var button = $(this);
-            ns.enableButton(button);
+            analytics.enableButton(button);
         });
     })
 
 
-})(AEMDESIGN.jQuery, _, ko, AEMDESIGN.components.link, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery, _, ko, AEMDESIGN.components.link, AEMDESIGN.analytics, this); //pass in additional dependencies
