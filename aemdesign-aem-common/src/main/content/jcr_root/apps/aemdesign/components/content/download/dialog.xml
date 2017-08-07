@@ -43,12 +43,12 @@
                             <items jcr:primaryType="cq:WidgetCollection">
                                 <variant
                                         jcr:primaryType="cq:Widget"
+                                        type="select"
                                         defaultValue=""
                                         fieldLabel="Variant"
-                                        name="./variant"
                                         allowBlank="{Boolean}true"
+                                        name="./variant"
                                         value=""
-                                        type="select"
                                         xtype="selection">
                                     <options jcr:primaryType="cq:WidgetCollection">
                                         <default
@@ -100,6 +100,7 @@
                                         jcr:primaryType="cq:Widget"
                                         defaultValue=""
                                         fieldLabel="Thumbnail Type"
+                                        fieldDescription="Pick type of thumbnail to use for download. List in order of Custom Thumbnail Rendition will generate a new thumbnail image."
                                         name="./thumbnailType"
                                         allowBlank="{Boolean}true"
                                         value=""
@@ -112,16 +113,20 @@
                                                 text="Default"/>
                                         <icon
                                                 jcr:primaryType="nt:unstructured"
-                                                value="Icon"
-                                                text="Simple"/>
-                                        <custom
-                                                jcr:primaryType="nt:unstructured"
-                                                value="custom"
-                                                text="Custom Rendition"/>
+                                                value="icon"
+                                                text="Icon"/>
                                         <dam
                                                 jcr:primaryType="nt:unstructured"
                                                 value="dam"
-                                                text="DAM Rendition"/>
+                                                text="Asset DAM Rendition"/>
+                                        <customdam
+                                                jcr:primaryType="nt:unstructured"
+                                                value="customdam"
+                                                text="Thumbnail DAM Rendition"/>
+                                        <custom
+                                                jcr:primaryType="nt:unstructured"
+                                                value="custom"
+                                                text="Custom Thumbnail Rendition"/>
                                     </options>
                                 </thumbnail>
 

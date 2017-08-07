@@ -4,7 +4,10 @@
             <span class="icon type_${componentProperties.iconType}"><img src="/libs/cq/ui/resources/0.gif" alt="${componentProperties.mimeTypeLabel}"/></span>
         </c:when>
         <c:otherwise>
-            <img src="${componentProperties.thumbnail}" alt="${componentProperties.assetTitle}" width="${componentProperties.thumbnailWidth}" height="${componentProperties.thumbnailHeight}"/>
+            <img src="${componentProperties.thumbnail}" alt="${componentProperties.title}"
+                 <c:if test="${not empty componentProperties.thumbnailWidth}"> width="${componentProperties.thumbnailWidth}"</c:if>
+                 <c:if test="${not empty componentProperties.thumbnailHeight}"> height="${componentProperties.thumbnailHeight}"</c:if>
+            />
         </c:otherwise>
     </c:choose>
     <c:if test="${ not empty componentProperties.title}">

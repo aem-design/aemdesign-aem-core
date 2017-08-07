@@ -78,19 +78,41 @@
         componentProperties.put("thumbnail", DEFAULT_IMAGE_BLANK);
 
         if (thumbnailType.equals("dam")) {
-            Resource assetRendition = getThumbnail(asset, DEFAULT_IMAGE_PATH_SELECTOR);
+
+            Rendition assetRendition = getThumbnail(asset, DEFAULT_THUMB_WIDTH_SM);
+
             if (assetRendition == null) {
                 componentProperties.put("thumbnail", DEFAULT_DOWNLOAD_THUMB_ICON);
             } else {
                 componentProperties.put("thumbnail", assetRendition.getPath());
             }
+        } else if (thumbnailType.equals("customdam")) {
+
+            String thumbnailImagePath = getResourceImagePath(_resource,"thumbnail");
+
+            Resource thumbnailImage = _resourceResolver.resolve(thumbnailImagePath);
+
+            if (thumbnailImage == null) {
+                thumbnailImagePath = DEFAULT_DOWNLOAD_THUMB_ICON;
+            } else {
+                Rendition assetRendition = getThumbnail(thumbnailImage.adaptTo(Asset.class), DEFAULT_THUMB_WIDTH_SM);
+
+                thumbnailImagePath = assetRendition.getPath();
+            }
+
+            componentProperties.put("thumbnail", thumbnailImagePath);
+
         } else if (thumbnailType.equals("custom")) {
 
             String thumbnailImage = getResourceImageCustomHref(_resource,"thumbnail");
 
-            componentProperties.put("thumbnail", thumbnailImage);
+            if (isEmpty(thumbnailImage)) {
+                componentProperties.put("thumbnail", DEFAULT_DOWNLOAD_THUMB_ICON);
+            } else {
+                componentProperties.put("thumbnail", thumbnailImage);
+            }
 
-        } else if (thumbnailType.equals("icon")) {
+        } else if (thumbnailType.equals("icon") || isEmpty(thumbnailType)) {
             componentProperties.put("iconType",dld.getIconType());
         }
 
