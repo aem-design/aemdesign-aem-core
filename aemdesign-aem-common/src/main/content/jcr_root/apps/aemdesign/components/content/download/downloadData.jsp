@@ -5,7 +5,7 @@
 <%@ page import="javax.jcr.RepositoryException" %>
 <%!
     private static final String EMPTY_FILE = "empty file";
-    private static final String ALT_TITLE = "alt-title";
+    private static final String ALT_TITLE = "title";
     private static final String DESCRIPTION = "description";
 
     //drop target css class = dd prefix + name of the drop target in the edit config
@@ -62,8 +62,16 @@
      * @return is the formatted size to return (or null)
      * @throws RepositoryException
      */
-    private String getFormattedDownloadSize(Download dld) throws RepositoryException {
-        return dld.getData() != null ? getFileSize(dld.getData().getLength()) : null;
+    private String getFormattedDownloadSize(Download dld) {
+        String size = "";
+        try {
+            if (dld.getData() != null) {
+                size = getFileSize(dld.getData().getLength());
+            }
+        } catch (Exception ex) {
+            getLogger().error("Exception occurred: " + ex.getMessage(), ex);
+        }
+        return size;
     }
 
     /**
@@ -73,12 +81,21 @@
      * @return the filetype for the download
      * @throws RepositoryException thrown when the mimetype cannot be retrieved
      */
-    private String getDownloadMimeType(ResourceResolver resolver, Download download) throws RepositoryException {
-	    String filePath = download.getFileReference();
-	    Resource resource = resolver.resolve(filePath);
-	    Asset asset = resource.adaptTo(Asset.class);
-	    String mimeType = asset.getMimeType();
-	    return mimeType.split("/")[1].toUpperCase();
+    private String getDownloadMimeType(ResourceResolver resolver, Download download) {
+        String mimeTypeReturn = "";
+
+        try {
+
+            String filePath = download.getFileReference();
+            Resource resource = resolver.resolve(filePath);
+            Asset asset = resource.adaptTo(Asset.class);
+            String mimeType = asset.getMimeType();
+            mimeTypeReturn = mimeType.split("/")[1].toUpperCase();
+
+        } catch (Exception ex) {
+            getLogger().error("Exception occurred: " + ex.getMessage(), ex);
+        }
+        return mimeTypeReturn;
     }
 
     /**
@@ -92,10 +109,20 @@
         if (fileSize == null) {
             return EMPTY_FILE;
         }
-        String[] measures = { "bytes", "kB", "MB", "GB"};
-        Double measurementIndex = Math.floor(Math.log10(fileSize) / 3.0f);
-        Double decSize = fileSize / Math.pow(1024, measurementIndex);
-        return String.format("%.0f %S", decSize, measures[measurementIndex.intValue()]);
+        String fileSizeReturn = EMPTY_FILE;
+
+        try {
+
+            String[] measures = { "bytes", "kB", "MB", "GB"};
+            Double measurementIndex = Math.floor(Math.log10(fileSize) / 3.0f);
+            Double decSize = fileSize / Math.pow(1024, measurementIndex);
+            fileSizeReturn = String.format("%.0f %S", decSize, measures[measurementIndex.intValue()]);
+
+        } catch (Exception ex) {
+            getLogger().error("Exception occurred: " + ex.getMessage(), ex);
+        }
+        return fileSizeReturn;
+
     }
 
 %>

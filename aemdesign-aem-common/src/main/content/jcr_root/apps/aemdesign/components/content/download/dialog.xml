@@ -7,48 +7,124 @@
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <download
+                <downloadTab
                         jcr:primaryType="cq:Widget"
                         title="File Download"
                         xtype="panel">
                     <items jcr:primaryType="cq:WidgetCollection">
-                        <alternative_title
+                        <file
                                 jcr:primaryType="cq:Widget"
-                                fieldLabel="Alternative title"
-                                name="./alt-title"
-                                xtype="textfield"/>
+                                allowUpload="{Boolean}false"
+                                allowBlank="{Boolean}true"
+                                autoUploadDelay="1"
+                                ddGroups="[media]"
+                                fieldLabel="Download File"
+                                fileNameParameter="./fileName"
+                                fileReferenceParameter="./fileReference"
+                                name="./file"
+                                xtype="html5smartfile"/>
+                    </items>
+                </downloadTab>
 
-                        <description
+                <layoutTab
+                        jcr:primaryType="cq:Panel"
+                        border="false"
+                        height=""
+                        title="Layout"
+                        width=""
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <variant
                                 jcr:primaryType="cq:Widget"
-                                fieldLabel="Description"
-                                name="./description"
-                                xtype="textarea"/>
+                                collapsed="false"
+                                collapsible="false"
+                                title="Layout"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <variant
+                                        jcr:primaryType="cq:Widget"
+                                        defaultValue=""
+                                        fieldLabel="Variant"
+                                        name="./variant"
+                                        allowBlank="{Boolean}true"
+                                        value=""
+                                        type="select"
+                                        xtype="selection">
+                                    <options jcr:primaryType="cq:WidgetCollection">
+                                        <default
+                                                jcr:primaryType="nt:unstructured"
+                                                value=""
+                                                text="Default"/>
+                                        <simple
+                                                jcr:primaryType="nt:unstructured"
+                                                value="simple"
+                                                text="Simple"/>
+                                        <card
+                                                jcr:primaryType="nt:unstructured"
+                                                value="card"
+                                                text="Card"/>
+                                    </options>
+                                </variant>
+                            </items>
+                        </variant>
+                        <info
+                                jcr:primaryType="cq:Widget"
+                                collapsed="false"
+                                collapsible="false"
+                                title="Info"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <title
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Title"
+                                        name="./title"
+                                        fieldDescription="Set image title, does not apply to Licensed Assets"
+                                        xtype="textfield"/>
 
-                        <useDocumentIcon
-                                jcr:primaryType="cq:Widget"
-                                fieldLabel="Use Document Icon"
-                                name="./useDocumentIcon"
-                                defaultValue="false"
-                                type="checkbox"
-                                xtype="selection"/>
+                                <description
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Description"
+                                        fieldDescription="Set image description, does not apply to Licensed Assets"
+                                        name="./description"
+                                        xtype="textarea"/>
+
+                            </items>
+                        </info>
 
                         <thumbnailStyle
                                 jcr:primaryType="cq:Widget"
                                 title="Thumbnail"
                                 xtype="dialogfieldset">
                             <items jcr:primaryType="cq:WidgetCollection">
-                                <thumbnailCustom
+                                <thumbnail
                                         jcr:primaryType="cq:Widget"
                                         defaultValue=""
-                                        value=""
+                                        fieldLabel="Thumbnail Type"
+                                        name="./thumbnailType"
                                         allowBlank="{Boolean}true"
-                                        fieldLabel="Generate Thumbnail"
-                                        fieldDescription="Default pick rendition from DAM, Custom generate rendition"
-                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                        name="./thumbnailCustom"
+                                        value=""
                                         type="select"
                                         xtype="selection">
-                                </thumbnailCustom>
+                                    <options jcr:primaryType="cq:WidgetCollection">
+                                        <default
+                                                jcr:primaryType="nt:unstructured"
+                                                value=""
+                                                text="Default"/>
+                                        <icon
+                                                jcr:primaryType="nt:unstructured"
+                                                value="Icon"
+                                                text="Simple"/>
+                                        <custom
+                                                jcr:primaryType="nt:unstructured"
+                                                value="custom"
+                                                text="Custom Rendition"/>
+                                        <dam
+                                                jcr:primaryType="nt:unstructured"
+                                                value="dam"
+                                                text="DAM Rendition"/>
+                                    </options>
+                                </thumbnail>
+
                                 <size
                                         jcr:primaryType="cq:Widget"
                                         fieldLabel="Icon Size (w,h)"
@@ -59,19 +135,64 @@
                             </items>
                         </thumbnailStyle>
 
-                        <file
-                                jcr:primaryType="cq:Widget"
-                                allowUpload="{Boolean}false"
-                                allowBlank="{Boolean}true"
-                                autoUploadDelay="1"
-                                ddGroups="[media]"
-                                fieldLabel="File"
-                                fileNameParameter="./fileName"
-                                fileReferenceParameter="./fileReference"
-                                name="./file"
-                                xtype="html5smartfile"/>
                     </items>
-                </download>
+                </layoutTab>
+
+                <imageThumbnailTab
+                        jcr:primaryType="cq:Widget"
+                        allowUpload="{Boolean}false"
+                        name="./thumbnail/file"
+                        title="Thumbnail"
+                        ddGroups="[media]"
+                        cropParameter="./thumbnail/imageCrop"
+                        fileNameParameter="./thumbnail/fileName"
+                        fileReferenceParameter="./thumbnail/fileReference"
+                        rotateParameter="./thumbnail/imageRotate"
+                        mapParameter="./thumbnail/imageMap"
+                        xtype="html5smartimage">
+                    <cropConfig jcr:primaryType="nt:unstructured">
+                        <aspectRatios jcr:primaryType="nt:unstructured">
+                            <freehand
+                                    jcr:primaryType="nt:unstructured"
+                                    value="0,0"
+                                    text="Free hand"/>
+                            <twobythree
+                                    jcr:primaryType="nt:unstructured"
+                                    value="2,3"
+                                    text="2 x 3"/>
+                            <threebyfive
+                                    jcr:primaryType="nt:unstructured"
+                                    value="3,5"
+                                    text="3 x 5"/>
+                            <sixteenbynine
+                                    jcr:primaryType="nt:unstructured"
+                                    value="16,9"
+                                    text="16 x 9"/>
+                            <square
+                                    jcr:primaryType="nt:unstructured"
+                                    value="1,1"
+                                    text="Square"/>
+                        </aspectRatios>
+                    </cropConfig>
+                </imageThumbnailTab>
+
+                <imageThumbnailTabResourceType
+                        jcr:primaryType="cq:Panel"
+                        title="Thumbnail Image Metadata"
+                        fieldDescription="Thumbnail Image Metadata additional fields for saving content of Background Image"
+                        xtype="panel">
+                    <listeners
+                            jcr:primaryType="nt:unstructured"
+                            render="function() { AEMDESIGN.dialog.hideTab(this, this.findParentByType('dialog').findByType('tabpanel')[0]); }"/>
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <imageBackgroundTabResourceType
+                                jcr:primaryType="cq:Widget"
+                                ignoreData="{Boolean}true"
+                                name="./thumbnail/sling:resourceType"
+                                value="aemdesign/components/media/image"
+                                xtype="textfield"/>
+                    </items>
+                </imageThumbnailTabResourceType>
 
                 <styleTab
                         jcr:primaryType="cq:Panel"
@@ -80,6 +201,9 @@
                 <accessibilityTab jcr:primaryType="cq:Panel"
                                   path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
                                   xtype="cqinclude"/>
+                <analyticsTab jcr:primaryType="cq:Panel"
+                              path="/apps/aemdesign/global/dialog/classic/analytics/items/common.infinity.json"
+                              xtype="cqinclude" />
             </items>
         </tabs>
     </items>
