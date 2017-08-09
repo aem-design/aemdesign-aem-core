@@ -20,7 +20,7 @@
     </div>
     <c:if test="${ not empty componentProperties.licenseInfo}">
     <div class="card-footer">
-        <small class="text-muted">${componentProperties.licenseInfo}</small>
+        <small class="text-muted license">${componentProperties.licenseInfo}</small>
     </div>
     </c:if>
 </div>
