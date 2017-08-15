@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="cq:Dialog"
-          title="Embed Source Widget (Design)"
+          title="Embed Source Widget"
+          height="490"
+          width="600"
           xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
@@ -11,15 +13,31 @@
                     title="Embed Source Widget"
                     xtype="panel">
                     <items jcr:primaryType="cq:WidgetCollection">
+                        <noteLabel
+                                jcr:primaryType="cq:Widget"
+                                html="&lt;span style=&quot;color: red; font-weight: bold; font-size: large&quot;>Content will be embeded as is, please validate&lt;/span>"
+                                xtype="label"/>
+                        <sourceInfo
+                                jcr:primaryType="cq:Widget"
+                                html="Switching from Source Edit will parse HTML and insert missing tags, this will not fix CSS or JS errors"
+                                xtype="label"/>
                         <source
                                 jcr:primaryType="cq:Widget"
                                 allowBlank="{Boolean}true"
                                 fieldLabel="Html"
+                                hideLabel="{Boolean}true"
                                 name="./html"
+                                invalidClass="x-form-invalid"
                                 height="220"
                                 xtype="htmleditor"
-                                validate="function() {return AEMDESIGN.components.embedsource.validate(this);}"
-                        />
+                                validate="function() { var checkValid = AEMDESIGN.components.embedsource.findUnclosedTags(this.el.dom.value); this.findParentByType('dialog').find('id','sourceError')[0].setValue(checkValid.error);  return checkValid.valid ;}"/>
+                        <sourceError
+                                jcr:primaryType="cq:Widget"
+                                id="sourceError"
+                                fieldLabel="Errors"
+                                text=""
+                                readOnly="{Boolean}true"
+                                xtype="textarea"/>
                     </items>
                 </sourceTab>
                 <layoutTab
