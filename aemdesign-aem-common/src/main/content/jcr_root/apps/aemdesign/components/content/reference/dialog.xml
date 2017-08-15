@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Dialog"
+    anchor="100%"
     helpPath="en/cq/current/wcm/default_components.html#Reference"
-    title="Paragraph Reference"
-    xtype="panel">
+    title="Content Reference"
+    xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
-        <reference
-            jcr:primaryType="cq:Widget"
-            fieldLabel="Reference"
-            name="./path"
-            xtype="paragraphreference"/>
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <referenceTab
+                        jcr:primaryType="cq:Panel"
+                        border="false"
+                        height=""
+                        title="Reference"
+                        width=""
+                        xtype="panel">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <reference
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Reference"
+                                name="./path"
+                                xtype="paragraphreference"/>
+                        <variant
+                                jcr:primaryType="cq:Widget"
+                                collapsed="false"
+                                collapsible="false"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <variant
+                                        jcr:primaryType="cq:Widget"
+                                        defaultValue=""
+                                        fieldLabel="Variant"
+                                        name="./variant"
+                                        allowBlank="{Boolean}true"
+                                        value=""
+                                        type="select"
+                                        xtype="selection">
+                                    <options jcr:primaryType="cq:WidgetCollection">
+                                        <default
+                                                jcr:primaryType="nt:unstructured"
+                                                value=""
+                                                text="Default"/>
+                                    </options>
+                                </variant>
+                            </items>
+                        </variant>
+                    </items>
+                </referenceTab>
+
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        xtype="cqinclude" />
+
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                                  xtype="cqinclude" />
+
+            </items>
+        </tabs>
     </items>
 </jcr:root>
