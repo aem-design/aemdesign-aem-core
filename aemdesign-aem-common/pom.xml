@@ -356,7 +356,7 @@
                         <executions>
                             <execution>
                                 <id>clean-jsp-clean</id>
-                                <phase>pre-integration-test</phase>
+                                <phase>install</phase>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
