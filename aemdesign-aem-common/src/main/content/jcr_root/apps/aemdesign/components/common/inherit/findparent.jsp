@@ -41,10 +41,14 @@ while (null != curPage) {
             WCMMode currentMode = WCMMode.fromRequest(_slingRequest);
             String defDecor =_componentContext.getDefaultDecorationTagName();
 
-            disableEditMode(_componentContext, IncludeOptions.getOptions(request, true), _slingRequest);
-            out.write(resourceIncludeAsHtml(curResource.getPath(), (SlingHttpServletResponse) response, (SlingHttpServletRequest) request));
-            enableEditMode(currentMode, _componentContext, defDecor, IncludeOptions.getOptions(request, true), _slingRequest);
+            //used for displaying in badges
+            request.setAttribute(INHERITED_RESOURCE, curResource);
 
+            try {
+                out.write(resourceIncludeAsHtml(curResource.getPath(), (SlingHttpServletResponse) response, (SlingHttpServletRequest) request));
+            } catch (Exception ex) {
+                getLogger().error(MessageFormat.format("{0} could not include resource {1} reason: {2}","inherit/findparent",curResource,ex.getMessage()));
+            }
 
             break;
         }
