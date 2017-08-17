@@ -41,6 +41,10 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 value=""
                                                 text="Default"/>
+                                        <render
+                                                jcr:primaryType="nt:unstructured"
+                                                value="render"
+                                                text="Render"/>
                                     </options>
                                 </variant>
                             </items>

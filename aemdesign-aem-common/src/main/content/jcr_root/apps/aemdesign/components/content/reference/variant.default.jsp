@@ -1,7 +1,13 @@
 <div ${componentProperties.componentAttributes}>
-    <cq:text property="tableData"
-                 escapeXml="false"
-                 placeholder="<img src=\"/libs/cq/ui/resources/0.gif\" class=\"cq-table-placeholder\" alt=\"\" />"
-        />
+    <c:catch var="referenceException">
+        <%=resourceIncludeAsHtml(
+                pageContext.getAttribute("referencePath").toString(),
+                _slingResponse,
+                _slingRequest)
+        %>
+    </c:catch>
+    <c:if test="${not empty referenceException}">
+        <c:out value="${referenceException}"/>
+    </c:if>
 </div>
 
