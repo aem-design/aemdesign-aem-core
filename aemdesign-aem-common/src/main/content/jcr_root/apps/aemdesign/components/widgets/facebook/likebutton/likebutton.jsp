@@ -70,7 +70,7 @@
 
 %>
 
-<cq:includeClientLib categories="cq.social.plugins.facebook"/>
+<cq:includeClientLib categories="aemdesign.social.facebook"/>
 
 <script type="text/javascript">
     var fbLikeComponentPath = '<%=resource.getResourceType()%>';
@@ -79,7 +79,7 @@
         FB.Event.subscribe('edge.create', function(href) {
             if (CQ_Analytics) {
                 if (CQ_Analytics.Sitecatalyst) {
-                    CQ_Analytics.record({ event: ['socialshare','facebooklike'], values: {
+                    CQ_Analytics.record({ event: ['aemdesign','facebooklike'], values: {
                     socialchannel:'facebook',
                     componentname:fbLikeComponentName,
                     url:"<%= xssAPI.encodeForJSString(url) %>"
