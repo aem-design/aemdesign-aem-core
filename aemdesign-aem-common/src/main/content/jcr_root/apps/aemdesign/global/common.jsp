@@ -25,6 +25,8 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.regex.Pattern" %>
+<%@ page import="org.apache.sling.api.SlingException" %>
+<%@ page import="static java.text.MessageFormat.*" %>
 <%!
 
     private static final String PATH_MEDIA_ROOT = "/apps/aemdesign/components/media/";
@@ -936,16 +938,42 @@
      * @param request current request
      * @return html string of output
      */
-    public String resourceIncludeAsHtml(String path, SlingHttpServletResponse response, SlingHttpServletRequest request)
-    {
-        try
-        {
+    public String resourceIncludeAsHtml(String path, SlingHttpServletResponse response, SlingHttpServletRequest request) {
+        if (isEmpty(path) || response == null || request == null) {
+            String error = format(
+                    "resourceIncludeAsHtml: params not specified path=\"{0}\",response=\"{1}\",request=\"{2}\""
+                    ,path,response,request);
+            getLogger().error(error);
+            return "<!--".concat(error).concat("-->");
+        }
+        try {
+            return resourceIncludeAsHtml(path, response, request, null);
+        } catch (SlingException ex) {
+            return "<!--resourceIncludeAsHtml:".concat(ex.getMessage()).concat("-->");
+        }
+    }
+    /***
+     * request a resource similar to sling:include
+     * @param path resource to include
+     * @param response current response
+     * @param request current request
+     * @param mode mode to request resource with
+     * @return html string of output
+     */
+    public String resourceIncludeAsHtml(String path, SlingHttpServletResponse response, SlingHttpServletRequest request, WCMMode mode) {
+        if (isEmpty(path) || response == null || request == null) {
+            String error = format(
+                    "resourceIncludeAsHtml: params not specified path=\"{0}\",response=\"{1}\",request=\"{2}\",mode=\"{3}\""
+                    ,path,response,request,mode);
+            getLogger().error(error);
+            return "<!--".concat(error).concat("-->");
+        }
+        try  {
             final Writer buffer = new StringWriter();
 
 
 
-            final ServletOutputStream stream = new ServletOutputStream()
-            {
+            final ServletOutputStream stream = new ServletOutputStream() {
                 @Override
                 public void write(int b)
                         throws IOException
@@ -964,16 +992,13 @@
                 }
             };
 
-            SlingHttpServletResponseWrapper wrapper = new SlingHttpServletResponseWrapper(response)
-            {
+            SlingHttpServletResponseWrapper wrapper = new SlingHttpServletResponseWrapper(response) {
                 public ServletOutputStream getOutputStream()
                 {
                     return stream;
                 }
 
-                public PrintWriter getWriter()
-                        throws IOException
-                {
+                public PrintWriter getWriter() throws IOException {
                     return new PrintWriter(buffer);
                 }
 
@@ -982,15 +1007,59 @@
                     return super.getSlingResponse();
                 }
             };
+
+            WCMMode currMode = WCMMode.fromRequest(request);
+
+            if (mode != null) {
+                mode.toRequest(request);
+            } else {
+                WCMMode.DISABLED.toRequest(request);
+            }
+
+            String key = "apps.aemdesign.components.content.reference:" + path;
+
+            if (request.getAttribute(key) == null || Boolean.FALSE.equals(request.getAttribute(key))) {
+                request.setAttribute(key, Boolean.TRUE);
+            } else {
+                //throw new IllegalStateException("Reference loop: " + path);
+                getLogger().error("Reference loop: " + path);
+                return "<!--Reference loop: ".concat(path).concat("-->");
+            }
+
             RequestDispatcher dispatcher = request.getRequestDispatcher(path + ".html");
 
             dispatcher.include(request, wrapper);
+
+            currMode.toRequest(request);
+
+            request.removeAttribute(key);
+
             return buffer.toString();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             getLogger().error("Exception occured: " + e.getMessage(), e);
-            return e.getMessage();
+            return "<!--error: ".concat(e.getMessage()).concat("-->");
+        }
+    }
+
+    /***
+     * render a resource path as HTML to include in components that reuse content in other resources
+     * @param path path to resources
+     * @param resourceResolver resource resolver for request
+     * @param sling sling helper
+     * @return html string of output
+     */
+    public String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling) {
+        if (isEmpty(path) || resourceResolver == null || sling ==null) {
+            String error = format(
+                    "resourceRenderAsHtml: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
+                    ,path,resourceResolver,sling);
+            getLogger().error(error);
+            return "<!--".concat(error).concat("-->");
+        }
+        try {
+            return resourceRenderAsHtml(path, resourceResolver, sling, null);
+        } catch (SlingException ex) {
+            return "<!--resourceRenderAsHtml:".concat(ex.getMessage()).concat("-->");
         }
     }
 
@@ -1002,29 +1071,40 @@
      * @param mode mode to request resource with
      * @return html string of output
      */
-    public String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling, WCMMode mode)
-    {
-        try
-        {
+    public String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling, WCMMode mode) {
+        if (isEmpty(path) || resourceResolver == null || sling ==null) {
+            String error = format(
+                    "resourceRenderAsHtml: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
+                    ,path,resourceResolver,sling);
+            getLogger().error(error);
+            return "<!--".concat(error).concat("-->");
+        }
+        try {
             final RequestResponseFactory _requestResponseFactory = sling.getService(RequestResponseFactory.class);
             final SlingRequestProcessor _requestProcessor = sling.getService(SlingRequestProcessor.class);
 
             String requestUrl =  path.concat(".html");
 
             final HttpServletRequest _req = _requestResponseFactory.createRequest("GET", requestUrl);
+
+            WCMMode currMode = WCMMode.fromRequest(_req);
+
             if (mode != null) {
-                _req.setAttribute(WCMMode.class.getName(), mode);
+                mode.toRequest(_req);
+            } else {
+                WCMMode.DISABLED.toRequest(_req);
             }
+
             final ByteArrayOutputStream _out = new ByteArrayOutputStream();
             final HttpServletResponse _resp = _requestResponseFactory.createResponse(_out);
 
-
             _requestProcessor.processRequest(_req, _resp, resourceResolver);
 
+            currMode.toRequest(_req);
+
             return _out.toString();
-        }
-        catch (Exception e)
-        {
+
+        } catch (Exception e) {
             getLogger().error("Exception occured: " + e.getMessage(), e);
             return e.getMessage();
         }
