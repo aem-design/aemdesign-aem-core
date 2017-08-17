@@ -6,10 +6,10 @@
         <c:set var="includePath" value="${link.contentPath}"/>
     <div class="tab-pane ${status.first ? 'active' : ''}" id="${link.name}" role="tabpanel">
         <c:catch var="referenceException">
-            <%=resourceIncludeAsHtml(
+            <%=resourceRenderAsHtml(
                     pageContext.getAttribute("includePath").toString(),
-                    _slingResponse,
-                    _slingRequest)
+                    _resourceResolver,
+                    _sling)
             %>
         </c:catch>
         <c:if test="${not empty referenceException}">

@@ -19,7 +19,7 @@
     final String FIELD_TABPOSITION = "tabPosition";
 
     Object[][] componentFields = {
-            {FIELD_VARIANT, ""},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
             {FIELD_LISTFROM, ""},
             {FIELD_TABPAGES, new String[0]},
             {FIELD_PATHTOPARENT, ""},
@@ -63,8 +63,11 @@
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <div ${componentProperties.componentAttributes}>
 <c:choose>
-    <c:when test="${not empty componentProperties.tabPagesInfo}">
+    <c:when test="${not empty componentProperties.tabPagesInfo and componentProperties.variant eq 'default'}">
         <%@ include file="variant.default.jsp" %>
+    </c:when>
+    <c:when test="${not empty componentProperties.tabPagesInfo and componentProperties.variant eq 'render'}">
+        <%@ include file="variant.render.jsp" %>
     </c:when>
     <c:otherwise>
         <%@ include file="variant.empty.jsp" %>

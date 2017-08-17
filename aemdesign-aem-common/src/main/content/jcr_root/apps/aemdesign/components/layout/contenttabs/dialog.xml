@@ -41,6 +41,34 @@
                                         value="static"/>
                             </options>
                         </listFrom>
+                        <variant
+                                jcr:primaryType="cq:Widget"
+                                collapsed="false"
+                                collapsible="false"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <variant
+                                        jcr:primaryType="cq:Widget"
+                                        defaultValue=""
+                                        fieldLabel="Variant"
+                                        name="./variant"
+                                        allowBlank="{Boolean}true"
+                                        value=""
+                                        type="select"
+                                        xtype="selection">
+                                    <options jcr:primaryType="cq:WidgetCollection">
+                                        <default
+                                                jcr:primaryType="nt:unstructured"
+                                                value=""
+                                                text="Default"/>
+                                        <render
+                                                jcr:primaryType="nt:unstructured"
+                                                value="render"
+                                                text="Render"/>
+                                    </options>
+                                </variant>
+                            </items>
+                        </variant>
                     </items>
                 </basicTab>
                 <children
