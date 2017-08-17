@@ -3,7 +3,6 @@
     jcr:primaryType="cq:Dialog"
     title="Twitter Embedded Tweets"
     xtype="dialog">
-
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">

@@ -28,7 +28,7 @@
                 </li>
                 <c:if test="${not empty user}">
                     <li>
-                        <cq:include resourceType="social/plugins/twitter/twitterfollow" path="twitterfollow" />
+                        <cq:include resourceType="aemdesign/components/widgets/twitter/twitterfollow" path="twitterfollow" />
                     </li>
                 </c:if>
             </ul>
