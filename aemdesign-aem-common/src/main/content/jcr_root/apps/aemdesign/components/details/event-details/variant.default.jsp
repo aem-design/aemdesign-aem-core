@@ -1,4 +1,4 @@
-<div class="wrapper visible">
+<div class="content visible">
     <c:if test="${componentProperties.showBreadcrumb}">
         <cq:include path="breadcrumb" resourceType="aemdesign/components/layout/breadcrumb"/>
     </c:if>
@@ -8,7 +8,7 @@
         <cq:include path="toolbar" resourceType="aemdesign/components/layout/navbar"/>
     </c:if>
 </div>
-<div class="wrapper">
+<div class="content">
     <div ${componentProperties.componentAttributes}>
         <header class="page_header">
             <c:if test="${not componentProperties.hideSiteTitle}">

@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="content">
     <div class="col-8 left flex">
         <header class="page_header">
             <div class="hgroup">

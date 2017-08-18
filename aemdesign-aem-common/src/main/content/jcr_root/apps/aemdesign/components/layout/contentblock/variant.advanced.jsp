@@ -1,5 +1,5 @@
 <section ${componentProperties.componentAttributes}>
-    <div class="wrapper">
+    <div class="content">
         <a name="${componentProperties.instanceName}"></a>
         <c:if test="${componentProperties.hideTitle eq false  }">
             <div class="title">
@@ -56,7 +56,7 @@
                 </c:if>
             </div>
         </c:if>
-        <div class="content">
+        <div class="contents">
             <cq:include path="par" resourceType="foundation/components/parsys"/>
         </div>
     </div>

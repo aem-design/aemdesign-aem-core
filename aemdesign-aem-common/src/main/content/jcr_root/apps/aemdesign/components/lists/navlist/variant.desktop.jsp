@@ -2,7 +2,7 @@
     <c:set var="menuColor" value=""/>
     <nav id="site_nav" role="navigation" aria-labelledby="firstLabel" data-modules='navlist' current-menu-color="${componentProperties.currentMenuColor}">
         <h2 span id="firstLabel" class="hidden">${componentProperties.mainMenu}</h2>
-        <div class="wrapper">
+        <div class="content">
             <c:if test="${not empty(componentProperties.menuItems)}">
                 <ul>
                 <c:forEach items="${componentProperties.menuItems}" var="link">
@@ -31,7 +31,7 @@
     <nav class="nav_preview" role="navigation" aria-labelledby="secondLabel">
         <h2 span id="secondLabel" class="hidden">${componentProperties.subMenu}</h2>
         <div class="target${menuColor}">
-            <div class="wrapper">
+            <div class="content">
                 <c:if test="${not empty(sectionNav)}">
                     <ul>
                     <c:forEach items="${sectionNav}" var="link">

@@ -77,10 +77,10 @@
         ${result.trackerScript}
 
         <div class="search-results-total">
-            <%= xssAPI.filterHTML(properties.get("statisticsText", i18n.get("<div class='wrapper'> <h2>Results {0} for <b>{1}</b></h2></div>", "Search query information", result.getTotalMatches(), escapedQuery))) %>
+            <%= xssAPI.filterHTML(properties.get("statisticsText", i18n.get("<div class='content'> <h2>Results {0} for <b>{1}</b></h2></div>", "Search query information", result.getTotalMatches(), escapedQuery))) %>
         </div>
 
-        <div class="search-results-main wrapper">
+        <div class="search-results-main content">
 
             <div class="searchRight">
                 <c:if test="${fn:length(trends.queries) > 0}">

@@ -61,7 +61,7 @@
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 
-    <div class="page_scrolling wrapper" id="${componentProperties.prefix}">
+    <div class="page_scrolling content" id="${componentProperties.prefix}">
         <a href="${componentProperties.componentPath}" title="<c:out value="${componentProperties.loadMoreNews}"/>"
            onclick="return AEMDESIGN.components.list.linkClick(this, '${componentProperties.prefix}');
                    <%--CQ_Analytics.record({event: 'loadMorePages', values: { listPageStart: '0' },collect:  false, options: { obj: this }, componentPath: 'wcm\/foundation\/components\/list>'});--%>">

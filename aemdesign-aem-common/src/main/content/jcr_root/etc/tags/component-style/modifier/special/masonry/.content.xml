@@ -3,5 +3,5 @@
     jcr:description=""
     jcr:primaryType="cq:Tag"
     jcr:title="Masonry Grid"
-    value="wrapper masonry"
+    value="content masonry"
     sling:resourceType="cq/tagging/components/tag"/>

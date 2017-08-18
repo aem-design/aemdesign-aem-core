@@ -51,7 +51,7 @@
 <a href="${componentProperties.url}" title="${componentProperties.imgAlt}">${componentProperties.title}</a>
 <img src="${componentProperties.img}" data-src="${componentProperties.img}" alt="${componentProperties.imgAlt}" width="1400" height="500" />
 <div class="caption">
-    <div class="wrapper">
+    <div class="content">
         <strong class="col-4 left">${componentProperties.title}</strong>
         <p>${componentProperties.description}</p>
     </div>

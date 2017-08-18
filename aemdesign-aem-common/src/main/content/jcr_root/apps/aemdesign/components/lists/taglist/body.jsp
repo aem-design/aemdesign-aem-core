@@ -44,7 +44,7 @@
 <c:otherwise>
     <c:if test="${not empty componentProperties.tags}">
         <nav class="range-nav range-nav--specs js-specs-nav">
-            <ul class="wrapper">
+            <ul class="content">
                 <c:forEach items="${componentProperties.tags}" var="tag" varStatus="tStatus">
                     <li class="range-item range-item--active" data-variant-id="97" data-is-auto="false">
                         <div class="range-item-inner">

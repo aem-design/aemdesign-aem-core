@@ -4,7 +4,7 @@
 <% }
 %>
 <article id="main" role="main">
-    <div class="wrapper visible">
+    <div class="content visible">
         <cq:include path="article" resourceType="aemdesign/components/layout/article"/>
         <cq:include path="aside" resourceType="aemdesign/components/layout/aside"/>
     </div>
