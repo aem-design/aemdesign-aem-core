@@ -2,7 +2,9 @@
 
 /*NORMAL*/
 
-
+.contentblock {
+    clear:both;
+}
 
 /*FLOATING*/
 
