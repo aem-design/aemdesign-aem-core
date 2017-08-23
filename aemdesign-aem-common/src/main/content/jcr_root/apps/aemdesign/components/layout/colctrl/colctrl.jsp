@@ -50,7 +50,7 @@
     if (editContext != null && WCMMode.fromRequest(request) == WCMMode.EDIT) {
         switch (controType) {
             case START: {
-                String text = I18n.get(slingRequest, "Row with {0} Columns", "{0} is the placeholder for the number of columns", numCols);
+                String text = I18n.get(slingRequest, "Columns with {0} Columns", "{0} is the placeholder for the number of columns", numCols);
                 %><%= Placeholder.getDefaultPlaceholder(slingRequest, text, "", "cq-marker-start") %><%
                 if (WCMMode.fromRequest(request) == WCMMode.EDIT) {
                     editContext.getEditConfig().getToolbar().add(0, new Toolbar.Separator());
@@ -61,12 +61,12 @@
                 break;
             }
             case END: {
-                String text = I18n.get(slingRequest, "End of Row");
+                String text = I18n.get(slingRequest, "End of Columns");
                 %><%= Placeholder.getDefaultPlaceholder(slingRequest, text, "", "cq-marker-end") %><%
                 if (WCMMode.fromRequest(request) == WCMMode.EDIT) {
                     editContext.getEditConfig().getToolbar().clear();
                     editContext.getEditConfig().getToolbar().add(
-                            new Toolbar.Label("End of Row"));
+                            new Toolbar.Label("End of Columns"));
                     // disable ordering to get consistent behavior
                     editContext.getEditConfig().setOrderable(false);
                     // set the content path to a fake one, since this editbar
