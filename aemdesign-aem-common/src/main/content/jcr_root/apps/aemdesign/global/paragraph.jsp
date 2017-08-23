@@ -59,16 +59,21 @@
         final String layoutCSS = isEmpty(cssClassL) ? "" : MessageFormat.format(" class=\"{0}\"",cssClassL);
 
 
-        //jumbotron
+        //columns start div
+//        out.write("<!--columns start:-->");
         out.write(MessageFormat.format("<div{0}{1}>", idCSS, classCSS));
 
-        //layout
-        out.write(MessageFormat.format("<div{0}>", layoutCSS));
+        //USE CONTENT BLOCK FOR THIS
+        //wrapper div
+//      out.write("<!--rows wrapper start:-->");
+//        out.write(MessageFormat.fo[rmat("<div{0}>", layoutCSS));
 
-        //layout background
-        writeBackground(out, rowStyle);
+        //USE CONTENT BLOCK FOR THIS
+        //layout background div
+//        writeBackground(out, rowStyle);
 
-        // row
+        // row start
+//        out.write("<!--rows start:-->");
         out.write(MessageFormat.format("<div class=\"parsys_column {0}\">",cssClassR));
     }
 
@@ -90,11 +95,17 @@
      * @throws IOException
      */
     final void closeRow(JspWriter out, boolean clearFix) throws IOException {
-        if (!clearFix) {
-            //jumbotron layout row
-            out.write("</div></div></div>");
-        } else {
-            out.write("</div></div></div><div style=\"clear:both\"></div>");
+
+//        out.write("<!--rows end:-->");
+        out.write("</div>");
+        //USE CONTENT BLOCK FOR THIS
+//        out.write("<!--rows wrapper end:-->");
+//        out.write("</div>");
+//        out.write("<!--columns end:-->");
+        out.write("</div>");
+
+        if (clearFix) {
+            out.write("<div style=\"clear:both\"></div>");
         }
     }
 
@@ -156,11 +167,13 @@
 
         //print column start
         if (width.length > 1) {
+//            out.write("<!--column start1:-->");
             //take the [0] = [col-md-] and add to it width by current column number
-            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1} {2}\">", cssClassC, width[0], width[n + 1])); //EXTENDED
+            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}{2}\">", cssClassC, width[0], width[n + 1])); //EXTENDED
             //layout background
             writeBackground(out, rowStyle);
         } else {
+//            out.write("<!--column start2:-->");
             //out.write("<div class='parsys_column " + par.getBaseCssClass() + " col-" + n + "'>");
             out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}\">", cssClassC, par.getCssClass())); //ORIGINAL
         }
@@ -173,6 +186,7 @@
      * @throws IOException
      */
     final void closeCol(Paragraph par, JspWriter out) throws IOException {
+//        out.write("<!--column end:-->");
         out.write("</div>");
     }
 
@@ -208,8 +222,8 @@
             rowStyle.put(ATTRIBUTE_CSSCLASS_JUMBOTRON, resVM.get(ATTRIBUTE_CSSCLASS_JUMBOTRON, ""));
             rowStyle.put(ATTRIBUTE_CSSCLASS_LAYOUT, resVM.get(ATTRIBUTE_CSSCLASS_LAYOUT, ""));
             rowStyle.put(ATTRIBUTE_CSSCLASS_BACKGROUND, resVM.get(ATTRIBUTE_CSSCLASS_BACKGROUND, ""));
-            rowStyle.put(ATTRIBUTE_CSSCLASS_ROW, resVM.get(ATTRIBUTE_CSSCLASS_ROW, ""));
-            rowStyle.put(ATTRIBUTE_CSSCLASS_COLUMN, resVM.get(ATTRIBUTE_CSSCLASS_COLUMN, ""));
+            rowStyle.put(ATTRIBUTE_CSSCLASS_ROW, resVM.get(ATTRIBUTE_CSSCLASS_ROW, "row"));
+            rowStyle.put(ATTRIBUTE_CSSCLASS_COLUMN, resVM.get(ATTRIBUTE_CSSCLASS_COLUMN, "col"));
             rowStyle.put(ATTRIBUTE_ID, resVM.get(ATTRIBUTE_ID, ""));
         }
 
