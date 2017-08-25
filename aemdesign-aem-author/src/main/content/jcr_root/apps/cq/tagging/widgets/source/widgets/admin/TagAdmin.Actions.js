@@ -84,7 +84,7 @@ CQ.tagging.TagAdmin.createTag = function () {
     if (tagPath == this.tagsBasePath) {
         // creating a new namespace
         // not setting parentTagID here => create namespace instead of tag
-        dialogConfig.title = CQ.I18n.getMessage("Create Namespace");
+        dialogConfig.title = CQ.I18n.getMessage("Create Namespace Advanced");
         dialogConfig.items.items[0].fieldLabel = CQ.I18n.getMessage("Namespace Title");
         dialogConfig.items.items[1].fieldLabel = CQ.I18n.getMessage("Namespace Name");
 
@@ -154,6 +154,12 @@ CQ.tagging.TagAdmin.createTag = function () {
                         ignoreData: true
                     },
                     {
+                        name: "jcr:lastModifiedBy",
+                        xtype: "hidden",
+                        ignoreData: true
+                    },
+
+                    {
                         name: "value",
                         fieldLabel: CQ.I18n.getMessage("Value"),
                         xtype: "textarea"
@@ -186,7 +192,6 @@ CQ.tagging.TagAdmin.createTag = function () {
                         title: CQ.I18n.getMessage("Localization"),
                         xtype: "dialogfieldset",
                         collapsible: true,
-                        collapsed: true,
                         items: localizedTitles
                     }
 
