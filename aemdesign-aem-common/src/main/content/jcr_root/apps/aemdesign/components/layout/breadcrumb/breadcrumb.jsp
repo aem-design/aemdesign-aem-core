@@ -45,21 +45,21 @@
     boolean showHidden = componentProperties.get("showHidden", DEFAULT_SHOW_HIDDEN);
     boolean hideCurrent = componentProperties.get("hideCurrent", DEFAULT_SHOW_HIDDEN);
 
-    out.write("<!--");
-    out.write("s:"+startLevel+";");
-    out.write("e:"+endLevel+";");
-    out.write("c:"+currentLevel+";");
-    out.write("hc:"+hideCurrent+";");
-    out.write("sh:"+showHidden+";");
+//    out.write("<!--");
+//    out.write("s:"+startLevel+";");
+//    out.write("e:"+endLevel+";");
+//    out.write("c:"+currentLevel+";");
+//    out.write("hc:"+hideCurrent+";");
+//    out.write("sh:"+showHidden+";");
     for (int i = startLevel; i <= endLevel; i++) {
         Page pagetrail = currentPage.getAbsoluteParent(i);
         if (pagetrail == null) {
-            out.write("x:"+i+";");
+//            out.write("x:"+i+";");
             continue;
         }
         if (hideCurrent) {
             if (i==currentLevel-1) {
-                out.write("xc:"+i+";");
+//                out.write("xc:"+i+";");
                 continue;
             }
         }
@@ -75,10 +75,10 @@
 
             values.add(pagetrailvalues);
         } else {
-            out.write("xh:"+i+";");
+//            out.write("xh:"+i+";");
         }
     }
-    out.write("-->");
+//    out.write("-->");
 
     componentProperties.put("values", values);
 
