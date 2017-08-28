@@ -52,6 +52,10 @@
                 res = rootLanguage.getChild(LANGUAGE_DEFAULT);
             }
 
+            if (res == null) {
+                LOG.error("default language node is missing");
+                return "en";
+            }
             Tag lang = res.adaptTo(Tag.class);
 
             if (lang != null){
