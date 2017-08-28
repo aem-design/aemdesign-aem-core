@@ -1,5 +1,6 @@
 <%@ taglib prefix="cq" uri="http://www.day.com/taglibs/cq/1.0" %>
 <%@page session="false"%><%@ page import="java.util.HashSet,
+                    com.day.cq.commons.jcr.JcrConstants,
                      java.util.Set,
                      com.day.cq.wcm.api.WCMMode,
                      com.day.cq.wcm.api.components.IncludeOptions,
@@ -20,7 +21,12 @@
     boolean hasFake = false;
     ParagraphSystem parSys = ParagraphSystem.create(resource, slingRequest);
 
-    HashMap<String, Object> currentRowStyle = new HashMap<String, Object>();
+    ComponentProperties componentProperties = new ComponentProperties();
+
+    Object[][] componentFields = {
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"layout", ""},
+    };
 
     for (Paragraph par: parSys.paragraphs()) {
         Resource r = (Resource) par;
@@ -35,7 +41,7 @@
                         // close in case missing END
                         closeCol(null,out);
                         closeRow(par,out,false);
-                        currentRowStyle.clear();
+                        componentProperties = new ComponentProperties();
                     }
                     if (editContext != null) {
                         // draw 'edit' bar
@@ -46,10 +52,17 @@
                         %><sling:include resource="<%= par %>"/><%
                     }
 
-                    currentRowStyle.putAll(getRowStyle(par));
+                    componentProperties = getComponentProperties(
+                            pageContext,
+                            _currentPage,
+                            par.getPath().replace(_currentPage.getPath()+"/"+JcrConstants.JCR_CONTENT,"."),
+                            componentFields,
+                            DEFAULT_FIELDS_COLUMNS,
+                            DEFAULT_FIELDS_STYLE,
+                            DEFAULT_FIELDS_ACCESSIBILITY);
 
-                    openRow(parSys, par, out, currentRowStyle);
-                    openCol(parSys, par, out, currentRowStyle);
+                    openRow(parSys,par,out, componentProperties);
+                    openCol(parSys,par,out, componentProperties);
 
                     hasColumns = true;
                     break;
@@ -61,7 +74,7 @@
                     }
 
                     closeCol(par,out);
-                    openCol(parSys,par,out,currentRowStyle);
+                    openCol(parSys,par,out, componentProperties);
 
                     break;
                 case END:
@@ -73,7 +86,7 @@
                     if (hasColumns) {
                         closeCol(par,out);
                         closeRow(par,out,false);
-                        currentRowStyle.clear();
+                        componentProperties = new ComponentProperties();
                         hasColumns = false;
                     }
                     if (editContext != null && WCMMode.fromRequest(request) == WCMMode.EDIT) {
@@ -114,7 +127,7 @@
     if (hasColumns) {
         closeCol(null,out);
         closeRow(out, true);
-        currentRowStyle.clear();
+        componentProperties = new ComponentProperties();
     }
     // include fake inheritance if not present in the content
     if (!hasFake) {

@@ -30,12 +30,17 @@
         return;
     }
 
+    ComponentProperties componentProperties = new ComponentProperties();
+
+    Object[][] componentFields = {
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"layout", ""},
+    };
+
     // disable WCM for inherited components
     WCMMode mode = WCMMode.DISABLED.toRequest(request);
     boolean hasColumns = false;
     try {
-
-        HashMap<String, Object> currentRowStyle = new HashMap<String, Object>();
 
         for (Paragraph par: paras) {
             switch (par.getType()) {
@@ -44,20 +49,27 @@
                         // close in case missing END
                         closeCol(null,out);
                         closeRow(par,out,false);
-                        currentRowStyle.clear();
+                        componentProperties = new ComponentProperties();
                     }
 
-                    currentRowStyle.putAll(getRowStyle(par));
+                    componentProperties = getComponentProperties(
+                            pageContext,
+                            _currentPage,
+                            par.getPath().replace(_currentPage.getPath()+"/"+JcrConstants.JCR_CONTENT,"."),
+                            componentFields,
+                            DEFAULT_FIELDS_COLUMNS,
+                            DEFAULT_FIELDS_STYLE,
+                            DEFAULT_FIELDS_ACCESSIBILITY);
 
-                    openRow(paras, par, out, currentRowStyle);
-                    openCol(paras, par, out, currentRowStyle);
+                    openRow(parSys,par,out, componentProperties);
+                    openCol(parSys,par,out, componentProperties);
 
                     hasColumns = true;
                     break;
                 case BREAK:
 
                     closeCol(par,out);
-                    openCol(paras,par,out, currentRowStyle);
+                    openCol(parSys,par,out, componentProperties);
 
                     break;
                 case END:
@@ -65,7 +77,7 @@
                         // close divs and clear floating
                         closeCol(null,out);
                         closeRow(par,out,false);
-                        currentRowStyle.clear();
+                        componentProperties = new ComponentProperties();
                         hasColumns = false;
                     }
                     break;

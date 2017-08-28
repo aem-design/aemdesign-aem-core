@@ -1,11 +1,13 @@
 <%@page session="false"%>
-<%@page import="java.util.HashSet,
-                    java.util.Set,
-                    com.day.cq.commons.jcr.JcrConstants,
+<%@page import="com.day.cq.commons.jcr.JcrConstants,
+                    com.day.cq.wcm.api.Page,
                     com.day.cq.wcm.api.WCMMode,
                     com.day.cq.wcm.api.components.IncludeOptions,
                     com.day.cq.wcm.foundation.Paragraph,
-                    com.day.cq.wcm.foundation.ParagraphSystem" %><%
+                    com.day.cq.wcm.foundation.ParagraphSystem,
+                    java.util.HashSet" %>
+<%@ page import="java.util.Set" %>
+<%
 %><%@include file="/apps/aemdesign/global/global.jsp"%>
 <%@include file="/apps/aemdesign/global/components.jsp" %>
 <%@include file="/apps/aemdesign/global/utils.jsp" %>
@@ -14,7 +16,12 @@
     ParagraphSystem parSys = ParagraphSystem.create(resource, slingRequest);
     String newType = resource.getResourceType() + "/new";
 
-    HashMap<String, Object> currentRowStyle = new HashMap<String, Object>();
+    ComponentProperties componentProperties = new ComponentProperties();
+
+    Object[][] componentFields = {
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"layout", ""},
+    };
 
     boolean hasColumns = false;
     for (Paragraph par: parSys.paragraphs()) {
@@ -27,7 +34,7 @@
                     // close in case missing END
                     closeCol(null,out);
                     closeRow(par,out,false);
-                    currentRowStyle.clear();
+                    componentProperties = new ComponentProperties();
                 }
                 if (editContext != null) {
                     // draw 'edit' bar
@@ -38,9 +45,17 @@
                     %><sling:include resource="<%= par %>"/><%
                 }
 
-                currentRowStyle.putAll(getRowStyle(par));
-                openRow(parSys,par,out, currentRowStyle);
-                openCol(parSys,par,out, currentRowStyle);
+                componentProperties = getComponentProperties(
+                        pageContext,
+                        _currentPage,
+                        par.getPath().replace(_currentPage.getPath()+"/"+JcrConstants.JCR_CONTENT,"."),
+                        componentFields,
+                        DEFAULT_FIELDS_COLUMNS,
+                        DEFAULT_FIELDS_STYLE,
+                        DEFAULT_FIELDS_ACCESSIBILITY);
+
+                openRow(parSys,par,out, componentProperties);
+                openCol(parSys,par,out, componentProperties);
 
                 hasColumns = true;
                 break;
@@ -52,7 +67,8 @@
                 }
 
                 closeCol(par,out);
-                openCol(parSys,par,out, currentRowStyle);
+
+                openCol(parSys,par,out, componentProperties);
 
                 break;
             case END:
@@ -66,6 +82,7 @@
                     closeCol(null,out);
                     closeRow(par,out,false);
                     hasColumns = false;
+                    componentProperties = new ComponentProperties();
                 }
                 if (editContext != null && WCMMode.fromRequest(request) == WCMMode.EDIT) {
                     // draw 'end' bar
@@ -80,9 +97,9 @@
                 // draw anchor if needed
                 if (currentStyle.get("drawAnchors", false)) {
                     String path = par.getPath();
-                	path = path.substring(path.indexOf(JcrConstants.JCR_CONTENT)
+                    path = path.substring(path.indexOf(JcrConstants.JCR_CONTENT)
                             + JcrConstants.JCR_CONTENT.length() + 1);
-                	String anchorID = path.replace("/", "_").replace(":", "_");
+                    String anchorID = path.replace("/", "_").replace(":", "_");
                     %><a name="<%= anchorID %>" style="visibility:hidden"></a><%
                 }
 
