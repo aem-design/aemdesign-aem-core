@@ -57,7 +57,6 @@
                             _currentPage,
                             par.getPath().replace(_currentPage.getPath()+"/"+JcrConstants.JCR_CONTENT,"."),
                             componentFields,
-                            DEFAULT_FIELDS_COLUMNS,
                             DEFAULT_FIELDS_STYLE,
                             DEFAULT_FIELDS_ACCESSIBILITY);
 
