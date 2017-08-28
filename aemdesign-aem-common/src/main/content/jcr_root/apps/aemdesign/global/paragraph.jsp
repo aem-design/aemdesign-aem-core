@@ -25,56 +25,27 @@
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     /**
-     * simple open row
-     * @param par current par child of parSys being processed
-     * @param out html output
-     * @throws IOException
-     */
-    final void openRow(Paragraph par, JspWriter out) throws IOException {
-        openRow(null, par, out, new HashMap());
-    }
-
-    /**
      * advanced open row
      * @param parSys list of pars being processed
      * @param par current par child of parSys being processed
      * @param out html output
      * @throws IOException
      */
-    final void openRow(Object parSys, Paragraph par, JspWriter out, HashMap<String, Object> rowStyle) throws IOException {
-
-        final String cssClass = (String) rowStyle.get(ATTRIBUTE_CSSCLASS);
-        final String cssClassJ = (String) rowStyle.get(ATTRIBUTE_CSSCLASS_JUMBOTRON);
-        final String cssClassL = (String) rowStyle.get(ATTRIBUTE_CSSCLASS_LAYOUT);
-        final String cssClassR = (String) rowStyle.get(ATTRIBUTE_CSSCLASS_ROW);
-        final String attrId = (String) rowStyle.get(ATTRIBUTE_ID);
+    final void openRow(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties) throws IOException {
 
         int n = par.getNumCols();
 
         final String numColsCSS = MessageFormat.format("colctrl-{0}c",n);
 
-        final String classCSS = MessageFormat.format(" class=\"{0}\"", addClasses(numColsCSS,cssClass,cssClassJ));
-        final String idCSS = isEmpty(attrId) ? "" : MessageFormat.format(" id=\"{0}\"", attrId);
+        componentProperties.attr.add("class", numColsCSS);
 
-        final String layoutCSS = isEmpty(cssClassL) ? "" : MessageFormat.format(" class=\"{0}\"",cssClassL);
-
+        final String componentAttributes = componentProperties.attr.build();
 
         //columns start div
-//        out.write("<!--columns start:-->");
-        out.write(MessageFormat.format("<div{0}{1}>", idCSS, classCSS));
-
-        //USE CONTENT BLOCK FOR THIS
-        //wrapper div
-//      out.write("<!--rows wrapper start:-->");
-//        out.write(MessageFormat.fo[rmat("<div{0}>", layoutCSS));
-
-        //USE CONTENT BLOCK FOR THIS
-        //layout background div
-//        writeBackground(out, rowStyle);
+        out.write(MessageFormat.format("<div{0}>", componentAttributes));
 
         // row start
-//        out.write("<!--rows start:-->");
-        out.write(MessageFormat.format("<div class=\"parsys_column {0}\">",cssClassR));
+        out.write(MessageFormat.format("<div class=\"parsys_column {0}\">","row"));
     }
 
     /**
@@ -96,56 +67,14 @@
      */
     final void closeRow(JspWriter out, boolean clearFix) throws IOException {
 
-//        out.write("<!--rows end:-->");
+        //row end
         out.write("</div>");
-        //USE CONTENT BLOCK FOR THIS
-//        out.write("<!--rows wrapper end:-->");
-//        out.write("</div>");
-//        out.write("<!--columns end:-->");
+        //column end
         out.write("</div>");
 
         if (clearFix) {
             out.write("<div style=\"clear:both\"></div>");
         }
-    }
-
-    /**
-     * print background for a component without background
-     * @param out
-     * @param componentStyle
-     * @throws IOException
-     */
-    final void writeBackground(JspWriter out, Map<String, Object> componentStyle) throws IOException {
-        writeBackground(out, componentStyle, false);
-    }
-
-    /**
-     * print background for a component
-     * @param out
-     * @param componentStyle
-     * @throws IOException
-     */
-    final void writeBackground(JspWriter out, Map<String, Object> componentStyle, boolean applyMargins) throws IOException {
-
-        final String cssClassB = (String) componentStyle.get(ATTRIBUTE_CSSCLASS_BACKGROUND);
-
-        final String layoutCSS = isEmpty(cssClassB) ? "" : MessageFormat.format(" class=\"{0}\"",cssClassB);
-
-        if (isNotEmpty(layoutCSS)) {
-            out.write(MessageFormat.format("<div{0}></div>", layoutCSS));
-        }
-
-    }
-
-    /**
-     * write simple start of column
-     * @param par current par child of parSys being processed
-     * @param out html output
-     * @throws IOException
-     * @deprecated
-     */
-    final void openCol(Paragraph par, JspWriter out, HashMap<String, Object> rowStyle) throws IOException {
-        openCol(null, par, out, rowStyle);
     }
 
 
@@ -155,11 +84,8 @@
      * @param par current par child of parSys being processed
      * @param out html output
      * @throws IOException
-     * @deprecated
      */
-    final void openCol(Object parSys, Paragraph par, JspWriter out, HashMap<String, Object> rowStyle) throws IOException {
-
-        final String cssClassC = (String) rowStyle.get(ATTRIBUTE_CSSCLASS_COLUMN);
+    final void openCol(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties) throws IOException {
 
         //expected width format: col-md-,4,4,4
         String[] width = par.getBaseCssClass().split(",");
@@ -167,15 +93,11 @@
 
         //print column start
         if (width.length > 1) {
-//            out.write("<!--column start1:-->");
             //take the [0] = [col-md-] and add to it width by current column number
-            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}{2}\">", cssClassC, width[0], width[n + 1])); //EXTENDED
-            //layout background
-            writeBackground(out, rowStyle);
+            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}{2}\">", "col", width[0], width[n + 1])); //EXTENDED
         } else {
-//            out.write("<!--column start2:-->");
             //out.write("<div class='parsys_column " + par.getBaseCssClass() + " col-" + n + "'>");
-            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}\">", cssClassC, par.getCssClass())); //ORIGINAL
+            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}\">", "col", par.getCssClass())); //ORIGINAL
         }
     }
 
@@ -186,49 +108,10 @@
      * @throws IOException
      */
     final void closeCol(Paragraph par, JspWriter out) throws IOException {
-//        out.write("<!--column end:-->");
+        //col end
         out.write("</div>");
     }
 
-    /**
-     * get map of row properties
-     * @param par paragraph component
-     * @return
-     */
-    public static HashMap<String, Object> getRowStyle(Paragraph par) {
-        HashMap<String, Object> rowStyle = new HashMap<String, Object>();
-
-        //don't do base alignment if parSys is not specified
-        if (isNotNull(par)) {
-            return getRowStyle(par.getResource());
-        }
-
-        return rowStyle;
-    }
-
-    /**
-     * get map of row properties
-     * @param res resource object
-     * @return
-     */
-    public static HashMap<String, Object> getRowStyle(Resource res) {
-        HashMap<String, Object> rowStyle = new HashMap<String, Object>();
-
-        //don't do base alignment if parSys is not specified
-        if (isNotNull(res)) {
-            ValueMap resVM = res.adaptTo(ValueMap.class);
-
-            rowStyle.put(ATTRIBUTE_CSSCLASS, resVM.get(ATTRIBUTE_CSSCLASS, ""));
-            rowStyle.put(ATTRIBUTE_CSSCLASS_JUMBOTRON, resVM.get(ATTRIBUTE_CSSCLASS_JUMBOTRON, ""));
-            rowStyle.put(ATTRIBUTE_CSSCLASS_LAYOUT, resVM.get(ATTRIBUTE_CSSCLASS_LAYOUT, ""));
-            rowStyle.put(ATTRIBUTE_CSSCLASS_BACKGROUND, resVM.get(ATTRIBUTE_CSSCLASS_BACKGROUND, ""));
-            rowStyle.put(ATTRIBUTE_CSSCLASS_ROW, resVM.get(ATTRIBUTE_CSSCLASS_ROW, "row"));
-            rowStyle.put(ATTRIBUTE_CSSCLASS_COLUMN, resVM.get(ATTRIBUTE_CSSCLASS_COLUMN, "col"));
-            rowStyle.put(ATTRIBUTE_ID, resVM.get(ATTRIBUTE_ID, ""));
-        }
-
-        return rowStyle;
-    }
 
     /**
      * look ahead try find the end/break of col and return component before it if there is one
