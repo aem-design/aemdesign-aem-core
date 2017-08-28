@@ -242,6 +242,34 @@
                             </execution>
                         </executions>
                     </plugin>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2</version>
+                        <executions>
+                            <execution>
+                                <id>clean-jsp-clean</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>curl</executable>
+                                    <arguments>
+                                        <argument>-u</argument>
+                                        <argument>${crx.username}:${crx.password}</argument>
+                                        <argument>-H</argument>
+                                        <argument>User-Agent:curl</argument>
+                                        <argument>-X</argument>
+                                        <argument>POST</argument>
+                                        <argument>http://${crx.host}:${crx.port}/system/console/slingjsp</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                 </plugins>
             </build>
         </profile>
