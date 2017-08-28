@@ -1,16 +1,19 @@
 <%@page session="false" %>
 <%@ page import="com.adobe.granite.ui.components.AttrBuilder" %>
+<%@ page import="com.adobe.granite.xss.XSSAPI" %>
 <%@ page import="com.day.cq.wcm.api.components.Component" %>
 <%@ page import="com.day.cq.wcm.api.components.ComponentContext" %>
+<%@ page import="com.day.cq.wcm.api.components.ComponentManager" %>
 <%@ page import="com.day.cq.wcm.api.designer.Style" %>
 <%@ page import="com.day.cq.wcm.foundation.Placeholder" %>
 <%@ page import="com.google.common.base.Throwables" %>
 <%@ page import="org.apache.commons.io.IOUtils" %>
+<%@ page import="org.apache.commons.lang3.ArrayUtils" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
-<%@ page import="org.apache.commons.lang3.time.DateFormatUtils" %>
-<%@ page import="org.apache.sling.api.SlingHttpServletRequest" %>
+<%@ page import="org.apache.commons.lang3.time.DateFormatUtils, org.apache.sling.api.SlingHttpServletRequest" %>
 <%@ page import="org.apache.sling.api.resource.ResourceResolver" %>
-<%@ page import="org.apache.sling.api.wrappers.ValueMapDecorator, org.slf4j.Logger" %>
+<%@ page import="org.apache.sling.api.wrappers.ValueMapDecorator" %>
+<%@ page import="org.slf4j.Logger" %>
 <%@ page import="org.slf4j.LoggerFactory" %>
 <%@ page import="javax.servlet.jsp.PageContext" %>
 <%@ page import="java.io.BufferedInputStream" %>
@@ -21,10 +24,6 @@
 <%@ page import="java.security.NoSuchAlgorithmException" %>
 <%@ page import="java.text.MessageFormat" %>
 <%@ page import="java.util.Calendar" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="com.day.cq.tagging.Tag" %>
-<%@ page import="com.adobe.granite.xss.XSSAPI" %>
-<%@ page import="org.apache.commons.lang3.ArrayUtils" %>
 <%@ include file="/apps/aemdesign/global/tags.jsp" %>
 <%@ include file="/apps/aemdesign/global/theme.jsp" %>
 <%@ include file="/apps/aemdesign/global/security.jsp" %>
@@ -193,7 +192,7 @@
             super(new HashMap());
         }
 
-
+        public AttrBuilder attr;
     }
 
 
@@ -406,18 +405,16 @@
         ComponentContext componentContext = (ComponentContext) pageContext.getAttribute("componentContext");
         Component component = componentContext.getComponent();
 
-        AttrBuilder itemAttr = new AttrBuilder(request, xssAPI);
-        if (component != null) {
-            itemAttr.add("class", component.getName().trim());
-        }
+        componentProperties.attr = new AttrBuilder(request, xssAPI);
+//        AttrBuilder itemAttr = new AttrBuilder(request, xssAPI);
+
+        final String CLASS_TYPE_RESOURCE = Resource.class.getCanonicalName();
+        final String CLASS_TYPE_JCRNODERESOURCE = "org.apache.sling.jcr.resource.internal.helper.jcr.JcrNodeResource";
 
         ResourceResolver adminResourceResolver  = openAdminResourceResolver(sling);
         try {
 
             Node currentNode = (javax.jcr.Node)  pageContext.getAttribute("currentNode");
-            if (currentNode != null) {
-                componentProperties.put("instanceName", currentNode.getName());
-            }
 
             TagManager tagManager = adminResourceResolver.adaptTo(TagManager.class);
 
@@ -434,11 +431,15 @@
                     properties = resource.adaptTo(ValueMap.class);
                     useStyles=false;
                     //fieldValue = getAssetProperty(pageContext, (com.adobe.granite.asset.api.Asset) targetResource, fieldName, true);
+
                 } catch(Exception ex) {
                     LOG.error("getComponentProperties: could not evaluate target asset",ex);
                     return componentProperties;
                 }
-            } else if (targetResource != null && targetResource.getClass().getCanonicalName().equals(Resource.class.getCanonicalName())) {
+            } else if (targetResource != null &&
+                        (targetResource.getClass().getCanonicalName().equals(CLASS_TYPE_RESOURCE) ||
+                        targetResource.getClass().getCanonicalName().equals(CLASS_TYPE_JCRNODERESOURCE)) ) {
+
                 try {
                     Resource resource = (Resource) targetResource;
 
@@ -448,6 +449,25 @@
 
                     currentStyle = designer.getStyle(resource);
 
+                    ComponentManager componentManager = resource.getResourceResolver().adaptTo(ComponentManager.class);
+                    Component resourceComponent = componentManager.getComponentOfResource(resource);
+                    //set component to match target resource
+                    if (resourceComponent != null) {
+                        component = resourceComponent;
+//                        componentProperties.put("resourceComponentCell", resourceComponent.getCellName());
+//                        componentProperties.put("resourceComponentPath", resourceComponent.getPath());
+//                        componentProperties.put("resourceComponentName", resourceComponent.getName());
+//                        componentProperties.put("resourceComponentResourceType", resourceComponent.getResourceType());
+                    }
+
+                    //set currentnode to match target resource
+                    Node resourceNode = (javax.jcr.Node)  resource.adaptTo(Node.class);
+                    if (resourceNode != null) {
+                        currentNode = resourceNode;
+                    }
+
+                    componentProperties.put("targetResource", resource.getPath());
+
                     //getComponentProperty(ValueMap componentProperties, Style pageStyle, String name, Object defaultValue, Boolean useStyle)
                     //fieldValue = getComponentProperty(resourceProperties, resourceStyle, fieldName, fieldDefaultValue, true);
                 } catch (Exception ex) {
@@ -456,77 +476,85 @@
                 }
             }
 
+            if (currentNode != null) {
+                componentProperties.put("instanceName", currentNode.getName());
+            }
 
-            for (Object[][] fieldDefaults: fieldLists) {
-                for (Object[] field : fieldDefaults) {
-                    if (field.length < 1) {
-                        throw new IllegalArgumentException(MessageFormat.format("Key, Value, ..., Value-n expected, instead got {0} fields.", field.length));
-                    }
-                    String fieldName = field[0].toString();
+            if (component != null) {
+                componentProperties.attr.add("class", component.getName().trim());
+            }
 
-                    if (componentProperties.containsKey(fieldName)) {
-                        //skip entries that already exist
-                        //first Object in fieldLists will set a field value
-                        //we expect the additional Objects to not override
-                        LOG.warn("getComponentProperties: skipping property [{}] its already defined, {}",fieldName, componentContext.getResource().getPath());
-                        continue;
-                    }
-
-                    Object fieldDefaultValue = field[1];
-
-                    Object fieldValue = getComponentProperty(properties, currentStyle, fieldName, fieldDefaultValue, true);
-
-                    //Empty array with empty string will set the default value
-                    if (fieldValue instanceof String && StringUtils.isEmpty(fieldValue.toString())) {
-                        fieldValue = fieldDefaultValue;
-                    } else if (fieldValue instanceof String[] && fieldValue != null && (StringUtils.isEmpty(StringUtils.join((String[]) fieldValue, "")))) {
-                        fieldValue = fieldDefaultValue;
-                    }
-
-                    if (field.length > 2) {
-                        //if (fieldValue != fieldDefaultValue) {
-                        String fieldDataName = field[2].toString();
-                        if (StringUtils.isEmpty(fieldDataName)) {
-                            fieldDataName = "other";
+            if (fieldLists !=null) {
+                for (Object[][] fieldDefaults : fieldLists) {
+                    for (Object[] field : fieldDefaults) {
+                        if (field.length < 1) {
+                            throw new IllegalArgumentException(MessageFormat.format("Key, Value, ..., Value-n expected, instead got {0} fields.", field.length));
                         }
-                        String fieldValueString = "";
-                        String fieldValueType;
-                        if (field.length > 3) {
-                            fieldValueType = (String)field[3];
-                        } else {
-                            fieldValueType = String.class.getCanonicalName();
+                        String fieldName = field[0].toString();
+
+                        if (componentProperties.containsKey(fieldName)) {
+                            //skip entries that already exist
+                            //first Object in fieldLists will set a field value
+                            //we expect the additional Objects to not override
+                            LOG.warn("getComponentProperties: skipping property [{}] its already defined, {}", fieldName, componentContext.getResource().getPath());
+                            continue;
                         }
 
-                        if (fieldValue.getClass().isArray()) {
-                            if (ArrayUtils.isNotEmpty((String[])fieldValue)) {
-                                if (fieldValueType.equals(Tag.class.getCanonicalName())) {
-                                    fieldValueString = getTagsAsValues(tagManager, " ", (String[]) fieldValue);
-                                } else {
-                                    fieldValueString = StringUtils.join((String[]) fieldValue, ",");
-                                }
+                        Object fieldDefaultValue = field[1];
+
+                        Object fieldValue = getComponentProperty(properties, currentStyle, fieldName, fieldDefaultValue, true);
+
+                        //Empty array with empty string will set the default value
+                        if (fieldValue instanceof String && StringUtils.isEmpty(fieldValue.toString())) {
+                            fieldValue = fieldDefaultValue;
+                        } else if (fieldValue instanceof String[] && fieldValue != null && (StringUtils.isEmpty(StringUtils.join((String[]) fieldValue, "")))) {
+                            fieldValue = fieldDefaultValue;
+                        }
+
+                        if (field.length > 2) {
+                            //if (fieldValue != fieldDefaultValue) {
+                            String fieldDataName = field[2].toString();
+                            if (StringUtils.isEmpty(fieldDataName)) {
+                                fieldDataName = "other";
                             }
-                        } else {
-                            fieldValueString = fieldValue.toString();
+                            String fieldValueString = "";
+                            String fieldValueType;
+                            if (field.length > 3) {
+                                fieldValueType = (String) field[3];
+                            } else {
+                                fieldValueType = String.class.getCanonicalName();
+                            }
+
+                            if (fieldValue.getClass().isArray()) {
+                                if (ArrayUtils.isNotEmpty((String[]) fieldValue)) {
+                                    if (fieldValueType.equals(Tag.class.getCanonicalName())) {
+                                        fieldValueString = getTagsAsValues(tagManager, " ", (String[]) fieldValue);
+                                    } else {
+                                        fieldValueString = StringUtils.join((String[]) fieldValue, ",");
+                                    }
+                                }
+                            } else {
+                                fieldValueString = fieldValue.toString();
+                            }
+
+                            if (StringUtils.isNotEmpty(fieldValueString)) {
+                                componentProperties.attr.add(fieldDataName, fieldValueString);
+                            }
+
                         }
 
-                        if (StringUtils.isNotEmpty(fieldValueString)) {
-                            itemAttr.add(fieldDataName, fieldValueString);
+                        try {
+                            componentProperties.put(fieldName, fieldValue);
+                        } catch (Exception ex) {
+                            LOG.error("error adding value. " + ex);
                         }
-
-                    }
-
-                    try {
-                        componentProperties.put(fieldName, fieldValue);
-                    } catch (Exception ex) {
-                        LOG.error("error adding value. " + ex);
                     }
                 }
-            }
 
-            if (!itemAttr.isEmpty()) {
-                componentProperties.put(COMPONENT_ATTRIBUTES, itemAttr.build());
+                if (!componentProperties.attr.isEmpty()) {
+                    componentProperties.put(COMPONENT_ATTRIBUTES, componentProperties.attr.build());
+                }
             }
-
 
         } catch (Exception ex) {
             LOG.error("getComponentProperties: " + ex.getMessage(), ex);
