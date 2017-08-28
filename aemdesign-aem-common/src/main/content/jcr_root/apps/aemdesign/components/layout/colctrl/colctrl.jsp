@@ -58,6 +58,7 @@
                     // disable ordering to get consistent behavior
                     editContext.getEditConfig().setOrderable(false);
                 }
+//                out.write("<!--columns e start:-->");
                 break;
             }
             case END: {
@@ -74,12 +75,33 @@
                     // the 'insert' bar with the same content path.
                     editContext.setContentPath(path + "_fake");
                 }
+//                out.write("<!--columns e end:-->");
                 break;
             }
             case BREAK:
+//                out.write("<!--columns e break:-->");
                 break;
             case NORMAL:
+//                out.write("<!--columns e normal:-->");
                 break;
         }
+    } else {
+        switch (controType) {
+            case START: {
+//                out.write("<!--columns start:-->");
+                break;
+            }
+            case END: {
+//                out.write("<!--columns end:-->");
+                break;
+            }
+            case BREAK:
+//                out.write("<!--columns break:-->");
+                break;
+            case NORMAL:
+//                out.write("<!--columns content:-->");
+                break;
+        }
+
     }
 %>
