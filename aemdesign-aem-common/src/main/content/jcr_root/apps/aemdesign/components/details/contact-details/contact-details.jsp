@@ -14,7 +14,7 @@
             {TagConstants.PN_TAGS, new String[]{}},
             {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
             {"showToolbar", DEFAULT_SHOW_TOOLBAR},
-            {"variant", DEFAULT_VARIANT},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
     };
 
     ComponentProperties componentProperties = getComponentProperties(

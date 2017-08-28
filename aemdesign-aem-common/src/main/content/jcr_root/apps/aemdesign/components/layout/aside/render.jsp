@@ -12,7 +12,7 @@
     // }
     Object[][] componentFields = {
         {"ariaRole",DEFAULT_ARIA_ROLE, DEFAULT_ARIA_ROLE_ATTRIBUTE},
-        {"variant", DEFAULT_VARIANT},
+        {FIELD_VARIANT, DEFAULT_VARIANT},
     };
 
     ComponentProperties componentProperties = getComponentProperties(

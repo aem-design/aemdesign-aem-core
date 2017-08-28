@@ -4,7 +4,7 @@
 <%@include file="../formsData.jsp" %>
 <%
     Object[][] componentFields = {
-            {"variant", "aemdesign"},
+            {FIELD_VARIANT, "aemdesign"},
             {"jcr:description", StringUtils.EMPTY},
             {"multivalue", false},
             {"hideTitle", false},

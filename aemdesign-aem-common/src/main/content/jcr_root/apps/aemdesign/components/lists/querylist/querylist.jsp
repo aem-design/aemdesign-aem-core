@@ -2,6 +2,7 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Map" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
+<%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="querylistdata.jsp" %>
 
     <%
@@ -194,7 +195,7 @@
                 
                 request.setAttribute("hideThumbnail", _properties.get("hideThumbnail", Boolean.FALSE));
 
-                String badgeSelector = _properties.get("variant", "default");
+                String badgeSelector = _properties.get(FIELD_VARIANT, DEFAULT_VARIANT);
                 String script = getPageBadgeBase(listItem) + String.format("badge.%s.jsp", badgeSelector);
 
                 //open wrap list item
@@ -299,7 +300,7 @@
 
             debug.put("listFrom", _properties.get("listFrom", ""));
             debug.put("orderBy", _properties.get("orderBy", ""));
-            debug.put("variant", _properties.get("variant", ""));
+            debug.put("variant", _properties.get(FIELD_VARIANT, ""));
             debug.put("searchIn", _properties.get("searchIn", ""));
             debug.put("pageTags", _properties.get("pageTags", ""));
             debug.put("newsTags", _properties.get("newsTags", ""));

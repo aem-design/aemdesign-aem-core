@@ -60,7 +60,7 @@
             {"imageWidth", imageWidth, "mapimagex"},
             {"wcmMode", CURRENT_WCMMODE.name().toLowerCase(), "wcmmode"},
             {"topicQueue", StringUtils.EMPTY, "topicqueue"},
-            {"variant", DEFAULT_VARIANT}
+            {FIELD_VARIANT, DEFAULT_VARIANT}
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -69,7 +69,7 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    String badgeSelector = _properties.get("variant", DEFAULT_BADGE);
+    String badgeSelector = _properties.get(FIELD_VARIANT, DEFAULT_BADGE);
 
 %>
 <c:set var="componentProperties" value="<%= _componentContext.getAttribute("componentProperties") %>"/>

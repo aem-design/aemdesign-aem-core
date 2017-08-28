@@ -7,7 +7,7 @@
 
     Object[][] componentFields = {
             {"html", ""},
-            {"variant", "default"}
+            {FIELD_VARIANT, DEFAULT_VARIANT}
     };
 
     ComponentProperties componentProperties = getComponentProperties(

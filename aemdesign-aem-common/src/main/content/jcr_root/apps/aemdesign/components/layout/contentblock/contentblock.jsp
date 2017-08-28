@@ -17,7 +17,7 @@
     final String DEFAULT_TITLE_TAG_TYPE = "h2";
 
     Object[][] componentFields = {
-            {"variant", DEFAULT_VARIANT},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
             {"hideTitle", false},
             {"hideTopLink", false},
             {"linksLeftTitle", ""},
@@ -44,7 +44,7 @@
 
     componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,"bgimage"));
 
-    if (componentProperties.get("variant", "").equals("advsection")) {
+    if (componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT).equals("advsection")) {
         String ariaLabelledBy = componentProperties.get("ariaLabelledBy", "");
         if (isEmpty(ariaLabelledBy)) {
             String labelId = "heading-".concat(_currentNode.getName());

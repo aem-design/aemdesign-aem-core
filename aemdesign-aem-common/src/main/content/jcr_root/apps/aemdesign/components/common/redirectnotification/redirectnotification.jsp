@@ -7,7 +7,7 @@
     //   3 optional - compile into a data-{name} attribute
     // }
     Object[][] componentFields = {
-            {"variant", DEFAULT_VARIANT},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
             {"redirectTitle", "Invalid content path"},
             {"redirectUrl", "#"},
     };

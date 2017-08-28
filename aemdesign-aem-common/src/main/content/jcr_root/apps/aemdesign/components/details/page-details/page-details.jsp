@@ -22,7 +22,7 @@
             {"description", DEFAULT_DESCRIPTION},
             {"hideSeparator", DEFAULT_HIDE_SEPARATOR},
             {"hideSummary", DEFAULT_HIDE_SUMMARY},
-            {"variant", DEFAULT_VARIANT},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
             {"cssClass", ""},
             {"cssClassRow", ""},
             {"useParentPageTitle", false},

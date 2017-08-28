@@ -21,7 +21,7 @@
             {"hideCurrent", DEFAULT_HIDE_CURRENT},
             {"ariaRole",DEFAULT_ARIA_ROLE},
             {"ariaLabel",DEFAULT_ARIA_LABEL},
-            {"variant", DEFAULT_VARIANT},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
     };
 
     ComponentProperties componentProperties = getComponentProperties(

@@ -16,7 +16,7 @@
             {"height", "", "height"},
             {"width", "", "width"},
             {"showScrollbar", "yes", "scrolling"},
-            {"variant", "default"}
+            {FIELD_VARIANT, DEFAULT_VARIANT}
     };
 
     ComponentProperties componentProperties = getComponentProperties(

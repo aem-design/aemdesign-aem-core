@@ -12,7 +12,7 @@
     final String I18N_CATEGORY = "assetviewer";
 
     Object[][] componentFields = {
-            {"variant", "aemdesign"},
+            {FIELD_VARIANT, "aemdesign"},
             {"meta/namespace", "dam"},
             {"meta/localPart", StringUtils.EMPTY},
             {"meta/type", "String"},

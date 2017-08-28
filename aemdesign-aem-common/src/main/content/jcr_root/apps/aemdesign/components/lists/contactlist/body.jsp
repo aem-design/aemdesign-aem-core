@@ -28,7 +28,7 @@
 
 
 
-    String badgeSelector = _properties.get("variant", "default");
+    String badgeSelector = _properties.get(FIELD_VARIANT, DEFAULT_VARIANT);
 
 %>
 <c:set var="componentProperties" value="<%= _componentContext.getAttribute("componentProperties") %>"/>

@@ -13,7 +13,7 @@
             {"topicQueue", StringUtils.EMPTY, "topicqueue"},
             {"component", "topicFilters", "modules"},
             {"bindMethod", "foreach: {data:filters, afterRender: renderedHandler}", "bind"},
-            {"variant", "default"}
+            {FIELD_VARIANT, DEFAULT_VARIANT}
     };
 
 

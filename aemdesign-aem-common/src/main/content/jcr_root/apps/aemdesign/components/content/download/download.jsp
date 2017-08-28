@@ -19,7 +19,7 @@
     final String DEFAULT_I18N_LABEL = "downloadlabel";
 
     Object[][] componentFields = {
-            {"variant", DEFAULT_VARIANT},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
             {"thumbnailType", "icon"},
             {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
             {"thumbnailWidth","", "thumbnailWidth"},

@@ -15,7 +15,7 @@
     ArrayList<HashMap> badges =
             getBadgesForPaths(
                     _resourceResolver,
-                    _properties.get("variant", "default"),
+                    _properties.get(FIELD_VARIANT, DEFAULT_VARIANT),
                     mediaPaths
             );
 

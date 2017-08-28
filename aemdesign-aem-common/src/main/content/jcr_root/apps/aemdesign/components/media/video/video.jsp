@@ -16,7 +16,7 @@
             {"thumbnailWidth", "auto"},
             {"assetTitlePrefix",StringUtils.EMPTY},
             {"fileReference", StringUtils.EMPTY},
-            {"variant", "default"}
+            {FIELD_VARIANT, DEFAULT_VARIANT}
 
     };
     String msgStart = "";

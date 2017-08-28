@@ -17,7 +17,7 @@
             {"showToolbar", DEFAULT_SHOW_TOOLBAR},
             {"author", ""},
             {TagConstants.PN_TAGS, new String[]{}},
-            {"variant", DEFAULT_VARIANT}
+            {FIELD_VARIANT, DEFAULT_VARIANT}
     };
 
     ComponentProperties componentProperties = getComponentProperties(

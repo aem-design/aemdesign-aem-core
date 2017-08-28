@@ -24,7 +24,7 @@
             {"showLangNav", DEFAULT_TOGGLE_STATE},
             {"showBackToTop", DEFAULT_TOGGLE_STATE},
             {"showSearch", DEFAULT_TOGGLE_STATE},
-            {"variant", DEFAULT_VARIANT},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
             {"listFrom", DEFAULT_LISTFROM},
             {"parentPage", getPrimaryPath(_slingRequest)},
             {"linkTitlePrefix", _i18n.get("linkTitlePrefix","navlist")}
@@ -35,7 +35,7 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    String variant = componentProperties.get("variant",DEFAULT_VARIANT);
+    String variant = componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
 
     String[] paths = {};
     if (componentProperties.get("listFrom", DEFAULT_LISTFROM).equals(LISTFROM_CHILDREN)) {

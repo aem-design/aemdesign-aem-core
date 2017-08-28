@@ -7,7 +7,7 @@
             {"actionType","aemdesign/components/forms/actions/methodGet"},
             {"formid", StringUtils.EMPTY},
             {"redirect", StringUtils.EMPTY},
-            {"variant","aemdesign"}
+            {FIELD_VARIANT,"aemdesign"}
     };
 
     ComponentProperties componentProperties = getComponentProperties(

@@ -12,7 +12,7 @@
 
 
     Object[][] componentFields = {
-            {"variant", "aemdesign"},
+            {FIELD_VARIANT, "aemdesign"},
             {"separator", "-"},
             {"title", _i18n.get("dateRangeField", I18N_CATEGORY)},
             {"fromDateField", StringUtils.EMPTY},

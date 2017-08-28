@@ -17,7 +17,7 @@
             {"latitude", 0.0},
             {"longitude", 0.0},
             {"pages", new String[0]},
-            {"variant", DEFAULT_VARIANT}
+            {FIELD_VARIANT, DEFAULT_VARIANT}
     };
 
 

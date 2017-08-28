@@ -10,7 +10,7 @@
             {"width", 0},
             {"height", 0},
             {"mediaId", ""},
-            {"variant", DEFAULT_VARIANT}
+            {FIELD_VARIANT, DEFAULT_VARIANT}
     };
 
     ComponentProperties componentProperties = getComponentProperties(

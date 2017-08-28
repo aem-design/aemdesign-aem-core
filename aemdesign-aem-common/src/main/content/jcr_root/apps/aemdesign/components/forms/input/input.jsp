@@ -14,7 +14,7 @@
             {"rows", 1},
             {"cols", 35},
             {"width", StringUtils.EMPTY},
-            {"variant", "aemdesign"},
+            {FIELD_VARIANT, "aemdesign"},
             {"type", "text"},
             {"placeHolder", StringUtils.EMPTY}
 

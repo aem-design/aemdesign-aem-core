@@ -21,7 +21,7 @@
             {"eventRefLink", DEFAULT_EVENT_REF_LINK},
             {"eventRefLabel2", DEFAULT_EVENT_REF_LABEL},
             {"eventRefLink2", DEFAULT_EVENT_REF_LINK},
-            {"variant", DEFAULT_VARIANT},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
             {"useParentPageTitle", false},
             {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
             {"showToolbar", DEFAULT_SHOW_TOOLBAR},

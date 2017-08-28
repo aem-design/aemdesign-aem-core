@@ -28,7 +28,7 @@
             {"galleryGroup", "gallery"},
             {"lightboxHeight",StringUtils.EMPTY},
             {"lightboxWidth",StringUtils.EMPTY},
-            {"variant", "default"},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
             {"titleAltPrefixText",StringUtils.EMPTY}
 
     };
@@ -43,7 +43,7 @@
     String listFrom = componentProperties.get("listFrom", "children");
     String collection = componentProperties.get("collection",  String.class);
     String assetViewerPagePath = componentProperties.get("assetViewerPagePath",  String.class);
-    String variant = componentProperties.get("variant", String.class);
+    String variant = componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
 
     Node media = getFirstMediaNode(_currentPage);
     //set display area size to first media node

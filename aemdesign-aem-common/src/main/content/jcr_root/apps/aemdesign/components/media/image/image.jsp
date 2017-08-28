@@ -28,7 +28,7 @@
     //   { name, defaultValue, attributeName, stringValueTypeClass }
     // }
     Object[][] componentFields = {
-            {"variant", "default"},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
             {"imageOption", IMAGE_OPTION_RESPONSIVE_RENDITION},
             {ImageResource.PN_WIDTH, 0},
             {ImageResource.PN_HEIGHT, 0},
@@ -81,7 +81,7 @@
 
         String imageTargetURL = StringUtils.EMPTY;
 
-        if (componentProperties.get("variant", StringUtils.EMPTY).equals("default") == false) {
+        if (componentProperties.get(FIELD_VARIANT, StringUtils.EMPTY).equals("default") == false) {
 
             imageTargetURL = componentProperties.get("pageURL", StringUtils.EMPTY);
             Page imageTargetPage = _pageManager.getPage(imageTargetURL);

@@ -12,7 +12,7 @@
 
 
     Object[][] componentFields = {
-            {"variant", "aemdesign"},
+            {FIELD_VARIANT, "aemdesign"},
             {"path", "/etc/designs/default/images/dam/asseteditor/thumbnail/placeholder.gif"},
             {"profile", "assetViewer"},
             {"title", StringUtils.EMPTY},
