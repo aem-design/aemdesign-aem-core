@@ -16,7 +16,7 @@
                     String originName = originalResource.getName();
                     ValueMap resourceProps = originalResource.getValueMap();
                     if (resourceProps!=null) {
-                        originVariant = resourceProps.get("variant","variant not set");
+                        originVariant = resourceProps.get(FIELD_VARIANT,"variant not set");
                     }
                     if (originPath.indexOf("/jcr") > 0) {
                         originPath = originPath.substring(0, originPath.indexOf("/jcr"));
@@ -33,7 +33,7 @@
                 } else {
                     ValueMap resourceProps = _resource.getValueMap();
                     if (resourceProps!=null) {
-                        originVariant = resourceProps.get("variant","variant not set");
+                        originVariant = resourceProps.get(FIELD_VARIANT,"variant not set");
                     }
                 }
 
@@ -44,6 +44,25 @@
             <%--<c:forEach items="${componentProperties}" var="property" varStatus="status"> <small>${property.key}: ${property.value};</small></c:forEach>--%>
         <%--</c:if>--%>
         <small>(<%=_componentContext.getCell().getName()%> : <%=_resource.getName()%> # <%=originVariant%>)<%=originLocation%></small>
+        <%
+
+        String componentVariant = DEFAULT_VARIANT;
+
+        //print component variant template
+        ComponentProperties componentBadgeProperties = (ComponentProperties)pageContext.getAttribute("componentProperties");
+        if (componentBadgeProperties != null) {
+            componentVariant = componentBadgeProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
+        }
+
+        String variantPath = String.format("%s/variant.%s.jsp", _component.getPath(), componentVariant);
+
+        Resource variantResource = _resourceResolver.getResource(variantPath);
+        if (variantResource != null) {
+            String variantContents = getResourceContent(variantResource);
+            out.write(String.format("<div class=\"code variant %s\"><pre><code>%s</code></pre></div>", componentVariant, variantContents));
+        }
+
+        %>
     </details>
     </c:if>
 </c:if>
