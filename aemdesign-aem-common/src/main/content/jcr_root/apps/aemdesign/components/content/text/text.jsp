@@ -4,7 +4,7 @@
 
     Object[][] componentFields = {
             {"text", ""},
-            {"variant", ""}
+            {FIELD_VARIANT, DEFAULT_VARIANT}
     };
 
     ComponentProperties componentProperties = getComponentProperties(
