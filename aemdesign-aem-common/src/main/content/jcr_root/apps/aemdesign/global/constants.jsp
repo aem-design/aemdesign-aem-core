@@ -104,14 +104,7 @@
 
     public static final String DEFAULT_VALUE_STRING_NOT_FOUND = "";
 
-    public static final String ATTRIBUTE_CSSCLASS = "cssClass";
     public static final String ATTRIBUTE_ID = "attrId";
-    public static final String ATTRIBUTE_NUMCOL = "numCols";
-    public static final String ATTRIBUTE_CSSCLASS_JUMBOTRON = "cssClassJumbotron";
-    public static final String ATTRIBUTE_CSSCLASS_LAYOUT = "cssClassLayout";
-    public static final String ATTRIBUTE_CSSCLASS_BACKGROUND = "cssClassBackground";
-    public static final String ATTRIBUTE_CSSCLASS_ROW = "cssClassRow";
-    public static final String ATTRIBUTE_CSSCLASS_COLUMN = "cssClassColumn";
 
 
     /**
