@@ -65,6 +65,17 @@
     private static final String ARTICLE_PAR_PAGEDETAILS = "article/par/page-details";
     private static final String ARTICLE_CONTENTS = "article/par";
 
+    private static final String FIELD_STYLE_COMPONENT_ID = "componentId";
+    private static final String FIELD_STYLE_COMPONENT_THEME = "componentTheme";
+    private static final String FIELD_STYLE_COMPONENT_MODIFIERS = "componentModifiers";
+    private static final String FIELD_STYLE_COMPONENT_MODULE = "componentModule";
+    private static final String FIELD_STYLE_COMPONENT_CHEVRON = "componentChevron";
+    private static final String FIELD_STYLE_COMPONENT_ICON = "componentIcon";
+    private static final String FIELD_STYLE_COMPONENT_POSITIONX = "positionX";
+    private static final String FIELD_STYLE_COMPONENT_POSITIONY = "positionY";
+    private static final String FIELD_STYLE_COMPONENT_SITETHEMECATEGORY = "siteThemeCategory";
+    private static final String FIELD_STYLE_COMPONENT_SITETHEMECOLOR = "siteThemeColor";
+    private static final String FIELD_STYLE_COMPONENT_SITETITLECOLOR = "siteTileColor";
 
     // {
     //   1 required - property name,
@@ -73,17 +84,17 @@
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
     public static final Object[][] DEFAULT_FIELDS_STYLE = {
-            {"componentId", "","id"},
-            {"componentTheme", new String[]{},"class", Tag.class.getCanonicalName()},
-            {"componentModifiers", new String[]{},"class", Tag.class.getCanonicalName()},
-            {"componentModule", new String[]{},"data-module", Tag.class.getCanonicalName()},
-            {"componentChevron", new String[]{},"class", Tag.class.getCanonicalName()},
-            {"componentIcon", new String[]{},"class", Tag.class.getCanonicalName()},
-            {"positionX", ""},
-            {"positionY", ""},
-            {"siteThemeCategory", ""},
-            {"siteThemeColor", ""},
-            {"siteTileColor", ""},
+            {FIELD_STYLE_COMPONENT_ID, "","id"},
+            {FIELD_STYLE_COMPONENT_THEME, new String[]{},"class", Tag.class.getCanonicalName()},
+            {FIELD_STYLE_COMPONENT_MODIFIERS, new String[]{},"class", Tag.class.getCanonicalName()},
+            {FIELD_STYLE_COMPONENT_MODULE, new String[]{},"data-module", Tag.class.getCanonicalName()},
+            {FIELD_STYLE_COMPONENT_CHEVRON, new String[]{},"class", Tag.class.getCanonicalName()},
+            {FIELD_STYLE_COMPONENT_ICON, new String[]{},"class", Tag.class.getCanonicalName()},
+            {FIELD_STYLE_COMPONENT_POSITIONX, ""},
+            {FIELD_STYLE_COMPONENT_POSITIONY, ""},
+            {FIELD_STYLE_COMPONENT_SITETHEMECATEGORY, ""},
+            {FIELD_STYLE_COMPONENT_SITETHEMECOLOR, ""},
+            {FIELD_STYLE_COMPONENT_SITETITLECOLOR, ""},
     };
 
     // {
