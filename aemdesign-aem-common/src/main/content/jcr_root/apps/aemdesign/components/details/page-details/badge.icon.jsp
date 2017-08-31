@@ -13,14 +13,14 @@
     //Url
     Object[][] componentFields = {
             {"title", thisPage.getTitle()},
-            {"componentId", ""},
-            {"componentTheme", new String[]{}},
-            {"componentModifiers", new String[]{}},
-            {"componentModule", new String[]{}},
-            {"componentChevron", new String[]{}},
-            {"componentIcon", new String[]{}},
-            {"positionX", ""},
-            {"positionY", ""}
+            {FIELD_STYLE_COMPONENT_ID, ""},
+            {FIELD_STYLE_COMPONENT_THEME, new String[]{}},
+            {FIELD_STYLE_COMPONENT_MODIFIERS, new String[]{}},
+            {FIELD_STYLE_COMPONENT_MODULE, new String[]{}},
+            {FIELD_STYLE_COMPONENT_CHEVRON, new String[]{}},
+            {FIELD_STYLE_COMPONENT_ICON, new String[]{}},
+            {FIELD_STYLE_COMPONENT_POSITIONX, ""},
+            {FIELD_STYLE_COMPONENT_POSITIONY, ""}
 
     };
 
