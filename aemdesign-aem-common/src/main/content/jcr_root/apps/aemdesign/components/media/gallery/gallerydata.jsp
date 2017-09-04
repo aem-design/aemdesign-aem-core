@@ -255,7 +255,7 @@
             String description = asset.getMetadataValue(DamConstants.DC_DESCRIPTION);
             String copyright = asset.getMetadataValue(DamConstants.DC_RIGHTS);
             String creator = asset.getMetadataValue(DamConstants.DC_CREATOR);
-            String disclaimer = asset.getMetadataValue("dc:disclaimer");
+            String disclaimer = asset.getMetadataValue(DAM_DISCLAIMER);
             String sourceURL = asset.getMetadataValue(DAM_SOURCE_URL);
             String videoURL = asset.getMetadataValue(DAM_VIDEO_URL);
             String url = asset.getPath();
