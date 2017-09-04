@@ -10,7 +10,7 @@
 <%!
 
     private static final String DETAILS_MENU_COLOR_DEFAULT = "default";
-    private static final String DETAILS_MENU_ACCESSKEY = "ariaAccessKey";
+    private static final String DETAILS_MENU_ACCESSKEY = FIELD_ARIA_ACCESSKEY;
     private static final String DETAILS_TAB_GALLERYBGIMAGE = "par/page-details/gallerybgimage";
     private static final String DETAILS_TITLE = "title";
 
