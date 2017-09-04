@@ -56,6 +56,27 @@
 
     private static final String FIELD_HIDEINMENU = "hideInMenu";
 
+    //http://www.photometadata.org/META-Resources-Field-Guide-to-Metadata
+    private static final String DAM_HEADLINE = "photoshop:Headline";
+    private static final String DAM_CREDIT = "photoshop:Credit";
+    private static final String DAM_CATEGORY = "category";
+    private static final String DAM_DIRECTOR = "director";
+    private static final String DAM_ARTISTSTATEMENT = "artisticStatement";
+    private static final String DAM_SOURCE = "photoshop:Source";
+    private static final String DAM_ASSET_HREF = "href";
+    private static final String DAM_SOURCE_ORIGIN = "dc:source";
+    private static final String DAM_SOURCE_RELATION = "dc:relation";
+    private static final String DAM_SOURCE_URL = "sourceAsset";
+    private static final String DAM_VIDEO_URL = "sourceVideo";
+    private static final String DAM_DISCLAIMER = "dc:disclaimer";
+    private static final String DAM_FIELD_LICENSE_COPYRIGHT_OWNER = "xmpRights:Owner";
+    private static final String DAM_FIELD_LICENSE_USAGETERMS = "xmpRights:UsageTerms";
+    private static final String DAM_FIELD_LICENSE_EXPIRY = "prism:expirationDate";
+
+    private static final Pattern DEFAULT_RENDTION_PATTERN_OOTB = Pattern.compile("cq5dam\\.(.*)?\\.(\\d+)\\.(\\d+)\\.(.*)");
+    private static final String DEFAULT_ASSET_RENDITION_PREFIX1 = "cq5dam.thumbnail.";
+    private static final String DEFAULT_ASSET_RENDITION_PREFIX2 = "cq5dam.web.";
+
 
     private static final String DEFAULT_IMAGE_RESOURCETYPE = "aemdesign/components/media/image";
 
@@ -76,6 +97,17 @@
     private static final String FIELD_STYLE_COMPONENT_SITETHEMECATEGORY = "siteThemeCategory";
     private static final String FIELD_STYLE_COMPONENT_SITETHEMECOLOR = "siteThemeColor";
     private static final String FIELD_STYLE_COMPONENT_SITETITLECOLOR = "siteTileColor";
+
+    private static final String FIELD_ARIA_ROLE = "ariaRole";
+    private static final String FIELD_ARIA_LABEL = "ariaLabel";
+    private static final String FIELD_ARIA_DESCRIBEDBY = "ariaDescribedBy";
+    private static final String FIELD_ARIA_LABELLEDBY = "ariaLabelledBy";
+    private static final String FIELD_ARIA_CONTROLS = "ariaControls";
+    private static final String FIELD_ARIA_LIVE = "ariaLive";
+    private static final String FIELD_ARIA_HIDDEN = "ariaHidden";
+    private static final String FIELD_ARIA_HASPOPUP = "ariaHaspopup";
+    private static final String FIELD_ARIA_ACCESSKEY = "ariaAccessKey";
+
 
     // {
     //   1 required - property name,
@@ -104,15 +136,15 @@
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
     public static final Object[][] DEFAULT_FIELDS_ACCESSIBILITY = {
-            {"ariaRole", "", DEFAULT_ARIA_ROLE_ATTRIBUTE},
-            {"ariaLabel", "","aria-label"},
-            {"ariaDescribedBy", "","aria-describedby"},
-            {"ariaLabelledBy", "","aria-labelledby"},
-            {"ariaControls", "","aria-controls"},
-            {"ariaLive", "","aria-live"},
-            {"ariaHidden", "","aria-hidden"},
-            {"ariaHaspopup", "","aria-haspopup"},
-            {"ariaAccessKey", "","accesskey"},
+            {FIELD_ARIA_ROLE, "", DEFAULT_ARIA_ROLE_ATTRIBUTE},
+            {FIELD_ARIA_LABEL, "","aria-label"},
+            {FIELD_ARIA_DESCRIBEDBY, "","aria-describedby"},
+            {FIELD_ARIA_LABELLEDBY, "","aria-labelledby"},
+            {FIELD_ARIA_CONTROLS, "","aria-controls"},
+            {FIELD_ARIA_LIVE, "","aria-live"},
+            {FIELD_ARIA_HIDDEN, "","aria-hidden"},
+            {FIELD_ARIA_HASPOPUP, "","aria-haspopup"},
+            {FIELD_ARIA_ACCESSKEY, "","accesskey"},
     };
 
     // {
@@ -171,6 +203,40 @@
             {"dataType", "", "type"},
             {"dataTarget", "", "data-target"},
             {"dataToggle", "", "data-toggle"},
+    };
+
+
+    // {
+    //   1 required - property name,
+    //   2 required - default value,
+    //   3 optional - name of component attribute to add value into
+    //   4 optional - canonical name of class for handling multivalues, String or Tag
+    // }
+    public static final Object[][] DEFAULT_FIELDS_ASSET_IMAGE = {
+            {DamConstants.DC_TITLE, StringUtils.EMPTY},
+            {DamConstants.DC_DESCRIPTION, StringUtils.EMPTY},
+            {DAM_CREDIT, StringUtils.EMPTY},
+            {DAM_HEADLINE, StringUtils.EMPTY},
+            {DAM_SOURCE, StringUtils.EMPTY},
+            {DAM_SOURCE_URL, StringUtils.EMPTY},
+            {DAM_ASSET_HREF, StringUtils.EMPTY}
+    };
+
+    // {
+    //   1 required - property name,
+    //   2 required - default value,
+    //   3 optional - name of component attribute to add value into
+    //   4 optional - canonical name of class for handling multivalues, String or Tag
+    // }
+    public static final Object[][] DEFAULT_FIELDS_ASSET_VIDEO = {
+            {DamConstants.DC_TITLE, StringUtils.EMPTY},
+            {DamConstants.DC_DESCRIPTION, StringUtils.EMPTY},
+            {DAM_CREDIT, StringUtils.EMPTY},
+            {DAM_HEADLINE, StringUtils.EMPTY},
+            {DAM_SOURCE, StringUtils.EMPTY},
+            {DAM_SOURCE_URL, StringUtils.EMPTY},
+            {DAM_VIDEO_URL, StringUtils.EMPTY},
+            {DAM_ASSET_HREF, StringUtils.EMPTY}
     };
 
     /** Local logging container. */
