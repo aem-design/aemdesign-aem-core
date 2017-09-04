@@ -45,10 +45,10 @@
     componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,"bgimage"));
 
     if (componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT).equals("advsection")) {
-        String ariaLabelledBy = componentProperties.get("ariaLabelledBy", "");
+        String ariaLabelledBy = componentProperties.get(FIELD_ARIA_LABELLEDBY, "");
         if (isEmpty(ariaLabelledBy)) {
             String labelId = "heading-".concat(_currentNode.getName());
-            componentProperties.put("ariaLabelledBy", labelId);
+            componentProperties.put(FIELD_ARIA_LABELLEDBY, labelId);
             componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties,"aria-labelledby",labelId));
         }
 
