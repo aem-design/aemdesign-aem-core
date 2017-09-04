@@ -38,7 +38,7 @@
     String title = (String)map.get("dc:title");
     String description = (String)map.get("dc:description");
     String category = (String)map.get("category");
-    String sourceUrl = (String)map.get("sourceUrl");
+    String sourceUrl = (String)map.get(DAM_SOURCE_URL);
 
     if (StringUtils.isBlank(title)) {
         title = asset.getName();

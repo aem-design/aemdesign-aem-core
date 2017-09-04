@@ -31,7 +31,7 @@
     ValueMap map = ResourceUtil.getValueMap(metadataResource);
     String title = (String)map.get("dc:title");
     String category = (String)map.get("category");
-    String sourceUrl = (String)map.get("sourceUrl");
+    String sourceUrl = (String)map.get(DAM_SOURCE_URL);
 
     if (StringUtils.isBlank(title)) {
         title = asset.getName();

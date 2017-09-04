@@ -39,7 +39,7 @@
     String category = (String)map.get("category");
     String director = (String)map.get("director");
     String artisticStatement = (String)map.get("artisticStatement");
-    String sourceUrl = (String)map.get("sourceUrl");
+    String sourceUrl = (String)map.get(DAM_SOURCE_URL);
 
     if (StringUtils.isBlank(title)) {
         title = asset.getName();
