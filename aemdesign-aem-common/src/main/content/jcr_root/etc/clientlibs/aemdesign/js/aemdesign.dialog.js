@@ -59,21 +59,62 @@ window.AEMDESIGN.dialog = window.AEMDESIGN.dialog || {};
             log.error(["resetFieldValues",container,CQ,ex]);
         }
     };
+    ns.manageTabGroup = function (tabPanels, tabToSelectName, tabGroupItems, noSwitch) {
+        console.log(["manageTabGroup",tabPanels, tabToSelectName, tabGroupItems, noSwitch]);
+        try {
+            //hide all tabs
+            for (var item in tabGroupItems) {
+                var tabName = tabGroupItems[item].value;
+                if (tabGroupItems[item].selectTab) {
+                    tabName = tabGroupItems[item].selectTab;
+                }
+                console.log(["manageTabGroup",tabGroupItems[item], tabName]);
+                if (tabName!=="") {
+                    var tabsFound = tabPanels.find("name", tabName);
+                    if (tabsFound.length != 0) {
+                        tabPanels.hideTabStripItem(tabsFound[0]);
+                    }
+                }
+            }
+            //unhide selected
+            var tabsFound = tabPanels.find("name",tabToSelectName);
+            if (tabsFound.length != 0) {
+                tabPanels.unhideTabStripItem(tabsFound[0]);
+            }
 
+            //update tabs layout
+            tabPanels.doLayout();
+
+            //switch to tab if needed
+            if (tabsFound.length != 0) {
+                if (!noSwitch) {
+                    tabPanels.activate(tabsFound[0]);
+                }
+            }
+
+        } catch (ex) {
+            //log.info(["error","manageTabs",tabPanels, tabPanels.hiddenTabs, tabToSelectName, noSwitch, ex])
+            log.error(["manageTabGroup",tabPanels, tabToSelectName, tabGroupItems, noSwitch, ex]);
+        }
+    };
     ns.manageTabs = function (tabPanels, tabToSelectName, noSwitch, noHide) {
         try {
+            //find tab by name
             var tabsFound = tabPanels.find("name",tabToSelectName);
             var tabToSelect;
+            //select first tab if not found
             if (tabsFound.length == 0) {
                 if(tabPanels.includeTabs){
                     tabToSelect = tabPanels.includeTabs[0];
                     tabPanels.unhideTabStripItem(tabPanels.includeTabs[0]);
                 }
             } else {
+                //select firs found tab for selection
                 tabToSelect = tabsFound[0];
             }
 
             if (tabToSelect) {
+
                 if (!noHide) {
                     for (var index in tabPanels.hiddenTabs) {
                         if (tabToSelect == tabPanels.hiddenTabs[index]) {
@@ -85,8 +126,10 @@ window.AEMDESIGN.dialog = window.AEMDESIGN.dialog || {};
                         }
                     }
                 }
+                //update tabs layout
                 tabPanels.doLayout();
 
+                //switch to tab if needed
                 if (!noSwitch) {
                     tabPanels.activate(tabToSelect);
                 }
