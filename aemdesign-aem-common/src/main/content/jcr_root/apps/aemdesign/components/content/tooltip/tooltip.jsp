@@ -13,7 +13,7 @@
         {"positionY", "auto"},
         {"positionFormatX", DEFAULT_TOOLTIP_COORDS_FORMAT},
         {"positionFormatY", DEFAULT_TOOLTIP_COORDS_FORMAT},
-        {"ariaRole", DEFAULT_ARIA_ROLE ,"role"},
+        {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE ,"role"},
         {FIELD_VARIANT, DEFAULT_VARIANT},
     };
 

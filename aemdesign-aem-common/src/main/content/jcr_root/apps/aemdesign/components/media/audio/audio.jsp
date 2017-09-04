@@ -13,7 +13,7 @@
     // }
     Object[][] componentFields = {
             {"audioPath",""},
-            {"ariaRole",DEFAULT_ARIA_ROLE},
+            {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE},
             {FIELD_ARIA_LABEL,DEFAULT_ARIA_LABEL},
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"playerAddress", PLAYER_ADDRESS, "player-address"},
