@@ -132,7 +132,7 @@
 
                                 <size
                                         jcr:primaryType="cq:Widget"
-                                        fieldLabel="Icon Size (w,h)"
+                                        fieldLabel="Thumbnail Size (w,h)"
                                         fieldDescription="blank values are not added as attributes"
                                         heightParameter="./thumbnailHeight"
                                         widthParameter="./thumbnailWidth"
