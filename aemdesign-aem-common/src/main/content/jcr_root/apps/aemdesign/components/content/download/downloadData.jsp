@@ -12,40 +12,6 @@
     private static final String  ddClassName = DropTarget.CSS_CLASS_PREFIX + "file";
 
 
-    /**
-     * Necessary to make sure some of the weird behavior CQ exhibits gets worked around. In
-     * some cases (don't know when exactly), the asset dc:title and dc:description keys are
-     * returned as Object[] with one element instead of a String. This method tests that
-     * and returns the first element from the list or just the element itself
-     *
-     * @param assetNode is the asset to interogate
-     * @param key is the key to get the metadata for
-     * @return the value or null when nothing is found
-     */
-    protected String getMetadataStringForKey(Node assetNode, String key, String defaultValue) {
-        if (assetNode == null) {
-            return null;
-        }
-        if (StringUtils.isBlank(key)) {
-            return null;
-        }
-
-        String returnVal = "";
-
-        final String PROPERTY_METADATA = JcrConstants.JCR_CONTENT + "/metadata";
-        try {
-
-            if (assetNode.hasNode(PROPERTY_METADATA)) {
-                Node metadataNode = assetNode.getNode(PROPERTY_METADATA);
-                returnVal = DamUtil.getValue(metadataNode, key, defaultValue);
-            }
-        } catch ( RepositoryException rex) {
-            // If this fails it's ok, we return 0 as fallback
-        }
-        return returnVal;
-
-    }
-
     private String getDownloadTitle(ValueMap _properties, String defaultTitle) {
         return _properties.get(ALT_TITLE, defaultTitle);
     }
