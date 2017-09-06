@@ -11,8 +11,12 @@
         </c:otherwise>
     </c:choose>
     <div class="card-block">
-        <h4 class="card-title">${componentProperties.title}</h4>
+        <c:if test="${not componentProperties.hideTitle and not empty componentProperties.title}">
+        <${componentProperties.titleType} class="card-title" id="${componentProperties.ariaLabelledBy}">${componentProperties.title}</${componentProperties.titleType}>
+        </c:if>
+        <c:if test="${not empty componentProperties.description}">
         <p class="card-text">${componentProperties.description}</p>
+        </c:if>
         <c:if test="${ not empty componentProperties.info}">
             <p class="card-text info">${componentProperties.info}</p>
         </c:if>

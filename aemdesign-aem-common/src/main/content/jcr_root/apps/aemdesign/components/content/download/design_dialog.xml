@@ -7,6 +7,19 @@
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
+                <layoutTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/content/download/dialog/items/tabs/items/layoutTab.infinity.json"
+                        xtype="cqinclude" />
+                <imageThumbnailTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/content/download/dialog/items/tabs/items/imageThumbnailTab.infinity.json"
+                        xtype="cqinclude" />
+                <imageThumbnailTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/content/download/dialog/items/tabs/items/imageThumbnailTabResourceType.infinity.json"
+                        xtype="cqinclude" />
+
                 <styleTab
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"

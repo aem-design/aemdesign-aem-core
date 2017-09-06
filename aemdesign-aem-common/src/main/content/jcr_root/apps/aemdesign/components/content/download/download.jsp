@@ -17,6 +17,7 @@
 
     final String DEFAULT_I18N_CATEGORY = "download";
     final String DEFAULT_I18N_LABEL = "downloadlabel";
+    final String DEFAULT_TITLE_TAG_TYPE = "h4";
 
     Object[][] componentFields = {
             {FIELD_VARIANT, DEFAULT_VARIANT},
@@ -25,6 +26,7 @@
             {"thumbnailWidth","", "thumbnailWidth"},
             {"thumbnailHeight","","thumbnailHeight"},
             {"title",""},
+            {"titleType", DEFAULT_TITLE_TAG_TYPE},
             {"description",""},
             {"fileName",""},
             {"fileReference",""},

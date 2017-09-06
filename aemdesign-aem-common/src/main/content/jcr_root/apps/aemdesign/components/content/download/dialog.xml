@@ -81,6 +81,11 @@
                                         fieldDescription="Set image title, does not apply to Licensed Assets"
                                         xtype="textfield"/>
 
+                                <titleType
+                                        jcr:primaryType="cq:Widget"
+                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/basicTab/items/title/items/titleType.infinity.json"
+                                        xtype="cqinclude"/>
+
                                 <description
                                         jcr:primaryType="cq:Widget"
                                         fieldLabel="Description"
