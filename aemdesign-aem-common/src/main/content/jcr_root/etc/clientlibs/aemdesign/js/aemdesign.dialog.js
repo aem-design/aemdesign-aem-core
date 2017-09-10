@@ -60,7 +60,7 @@ window.AEMDESIGN.dialog = window.AEMDESIGN.dialog || {};
         }
     };
     ns.manageTabGroup = function (tabPanels, tabToSelectName, tabGroupItems, noSwitch) {
-        console.log(["manageTabGroup",tabPanels, tabToSelectName, tabGroupItems, noSwitch]);
+        // console.log(["manageTabGroup",tabPanels, tabToSelectName, tabGroupItems, noSwitch]);
         try {
             //hide all tabs
             for (var item in tabGroupItems) {
@@ -68,7 +68,7 @@ window.AEMDESIGN.dialog = window.AEMDESIGN.dialog || {};
                 if (tabGroupItems[item].selectTab) {
                     tabName = tabGroupItems[item].selectTab;
                 }
-                console.log(["manageTabGroup",tabGroupItems[item], tabName]);
+                // console.log(["manageTabGroup",tabGroupItems[item], tabName]);
                 if (tabName!=="") {
                     var tabsFound = tabPanels.find("name", tabName);
                     if (tabsFound.length != 0) {
