@@ -57,13 +57,14 @@
     private static final String FIELD_HIDEINMENU = "hideInMenu";
 
     //http://www.photometadata.org/META-Resources-Field-Guide-to-Metadata
+    private static final String DAM_TITLE = com.day.cq.dam.api.DamConstants.DC_TITLE;
+    private static final String DAM_DESCRIPTION = com.day.cq.dam.api.DamConstants.DC_DESCRIPTION;
     private static final String DAM_HEADLINE = "photoshop:Headline";
     private static final String DAM_CREDIT = "photoshop:Credit";
     private static final String DAM_CATEGORY = "category";
     private static final String DAM_DIRECTOR = "director";
     private static final String DAM_ARTISTSTATEMENT = "artisticStatement";
     private static final String DAM_SOURCE = "photoshop:Source";
-    private static final String DAM_ASSET_HREF = "href";
     private static final String DAM_SOURCE_ORIGIN = "dc:source";
     private static final String DAM_SOURCE_RELATION = "dc:relation";
     private static final String DAM_SOURCE_URL = "sourceAsset";
@@ -107,6 +108,8 @@
     private static final String FIELD_ARIA_HIDDEN = "ariaHidden";
     private static final String FIELD_ARIA_HASPOPUP = "ariaHaspopup";
     private static final String FIELD_ARIA_ACCESSKEY = "ariaAccessKey";
+
+    private static final String FIELD_HREF = "href";
 
 
     // {
@@ -213,13 +216,12 @@
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
     public static final Object[][] DEFAULT_FIELDS_ASSET_IMAGE = {
-            {DamConstants.DC_TITLE, StringUtils.EMPTY},
-            {DamConstants.DC_DESCRIPTION, StringUtils.EMPTY},
+            {DAM_TITLE, StringUtils.EMPTY},
+            {DAM_DESCRIPTION, StringUtils.EMPTY},
             {DAM_CREDIT, StringUtils.EMPTY},
             {DAM_HEADLINE, StringUtils.EMPTY},
             {DAM_SOURCE, StringUtils.EMPTY},
             {DAM_SOURCE_URL, StringUtils.EMPTY},
-            {DAM_ASSET_HREF, StringUtils.EMPTY}
     };
 
     // {
@@ -229,14 +231,13 @@
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
     public static final Object[][] DEFAULT_FIELDS_ASSET_VIDEO = {
-            {DamConstants.DC_TITLE, StringUtils.EMPTY},
-            {DamConstants.DC_DESCRIPTION, StringUtils.EMPTY},
-            {DAM_CREDIT, StringUtils.EMPTY},
+            {DAM_TITLE, StringUtils.EMPTY},
+            {DAM_DESCRIPTION, StringUtils.EMPTY},
             {DAM_HEADLINE, StringUtils.EMPTY},
+            {DAM_CREDIT, StringUtils.EMPTY},
             {DAM_SOURCE, StringUtils.EMPTY},
             {DAM_SOURCE_URL, StringUtils.EMPTY},
             {DAM_VIDEO_URL, StringUtils.EMPTY},
-            {DAM_ASSET_HREF, StringUtils.EMPTY}
     };
 
     /** Local logging container. */
