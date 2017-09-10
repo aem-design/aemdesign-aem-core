@@ -46,22 +46,23 @@
         <small>(<%=_componentContext.getCell().getName()%> : <%=_resource.getName()%> # <%=originVariant%>)<%=originLocation%></small>
         <%
 
-        String componentVariant = DEFAULT_VARIANT;
+        if (INCLUDE_BADGE_VARIANT_CODE) {
+            String componentVariant = DEFAULT_VARIANT;
 
-        //print component variant template
-        ComponentProperties componentBadgeProperties = (ComponentProperties)pageContext.getAttribute("componentProperties");
-        if (componentBadgeProperties != null) {
-            componentVariant = componentBadgeProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
+            //print component variant template
+            ComponentProperties componentBadgeProperties = (ComponentProperties) pageContext.getAttribute("componentProperties");
+            if (componentBadgeProperties != null) {
+                componentVariant = componentBadgeProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
+            }
+
+            String variantPath = String.format("%s/variant.%s.jsp", _component.getPath(), componentVariant);
+
+            Resource variantResource = _resourceResolver.getResource(variantPath);
+            if (variantResource != null) {
+                String variantContents = getResourceContent(variantResource);
+                out.write( _xssAPI.encodeForHTML(String.format("<div class=\"code variant %s\"><pre><code>%s</code></pre></div>", componentVariant, variantContents)) );
+            }
         }
-
-        String variantPath = String.format("%s/variant.%s.jsp", _component.getPath(), componentVariant);
-
-        Resource variantResource = _resourceResolver.getResource(variantPath);
-        if (variantResource != null) {
-            String variantContents = getResourceContent(variantResource);
-            out.write(String.format("<div class=\"code variant %s\"><pre><code>%s</code></pre></div>", componentVariant, variantContents));
-        }
-
         %>
     </details>
     </c:if>

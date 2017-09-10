@@ -66,6 +66,7 @@
     final boolean INCLUDE_PAGE_COMPONENTINIT = true;
     final boolean INCLUDE_PAGE_CONTEXTHUB = true;       //used in Touch UI
     final boolean INCLUDE_PAGE_CLIENTCONTEXT = false;   //used in Classic UI
+    final boolean INCLUDE_BADGE_VARIANT_CODE = false; //show component variant template in component BADGE
 
     //remove decoration for all components
     if (CURRENT_WCMMODE != WCMMode.EDIT && CURRENT_WCMMODE != WCMMode.DESIGN) {
@@ -105,3 +106,4 @@
 <c:set var="INCLUDE_PAGE_CLOUDSERVICES" value="<%= INCLUDE_PAGE_CLOUDSERVICES %>"/>
 <c:set var="INCLUDE_PAGE_COMPONENTINIT" value="<%= INCLUDE_PAGE_COMPONENTINIT %>"/>
 <c:set var="MODE_TOUCHUI" value="<%= MODE_TOUCHUI %>"/>
+<c:set var="INCLUDE_BADGE_VARIANT_CODE" value="<%= INCLUDE_BADGE_VARIANT_CODE %>"/>
