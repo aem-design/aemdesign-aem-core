@@ -81,6 +81,6 @@
 <cq:include script="head.jsp"/>
 <cq:include script="body.jsp"/>
 <c:if test="${INCLUDE_PAGE_TIMING}">
-    <cq:include path="timing" resourceType="foundation/components/timing"/>
+    <cq:include path="timing" resourceType="aemdesign/components/common/timing"/>
 </c:if>
 </html>
