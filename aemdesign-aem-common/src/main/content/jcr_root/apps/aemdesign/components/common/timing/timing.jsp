@@ -97,35 +97,35 @@ private static boolean accept(String line) {
     return result;
 }
 
-    public static byte[] compress(String str) throws Exception {
-        if (str == null || str.length() == 0) {
-            return null;
-        }
-        System.out.println("String length : " + str.length());
-        ByteArrayOutputStream obj=new ByteArrayOutputStream();
-        GZIPOutputStream gzip = new GZIPOutputStream(obj);
-        gzip.write(str.getBytes("UTF-8"));
-        gzip.close();
-        String outStr = obj.toString("UTF-8");
-        System.out.println("Output String length : " + outStr.length());
-        return obj.toByteArray();
+public static byte[] compress(String str) throws Exception {
+    if (str == null || str.length() == 0) {
+        return null;
     }
+    System.out.println("String length : " + str.length());
+    ByteArrayOutputStream obj=new ByteArrayOutputStream();
+    GZIPOutputStream gzip = new GZIPOutputStream(obj);
+    gzip.write(str.getBytes("UTF-8"));
+    gzip.close();
+    String outStr = obj.toString("UTF-8");
+    System.out.println("Output String length : " + outStr.length());
+    return obj.toByteArray();
+}
 
-    public static String decompress(byte[] bytes) throws Exception {
-        if (bytes == null || bytes.length == 0) {
-            return null;
-        }
-        System.out.println("Input String length : " + bytes.length);
-        GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(bytes));
-        BufferedReader bf = new BufferedReader(new InputStreamReader(gis, "UTF-8"));
-        String outStr = "";
-        String line;
-        while ((line=bf.readLine())!=null) {
-            outStr += line;
-        }
-        System.out.println("Output String lenght : " + outStr.length());
-        return outStr;
+public static String decompress(byte[] bytes) throws Exception {
+    if (bytes == null || bytes.length == 0) {
+        return null;
     }
+    System.out.println("Input String length : " + bytes.length);
+    GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(bytes));
+    BufferedReader bf = new BufferedReader(new InputStreamReader(gis, "UTF-8"));
+    String outStr = "";
+    String line;
+    while ((line=bf.readLine())!=null) {
+        outStr += line;
+    }
+    System.out.println("Output String lenght : " + outStr.length());
+    return outStr;
+}
 
 %>
 
@@ -196,7 +196,7 @@ out.println("More detailed timing info is available by uncommenting some code in
 out.println("Timing chart URL:");
 
     String url = "http://aem.design/component-timing/#data=";
-
+    byte[] encoded = new byte[0];
     try {
 
         final JSONStringer w = new JSONStringer();
@@ -233,15 +233,15 @@ out.println("Timing chart URL:");
 //        out.println("len:" + w.toString().length());
 //        out.println("after compress:");
         byte[] compressed = compress(w.toString());
-        byte[] encoded = Base64.getEncoder().encode(compressed);
+        encoded = Base64.getEncoder().encode(compressed);
 //        out.println("compress len:"+compressed.length);
 //        out.println("base64 len:"+encoded.length);
 //        out.println("base64:");
 //        out.println(new String(encoded));
 //        out.println("after decompress:");
-        String decomp = decompress(compressed);
+//        String decomp = decompress(compressed);
 //        out.println(decomp);
-        out.println(  url + new String(encoded) );
+//        out.println(  url + new String(encoded) );
 
     } catch (Exception ex ) {
         out.println(ex.toString());
@@ -249,3 +249,4 @@ out.println("Timing chart URL:");
 
     out.println("-->");
 %>
+<a class="timing hidden" href="<%=url + new String(encoded)%>">Component Timing</a>
