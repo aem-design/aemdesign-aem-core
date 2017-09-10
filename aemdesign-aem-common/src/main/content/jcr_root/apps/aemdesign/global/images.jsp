@@ -1,28 +1,22 @@
+<%@ page import="com.adobe.xmp.XMPDateTime" %>
 <%@ page import="com.day.cq.dam.api.Asset" %>
 <%@ page import="com.day.cq.dam.api.DamConstants" %>
 <%@ page import="com.day.cq.dam.api.Rendition" %>
 <%@ page import="com.day.cq.dam.commons.util.DamUtil" %>
+<%@ page import="com.day.cq.dam.commons.util.UIHelper" %>
 <%@ page import="com.day.cq.wcm.api.Page" %>
 <%@ page import="com.day.cq.wcm.foundation.Image" %>
 <%@ page import="com.day.image.Layer" %>
+<%@ page import="com.google.common.collect.Lists" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
-<%@ page import="org.apache.commons.lang3.time.DateUtils" %>
 <%@ page import="org.apache.sling.api.resource.Resource" %>
 <%@ page import="javax.jcr.Node" %>
 <%@ page import="javax.jcr.RepositoryException" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.adobe.xmp.XMPDateTime" %>
+<%@ page import="java.util.regex.Matcher" %>
 
 
 <%!
-
-    final String DAM_ALT_TITLE = "titleAlt";
-    final String DAM_CAPTION = "caption";
-    final String DAM_CATEGORY = "category";
-    final String DAM_DIRECTOR = "director";
-    final String DAM_ARTISTSTATEMENT = "artisticStatement";
-    final String DAM_SOURCE_URL = "sourceUrl";
-    final String DAM_VIDEO_URL = "sourceUrl";
 
     final int DEFAULT_THUMB_WIDTH_XSM = 140;
     final int DEFAULT_THUMB_WIDTH_SM = 319;
@@ -39,7 +33,6 @@
 
     final String FORM_CHOOSER_SELECTOR_SERVLET = ".form";
 
-
     final String DEFAULT_IMAGE_PATH = "/content/dam/aemdesign/admin/defaults/blank.png";
     final String DEFAULT_IMAGE_PATH_RENDITION = "/content/dam/aemdesign/admin/defaults/blank".concat(DEFAULT_IMAGE_THUMB_SELECTOR);
 
@@ -50,10 +43,6 @@
 
     final String MEDIUM_THUMBNAIL_SIZE = "320";
     final String LARGE_THUMBNAIL_SIZE = "480";
-
-    final String DAM_FIELD_LICENSE_COPYRIGHT_OWNER = "xmpRights:Owner";
-    final String DAM_FIELD_LICENSE_USAGETERMS = "xmpRights:UsageTerms";
-    final String DAM_FIELD_LICENSE_EXPIRY = "prism:expirationDate";
 
     /***
      * get attributes from asset
@@ -95,6 +84,41 @@
 
             return getMetadataStringForKey(asset , name);
         }
+    }
+
+
+    /**
+     * Necessary to make sure some of the weird behavior CQ exhibits gets worked around. In
+     * some cases (don't know when exactly), the asset dc:title and dc:description keys are
+     * returned as Object[] with one element instead of a String. This method tests that
+     * and returns the first element from the list or just the element itself
+     *
+     * @param assetNode is the asset to interogate
+     * @param key is the key to get the metadata for
+     * @return the value or null when nothing is found
+     */
+    protected String getMetadataStringForKey(Node assetNode, String key, String defaultValue) {
+        if (assetNode == null) {
+            return null;
+        }
+        if (StringUtils.isBlank(key)) {
+            return null;
+        }
+
+        String returnVal = "";
+
+        final String PROPERTY_METADATA = JcrConstants.JCR_CONTENT + "/metadata";
+        try {
+
+            if (assetNode.hasNode(PROPERTY_METADATA)) {
+                Node metadataNode = assetNode.getNode(PROPERTY_METADATA);
+                returnVal = DamUtil.getValue(metadataNode, key, defaultValue);
+            }
+        } catch ( RepositoryException rex) {
+            // If this fails it's ok, we return 0 as fallback
+        }
+        return returnVal;
+
     }
 
     /**
@@ -659,6 +683,255 @@
 
         return copyrightInfo;
 
+    }
+
+    /***
+     * allow asset rendition compare by width
+     */
+    protected class WidthBasedRenditionComparator implements Comparator<com.adobe.granite.asset.api.Rendition>
+    {
+        public int compare(com.adobe.granite.asset.api.Rendition r1, com.adobe.granite.asset.api.Rendition r2)
+        {
+            int w1 = getWidth(r1);
+            int w2 = getWidth(r2);
+            if (w1 < w2) {
+                return -1;
+            }
+            if (w1 == w2) {
+                return 0;
+            }
+            return 1;
+        }
+    }
+
+    protected  int getWidth(com.adobe.granite.asset.api.Rendition r)
+    {
+        return getDimension(r, "tiff:ImageWidth");
+    }
+
+    protected  int getHeight(com.adobe.granite.asset.api.Rendition r)
+    {
+        return getDimension(r, "tiff:ImageLength");
+    }
+
+    protected int getDimension(com.adobe.granite.asset.api.Rendition r, String dimensionProperty)
+    {
+        if (r == null)
+        {
+            LOG.debug("Null rendition at", new Exception("Null rendition"));
+            return 0;
+        }
+        if ((dimensionProperty == null) || ((!dimensionProperty.equals("tiff:ImageLength")) && (!dimensionProperty.equals("tiff:ImageWidth"))))
+        {
+            LOG.warn("Incorrect dimension property for {}", r.getPath(), new Exception("Invalid property name " + dimensionProperty));
+            return 0;
+        }
+        String name = r.getName();
+        if (name == null)
+        {
+            LOG.warn("Null name returned at {}", r.getPath());
+            return 0;
+        }
+        try
+        {
+            if (name.equals("original"))
+            {
+                com.adobe.granite.asset.api.Asset asset = (com.adobe.granite.asset.api.Asset)r.adaptTo(com.adobe.granite.asset.api.Asset.class);
+                if (asset == null)
+                {
+                    LOG.debug("Rendition at {} is not adaptable to an asset.", r.getPath());
+                    return 0;
+                }
+
+                String val = null;
+                Node assetNode = (Node)asset.adaptTo(Node.class);
+                if (!assetNode.hasNode("jcr:content/metadata")) {
+                    Node assetMetadata = assetNode.getNode("jcr:content/metadata");
+                    if (assetMetadata.hasProperty(dimensionProperty)) {
+                        val = assetMetadata.getProperty(dimensionProperty).getString();
+                    }
+                }
+
+                if ((val == null) || (val.length() == 0))
+                {
+                    LOG.debug("Unable to find metadata property {} for {}", dimensionProperty, asset.getPath());
+                    return 0;
+                }
+                try
+                {
+                    return Integer.parseInt(val);
+                }
+                catch (NumberFormatException nfe)
+                {
+                    LOG.warn("Metadata property {} was {} and not a number at {}", new Object[] { dimensionProperty, val, asset.getPath() });
+                    return 0;
+                }
+            }
+            Matcher matcher = DEFAULT_RENDTION_PATTERN_OOTB.matcher(name);
+            if (matcher.matches())
+            {
+                int matcherIndex;
+                if ("tiff:ImageLength".equals(dimensionProperty)) {
+                    matcherIndex = 3;
+                } else {
+                    matcherIndex = 2;
+                }
+                return Integer.parseInt(matcher.group(matcherIndex));
+            }
+            LOG.debug("Unknown naming format for name {} at {}", name, r.getPath());
+            return 0;
+        }
+        catch (Exception e)
+        {
+            LOG.warn("Unexpected exception finding dimension for asset at {} " + r.getPath(), e);
+        }
+        return 0;
+    }
+
+    /***
+     * allow picking of best rendition by width based on default prefixes
+     * @param width min width
+     * @param renditions
+     * @return
+     */
+    protected com.adobe.granite.asset.api.Rendition getBestFitRendition(int width, List<com.adobe.granite.asset.api.Rendition> renditions) {
+        return getBestFitRendition(width,renditions,null);
+    }
+
+    /***
+     * allow picking of best rendition by width based on default prefixes
+     * @param width min width
+     * @param asset asset with renditions
+     * @return
+     */
+    protected com.adobe.granite.asset.api.Rendition getBestFitRendition(int width, com.adobe.granite.asset.api.Asset asset) {
+        List<com.adobe.granite.asset.api.Rendition> renditions = Lists.newArrayList(asset.listRenditions());
+        return getBestFitRendition(width,renditions,null);
+    }
+
+    /***
+     * allow picking of best rendition by width with optional prefix
+     * @param width min width
+     * @param asset asset with renditions
+     * @param renditionPrefix rendition prefix
+     * @return
+     */
+    protected com.adobe.granite.asset.api.Rendition getBestFitRendition(int width, com.adobe.granite.asset.api.Asset asset, String renditionPrefix)
+    {
+        List<com.adobe.granite.asset.api.Rendition> renditions = Lists.newArrayList(asset.listRenditions());
+        return getBestFitRendition(width,renditions,renditionPrefix);
+
+    }
+    /***
+     * allow picking of best rendition by width with optional prefix
+     * @param width min width
+     * @param renditions list of renditions
+     * @param renditionPrefix rendition prefix
+     * @return
+     */
+    protected com.adobe.granite.asset.api.Rendition getBestFitRendition(int width, List<com.adobe.granite.asset.api.Rendition> renditions, String renditionPrefix)
+    {
+        com.adobe.granite.asset.api.Rendition bestFitRendition = null;
+        //try custom prefix directly
+        if (renditionPrefix != null) {
+            bestFitRendition = getRenditionByPrefix(renditions.iterator(), renditionPrefix + width);
+        }
+        //try default prefixes directly
+        if (bestFitRendition == null) {
+
+            bestFitRendition = getRenditionByPrefix(renditions.iterator(), DEFAULT_ASSET_RENDITION_PREFIX1 + width);
+            if (bestFitRendition == null) {
+                bestFitRendition = getRenditionByPrefix(renditions.iterator(), DEFAULT_ASSET_RENDITION_PREFIX2 + width);
+            }
+        }
+        if (bestFitRendition != null) {
+            return bestFitRendition;
+        }
+        //if not found directly, find first rendition bigger that what we need
+        WidthBasedRenditionComparator comp = new WidthBasedRenditionComparator();
+        Collections.sort(renditions, comp);
+//        Collections.reverse(renditions);
+        Iterator<com.adobe.granite.asset.api.Rendition> itr = renditions.iterator();
+        com.adobe.granite.asset.api.Rendition bestFit = null;
+        com.adobe.granite.asset.api.Rendition original = null;
+        while (itr.hasNext())
+        {
+            com.adobe.granite.asset.api.Rendition rend = itr.next();
+            if (canRenderOnWeb(rend.getMimeType()))
+            {
+                int w = getWidth(rend);
+                LOG.error("Comparing widths {} >= {}: {}", w, width, rend.getName());
+                if (w >= width) {
+                    bestFit = rend;
+                    if (renditionPrefix != null) {
+                        //if matches width and type continue
+                        if (rend.getName().startsWith(renditionPrefix)) {
+                            LOG.error("Bingo! {}", rend.getName());
+                            return bestFit;
+                        }
+                    } else {
+                        if (rend.getName().startsWith(DEFAULT_ASSET_RENDITION_PREFIX1) || rend.getName().startsWith(DEFAULT_ASSET_RENDITION_PREFIX2)) {
+                            LOG.error("Width Match Default Rendition! {}", rend.getName());
+                            return bestFit;
+                        }
+                    }
+                }
+            }
+        }
+        //find first rendition that can be rendered
+        itr = renditions.iterator();
+        if (bestFit == null) {
+            while (itr.hasNext())
+            {
+                com.adobe.granite.asset.api.Rendition rend = itr.next();
+                if (canRenderOnWeb(rend.getMimeType()))
+                {
+                    bestFit = rend;
+                    break;
+                }
+            }
+        }
+        return bestFit;
+    }
+
+    public static boolean canRenderOnWeb(String mimeType)
+    {
+        return (mimeType != null) && ((mimeType.toLowerCase().contains("jpeg")) || (mimeType.toLowerCase().contains("jpg")) || (mimeType.toLowerCase().contains("gif")) || (mimeType.toLowerCase().contains("png")));
+    }
+
+    public com.adobe.granite.asset.api.Rendition getRenditionByPrefix(com.adobe.granite.asset.api.Asset asset, String prefix, boolean returnOriginal)
+    {
+        Iterator renditions = asset.listRenditions();
+        return getRenditionByPrefix(renditions,prefix,returnOriginal);
+    }
+    public com.adobe.granite.asset.api.Rendition getRenditionByPrefix(com.adobe.granite.asset.api.Asset asset, String prefix)
+    {
+        Iterator renditions = asset.listRenditions();
+        return getRenditionByPrefix(renditions,prefix,false);
+    }
+
+    public com.adobe.granite.asset.api.Rendition getRenditionByPrefix(Iterator<com.adobe.granite.asset.api.Rendition> renditions, String prefix)
+    {
+        return getRenditionByPrefix(renditions,prefix,false);
+    }
+
+    public com.adobe.granite.asset.api.Rendition getRenditionByPrefix(Iterator<com.adobe.granite.asset.api.Rendition> renditions, String prefix, boolean returnOriginal)
+    {
+        com.adobe.granite.asset.api.Rendition original = null;
+        while (renditions.hasNext())
+        {
+            com.adobe.granite.asset.api.Rendition rendition = renditions.next();
+            if ("original".equals(rendition.getName())) {
+                original = rendition;
+            }
+            if (rendition.getName().startsWith(prefix)) {
+                return rendition;
+            }
+        }
+        if (returnOriginal) {
+            return original;
+        }
+        return null;
     }
 
 %>
