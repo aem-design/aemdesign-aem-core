@@ -391,35 +391,40 @@
             <items jcr:primaryType="cq:WidgetCollection">
                 <title
                         jcr:primaryType="cq:Widget"
-                        fieldDescription="Alternative title that overrides the existing image title from DAM"
+                        fieldDescription="This field can include a shorthand reference for the asset primarily for identification."
                         fieldLabel="Title"
                         name="./dc:title"
                         xtype="textfield"/>
                 <description
                         jcr:primaryType="cq:Widget"
-                        fieldDescription="Alternative description that overrides the existing image description from DAM"
+                        fieldDescription="The Description field should report the who, what and why of what the photograph depicts. "
                         fieldLabel="Description"
                         name="./dc:description"
                         xtype="textarea"/>
-                <altText
+                <headline
                         jcr:primaryType="cq:Widget"
-                        fieldDescription="Alternative alt text that overrides the existing image alt text from DAM"
-                        fieldLabel="Alt Text"
-                        name="./titleAlt"
+                        fieldDescription="A headline is a brief, publishable synopsis or summary of the contents of the photograph."
+                        fieldLabel="Headline"
+                        name="./photoshop:Headline"
                         xtype="textfield"/>
-                <caption
+                <creditLine
                         jcr:primaryType="cq:Widget"
-                        fieldDescription="A brief explanation accompanying an illustration"
-                        fieldLabel="Caption"
-                        name="./caption"
+                        fieldDescription="The Credit Line is a free-text field that specifies how to acknowledge the supplying person(s) and/or organization(s) when publishing the image."
+                        fieldLabel="Credit Line"
+                        name="./photoshop:Credit"
                         xtype="textfield"/>
-                <sourceURL
+                <source
                         jcr:primaryType="cq:Widget"
-                        fieldDescription="Alternative destination URL overrides the existing value from DAM"
-                        fieldLabel="Source URL"
-                        name="./sourceUrl"
+                        fieldDescription="The Source field should identify the original owner or copyright holder of the photograph. "
+                        fieldLabel="Source"
+                        name="./photoshop:Source"
                         xtype="textfield"/>
-
+                <sourceAsset
+                        jcr:primaryType="cq:Widget"
+                        fieldDescription="Asset source destination."
+                        fieldLabel="Asset URL"
+                        name="./sourceAsset"
+                        xtype="textfield"/>
             </items>
         </overrideImageMetadataTab>
 
