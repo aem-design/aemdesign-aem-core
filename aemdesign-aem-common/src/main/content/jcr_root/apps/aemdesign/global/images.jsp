@@ -860,24 +860,27 @@
             if (canRenderOnWeb(rend.getMimeType()))
             {
                 int w = getWidth(rend);
-                LOG.error("Comparing widths {} >= {}: {}", w, width, rend.getName());
+//                LOG.error("Comparing widths {} >= {}: {}", w, width, rend.getName());
                 if (w >= width) {
                     bestFit = rend;
                     if (renditionPrefix != null) {
                         //if matches width and type continue
                         if (rend.getName().startsWith(renditionPrefix)) {
-                            LOG.error("Bingo! {}", rend.getName());
-                            return bestFit;
+//                            LOG.error("Bingo! {}", rend.getName());
+//                            return bestFit;
+                            break;
                         }
                     } else {
                         if (rend.getName().startsWith(DEFAULT_ASSET_RENDITION_PREFIX1) || rend.getName().startsWith(DEFAULT_ASSET_RENDITION_PREFIX2)) {
-                            LOG.error("Width Match Default Rendition! {}", rend.getName());
-                            return bestFit;
+//                            LOG.error("Width Match Default Rendition! {}", rend.getName());
+//                            return bestFit;
+                            break;
                         }
                     }
                 }
             }
         }
+
         //find first rendition that can be rendered
         itr = renditions.iterator();
         if (bestFit == null) {
@@ -891,6 +894,18 @@
                 }
             }
         }
+
+        //return asset instead of original rendition
+        if (bestFit.getPath().endsWith("/original")) {
+            String assetPath = bestFit.getPath();
+            assetPath = assetPath.substring(0,assetPath.indexOf(JcrConstants.JCR_CONTENT)-1);
+            ResourceResolver resourceResolver = bestFit.adaptTo(ResourceResolver.class);
+            if (resourceResolver != null) {
+                Resource asset = resourceResolver.resolve(assetPath);
+                bestFit = asset.adaptTo(com.adobe.granite.asset.api.Rendition.class);
+            }
+        }
+
         return bestFit;
     }
 
