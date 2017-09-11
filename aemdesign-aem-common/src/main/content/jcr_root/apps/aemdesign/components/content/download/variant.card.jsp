@@ -1,5 +1,5 @@
 <div ${componentProperties.componentAttributes}>
-    <c:if test="${not componentProperties.thumbnailType eq 'icon'}">
+    <c:if test="${componentProperties.thumbnailType ne 'icon'}">
         <c:if test="${not empty componentProperties.thumbnailWidth}">
             <c:set var="attr" value="width=\"${componentProperties.thumbnailWidth}\""/>
         </c:if>
