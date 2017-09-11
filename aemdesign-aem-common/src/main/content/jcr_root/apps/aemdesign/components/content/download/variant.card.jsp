@@ -4,10 +4,16 @@
             <span class="icon type_${componentProperties.iconType}"><img src="/libs/cq/ui/resources/0.gif" alt="${componentProperties.mimeTypeLabel}"/></span>
         </c:when>
         <c:otherwise>
-            <img class="card-img-top" src="${componentProperties.thumbnail}" alt="${componentProperties.title}"
-                    <c:if test="${not empty componentProperties.thumbnailWidth}"> width="${componentProperties.thumbnailWidth}"</c:if>
-                    <c:if test="${not empty componentProperties.thumbnailHeight}"> height="${componentProperties.thumbnailHeight}"</c:if>
-            />
+            <c:if test="${not empty componentProperties.thumbnailWidth}">
+                <c:set var="attr" value="width=\"${componentProperties.thumbnailWidth}\""/>
+            </c:if>
+            <c:if test="${not empty componentProperties.thumbnailHeight}">
+                <c:set var="attr" value="${attr} height=\"${componentProperties.htmlHeight}\""/>
+            </c:if>
+            <c:if test="${not empty componentProperties.title}">
+                <c:set var="attr" value="${attr} alt=\"${componentProperties.title}\""/>
+            </c:if>
+            <img class="card-img-top" src="${componentProperties.thumbnail}" ${attr}/>
         </c:otherwise>
     </c:choose>
     <div class="card-block">
