@@ -39,7 +39,7 @@ window.AEMDESIGN.components.image = AEMDESIGN.components.image || {};
             var $picImg = $("img", currentPicture).first();
 
             if (matches.length) {
-                if ($picImg.size() === 0) {
+                if ($picImg.length === 0) {
                     var $currentPicture = $(currentPicture);
                     $picImg = $("<img />").attr("alt", $currentPicture.attr("data-alt")).appendTo($currentPicture);
                 }
