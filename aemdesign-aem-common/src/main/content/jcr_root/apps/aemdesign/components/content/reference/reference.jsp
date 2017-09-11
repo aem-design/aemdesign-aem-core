@@ -1,5 +1,4 @@
-<%@page import="com.day.cq.wcm.api.WCMMode,
-    com.day.cq.wcm.api.components.DropTarget" %>
+<%@page %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/i18n.jsp" %>
