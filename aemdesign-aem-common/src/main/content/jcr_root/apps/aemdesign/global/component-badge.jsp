@@ -6,38 +6,53 @@
     <c:if test="${CURRENT_WCMMODE == WCMMODE_EDIT || CURRENT_WCMMODE == WCMMODE_PREVIEW}">
     <details class="component badge badge-pill cq-info">
         <%
-            String originLocation = "";
-            String originVariant = "";
+        String originLocation = "";
+        String originVariant = "";
+        String originLocationLink = " Source: <a target=\"_blank\" href=\"{0}.html\">{1}</a>";
 
-            try {
-                Resource originalResource = (Resource) request.getAttribute(INHERITED_RESOURCE);
-                if (originalResource != null) {
-                    String originPath = originalResource.getPath();
-                    String originName = originalResource.getName();
-                    ValueMap resourceProps = originalResource.getValueMap();
-                    if (resourceProps!=null) {
-                        originVariant = resourceProps.get(FIELD_VARIANT,"variant not set");
-                    }
-                    if (originPath.indexOf("/jcr") > 0) {
-                        originPath = originPath.substring(0, originPath.indexOf("/jcr"));
+        try {
+            Resource originalResource = (Resource) request.getAttribute(INHERITED_RESOURCE);
+            if (originalResource != null) {
+                String originPath = originalResource.getPath();
+                String originName = originalResource.getName();
+                ValueMap resourceProps = originalResource.getValueMap();
+                if (resourceProps!=null) {
+                    originVariant = resourceProps.get(FIELD_VARIANT,"variant not set");
+                }
+                if (originPath.indexOf("/jcr") > 0) {
+                    originPath = originPath.substring(0, originPath.indexOf("/jcr"));
 
-                        Page originPage = _pageManager.getPage(originPath);
-                        if (originPage != null) {
-                            originName = originPage.getTitle();
-                        } else {
-                            originName = originPath;
-                        }
-                    }
-                    originLocation = MessageFormat.format(" Source: <a href=\"{0}.html\">{1}</a>", originPath, originName);
-                    request.removeAttribute(INHERITED_RESOURCE);
-                } else {
-                    ValueMap resourceProps = _resource.getValueMap();
-                    if (resourceProps!=null) {
-                        originVariant = resourceProps.get(FIELD_VARIANT,"variant not set");
+                    Page originPage = _pageManager.getPage(originPath);
+                    if (originPage != null) {
+                        originName = originPage.getTitle();
+                    } else {
+                        originName = originPath;
                     }
                 }
+                originLocation = MessageFormat.format(originLocationLink, originPath, originName);
+                request.removeAttribute(INHERITED_RESOURCE);
+            } else {
+                ValueMap resourceProps = _resource.getValueMap();
+                if (resourceProps!=null) {
+                    originVariant = resourceProps.get(FIELD_VARIANT,"variant not set");
 
-            } catch (Exception ex) {}
+                    String referencePath = resourceProps.get(FIELD_REFERENCE_PATH,"");
+                    if (isNotEmpty(referencePath)) {
+                        Page originPage = _pageManager.getContainingPage(referencePath);
+                        if (originPage != null) {
+                            originLocation = MessageFormat.format(
+                                    originLocationLink,
+                                    originPage.getPath(),
+                                    originPage.getName()
+                                );
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception ex) {
+            LOG.error(ex.toString());
+        }
         %>
         <summary><%=_component.getTitle()%></summary>
         <%--<c:if test="${not empty componentProperties}">--%>
