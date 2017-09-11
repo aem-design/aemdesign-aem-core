@@ -38,6 +38,8 @@
 
     public static final String NODE_DETAILS = "*-details";
 
+    public static final String FIELD_REFERENCE_PATH = "path";
+
     public static final String FIELD_VARIANT = "variant";
     public static final String DEFAULT_VARIANT = "default";
     public static final String DEFAULT_BADGE = "default";
