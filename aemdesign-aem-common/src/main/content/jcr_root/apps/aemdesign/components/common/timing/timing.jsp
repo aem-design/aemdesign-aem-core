@@ -101,13 +101,13 @@ public static byte[] compress(String str) throws Exception {
     if (str == null || str.length() == 0) {
         return null;
     }
-    System.out.println("String length : " + str.length());
+//    System.out.println("String length : " + str.length());
     ByteArrayOutputStream obj=new ByteArrayOutputStream();
     GZIPOutputStream gzip = new GZIPOutputStream(obj);
     gzip.write(str.getBytes("UTF-8"));
     gzip.close();
     String outStr = obj.toString("UTF-8");
-    System.out.println("Output String length : " + outStr.length());
+//    System.out.println("Output String length : " + outStr.length());
     return obj.toByteArray();
 }
 
@@ -115,7 +115,7 @@ public static String decompress(byte[] bytes) throws Exception {
     if (bytes == null || bytes.length == 0) {
         return null;
     }
-    System.out.println("Input String length : " + bytes.length);
+//    System.out.println("Input String length : " + bytes.length);
     GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(bytes));
     BufferedReader bf = new BufferedReader(new InputStreamReader(gis, "UTF-8"));
     String outStr = "";
@@ -123,7 +123,7 @@ public static String decompress(byte[] bytes) throws Exception {
     while ((line=bf.readLine())!=null) {
         outStr += line;
     }
-    System.out.println("Output String lenght : " + outStr.length());
+//    System.out.println("Output String lenght : " + outStr.length());
     return outStr;
 }
 
