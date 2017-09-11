@@ -15,39 +15,27 @@ window.AEMDESIGN.components.image = AEMDESIGN.components.image || {};
     };
 
 
-    ns.picturefill = function (context) {
+    ns.picturefill = function ($currentPicture) {
 
-        log.info("picturefill functions is called ");
+        var matches = [];
 
-        var undefined;
-        if (context === undefined) {
-            context = $("body");
-        }
-
-
-        $("div[data-picture]", context).each(function () {
-            var currentPicture = this;
-            var matches = [];
-
-            $("div[data-media]", currentPicture).each(function () {
-                var media = $(this).attr("data-media");
-                if (!media || ( window.matchMedia && window.matchMedia(media).matches )) {
-                    matches.push(this);
-                }
-            });
-
-            var $picImg = $("img", currentPicture).first();
-
-            if (matches.length) {
-                if ($picImg.length === 0) {
-                    var $currentPicture = $(currentPicture);
-                    $picImg = $("<img />").attr("alt", $currentPicture.attr("data-alt")).appendTo($currentPicture);
-                }
-                $picImg.attr("src", matches.pop().getAttribute("data-src"));
-            } else {
-                $picImg.remove();
+        $("div[data-media]", $currentPicture).each(function () {
+            var media = $(this).attr("data-media");
+            if (!media || ( window.matchMedia && window.matchMedia(media).matches )) {
+                matches.push(this);
             }
         });
+
+        var $picImg = $("img", $currentPicture).first();
+
+        if (matches.length) {
+            if ($picImg.length === 0) {
+                $picImg = $("<img />").attr("alt", $currentPicture.attr("data-alt")).appendTo($currentPicture);
+            }
+            $picImg.attr("src", matches.pop().getAttribute("data-src"));
+        } else {
+            $picImg.remove();
+        }
     };
 
 

@@ -7,7 +7,11 @@ window.AEMDESIGN.components.image = AEMDESIGN.components.image || {};
 (function ($, _, ko, ns, window, undefined) { //add additional dependencies
 
     $(window).on("load resize", function () {
-        ns.picturefill();
+        $("div[data-picture]").each(function () {
+            var picture = $(this);
+            ns.picturefill(picture);
+        });
+
     });
 
 })(AEMDESIGN.jQuery, _, ko, AEMDESIGN.components.image, this); //pass in additional dependencies
