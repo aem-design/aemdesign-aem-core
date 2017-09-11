@@ -1,13 +1,6 @@
 <%@ page import="com.day.cq.wcm.foundation.Download,
-                     org.apache.sling.xss.ProtectionContext,
-                     org.apache.sling.xss.XSSFilter,
-					com.day.cq.dam.api.DamConstants" %>
+                    com.day.cq.dam.api.DamConstants" %>
 <%@ page import="java.text.MessageFormat" %>
-<%@ page import="org.apache.commons.lang3.*" %>
-<%@ page import="org.apache.commons.lang3.time.DateUtils" %>
-<%@ page import="com.adobe.xmp.XMPConst" %>
-<%@ page import="com.adobe.internal.xmp.XMPUtils" %>
-
 <%@ include file="/apps/aemdesign/global/global.jsp"%>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
