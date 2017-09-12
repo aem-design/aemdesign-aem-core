@@ -588,7 +588,7 @@
                             //skip entries that already exist
                             //first Object in fieldLists will set a field value
                             //we expect the additional Objects to not override
-                            LOG.warn("getComponentProperties: skipping property [{}] its already defined, {}", fieldName, componentContext.getResource().getPath());
+                            LOG.debug("getComponentProperties: skipping property [{}] its already defined, {}", fieldName, componentContext.getResource().getPath());
                             continue;
                         }
 
