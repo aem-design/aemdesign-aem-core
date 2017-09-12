@@ -71,6 +71,11 @@
             LOG.debug("image metadata can't be overridden for licensed image");
         }
 
+        String title = componentProperties.get(DAM_TITLE, "");
+        if (isEmpty(title)) {
+            componentProperties.put(DAM_TITLE, assetBasic.getName());
+        }
+
         //get page link
         String linkURL = componentProperties.get(FIELD_LINKURL, StringUtils.EMPTY);
         if (isNotEmpty(linkURL)) {
