@@ -1,191 +1,119 @@
-<%@ page import="com.day.cq.wcm.api.components.DropTarget,
-                 com.day.cq.wcm.foundation.Image,
-                 com.day.cq.wcm.foundation.Placeholder" %>
-
+<%@ page trimDirectiveWhitespaces="true"  %>
 <%@ page import="com.adobe.granite.asset.api.AssetManager" %>
 <%@ page import="com.day.cq.commons.ImageResource" %>
 <%@ page import="com.day.image.Layer" %>
+<%@ page import="com.adobe.granite.asset.api.AssetMetadata" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="imagedata.jsp" %>
 <%
 
+    final String DEFAULT_I18N_CATEGORY = "image";
+    final String DEFAULT_I18N_LABEL_LICENSEINFO = "licenseinfo";
     final String DEFAULT_ARIA_ROLE = "banner";
+    final String FIELD_LINKURL = "linkURL";
+    final String DEFAULT_TITLE_TAG_TYPE = "h4";
 
     // {
-    //   { name, defaultValue, attributeName, valueTypeClass }
-    // }
-    Object[][] assetFields = {
-            {DamConstants.DC_TITLE, StringUtils.EMPTY},
-            {DamConstants.DC_DESCRIPTION, StringUtils.EMPTY},
-            {DAM_CAPTION, StringUtils.EMPTY},
-            {DAM_ALT_TITLE, StringUtils.EMPTY},
-            {DAM_SOURCE_URL, StringUtils.EMPTY}
-    };
-
-    // {
-    //   { name, defaultValue, attributeName, stringValueTypeClass }
+    //   1 required - property name, [name]
+    //   2 required - default value, [defaultValue]
+    //   3 optional - name of component attribute to add value into [attributeName]
+    //   4 optional - canonical name of class for handling multivalues, String or Tag [stringValueTypeClass]
     // }
     Object[][] componentFields = {
             {FIELD_VARIANT, DEFAULT_VARIANT},
-            {"imageOption", IMAGE_OPTION_RESPONSIVE_RENDITION},
+            {"imageOption", IMAGE_OPTION_RESPONSIVE},
+            {ImageResource.PN_HTML_WIDTH, ""},
+            {ImageResource.PN_HTML_HEIGHT, ""},
             {ImageResource.PN_WIDTH, 0},
             {ImageResource.PN_HEIGHT, 0},
+            {IMAGE_FILEREFERENCE, ""},
             {"renditionImageMapping", new String[0]},
-            {"adaptiveImageMapping", new String[0]},
-            {"pageURL",StringUtils.EMPTY},
-            {"ariaRole",DEFAULT_ARIA_ROLE, "role"},
+            {FIELD_LINKURL,StringUtils.EMPTY},
+            {"renditionPrefix",StringUtils.EMPTY},
+            {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, "role"},
+            {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
     };
+
 
     ComponentProperties componentProperties = getComponentProperties(
             pageContext,
             componentFields,
+            DEFAULT_FIELDS_ASSET_IMAGE,
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    //Only support the Drag and Drop Images
-    Image image = new Image(_resource);
 
-    image.setIsInUITouchMode(Placeholder.isAuthoringUIModeTouch(_slingRequest));
+    String fileReference = componentProperties.get(IMAGE_FILEREFERENCE, "");
 
-    //drop target css class = dd prefix + name of the drop target in the edit config
-    image.addCssClass(DROP_TARGET_CSS_PREFIX_IMAGE);
+    if (isNotEmpty(fileReference)) {
 
-    image.loadStyleData(_currentStyle);
-    image.setSelector(".img"); // use image script
-    image.setDoctype(Doctype.fromRequest(_slingRequest));
-
-    // add design information if not default (i.e. for reference paras)
-    if (!_currentDesign.equals(_resourceDesign)) {
-        image.setSuffix(_currentDesign.getId());
-    }
-
-    componentProperties.put("imageHasContent", image.hasContent());
-
-    String divId = componentProperties.get("componentId", StringUtils.EMPTY);
-
-    if (!StringUtils.isEmpty(image.getFileReference())) {
-
+        //get asset
         AssetManager assetManager = _resourceResolver.adaptTo(AssetManager.class);
-        com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(image.getFileReference());
-        ComponentProperties assetProperties = getAssetProperties(pageContext, asset, assetFields);
+        com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(fileReference);
+        Resource assetR = _resourceResolver.resolve(fileReference);
+        Asset assetBasic = assetR.adaptTo(Asset.class);
+        Node assetN = assetR.adaptTo(Node.class);
 
-        componentProperties.putAll(assetProperties);
+        //get asset metadata
+        String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
+        String assetUsageTerms = assetBasic.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
+        String licenseInfo = getAssetCopyrightInfo(assetBasic, _i18n.get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
+        componentProperties.put("licenseInfo", licenseInfo);
 
-        image.setTitle(componentProperties.get(DamConstants.DC_TITLE, String.class));
-        image.setDescription(componentProperties.get(DamConstants.DC_DESCRIPTION, String.class));
-        image.setAlt(componentProperties.get(DAM_ALT_TITLE, String.class));
-        //Don't set linkURL because there is no option for Image.class to make anchor to open new Tab
-        //image.set(ImageResource.PN_LINK_URL, componentProperties.get(DAM_SOURCE_URL, String.class));
+        //ensure licensed image meta does not get overwritten
+        if (isNotEmpty(licenseInfo)) {
+            //get asset properties and overwrite all existing ones specified in component
+            ComponentProperties assetProperties = getAssetProperties(pageContext, asset, DEFAULT_FIELDS_ASSET_IMAGE);
+            //need to remove all non field specific
+            componentProperties.putAll(assetProperties);
+            LOG.debug("image metadata can't be overridden for licensed image");
+        }
 
-        String imageTargetURL = StringUtils.EMPTY;
-
-        if (componentProperties.get(FIELD_VARIANT, StringUtils.EMPTY).equals("default") == false) {
-
-            imageTargetURL = componentProperties.get("pageURL", StringUtils.EMPTY);
-            Page imageTargetPage = _pageManager.getPage(imageTargetURL);
+        //get page link
+        String linkURL = componentProperties.get(FIELD_LINKURL, StringUtils.EMPTY);
+        if (isNotEmpty(linkURL)) {
+            Page imageTargetPage = _pageManager.getPage(linkURL);
             if (imageTargetPage != null) {
-                imageTargetURL = getPageUrl(imageTargetPage);
+                linkURL = getPageUrl(imageTargetPage);
             }
-
+        } else {
+            //use dam link source from Asset if not assigned
+            linkURL = _xssAPI.getValidHref(componentProperties.get(DAM_SOURCE_URL, StringUtils.EMPTY));
         }
+        componentProperties.put("linkURL", linkURL);
 
-        if (StringUtils.isEmpty(imageTargetURL)) {
-            //Source URL does not use pathfield option
-            //Garbage in Garbage Out
-            imageTargetURL = componentProperties.get(DAM_SOURCE_URL, StringUtils.EMPTY);
-
-        }
-
-        //Image
-        componentProperties.put("image", image);
-
-        componentProperties.put("imageTargetURL", imageTargetURL);
-
-        Map<Integer, String> widthRenditionProfileMapping = new HashMap<Integer, String>();
         try {
-            String[] renditionImageMapping = (String[]) componentProperties.get("renditionImageMapping", new String[0]);
+            String imageOption = componentProperties.get("imageOption", IMAGE_OPTION_RESPONSIVE);
 
-            //out.println("widthRenditionProfileMapping : "+widthRenditionProfileMapping);
+//            out.print(assetBasic.getMetadata(DAM_FIELD_LICENSE_EXPIRY));
 
-            Map<Integer, String> responsiveImageSet = new HashMap<Integer, String>();
-
-            String imageOption = componentProperties.get("imageOption", IMAGE_OPTION_RESPONSIVE_RENDITION);
-            //out.println("imageOption "+ imageOption);
-            if (imageOption.equals(IMAGE_OPTION_FIXED_IMAGE_GENERATED)) {
-
-                Integer width = componentProperties.get(Image.PN_WIDTH, Integer.class);
-                Integer height = componentProperties.get(Image.PN_HEIGHT, Integer.class);
-                if (width != null) {
-
-                    width = this.getDimension(width, _currentStyle);
-
-                    if (width != null) {
-                        image.set(Image.PN_HTML_WIDTH, String.valueOf(width));
+            switch (imageOption) {
+                case IMAGE_OPTION_GENERATED:
+                    String imageHref = getResourceImageCustomHref(_resource,_component.getCellName());
+                    componentProperties.put("imageURL", imageHref);
+                    break;
+                case IMAGE_OPTION_RENDITION:
+                    int targetWidth = componentProperties.get(ImageResource.PN_WIDTH, 0);
+                    componentProperties.put("imageURL", getBestFitRendition(targetWidth, asset));
+                    break;
+                default:
+                    //get specified mapping values if any
+                    String[] renditionImageMapping = componentProperties.get("renditionImageMapping", new String[0]);
+                    //verify and convert to profile map
+                    Map<Integer, String> widthRenditionProfileMapping = getWidthProfileMap(renditionImageMapping);
+                    //get rendition profile prefix selected
+                    String renditionPrefix = componentProperties.get("renditionPrefix", "");
+                    //get best fit renditions set
+                    Map<Integer, String> responsiveImageSet = getBestFitRenditionSet(asset, widthRenditionProfileMapping, renditionPrefix);
+                    componentProperties.put("renditions", responsiveImageSet);
+                    //pick last one from collection
+                    Collection<String> values= responsiveImageSet.values();
+                    if (values.size() > 0) {
+                        componentProperties.put("imageURL", values.toArray()[values.size()-1]);
                     }
-
-                }
-
-                if (height != null) {
-
-                    height = this.getDimension(height, _currentStyle);
-
-                    if (height != null) {
-                        image.set(Image.PN_HTML_HEIGHT, String.valueOf(height));
-                    }
-
-                }
-
-            } else if (imageOption.equals(IMAGE_OPTION_FIXED_IMAGE_RENDITION)) {
-                int targetWidth = componentProperties.get(ImageResource.PN_WIDTH, 0);
-                widthRenditionProfileMapping = this.getWidthProfileMap(_currentStyle, targetWidth);
-                //out.println("IMAGE_OPTION_RESPONSIVE_RENDITION : "+widthRenditionProfileMapping);
-                responsiveImageSet = this.filterFixedRenditionImageSet(asset, widthRenditionProfileMapping, _resourceResolver);
-            } else if (imageOption.equals(IMAGE_OPTION_RESPONSIVE_RENDITION)) {
-                widthRenditionProfileMapping = this.getWidthProfileMap(renditionImageMapping);
-
-                responsiveImageSet = this.filterRenditionImageSet(asset, widthRenditionProfileMapping, _resourceResolver, true);
-                //out.println("responsiveRendition : "+widthRenditionProfileMapping);
-                //out.println("responsiveRendition : "+responsiveImageSet);
-            } else if (imageOption.equals(IMAGE_OPTION_RESPONSIVE_RENDITION_OVERRIDE)) {
-
-                widthRenditionProfileMapping = this.getWidthProfileMap(renditionImageMapping);
-                responsiveImageSet = this.filterRenditionImageSet(asset, widthRenditionProfileMapping, _resourceResolver, false);
-                //out.println("responsiveRenditionOverride : "+widthRenditionProfileMapping);
-                //out.println("responsiveRenditionOverride : "+responsiveImageSet);
-            } else if (imageOption.equals(IMAGE_OPTION_RESPONSIVE_GENERATED)) {
-
-                String[] adaptiveImageMapping = (String[]) componentProperties.get("adaptiveImageMapping", new String[0]);
-                widthRenditionProfileMapping = this.getWidthProfileMap(adaptiveImageMapping);
-
-                int[] supportedWidths = this.getAdaptiveImageSupportedWidths(_sling);
-
-                String path = request.getContextPath() + _resource.getPath();
-
-                // Handle extensions on both fileReference and file type images
-                String extension = "jpg";
-                String suffix = "";
-                if (image.getFileReference().length() != 0) {
-                    extension = image.getFileReference().substring(image.getFileReference().lastIndexOf(".") + 1);
-                    suffix = image.getSuffix();
-                    suffix = suffix.substring(0, suffix.indexOf('.') + 1) + extension;
-                } else {
-                    Resource fileJcrContent = _resource.getChild("file").getChild("jcr:content");
-                    if (fileJcrContent != null) {
-                        ValueMap fileProperties = fileJcrContent.adaptTo(ValueMap.class);
-                        String mimeType = fileProperties.get("jcr:mimeType", "jpg");
-                        extension = mimeType.substring(mimeType.lastIndexOf("/") + 1);
-                    }
-                }
-                extension = _xssAPI.encodeForHTMLAttr(extension);
-
-                path = path + ".img.{0}." + extension + suffix;
-
-                responsiveImageSet = this.filterAdaptiveImageSet(supportedWidths, widthRenditionProfileMapping, _resourceResolver, path);
             }
-            componentProperties.put("responsiveImageSet", responsiveImageSet);
-
 
         } catch (Exception ex) {
             LOG.error("failed to create Width and Image Mapping : " + ex.getMessage(), ex);
@@ -195,24 +123,18 @@
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
-    <c:when test="${componentProperties.imageHasContent eq false}">
+    <c:when test="${empty componentProperties.fileReference}">
         <%@include file="variant.empty.jsp" %>
-    </c:when>
-    <c:when test="${componentProperties.variant eq 'default'}">
-        <%@include file="variant.default.jsp" %>
     </c:when>
     <c:when test="${componentProperties.variant eq 'imageTitleDescription'}">
         <%@include file="variant.imageTitleDescription.jsp" %>
     </c:when>
-    <c:when test="${componentProperties.imageOption eq 'fixedImageRendition' ||
-                                    componentProperties.imageOption eq 'responsiveRendition' ||
-                                    componentProperties.imageOption eq 'responsiveRenditionOverride'||
-                                    componentProperties.imageOption eq 'responsiveGenerated'}">
-        <%@include file="variant.responsiveImage.jsp" %>
+    <c:when test="${componentProperties.variant eq 'card'}">
+        <%@include file="variant.card.jsp" %>
     </c:when>
     <c:otherwise>
-        <%@include file="variant.normalImage.jsp" %>
+        <%@include file="variant.default.jsp" %>
     </c:otherwise>
 </c:choose>
-<%@include file="tracking-js.jsp" %>
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>
+
