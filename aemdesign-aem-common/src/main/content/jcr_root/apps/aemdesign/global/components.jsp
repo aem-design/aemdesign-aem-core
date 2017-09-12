@@ -1,4 +1,5 @@
 <%@page session="false" %>
+<%@ page import="com.day.cq.dam.api.DamConstants" %>
 <%@ page import="com.adobe.granite.ui.components.AttrBuilder" %>
 <%@ page import="com.adobe.granite.xss.XSSAPI" %>
 <%@ page import="com.day.cq.wcm.api.components.Component" %>
@@ -8,9 +9,9 @@
 <%@ page import="com.day.cq.wcm.foundation.Placeholder" %>
 <%@ page import="com.google.common.base.Throwables" %>
 <%@ page import="org.apache.commons.io.IOUtils" %>
-<%@ page import="org.apache.commons.lang3.ArrayUtils" %>
-<%@ page import="org.apache.commons.lang3.StringUtils" %>
-<%@ page import="org.apache.commons.lang3.time.DateFormatUtils, org.apache.sling.api.SlingHttpServletRequest" %>
+<%@ page import="org.apache.commons.lang3.ArrayUtils, org.apache.commons.lang3.StringUtils" %>
+<%@ page import="org.apache.commons.lang3.time.DateFormatUtils" %>
+<%@ page import="org.apache.sling.api.SlingHttpServletRequest" %>
 <%@ page import="org.apache.sling.api.resource.ResourceResolver" %>
 <%@ page import="org.apache.sling.api.wrappers.ValueMapDecorator" %>
 <%@ page import="org.slf4j.Logger" %>
@@ -84,6 +85,9 @@
     private static final String DEFAULT_IMAGE_RESOURCETYPE = "aemdesign/components/media/image";
 
     private static final String COMPONENT_ATTRIBUTES = "componentAttributes";
+    private static final String COMPONENT_INSTANCE_NAME = "instanceName";
+    private static final String COMPONENT_TARGET_RESOURCE = "targetResource";
+    private static final String COMPONENT_ATTRIBUTE_CLASS = "class";
 
     private static final String PAR_PAGEDETAILS = "par/page-details";
     private static final String ARTICLE_PAR_PAGEDETAILS = "article/par/page-details";
@@ -112,6 +116,7 @@
     private static final String FIELD_ARIA_ACCESSKEY = "ariaAccessKey";
 
     private static final String FIELD_HREF = "href";
+    private static final String FIELD_TITLE_TAG_TYPE = "titleType";
 
 
     // {
@@ -490,6 +495,7 @@
 
         final String CLASS_TYPE_RESOURCE = Resource.class.getCanonicalName();
         final String CLASS_TYPE_JCRNODERESOURCE = "org.apache.sling.jcr.resource.internal.helper.jcr.JcrNodeResource";
+        final String CLASS_TYPE_ASSET = "com.adobe.granite.asset.core.impl.AssetImpl";
 
         ResourceResolver adminResourceResolver  = openAdminResourceResolver(sling);
         try {
@@ -498,19 +504,25 @@
 
             TagManager tagManager = adminResourceResolver.adaptTo(TagManager.class);
 
-            boolean useStyles = true;
+            boolean addMoreAttributes = true;
             // if targetResource == null get defaults
             ValueMap properties = (ValueMap) pageContext.getAttribute("properties");
             Style currentStyle = (Style) pageContext.getAttribute("currentStyle");
 
             //if targetResource != null get the appropriate objects
-            if (targetResource != null && targetResource.getClass().getCanonicalName().equals(com.adobe.granite.asset.api.Asset.class.getCanonicalName())) {
+            if (targetResource != null && targetResource.getClass().getCanonicalName().equals(CLASS_TYPE_ASSET)) {
+
                 try {
+                    LOG.error("getComponentProperties: processing asset");
                     com.adobe.granite.asset.api.Asset asset = (com.adobe.granite.asset.api.Asset) targetResource;
-                    Resource resource = asset.getResourceResolver().getResource(asset.getResourceMetadata().getResolutionPath());
+
+                    Resource resource = asset.getResourceResolver().getResource(asset, JcrConstants.JCR_CONTENT);
+
+                    if (resource != null) {
+                        resource = resource.getChild(DamConstants.METADATA_FOLDER);
+                    }
                     properties = resource.adaptTo(ValueMap.class);
-                    useStyles=false;
-                    //fieldValue = getAssetProperty(pageContext, (com.adobe.granite.asset.api.Asset) targetResource, fieldName, true);
+                    addMoreAttributes=false;
 
                 } catch(Exception ex) {
                     LOG.error("getComponentProperties: could not evaluate target asset",ex);
@@ -546,7 +558,7 @@
                         currentNode = resourceNode;
                     }
 
-                    componentProperties.put("targetResource", resource.getPath());
+                    componentProperties.put(COMPONENT_TARGET_RESOURCE, resource.getPath());
 
                     //getComponentProperty(ValueMap componentProperties, Style pageStyle, String name, Object defaultValue, Boolean useStyle)
                     //fieldValue = getComponentProperty(resourceProperties, resourceStyle, fieldName, fieldDefaultValue, true);
@@ -556,12 +568,12 @@
                 }
             }
 
-            if (currentNode != null) {
-                componentProperties.put("instanceName", currentNode.getName());
+            if (currentNode != null && addMoreAttributes) {
+                componentProperties.put(COMPONENT_INSTANCE_NAME, currentNode.getName());
             }
 
-            if (component != null) {
-                componentProperties.attr.add("class", component.getName().trim());
+            if (component != null && addMoreAttributes) {
+                componentProperties.attr.add(COMPONENT_ATTRIBUTE_CLASS, component.getName().trim());
             }
 
             if (fieldLists !=null) {
@@ -631,7 +643,7 @@
                     }
                 }
 
-                if (!componentProperties.attr.isEmpty()) {
+                if (!componentProperties.attr.isEmpty() && addMoreAttributes) {
                     componentProperties.put(COMPONENT_ATTRIBUTES, componentProperties.attr.build());
                 }
             }
