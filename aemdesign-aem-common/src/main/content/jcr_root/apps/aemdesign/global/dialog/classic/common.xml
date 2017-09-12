@@ -421,10 +421,10 @@
                         xtype="textfield"/>
                 <sourceAsset
                         jcr:primaryType="cq:Widget"
-                        fieldDescription="Asset source destination."
+                        fieldDescription="Asset source destination, pick asset or enter external url)"
                         fieldLabel="Asset URL"
                         name="./sourceAsset"
-                        xtype="textfield"/>
+                        xtype="pathfield"/>
             </items>
         </overrideImageMetadataTab>
 
