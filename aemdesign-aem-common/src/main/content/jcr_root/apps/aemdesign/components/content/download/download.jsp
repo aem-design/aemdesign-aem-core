@@ -19,7 +19,7 @@
             {"thumbnailWidth","", "thumbnailWidth"},
             {"thumbnailHeight","","thumbnailHeight"},
             {"title",""},
-            {"titleType", DEFAULT_TITLE_TAG_TYPE},
+            {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
             {"description",""},
             {"fileName",""},
             {"fileReference",""},
