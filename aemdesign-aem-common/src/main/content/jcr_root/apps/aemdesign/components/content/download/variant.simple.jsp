@@ -5,15 +5,15 @@
         </c:when>
         <c:otherwise>
             <c:if test="${not empty componentProperties.thumbnailWidth}">
-                <c:set var="attr" value="width=\"${componentProperties.thumbnailWidth}\""/>
+                <c:set var="imageAttr" value="${imageAttr} width=\"${componentProperties.thumbnailWidth}\""/>
             </c:if>
             <c:if test="${not empty componentProperties.thumbnailHeight}">
-                <c:set var="attr" value="${attr} height=\"${componentProperties.htmlHeight}\""/>
+                <c:set var="imageAttr" value="${imageAttr} height=\"${componentProperties.thumbnailHeight}\""/>
             </c:if>
             <c:if test="${not empty componentProperties.title}">
-                <c:set var="attr" value="${attr} alt=\"${componentProperties.title}\""/>
+                <c:set var="imageAttr" value="${imageAttr} alt=\"${componentProperties.title}\""/>
             </c:if>
-            <img src="${componentProperties.thumbnail}" ${attr}/>
+            <img src="${componentProperties.thumbnail}" ${imageAttr}/>
         </c:otherwise>
     </c:choose>
     <c:if test="${ not empty componentProperties.title}">

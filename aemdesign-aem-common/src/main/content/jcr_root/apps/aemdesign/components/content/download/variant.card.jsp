@@ -1,13 +1,13 @@
 <div ${componentProperties.componentAttributes}>
     <c:if test="${componentProperties.thumbnailType ne 'icon'}">
         <c:if test="${not empty componentProperties.thumbnailWidth}">
-            <c:set var="attr" value="width=\"${componentProperties.thumbnailWidth}\""/>
+            <c:set var="imageAttr" value="${imageAttr} width=\"${componentProperties.thumbnailWidth}\""/>
         </c:if>
         <c:if test="${not empty componentProperties.thumbnailHeight}">
-            <c:set var="attr" value="${attr} height=\"${componentProperties.htmlHeight}\""/>
+            <c:set var="imageAttr" value="${imageAttr} height=\"${componentProperties.thumbnailHeight}\""/>
         </c:if>
         <c:if test="${not empty componentProperties.title}">
-            <c:set var="attr" value="${attr} alt=\"${componentProperties.title}\""/>
+            <c:set var="imageAttr" value="${imageAttr} alt=\"${componentProperties.title}\""/>
         </c:if>
         <img class="card-img-top" src="${componentProperties.thumbnail}" ${attr}/>
     </c:if>
