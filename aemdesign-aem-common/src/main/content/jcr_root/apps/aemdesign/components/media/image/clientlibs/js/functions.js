@@ -30,7 +30,10 @@ window.AEMDESIGN.components.image = AEMDESIGN.components.image || {};
 
         if (matches.length) {
             if ($picImg.length === 0) {
-                $picImg = $("<img />").attr("alt", $currentPicture.attr("data-alt")).appendTo($currentPicture);
+                $picImg = $("<img />")
+                    .attr("alt", $currentPicture.attr("data-alt"))
+                    .attr("title", $currentPicture.attr("data-title"))
+                    .appendTo($currentPicture);
             }
             $picImg.attr("src", matches.pop().getAttribute("data-src"));
         } else {
