@@ -2,75 +2,42 @@
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:rep="internal"
           helpPath="en/cq/current/wcm/default_components.html#Text"
           jcr:primaryType="cq:Dialog"
-              jcr:mixinTypes="[rep:AccessControllable]"
+          jcr:mixinTypes="[rep:AccessControllable]"
+          selectTabInGroup="function(tabToSelect,tabGroupItems) { AEMDESIGN.dialog.manageTabGroup(this.findByType('tabpanel')[0],tabToSelect,tabGroupItems,true); }"
+          selectTab="function(tabToSelect) { AEMDESIGN.dialog.manageTabs(this.findByType('tabpanel')[0],tabToSelect,true); }"
+          hideTab="function(tabToHide) { AEMDESIGN.dialog.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
+          includeTab="function(tabToInclude) { AEMDESIGN.dialog.includeTab(tabToInclude, this.findByType('tabpanel')[0]); }"
           title="Image (Design)"
-          width="800"
+          height="490"
+          width="600"
           xtype="dialog">
-
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
+                <imageTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/imageTab.infinity.json"
+                        xtype="cqinclude"/>
+                <overrideImageMetadataTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/overrideImageMetadataTab.infinity.json"
+                        xtype="cqinclude"/>
                 <layoutTab
                         jcr:primaryType="cq:Widget"
-                        title="Layout"
-                        xtype="panel">
-                    <items jcr:primaryType="cq:WidgetCollection">
-                        <fixedImageGeneratedSize
-                                jcr:primaryType="cq:Widget"
-                                collapsed="{Boolean}false"
-                                collapsible="{Boolean}true"
-                                fieldDescription="Note: This settings are only applied to Fixed Image Generated which is selected in Image Option at author dialog."
-                                fieldLabel=" "
-                                title="Fixed Image Generated"
-                                xtype="dialogfieldset">
-                            <items jcr:primaryType="cq:Widget"
-                                path="/libs/foundation/components/image/design_dialog/items.infinity.json"
-                                xtype="cqinclude" />
-                        </fixedImageGeneratedSize>
-                        <!--
-                        <responsiveGeneratedSize
-                                jcr:primaryType="cq:Widget"
-                                collapsed="{Boolean}false"
-                                collapsible="{Boolean}true"
-                                fieldDescription="Note: This settings are only applied to Responsive Generated which is selected in Image Option at author dialog."
-                                fieldLabel=" "
-                                title="Responsive Generated"
-                                xtype="dialogfieldset">
-                            <items jcr:primaryType="cq:WidgetCollection">
-
-                                <responsiveImageMapping jcr:primaryType="cq:Widget"
-                                                        addItemLabel="Add a new entry into the Map"
-                                                        value=""
-                                                        fieldDescription="adaptive profile (width.quality)=min-width e.g. 320.medium=320 "
-                                                        fieldLabel="Adaptive Image Mapping"
-                                                        name="./adaptiveImageMapping"
-                                                        orderable="{Boolean}true"
-                                                        xtype="multifield"/>
-                            </items>
-                        </responsiveGeneratedSize>
-                        -->
-                        <responsiveRenditionSize
-                                jcr:primaryType="cq:Widget"
-                                collapsed="{Boolean}false"
-                                collapsible="{Boolean}true"
-                                fieldDescription="Note: This settings are only applied to Responsive Rendition or Responsive Rendition Override which is selected in Image Option at author dialog."
-                                fieldLabel=" "
-                                title="Responsive Rendition"
-                                xtype="dialogfieldset">
-                            <items jcr:primaryType="cq:WidgetCollection">
-
-                                <responsiveImageMapping jcr:primaryType="cq:Widget"
-                                                        addItemLabel="Add a new entry into the Map"
-                                                        value=""
-                                                        fieldDescription="rendition (width)=min-width e.g. 48=360 "
-                                                        fieldLabel="Rendition Image Mapping"
-                                                        name="./renditionImageMapping"
-                                                        orderable="{Boolean}true"
-                                                        xtype="multifield"/>
-                            </items>
-                        </responsiveRenditionSize>
-                    </items>
-                </layoutTab>
+                        path="/apps/aemdesign/components/media/image/dialog/items/tabs/items/layoutTab.infinity.json"
+                        xtype="cqinclude"/>
+                <imageConfig
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/media/image/dialog/items/tabs/items/imageConfig.infinity.json"
+                        xtype="cqinclude"/>
+                <cardConfig
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/media/image/dialog/items/tabs/items/cardConfig.infinity.json"
+                        xtype="cqinclude"/>
+                <responsiveConfig
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/media/image/dialog/items/tabs/items/responsiveConfig.infinity.json"
+                        xtype="cqinclude"/>
                 <styleTab
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
