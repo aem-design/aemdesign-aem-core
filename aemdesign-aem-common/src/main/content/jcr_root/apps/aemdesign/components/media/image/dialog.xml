@@ -3,7 +3,13 @@
           jcr:primaryType="cq:Dialog"
           jcr:mixinTypes="[rep:AccessControllable]"
           description="Image Component"
+          selectTabInGroup="function(tabToSelect,tabGroupItems) { AEMDESIGN.dialog.manageTabGroup(this.findByType('tabpanel')[0],tabToSelect,tabGroupItems,true); }"
+          selectTab="function(tabToSelect) { AEMDESIGN.dialog.manageTabs(this.findByType('tabpanel')[0],tabToSelect,true); }"
+          hideTab="function(tabToHide) { AEMDESIGN.dialog.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
+          includeTab="function(tabToInclude) { AEMDESIGN.dialog.includeTab(tabToInclude, this.findByType('tabpanel')[0]); }"
           title="Image"
+          height="490"
+          width="600"
           xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
@@ -19,6 +25,7 @@
                 <layoutTab
                         jcr:primaryType="cq:Widget"
                         title="Layout"
+                        name="layoutTab"
                         xtype="panel">
                     <items jcr:primaryType="cq:WidgetCollection">
                         <variant
@@ -30,6 +37,10 @@
                                 name="./variant"
                                 type="select"
                                 xtype="selection">
+                            <listeners
+                                    jcr:primaryType="nt:unstructured"
+                                    loadcontent="function(field,record,path){ var selectedTabName = field.getValue(); var item = field.options.filter(function(a){if(a.value==selectedTabName){return a}});  if (item[0]) { if (item[0].selectTab) {  selectedTabName = item[0].selectTab; } };  field.findParentByType('dialog').selectTabInGroup(selectedTabName,field.options); }"
+                                    selectionchanged="function(field,value,isChecked){ var selectedTabName = value; var item = field.options.filter(function(a){if(a.value==selectedTabName){return a}}); if (item[0]) { if (item[0].selectTab) {  selectedTabName = item[0].selectTab; } };  field.findParentByType('dialog').selectTabInGroup(selectedTabName,field.options); }"/>
                             <options jcr:primaryType="cq:WidgetCollection">
                                 <default
                                         jcr:primaryType="nt:unstructured"
@@ -38,100 +49,202 @@
                                 <imageOnly
                                         jcr:primaryType="nt:unstructured"
                                         value="imageOnly"
-                                        text="Image only" />
-                                <!--
-                                <imageCaptionPageLink
+                                        text="Image Only" />
+                                <imageCard
                                         jcr:primaryType="nt:unstructured"
-                                        value="imageCaptionPageLink"
-                                        text="Image with caption and page link"/>
-                                -->
+                                        value="card"
+                                        selectTab="cardConfig"
+                                        text="Image Card" />
                                 <imageTitleDescription
                                         jcr:primaryType="nt:unstructured"
                                         value="imageTitleDescription"
-                                        text="Image with title &amp; description overlay at bottom and page link"/>
+                                        text="Image with title &amp; description"/>
                             </options>
                         </variant>
+
                         <imageOption jcr:primaryType="cq:Widget"
                                        fieldLabel="Image Option"
-                                       fieldDescription="Note: If this option is checked then the Image Size fields will be ignored"
+                                       fieldDescription="Image selection options for rendering image"
                                        allowBlank="{Boolean}true"
                                        name="./imageOption"
                                        type="select"
                                        defaultValue=""
                                        value=""
                                        xtype="selection">
+                            <listeners
+                                    jcr:primaryType="nt:unstructured"
+                                    loadcontent="function(field,record,path){ var selectedTabName = field.getValue(); var item = field.options.filter(function(a){if(a.value==selectedTabName){return a}});  if (item[0]) { if (item[0].selectTab) {  selectedTabName = item[0].selectTab; } };  field.findParentByType('dialog').selectTabInGroup(selectedTabName,field.options); }"
+                                    selectionchanged="function(field,value,isChecked){ var selectedTabName = value; var item = field.options.filter(function(a){if(a.value==selectedTabName){return a}}); if (item[0]) { if (item[0].selectTab) {  selectedTabName = item[0].selectTab; } };  field.findParentByType('dialog').selectTabInGroup(selectedTabName,field.options); }"/>
                             <options jcr:primaryType="cq:WidgetCollection">
                                 <default
                                         jcr:primaryType="nt:unstructured"
                                         value=""
                                         text="Default"/>
-                                <asIs
+                                <generated
                                         jcr:primaryType="nt:unstructured"
-                                        value="asIs"
-                                        text="As is" />
-                                <fixedImageGenerated
+                                        value="generated"
+                                        selectTab="imageConfig"
+                                        text="Generate: generate new image with current image edits" />
+                                <rendition
                                         jcr:primaryType="nt:unstructured"
-                                        value="fixedImageGenerated"
-                                        text="Fixed Image Generated" />
-                                <!--
-                                <fixedImageRendition
+                                        value="rendition"
+                                        selectTab="imageConfig"
+                                        text="Rendition: pick a suitable image rendition" />
+                                <responsive
                                         jcr:primaryType="nt:unstructured"
-                                        value="fixedImageRendition"
-                                        text="Fixed Image Rendition" />
-                                <responsiveGenerated
-                                        jcr:primaryType="nt:unstructured"
-                                        value="responsiveGenerated"
-                                        text="Responsive Generated"/>
-                                        -->
-                                <responsiveRendition
-                                        jcr:primaryType="nt:unstructured"
-                                        value="responsiveRendition"
-                                        text="Responsive Rendition"/>
-                                <responsiveRenditionOverride
-                                        jcr:primaryType="nt:unstructured"
-                                        value="responsiveRenditionOverride"
-                                        text="Responsive Rendition Override"/>
+                                        value="responsive"
+                                        selectTab="responsiveConfig"
+                                        text="Responsive: use existing renditions"/>
                             </options>
                         </imageOption>
 
-                        <pageURL
+                        <linkURL
                                 jcr:primaryType="cq:Widget"
-                                fieldDescription="Note: This option will apply to all variants except default variant."
-                                fieldLabel="Page Link"
-                                name="./pageURL"
+                                fieldDescription="link to page or external site"
+                                fieldLabel="Image Link URL"
+                                name="./linkURL"
                                 xtype="pathfield"/>
 
-                        <fixedImageGeneratedGroup
+                    </items>
+                </layoutTab>
+                <imageConfig
+                        jcr:primaryType="cq:Panel"
+                        title="Image Config"
+                        name="imageConfig"
+                        xtype="panel">
+                    <listeners
+                            jcr:primaryType="nt:unstructured"
+                            render="function() { this.findParentByType('dialog').hideTab(this); }"/>
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <imageDimension
                                 jcr:primaryType="cq:Widget"
                                 collapsed="{Boolean}false"
                                 collapsible="{Boolean}true"
-                                fieldDescription="Note: Image Size fields will only apply when Image Option has selected Fixed Image Generated. If no value is filles then the original image will be used."
-                                fieldLabel=" "
-                                title="Fixed Image Generated"
+                                fieldDescription="Image size preference"
+                                hideLabel="{Boolean}true"
+                                title="Image Dimension"
                                 xtype="dialogfieldset">
                             <items jcr:primaryType="cq:WidgetCollection">
                                 <imageSize
                                         jcr:primaryType="cq:Widget"
                                         fieldLabel="Image Size"
-                                        fieldDescription="Note: Image Size fields when only apply when Image Option has selected Custom Size."
+                                        fieldDescription=""
                                         widthParameter="./width"
                                         heightParameter="./height"
                                         xtype="sizefield"/>
                             </items>
-                        </fixedImageGeneratedGroup>
+                        </imageDimension>
+
+                        <resizingProportions
+                                jcr:primaryType="cq:Widget"
+                                collapsed="{Boolean}false"
+                                collapsible="{Boolean}true"
+                                fieldDescription="Resizes the given layer according to the given dimensions. If both width and height are defined a non-proportional resizing is done. if one of the dimensions is missing or 0, a proportional resizing performed. the non-empty dimensions are trimmed to respect the minimal and maximal dimension constraints. for proportional resizing the constraints apply to the recalculated dimensions. when no dimensions are specified, the layer is resized to fit into the constraint dimensions accordingly. if the constraints cannot be applied to the dimensions, eg if no values can be found that match the constraints, the layer is left untouched. "
+                                hideLabel="{Boolean}true"
+                                title="Resizing Proportions"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <min
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Minimal Size"
+                                        heightParameter="./minHeight"
+                                        widthParameter="./minWidth"
+                                        xtype="sizefield"/>
+                                <max
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Maximal Size"
+                                        heightParameter="./maxHeight"
+                                        widthParameter="./maxWidth"
+                                        xtype="sizefield"/>
+                            </items>
+                        </resizingProportions>
                     </items>
-                </layoutTab>
-                <advancedTab
-                        jcr:primaryType="cq:Widget"
-                        title="Advanced"
+                </imageConfig>
+                <cardConfig
+                        jcr:primaryType="cq:Panel"
+                        title="Card Config"
+                        name="cardConfig"
                         xtype="panel">
+                    <listeners
+                            jcr:primaryType="nt:unstructured"
+                            render="function() { this.findParentByType('dialog').hideTab(this); }"/>
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <thumbnailStyle
+                                jcr:primaryType="cq:Widget"
+                                title="Thumbnail"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <thumbnailSize
+                                        jcr:primaryType="cq:Widget"
+                                        fieldLabel="Thumbnail Size (w,h)"
+                                        fieldDescription="size of image thumbnail visible on the page"
+                                        heightParameter="./htmlHeight"
+                                        widthParameter="./htmlWidth"
+                                        xtype="sizefield"/>
+                            </items>
+                        </thumbnailStyle>
+
+                        <cardConfig
+                                jcr:primaryType="cq:Widget"
+                                collapsed="false"
+                                collapsible="false"
+                                title="Card Config"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <titleType
+                                        jcr:primaryType="cq:Widget"
+                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/basicTab/items/title/items/titleType.infinity.json"
+                                        xtype="cqinclude"/>
+
+                            </items>
+                        </cardConfig>
+
+                    </items>
+                </cardConfig>
+                <responsiveConfig
+                        jcr:primaryType="cq:Panel"
+                        title="Responsive Config"
+                        name="responsiveConfig"
+                        xtype="panel">
+                    <listeners
+                            jcr:primaryType="nt:unstructured"
+                            render="function() { this.findParentByType('dialog').hideTab(this); }"/>
                     <items jcr:primaryType="cq:WidgetCollection">
                         <responsiveRenditionSize
                                 jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/components/media/image/design_dialog/items/tabs/items/layoutTab/items/responsiveRenditionSize.infinity.json"
-                                xtype="cqinclude"/>
+                                collapsed="{Boolean}false"
+                                collapsible="{Boolean}true"
+                                fieldDescription="Note: This settings are only applied to Responsive Rendition or Responsive Rendition Override which is selected in Image Option at author dialog."
+                                hideLabel="{Boolean}true"
+                                title="Responsive Rendition"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+
+                                <responsiveImageMapping jcr:primaryType="cq:Widget"
+                                                        addItemLabel="Add a new entry into the Map"
+                                                        value=""
+                                                        fieldDescription="screen width = image min width. 48 px device = 360px image width "
+                                                        fieldLabel="Rendition Image Mapping"
+                                                        name="./renditionImageMapping"
+                                                        orderable="{Boolean}true"
+                                                        xtype="multifield"/>
+                            </items>
+                        </responsiveRenditionSize>
+                        <renditionPrefix jcr:primaryType="cq:Widget"
+                                        fieldLabel="Rendition Prefix"
+                                        fieldDescription="Rendition prefix to use as priority for selecting renditions, otherwise best match will be returned"
+                                        allowBlank="{Boolean}true"
+                                        name="./renditionPrefix"
+                                        options="/etc/tags/component-dialog/asset/rendition/prefix.valuelist.json"
+                                        type="select"
+                                        defaultValue=""
+                                        value=""
+                                        xtype="selection"/>
+
                     </items>
-                </advancedTab>
+                </responsiveConfig>
 
                 <styleTab
                         jcr:primaryType="cq:Widget"
