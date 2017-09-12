@@ -16,7 +16,7 @@
             <items jcr:primaryType="cq:WidgetCollection">
                 <imageTab
                         jcr:primaryType="cq:Widget"
-                            path="/apps/aemdesign/global/dialog/classic/common/items/imageTab.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/imageTab.infinity.json"
                         xtype="cqinclude"/>
                 <overrideImageMetadataTab
                         jcr:primaryType="cq:Widget"
