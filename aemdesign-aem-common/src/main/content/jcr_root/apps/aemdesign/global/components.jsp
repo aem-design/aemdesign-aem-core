@@ -644,6 +644,11 @@
                 }
 
                 if (!componentProperties.attr.isEmpty() && addMoreAttributes) {
+                    //check if component variant exist and add to class chain if not default
+                    String variant = componentProperties.get(FIELD_VARIANT,"");
+                    if (isNotEmpty(variant) && !variant.equals(DEFAULT_VARIANT)) {
+                        componentProperties.attr.add(COMPONENT_ATTRIBUTE_CLASS, variant);
+                    }
                     componentProperties.put(COMPONENT_ATTRIBUTES, componentProperties.attr.build());
                 }
             }
