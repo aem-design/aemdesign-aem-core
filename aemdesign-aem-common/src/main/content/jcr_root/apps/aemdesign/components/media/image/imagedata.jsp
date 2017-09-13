@@ -69,7 +69,21 @@
 
 //                LOG.warn("Best Rendition: [" + tryParseInt(profileWidth,0) + "] found rendition : [" + rendition.getPath() + "] profile name : " + profileWidth );
 
-                profileRendtiions.put(minWidth,rendition.getPath());
+                String renditionPath = rendition.getPath();
+
+                //don't return paths to original rendition return path to asset instead
+                if (renditionPath.endsWith("/original")) {
+                    String assetPath = renditionPath.substring(0,renditionPath.indexOf(JcrConstants.JCR_CONTENT)-1);
+                    ResourceResolver resourceResolver = asset.getResourceResolver();
+                    if (resourceResolver != null) {
+                        Resource assetPathResource = resourceResolver.resolve(assetPath);
+                        if (assetPathResource != null) {
+                            renditionPath = assetPath;
+                        }
+                    }
+                }
+
+                profileRendtiions.put(minWidth,renditionPath);
             }
 
         }
