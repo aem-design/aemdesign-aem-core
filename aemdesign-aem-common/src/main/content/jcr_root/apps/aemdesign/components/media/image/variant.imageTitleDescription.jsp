@@ -6,7 +6,7 @@
         <%@include file="image.select.jsp" %>
         <figcaption>
             <c:if test="${not empty componentProperties.linkURL}">
-            <a href="${componentProperties.imageTargetURL}" title="${componentProperties['dc:title']}">
+            <a href="${componentProperties.linkURL}" title="${componentProperties['dc:title']}">
             </c:if>
             ${componentProperties['dc:title']}
             <c:if test="${not empty componentProperties.linkURL}">
