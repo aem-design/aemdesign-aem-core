@@ -513,7 +513,6 @@
             if (targetResource != null && targetResource.getClass().getCanonicalName().equals(CLASS_TYPE_ASSET)) {
 
                 try {
-                    LOG.error("getComponentProperties: processing asset");
                     com.adobe.granite.asset.api.Asset asset = (com.adobe.granite.asset.api.Asset) targetResource;
 
                     Resource resource = asset.getResourceResolver().getResource(asset, JcrConstants.JCR_CONTENT);
