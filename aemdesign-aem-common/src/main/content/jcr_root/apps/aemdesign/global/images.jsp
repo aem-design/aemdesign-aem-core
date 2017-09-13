@@ -882,8 +882,8 @@
         }
 
         //find first rendition that can be rendered
-        itr = renditions.iterator();
         if (bestFit == null) {
+            itr = renditions.iterator();
             while (itr.hasNext())
             {
                 com.adobe.granite.asset.api.Rendition rend = itr.next();
@@ -892,17 +892,6 @@
                     bestFit = rend;
                     break;
                 }
-            }
-        }
-
-        //return asset instead of original rendition
-        if (bestFit.getPath().endsWith("/original")) {
-            String assetPath = bestFit.getPath();
-            assetPath = assetPath.substring(0,assetPath.indexOf(JcrConstants.JCR_CONTENT)-1);
-            ResourceResolver resourceResolver = bestFit.adaptTo(ResourceResolver.class);
-            if (resourceResolver != null) {
-                Resource asset = resourceResolver.resolve(assetPath);
-                bestFit = asset.adaptTo(com.adobe.granite.asset.api.Rendition.class);
             }
         }
 
