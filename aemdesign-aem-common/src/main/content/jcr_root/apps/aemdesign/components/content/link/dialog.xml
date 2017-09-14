@@ -49,18 +49,18 @@
                     </items>
                 </contentTab>
                 <styleTab
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/style/items/common.infinity.json"
-                        xtype="cqinclude"/>
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/global/dialog/classic/style/items/common.infinity.json"
+                    xtype="cqinclude"/>
                 <accessibilityTab jcr:primaryType="cq:Panel"
-                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/common.infinity.json"
-                                  xtype="cqinclude" />
+                    path="/apps/aemdesign/global/dialog/classic/accessibility/items/common.infinity.json"
+                    xtype="cqinclude" />
                 <dataAttributesTab jcr:primaryType="cq:Panel"
-                                  path="/apps/aemdesign/global/dialog/classic/attributes/items/common.infinity.json"
-                                  xtype="cqinclude" />
+                    path="/apps/aemdesign/global/dialog/classic/attributes/items/common.infinity.json"
+                    xtype="cqinclude" />
                 <analyticsTab jcr:primaryType="cq:Panel"
-                                  path="/apps/aemdesign/global/dialog/classic/analytics/items/common.infinity.json"
-                                  xtype="cqinclude" />
+                    path="/apps/aemdesign/global/dialog/classic/analytics/items/common.infinity.json"
+                    xtype="cqinclude" />
             </items>
         </tabs>
     </items>

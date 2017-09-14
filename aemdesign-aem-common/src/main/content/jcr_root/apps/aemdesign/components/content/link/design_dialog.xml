@@ -6,8 +6,29 @@
           jcr:mixinTypes="[rep:AccessControllable]"
           title="Link (Design)"
           xtype="dialog">
-    <items
-            jcr:primaryType="cq:Widget"
-            path="/apps/aemdesign/components/content/link/dialog/items.infinity.json"
-            xtype="cqinclude" />
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <contentTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/content/link/dialog/items/tabs/items/contentTab.infinity.json"
+                        xtype="cqinclude" />
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/style/items/common.infinity.json"
+                        xtype="cqinclude"/>
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/common.infinity.json"
+                                  xtype="cqinclude" />
+                <dataAttributesTab jcr:primaryType="cq:Panel"
+                                   path="/apps/aemdesign/global/dialog/classic/attributes/items/common.infinity.json"
+                                   xtype="cqinclude" />
+                <analyticsTab jcr:primaryType="cq:Panel"
+                              path="/apps/aemdesign/global/dialog/classic/analytics/items/common.infinity.json"
+                              xtype="cqinclude" />
+            </items>
+        </tabs>
+    </items>
+
+
 </jcr:root>
