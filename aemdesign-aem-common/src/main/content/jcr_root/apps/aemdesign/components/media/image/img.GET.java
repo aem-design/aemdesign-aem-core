@@ -1,5 +1,5 @@
 
-package aemdesign.components.media.image;
+package apps.aemdesign.components.media.image;
 
 import com.day.cq.commons.ImageHelper;
 import com.day.cq.commons.ImageResource;
