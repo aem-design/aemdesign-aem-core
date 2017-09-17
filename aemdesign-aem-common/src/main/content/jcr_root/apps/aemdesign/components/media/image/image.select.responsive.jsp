@@ -6,11 +6,9 @@
     <c:set var="imageAttr" value="${imageAttr} data-title=\"${componentProperties['dc:title']}\""/>
     <c:set var="imageAttrNS" value="${imageAttrNS} title=\"${componentProperties['dc:title']}\""/>
 </c:if>
-<div data-picture ${imageAttr}>
+<picture>
     <c:forEach var="rendition" items="${componentProperties.renditions}">
-        <div data-src="${rendition.value}" data-media="(min-width: ${rendition.key}px)"></div>
+        <source srcset="${rendition.value}" media="${rendition.key}"/>
     </c:forEach>
-    <noscript>
-        <img src="${componentProperties.imageURL}" ${imageAttrNS}>
-    </noscript>
-</div>
+    <img src="${componentProperties.imageURL}" ${imageAttr} ${imageAttrNS}>
+</picture>
