@@ -278,6 +278,32 @@
         }
 
         public AttrBuilder attr;
+
+        /***
+         * put map into existing map
+         * @param map new entries
+         * @param update update entries, skip if non blank value exist
+         */
+        public void putAll(Map<? extends String, ?> map, Boolean update) {
+            if (update == null || !update) {
+                //on null or not update do putAll
+                super.putAll(map);
+                return;
+            }
+            for (Map.Entry<? extends String, ?> entry : map.entrySet())
+            {
+                if (update) {
+                    if (super.containsKey(entry.getKey())) {
+                        //System.out.println("update: " + entry.getKey() + ", [" + entry.getValue().toString() + "],[" + super.get(entry.getKey(), "") + "]");
+                        //skip if non blank value exist
+                        if (isNotBlank(super.get(entry.getKey(), ""))) {
+                            continue;
+                        }
+                    }
+                }
+                super.put(entry.getKey(), entry.getValue());
+            }
+        }
     }
 
 
