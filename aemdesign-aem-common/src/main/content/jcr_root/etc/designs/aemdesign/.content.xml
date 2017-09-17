@@ -126,15 +126,7 @@
                         </contact-details>
                         <image
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="aemdesign/components/media/image"
-                                adaptiveImageMapping="[320.medium=320,767.medium=767,1025.medium=1025,1365.medium=1365,full=1]"
-                                componentTheme="[]"
-                                maxHeight="500"
-                                maxWidth="500"
-                                minHeight="100"
-                                minWidth="100"
-                                renditionImageMapping="[48=1,140=140,319=319,1280=1280]"
-                                responsiveImageMapping="[48x80=300,148x180=600,248x380=1200,319x319=600]"/>
+                                sling:resourceType="aemdesign/components/media/image"/>
                         <mediagallery
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="aemdesign/components/media/gallery"
@@ -256,15 +248,7 @@
                     </contact-details>
                     <image
                             jcr:primaryType="nt:unstructured"
-                            sling:resourceType="aemdesign/components/media/image"
-                            adaptiveImageMapping="[320.medium=320,767.medium=767,1025.medium=1025,1365.medium=1365,full=1]"
-                            componentTheme="[]"
-                            maxHeight="500"
-                            maxWidth="500"
-                            minHeight="100"
-                            minWidth="100"
-                            renditionImageMapping="[48=1,140=140,319=319,1280=1280]"
-                            responsiveImageMapping="[48x80=300,148x180=600,248x380=1200,319x319=600]"/>
+                            sling:resourceType="aemdesign/components/media/image"/>
                     <mediagallery
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="aemdesign/components/media/gallery"
@@ -353,15 +337,7 @@
                     </contact-details>
                     <image
                             jcr:primaryType="nt:unstructured"
-                            sling:resourceType="aemdesign/components/media/image"
-                            adaptiveImageMapping="[320.medium=320,767.medium=767,1025.medium=1025,1365.medium=1365,full=1]"
-                            componentTheme="[]"
-                            maxHeight="1000"
-                            maxWidth="1000"
-                            minHeight="100"
-                            minWidth="100"
-                            renditionImageMapping="[48=1,140=140,319=319,1280=1280]"
-                            responsiveImageMapping="[48x80=300,148x180=600,248x380=1200,319x319=600]"/>
+                            sling:resourceType="aemdesign/components/media/image"/>
                 </parsys>
             </article>
             <header
@@ -486,15 +462,7 @@
                     </contact-details>
                     <image
                             jcr:primaryType="nt:unstructured"
-                            sling:resourceType="aemdesign/components/media/image"
-                            adaptiveImageMapping="[320.medium=320,767.medium=767,1025.medium=1025,1365.medium=1365,full=1]"
-                            componentTheme="[]"
-                            maxHeight="1000"
-                            maxWidth="1000"
-                            minHeight="100"
-                            minWidth="100"
-                            renditionImageMapping="[48=1,140=140,319=319,1280=1280]"
-                            responsiveImageMapping="[48x80=300,148x180=600,248x380=1200,319x319=600]"/>
+                            sling:resourceType="aemdesign/components/media/image"/>
                 </parsys>
             </article>
             <header
