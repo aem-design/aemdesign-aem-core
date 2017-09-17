@@ -3,6 +3,7 @@
 <%@ page import="com.day.cq.commons.ImageResource" %>
 <%@ page import="com.day.image.Layer" %>
 <%@ page import="com.adobe.granite.asset.api.AssetMetadata" %>
+<%@ page import="java.net.URI" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
@@ -12,9 +13,33 @@
     final String DEFAULT_I18N_CATEGORY = "image";
     final String DEFAULT_I18N_LABEL_LICENSEINFO = "licenseinfo";
     final String DEFAULT_ARIA_ROLE = "banner";
+    final String FIELD_LICENSE_INFO = "licenseInfo";
     final String FIELD_LINKURL = "linkURL";
+    final String FIELD_IMAGEURL = "imageURL";
+    final String FIELD_RENDITIONS = "renditions";
+    final String FIELD_RENDITION_PREFIX = "renditionPrefix";
+    final String FIELD_RESPONSIVE_MAP = "renditionImageMapping";
+    final String FIELD_ADAPTIVE_MAP = "adaptiveImageMapping";
+    final String FIELD_IMAGE_OPTION = "imageOption";
     final String DEFAULT_TITLE_TAG_TYPE = "h4";
+    final String[] DEFAULT_RENDITION_IMAGE_MAP = new String[]{
+            "48=(min-width: 1px) and (max-width: 72px)",
+            "140=(min-width: 73px) and (max-width: 210px)",
+            "319=(min-width: 211px) and (max-width: 478px)",
+            "1280=(min-width: 478px)"
+    };
 
+
+    final String[] DEFAULT_ADAPTIVE_IMAGE_MAP = new String[]{
+            "480.medium=(min-width: 1px) and (max-width: 533px)",
+            "640.medium=(min-width: 534px) and (max-width: 691px)",
+            "720.medium=(min-width: 692px) and (max-width: 770px)",
+            "800.medium=(min-width: 771px) and (max-width: 848px)",
+            "960.medium=(min-width: 849px) and (max-width: 1008px)",
+            "1024.medium=(min-width: 1009px) and (max-width: 1075px)",
+            "1280.medium=(min-width: 1076px) and (max-width: 1331px)",
+            "full=(min-width: 1332px)"
+    };
     // {
     //   1 required - property name, [name]
     //   2 required - default value, [defaultValue]
@@ -23,15 +48,16 @@
     // }
     Object[][] componentFields = {
             {FIELD_VARIANT, DEFAULT_VARIANT},
-            {"imageOption", IMAGE_OPTION_RESPONSIVE},
+            {FIELD_IMAGE_OPTION, IMAGE_OPTION_RESPONSIVE},
             {ImageResource.PN_HTML_WIDTH, ""},
             {ImageResource.PN_HTML_HEIGHT, ""},
             {ImageResource.PN_WIDTH, 0},
             {ImageResource.PN_HEIGHT, 0},
             {IMAGE_FILEREFERENCE, ""},
-            {"renditionImageMapping", new String[0]},
+            {FIELD_ADAPTIVE_MAP, DEFAULT_ADAPTIVE_IMAGE_MAP},
+            {FIELD_RESPONSIVE_MAP, DEFAULT_RENDITION_IMAGE_MAP},
             {FIELD_LINKURL,StringUtils.EMPTY},
-            {"renditionPrefix",StringUtils.EMPTY},
+            {FIELD_RENDITION_PREFIX,StringUtils.EMPTY},
             {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, "role"},
             {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
     };
@@ -47,6 +73,8 @@
 
     String fileReference = componentProperties.get(IMAGE_FILEREFERENCE, "");
 
+
+
     if (isNotEmpty(fileReference)) {
 
         //get asset
@@ -60,16 +88,12 @@
         String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
         String assetUsageTerms = assetBasic.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
         String licenseInfo = getAssetCopyrightInfo(assetBasic, _i18n.get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
-        componentProperties.put("licenseInfo", licenseInfo);
+        componentProperties.put(FIELD_LICENSE_INFO, licenseInfo);
 
+        //get asset properties and overwrite all existing ones specified in component
+        ComponentProperties assetProperties = getAssetProperties(pageContext, asset, DEFAULT_FIELDS_ASSET_IMAGE);
         //ensure licensed image meta does not get overwritten
-        if (isNotEmpty(licenseInfo)) {
-            //get asset properties and overwrite all existing ones specified in component
-            ComponentProperties assetProperties = getAssetProperties(pageContext, asset, DEFAULT_FIELDS_ASSET_IMAGE);
-            //need to remove all non field specific
-            componentProperties.putAll(assetProperties);
-            LOG.debug("image metadata can't be overridden for licensed image");
-        }
+        componentProperties.putAll(assetProperties,isBlank(licenseInfo));
 
         String title = componentProperties.get(DAM_TITLE, "");
         if (isEmpty(title)) {
@@ -87,36 +111,46 @@
             //use dam link source from Asset if not assigned
             linkURL = _xssAPI.getValidHref(componentProperties.get(DAM_SOURCE_URL, StringUtils.EMPTY));
         }
-        componentProperties.put("linkURL", linkURL);
+        componentProperties.put(FIELD_LINKURL, linkURL);
 
         try {
-            String imageOption = componentProperties.get("imageOption", IMAGE_OPTION_RESPONSIVE);
-
-//            out.print(assetBasic.getMetadata(DAM_FIELD_LICENSE_EXPIRY));
-
+            String imageOption = componentProperties.get(FIELD_IMAGE_OPTION, IMAGE_OPTION_RESPONSIVE);
+            Map<String, String> responsiveImageSet= new LinkedHashMap<>();
             switch (imageOption) {
                 case IMAGE_OPTION_GENERATED:
                     String imageHref = getResourceImageCustomHref(_resource,_component.getCellName());
-                    componentProperties.put("imageURL", imageHref);
+                    componentProperties.put(FIELD_IMAGEURL, imageHref);
                     break;
                 case IMAGE_OPTION_RENDITION:
                     int targetWidth = componentProperties.get(ImageResource.PN_WIDTH, 0);
-                    componentProperties.put("imageURL", getBestFitRendition(targetWidth, asset));
+                    componentProperties.put(FIELD_IMAGEURL, getBestFitRendition(targetWidth, asset));
+                    break;
+                case IMAGE_OPTION_ADAPTIVE:
+                    String[] adaptiveImageMapping = componentProperties.get(FIELD_ADAPTIVE_MAP, DEFAULT_ADAPTIVE_IMAGE_MAP);
+
+                    responsiveImageSet = getAdaptiveImageSet(adaptiveImageMapping, _resourceResolver, fileReference, null, _sling);
+
+                    componentProperties.put(FIELD_RENDITIONS, responsiveImageSet);
+                    //pick last one from collection
+                    if (responsiveImageSet.values().size() > 0) {
+                        componentProperties.put(FIELD_IMAGEURL,
+                                responsiveImageSet.values().toArray()[responsiveImageSet.values().size()-1]
+                        );
+                    }
                     break;
                 default:
-                    //get specified mapping values if any
-                    String[] renditionImageMapping = componentProperties.get("renditionImageMapping", new String[0]);
-                    //verify and convert to profile map
-                    Map<Integer, String> widthRenditionProfileMapping = getWidthProfileMap(renditionImageMapping);
+
+                    String[] renditionImageMapping = componentProperties.get(FIELD_RESPONSIVE_MAP, DEFAULT_RENDITION_IMAGE_MAP);
                     //get rendition profile prefix selected
-                    String renditionPrefix = componentProperties.get("renditionPrefix", "");
+                    String renditionPrefix = componentProperties.get(FIELD_RENDITION_PREFIX, "");
                     //get best fit renditions set
-                    Map<Integer, String> responsiveImageSet = getBestFitRenditionSet(asset, widthRenditionProfileMapping, renditionPrefix);
-                    componentProperties.put("renditions", responsiveImageSet);
+                    responsiveImageSet = getBestFitMediaQueryRenditionSet(asset, renditionImageMapping, renditionPrefix);
+                    componentProperties.put(FIELD_RENDITIONS, responsiveImageSet);
                     //pick last one from collection
-                    Collection<String> values= responsiveImageSet.values();
-                    if (values.size() > 0) {
-                        componentProperties.put("imageURL", values.toArray()[values.size()-1]);
+                    if (responsiveImageSet.values().size() > 0) {
+                        componentProperties.put(FIELD_IMAGEURL,
+                                responsiveImageSet.values().toArray()[responsiveImageSet.values().size()-1]
+                        );
                     }
             }
 

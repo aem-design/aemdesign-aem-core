@@ -8,6 +8,8 @@
 
     final static String IMAGE_OPTION_RESPONSIVE = "responsive";
 
+    final static String IMAGE_OPTION_ADAPTIVE = "adaptive";
+
     final static String RENDITION_PROFILE_CUSTOM = "cq5dam.custom.";
 
     final static String RENDITION_REGEX_PATTERN = "^(\\w*)\\.(\\w*)\\.(\\d*)\\.(\\d*)\\.(\\S{3,4})$";
@@ -90,6 +92,58 @@
             return profileRendtiions;
 
     }
+    /**
+     * function to filter out the design dialog values which are not matching rendition profile
+     * @param asset asset to use
+     * @param renditionImageMapping array of minWidth=mediaQuery
+     * @param renditionPrefix prefix to use
+     * @return Map<Integer, String> return profile with substituted paths
+     */
+    public Map<String, String> getBestFitMediaQueryRenditionSet(com.adobe.granite.asset.api.Asset asset,  String[] renditionImageMapping, String renditionPrefix){
+
+        Map<String, String> profileRendtiions = new LinkedHashMap<>();
+
+        if (isEmpty(renditionPrefix))
+
+        if (asset != null && renditionImageMapping != null) {
+
+            for (String entry : renditionImageMapping){
+                String [] entryArray = StringUtils.split(entry, "=");
+                if (entryArray == null || entryArray.length != 2){
+                    LOG.error("getBestFitMediaQueryRenditionSet ["+entry+"] is invalid");
+                    continue;
+                }
+                String minWidth = entryArray[0];
+                if (StringUtils.isEmpty(minWidth)  || (NumberUtils.isDigits(minWidth) == false)){
+                    LOG.error("getBestFitMediaQueryRenditionSet ["+entry+"] is invalid, incorrect width ["+minWidth+"]");
+                    continue;
+                }
+
+                String mediaQuery = entryArray[1];
+
+                com.adobe.granite.asset.api.Rendition rendition = getBestFitRendition( tryParseInt(minWidth,0), asset, defaultIfEmpty(renditionPrefix,null));
+
+                String renditionPath = rendition.getPath();
+
+                //don't return paths to original rendition return path to asset instead
+                if (renditionPath.endsWith("/original")) {
+                    String assetPath = renditionPath.substring(0,renditionPath.indexOf(JcrConstants.JCR_CONTENT)-1);
+                    ResourceResolver resourceResolver = asset.getResourceResolver();
+                    if (resourceResolver != null) {
+                        Resource assetPathResource = resourceResolver.resolve(assetPath);
+                        if (assetPathResource != null) {
+                            renditionPath = assetPath;
+                        }
+                    }
+                }
+
+                profileRendtiions.put(mediaQuery,renditionPath);
+            }
+
+        }
+            return profileRendtiions;
+
+    }
 
     /**
      * Get the targetWith which is within the range from the Site
@@ -131,18 +185,18 @@
                     LOG.error("design widthImageMapping ["+entry+"] is invalid");
                     new IllegalAccessException("design widthImageMapping ["+entry+"] is invalid");
                 }
-                String profile = StringUtils.split(entry, "=")[0];
-                if (StringUtils.isEmpty(profile)){
-                    LOG.error("profile ["+profile+"] is invalid");
-                    new IllegalAccessException("profile ["+profile+"] is invalid");
+                String imageWidth = entryArray[0];
+                if (StringUtils.isEmpty(imageWidth)){
+                    LOG.error("profile ["+imageWidth+"] is invalid");
+                    new IllegalAccessException("imageWidth ["+imageWidth+"] is invalid");
                 }
-                String minWidth = StringUtils.split(entry, "=")[1];
+                String minWidth = entryArray[1];
                 if (StringUtils.isEmpty(minWidth)  || (NumberUtils.isDigits(minWidth) == false)){
                     LOG.error("minWidth ["+minWidth+"] is invalid");
                     new IllegalAccessException("minWidth ["+minWidth+"] is invalid");
                 }
 
-                widthRenditionProfileMap.put(Integer.valueOf(minWidth), profile);
+                widthRenditionProfileMap.put(Integer.valueOf(minWidth), imageWidth);
 
             }
         }
@@ -150,22 +204,86 @@
         return widthRenditionProfileMap;
     }
 
+
     /**
-     * Get the Adaptive Image Configuration for Supported Widths
+     * function to filter out the design dialog values which are not matching adaptive profile
+     * @param adaptiveImageMapping
+     * @param resolver
+     * @param fileReference
+     * @param sling
+     * @return Map<Integer, String>
+     */
+    public Map<String, String> getAdaptiveImageSet (String[] adaptiveImageMapping, ResourceResolver resolver, String fileReference, String outputFormat, org.apache.sling.api.scripting.SlingScriptHelper sling){
+
+        Map<String, String> responsiveImageSet = new LinkedHashMap<>();
+
+        URI fileReferenceURI  = URI.create(fileReference);
+        if (isBlank(outputFormat)) {
+            String extension = fileReferenceURI.getPath();
+            outputFormat = extension.substring(extension.lastIndexOf("."));
+        }
+        String suffix = defaultString(fileReferenceURI.getQuery(), "");
+
+        for (String entry : adaptiveImageMapping){
+
+            String [] entryArray = StringUtils.split(entry, "="); //320.medium=(min-width: 1px) and (max-width: 425px)
+            if (entryArray == null || entryArray.length != 2){
+                LOG.error("getAdaptiveImageSet ["+entry+"] is invalid");
+                continue;
+            }
+            String adaptiveProfile = entryArray[0];
+            if (StringUtils.isEmpty(adaptiveProfile) && (!adaptiveProfile.contains(".")) ){
+                LOG.error("getAdaptiveImageSet ["+entry+"] is invalid, incorrect profile format ["+adaptiveProfile+"] expecting {width}.{quality}.{format}");
+                continue;
+            }
+
+            String mediaQuery = entryArray[1];
+
+            String [] adaptiveProfileArray = StringUtils.split(adaptiveProfile, ".");
+
+            Integer profileWidth = tryParseInt(adaptiveProfileArray[0],0);
+
+            String profileOutputFormat = outputFormat;
+            if (adaptiveProfileArray.length == 3) {
+                profileOutputFormat = "";
+            }
+
+            int[] allowedSizes = getAdaptiveImageSupportedWidths(sling);
+
+
+            if (adaptiveProfile.equals("full") || ArrayUtils.contains(allowedSizes,profileWidth) ) {
+                responsiveImageSet.put(mediaQuery,
+                        MessageFormat.format("{0}.img.{1}{2}{3}",
+                                fileReference,
+                                adaptiveProfile,
+                                profileOutputFormat,
+                                suffix
+                        )
+                );
+            } else {
+                LOG.error("getAdaptiveImageSet rendition selected size is not allowed ["+profileWidth+"], ["+entry+"]");
+                continue;
+            }
+
+        }
+
+        return responsiveImageSet;
+    }
+
+    /**
+     * return list of configured widths in com.day.cq.wcm.foundation.impl.AdaptiveImageComponentServlet
      * @param sling
      * @return int []
-     * @throws IllegalAccessException
      */
-    public int []  getAdaptiveImageSupportedWidths(org.apache.sling.api.scripting.SlingScriptHelper sling) throws IllegalAccessException {
+    public int []  getAdaptiveImageSupportedWidths(org.apache.sling.api.scripting.SlingScriptHelper sling) {
 
-        int [] supportedWidths  = {320,767,1025,1365};
-
-        org.osgi.service.cm.ConfigurationAdmin configAdmin = sling.getService(org.osgi.service.cm.ConfigurationAdmin.class);
+        int [] defaultWidths  = {480,640,720,800,960,1024,1280};
+        int [] supportedWidths = new int[0];
 
         try{
+            org.osgi.service.cm.ConfigurationAdmin configAdmin = sling.getService(org.osgi.service.cm.ConfigurationAdmin.class);
 
             org.osgi.service.cm.Configuration config = configAdmin.getConfiguration("com.day.cq.wcm.foundation.impl.AdaptiveImageComponentServlet");
-
 
             Object obj = org.apache.sling.commons.osgi.PropertiesUtil.toStringArray(config.getProperties().get("adapt.supported.widths"));
 
@@ -187,13 +305,15 @@
                 }
             }
 
-
-        }catch(Exception ex){
+        } catch(Exception ex){
             LOG.error("failed to retrieve OSGI configuration : "+ex.getMessage(), ex);
+            return defaultWidths;
         }
-
         return supportedWidths;
+
     }
+
+
 
 /* TESTS
     out.println("responsiveRenditionOverride : "+widthRenditionProfileMapping);

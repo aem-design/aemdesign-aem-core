@@ -95,6 +95,11 @@
                                         value="responsive"
                                         selectTab="responsiveConfig"
                                         text="Responsive: use existing renditions"/>
+                                <adaptive
+                                        jcr:primaryType="nt:unstructured"
+                                        value="adaptive"
+                                        selectTab="adaptiveConfig"
+                                        text="Adaptive: generate new renditions with quality settings for each breakpoint"/>
                             </options>
                         </imageOption>
 
@@ -216,16 +221,14 @@
                                 jcr:primaryType="cq:Widget"
                                 collapsed="{Boolean}false"
                                 collapsible="{Boolean}true"
-                                fieldDescription="Note: This settings are only applied to Responsive Rendition or Responsive Rendition Override which is selected in Image Option at author dialog."
                                 hideLabel="{Boolean}true"
                                 title="Responsive Rendition"
                                 xtype="dialogfieldset">
                             <items jcr:primaryType="cq:WidgetCollection">
 
                                 <responsiveImageMapping jcr:primaryType="cq:Widget"
-                                                        addItemLabel="Add a new entry into the Map"
                                                         value=""
-                                                        fieldDescription="screen width = image min width. 48 px device = 360px image width "
+                                                        fieldDescription="rendition width = media query, &lt;br> &lt;br> ex 48=(min-width: 1px) and (max-width: 100px), this will show rendition of 48px between 1px and 100px device width &lt;br>&lt;br>  ex 1280=(min-width: 478px) will use rendition 1280 starting from width of 487 and up"
                                                         fieldLabel="Rendition Image Mapping"
                                                         name="./renditionImageMapping"
                                                         orderable="{Boolean}true"
@@ -245,6 +248,36 @@
 
                     </items>
                 </responsiveConfig>
+
+                <adaptiveConfig
+                        jcr:primaryType="cq:Panel"
+                        title="Adaptive Config"
+                        name="adaptiveConfig"
+                        xtype="panel">
+                    <listeners
+                            jcr:primaryType="nt:unstructured"
+                            render="function() { this.findParentByType('dialog').hideTab(this); }"/>
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <adaptiveRenditionSize
+                                jcr:primaryType="cq:Widget"
+                                collapsed="{Boolean}false"
+                                collapsible="{Boolean}true"
+                                hideLabel="{Boolean}true"
+                                title="Responsive Rendition"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+
+                                <adaptiveImageMapping jcr:primaryType="cq:Widget"
+                                                        value=""
+                                                        fieldDescription="width.quality.format = media query, &lt;br> &lt;br> ex 480.medium=(min-width: 1px) and (max-width: 533px), this will show rendition of 48px between 1px and 533px device width &lt;br>&lt;br>  ex full=(min-width: 1332px) will create a close to original rendition"
+                                                        fieldLabel="Adaptive Image Mapping"
+                                                        name="./renditionImageMapping"
+                                                        orderable="{Boolean}true"
+                                                        xtype="multifield"/>
+                            </items>
+                        </adaptiveRenditionSize>
+                    </items>
+                </adaptiveConfig>
 
                 <styleTab
                         jcr:primaryType="cq:Widget"
