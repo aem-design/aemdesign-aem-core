@@ -15,31 +15,32 @@ window.AEMDESIGN.components.image = AEMDESIGN.components.image || {};
     };
 
 
-    ns.picturefill = function ($currentPicture) {
-
-        var matches = [];
-
-        $("div[data-media]", $currentPicture).each(function () {
-            var media = $(this).attr("data-media");
-            if (!media || ( window.matchMedia && window.matchMedia(media).matches )) {
-                matches.push(this);
-            }
-        });
-
-        var $picImg = $("img", $currentPicture).first();
-
-        if (matches.length) {
-            if ($picImg.length === 0) {
-                $picImg = $("<img />")
-                    .attr("alt", $currentPicture.attr("data-alt"))
-                    .attr("title", $currentPicture.attr("data-title"))
-                    .appendTo($currentPicture);
-            }
-            $picImg.attr("src", matches.pop().getAttribute("data-src"));
-        } else {
-            $picImg.remove();
-        }
-    };
+    //depreciated using picturefill.js
+    // ns.picturefill = function ($currentPicture) {
+    //
+    //     var matches = [];
+    //
+    //     $("div[data-media]", $currentPicture).each(function () {
+    //         var media = $(this).attr("data-media");
+    //         if (!media || ( window.matchMedia && window.matchMedia(media).matches )) {
+    //             matches.push(this);
+    //         }
+    //     });
+    //
+    //     var $picImg = $("img", $currentPicture).first();
+    //
+    //     if (matches.length) {
+    //         if ($picImg.length === 0) {
+    //             $picImg = $("<img />")
+    //                 .attr("alt", $currentPicture.attr("data-alt"))
+    //                 .attr("title", $currentPicture.attr("data-title"))
+    //                 .appendTo($currentPicture);
+    //         }
+    //         $picImg.attr("src", matches.pop().getAttribute("data-src"));
+    //     } else {
+    //         $picImg.remove();
+    //     }
+    // };
 
 
 })(AEMDESIGN.jQuery, _, ko, AEMDESIGN.components.image, AEMDESIGN.log,  this); //pass in additional dependencies
