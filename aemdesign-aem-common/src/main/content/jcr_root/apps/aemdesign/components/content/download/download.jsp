@@ -30,7 +30,8 @@
             pageContext,
             componentFields,
             DEFAULT_FIELDS_STYLE,
-            DEFAULT_FIELDS_ACCESSIBILITY);
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS);
 
     Download dld = new Download(_resource);
     componentProperties.put("hasContent", dld.hasContent());
