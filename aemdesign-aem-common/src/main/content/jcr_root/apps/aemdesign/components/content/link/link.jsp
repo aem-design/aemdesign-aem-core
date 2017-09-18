@@ -24,7 +24,6 @@
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"linkId", _xssAPI.encodeForHTMLAttr(_resource.getPath())},
             {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
-            {"componentPath", getResourceContentPath(resource) , "data-component-path"},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
