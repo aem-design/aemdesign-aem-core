@@ -30,15 +30,15 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    componentProperties.put("componentPath",resource.getPath());
+//    componentProperties.put("componentPath",resource.getPath());
 
     List<Map> values = new ArrayList<Map>();
 
-    int startLevel = tryParseInt(componentProperties.get("startLevel").toString(), DEFAULT_LEVEL_START);
-    int endLevel = tryParseInt(componentProperties.get("endLevel").toString(), DEFAULT_LEVEL_END);
-    int currentLevel = currentPage.getDepth();
+    int startLevel = tryParseInt(componentProperties.get("startLevel",""), DEFAULT_LEVEL_START);
+    int endLevel = tryParseInt(componentProperties.get("endLevel",""), DEFAULT_LEVEL_END);
+    int currentLevel = _currentPage.getDepth();
 
-    if (isBlank(componentProperties.get("endLevel").toString())) {
+    if (isBlank(componentProperties.get("endLevel",""))) {
         endLevel = currentLevel;
     }
 
@@ -52,7 +52,7 @@
 //    out.write("hc:"+hideCurrent+";");
 //    out.write("sh:"+showHidden+";");
     for (int i = startLevel; i <= endLevel; i++) {
-        Page pagetrail = currentPage.getAbsoluteParent(i);
+        Page pagetrail = _currentPage.getAbsoluteParent(i);
         if (pagetrail == null) {
 //            out.write("x:"+i+";");
             continue;
