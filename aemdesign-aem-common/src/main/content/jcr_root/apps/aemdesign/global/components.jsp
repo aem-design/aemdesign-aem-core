@@ -86,6 +86,7 @@
 
     private static final String COMPONENT_ATTRIBUTES = "componentAttributes";
     private static final String COMPONENT_INSTANCE_NAME = "instanceName";
+    private static final String COMPONENT_ID = "componentid";
     private static final String COMPONENT_TARGET_RESOURCE = "targetResource";
     private static final String COMPONENT_ATTRIBUTE_CLASS = "class";
 
@@ -114,6 +115,16 @@
     private static final String FIELD_ARIA_HIDDEN = "ariaHidden";
     private static final String FIELD_ARIA_HASPOPUP = "ariaHaspopup";
     private static final String FIELD_ARIA_ACCESSKEY = "ariaAccessKey";
+
+    private static final String FIELD_DATA_ANALYTICS_TYPE = "data-analytics-type";
+    private static final String FIELD_DATA_ANALYTICS_HIT_TYPE = "data-analytics-hit-type";
+    private static final String FIELD_DATA_ANALYTICS_METATYPE = "data-analytics-metatype";
+    private static final String FIELD_DATA_ANALYTICS_FILENAME = "data-analytics-filename";
+    private static final String FIELD_DATA_ANALYTICS_EVENT_CATEGORY = "data-analytics-event-category";
+    private static final String FIELD_DATA_ANALYTICS_EVENT_ACTION = "data-analytics-event-action";
+    private static final String FIELD_DATA_ANALYTICS_EVENT_LABEL = "data-analytics-event-label";
+    private static final String FIELD_DATA_ANALYTICS_TRANSPORT = "data-analytics-transport";
+    private static final String FIELD_DATA_ANALYTICS_NONINTERACTIVE = "data-analytics-noninteraction";
 
     private static final String FIELD_HREF = "href";
     private static final String FIELD_TITLE_TAG_TYPE = "titleType";
@@ -500,6 +511,25 @@
         return getComponentProperties(pageContext, null, fieldLists);
     }
 
+    public String MD5(String encode) {
+        try {
+
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] digest = md.digest(encode.getBytes());
+
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < digest.length; ++i) {
+                sb.append(Integer.toHexString((digest[i] & 0xFF) | 0x100).substring(1,3));
+            }
+            return sb.toString();
+
+        } catch (Exception ex) {
+            LOG.error("MD5 could not encode string ({0})", ex.toString());
+        }
+
+        return encode;
+    }
+
     /**
      * returns component values with defaults from a targetResource, default to pageContext properties
      * @param pageContext current page context
@@ -600,6 +630,8 @@
 
             if (currentNode != null && addMoreAttributes) {
                 componentProperties.put(COMPONENT_INSTANCE_NAME, currentNode.getName());
+                //hash component node path as unique id
+                componentProperties.attr.add(COMPONENT_ID, MD5(currentNode.getIdentifier()));
             }
 
             if (component != null && addMoreAttributes) {
