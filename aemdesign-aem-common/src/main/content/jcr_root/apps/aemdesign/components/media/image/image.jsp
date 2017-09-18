@@ -16,6 +16,7 @@
     final String FIELD_LICENSE_INFO = "licenseInfo";
     final String FIELD_LINKURL = "linkURL";
     final String FIELD_IMAGEURL = "imageURL";
+    final String FIELD_ASSETID = "asset-id";
     final String FIELD_RENDITIONS = "renditions";
     final String FIELD_RENDITION_PREFIX = "renditionPrefix";
     final String FIELD_RESPONSIVE_MAP = "renditionImageMapping";
@@ -68,7 +69,8 @@
             componentFields,
             DEFAULT_FIELDS_ASSET_IMAGE,
             DEFAULT_FIELDS_STYLE,
-            DEFAULT_FIELDS_ACCESSIBILITY);
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS);
 
 
     String fileReference = componentProperties.get(IMAGE_FILEREFERENCE, "");
@@ -85,10 +87,12 @@
         Node assetN = assetR.adaptTo(Node.class);
 
         //get asset metadata
+        String assetUID = MD5(asset.getIdentifier());
         String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
         String assetUsageTerms = assetBasic.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
         String licenseInfo = getAssetCopyrightInfo(assetBasic, _i18n.get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
         componentProperties.put(FIELD_LICENSE_INFO, licenseInfo);
+        componentProperties.put(FIELD_ASSETID, assetUID);
 
         //get asset properties and overwrite all existing ones specified in component
         ComponentProperties assetProperties = getAssetProperties(pageContext, asset, DEFAULT_FIELDS_ASSET_IMAGE);
@@ -99,6 +103,18 @@
         if (isEmpty(title)) {
             componentProperties.put(DAM_TITLE, assetBasic.getName());
         }
+
+        //update attributes
+        Object[][] componentAttibutes = {
+                {"data-"+FIELD_ASSETID,assetUID},
+                {"data-trackable",true},
+                {"data-licensed",isNotBlank(licenseInfo)},
+                {FIELD_DATA_ANALYTICS_EVENT_LABEL,componentProperties.get(DAM_TITLE)},
+                {FIELD_DATA_ANALYTICS_METATYPE,assetBasic.getMimeType()},
+                {FIELD_DATA_ANALYTICS_FILENAME,assetBasic.getName()},
+        };
+        componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties,componentAttibutes));
+
 
         //get page link
         String linkURL = componentProperties.get(FIELD_LINKURL, StringUtils.EMPTY);
