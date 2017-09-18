@@ -14,6 +14,7 @@
 ../vendor/jquery-ui/jquery-ui.js
 ../vendor/jsonpath/jsonpath.js
 ../vendor/masonry/masonry.js
+../vendor/picturefill/js/picturefill.js
 
 ../js/aemdesign.js
 ../js/aemdesign.class.js
