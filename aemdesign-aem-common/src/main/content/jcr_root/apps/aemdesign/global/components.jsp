@@ -118,7 +118,7 @@
     private static final String FIELD_HREF = "href";
     private static final String FIELD_TITLE_TAG_TYPE = "titleType";
 
-
+    //COMPONENT STYLES
     // {
     //   1 required - property name,
     //   2 required - default value,
@@ -139,6 +139,7 @@
             {FIELD_STYLE_COMPONENT_SITETITLECOLOR, ""},
     };
 
+    //COMPONENT ACCESSIBILITY
     // {
     //   1 required - property name,
     //   2 required - default value,
@@ -157,6 +158,7 @@
             {FIELD_ARIA_ACCESSKEY, "","accesskey"},
     };
 
+    //DEFAULT NODE METADATA
     // {
     //   1 required - property name,
     //   2 required - default value,
@@ -187,6 +189,7 @@
             {DETAILS_TITLE_ICONPATH, ""},
     };
 
+    //COMPONENT ANALYTICS
     // {
     //   1 required - property name,
     //   2 required - default value,
@@ -203,6 +206,7 @@
             {"analyticsNonInteraction", StringUtils.EMPTY, "data-analytics-noninteraction"},
     };
 
+    //LINK ATTRIBUTES
     // {
     //   1 required - property name,
     //   2 required - default value,
@@ -215,7 +219,7 @@
             {"dataToggle", "", "data-toggle"},
     };
 
-
+    //ASSET IMAGE METADATA
     // {
     //   1 required - property name,
     //   2 required - default value,
@@ -231,6 +235,7 @@
             {DAM_SOURCE_URL, StringUtils.EMPTY},
     };
 
+    //ASSET VIDEO METADATA
     // {
     //   1 required - property name,
     //   2 required - default value,
