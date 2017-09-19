@@ -1,7 +1,7 @@
 <%@page session="false" %>
-<%@ page import="com.day.cq.dam.api.DamConstants" %>
 <%@ page import="com.adobe.granite.ui.components.AttrBuilder" %>
 <%@ page import="com.adobe.granite.xss.XSSAPI" %>
+<%@ page import="com.day.cq.dam.api.DamConstants" %>
 <%@ page import="com.day.cq.wcm.api.components.Component" %>
 <%@ page import="com.day.cq.wcm.api.components.ComponentContext" %>
 <%@ page import="com.day.cq.wcm.api.components.ComponentManager" %>
@@ -9,7 +9,8 @@
 <%@ page import="com.day.cq.wcm.foundation.Placeholder" %>
 <%@ page import="com.google.common.base.Throwables" %>
 <%@ page import="org.apache.commons.io.IOUtils" %>
-<%@ page import="org.apache.commons.lang3.ArrayUtils, org.apache.commons.lang3.StringUtils" %>
+<%@ page import="org.apache.commons.lang3.ArrayUtils, org.apache.commons.lang3.RandomStringUtils" %>
+<%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="org.apache.commons.lang3.time.DateFormatUtils" %>
 <%@ page import="org.apache.sling.api.SlingHttpServletRequest" %>
 <%@ page import="org.apache.sling.api.resource.ResourceResolver" %>
@@ -86,7 +87,6 @@
 
     private static final String COMPONENT_ATTRIBUTES = "componentAttributes";
     private static final String COMPONENT_INSTANCE_NAME = "instanceName";
-    private static final String COMPONENT_ID = "componentid";
     private static final String COMPONENT_TARGET_RESOURCE = "targetResource";
     private static final String COMPONENT_ATTRIBUTE_CLASS = "class";
 
@@ -128,6 +128,8 @@
 
     private static final String FIELD_HREF = "href";
     private static final String FIELD_TITLE_TAG_TYPE = "titleType";
+
+    private static final String JCR_NAME_SEPARATOR = "_";
 
     //COMPONENT STYLES
     // {
@@ -511,25 +513,6 @@
         return getComponentProperties(pageContext, null, fieldLists);
     }
 
-    public String MD5(String encode) {
-        try {
-
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] digest = md.digest(encode.getBytes());
-
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < digest.length; ++i) {
-                sb.append(Integer.toHexString((digest[i] & 0xFF) | 0x100).substring(1,3));
-            }
-            return sb.toString();
-
-        } catch (Exception ex) {
-            LOG.error("MD5 could not encode string ({0})", ex.toString());
-        }
-
-        return encode;
-    }
-
     /**
      * returns component values with defaults from a targetResource, default to pageContext properties
      * @param pageContext current page context
@@ -630,8 +613,8 @@
 
             if (currentNode != null && addMoreAttributes) {
                 componentProperties.put(COMPONENT_INSTANCE_NAME, currentNode.getName());
-                //hash component node path as unique id
-                componentProperties.attr.add(COMPONENT_ID, MD5(currentNode.getIdentifier()));
+                //get/generate component id
+                String componentId = getComponentId(currentNode);
             }
 
             if (component != null && addMoreAttributes) {
@@ -1089,6 +1072,69 @@
         return detailsNode;
     }
 
+    /***
+     * encode a string using MD5
+     * @param encode string to encode
+     * @return
+     */
+    public String MD5(String encode) {
+        try {
+
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] digest = md.digest(encode.getBytes());
+
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < digest.length; ++i) {
+                sb.append(Integer.toHexString((digest[i] & 0xFF) | 0x100).substring(1,3));
+            }
+            return sb.toString();
+
+        } catch (Exception ex) {
+            LOG.error("MD5 could not encode string ({0})", ex.toString());
+        }
+
+        return encode;
+    }
+
+
+    /***
+     * get or generate component id
+     * @param componentNode component node
+     * @return
+     */
+    public String getComponentId(Node componentNode) {
+
+        String componentId = UUID.randomUUID().toString();
+        if (componentNode == null) {
+            return componentId;
+        }
+        String path = "";
+        try {
+            path = componentNode.getPath();
+
+            if (!componentNode.hasProperty(FIELD_STYLE_COMPONENT_ID)) {
+                String prefix = componentNode.getName();
+                if (prefix.contains(JCR_NAME_SEPARATOR)) {
+                    prefix = prefix.substring(0,prefix.indexOf(JCR_NAME_SEPARATOR));
+                }
+                componentNode.setProperty(FIELD_STYLE_COMPONENT_ID,
+                         MessageFormat.format(
+                                "{0}_{1}",
+                                 prefix,
+                                RandomStringUtils.randomAlphanumeric(9).toUpperCase())
+                );
+
+                componentNode.getSession().save();
+            }
+
+            componentId = getProperty(componentNode, FIELD_STYLE_COMPONENT_ID);
+
+        } catch (Exception ex) {
+            LOG.error("Could not get id for component path={},id={},error {}",path,componentId,ex.toString());
+        }
+
+        return componentId;
+    }
 
 %>
 <c:set var="DEFAULT_VARIANT" value="<%= DEFAULT_VARIANT %>"/>
