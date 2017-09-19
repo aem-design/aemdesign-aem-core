@@ -7,7 +7,7 @@
         <figcaption>
             ${componentProperties['dc:title']}
         </figcaption>
-        <div class="desc">${componentProperties['dc:description']}</div>
+        <div class="description">${componentProperties['dc:description']}</div>
         <c:if test="${not empty componentProperties.licenseInfo}">
             <small class="text-muted license">${componentProperties.licenseInfo}</small>
         </c:if>
