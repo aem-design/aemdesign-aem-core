@@ -87,7 +87,7 @@
         Node assetN = assetR.adaptTo(Node.class);
 
         //get asset metadata
-        String assetUID = MD5(asset.getIdentifier());
+        String assetUID = asset.getIdentifier();
         String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
         String assetUsageTerms = assetBasic.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
         String licenseInfo = getAssetCopyrightInfo(assetBasic, _i18n.get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
