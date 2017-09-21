@@ -9,8 +9,8 @@
             jcr:primaryType="cq:PageContent"
             cq:tags="[content-type:page]"
             sling:resourceType="aemdesign/components/template/column/two">
-        <par jcr:primaryType="nt:unstructured"
-             sling:resourceType="foundation/components/parsys">
-        </par>
+        <article jcr:primaryType="nt:unstructured"
+                 sling:resourceType="aemdesign/components/layout/article">
+        </article>
     </jcr:content>
 </jcr:root>
