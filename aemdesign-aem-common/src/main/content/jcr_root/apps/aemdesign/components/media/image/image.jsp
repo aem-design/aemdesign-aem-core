@@ -48,7 +48,7 @@
     //   4 optional - canonical name of class for handling multivalues, String or Tag [stringValueTypeClass]
     // }
     Object[][] componentFields = {
-            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_VARIANT, IMAGE_OPTION_RENDITION},
             {FIELD_IMAGE_OPTION, IMAGE_OPTION_RESPONSIVE},
             {ImageResource.PN_HTML_WIDTH, ""},
             {ImageResource.PN_HTML_HEIGHT, ""},
@@ -131,15 +131,22 @@
 
         try {
             String imageOption = componentProperties.get(FIELD_IMAGE_OPTION, IMAGE_OPTION_RESPONSIVE);
-            Map<String, String> responsiveImageSet= new LinkedHashMap<>();
+            Map<String, String> responsiveImageSet = new LinkedHashMap<>();
+
             switch (imageOption) {
                 case IMAGE_OPTION_GENERATED:
-                    String imageHref = getResourceImageCustomHref(_resource,_component.getCellName());
+                    String imageHref = "";
+                    Long lastModified = getLastModified(_resource);
+                    imageHref = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, _resource.getPath(), lastModified.toString());
+
                     componentProperties.put(FIELD_IMAGEURL, imageHref);
                     break;
                 case IMAGE_OPTION_RENDITION:
                     int targetWidth = componentProperties.get(ImageResource.PN_WIDTH, 0);
-                    componentProperties.put(FIELD_IMAGEURL, getBestFitRendition(targetWidth, asset));
+                    com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(targetWidth, asset);
+                    if (bestRendition != null) {
+                        componentProperties.put(FIELD_IMAGEURL, bestRendition.getPath());
+                    }
                     break;
                 case IMAGE_OPTION_ADAPTIVE:
                     String[] adaptiveImageMapping = componentProperties.get(FIELD_ADAPTIVE_MAP, DEFAULT_ADAPTIVE_IMAGE_MAP);
@@ -147,27 +154,24 @@
                     responsiveImageSet = getAdaptiveImageSet(adaptiveImageMapping, _resourceResolver, fileReference, null, _sling);
 
                     componentProperties.put(FIELD_RENDITIONS, responsiveImageSet);
-                    //pick last one from collection
-                    if (responsiveImageSet.values().size() > 0) {
-                        componentProperties.put(FIELD_IMAGEURL,
-                                responsiveImageSet.values().toArray()[responsiveImageSet.values().size()-1]
-                        );
-                    }
-                    break;
-                default:
 
+                    break;
+                default: //IMAGE_OPTION_RESPONSIVE
                     String[] renditionImageMapping = componentProperties.get(FIELD_RESPONSIVE_MAP, DEFAULT_RENDITION_IMAGE_MAP);
+
                     //get rendition profile prefix selected
                     String renditionPrefix = componentProperties.get(FIELD_RENDITION_PREFIX, "");
+
                     //get best fit renditions set
                     responsiveImageSet = getBestFitMediaQueryRenditionSet(asset, renditionImageMapping, renditionPrefix);
+
                     componentProperties.put(FIELD_RENDITIONS, responsiveImageSet);
-                    //pick last one from collection
-                    if (responsiveImageSet.values().size() > 0) {
-                        componentProperties.put(FIELD_IMAGEURL,
-                                responsiveImageSet.values().toArray()[responsiveImageSet.values().size()-1]
-                        );
-                    }
+            }
+
+            //pick last one from collection
+            if (responsiveImageSet.values().size() > 0) {
+                componentProperties.put(FIELD_IMAGEURL, responsiveImageSet.values()
+                        .toArray()[responsiveImageSet.values().size()-1]);
             }
 
         } catch (Exception ex) {
