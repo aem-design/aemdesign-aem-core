@@ -430,7 +430,7 @@
             if (fileReference != null) {
                 if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE)) {
                     Long lastModified = getLastModified(imageResource);
-                    imageSrc = MessageFormat.format("{0}.img.png/{1}.png", imageResource.getPath(), lastModified.toString());
+                    imageSrc = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, imageResource.getPath(), lastModified.toString());
                     imageSrc = mappedUrl(resource.getResourceResolver(), imageSrc);
                 }
             }

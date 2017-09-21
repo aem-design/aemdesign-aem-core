@@ -82,6 +82,7 @@
     private static final String DEFAULT_ASSET_RENDITION_PREFIX1 = "cq5dam.thumbnail.";
     private static final String DEFAULT_ASSET_RENDITION_PREFIX2 = "cq5dam.web.";
 
+    private static final String DEFAULT_IMAGE_GENERATED_FORMAT = "{0}.img.png/{1}.png";
 
     private static final String DEFAULT_IMAGE_RESOURCETYPE = "aemdesign/components/media/image";
 
@@ -724,7 +725,7 @@
                 String imageSrc = "";
                 if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE)) {
                     Long lastModified = getLastModified(imageResource);
-                    imageSrc = MessageFormat.format("{0}.img.png/{1}.png", imageResource.getPath(), lastModified.toString());
+                    imageSrc = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, imageResource.getPath(), lastModified.toString());
                 }
                 componentAttributes += MessageFormat.format(" style=\"background-image: url({0})\"", mappedUrl(resource.getResourceResolver(), imageSrc));
             }
