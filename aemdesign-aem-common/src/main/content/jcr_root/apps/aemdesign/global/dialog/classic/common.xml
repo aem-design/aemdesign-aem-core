@@ -553,6 +553,28 @@
                     </items>
                 </menuConfigGroup>
 
+                <cardConfigGroup
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}false"
+                        collapsible="{Boolean}true"
+                        title="Card Configuration"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <promotionSize jcr:primaryType="cq:Widget"
+                                       fieldLabel="Card Size"
+                                       fieldDescription="this will be used as card size in grids"
+                                       allowBlank="{Boolean}true"
+                                       name="./cardSize"
+                                       options="/etc/tags/component-style/theme/grid/size.valuelist.json"
+                                       type="select"
+                                       defaultValue=""
+                                       value=""
+                                       xtype="selection"/>
+
+                    </items>
+                </cardConfigGroup>
+
                 <compositionConfigGroup
                         jcr:primaryType="cq:Widget"
                         collapsed="{Boolean}true"
