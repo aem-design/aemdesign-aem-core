@@ -28,7 +28,7 @@
             {"subCategory", StringUtils.EMPTY},
             {"menuColor", StringUtils.EMPTY},
             {"titleFormat",""},
-            {"promoSize", ""},
+            {"cardSize", ""},
             {"subTitleFormat",""},
             {"eventDisplayDateFormat",""}
 
@@ -59,10 +59,10 @@
 
     String width = "220";
 
-    if(componentProperties.get("promoSize","").endsWith(MEDIUM_THUMBNAIL_SIZE)){
+    if(componentProperties.get("cardSize","").endsWith(MEDIUM_THUMBNAIL_SIZE)){
         componentProperties.put("isMediumThumbnail",true);
         width = "320";
-    }else if(componentProperties.get("promoSize","").endsWith(LARGE_THUMBNAIL_SIZE)){
+    }else if(componentProperties.get("cardSize","").endsWith(LARGE_THUMBNAIL_SIZE)){
         componentProperties.put("isLargeThumbnail",true);
         width = "460";
     }else{

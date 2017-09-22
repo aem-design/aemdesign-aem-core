@@ -31,7 +31,7 @@
             {TagConstants.PN_TAGS, new String[]{}},
             //subCategory is resolved for Event Detail's badge
             {"subCategory", ""},
-            {"promoSize", ""},
+            {"cardSize", ""},
             {"menuColor", ""}
     };
 

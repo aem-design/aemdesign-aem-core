@@ -144,7 +144,7 @@
                                        fieldLabel="Block Size"
                                        fieldDescription="this will be used as card size in grids"
                                        allowBlank="{Boolean}true"
-                                       name="./promoSize"
+                                       name="./cardSize"
                                        options="/etc/tags/component-style/theme/grid/size.valuelist.json"
                                        type="select"
                                        defaultValue=""

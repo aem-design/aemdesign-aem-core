@@ -22,7 +22,7 @@
             {"cq:tags", new String[]{}},
             //subCategory is resolved for Event Detail's badge
             {"subCategory", ""},
-            {"promoSize", ""},
+            {DETAILS_FIELD_CARDSIZE, ""},
             {"titleFormat",""}
     };
 
@@ -41,10 +41,10 @@
 
     String width = "220";
 
-    if(componentProperties.get("promoSize","").endsWith(MEDIUM_THUMBNAIL_SIZE)){
+    if(componentProperties.get(DETAILS_FIELD_CARDSIZE,"").endsWith(MEDIUM_THUMBNAIL_SIZE)){
         componentProperties.put("isMediumThumbnail",true);
         width = "320";
-    }else if(componentProperties.get("promoSize","").endsWith(LARGE_THUMBNAIL_SIZE)){
+    }else if(componentProperties.get(DETAILS_FIELD_CARDSIZE,"").endsWith(LARGE_THUMBNAIL_SIZE)){
         componentProperties.put("isLargeThumbnail",true);
         width = "460";
     }else{

@@ -41,7 +41,7 @@
             {"cq:tags", new String[]{}},
             //subCategory is resolved for Event Detail's badge
             {"subCategory", ""},
-            {"promoSize", ""},
+            {DETAILS_FIELD_CARDSIZE, ""},
             {"thumbnailWidth",THUMBNAIL_IMAGE_WIDTH},
             {"menuColor",""},
             {"titleFormat",""}

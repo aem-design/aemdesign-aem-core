@@ -3,6 +3,8 @@
     jcr:primaryType="cq:Dialog"
         description="Page Details is to save additional info for the Page Properties"
         title="Page Details"
+        height="490"
+        width="600"
         xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
@@ -33,16 +35,6 @@
                                         text="Default" />
                             </options>
                         </variant>
-                        <promotionSize jcr:primaryType="cq:Widget"
-                            fieldLabel="Block Size"
-                            fieldDescription="this will be used as card size in grids"
-                            allowBlank="{Boolean}true"
-                            name="./promoSize"
-                            options="/etc/tags/component-style/theme/grid/size.valuelist.json"
-                            type="select"
-                            defaultValue=""
-                            value=""
-                            xtype="selection"/>
                         <titleFormats
                                 jcr:primaryType="cq:Widget"
                                 collapsed="{Boolean}false"
