@@ -58,6 +58,8 @@
     private static final String DETAILS_TITLE_ICON = "titleIcon";
     private static final String DETAILS_TITLE_ICONPATH = "titleIconPath";
 
+    private static final String DETAILS_FIELD_CARDSIZE = "cardSize";
+
     private static final String FIELD_HIDEINMENU = "hideInMenu";
 
     //http://www.photometadata.org/META-Resources-Field-Guide-to-Metadata
