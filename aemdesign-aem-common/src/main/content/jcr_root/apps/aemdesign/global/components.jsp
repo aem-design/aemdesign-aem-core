@@ -119,6 +119,8 @@
     private static final String FIELD_ARIA_HASPOPUP = "ariaHaspopup";
     private static final String FIELD_ARIA_ACCESSKEY = "ariaAccessKey";
 
+    private static final String FIELD_ARIA_DATA_ATTRIBUTE_ROLE = "role";
+
     private static final String FIELD_DATA_ANALYTICS_TYPE = "data-analytics-type";
     private static final String FIELD_DATA_ANALYTICS_HIT_TYPE = "data-analytics-hit-type";
     private static final String FIELD_DATA_ANALYTICS_METATYPE = "data-analytics-metatype";
