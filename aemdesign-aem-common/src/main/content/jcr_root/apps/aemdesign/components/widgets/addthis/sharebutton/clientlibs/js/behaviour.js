@@ -10,7 +10,7 @@ window.AEMDESIGN.components.sharebutton = AEMDESIGN.components.sharebutton || {}
 
         $("[data-modules='sharebutton']").each(function () {
 
-            // ns.loadShareButton(this);
+            ns.loadShareButton(this);
 
         });
 
