@@ -197,7 +197,7 @@
     //   3 optional - name of component attribute to add value into
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-    public static final Object[][] DEFAULT_FIELDS_PAGEDETAILS = {
+    public static final Object[][] DEFAULT_FIELDS_PAGEDETAILS_OPTIONS = {
             {DETAILS_MENU_COLOR, ""},
             {DETAILS_MENU_ICON, false},
             {DETAILS_MENU_ICONPATH, ""},
@@ -205,6 +205,7 @@
             {DETAILS_TAB_ICONPATH, ""},
             {DETAILS_TITLE_ICON, false},
             {DETAILS_TITLE_ICONPATH, ""},
+            {DETAILS_FIELD_CARDSIZE, ""},
     };
 
     //COMPONENT ANALYTICS
