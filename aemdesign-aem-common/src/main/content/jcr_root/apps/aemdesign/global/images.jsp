@@ -478,7 +478,7 @@
         return fileReferencPath;
     }
 
-    protected String getSecondaryImageReferencePath(Page thisPage, String componentPath) {
+    protected String getPageContentImagePath(Page thisPage, String componentPath) {
         String imagePath = "";
         try {
             Node secondaryImage = null;
