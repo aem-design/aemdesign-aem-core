@@ -1,11 +1,19 @@
-<%@ page import="com.day.cq.wcm.webservicesupport.ConfigurationManager" %>
-<%@ page import="com.day.cq.wcm.webservicesupport.Configuration" %>
-<%@ page import="com.day.cq.wcm.webservicesupport.ConfigurationConstants" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%
+    final String DEFAULT_ARIA_ROLE = "banner";
+    final String DEFAULT_MODULE = "banner";
+    final String DEFAULT_CLOUDCONFIG_ADDTHIS = "addthisconnect";
+    final String DEFAULT_CLOUDCONFIG_ADDTHIS_ID = "pubId";
+
+
     Object[][] componentFields = {
-            {"cssClassRow", ""}
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
+            {FIELD_STYLE_COMPONENT_MODULE, new String[]{"component-style:theme/sharebutton"},"data-module", Tag.class.getCanonicalName()},
+            {"pubId",
+                    getCloudConfigProperty(_pageProperties,DEFAULT_CLOUDCONFIG_ADDTHIS,DEFAULT_CLOUDCONFIG_ADDTHIS_ID,_sling),
+                    "data-pubid"},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -14,45 +22,14 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    //TODO: move this admin session usage into function
-    ResourceResolver adminResourceResolver  = this.openAdminResourceResolver(_sling);
-
-    try {
-
-        // Getting attached facebook cloud service config in order to fetch appID
-        ConfigurationManager cfgMgr = adminResourceResolver.adaptTo(ConfigurationManager.class);
-        Configuration addthisConfiguration = null;
-        String[] services = _pageProperties.getInherited(ConfigurationConstants.PN_CONFIGURATIONS, new String[]{});
-        String pubid = _properties.get("pubId","");
-        if(cfgMgr != null) {
-            addthisConfiguration = cfgMgr.getConfiguration("addthisconnect", services);
-            if (addthisConfiguration != null) {
-                pubid = addthisConfiguration.get("pubId", "");
-
-            }
-        }
-
-        componentProperties.put("pubId",pubid);
-
-    } catch (Exception ex) {
-
-        out.write( Throwables.getStackTraceAsString(ex) );
-
-    } finally {
-        this.closeAdminResourceResolver(adminResourceResolver);
-    }
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
-
 <c:choose>
     <c:when test="${not empty componentProperties.pubId}">
         <%@ include file="variant.default.jsp"  %>
     </c:when>
-    <c:when test="${empty componentProperties.pubId}">
-        <%@ include file="variant.empty.jsp"  %>
-    </c:when>
     <c:otherwise>
-        <%@ include file="variant.hidden.jsp" %>
+        <%@ include file="variant.empty.jsp"  %>
     </c:otherwise>
 </c:choose>
 

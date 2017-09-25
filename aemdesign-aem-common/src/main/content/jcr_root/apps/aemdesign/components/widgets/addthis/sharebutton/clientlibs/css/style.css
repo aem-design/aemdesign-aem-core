@@ -1,4 +1,9 @@
 /*sharebutton*/
+
+.addthis_actions {
+    float: right;
+}
+
 /*
 .toolbar {
     position: absolute;

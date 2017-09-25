@@ -7,7 +7,7 @@
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <generalTab
+                <basicTab
                         jcr:primaryType="cq:Panel"
                         border="false"
                         height=""
@@ -20,7 +20,7 @@
                                name="./pubId"
                                xtype="textfield"/>
                     </items>
-                </generalTab>
+                </basicTab>
                 <styleTab
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
