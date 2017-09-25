@@ -13,10 +13,8 @@
     final String DEFAULT_I18N_CATEGORY = "image";
     final String DEFAULT_I18N_LABEL_LICENSEINFO = "licenseinfo";
     final String DEFAULT_ARIA_ROLE = "banner";
-    final String FIELD_LICENSE_INFO = "licenseInfo";
     final String FIELD_LINKURL = "linkURL";
     final String FIELD_IMAGEURL = "imageURL";
-    final String FIELD_ASSETID = "asset-id";
     final String FIELD_RENDITIONS = "renditions";
     final String FIELD_RENDITION_PREFIX = "renditionPrefix";
     final String FIELD_RESPONSIVE_MAP = "renditionImageMapping";
@@ -104,7 +102,7 @@
             componentProperties.put(DAM_TITLE, assetBasic.getName());
         }
 
-        //update attributes
+        //update attributes - consider updating to using componentProperties.attr
         Object[][] componentAttibutes = {
                 {"data-"+FIELD_ASSETID,assetUID},
                 {"data-trackable",true},

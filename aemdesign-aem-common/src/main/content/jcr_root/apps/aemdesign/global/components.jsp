@@ -140,6 +140,9 @@
 
     private static final String JCR_NAME_SEPARATOR = "_";
 
+    private static final String FIELD_LICENSE_INFO = "licenseInfo";
+    private static final String FIELD_ASSETID = "asset-id";
+
     //COMPONENT STYLES
     // {
     //   1 required - property name,
@@ -719,12 +722,17 @@
     }
 
     /***
+     *
+     * @deprecated please use ComponentProperties.attr which is an AttributeBuilder
+     *
      * add style tag to component attributes collection
      * @param componentProperties component attributes collection
      * @param resource resource to search for image
      * @param imageResourceName image node name
      * @return
+     *
      */
+    @Deprecated
     public String addComponentBackgroundToAttributes(ComponentProperties componentProperties, Resource resource, String imageResourceName) {
         String componentAttributes = componentProperties.get(COMPONENT_ATTRIBUTES, "");
         Resource imageResource = resource.getChild(imageResourceName);
