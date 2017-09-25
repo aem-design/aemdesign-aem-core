@@ -1,6 +1,7 @@
 <%@ page import="com.day.cq.wcm.api.Page" %>
 <%@ page import="org.apache.commons.lang.BooleanUtils" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
+<%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="./common.jsp" %>
 <%
@@ -39,7 +40,7 @@
             DEFAULT_FIELDS_ACCESSIBILITY,
             DEFAULT_FIELDS_PAGEDETAILS_OPTIONS);
 
-    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,"secondaryImage"));
+    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME));
 
     componentProperties.putAll(processComponentFields(componentProperties,_i18n,_sling));
 

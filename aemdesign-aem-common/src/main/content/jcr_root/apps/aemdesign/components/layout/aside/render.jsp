@@ -1,5 +1,6 @@
 <%@ page import="com.google.common.base.Throwables" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
+<%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%
 
@@ -21,7 +22,7 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,"bgimage"));
+    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME));
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>

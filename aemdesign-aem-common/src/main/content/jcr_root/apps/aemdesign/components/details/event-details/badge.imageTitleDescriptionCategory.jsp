@@ -29,7 +29,7 @@
             {"menuColor", StringUtils.EMPTY},
             {"titleFormat",""},
             {"subTitleFormat",""},
-            {"secondaryImage",StringUtils.EMPTY },
+            {DEFAULT_SECONDARY_IMAGE_NODE_NAME,StringUtils.EMPTY },
             {"eventDisplayDateFormat",""}
 
     };
@@ -61,7 +61,7 @@
 
     componentProperties.putAll(this.getPageNamedImage(_sling, thisPage, "220"));
 
-    componentProperties.put("secondaryImage", getSecondaryImageReferencePath(thisPage, "article/par/event-details/secondaryImage"));
+    componentProperties.put(DEFAULT_SECONDARY_IMAGE_NODE_NAME, getSecondaryImageReferencePath(thisPage, "article/par/event-details/secondaryImage"));
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 

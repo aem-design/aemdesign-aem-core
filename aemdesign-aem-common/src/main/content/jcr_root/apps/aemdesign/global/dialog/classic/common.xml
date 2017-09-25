@@ -357,6 +357,63 @@
             </items>
         </imageBackgroundTabResourceType>
 
+
+        <secondaryImageTab
+                jcr:primaryType="cq:Widget"
+                allowUpload="{Boolean}false"
+                name="./secondaryImage/file"
+                title="Secondary Image"
+                ddGroups="[media]"
+                cropParameter="./secondaryImage/imageCrop"
+                fileNameParameter="./secondaryImage/fileName"
+                fileReferenceParameter="./secondaryImage/fileReference"
+                rotateParameter="./secondaryImage/imageRotate"
+                mapParameter="./secondaryImage/imageMap"
+                xtype="html5smartimage">
+            <cropConfig jcr:primaryType="nt:unstructured">
+                <aspectRatios jcr:primaryType="nt:unstructured">
+                    <freehand
+                            jcr:primaryType="nt:unstructured"
+                            value="0,0"
+                            text="Free hand"/>
+                    <twobythree
+                            jcr:primaryType="nt:unstructured"
+                            value="2,3"
+                            text="2 x 3"/>
+                    <threebyfive
+                            jcr:primaryType="nt:unstructured"
+                            value="3,5"
+                            text="3 x 5"/>
+                    <sixteenbynine
+                            jcr:primaryType="nt:unstructured"
+                            value="16,9"
+                            text="16 x 9"/>
+                    <square
+                            jcr:primaryType="nt:unstructured"
+                            value="1,1"
+                            text="Square"/>
+                </aspectRatios>
+            </cropConfig>
+        </secondaryImageTab>
+
+        <secondaryImageTabResourceType
+                jcr:primaryType="cq:Panel"
+                title="Secondary Image Metadata"
+                fieldDescription="Background Image Metadat  additional fields for saving content of Background Image"
+                xtype="panel">
+            <listeners
+                    jcr:primaryType="nt:unstructured"
+                    render="function() { AEMDESIGN.dialog.hideTab(this, this.findParentByType('dialog').findByType('tabpanel')[0]); }"/>
+            <items jcr:primaryType="cq:WidgetCollection">
+                <imageBackgroundTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        ignoreData="{Boolean}true"
+                        name="./secondaryImage/sling:resourceType"
+                        value="aemdesign/components/media/image"
+                        xtype="textfield"/>
+            </items>
+        </secondaryImageTabResourceType>
+
         <permissionCheckTab
                 jcr:primaryType="cq:Panel"
                 id="permissionCheckTab"
@@ -497,20 +554,14 @@
             </items>
         </pageBasicTab>
 
-        <pageSecondaryImageTab jcr:primaryType="cq:Widget"
-            cropParameter="./secondaryImage/imageCrop"
-            ddGroups="[media]"
-            fileNameParameter="./secondaryImage/fileName"
-            fileReferenceParameter="./secondaryImage/fileReference"
-            mapParameter="./secondaryImage/imageMap"
-            name="./secondaryImage/file"
-            rotateParameter="./secondaryImage/imageRotate"
-            title="Secondary Image"
-            xtype="html5smartimage"/>
 
         <pageAdvancedTab jcr:primaryType="cq:Panel"
-                         title="Advanced">
+                         title="Badge Config">
             <items jcr:primaryType="cq:WidgetCollection">
+                <descriptionLabel
+                        jcr:primaryType="cq:Widget"
+                        html="&lt;span style=&quot;color: blue; font-weight: bold; &quot;>This config is used in Badges to display content in other components&lt;/span>"
+                        xtype="label"/>
                 <menuConfigGroup
                         jcr:primaryType="cq:Widget"
                         collapsed="{Boolean}true"

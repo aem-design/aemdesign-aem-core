@@ -115,9 +115,15 @@
 
                 </eventdetailstab>
 
-                <secondaryImageTab jcr:primaryType="cq:Widget"
-                    path="/apps/aemdesign/global/dialog/classic/common/items/pageSecondaryImageTab.infinity.json"
-                    xtype="cqinclude"/>
+                <imageBackgroundTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/imageBackgroundTab.infinity.json"
+                        xtype="cqinclude"/>
+
+                <imageBackgroundTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/common/items/imageBackgroundTabResourceType.infinity.json"
+                        xtype="cqinclude"/>
 
 
                 <layoutTab jcr:primaryType="cq:Panel"

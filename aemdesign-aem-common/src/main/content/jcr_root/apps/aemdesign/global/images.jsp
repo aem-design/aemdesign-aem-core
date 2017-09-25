@@ -44,6 +44,9 @@
     final String MEDIUM_THUMBNAIL_SIZE = "320";
     final String LARGE_THUMBNAIL_SIZE = "480";
 
+    final String DEFAULT_BACKGROUND_IMAGE_NODE_NAME = "bgimage";
+    final String DEFAULT_SECONDARY_IMAGE_NODE_NAME = "secondaryImage";
+
     /***
      * get attributes from asset
      * @param pageContext

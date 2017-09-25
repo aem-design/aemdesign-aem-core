@@ -46,7 +46,7 @@
     componentProperties.put("imgAlt", _i18n.get("readMoreAboutText","pagedetail",pageTitle) );
 
     String altImg = getSecondaryImageReferencePath(thisPage, "article/par/page-details/secondaryImage");
-    componentProperties.put("secondaryImage", getThumbnail(altImg, DEFAULT_IMAGE_PATH_SELECTOR, _resourceResolver));
+    componentProperties.put(DEFAULT_SECONDARY_IMAGE_NODE_NAME, getThumbnail(altImg, DEFAULT_IMAGE_PATH_SELECTOR, _resourceResolver));
 
 
 %>

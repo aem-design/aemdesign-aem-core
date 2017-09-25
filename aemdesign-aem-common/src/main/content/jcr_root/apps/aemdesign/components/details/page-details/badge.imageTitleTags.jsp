@@ -64,7 +64,7 @@
     componentProperties.put("img",img);
     componentProperties.put("imgAlt", _i18n.get("readMoreAboutText","pagedetail") +pageTitle );
 
-    componentProperties.put("secondaryImage", getSecondaryImageReferencePath(thisPage, "article/par/page-details/secondaryImage"));
+    componentProperties.put(DEFAULT_SECONDARY_IMAGE_NODE_NAME, getSecondaryImageReferencePath(thisPage, "article/par/page-details/secondaryImage"));
 
     componentProperties.putAll(processComponentFields(componentProperties,_i18n,_sling));
 %>
