@@ -581,8 +581,8 @@
                                    xtype="selection"/>
 
                         <menuIcon jcr:primaryType="cq:Widget"
-                                    fieldLabel="Show As Icon"
-                                    fieldDescription="When showing this page in menu show this as Icon"
+                                    fieldLabel="Show Icon"
+                                    fieldDescription="When showing this page in menu show this an Icon"
                                     allowBlank="{Boolean}true"
                                     name="./menuIcon"
                                     options="/etc/tags/component-dialog/common/true-false.valuelist.json"
@@ -633,8 +633,8 @@
                     <items jcr:primaryType="cq:WidgetCollection">
 
                         <tabIcon jcr:primaryType="cq:Widget"
-                                  fieldLabel="Show As Icon"
-                                  fieldDescription="When showing this page in a tab show this as Icon"
+                                  fieldLabel="Show Icon"
+                                  fieldDescription="When showing this page in a tab show this an Icon"
                                   allowBlank="{Boolean}true"
                                   name="./tabIcon"
                                   options="/etc/tags/component-dialog/common/true-false.valuelist.json"
@@ -661,8 +661,8 @@
                     <items jcr:primaryType="cq:WidgetCollection">
 
                         <titleIcon jcr:primaryType="cq:Widget"
-                                 fieldLabel="Show As Icon"
-                                 fieldDescription="When showing this page links show this as Icon"
+                                 fieldLabel="Show Icon"
+                                 fieldDescription="When showing this page links show this an Icon"
                                  allowBlank="{Boolean}true"
                                  name="./titleIcon"
                                  options="/etc/tags/component-dialog/common/true-false.valuelist.json"
