@@ -460,9 +460,6 @@
                         name="./author"
                         xtype="textfield"/>
 
-                <!-- if using cq:tags, that field is for taxonomy on Content only -->
-
-                <!-- Category is the additional value on top of cq:Content's cq:tags -->
                 <category
                         jcr:primaryType="cq:Widget"
                         fieldLabel="Primary Category"
@@ -516,7 +513,7 @@
             <items jcr:primaryType="cq:WidgetCollection">
                 <menuConfigGroup
                         jcr:primaryType="cq:Widget"
-                        collapsed="{Boolean}false"
+                        collapsed="{Boolean}true"
                         collapsible="{Boolean}true"
                         title="Menu Configuration"
                         xtype="dialogfieldset">
@@ -555,7 +552,7 @@
 
                 <cardConfigGroup
                         jcr:primaryType="cq:Widget"
-                        collapsed="{Boolean}false"
+                        collapsed="{Boolean}true"
                         collapsible="{Boolean}true"
                         title="Card Configuration"
                         xtype="dialogfieldset">
@@ -574,36 +571,6 @@
 
                     </items>
                 </cardConfigGroup>
-
-                <compositionConfigGroup
-                        jcr:primaryType="cq:Widget"
-                        collapsed="{Boolean}true"
-                        collapsible="{Boolean}true"
-                        title="Detail Component Composition"
-                        xtype="dialogfieldset">
-                    <items jcr:primaryType="cq:WidgetCollection">
-                        <showBreadcrumb jcr:primaryType="cq:Widget"
-                                        fieldLabel="Show Breadcrumb"
-                                        allowBlank="{Boolean}true"
-                                        name="./showBreadcrumb"
-                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                        type="select"
-                                        defaultValue=""
-                                        value=""
-                                        xtype="selection"/>
-
-                        <showToolbar jcr:primaryType="cq:Widget"
-                                     fieldLabel="Show Toolbar"
-                                     allowBlank="{Boolean}true"
-                                     name="./showToolbar"
-                                     options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                     type="select"
-                                     defaultValue=""
-                                     value=""
-                                     xtype="selection"/>
-
-                        </items>
-                </compositionConfigGroup>
 
                 <tabIconTab
                         jcr:primaryType="cq:Widget"
@@ -637,7 +604,6 @@
                 <titleIconTab
                         jcr:primaryType="cq:Widget"
                         title="Title Configuration"
-                        description="Icon used in Titles"
                         collapsed="{Boolean}true"
                         collapsible="{Boolean}true"
                         xtype="dialogfieldset">
@@ -660,6 +626,12 @@
                                 rootPath="/content/dam"
                                 fieldDescription="The location of the icon to use"
                                 xtype="pathfield"/>
+
+                        <titleType
+                                jcr:primaryType="cq:Widget"
+                                path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/basicTab/items/title/items/titleType.infinity.json"
+                                xtype="cqinclude"/>
+
                     </items>
                 </titleIconTab>
 
@@ -821,21 +793,21 @@
         <advancedTab jcr:primaryType="cq:Panel" title="Advanced">
 
             <items jcr:primaryType="cq:WidgetCollection">
-                <hide_site_title
+                <hideTitle
                         jcr:primaryType="cq:Widget"
-                        fieldLabel="Hide site title"
-                        name="./hideSiteTitle"
+                        fieldLabel="Hide title"
+                        name="./hideTitle"
                         defaultValue="false"
                         type="checkbox"
                         xtype="selection"/>
-                <hide_separator
+                <hideSeparator
                         jcr:primaryType="cq:Widget"
                         fieldLabel="Hide separator"
                         name="./hideSeparator"
                         type="checkbox"
                         xtype="selection"/>
 
-                <hide_summary
+                <hideSummary
                         jcr:primaryType="cq:Widget"
                         fieldLabel="Hide summary"
                         name="./hideSummary"
