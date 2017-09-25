@@ -1,4 +1,4 @@
-<div ${componentProperties.componentAttributes} dd>
+<div ${componentProperties.componentAttributes}>
     <c:if test="${not empty componentProperties.imageURL}">
         <c:set var="imageAttr" value="class=\"card-img-top\""/>
         <%@include file="image.select.simple.jsp" %>
