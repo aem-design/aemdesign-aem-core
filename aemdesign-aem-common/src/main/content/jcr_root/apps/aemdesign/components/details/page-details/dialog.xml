@@ -62,7 +62,7 @@
 
                                 <showToolbar jcr:primaryType="cq:Widget"
                                              fieldLabel="Show Toolbar"
-                                             fieldDescription="show toolbar"
+                                             fieldDescription="show toolbar above title"
                                              allowBlank="{Boolean}true"
                                              name="./showToolbar"
                                              options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
