@@ -9,7 +9,7 @@
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <contentTab jcr:primaryType="cq:Panel"
+                <pageDetails jcr:primaryType="cq:Panel"
                     path="/apps/aemdesign/global/dialog/classic/common/items/pageBasicTab.infinity.json"
                     xtype="cqinclude" />
 
@@ -35,11 +35,53 @@
                                         text="Default" />
                             </options>
                         </variant>
-                        <titleFormats
+                        <displayOptions
                                 jcr:primaryType="cq:Widget"
                                 collapsed="{Boolean}false"
                                 collapsible="{Boolean}true"
-                                title="Title Formats"
+                                title="Display Options"
+                                xtype="dialogfieldset">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <showBreadcrumb jcr:primaryType="cq:Widget"
+                                                fieldLabel="Show Breadcrumb"
+                                                fieldDescription="show breadcrumb above title"
+                                                allowBlank="{Boolean}true"
+                                                name="./showBreadcrumb"
+                                                options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                                type="select"
+                                                defaultValue=""
+                                                value=""
+                                                xtype="selection"/>
+
+                                <showToolbar jcr:primaryType="cq:Widget"
+                                             fieldLabel="Show Toolbar"
+                                             fieldDescription="show toolbar"
+                                             allowBlank="{Boolean}true"
+                                             name="./showToolbar"
+                                             options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                             type="select"
+                                             defaultValue=""
+                                             value=""
+                                             xtype="selection"/>
+
+                                <showParsys jcr:primaryType="cq:Widget"
+                                            fieldLabel="Show Parsys"
+                                            fieldDescription="show parsys after title"
+                                            allowBlank="{Boolean}true"
+                                            name="./showParsys"
+                                            options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                            type="select"
+                                            defaultValue=""
+                                            value=""
+                                            xtype="selection"/>
+                            </items>
+                        </displayOptions>
+
+                        <titleFormat
+                                jcr:primaryType="cq:Widget"
+                                collapsed="{Boolean}true"
+                                collapsible="{Boolean}true"
+                                title="Title Format"
                                 xtype="dialogfieldset">
                             <items jcr:primaryType="cq:WidgetCollection">
                                 <titleFormat jcr:primaryType="cq:Widget"
@@ -52,11 +94,12 @@
                                              defaultValue=""
                                              xtype="selection"/>
                             </items>
-                        </titleFormats>
+                        </titleFormat>
+
                     </items>
                 </layoutTab>
 
-                <advancedTab jcr:primaryType="cq:Panel"
+                <pageAdvancedTab jcr:primaryType="cq:Panel"
                      path="/apps/aemdesign/global/dialog/classic/common/items/pageAdvancedTab.infinity.json"
                      xtype="cqinclude" />
 

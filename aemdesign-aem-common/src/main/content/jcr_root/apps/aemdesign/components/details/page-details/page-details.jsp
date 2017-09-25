@@ -5,30 +5,31 @@
 <%@ include file="./common.jsp" %>
 <%
 
+    final String DEFAULT_ARIA_ROLE = "banner";
+    final String DEFAULT_TITLE_TAG_TYPE = "h1";
+
     // default values for the component
     final String DEFAULT_TITLE = getPageTitle(_currentPage);
-    final String DEFAULT_DESCRIPTION = "";
-    final String DEFAULT_HIDE_SITE_TITLE = "false";
-    final String DEFAULT_HIDE_SEPARATOR = "false";
-    final String DEFAULT_HIDE_SUMMARY = "false";
-    final String DEFAULT_SHOW_BREADCRUMB = "yes";
-    final String DEFAULT_SHOW_TOOLBAR = "yes";
+    final String DEFAULT_DESCRIPTION = _currentPage.getDescription();
+    final Boolean DEFAULT_HIDE_DESCRIPTION = false;
+    final Boolean DEFAULT_SHOW_BREADCRUMB = false;
+    final Boolean DEFAULT_SHOW_TOOLBAR = false;
+    final Boolean DEFAULT_SHOW_PARSYS = false;
 
 
     //no lambada is available so this is the best that can be done
     Object[][] componentFields = {
-            {"title", DEFAULT_TITLE},
-            {"hideSiteTitle", DEFAULT_HIDE_SITE_TITLE},
-            {"description", DEFAULT_DESCRIPTION},
-            {"hideSeparator", DEFAULT_HIDE_SEPARATOR},
-            {"hideSummary", DEFAULT_HIDE_SUMMARY},
             {FIELD_VARIANT, DEFAULT_VARIANT},
-            {"cssClass", ""},
-            {"cssClassRow", ""},
-            {"useParentPageTitle", false},
+            {"title", DEFAULT_TITLE},
+            {"titleFormat",""},
+            {"description", DEFAULT_DESCRIPTION},
+            {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
             {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
             {"showToolbar", DEFAULT_SHOW_TOOLBAR},
-            {"titleFormat",""},
+            {"showParsys", DEFAULT_SHOW_PARSYS},
+            {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
+            {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
+
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -36,42 +37,19 @@
             componentFields,
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY,
-            DEFAULT_FIELDS_PAGEDETAILS);
+            DEFAULT_FIELDS_PAGEDETAILS_OPTIONS);
 
-    componentProperties.put("showBreadcrumb", BooleanUtils.toBoolean(componentProperties.get("showBreadcrumb", String.class)));
-    componentProperties.put("showToolbar", BooleanUtils.toBoolean(componentProperties.get("showToolbar", String.class)));
-
-    // retrieve component title
-    componentProperties.put("componentTitle", _component.getTitle());
-
-    if ((Boolean)(componentProperties.get("useParentPageTitle"))) {
-        Page parentPage = _currentPage.getParent();
-        String parentPageTitle = parentPage.getPageTitle();
-        componentProperties.put("parentPageTitle", parentPageTitle);
-
-    }
+    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,"secondaryImage"));
 
     componentProperties.putAll(processComponentFields(componentProperties,_i18n,_sling));
 
 %>
 
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
+<!--${componentProperties}-->
 <c:choose>
-
-    <c:when test="${componentProperties.varaint eq 'hidden'}">
-        <%@ include file="variant.hidden.jsp" %>
-    </c:when>
-
-    <c:when test="${componentProperties.varaint eq 'simple'}">
-        <%@ include file="variant.simple.jsp" %>
-    </c:when>
-
-    <c:when test="${componentProperties.varaint eq 'parsys'}">
-        <%@ include file="variant.parsys.jsp" %>
-    </c:when>
-
-    <c:when test="${componentProperties.varaint eq 'parsys-parent'}">
-        <%@ include file="variant.parsysparent.jsp" %>
+    <c:when test="${componentProperties.variant eq 'default'}">
+        <%@ include file="variant.default.jsp" %>
     </c:when>
 
     <c:otherwise>
