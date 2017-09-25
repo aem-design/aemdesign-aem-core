@@ -5,11 +5,15 @@
 <%@ page import="com.day.cq.wcm.api.components.Component" %>
 <%@ page import="com.day.cq.wcm.api.components.ComponentContext" %>
 <%@ page import="com.day.cq.wcm.api.components.ComponentManager" %>
+<%@ page import="com.day.cq.wcm.webservicesupport.ConfigurationManager" %>
+<%@ page import="com.day.cq.wcm.webservicesupport.Configuration" %>
+<%@ page import="com.day.cq.wcm.webservicesupport.ConfigurationConstants" %>
 <%@ page import="com.day.cq.wcm.api.designer.Style" %>
 <%@ page import="com.day.cq.wcm.foundation.Placeholder" %>
+<%@ page import="com.day.cq.wcm.webservicesupport.ConfigurationManager" %>
 <%@ page import="com.google.common.base.Throwables" %>
-<%@ page import="org.apache.commons.io.IOUtils" %>
-<%@ page import="org.apache.commons.lang3.ArrayUtils, org.apache.commons.lang3.RandomStringUtils" %>
+<%@ page import="org.apache.commons.io.IOUtils, org.apache.commons.lang3.ArrayUtils" %>
+<%@ page import="org.apache.commons.lang3.RandomStringUtils" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="org.apache.commons.lang3.time.DateFormatUtils" %>
 <%@ page import="org.apache.sling.api.SlingHttpServletRequest" %>
@@ -1142,5 +1146,34 @@
         return componentId;
     }
 
+
+    public String getCloudConfigProperty(InheritanceValueMap pageProperties, String configurationName, String propertyName, SlingScriptHelper sling) {
+        String returnValue = "";
+
+        //TODO: move this admin session usage into function
+        ResourceResolver adminResourceResolver  = openAdminResourceResolver(sling);
+
+        try {
+
+            // Getting attached facebook cloud service config in order to fetch appID
+            ConfigurationManager cfgMgr = adminResourceResolver.adaptTo(ConfigurationManager.class);
+            Configuration addthisConfiguration = null;
+            String[] services = pageProperties.getInherited(ConfigurationConstants.PN_CONFIGURATIONS, new String[]{});
+            if(cfgMgr != null) {
+                addthisConfiguration = cfgMgr.getConfiguration(configurationName, services);
+                if (addthisConfiguration != null) {
+                    returnValue = addthisConfiguration.get(propertyName, "");
+                }
+            }
+
+
+        } catch (Exception ex) {
+            LOG.error(Throwables.getStackTraceAsString(ex) );
+        } finally {
+            this.closeAdminResourceResolver(adminResourceResolver);
+        }
+
+        return returnValue;
+    }
 %>
 <c:set var="DEFAULT_VARIANT" value="<%= DEFAULT_VARIANT %>"/>
