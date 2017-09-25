@@ -4,4 +4,4 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Actions"
     sling:resourceType="cq/tagging/components/tag"
-    value="actions"/>
+    value="addthis_actions"/>
