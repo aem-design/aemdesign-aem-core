@@ -66,7 +66,7 @@ Object[][] componentFields = {
         {"listItemSummaryLengthMaxSuffix", "..."},
         {"displayOverlayIcon", "on"},
         {"redirectIcon", false},
-        {"printStructure", "yes"},
+        {"printStructure", true},
         {FIELD_THUMBNAIL_WIDTH, ""},
         {FIELD_THUMBNAIL_HEIGHT, ""},
 
@@ -128,9 +128,6 @@ if ((Boolean)componentProperties.get("feedEnabled")) {
 }
 
 String defDecor =_componentContext.getDefaultDecorationTagName();
-
-    boolean printStructure = BooleanUtils.toBoolean(componentProperties.get("printStructure", "yes"));
-    componentProperties.put("printStructure", printStructure);
 
     _componentContext.setAttribute("componentProperties", componentProperties);
 

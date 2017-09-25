@@ -72,7 +72,7 @@
                                         fieldDescription="Don't print structure of the list, omit (OL/UL and LI tags)"
                                         name="./printStructure"
                                         defaultValue=""
-                                        value="no"
+                                        value="false"
                                         xtype="hidden"/>
                         <topic jcr:primaryType="cq:Widget"
                                fieldLabel="Topic Queue"

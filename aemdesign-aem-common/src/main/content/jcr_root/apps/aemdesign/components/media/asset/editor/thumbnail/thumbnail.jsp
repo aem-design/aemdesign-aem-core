@@ -7,7 +7,7 @@
 <%@page import="com.day.cq.wcm.foundation.forms.FormsHelper" %>
 <%@ page import="org.apache.commons.lang3.BooleanUtils" %>
 <%
-    final String DEFAULT_SHOW_COPYRIGHT_OWNER = "yes";
+    final Boolean DEFAULT_SHOW_COPYRIGHT_OWNER = true;
     final String I18N_CATEGORY = "assetviewer";
 
 
@@ -25,8 +25,6 @@
             componentFields,
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
-
-    componentProperties.put("showCopyrightOwner", BooleanUtils.toBoolean(componentProperties.get("showCopyrightOwner", String.class)));
 
     List<Resource> resources = FormResourceEdit.getResources(_slingRequest);
 

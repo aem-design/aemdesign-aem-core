@@ -5,8 +5,8 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%
 
-    final String DEFAULT_SHOW_BREADCRUMB = "yes";
-    final String DEFAULT_SHOW_TOOLBAR = "yes";
+    final Boolean DEFAULT_SHOW_BREADCRUMB = true;
+    final Boolean DEFAULT_SHOW_TOOLBAR = true;
     final String I18N_CATEGORY = "contact-detail";
 
     Object[][] componentFields = {
@@ -22,9 +22,6 @@
             componentFields,
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
-
-    componentProperties.put("showBreadcrumb", BooleanUtils.toBoolean(componentProperties.get("showBreadcrumb", String.class)));
-    componentProperties.put("showToolbar", BooleanUtils.toBoolean(componentProperties.get("showToolbar", String.class)));
 
     String[] tags = getMultiplePropertyString(_currentNode,TagConstants.PN_TAGS);
 

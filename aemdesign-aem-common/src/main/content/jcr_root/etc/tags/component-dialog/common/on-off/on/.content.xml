@@ -3,5 +3,5 @@
     jcr:description=""
     jcr:primaryType="cq:Tag"
     jcr:title="on"
-    value="on"
+    value="true"
     sling:resourceType="cq/tagging/components/tag"/>

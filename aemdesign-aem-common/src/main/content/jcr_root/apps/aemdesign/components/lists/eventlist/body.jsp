@@ -6,6 +6,8 @@
 <%
     com.day.cq.wcm.foundation.List list = (com.day.cq.wcm.foundation.List) request.getAttribute("list");
 
+    final Boolean DEFAULT_PRINT_STRUCTURE = true;
+
     if ( list == null || list.isEmpty() ) {
 %><cq:include script="empty.jsp" /><%
         return;
@@ -14,8 +16,8 @@
     Object[][] componentFields = {
             {"modules", "eventlist", "modules"},
             //  {"wcmMode", CURRENT_WCMMODE.name().toLowerCase(), "wcmmode"},
-            {"topicQueue", StringUtils.EMPTY, "topicqueue"}
-
+            {"topicQueue", StringUtils.EMPTY, "topicqueue"},
+            {"printStructure", DEFAULT_PRINT_STRUCTURE},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -27,7 +29,6 @@
     //need to retrieve the pages again
     Iterator<Page> items = list.getPages();
 
-    final String DEFAULT_PRINT_STRUCTURE = "yes";
 
     boolean splitList = _properties.get("splitList", false);
 
@@ -35,9 +36,7 @@
     String cssClassItem = _properties.get("cssClassItem", "");
     String cssClassItemLink = _properties.get("cssClassItemLink", "");
 
-    String printStructureString = _properties.get("printStructure", DEFAULT_PRINT_STRUCTURE);
-
-    boolean printStructure = BooleanUtils.toBoolean(printStructureString);
+    boolean printStructure = componentProperties.get("printStructure", DEFAULT_PRINT_STRUCTURE);
 
     String cls = list.getType();
     cls = (cls == null) ? "" : cls.replaceAll("/", "");

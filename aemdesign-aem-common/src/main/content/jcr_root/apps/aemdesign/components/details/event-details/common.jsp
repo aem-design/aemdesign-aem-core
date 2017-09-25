@@ -14,8 +14,8 @@
     final String DEFAULT_EVENT_REF_LABEL = "";
     final String DEFAULT_EVENT_REF_LINK = "";
     final String DEFAULT_META_DATA_SEP = "";
-    final String DEFAULT_SHOW_BREADCRUMB = "yes";
-    final String DEFAULT_SHOW_TOOLBAR = "yes";
+    final Boolean DEFAULT_SHOW_BREADCRUMB = true;
+    final Boolean DEFAULT_SHOW_TOOLBAR = true;
     final String DEFAULT_FORMAT_TITLE = "${title}";
     final String DEFAULT_FORMAT_SUBTITLE = "${eventStartDateText} to ${eventEndDateText}";
     final String DEFAULT_FORMAT_DISPLAYDATE = "${eventStartDateText} to ${eventEndDateText}";

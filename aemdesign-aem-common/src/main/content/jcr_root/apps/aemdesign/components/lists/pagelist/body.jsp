@@ -9,20 +9,30 @@
 <%
     com.day.cq.wcm.foundation.List list = (com.day.cq.wcm.foundation.List) request.getAttribute("list");
 
-    final String DEFAULT_PRINT_STRUCTURE = "yes";
+    final Boolean DEFAULT_PRINT_STRUCTURE = true;
 
     if ( list == null || list.isEmpty() ) {
 %><cq:include script="empty.jsp" /><%
         return;
     }
 
+    Object[][] componentFields = {
+            {"printStructure", DEFAULT_PRINT_STRUCTURE},
+    };
+
+    ComponentProperties componentProperties = getComponentProperties(
+            pageContext,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
+
+
     boolean splitList = _properties.get("splitList", false);
     String cssClass = _properties.get("cssClassList", "");
     String cssClassItem = _properties.get("cssClassItem", "");
     String cssClassItemLink = _properties.get("cssClassItemLink", "");
-    String printStructureString = _properties.get("printStructure", DEFAULT_PRINT_STRUCTURE);
 
-    boolean printStructure = BooleanUtils.toBoolean(printStructureString);
+    boolean printStructure = componentProperties.get("printStructure", DEFAULT_PRINT_STRUCTURE);
 
     String cls = list.getType();
     cls = (cls == null) ? "" : cls.replaceAll("/", "");

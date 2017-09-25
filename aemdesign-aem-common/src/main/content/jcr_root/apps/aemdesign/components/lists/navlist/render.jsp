@@ -12,7 +12,9 @@
 <%
     final String DEFAULT_LISTFROM = "children";
     final String LISTFROM_CHILDREN = "children";
-    final String DEFAULT_TOGGLE_STATE = "yes";
+    final Boolean DEFAULT_SHOW_LANGNAV = true;
+    final Boolean DEFAULT_SHOW_BACKTOTOP = true;
+    final Boolean DEFAULT_SHOW_SEARCH = true;
     final String DEFAULT_VARIANT = "default";
     final String VARIANT_DEFAULT = "default";
     final String VARIANT_SIMPLE = "simple";
@@ -21,9 +23,9 @@
     //no lambada is available so this is the best that can be done
     Object[][] componentFields = {
             {"pages", new String[0]},
-            {"showLangNav", DEFAULT_TOGGLE_STATE},
-            {"showBackToTop", DEFAULT_TOGGLE_STATE},
-            {"showSearch", DEFAULT_TOGGLE_STATE},
+            {"showLangNav", DEFAULT_SHOW_LANGNAV},
+            {"showBackToTop", DEFAULT_SHOW_BACKTOTOP},
+            {"showSearch", DEFAULT_SHOW_SEARCH},
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"listFrom", DEFAULT_LISTFROM},
             {"parentPage", getPrimaryPath(_slingRequest)},
@@ -70,10 +72,6 @@
     List<Map> pagesInfo = variant.equals(VARIANT_SIMPLE)
             ? this.getSimpleMenuPageList(_pageManager, paths, _currentPage, _slingRequest)
             : this.getMenuPageList(_pageManager, paths, _currentPage, _slingRequest, isThemeExists);
-
-    componentProperties.put("showLangNav",isYes(componentProperties.get("showLangNav", DEFAULT_TOGGLE_STATE)));
-    componentProperties.put("showBackToTop",isYes(componentProperties.get("showBackToTop", DEFAULT_TOGGLE_STATE)));
-    componentProperties.put("showSearch",isYes(componentProperties.get("showSearch", DEFAULT_TOGGLE_STATE)));
 
     componentProperties.put("menuItems",pagesInfo);
     componentProperties.put("mainMenu",_i18n.get("mainMenu","navlist"));

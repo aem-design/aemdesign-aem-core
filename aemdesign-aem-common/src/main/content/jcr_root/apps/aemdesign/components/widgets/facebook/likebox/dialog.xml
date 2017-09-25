@@ -112,11 +112,11 @@
                                         <true
                                                 jcr:primaryType="nt:unstructured"
                                                 text="Yes"
-                                                value="yes"/>
+                                                value="true"/>
                                         <false
                                                 jcr:primaryType="nt:unstructured"
                                                 text="No"
-                                                value="no"/>
+                                                value="false"/>
                                     </options>
                            </showScrolling>
                            <showBorder
@@ -124,13 +124,13 @@
                                     fieldLabel="Show Border"
                                     name="./showBorder"
                                     type="radio"
-                                    defaultValue="0"
+                                    defaultValue="true"
                                     xtype="selection">
                                 <options jcr:primaryType="cq:WidgetCollection">
                                     <true
                                             jcr:primaryType="nt:unstructured"
                                             text="Yes"
-                                            value="0"/>
+                                            value="true"/>
                                     <false
                                             jcr:primaryType="nt:unstructured"
                                             text="No"

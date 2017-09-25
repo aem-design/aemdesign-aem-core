@@ -21,11 +21,11 @@
                             jcr:primaryType="nt:unstructured"
                             text="Yes"
                             selected="true"
-                            value="yes"/>
+                            value="true"/>
                     <no-option
                             jcr:primaryType="nt:unstructured"
                             text="No"
-                            value="no"/>
+                            value="true"/>
                 </items>
             </showinpage>
         </items>

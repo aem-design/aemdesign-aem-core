@@ -12,9 +12,9 @@
     final String DEFAULT_TITLE = getPageTitle(_currentPage);
     final String DEFAULT_DESCRIPTION = _currentPage.getDescription();
     final Boolean DEFAULT_HIDE_DESCRIPTION = false;
-    final Boolean DEFAULT_SHOW_BREADCRUMB = false;
-    final Boolean DEFAULT_SHOW_TOOLBAR = false;
-    final Boolean DEFAULT_SHOW_PARSYS = false;
+    final Boolean DEFAULT_SHOW_BREADCRUMB = true;
+    final Boolean DEFAULT_SHOW_TOOLBAR = true;
+    final Boolean DEFAULT_SHOW_PARSYS = true;
 
 
     //no lambada is available so this is the best that can be done

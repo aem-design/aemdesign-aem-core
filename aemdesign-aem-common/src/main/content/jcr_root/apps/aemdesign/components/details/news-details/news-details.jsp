@@ -6,8 +6,8 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%
 
-    final String DEFAULT_SHOW_BREADCRUMB = "yes";
-    final String DEFAULT_SHOW_TOOLBAR = "yes";
+    final Boolean DEFAULT_SHOW_BREADCRUMB = true;
+    final Boolean DEFAULT_SHOW_TOOLBAR = false;
     final String I18N_CATEGORY = "news-detail";
 
     Object[][] componentFields = {
@@ -25,9 +25,6 @@
             componentFields,
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
-
-    componentProperties.put("showBreadcrumb", BooleanUtils.toBoolean(componentProperties.get("showBreadcrumb", String.class)));
-    componentProperties.put("showToolbar", BooleanUtils.toBoolean(componentProperties.get("showToolbar", String.class)));
 
     Calendar publishDate = _properties.get("publishDate",_pageProperties.get(JcrConstants.JCR_CREATED, Calendar.getInstance()));
 

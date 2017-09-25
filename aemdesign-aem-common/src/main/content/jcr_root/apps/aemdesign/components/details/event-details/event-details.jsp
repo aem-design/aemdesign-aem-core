@@ -29,7 +29,7 @@
             {"subTitleFormat",""},
             {"cq:tags", new String[]{}},
             {"menuColor", StringUtils.EMPTY},
-            {"showTags", "no"},
+            {"showTags", false},
             {"eventDisplayDateFormat",""}
     };
 
@@ -38,9 +38,6 @@
             componentFields,
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
-
-    componentProperties.put("showBreadcrumb", BooleanUtils.toBoolean(componentProperties.get("showBreadcrumb", String.class)));
-    componentProperties.put("showToolbar", BooleanUtils.toBoolean(componentProperties.get("showToolbar", String.class)));
 
     //TODO: move this admin session usage into function
     ResourceResolver adminResourceResolver = this.openAdminResourceResolver(_sling);

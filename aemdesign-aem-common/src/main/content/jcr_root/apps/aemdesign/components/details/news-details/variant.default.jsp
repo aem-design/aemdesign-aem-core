@@ -15,7 +15,7 @@
     <c:if test="${not empty componentProperties.newsDateStatusText}">
     <div class="published">${componentProperties.newsDateStatusText}</div>
     </c:if>
-    <c:if test="${not empty componentProperties.showBreadcrumb and not empty componentProperties.showToolbar}">
+    <c:if test="${not componentProperties.showBreadcrumb and not componentProperties.showToolbar}">
     <div class="tools">
         <c:if test="${componentProperties.showBreadcrumb }">
             <cq:include path="breadcrumb" resourceType="aemdesign/components/layout/breadcrumb"/>
