@@ -151,7 +151,7 @@
                                        fieldDescription="this will be used as card size in grids"
                                        allowBlank="{Boolean}true"
                                        name="./cardSize"
-                                       options="/etc/tags/component-style/theme/grid/size.valuelist.json"
+                                       options="/etc/tags/component-style/theme/card/size.valuelist.json"
                                        type="select"
                                        defaultValue=""
                                        value=""
