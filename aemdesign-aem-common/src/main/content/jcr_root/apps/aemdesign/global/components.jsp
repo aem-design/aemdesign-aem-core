@@ -138,6 +138,9 @@
     private static final String FIELD_HREF = "href";
     private static final String FIELD_TITLE_TAG_TYPE = "titleType";
 
+    private static final String FIELD_BADGE_TITLE_TAG_TYPE = "badgeTitleType";
+    private static final String FIELD_BADGE_PAGE = "badgePage";
+
     private static final String JCR_NAME_SEPARATOR = "_";
 
     private static final String FIELD_LICENSE_INFO = "licenseInfo";
