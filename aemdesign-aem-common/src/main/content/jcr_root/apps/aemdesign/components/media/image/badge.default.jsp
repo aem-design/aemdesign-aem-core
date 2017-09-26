@@ -5,6 +5,7 @@
 <%@ page import="com.day.cq.dam.commons.util.DamUtil" %>
 <%@ include file="/apps/aemdesign/global/global.jsp"%>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
+<%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/media.jsp" %>
 <%
     // init
@@ -24,8 +25,8 @@
 
     // set title and description
     String withImage = hideThumbnail ? "" : "withImage";
-    String displayTitle = getMetadataStringForKey(asset, FIELD_METADATA_TITLE);
-    String displayDescription = getMetadataStringForKey(asset, FIELD_METADATA_DESCRIPTION);
+    String displayTitle = getMetadataStringForKey(asset, DAM_TITLE);
+    String displayDescription = getMetadataStringForKey(asset, DAM_DESCRIPTION);
 
     if (StringUtils.isBlank(displayTitle)) {
         displayTitle = asset.getName();
