@@ -91,6 +91,11 @@
                                 title="Title Format"
                                 xtype="dialogfieldset">
                             <items jcr:primaryType="cq:WidgetCollection">
+                                <titleType
+                                        jcr:primaryType="cq:Widget"
+                                        path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/basicTab/items/title/items/titleType.infinity.json"
+                                        xtype="cqinclude"/>
+
                                 <titleFormat jcr:primaryType="cq:Widget"
                                              fieldLabel="Title Format"
                                              fieldDescription="Format of Title to be used for display"
