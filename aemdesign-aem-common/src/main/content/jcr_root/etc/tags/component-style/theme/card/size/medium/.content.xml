@@ -3,4 +3,4 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Medium"
     sling:resourceType="cq/tagging/components/tag"
-    value="width=320"/>
+    value="medium"/>
