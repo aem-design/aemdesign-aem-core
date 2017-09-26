@@ -678,11 +678,6 @@
                                 fieldDescription="The location of the icon to use"
                                 xtype="pathfield"/>
 
-                        <titleType
-                                jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/basicTab/items/title/items/titleType.infinity.json"
-                                xtype="cqinclude"/>
-
                     </items>
                 </titleIconTab>
 
