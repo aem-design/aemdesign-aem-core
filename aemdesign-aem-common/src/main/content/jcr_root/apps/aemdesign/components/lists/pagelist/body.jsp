@@ -10,6 +10,7 @@
     com.day.cq.wcm.foundation.List list = (com.day.cq.wcm.foundation.List) request.getAttribute("list");
 
     final Boolean DEFAULT_PRINT_STRUCTURE = true;
+    final String DEFAULT_TITLE_TYPE = "h2";
 
     if ( list == null || list.isEmpty() ) {
 %><cq:include script="empty.jsp" /><%
@@ -18,6 +19,7 @@
 
     Object[][] componentFields = {
             {"printStructure", DEFAULT_PRINT_STRUCTURE},
+            {FIELD_TITLE_TAG_TYPE,DEFAULT_TITLE_TYPE}
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -26,6 +28,7 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
+    request.setAttribute(FIELD_BADGE_TITLE_TAG_TYPE, componentProperties.get(FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TYPE));
 
     boolean splitList = _properties.get("splitList", false);
     String cssClass = _properties.get("cssClassList", "");
@@ -88,12 +91,6 @@
         if (printStructure) {
         %><li class="<%= listItemClass %>"><%
         }
-            String addPageNameAsIcon = _properties.get("addPageNameAsIcon", "");
-            if (isNotEmpty(addPageNameAsIcon) && "true".equals(addPageNameAsIcon)) {
-                String iconClass = "";
-                iconClass = MessageFormat.format("icon icon-{0}", listItem.getName());
-                %><span class="<%=iconClass%>"></span><%
-            }
 
             String defDecor =_componentContext.getDefaultDecorationTagName();
 

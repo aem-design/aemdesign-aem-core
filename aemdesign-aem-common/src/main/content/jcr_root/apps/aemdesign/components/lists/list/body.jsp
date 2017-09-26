@@ -83,15 +83,6 @@
                 <li class="<%= listItemClass %>">
               </c:if><%
 
-                    String addPageNameAsIcon = _properties.get("addPageNameAsIcon", "");
-                    if (isNotEmpty(addPageNameAsIcon) && "true".equals(addPageNameAsIcon)) {
-                        String iconClass = "";
-                        iconClass = MessageFormat.format("icon icon-{0}", listItem.getName());
-                        %>
-                        <span class="<%=iconClass%>"></span>
-                        <%
-                    }
-
                     String defDecor =_componentContext.getDefaultDecorationTagName();
 
                     try {

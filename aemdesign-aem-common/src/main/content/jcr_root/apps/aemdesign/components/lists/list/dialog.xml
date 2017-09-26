@@ -573,13 +573,6 @@
                                         name="./redirectIcon"
                                         type="checkbox"
                                         xtype="selection"/>
-                                <addPageNameAsIcon
-                                        jcr:primaryType="cq:Widget"
-                                        fieldLabel="Add Page Name as Icon"
-                                        fieldDescription="add an icon with page name: icon-{page name}"
-                                        name="./addPageNameAsIcon"
-                                        type="checkbox"
-                                        xtype="selection"/>
                             </items>
                         </itemStyle>
                         <thumbnailStyle

@@ -58,42 +58,26 @@
                                 <default
                                         jcr:primaryType="nt:unstructured"
                                         value="image"
-                                        text="Default (Image Only)"/>
+                                        text="Default"/>
                                 <icon
                                         jcr:primaryType="nt:unstructured"
                                         value="icon"
                                         text="Icon"/>
-                                <title
+                                <image
                                         jcr:primaryType="nt:unstructured"
-                                        value="title"
-                                        text="Title"/>
-                                <imageTitleDescription
+                                        value="image"
+                                        text="Image"/>
+                                <card
                                         jcr:primaryType="nt:unstructured"
-                                        value="imageTitleDescription"
-                                        text="Image Title Description List"/>
-                                <imageTitleTags
-                                        jcr:primaryType="nt:unstructured"
-                                        value="imageTitleTags"
-                                        text="Image Title Tags"/>
-                                <imageTitleDescriptionTags
-                                        jcr:primaryType="nt:unstructured"
-                                        value="imageTitleDescriptionTags"
-                                        text="Image Title Description Tags"/>
-                                <imageTitleDescriptionTagsCount
-                                        jcr:primaryType="nt:unstructured"
-                                        value="imageTitleDescriptionTagsCount"
-                                        text="Image Title Description Tags Count"/>
-                                <carouselDesktop
-                                        jcr:primaryType="nt:unstructured"
-                                        value="carousel.desktop"
-                                        text="Carousel Desktop" />
-                                <carouselMobile
-                                        jcr:primaryType="nt:unstructured"
-                                        value="carousel.mobile"
-                                        text="Carousel Mobile" />
+                                        value="card"
+                                        text="Card"/>
                             </options>
 
                         </detailsBadge>
+                        <titleType
+                                jcr:primaryType="cq:Widget"
+                                path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/basicTab/items/title/items/titleType.infinity.json"
+                                xtype="cqinclude"/>
                     </items>
                 </listTab>
                 <childrenTab
