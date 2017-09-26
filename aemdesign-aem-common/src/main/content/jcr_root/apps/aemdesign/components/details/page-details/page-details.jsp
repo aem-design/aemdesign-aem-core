@@ -47,7 +47,6 @@
 %>
 
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
-<!--${componentProperties}-->
 <c:choose>
     <c:when test="${componentProperties.variant eq 'default'}">
         <%@ include file="variant.default.jsp" %>
