@@ -7,6 +7,7 @@
 <%@ include file="/apps/aemdesign/global/global.jsp"%>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
+<%@ include file="./common.jsp" %>
 
 <%
     // init
@@ -20,7 +21,7 @@
 
     componentProperties.put("url", url);
     componentProperties.put("title", displayTitle);
-    componentProperties.put("imgAlt", _i18n.get("filterByText", "pagedetail", displayTitle));
+    componentProperties.put("imgAlt", _i18n.get(I18N_FILTERBYTEXT, I18N_CATEGORY, displayTitle));
 
     String linkTarget = (String) request.getAttribute("linkTarget");
     if (isNotEmpty(linkTarget)){

@@ -3,12 +3,11 @@
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
+<%@ include file="./common.jsp" %>
 
 <%
     //init
     Page thisPage = (Page) request.getAttribute(FIELD_BADGE_PAGE);
-
-    String componentPath = "./"+PATH_DEFAULT_CONTENT+"/page-details";
 
     //Url
     Object[][] componentFields = {

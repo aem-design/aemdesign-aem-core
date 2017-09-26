@@ -13,13 +13,10 @@
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
-
+<%@ include file="./common.jsp" %>
 <%
 
-    final String DEFAULT_IMAGE_PATH = "/content/dam/aemdesign/admin/defaults/environment.gif";
     final String DEFAULT_TITLE_TYPE = "h2";
-
-    String componentPath = "./" + PATH_DEFAULT_CONTENT + "/page-details";
 
     //init
     Page thisPage = (Page) request.getAttribute(FIELD_BADGE_PAGE);
@@ -47,7 +44,7 @@
     componentProperties.put(FIELD_TITLE_TAG_TYPE, (isBlank(titleType)?DEFAULT_TITLE_TYPE:titleType));
     componentProperties.put("url", url);
     componentProperties.put("img", img);
-    componentProperties.put("imgAlt", _i18n.get("readMoreAboutText", "pagedetail") + pageTitle);
+    componentProperties.put("imgAlt", _i18n.get(I18N_READMORE, I18N_CATEGORY) + pageTitle);
 
     String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
     componentProperties.put("category",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));

@@ -21,7 +21,9 @@
     final String DEFAULT_FORMAT_DISPLAYDATE = "${eventStartDateText} to ${eventEndDateText}";
     final String DEFAULT_FORMAT_DISPLAYTIME = "${eventStartTimeText} to ${eventEndTimeText}";
     final String I18N_CATEGORY = "event-detail";
-    final String componentPath = "./"+PATH_DEFAULT_CONTENT+"/event-details";
+
+    final String COMPONENT_DETAILS_NAME = "page-details";
+    final String componentPath = "./"+PATH_DEFAULT_CONTENT+"/" + COMPONENT_DETAILS_NAME;
 
 
     public Map processComponentFields(ComponentProperties componentProperties, com.day.cq.i18n.I18n i18n, SlingScriptHelper sling) {

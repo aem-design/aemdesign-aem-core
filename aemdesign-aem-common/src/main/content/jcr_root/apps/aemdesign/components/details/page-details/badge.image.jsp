@@ -11,14 +11,12 @@
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
-
+<%@ include file="./common.jsp" %>
 <%
 
 
     //init
     Page thisPage = (Page) request.getAttribute(FIELD_BADGE_PAGE);
-
-    String componentPath = "./"+PATH_DEFAULT_CONTENT+"/page-details";
 
     //Url
     Object[][] componentFields = {
@@ -43,9 +41,9 @@
 
     componentProperties.put("url", url);
     componentProperties.put("title", thisPage.getTitle());
-    componentProperties.put("imgAlt", _i18n.get("readMoreAboutText","pagedetail",pageTitle) );
+    componentProperties.put("imgAlt", _i18n.get(I18N_READMORE,I18N_CATEGORY,pageTitle) );
 
-    String altImg = getPageContentImagePath(thisPage, "article/par/page-details/secondaryImage");
+    String altImg = getPageContentImagePath(thisPage, PAGE_CONTENT_SECONDARY_IMAGE_PATH);
     componentProperties.put(DEFAULT_SECONDARY_IMAGE_NODE_NAME, getThumbnail(altImg, DEFAULT_IMAGE_PATH_SELECTOR, _resourceResolver));
 
 
