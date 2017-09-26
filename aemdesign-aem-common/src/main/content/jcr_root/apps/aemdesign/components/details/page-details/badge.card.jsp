@@ -17,19 +17,22 @@
 <%
 
     final String DEFAULT_IMAGE_PATH = "/content/dam/aemdesign/admin/defaults/environment.gif";
+    final String DEFAULT_TITLE_TYPE = "h2";
 
     String componentPath = "./" + PATH_DEFAULT_CONTENT + "/page-details";
 
     //init
-    Page thisPage = (Page) request.getAttribute("badgePage");
+    Page thisPage = (Page) request.getAttribute(FIELD_BADGE_PAGE);
+    String titleType = (String) request.getAttribute(FIELD_BADGE_TITLE_TAG_TYPE);
 
-    String img = this.getPageImgReferencePath(thisPage);
+    String img = getPageImgReferencePath(thisPage);
 
     String url = getPageUrl(thisPage);
 
     Object[][] componentFields = {
-            {"title", thisPage.getTitle()},
-            {"description", thisPage.getDescription()}
+            {"title", getPageTitle(thisPage)},
+            {"description", thisPage.getDescription()},
+            {TagConstants.PN_TAGS, new String[]{},"data-category", Tag.class.getCanonicalName()},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -38,21 +41,29 @@
             componentPath,
             componentFields);
 
-    String pageTitle = getPageTitle(thisPage);
+    String pageTitle = getPageNavTitle(thisPage);
 
     componentProperties.put("title", pageTitle);
+    componentProperties.put(FIELD_TITLE_TAG_TYPE, (isBlank(titleType)?DEFAULT_TITLE_TYPE:titleType));
     componentProperties.put("url", url);
     componentProperties.put("img", img);
     componentProperties.put("imgAlt", _i18n.get("readMoreAboutText", "pagedetail") + pageTitle);
 
+    String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
+    componentProperties.put("category",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));
+
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 
-<a href="${componentProperties.url}" title="${componentProperties.imgAlt}">${componentProperties.title}</a>
-<img src="${componentProperties.img}" data-src="${componentProperties.img}" alt="${componentProperties.imgAlt}" width="1400" height="500" />
-<div class="caption">
-    <div class="content">
-        <strong class="col-4 left">${componentProperties.title}</strong>
-        <p>${componentProperties.description}</p>
+<a href="${componentProperties.url}" title="${componentProperties.imgAlt}">${componentProperties.title}
+    <div class="card">
+        <img src="${componentProperties.img}" data-src="${componentProperties.img}" alt="${componentProperties.imgAlt}" class="card-img-top"/>
+        <div class="card-block">
+            <${componentProperties.titleType}>${componentProperties.title}</${componentProperties.titleType}>
+            <c:if test="${not empty componentProperties.category}">
+            <div class="card-category">${componentProperties.category}</div>
+            </c:if>
+            <p class="card-text">${componentProperties.description}</p>
+        </div>
     </div>
-</div>
+</a>

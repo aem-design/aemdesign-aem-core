@@ -1,6 +1,3 @@
-<%--
-    // TODO: change "img" at line 10 to the proper img size
---%>
 <%@ page session="false" import="org.apache.commons.lang3.StringUtils"%>
 <%@ page import="com.day.cq.wcm.api.Page"%>
 <%@ page import="com.day.cq.wcm.foundation.Image" %>
@@ -13,7 +10,7 @@
 
 <%
     // init
-    Page thisPage = (Page) request.getAttribute("badgePage");
+    Page thisPage = (Page) request.getAttribute(FIELD_BADGE_PAGE);
     // set title and description
     String displayTitle = getPageNavTitle(thisPage);
 
@@ -25,7 +22,14 @@
     componentProperties.put("title", displayTitle);
     componentProperties.put("imgAlt", _i18n.get("filterByText", "pagedetail", displayTitle));
 
+    String linkTarget = (String) request.getAttribute("linkTarget");
+    if (isNotEmpty(linkTarget)){
+        componentProperties.put("targetString", MessageFormat.format("target=\"{}\"",linkTarget));
+    }
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
-<a href="<c:out value="${componentProperties.url}"/>" title="<c:out value="${componentProperties.imgAlt}"/>">${componentProperties.title}</a>
+<a
+        href="${componentProperties.url}"
+        title="${componentProperties.imgAlt}"
+        ${componentProperties.targetString}>${componentProperties.title}</a>

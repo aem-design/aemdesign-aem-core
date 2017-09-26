@@ -16,7 +16,7 @@
 
 
     //init
-    Page thisPage = (Page) request.getAttribute("badgePage");
+    Page thisPage = (Page) request.getAttribute(FIELD_BADGE_PAGE);
 
     String componentPath = "./"+PATH_DEFAULT_CONTENT+"/page-details";
 
@@ -31,7 +31,7 @@
             componentPath,
             componentFields);
 
-    String pageTitle = getPageTitle(thisPage);
+    String pageTitle = getPageNavTitle(thisPage);
 
     //componentProperties.put("title", pageTitle);
 
@@ -53,11 +53,7 @@
 
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 
-<ul>
-    <li>
-        <a class="external_link" href="${componentProperties.url}" title="${componentProperties.imgAlt}" target="_blank">
-            <img src="${componentProperties.img}" alt="${componentProperties.imgAlt}"
-                 <c:if test="${not empty componentProperties.secondaryImage}">class="rollover" data-img-rollover="${componentProperties.secondaryImage}"</c:if>	>
-        </a>
-    </li>
-</ul>
+<a class="external_link" href="${componentProperties.url}" title="${componentProperties.imgAlt}" target="_blank">
+    <img src="${componentProperties.img}" alt="${componentProperties.imgAlt}"
+         <c:if test="${not empty componentProperties.secondaryImage}">class="rollover" data-img-rollover="${componentProperties.secondaryImage}"</c:if>	>
+</a>

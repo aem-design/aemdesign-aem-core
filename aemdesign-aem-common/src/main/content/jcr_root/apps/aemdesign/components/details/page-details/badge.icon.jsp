@@ -6,13 +6,13 @@
 
 <%
     //init
-    Page thisPage = (Page) request.getAttribute("badgePage");
+    Page thisPage = (Page) request.getAttribute(FIELD_BADGE_PAGE);
 
     String componentPath = "./"+PATH_DEFAULT_CONTENT+"/page-details";
 
     //Url
     Object[][] componentFields = {
-            {"title", thisPage.getTitle()},
+            {"title", getPageNavTitle(thisPage)},
             {FIELD_STYLE_COMPONENT_ID, ""},
             {FIELD_STYLE_COMPONENT_THEME, new String[]{}},
             {FIELD_STYLE_COMPONENT_MODIFIERS, new String[]{}},
@@ -41,11 +41,11 @@
     <c:choose>
         <c:when test="${not empty componentProperties.url}">
             <a class="external_link" href="${componentProperties.url}" title="${componentProperties.title}" target="_blank">
-                <i ${componentProperties.componentAttributes}  title="${componentProperties.title}"></i>
+                <i ${componentProperties.componentAttributes} title="${componentProperties.title}"></i>
             </a>
         </c:when>
         <c:otherwise>
-            <i ${componentProperties.componentAttributes}  title="${componentProperties.title}"></i>
+            <i ${componentProperties.componentAttributes} title="${componentProperties.title}"></i>
         </c:otherwise>
     </c:choose>
 </c:if>
