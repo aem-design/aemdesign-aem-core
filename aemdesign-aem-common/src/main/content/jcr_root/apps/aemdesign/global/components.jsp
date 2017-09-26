@@ -73,7 +73,7 @@
     private static final String DAM_CREDIT = "photoshop:Credit";
     private static final String DAM_CATEGORY = "category";
     private static final String DAM_DIRECTOR = "director";
-    private static final String DAM_ARTISTSTATEMENT = "artisticStatement";
+    private static final String DAM_ARTISTSTATEMENT = "artistStatement";
     private static final String DAM_SOURCE = "photoshop:Source";
     private static final String DAM_SOURCE_ORIGIN = "dc:source";
     private static final String DAM_SOURCE_RELATION = "dc:relation";
