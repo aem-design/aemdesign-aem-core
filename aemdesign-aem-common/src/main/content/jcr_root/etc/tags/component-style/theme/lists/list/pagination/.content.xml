@@ -3,6 +3,4 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Pagination"
     sling:resourceType="cq/tagging/components/tag"
-    tagID="component-style:theme/list/pagination"
-    tagPath="/etc/tags/component-style/theme/list/pagination"
     value="pagination"/>

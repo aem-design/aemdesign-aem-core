@@ -53,7 +53,7 @@
                                    fieldDescription="Site theme Category to include"
                                    allowBlank="{Boolean}true"
                                    name="./siteThemeCategory"
-                                   options="/etc/tags/component-style/theme/site/themecategory.valuelist.json"
+                                   options="/etc/tags/component-style/theme/common/site/themecategory.valuelist.json"
                                    type="select"
                                    defaultValue=""
                                    xtype="selection"/>
@@ -62,7 +62,7 @@
                                 fieldDescription="Used by browsers for Tab and Browser windows colors"
                                 allowBlank="{Boolean}true"
                                 name="./siteThemeColor"
-                                options="/etc/tags/component-style/theme/site/themecolor.valuelist.json"
+                                options="/etc/tags/component-style/theme/common/site/themecolor.valuelist.json"
                                 type="select"
                                 defaultValue=""
                                 xtype="selection"/>
@@ -71,7 +71,7 @@
                            fieldDescription="Used by browsers for Tab and Browser tile colors"
                            allowBlank="{Boolean}true"
                            name="./siteTileColor"
-                           options="/etc/tags/component-style/theme/site/tilecolor.valuelist.json"
+                           options="/etc/tags/component-style/theme/common/site/tilecolor.valuelist.json"
                            type="select"
                            defaultValue=""
                            xtype="selection"/>
@@ -575,7 +575,7 @@
                                    fieldDescription="Color to be used for highlighting in Site Menu"
                                    allowBlank="{Boolean}true"
                                    name="./menuColor"
-                                   options="/etc/tags/component-style/theme/navlist/color.valuelist.json"
+                                   options="/etc/tags/component-style/theme/lists/navlist/color.valuelist.json"
                                    type="select"
                                    defaultValue=""
                                    xtype="selection"/>
@@ -614,7 +614,7 @@
                                        fieldDescription="this will be used as card size in grids"
                                        allowBlank="{Boolean}true"
                                        name="./cardSize"
-                                       options="/etc/tags/component-style/theme/card/size.valuelist.json"
+                                       options="/etc/tags/component-style/theme/common/card/size.valuelist.json"
                                        type="select"
                                        defaultValue=""
                                        value=""

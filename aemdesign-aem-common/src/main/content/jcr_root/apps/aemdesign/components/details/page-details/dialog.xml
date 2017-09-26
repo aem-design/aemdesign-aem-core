@@ -101,7 +101,7 @@
                                              fieldDescription="Format of Title to be used for display"
                                              allowBlank="{Boolean}true"
                                              name="./titleFormat"
-                                             options="/etc/tags/component-style/theme/page-details/format/title.valuelist.pathvalue.json"
+                                             options="/etc/tags/component-style/theme/details/page-details/format/title.valuelist.pathvalue.json"
                                              type="select"
                                              defaultValue=""
                                              xtype="selection"/>

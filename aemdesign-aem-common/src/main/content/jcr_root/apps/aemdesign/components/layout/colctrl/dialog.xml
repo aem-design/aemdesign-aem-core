@@ -19,7 +19,7 @@
                                 value=""
                                 fieldLabel="Column Layout"
                                 name="./layout"
-                                options="/etc/tags/component-style/theme/colctrl/layout.valuelist.json"
+                                options="/etc/tags/component-style/theme/layout/colctrl/layout.valuelist.json"
                                 type="select"
                                 xtype="selection"/>
                     </items>

@@ -4,6 +4,4 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Default"
     sling:resourceType="cq/tagging/components/tag"
-    tagID="component-style:theme/map/default"
-    tagPath="/etc/tags/component-style/theme/map/default"
     value="map"/>
