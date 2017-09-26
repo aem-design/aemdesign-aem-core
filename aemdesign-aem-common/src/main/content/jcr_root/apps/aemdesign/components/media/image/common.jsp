@@ -2,6 +2,9 @@
 <%@ page import="org.apache.commons.lang3.math.NumberUtils" %>
 <%@ page import="java.util.regex.Matcher" %><%!
 
+    final static String I18N_CATEGORY = "image";
+    final static String I18N_FORMAT_DIRECTOR = "directorLine";
+
     final static String IMAGE_OPTION_GENERATED = "generated";
 
     final static String IMAGE_OPTION_RENDITION = "rendition";

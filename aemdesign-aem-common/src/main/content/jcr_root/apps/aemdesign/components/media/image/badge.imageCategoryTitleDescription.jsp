@@ -13,6 +13,8 @@
     Resource thisResource = (Resource) request.getAttribute("badgeResource");
     Boolean hideThumbnail = (Boolean) request.getAttribute("hideThumbnail");
 
+    ComponentProperties componentProperties = new ComponentProperties();
+
     // object transformations
     Asset asset = thisResource.adaptTo(Asset.class);
     Resource thumbnail = getThumbnailPathName(asset);
@@ -22,34 +24,24 @@
         thumbnailUrl = thumbnail.getPath();
     }
 
-    String FIELD_METADATA_TITLE = "dam:title";
-    String FIELD_METADATA_DIRECTOR = "director";
-    String FIELD_METADATA_PAGE_LINK = "dam:pagelink";
-    String FIELD_METADATA_SOURCE = "dam:source";
-    String FIELD_METADATA_URL = "dam:url";
-
-    String iconType = "photo-gallery";
-
-    // set title and description
-    String withImage = hideThumbnail ? "" : "withImage";
-
-    Resource metadataResource = thisResource.getChild("jcr:content/metadata");
-    ValueMap map = ResourceUtil.getValueMap(metadataResource);
-    String title = (String)map.get("dc:title");
-    String description = (String)map.get("dc:description");
-    String category = (String)map.get("category");
-    String sourceUrl = (String)map.get(DAM_SOURCE_URL);
+    Asset assetBasic = thisResource.adaptTo(Asset.class);
+    String title = assetBasic.getMetadataValue(DAM_TITLE);
+    String category = assetBasic.getMetadataValue(DAM_CATEGORY);
+    String description = assetBasic.getMetadataValue(DAM_DESCRIPTION);
+    String sourceUrl = assetBasic.getMetadataValue(DAM_SOURCE_URL);
 
     if (StringUtils.isBlank(title)) {
         title = asset.getName();
     }
 
-    if (description == null) description = "";
-    if (category == null) category = "";
-    if (sourceUrl == null) sourceUrl = "";
+    componentProperties.put("title",title);
+    componentProperties.put("hideThumbnail",hideThumbnail);
+    componentProperties.put("thumbnailUrl",thumbnailUrl);
+    componentProperties.put("category",category);
+    componentProperties.put("linkURL",mappedUrl(_resourceResolver, sourceUrl));
 
 %>
-
+<c:set var="componentProperties" value="<%= componentProperties %>"/>
 <div class="image imageCategoryTitleDescription">
     <a title="<%= escapeBody(category) %>" href="<%= mappedUrl(_resourceResolver, sourceUrl) %>">
         <img alt="<%= escapeBody(category) %>" src="<%= thumbnailUrl %>"/>

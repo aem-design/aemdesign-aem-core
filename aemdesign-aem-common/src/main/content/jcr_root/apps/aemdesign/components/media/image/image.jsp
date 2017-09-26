@@ -7,7 +7,7 @@
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
-<%@ include file="imagedata.jsp" %>
+<%@ include file="common.jsp" %>
 <%
 
     final String DEFAULT_I18N_CATEGORY = "image";

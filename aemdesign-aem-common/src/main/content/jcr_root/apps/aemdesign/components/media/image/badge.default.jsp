@@ -11,6 +11,9 @@
     // init
     Resource thisResource = (Resource) request.getAttribute("badgeResource");
     Boolean hideThumbnail = (Boolean) request.getAttribute("hideThumbnail");
+    Page thisPage = (Page) request.getAttribute(FIELD_BADGE_PAGE);
+
+    ComponentProperties componentProperties = new ComponentProperties();
 
     // object transformations
     Asset asset = thisResource.adaptTo(Asset.class);
@@ -21,48 +24,28 @@
     }
 
 
-    String iconType = "photo-gallery";
+    String title = asset.getMetadataValue(DAM_TITLE);
+    String description = asset.getMetadataValue(DAM_DESCRIPTION);
 
-    // set title and description
-    String withImage = hideThumbnail ? "" : "withImage";
-    String displayTitle = getMetadataStringForKey(asset, DAM_TITLE);
-    String displayDescription = getMetadataStringForKey(asset, DAM_DESCRIPTION);
-
-    if (StringUtils.isBlank(displayTitle)) {
-        displayTitle = asset.getName();
+    if (StringUtils.isBlank(title)) {
+        title = asset.getName();
     }
 
-    if (displayDescription == null) {
-        displayDescription = "";
-    }
+    componentProperties.put("title",title);
+    componentProperties.put("hideThumbnail",hideThumbnail);
+    componentProperties.put("thumbnailUrl",thumbnailUrl);
+    componentProperties.put("description",description);
+    componentProperties.put("linkURL",mappedUrl(_resourceResolver, asset.getPath()));
+
+
 %>
-<div class="listBox <%= withImage %>">
-    <a
-        role="popup"
-        rel="image"
-        href="<%= mappedUrl(_resourceResolver, asset.getPath()) %>" class="linkTxt">
-                <%= escapeBody(displayTitle) %>
-    </a>
-    <div class="longTxt">
-        <p><%= escapeBody(displayDescription) %></p>
-        <%@ include file="/apps/aemdesign/components/media/global/iconrow.jsp" %>
+<c:set var="componentProperties" value="<%= componentProperties %>"/>
+<a href="${componentProperties.linkURL}">${componentProperties.title}</a>
+<p class="description">${componentProperties.description}</p>
+<c:if test="${not componentProperties.hideThumbnail}">
+    <div class="image">
+        <a href="${componentProperties.linkURL}" class="thumbnail">
+            <img src="${componentProperties.thumbnailUrl}" class="thumbnail" alt="${componentProperties.title}" />
+        </a>
     </div>
-
-    <c:if test="<%= !hideThumbnail %>">
-
-        <div class="image">
-            <a
-                role="popup"
-                rel="image"
-                href="<%= mappedUrl(_resourceResolver, asset.getPath()) %>" class="linkTxt">
-                    <img
-                        src="<%= thumbnailUrl %>"
-                        class="list-thumbnail-image"
-                        alt="<%= escapeBody(displayTitle) %>" />
-            </a>
-        </div>
-
-    </c:if>
-
-
-</div>
+</c:if>
