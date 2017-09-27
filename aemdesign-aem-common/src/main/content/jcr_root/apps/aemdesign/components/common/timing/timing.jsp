@@ -249,4 +249,4 @@ out.println("Timing chart URL:");
 
     out.println("-->");
 %>
-<a class="timing hidden" href="<%=url + new String(encoded)%>" x-cq-linkchecker="skip">Component Timing</a>
+<a class="timing" hidden href="<%=url + new String(encoded)%>" x-cq-linkchecker="skip">Component Timing</a>
