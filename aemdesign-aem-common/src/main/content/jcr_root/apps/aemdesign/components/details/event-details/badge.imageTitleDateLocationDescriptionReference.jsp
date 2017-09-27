@@ -55,7 +55,7 @@
 
     componentProperties.putAll(this.getPageNamedImage(_sling, thisPage, "220"));
 
-    componentProperties.put(DEFAULT_SECONDARY_IMAGE_NODE_NAME, getPageContentImagePath(thisPage, "article/par/event-details/secondaryImage"));
+    componentProperties.put(DEFAULT_SECONDARY_IMAGE_NODE_NAME, getPageContentImagePath(thisPage, SECONDARY_IMAGE_PATH));
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 

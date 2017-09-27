@@ -73,7 +73,7 @@
 
     componentProperties.putAll(processComponentFields(componentProperties,_i18n,_sling));
 
-    componentProperties.put(DEFAULT_SECONDARY_IMAGE_NODE_NAME, getPageContentImagePath(thisPage, "article/par/event-details/secondaryImage"));
+    componentProperties.put(DEFAULT_SECONDARY_IMAGE_NODE_NAME, getPageContentImagePath(thisPage, SECONDARY_IMAGE_PATH));
 
 
 
