@@ -64,13 +64,19 @@
                         String childTitle = childNode.getName();
                         String childName = childNode.getName();
 
+                        if (childNode.hasProperty(FIELD_STYLE_COMPONENT_ID)) {
+                            String componentId = childNode.getProperty(FIELD_STYLE_COMPONENT_ID).getString();
+                            if (isNotEmpty(componentId)) {
+                                childName = componentId;
+                            }
+                        }
+
                         if (childNode.hasProperty("title")) {
                             childTitle = childNode.getProperty("title").getString();
                             if (isEmpty(childTitle)) {
                                 childTitle = childName;
                             }
                         }
-
                         contentMenu.put( childName, childTitle );
 
                     }

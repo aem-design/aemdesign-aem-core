@@ -58,6 +58,11 @@
     if (_currentNode !=null ) {
         instanceName = _currentNode.getName();
     }
+
+    String componentId = componentProperties.get(FIELD_STYLE_COMPONENT_ID,"");
+    if (isNotEmpty(componentId)) {
+        instanceName = componentId;
+    }
     componentProperties.put("instanceName", instanceName);
 
     final Authorizable authorizable = resourceResolver.adaptTo(Authorizable.class);
