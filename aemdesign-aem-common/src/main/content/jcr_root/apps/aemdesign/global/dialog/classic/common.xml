@@ -609,7 +609,7 @@
                         xtype="dialogfieldset">
                     <items jcr:primaryType="cq:WidgetCollection">
 
-                        <promotionSize jcr:primaryType="cq:Widget"
+                        <cardSize jcr:primaryType="cq:Widget"
                                        fieldLabel="Card Size"
                                        fieldDescription="this will be used as card size in grids"
                                        allowBlank="{Boolean}true"
