@@ -12,9 +12,6 @@
 <%@ page import="org.apache.sling.api.resource.Resource" %>
 <%@ page import="javax.jcr.Node" %>
 <%@ page import="javax.jcr.RepositoryException" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.regex.Matcher" %>
-
 
 <%!
 
@@ -46,6 +43,7 @@
 
     final String DEFAULT_BACKGROUND_IMAGE_NODE_NAME = "bgimage";
     final String DEFAULT_SECONDARY_IMAGE_NODE_NAME = "secondaryImage";
+    final String DEFAULT_IMAGE_NODE_NAME = "image";
 
     /***
      * get attributes from asset
@@ -448,7 +446,7 @@
      * @throws RepositoryException
      */
     protected String getPageImgReferencePath(Page page) {
-        return getResourceImagePath(page.getContentResource(),"image");
+        return getResourceImagePath(page.getContentResource(),DEFAULT_IMAGE_NODE_NAME);
     }
 
     /***
