@@ -1,6 +1,6 @@
 <%@ page import="com.google.common.collect.Lists" %>
 <%@ page import="org.apache.commons.lang3.math.NumberUtils" %>
-<%@ page import="java.util.regex.Matcher" %><%!
+<%!
 
     final static String I18N_CATEGORY = "image";
     final static String I18N_FORMAT_DIRECTOR = "directorLine";
