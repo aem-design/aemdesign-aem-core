@@ -5,20 +5,19 @@
 <%@ page import="com.day.cq.wcm.api.components.Component" %>
 <%@ page import="com.day.cq.wcm.api.components.ComponentContext" %>
 <%@ page import="com.day.cq.wcm.api.components.ComponentManager" %>
-<%@ page import="com.day.cq.wcm.webservicesupport.ConfigurationManager" %>
-<%@ page import="com.day.cq.wcm.webservicesupport.Configuration" %>
-<%@ page import="com.day.cq.wcm.webservicesupport.ConfigurationConstants" %>
 <%@ page import="com.day.cq.wcm.api.designer.Style" %>
 <%@ page import="com.day.cq.wcm.foundation.Placeholder" %>
+<%@ page import="com.day.cq.wcm.webservicesupport.Configuration" %>
+<%@ page import="com.day.cq.wcm.webservicesupport.ConfigurationConstants" %>
 <%@ page import="com.day.cq.wcm.webservicesupport.ConfigurationManager" %>
 <%@ page import="com.google.common.base.Throwables" %>
-<%@ page import="org.apache.commons.io.IOUtils, org.apache.commons.lang3.ArrayUtils" %>
+<%@ page import="org.apache.commons.io.IOUtils" %>
+<%@ page import="org.apache.commons.lang3.ArrayUtils" %>
 <%@ page import="org.apache.commons.lang3.RandomStringUtils" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="org.apache.commons.lang3.time.DateFormatUtils" %>
 <%@ page import="org.apache.sling.api.SlingHttpServletRequest" %>
 <%@ page import="org.apache.sling.api.resource.ResourceResolver" %>
-<%@ page import="org.apache.sling.api.wrappers.ValueMapDecorator" %>
 <%@ page import="org.slf4j.Logger" %>
 <%@ page import="org.slf4j.LoggerFactory" %>
 <%@ page import="javax.servlet.jsp.PageContext" %>
@@ -30,6 +29,7 @@
 <%@ page import="java.security.NoSuchAlgorithmException" %>
 <%@ page import="java.text.MessageFormat" %>
 <%@ page import="java.util.Calendar" %>
+<%@ page import="design.aem.ComponentProperties" %>
 <%@ include file="/apps/aemdesign/global/tags.jsp" %>
 <%@ include file="/apps/aemdesign/global/theme.jsp" %>
 <%@ include file="/apps/aemdesign/global/security.jsp" %>
@@ -83,6 +83,9 @@
     private static final String DAM_FIELD_LICENSE_COPYRIGHT_OWNER = "xmpRights:Owner";
     private static final String DAM_FIELD_LICENSE_USAGETERMS = "xmpRights:UsageTerms";
     private static final String DAM_FIELD_LICENSE_EXPIRY = "prism:expirationDate";
+
+    private static final String DAM_LICENSE_FORMAT = "© {4} {0} {1} {2} {3}";
+
 
     private static final Pattern DEFAULT_RENDTION_PATTERN_OOTB = Pattern.compile("cq5dam\\.(.*)?\\.(\\d+)\\.(\\d+)\\.(.*)");
     private static final String DEFAULT_ASSET_RENDITION_PREFIX1 = "cq5dam.thumbnail.";
@@ -145,6 +148,8 @@
 
     private static final String FIELD_LICENSE_INFO = "licenseInfo";
     private static final String FIELD_ASSETID = "asset-id";
+    private static final String FIELD_ASSET_LICENSED = "asset-licensed";
+    private static final String FIELD_ASSET_TRACKABLE = "asset-trackable";
 
     //COMPONENT STYLES
     // {
@@ -284,61 +289,61 @@
     /** Local logging container. */
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
-    /**
-     *
-     * New ComponentField
-     *
-     */
-    public static class ComponentProperties extends ValueMapDecorator {
-
-        /**
-         * Creates a new wrapper around a given map.
-         *
-         * @param base wrapped object
-         */
-        public ComponentProperties(Map<String, Object> base) {
-            super(base);
-        }
-
-        public Object get(String name) {
-            return super.get(name);
-        }
-
-        /**
-         * Created empty map
-         */
-        public ComponentProperties() {
-            super(new HashMap());
-        }
-
-        public AttrBuilder attr;
-
-        /***
-         * put map into existing map
-         * @param map new entries
-         * @param update update entries, skip if non blank value exist
-         */
-        public void putAll(Map<? extends String, ?> map, Boolean update) {
-            if (update == null || !update) {
-                //on null or not update do putAll
-                super.putAll(map);
-                return;
-            }
-            for (Map.Entry<? extends String, ?> entry : map.entrySet())
-            {
-                if (update) {
-                    if (super.containsKey(entry.getKey())) {
-                        //System.out.println("update: " + entry.getKey() + ", [" + entry.getValue().toString() + "],[" + super.get(entry.getKey(), "") + "]");
-                        //skip if non blank value exist
-                        if (isNotBlank(super.get(entry.getKey(), ""))) {
-                            continue;
-                        }
-                    }
-                }
-                super.put(entry.getKey(), entry.getValue());
-            }
-        }
-    }
+//    /**
+//     *
+//     * New ComponentField
+//     *
+//     */
+//    public static class ComponentProperties extends ValueMapDecorator {
+//
+//        /**
+//         * Creates a new wrapper around a given map.
+//         *
+//         * @param base wrapped object
+//         */
+//        public ComponentProperties(Map<String, Object> base) {
+//            super(base);
+//        }
+//
+//        public Object get(String name) {
+//            return super.get(name);
+//        }
+//
+//        /**
+//         * Created empty map
+//         */
+//        public ComponentProperties() {
+//            super(new HashMap());
+//        }
+//
+//        public AttrBuilder attr;
+//
+//        /***
+//         * put map into existing map
+//         * @param map new entries
+//         * @param update update entries, skip if non blank value exist
+//         */
+//        public void putAll(Map<? extends String, ?> map, Boolean update) {
+//            if (update == null || !update) {
+//                //on null or not update do putAll
+//                super.putAll(map);
+//                return;
+//            }
+//            for (Map.Entry<? extends String, ?> entry : map.entrySet())
+//            {
+//                if (update) {
+//                    if (super.containsKey(entry.getKey())) {
+//                        //System.out.println("update: " + entry.getKey() + ", [" + entry.getValue().toString() + "],[" + super.get(entry.getKey(), "") + "]");
+//                        //skip if non blank value exist
+//                        if (isNotBlank(super.get(entry.getKey(), ""))) {
+//                            continue;
+//                        }
+//                    }
+//                }
+//                super.put(entry.getKey(), entry.getValue());
+//            }
+//        }
+//    }
 
 
     /**
