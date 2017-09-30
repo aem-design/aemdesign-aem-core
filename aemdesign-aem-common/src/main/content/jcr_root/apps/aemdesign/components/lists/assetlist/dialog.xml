@@ -48,10 +48,10 @@
                                         value="imageCategoryTitleDescription"
                                         text="Image Category Title Description"/>
 
-                                <imageCategoryTitleDirectorArtisticStatement
+                                <imageCategoryTitleDirectorArtistStatement
                                         jcr:primaryType="nt:unstructured"
-                                        value="imageCategoryTitleDirectorArtisticStatement"
-                                        text="Image Category Title Director ArtisticStatement"/>
+                                        value="imageCategoryTitleDirectorArtistStatement"
+                                        text="Image Category Title Director ArtistStatement"/>
 
                             </options>
 
