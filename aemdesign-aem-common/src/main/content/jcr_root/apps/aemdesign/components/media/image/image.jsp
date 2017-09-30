@@ -105,8 +105,8 @@
         //update attributes - consider updating to using componentProperties.attr
         Object[][] componentAttibutes = {
                 {"data-"+FIELD_ASSETID,assetUID},
-                {"data-trackable",true},
-                {"data-licensed",isNotBlank(licenseInfo)},
+                {"data-"+FIELD_ASSET_TRACKABLE,true},
+                {"data-"+FIELD_ASSET_LICENSED,isNotBlank(licenseInfo)},
                 {FIELD_DATA_ANALYTICS_EVENT_LABEL,componentProperties.get(DAM_TITLE)},
                 {FIELD_DATA_ANALYTICS_METATYPE,assetBasic.getMimeType()},
                 {FIELD_DATA_ANALYTICS_FILENAME,assetBasic.getName()},
