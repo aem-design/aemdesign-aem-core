@@ -8,7 +8,7 @@ set_term_title "Deploying Project"
 #mvn -DskipTests clean install -P autoCleanInstallPackage
 #mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallBundle,autoInstallPackage,autoInstallPackagePublish
 #mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallBundle,autoInstallPackage
-mvn -Dvault.useProxy=false -DskipTests deploy -P autoInstallBundle
+mvn -Dvault.useProxy=false -DskipTests deploy -P autoInstallBundle -Dmaven.deploy.skip=true -DskipNexusStagingDeployMojo=true
 
 set_term_title "Deployed"
 

@@ -17,6 +17,7 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.request.RequestParameter;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.servlets.HtmlResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,7 +49,7 @@ public class NodeLockCommandHandler implements CommandHandler {
     }
 
     @Override
-    public Object performCommand(String cmd, SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+    public HtmlResponse performCommand(String cmd, SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
         boolean lock = cmd.equals(COMMAND_LOCK_NODE);
 
         boolean success = false;
