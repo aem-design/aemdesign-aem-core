@@ -41,14 +41,17 @@
                                 com.day.cq.wcm.api.PageManager,
                                 com.day.cq.wcm.api.designer.Designer,
                                 com.day.cq.wcm.api.designer.Design,
-                                com.day.cq.wcm.api.designer.Style" %>
-<%@ page import="com.day.cq.wcm.api.components.IncludeOptions" %>
+                                com.day.cq.wcm.api.designer.Style,
+                                java.util.Arrays,
+                                java.util.List,
+                                com.day.cq.wcm.api.components.IncludeOptions" %>
 <%@taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling/1.0" %>
 <%@taglib prefix="cq" uri="http://www.day.com/taglibs/cq/1.0" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <cq:defineObjects/>
+
 <%@include file="/apps/aemdesign/global/context-objects.jsp"%>
 <%@include file="/apps/aemdesign/global/constants.jsp"%>
 <%@include file="/apps/aemdesign/global/errors.jsp"%>
@@ -80,14 +83,14 @@
 
         }
     }
-    String[] selectors = slingRequest.getRequestPathInfo().getSelectors();
+    List<String> selectors = Arrays.asList(_slingRequest.getRequestPathInfo().getSelectors());
     boolean MODE_TOUCHUI = false;
-    for (String selector : selectors) {
-        if (selector.equals("touchedit")) {
-            MODE_TOUCHUI = true;
-            break;
-        }
+    if (selectors.contains("touchedit")) {
+        MODE_TOUCHUI = true;
     }
+
+    String componentBadge = getBadgeFromSelectors(_slingRequest.getRequestPathInfo().getSelectorString());
+
 
 %>
 
@@ -107,3 +110,4 @@
 <c:set var="INCLUDE_PAGE_COMPONENTINIT" value="<%= INCLUDE_PAGE_COMPONENTINIT %>"/>
 <c:set var="MODE_TOUCHUI" value="<%= MODE_TOUCHUI %>"/>
 <c:set var="INCLUDE_BADGE_VARIANT_CODE" value="<%= INCLUDE_BADGE_VARIANT_CODE %>"/>
+<c:set var="COMPONENT_BADGE" value="<%= componentBadge %>"/>
