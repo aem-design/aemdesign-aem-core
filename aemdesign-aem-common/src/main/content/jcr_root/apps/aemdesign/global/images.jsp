@@ -3,16 +3,15 @@
 <%@ page import="com.day.cq.dam.api.DamConstants" %>
 <%@ page import="com.day.cq.dam.api.Rendition" %>
 <%@ page import="com.day.cq.dam.commons.util.DamUtil" %>
-<%@ page import="com.day.cq.dam.commons.util.UIHelper" %>
 <%@ page import="com.day.cq.wcm.api.Page" %>
 <%@ page import="com.day.cq.wcm.foundation.Image" %>
 <%@ page import="com.day.image.Layer" %>
 <%@ page import="com.google.common.collect.Lists" %>
+<%@ page import="design.aem.ComponentProperties" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="org.apache.sling.api.resource.Resource" %>
 <%@ page import="javax.jcr.Node" %>
 <%@ page import="javax.jcr.RepositoryException" %>
-
 <%!
 
     final int DEFAULT_THUMB_WIDTH_XSM = 140;
@@ -650,6 +649,8 @@
         return valueReturn;
     }
 
+
+
     /***
      * get formatted copyright info text for an asset
      * @param asset asset to use
@@ -660,6 +661,9 @@
         String copyrightInfo = "";
         if (asset == null) {
             return copyrightInfo;
+        }
+        if (isEmpty(format)) {
+            format = DAM_LICENSE_FORMAT;
         }
 
         try {
