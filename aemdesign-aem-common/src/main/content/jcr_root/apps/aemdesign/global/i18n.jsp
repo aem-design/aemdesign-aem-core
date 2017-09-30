@@ -8,6 +8,19 @@
     public static String LANGUAGE_DEFAULT = Locale.ENGLISH.getLanguage();
     public static String LANGUAGE_DEFAULT_LABEL = "Missing Label";
 
+    public static String DEFAULT_I18N_LIST_LINK_TITLE = "listLinkTitle";
+    public static String DEFAULT_I18N_LIST_LINK_TEXT = "listLinkText";
+
+    public static String DEFAULT_I18N_LIST_ITEM_LINK_TITLE = "listItemLinkTitle";
+    public static String DEFAULT_I18N_LIST_ITEM_LINK_TEXT = "listItemLinkText";
+
+    public static String DEFAULT_I18N_LIST_ITEM_TITLE_LENGTH_MAX = "listItemTitleLengthMax";
+    public static String DEFAULT_I18N_LIST_ITEM_TITLE_LENGTH_MAX_SUFFIX = "listItemTitleLengthMaxSuffix";
+
+    public static String DEFAULT_I18N_LIST_ITEM_SUMMARY_LENGTH_MAX = "listItemSummaryLengthMax";
+    public static String DEFAULT_I18N_LIST_ITEM_SUMMARY_LENGTH_MAX_SUFFIX = "listItemSummaryLengthMaxSuffix";
+
+
 
     public static String getDefaultLabelIfEmpty(String currentLabel, String currentCategory, String defaultCode, String defaultCategory, com.day.cq.i18n.I18n i18n, String... params) {
         String label = "";
