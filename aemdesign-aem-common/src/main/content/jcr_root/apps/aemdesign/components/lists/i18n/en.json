@@ -8,10 +8,12 @@
   "linkTitlePrefix ((navlist))": "Go to ",
   "loadMoreNewsText ((newslist))": "Load More News",
   "filterText ((list))": "All",
-  "langSimpleToen ((langSelect))": "EN",
-  "langSimpleTozh_RU ((langSelect))": "Switch to Traditional Chinese",
-  "langSimpleTozh_DE-CN ((langSelect))": "Switch to Simplified Chinese",
-  "langSwitchToen ((langSelect))": "Switch to English",
-  "langSwitchTozh_RU ((langSelect))": "Switch to Traditional Chinese",
-  "langSwitchTozh_DE-CN ((langSelect))": "Switch to Simplified Chinese"
+  "langSimpleTo_en ((langSelect))": "EN",
+  "langSimpleTo_ru ((langSelect))": "Switch to Russian",
+  "langSimpleTo_de-cn ((langSelect))": "Switch to Swiss",
+  "langSwitchTo_en ((langSelect))": "Switch to English",
+  "langSwitchTo_ru ((langSelect))": "Switch to Russian",
+  "langSwitchTo_de-cn ((langSelect))": "Switch to Simplified Chinese",
+  "moreResultsTitle ((pagelist))": "More",
+  "moreResultsText ((pagelist))": "More"
 }
