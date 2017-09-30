@@ -156,8 +156,8 @@
                             Map<String, String> aLanguage = new HashMap<String, String>();
 
                             aLanguage.put("path", mappedUrl(resourceResolver, p.getPath()).concat(DEFAULT_EXTENTION));
-                            aLanguage.put("langSwitchTo", i18n.get("langSwitchTo"+language.getLocale().toString(), "langSelect"));
-                            aLanguage.put("langSimpleTo", i18n.get("langSimpleTo"+language.getLocale().toString(), "langSelect"));
+                            aLanguage.put("langSwitchTo", i18n.get("langSwitchTo_"+language.getLocale().toString(), "langSelect"));
+                            aLanguage.put("langSimpleTo", i18n.get("langSimpleTo_"+language.getLocale().toString(), "langSelect"));
 
                             String hrefLang = ConvertLocaleToLanguageBcp47(resourceResolver, language);
                             aLanguage.put("hreflang", hrefLang);
@@ -169,8 +169,8 @@
                         Page p = pageManager.getPage(information.getPath());
 
                         Map<String, String> aLanguage = new HashMap<String, String>();
-                        aLanguage.put("langSwitchTo", i18n.get("langSwitchTo"+language.getLocale().toString(), "langSelect"));
-                        aLanguage.put("langSimpleTo", i18n.get("langSimpleTo"+language.getLocale().toString(), "langSelect"));
+                        aLanguage.put("langSwitchTo", i18n.get("langSwitchTo_"+language.getLocale().toString(), "langSelect"));
+                        aLanguage.put("langSimpleTo", i18n.get("langSimpleTo_"+language.getLocale().toString(), "langSelect"));
                         aLanguage.put("hreflang", ConvertLocaleToLanguageBcp47(resourceResolver, language));
 
                         if (p != null && p.isValid() && !p.isHideInNav()){
