@@ -27,6 +27,7 @@
 <%@ page import="java.util.regex.Pattern" %>
 <%@ page import="org.apache.sling.api.SlingException" %>
 <%@ page import="static java.text.MessageFormat.*" %>
+<%@ page import="java.util.regex.Matcher" %>
 <%!
 
     private static final String PATH_MEDIA_ROOT = "/apps/aemdesign/components/media/";
@@ -731,6 +732,57 @@
         // apparently, nothing found
         return null;
     }
+    /**
+     * Get the page badge base path for this page
+     *
+     * @param inputPage is the page to look through for details
+     * @param resourceTypeTail sling:resourceType of component to find using endsWith
+     * @return the path to component
+     *
+     * @throws RepositoryException
+     */
+    protected String findComponentInPage(Page inputPage, String resourceTypeTail) {
+        if (inputPage == null) {
+            return StringUtils.EMPTY;
+        }
+
+        try {
+            // get parsys
+            Resource parSys = inputPage.getContentResource(PATH_DEFAULT_CONTENT);
+            if (parSys == null) {
+                return StringUtils.EMPTY;
+            }
+
+            NodeIterator nodeIterator = parSys.adaptTo(Node.class).getNodes();
+            if (nodeIterator == null) {
+                return StringUtils.EMPTY;
+            }
+
+            while (nodeIterator.hasNext()) {
+                Node node = nodeIterator.nextNode();
+                // has a resource type?
+                if (node.hasProperty(RESOURCE_TYPE)) {
+                    // get it resource Type
+                    String resourceTypeString = node.getProperty("sling:resourceType").getString();
+
+                    if (isEmpty(resourceTypeTail)) {
+                        resourceTypeTail = COMPONENT_DETAILS_SUFFIX;
+                    }
+
+                    // get the resource type and sanitize the path
+                    if (StringUtils.isNotEmpty(resourceTypeString) && resourceTypeString.endsWith(resourceTypeTail)) {
+                        return node.getPath();
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            getLogger().error("findComponentInPage: " + ex.toString());
+            return StringUtils.EMPTY;
+        }
+
+        // apparently, nothing found
+        return StringUtils.EMPTY;
+    }
 
 
     /**
@@ -1041,6 +1093,7 @@
         }
     }
 
+    //TODO: convert this to JSTL TAG
     /***
      * render a resource path as HTML to include in components that reuse content in other resources
      * @param path path to resources
@@ -1105,10 +1158,34 @@
             return _out.toString();
 
         } catch (Exception e) {
-            getLogger().error("Exception occured: " + e.getMessage(), e);
-            return e.getMessage();
+            getLogger().error("Exception occurred: " + e.getMessage(), e);
+            return "<![CDATA["+e.getMessage()+"]]>";
         }
     }
 
+    /***
+     * return badge name from selector string
+     * @param selectorString _slingRequest.getRequestPathInfo().getSelectorString()
+     * @return
+     */
+    public String getBadgeFromSelectors(String selectorString) {
+        String badge = "";
 
+        if (selectorString != null) {
+
+            String badgePattern = "((badge.{1,})(\\w+){0,1})";
+
+            Pattern pattern = Pattern.compile(badgePattern);
+
+            Matcher matcher = pattern.matcher(selectorString);
+
+            boolean matches = matcher.matches();
+
+            if (matches) {
+                badge = matcher.group(1);
+            }
+        }
+
+        return badge;
+    }
 %>
