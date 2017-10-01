@@ -14,6 +14,12 @@
   "langSwitchTo_en ((langSelect))": "Switch to English",
   "langSwitchTo_ru ((langSelect))": "Switch to Russian",
   "langSwitchTo_de-cn ((langSelect))": "Switch to Simplified Chinese",
-  "moreResultsTitle ((pagelist))": "More",
-  "moreResultsText ((pagelist))": "More"
+  "listItemLinkText ((list))": "More on Item",
+  "listItemLinkTitle ((list))": "More on Item",
+  "listItemTitleLengthMax ((list))": "50",
+  "listItemTitleLengthMaxSuffix ((list))": "...",
+  "listItemSummaryLengthMax ((list))": "50",
+  "listItemSummaryLengthMaxSuffix ((list))": "...",
+  "listItemLinkText ((pagelist))": "More on Page",
+  "listItemLinkTitle ((pagelist))": "More on Page"
 }
