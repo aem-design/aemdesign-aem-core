@@ -242,12 +242,12 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Bundle-SymbolicName>design.aem.services</Bundle-SymbolicName>
+                        <Bundle-SymbolicName>design.aem.aemdesign-aem-services</Bundle-SymbolicName>
                         <Embed-Dependency>gson,javax.inject</Embed-Dependency>
                         <Sling-Model-Packages>
                             design.aem.models
                         </Sling-Model-Packages>
-                        <Export-Package>design.aem.*,design.aem.components.*</Export-Package>
+                        <Export-Package>design.aem.*</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
