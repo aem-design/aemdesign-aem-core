@@ -1,5 +1,4 @@
-<%@ page import="com.day.cq.wcm.api.Page" %>
-<%@ page import="org.apache.commons.lang.BooleanUtils" %>
+<%@ page import="com.adobe.granite.asset.api.AssetManager" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
@@ -28,10 +27,15 @@
             {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
             {"showToolbar", DEFAULT_SHOW_TOOLBAR},
             {"showParsys", DEFAULT_SHOW_PARSYS},
+            {"linkTarget", StringUtils.EMPTY, "target"},
+            {"pageUrl", getPageUrl(_currentPage)},
+            {"navTitle", getPageNavTitle(_currentPage)},
+            {TagConstants.PN_TAGS, new String[]{}},
             {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
             {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
 
     };
+
 
     ComponentProperties componentProperties = getComponentProperties(
             pageContext,
@@ -40,14 +44,44 @@
             DEFAULT_FIELDS_ACCESSIBILITY,
             DEFAULT_FIELDS_PAGEDETAILS_OPTIONS);
 
-    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME));
+    String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
+    componentProperties.put("category",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));
+
+    componentProperties.putAll(getAssetInfo(_resourceResolver,
+            getPageImgReferencePath(_currentPage),
+            "pageImage"));
+
+    componentProperties.putAll(getAssetInfo(_resourceResolver,
+            getResourceImagePath(_resource,DEFAULT_SECONDARY_IMAGE_NODE_NAME),
+            "pageSecondaryImage"));
+
+    componentProperties.putAll(getAssetInfo(_resourceResolver,
+            getResourceImagePath(_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
+            "pageBackgroundImage"));
+
+    componentProperties.put(FIELD_REDIRECT_TARGET,_pageProperties.get(FIELD_REDIRECT_TARGET,""));
 
     componentProperties.putAll(processComponentFields(componentProperties,_i18n,_sling));
-
 %>
-
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
+
 <c:choose>
+    <c:when test="${COMPONENT_BADGE eq 'badge.card'}">
+        <%@ include file="badge.card.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.icon'}">
+        <%@ include file="badge.icon.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.image'}">
+        <%@ include file="badge.image.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge' or COMPONENT_BADGE eq 'badge.default'}">
+        <%@ include file="badge.default.jsp" %>
+    </c:when>
+
     <c:when test="${componentProperties.variant eq 'default'}">
         <%@ include file="variant.default.jsp" %>
     </c:when>
