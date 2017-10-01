@@ -287,7 +287,6 @@
                                     listType="list"
                                     paginationType="loadMorePages"
                                     listItemShowLink="false"
-                                    listShowLink="false"
                                     tagsMatch="any"/>
                             <section jcr:primaryType="nt:unstructured"/>
                             <page-details jcr:primaryType="nt:unstructured">
@@ -412,7 +411,6 @@
                                     listType="list"
                                     paginationType="loadMorePages"
                                     listItemShowLink="false"
-                                    listShowLink="false"
                                     tagsMatch="any"/>
                             <section jcr:primaryType="nt:unstructured"/>
                             <page-details jcr:primaryType="nt:unstructured">
