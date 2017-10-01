@@ -71,7 +71,7 @@
         } else {
             listItemClass = "item";
         }
-        boolean showRedirectIcon =  _properties.get("redirectIcon", false);
+        boolean showRedirectIcon =  _properties.get("listItemShowRedirectIcon", false);
         String redirectLink = StringUtils.defaultString((String) listItem.getProperties().get("redirectTarget"), "");
         if(showRedirectIcon && !StringUtils.isEmpty(redirectLink)){
             listItemClass = listItemClass + " redirectLink";

@@ -286,8 +286,8 @@
                                     listLinkTitle="More Items"
                                     listType="list"
                                     paginationType="loadMorePages"
-                                    showlistItemLink="false"
-                                    showListLink="false"
+                                    listItemShowLink="false"
+                                    listShowLink="false"
                                     tagsMatch="any"/>
                             <section jcr:primaryType="nt:unstructured"/>
                             <page-details jcr:primaryType="nt:unstructured">
@@ -411,8 +411,8 @@
                                     listLinkTitle="More Items"
                                     listType="list"
                                     paginationType="loadMorePages"
-                                    showlistItemLink="false"
-                                    showListLink="false"
+                                    listItemShowLink="false"
+                                    listShowLink="false"
                                     tagsMatch="any"/>
                             <section jcr:primaryType="nt:unstructured"/>
                             <page-details jcr:primaryType="nt:unstructured">

@@ -681,6 +681,28 @@
                     </items>
                 </titleIconTab>
 
+                <listConfigTab
+                        jcr:primaryType="cq:Widget"
+                        title="List Configuration"
+                        collapsed="{Boolean}true"
+                        collapsible="{Boolean}true"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <overlayIcon jcr:primaryType="cq:Widget"
+                                 fieldLabel="Overlay Icon"
+                                 fieldDescription="When showing this page in a list show this icon for overlay"
+                                 allowBlank="{Boolean}true"
+                                 name="./overlayIcon"
+                                 options="/etc/tags/component-style/icon.valuelist.json"
+                                 type="select"
+                                 defaultValue=""
+                                 xtype="selection"/>
+
+
+                    </items>
+                </listConfigTab>
+
 <!--
                 <seoConfigGroup
                         jcr:primaryType="cq:Widget"

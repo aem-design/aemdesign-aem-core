@@ -1110,7 +1110,29 @@
             return "<!--".concat(error).concat("-->");
         }
         try {
-            return resourceRenderAsHtml(path, resourceResolver, sling, null);
+            return resourceRenderAsHtml(path, resourceResolver, sling, null, null);
+        } catch (SlingException ex) {
+            return "<!--resourceRenderAsHtml:".concat(ex.getMessage()).concat("-->");
+        }
+    }
+
+    /***
+     * render a resource path as HTML to include in components that reuse content in other resources
+     * @param path path to resources
+     * @param resourceResolver resource resolver for request
+     * @param sling sling helper
+     * @return html string of output
+     */
+    public String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling, Map<String, Object> requestAttribute) {
+        if (isEmpty(path) || resourceResolver == null || sling ==null) {
+            String error = format(
+                    "resourceRenderAsHtml: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
+                    ,path,resourceResolver,sling);
+            getLogger().error(error);
+            return "<!--".concat(error).concat("-->");
+        }
+        try {
+            return resourceRenderAsHtml(path, resourceResolver, sling, null, requestAttribute);
         } catch (SlingException ex) {
             return "<!--resourceRenderAsHtml:".concat(ex.getMessage()).concat("-->");
         }
@@ -1124,7 +1146,7 @@
      * @param mode mode to request resource with
      * @return html string of output
      */
-    public String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling, WCMMode mode) {
+    public String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling, WCMMode mode, Map<String, Object> requestAttribute) {
         if (isEmpty(path) || resourceResolver == null || sling ==null) {
             String error = format(
                     "resourceRenderAsHtml: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
@@ -1146,6 +1168,12 @@
                 mode.toRequest(_req);
             } else {
                 WCMMode.DISABLED.toRequest(_req);
+            }
+
+            if (requestAttribute != null) {
+                for (Map.Entry<String, Object> entry : requestAttribute.entrySet()) {
+                    _req.setAttribute( entry.getKey(), entry.getValue());
+                }
             }
 
             final ByteArrayOutputStream _out = new ByteArrayOutputStream();

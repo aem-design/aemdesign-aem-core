@@ -50,6 +50,7 @@
     public static final String DEFAULT_BADGE = "default";
     public static final String DEFAULT_ARIA_ROLE_ATTRIBUTE = "role";
 
+    public static final String FIELD_REDIRECT_TARGET = "redirectTarget";
 
     public static final String DEFAULT_RSS_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss";
 
@@ -868,20 +869,24 @@
      * @param page is the page to investiage
      * @return
      */
-    public String getPageDescription(Page page) throws RepositoryException {
+    public String getPageDescription(Page page) {
         String pageDescription = page.getDescription();
 
-        Resource parsysR = page.getContentResource("par");
-        if (parsysR != null) {
-            Node parsysN = parsysR.adaptTo(Node.class);
-            NodeIterator nodeIt = parsysN.getNodes();
-            while (nodeIt.hasNext()) {
-                Node child = nodeIt.nextNode();
-                String childName = child.getName().toLowerCase();
-                if (childName.endsWith(COMPONENT_DETAILS_SUFFIX)) {
-                    return getPropertyWithDefault(child, "summary", pageDescription);
+        try {
+            Resource parsysR = page.getContentResource("par");
+            if (parsysR != null) {
+                Node parsysN = parsysR.adaptTo(Node.class);
+                NodeIterator nodeIt = parsysN.getNodes();
+                while (nodeIt.hasNext()) {
+                    Node child = nodeIt.nextNode();
+                    String childName = child.getName().toLowerCase();
+                    if (childName.endsWith(COMPONENT_DETAILS_SUFFIX)) {
+                        return getPropertyWithDefault(child, "summary", pageDescription);
+                    }
                 }
             }
+        } catch (Exception ex) {
+            getLogger().error("getPageDescription:" + ex.toString());
         }
         return pageDescription;
     }

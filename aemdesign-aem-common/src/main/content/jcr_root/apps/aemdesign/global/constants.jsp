@@ -99,6 +99,11 @@
     public static final String FIELD_THUMBNAIL_WIDTH = "thumbnailWidth";
     public static final String FIELD_THUMBNAIL_HEIGHT = "thumbnailHeight";
 
+    public static final String BADGE_THUMBNAIL_WIDTH = "badgeThumbnailWidth";
+    public static final String BADGE_THUMBNAIL_HEIGHT = "badgeThumbnailHeight";
+    public static final String BADGE_THUMBNAIL_RENDITION = "badgeThumbnailRendition";
+    public static final String BADGE_THUMBNAIL_DEFAULT = "badgeThumbnailDefault";
+
 
     public static final String INHERITED_RESOURCE = "inheritedResource";
 

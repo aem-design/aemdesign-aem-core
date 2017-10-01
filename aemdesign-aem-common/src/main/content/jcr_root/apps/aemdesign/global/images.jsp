@@ -41,6 +41,8 @@
 
     final String DEFAULT_BACKGROUND_IMAGE_NODE_NAME = "bgimage";
     final String DEFAULT_SECONDARY_IMAGE_NODE_NAME = "secondaryImage";
+    final String DEFAULT_THUMBNAIL_IMAGE_NODE_NAME = "thumbnail";
+    final String DEFAULT_BADGETHUMBNAIL_IMAGE_NODE_NAME = "badgeThumbnail";
     final String DEFAULT_IMAGE_NODE_NAME = "image";
 
     /***
@@ -942,4 +944,31 @@
         return null;
     }
 
+    /***
+     * get basic asset info
+     * @param resourceResolver
+     * @param assetPath
+     * @param infoPrefix
+     * @return
+     */
+    public Map<String,String> getAssetInfo(ResourceResolver resourceResolver, String assetPath, String infoPrefix){
+        if (isEmpty(infoPrefix)) {
+            infoPrefix = "image";
+        }
+        Map<String, String> assetInfo = new HashMap<>();
+
+        if (isNotEmpty(assetPath)) {
+
+            Resource pageImageResource = resourceResolver.resolve(assetPath);
+            if (pageImageResource != null) {
+                Asset pageImageAsset = pageImageResource.adaptTo(Asset.class);
+                String pageImageLicenseInfo = getAssetCopyrightInfo(pageImageAsset, DAM_LICENSE_FORMAT);
+
+                assetInfo.put(infoPrefix, assetPath);
+                assetInfo.put(infoPrefix + "Id", pageImageAsset.getID());
+                assetInfo.put(infoPrefix + "LicenseInfo", pageImageLicenseInfo);
+            }
+        }
+        return assetInfo;
+    }
 %>

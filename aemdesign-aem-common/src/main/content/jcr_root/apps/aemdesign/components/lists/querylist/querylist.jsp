@@ -187,7 +187,7 @@
                 } else {
                     listItemClass = "item";
                 }
-                boolean showRedirectIcon =  _properties.get("redirectIcon", false);
+                boolean showRedirectIcon =  _properties.get("listItemShowRedirectIcon", false);
                 String redirectLink = StringUtils.defaultString((String) listItem.getProperties().get("redirectTarget"), "");
                 if(showRedirectIcon && !StringUtils.isEmpty(redirectLink)){
                     listItemClass = listItemClass + " redirectLink";
@@ -248,8 +248,8 @@
             }
 
             //show link at bottom of list
-            Boolean showListLink = _properties.get("showListLink",  _currentStyle.get("showListLink", (Boolean) false));
-            if (showListLink) {
+            Boolean listShowLink = _properties.get("listShowLink",  _currentStyle.get("listShowLink", (Boolean) false));
+            if (listShowLink) {
 
                 String searchIn = _properties.get("searchIn", (String) null);
                 String linkTitle = _properties.get("listLinkTitle", _currentStyle.get("listLinkTitle", (String) "More"));
