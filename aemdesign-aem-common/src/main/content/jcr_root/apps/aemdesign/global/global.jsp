@@ -31,6 +31,7 @@
 
 --%>
 <%@page session="false" trimDirectiveWhitespaces="true" %>
+<%@page import="design.aem.components.ComponentProperties" %>
 <%@page import="javax.jcr.*,
                                 org.apache.sling.api.resource.Resource,
                                 org.apache.sling.api.resource.ValueMap,
