@@ -1,13 +1,13 @@
 <%@ page import="com.day.cq.wcm.api.Page" %>
 <%@ page import="com.day.cq.wcm.api.PageManager" %>
 <%@ page import="com.day.cq.wcm.api.components.ComponentContext" %>
+<%@ page import="org.apache.http.NameValuePair" %>
+<%@ page import="org.apache.http.client.utils.URLEncodedUtils" %>
+<%@ page import="org.apache.http.message.BasicNameValuePair" %>
 <%@ page import="org.slf4j.Logger" %>
 <%@ page import="javax.jcr.query.Row" %>
 <%@ page import="javax.jcr.query.RowIterator" %>
 <%@ page import="java.util.Iterator" %>
-<%@ page import="org.apache.http.client.utils.URLEncodedUtils" %>
-<%@ page import="org.apache.http.message.BasicNameValuePair" %>
-<%@ page import="org.apache.http.NameValuePair" %>
 <%@ page import="java.util.List" %>
 
 <%!
@@ -92,7 +92,7 @@
 
         if (queryStringMap.isEmpty() == false){
 
-            List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+            List<NameValuePair> pairs = new ArrayList<>();
             for (String key : queryStringMap.keySet()) {
                 pairs.add(new BasicNameValuePair( key, queryStringMap.get(key)));
             }

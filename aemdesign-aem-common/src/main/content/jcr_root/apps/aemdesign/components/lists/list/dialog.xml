@@ -330,69 +330,59 @@
                     </items>
                 </querybuilderTab>
 
-                <advancedTab
+                <listConfigTab
                     jcr:primaryType="cq:Widget"
                     border="false"
                     height=""
-                    title="Advanced"
+                    title="Config"
                     width=""
                     xtype="panel">
                     <items jcr:primaryType="cq:WidgetCollection">
-
-                        <printStructure jcr:primaryType="cq:Widget"
-                                        fieldLabel="Print List Structure"
-                                        fieldDescription="Don't print structure of the list, omit (OL/UL and LI tags)"
-                                        allowBlank="{Boolean}true"
-                                        name="./printStructure"
-                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                        type="select"
-                                        defaultValue=""
-                                        value=""
-                                        xtype="selection"/>
-                        <showTitle
+                        <printStructure
                             jcr:primaryType="cq:Widget"
-                            fieldLabel="Show Title"
-                            name="./showTitle"
-                            type="checkbox"
-                            xtype="selection"/>
-
-                        <title
-                            jcr:primaryType="cq:Widget"
-                            fieldLabel="Title"
-                            name="./title"
-                            xtype="textfield"/>
-
-                        <title_link
-                            jcr:primaryType="cq:Widget"
+                            fieldLabel="Print List Structure"
+                            fieldDescription="Don't print structure of the list, omit (OL/UL and LI tags)"
                             allowBlank="{Boolean}true"
-                            fieldLabel="Title links to"
-                            name="./titleLink"
-                            xtype="pathfield"/>
+                            name="./printStructure"
+                            options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                            type="select"
+                            defaultValue=""
+                            value=""
+                            xtype="selection"/>
 
-                        <image_link
+                        <showHidden
                             jcr:primaryType="cq:Widget"
+                            fieldLabel="Show Hidden Pages"
+                            fieldDescription="pages with selected Hide in Navigation will be hidden"
                             allowBlank="{Boolean}true"
-                            fieldDescription="Image is loaded from page properties of target"
-                            fieldLabel="Image link"
-                            name="./imageLink"
-                            xtype="pathfield"/>
-
-                        <split
-                            jcr:primaryType="cq:Widget"
-                            fieldLabel="Split list into two columns"
-                            name="./splitList"
-                            type="checkbox"
+                            name="./showHidden"
+                            options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                            type="select"
+                            defaultValue=""
+                            value=""
                             xtype="selection"/>
 
-                        <hide-thumbnail
+                        <listSplit
                             jcr:primaryType="cq:Widget"
-                            fieldLabel="Hide thumbnails"
-                            name="./hideThumbnail"
-                            type="checkbox"
+                            fieldLabel="Split list into section"
+                            fieldDescription="break list after number of items"
+                            allowBlank="{Boolean}true"
+                            name="./listSplit"
+                            options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                            type="select"
+                            defaultValue=""
+                            value=""
                             xtype="selection"/>
+
+                        <listSplitEvery
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Split List After Every"
+                                fieldDescription="break list after this number of items"
+                                name="./listSplitEvery"
+                                xtype="numberfield"/>
 
                     </items>
-                </advancedTab>
+                </listConfigTab>
                 <styleTab
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
@@ -400,265 +390,212 @@
                 <accessibilityTab jcr:primaryType="cq:Panel"
                                   path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
                                   xtype="cqinclude"/>
-                <styleItemsTab
+                <itemConfigTab
                     jcr:primaryType="cq:Panel"
                     border="false"
                     height=""
-                    title="Style Items"
+                    title="Items Config"
                     width=""
                     xtype="panel">
                     <items jcr:primaryType="cq:WidgetCollection">
-                        <listStyle
-                                jcr:primaryType="cq:Widget"
-                                collapsed="{Boolean}true"
-                                collapsible="{Boolean}true"
-                                title="List"
-                                xtype="dialogfieldset">
-                                <items jcr:primaryType="cq:WidgetCollection">
-                                    <showLink
-                                            jcr:primaryType="cq:Widget"
-                                            checked="false"
-                                            fieldLabel="List Link"
-                                            fieldDescription="show a link at the bottom of list"
-                                            name="./showListLink"
-                                            type="radio"
-                                            xtype="selection">
-                                        <options jcr:primaryType="cq:WidgetCollection">
-                                            <false jcr:primaryType="nt:unstructured" text="Hidden" value="false" />
-                                            <true jcr:primaryType="nt:unstructured" text="Visible" value="true" />
-                                        </options>
-                                    </showLink>
-                                    <linkPath
-                                            jcr:primaryType="cq:Widget"
-                                            fieldDescription="Leave empty to use list query path"
-                                            fieldLabel="Link Path"
-                                            name="./listLinkPath"
-                                            xtype="pathfield"/>
-                                    <text
-                                            jcr:primaryType="cq:Widget"
-                                            fieldLabel="Text"
-                                            fieldDescription="shows as a link text tag"
-                                            name="./listLinkText"
-                                            xtype="textfield"/>
-                                    <title
-                                            jcr:primaryType="cq:Widget"
-                                            fieldLabel="Title"
-                                            fieldDescription="shows as a link title tag"
-                                            defaultValue="More Items"
-                                            name="./listLinkTitle"
-                                            xtype="textfield"/>
-                                   <cssIncludeTags
-                                        jcr:primaryType="cq:Widget"
-                                        fieldLabel="Class Includes Filter Tags"
-                                        name="./cssIncludeTags"
-                                        type="checkbox"
-                                        xtype="selection"/>
-                                </items>
-                        </listStyle>
-                        <itemStyle
+
+                        <itemConfig
                                 jcr:primaryType="cq:Widget"
                                 collapsed="{Boolean}true"
                                 collapsible="{Boolean}true"
                                 title="List Item"
                                 xtype="dialogfieldset">
                             <items jcr:primaryType="cq:WidgetCollection">
-                                <showLink
+                                <listItemShowLink
                                         jcr:primaryType="cq:Widget"
-                                        checked="false"
-                                        fieldLabel="Item Link"
-                                        fieldDescription="show a link at the end of text summary poiting to the article"
-                                        name="./showlistItemLink"
-                                        type="radio"
-                                        xtype="selection">
-                                    <options jcr:primaryType="cq:WidgetCollection">
-                                        <false jcr:primaryType="nt:unstructured" text="Hidden" value="false" />
-                                        <true jcr:primaryType="nt:unstructured" text="Visible" value="true" />
-                                    </options>
-                                </showLink>
-                                <linkTarget
-                                        jcr:primaryType="cq:Widget"
-                                        checked="false"
-                                        fieldLabel="Item Link Target"
-                                        fieldDescription="target for the href link to open up in the browser"
-                                        name="./itemLinkTarget"
+                                        defaultValue=""
+                                        value=""
+                                        allowBlank="{Boolean}true"
+                                        fieldLabel="Show Item Link"
+                                        fieldDescription="show a link at the end of text summary pointing to the article"
+                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                        name="./listItemShowLink"
                                         type="select"
-                                        xtype="selection">
-
-                                <options
-                                        jcr:primaryType="cq:WidgetCollection">
-                                    <default
-                                            jcr:primaryType="nt:unstructured"
-                                            text="default"
-                                            value="" />
-                                    <blank
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Blank"
-                                            value="_blank" />
-                                    <self
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Self"
-                                            value="_self" />
-                                    <parent
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Parent"
-                                            value="_parent" />
-                                    <top
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Top"
-                                            value="_top" />
-                                </options>
-                                </linkTarget>
-                                <text
+                                        xtype="selection"/>
+                                <listItemLinkTarget jcr:primaryType="cq:Widget"
+                                            fieldLabel="Item Link Target"
+                                            fieldDescription="how should the link of items behave when clicked"
+                                            allowBlank="{Boolean}true"
+                                            name="./listItemLinkTarget"
+                                            options="/etc/tags/component-dialog/html/linktarget.valuelist.json"
+                                            type="select"
+                                            defaultValue=""
+                                            xtype="selection"/>
+                                <listItemLinkText
                                         jcr:primaryType="cq:Widget"
                                         fieldLabel="Text"
                                         fieldDescription="shows as a link text tag"
                                         name="./listItemLinkText"
                                         xtype="textfield"/>
-                                <title
+                                <listItemLinkTitle
                                         jcr:primaryType="cq:Widget"
                                         fieldLabel="Title"
                                         fieldDescription="shows as a link title tag"
                                         name="./listItemLinkTitle"
                                         xtype="textfield"/>
-                                <titleLengthMax
+                                <listItemTitleTrim
+                                        jcr:primaryType="cq:Widget"
+                                        defaultValue=""
+                                        value=""
+                                        allowBlank="{Boolean}true"
+                                        fieldLabel="Title Trim"
+                                        fieldDescription="apply trim on Title field"
+                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                        name="./listItemTitleTrim"
+                                        type="select"
+                                        xtype="selection"/>
+                                <listItemTitleLengthMax
                                         jcr:primaryType="cq:Widget"
                                         fieldLabel="Title Max Length"
                                         fieldDescription="crop Title text after this many characters"
                                         name="./listItemTitleLengthMax"
                                         xtype="numberfield"/>
-                                <titleLengthMaxSuffix
+                                <listItemTitleLengthMaxSuffix
                                         jcr:primaryType="cq:Widget"
                                         fieldLabel="Title Max Length Suffix"
                                         fieldDescription="add the following text as suffix when cropping Title"
                                         name="./listItemTitleLengthMaxSuffix"
                                         xtype="textfield"/>
-                                <summaryLengthMax
+                                <listItemSummaryTrim
+                                        jcr:primaryType="cq:Widget"
+                                        defaultValue=""
+                                        value=""
+                                        allowBlank="{Boolean}true"
+                                        fieldLabel="Summary Trim"
+                                        fieldDescription="apply trim on Summary field"
+                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                        name="./listItemSummaryTrim"
+                                        type="select"
+                                        xtype="selection"/>
+                                <listItemSummaryLengthMax
                                         jcr:primaryType="cq:Widget"
                                         fieldLabel="Summary Max Length"
                                         fieldDescription="crop Summary text after this many characters"
                                         name="./listItemSummaryLengthMax"
                                         xtype="numberfield"/>
-                                <summaryLengthMaxSuffix
+                                <listItemSummaryLengthMaxSuffix
                                         jcr:primaryType="cq:Widget"
                                         fieldLabel="Summary Max Length Suffix"
                                         fieldDescription="add the following text as suffix when cropping Summary"
                                         name="./listItemSummaryLengthMaxSuffix"
                                         xtype="textfield"/>
-                                <displayOverlayIcon
+                                <listItemShowOverlayIcon
                                         jcr:primaryType="cq:Widget"
+                                        defaultValue=""
+                                        value=""
+                                        allowBlank="{Boolean}true"
                                         fieldLabel="Display Overlay Icon"
-                                        name="./displayOverlayIcon"
-                                        xtype="selection"
-                                        type="select">
-                                        <options
-                                            jcr:primaryType="cq:WidgetCollection">
-                                            <default
-                                                jcr:primaryType="nt:unstructured"
-                                                text="default"
-                                                value="" />
-                                            <on
-                                                jcr:primaryType="nt:unstructured"
-                                                text="Display"
-                                                value="true" />
-                                            <off
-                                                jcr:primaryType="nt:unstructured"
-                                                text="Do not display"
-                                                value="false" />
-                                        </options>
-                                </displayOverlayIcon>
-                                <showRedirectIcon
+                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                        name="./listItemShowOverlayIcon"
+                                        type="select"
+                                        xtype="selection"/>
+                                <listItemShowRedirectIcon
                                         jcr:primaryType="cq:Widget"
+                                        defaultValue=""
+                                        value=""
+                                        allowBlank="{Boolean}true"
                                         fieldLabel="Display Redirect Icon"
                                         fieldDescription="display an icon to indicate that the page link redirects"
-                                        name="./redirectIcon"
-                                        type="checkbox"
+                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                        name="./listItemShowRedirectIcon"
+                                        type="select"
                                         xtype="selection"/>
+
                             </items>
-                        </itemStyle>
-                        <thumbnailStyle
+                        </itemConfig>
+                        <thumbnailConfig
                             jcr:primaryType="cq:Widget"
                             collapsed="{Boolean}true"
                             collapsible="{Boolean}true"
-                            title="Thumbnail"
+                            title="Badge Thumbnail Config"
                             xtype="dialogfieldset">
                             <items jcr:primaryType="cq:WidgetCollection">
-                                <thumbnailCustom
+                                <badgeThumbnailRendition
                                         jcr:primaryType="cq:Widget"
+                                        defaultValue=""
+                                        value=""
+                                        allowBlank="{Boolean}true"
                                         fieldLabel="Generate Thumbnail"
                                         fieldDescription="Default pick rendition from DAM, Custom generate rendition"
-                                        name="./thumbnailCustom"
-                                        type="radio"
-                                        xtype="selection">
-                                    <options jcr:primaryType="cq:WidgetCollection">
-                                        <false jcr:primaryType="nt:unstructured" text="Default" value="" />
-                                        <true jcr:primaryType="nt:unstructured" text="Generate" value="true" />
-                                    </options>
-                                </thumbnailCustom>
-                                <size
+                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                        name="./badgeThumbnailRendition"
+                                        type="select"
+                                        xtype="selection"/>
+                                <badgeThumbnailSize
                                         jcr:primaryType="cq:Widget"
                                         fieldLabel="Icon Size (w,h)"
                                         fieldDescription="blank values are not added as attributes"
-                                        heightParameter="./thumbnailHeight"
-                                        widthParameter="./thumbnailWidth"
+                                        heightParameter="./badgeThumbnailHeight"
+                                        widthParameter="./badgeThumbnailWidth"
                                         xtype="sizefield"/>
                             </items>
-                        </thumbnailStyle>
+                        </thumbnailConfig>
                     </items>
-                </styleItemsTab>
-                <advancedStyleTab
-                        jcr:primaryType="cq:Panel"
-                        title="Advanced CSS">
-                    <items jcr:primaryType="cq:WidgetCollection">
-                        <title
-                                jcr:primaryType="cq:Widget"
-                                fieldLabel="CSS for Title"
-                                name="./cssClassTitle"
-                                xtype="textfield"/>
-                        <titleLink
-                                jcr:primaryType="cq:Widget"
-                                fieldLabel="CSS for Title Link"
-                                name="./cssClassTitleLink"
-                                xtype="textfield"/>
-                        <listcontainer
-                                jcr:primaryType="cq:Widget"
-                                fieldLabel="CSS for List Container"
-                                name="./cssClassListContainer"
-                                xtype="textfield"/>
-                        <list
-                                jcr:primaryType="cq:Widget"
-                                fieldLabel="CSS for List"
-                                name="./cssClassList"
-                                xtype="textfield"/>
-                        <item
-                                jcr:primaryType="cq:Widget"
-                                fieldLabel="CSS for Item"
-                                name="./cssClassItem"
-                                xtype="textfield"/>
-                        <itemlink
-                                jcr:primaryType="cq:Widget"
-                                fieldLabel="CSS for Item Link"
-                                name="./cssClassItemLink"
-                                xtype="textfield"/>
-                        <pageinationcontainer
-                                jcr:primaryType="cq:Widget"
-                                fieldLabel="CSS for Pagination Container"
-                                name="./cssClassPaginationContainer"
-                                xtype="textfield"/>
-                    </items>
-                </advancedStyleTab>
-                <thumbnailTab
+                </itemConfigTab>
+
+
+                <badgeThumbnailTab
                         jcr:primaryType="cq:Widget"
-                        allowUpload="false"
-                        cropParameter="./imageCrop"
+                        allowUpload="{Boolean}false"
+                        name="./badgeThumbnail/file"
+                        title="Default Badge Thumbnail"
                         ddGroups="[media]"
-                        fileNameParameter="./fileName"
-                        fileReferenceParameter="./defaultThumbnailImage"
-                        mapParameter="./imageMap"
-                        name="./defaultThumbnailImage"
-                        requestSuffix=".img.png"
-                        rotateParameter="./imageRotate"
-                        title="Default Thumbnail"
-                        xtype="html5smartimage"/>
+                        cropParameter="./badgeThumbnail/imageCrop"
+                        fileNameParameter="./badgeThumbnail/fileName"
+                        fileReferenceParameter="./badgeThumbnail/fileReference"
+                        rotateParameter="./badgeThumbnail/imageRotate"
+                        mapParameter="./badgeThumbnail/imageMap"
+                        xtype="html5smartimage">
+                    <cropConfig jcr:primaryType="nt:unstructured">
+                        <aspectRatios jcr:primaryType="nt:unstructured">
+                            <freehand
+                                    jcr:primaryType="nt:unstructured"
+                                    value="0,0"
+                                    text="Free hand"/>
+                            <twobythree
+                                    jcr:primaryType="nt:unstructured"
+                                    value="2,3"
+                                    text="2 x 3"/>
+                            <threebyfive
+                                    jcr:primaryType="nt:unstructured"
+                                    value="3,5"
+                                    text="3 x 5"/>
+                            <sixteenbynine
+                                    jcr:primaryType="nt:unstructured"
+                                    value="16,9"
+                                    text="16 x 9"/>
+                            <square
+                                    jcr:primaryType="nt:unstructured"
+                                    value="1,1"
+                                    text="Square"/>
+                        </aspectRatios>
+                    </cropConfig>
+                </badgeThumbnailTab>
+
+                <imageThumbnailTabResourceType
+                        jcr:primaryType="cq:Panel"
+                        title="Thumbnail Image Metadata"
+                        fieldDescription="Thumbnail Image Metadata additional fields for saving content of Background Image"
+                        xtype="panel">
+                    <listeners
+                            jcr:primaryType="nt:unstructured"
+                            render="function() { AEMDESIGN.dialog.hideTab(this, this.findParentByType('dialog').findByType('tabpanel')[0]); }"/>
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <imageBackgroundTabResourceType
+                                jcr:primaryType="cq:Widget"
+                                ignoreData="{Boolean}true"
+                                name="./badgeThumbnail/sling:resourceType"
+                                value="aemdesign/components/media/image"
+                                xtype="textfield"/>
+                    </items>
+                </imageThumbnailTabResourceType>
+
+
                 <feedTab
                         jcr:primaryType="cq:Panel"
                         border="false"
@@ -669,9 +606,13 @@
                     <items jcr:primaryType="cq:WidgetCollection">
                         <feedEnabled
                                 jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
                                 fieldLabel="Enable Feed"
+                                options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
                                 name="./feedEnabled"
-                                type="checkbox"
+                                type="select"
                                 xtype="selection"/>
                         <feedType
                                 jcr:primaryType="cq:Widget"
