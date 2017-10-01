@@ -48,7 +48,7 @@
                         <detailsBadge
                                 jcr:primaryType="cq:Widget"
                                 defaultValue=""
-                                fieldLabel="Badges"
+                                fieldLabel="Use Badge"
                                 fieldDescripton="Which badge to select from the Details component on the page"
                                 name="./detailsBadge"
                                 type="select"
@@ -128,7 +128,7 @@
                                 <default
                                         jcr:primaryType="nt:unstructured"
                                         value=""
-                                        text="Masonry" />
+                                        text="" />
                             </options>
                         </variant>
                         <printStructure jcr:primaryType="cq:Widget"
