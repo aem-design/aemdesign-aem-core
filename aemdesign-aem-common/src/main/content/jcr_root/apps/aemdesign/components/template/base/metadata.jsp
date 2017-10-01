@@ -1,7 +1,7 @@
 <%@include file="/apps/aemdesign/global/global.jsp" %>
 <c:set var="templateProperties" value="<%= request.getAttribute("templateProperties") %>"/>
 
-<%//GENERIC SECTION%>
+<%--GENERIC SECTION--%>
 
 <meta property="og:title" content="${templateProperties.pageTitle}"/>
 <meta property="og:description" content="${templateProperties.description}"/>
@@ -12,7 +12,7 @@
 <meta property="thumbnailUrl" content="${templateProperties.imageUrl}"/>
 <meta property="headline" content="${templateProperties.pageTitle}"/>
 
-<%//DATES METADATA%>
+<%--DATES METADATA--%>
 
 <c:if test="${not empty templateProperties['jcr:created']}">
     <meta property="dateCreated" content="${templateProperties['jcr:created']}"/>
@@ -29,7 +29,7 @@
     </c:when>
 </c:choose>
 
-<%//CONTENT TYPE SPECIFIC SECTION%>
+<%--CONTENT TYPE SPECIFIC SECTION--%>
 
 <c:if test="${not empty templateProperties.metadataContentType}">
     <meta property="og:type" content="${templateProperties.metadataContentType}"/>
