@@ -1,4 +1,4 @@
-package design.aem;
+package design.aem.components;
 
 import com.adobe.granite.ui.components.AttrBuilder;
 import org.apache.commons.lang3.StringUtils;
@@ -47,7 +47,7 @@ public class ComponentProperties extends ValueMapDecorator {
             super.putAll(map);
             return;
         }
-        for (Map.Entry<? extends String, ?> entry : map.entrySet())
+        for (Entry<? extends String, ?> entry : map.entrySet())
         {
             if (update) {
                 if (super.containsKey(entry.getKey())) {
