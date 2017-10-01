@@ -7,7 +7,6 @@
 <%@ page import="com.day.cq.wcm.foundation.Image" %>
 <%@ page import="com.day.image.Layer" %>
 <%@ page import="com.google.common.collect.Lists" %>
-<%@ page import="design.aem.ComponentProperties" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="org.apache.sling.api.resource.Resource" %>
 <%@ page import="javax.jcr.Node" %>

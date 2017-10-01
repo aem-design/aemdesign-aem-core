@@ -29,7 +29,6 @@
 <%@ page import="java.security.NoSuchAlgorithmException" %>
 <%@ page import="java.text.MessageFormat" %>
 <%@ page import="java.util.Calendar" %>
-<%@ page import="design.aem.ComponentProperties" %>
 <%@ include file="/apps/aemdesign/global/tags.jsp" %>
 <%@ include file="/apps/aemdesign/global/theme.jsp" %>
 <%@ include file="/apps/aemdesign/global/security.jsp" %>
