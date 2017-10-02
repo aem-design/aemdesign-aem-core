@@ -4,7 +4,7 @@
 <div class="tab-content">
     <c:forEach items="${componentProperties.tabPagesInfo}" var="link" varStatus="status">
         <c:set var="includePath" value="${link.contentPath}"/>
-    <div class="tab-pane ${status.first ? 'active' : ''}" id="${link.name}" role="tabpanel">
+    <div class="tab-pane ${status.first ? 'active' : ''}" id="${componentProperties.componentId}_${link.name}" role="tabpanel">
         <c:catch var="referenceException">
             <%=resourceIncludeAsHtml(
                     pageContext.getAttribute("includePath").toString(),
