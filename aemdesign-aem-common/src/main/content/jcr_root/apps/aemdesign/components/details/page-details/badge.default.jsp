@@ -4,4 +4,4 @@
 <c:if test="${not empty componentProperties.redirectTarget}">
     <c:set var="linkAttr" value="${linkAttr} external"/>
 </c:if>
-<a href="${componentProperties.pageUrl}" title="${componentProperties.title}"${linkAttr}>${componentProperties.navTitle}</a>
+<a href="${componentProperties.pageUrl}" title="${componentProperties.title}"${linkAttr}>${componentProperties.pageNavTitle}</a>

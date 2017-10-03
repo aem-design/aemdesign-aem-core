@@ -11,23 +11,18 @@
 <c:if test="${not empty componentProperties.pageImageLicenseInfo or not empty componentProperties.pageSecondaryImageLicenseInfo}">
     <c:set var="imageAttr" value="${imageAttr} data-asset-licenses=\"[${componentProperties.pageImageLicenseInfo},${componentProperties.pageSecondaryImageLicenseInfo}]\""/>
 </c:if>
-<c:if test="${not empty badgeThumbnailWidth}">
-    <c:set var="imageAttr" value="${imageAttr} width=\"${badgeThumbnailWidth}\""/>
+<c:if test="${not empty componentProperties.thumbnailWidth}">
+    <c:set var="imageAttr" value="${imageAttr} width=\"${componentProperties.thumbnailWidth}\""/>
 </c:if>
-<c:if test="${not empty badgeThumbnailHeight}">
-    <c:set var="imageAttr" value="${imageAttr} height=\"${badgeThumbnailHeight}\""/>
+<c:if test="${not empty componentProperties.thumbnailHeight}">
+    <c:set var="imageAttr" value="${imageAttr} height=\"${componentProperties.thumbnailHeight}\""/>
 </c:if>
-<!--badgeThumbnail: ${badgeThumbnail} -->
-<!--badgeThumbnailId: ${badgeThumbnailId} -->
-<!--badgeThumbnailLicenseInfo: ${badgeThumbnailLicenseInfo} -->
-<!--badgeThumbnailWidth: ${badgeThumbnailWidth} -->
-<!--badgeThumbnailHeight: ${badgeThumbnailHeight} -->
-<!--badgeThumbnailRendition: ${badgeThumbnailRendition} -->
+
 <a
     href="${componentProperties.pageUrl}"
     title="${componentProperties.title}"
     ${componentProperties.componentAttributes}${linkAttr}>
-    <img src="${componentProperties.pageImage}"${imageAttr}
+    <img src="${componentProperties.pageImageThumbnail}"${imageAttr}
          alt="${componentProperties.title}"
          <c:if test="${not empty componentProperties.pageSecondaryImage}">
             class="rollover"

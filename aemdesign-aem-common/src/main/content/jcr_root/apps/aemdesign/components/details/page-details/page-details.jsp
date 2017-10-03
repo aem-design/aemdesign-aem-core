@@ -1,10 +1,10 @@
 <%@ page import="com.adobe.granite.asset.api.AssetManager" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
-<%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
+<%@ include file="/apps/aemdesign/global/images.jsp" %>
+<%@ include file="/apps/aemdesign/global/component-details.jsp" %>
 <%@ include file="./common.jsp" %>
 <%
-
     final String DEFAULT_ARIA_ROLE = "banner";
     final String DEFAULT_TITLE_TAG_TYPE = "h1";
 
@@ -28,8 +28,8 @@
             {"showToolbar", DEFAULT_SHOW_TOOLBAR},
             {"showParsys", DEFAULT_SHOW_PARSYS},
             {"linkTarget", StringUtils.EMPTY, "target"},
-            {"pageUrl", getPageUrl(_currentPage)},
-            {"navTitle", getPageNavTitle(_currentPage)},
+            {FIELD_PAGE_URL, getPageUrl(_currentPage)},
+            {FIELD_PAGE_TITLE_NAV, getPageNavTitle(_currentPage)},
             {TagConstants.PN_TAGS, new String[]{}},
             {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
             {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
@@ -42,29 +42,31 @@
             componentFields,
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY,
-            DEFAULT_FIELDS_PAGEDETAILS_OPTIONS);
+            DEFAULT_FIELDS_DETAILS_OPTIONS);
 
     String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
     componentProperties.put("category",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));
 
     componentProperties.putAll(getAssetInfo(_resourceResolver,
             getPageImgReferencePath(_currentPage),
-            "pageImage"));
+            FIELD_PAGE_IMAGE));
 
     componentProperties.putAll(getAssetInfo(_resourceResolver,
             getResourceImagePath(_resource,DEFAULT_SECONDARY_IMAGE_NODE_NAME),
-            "pageSecondaryImage"));
+            FIELD_PAGE_IMAGE_SECONDARY));
 
     componentProperties.putAll(getAssetInfo(_resourceResolver,
             getResourceImagePath(_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
-            "pageBackgroundImage"));
+            FIELD_PAGE_IMAGE_BACKGROUND));
 
     componentProperties.put(FIELD_REDIRECT_TARGET,_pageProperties.get(FIELD_REDIRECT_TARGET,""));
 
     componentProperties.putAll(processComponentFields(componentProperties,_i18n,_sling));
+
+    componentProperties.putAll(getBadgeRequestConfig(componentProperties,_resourceResolver, request));
+
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
-
 <c:choose>
     <c:when test="${COMPONENT_BADGE eq 'badge.card'}">
         <%@ include file="badge.card.jsp" %>
