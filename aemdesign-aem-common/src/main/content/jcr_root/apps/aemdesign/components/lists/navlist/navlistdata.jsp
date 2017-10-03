@@ -12,7 +12,6 @@
     private static final String DETAILS_MENU_COLOR_DEFAULT = "default";
     private static final String DETAILS_MENU_ACCESSKEY = FIELD_ARIA_ACCESSKEY;
     private static final String DETAILS_TAB_GALLERYBGIMAGE = "par/page-details/gallerybgimage";
-    private static final String DETAILS_TITLE = "title";
 
     protected List<Map> getSimpleMenuPageList(PageManager pageManager, String[] paths, Page currentPage, SlingHttpServletRequest req) throws RepositoryException {
         List<Map> pages = new ArrayList<Map>();
