@@ -55,13 +55,18 @@
     public static final String DEFAULT_RSS_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss";
 
     private static final String DETAILS_MENU_COLOR = "menuColor";
+    private static final String DETAILS_MENU_ICONSHOW = "menuIconShow";
     private static final String DETAILS_MENU_ICON = "menuIcon";
     private static final String DETAILS_MENU_ICONPATH = "menuIconPath";
+    private static final String DETAILS_TAB_ICONSHOW = "tabIconShow";
     private static final String DETAILS_TAB_ICON = "tabIcon";
     private static final String DETAILS_TAB_ICONPATH = "tabIconPath";
+    private static final String DETAILS_TITLE_ICONSHOW = "titleIconShow";
     private static final String DETAILS_TITLE_ICON = "titleIcon";
     private static final String DETAILS_TITLE_ICONPATH = "titleIconPath";
-
+    private static final String DETAILS_OVERLAY_ICONSHOW = "overlayIconShow";
+    private static final String DETAILS_OVERLAY_ICON = "overlayIcon";
+    private static final String DETAILS_OVERLAY_ICONPATH = "overlayIconPath";
     private static final String DETAILS_FIELD_CARDSIZE = "cardSize";
 
     private static final String FIELD_HIDEINMENU = "hideInMenu";
@@ -151,6 +156,10 @@
     private static final String FIELD_ASSET_LICENSED = "asset-licensed";
     private static final String FIELD_ASSET_TRACKABLE = "asset-trackable";
 
+    private static final String DETAILS_TITLE = "title";
+
+
+
     //COMPONENT STYLES
     // {
     //   1 required - property name,
@@ -212,15 +221,21 @@
     //   3 optional - name of component attribute to add value into
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-    public static final Object[][] DEFAULT_FIELDS_PAGEDETAILS_OPTIONS = {
+    public static final Object[][] DEFAULT_FIELDS_DETAILS_OPTIONS = {
             {DETAILS_MENU_COLOR, ""},
-            {DETAILS_MENU_ICON, false},
+            {DETAILS_MENU_ICONSHOW, false},
+            {DETAILS_MENU_ICON, new String[]{}},
             {DETAILS_MENU_ICONPATH, ""},
-            {DETAILS_TAB_ICON, false},
+            {DETAILS_FIELD_CARDSIZE, "small"},
+            {DETAILS_TAB_ICONSHOW, false},
+            {DETAILS_TAB_ICON,  new String[]{}},
             {DETAILS_TAB_ICONPATH, ""},
-            {DETAILS_TITLE_ICON, false},
+            {DETAILS_TITLE_ICONSHOW, false},
+            {DETAILS_TITLE_ICON,  new String[]{}},
             {DETAILS_TITLE_ICONPATH, ""},
-            {DETAILS_FIELD_CARDSIZE, ""},
+            {DETAILS_OVERLAY_ICONSHOW, false},
+            {DETAILS_OVERLAY_ICON, new String[]{}},
+            {DETAILS_OVERLAY_ICONPATH, ""},
     };
 
     //COMPONENT ANALYTICS
@@ -285,6 +300,7 @@
             {DAM_SOURCE_URL, StringUtils.EMPTY},
             {DAM_VIDEO_URL, StringUtils.EMPTY},
     };
+
 
     /** Local logging container. */
     private final Logger LOG = LoggerFactory.getLogger(getClass());
@@ -1195,5 +1211,6 @@
 
         return returnValue;
     }
+
 %>
 <c:set var="DEFAULT_VARIANT" value="<%= DEFAULT_VARIANT %>"/>
