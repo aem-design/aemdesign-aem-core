@@ -1,10 +1,10 @@
 <%@page session="false" %>
 <%@ page import="org.apache.jackrabbit.api.security.user.Authorizable" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
-<%@ include file="/apps/aemdesign/components/layout/contentblock/contentblockdata.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/i18n.jsp" %>
+<%@ include file="/apps/aemdesign/global/component-details.jsp" %>
 <%
 
     final String DEFAULT_I18N_CATEGORY = "contentblock";
@@ -36,8 +36,8 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    componentProperties.put("linksRightList",getContentPageList(_pageManager, componentProperties.get("linksRight", new String[]{})));
-    componentProperties.put("linksLeftList",getContentPageList(_pageManager, componentProperties.get("linksLeft", new String[]{})));
+    componentProperties.put("linksRightList",getPageListInfo(_pageManager, _resourceResolver, componentProperties.get("linksRight", new String[]{})));
+    componentProperties.put("linksLeftList",getPageListInfo(_pageManager, _resourceResolver, componentProperties.get("linksLeft", new String[]{})));
 
     componentProperties.put("topLinkLabel",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_LABEL,DEFAULT_I18N_CATEGORY,_i18n));
     componentProperties.put("topLinkTitle",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_TITLE,DEFAULT_I18N_CATEGORY,_i18n));

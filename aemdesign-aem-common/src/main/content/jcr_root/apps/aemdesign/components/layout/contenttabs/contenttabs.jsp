@@ -8,7 +8,7 @@
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/i18n.jsp" %>
-<%@ include file="contenttabsdata.jsp" %>
+<%@ include file="/apps/aemdesign/global/component-details.jsp" %>
 <%
 
     final String DEFAULT_LISTFROM_CHILDREN = "children";
@@ -49,12 +49,12 @@
         }
 
         if (tabsParentPage != null) {
-            tabPagesInfo = getTabPageList(_pageManager, _resourceResolver, tabsParentPage.listChildren());
+            tabPagesInfo = getPageListInfo(_pageManager, _resourceResolver, tabsParentPage.listChildren());
         }
     } else if (componentProperties.get(FIELD_LISTFROM,"").equals(DEFAULT_LISTFROM_STATIC)) {
         String[] tabPages =  componentProperties.get(FIELD_TABPAGES, new String[0]);
         if (tabPages.length != 0) {
-            tabPagesInfo = getTabPageList(_pageManager, _resourceResolver, tabPages);
+            tabPagesInfo = getPageListInfo(_pageManager, _resourceResolver, tabPages);
         }
     }
 
