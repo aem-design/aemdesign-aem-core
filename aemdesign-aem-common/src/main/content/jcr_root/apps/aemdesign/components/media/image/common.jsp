@@ -5,14 +5,6 @@
     final static String I18N_CATEGORY = "image";
     final static String I18N_FORMAT_DIRECTOR = "directorLine";
 
-    final static String IMAGE_OPTION_GENERATED = "generated";
-
-    final static String IMAGE_OPTION_RENDITION = "rendition";
-
-    final static String IMAGE_OPTION_RESPONSIVE = "responsive";
-
-    final static String IMAGE_OPTION_ADAPTIVE = "adaptive";
-
     final static String RENDITION_PROFILE_CUSTOM = "cq5dam.custom.";
 
     final static String RENDITION_REGEX_PATTERN = "^(\\w*)\\.(\\w*)\\.(\\d*)\\.(\\d*)\\.(\\S{3,4})$";
