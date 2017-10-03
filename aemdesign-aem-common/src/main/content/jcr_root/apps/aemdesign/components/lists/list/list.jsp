@@ -21,15 +21,16 @@
     Object[][] componentFields = {
         {"feedEnabled", false},
         {"feedType", "rss"},
+        {BADGE_TITLE_TYPE, "h3"},
         {"listSplit", false},
         {"listSplitEvery", 5, "data-list-split-every"},
         {"tags", new String[]{},"data-search-tags", Tag.class.getCanonicalName()},
         {"orderBy", ""},
         {"detailsBadge", DEFAULT_BADGE},
         {"listItemShowLink", false},
-        {BADGE_THUMBNAIL_RENDITION, true},
+        {BADGE_THUMBNAIL_TYPE, "rendition"},
         {BADGE_THUMBNAIL_WIDTH, 319},
-        {BADGE_THUMBNAIL_HEIGHT, 319},
+        {BADGE_THUMBNAIL_HEIGHT, ""},
         {"listItemLinkTarget", "_blank"},
         {"listItemLinkText", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TEXT,DEFAULT_I18N_CATEGORY,_i18n)},
         {"listItemLinkTitle", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TITLE,DEFAULT_I18N_CATEGORY,_i18n)},
@@ -86,12 +87,16 @@
 
     //prepare request parms to pass to badges
     Map<String, Object> badgeRequestAttributes = new HashMap<>();
-    badgeRequestAttributes.putAll(getAssetInfo(_resourceResolver,
-            getResourceImagePath(_resource,DEFAULT_BADGETHUMBNAIL_IMAGE_NODE_NAME),
-            "badgeThumbnail"));
+    badgeRequestAttributes.put(BADGE_THUMBNAIL_DEFAULT,DEFAULT_IMAGE_BLANK);
+    if (_resourceResolver.resolve(DEFAULT_BADGETHUMBNAIL_IMAGE_NODE_NAME) != null) {
+        badgeRequestAttributes.putAll(getAssetInfo(_resourceResolver,
+                getResourceImagePath(_resource, DEFAULT_BADGETHUMBNAIL_IMAGE_NODE_NAME),
+                BADGE_THUMBNAIL_DEFAULT));
+    }
     badgeRequestAttributes.put(BADGE_THUMBNAIL_WIDTH,componentProperties.get(BADGE_THUMBNAIL_WIDTH));
     badgeRequestAttributes.put(BADGE_THUMBNAIL_HEIGHT,componentProperties.get(BADGE_THUMBNAIL_HEIGHT));
-    badgeRequestAttributes.put(BADGE_THUMBNAIL_RENDITION,componentProperties.get(BADGE_THUMBNAIL_RENDITION));
+    badgeRequestAttributes.put(BADGE_THUMBNAIL_TYPE,componentProperties.get(BADGE_THUMBNAIL_TYPE));
+    badgeRequestAttributes.put(BADGE_TITLE_TYPE,componentProperties.get(BADGE_TITLE_TYPE));
 
     request.setAttribute("badgeRequestAttributes", badgeRequestAttributes);
 
