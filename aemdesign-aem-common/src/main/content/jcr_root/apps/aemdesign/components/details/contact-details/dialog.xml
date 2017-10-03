@@ -17,10 +17,10 @@
                                 xtype="cqinclude"/>
 
                         <!--categorization of Roles-->
-                        <catRole
+                        <roleTags
                                 jcr:primaryType="cq:Widget"
-                                fieldLabel="Categorization of Roles"
-                                fieldDescription="this will be displayed as categorization of Roles on the page"
+                                fieldLabel="Contact Tags"
+                                fieldDescription=""
                                 allowBlank="{Boolean}false"
                                 name="./cq:tags"
                                 namespaces="[aemdesign]"

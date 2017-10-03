@@ -3,6 +3,8 @@
 
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
+<%@ include file="/apps/aemdesign/global/images.jsp" %>
+<%@ include file="/apps/aemdesign/global/component-details.jsp" %>
 <%@ include file="./common.jsp" %>
 <%
 
@@ -30,6 +32,9 @@
             {"cq:tags", new String[]{}},
             {"menuColor", StringUtils.EMPTY},
             {"showTags", false},
+            {"subCategory", StringUtils.EMPTY},
+            {FIELD_PAGE_URL, getPageUrl(_currentPage)},
+            {FIELD_PAGE_TITLE_NAV, getPageNavTitle(_currentPage)},
             {"eventDisplayDateFormat",""}
     };
 
@@ -37,7 +42,8 @@
             pageContext,
             componentFields,
             DEFAULT_FIELDS_STYLE,
-            DEFAULT_FIELDS_ACCESSIBILITY);
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_DETAILS_OPTIONS);
 
     //TODO: move this admin session usage into function
     ResourceResolver adminResourceResolver = this.openAdminResourceResolver(_sling);
@@ -67,10 +73,48 @@
 
     componentProperties.putAll(processComponentFields(componentProperties,_i18n,_sling));
 
+    componentProperties.putAll(getAssetInfo(_resourceResolver,
+            getPageImgReferencePath(_currentPage),
+            FIELD_PAGE_IMAGE));
+
+    componentProperties.putAll(getAssetInfo(_resourceResolver,
+            getResourceImagePath(_resource,DEFAULT_SECONDARY_IMAGE_NODE_NAME),
+            FIELD_PAGE_IMAGE_SECONDARY));
+
+    componentProperties.putAll(getAssetInfo(_resourceResolver,
+            getResourceImagePath(_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
+            FIELD_PAGE_IMAGE_BACKGROUND));
+
+    componentProperties.putAll(getBadgeRequestConfig(componentProperties,_resourceResolver, request));
+
 %>
-
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
+<c:choose>
 
-<%@ include file="variant.default.jsp" %>
+    <c:when test="${COMPONENT_BADGE eq 'badge.card'}">
+        <%@ include file="badge.card.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.icon'}">
+        <%@ include file="badge.icon.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.image'}">
+        <%@ include file="badge.image.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge' or COMPONENT_BADGE eq 'badge.default'}">
+        <%@ include file="badge.default.jsp" %>
+    </c:when>
+
+
+    <c:when test="${componentProperties.variant eq DEFAULT_VARIANT}">
+        <%@include file="variant.default.jsp" %>
+    </c:when>
+
+    <c:otherwise>
+        <%@include file="variant.default.jsp" %>
+    </c:otherwise>
+</c:choose>
 
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>

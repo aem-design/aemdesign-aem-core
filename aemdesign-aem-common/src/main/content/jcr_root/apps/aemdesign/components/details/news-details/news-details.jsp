@@ -4,6 +4,8 @@
 <%@ page import="org.apache.commons.lang3.BooleanUtils" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
+<%@ include file="/apps/aemdesign/global/images.jsp" %>
+<%@ include file="/apps/aemdesign/global/component-details.jsp" %>
 <%
 
     final Boolean DEFAULT_SHOW_BREADCRUMB = true;
@@ -24,7 +26,8 @@
             pageContext,
             componentFields,
             DEFAULT_FIELDS_STYLE,
-            DEFAULT_FIELDS_ACCESSIBILITY);
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_DETAILS_OPTIONS);
 
     Calendar publishDate = _properties.get("publishDate",_pageProperties.get(JcrConstants.JCR_CREATED, Calendar.getInstance()));
 
@@ -52,6 +55,20 @@
     String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
 
     componentProperties.put("tags",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));
+
+    componentProperties.putAll(getAssetInfo(_resourceResolver,
+            getPageImgReferencePath(_currentPage),
+            FIELD_PAGE_IMAGE));
+
+    componentProperties.putAll(getAssetInfo(_resourceResolver,
+            getResourceImagePath(_resource,DEFAULT_SECONDARY_IMAGE_NODE_NAME),
+            FIELD_PAGE_IMAGE_SECONDARY));
+
+    componentProperties.putAll(getAssetInfo(_resourceResolver,
+            getResourceImagePath(_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
+            FIELD_PAGE_IMAGE_BACKGROUND));
+
+    componentProperties.putAll(getBadgeRequestConfig(componentProperties,_resourceResolver, request));
 
 %>
 
