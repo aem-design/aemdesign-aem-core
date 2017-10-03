@@ -12,4 +12,6 @@
     componentProperties.put("listItemLinkTitle", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TITLE,DEFAULT_I18N_CATEGORY,_i18n));
 
     request.setAttribute("componentProperties", componentProperties);
+    request.setAttribute("COMPONENT_DETAILS_SUFFIX", "page-details");
+
 %>
