@@ -37,7 +37,13 @@
 
             <c:catch var="badgeException">
                 <%
-                    String componentPath = findComponentInPage((Page)request.getAttribute("listItem"),COMPONENT_DETAILS_SUFFIX)+".badge."+request.getAttribute("listItemBadge");
+                    //choose which details component to look for
+                    String listLookForDetailComponent = (String)request.getAttribute("COMPONENT_DETAILS_SUFFIX");
+                    if (listLookForDetailComponent ==  null) {
+                        //first found details component
+                        listLookForDetailComponent = COMPONENT_DETAILS_SUFFIX;
+                    }
+                    String componentPath = findComponentInPage((Page)request.getAttribute("listItem"),listLookForDetailComponent)+".badge."+request.getAttribute("listItemBadge");
                     Map<String, Object> badgeRequestAttributes = (Map<String, Object>)request.getAttribute("badgeRequestAttributes");
                 %>
                 <%=resourceRenderAsHtml(
