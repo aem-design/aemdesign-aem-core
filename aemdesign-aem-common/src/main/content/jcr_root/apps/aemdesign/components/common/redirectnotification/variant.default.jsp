@@ -1,4 +1,11 @@
 <p class="cq-info">
-    This page is set to redirect to:
-    <a href="${componentProperties.redirectUrl}">${componentProperties.redirectTitle}</a>
+    <c:choose>
+        <c:when test="${not empty componentProperties.redirectTarget}">
+            ${componentProperties.redirectIsSet}
+            <a href="${componentProperties.redirectUrl}">${componentProperties.redirectTitle}</a>
+        </c:when>
+        <c:otherwise>
+            ${componentProperties.redirectIsNotSet}
+        </c:otherwise>
+    </c:choose>
 </p>

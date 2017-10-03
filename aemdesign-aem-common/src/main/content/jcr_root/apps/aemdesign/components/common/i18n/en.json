@@ -1,3 +1,4 @@
 {
-
+  "redirectIsSet ((redirectnotification))": "This page is set to redirect to: ",
+  "redirectIsNotSet ((redirectnotification))": "This page is not being redirected."
 }
