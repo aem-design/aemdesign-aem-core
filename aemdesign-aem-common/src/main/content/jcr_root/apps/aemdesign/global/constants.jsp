@@ -114,7 +114,7 @@
     public static final String BADGE_THUMBNAIL_HEIGHT = "badgeThumbnailHeight";
     public static final String BADGE_THUMBNAIL_TYPE = "badgeThumbnailType";
     public static final String BADGE_THUMBNAIL_DEFAULT = "badgeThumbnailDefault";
-    public static final String BADGE_TITLE_TYPE = "badgeTitleType";
+    public static final String BADGE_TITLE_TAG_TYPE = "badgeTitleType";
     public static final String BADGE_THUMBNAIL_ID = "badgeThumbnailId";
     public static final String BADGE_THUMBNAIL_LICENSE_INFO = "badgeThumbnailLicenseInfo";
 
