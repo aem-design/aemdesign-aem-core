@@ -98,11 +98,25 @@
 
     public static final String FIELD_THUMBNAIL_WIDTH = "thumbnailWidth";
     public static final String FIELD_THUMBNAIL_HEIGHT = "thumbnailHeight";
+    public static final String FIELD_THUMBNAIL_TYPE = "thumbnailType";
+
+    public static final String FIELD_PAGE_IMAGE = "pageImage";
+    public static final String FIELD_PAGE_IMAGE_ID = "pageImageId";
+    public static final String FIELD_PAGE_IMAGE_LICENSE_INFO = "pageImageLicenseInfo";
+    public static final String FIELD_PAGE_IMAGE_SECONDARY = "pageSecondaryImage";
+    public static final String FIELD_PAGE_IMAGE_BACKGROUND = "pageBackgroundImage";
+    public static final String FIELD_PAGE_IMAGE_THUMBNAIL = "pageImageThumbnail";
+    public static final String FIELD_PAGE_URL = "pageUrl";
+    public static final String FIELD_PAGE_TITLE_NAV = "pageNavTitle";
+
 
     public static final String BADGE_THUMBNAIL_WIDTH = "badgeThumbnailWidth";
     public static final String BADGE_THUMBNAIL_HEIGHT = "badgeThumbnailHeight";
-    public static final String BADGE_THUMBNAIL_RENDITION = "badgeThumbnailRendition";
+    public static final String BADGE_THUMBNAIL_TYPE = "badgeThumbnailType";
     public static final String BADGE_THUMBNAIL_DEFAULT = "badgeThumbnailDefault";
+    public static final String BADGE_TITLE_TYPE = "badgeTitleType";
+    public static final String BADGE_THUMBNAIL_ID = "badgeThumbnailId";
+    public static final String BADGE_THUMBNAIL_LICENSE_INFO = "badgeThumbnailLicenseInfo";
 
 
     public static final String INHERITED_RESOURCE = "inheritedResource";
@@ -110,6 +124,12 @@
     public static final String DEFAULT_VALUE_STRING_NOT_FOUND = "";
 
     public static final String ATTRIBUTE_ID = "attrId";
+
+    private final static String IMAGE_OPTION_GENERATED = "generated";
+    private final static String IMAGE_OPTION_RENDITION = "rendition";
+    private final static String IMAGE_OPTION_RESPONSIVE = "responsive";
+    private final static String IMAGE_OPTION_ADAPTIVE = "adaptive";
+
 
 
     /**
