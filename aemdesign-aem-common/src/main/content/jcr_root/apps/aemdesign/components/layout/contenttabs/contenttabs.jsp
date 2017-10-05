@@ -37,6 +37,8 @@
 
     List<Map> tabPagesInfo = null;
 
+    String[] supportedDetails = DEFAULT_LIST_DETAILS_SUFFIX;
+    String[] supportedRoots = DEFAULT_LIST_PAGE_CONTENT;
 
     if (componentProperties.get(FIELD_LISTFROM,"").equals(DEFAULT_LISTFROM_CHILDREN)) {
         String pathToParent = componentProperties.get(FIELD_PATHTOPARENT,"");
@@ -49,12 +51,12 @@
         }
 
         if (tabsParentPage != null) {
-            tabPagesInfo = getPageListInfo(_pageManager, _resourceResolver, tabsParentPage.listChildren());
+            tabPagesInfo = getPageListInfo(_pageManager, _resourceResolver, tabsParentPage.listChildren(), supportedDetails, supportedRoots);
         }
     } else if (componentProperties.get(FIELD_LISTFROM,"").equals(DEFAULT_LISTFROM_STATIC)) {
         String[] tabPages =  componentProperties.get(FIELD_TABPAGES, new String[0]);
         if (tabPages.length != 0) {
-            tabPagesInfo = getPageListInfo(_pageManager, _resourceResolver, tabPages);
+            tabPagesInfo = getPageListInfo(_pageManager, _resourceResolver, tabPages, supportedDetails, supportedRoots);
         }
     }
 
