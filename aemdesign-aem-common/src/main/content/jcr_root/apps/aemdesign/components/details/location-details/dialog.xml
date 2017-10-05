@@ -13,7 +13,7 @@
                     <items jcr:primaryType="cq:WidgetCollection">
                         <title
                                 jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/global/dialog/classic/common/items/pageBasicTab/items/title.infinity.json"
+                                path="/apps/aemdesign/global/dialog/classic/page/items/pageBasicTab/items/title.infinity.json"
                                 xtype="cqinclude" />
 
                         <latitude
@@ -76,15 +76,15 @@
                     <items jcr:primaryType="cq:WidgetCollection">
                         <menuConfigGroup
                                 jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/global/dialog/classic/common/items/pageAdvancedTab/items/menuConfigGroup.infinity.json"
+                                path="/apps/aemdesign/global/dialog/classic/badge/items/badgeConfigTab/items/menuConfigGroup.infinity.json"
                                 xtype="cqinclude"/>
                     </items>
                 </advancedTab>
                 <styleTab jcr:primaryType="cq:Panel"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
                         xtype="cqinclude" />
                 <accessibilityTab jcr:primaryType="cq:Panel"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
                         xtype="cqinclude" />
 
             </items>

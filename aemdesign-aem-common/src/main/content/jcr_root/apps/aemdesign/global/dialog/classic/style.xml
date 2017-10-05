@@ -8,8 +8,9 @@
 
     <items jcr:primaryType="cq:WidgetCollection">
 
-        <common jcr:primaryType="cq:Panel"
-                   title="Style">
+
+        <styleTab jcr:primaryType="cq:Panel"
+                  title="Style">
             <items jcr:primaryType="cq:WidgetCollection">
                 <componentId jcr:primaryType="cq:Widget"
                              fieldLabel="ID"
@@ -84,7 +85,8 @@
             </items>
 
 
-        </common>
+        </styleTab>
+
 
     </items>
 

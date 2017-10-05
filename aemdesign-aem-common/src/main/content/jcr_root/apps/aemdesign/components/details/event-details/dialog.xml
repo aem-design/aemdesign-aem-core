@@ -16,7 +16,7 @@
                     <items jcr:primaryType="cq:WidgetCollection">
                         <title
                             jcr:primaryType="cq:Widget"
-                            path="/apps/aemdesign/global/dialog/classic/common/items/pageBasicTab/items/title.infinity.json"
+                            path="/apps/aemdesign/global/dialog/classic/page/items/pageBasicTab/items/title.infinity.json"
                             xtype="cqinclude"/>
 
                         <descriptionLabel
@@ -95,20 +95,20 @@
                                 xtype="textarea"/>
                         <category
                                 jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/global/dialog/classic/common/items/pageBasicTab/items/category.infinity.json"
+                                path="/apps/aemdesign/global/dialog/classic/page/items/pageBasicTab/items/category.infinity.json"
                                 xtype="cqinclude"/>
                         <subCategory
                                 jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/global/dialog/classic/common/items/pageBasicTab/items/subCategory.infinity.json"
+                                path="/apps/aemdesign/global/dialog/classic/page/items/pageBasicTab/items/subCategory.infinity.json"
                                 xtype="cqinclude"/>
 
                         <mixinTypes
                                 jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/global/dialog/classic/common/items/pageBasicTab/items/mixinTypes.infinity.json"
+                                path="/apps/aemdesign/global/dialog/classic/page/items/pageBasicTab/items/mixinTypes.infinity.json"
                                 xtype="cqinclude"/>
                         <mixinTypesHint
                                 jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/global/dialog/classic/common/items/pageBasicTab/items/mixinTypesHint.infinity.json"
+                                path="/apps/aemdesign/global/dialog/classic/page/items/pageBasicTab/items/mixinTypesHint.infinity.json"
                                 xtype="cqinclude"/>
 
                     </items>
@@ -117,12 +117,12 @@
 
                 <imageBackgroundTab
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/imageBackgroundTab.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/images/items/imageBackgroundTab.infinity.json"
                         xtype="cqinclude"/>
 
                 <imageBackgroundTabResourceType
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/imageBackgroundTabResourceType.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/images/items/imageBackgroundTabResourceType.infinity.json"
                         xtype="cqinclude"/>
 
 
@@ -208,16 +208,16 @@
 
                 </layoutTab>
 
-                <advancedTab jcr:primaryType="cq:Panel"
-                             path="/apps/aemdesign/global/dialog/classic/common/items/pageAdvancedTab.infinity.json"
+                <badgeConfigTab jcr:primaryType="cq:Panel"
+                             path="/apps/aemdesign/global/dialog/classic/badge/items/badgeConfigTab.infinity.json"
                              xtype="cqinclude" />
 
                 <styleTab
                         jcr:primaryType="cq:Panel"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
                         xtype="cqinclude"/>
                 <accessibilityTab jcr:primaryType="cq:Panel"
-                                  path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
                                   xtype="cqinclude" />
             </items>
         </tabs>

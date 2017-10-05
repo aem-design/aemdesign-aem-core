@@ -92,10 +92,10 @@
                         xtype="cqinclude"/>
                 <styleTab
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
                         xtype="cqinclude" />
                 <accessibilityTab jcr:primaryType="cq:Panel"
-                                  path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
                                   xtype="cqinclude"/>
             </items>
         </tabs>

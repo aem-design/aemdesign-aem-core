@@ -8,9 +8,8 @@
 
     <items jcr:primaryType="cq:WidgetCollection">
 
-
-        <common jcr:primaryType="cq:Panel"
-                  title="Accessibility">
+        <accessibilityTab jcr:primaryType="cq:Panel"
+                          title="Accessibility">
             <items jcr:primaryType="cq:WidgetCollection">
 
                 <ariaLabel jcr:primaryType="cq:Widget"
@@ -31,25 +30,25 @@
                           xtype="selection"/>
 
                 <ariaDescribedBy jcr:primaryType="cq:Widget"
-                           fieldLabel="Aria Described By"
-                           fieldDescription="Identifies the element (or elements) that describes the object."
-                           name="./ariaDescribedBy"
-                           allowBlank="{Boolean}true"
-                           xtype="textfield"/>
+                                 fieldLabel="Aria Described By"
+                                 fieldDescription="Identifies the element (or elements) that describes the object."
+                                 name="./ariaDescribedBy"
+                                 allowBlank="{Boolean}true"
+                                 xtype="textfield"/>
 
                 <ariaLabelledBy jcr:primaryType="cq:Widget"
-                           fieldLabel="Aria Labelled By"
-                           fieldDescription="Identifies the element (or elements) that labels the current element."
-                           name="./ariaLabelledBy"
-                           allowBlank="{Boolean}true"
-                           xtype="textfield"/>
-
-                <ariaControls jcr:primaryType="cq:Widget"
-                                fieldLabel="Aria Controls"
-                                fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
-                                name="./ariaControls"
+                                fieldLabel="Aria Labelled By"
+                                fieldDescription="Identifies the element (or elements) that labels the current element."
+                                name="./ariaLabelledBy"
                                 allowBlank="{Boolean}true"
                                 xtype="textfield"/>
+
+                <ariaControls jcr:primaryType="cq:Widget"
+                              fieldLabel="Aria Controls"
+                              fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
+                              name="./ariaControls"
+                              allowBlank="{Boolean}true"
+                              xtype="textfield"/>
 
                 <ariaLive jcr:primaryType="cq:Widget"
                           fieldLabel="Aria Live"
@@ -72,14 +71,14 @@
                             xtype="selection"/>
 
                 <ariaHaspopup jcr:primaryType="cq:Widget"
-                            fieldLabel="Aria Has-Popup"
-                            fieldDescription="Indicates that the element has a popup context menu or sub-level menu."
-                            allowBlank="{Boolean}true"
-                            name="./ariaHaspopup"
-                            options="/etc/tags/component-dialog/common/true-false.valuelist.json"
-                            type="select"
-                            defaultValue=""
-                            xtype="selection"/>
+                              fieldLabel="Aria Has-Popup"
+                              fieldDescription="Indicates that the element has a popup context menu or sub-level menu."
+                              allowBlank="{Boolean}true"
+                              name="./ariaHaspopup"
+                              options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                              type="select"
+                              defaultValue=""
+                              xtype="selection"/>
 
                 <ariaAccessKey jcr:primaryType="cq:Widget"
                                fieldLabel="Access Key"
@@ -96,7 +95,7 @@
             <!--aria-haspopup-->
 
 
-        </common>
+        </accessibilityTab>
 
     </items>
 

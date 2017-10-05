@@ -16,11 +16,11 @@
             <items jcr:primaryType="cq:WidgetCollection">
                 <imageTab
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/imageTab.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/images/items/imageTab.infinity.json"
                         xtype="cqinclude"/>
                 <overrideImageMetadataTab
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/overrideImageMetadataTab.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/assets/items/overrideImageMetadataTab.infinity.json"
                         xtype="cqinclude"/>
                 <layoutTab
                         jcr:primaryType="cq:Widget"
@@ -40,10 +40,10 @@
                         xtype="cqinclude"/>
                 <styleTab
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
                         xtype="cqinclude" />
                 <accessibilityTab jcr:primaryType="cq:Panel"
-                                  path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
                                   xtype="cqinclude" />
             </items>
         </tabs>

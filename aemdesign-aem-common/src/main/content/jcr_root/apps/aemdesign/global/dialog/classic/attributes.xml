@@ -8,7 +8,7 @@
 
     <items jcr:primaryType="cq:WidgetCollection">
 
-        <common jcr:primaryType="cq:Panel"
+        <linkAttributesTab jcr:primaryType="cq:Panel"
                           title="Data Attributes">
             <items jcr:primaryType="cq:WidgetCollection">
 
@@ -40,7 +40,7 @@
                           xtype="selection"/>
 
             </items>
-        </common>
+        </linkAttributesTab>
 
     </items>
 

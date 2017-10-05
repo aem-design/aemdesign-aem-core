@@ -14,7 +14,7 @@
         <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">
             <items jcr:primaryType="cq:WidgetCollection">
                 <permissionCheckTab jcr:primaryType="cq:Panel"
-                                    path="/apps/aemdesign/global/dialog/classic/common/items/permissionCheckTab.infinity.json"
+                                    path="/apps/aemdesign/global/dialog/classic/permissions/items/permissionCheckTab.infinity.json"
                                     xtype="cqinclude"/>
                 <basicTab
                         jcr:primaryType="cq:Panel"
@@ -180,20 +180,20 @@
 
                 <imageBackgroundTab
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/imageBackgroundTab.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/images/items/imageBackgroundTab.infinity.json"
                         xtype="cqinclude"/>
 
                 <imageBackgroundTabResourceType
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/imageBackgroundTabResourceType.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/images/items/imageBackgroundTabResourceType.infinity.json"
                         xtype="cqinclude"/>
 
                 <styleTab
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/common/items/styleTab.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
                         xtype="cqinclude"/>
                 <accessibilityTab jcr:primaryType="cq:Panel"
-                                  path="/apps/aemdesign/global/dialog/classic/common/items/accessibilityTab.infinity.json"
+                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
                                   xtype="cqinclude"/>
 
             </items>

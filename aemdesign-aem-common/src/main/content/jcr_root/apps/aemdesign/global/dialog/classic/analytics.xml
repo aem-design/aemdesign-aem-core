@@ -9,7 +9,7 @@
     <items jcr:primaryType="cq:WidgetCollection">
 
 
-        <common jcr:primaryType="cq:Panel"
+        <analyticsTab jcr:primaryType="cq:Panel"
                   title="Analytics">
             <items jcr:primaryType="cq:WidgetCollection">
                 <analyticsType
@@ -85,7 +85,7 @@
                             defaultValue=""
                             xtype="selection"/>
             </items>
-        </common>
+        </analyticsTab>
 
 
     </items>

@@ -15,16 +15,16 @@
                         xtype="cqinclude" />
                 <styleTab
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/style/items/common.infinity.json"
+                        path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
                         xtype="cqinclude"/>
                 <accessibilityTab jcr:primaryType="cq:Panel"
-                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/common.infinity.json"
+                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
                                   xtype="cqinclude" />
-                <dataAttributesTab jcr:primaryType="cq:Panel"
-                                   path="/apps/aemdesign/global/dialog/classic/attributes/items/common.infinity.json"
+                <linkAttributesTab jcr:primaryType="cq:Panel"
+                                   path="/apps/aemdesign/global/dialog/classic/attributes/items/linkAttributesTab.infinity.json"
                                    xtype="cqinclude" />
                 <analyticsTab jcr:primaryType="cq:Panel"
-                              path="/apps/aemdesign/global/dialog/classic/analytics/items/common.infinity.json"
+                              path="/apps/aemdesign/global/dialog/classic/analytics/items/analyticsTab.infinity.json"
                               xtype="cqinclude" />
             </items>
         </tabs>
