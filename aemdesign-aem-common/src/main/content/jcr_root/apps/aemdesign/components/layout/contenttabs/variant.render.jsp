@@ -3,11 +3,11 @@
 </c:if>
 <div class="tab-content">
     <c:forEach items="${componentProperties.tabPagesInfo}" var="link" varStatus="status">
-        <c:set var="includePath" value="${link.contentPath}"/>
+        <c:set var="includePath" value="${link.pageContent}"/>
     <div class="tab-pane ${status.first ? 'active' : ''}" id="${componentProperties.componentId}_${link.name}" role="tabpanel">
         <c:catch var="referenceException">
             <%=resourceRenderAsHtml(
-                    pageContext.getAttribute("includePath").toString(),
+                    (String)pageContext.getAttribute("includePath"),
                     _resourceResolver,
                     _sling)
             %>

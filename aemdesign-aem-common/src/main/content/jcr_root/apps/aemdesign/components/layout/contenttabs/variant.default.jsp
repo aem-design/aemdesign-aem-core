@@ -3,13 +3,15 @@
 </c:if>
 <div class="tab-content">
     <c:forEach items="${componentProperties.tabPagesInfo}" var="link" varStatus="status">
-        <c:set var="includePath" value="${link.contentPath}"/>
+        <c:set var="includePath" value="${link.pageContent}"/>
     <div class="tab-pane ${status.first ? 'active' : ''}" id="${componentProperties.componentId}_${link.name}" role="tabpanel">
         <c:catch var="referenceException">
             <%=resourceIncludeAsHtml(
+                    _componentContext,
                     (String)pageContext.getAttribute("includePath"),
                     _slingResponse,
-                    _slingRequest)
+                    _slingRequest,
+                    WCMMode.DISABLED)
             %>
         </c:catch>
         <c:if test="${not empty referenceException}">
