@@ -32,14 +32,12 @@ while (null != curPage) {
 
         if (curResourceTypeMatch && curCancelInheritParent) {
             haveInheritance = true;
-            WCMMode currentMode = WCMMode.fromRequest(_slingRequest);
-            String defDecor =_componentContext.getDefaultDecorationTagName();
 
             //used for displaying in badges
             request.setAttribute(INHERITED_RESOURCE, curResource);
 
             try {
-                out.write(resourceIncludeAsHtml(curResource.getPath(), (SlingHttpServletResponse) response, (SlingHttpServletRequest) request));
+                out.write(resourceIncludeAsHtml(_componentContext, curResource.getPath(), (SlingHttpServletResponse) response, (SlingHttpServletRequest) request));
             } catch (Exception ex) {
                 getLogger().error(MessageFormat.format("{0} could not include resource {1} reason: {2}","inheritedlist/findparent",curResource,ex.getMessage()));
             }
