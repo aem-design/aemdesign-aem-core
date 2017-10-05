@@ -88,22 +88,28 @@
                         xtype="textfield"/>
                 <showdataTitle
                         jcr:primaryType="cq:Widget"
-                        checked="false"
-                        defaultValue="false"
+                        allowBlank="{Boolean}true"
                         fieldLabel="Show dataTitle in section"
                         fieldDescritpion="show dataTitle for section"
                         name="./showdataTitle"
-                        type="checkbox"
+                        options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                        type="select"
+                        defaultValue=""
+                        value=""
                         xtype="selection"/>
+
                 <showdataScroll
                         jcr:primaryType="cq:Widget"
-                        checked="false"
-                        defaultValue="false"
+                        allowBlank="{Boolean}true"
                         fieldLabel="Show dataScroll in section"
                         fieldDescritpion="show dataScroll for section"
                         name="./showdataScroll"
-                        type="checkbox"
+                        options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                        type="select"
+                        defaultValue=""
+                        value=""
                         xtype="selection"/>
+
             </items>
         </styleTab>
         <linkLeftTab

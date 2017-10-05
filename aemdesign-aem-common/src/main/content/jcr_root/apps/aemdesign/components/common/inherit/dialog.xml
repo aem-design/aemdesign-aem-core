@@ -10,14 +10,15 @@
                         jcr:primaryType="cq:Panel"
                         title="Inherit">
                     <items jcr:primaryType="cq:WidgetCollection">
-                        <cancelinheritparent
-                                jcr:primaryType="cq:Widget"
-                                checked="false"
-                                defaultValue="false"
-                                fieldLabel="Cancel Inherit Parent"
-                                name="./cancelInheritParent"
-                                type="checkbox"
-                                xtype="selection"/>
+                        <cancelinheritparent jcr:primaryType="cq:Widget"
+                                   fieldLabel="Cancel Inherit Parent"
+                                   allowBlank="{Boolean}true"
+                                   name="./cancelInheritParent"
+                                   options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                   type="select"
+                                   defaultValue=""
+                                   value=""
+                                   xtype="selection"/>
                     </items>
                 </inheritTab>
             </items>

@@ -29,18 +29,26 @@
                         </pages>
 
                         <showIcons
-                            jcr:primaryType="cq:Widget"
-                            fieldLabel="Show icons"
-                            name="./showIcons"
-                            xtype="selection"
-                            type="checkbox" />
+                                jcr:primaryType="cq:Widget"
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Show icons"
+                                name="./showIcons"
+                                options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                type="select"
+                                defaultValue=""
+                                value=""
+                                xtype="selection"/>
 
                         <showShareButton
-                            jcr:primaryType="cq:Widget"
-                            fieldLabel="Show share button"
-                            name="./showShareButton"
-                            xtype="selection"
-                            type="checkbox" />
+                                jcr:primaryType="cq:Widget"
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Show share button"
+                                name="./showShareButton"
+                                options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                type="select"
+                                defaultValue=""
+                                value=""
+                                xtype="selection"/>
 
                     </items>
                 </listTab>

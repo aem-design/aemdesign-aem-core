@@ -32,12 +32,15 @@
                     value="box_count"/>
             </options>
         </layout>
-        <includeSend
-            jcr:primaryType="cq:Widget"
-            defaultValue="false"
-            fieldLabel="Include Send button"
-            name="./includeSend"
-            type="checkbox"
-            xtype="selection"/>
+        <hideSummary
+                jcr:primaryType="cq:Widget"
+                allowBlank="{Boolean}true"
+                fieldLabel="Include Send button"
+                name="./includeSend"
+                options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                type="select"
+                defaultValue=""
+                value=""
+                xtype="selection"/>
     </items>
 </jcr:root>
