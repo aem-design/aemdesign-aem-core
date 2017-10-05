@@ -21,16 +21,12 @@
     Object[][] componentFields = {
         {"feedEnabled", false},
         {"feedType", "rss"},
-        {BADGE_TITLE_TYPE, "h3"},
         {"listSplit", false},
         {"listSplitEvery", 5, "data-list-split-every"},
         {"tags", new String[]{},"data-search-tags", Tag.class.getCanonicalName()},
         {"orderBy", ""},
         {"detailsBadge", DEFAULT_BADGE},
         {"listItemShowLink", false},
-        {BADGE_THUMBNAIL_TYPE, "rendition"},
-        {BADGE_THUMBNAIL_WIDTH, 319},
-        {BADGE_THUMBNAIL_HEIGHT, ""},
         {"listItemLinkTarget", "_blank"},
         {"listItemLinkText", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TEXT,DEFAULT_I18N_CATEGORY,_i18n)},
         {"listItemLinkTitle", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TITLE,DEFAULT_I18N_CATEGORY,_i18n)},
@@ -43,8 +39,10 @@
         {"listItemShowOverlayIcon", false},
         {"listItemShowRedirectIcon", false},
         {"printStructure", DEFAULT_PRINT_STRUCTURE},
-        {FIELD_THUMBNAIL_WIDTH, ""},
-        {FIELD_THUMBNAIL_HEIGHT, ""},
+        {BADGE_TITLE_TAG_TYPE, "h3"},
+        {BADGE_THUMBNAIL_TYPE, "rendition"},
+        {BADGE_THUMBNAIL_WIDTH, 319},
+        {BADGE_THUMBNAIL_HEIGHT, ""},
         {FIELD_TITLE_TAG_TYPE,DEFAULT_TITLE_TYPE},
     };
 
@@ -96,7 +94,7 @@
     badgeRequestAttributes.put(BADGE_THUMBNAIL_WIDTH,componentProperties.get(BADGE_THUMBNAIL_WIDTH));
     badgeRequestAttributes.put(BADGE_THUMBNAIL_HEIGHT,componentProperties.get(BADGE_THUMBNAIL_HEIGHT));
     badgeRequestAttributes.put(BADGE_THUMBNAIL_TYPE,componentProperties.get(BADGE_THUMBNAIL_TYPE));
-    badgeRequestAttributes.put(BADGE_TITLE_TYPE,componentProperties.get(BADGE_TITLE_TYPE));
+    badgeRequestAttributes.put(BADGE_TITLE_TAG_TYPE,componentProperties.get(BADGE_TITLE_TAG_TYPE));
 
     request.setAttribute("badgeRequestAttributes", badgeRequestAttributes);
 
