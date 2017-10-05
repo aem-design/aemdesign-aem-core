@@ -950,52 +950,6 @@
         return DateFormatUtils.format(cal, DEFAULT_RSS_DATE_FORMAT);
     }
 
-    public void forceNoDecoration(ComponentContext componentContext, IncludeOptions includeOptions) {
-        componentContext.setDecorate(false);
-        componentContext.setDecorationTagName("");
-        componentContext.setDefaultDecorationTagName("");
-
-        includeOptions.forceSameContext(Boolean.FALSE).setDecorationTagName("");
-
-    }
-
-    public void setDecoration(ComponentContext componentContext, IncludeOptions includeOptions, String defDecoration) {
-        componentContext.setDecorate(true);
-        componentContext.setDecorationTagName(defDecoration);
-        componentContext.setDefaultDecorationTagName(defDecoration);
-
-        includeOptions.forceSameContext(Boolean.FALSE).setDecorationTagName(defDecoration);
-
-    }
-
-    /**
-     * disables edit mode for the request
-     * @param request
-     */
-    @SuppressWarnings("unchecked")
-    public void disableEditMode(ComponentContext componentContext, IncludeOptions includeOptions, SlingHttpServletRequest request) {
-        forceNoDecoration(componentContext,includeOptions);
-
-        WCMMode.DISABLED.toRequest(request);
-    }
-
-    /**
-     * enables edit mode and resets component decoration
-     * @param toWCMMode current WCM mode
-     * @param componentContext
-     * @param defDecoration default decoration
-     * @param componentContext component context
-     * @param includeOptions
-     * @param request
-     */
-
-    @SuppressWarnings("unchecked")
-    public void enableEditMode(WCMMode toWCMMode, ComponentContext componentContext, String defDecoration, IncludeOptions includeOptions, SlingHttpServletRequest request) {
-        setDecoration(componentContext,includeOptions,defDecoration);
-
-        toWCMMode.toRequest(request);
-    }
-
 
     /**
      * Find a page which has a Detail Node. The pattern under jcr:content is par/*Details
@@ -1074,49 +1028,6 @@
         return returnPath;
     }
 
-
-    /**
-     * Return a JCR node for a first found matching path
-     *
-     * @param thisPage is the page to inspect for newsdetails
-     * @return a JCR node or null when not found
-     */
-    private Node getDetailsNode(Page thisPage,String[] nodePaths) {
-        if (thisPage == null) {
-            return null;
-        }
-
-        Node detailsNode = null;
-
-        for (String nodePath : nodePaths) {
-            Resource detailResource = thisPage.getContentResource(nodePath);
-            if (detailResource != null) {
-                detailsNode = detailResource.adaptTo(Node.class);
-                return detailsNode;
-            }
-        }
-        return null;
-    }
-
-
-    /**
-     * Return a JCR node for the news details of <code>thisPage</code>
-     *
-     * @param thisPage is the page to inspect for newsdetails
-     * @return a JCR node or null when not found
-     */
-    private Node getDetailsNode(Page thisPage,String nodePath) {
-        if (thisPage == null) {
-            return null;
-        }
-
-        Resource detailResource = thisPage.getContentResource(nodePath);
-        Node detailsNode = null;
-        if (detailResource != null) {
-            detailsNode = detailResource.adaptTo(Node.class);
-        }
-        return detailsNode;
-    }
 
     /***
      * encode a string using MD5
