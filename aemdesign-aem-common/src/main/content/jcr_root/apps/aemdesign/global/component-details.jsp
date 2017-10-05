@@ -80,10 +80,18 @@
      * @param defaultTitle
      * @return
      */
-    public Map getDetailsBadgeConfig(Node pageDetails, String defaultTitle) {
-        Map infoStruct = new HashMap();
+    public Map<String, Object> getDetailsBadgeConfig(Node pageDetails, String defaultTitle) {
+        Map<String, Object> infoStruct = new HashMap();
+
 
         if (pageDetails != null) {
+
+            try {
+                infoStruct.put("contentPath", pageDetails.getPath());
+            } catch (Exception ex) {
+                getLogger().warn("JCR ERROR: {}", ex);
+            }
+
             String title = "";
             boolean showAsMenuIcon = false;
             String showAsMenuIconPath = "";
@@ -209,7 +217,7 @@
             badgeConfig.put(FIELD_THUMBNAIL_HEIGHT, badgeThumbnailHeight.toString());
         }
 
-        Object badgeTitleType = request.getAttribute(BADGE_TITLE_TYPE);
+        Object badgeTitleType = request.getAttribute(BADGE_TITLE_TAG_TYPE);
         if (badgeTitleType != null) {
             badgeConfig.put(FIELD_TITLE_TAG_TYPE, badgeTitleType.toString());
         }

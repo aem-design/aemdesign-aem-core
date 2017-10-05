@@ -7,7 +7,7 @@
     <div class="tab-pane ${status.first ? 'active' : ''}" id="${componentProperties.componentId}_${link.name}" role="tabpanel">
         <c:catch var="referenceException">
             <%=resourceIncludeAsHtml(
-                    pageContext.getAttribute("includePath").toString(),
+                    (String)pageContext.getAttribute("includePath"),
                     _slingResponse,
                     _slingRequest)
             %>
