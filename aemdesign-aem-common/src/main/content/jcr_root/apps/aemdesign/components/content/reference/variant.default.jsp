@@ -1,6 +1,7 @@
 <c:catch var="referenceException">
     <%=resourceIncludeAsHtml(
-            pageContext.getAttribute("referencePath").toString(),
+            _componentContext,
+            (String)pageContext.getAttribute("referencePath"),
             _slingResponse,
             _slingRequest)
     %>

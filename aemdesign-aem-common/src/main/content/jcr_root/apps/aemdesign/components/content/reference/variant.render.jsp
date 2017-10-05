@@ -1,6 +1,6 @@
 <c:catch var="referenceException">
     <%=resourceRenderAsHtml(
-            pageContext.getAttribute("referencePath").toString(),
+            (String)pageContext.getAttribute("referencePath"),
             _resourceResolver,
             _sling)
     %>
