@@ -71,7 +71,7 @@
 
         Map infoStruct = new HashMap();
 
-        Node pageDetails = getDetailsNode(currentPage, PAR_PAGEDETAILS);
+        Node pageDetails = getComponentNode(currentPage, PAR_PAGEDETAILS);
         if (pageDetails != null) {
 
 
@@ -269,7 +269,7 @@
 
                 infoStruct.put("cssClass", StringUtils.join(" page-",child.getName().trim(),noContentClass," "));
 
-                Node pageDetails = getDetailsNode(child,PAR_PAGEDETAILS);
+                Node pageDetails = getComponentNode(child,PAR_PAGEDETAILS);
                 if (pageDetails!=null) {
 
                     String title="";
