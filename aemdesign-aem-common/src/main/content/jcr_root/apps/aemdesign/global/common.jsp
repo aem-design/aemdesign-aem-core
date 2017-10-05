@@ -1,4 +1,5 @@
 <%@ page session="false" import="com.day.cq.contentsync.handler.util.RequestResponseFactory" %>
+<%@ page import="com.day.cq.wcm.api.components.ComponentContext" %>
 <%@ page import="com.day.cq.dam.api.Asset" %>
 <%@ page import="com.day.cq.tagging.Tag" %>
 <%@ page import="com.day.cq.tagging.TagConstants" %>
@@ -36,6 +37,11 @@
     private static final String PATH_DEFAULT_BADGE_BASE = "/apps/aemdesign/components/details/page-details/";
     private static final String COMPONENT_DETAILS_SUFFIX = "-details";
     private static final String PATH_DEFAULT_CONTENT = "article/par";
+    private static final String DEFAULT_PAR_NAME = "par";
+    private static final String DEFAULT_ARTICLE_NAME = "article";
+
+    private static final String[] DEFAULT_LIST_DETAILS_SUFFIX = new String[] {COMPONENT_DETAILS_SUFFIX};
+    private static final String[] DEFAULT_LIST_PAGE_CONTENT = new String[] {DEFAULT_PAR_NAME,PATH_DEFAULT_CONTENT};
 
 
     private static final String[] MONTH_NAMES = new String[]{
@@ -732,45 +738,82 @@
         // apparently, nothing found
         return null;
     }
+
+    /***
+     * find a component in a page root that matches required suffix
+     * @param inputPage is the page to look through for the component
+     * @param resourceTypeTail
+     * @return
+     */
+    protected String findComponentInPage(Page inputPage, String[] resourceTypeTail) {
+        return findComponentInPage(inputPage,resourceTypeTail,new String[] {PATH_DEFAULT_CONTENT});
+    }
+
     /**
-     * Get the page badge base path for this page
+     * find a component in a page root that matches required suffix
      *
-     * @param inputPage is the page to look through for details
-     * @param resourceTypeTail sling:resourceType of component to find using endsWith
+     * @param inputPage is the page to look through for component
+     * @param resourceTypeTail array for suffixes to check as endsWith with sling:resourceType or node name (as failover)
+     * @param pageRoots use matching page root as a staring point for search
      * @return the path to component
      *
      * @throws RepositoryException
      */
-    protected String findComponentInPage(Page inputPage, String resourceTypeTail) {
+    protected String findComponentInPage(Page inputPage, String[] resourceTypeTail, String[] pageRoots) {
+
         if (inputPage == null) {
             return StringUtils.EMPTY;
         }
 
+        //well lets look for something as a surprise
+        if (resourceTypeTail == null ) {
+            resourceTypeTail = DEFAULT_LIST_DETAILS_SUFFIX;
+        }
+
+        //lets just look in page root
+        if (pageRoots == null) {
+            pageRoots = new String[0];
+        }
+
         try {
-            // get parsys
-            Resource parSys = inputPage.getContentResource(PATH_DEFAULT_CONTENT);
-            if (parSys == null) {
+            //try to find a root page if specified
+            Resource rootResource = null;
+            for (String rootPath : pageRoots) {
+                rootResource = inputPage.getContentResource(rootPath);
+
+                if (rootResource != null) {
+                    break;
+                }
+            }
+            //if not found start at the top of the page jcr:content
+            if (rootResource == null) {
+                rootResource = inputPage.getContentResource();
+            }
+
+            //if not bail
+            if (rootResource == null) {
                 return StringUtils.EMPTY;
             }
 
-            NodeIterator nodeIterator = parSys.adaptTo(Node.class).getNodes();
+            //if not bail
+            NodeIterator nodeIterator = rootResource.adaptTo(Node.class).getNodes();
             if (nodeIterator == null) {
                 return StringUtils.EMPTY;
             }
 
             while (nodeIterator.hasNext()) {
                 Node node = nodeIterator.nextNode();
-                // has a resource type?
+                String checkValue = node.getName();
+                // has a resource type? lets use that then
                 if (node.hasProperty(RESOURCE_TYPE)) {
                     // get it resource Type
-                    String resourceTypeString = node.getProperty("sling:resourceType").getString();
+                    checkValue = node.getProperty("sling:resourceType").getString();
+                }
 
-                    if (isEmpty(resourceTypeTail)) {
-                        resourceTypeTail = COMPONENT_DETAILS_SUFFIX;
-                    }
-
+                //try to match tail of resource
+                for (String item : resourceTypeTail) {
                     // get the resource type and sanitize the path
-                    if (StringUtils.isNotEmpty(resourceTypeString) && resourceTypeString.endsWith(resourceTypeTail)) {
+                    if (StringUtils.isNotEmpty(item) && checkValue.endsWith(item)) {
                         return node.getPath();
                     }
                 }
@@ -815,6 +858,71 @@
         } catch (NumberFormatException nfe) {
             return defaultValue;
         }
+    }
+
+
+    /**
+     * Return a JCR node for a first found matching path
+     *
+     * @param thisPage is the page to inspect for newsdetails
+     * @return a JCR node or null when not found
+     */
+    private String getComponentNodePath(Page thisPage,String[] nodePaths) {
+        if (thisPage == null) {
+            return "";
+        }
+
+        try {
+            Node detailsNode = getComponentNode(thisPage, nodePaths);
+            return detailsNode.getPath();
+        } catch (Exception ex) {
+            getLogger().error("getComponentNodePath: " + thisPage + ", " + StringUtils.join(nodePaths));
+        }
+        return "";
+    }
+
+    /**
+     * Return a JCR node for a first found matching path
+     *
+     * @param thisPage is the page to inspect for newsdetails
+     * @return a JCR node or null when not found
+     */
+    private Node getComponentNode(Page thisPage,String[] nodePaths) {
+        if (thisPage == null) {
+            return null;
+        }
+
+        Node detailsNode = null;
+
+        for (String nodePath : nodePaths) {
+            Resource detailResource = thisPage.getContentResource(nodePath);
+            if (detailResource != null) {
+                detailsNode = detailResource.adaptTo(Node.class);
+                return detailsNode;
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * Return a JCR node for a first found matching path
+     *
+     * @param thisPage is the page to inspect for newsdetails
+     * @return a JCR node or null when not found
+     */
+    private String getComponentNodePath(Page thisPage,String nodePath) {
+        if (thisPage == null) {
+            return "";
+        }
+
+        try {
+            Node detailsNode = getComponentNode(thisPage, nodePath);
+            return detailsNode.getPath();
+        } catch (Exception ex) {
+            getLogger().error("getComponentNodePath: " + thisPage + ", " + nodePath);
+        }
+        return "";
     }
 
     /**
@@ -990,16 +1098,16 @@
      * @param request current request
      * @return html string of output
      */
-    public String resourceIncludeAsHtml(String path, SlingHttpServletResponse response, SlingHttpServletRequest request) {
-        if (isEmpty(path) || response == null || request == null) {
+    public String resourceIncludeAsHtml(com.day.cq.wcm.api.components.ComponentContext componentContext, String path, SlingHttpServletResponse response, SlingHttpServletRequest request) {
+        if (componentContext == null || isEmpty(path) || response == null || request == null) {
             String error = format(
-                    "resourceIncludeAsHtml: params not specified path=\"{0}\",response=\"{1}\",request=\"{2}\""
-                    ,path,response,request);
+                    "resourceIncludeAsHtml: params not specified componentContext=\"{0}\",path=\"{1}\",response=\"{2}\",request=\"{3}\"",
+                    componentContext,path,response,request);
             getLogger().error(error);
             return "<!--".concat(error).concat("-->");
         }
         try {
-            return resourceIncludeAsHtml(path, response, request, null);
+            return resourceIncludeAsHtml(componentContext, path, response, request, null);
         } catch (SlingException ex) {
             return "<!--resourceIncludeAsHtml:".concat(ex.getMessage()).concat("-->");
         }
@@ -1012,17 +1120,24 @@
      * @param mode mode to request resource with
      * @return html string of output
      */
-    public String resourceIncludeAsHtml(String path, SlingHttpServletResponse response, SlingHttpServletRequest request, WCMMode mode) {
-        if (isEmpty(path) || response == null || request == null) {
+    public String resourceIncludeAsHtml(com.day.cq.wcm.api.components.ComponentContext componentContext, String path, SlingHttpServletResponse response, SlingHttpServletRequest request, WCMMode mode) {
+        if (componentContext == null || isEmpty(path) || response == null || request == null) {
             String error = format(
-                    "resourceIncludeAsHtml: params not specified path=\"{0}\",response=\"{1}\",request=\"{2}\",mode=\"{3}\""
-                    ,path,response,request,mode);
+                    "resourceIncludeAsHtml: params not specified componentContext=\"{0}\",path=\"{1}\",response=\"{2}\",request=\"{3}\",mode=\"{4}\"",
+                    componentContext,path,response,request,mode);
             getLogger().error(error);
             return "<!--".concat(error).concat("-->");
         }
-        try  {
-            final Writer buffer = new StringWriter();
 
+        WCMMode currMode = WCMMode.fromRequest(request);
+
+        String defDecor = componentContext.getDefaultDecorationTagName();
+
+        IncludeOptions includeOptions = IncludeOptions.getOptions(request,true);
+
+        final Writer buffer = new StringWriter();
+
+        try  {
 
 
             final ServletOutputStream stream = new ServletOutputStream() {
@@ -1060,13 +1175,8 @@
                 }
             };
 
-            WCMMode currMode = WCMMode.fromRequest(request);
 
-            if (mode != null) {
-                mode.toRequest(request);
-            } else {
-                WCMMode.DISABLED.toRequest(request);
-            }
+            disableEditMode(componentContext,includeOptions,request);
 
             String key = "apps.aemdesign.components.content.reference:" + path;
 
@@ -1075,22 +1185,27 @@
             } else {
                 //throw new IllegalStateException("Reference loop: " + path);
                 getLogger().error("Reference loop: " + path);
-                return "<!--Reference loop: ".concat(path).concat("-->");
+                buffer.append("<!--Reference loop: ".concat(path).concat("-->"));
             }
 
             RequestDispatcher dispatcher = request.getRequestDispatcher(path + ".html");
 
             dispatcher.include(request, wrapper);
 
-            currMode.toRequest(request);
-
             request.removeAttribute(key);
 
-            return buffer.toString();
         } catch (Exception e) {
             getLogger().error("Exception occured: " + e.getMessage(), e);
-            return "<!--error: ".concat(e.getMessage()).concat("-->");
+        } finally {
+
+            enableEditMode(currMode, componentContext, defDecor, includeOptions, request);
+
+            currMode.toRequest(request);
+
         }
+
+        return buffer.toString();
+
     }
 
     //TODO: convert this to JSTL TAG
@@ -1216,4 +1331,63 @@
 
         return badge;
     }
+
+
+    /***
+     * disable decoration of component
+     * @param componentContext current component context
+     * @param includeOptions include options
+     */
+    public void forceNoDecoration(ComponentContext componentContext, IncludeOptions includeOptions) {
+        componentContext.setDecorate(false);
+        componentContext.setDecorationTagName("");
+        componentContext.setDefaultDecorationTagName("");
+
+        includeOptions.forceSameContext(Boolean.FALSE).setDecorationTagName("");
+
+    }
+
+    /***
+     * set component decoration
+     * @param componentContext current component context
+     * @param includeOptions include option
+     * @param defDecoration defaut decoration
+     */
+    public void setDecoration(ComponentContext componentContext, IncludeOptions includeOptions, String defDecoration) {
+        componentContext.setDecorate(true);
+        componentContext.setDecorationTagName(defDecoration);
+        componentContext.setDefaultDecorationTagName(defDecoration);
+
+        includeOptions.forceSameContext(Boolean.FALSE).setDecorationTagName(defDecoration);
+
+    }
+
+    /**
+     * disables edit mode for the request
+     * @param request
+     */
+    @SuppressWarnings("unchecked")
+    public void disableEditMode(ComponentContext componentContext, IncludeOptions includeOptions, SlingHttpServletRequest request) {
+        forceNoDecoration(componentContext,includeOptions);
+
+        WCMMode.DISABLED.toRequest(request);
+    }
+
+    /**
+     * enables edit mode and resets component decoration
+     * @param toWCMMode current WCM mode
+     * @param componentContext
+     * @param defDecoration default decoration
+     * @param componentContext component context
+     * @param includeOptions
+     * @param request
+     */
+
+    @SuppressWarnings("unchecked")
+    public void enableEditMode(WCMMode toWCMMode, ComponentContext componentContext, String defDecoration, IncludeOptions includeOptions, SlingHttpServletRequest request) {
+        setDecoration(componentContext,includeOptions,defDecoration);
+
+        toWCMMode.toRequest(request);
+    }
+
 %>

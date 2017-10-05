@@ -6,17 +6,23 @@
 
 
     protected List<Map> getPageListInfo(PageManager pageManager, ResourceResolver resourceResolver, String[] paths) {
+        return getPageListInfo(pageManager,resourceResolver,paths,DEFAULT_LIST_DETAILS_SUFFIX,DEFAULT_LIST_PAGE_CONTENT);
+    }
+    protected List<Map> getPageListInfo(PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots) {
         List<Map> pages = new ArrayList<Map>();
         for (String path : paths) {
             Page child = pageManager.getPage(path);
             if (child!=null) {
-                pages.add(getPageInfo(child,resourceResolver,null));
+                pages.add(getPageInfo(child,resourceResolver,componentNames,pageRoots));
             }
         }
         return pages;
     }
 
     protected List<Map> getPageListInfo(PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList) {
+        return getPageListInfo(pageManager,resourceResolver,pageList,DEFAULT_LIST_DETAILS_SUFFIX,DEFAULT_LIST_PAGE_CONTENT);
+    }
+    protected List<Map> getPageListInfo(PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots) {
         List<Map> pages = new ArrayList<Map>();
 
         if (pageList != null) {
@@ -24,7 +30,7 @@
             while (pageList.hasNext()) {
                 Page child = pageList.next();
 
-                pages.add(getPageInfo(child,resourceResolver,null));
+                pages.add(getPageInfo(child,resourceResolver,detailsComponentName,pageRoots));
             }
         }
         return pages;
@@ -37,7 +43,7 @@
      * @return
      */
 
-    protected Map getPageInfo(Page page, ResourceResolver resourceResolver, String detailsComponentName) {
+    protected Map getPageInfo(Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots) {
         Map infoStruct = new HashMap();
 
         if (page!=null) {
@@ -53,10 +59,7 @@
                 infoStruct.put("pageImage", image.getFileReference());
             }
 
-            if (isEmpty(detailsComponentName)) {
-                detailsComponentName = COMPONENT_DETAILS_SUFFIX;
-            }
-            String detailsNodePath = findComponentInPage(page,detailsComponentName);
+            String detailsNodePath = findComponentInPage(page, componentNames, pageRoots);
 
             if (isNotEmpty(detailsNodePath)) {
 
@@ -67,6 +70,12 @@
                     infoStruct.putAll(getDetailsBadgeConfig(detailsNode,page.getTitle()));
                 }
 
+            }
+
+            String contentNode = getComponentNodePath(page, pageRoots);
+
+            if (isNotEmpty(contentNode)) {
+                infoStruct.put("pageContent",contentNode);
             }
 
         }
@@ -87,7 +96,7 @@
         if (pageDetails != null) {
 
             try {
-                infoStruct.put("contentPath", pageDetails.getPath());
+                infoStruct.put("detailsPath", pageDetails.getPath());
             } catch (Exception ex) {
                 getLogger().warn("JCR ERROR: {}", ex);
             }
