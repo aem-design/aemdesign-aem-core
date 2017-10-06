@@ -16,16 +16,13 @@
 <c:if test="${not empty componentProperties.thumbnailHeight}">
     <c:set var="imageAttr" value="${imageAttr} height=\"${componentProperties.thumbnailHeight}\""/>
 </c:if>
-<a
-    href="${componentProperties.pageUrl}"
-    title="${componentProperties.title}"
-    ${componentProperties.componentAttributes}${linkAttr}>
+<div ${componentProperties.componentAttributes}>
     <div class="card">
         <img src="${componentProperties.pageImageThumbnail}"${imageAttr}
              alt="${componentProperties.title}"
              class="card-img-top"/>
         <div class="card-block">
-            <${componentProperties.titleType}>${componentProperties.title}</${componentProperties.titleType}>
+            <${componentProperties.titleType}>${componentProperties.pageNavTitle}</${componentProperties.titleType}>
             <c:if test="${not empty componentProperties.category}">
                 <div class="card-category">
                     <ul class="tags">
@@ -36,6 +33,8 @@
                 </div>
             </c:if>
             <p class="card-text">${componentProperties.description}</p>
+            <a class="card-link" href="${componentProperties.pageUrl}"
+               title="${componentProperties.title}"${linkAttr}>${componentProperties.pageNavTitle}</a>
         </div>
     </div>
-</a>
+</div>
