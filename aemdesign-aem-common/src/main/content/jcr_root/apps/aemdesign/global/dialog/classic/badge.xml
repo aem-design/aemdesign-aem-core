@@ -17,6 +17,131 @@
                         jcr:primaryType="cq:Widget"
                         html="&lt;span style=&quot;color: blue; font-weight: bold; &quot;>This config is used in Badges to display content in other components&lt;/span>"
                         xtype="label"/>
+
+
+                <titleConfigGroup
+                        jcr:primaryType="cq:Widget"
+                        title="Title Configuration"
+                        collapsed="{Boolean}true"
+                        collapsible="{Boolean}true"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <titleConfigGroupLabel
+                                jcr:primaryType="cq:Widget"
+                                text="Title display options, applies to default badge and other components"
+                                xtype="label"/>
+
+                        <titleIconShow jcr:primaryType="cq:Widget"
+                                       fieldLabel="Show Title Icon"
+                                       fieldDescription="show icon with title"
+                                       allowBlank="{Boolean}true"
+                                       name="./titleIconShow"
+                                       options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                       type="select"
+                                       defaultValue=""
+                                       xtype="selection"/>
+
+                        <titleIcon jcr:primaryType="cq:Widget"
+                                   allowBlank="{Boolean}true"
+                                   defaultValue=""
+                                   value=""
+                                   fieldLabel="Title Icon"
+                                   fieldDescription="When showing this page links show this Icon"
+                                   name="./titleIcon"
+                                   namespaces="[component-style]"
+                                   xtype="tags"/>
+
+                    </items>
+                </titleConfigGroup>
+
+                <cardConfigGroup
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}true"
+                        collapsible="{Boolean}true"
+                        title="Card Config"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <cardConfigGroupLabel
+                                jcr:primaryType="cq:Widget"
+                                text="Card config used in lists"
+                                xtype="label"/>
+
+                        <cardSize jcr:primaryType="cq:Widget"
+                                  fieldLabel="Card Size"
+                                  fieldDescription="this will be used as card size in grids"
+                                  allowBlank="{Boolean}true"
+                                  name="./cardSize"
+                                  options="/etc/tags/component-style/theme/common/card/size.valuelist.json"
+                                  type="select"
+                                  defaultValue=""
+                                  value=""
+                                  xtype="selection"/>
+
+                    </items>
+                </cardConfigGroup>
+
+                <iconConfigGroup
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}true"
+                        collapsible="{Boolean}true"
+                        title="Icon Config"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <iconConfigGroupLabel
+                                jcr:primaryType="cq:Widget"
+                                text="General icon for use in badges and other components"
+                                xtype="label"/>
+
+
+                        <pageIcon jcr:primaryType="cq:Widget"
+                                     allowBlank="{Boolean}true"
+                                     defaultValue=""
+                                     value=""
+                                     fieldLabel="Page Icon"
+                                     fieldDescription="Use this icon when icon is required for display"
+                                     name="./pageIcon"
+                                     namespaces="[component-style]"
+                                     xtype="tags"/>
+
+                    </items>
+                </iconConfigGroup>
+
+                <overlayConfigGroup
+                        jcr:primaryType="cq:Widget"
+                        title="Overlay Configuration"
+                        collapsed="{Boolean}true"
+                        collapsible="{Boolean}true"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <overlayConfigGroupLabel
+                                jcr:primaryType="cq:Widget"
+                                text="Overlay icon to show in Image or Card Badge or other components"
+                                xtype="label"/>
+
+                        <overlayIconShow jcr:primaryType="cq:Widget"
+                                         fieldLabel="Show Overlay Icon"
+                                         fieldDescription="show overlay icon on image"
+                                         allowBlank="{Boolean}true"
+                                         name="./overlayIconShow"
+                                         options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                         type="select"
+                                         defaultValue=""
+                                         xtype="selection"/>
+
+                        <overlayIcon jcr:primaryType="cq:Widget"
+                                     allowBlank="{Boolean}true"
+                                     defaultValue=""
+                                     value=""
+                                     fieldLabel="Overlay Icon"
+                                     fieldDescription="When showing this page in a list show this icon for overlay"
+                                     name="./overlayIcon"
+                                     namespaces="[component-style]"
+                                     xtype="tags"/>
+
+
+                    </items>
+                </overlayConfigGroup>
+
                 <menuConfigGroup
                         jcr:primaryType="cq:Widget"
                         collapsed="{Boolean}true"
@@ -24,6 +149,10 @@
                         title="Menu Configuration"
                         xtype="dialogfieldset">
                     <items jcr:primaryType="cq:WidgetCollection">
+                        <menuConfigGroupLabel
+                                jcr:primaryType="cq:Widget"
+                                text="Config for Menu based components"
+                                xtype="label"/>
 
                         <menuColor jcr:primaryType="cq:Widget"
                                    fieldLabel="Color"
@@ -49,52 +178,33 @@
                                   allowBlank="{Boolean}true"
                                   defaultValue=""
                                   value=""
-                                  fieldLabel="Item Icon"
+                                  fieldLabel="Menu Icon"
                                   fieldDescription="Use this icon for Icon badge"
                                   name="./menuIcon"
                                   namespaces="[component-style]"
                                   xtype="tags"/>
 
                         <menuAccesskey jcr:primaryType="cq:Widget"
-                                   fieldLabel="Access Key"
-                                   fieldDescription="Keyboard Access key to use in menu"
-                                   name="./menuAccessKey"
-                                   allowBlank="{Boolean}true"
-                                   xtype="textfield"/>
+                                       fieldLabel="Menu Access Key"
+                                       fieldDescription="Keyboard Access key to use in menu"
+                                       name="./menuAccessKey"
+                                       allowBlank="{Boolean}true"
+                                       xtype="textfield"/>
 
                     </items>
                 </menuConfigGroup>
 
-                <cardConfigGroup
-                        jcr:primaryType="cq:Widget"
-                        collapsed="{Boolean}true"
-                        collapsible="{Boolean}true"
-                        title="Card Configuration"
-                        xtype="dialogfieldset">
-                    <items jcr:primaryType="cq:WidgetCollection">
-
-                        <cardSize jcr:primaryType="cq:Widget"
-                                  fieldLabel="Card Size"
-                                  fieldDescription="this will be used as card size in grids"
-                                  allowBlank="{Boolean}true"
-                                  name="./cardSize"
-                                  options="/etc/tags/component-style/theme/common/card/size.valuelist.json"
-                                  type="select"
-                                  defaultValue=""
-                                  value=""
-                                  xtype="selection"/>
-
-                    </items>
-                </cardConfigGroup>
-
-                <tabIconTab
+                <tabConfigGroup
                         jcr:primaryType="cq:Widget"
                         title="Tab Configuration"
-                        description="Icon used in Tabs"
                         collapsed="{Boolean}true"
                         collapsible="{Boolean}true"
                         xtype="dialogfieldset">
                     <items jcr:primaryType="cq:WidgetCollection">
+                        <tabConfigGroupLabel
+                                jcr:primaryType="cq:Widget"
+                                text="Icon used in Content Tabs and other Tab based components"
+                                xtype="label"/>
 
                         <tabIconShow jcr:primaryType="cq:Widget"
                                      fieldLabel="Show Tab Icon"
@@ -110,77 +220,16 @@
                                  allowBlank="{Boolean}true"
                                  defaultValue=""
                                  value=""
-                                 fieldLabel="Show Icon"
+                                 fieldLabel="Tab Icon"
                                  fieldDescription="When showing this page in a tab show this Icon"
                                  name="./tabIcon"
                                  namespaces="[component-style]"
                                  xtype="tags"/>
 
                     </items>
-                </tabIconTab>
-
-                <titleIconTab
-                        jcr:primaryType="cq:Widget"
-                        title="Title Configuration"
-                        collapsed="{Boolean}true"
-                        collapsible="{Boolean}true"
-                        xtype="dialogfieldset">
-                    <items jcr:primaryType="cq:WidgetCollection">
-
-                        <titleIconShow jcr:primaryType="cq:Widget"
-                                       fieldLabel="Show Title Icon"
-                                       fieldDescription="show icon in title"
-                                       allowBlank="{Boolean}true"
-                                       name="./titleIconShow"
-                                       options="/etc/tags/component-dialog/common/true-false.valuelist.json"
-                                       type="select"
-                                       defaultValue=""
-                                       xtype="selection"/>
-
-                        <titleIcon jcr:primaryType="cq:Widget"
-                                   allowBlank="{Boolean}true"
-                                   defaultValue=""
-                                   value=""
-                                   fieldLabel="Show Icon"
-                                   fieldDescription="When showing this page links show this Icon"
-                                   name="./titleIcon"
-                                   namespaces="[component-style]"
-                                   xtype="tags"/>
-
-                    </items>
-                </titleIconTab>
-
-                <overlayConfigTab
-                        jcr:primaryType="cq:Widget"
-                        title="Overlay Configuration"
-                        collapsed="{Boolean}true"
-                        collapsible="{Boolean}true"
-                        xtype="dialogfieldset">
-                    <items jcr:primaryType="cq:WidgetCollection">
-
-                        <overlayIconShow jcr:primaryType="cq:Widget"
-                                         fieldLabel="Show Overlay Icon"
-                                         fieldDescription="show overlay icon on image"
-                                         allowBlank="{Boolean}true"
-                                         name="./overlayIconShow"
-                                         options="/etc/tags/component-dialog/common/true-false.valuelist.json"
-                                         type="select"
-                                         defaultValue=""
-                                         xtype="selection"/>
-
-                        <overlayIcon jcr:primaryType="cq:Widget"
-                                     allowBlank="{Boolean}true"
-                                     defaultValue=""
-                                     value=""
-                                     fieldLabel="Overlay Icon"
-                                     fieldDescription="When showing this page in a list show this icon for overlay"
-                                     name="./overlayIcon"
-                                     namespaces="[component-style]"
-                                     xtype="tags"/>
+                </tabConfigGroup>
 
 
-                    </items>
-                </overlayConfigTab>
 
             </items>
         </badgeConfigTab>
