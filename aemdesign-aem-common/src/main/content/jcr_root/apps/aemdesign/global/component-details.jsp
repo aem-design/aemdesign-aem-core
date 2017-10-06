@@ -5,32 +5,32 @@
 
 
 
-    protected List<Map> getPageListInfo(PageManager pageManager, ResourceResolver resourceResolver, String[] paths) {
-        return getPageListInfo(pageManager,resourceResolver,paths,DEFAULT_LIST_DETAILS_SUFFIX,DEFAULT_LIST_PAGE_CONTENT);
+    protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths) {
+        return getPageListInfo(pageContext,pageManager,resourceResolver,paths,DEFAULT_LIST_DETAILS_SUFFIX,DEFAULT_LIST_PAGE_CONTENT);
     }
-    protected List<Map> getPageListInfo(PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots) {
-        List<Map> pages = new ArrayList<Map>();
+    protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots) {
+        List<ComponentProperties> pages = new ArrayList<>();
         for (String path : paths) {
             Page child = pageManager.getPage(path);
             if (child!=null) {
-                pages.add(getPageInfo(child,resourceResolver,componentNames,pageRoots));
+                pages.add(getPageInfo(pageContext,child,resourceResolver,componentNames,pageRoots));
             }
         }
         return pages;
     }
 
-    protected List<Map> getPageListInfo(PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList) {
-        return getPageListInfo(pageManager,resourceResolver,pageList,DEFAULT_LIST_DETAILS_SUFFIX,DEFAULT_LIST_PAGE_CONTENT);
+    protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList) {
+        return getPageListInfo(pageContext,pageManager,resourceResolver,pageList,DEFAULT_LIST_DETAILS_SUFFIX,DEFAULT_LIST_PAGE_CONTENT);
     }
-    protected List<Map> getPageListInfo(PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots) {
-        List<Map> pages = new ArrayList<Map>();
+    protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots) {
+        List<ComponentProperties> pages = new ArrayList<>();
 
         if (pageList != null) {
 
             while (pageList.hasNext()) {
                 Page child = pageList.next();
 
-                pages.add(getPageInfo(child,resourceResolver,detailsComponentName,pageRoots));
+                pages.add(getPageInfo(pageContext, child,resourceResolver,detailsComponentName,pageRoots));
             }
         }
         return pages;
@@ -43,21 +43,10 @@
      * @return
      */
 
-    protected Map getPageInfo(Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots) {
-        Map infoStruct = new HashMap();
+    protected ComponentProperties getPageInfo(PageContext pageContext, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots) {
+        ComponentProperties componentProperties = new ComponentProperties();
 
         if (page!=null) {
-
-            infoStruct.put("title", page.getTitle());
-            infoStruct.put("name", page.getName());
-            infoStruct.put("href", page.getPath().concat(DEFAULT_EXTENTION));
-            infoStruct.put("path", page.getPath());
-
-            Image image = getPageImage(page);
-
-            if(image!=null) {
-                infoStruct.put("pageImage", image.getFileReference());
-            }
 
             String detailsNodePath = findComponentInPage(page, componentNames, pageRoots);
 
@@ -66,82 +55,60 @@
                 Resource detailsNodeResource = resourceResolver.resolve(detailsNodePath);
 
                 if (detailsNodeResource != null) {
-                    Node detailsNode = detailsNodeResource.adaptTo(Node.class);
-                    infoStruct.putAll(getDetailsBadgeConfig(detailsNode,page.getTitle()));
+
+                    componentProperties = getComponentProperties(
+                            pageContext,
+                            detailsNodeResource.getPath(),
+                            DEFAULT_FIELDS_DETAILS_OPTIONS
+                    );
+
+                    componentProperties.put("detailsPath",detailsNodeResource.getPath());
+
+
+                    componentProperties.putAll(getAssetInfo(resourceResolver,
+                            getResourceImagePath(detailsNodeResource,DEFAULT_SECONDARY_IMAGE_NODE_NAME),
+                            FIELD_PAGE_IMAGE_SECONDARY));
+
+                    componentProperties.putAll(getAssetInfo(resourceResolver,
+                            getResourceImagePath(detailsNodeResource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
+                            FIELD_PAGE_IMAGE_BACKGROUND));
+//                    Node detailsNode = detailsNodeResource.adaptTo(Node.class);
+//                    componentProperties.putAll(getDetailsBadgeConfig(detailsNode,page.getTitle()));
                 }
 
             }
 
+            componentProperties.put("title", page.getTitle());
+            componentProperties.put("hideInNav", page.isHideInNav());
+            componentProperties.put("pageNavTitle", getPageNavTitle(page));
+            componentProperties.put("name", page.getName());
+            componentProperties.put("href", getPageUrl(page));
+            componentProperties.put("authHref", page.getPath().concat(DEFAULT_EXTENTION));
+            componentProperties.put("path", page.getPath());
+            componentProperties.put("vanityPath", defaultIfEmpty(page.getVanityUrl(), ""));
+
+            componentProperties.putAll(getAssetInfo(resourceResolver,
+                    getPageImgReferencePath(page),
+                    FIELD_PAGE_IMAGE));
+
+
+//            Image image = getPageImage(page);
+//
+//            if(image!=null) {
+//                componentProperties.put("pageImage", image.getFileReference());
+//            }
+
             String contentNode = getComponentNodePath(page, pageRoots);
 
             if (isNotEmpty(contentNode)) {
-                infoStruct.put("pageContent",contentNode);
+                componentProperties.put("pageContent",contentNode);
             }
 
         }
 
-        return infoStruct;
+        return componentProperties;
     }
 
-    /***
-     * get badge config info from details node
-     * @param pageDetails
-     * @param defaultTitle
-     * @return
-     */
-    public Map<String, Object> getDetailsBadgeConfig(Node pageDetails, String defaultTitle) {
-        Map<String, Object> infoStruct = new HashMap();
-
-
-        if (pageDetails != null) {
-
-            try {
-                infoStruct.put("detailsPath", pageDetails.getPath());
-            } catch (Exception ex) {
-                getLogger().warn("JCR ERROR: {}", ex);
-            }
-
-            String title = "";
-            boolean showAsMenuIcon = false;
-            String showAsMenuIconPath = "";
-            try {
-                title = getPropertyWithDefault(pageDetails, DETAILS_TITLE, defaultTitle);
-                showAsMenuIcon = Boolean.parseBoolean(getPropertyWithDefault(pageDetails, DETAILS_MENU_ICON, "false"));
-                showAsMenuIconPath = getPropertyWithDefault(pageDetails, DETAILS_MENU_ICONPATH, "");
-            } catch (Exception ex) {
-                getLogger().warn("JCR ERROR: {}", ex);
-            }
-            infoStruct.put("showAsMenuIcon", showAsMenuIcon);
-            infoStruct.put("showAsMenuIconPath", showAsMenuIconPath);
-            infoStruct.put(DETAILS_TITLE, title);
-
-            boolean showAsTabIcon = false;
-            String showAsTabIconPath = "";
-            try {
-                showAsTabIcon = Boolean.parseBoolean(getPropertyWithDefault(pageDetails, DETAILS_TAB_ICON, "false"));
-                showAsTabIconPath = getPropertyWithDefault(pageDetails, DETAILS_TAB_ICONPATH, "");
-            } catch (Exception ex) {
-                getLogger().warn("JCR ERROR: {}", ex);
-            }
-            infoStruct.put("showAsTabIcon", showAsTabIcon);
-            infoStruct.put("showAsTabIconPath", showAsTabIconPath);
-
-            boolean showAsTitleIcon = false;
-            String showAsTitleIconPath = "";
-            try {
-                showAsTitleIcon = Boolean.parseBoolean(getPropertyWithDefault(pageDetails, DETAILS_TITLE_ICON, "false"));
-                showAsTitleIconPath = getPropertyWithDefault(pageDetails, DETAILS_TITLE_ICONPATH, "");
-            } catch (Exception ex) {
-                getLogger().warn("JCR ERROR: {}", ex);
-            }
-            infoStruct.put("showAsTitleIcon", showAsTitleIcon);
-            infoStruct.put("showAsTitleIconPath", showAsTitleIconPath);
-        } else {
-            infoStruct.put(DETAILS_TITLE, defaultTitle);
-        }
-
-        return infoStruct;
-    }
 
 
     /***
@@ -157,21 +124,22 @@
         //get primary image
         String pageImagePath = componentProperties.get(FIELD_PAGE_IMAGE,"");
 
-        Object badgeThumbnailDefault = request.getAttribute(BADGE_THUMBNAIL_DEFAULT);
+        String badgeThumbnailDefault = (String)request.getAttribute(BADGE_THUMBNAIL_DEFAULT);
         if (badgeThumbnailDefault != null) {
-            badgeConfig.put(FIELD_PAGE_IMAGE_THUMBNAIL, badgeThumbnailDefault.toString());
+            badgeConfig.put(FIELD_PAGE_IMAGE_THUMBNAIL, badgeThumbnailDefault);
             if (isEmpty(pageImagePath)) {
-                badgeConfig.put(FIELD_PAGE_IMAGE, badgeThumbnailDefault.toString());
+                badgeConfig.put(FIELD_PAGE_IMAGE, badgeThumbnailDefault);
             }
         }
-        Object badgeThumbnailType = request.getAttribute(BADGE_THUMBNAIL_TYPE);
+
+        String badgeThumbnailType = (String)request.getAttribute(BADGE_THUMBNAIL_TYPE);
         if (badgeThumbnailType != null) {
-            badgeConfig.put(FIELD_THUMBNAIL_TYPE, badgeThumbnailType.toString());
+            badgeConfig.put(FIELD_THUMBNAIL_TYPE, badgeThumbnailType);
         }
 
-        Object badgeThumbnailWidth = request.getAttribute(BADGE_THUMBNAIL_WIDTH);
+        String badgeThumbnailWidth = (String)request.getAttribute(BADGE_THUMBNAIL_WIDTH);
         if (badgeThumbnailWidth != null) {
-            badgeConfig.put(FIELD_THUMBNAIL_WIDTH, badgeThumbnailWidth.toString());
+            badgeConfig.put(FIELD_THUMBNAIL_WIDTH, badgeThumbnailWidth);
 
             if (isNotEmpty(pageImagePath)) {
                 Resource pageImage = resourceResolver.resolve(pageImagePath);
@@ -179,8 +147,8 @@
                 if (pageImage != null) {
                     com.adobe.granite.asset.api.Asset pageImageAsset = pageImage.adaptTo(com.adobe.granite.asset.api.Asset.class);
                     if (pageImageAsset != null) {
-                        getLogger().error("getBadgeRequestConfig: " + badgeThumbnailType.toString());
-                        switch (badgeThumbnailType.toString()) {
+                        getLogger().error("getBadgeRequestConfig: " + badgeThumbnailType);
+                        switch (badgeThumbnailType) {
 //                    case IMAGE_OPTION_GENERATED:
 //                        String imageHref = "";
 //                        Long lastModified = getLastModified(_resource);
@@ -207,7 +175,7 @@
 //
 //                        break;
                             case IMAGE_OPTION_RENDITION:
-                                int badgeThumbnailWidthInt = tryParseInt(badgeThumbnailWidth.toString(), 319);
+                                int badgeThumbnailWidthInt = tryParseInt(badgeThumbnailWidth, 319);
                                 com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(badgeThumbnailWidthInt, pageImageAsset);
                                 if (bestRendition != null) {
                                     badgeConfig.put(FIELD_PAGE_IMAGE_THUMBNAIL, bestRendition.getPath());
@@ -221,24 +189,24 @@
             }
         }
 
-        Object badgeThumbnailHeight = request.getAttribute(BADGE_THUMBNAIL_HEIGHT);
+        String badgeThumbnailHeight = (String)request.getAttribute(BADGE_THUMBNAIL_HEIGHT);
         if (badgeThumbnailHeight != null) {
-            badgeConfig.put(FIELD_THUMBNAIL_HEIGHT, badgeThumbnailHeight.toString());
+            badgeConfig.put(FIELD_THUMBNAIL_HEIGHT, badgeThumbnailHeight);
         }
 
-        Object badgeTitleType = request.getAttribute(BADGE_TITLE_TAG_TYPE);
+        String badgeTitleType = (String)request.getAttribute(BADGE_TITLE_TAG_TYPE);
         if (badgeTitleType != null) {
-            badgeConfig.put(FIELD_TITLE_TAG_TYPE, badgeTitleType.toString());
+            badgeConfig.put(FIELD_TITLE_TAG_TYPE, badgeTitleType);
         }
 
-        Object badgeThumbnailId = request.getAttribute(BADGE_THUMBNAIL_ID);
+        String badgeThumbnailId = (String)request.getAttribute(BADGE_THUMBNAIL_ID);
         if (badgeThumbnailId != null) {
-            badgeConfig.put(FIELD_PAGE_IMAGE_ID, badgeThumbnailId.toString());
+            badgeConfig.put(FIELD_PAGE_IMAGE_ID, badgeThumbnailId);
         }
 
-        Object badgeThumbnailLicenseInfo = request.getAttribute(BADGE_THUMBNAIL_LICENSE_INFO);
+        String badgeThumbnailLicenseInfo = (String)request.getAttribute(BADGE_THUMBNAIL_LICENSE_INFO);
         if (badgeThumbnailLicenseInfo != null) {
-            badgeConfig.put(FIELD_PAGE_IMAGE_LICENSE_INFO, badgeThumbnailLicenseInfo.toString());
+            badgeConfig.put(FIELD_PAGE_IMAGE_LICENSE_INFO, badgeThumbnailLicenseInfo);
         }
         return badgeConfig;
     }
