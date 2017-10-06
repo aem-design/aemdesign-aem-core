@@ -58,17 +58,14 @@
     private static final String DETAILS_MENU_ICONSHOW = "menuIconShow";
     private static final String DETAILS_MENU_ICON = "menuIcon";
     private static final String DETAILS_MENU_ACCESS_KEY = "menuAccesskey";
-    private static final String DETAILS_MENU_ICONPATH = "menuIconPath";
     private static final String DETAILS_TAB_ICONSHOW = "tabIconShow";
     private static final String DETAILS_TAB_ICON = "tabIcon";
-    private static final String DETAILS_TAB_ICONPATH = "tabIconPath";
     private static final String DETAILS_TITLE_ICONSHOW = "titleIconShow";
     private static final String DETAILS_TITLE_ICON = "titleIcon";
-    private static final String DETAILS_TITLE_ICONPATH = "titleIconPath";
     private static final String DETAILS_OVERLAY_ICONSHOW = "overlayIconShow";
     private static final String DETAILS_OVERLAY_ICON = "overlayIcon";
-    private static final String DETAILS_OVERLAY_ICONPATH = "overlayIconPath";
     private static final String DETAILS_FIELD_CARDSIZE = "cardSize";
+    private static final String DETAILS_PAGE_ICON = "pageIcon";
 
     private static final String FIELD_HIDEINMENU = "hideInMenu";
 
@@ -199,21 +196,22 @@
     // {
     //   1 required - property name,
     //   2 required - default value,
-    //   3 optional - name of component attribute to add value into
+    //   3 optional - name of component attribute to add value into, specifying "" will return values process as per canonical name
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
     public static final Object[][] DEFAULT_FIELDS_DETAILS_OPTIONS = {
             {DETAILS_MENU_COLOR, ""},
             {DETAILS_MENU_ICONSHOW, false},
-            {DETAILS_MENU_ICON, new String[]{}},
+            {DETAILS_MENU_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_MENU_ACCESS_KEY, ""},
             {DETAILS_FIELD_CARDSIZE, "small"},
             {DETAILS_TAB_ICONSHOW, false},
-            {DETAILS_TAB_ICON,  new String[]{}},
+            {DETAILS_TAB_ICON,  new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_ICONSHOW, false},
-            {DETAILS_TITLE_ICON,  new String[]{}},
+            {DETAILS_TITLE_ICON,  new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_OVERLAY_ICONSHOW, false},
-            {DETAILS_OVERLAY_ICON, new String[]{}},
+            {DETAILS_OVERLAY_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_PAGE_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
     };
 
     //COMPONENT ANALYTICS
@@ -666,9 +664,9 @@
                         if (field.length > 2) {
                             //if (fieldValue != fieldDefaultValue) {
                             String fieldDataName = field[2].toString();
-                            if (StringUtils.isEmpty(fieldDataName)) {
-                                fieldDataName = "other";
-                            }
+//                            if (StringUtils.isEmpty(fieldDataName)) {
+//                                fieldDataName = "other";
+//                            }
                             String fieldValueString = "";
                             String fieldValueType;
                             if (field.length > 3) {
@@ -680,6 +678,10 @@
                             if (fieldValue.getClass().isArray()) {
                                 if (ArrayUtils.isNotEmpty((String[]) fieldValue)) {
                                     if (fieldValueType.equals(Tag.class.getCanonicalName())) {
+                                        //if data-attribute not specified return values as map entry
+                                        if (isEmpty(fieldDataName)) {
+                                            fieldValue = getTagsValues(tagManager, " ", (String[]) fieldValue);
+                                        }
                                         fieldValueString = getTagsAsValues(tagManager, " ", (String[]) fieldValue);
                                     } else {
                                         fieldValueString = StringUtils.join((String[]) fieldValue, ",");
@@ -689,7 +691,7 @@
                                 fieldValueString = fieldValue.toString();
                             }
 
-                            if (StringUtils.isNotEmpty(fieldValueString)) {
+                            if (isNotEmpty(fieldValueString) && isNotEmpty(fieldDataName)) {
                                 componentProperties.attr.add(fieldDataName, fieldValueString);
                             }
 
