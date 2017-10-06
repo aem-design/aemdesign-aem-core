@@ -61,83 +61,83 @@
 //        return pages;
 //    }
 
-
-    /**
-     * grab page details info
-     * @param currentPage
-     * @return
-     */
-    protected Map getPageDetailsInfo(Page currentPage) {
-
-        Map infoStruct = new HashMap();
-
-        Node pageDetails = getComponentNode(currentPage, PAR_PAGEDETAILS);
-        if (pageDetails != null) {
-
-
-            String title = "";
-            boolean showAsMenuIcon = false;
-            String showAsMenuIconPath = "";
-            try {
-                title = getPropertyWithDefault(pageDetails, DETAILS_TITLE, getPageNavTitle(currentPage));
-                showAsMenuIcon = Boolean.parseBoolean(getPropertyWithDefault(pageDetails, DETAILS_MENU_ICON, "false"));
-                showAsMenuIconPath = getPropertyWithDefault(pageDetails, DETAILS_MENU_ICONPATH, "");
-            } catch (Exception ex) {
-                getLogger().warn("showAsMenuIcon: ", ex);
-            }
-            infoStruct.put("showAsMenuIcon", showAsMenuIcon);
-            infoStruct.put("showAsMenuIconPath", showAsMenuIconPath);
-            infoStruct.put("title", title);
-
-            boolean showAsTabIcon = false;
-            String showAsTabIconPath = "";
-            try {
-                showAsTabIcon = Boolean.parseBoolean(getPropertyWithDefault(pageDetails, DETAILS_TAB_ICON, "false"));
-                showAsTabIconPath = getPropertyWithDefault(pageDetails, DETAILS_TAB_ICONPATH, "");
-            } catch (Exception ex) {
-                getLogger().warn("showAsTabIcon: ", ex);
-            }
-            infoStruct.put("showAsTabIcon", showAsTabIcon);
-            infoStruct.put("showAsTabIconPath", showAsTabIconPath);
-
-            String gallerybgimage = "empty";
-            try {
-
-                Node galleryBG = getComponentNode(currentPage, DETAILS_TAB_GALLERYBGIMAGE);
-                if (galleryBG != null) {
-                    if (galleryBG.hasProperty("fileReference")) {
-                        gallerybgimage = galleryBG.getProperty("fileReference").getString();
-                    }
-                }
-
-            } catch (Exception ex) {
-                getLogger().warn("gallerybgimage: ", ex);
-            }
-            infoStruct.put("gallerybgimage", gallerybgimage);
-
-            String color = "";
-            try {
-                color = getPropertyWithDefault(pageDetails, DETAILS_MENU_COLOR, "");
-            } catch (Exception ex) {
-                getLogger().warn("color: ", ex);
-            }
-            infoStruct.put("menuColor", color);
-
-
-            String accesskey = "";
-            try {
-                accesskey = getPropertyWithDefault(pageDetails, DETAILS_MENU_ACCESSKEY, "");
-            } catch (Exception ex) {
-                getLogger().warn("accesskey: ", ex);
-            }
-            infoStruct.put("accesskey", accesskey);
-
-        } else {
-            infoStruct.put("title", getPageNavTitle(currentPage));
-        }
-
-        return infoStruct;
-    }
+//
+//    /**
+//     * grab page details info
+//     * @param currentPage
+//     * @return
+//     */
+//    protected Map getPageDetailsInfo(Page currentPage) {
+//
+//        Map infoStruct = new HashMap();
+//
+//        Node pageDetails = getComponentNode(currentPage, PAR_PAGEDETAILS);
+//        if (pageDetails != null) {
+//
+////
+//            String title = "";
+////            boolean showAsMenuIcon = false;
+////            String showAsMenuIconPath = "";
+//            try {
+//                title = getPropertyWithDefault(pageDetails, DETAILS_TITLE, getPageNavTitle(currentPage));
+////                showAsMenuIcon = Boolean.parseBoolean(getPropertyWithDefault(pageDetails, DETAILS_MENU_ICON, "false"));
+////                showAsMenuIconPath = getPropertyWithDefault(pageDetails, DETAILS_MENU_ICONPATH, "");
+//            } catch (Exception ex) {
+//                getLogger().warn("showAsMenuIcon: ", ex);
+//            }
+////            infoStruct.put("showAsMenuIcon", showAsMenuIcon);
+////            infoStruct.put("showAsMenuIconPath", showAsMenuIconPath);
+//            infoStruct.put("title", title);
+////
+////            boolean showAsTabIcon = false;
+////            String showAsTabIconPath = "";
+////            try {
+////                showAsTabIcon = Boolean.parseBoolean(getPropertyWithDefault(pageDetails, DETAILS_TAB_ICON, "false"));
+////                showAsTabIconPath = getPropertyWithDefault(pageDetails, DETAILS_TAB_ICONPATH, "");
+////            } catch (Exception ex) {
+////                getLogger().warn("showAsTabIcon: ", ex);
+////            }
+////            infoStruct.put("showAsTabIcon", showAsTabIcon);
+////            infoStruct.put("showAsTabIconPath", showAsTabIconPath);
+////
+////            String gallerybgimage = "empty";
+////            try {
+////
+////                Node galleryBG = getComponentNode(currentPage, DETAILS_TAB_GALLERYBGIMAGE);
+////                if (galleryBG != null) {
+////                    if (galleryBG.hasProperty("fileReference")) {
+////                        gallerybgimage = galleryBG.getProperty("fileReference").getString();
+////                    }
+////                }
+////
+////            } catch (Exception ex) {
+////                getLogger().warn("gallerybgimage: ", ex);
+////            }
+////            infoStruct.put("gallerybgimage", gallerybgimage);
+////
+////            String color = "";
+////            try {
+////                color = getPropertyWithDefault(pageDetails, DETAILS_MENU_COLOR, "");
+////            } catch (Exception ex) {
+////                getLogger().warn("color: ", ex);
+////            }
+////            infoStruct.put("menuColor", color);
+////
+////
+////            String accesskey = "";
+////            try {
+////                accesskey = getPropertyWithDefault(pageDetails, DETAILS_MENU_ACCESSKEY, "");
+////            } catch (Exception ex) {
+////                getLogger().warn("accesskey: ", ex);
+////            }
+////            infoStruct.put("accesskey", accesskey);
+//
+//        } else {
+//            infoStruct.put("title", getPageNavTitle(currentPage));
+//        }
+//
+//        return infoStruct;
+//    }
 
     /**
      * Get a list of page {title, href ...} info
@@ -146,7 +146,7 @@
      * @param paths string array of paths
      * @return
      */
-    protected List<Map> getMenuPageList(PageManager pageManager, String[] paths, Page currentPage, SlingHttpServletRequest req, boolean isThemeExists) throws RepositoryException {
+    protected List<Map> getMenuPageList(PageManager pageManager, ResourceResolver resourceResolver, String[] paths, Page currentPage, SlingHttpServletRequest req, boolean isThemeExists) throws RepositoryException {
         List<Map> pages = new ArrayList<Map>();
 
 
@@ -177,8 +177,9 @@
                     infoStruct.put("parsysPath", "");
                 }
 
+                infoStruct.putAll(getPageInfo(pageContext, child,resourceResolver,null,null));
                 //grab page details info
-                infoStruct.putAll(getPageDetailsInfo(child));
+//                infoStruct.putAll(getPageDetailsInfo(child));
 
 
                 //grab children for current 2nd level of current path
