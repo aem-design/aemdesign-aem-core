@@ -108,10 +108,12 @@
                 pageUrl = redirectTarget;
             } else {
                 pageUrl = page.getPath();
-                if (redirectTarget.startsWith("/content") && !redirectTarget.endsWith(DEFAULT_EXTENTION)) {
-                    pageUrl = pageUrl.concat(DEFAULT_EXTENTION);
-                }
             }
+
+            if (pageUrl.startsWith("/content") && !pageUrl.endsWith(DEFAULT_EXTENTION)) {
+                pageUrl = pageUrl.concat(DEFAULT_EXTENTION);
+            }
+
         }
 
         return escapeBody(pageUrl);
@@ -1341,7 +1343,7 @@
 
         if (selectorString != null) {
 
-            String badgePattern = "((badge.{1,})(\\w+){0,1})";
+            String badgePattern = "((badge{1,})(.\\w+){0,1})";
 
             Pattern pattern = Pattern.compile(badgePattern);
 
