@@ -146,7 +146,7 @@
      * @param paths string array of paths
      * @return
      */
-    protected List<Map> getMenuPageList(PageManager pageManager, ResourceResolver resourceResolver, String[] paths, Page currentPage, SlingHttpServletRequest req, boolean isThemeExists) throws RepositoryException {
+    protected List<Map> getMenuPageList(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, Page currentPage, SlingHttpServletRequest req, boolean isThemeExists) throws RepositoryException {
         List<Map> pages = new ArrayList<Map>();
 
 
@@ -178,6 +178,7 @@
                 }
 
                 infoStruct.putAll(getPageInfo(pageContext, child,resourceResolver,null,null));
+
                 //grab page details info
 //                infoStruct.putAll(getPageDetailsInfo(child));
 
