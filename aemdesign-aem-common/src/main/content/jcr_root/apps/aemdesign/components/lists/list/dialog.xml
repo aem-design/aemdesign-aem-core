@@ -113,28 +113,6 @@
                             </options>
                         </paginationType>
 
-                        <listType
-                                jcr:primaryType="cq:Widget"
-                                defaultValue="list"
-                                value="list"
-                                allowBlank="{Boolean}true"
-                                fieldLabel="List Type"
-                                name="./listType"
-                                type="select"
-                                xtype="selection">
-
-                            <options jcr:primaryType="cq:WidgetCollection">
-                                <list
-                                        jcr:primaryType="nt:unstructured"
-                                        value="list"
-                                        text="List" />
-                                <gallery
-                                        jcr:primaryType="nt:unstructured"
-                                        value="gallery"
-                                        text="Gallery List" />
-                            </options>
-
-                        </listType>
                         <detailsBadge
                                 jcr:primaryType="cq:Widget"
                                 defaultValue=""
