@@ -104,10 +104,6 @@
                                         jcr:primaryType="nt:unstructured"
                                         value=""
                                         text="Default"/>
-                                <mainnav
-                                        jcr:primaryType="nt:unstructured"
-                                        value="mainnav"
-                                        text="Main Nav" />
                                 <full
                                         jcr:primaryType="nt:unstructured"
                                         value="full"
@@ -118,33 +114,6 @@
                                         text="Simple" />
                             </options>
                         </variant>
-                        <showLangNav jcr:primaryType="cq:Widget"
-                                     fieldLabel="Show Lang Nav"
-                                     allowBlank="{Boolean}true"
-                                     name="./showLangNav"
-                                     options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                     type="select"
-                                     defaultValue=""
-                                     value=""
-                                     xtype="selection"/>
-                        <showBackToTop jcr:primaryType="cq:Widget"
-                                     fieldLabel="Show Back To Top link"
-                                     allowBlank="{Boolean}true"
-                                     name="./showBackToTop"
-                                     options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                     type="select"
-                                     defaultValue=""
-                                     value=""
-                                     xtype="selection"/>
-                        <showSearch jcr:primaryType="cq:Widget"
-                                     fieldLabel="Show Search Field"
-                                     allowBlank="{Boolean}true"
-                                     name="./showSearch"
-                                     options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                     type="select"
-                                     defaultValue=""
-                                     value=""
-                                     xtype="selection"/>
                         <linkTitlePrefix
                                 jcr:primaryType="cq:Widget"
                                 fieldLabel="Title Prefix"
