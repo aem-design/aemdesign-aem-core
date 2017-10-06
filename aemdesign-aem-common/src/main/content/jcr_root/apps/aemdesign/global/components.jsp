@@ -57,6 +57,7 @@
     private static final String DETAILS_MENU_COLOR = "menuColor";
     private static final String DETAILS_MENU_ICONSHOW = "menuIconShow";
     private static final String DETAILS_MENU_ICON = "menuIcon";
+    private static final String DETAILS_MENU_ACCESS_KEY = "menuAccesskey";
     private static final String DETAILS_MENU_ICONPATH = "menuIconPath";
     private static final String DETAILS_TAB_ICONSHOW = "tabIconShow";
     private static final String DETAILS_TAB_ICON = "tabIcon";
@@ -70,26 +71,6 @@
     private static final String DETAILS_FIELD_CARDSIZE = "cardSize";
 
     private static final String FIELD_HIDEINMENU = "hideInMenu";
-
-    //http://www.photometadata.org/META-Resources-Field-Guide-to-Metadata
-    private static final String DAM_TITLE = com.day.cq.dam.api.DamConstants.DC_TITLE;
-    private static final String DAM_DESCRIPTION = com.day.cq.dam.api.DamConstants.DC_DESCRIPTION;
-    private static final String DAM_HEADLINE = "photoshop:Headline";
-    private static final String DAM_CREDIT = "photoshop:Credit";
-    private static final String DAM_CATEGORY = "category";
-    private static final String DAM_DIRECTOR = "director";
-    private static final String DAM_ARTISTSTATEMENT = "artistStatement";
-    private static final String DAM_SOURCE = "photoshop:Source";
-    private static final String DAM_SOURCE_ORIGIN = "dc:source";
-    private static final String DAM_SOURCE_RELATION = "dc:relation";
-    private static final String DAM_SOURCE_URL = "sourceAsset";
-    private static final String DAM_VIDEO_URL = "sourceVideo";
-    private static final String DAM_DISCLAIMER = "dc:disclaimer";
-    private static final String DAM_FIELD_LICENSE_COPYRIGHT_OWNER = "xmpRights:Owner";
-    private static final String DAM_FIELD_LICENSE_USAGETERMS = "xmpRights:UsageTerms";
-    private static final String DAM_FIELD_LICENSE_EXPIRY = "prism:expirationDate";
-
-    private static final String DAM_LICENSE_FORMAT = "© {4} {0} {1} {2} {3}";
 
 
     private static final Pattern DEFAULT_RENDTION_PATTERN_OOTB = Pattern.compile("cq5dam\\.(.*)?\\.(\\d+)\\.(\\d+)\\.(.*)");
@@ -225,17 +206,14 @@
             {DETAILS_MENU_COLOR, ""},
             {DETAILS_MENU_ICONSHOW, false},
             {DETAILS_MENU_ICON, new String[]{}},
-            {DETAILS_MENU_ICONPATH, ""},
+            {DETAILS_MENU_ACCESS_KEY, ""},
             {DETAILS_FIELD_CARDSIZE, "small"},
             {DETAILS_TAB_ICONSHOW, false},
             {DETAILS_TAB_ICON,  new String[]{}},
-            {DETAILS_TAB_ICONPATH, ""},
             {DETAILS_TITLE_ICONSHOW, false},
             {DETAILS_TITLE_ICON,  new String[]{}},
-            {DETAILS_TITLE_ICONPATH, ""},
             {DETAILS_OVERLAY_ICONSHOW, false},
             {DETAILS_OVERLAY_ICON, new String[]{}},
-            {DETAILS_OVERLAY_ICONPATH, ""},
     };
 
     //COMPONENT ANALYTICS
