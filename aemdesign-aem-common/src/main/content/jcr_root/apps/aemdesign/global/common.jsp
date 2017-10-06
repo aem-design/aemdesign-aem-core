@@ -44,6 +44,27 @@
     private static final String[] DEFAULT_LIST_PAGE_CONTENT = new String[] {DEFAULT_PAR_NAME,PATH_DEFAULT_CONTENT};
 
 
+
+    private static final String DAM_LICENSE_FORMAT = "© {4} {0} {1} {2} {3}";
+
+    //http://www.photometadata.org/META-Resources-Field-Guide-to-Metadata
+    private static final String DAM_TITLE = com.day.cq.dam.api.DamConstants.DC_TITLE;
+    private static final String DAM_DESCRIPTION = com.day.cq.dam.api.DamConstants.DC_DESCRIPTION;
+    private static final String DAM_HEADLINE = "photoshop:Headline";
+    private static final String DAM_CREDIT = "photoshop:Credit";
+    private static final String DAM_CATEGORY = "category";
+    private static final String DAM_DIRECTOR = "director";
+    private static final String DAM_ARTISTSTATEMENT = "artistStatement";
+    private static final String DAM_SOURCE = "photoshop:Source";
+    private static final String DAM_SOURCE_ORIGIN = "dc:source";
+    private static final String DAM_SOURCE_RELATION = "dc:relation";
+    private static final String DAM_SOURCE_URL = "sourceAsset";
+    private static final String DAM_VIDEO_URL = "sourceVideo";
+    private static final String DAM_DISCLAIMER = "dc:disclaimer";
+    private static final String DAM_FIELD_LICENSE_COPYRIGHT_OWNER = "xmpRights:Owner";
+    private static final String DAM_FIELD_LICENSE_USAGETERMS = "xmpRights:UsageTerms";
+    private static final String DAM_FIELD_LICENSE_EXPIRY = "prism:expirationDate";
+
     private static final String[] MONTH_NAMES = new String[]{
             "Jan", "Feb", "Mar", "Apr",
             "May", "Jun", "Jul", "Aug",
@@ -82,14 +103,18 @@
         String pageUrl = "#";
 
         if (page != null) {
-            if (page.getProperties().get("redirectTarget") != null) {
-                pageUrl = escapeBody(page.getProperties().get("redirectTarget").toString());
+            String redirectTarget = page.getProperties().get("redirectTarget","");
+            if (isNotEmpty(redirectTarget)) {
+                pageUrl = redirectTarget;
             } else {
-                pageUrl = page.getPath().concat(DEFAULT_EXTENTION);
+                pageUrl = page.getPath();
+                if (redirectTarget.startsWith("/content") && !redirectTarget.endsWith(DEFAULT_EXTENTION)) {
+                    pageUrl = pageUrl.concat(DEFAULT_EXTENTION);
+                }
             }
         }
 
-        return pageUrl;
+        return escapeBody(pageUrl);
     }
 
     /**
