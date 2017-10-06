@@ -434,6 +434,40 @@
      * @return
      */
 
+    public String[] getTagsValues(TagManager tagManager, String separator, String tagPaths[]) {
+        if (tagPaths == null || tagPaths.length == 0) {
+            return null;
+        }
+
+        int idx = 0;
+        ArrayList<String> tagValues = new ArrayList<>();
+
+        for (String path : tagPaths) {
+            Tag jcrTag = tagManager.resolve(path);
+            if (jcrTag != null) {
+                String value = jcrTag.getName();
+
+                ValueMap tagVM = jcrTag.adaptTo(Resource.class).getValueMap();
+
+                if (tagVM != null) {
+                    if (tagVM.containsKey("value")) {
+                        value = tagVM.get("value", jcrTag.getName());
+                    }
+                }
+                tagValues.add(value);
+            }
+        }
+        // return buffer
+        return tagValues.toArray(new String[tagValues.size()]);
+    }
+
+    /**
+     * Get Tag values
+     * @param tagManager
+     * @param tagPaths
+     * @return
+     */
+
     public String getTagsAsKeywords(TagManager tagManager, String separator, String tagPaths[], Locale locale) {
         if (tagPaths == null || tagPaths.length == 0) {
             return null;
