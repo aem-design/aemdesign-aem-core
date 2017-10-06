@@ -371,10 +371,14 @@
                     jcr:primaryType="cq:Panel"
                     border="false"
                     height=""
-                    title="Items Config"
+                    title="Badge Config"
                     width=""
                     xtype="panel">
                     <items jcr:primaryType="cq:WidgetCollection">
+                        <itemConfigTabLabel
+                                jcr:primaryType="cq:Widget"
+                                html="&lt;span style=&quot;color: blue; font-weight: bold; &quot;>This config will be passed to selected badge.&lt;/span>"
+                                xtype="label"/>
 
                         <itemConfig
                                 jcr:primaryType="cq:Widget"
