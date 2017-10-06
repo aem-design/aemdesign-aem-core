@@ -35,7 +35,7 @@
     // init
     Map<String, Object> tabs = new HashMap<String, Object>();
 
-    List<Map> tabPagesInfo = null;
+    List<ComponentProperties> tabPagesInfo = null;
 
     String[] supportedDetails = DEFAULT_LIST_DETAILS_SUFFIX;
     String[] supportedRoots = DEFAULT_LIST_PAGE_CONTENT;
@@ -51,12 +51,12 @@
         }
 
         if (tabsParentPage != null) {
-            tabPagesInfo = getPageListInfo(_pageManager, _resourceResolver, tabsParentPage.listChildren(), supportedDetails, supportedRoots);
+            tabPagesInfo = getPageListInfo(pageContext,_pageManager, _resourceResolver, tabsParentPage.listChildren(), supportedDetails, supportedRoots);
         }
     } else if (componentProperties.get(FIELD_LISTFROM,"").equals(DEFAULT_LISTFROM_STATIC)) {
         String[] tabPages =  componentProperties.get(FIELD_TABPAGES, new String[0]);
         if (tabPages.length != 0) {
-            tabPagesInfo = getPageListInfo(_pageManager, _resourceResolver, tabPages, supportedDetails, supportedRoots);
+            tabPagesInfo = getPageListInfo(pageContext,_pageManager, _resourceResolver, tabPages, supportedDetails, supportedRoots);
         }
     }
 

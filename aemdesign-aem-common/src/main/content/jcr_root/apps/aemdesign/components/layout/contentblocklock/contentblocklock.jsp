@@ -36,8 +36,8 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    componentProperties.put("linksRightList",getPageListInfo(_pageManager, _resourceResolver, componentProperties.get("linksRight", new String[]{})));
-    componentProperties.put("linksLeftList",getPageListInfo(_pageManager, _resourceResolver, componentProperties.get("linksLeft", new String[]{})));
+    componentProperties.put("linksRightList",getPageListInfo(pageContext,_pageManager, _resourceResolver, componentProperties.get("linksRight", new String[]{})));
+    componentProperties.put("linksLeftList",getPageListInfo(pageContext,_pageManager, _resourceResolver, componentProperties.get("linksLeft", new String[]{})));
 
     componentProperties.put("topLinkLabel",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_LABEL,DEFAULT_I18N_CATEGORY,_i18n));
     componentProperties.put("topLinkTitle",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_TITLE,DEFAULT_I18N_CATEGORY,_i18n));
