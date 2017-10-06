@@ -52,17 +52,10 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    //set Title Type to use by badges if needed
-    request.setAttribute(FIELD_BADGE_TITLE_TAG_TYPE, componentProperties.get(FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TYPE));
-
     if (list != null) {
         componentProperties.put("isOrdered", list.isOrdered());
         componentProperties.put("isEmpty", list.isEmpty());
         componentProperties.put("isPaginating", list.isPaginating());
-
-        String listTypeClassName = list.getType();
-        listTypeClassName = (listTypeClassName == null) ? "" : listTypeClassName.replaceAll("/", "");
-        componentProperties.put("listTypeClassName", listTypeClassName);
 
         componentProperties.put("listTag", list.isOrdered() ? "ol" : "ul");
 
