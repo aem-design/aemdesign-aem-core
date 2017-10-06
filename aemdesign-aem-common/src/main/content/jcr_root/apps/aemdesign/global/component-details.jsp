@@ -137,7 +137,7 @@
             badgeConfig.put(FIELD_THUMBNAIL_TYPE, badgeThumbnailType);
         }
 
-        String badgeThumbnailWidth = (String)request.getAttribute(BADGE_THUMBNAIL_WIDTH);
+        Object badgeThumbnailWidth = request.getAttribute(BADGE_THUMBNAIL_WIDTH);
         if (badgeThumbnailWidth != null) {
             badgeConfig.put(FIELD_THUMBNAIL_WIDTH, badgeThumbnailWidth);
 
@@ -175,7 +175,7 @@
 //
 //                        break;
                             case IMAGE_OPTION_RENDITION:
-                                int badgeThumbnailWidthInt = tryParseInt(badgeThumbnailWidth, 319);
+                                int badgeThumbnailWidthInt = tryParseInt(badgeThumbnailWidth.toString(), 319);
                                 com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(badgeThumbnailWidthInt, pageImageAsset);
                                 if (bestRendition != null) {
                                     badgeConfig.put(FIELD_PAGE_IMAGE_THUMBNAIL, bestRendition.getPath());
@@ -189,7 +189,7 @@
             }
         }
 
-        String badgeThumbnailHeight = (String)request.getAttribute(BADGE_THUMBNAIL_HEIGHT);
+        Object badgeThumbnailHeight = request.getAttribute(BADGE_THUMBNAIL_HEIGHT);
         if (badgeThumbnailHeight != null) {
             badgeConfig.put(FIELD_THUMBNAIL_HEIGHT, badgeThumbnailHeight);
         }
