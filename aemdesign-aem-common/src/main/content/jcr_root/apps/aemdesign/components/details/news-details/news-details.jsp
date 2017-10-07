@@ -74,6 +74,26 @@
 
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
+    <c:when test="${COMPONENT_BADGE eq 'badge.card'}">
+        <%@ include file="badge.card.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIcon'}">
+        <%@ include file="badge.cardIcon.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.icon'}">
+        <%@ include file="badge.icon.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.image'}">
+        <%@ include file="badge.image.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge' or COMPONENT_BADGE eq 'badge.default'}">
+        <%@ include file="badge.default.jsp" %>
+    </c:when>
+
     <c:when test="${componentProperties.variant eq DEFAULT_VARIANT}">
         <%@include file="variant.default.jsp" %>
     </c:when>

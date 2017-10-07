@@ -90,9 +90,12 @@
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
-
     <c:when test="${COMPONENT_BADGE eq 'badge.card'}">
         <%@ include file="badge.card.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIcon'}">
+        <%@ include file="badge.cardIcon.jsp" %>
     </c:when>
 
     <c:when test="${COMPONENT_BADGE eq 'badge.icon'}">
