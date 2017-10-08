@@ -8,9 +8,9 @@
     <c:set var="linkAttr" value="${linkAttr} external"/>
 </c:if>
 <div class="card ${componentProperties.cardStyle}">
-    <i class="${fn:join(componentProperties.cardIcon," ")}" title="${componentProperties.pageNavTitle}"></i>
+    <i class="icon ${fn:join(componentProperties.cardIcon," ")}" title="${componentProperties.title}"></i>
     <div class="card-block">
-        <${componentProperties.titleType}>${componentProperties.pageNavTitle}</${componentProperties.titleType}>
+        <${componentProperties.badgeTitleType}>${componentProperties.pageNavTitle}</${componentProperties.badgeTitleType}>
         <c:if test="${not empty componentProperties.category}">
             <div class="card-category">
                 <ul class="tags">
