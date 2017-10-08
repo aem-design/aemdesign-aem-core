@@ -138,20 +138,14 @@
                                 <card
                                         jcr:primaryType="nt:unstructured"
                                         value="card"
-                                        text="Card"/>
+                                        text="Card with Image"/>
+                                <cardIcon
+                                        jcr:primaryType="nt:unstructured"
+                                        value="cardIcon"
+                                        text="Card with Icon"/>
                             </options>
 
                         </detailsBadge>
-                        <badgeTitleType jcr:primaryType="cq:Widget"
-                                   fieldLabel="Badge Title Type"
-                                   fieldDescription="which paragraph tag to use for Badge Title display"
-                                   allowBlank="{Boolean}true"
-                                   name="./badgeTitleType"
-                                   options="/etc/tags/component-dialog/html/heading.valuelist.json"
-                                   type="select"
-                                   defaultValue=""
-                                   value=""
-                                   xtype="selection"/>
                     </items>
                 </listTab>
                 <childrenTab
@@ -367,239 +361,21 @@
                 <accessibilityTab jcr:primaryType="cq:Panel"
                                   path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
                                   xtype="cqinclude"/>
-                <itemConfigTab
-                    jcr:primaryType="cq:Panel"
-                    border="false"
-                    height=""
-                    title="Badge Config"
-                    width=""
-                    xtype="panel">
-                    <items jcr:primaryType="cq:WidgetCollection">
-                        <itemConfigTabLabel
-                                jcr:primaryType="cq:Widget"
-                                html="&lt;span style=&quot;color: blue; font-weight: bold; &quot;>This config will be passed to selected badge.&lt;/span>"
-                                xtype="label"/>
 
-                        <itemConfig
-                                jcr:primaryType="cq:Widget"
-                                collapsed="{Boolean}true"
-                                collapsible="{Boolean}true"
-                                title="List Item"
-                                xtype="dialogfieldset">
-                            <items jcr:primaryType="cq:WidgetCollection">
-                                <listItemShowLink
-                                        jcr:primaryType="cq:Widget"
-                                        defaultValue=""
-                                        value=""
-                                        allowBlank="{Boolean}true"
-                                        fieldLabel="Show Item Link"
-                                        fieldDescription="show a link at the end of text summary pointing to the article"
-                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                        name="./listItemShowLink"
-                                        type="select"
-                                        xtype="selection"/>
-                                <listItemLinkTarget jcr:primaryType="cq:Widget"
-                                            fieldLabel="Item Link Target"
-                                            fieldDescription="how should the link of items behave when clicked"
-                                            allowBlank="{Boolean}true"
-                                            name="./listItemLinkTarget"
-                                            options="/etc/tags/component-dialog/html/linktarget.valuelist.json"
-                                            type="select"
-                                            defaultValue=""
-                                            xtype="selection"/>
-                                <listItemLinkText
-                                        jcr:primaryType="cq:Widget"
-                                        fieldLabel="Text"
-                                        fieldDescription="shows as a link text tag"
-                                        name="./listItemLinkText"
-                                        xtype="textfield"/>
-                                <listItemLinkTitle
-                                        jcr:primaryType="cq:Widget"
-                                        fieldLabel="Title"
-                                        fieldDescription="shows as a link title tag"
-                                        name="./listItemLinkTitle"
-                                        xtype="textfield"/>
-                                <listItemTitleTrim
-                                        jcr:primaryType="cq:Widget"
-                                        defaultValue=""
-                                        value=""
-                                        allowBlank="{Boolean}true"
-                                        fieldLabel="Title Trim"
-                                        fieldDescription="apply trim on Title field"
-                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                        name="./listItemTitleTrim"
-                                        type="select"
-                                        xtype="selection"/>
-                                <listItemTitleLengthMax
-                                        jcr:primaryType="cq:Widget"
-                                        fieldLabel="Title Max Length"
-                                        fieldDescription="crop Title text after this many characters"
-                                        name="./listItemTitleLengthMax"
-                                        xtype="numberfield"/>
-                                <listItemTitleLengthMaxSuffix
-                                        jcr:primaryType="cq:Widget"
-                                        fieldLabel="Title Max Length Suffix"
-                                        fieldDescription="add the following text as suffix when cropping Title"
-                                        name="./listItemTitleLengthMaxSuffix"
-                                        xtype="textfield"/>
-                                <listItemSummaryTrim
-                                        jcr:primaryType="cq:Widget"
-                                        defaultValue=""
-                                        value=""
-                                        allowBlank="{Boolean}true"
-                                        fieldLabel="Summary Trim"
-                                        fieldDescription="apply trim on Summary field"
-                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                        name="./listItemSummaryTrim"
-                                        type="select"
-                                        xtype="selection"/>
-                                <listItemSummaryLengthMax
-                                        jcr:primaryType="cq:Widget"
-                                        fieldLabel="Summary Max Length"
-                                        fieldDescription="crop Summary text after this many characters"
-                                        name="./listItemSummaryLengthMax"
-                                        xtype="numberfield"/>
-                                <listItemSummaryLengthMaxSuffix
-                                        jcr:primaryType="cq:Widget"
-                                        fieldLabel="Summary Max Length Suffix"
-                                        fieldDescription="add the following text as suffix when cropping Summary"
-                                        name="./listItemSummaryLengthMaxSuffix"
-                                        xtype="textfield"/>
-                                <listItemShowOverlayIcon
-                                        jcr:primaryType="cq:Widget"
-                                        defaultValue=""
-                                        value=""
-                                        allowBlank="{Boolean}true"
-                                        fieldLabel="Display Overlay Icon"
-                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                        name="./listItemShowOverlayIcon"
-                                        type="select"
-                                        xtype="selection"/>
-                                <listItemShowRedirectIcon
-                                        jcr:primaryType="cq:Widget"
-                                        defaultValue=""
-                                        value=""
-                                        allowBlank="{Boolean}true"
-                                        fieldLabel="Display Redirect Icon"
-                                        fieldDescription="display an icon to indicate that the page link redirects"
-                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                        name="./listItemShowRedirectIcon"
-                                        type="select"
-                                        xtype="selection"/>
-
-                            </items>
-                        </itemConfig>
-                        <thumbnailConfig
-                            jcr:primaryType="cq:Widget"
-                            collapsed="{Boolean}true"
-                            collapsible="{Boolean}true"
-                            title="Badge Thumbnail Config"
-                            xtype="dialogfieldset">
-                            <items jcr:primaryType="cq:WidgetCollection">
-                                <badgeThumbnailType jcr:primaryType="cq:Widget"
-                                             fieldLabel="Thumbnail Image Option"
-                                             allowBlank="{Boolean}true"
-                                             name="./badgeThumbnailType"
-                                             type="select"
-                                             defaultValue=""
-                                             value=""
-                                             xtype="selection">
-                                    <options jcr:primaryType="cq:WidgetCollection">
-                                        <default
-                                                jcr:primaryType="nt:unstructured"
-                                                value=""
-                                                text="Default"/>
-                                        <!--<generated-->
-                                                <!--jcr:primaryType="nt:unstructured"-->
-                                                <!--value="generated"-->
-                                                <!--selectTab="imageConfig"-->
-                                                <!--text="Generate: generate new image with current image edits" />-->
-                                        <rendition
-                                                jcr:primaryType="nt:unstructured"
-                                                value="rendition"
-                                                selectTab="imageConfig"
-                                                text="Rendition: pick a suitable image rendition" />
-                                        <!--<responsive-->
-                                                <!--jcr:primaryType="nt:unstructured"-->
-                                                <!--value="responsive"-->
-                                                <!--selectTab="responsiveConfig"-->
-                                                <!--text="Responsive: use existing renditions"/>-->
-                                        <!--<adaptive-->
-                                                <!--jcr:primaryType="nt:unstructured"-->
-                                                <!--value="adaptive"-->
-                                                <!--selectTab="adaptiveConfig"-->
-                                                <!--text="Adaptive: generate new renditions with quality settings for each breakpoint"/>-->
-                                    </options>
-                                </badgeThumbnailType>
-
-                                <badgeThumbnailSize
-                                        jcr:primaryType="cq:Widget"
-                                        fieldLabel="Icon Size (w,h)"
-                                        fieldDescription="blank values are not added as attributes"
-                                        heightParameter="./badgeThumbnailHeight"
-                                        widthParameter="./badgeThumbnailWidth"
-                                        xtype="sizefield"/>
-                            </items>
-                        </thumbnailConfig>
-                    </items>
-                </itemConfigTab>
-
+                <badgeConfigTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/badge/items/badgeConfigTab.infinity.json"
+                        xtype="cqinclude" />
 
                 <badgeThumbnailTab
                         jcr:primaryType="cq:Widget"
-                        allowUpload="{Boolean}false"
-                        name="./badgeThumbnail/file"
-                        title="Default Badge Thumbnail"
-                        ddGroups="[media]"
-                        cropParameter="./badgeThumbnail/imageCrop"
-                        fileNameParameter="./badgeThumbnail/fileName"
-                        fileReferenceParameter="./badgeThumbnail/fileReference"
-                        rotateParameter="./badgeThumbnail/imageRotate"
-                        mapParameter="./badgeThumbnail/imageMap"
-                        xtype="html5smartimage">
-                    <cropConfig jcr:primaryType="nt:unstructured">
-                        <aspectRatios jcr:primaryType="nt:unstructured">
-                            <freehand
-                                    jcr:primaryType="nt:unstructured"
-                                    value="0,0"
-                                    text="Free hand"/>
-                            <twobythree
-                                    jcr:primaryType="nt:unstructured"
-                                    value="2,3"
-                                    text="2 x 3"/>
-                            <threebyfive
-                                    jcr:primaryType="nt:unstructured"
-                                    value="3,5"
-                                    text="3 x 5"/>
-                            <sixteenbynine
-                                    jcr:primaryType="nt:unstructured"
-                                    value="16,9"
-                                    text="16 x 9"/>
-                            <square
-                                    jcr:primaryType="nt:unstructured"
-                                    value="1,1"
-                                    text="Square"/>
-                        </aspectRatios>
-                    </cropConfig>
-                </badgeThumbnailTab>
+                        path="/apps/aemdesign/global/dialog/classic/images/items/badgeThumbnailTab.infinity.json"
+                        xtype="cqinclude" />
 
-                <imageThumbnailTabResourceType
-                        jcr:primaryType="cq:Panel"
-                        title="Thumbnail Image Metadata"
-                        fieldDescription="Thumbnail Image Metadata additional fields for saving content of Background Image"
-                        xtype="panel">
-                    <listeners
-                            jcr:primaryType="nt:unstructured"
-                            render="function() { AEMDESIGN.dialog.hideTab(this, this.findParentByType('dialog').findByType('tabpanel')[0]); }"/>
-                    <items jcr:primaryType="cq:WidgetCollection">
-                        <imageBackgroundTabResourceType
-                                jcr:primaryType="cq:Widget"
-                                ignoreData="{Boolean}true"
-                                name="./badgeThumbnail/sling:resourceType"
-                                value="aemdesign/components/media/image"
-                                xtype="textfield"/>
-                    </items>
-                </imageThumbnailTabResourceType>
+                <badgeThumbnailTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/images/items/badgeThumbnailTabResourceType.infinity.json"
+                        xtype="cqinclude" />
 
 
                 <feedTab
