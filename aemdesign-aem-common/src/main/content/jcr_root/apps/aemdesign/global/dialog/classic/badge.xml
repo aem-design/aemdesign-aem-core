@@ -254,23 +254,6 @@
                     </items>
                 </iconConfigGroup>
 
-                <imageConfigGroup
-                        jcr:primaryType="cq:Widget"
-                        title="Overlay Configuration"
-                        collapsed="{Boolean}true"
-                        collapsible="{Boolean}true"
-                        xtype="dialogfieldset">
-                    <items jcr:primaryType="cq:WidgetCollection">
-                        <overlayConfigGroupLabel
-                                jcr:primaryType="cq:Widget"
-                                text="Overlay icon to show in Card Badge or other components"
-                                xtype="label"/>
-
-
-
-                    </items>
-                </imageConfigGroup>
-
                 <thumbnailConfig
                         jcr:primaryType="cq:Widget"
                         collapsed="{Boolean}true"
