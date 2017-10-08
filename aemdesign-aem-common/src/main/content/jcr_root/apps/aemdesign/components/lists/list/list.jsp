@@ -79,9 +79,6 @@
 
 %>
 
-<!--list componentProperties: ${componentProperties} -->
-<!--list badgeRequestAttributes: ${badgeRequestAttributes} -->
-
 <%--LIST START--%>
 <c:catch var="exception">
     <cq:include script="list-start.jsp" />
