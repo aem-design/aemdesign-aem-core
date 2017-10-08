@@ -13,12 +13,6 @@
 <%@ page import="javax.jcr.RepositoryException" %>
 <%!
 
-    final int DEFAULT_THUMB_WIDTH_XSM = 140;
-    final int DEFAULT_THUMB_WIDTH_SM = 319;
-    final int DEFAULT_THUMB_WIDTH_MD = 800;
-    final int DEFAULT_THUMB_WIDTH_LG = 1280;
-    final int DEFAULT_THUMB_WIDTH_XLG = 1600;
-    final int DEFAULT_THUMB_WIDTH_XXLG = 1900;
     final String DEFAULT_IMAGE_THUMB_SELECTOR = ".thumb.319.319.png";
     final String SMALL_IMAGE_THUMB_SELECTOR = ".thumb.140.100.png";
     final String DEFAULT_THUMB_SELECTOR_XSM = ".thumb.140.140.png";
@@ -34,7 +28,6 @@
     final String SMALL_IMAGE_PATH_SELECTOR = "cq5dam" + SMALL_IMAGE_THUMB_SELECTOR;
     final String DEFAULT_IMAGE_PATH_SELECTOR = "cq5dam" + DEFAULT_IMAGE_THUMB_SELECTOR;
     final String DEFAULT_DOWNLOAD_THUMB_ICON = "/etc/clientlibs/aemdesign/icons/file/file.gif";
-    final String DEFAULT_IMAGE_BLANK = "/libs/cq/ui/resources/0.gif"; // /etc/designs/default/0.gif
 
     final String MEDIUM_THUMBNAIL_SIZE = "320";
     final String LARGE_THUMBNAIL_SIZE = "480";
