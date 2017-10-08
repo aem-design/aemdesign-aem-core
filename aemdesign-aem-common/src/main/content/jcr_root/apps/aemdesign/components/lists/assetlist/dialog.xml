@@ -32,7 +32,7 @@
                                 jcr:primaryType="cq:Widget"
                                 defaultValue=""
                                 fieldLabel="Badges"
-                                fieldDescripton="Which badge to select from the Details component on the page"
+                                fieldDescription="Which badge to select from the Details component on the page"
                                 name="./detailsBadge"
                                 type="select"
                                 xtype="selection">
