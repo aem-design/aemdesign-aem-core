@@ -62,10 +62,34 @@
     private static final String DETAILS_TAB_ICON = "tabIcon";
     private static final String DETAILS_TITLE_ICONSHOW = "titleIconShow";
     private static final String DETAILS_TITLE_ICON = "titleIcon";
-    private static final String DETAILS_OVERLAY_ICONSHOW = "overlayIconShow";
-    private static final String DETAILS_OVERLAY_ICON = "overlayIcon";
-    private static final String DETAILS_FIELD_CARDSIZE = "cardSize";
+    private static final String DETAILS_OVERLAY_ICONSHOW = "badgeOverlayIconShow";
+    private static final String DETAILS_OVERLAY_ICON = "badgeOverlayIcon";
+    private static final String DETAILS_CARD_STYLE = "cardStyle";
+    private static final String DETAILS_CARD_SIZE = "cardSize";
+    private static final String DETAILS_CARD_ICONSHOW = "cardIconShow";
+    private static final String DETAILS_CARD_ICON = "cardIcon";
     private static final String DETAILS_PAGE_ICON = "pageIcon";
+
+
+    //shared badge config passed from list to all badge elements
+    private static final String DETAILS_LINK_SHOW = "badgeLinkShow"; //listItemShowLink
+    private static final String DETAILS_LINK_TARGRET = "badgeLinkTarget"; //listItemLinkTarget
+    private static final String DETAILS_LINK_TEXT = "badgeLinkText"; //listItemLinkTarget
+    private static final String DETAILS_LINK_TITLE = "badgeLinkTitle"; //listItemLinkTarget
+    private static final String DETAILS_TITLE_TRIM = "badgeTitleTrim";
+    private static final String DETAILS_TITLE_TRIM_LENGTH_MAX = "badgeTitleTrimLengthMax";
+    private static final String DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX = "badgeTitleTrimLengthMaxSuffix";
+    private static final String DETAILS_SUMMARY_TRIM = "badgeSummaryTrim";
+    private static final String DETAILS_SUMMARY_TRIM_LENGTH_MAX = "badgeSummaryLengthMax";
+    private static final String DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX = "badgeSummaryLengthMaxSuffix";
+    private static final String DETAILS_THUMBNAIL_WIDTH = "badgeThumbnailWidth";
+    private static final String DETAILS_THUMBNAIL_HEIGHT = "badgeThumbnailHeight";
+    private static final String DETAILS_THUMBNAIL_TYPE = "badgeThumbnailType";
+    private static final String DETAILS_TITLE_TAG_TYPE = "badgeTitleType";
+    private static final String DETAILS_THUMBNAIL_ID = "badgeThumbnailId";
+    private static final String DETAILS_THUMBNAIL_LICENSE_INFO = "badgeThumbnailLicenseInfo";
+    private static final String DETAILS_THUMBNAIL = "badgeThumbnail";
+
 
     private static final String FIELD_HIDEINMENU = "hideInMenu";
 
@@ -204,7 +228,20 @@
             {DETAILS_MENU_ICONSHOW, false},
             {DETAILS_MENU_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_MENU_ACCESS_KEY, ""},
-            {DETAILS_FIELD_CARDSIZE, "small"},
+            {DETAILS_CARD_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_CARD_SIZE, "small"},
+            {DETAILS_CARD_ICONSHOW, false},
+            {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_LINK_SHOW, false},
+            {DETAILS_LINK_TARGRET, ""},
+            {DETAILS_LINK_TEXT, ""},
+            {DETAILS_LINK_TITLE, ""},
+            {DETAILS_TITLE_TRIM, false},
+            {DETAILS_TITLE_TRIM_LENGTH_MAX, DEFAULT_SUMMARY_TRIM_LENGTH},
+            {DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX, DEFAULT_SUMMARY_TRIM_SUFFIX},
+            {DETAILS_SUMMARY_TRIM, false},
+            {DETAILS_SUMMARY_TRIM_LENGTH_MAX, DEFAULT_SUMMARY_TRIM_LENGTH},
+            {DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX, DEFAULT_SUMMARY_TRIM_SUFFIX},
             {DETAILS_TAB_ICONSHOW, false},
             {DETAILS_TAB_ICON,  new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_ICONSHOW, false},
@@ -212,6 +249,13 @@
             {DETAILS_OVERLAY_ICONSHOW, false},
             {DETAILS_OVERLAY_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_PAGE_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM},
+            {DETAILS_THUMBNAIL_HEIGHT, ""},
+            {DETAILS_THUMBNAIL_TYPE, IMAGE_OPTION_RENDITION},
+            {DETAILS_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE_BADGE},
+            {DETAILS_THUMBNAIL_ID, ""},
+            {DETAILS_THUMBNAIL_LICENSE_INFO, ""},
+            {DETAILS_THUMBNAIL, DEFAULT_IMAGE_BLANK},
     };
 
     //COMPONENT ANALYTICS
@@ -685,6 +729,11 @@
                                         fieldValueString = getTagsAsValues(tagManager, " ", (String[]) fieldValue);
                                     } else {
                                         fieldValueString = StringUtils.join((String[]) fieldValue, ",");
+                                    }
+                                } else {
+                                    //if data-attribute not specified return empty if values array is empty
+                                    if (isEmpty(fieldDataName)) {
+                                        fieldValue = "";
                                     }
                                 }
                             } else {
