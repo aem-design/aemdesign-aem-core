@@ -36,29 +36,36 @@ public class ComponentProperties extends ValueMapDecorator {
 
     public AttrBuilder attr;
 
+    @Override
+    public void putAll(Map<? extends String, ?> map) {
+        if (map != null) {
+            super.putAll(map);
+        }
+    }
     /***
      * put map into existing map
      * @param map new entries
      * @param update update entries, skip if non blank value exist
      */
     public void putAll(Map<? extends String, ?> map, Boolean update) {
-        if (update == null || !update) {
-            //on null or not update do putAll
-            super.putAll(map);
-            return;
-        }
-        for (Entry<? extends String, ?> entry : map.entrySet())
-        {
-            if (update) {
-                if (super.containsKey(entry.getKey())) {
-                    //System.out.println("update: " + entry.getKey() + ", [" + entry.getValue().toString() + "],[" + super.get(entry.getKey(), "") + "]");
-                    //skip if non blank value exist
-                    if (StringUtils.isNotBlank(super.get(entry.getKey(), ""))) {
-                        continue;
+        if (map != null) {
+            if (update == null || !update) {
+                //on null or not update do putAll
+                super.putAll(map);
+                return;
+            }
+            for (Entry<? extends String, ?> entry : map.entrySet()) {
+                if (update) {
+                    if (super.containsKey(entry.getKey())) {
+                        //System.out.println("update: " + entry.getKey() + ", [" + entry.getValue().toString() + "],[" + super.get(entry.getKey(), "") + "]");
+                        //skip if non blank value exist
+                        if (StringUtils.isNotBlank(super.get(entry.getKey(), ""))) {
+                            continue;
+                        }
                     }
                 }
+                super.put(entry.getKey(), entry.getValue());
             }
-            super.put(entry.getKey(), entry.getValue());
         }
     }
 }
