@@ -63,7 +63,7 @@
 
     componentProperties.putAll(processComponentFields(componentProperties,_i18n,_sling), false);
 
-    componentProperties.putAll(processBadgeRequestConfig(componentProperties,_resourceResolver, request), false);
+    componentProperties.putAll(processBadgeRequestConfig(componentProperties,_resourceResolver, request), true);
 
 
 %>
