@@ -1,5 +1,4 @@
 <%@ page import="java.util.Iterator" %>
-<%@ page import="org.apache.commons.lang3.*" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 

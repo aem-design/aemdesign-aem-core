@@ -1,7 +1,4 @@
-<%@ page import="com.day.cq.commons.Externalizer"%>
 <%@ page import="java.util.Iterator" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="java.util.Map" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%

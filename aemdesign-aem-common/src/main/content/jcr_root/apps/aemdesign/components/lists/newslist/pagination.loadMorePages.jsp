@@ -1,8 +1,5 @@
-<%@ page import="com.day.cq.commons.Externalizer"%>
-<%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="java.text.MessageFormat" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/components/lists/list/listData.jsp" %>
