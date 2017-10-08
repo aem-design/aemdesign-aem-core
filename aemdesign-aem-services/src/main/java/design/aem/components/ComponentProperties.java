@@ -1,6 +1,7 @@
 package design.aem.components;
 
 import com.adobe.granite.ui.components.AttrBuilder;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.wrappers.ValueMapDecorator;
 import org.slf4j.Logger;
@@ -59,8 +60,17 @@ public class ComponentProperties extends ValueMapDecorator {
                     if (super.containsKey(entry.getKey())) {
                         //System.out.println("update: " + entry.getKey() + ", [" + entry.getValue().toString() + "],[" + super.get(entry.getKey(), "") + "]");
                         //skip if non blank value exist
-                        if (StringUtils.isNotBlank(super.get(entry.getKey(), ""))) {
-                            continue;
+                        Object value = super.get(entry.getKey());
+                        if (value != null) {
+                            if (value.getClass().isArray()) {
+                                if (ArrayUtils.getLength(value) != 0) {
+                                    continue;
+                                }
+                            } else {
+                                if (StringUtils.isNotBlank((String) value)) {
+                                    continue;
+                                }
+                            }
                         }
                     }
                 }
