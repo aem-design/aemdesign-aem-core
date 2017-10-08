@@ -68,7 +68,7 @@
             getResourceImagePath(_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
             FIELD_PAGE_IMAGE_BACKGROUND));
 
-    componentProperties.putAll(getBadgeRequestConfig(componentProperties,_resourceResolver, request));
+    componentProperties.putAll(processBadgeRequestConfig(componentProperties,_resourceResolver, request));
 
 %>
 
