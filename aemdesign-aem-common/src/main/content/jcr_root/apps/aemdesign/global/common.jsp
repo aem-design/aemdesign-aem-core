@@ -1265,7 +1265,7 @@
      * @param sling sling helper
      * @return html string of output
      */
-    public String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling, Map<String, Object> requestAttribute) {
+    public String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling,  String requestAttributeName, ComponentProperties requestAttributes) {
         if (isEmpty(path) || resourceResolver == null || sling ==null) {
             String error = format(
                     "resourceRenderAsHtml: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
@@ -1274,7 +1274,7 @@
             return "<!--".concat(error).concat("-->");
         }
         try {
-            return resourceRenderAsHtml(path, resourceResolver, sling, null, requestAttribute);
+            return resourceRenderAsHtml(path, resourceResolver, sling, null, requestAttributeName, requestAttributes);
         } catch (SlingException ex) {
             return "<!--resourceRenderAsHtml:".concat(ex.getMessage()).concat("-->");
         }
@@ -1288,7 +1288,7 @@
      * @param mode mode to request resource with
      * @return html string of output
      */
-    public String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling, WCMMode mode, Map<String, Object> requestAttribute) {
+    public String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling, WCMMode mode, String requestAttributeName, ComponentProperties requestAttributes) {
         if (isEmpty(path) || resourceResolver == null || sling ==null) {
             String error = format(
                     "resourceRenderAsHtml: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
@@ -1312,10 +1312,8 @@
                 WCMMode.DISABLED.toRequest(_req);
             }
 
-            if (requestAttribute != null) {
-                for (Map.Entry<String, Object> entry : requestAttribute.entrySet()) {
-                    _req.setAttribute( entry.getKey(), entry.getValue());
-                }
+            if (requestAttributes != null && isNotEmpty(requestAttributeName)) {
+                _req.setAttribute(requestAttributeName,requestAttributes);
             }
 
             final ByteArrayOutputStream _out = new ByteArrayOutputStream();
