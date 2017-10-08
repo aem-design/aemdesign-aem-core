@@ -20,8 +20,7 @@
 
 <a
     href="${componentProperties.pageUrl}"
-    title="${componentProperties.title}"
-    ${componentProperties.componentAttributes}${linkAttr}>
+    title="${componentProperties.title}"${linkAttr}>
     <img src="${componentProperties.pageImageThumbnail}"${imageAttr}
          alt="${componentProperties.title}"
          <c:if test="${not empty componentProperties.pageSecondaryImage}">

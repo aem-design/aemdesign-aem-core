@@ -8,10 +8,10 @@
 <c:choose>
     <c:when test="${not empty componentProperties.pageUrl}">
         <a href="${componentProperties.pageUrl}" title="${componentProperties.title}"${linkAttr}>
-            <i ${componentProperties.componentAttributes} title="${componentProperties.title}"></i>
+            <i class="icon ${fn:join(componentProperties.pageIcon," ")}" title="${componentProperties.title}"></i>
         </a>
     </c:when>
     <c:otherwise>
-        <i ${componentProperties.componentAttributes} title="${componentProperties.title}"></i>
+        <i class="icon ${fn:join(componentProperties.pageIcon," ")}" title="${componentProperties.title}"></i>
     </c:otherwise>
 </c:choose>
