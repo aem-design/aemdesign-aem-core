@@ -70,14 +70,14 @@
                                 <card
                                         jcr:primaryType="nt:unstructured"
                                         value="card"
-                                        text="Card"/>
+                                        text="Card with Image"/>
+                                <cardIcon
+                                        jcr:primaryType="nt:unstructured"
+                                        value="cardIcon"
+                                        text="Card with icon"/>
                             </options>
 
                         </detailsBadge>
-                        <titleType
-                                jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/global/dialog/classic/contentblock/dialog/items/basicTab/items/title/items/titleType.infinity.json"
-                                xtype="cqinclude"/>
                     </items>
                 </listTab>
                 <childrenTab
@@ -144,6 +144,22 @@
                     </items>
 
                 </layout>
+
+                <badgeConfigTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/badge/items/badgeConfigTab.infinity.json"
+                        xtype="cqinclude" />
+
+                <badgeThumbnailTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/images/items/badgeThumbnailTab.infinity.json"
+                        xtype="cqinclude" />
+
+                <badgeThumbnailTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/images/items/badgeThumbnailTabResourceType.infinity.json"
+                        xtype="cqinclude" />
+
                 <styleTab
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
