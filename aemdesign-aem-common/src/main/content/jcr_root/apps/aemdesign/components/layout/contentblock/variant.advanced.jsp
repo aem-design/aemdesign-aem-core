@@ -14,7 +14,7 @@
                             <c:forEach items="${componentProperties.linksLeftList}" var="link">
                                 <c:choose>
                                     <c:when test="${link.titleIconShow and not empty link.titleIcon}">
-                                        <li class="title-icon"><a href="${link.href}"><i class="icon ${link.titleIcon}" title="${link.title}"></i><span class="title">${link.pageNavTitle}</span></a></li>
+                                        <li class="title-icon"><a href="${link.href}"><i class="icon ${fn:join(link.titleIcon, " ")}" title="${link.title}"></i><span class="title">${link.pageNavTitle}</span></a></li>
                                     </c:when>
                                     <c:otherwise>
                                         <li class="title-link"><a href="${link.href}">${link.pageNavTitle}</a></li>
@@ -35,7 +35,7 @@
                             <c:forEach items="${componentProperties.linksRightList}" var="link">
                                 <c:choose>
                                     <c:when test="${link.titleIconShow and not empty link.titleIcon}">
-                                        <li class="title-icon"><a href="${link.href}"><i class="icon ${link.titleIcon}" title="${link.title}"></i><span class="title">${link.pageNavTitle}</span></a></li>
+                                        <li class="title-icon"><a href="${link.href}"><i class="icon ${fn:join(link.titleIcon, " ")}" title="${link.title}"></i><span class="title">${link.pageNavTitle}</span></a></li>
                                     </c:when>
                                     <c:otherwise>
                                         <li class="title-link"><a href="${link.href}">${link.pageNavTitle}</a></li>
