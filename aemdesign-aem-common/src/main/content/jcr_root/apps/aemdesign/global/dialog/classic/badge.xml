@@ -58,7 +58,7 @@
                         jcr:primaryType="cq:Widget"
                         collapsed="{Boolean}true"
                         collapsible="{Boolean}true"
-                        title="Card Config"
+                        title="Card Badge Config"
                         xtype="dialogfieldset">
                     <items jcr:primaryType="cq:WidgetCollection">
                         <cardConfigGroupLabel
@@ -66,8 +66,38 @@
                                 text="Card config used in lists"
                                 xtype="label"/>
 
+                        <cardIconShow jcr:primaryType="cq:Widget"
+                                       fieldLabel="Show Card Icon"
+                                       fieldDescription="show icon instead of page image"
+                                       allowBlank="{Boolean}true"
+                                       name="./cardIconShow"
+                                       options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                       type="select"
+                                       defaultValue=""
+                                       xtype="selection"/>
+
+                        <cardIcon jcr:primaryType="cq:Widget"
+                                   allowBlank="{Boolean}true"
+                                   defaultValue=""
+                                   value=""
+                                   fieldLabel="Card Icon"
+                                   fieldDescription="When showing this page as card badge use this Icon"
+                                   name="./cardIcon"
+                                   namespaces="[component-style]"
+                                   xtype="tags"/>
+
+                        <cardStyle jcr:primaryType="cq:Widget"
+                                   allowBlank="{Boolean}true"
+                                   defaultValue=""
+                                   value=""
+                                   fieldLabel="Card Style"
+                                   fieldDescription="Apply this style to card badge"
+                                   name="./cardStyle"
+                                   namespaces="[component-style]"
+                                   xtype="tags"/>
+
                         <cardSize jcr:primaryType="cq:Widget"
-                                  fieldLabel="Card Size"
+                                  fieldLabel="Card Style"
                                   fieldDescription="this will be used as card size in grids"
                                   allowBlank="{Boolean}true"
                                   name="./cardSize"
@@ -80,16 +110,134 @@
                     </items>
                 </cardConfigGroup>
 
+                <badgeConfigGroup
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}true"
+                        collapsible="{Boolean}true"
+                        title="General Badge Config"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <badgeConfigGroupLabel
+                                jcr:primaryType="cq:Widget"
+                                text="Config used in badges"
+                                xtype="label"/>
+
+                        <badgeTitleType jcr:primaryType="cq:Widget"
+                                        fieldLabel="Badge Title Type"
+                                        fieldDescription="which paragraph tag to use for Badge Title display"
+                                        allowBlank="{Boolean}true"
+                                        name="./badgeTitleType"
+                                        options="/etc/tags/component-dialog/html/heading.valuelist.json"
+                                        type="select"
+                                        defaultValue=""
+                                        value=""
+                                        xtype="selection"/>
+
+                        <badgeLinkShow
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Show Card CTA"
+                                fieldDescription="show a link at the end of text summary pointing to the article"
+                                options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                name="./badgeLinkShow"
+                                type="select"
+                                xtype="selection"/>
+                        <badgeLinkTarget jcr:primaryType="cq:Widget"
+                                fieldLabel="Card CTA Target"
+                                fieldDescription="how should the link of items behave when clicked"
+                                allowBlank="{Boolean}true"
+                                name="./badgeLinkTarget"
+                                options="/etc/tags/component-dialog/html/linktarget.valuelist.json"
+                                type="select"
+                                defaultValue=""
+                                xtype="selection"/>
+                        <badgeLinkText
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Card CTA Text"
+                                fieldDescription="shows as a link visible text"
+                                name="./badgeLinkText"
+                                xtype="textfield"/>
+                        <badgeLinkTitle
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Card CTA Title"
+                                fieldDescription="shows as a link alt title"
+                                name="./badgeLinkTitle"
+                                xtype="textfield"/>
+
+
+
+                        <badgeTitleTrim
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Title Trim"
+                                fieldDescription="apply trim on Title field"
+                                options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                name="./badgeTitleTrim"
+                                type="select"
+                                xtype="selection"/>
+                        <badgeTitleTrimLengthMax
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Title Max Length"
+                                fieldDescription="crop Title text after this many characters"
+                                name="./badgeTitleTrimLengthMax"
+                                xtype="numberfield"/>
+                        <badgeTitleTrimLengthMaxSuffix
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Title Max Length Suffix"
+                                fieldDescription="add the following text as suffix when cropping Title"
+                                name="./badgeTitleTrimLengthMaxSuffix"
+                                xtype="textfield"/>
+                        <badgeSummaryTrim
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Summary Trim"
+                                fieldDescription="apply trim on Summary field"
+                                options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                name="./badgeSummaryTrim"
+                                type="select"
+                                xtype="selection"/>
+                        <badgeSummaryLengthMax
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Summary Max Length"
+                                fieldDescription="crop Summary text after this many characters"
+                                name="./badgeSummaryLengthMax"
+                                xtype="numberfield"/>
+                        <badgeSummaryLengthMaxSuffix
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Summary Max Length Suffix"
+                                fieldDescription="add the following text as suffix when cropping Summary"
+                                name="./badgeSummaryLengthMaxSuffix"
+                                xtype="textfield"/>
+                        <badgeOverlayIconShow
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                value=""
+                                allowBlank="{Boolean}true"
+                                fieldLabel="Display Overlay Icon"
+                                options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                name="./badgeOverlayIconShow"
+                                type="select"
+                                xtype="selection"/>
+
+                    </items>
+                </badgeConfigGroup>
+
                 <iconConfigGroup
                         jcr:primaryType="cq:Widget"
                         collapsed="{Boolean}true"
                         collapsible="{Boolean}true"
-                        title="Icon Config"
+                        title="Icon Badge Config"
                         xtype="dialogfieldset">
                     <items jcr:primaryType="cq:WidgetCollection">
                         <iconConfigGroupLabel
                                 jcr:primaryType="cq:Widget"
-                                text="General icon for use in badges and other components"
+                                text="General icon for use in Icon Badge and other components"
                                 xtype="label"/>
 
 
@@ -106,7 +254,7 @@
                     </items>
                 </iconConfigGroup>
 
-                <overlayConfigGroup
+                <imageConfigGroup
                         jcr:primaryType="cq:Widget"
                         title="Overlay Configuration"
                         collapsed="{Boolean}true"
@@ -115,32 +263,88 @@
                     <items jcr:primaryType="cq:WidgetCollection">
                         <overlayConfigGroupLabel
                                 jcr:primaryType="cq:Widget"
-                                text="Overlay icon to show in Image or Card Badge or other components"
+                                text="Overlay icon to show in Card Badge or other components"
                                 xtype="label"/>
 
-                        <overlayIconShow jcr:primaryType="cq:Widget"
-                                         fieldLabel="Show Overlay Icon"
-                                         fieldDescription="show overlay icon on image"
-                                         allowBlank="{Boolean}true"
-                                         name="./overlayIconShow"
-                                         options="/etc/tags/component-dialog/common/true-false.valuelist.json"
-                                         type="select"
-                                         defaultValue=""
-                                         xtype="selection"/>
-
-                        <overlayIcon jcr:primaryType="cq:Widget"
-                                     allowBlank="{Boolean}true"
-                                     defaultValue=""
-                                     value=""
-                                     fieldLabel="Overlay Icon"
-                                     fieldDescription="When showing this page in a list show this icon for overlay"
-                                     name="./overlayIcon"
-                                     namespaces="[component-style]"
-                                     xtype="tags"/>
 
 
                     </items>
-                </overlayConfigGroup>
+                </imageConfigGroup>
+
+                <thumbnailConfig
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}true"
+                        collapsible="{Boolean}true"
+                        title="Thumbnail Config"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+
+                        <badgeThumbnailType jcr:primaryType="cq:Widget"
+                                            fieldLabel="Thumbnail Image Option"
+                                            allowBlank="{Boolean}true"
+                                            name="./badgeThumbnailType"
+                                            type="select"
+                                            defaultValue=""
+                                            value=""
+                                            xtype="selection">
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default
+                                        jcr:primaryType="nt:unstructured"
+                                        value=""
+                                        text="Default"/>
+                                <!--<generated-->
+                                <!--jcr:primaryType="nt:unstructured"-->
+                                <!--value="generated"-->
+                                <!--selectTab="imageConfig"-->
+                                <!--text="Generate: generate new image with current image edits" />-->
+                                <rendition
+                                        jcr:primaryType="nt:unstructured"
+                                        value="rendition"
+                                        selectTab="imageConfig"
+                                        text="Rendition: pick a suitable image rendition" />
+                                <!--<responsive-->
+                                <!--jcr:primaryType="nt:unstructured"-->
+                                <!--value="responsive"-->
+                                <!--selectTab="responsiveConfig"-->
+                                <!--text="Responsive: use existing renditions"/>-->
+                                <!--<adaptive-->
+                                <!--jcr:primaryType="nt:unstructured"-->
+                                <!--value="adaptive"-->
+                                <!--selectTab="adaptiveConfig"-->
+                                <!--text="Adaptive: generate new renditions with quality settings for each breakpoint"/>-->
+                            </options>
+                        </badgeThumbnailType>
+
+                        <badgeThumbnailSize
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Icon Size (w,h)"
+                                fieldDescription="blank values are not added as attributes"
+                                heightParameter="./badgeThumbnailHeight"
+                                widthParameter="./badgeThumbnailWidth"
+                                xtype="sizefield"/>
+
+                        <badgeOverlayIconShow jcr:primaryType="cq:Widget"
+                                              fieldLabel="Show Overlay Icon"
+                                              fieldDescription="show overlay icon on image"
+                                              allowBlank="{Boolean}true"
+                                              name="./badgeOverlayIconShow"
+                                              options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                              type="select"
+                                              defaultValue=""
+                                              xtype="selection"/>
+
+                        <badgeOverlayIcon jcr:primaryType="cq:Widget"
+                                          allowBlank="{Boolean}true"
+                                          defaultValue=""
+                                          value=""
+                                          fieldLabel="Overlay Icon"
+                                          fieldDescription="When showing this page in a list show this icon for overlay"
+                                          name="./badgeOverlayIcon"
+                                          namespaces="[component-style]"
+                                          xtype="tags"/>
+
+                    </items>
+                </thumbnailConfig>
 
                 <menuConfigGroup
                         jcr:primaryType="cq:Widget"
