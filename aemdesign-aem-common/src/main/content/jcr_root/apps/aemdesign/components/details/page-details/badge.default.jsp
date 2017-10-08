@@ -8,4 +8,4 @@
 <a href="${componentProperties.pageUrl}" title="${componentProperties.title}"${linkAttr}>
     <c:if test="${componentProperties.titleIconShow and fn:length(componentProperties.titleIcon) > 0}">
         <i class="${fn:join(componentProperties.titleIcon," ")}" title="${componentProperties.pageNavTitle}"></i>
-    </c:if>${componentProperties.pageNavTitle}</a>
+    </c:if><span class="title">${componentProperties.pageNavTitle}</span></a>
