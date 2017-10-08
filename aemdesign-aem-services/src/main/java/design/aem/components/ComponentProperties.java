@@ -67,7 +67,7 @@ public class ComponentProperties extends ValueMapDecorator {
                                     continue;
                                 }
                             } else {
-                                if (StringUtils.isNotBlank((String) value)) {
+                                if (StringUtils.isNotBlank(value.toString())) {
                                     continue;
                                 }
                             }
