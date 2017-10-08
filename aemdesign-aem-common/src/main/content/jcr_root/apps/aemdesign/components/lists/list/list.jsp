@@ -8,6 +8,7 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/i18n.jsp" %>
+<%@ include file="/apps/aemdesign/global/component-details.jsp" %>
 <%@ include file="init.jsp"  %>
 <%@ include file="listData.jsp" %>
 <%
@@ -26,24 +27,7 @@
         {"tags", new String[]{},"data-search-tags", Tag.class.getCanonicalName()},
         {"orderBy", ""},
         {"detailsBadge", DEFAULT_BADGE},
-        {"listItemShowLink", false},
-        {"listItemLinkTarget", "_blank"},
-        {"listItemLinkText", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TEXT,DEFAULT_I18N_CATEGORY,_i18n)},
-        {"listItemLinkTitle", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TITLE,DEFAULT_I18N_CATEGORY,_i18n)},
-        {"listItemTitleTrim", false /*trim title up to a max length and add suffix*/},
-        {"listItemTitleLengthMax", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_TITLE_LENGTH_MAX,DEFAULT_I18N_CATEGORY,_i18n)},
-        {"listItemTitleLengthMaxSuffix", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_TITLE_LENGTH_MAX_SUFFIX,DEFAULT_I18N_CATEGORY,_i18n)},
-        {"listItemSummaryTrim", false /*trim summary up to a max length and add suffix*/},
-        {"listItemSummaryLengthMax", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_SUMMARY_LENGTH_MAX,DEFAULT_I18N_CATEGORY,_i18n)},
-        {"listItemSummaryLengthMaxSuffix", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_SUMMARY_LENGTH_MAX_SUFFIX,DEFAULT_I18N_CATEGORY,_i18n)},
-        {"listItemShowOverlayIcon", false},
-        {"listItemShowRedirectIcon", false},
         {"printStructure", DEFAULT_PRINT_STRUCTURE},
-        {BADGE_TITLE_TAG_TYPE, "h3"},
-        {BADGE_THUMBNAIL_TYPE, "rendition"},
-        {BADGE_THUMBNAIL_WIDTH, 319},
-        {BADGE_THUMBNAIL_HEIGHT, ""},
-        {FIELD_TITLE_TAG_TYPE,DEFAULT_TITLE_TYPE},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -77,41 +61,49 @@
     }
 
     //prepare request parms to pass to badges
-    Map<String, Object> badgeRequestAttributes = new HashMap<>();
-    badgeRequestAttributes.put(BADGE_THUMBNAIL_DEFAULT,DEFAULT_IMAGE_BLANK);
-    if (_resourceResolver.resolve(DEFAULT_BADGETHUMBNAIL_IMAGE_NODE_NAME) != null) {
+    ComponentProperties badgeRequestAttributes = getComponentProperties(
+            pageContext,
+            DEFAULT_FIELDS_DETAILS_OPTIONS);
+
+    badgeRequestAttributes.put(DETAILS_THUMBNAIL,DEFAULT_IMAGE_BLANK);
+    if (_resourceResolver.resolve(badgeRequestAttributes.get(DETAILS_THUMBNAIL,"")) != null) {
         badgeRequestAttributes.putAll(getAssetInfo(_resourceResolver,
-                getResourceImagePath(_resource, DEFAULT_BADGETHUMBNAIL_IMAGE_NODE_NAME),
-                BADGE_THUMBNAIL_DEFAULT));
+                getResourceImagePath(_resource, DETAILS_THUMBNAIL),
+                DETAILS_THUMBNAIL));
     }
-    badgeRequestAttributes.put(BADGE_THUMBNAIL_WIDTH,componentProperties.get(BADGE_THUMBNAIL_WIDTH));
-    badgeRequestAttributes.put(BADGE_THUMBNAIL_HEIGHT,componentProperties.get(BADGE_THUMBNAIL_HEIGHT));
-    badgeRequestAttributes.put(BADGE_THUMBNAIL_TYPE,componentProperties.get(BADGE_THUMBNAIL_TYPE));
-    badgeRequestAttributes.put(BADGE_TITLE_TAG_TYPE,componentProperties.get(BADGE_TITLE_TAG_TYPE));
 
-    request.setAttribute("badgeRequestAttributes", badgeRequestAttributes);
+    request.setAttribute(BADGE_REQUEST_ATTRIBUTES, badgeRequestAttributes);
 
 
-    request.setAttribute("componentProperties", componentProperties);
+    request.setAttribute(COMPONENT_PROPERTIES, componentProperties);
 
 %>
 
-<!--componentProperties: ${componentProperties} -->
-<!--badgeRequestAttributes: ${badgeRequestAttributes} -->
+<!--list componentProperties: ${componentProperties} -->
+<!--list badgeRequestAttributes: ${badgeRequestAttributes} -->
 
 <%--LIST START--%>
-<c:if test="${componentProperties.printStructure}">
-<div ${componentProperties.componentAttributes}>
+<c:catch var="exception">
+    <cq:include script="list-start.jsp" />
+</c:catch>
+<c:if test="${ exception != null }">
+    <p class="cq-error">List start error<br>${exception.message}<br>${exception.stackTrace}</p>
 </c:if>
 
 <%--LIST FEED LINK--%>
-<c:if test="${componentProperties.feedEnabled}" >
-    <link rel="alternate" type="${componentProperties.feedType}" title="${componentProperties.feedTitle}" href="${componentProperties.feedUrl}" />
+<c:catch var="exception">
+    <cq:include script="list-feed.jsp" />
+</c:catch>
+<c:if test="${ exception != null }">
+    <p class="cq-error">List feed error<br>${exception.message}<br>${exception.stackTrace}</p>
 </c:if>
 
-<%--LIST CONTENT--%>
-<c:if test="${componentProperties.printStructure}">
-<div class="content">
+<%--LIST CONTENT START--%>
+<c:catch var="exception">
+    <cq:include script="list-content-start.jsp" />
+</c:catch>
+<c:if test="${ exception != null }">
+    <p class="cq-error">List content start error<br>${exception.message}<br>${exception.stackTrace}</p>
 </c:if>
 
 <%--LIST BODY CONFIG--%>
@@ -130,24 +122,28 @@
     <p class="cq-error">List body error<br>${exception.message}<br>${exception.stackTrace}</p>
 </c:if>
 
-<c:if test="${componentProperties.printStructure}">
-</div>
+<%--LIST CONTENT END--%>
+<c:catch var="exception">
+    <cq:include script="list-content-end.jsp" />
+</c:catch>
+<c:if test="${ exception != null }">
+    <p class="cq-error">List content end error<br>${exception.message}<br>${exception.stackTrace}</p>
 </c:if>
 
 <%--LIST PAGINATION--%>
-<c:if test="${componentProperties.isPaginating}">
-
-    <c:catch var="exception">
-        <cq:include script="pagination.jsp" />
-    </c:catch>
-    <c:if test="${not empty exception}">
-        <p class="cq-error">List pagination error<br/>${exception.message}<br/>${exception.stackTrace}</p>
-    </c:if>
-
+<c:catch var="exception">
+    <cq:include script="pagination.jsp" />
+</c:catch>
+<c:if test="${not empty exception}">
+    <p class="cq-error">List pagination error<br/>${exception.message}<br/>${exception.stackTrace}</p>
 </c:if>
 
 <%--LIST END--%>
-<c:if test="${componentProperties.printStructure}">
-</div>
+<c:catch var="exception">
+    <cq:include script="list-end.jsp" />
+</c:catch>
+<c:if test="${ exception != null }">
+    <p class="cq-error">List end error<br>${exception.message}<br>${exception.stackTrace}</p>
 </c:if>
+
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>

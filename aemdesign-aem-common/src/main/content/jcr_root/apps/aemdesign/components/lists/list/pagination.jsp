@@ -1,5 +1,7 @@
-<%@ page session="false"  import="com.day.cq.wcm.foundation.List" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
+
+<c:if test="${componentProperties.isPaginating}">
+
 <%
 
     com.day.cq.wcm.foundation.List list = (com.day.cq.wcm.foundation.List) request.getAttribute("list");
@@ -17,6 +19,7 @@
     if ( pageMax != -1 && list.isEmpty() == false && (totalSize - pageNumber * pageMax) > 0) {
 %>
 
+
     <c:catch var="exception">
         <% //disableEditMode(_componentContext, IncludeOptions.getOptions(request, true) , _slingRequest); %>
         <cq:include script="<%=script%>" />
@@ -30,3 +33,5 @@
 <%
     }
 %>
+
+</c:if>
