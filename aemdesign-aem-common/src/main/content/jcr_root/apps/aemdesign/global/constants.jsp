@@ -9,6 +9,9 @@
      * WARNING: DO NOT ADD CONSTANT THAT ARE ALREADY DEFINED HERE
      *
      * http://dev.day.com/docs/en/cq/current/javadoc/constant-values.html
+     * https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/constant-values.html
+     * https://docs.adobe.com/docs/en/aem/6-3/develop/ref/javadoc/constant-values.html
+     * https://helpx.adobe.com/aem-forms/6-3/javadocs/constant-values.html
      *
      *
      */
@@ -46,7 +49,7 @@
     /**
      * the css prefix for the column classes
      */
-    private String defaultLayout = "1;col-md-,12";
+    private static String defaultLayout = "1;col-md-,12";
 
 
     /**
@@ -88,6 +91,18 @@
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_TEXT =
             "<span class=\"cq-text-placeholder-ipe\">&para;</span>";
 
+    private static final String DEFAULT_IMAGE_BLANK = "/libs/cq/ui/resources/0.gif"; // /etc/designs/default/0.gif
+
+    private static final int DEFAULT_THUMB_WIDTH_XSM = 140;
+    private static final int DEFAULT_THUMB_WIDTH_SM = 319;
+    private static final int DEFAULT_THUMB_WIDTH_MD = 800;
+    private static final int DEFAULT_THUMB_WIDTH_LG = 1280;
+    private static final int DEFAULT_THUMB_WIDTH_XLG = 1600;
+    private static final int DEFAULT_THUMB_WIDTH_XXLG = 1900;
+
+    private static final String DEFAULT_TITLE_TAG_TYPE_BADGE = "h3";
+    private static final String DEFAULT_SUMMARY_TRIM_SUFFIX = "...";
+    private static final int DEFAULT_SUMMARY_TRIM_LENGTH = 50;
 
 
     public static final String SITE_INCLUDE = "siteinclude";
@@ -110,15 +125,6 @@
     public static final String FIELD_PAGE_TITLE_NAV = "pageNavTitle";
 
 
-    public static final String BADGE_THUMBNAIL_WIDTH = "badgeThumbnailWidth";
-    public static final String BADGE_THUMBNAIL_HEIGHT = "badgeThumbnailHeight";
-    public static final String BADGE_THUMBNAIL_TYPE = "badgeThumbnailType";
-    public static final String BADGE_THUMBNAIL_DEFAULT = "badgeThumbnailDefault";
-    public static final String BADGE_TITLE_TAG_TYPE = "badgeTitleType";
-    public static final String BADGE_THUMBNAIL_ID = "badgeThumbnailId";
-    public static final String BADGE_THUMBNAIL_LICENSE_INFO = "badgeThumbnailLicenseInfo";
-
-
     public static final String INHERITED_RESOURCE = "inheritedResource";
 
     public static final String DEFAULT_VALUE_STRING_NOT_FOUND = "";
@@ -129,6 +135,10 @@
     private final static String IMAGE_OPTION_RENDITION = "rendition";
     private final static String IMAGE_OPTION_RESPONSIVE = "responsive";
     private final static String IMAGE_OPTION_ADAPTIVE = "adaptive";
+
+
+    private final static String BADGE_REQUEST_ATTRIBUTES = "badgeRequestAttributes";
+    private final static String COMPONENT_PROPERTIES = "componentProperties";
 
 
 
