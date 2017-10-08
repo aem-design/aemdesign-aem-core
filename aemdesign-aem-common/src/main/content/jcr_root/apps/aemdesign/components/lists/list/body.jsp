@@ -45,12 +45,13 @@
                     }
                     String detailsPath = findComponentInPage((Page)request.getAttribute("listItem"),listLookForDetailComponent);
                     String componentPath = detailsPath+".badge."+request.getAttribute("listItemBadge");
-                    Map<String, Object> badgeRequestAttributes = (Map<String, Object>)request.getAttribute("badgeRequestAttributes");
+                    ComponentProperties badgeRequestAttributes = (ComponentProperties)request.getAttribute(BADGE_REQUEST_ATTRIBUTES);
                 %>
                 <%=resourceRenderAsHtml(
                         componentPath,
                         _resourceResolver,
                         _sling,
+                        BADGE_REQUEST_ATTRIBUTES,
                         badgeRequestAttributes)
                 %>
             </c:catch>
