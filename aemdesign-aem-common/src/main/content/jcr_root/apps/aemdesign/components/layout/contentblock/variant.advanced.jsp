@@ -13,14 +13,11 @@
                             </c:if>
                             <c:forEach items="${componentProperties.linksLeftList}" var="link">
                                 <c:choose>
-                                    <c:when test="${link.showAsTitleIcon == true}">
-                                        <li class="title-icon"><a href="${link.href}"><img class="page-icon" src="${link.showAsTitleIconPath}" title="${link.title}"/></a></li>
-                                    </c:when>
-                                    <c:when test="${not empty link.showAsTitleIconPath}">
-                                        <li class="title-link"><a href="${link.href}"><img class="page-icon" src="${link.showAsTitleIconPath}" title="${link.title}"/>${link.title}</a></li>
+                                    <c:when test="${link.titleIconShow and not empty link.titleIcon}">
+                                        <li class="title-icon"><a href="${link.href}"><i class="icon ${link.titleIcon}" title="${link.title}"></i><span class="title">${link.pageNavTitle}</span></a></li>
                                     </c:when>
                                     <c:otherwise>
-                                        <li class="title-link"><a href="${link.href}">${link.title}</a></li>
+                                        <li class="title-link"><a href="${link.href}">${link.pageNavTitle}</a></li>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
@@ -37,14 +34,11 @@
                             </c:if>
                             <c:forEach items="${componentProperties.linksRightList}" var="link">
                                 <c:choose>
-                                    <c:when test="${link.showAsTitleIcon}">
-                                        <li class="title-icon"><a href="${link.href}"><img class="page-icon" src="${link.showAsTitleIconPath}" title="${link.title}"/></a></li>
-                                    </c:when>
-                                    <c:when test="${not empty link.showAsTitleIconPath}">
-                                        <li class="title-link"><a href="${link.href}"><img class="page-icon" src="${link.showAsTitleIconPath}" title="${link.title}"/>${link.title}</a></li>
+                                    <c:when test="${link.titleIconShow and not empty link.titleIcon}">
+                                        <li class="title-icon"><a href="${link.href}"><i class="icon ${link.titleIcon}" title="${link.title}"></i><span class="title">${link.pageNavTitle}</span></a></li>
                                     </c:when>
                                     <c:otherwise>
-                                        <li class="title-link"><a href="${link.href}">${link.title}</a></li>
+                                        <li class="title-link"><a href="${link.href}">${link.pageNavTitle}</a></li>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
