@@ -219,6 +219,65 @@
         </imageOverlayTabResourceType>
 
 
+
+
+        <badgeThumbnailTab
+                jcr:primaryType="cq:Widget"
+                allowUpload="{Boolean}false"
+                name="./badgeThumbnail/file"
+                title="Default Badge Thumbnail"
+                ddGroups="[media]"
+                cropParameter="./badgeThumbnail/imageCrop"
+                fileNameParameter="./badgeThumbnail/fileName"
+                fileReferenceParameter="./badgeThumbnail/fileReference"
+                rotateParameter="./badgeThumbnail/imageRotate"
+                mapParameter="./badgeThumbnail/imageMap"
+                xtype="html5smartimage">
+            <cropConfig jcr:primaryType="nt:unstructured">
+                <aspectRatios jcr:primaryType="nt:unstructured">
+                    <freehand
+                            jcr:primaryType="nt:unstructured"
+                            value="0,0"
+                            text="Free hand"/>
+                    <twobythree
+                            jcr:primaryType="nt:unstructured"
+                            value="2,3"
+                            text="2 x 3"/>
+                    <threebyfive
+                            jcr:primaryType="nt:unstructured"
+                            value="3,5"
+                            text="3 x 5"/>
+                    <sixteenbynine
+                            jcr:primaryType="nt:unstructured"
+                            value="16,9"
+                            text="16 x 9"/>
+                    <square
+                            jcr:primaryType="nt:unstructured"
+                            value="1,1"
+                            text="Square"/>
+                </aspectRatios>
+            </cropConfig>
+        </badgeThumbnailTab>
+
+        <badgeThumbnailTabResourceType
+                jcr:primaryType="cq:Panel"
+                title="Thumbnail Image Metadata"
+                fieldDescription="Thumbnail Image Metadata additional fields for saving content of Background Image"
+                xtype="panel">
+            <listeners
+                    jcr:primaryType="nt:unstructured"
+                    render="function() { AEMDESIGN.dialog.hideTab(this, this.findParentByType('dialog').findByType('tabpanel')[0]); }"/>
+            <items jcr:primaryType="cq:WidgetCollection">
+                <imageBackgroundTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        ignoreData="{Boolean}true"
+                        name="./badgeThumbnail/sling:resourceType"
+                        value="aemdesign/components/media/image"
+                        xtype="textfield"/>
+            </items>
+        </badgeThumbnailTabResourceType>
+
+
     </items>
 
 </jcr:root>
