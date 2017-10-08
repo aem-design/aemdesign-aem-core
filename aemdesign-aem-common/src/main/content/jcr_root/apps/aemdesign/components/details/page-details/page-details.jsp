@@ -61,15 +61,20 @@
 
     componentProperties.put(FIELD_REDIRECT_TARGET,_pageProperties.get(FIELD_REDIRECT_TARGET,""));
 
-    componentProperties.putAll(processComponentFields(componentProperties,_i18n,_sling));
+    componentProperties.putAll(processComponentFields(componentProperties,_i18n,_sling), false);
 
-    componentProperties.putAll(getBadgeRequestConfig(componentProperties,_resourceResolver, request));
+    componentProperties.putAll(processBadgeRequestConfig(componentProperties,_resourceResolver, request), false);
+
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
     <c:when test="${COMPONENT_BADGE eq 'badge.card'}">
         <%@ include file="badge.card.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIcon'}">
+        <%@ include file="badge.cardIcon.jsp" %>
     </c:when>
 
     <c:when test="${COMPONENT_BADGE eq 'badge.icon'}">
