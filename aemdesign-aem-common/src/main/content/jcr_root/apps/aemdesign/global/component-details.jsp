@@ -118,37 +118,45 @@
      * @param request
      * @return
      */
-    public Map getBadgeRequestConfig(ComponentProperties componentProperties, ResourceResolver resourceResolver, HttpServletRequest request) {
-        Map badgeConfig = new HashMap();
+    public ComponentProperties processBadgeRequestConfig(ComponentProperties componentProperties, ResourceResolver resourceResolver, HttpServletRequest request) {
 
-        //get primary image
-        String pageImagePath = componentProperties.get(FIELD_PAGE_IMAGE,"");
+        ComponentProperties badgeConfig = (ComponentProperties)request.getAttribute(BADGE_REQUEST_ATTRIBUTES);
 
-        String badgeThumbnailDefault = (String)request.getAttribute(BADGE_THUMBNAIL_DEFAULT);
-        if (badgeThumbnailDefault != null) {
+        String pageImagePath = componentProperties.get(FIELD_PAGE_IMAGE, "");
+
+        String badgeThumbnailType = componentProperties.get(FIELD_PAGE_IMAGE, IMAGE_OPTION_RENDITION);
+        int badgeThumbnailWidth = componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM);
+        String badgeThumbnailDefault = componentProperties.get(DETAILS_THUMBNAIL,DEFAULT_IMAGE_BLANK);
+
+        if (badgeConfig != null) {
+            //get primary image
+
+            //check if page image is not set and use passed params if any
+            badgeThumbnailDefault = badgeConfig.get(DETAILS_THUMBNAIL,badgeThumbnailDefault);
+
+            //set default straight away
+            badgeConfig.put(DETAILS_THUMBNAIL, badgeThumbnailDefault);
             badgeConfig.put(FIELD_PAGE_IMAGE_THUMBNAIL, badgeThumbnailDefault);
+
             if (isEmpty(pageImagePath)) {
                 badgeConfig.put(FIELD_PAGE_IMAGE, badgeThumbnailDefault);
             }
+
+            badgeThumbnailType = badgeConfig.get(DETAILS_THUMBNAIL_TYPE,badgeThumbnailType);
+            badgeThumbnailWidth = badgeConfig.get(DETAILS_THUMBNAIL_WIDTH,badgeThumbnailWidth);
+
+
         }
 
-        String badgeThumbnailType = (String)request.getAttribute(BADGE_THUMBNAIL_TYPE);
-        if (badgeThumbnailType != null) {
-            badgeConfig.put(FIELD_THUMBNAIL_TYPE, badgeThumbnailType);
-        }
 
-        Object badgeThumbnailWidth = request.getAttribute(BADGE_THUMBNAIL_WIDTH);
-        if (badgeThumbnailWidth != null) {
-            badgeConfig.put(FIELD_THUMBNAIL_WIDTH, badgeThumbnailWidth);
+        if (isNotEmpty(pageImagePath)) {
+            Resource pageImage = resourceResolver.resolve(pageImagePath);
 
-            if (isNotEmpty(pageImagePath)) {
-                Resource pageImage = resourceResolver.resolve(pageImagePath);
+            if (pageImage != null) {
+                com.adobe.granite.asset.api.Asset pageImageAsset = pageImage.adaptTo(com.adobe.granite.asset.api.Asset.class);
+                if (pageImageAsset != null) {
 
-                if (pageImage != null) {
-                    com.adobe.granite.asset.api.Asset pageImageAsset = pageImage.adaptTo(com.adobe.granite.asset.api.Asset.class);
-                    if (pageImageAsset != null) {
-                        getLogger().error("getBadgeRequestConfig: " + badgeThumbnailType);
-                        switch (badgeThumbnailType) {
+                    switch (badgeThumbnailType) {
 //                    case IMAGE_OPTION_GENERATED:
 //                        String imageHref = "";
 //                        Long lastModified = getLastModified(_resource);
@@ -174,42 +182,19 @@
 //                        componentProperties.put(FIELD_RENDITIONS, responsiveImageSet);
 //
 //                        break;
-                            case IMAGE_OPTION_RENDITION:
-                                int badgeThumbnailWidthInt = tryParseInt(badgeThumbnailWidth.toString(), 319);
-                                com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(badgeThumbnailWidthInt, pageImageAsset);
-                                if (bestRendition != null) {
-                                    badgeConfig.put(FIELD_PAGE_IMAGE_THUMBNAIL, bestRendition.getPath());
-                                }
-                                break;
-                            default: //IMAGE_OPTION_RENDITION
-                                break;
-                        }
+                        case IMAGE_OPTION_RENDITION:
+                            com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(badgeThumbnailWidth, pageImageAsset);
+                            if (bestRendition != null) {
+                                badgeConfig.put(FIELD_PAGE_IMAGE_THUMBNAIL, bestRendition.getPath());
+                            }
+                            break;
+                        default: //IMAGE_OPTION_RENDITION
+                            break;
                     }
                 }
             }
         }
-
-        Object badgeThumbnailHeight = request.getAttribute(BADGE_THUMBNAIL_HEIGHT);
-        if (badgeThumbnailHeight != null) {
-            badgeConfig.put(FIELD_THUMBNAIL_HEIGHT, badgeThumbnailHeight);
-        }
-
-        String badgeTitleType = (String)request.getAttribute(BADGE_TITLE_TAG_TYPE);
-        if (badgeTitleType != null) {
-            badgeConfig.put(FIELD_TITLE_TAG_TYPE, badgeTitleType);
-        }
-
-        String badgeThumbnailId = (String)request.getAttribute(BADGE_THUMBNAIL_ID);
-        if (badgeThumbnailId != null) {
-            badgeConfig.put(FIELD_PAGE_IMAGE_ID, badgeThumbnailId);
-        }
-
-        String badgeThumbnailLicenseInfo = (String)request.getAttribute(BADGE_THUMBNAIL_LICENSE_INFO);
-        if (badgeThumbnailLicenseInfo != null) {
-            badgeConfig.put(FIELD_PAGE_IMAGE_LICENSE_INFO, badgeThumbnailLicenseInfo);
-        }
         return badgeConfig;
     }
-
 
 %>
