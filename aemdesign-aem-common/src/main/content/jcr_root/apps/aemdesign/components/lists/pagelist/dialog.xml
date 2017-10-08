@@ -14,72 +14,8 @@
             <items jcr:primaryType="cq:WidgetCollection">
                 <listTab
                         jcr:primaryType="cq:Widget"
-                        title="Page List"
-                        name="listTab"
-                        xtype="panel">
-                    <listeners
-                            jcr:primaryType="nt:unstructured"
-                            render="function() { this.findParentByType('dialog').includeTab(this); }"/>
-                    <items jcr:primaryType="cq:WidgetCollection">
-                        <listFrom
-                                jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/listTab/items/listFrom.infinity.json"
-                                xtype="cqinclude"/>
-                        <orderBy
-                                jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/listTab/items/orderBy.infinity.json"
-                                xtype="cqinclude"/>
-                        <limit
-                                jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/listTab/items/limit.infinity.json"
-                                xtype="cqinclude"/>
-                        <pagination
-                                jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/listTab/items/pagination.infinity.json"
-                                xtype="cqinclude"/>
-                        <paginationType
-                                jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/listTab/items/paginationType.infinity.json"
-                                xtype="cqinclude"/>
-                        <listType
-                                jcr:primaryType="cq:Widget"
-                                path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/listTab/items/listType.infinity.json"
-                                xtype="cqinclude"/>
-                        <detailsBadge
-                                jcr:primaryType="cq:Widget"
-                                defaultValue=""
-                                fieldLabel="Use Badge"
-                                fieldDescripton="Which badge to select from the Details component on the page"
-                                name="./detailsBadge"
-                                type="select"
-                                xtype="selection">
-
-                            <options jcr:primaryType="cq:WidgetCollection">
-                                <default
-                                        jcr:primaryType="nt:unstructured"
-                                        value="image"
-                                        text="Default"/>
-                                <icon
-                                        jcr:primaryType="nt:unstructured"
-                                        value="icon"
-                                        text="Icon"/>
-                                <image
-                                        jcr:primaryType="nt:unstructured"
-                                        value="image"
-                                        text="Image"/>
-                                <card
-                                        jcr:primaryType="nt:unstructured"
-                                        value="card"
-                                        text="Card with Image"/>
-                                <cardIcon
-                                        jcr:primaryType="nt:unstructured"
-                                        value="cardIcon"
-                                        text="Card with icon"/>
-                            </options>
-
-                        </detailsBadge>
-                    </items>
-                </listTab>
+                        path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/listTab.infinity.json"
+                        xtype="cqinclude"/>
                 <childrenTab
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/childrenTab.infinity.json"
@@ -105,45 +41,10 @@
                         path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/querybuilderTab.infinity.json"
                         xtype="cqinclude"/>
 
-                <!--<advancedTab
+                <listConfigTab
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/advancedTab.infinity.json"
-                        xtype="cqinclude"/>-->
-                <layout
-                        jcr:primaryType="cq:Widget"
-                        title="Layout"
-                        xtype="panel">
-                    <items jcr:primaryType="cq:WidgetCollection">
-                         <variant
-                                jcr:primaryType="cq:Widget"
-                                allowBlank="{Boolean}true"
-                                defaultValue=""
-                                value=""
-                                fieldLabel="Variant"
-                                name="./variant"
-                                type="select"
-                                xtype="selection">
-                            <options jcr:primaryType="cq:WidgetCollection">
-
-                                <default
-                                        jcr:primaryType="nt:unstructured"
-                                        value=""
-                                        text="" />
-                            </options>
-                        </variant>
-                        <printStructure jcr:primaryType="cq:Widget"
-                                        fieldLabel="Print List Structure"
-                                        fieldDescription="Don't print structure of the list, omit (OL/UL and LI tags)"
-                                        allowBlank="{Boolean}true"
-                                        name="./printStructure"
-                                        options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                        type="select"
-                                        defaultValue=""
-                                        value=""
-                                        xtype="selection"/>
-                    </items>
-
-                </layout>
+                        path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/listConfigTab.infinity.json"
+                        xtype="cqinclude"/>
 
                 <badgeConfigTab
                         jcr:primaryType="cq:Widget"
@@ -159,6 +60,11 @@
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/images/items/badgeThumbnailTabResourceType.infinity.json"
                         xtype="cqinclude" />
+
+                <feedTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/feedTab.infinity.json"
+                        xtype="cqinclude"/>
 
                 <styleTab
                         jcr:primaryType="cq:Widget"

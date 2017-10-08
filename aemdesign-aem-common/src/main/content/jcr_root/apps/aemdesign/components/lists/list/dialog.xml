@@ -112,40 +112,6 @@
                                         value="default"/>
                             </options>
                         </paginationType>
-
-                        <detailsBadge
-                                jcr:primaryType="cq:Widget"
-                                defaultValue=""
-                                fieldLabel="Use Badge"
-                                fieldDescripton="Which badge to select from the Details component on the page"
-                                name="./detailsBadge"
-                                type="select"
-                                xtype="selection">
-
-                            <options jcr:primaryType="cq:WidgetCollection">
-                                <default
-                                        jcr:primaryType="nt:unstructured"
-                                        value="image"
-                                        text="Default"/>
-                                <icon
-                                        jcr:primaryType="nt:unstructured"
-                                        value="icon"
-                                        text="Icon"/>
-                                <image
-                                        jcr:primaryType="nt:unstructured"
-                                        value="image"
-                                        text="Image"/>
-                                <card
-                                        jcr:primaryType="nt:unstructured"
-                                        value="card"
-                                        text="Card with Image"/>
-                                <cardIcon
-                                        jcr:primaryType="nt:unstructured"
-                                        value="cardIcon"
-                                        text="Card with Icon"/>
-                            </options>
-
-                        </detailsBadge>
                     </items>
                 </listTab>
                 <childrenTab
@@ -181,22 +147,6 @@
                             name="./ancestorPage"
                             xtype="pathfield"/>
                     </items>
-                    <children
-                        jcr:primaryType="cq:Widget"
-                        title="Child pages"
-                        xtype="panel">
-                        <listeners
-                            jcr:primaryType="nt:unstructured"
-                            render="function() { this.findParentByType('dialog').hideTab(this); }"/>
-                        <items jcr:primaryType="cq:WidgetCollection">
-                            <parentPage
-                                jcr:primaryType="cq:Widget"
-                                fieldDescription="Leave empty to use current page"
-                                fieldLabel="Parent page"
-                                name="./parentPage"
-                                xtype="pathfield"/>
-                        </items>
-                    </children>
                 </descendantsTab>
                 <staticTab
                     jcr:primaryType="cq:Widget"
@@ -309,6 +259,40 @@
                     width=""
                     xtype="panel">
                     <items jcr:primaryType="cq:WidgetCollection">
+                        <detailsBadge
+                                jcr:primaryType="cq:Widget"
+                                defaultValue=""
+                                fieldLabel="Use Badge"
+                                fieldDescription="Which badge to select from the Details component on the page"
+                                name="./detailsBadge"
+                                type="select"
+                                xtype="selection">
+
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <default
+                                        jcr:primaryType="nt:unstructured"
+                                        value="image"
+                                        text="Default"/>
+                                <icon
+                                        jcr:primaryType="nt:unstructured"
+                                        value="icon"
+                                        text="Icon"/>
+                                <image
+                                        jcr:primaryType="nt:unstructured"
+                                        value="image"
+                                        text="Image"/>
+                                <card
+                                        jcr:primaryType="nt:unstructured"
+                                        value="card"
+                                        text="Card with Image"/>
+                                <cardIcon
+                                        jcr:primaryType="nt:unstructured"
+                                        value="cardIcon"
+                                        text="Card with Icon"/>
+                            </options>
+
+                        </detailsBadge>
+
                         <printStructure
                             jcr:primaryType="cq:Widget"
                             fieldLabel="Print List Structure"
@@ -354,13 +338,6 @@
 
                     </items>
                 </listConfigTab>
-                <styleTab
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
-                        xtype="cqinclude" />
-                <accessibilityTab jcr:primaryType="cq:Panel"
-                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
-                                  xtype="cqinclude"/>
 
                 <badgeConfigTab
                         jcr:primaryType="cq:Widget"
@@ -415,6 +392,14 @@
 
                     </items>
                 </feedTab>
+
+                <styleTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
+                        xtype="cqinclude" />
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
+                                  xtype="cqinclude"/>
 
 
             </items>
