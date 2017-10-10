@@ -133,17 +133,6 @@
                                         value=""
                                         xtype="selection"/>
 
-                        <badgeLinkShow
-                                jcr:primaryType="cq:Widget"
-                                defaultValue=""
-                                value=""
-                                allowBlank="{Boolean}true"
-                                fieldLabel="Show Card CTA"
-                                fieldDescription="show a link at the end of text summary pointing to the article"
-                                options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                name="./badgeLinkShow"
-                                type="select"
-                                xtype="selection"/>
                         <badgeLinkTarget jcr:primaryType="cq:Widget"
                                 fieldLabel="Card CTA Target"
                                 fieldDescription="how should the link of items behave when clicked"
