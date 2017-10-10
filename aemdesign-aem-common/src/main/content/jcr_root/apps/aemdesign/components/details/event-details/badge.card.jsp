@@ -35,9 +35,5 @@
             </div>
         </c:if>
         <p class="card-text">${componentProperties.description}</p>
-        <c:if test="${componentProperties.cardLinkShow}">
-        <a class="card-link" href="${componentProperties.pageUrl}"
-           title="${componentProperties.title}"${linkAttr}>${componentProperties.pageNavTitle}</a>
-        </c:if>
     </div>
 </div>
