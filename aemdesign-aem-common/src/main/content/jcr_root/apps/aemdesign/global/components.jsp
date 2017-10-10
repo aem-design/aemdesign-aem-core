@@ -72,10 +72,9 @@
 
 
     //shared badge config passed from list to all badge elements
-    private static final String DETAILS_LINK_SHOW = "badgeLinkShow"; //listItemShowLink
-    private static final String DETAILS_LINK_TARGRET = "badgeLinkTarget"; //listItemLinkTarget
-    private static final String DETAILS_LINK_TEXT = "badgeLinkText"; //listItemLinkTarget
-    private static final String DETAILS_LINK_TITLE = "badgeLinkTitle"; //listItemLinkTarget
+    private static final String DETAILS_LINK_TARGET = "badgeLinkTarget";
+    private static final String DETAILS_LINK_TEXT = "badgeLinkText";
+    private static final String DETAILS_LINK_TITLE = "badgeLinkTitle";
     private static final String DETAILS_TITLE_TRIM = "badgeTitleTrim";
     private static final String DETAILS_TITLE_TRIM_LENGTH_MAX = "badgeTitleTrimLengthMax";
     private static final String DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX = "badgeTitleTrimLengthMaxSuffix";
@@ -232,8 +231,7 @@
             {DETAILS_CARD_SIZE, "small"},
             {DETAILS_CARD_ICONSHOW, false},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_LINK_SHOW, false},
-            {DETAILS_LINK_TARGRET, ""},
+            {DETAILS_LINK_TARGET, ""},
             {DETAILS_LINK_TEXT, ""},
             {DETAILS_LINK_TITLE, ""},
             {DETAILS_TITLE_TRIM, false},
