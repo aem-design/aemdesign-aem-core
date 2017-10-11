@@ -1,23 +1,20 @@
 <%@page session="false" trimDirectiveWhitespaces="true" import="com.day.cq.wcm.api.WCMMode,
-                                com.day.cq.wcm.api.components.EditContext,
-                                com.day.cq.wcm.api.components.Toolbar,
-                                com.day.cq.wcm.foundation.Paragraph,
-                                com.day.cq.wcm.foundation.ParagraphSystem,
-                                com.day.cq.wcm.foundation.Placeholder,
-                                org.apache.sling.api.SlingHttpServletResponse,
-                                org.apache.sling.api.resource.Resource,
-                                org.slf4j.Logger,
-                                org.slf4j.LoggerFactory,
-                                javax.jcr.RepositoryException,
-                                java.io.IOException,
-                                java.util.HashMap,
-                                java.util.Iterator,
-                                java.util.LinkedList,
-                                org.apache.commons.lang3.StringUtils" %>
-<%@ page import="static org.apache.commons.lang3.StringUtils.*" %>
-<%@ page import="static java.util.Arrays.asList" %>
-<%@ page import="static java.util.Arrays.toString" %>
-<%@ page import="java.text.MessageFormat" %>
+                com.day.cq.wcm.api.components.EditContext,
+                com.day.cq.wcm.api.components.Toolbar,
+                com.day.cq.wcm.foundation.Paragraph,
+                com.day.cq.wcm.foundation.ParagraphSystem,
+                com.day.cq.wcm.foundation.Placeholder,
+                design.aem.components.ComponentProperties,
+                org.apache.sling.api.SlingHttpServletResponse,
+                org.apache.sling.api.resource.Resource,
+                org.slf4j.Logger,
+                org.slf4j.LoggerFactory,
+                javax.jcr.RepositoryException,
+                java.io.IOException,
+                java.text.MessageFormat,
+                java.util.HashMap,
+                java.util.Iterator" %>
+<%@ page import="java.util.LinkedList" %>
 <%!
 
 
