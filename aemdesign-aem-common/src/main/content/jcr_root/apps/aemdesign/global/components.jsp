@@ -550,12 +550,33 @@
      * @return
      */
     public ComponentProperties getComponentProperties(PageContext pageContext, Page componentPage, String componentPath, Object[][]... fieldLists) {
-        Resource componentResource = componentPage.getContentResource(componentPath);
+        try {
+            Resource componentResource = componentPage.getContentResource(componentPath);
 
-        return getComponentProperties(pageContext, componentResource, fieldLists);
+            return getComponentProperties(pageContext, componentResource, fieldLists);
+
+        } catch (Exception ex) {
+            getLogger().error("getComponentProperties: " + componentPath + ", error: " + ex.toString());
+        }
+
+
+        return getNewComponentProperties(pageContext);
     }
 
-
+    //TODO: move to class
+    /***
+     * helper to create new Component Properties
+     * @param pageContext
+     * @return
+     */
+    public ComponentProperties getNewComponentProperties(PageContext pageContext) {
+        ComponentProperties componentProperties = new ComponentProperties();
+        SlingHttpServletRequest slingRequest = (SlingHttpServletRequest)pageContext.getAttribute("slingRequest");
+        HttpServletRequest request = (HttpServletRequest)slingRequest;
+        XSSAPI xssAPI = slingRequest.adaptTo(XSSAPI.class);
+        componentProperties.attr = new AttrBuilder(request, xssAPI);
+        return componentProperties;
+    }
 
 
     /**
