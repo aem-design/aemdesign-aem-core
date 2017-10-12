@@ -5,8 +5,12 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/component-details.jsp" %>
+<%@ include file="/apps/aemdesign/global/i18n.jsp" %>
 <%@ include file="./common.jsp" %>
 <%
+
+    final String DEFAULT_I18N_CATEGORY = "event-detail";
+    final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
 
     //no lambada is available so this is the best that can be done
     Object[][] componentFields = {
@@ -35,7 +39,8 @@
             {"subCategory", StringUtils.EMPTY},
             {FIELD_PAGE_URL, getPageUrl(_currentPage)},
             {FIELD_PAGE_TITLE_NAV, getPageNavTitle(_currentPage)},
-            {"eventDisplayDateFormat",""}
+            {"eventDisplayDateFormat",""},
+            {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -94,8 +99,24 @@
         <%@ include file="badge.card.jsp" %>
     </c:when>
 
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardAction'}">
+        <%@ include file="badge.cardAction.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardSelect'}">
+        <%@ include file="badge.cardSelect.jsp" %>
+    </c:when>
+
     <c:when test="${COMPONENT_BADGE eq 'badge.cardIcon'}">
         <%@ include file="badge.cardIcon.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconAction'}">
+        <%@ include file="badge.cardIconAction.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconSelect'}">
+        <%@ include file="badge.cardIconSelect.jsp" %>
     </c:when>
 
     <c:when test="${COMPONENT_BADGE eq 'badge.icon'}">

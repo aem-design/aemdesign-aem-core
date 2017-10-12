@@ -7,13 +7,16 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/component-details.jsp" %>
+<%@ include file="/apps/aemdesign/global/i18n.jsp" %>
 
 <%
 
-    final String I18N_CATEGORY = "location-detail";
     final String DEFAULT_DETAILS_MARKER_ICONPATH = "fontawesome.markers.MAP_MARKER";
     final String DETAILS_MARKER_ICON = "markerIcon";
     final String DETAILS_MARKER_ICONPATH = "menuColor";
+    final String DEFAULT_I18N_CATEGORY = "location-detail";
+    final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
+
 
     Object[][] componentFields = {
             {"title", getPageTitle(_currentPage)},
@@ -24,6 +27,7 @@
             {FIELD_PAGE_URL, getPageUrl(_currentPage)},
             {FIELD_PAGE_TITLE_NAV, getPageNavTitle(_currentPage)},
             {"menuColor", "default"},
+            {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
     };
 
 
@@ -99,8 +103,24 @@
         <%@ include file="badge.card.jsp" %>
     </c:when>
 
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardAction'}">
+        <%@ include file="badge.cardAction.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardSelect'}">
+        <%@ include file="badge.cardSelect.jsp" %>
+    </c:when>
+
     <c:when test="${COMPONENT_BADGE eq 'badge.cardIcon'}">
         <%@ include file="badge.cardIcon.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconAction'}">
+        <%@ include file="badge.cardIconAction.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconSelect'}">
+        <%@ include file="badge.cardIconSelect.jsp" %>
     </c:when>
 
     <c:when test="${COMPONENT_BADGE eq 'badge.icon'}">

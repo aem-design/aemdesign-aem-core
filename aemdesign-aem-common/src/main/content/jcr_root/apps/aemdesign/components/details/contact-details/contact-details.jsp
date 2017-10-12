@@ -5,11 +5,13 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/component-details.jsp" %>
+<%@ include file="/apps/aemdesign/global/i18n.jsp" %>
 <%
 
     final Boolean DEFAULT_SHOW_BREADCRUMB = true;
     final Boolean DEFAULT_SHOW_TOOLBAR = true;
-    final String I18N_CATEGORY = "contact-detail";
+    final String DEFAULT_I18N_CATEGORY = "contact-detail";
+    final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
 
     Object[][] componentFields = {
             {"title", _pageProperties.get(JcrConstants.JCR_TITLE, StringUtils.EMPTY)},
@@ -19,6 +21,7 @@
             {FIELD_PAGE_URL, getPageUrl(_currentPage)},
             {FIELD_PAGE_TITLE_NAV, getPageNavTitle(_currentPage)},
             {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -52,8 +55,24 @@
         <%@ include file="badge.card.jsp" %>
     </c:when>
 
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardAction'}">
+        <%@ include file="badge.cardAction.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardSelect'}">
+        <%@ include file="badge.cardSelect.jsp" %>
+    </c:when>
+
     <c:when test="${COMPONENT_BADGE eq 'badge.cardIcon'}">
         <%@ include file="badge.cardIcon.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconAction'}">
+        <%@ include file="badge.cardIconAction.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconSelect'}">
+        <%@ include file="badge.cardIconSelect.jsp" %>
     </c:when>
 
     <c:when test="${COMPONENT_BADGE eq 'badge.icon'}">

@@ -15,6 +15,11 @@
   "enquiries ((event-detail))": "Enquiries ",
   "apartof ((event-detail))": "Part of ",
   "dateDisplayFormat ((event-detail))": "dd.MM.yyyy",
-  "timeDisplayFormat ((event-detail))": "HH:mm"
+  "timeDisplayFormat ((event-detail))": "HH:mm",
+  "variantHiddenLabel ((page-detail))": "Page Details display is hidden",
+  "variantHiddenLabel ((event-detail))": "Event Details display is hidden",
+  "variantHiddenLabel ((news-detail))": "News Details display is hidden",
+  "variantHiddenLabel ((contact-detail))": "Contact Details display is hidden",
+  "variantHiddenLabel ((location-detail))": "Location Details display is hidden"
 
 }

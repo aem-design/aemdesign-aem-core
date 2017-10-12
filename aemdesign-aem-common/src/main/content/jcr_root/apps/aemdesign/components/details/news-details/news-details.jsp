@@ -6,11 +6,13 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/component-details.jsp" %>
+<%@ include file="/apps/aemdesign/global/i18n.jsp" %>
 <%
 
     final Boolean DEFAULT_SHOW_BREADCRUMB = true;
     final Boolean DEFAULT_SHOW_TOOLBAR = false;
-    final String I18N_CATEGORY = "news-detail";
+    final String DEFAULT_I18N_CATEGORY = "news-detail";
+    final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
 
     Object[][] componentFields = {
             {"title", _pageProperties.get(JcrConstants.JCR_TITLE, StringUtils.EMPTY)},
@@ -19,7 +21,8 @@
             {"showToolbar", DEFAULT_SHOW_TOOLBAR},
             {"author", ""},
             {TagConstants.PN_TAGS, new String[]{}},
-            {FIELD_VARIANT, DEFAULT_VARIANT}
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -34,8 +37,8 @@
     componentProperties.put("publishDate",publishDate);
 
     //get format strings from dictionary
-    String dateFormatString = _i18n.get("publishDateFormat",I18N_CATEGORY);
-    String dateDisplayFormatString = _i18n.get("publishDateDisplayFormat",I18N_CATEGORY);
+    String dateFormatString = _i18n.get("publishDateFormat",DEFAULT_I18N_CATEGORY);
+    String dateDisplayFormatString = _i18n.get("publishDateDisplayFormat",DEFAULT_I18N_CATEGORY);
 
     //format date into formatted date
     SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString);
@@ -49,7 +52,7 @@
     componentProperties.put("publishDisplayDateText",publishDisplayDateText);
 
     //get full published date display text
-    String newsDateStatusText = _i18n.get("newsDateStatusText", I18N_CATEGORY, publishDateText, publishDisplayDateText);
+    String newsDateStatusText = _i18n.get("newsDateStatusText", DEFAULT_I18N_CATEGORY, publishDateText, publishDisplayDateText);
     componentProperties.put("newsDateStatusText",newsDateStatusText);
 
     String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
@@ -78,8 +81,24 @@
         <%@ include file="badge.card.jsp" %>
     </c:when>
 
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardAction'}">
+        <%@ include file="badge.cardAction.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardSelect'}">
+        <%@ include file="badge.cardSelect.jsp" %>
+    </c:when>
+
     <c:when test="${COMPONENT_BADGE eq 'badge.cardIcon'}">
         <%@ include file="badge.cardIcon.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconAction'}">
+        <%@ include file="badge.cardIconAction.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconSelect'}">
+        <%@ include file="badge.cardIconSelect.jsp" %>
     </c:when>
 
     <c:when test="${COMPONENT_BADGE eq 'badge.icon'}">
