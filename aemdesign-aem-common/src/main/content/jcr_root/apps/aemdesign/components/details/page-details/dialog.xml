@@ -13,15 +13,6 @@
                     path="/apps/aemdesign/global/dialog/classic/page/items/pageBasicTab.infinity.json"
                     xtype="cqinclude" />
 
-                <secondaryImageTab
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/images/items/secondaryImageTab.infinity.json"
-                        xtype="cqinclude"/>
-
-                <secondaryImageTabResourceType
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/images/items/secondaryImageTabResourceType.infinity.json"
-                        xtype="cqinclude"/>
 
                 <layoutTab jcr:primaryType="cq:Panel"
                          title="Layout">
@@ -115,6 +106,10 @@
                     </items>
                 </layoutTab>
 
+                <badgeConfigTab jcr:primaryType="cq:Panel"
+                     path="/apps/aemdesign/global/dialog/classic/badge/items/badgeConfigTab.infinity.json"
+                     xtype="cqinclude" />
+
                 <imageBackgroundTab
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/images/items/imageBackgroundTab.infinity.json"
@@ -125,10 +120,15 @@
                         path="/apps/aemdesign/global/dialog/classic/images/items/imageBackgroundTabResourceType.infinity.json"
                         xtype="cqinclude"/>
 
+                <secondaryImageTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/images/items/secondaryImageTab.infinity.json"
+                        xtype="cqinclude"/>
 
-                <badgeConfigTab jcr:primaryType="cq:Panel"
-                     path="/apps/aemdesign/global/dialog/classic/badge/items/badgeConfigTab.infinity.json"
-                     xtype="cqinclude" />
+                <secondaryImageTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/images/items/secondaryImageTabResourceType.infinity.json"
+                        xtype="cqinclude"/>
 
                 <styleTab jcr:primaryType="cq:Panel"
                     path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
