@@ -150,8 +150,8 @@
                                         text="Hidden"/>
                             </options>
                         </variant>
-                        <promotionSize jcr:primaryType="cq:Widget"
-                                       fieldLabel="Block Size"
+                        <cardSize jcr:primaryType="cq:Widget"
+                                       fieldLabel="Card Size"
                                        fieldDescription="this will be used as card size in grids"
                                        allowBlank="{Boolean}true"
                                        name="./cardSize"

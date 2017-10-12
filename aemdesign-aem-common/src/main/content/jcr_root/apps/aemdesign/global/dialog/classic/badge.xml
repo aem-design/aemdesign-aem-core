@@ -97,7 +97,7 @@
                                    xtype="tags"/>
 
                         <cardSize jcr:primaryType="cq:Widget"
-                                  fieldLabel="Card Style"
+                                  fieldLabel="Card Size"
                                   fieldDescription="this will be used as card size in grids"
                                   allowBlank="{Boolean}true"
                                   name="./cardSize"
