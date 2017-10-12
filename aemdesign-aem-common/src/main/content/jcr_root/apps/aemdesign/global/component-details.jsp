@@ -44,7 +44,7 @@
      */
 
     protected ComponentProperties getPageInfo(PageContext pageContext, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots) {
-        ComponentProperties componentProperties = new ComponentProperties();
+        ComponentProperties componentProperties = getNewComponentProperties(pageContext);
 
         if (page!=null) {
 
@@ -58,7 +58,7 @@
 
                     componentProperties = getComponentProperties(
                             pageContext,
-                            detailsNodeResource.getPath(),
+                            detailsNodeResource,
                             DEFAULT_FIELDS_DETAILS_OPTIONS
                     );
 
