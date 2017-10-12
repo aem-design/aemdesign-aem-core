@@ -1128,7 +1128,7 @@
     public String resourceIncludeAsHtml(com.day.cq.wcm.api.components.ComponentContext componentContext, String path, SlingHttpServletResponse response, SlingHttpServletRequest request) {
         if (componentContext == null || isEmpty(path) || response == null || request == null) {
             String error = format(
-                    "resourceIncludeAsHtml: params not specified componentContext=\"{0}\",path=\"{1}\",response=\"{2}\",request=\"{3}\"",
+                    "resourceIncludeAsHtml1: params not specified componentContext=\"{0}\",path=\"{1}\",response=\"{2}\",request=\"{3}\"",
                     componentContext,path,response,request);
             getLogger().error(error);
             return "<!--".concat(error).concat("-->");
@@ -1150,7 +1150,7 @@
     public String resourceIncludeAsHtml(com.day.cq.wcm.api.components.ComponentContext componentContext, String path, SlingHttpServletResponse response, SlingHttpServletRequest request, WCMMode mode) {
         if (componentContext == null || isEmpty(path) || response == null || request == null) {
             String error = format(
-                    "resourceIncludeAsHtml: params not specified componentContext=\"{0}\",path=\"{1}\",response=\"{2}\",request=\"{3}\",mode=\"{4}\"",
+                    "resourceIncludeAsHtml2: params not specified componentContext=\"{0}\",path=\"{1}\",response=\"{2}\",request=\"{3}\",mode=\"{4}\"",
                     componentContext,path,response,request,mode);
             getLogger().error(error);
             return "<!--".concat(error).concat("-->");
@@ -1246,7 +1246,7 @@
     public String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling) {
         if (isEmpty(path) || resourceResolver == null || sling ==null) {
             String error = format(
-                    "resourceRenderAsHtml: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
+                    "resourceRenderAsHtml3: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
                     ,path,resourceResolver,sling);
             getLogger().error(error);
             return "<!--".concat(error).concat("-->");
@@ -1268,7 +1268,7 @@
     public String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling,  String requestAttributeName, ComponentProperties requestAttributes) {
         if (isEmpty(path) || resourceResolver == null || sling ==null) {
             String error = format(
-                    "resourceRenderAsHtml: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
+                    "resourceRenderAsHtml4: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
                     ,path,resourceResolver,sling);
             getLogger().error(error);
             return "<!--".concat(error).concat("-->");
@@ -1291,7 +1291,7 @@
     public String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling, WCMMode mode, String requestAttributeName, ComponentProperties requestAttributes) {
         if (isEmpty(path) || resourceResolver == null || sling ==null) {
             String error = format(
-                    "resourceRenderAsHtml: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
+                    "resourceRenderAsHtml5: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
                     ,path,resourceResolver,sling);
             getLogger().error(error);
             return "<!--".concat(error).concat("-->");
