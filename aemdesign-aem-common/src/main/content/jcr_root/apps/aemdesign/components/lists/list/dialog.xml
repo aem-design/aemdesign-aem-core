@@ -289,6 +289,22 @@
                                         jcr:primaryType="nt:unstructured"
                                         value="cardIcon"
                                         text="Card with Icon"/>
+                                <cardIconAction
+                                        jcr:primaryType="nt:unstructured"
+                                        value="cardIconAction"
+                                        text="Card with Icon and CTA"/>
+                                <cardIconSelect
+                                        jcr:primaryType="nt:unstructured"
+                                        value="cardIconAction"
+                                        text="Clickable Card with Icon"/>
+                                <cardAction
+                                        jcr:primaryType="nt:unstructured"
+                                        value="cardSelect"
+                                        text="Clickable Card with Icon and CTA"/>
+                                <cardSelectAction
+                                        jcr:primaryType="nt:unstructured"
+                                        value="cardSelectAction"
+                                        text="Card with Icon and CTA"/>
                             </options>
 
                         </detailsBadge>
