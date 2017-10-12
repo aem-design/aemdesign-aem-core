@@ -16,11 +16,14 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    String html = (String)componentProperties.get("html");
-    html = html.replaceAll("&nbsp;", " ");
-    html = html.replaceAll("\\s+", " ");
-    html = html.replaceAll(" = ", "=");
-    componentProperties.put("html", org.apache.commons.lang.StringEscapeUtils.unescapeHtml(html));
+    String html = componentProperties.get("html","");
+    if (isNotEmpty(html)) {
+        html = html.replaceAll("&nbsp;", " ");
+        html = html.replaceAll("\\s+", " ");
+        html = html.replaceAll(" = ", "=");
+        html = org.apache.commons.lang.StringEscapeUtils.unescapeHtml(html);
+    }
+    componentProperties.put("html", html);
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
