@@ -692,8 +692,10 @@
                     LOG.error("getComponentProperties: could not evaluate target resource",ex);
                     return componentProperties;
                 }
-            } else {
-                LOG.error("getComponentProperties: processing is unsupported of target resource of type: " + targetResource.getClass().getCanonicalName());
+            } else if (targetResource != null) {
+                getLogger().error("getComponentProperties: processing is unsupported of target resource of type: " + targetResource.getClass().getCanonicalName());
+            } else if (targetResource == null) {
+                getLogger().error("getComponentProperties: processing of NULL target resource of type return design defaults");
             }
 
             if (currentNode != null && addMoreAttributes) {
