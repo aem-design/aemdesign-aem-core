@@ -21,8 +21,10 @@
             </div>
         </c:if>
         <p class="card-text">${componentProperties.description}</p>
-        <a class="card-link" href="${componentProperties.pageUrl}"
-           href="${componentProperties.badgeLinkTarget}"
-           title="${componentProperties.badgeLinkTitle}"${linkAttr}>${componentProperties.badgeLinkText}</a>
+        <a class="card-link"
+           href="${componentProperties.pageUrl}"
+           target="${componentProperties.badgeLinkTarget}"
+           title="${componentProperties.badgeLinkTitle}"
+            ${linkAttr}>${componentProperties.badgeLinkText}</a>
     </div>
 </div>

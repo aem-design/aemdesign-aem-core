@@ -37,6 +37,8 @@
             {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
             {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
             {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
+            {DETAILS_LINK_TEXT, getPageNavTitle(_currentPage)},
+            {DETAILS_LINK_TITLE, getPageTitle(_currentPage)},
     };
 
 

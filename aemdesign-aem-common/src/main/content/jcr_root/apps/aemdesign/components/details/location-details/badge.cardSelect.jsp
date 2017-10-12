@@ -18,7 +18,8 @@
 </c:if>
 <a
         href="${componentProperties.pageUrl}"
-        title="${componentProperties.title}"
+        target="${componentProperties.badgeLinkTarget}"
+        title="${componentProperties.badgeLinkTitle}"
         class="card ${componentProperties.cardSize} ${componentProperties.cardStyle}" ${linkAttr}>
     <img src="${componentProperties.pageImageThumbnail}"${imageAttr}
          alt="${componentProperties.title}"

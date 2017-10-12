@@ -9,7 +9,8 @@
 </c:if>
 <a
         href="${componentProperties.pageUrl}"
-        title="${componentProperties.title}"
+        target="${componentProperties.badgeLinkTarget}"
+        title="${componentProperties.badgeLinkTitle}"
         class="card ${componentProperties.cardSize} ${componentProperties.cardStyle}" ${linkAttr}>
     <i class="icon ${fn:join(componentProperties.cardIcon," ")}" title="${componentProperties.title}"></i>
     <div class="card-block">

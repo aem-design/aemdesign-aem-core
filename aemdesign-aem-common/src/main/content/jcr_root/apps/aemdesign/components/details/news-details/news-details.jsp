@@ -23,6 +23,8 @@
             {TagConstants.PN_TAGS, new String[]{}},
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
+            {DETAILS_LINK_TEXT, getPageNavTitle(_currentPage)},
+            {DETAILS_LINK_TITLE, getPageTitle(_currentPage)},
     };
 
     ComponentProperties componentProperties = getComponentProperties(

@@ -28,6 +28,8 @@
             {FIELD_PAGE_TITLE_NAV, getPageNavTitle(_currentPage)},
             {"menuColor", "default"},
             {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
+            {DETAILS_LINK_TEXT, getPageNavTitle(_currentPage)},
+            {DETAILS_LINK_TITLE, getPageTitle(_currentPage)},
     };
 
 
