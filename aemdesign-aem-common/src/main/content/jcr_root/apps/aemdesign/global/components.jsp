@@ -232,9 +232,9 @@
             {DETAILS_CARD_SIZE, "small"},
             {DETAILS_CARD_ICONSHOW, false},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_LINK_TARGET, ""},
-            {DETAILS_LINK_TEXT, ""},
-            {DETAILS_LINK_TITLE, ""},
+            {DETAILS_LINK_TARGET, "_blank"},
+            {DETAILS_LINK_TEXT, ""}, //getPageNavTitle(_currentPage)
+            {DETAILS_LINK_TITLE, ""}, //getPageTitle(_currentPage)
             {DETAILS_TITLE_TRIM, false},
             {DETAILS_TITLE_TRIM_LENGTH_MAX, DEFAULT_SUMMARY_TRIM_LENGTH},
             {DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX, DEFAULT_SUMMARY_TRIM_SUFFIX},
