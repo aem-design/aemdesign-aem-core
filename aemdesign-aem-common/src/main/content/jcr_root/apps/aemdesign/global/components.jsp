@@ -572,10 +572,16 @@
      */
     public ComponentProperties getNewComponentProperties(PageContext pageContext) {
         ComponentProperties componentProperties = new ComponentProperties();
-        SlingHttpServletRequest slingRequest = (SlingHttpServletRequest)pageContext.getAttribute("slingRequest");
-        HttpServletRequest request = (HttpServletRequest)slingRequest;
-        XSSAPI xssAPI = slingRequest.adaptTo(XSSAPI.class);
-        componentProperties.attr = new AttrBuilder(request, xssAPI);
+        componentProperties.attr = new AttrBuilder(null, null);
+        try {
+            SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) pageContext.getAttribute("slingRequest");
+            HttpServletRequest request = (HttpServletRequest) slingRequest;
+            XSSAPI xssAPI = slingRequest.adaptTo(XSSAPI.class);
+            componentProperties.attr = new AttrBuilder(request, xssAPI);
+
+        } catch (Exception ex) {
+            getLogger().error("getNewComponentProperties: could not configure componentProperties with attributeBuilder");
+        }
         return componentProperties;
     }
 
