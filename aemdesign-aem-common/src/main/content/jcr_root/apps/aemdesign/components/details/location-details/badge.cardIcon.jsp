@@ -21,7 +21,5 @@
             </div>
         </c:if>
         <p class="card-text">${componentProperties.description}</p>
-        <a class="card-link" href="${componentProperties.pageUrl}"
-           title="${componentProperties.title}"${linkAttr}>${componentProperties.pageNavTitle}</a>
     </div>
 </div>
