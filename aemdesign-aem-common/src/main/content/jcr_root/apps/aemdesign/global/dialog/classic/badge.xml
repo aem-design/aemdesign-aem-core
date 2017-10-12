@@ -203,16 +203,6 @@
                                 fieldDescription="add the following text as suffix when cropping Summary"
                                 name="./badgeSummaryLengthMaxSuffix"
                                 xtype="textfield"/>
-                        <badgeOverlayIconShow
-                                jcr:primaryType="cq:Widget"
-                                defaultValue=""
-                                value=""
-                                allowBlank="{Boolean}true"
-                                fieldLabel="Display Overlay Icon"
-                                options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
-                                name="./badgeOverlayIconShow"
-                                type="select"
-                                xtype="selection"/>
 
                     </items>
                 </badgeConfigGroup>
