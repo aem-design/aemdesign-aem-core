@@ -144,6 +144,10 @@
                                         jcr:primaryType="nt:unstructured"
                                         value=""
                                         text="default"/>
+                                <hidden
+                                        jcr:primaryType="nt:unstructured"
+                                        value="hidden"
+                                        text="Hidden"/>
                             </options>
                         </variant>
                         <promotionSize jcr:primaryType="cq:Widget"

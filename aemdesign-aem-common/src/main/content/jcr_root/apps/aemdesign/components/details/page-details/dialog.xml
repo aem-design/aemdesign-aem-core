@@ -40,6 +40,10 @@
                                         jcr:primaryType="nt:unstructured"
                                         value=""
                                         text="Default" />
+                                <hidden
+                                        jcr:primaryType="nt:unstructured"
+                                        value="hidden"
+                                        text="Hidden" />
                             </options>
                         </variant>
                         <displayOptions

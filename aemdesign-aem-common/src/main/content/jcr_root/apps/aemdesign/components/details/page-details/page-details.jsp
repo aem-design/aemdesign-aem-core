@@ -89,8 +89,8 @@
         <%@ include file="badge.default.jsp" %>
     </c:when>
 
-    <c:when test="${componentProperties.variant eq 'default'}">
-        <%@ include file="variant.default.jsp" %>
+    <c:when test="${componentProperties.variant eq DEFAULT_VARIANT_HIDDEN}">
+        <%@ include file="variant.hidden.jsp" %>
     </c:when>
 
     <c:otherwise>
