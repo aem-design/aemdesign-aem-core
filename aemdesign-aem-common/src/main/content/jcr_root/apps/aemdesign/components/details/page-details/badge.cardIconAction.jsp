@@ -9,14 +9,14 @@
 </c:if>
 
 <c:if test="${componentProperties.cardIconShow and fn:length(componentProperties.cardIcon) > 0}">
-    <c:set var="classAttr" value="${classAttr} ${fn:join(componentProperties.cardIcon,' ')}"/>
+    <c:set var="classIconAttr" value="${classIconAttr} ${fn:join(componentProperties.cardIcon,' ')}"/>
 </c:if>
 <c:if test="${fn:length(componentProperties.cardStyle) > 0}">
-    <c:set var="classAttr" value="${classAttr} ${fn:join(componentProperties.cardStyle,' ')}"/>
+    <c:set var="classStyleAttr" value="${classStyleAttr} ${fn:join(componentProperties.cardStyle,' ')}"/>
 </c:if>
 
-<div class="card ${componentProperties.cardSize} ${classAttr}">
-    <i class="icon ${fn:join(componentProperties.cardIcon," ")}" title="${componentProperties.title}"></i>
+<div class="card ${componentProperties.cardSize} ${classStyleAttr}">
+    <i class="icon ${classIconAttr}" title="${componentProperties.title}"></i>
     <div class="card-block">
         <${componentProperties.badgeTitleType}>${componentProperties.pageNavTitle}</${componentProperties.badgeTitleType}>
         <c:if test="${not empty componentProperties.category}">
