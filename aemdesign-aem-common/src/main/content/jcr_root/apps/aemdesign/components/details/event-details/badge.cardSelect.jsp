@@ -16,11 +16,20 @@
 <c:if test="${not empty componentProperties.thumbnailHeight}">
     <c:set var="imageAttr" value="${imageAttr} height=\"${componentProperties.thumbnailHeight}\""/>
 </c:if>
+
+<c:if test="${componentProperties.cardIconShow and fn:length(componentProperties.cardIcon) > 0}">
+    <c:set var="classAttr" value="${classAttr} ${fn:join(componentProperties.cardIcon,' ')}"/>
+</c:if>
+<c:if test="${fn:length(componentProperties.cardStyle) > 0}">
+    <c:set var="classAttr" value="${classAttr} ${fn:join(componentProperties.cardStyle,' ')}"/>
+</c:if>
+
 <a
         href="${componentProperties.pageUrl}"
         target="${componentProperties.badgeLinkTarget}"
         title="${componentProperties.badgeLinkTitle}"
-        class="card ${componentProperties.cardSize} ${componentProperties.cardStyle}" ${linkAttr}>
+        class="card  ${componentProperties.cardSize} ${classAttr}"
+        ${linkAttr}>
     <img src="${componentProperties.pageImageThumbnail}"${imageAttr}
          alt="${componentProperties.title}"
          class="card-img-top"/>
