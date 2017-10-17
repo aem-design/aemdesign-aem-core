@@ -122,6 +122,10 @@
 
         ComponentProperties badgeConfig = (ComponentProperties)request.getAttribute(BADGE_REQUEST_ATTRIBUTES);
 
+        if (badgeConfig == null || resourceResolver == null || request == null || componentProperties == null) {
+            return new ComponentProperties();
+        }
+
         String pageImagePath = componentProperties.get(FIELD_PAGE_IMAGE, "");
 
         String badgeThumbnailType = componentProperties.get(FIELD_PAGE_IMAGE, IMAGE_OPTION_RENDITION);
