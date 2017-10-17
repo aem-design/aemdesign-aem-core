@@ -60,14 +60,17 @@ public class ComponentProperties extends ValueMapDecorator {
                     if (super.containsKey(entry.getKey())) {
                         //System.out.println("update: " + entry.getKey() + ", [" + entry.getValue().toString() + "],[" + super.get(entry.getKey(), "") + "]");
                         //skip if non blank value exist
-                        Object value = super.get(entry.getKey());
-                        if (value != null) {
-                            if (value.getClass().isArray()) {
-                                if (ArrayUtils.getLength(value) != 0) {
+                        Object currentValue = super.get(entry.getKey());
+                        Object newValue = entry.getValue();
+                        if (currentValue != null && newValue != null) {
+                            if (newValue.getClass().isArray()) {
+                                // if newValue is empty don't do anything
+                                if (ArrayUtils.getLength(newValue) == 0) {
                                     continue;
                                 }
                             } else {
-                                if (StringUtils.isNotBlank(value.toString())) {
+                                // if newValue is empty don't do anything
+                                if (StringUtils.isEmpty(newValue.toString())) {
                                     continue;
                                 }
                             }
