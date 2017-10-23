@@ -63,6 +63,15 @@
                                namespaces="[component-style-icon]"
                                xtype="tags"/>
 
+                <componentBooleanAttrs jcr:primaryType="cq:Widget"
+                                   allowBlank="{Boolean}true"
+                                   defaultValue=""
+                                   value=""
+                                   fieldLabel="Boolean Attributes"
+                                   name="./componentBooleanAttrs"
+                                   namespaces="[component-style-modifier]"
+                                   xtype="tags"/>
+
                 <position
                         jcr:primaryType="cq:Widget"
                         collapsed="{Boolean}true"
