@@ -1,5 +1,6 @@
-<%@ page import="com.google.common.collect.Lists" %>
+<%@ page import="com.day.cq.commons.ImageResource" %>
 <%@ page import="org.apache.commons.lang3.math.NumberUtils" %>
+<%@ page import="java.net.URI" %>
 <%!
 
     final static String I18N_CATEGORY = "image";
