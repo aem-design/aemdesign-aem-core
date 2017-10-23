@@ -64,6 +64,10 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 value="container"
                                                 text="Container"/>
+                                        <containerVideo
+                                                jcr:primaryType="nt:unstructured"
+                                                value="containerVideo"
+                                                text="Container with Video Background"/>
                                         <floating
                                                 jcr:primaryType="nt:unstructured"
                                                 value="floating"
@@ -167,9 +171,21 @@
                         path="/apps/aemdesign/global/dialog/classic/images/items/imageBackgroundTab.infinity.json"
                         xtype="cqinclude"/>
 
+
+
                 <imageBackgroundTabResourceType
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/images/items/imageBackgroundTabResourceType.infinity.json"
+                        xtype="cqinclude"/>
+
+                <videoBackgroundTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/videos/items/videoBackgroundTab.infinity.json"
+                        xtype="cqinclude"/>
+
+                <videoBackgroundTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/videos/items/videoBackgroundTabResourceType.infinity.json"
                         xtype="cqinclude"/>
 
                 <styleTab

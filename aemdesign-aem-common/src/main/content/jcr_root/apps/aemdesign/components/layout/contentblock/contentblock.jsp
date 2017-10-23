@@ -3,6 +3,7 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="com.adobe.granite.asset.api.AssetManager" %>
 <%@ page import="com.day.cq.commons.*" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
@@ -15,6 +16,11 @@
     final String DEFAULT_I18N_BACKTOTOP_LABEL = "backtotoplabel";
     final String DEFAULT_I18N_BACKTOTOP_TITLE = "backtotoptitle";
     final String DEFAULT_TITLE_TAG_TYPE = "h2";
+    final String[] DEFAULT_VIDEO_ATTRIBUTES = new String[]{
+                "component-style-modifier:video/playsinline",
+                "component-style-modifier:video/loop",
+                "component-style-modifier:video/muted",
+                };
 
     Object[][] componentFields = {
             {FIELD_VARIANT, DEFAULT_VARIANT},
@@ -28,6 +34,7 @@
             {"linksLeft", new String[]{}},
             {"titleType", DEFAULT_TITLE_TAG_TYPE},
             {"title", ""},
+            {FIELD_STYLE_COMPONENT_BOOLEANATTR, DEFAULT_VIDEO_ATTRIBUTES,"", Tag.class.getCanonicalName()},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -53,6 +60,28 @@
         }
 
     }
+
+    String fileReference = getResourceImagePath(_resource,DEFAULT_BACKGROUND_VIDEO_NODE_NAME);
+
+    if (isNotEmpty(fileReference)) {
+
+        AssetManager assetManager = _resourceResolver.adaptTo(AssetManager.class);
+        com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(fileReference);
+
+        if (asset!=null) {
+
+            componentProperties.putAll(getAssetInfo(_resourceResolver,
+                    getResourceImagePath(_resource, DEFAULT_BACKGROUND_VIDEO_NODE_NAME),
+                    FIELD_VIDEO_BACKGROUND), true);
+
+
+            TreeMap<String, String> renditionsInfo = getAssetRenditionsVideo(asset);
+
+            componentProperties.put(FIELD_RENDITIONS_VIDEO, renditionsInfo);
+        }
+    }
+
+
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
@@ -70,6 +99,9 @@
     </c:when>
     <c:when test="${componentProperties.variant eq 'container'}">
         <%@ include file="variant.container.jsp" %>
+    </c:when>
+    <c:when test="${componentProperties.variant eq 'containerVideo'}">
+        <%@ include file="variant.containerVideo.jsp" %>
     </c:when>
     <c:otherwise>
         <%@ include file="variant.default.jsp" %>

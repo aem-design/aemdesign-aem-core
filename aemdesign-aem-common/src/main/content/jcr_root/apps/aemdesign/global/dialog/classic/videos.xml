@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:rep="internal"
+          jcr:primaryType="cq:Dialog"
+          helpPath="en/cq/current/wcm/default_components.html#List"
+          title="Common Fields for Asset Metadata"
+          xtype="tabpanel">
+
+    <items jcr:primaryType="cq:WidgetCollection">
+
+        <videoTab
+                jcr:primaryType="cq:Widget"
+                title="Video"
+                xtype="panel">
+
+            <items jcr:primaryType="cq:WidgetCollection">
+
+                <file
+                        jcr:primaryType="cq:Widget"
+                        allowUpload="{Boolean}false"
+                        allowBlank="{Boolean}true"
+                        autoUploadDelay="1"
+                        ddGroups="[media]"
+                        fieldLabel="File"
+                        fileNameParameter="./video/fileName"
+                        fileReferenceParameter="./video/fileReference"
+                        name="./video/file"
+                        xtype="html5smartfile"/>
+
+            </items>
+        </videoTab>
+
+
+        <videoBackgroundTab
+                jcr:primaryType="cq:Widget"
+                title="Background Video"
+                xtype="panel">
+
+            <items jcr:primaryType="cq:WidgetCollection">
+
+                <file
+                        jcr:primaryType="cq:Widget"
+                        allowUpload="{Boolean}false"
+                        allowBlank="{Boolean}true"
+                        autoUploadDelay="1"
+                        ddGroups="[media]"
+                        fieldLabel="File"
+                        fileNameParameter="./bgvideo/fileName"
+                        fileReferenceParameter="./bgvideo/fileReference"
+                        name="./bgvideo/file"
+                        xtype="html5smartfile"/>
+
+            </items>
+        </videoBackgroundTab>
+
+        <videoBackgroundTabResourceType
+                jcr:primaryType="cq:Panel"
+                title="Background Video Metadata"
+                fieldDescription="Background Video Metadata additional fields for saving content of Background Image"
+                xtype="panel">
+            <listeners
+                    jcr:primaryType="nt:unstructured"
+                    render="function() { AEMDESIGN.dialog.hideTab(this, this.findParentByType('dialog').findByType('tabpanel')[0]); }"/>
+            <items jcr:primaryType="cq:WidgetCollection">
+                <videoBackgroundTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        ignoreData="{Boolean}true"
+                        name="./bgvideo/sling:resourceType"
+                        value="aemdesign/components/media/video"
+                        xtype="textfield"/>
+            </items>
+        </videoBackgroundTabResourceType>
+
+
+    </items>
+
+</jcr:root>
+
+
+

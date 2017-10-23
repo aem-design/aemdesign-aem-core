@@ -33,10 +33,14 @@
     final String LARGE_THUMBNAIL_SIZE = "480";
 
     final String DEFAULT_BACKGROUND_IMAGE_NODE_NAME = "bgimage";
+    final String DEFAULT_BACKGROUND_VIDEO_NODE_NAME = "bgvideo";
     final String DEFAULT_SECONDARY_IMAGE_NODE_NAME = "secondaryImage";
     final String DEFAULT_THUMBNAIL_IMAGE_NODE_NAME = "thumbnail";
     final String DEFAULT_BADGETHUMBNAIL_IMAGE_NODE_NAME = "badgeThumbnail";
     final String DEFAULT_IMAGE_NODE_NAME = "image";
+
+    final String FIELD_RENDITIONS_VIDEO = "renditionsVideo";
+
 
     /***
      * get attributes from asset
@@ -963,5 +967,29 @@
             }
         }
         return assetInfo;
+    }
+
+    /***
+     * get asset video renditions if any
+     * @param asset to use
+     * @return
+     */
+    public TreeMap<String, String> getAssetRenditionsVideo(com.adobe.granite.asset.api.Asset asset) {
+        TreeMap<String, String> renditionsSet = new TreeMap<>();
+
+        if (asset != null) {
+            Iterator renditions = asset.listRenditions();
+
+            while (renditions.hasNext()) {
+                com.adobe.granite.asset.api.Rendition rendition = (com.adobe.granite.asset.api.Rendition)renditions.next();
+
+                if (rendition != null && rendition.getName().contains(".video.")) {
+                    renditionsSet.put(rendition.getPath(), rendition.getMimeType());
+                }
+            }
+
+        }
+
+        return renditionsSet;
     }
 %>
