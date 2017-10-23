@@ -48,7 +48,7 @@
                                    fieldLabel="Title Icon"
                                    fieldDescription="When showing this page links show this Icon"
                                    name="./titleIcon"
-                                   namespaces="[component-style]"
+                                   namespaces="[component-style-icon]"
                                    xtype="tags"/>
 
                     </items>
@@ -83,7 +83,7 @@
                                    fieldLabel="Card Icon"
                                    fieldDescription="When showing this page as card badge use this Icon"
                                    name="./cardIcon"
-                                   namespaces="[component-style]"
+                                   namespaces="[component-style-icon]"
                                    xtype="tags"/>
 
                         <cardStyle jcr:primaryType="cq:Widget"
@@ -93,7 +93,7 @@
                                    fieldLabel="Card Style"
                                    fieldDescription="Apply this style to card badge"
                                    name="./cardStyle"
-                                   namespaces="[component-style]"
+                                   namespaces="[component-style-theme,component-style-modifier]"
                                    xtype="tags"/>
 
                         <cardSize jcr:primaryType="cq:Widget"
@@ -227,7 +227,7 @@
                                      fieldLabel="Page Icon"
                                      fieldDescription="Use this icon when icon is required for display"
                                      name="./pageIcon"
-                                     namespaces="[component-style]"
+                                     namespaces="[component-style-icon]"
                                      xtype="tags"/>
 
                     </items>
@@ -302,7 +302,7 @@
                                           fieldLabel="Overlay Icon"
                                           fieldDescription="When showing this page in a list show this icon for overlay"
                                           name="./badgeOverlayIcon"
-                                          namespaces="[component-style]"
+                                          namespaces="[component-style-icon]"
                                           xtype="tags"/>
 
                     </items>
@@ -347,7 +347,7 @@
                                   fieldLabel="Menu Icon"
                                   fieldDescription="Use this icon for Icon badge"
                                   name="./menuIcon"
-                                  namespaces="[component-style]"
+                                  namespaces="[component-style-icon]"
                                   xtype="tags"/>
 
                         <menuAccesskey jcr:primaryType="cq:Widget"
@@ -389,7 +389,7 @@
                                  fieldLabel="Tab Icon"
                                  fieldDescription="When showing this page in a tab show this Icon"
                                  name="./tabIcon"
-                                 namespaces="[component-style]"
+                                 namespaces="[component-style-icon]"
                                  xtype="tags"/>
 
                     </items>
