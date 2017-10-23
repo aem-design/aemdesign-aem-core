@@ -32,24 +32,24 @@
                                 xtype="label"/>
 
                         <titleIconShow jcr:primaryType="cq:Widget"
-                                       fieldLabel="Show Title Icon"
-                                       fieldDescription="show icon with title"
-                                       allowBlank="{Boolean}true"
-                                       name="./titleIconShow"
-                                       options="/etc/tags/component-dialog/common/true-false.valuelist.json"
-                                       type="select"
-                                       defaultValue=""
-                                       xtype="selection"/>
+                                fieldLabel="Show Title Icon"
+                                fieldDescription="show icon with title"
+                                allowBlank="{Boolean}true"
+                                name="./titleIconShow"
+                                options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                type="select"
+                                defaultValue=""
+                                xtype="selection"/>
 
                         <titleIcon jcr:primaryType="cq:Widget"
-                                   allowBlank="{Boolean}true"
-                                   defaultValue=""
-                                   value=""
-                                   fieldLabel="Title Icon"
-                                   fieldDescription="When showing this page links show this Icon"
-                                   name="./titleIcon"
-                                   namespaces="[component-style-icon]"
-                                   xtype="tags"/>
+                                allowBlank="{Boolean}true"
+                                defaultValue=""
+                                value=""
+                                fieldLabel="Title Icon"
+                                fieldDescription="When showing this page links show this Icon"
+                                name="./titleIcon"
+                                namespaces="[component-style-icon]"
+                                xtype="tags"/>
 
                     </items>
                 </titleConfigGroup>
@@ -83,7 +83,7 @@
                                    fieldLabel="Card Icon"
                                    fieldDescription="When showing this page as card badge use this Icon"
                                    name="./cardIcon"
-                                   namespaces="[component-style-icon]"
+                                   namespaces="[component-style-icon,component-style-modifier]"
                                    xtype="tags"/>
 
                         <cardStyle jcr:primaryType="cq:Widget"
@@ -123,15 +123,15 @@
                                 xtype="label"/>
 
                         <badgeTitleType jcr:primaryType="cq:Widget"
-                                        fieldLabel="Badge Title Type"
-                                        fieldDescription="which paragraph tag to use for Badge Title display"
-                                        allowBlank="{Boolean}true"
-                                        name="./badgeTitleType"
-                                        options="/etc/tags/component-dialog/html/heading.valuelist.json"
-                                        type="select"
-                                        defaultValue=""
-                                        value=""
-                                        xtype="selection"/>
+                                fieldLabel="Badge Title Type"
+                                fieldDescription="which paragraph tag to use for Badge Title display"
+                                allowBlank="{Boolean}true"
+                                name="./badgeTitleType"
+                                options="/etc/tags/component-dialog/html/heading.valuelist.json"
+                                type="select"
+                                defaultValue=""
+                                value=""
+                                xtype="selection"/>
 
                         <badgeLinkTarget jcr:primaryType="cq:Widget"
                                 fieldLabel="Card CTA Target"
@@ -154,8 +154,15 @@
                                 fieldDescription="shows as a link alt title"
                                 name="./badgeLinkTitle"
                                 xtype="textfield"/>
-
-
+                        <badgeLinkStyle jcr:primaryType="cq:Widget"
+                                allowBlank="{Boolean}true"
+                                defaultValue=""
+                                value=""
+                                fieldLabel="Card CTA Style"
+                                fieldDescription="The type of button that should appear on the card"
+                                name="./badgeLinkStyle"
+                                namespaces="[component-style-theme,component-style-modifier]"
+                                xtype="tags"/>
 
                         <badgeTitleTrim
                                 jcr:primaryType="cq:Widget"
