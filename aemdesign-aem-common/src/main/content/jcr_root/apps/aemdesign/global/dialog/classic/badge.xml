@@ -101,7 +101,7 @@
                                   fieldDescription="this will be used as card size in grids"
                                   allowBlank="{Boolean}true"
                                   name="./cardSize"
-                                  options="/etc/tags/component-style/theme/common/card/size.valuelist.json"
+                                  options="/etc/tags/component-style-theme/common/card/size.valuelist.json"
                                   type="select"
                                   defaultValue=""
                                   value=""
@@ -325,7 +325,7 @@
                                    fieldDescription="Color to be used for highlighting in Site Menu"
                                    allowBlank="{Boolean}true"
                                    name="./menuColor"
-                                   options="/etc/tags/component-style/theme/lists/navlist/color.valuelist.json"
+                                   options="/etc/tags/component-style-theme/lists/navlist/color.valuelist.json"
                                    type="select"
                                    defaultValue=""
                                    xtype="selection"/>

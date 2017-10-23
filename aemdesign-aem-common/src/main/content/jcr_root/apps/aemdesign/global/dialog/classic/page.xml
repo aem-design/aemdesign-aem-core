@@ -19,7 +19,7 @@
                                    fieldDescription="Site theme Category to include"
                                    allowBlank="{Boolean}true"
                                    name="./siteThemeCategory"
-                                   options="/etc/tags/component-style/theme/common/site/themecategory.valuelist.json"
+                                   options="/etc/tags/component-style-theme/common/site/themecategory.valuelist.json"
                                    type="select"
                                    defaultValue=""
                                    xtype="selection"/>
@@ -28,7 +28,7 @@
                                 fieldDescription="Used by browsers for Tab and Browser windows colors"
                                 allowBlank="{Boolean}true"
                                 name="./siteThemeColor"
-                                options="/etc/tags/component-style/theme/common/site/themecolor.valuelist.json"
+                                options="/etc/tags/component-style-theme/common/site/themecolor.valuelist.json"
                                 type="select"
                                 defaultValue=""
                                 xtype="selection"/>
@@ -37,7 +37,7 @@
                                fieldDescription="Used by browsers for Tab and Browser tile colors"
                                allowBlank="{Boolean}true"
                                name="./siteTileColor"
-                               options="/etc/tags/component-style/theme/common/site/tilecolor.valuelist.json"
+                               options="/etc/tags/component-style-theme/common/site/tilecolor.valuelist.json"
                                type="select"
                                defaultValue=""
                                xtype="selection"/>
