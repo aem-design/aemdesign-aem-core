@@ -24,7 +24,7 @@
                                 value=""
                                 fieldLabel="Theme"
                                 name="./componentTheme"
-                                namespaces="[component-style]"
+                                namespaces="[component-style-theme]"
                                 xtype="tags"/>
 
                 <componentModifiers jcr:primaryType="cq:Widget"
@@ -33,7 +33,7 @@
                                     value=""
                                     fieldLabel="Modifiers"
                                     name="./componentModifiers"
-                                    namespaces="[component-style]"
+                                    namespaces="[component-style-modifier]"
                                     xtype="tags"/>
 
                 <componentModule jcr:primaryType="cq:Widget"
@@ -42,7 +42,7 @@
                                  value=""
                                  fieldLabel="Module"
                                  name="./componentModule"
-                                 namespaces="[component-style]"
+                                 namespaces="[component-style-module]"
                                  xtype="tags"/>
 
                 <componentChevron jcr:primaryType="cq:Widget"
@@ -51,7 +51,7 @@
                                   value=""
                                   fieldLabel="Chevron"
                                   name="./componentChevron"
-                                  namespaces="[component-style]"
+                                  namespaces="[component-style-chevron]"
                                   xtype="tags"/>
 
                 <componentIcon jcr:primaryType="cq:Widget"
@@ -60,7 +60,7 @@
                                value=""
                                fieldLabel="Icon"
                                name="./componentIcon"
-                               namespaces="[component-style]"
+                               namespaces="[component-style-icon]"
                                xtype="tags"/>
 
                 <position

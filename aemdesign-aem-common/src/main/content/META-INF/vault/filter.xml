@@ -22,7 +22,11 @@
     <filter root="/etc/designs/default" mode="update"/>
 
     <filter root="/etc/tags/content-type" mode="update"/>
-    <filter root="/etc/tags/component-style" mode="update"/>
+    <filter root="/etc/tags/component-style-theme" mode="update"/>
+    <filter root="/etc/tags/component-style-modifier" mode="update"/>
+    <filter root="/etc/tags/component-style-module" mode="update"/>
+    <filter root="/etc/tags/component-style-chevron" mode="update"/>
+    <filter root="/etc/tags/component-style-icon" mode="update"/>
     <filter root="/etc/tags/component-dialog" mode="update"/>
     <filter root="/etc/tags/component-topic" mode="update"/>
     <filter root="/etc/tags/component-aria" mode="update"/>

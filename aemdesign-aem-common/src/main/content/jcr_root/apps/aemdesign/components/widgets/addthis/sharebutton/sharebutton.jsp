@@ -4,7 +4,7 @@
     final String DEFAULT_ARIA_ROLE = "banner";
     final String DEFAULT_CLOUDCONFIG_ADDTHIS = "addthisconnect";
     final String DEFAULT_CLOUDCONFIG_ADDTHIS_ID = "pubId";
-    final String DEFAULT_MODULE_TAG = "component-style:theme/widgets/sharebutton";
+    final String DEFAULT_MODULE_TAG = "component-style-theme:widgets/sharebutton";
 
     Object[][] componentFields = {
             {FIELD_VARIANT, DEFAULT_VARIANT},
