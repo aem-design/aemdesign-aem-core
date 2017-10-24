@@ -23,7 +23,7 @@
     title="${componentProperties.title}"${linkAttr}>
     <img src="${componentProperties.pageImageThumbnail}"${imageAttr}
          alt="${componentProperties.title}"
-         <c:if test="${not empty componentProperties.pageSecondaryImage}">
+         <c:if test="${not empty componentProperties.pageSecondaryImageThumbnail}">
             class="rollover"
-            data-rollover-src="${componentProperties.pageSecondaryImage}"</c:if>>
+            data-rollover-src="${componentProperties.pageSecondaryImageThumbnail}"</c:if>>
 </a>
