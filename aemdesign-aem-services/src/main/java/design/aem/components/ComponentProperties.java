@@ -67,11 +67,20 @@ public class ComponentProperties extends ValueMapDecorator {
                                 // if newValue is empty don't do anything
                                 if (ArrayUtils.getLength(newValue) == 0) {
                                     continue;
+                                } else {
+                                    if (ArrayUtils.getLength(currentValue) != 0) {
+                                        continue;
+                                    }
                                 }
                             } else {
                                 // if newValue is empty don't do anything
                                 if (StringUtils.isEmpty(newValue.toString())) {
                                     continue;
+                                } else {
+                                    // if currentValue is not empty don't do anything
+                                    if (StringUtils.isNotEmpty(currentValue.toString())) {
+                                        continue;
+                                    }
                                 }
                             }
                         }
