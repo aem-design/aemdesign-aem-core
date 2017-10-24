@@ -259,6 +259,46 @@
             {DETAILS_THUMBNAIL, DEFAULT_IMAGE_BLANK},
     };
 
+    // {
+    //   1 required - property name,
+    //   2 required - default value,
+    //   3 optional - name of component attribute to add value into, specifying "" will return values process as per canonical name
+    //   4 optional - canonical name of class for handling multivalues, String or Tag
+    // }
+    public static final Object[][] DEFAULT_FIELDS_DETAILS_OPTIONS_OVERRIDE = {
+            {DETAILS_MENU_COLOR, ""},
+            {DETAILS_MENU_ICONSHOW, ""},
+            {DETAILS_MENU_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_MENU_ACCESS_KEY, ""},
+            {DETAILS_CARD_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_CARD_SIZE, ""},
+            {DETAILS_CARD_ICONSHOW, ""},
+            {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_LINK_TARGET, ""},
+            {DETAILS_LINK_TEXT, ""}, //getPageNavTitle(_currentPage)
+            {DETAILS_LINK_TITLE, ""}, //getPageTitle(_currentPage)
+            {DETAILS_TITLE_TRIM, ""},
+            {DETAILS_TITLE_TRIM_LENGTH_MAX, ""},
+            {DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX, ""},
+            {DETAILS_SUMMARY_TRIM, ""},
+            {DETAILS_SUMMARY_TRIM_LENGTH_MAX, ""},
+            {DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX, ""},
+            {DETAILS_TAB_ICONSHOW, ""},
+            {DETAILS_TAB_ICON,  new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_TITLE_ICONSHOW, ""},
+            {DETAILS_TITLE_ICON,  new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_OVERLAY_ICONSHOW, ""},
+            {DETAILS_OVERLAY_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_PAGE_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_THUMBNAIL_WIDTH, ""},
+            {DETAILS_THUMBNAIL_HEIGHT, ""},
+            {DETAILS_THUMBNAIL_TYPE, ""},
+            {DETAILS_TITLE_TAG_TYPE, ""},
+            {DETAILS_THUMBNAIL_ID, ""},
+            {DETAILS_THUMBNAIL_LICENSE_INFO, ""},
+            {DETAILS_THUMBNAIL, ""},
+    };
+
     //COMPONENT ANALYTICS
     // {
     //   1 required - property name,
