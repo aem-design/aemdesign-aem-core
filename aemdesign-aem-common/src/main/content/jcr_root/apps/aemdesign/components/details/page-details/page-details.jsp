@@ -66,10 +66,27 @@
 
     componentProperties.put(FIELD_REDIRECT_TARGET,_pageProperties.get(FIELD_REDIRECT_TARGET,""));
 
+
+    componentProperties.put(FIELD_PAGE_IMAGE_THUMBNAIL,
+            getBestFitRendition(
+                    componentProperties.get(FIELD_PAGE_IMAGE, DEFAULT_IMAGE_BLANK),
+                    componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
+                    _resourceResolver
+            )
+    );
+
+    componentProperties.put(FIELD_PAGE_IMAGE_SECONDARY_THUMBNAIL,
+            getBestFitRendition(
+                    componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY, DEFAULT_IMAGE_BLANK),
+                    componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
+                    _resourceResolver
+            )
+    );
+
+
     componentProperties.putAll(processComponentFields(componentProperties,_i18n,_sling), false);
 
     componentProperties.putAll(processBadgeRequestConfig(componentProperties,_resourceResolver, request), true);
-
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
