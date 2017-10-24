@@ -15,10 +15,14 @@
     <c:set var="classStyleAttr" value="${classStyleAttr} ${fn:join(componentProperties.cardStyle,' ')}"/>
 </c:if>
 
-<div class="card ${componentProperties.cardSize} ${classStyleAttr}">
-    <i class="icon ${classIconAttr}" title="${componentProperties.title}"></i>
-    <div class="card-block">
-        <${componentProperties.badgeTitleType}>${componentProperties.pageNavTitle}</${componentProperties.badgeTitleType}>
+<div class="card ${componentProperties.cardSize} ${classStyleAttr}" ${animationAttr}>
+    <c:if test="${componentProperties.cardIconShow}">
+        <div class="card-icon">
+            <i class="icon ${classIconAttr}" title="${componentProperties.title}"></i>
+        </div>
+    </c:if>
+    <div class="card-body">
+        <${componentProperties.badgeTitleType} class="card-title">${componentProperties.pageNavTitle}</${componentProperties.badgeTitleType}>
         <c:if test="${not empty componentProperties.category}">
             <div class="card-category">
                 <ul class="tags">

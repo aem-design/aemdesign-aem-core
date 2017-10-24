@@ -21,12 +21,12 @@
     <c:set var="classAttr" value="${classAttr} ${fn:join(componentProperties.cardStyle,' ')}"/>
 </c:if>
 
-<div class="card ${componentProperties.cardSize} ${classAttr}">
-    <img src="${componentProperties.pageImageThumbnail}"${imageAttr}
-         alt="${componentProperties.title}"
-         class="card-img-top"/>
-    <div class="card-block">
-        <${componentProperties.badgeTitleType}>${componentProperties.pageNavTitle}</${componentProperties.badgeTitleType}>
+<div class="card ${componentProperties.cardSize} ${classAttr}" ${animationAttr}>
+    <div class="card-img-top">
+        <img src="${componentProperties.pageImageThumbnail}" ${imageAttr} alt="${componentProperties.title}">
+    </div>
+    <div class="card-body">
+        <${componentProperties.badgeTitleType} class="card-title">${componentProperties.pageNavTitle}</${componentProperties.badgeTitleType}>
         <c:if test="${not empty componentProperties.category}">
             <div class="card-category">
                 <ul class="tags">
@@ -37,10 +37,10 @@
             </div>
         </c:if>
         <p class="card-text">${componentProperties.description}</p>
-        <a class="card-link"
+        <a class="card-link ${linkClassAttr}"
            href="${componentProperties.pageUrl}"
            target="${componentProperties.badgeLinkTarget}"
            title="${componentProperties.badgeLinkTitle}"
-            ${linkAttr}>${componentProperties.badgeLinkText}</a>
+           ${linkAttr}>${componentProperties.badgeLinkText}</a>
     </div>
 </div>

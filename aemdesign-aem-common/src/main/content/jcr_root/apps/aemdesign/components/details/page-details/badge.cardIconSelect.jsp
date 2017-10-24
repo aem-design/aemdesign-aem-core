@@ -19,11 +19,15 @@
         href="${componentProperties.pageUrl}"
         target="${componentProperties.badgeLinkTarget}"
         title="${componentProperties.badgeLinkTitle}"
-        class="card  ${componentProperties.cardSize} ${classStyleAttr}"
-        ${linkAttr}>
-    <i class="icon ${classIconAttr}" title="${componentProperties.title}"></i>
-    <div class="card-block">
-        <${componentProperties.badgeTitleType}>${componentProperties.pageNavTitle}</${componentProperties.badgeTitleType}>
+        class="card ${componentProperties.cardSize} ${classStyleAttr}"
+        ${linkAttr} ${animationAttr}>
+    <c:if test="${componentProperties.cardIconShow}">
+        <div class="card-icon">
+            <i class="icon ${classIconAttr}" title="${componentProperties.title}"></i>
+        </div>
+    </c:if>
+    <div class="card-body">
+        <${componentProperties.badgeTitleType} class="card-title">${componentProperties.pageNavTitle}</${componentProperties.badgeTitleType}>
         <c:if test="${not empty componentProperties.category}">
             <div class="card-category">
                 <ul class="tags">
