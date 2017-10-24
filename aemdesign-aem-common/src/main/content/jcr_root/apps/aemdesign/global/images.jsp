@@ -792,6 +792,31 @@
     }
 
     /***
+     * get a best fitting rendition for an asset resolved from asset path
+     * @param assetPath
+     * @param renditionWidth
+     * @param resourceResolver
+     * @return
+     */
+    public String getBestFitRendition(String assetPath, int renditionWidth, ResourceResolver resourceResolver) {
+        String renditionPath = assetPath;
+
+        com.adobe.granite.asset.api.AssetManager assetManager = resourceResolver.adaptTo(com.adobe.granite.asset.api.AssetManager.class);
+        com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(assetPath);
+
+        if (asset != null) {
+
+            com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(renditionWidth, asset);
+            if (bestRendition != null) {
+                renditionPath = bestRendition.getPath();
+            }
+
+        }
+
+        return renditionPath;
+    }
+
+    /***
      * allow picking of best rendition by width based on default prefixes
      * @param width min width
      * @param renditions
