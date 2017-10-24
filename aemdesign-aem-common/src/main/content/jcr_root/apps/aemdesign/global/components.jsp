@@ -70,12 +70,20 @@
     private static final String DETAILS_CARD_ICONSHOW = "cardIconShow";
     private static final String DETAILS_CARD_ICON = "cardIcon";
     private static final String DETAILS_PAGE_ICON = "pageIcon";
-
+    
+    //animation badge config
+    private static final String DETAILS_ANIMATION_ENABLED = "animationEnabled";
+    private static final String DETAILS_ANIMATION_NAME = "animationName";
+    private static final String DETAILS_ANIMATION_ONCE = "animationOnce";
+    private static final String DETAILS_ANIMATION_EASING = "animationEasing";
+    private static final String DETAILS_ANIMATION_DELAY = "animationDelay";
+    private static final String DETAILS_ANIMATION_DURATION = "animationDuration";
 
     //shared badge config passed from list to all badge elements
     private static final String DETAILS_LINK_TARGET = "badgeLinkTarget";
     private static final String DETAILS_LINK_TEXT = "badgeLinkText";
     private static final String DETAILS_LINK_TITLE = "badgeLinkTitle";
+    private static final String DETAILS_LINK_STYLE = "badgeLinkStyle";
     private static final String DETAILS_TITLE_TRIM = "badgeTitleTrim";
     private static final String DETAILS_TITLE_TRIM_LENGTH_MAX = "badgeTitleTrimLengthMax";
     private static final String DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX = "badgeTitleTrimLengthMaxSuffix";
@@ -234,9 +242,16 @@
             {DETAILS_CARD_SIZE, "small"},
             {DETAILS_CARD_ICONSHOW, false},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_ANIMATION_ENABLED, ""},
+            {DETAILS_ANIMATION_NAME, ""},
+            {DETAILS_ANIMATION_ONCE, ""},
+            {DETAILS_ANIMATION_EASING, ""},
+            {DETAILS_ANIMATION_DELAY, ""},
+            {DETAILS_ANIMATION_DURATION, ""},
             {DETAILS_LINK_TARGET, "_blank"},
             {DETAILS_LINK_TEXT, ""}, //getPageNavTitle(_currentPage)
             {DETAILS_LINK_TITLE, ""}, //getPageTitle(_currentPage)
+            {DETAILS_LINK_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, false},
             {DETAILS_TITLE_TRIM_LENGTH_MAX, DEFAULT_SUMMARY_TRIM_LENGTH},
             {DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX, DEFAULT_SUMMARY_TRIM_SUFFIX},
@@ -277,6 +292,7 @@
             {DETAILS_LINK_TARGET, ""},
             {DETAILS_LINK_TEXT, ""}, //getPageNavTitle(_currentPage)
             {DETAILS_LINK_TITLE, ""}, //getPageTitle(_currentPage)
+            {DETAILS_LINK_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, ""},
             {DETAILS_TITLE_TRIM_LENGTH_MAX, ""},
             {DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX, ""},
@@ -314,6 +330,21 @@
             {"analyticsEventLabel", StringUtils.EMPTY, "data-analytics-event-label"},
             {"analyticsTransport", StringUtils.EMPTY, "data-analytics-transport"},
             {"analyticsNonInteraction", StringUtils.EMPTY, "data-analytics-noninteraction"},
+    };
+
+    //COMPONENT ANIMATION
+    // {
+    //   1 required - property name,
+    //   2 required - default value,
+    //   3 optional - name of component attribute to add value into
+    //   4 optional - canonical name of class for handling multivalues, String or Tag
+    // }
+    public static final Object[][] DEFAULT_FIELDS_ANIMATION = {
+            {"animationName", StringUtils.EMPTY, "data-aos"},
+            {"animationOnce", StringUtils.EMPTY, "data-aos-once"},
+            {"animationEasing", StringUtils.EMPTY, "data-aos-easing"},
+            {"animationDelay", StringUtils.EMPTY, "data-aos-delay"},
+            {"animationDuration", StringUtils.EMPTY, "data-aos-duration"},
     };
 
     //LINK ATTRIBUTES
