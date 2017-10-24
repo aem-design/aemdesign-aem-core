@@ -119,6 +119,7 @@
     public static final String FIELD_PAGE_IMAGE_ID = "pageImageId";
     public static final String FIELD_PAGE_IMAGE_LICENSE_INFO = "pageImageLicenseInfo";
     public static final String FIELD_PAGE_IMAGE_SECONDARY = "pageSecondaryImage";
+    public static final String FIELD_PAGE_IMAGE_SECONDARY_THUMBNAIL = "pageSecondaryImageThumbnail";
     public static final String FIELD_PAGE_IMAGE_BACKGROUND = "pageBackgroundImage";
     public static final String FIELD_PAGE_IMAGE_THUMBNAIL = "pageImageThumbnail";
     public static final String FIELD_PAGE_URL = "pageUrl";
