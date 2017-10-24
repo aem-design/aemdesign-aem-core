@@ -63,9 +63,8 @@
     //prepare request parms to pass to badges
     ComponentProperties badgeRequestAttributes = getComponentProperties(
             pageContext,
-            DEFAULT_FIELDS_DETAILS_OPTIONS);
+            DEFAULT_FIELDS_DETAILS_OPTIONS_OVERRIDE);
 
-    badgeRequestAttributes.put(DETAILS_THUMBNAIL,DEFAULT_IMAGE_BLANK);
     if (_resourceResolver.resolve(badgeRequestAttributes.get(DETAILS_THUMBNAIL,"")) != null) {
         badgeRequestAttributes.putAll(getAssetInfo(_resourceResolver,
                 getResourceImagePath(_resource, DETAILS_THUMBNAIL),
