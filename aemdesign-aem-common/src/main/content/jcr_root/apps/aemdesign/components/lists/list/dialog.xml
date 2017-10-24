@@ -305,6 +305,10 @@
                                         jcr:primaryType="nt:unstructured"
                                         value="cardSelect"
                                         text="Clickable Card with Image "/>
+                                <cardHorizontal
+                                        jcr:primaryType="nt:unstructured"
+                                        value="cardHorizontal"
+                                        text="Horizontal Card"/>
                             </options>
 
                         </detailsBadge>
