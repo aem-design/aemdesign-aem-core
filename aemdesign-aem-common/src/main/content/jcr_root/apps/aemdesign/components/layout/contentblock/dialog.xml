@@ -171,8 +171,6 @@
                         path="/apps/aemdesign/global/dialog/classic/images/items/imageBackgroundTab.infinity.json"
                         xtype="cqinclude"/>
 
-
-
                 <imageBackgroundTabResourceType
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/images/items/imageBackgroundTabResourceType.infinity.json"
@@ -192,9 +190,10 @@
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
                         xtype="cqinclude"/>
+
                 <accessibilityTab jcr:primaryType="cq:Panel"
-                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
-                                  xtype="cqinclude"/>
+                        path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
+                        xtype="cqinclude"/>
             </items>
         </tabs>
     </items>
