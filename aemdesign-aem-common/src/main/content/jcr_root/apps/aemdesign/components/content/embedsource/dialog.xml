@@ -27,17 +27,8 @@
                                 fieldLabel="Html"
                                 hideLabel="{Boolean}true"
                                 name="./html"
-                                invalidClass="x-form-invalid"
                                 height="220"
-                                xtype="htmleditor"
-                                validate="function() { var checkValid = AEMDESIGN.components.embedsource.findUnclosedTags(this.el.dom.value); this.findParentByType('dialog').find('id','sourceError')[0].setValue(checkValid.error);  return checkValid.valid ;}"/>
-                        <sourceError
-                                jcr:primaryType="cq:Widget"
-                                id="sourceError"
-                                fieldLabel="Errors"
-                                text=""
-                                readOnly="{Boolean}true"
-                                xtype="textarea"/>
+                                xtype="htmleditor"/>
                     </items>
                 </sourceTab>
                 <layoutTab
