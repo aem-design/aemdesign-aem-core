@@ -141,7 +141,7 @@ CQ.tagging.TagAdmin.createTag = function () {
                     {
                         name: "jcr:title",
                         fieldLabel: CQ.I18n.getMessage("Title"),
-                        allowBlank: false
+                        allowBlank: true
                     },
                     {
                         name: "jcr:description",
@@ -193,6 +193,29 @@ CQ.tagging.TagAdmin.createTag = function () {
                         xtype: "dialogfieldset",
                         collapsible: true,
                         items: localizedTitles
+                    },
+                    {
+                        title: CQ.I18n.getMessage("Special"),
+                        xtype: "dialogfieldset",
+                        collapsible: true,
+                        collapsed: true,
+                        items: [
+                            {
+                                name: "entity",
+                                fieldLabel: CQ.I18n.getMessage("Entity Text"),
+                                xtype: "textfield"
+                            },
+                            {
+                                name: "rangeStart",
+                                fieldLabel: CQ.I18n.getMessage("Range Start"),
+                                xtype: "numberfield"
+                            },
+                            {
+                                name: "rangeEnd",
+                                fieldLabel: CQ.I18n.getMessage("Range End"),
+                                xtype: "numberfield"
+                            }
+                        ]
                     }
 
                 ]
