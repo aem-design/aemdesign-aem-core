@@ -378,7 +378,7 @@
                                 jcr:primaryType="nt:unstructured"
                                 features="[specialchars,sourceedit]">
                             <specialCharsConfig jcr:primaryType="nt:unstructured"
-                                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/misctools/specialCharsConfig.infinity.json"
+                                path="/etc/tags/component-dialog/rte/specialCharsConfig.overlay.infinity.json"
                                 xtype="cqinclude" />
 
                         </misctools>
