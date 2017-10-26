@@ -1010,8 +1010,7 @@
 
             while (renditions.hasNext()) {
                 com.adobe.granite.asset.api.Rendition rendition = (com.adobe.granite.asset.api.Rendition)renditions.next();
-
-                if (rendition != null && rendition.getName().contains(".video.")) {
+                if (rendition != null && (rendition.getName().contains(".video.") || rendition.getName().equals("original"))) {
                     renditionsSet.put(rendition.getPath(), rendition.getMimeType());
                 }
             }
