@@ -32,7 +32,7 @@
                                 features="[specialchars,sourceedit]">
                             <specialCharsConfig jcr:primaryType="nt:unstructured"
                                                 path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/misctools/specialCharsConfig.infinity.json"
-                                                xtype="cqinclude" />
+                                                xtype="cqinclude"/>
                         </misctools>
 
                     </rtePlugins>
@@ -173,20 +173,9 @@
                         <styles
                                 jcr:primaryType="nt:unstructured"
                                 features="*">
-                            <styles jcr:primaryType="cq:WidgetCollection">
-                                <hi
-                                        jcr:primaryType="nt:unstructured"
-                                        cssName="color1"
-                                        text="Green"/>
-                                <mid
-                                        jcr:primaryType="nt:unstructured"
-                                        cssName="color2"
-                                        text="Red"/>
-                                <lo
-                                        jcr:primaryType="nt:unstructured"
-                                        cssName="color3"
-                                        text="Blue"/>
-                            </styles>
+                            <styles jcr:primaryType="cq:WidgetCollection"
+                                                path="/etc/tags/component-dialog/rte/styles.overlay.infinity.json"
+                                                xtype="cqinclude" />
                         </styles>
 
 
@@ -196,54 +185,10 @@
                         <misctools
                                 jcr:primaryType="nt:unstructured"
                                 features="[specialchars]">
-                            <specialCharsConfig jcr:primaryType="nt:unstructured">
-                                <chars jcr:primaryType="nt:unstructured">
-                                    <hr jcr:primaryType="nt:unstructured"
-                                            entity="&lt;hr&gt;"/>
-                                    <lsquo jcr:primaryType="nt:unstructured"
-                                        entity="&amp;lsquo;"/>
-                                    <rsquo jcr:primaryType="nt:unstructured"
-                                        entity="&amp;rsquo;"/>
-                                    <sbquo jcr:primaryType="nt:unstructured"
-                                        entity="&amp;sbquo;"/>
-                                    <ldquo jcr:primaryType="nt:unstructured"
-                                        entity="&amp;ldquo;"/>
-                                    <rdquo jcr:primaryType="nt:unstructured"
-                                        entity="&amp;rdquo;"/>
-                                    <lsaquo jcr:primaryType="nt:unstructured"
-                                        entity="&amp;lsaquo;"/>
-                                    <rsaquo jcr:primaryType="nt:unstructured"
-                                        entity="&amp;rsaquo;"/>
-                                    <spades jcr:primaryType="nt:unstructured"
-                                        entity="&amp;spades;"/>
-                                    <clubs jcr:primaryType="nt:unstructured"
-                                        entity="&amp;clubs;"/>
-                                    <hearts jcr:primaryType="nt:unstructured"
-                                        entity="&amp;hearts;"/>
-                                    <diams jcr:primaryType="nt:unstructured"
-                                        entity="&amp;diams;"/>
-                                    <oline jcr:primaryType="nt:unstructured"
-                                        entity="&amp;oline;"/>
-                                    <larr jcr:primaryType="nt:unstructured"
-                                        entity="&amp;larr;"/>
-                                    <uarr jcr:primaryType="nt:unstructured"
-                                        entity="&amp;uarr;"/>
-                                    <rarr jcr:primaryType="nt:unstructured"
-                                        entity="&amp;rarr;"/>
-                                    <darr jcr:primaryType="nt:unstructured"
-                                        entity="&amp;darr;"/>
-                                    <trade jcr:primaryType="nt:unstructured"
-                                        entity="&amp;trade;"/>
-                                    <blackdot jcr:primaryType="nt:unstructured"
-                                        entity="●"/>
-                                    <cleardot jcr:primaryType="nt:unstructured"
-                                        entity="○"/>
-                                    <charset jcr:primaryType="nt:unstructured"
-                                        rangeStart="161"
-                                        rangeEnd="190"/>
+                            <specialCharsConfig jcr:primaryType="nt:unstructured"
+                                                path="/etc/tags/component-dialog/rte/specialCharsConfig.overlay.infinity.json"
+                                                xtype="cqinclude" />
 
-                                </chars>
-                            </specialCharsConfig>
                         </misctools>
 <!--
                         <links
@@ -356,7 +301,7 @@
                         <edit
                                 jcr:primaryType="nt:unstructured"
                                 path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/edit.infinity.json"
-                                xtype="cqinclude" />
+                                xtype="cqinclude"/>
                         <justify
                                 jcr:primaryType="nt:unstructured"
                                 features="*"/>
@@ -366,11 +311,11 @@
                         <paraformat
                                 jcr:primaryType="nt:unstructured"
                                 path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/paraformat.infinity.json"
-                                xtype="cqinclude" />
+                                xtype="cqinclude"/>
                         <styles
                                 jcr:primaryType="nt:unstructured"
                                 path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/styles.infinity.json"
-                                xtype="cqinclude" />
+                                xtype="cqinclude"/>
                         <subsuperscript
                                 jcr:primaryType="nt:unstructured"
                                 features="*"/>
@@ -386,7 +331,7 @@
                         <links
                                 jcr:primaryType="nt:unstructured"
                                 path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/links.infinity.json"
-                                xtype="cqinclude" />
+                                xtype="cqinclude"/>
 
                         <spellcheck
                                 jcr:primaryType="nt:unstructured"
@@ -465,7 +410,7 @@
                 <links
                         jcr:primaryType="nt:unstructured"
                         path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/links.infinity.json"
-                        xtype="cqinclude" />
+                        xtype="cqinclude"/>
 
                 <edit
                         jcr:primaryType="nt:unstructured"
@@ -474,12 +419,12 @@
                 <paraformat
                         jcr:primaryType="nt:unstructured"
                         path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/paraformat.infinity.json"
-                        xtype="cqinclude" />
+                        xtype="cqinclude"/>
 
                 <styles
                         jcr:primaryType="nt:unstructured"
                         path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/styles.infinity.json"
-                        xtype="cqinclude" />
+                        xtype="cqinclude"/>
 
                 <findreplace
                         jcr:primaryType="nt:unstructured"
@@ -498,7 +443,7 @@
                         features="[specialchars]">
                     <specialCharsConfig jcr:primaryType="nt:unstructured"
                                         path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced/items/text/rtePlugins/misctools/specialCharsConfig.infinity.json"
-                                        xtype="cqinclude" />
+                                        xtype="cqinclude"/>
                 </misctools>
 
             </rtePlugins>
