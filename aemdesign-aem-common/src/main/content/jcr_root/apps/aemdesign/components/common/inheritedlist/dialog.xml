@@ -43,10 +43,35 @@
                     path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/querybuilderTab.infinity.json"
                     xtype="cqinclude" />
 
-                <advancedTab
+                <listConfigTab
                     jcr:primaryType="cq:Widget"
-                    path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/advancedTab.infinity.json"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/listConfigTab.infinity.json"
                     xtype="cqinclude" />
+                <badgeConfigTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/badgeConfigTab.infinity.json"
+                    xtype="cqinclude" />
+                <badgeThumbnailTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/badgeThumbnailTab.infinity.json"
+                    xtype="cqinclude" />
+                <badgeThumbnailTabResourceType
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/badgeThumbnailTabResourceType.infinity.json"
+                    xtype="cqinclude" />
+                <feedTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/feedTab.infinity.json"
+                    xtype="cqinclude" />
+                <styleTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/styleTab.infinity.json"
+                    xtype="cqinclude" />
+                <accessibilityTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/accessibilityTab.infinity.json"
+                    xtype="cqinclude" />
+
                 <inheritTab
                     jcr:primaryType="cq:Widget"
                     path="/apps/aemdesign/components/common/inherit/dialog/items/tabs/items/inheritTab.infinity.json"
