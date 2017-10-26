@@ -91,10 +91,10 @@
         //print column start
         if (width.length > 1) {
             //take the [0] = [col-md-] and add to it width by current column number
-            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}{2}\">", "col", width[0], width[n + 1])); //EXTENDED
+            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}{2}\">", "col-sm", width[0], width[n + 1])); //EXTENDED
         } else {
             //out.write("<div class='parsys_column " + par.getBaseCssClass() + " col-" + n + "'>");
-            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}\">", "col", par.getCssClass())); //ORIGINAL
+            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}\">", "col-sm", par.getCssClass())); //ORIGINAL
         }
     }
 
@@ -382,11 +382,11 @@
         //print column start
         if (width.length > 1) {
             // take the [0] = [col-md-] and add to it width by current column number
-            out.write("<div class='" + width[0] + width[currColNumber] + "'>");
+            out.write("<div class='col-sm " + width[0] + width[currColNumber] + "'>");
 
         } else {
             // take the [0] = [col-md-] and add to it width by current column number
-            out.write("<div class='" + width[0] + "'>");
+            out.write("<div class='col-sm " + width[0] + "'>");
         }
     }
 
