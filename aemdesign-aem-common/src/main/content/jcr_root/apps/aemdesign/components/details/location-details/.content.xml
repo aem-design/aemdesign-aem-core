@@ -4,4 +4,5 @@
     jcr:description="The Location Details component is used to contain and publish location related structured data and content."
     jcr:primaryType="cq:Component"
     jcr:title="Location Details"
+    cq:icon="viewDetail"
     componentGroup="AEM.Design - Details"/>

@@ -3,6 +3,7 @@
     jcr:primaryType="cq:Component"
     jcr:description="This is a component which enable HTML editing to allow user to enter HTML code directly or insert small snippets of code for unique functionality."
     jcr:title="Html Widget"
+    cq:icon="code"
     sling:resourceSuperType="foundation/components/text"
     allowedParents="[*/parsys]"
     componentGroup="AEM.Design - Content"/>

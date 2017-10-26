@@ -4,4 +4,5 @@
     jcr:description="Primary block for content"
     jcr:primaryType="cq:Component"
     jcr:title="Content Block"
+    cq:icon="mBox"
     componentGroup="AEM.Design - Layout"/>

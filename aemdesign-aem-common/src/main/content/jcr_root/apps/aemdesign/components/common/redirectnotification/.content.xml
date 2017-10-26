@@ -4,4 +4,5 @@
     jcr:description="User Friendly redirect notification used on pages that are setup with redirect URL."
     jcr:primaryType="cq:Component"
     jcr:title="Redirection Notification"
+    cq:icon="linkPage"
     componentGroup=".hidden"/>

@@ -4,5 +4,6 @@
     jcr:description="This is a search component"
     jcr:primaryType="cq:Component"
     jcr:title="Search Box"
+    cq:icon="search"
     allowedParents="[*/parsys]"
     componentGroup="AEM.Design - Common"/>

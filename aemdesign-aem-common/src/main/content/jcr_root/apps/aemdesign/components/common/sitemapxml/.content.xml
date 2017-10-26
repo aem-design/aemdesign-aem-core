@@ -4,4 +4,5 @@
     jcr:description="This is a sitemap XML component that is not visible unless queried as an XML document."
     jcr:primaryType="cq:Component"
     jcr:title="Sitemap XML"
+    cq:icon="globeCheck"
     componentGroup=".hidden"/>

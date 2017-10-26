@@ -3,5 +3,6 @@
     cq:isContainer="{Boolean}true"
     jcr:primaryType="cq:Component"
     jcr:title="Footer"
+    cq:icon="mBox"
     sling:resourceSuperType="aemdesign/components/common/inherit"
     componentGroup="AEM.Design - Layout"/>

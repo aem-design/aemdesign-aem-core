@@ -3,4 +3,5 @@
     cq:isContainer="{Boolean}true"
     jcr:primaryType="cq:Component"
     jcr:title="Article"
+    cq:icon="mBox"
     componentGroup="AEM.Design - Layout"/>

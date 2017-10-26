@@ -3,4 +3,5 @@
     jcr:description="Creates a graph data link to view performance of page components"
     jcr:primaryType="cq:Component"
     jcr:title="Timing Component"
+    cq:icon="stopwatch"
     componentGroup=".hidden"/>

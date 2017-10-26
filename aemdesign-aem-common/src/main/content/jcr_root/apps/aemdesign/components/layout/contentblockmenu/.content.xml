@@ -4,4 +4,5 @@
     jcr:description="Menu that displays content block titles"
     jcr:primaryType="cq:Component"
     jcr:title="Content Block Menu"
+    cq:icon="menu"
     componentGroup="AEM.Design - Layout"/>

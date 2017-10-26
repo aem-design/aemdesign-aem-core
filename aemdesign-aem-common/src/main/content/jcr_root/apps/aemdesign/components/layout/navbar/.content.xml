@@ -3,5 +3,6 @@
     cq:isContainer="{Boolean}false"
     jcr:primaryType="cq:Component"
     jcr:title="Nav Bar"
+    cq:icon="linkNav"
     sling:resourceSuperType="aemdesign/components/common/inherit"
     componentGroup="AEM.Design - Layout"/>

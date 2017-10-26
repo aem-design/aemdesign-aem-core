@@ -4,5 +4,6 @@
     jcr:description="A content section for content that requires permissions"
     jcr:primaryType="cq:Component"
     jcr:title="Content Block Lockable"
+    cq:icon="usersLock"
     sling:resourceSuperType="aemdesign/components/layout/contentblock"
     componentGroup="AEM.Design - Layout"/>
