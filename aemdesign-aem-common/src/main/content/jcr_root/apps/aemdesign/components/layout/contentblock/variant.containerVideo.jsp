@@ -2,7 +2,7 @@
     <div class="video">
         <video ${fn:join(componentProperties.componentBooleanAttrs, " ")}>
         <c:forEach var="renditionVideo" items="${componentProperties.renditionsVideo}">
-            <source srcset="${renditionVideo.key}" type="${renditionVideo.value}"/>
+            <source src="${renditionVideo.key}" type="${renditionVideo.value}"/>
         </c:forEach>
         </video>
     </div>
