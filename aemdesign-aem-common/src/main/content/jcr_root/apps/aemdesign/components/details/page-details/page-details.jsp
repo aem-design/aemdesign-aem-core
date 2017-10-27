@@ -91,25 +91,7 @@
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 
-<c:if test="${componentProperties.animationEnabled and not empty componentProperties.animationName}">
-    <c:set var="animationAttr" value="data-aos=\"${componentProperties.animationName}\""/>
-</c:if>
-<c:if test="${componentProperties.animationEnabled and not empty componentProperties.animationOnce}">
-    <c:set var="animationAttr" value="${animationAttr} data-aos-once=\"${componentProperties.animationOnce}\""/>
-</c:if>
-<c:if test="${componentProperties.animationEnabled and not empty componentProperties.animationEasing}">
-    <c:set var="animationAttr" value="${animationAttr} data-aos-easing=\"${componentProperties.animationEasing}\""/>
-</c:if>
-<c:if test="${componentProperties.animationEnabled and not empty componentProperties.animationDelay}">
-    <c:set var="animationAttr" value="${animationAttr} data-aos-delay=\"${componentProperties.animationDelay}\""/>
-</c:if>
-<c:if test="${componentProperties.animationEnabled and not empty componentProperties.animationDuration}">
-    <c:set var="animationAttr" value="${animationAttr} data-aos-duration=\"${componentProperties.animationDuration}\""/>
-</c:if>
-
-<c:if test="${fn:length(componentProperties.badgeLinkStyle) > 0}">
-    <c:set var="linkClassAttr" value="${fn:join(componentProperties.badgeLinkStyle, ' ')}"/>
-</c:if>
+<%@ include file="badgeconfig.jsp" %>
 
 <c:choose>
     <c:when test="${COMPONENT_BADGE eq 'badge.card'}">

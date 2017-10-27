@@ -1,20 +1,3 @@
-<c:if test="${not empty componentProperties.linkTarget}">
-    <c:set var="linkAttr" value="${linkAttr} target=\"${componentProperties.linkTarget}\""/>
-</c:if>
-<c:if test="${not empty componentProperties.pageImageId}">
-    <c:set var="imageAttr" value="${imageAttr} data-asset-id=\"${componentProperties.pageImageId}\""/>
-</c:if>
-<c:if test="${not empty componentProperties.redirectTarget}">
-    <c:set var="linkAttr" value="${linkAttr} external"/>
-</c:if>
-
-<c:if test="${componentProperties.cardIconShow and fn:length(componentProperties.cardIcon) > 0}">
-    <c:set var="classIconAttr" value="${classIconAttr} ${fn:join(componentProperties.cardIcon,' ')}"/>
-</c:if>
-<c:if test="${fn:length(componentProperties.cardStyle) > 0}">
-    <c:set var="classStyleAttr" value="${classStyleAttr} ${fn:join(componentProperties.cardStyle,' ')}"/>
-</c:if>
-
 <div class="card ${componentProperties.cardSize} ${classStyleAttr}" ${animationAttr}>
     <c:if test="${componentProperties.cardIconShow}">
         <div class="card-icon">
@@ -37,6 +20,6 @@
            href="${componentProperties.pageUrl}"
            target="${componentProperties.badgeLinkTarget}"
            title="${componentProperties.badgeLinkTitle}"
-            ${linkAttr}>${componentProperties.badgeLinkText}</a>
+           ${linkAttr}>${componentProperties.badgeLinkText}</a>
     </div>
 </div>
