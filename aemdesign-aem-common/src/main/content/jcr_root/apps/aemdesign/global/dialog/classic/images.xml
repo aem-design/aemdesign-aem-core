@@ -49,6 +49,63 @@
             </cropConfig>
         </imageTab>
 
+        <imageExtTab
+                jcr:primaryType="cq:Widget"
+                allowUpload="false"
+                ddGroups="[media]"
+                requestSuffix=".img.png"
+                cropParameter="./image/imageCrop"
+                fileNameParameter="./image/fileName"
+                fileReferenceParameter="./image/fileReference"
+                mapParameter="./image/imageMap"
+                name="./image/file"
+                rotateParameter="./image/imageRotate"
+                title="Image"
+                xtype="html5smartimage">
+            <cropConfig jcr:primaryType="nt:unstructured">
+                <aspectRatios jcr:primaryType="nt:unstructured">
+                    <freehand
+                            jcr:primaryType="nt:unstructured"
+                            value="0,0"
+                            text="Free hand"/>
+                    <twobythree
+                            jcr:primaryType="nt:unstructured"
+                            value="2,3"
+                            text="2 x 3"/>
+                    <threebyfive
+                            jcr:primaryType="nt:unstructured"
+                            value="3,5"
+                            text="3 x 5"/>
+                    <sixteenbynine
+                            jcr:primaryType="nt:unstructured"
+                            value="16,9"
+                            text="16 x 9"/>
+                    <square
+                            jcr:primaryType="nt:unstructured"
+                            value="1,1"
+                            text="Square"/>
+                </aspectRatios>
+            </cropConfig>
+        </imageExtTab>
+
+        <imageExtResourceType
+                jcr:primaryType="cq:Panel"
+                title="Image Metadata"
+                fieldDescription="Image Metadata additional fields for saving content of Image"
+                xtype="panel">
+            <listeners
+                    jcr:primaryType="nt:unstructured"
+                    render="function() { AEMDESIGN.dialog.hideTab(this, this.findParentByType('dialog').findByType('tabpanel')[0]); }"/>
+            <items jcr:primaryType="cq:WidgetCollection">
+                <imageBackgroundTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        ignoreData="{Boolean}true"
+                        name="./image/sling:resourceType"
+                        value="aemdesign/components/media/image"
+                        xtype="textfield"/>
+            </items>
+        </imageExtResourceType>
+
         <imageBackgroundTab
                 jcr:primaryType="cq:Widget"
                 allowUpload="{Boolean}false"
