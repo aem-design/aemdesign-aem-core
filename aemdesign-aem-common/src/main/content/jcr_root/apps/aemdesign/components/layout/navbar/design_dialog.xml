@@ -4,8 +4,12 @@
     jcr:mixinTypes="[rep:AccessControllable]"
     title="Nav Bar (Design)"
     xtype="dialog">
-    <items
-            jcr:primaryType="cq:Widget"
-            path="/apps/aemdesign/components/layout/navbar/dialog/items.infinity.json"
-            xtype="cqinclude" />
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/layout/navbar/dialog/items/tabs/items.infinity.json"
+                    xtype="cqinclude" />
+        </tabs>
+    </items>
 </jcr:root>

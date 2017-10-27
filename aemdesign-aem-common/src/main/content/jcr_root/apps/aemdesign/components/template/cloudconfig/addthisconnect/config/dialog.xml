@@ -7,7 +7,7 @@
     xtype="panel">
     <items jcr:primaryType="cq:WidgetCollection">
         <pubid jcr:primaryType="cq:Widget"
-            path="/apps/aemdesign/components/widgets/addthis/sharebutton/dialog/items/pubid.infinity.json"
+            path="/apps/aemdesign/components/widgets/addthis/sharebutton/dialog/items/tabs/items/basicTab/items/pubid.infinity.json"
             xtype="cqinclude"/>
     </items>
 </jcr:root>

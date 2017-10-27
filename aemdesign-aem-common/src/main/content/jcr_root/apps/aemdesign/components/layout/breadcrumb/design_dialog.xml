@@ -7,12 +7,10 @@
           xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
-            <items jcr:primaryType="cq:WidgetCollection">
-                <items
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/components/layout/breadcrumb/dialog/items.infinity.json"
-                        xtype="cqinclude" />
-            </items>
+            <items
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/layout/breadcrumb/dialog/items/tabs/items.infinity.json"
+                    xtype="cqinclude" />
         </tabs>
     </items>
 </jcr:root>

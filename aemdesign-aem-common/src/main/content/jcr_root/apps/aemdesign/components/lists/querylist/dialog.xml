@@ -46,31 +46,38 @@
                     </items>
                 </listTab>
 
-                <advancedTab
-                    jcr:primaryType="cq:Widget"
-                    path="/apps/aemdesign/components/lists/list/dialog/items/advancedTab.infinity.json"
-                    xtype="cqinclude" />
-                <styleTab
+                <listConfigTab
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/components/lists/list/dialog/items/styleTab.infinity.json"
+                        path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/listConfigTab.infinity.json"
+                        xtype="cqinclude"/>
+
+                <badgeConfigTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/badge/items/badgeConfigTab.infinity.json"
                         xtype="cqinclude" />
+
+                <badgeThumbnailTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/images/items/badgeThumbnailTab.infinity.json"
+                        xtype="cqinclude" />
+
+                <badgeThumbnailTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/images/items/badgeThumbnailTabResourceType.infinity.json"
+                        xtype="cqinclude" />
+
                 <feedTab
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/components/lists/list/dialog/items/feedTab.infinity.json"
-                        xtype="cqinclude" />
-                <othersTab
+                        path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/feedTab.infinity.json"
+                        xtype="cqinclude"/>
+
+                <styleTab
                         jcr:primaryType="cq:Widget"
-                        title="Others"
-                        xtype="panel">
-                    <items jcr:primaryType="cq:WidgetCollection">
-                        <allItemsPath
-                                jcr:primaryType="cq:Widget"
-                                fieldLabel="All Items Path"
-                                fieldDescription=""
-                                name="./allItemsPath"
-                                xtype="pathfield"/>
-                    </items>
-                </othersTab>
+                        path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
+                        xtype="cqinclude"/>
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
+                                  xtype="cqinclude"/>
             </items>
         </tabs>
     </items>

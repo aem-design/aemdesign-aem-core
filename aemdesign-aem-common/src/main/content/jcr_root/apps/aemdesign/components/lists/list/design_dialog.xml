@@ -5,16 +5,11 @@
     title="List details (Design)"
     xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
-        <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">
-            <items jcr:primaryType="cq:WidgetCollection">
-                <styleTab
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
-                        xtype="cqinclude" />
-                <accessibilityTab jcr:primaryType="cq:Panel"
-                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
-                                  xtype="cqinclude" />
-            </items>
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items.infinity.json"
+                    xtype="cqinclude" />
         </tabs>
     </items>
 </jcr:root>

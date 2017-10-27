@@ -29,10 +29,13 @@
                             xtype="textfield"/>
                     </items>
              </basicTab>
-             <styleTab
-                jcr:primaryType="cq:Widget"
-                path="/apps/aemdesign/components/layout/contentblock/dialog/items/items/tab_style.infinity.json"
-                xtype="cqinclude" />
+            <styleTab
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
+                    xtype="cqinclude"/>
+            <accessibilityTab jcr:primaryType="cq:Panel"
+                              path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
+                              xtype="cqinclude"/>
         </items>
      </items>
 </jcr:root>

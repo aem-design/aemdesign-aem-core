@@ -28,45 +28,41 @@
                                 xtype="pathfield"/>
                         </pages>
 
-                        <showIcons
-                                jcr:primaryType="cq:Widget"
-                                allowBlank="{Boolean}true"
-                                fieldLabel="Show icons"
-                                name="./showIcons"
-                                options="/etc/tags/component-dialog/common/true-false.valuelist.json"
-                                type="select"
-                                defaultValue=""
-                                value=""
-                                xtype="selection"/>
-
-                        <showShareButton
-                                jcr:primaryType="cq:Widget"
-                                allowBlank="{Boolean}true"
-                                fieldLabel="Show share button"
-                                name="./showShareButton"
-                                options="/etc/tags/component-dialog/common/true-false.valuelist.json"
-                                type="select"
-                                defaultValue=""
-                                value=""
-                                xtype="selection"/>
-
                     </items>
                 </listTab>
 
-                <advancedTab
-                    jcr:primaryType="cq:Widget"
-                    path="/apps/aemdesign/components/lists/list/dialog/items/advancedTab.infinity.json"
-                    xtype="cqinclude" />
+                <listConfigTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/listConfigTab.infinity.json"
+                        xtype="cqinclude"/>
+
+                <badgeConfigTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/badge/items/badgeConfigTab.infinity.json"
+                        xtype="cqinclude" />
+
+                <badgeThumbnailTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/images/items/badgeThumbnailTab.infinity.json"
+                        xtype="cqinclude" />
+
+                <badgeThumbnailTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/images/items/badgeThumbnailTabResourceType.infinity.json"
+                        xtype="cqinclude" />
+
+                <feedTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/feedTab.infinity.json"
+                        xtype="cqinclude"/>
 
                 <styleTab
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/components/lists/list/dialog/items/styleTab.infinity.json"
-                        xtype="cqinclude" />
-
-                <advancedStyleTab
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/components/lists/list/dialog/items/advancedStyleTab.infinity.json"
-                        xtype="cqinclude" />
+                        path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
+                        xtype="cqinclude"/>
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
+                                  xtype="cqinclude"/>
             </items>
         </tabs>
     </items>

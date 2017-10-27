@@ -37,36 +37,26 @@
                         xtype="textfield"/>
             </items>
         </basicTab>
-        <textTab
-                jcr:primaryType="cq:Widget"
-                anchor="100%"
-                title="Text"
-                xtype="panel">
-            <items jcr:primaryType="cq:WidgetCollection">
-                <text-full
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/text-full.infinity.json"
-                        xtype="cqinclude" />
-            </items>
-        </textTab>
 
-        <imageTab
+        <textTab
+                jcr:primaryType="cq:Panel"
+                path="/apps/aemdesign/global/dialog/classic/rteprofile/items/advanced.infinity.json"
+                xtype="cqinclude"/>
+
+        <imageExtTab
                 jcr:primaryType="cq:Widget"
-                allowUpload="{Boolean}false"
-                cropParameter="./imageCrop"
-                ddGroups="[media]"
-                fileNameParameter="./fileName"
-                fileReferenceParameter="./fileReference"
-                mapParameter="./imageMap"
-                name="./file"
-                rotateParameter="./imageRotate"
-                sizeLimit="100"
-                title="Image"
-                xtype="html5smartimage"/>
+                path="/apps/aemdesign/global/dialog/classic/images/items/imageExtTab.infinity.json"
+                xtype="cqinclude"/>
+        <imageExtResourceType
+                jcr:primaryType="cq:Widget"
+                path="/apps/aemdesign/global/dialog/classic/images/items/imageExtResourceType.infinity.json"
+                xtype="cqinclude"/>
+
         <styleTab
                 jcr:primaryType="cq:Widget"
                 path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
                 xtype="cqinclude" />
+
         <accessibilityTab jcr:primaryType="cq:Panel"
                           path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
                           xtype="cqinclude"/>

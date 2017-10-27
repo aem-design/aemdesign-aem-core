@@ -8,7 +8,7 @@
     title="Content Block"
     xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
-        <tabs jcr:primaryType="cq:TabPanel" xtype="tabpanel">
+        <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
                 <basicTab
                         jcr:primaryType="cq:Panel"

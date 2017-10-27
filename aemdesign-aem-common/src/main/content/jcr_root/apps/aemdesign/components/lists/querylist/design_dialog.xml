@@ -6,36 +6,10 @@
     xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
-            <items jcr:primaryType="cq:WidgetCollection">
-                <!-- basic information tab -->
-                <basicTab jcr:primaryType="cq:Panel" title="Basic">
-                    <items jcr:primaryType="cq:WidgetCollection">
-                         <size
-                            jcr:primaryType="cq:Widget"
-                            fieldLabel="Size of Image Icon"
-                            heightParameter="./height"
-                            widthParameter="./width"
-                            xtype="sizefield"/>
-                    </items>
-                </basicTab>
-                <imageTab
+            <items
                     jcr:primaryType="cq:Widget"
-                    allowUpload="false"
-                    cropParameter="./imageCrop"
-                    ddGroups="[media]"
-                    fileNameParameter="./fileName"
-                    fileReferenceParameter="./fileReference"
-                    mapParameter="./imageMap"
-                    name="./defaultImage"
-                    requestSuffix=".img.png"
-                    rotateParameter="./imageRotate"
-                    title="Default Image Icon"
-                    xtype="html5smartimage"/>
-                <styleTab
-                    jcr:primaryType="cq:Widget"
-                    path="/apps/aemdesign/components/lists/list/dialog/items/styleTab.infinity.json"
+                    path="/apps/aemdesign/components/lists/querylist/dialog/items/tabs/items.infinity.json"
                     xtype="cqinclude" />
-            </items>
         </tabs>
     </items>
 </jcr:root>

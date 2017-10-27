@@ -9,15 +9,12 @@
             <items jcr:primaryType="cq:WidgetCollection">
                 <tagsTab
                         jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/components/lists/list/dialog/items/tagsTab.infinity.json"
+                        path="/apps/aemdesign/components/lists/list/dialog/items/tabs/items/tagsTab.infinity.json"
                         xtype="cqinclude" />
 
                 <advancedTab
-                        jcr:primaryType="cq:Panel"
-                        border="false"
-                        height=""
+                        jcr:primaryType="cq:Widget"
                         title="Advanced"
-                        width=""
                         xtype="panel">
                     <items jcr:primaryType="cq:WidgetCollection">
 
@@ -42,17 +39,17 @@
                                 name="./displayType"
                                 type="select"
                                 xtype="selection">
-                        <options jcr:primaryType="cq:WidgetCollection">
-                            <optionList
-                                    jcr:primaryType="nt:unstructured"
-                                    text="Option List"
-                                    value="optionList"/>
-                            <list
-                                    jcr:primaryType="nt:unstructured"
-                                    text="List"
-                                    value="list"/>
-                        </options>
-                        </displayType>
+                            <options jcr:primaryType="cq:WidgetCollection">
+                                <optionList
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Option List"
+                                        value="optionList"/>
+                                <list
+                                        jcr:primaryType="nt:unstructured"
+                                        text="List"
+                                        value="list"/>
+                            </options>
+                            </displayType>
                         <imagePath
                                 jcr:primaryType="cq:Widget"
                                 fieldDescription="Path to the BigSelector Images"
@@ -67,26 +64,14 @@
                                 xtype="textfield"/>
                     </items>
                 </advancedTab>
+
                 <styleTab
-                        jcr:primaryType="cq:Panel"
-                        border="false"
-                        height=""
-                        title="Style"
-                        width=""
-                        xtype="panel">
-                    <items jcr:primaryType="cq:WidgetCollection">
-                        <css
-                                jcr:primaryType="cq:Widget"
-                                fieldLabel="CSS Class name"
-                                name="./cssClass"
-                                xtype="textfield"/>
-                        <id
-                                jcr:primaryType="cq:Widget"
-                                fieldLabel="Id"
-                                name="./Id"
-                                xtype="textfield"/>
-                    </items>
-                </styleTab>
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
+                        xtype="cqinclude"/>
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
+                                  xtype="cqinclude"/>
             </items>
         </tabs>
     </items>

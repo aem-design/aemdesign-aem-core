@@ -6,9 +6,6 @@
     width="680"
     xtype="panel">
     <items jcr:primaryType="cq:WidgetCollection">
-        <command jcr:primaryType="cq:Widget"
-            path="/apps/aemdesign/components/widgets/google/googleanalytics/dialog/items/command.infinity.json"
-            xtype="cqinclude"/>
         <googleAPI
                 jcr:primaryType="cq:Widget"
                 fieldLabel="Google Map API Key"

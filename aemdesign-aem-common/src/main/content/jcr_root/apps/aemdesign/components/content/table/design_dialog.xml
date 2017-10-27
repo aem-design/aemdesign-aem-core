@@ -6,8 +6,12 @@
           jcr:mixinTypes="[rep:AccessControllable]"
           title="Table (Design)"
           xtype="dialog">
-    <items
-            jcr:primaryType="cq:Widget"
-            path="/apps/aemdesign/components/content/table/dialog/items.infinity.json"
-            xtype="cqinclude" />
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tabs jcr:primaryType="cq:TabPanel">
+            <items
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/content/table/dialog/items/tabs/items.infinity.json"
+                    xtype="cqinclude" />
+        </tabs>
+    </items>
 </jcr:root>

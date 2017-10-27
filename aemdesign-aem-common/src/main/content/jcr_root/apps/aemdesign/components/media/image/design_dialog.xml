@@ -13,40 +13,12 @@
           xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
-            <items jcr:primaryType="cq:WidgetCollection">
-                <imageTab
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/images/items/imageTab.infinity.json"
-                        xtype="cqinclude"/>
-                <overrideImageMetadataTab
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/assets/items/overrideImageMetadataTab.infinity.json"
-                        xtype="cqinclude"/>
-                <layoutTab
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/components/media/image/dialog/items/tabs/items/layoutTab.infinity.json"
-                        xtype="cqinclude"/>
-                <imageConfig
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/components/media/image/dialog/items/tabs/items/imageConfig.infinity.json"
-                        xtype="cqinclude"/>
-                <cardConfig
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/components/media/image/dialog/items/tabs/items/cardConfig.infinity.json"
-                        xtype="cqinclude"/>
-                <responsiveConfig
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/components/media/image/dialog/items/tabs/items/responsiveConfig.infinity.json"
-                        xtype="cqinclude"/>
-                <styleTab
-                        jcr:primaryType="cq:Widget"
-                        path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
-                        xtype="cqinclude" />
-                <accessibilityTab jcr:primaryType="cq:Panel"
-                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
-                                  xtype="cqinclude" />
-            </items>
+            <items
+                    jcr:primaryType="cq:Widget"
+                    path="/apps/aemdesign/components/media/image/dialog/items/tabs/items.infinity.json"
+                    xtype="cqinclude" />
         </tabs>
     </items>
+
 
 </jcr:root>
