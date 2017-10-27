@@ -981,14 +981,17 @@
 
         if (isNotEmpty(assetPath)) {
 
+            assetInfo.put(infoPrefix, assetPath);
+
             Resource pageImageResource = resourceResolver.resolve(assetPath);
             if (pageImageResource != null) {
                 Asset pageImageAsset = pageImageResource.adaptTo(Asset.class);
-                String pageImageLicenseInfo = getAssetCopyrightInfo(pageImageAsset, DAM_LICENSE_FORMAT);
+                if (pageImageAsset != null) {
+                    String pageImageLicenseInfo = getAssetCopyrightInfo(pageImageAsset, DAM_LICENSE_FORMAT);
 
-                assetInfo.put(infoPrefix, assetPath);
-                assetInfo.put(infoPrefix + "Id", pageImageAsset.getID());
-                assetInfo.put(infoPrefix + "LicenseInfo", pageImageLicenseInfo);
+                    assetInfo.put(infoPrefix + "Id", pageImageAsset.getID());
+                    assetInfo.put(infoPrefix + "LicenseInfo", pageImageLicenseInfo);
+                }
             }
         }
         return assetInfo;
