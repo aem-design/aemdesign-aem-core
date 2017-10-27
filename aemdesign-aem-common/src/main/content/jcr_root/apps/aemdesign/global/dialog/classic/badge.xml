@@ -119,7 +119,7 @@
                     <items jcr:primaryType="cq:WidgetCollection">
                         <badgeConfigGroupLabel
                                 jcr:primaryType="cq:Widget"
-                                text="Config used in badges"
+                                text="Config how Title and Summary should be treated"
                                 xtype="label"/>
 
                         <badgeTitleType jcr:primaryType="cq:Widget"
@@ -132,37 +132,6 @@
                                 defaultValue=""
                                 value=""
                                 xtype="selection"/>
-
-                        <badgeLinkTarget jcr:primaryType="cq:Widget"
-                                fieldLabel="Card CTA Target"
-                                fieldDescription="how should the link of items behave when clicked"
-                                allowBlank="{Boolean}true"
-                                name="./badgeLinkTarget"
-                                options="/etc/tags/component-dialog/html/linktarget.valuelist.json"
-                                type="select"
-                                defaultValue=""
-                                xtype="selection"/>
-                        <badgeLinkText
-                                jcr:primaryType="cq:Widget"
-                                fieldLabel="Card CTA Text"
-                                fieldDescription="shows as a link visible text"
-                                name="./badgeLinkText"
-                                xtype="textfield"/>
-                        <badgeLinkTitle
-                                jcr:primaryType="cq:Widget"
-                                fieldLabel="Card CTA Title"
-                                fieldDescription="shows as a link alt title"
-                                name="./badgeLinkTitle"
-                                xtype="textfield"/>
-                        <badgeLinkStyle jcr:primaryType="cq:Widget"
-                                allowBlank="{Boolean}true"
-                                defaultValue=""
-                                value=""
-                                fieldLabel="Card CTA Style"
-                                fieldDescription="The type of button that should appear on the card"
-                                name="./badgeLinkStyle"
-                                namespaces="[component-style-theme,component-style-modifier]"
-                                xtype="tags"/>
 
                         <badgeTitleTrim
                                 jcr:primaryType="cq:Widget"
@@ -213,6 +182,52 @@
 
                     </items>
                 </badgeConfigGroup>
+
+                <linkConfigGroup
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}true"
+                        collapsible="{Boolean}true"
+                        title="Badge CTA Config"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <badgeConfigGroupLabel
+                                jcr:primaryType="cq:Widget"
+                                text="Config CTA style"
+                                xtype="label"/>
+
+                        <badgeLinkTarget jcr:primaryType="cq:Widget"
+                                fieldLabel="Card CTA Target"
+                                fieldDescription="how should the link of items behave when clicked"
+                                allowBlank="{Boolean}true"
+                                name="./badgeLinkTarget"
+                                options="/etc/tags/component-dialog/html/linktarget.valuelist.json"
+                                type="select"
+                                defaultValue=""
+                                xtype="selection"/>
+                        <badgeLinkText
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Card CTA Text"
+                                fieldDescription="shows as a link visible text"
+                                name="./badgeLinkText"
+                                xtype="textfield"/>
+                        <badgeLinkTitle
+                                jcr:primaryType="cq:Widget"
+                                fieldLabel="Card CTA Title"
+                                fieldDescription="shows as a link alt title"
+                                name="./badgeLinkTitle"
+                                xtype="textfield"/>
+                        <badgeLinkStyle jcr:primaryType="cq:Widget"
+                                allowBlank="{Boolean}true"
+                                defaultValue=""
+                                value=""
+                                fieldLabel="Card CTA Style"
+                                fieldDescription="The type of button that should appear on the card"
+                                name="./badgeLinkStyle"
+                                namespaces="[component-style-theme,component-style-modifier]"
+                                xtype="tags"/>
+
+                    </items>
+                </linkConfigGroup>
 
                 <iconConfigGroup
                         jcr:primaryType="cq:Widget"
@@ -402,6 +417,75 @@
                     </items>
                 </tabConfigGroup>
 
+                <animationConfigGroup
+                        jcr:primaryType="cq:Widget"
+                        collapsed="{Boolean}true"
+                        collapsible="{Boolean}true"
+                        title="Badge Animation"
+                        xtype="dialogfieldset">
+                    <items jcr:primaryType="cq:WidgetCollection">
+                        <animationConfigGroupLabel
+                                jcr:primaryType="cq:Widget"
+                                text="Applies CSS3 animations to any child components that support them"
+                                xtype="label"/>
+
+                        <animationEnabled jcr:primaryType="cq:Widget"
+                                          fieldLabel="Enable animations"
+                                          fieldDescription="Should the animation be enabled for this component?"
+                                          allowBlank="{Boolean}true"
+                                          name="./badgeAnimationEnabled"
+                                          options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                          type="select"
+                                          defaultValue=""
+                                          xtype="selection"/>
+                        <animationName jcr:primaryType="cq:Widget"
+                                       fieldLabel="Name"
+                                       fieldDescription="The type of animation to run"
+                                       allowBlank="{Boolean}true"
+                                       name="./badgeAnimationName"
+                                       options="/etc/tags/component-dialog/html/animation/name.valuelist.json"
+                                       type="select"
+                                       defaultValue=""
+                                       xtype="selection"/>
+                        <animationOnce jcr:primaryType="cq:Widget"
+                                       fieldLabel="Run Once?"
+                                       fieldDescription="Should the animation only run once? By default is runs everytime you scroll past the element on the page"
+                                       allowBlank="{Boolean}true"
+                                       name="./badgeAnimationOnce"
+                                       options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                       type="select"
+                                       defaultValue=""
+                                       xtype="selection"/>
+                        <animationEasing jcr:primaryType="cq:Widget"
+                                         fieldLabel="Easing"
+                                         fieldDescription="How should the animation play?"
+                                         allowBlank="{Boolean}true"
+                                         name="./badgeAnimationEasing"
+                                         options="/etc/tags/component-dialog/html/animation/easing.valuelist.json"
+                                         type="select"
+                                         defaultValue=""
+                                         xtype="selection"/>
+                        <animationDelay jcr:primaryType="cq:Widget"
+                                        fieldLabel="Delay"
+                                        fieldDescription="How many milliseconds should occur before the animation runs?"
+                                        allowBlank="{Boolean}true"
+                                        name="./badgeAnimationDelay"
+                                        min="1"
+                                        step="100"
+                                        defaultValue=""
+                                        xtype="numberfield"/>
+                        <animationDuration jcr:primaryType="cq:Widget"
+                                           fieldLabel="Duration"
+                                           fieldDescription="How long should the animation run for? Minimum is '400' and the maximum is '3000'. Values must be in increments of 50, i.e. 450, 500, 550..."
+                                           allowBlank="{Boolean}true"
+                                           name="./badgeAnimationDuration"
+                                           max="3000"
+                                           min="400"
+                                           step="50"
+                                           defaultValue=""
+                                           xtype="numberfield"/>
+                    </items>
+                </animationConfigGroup>
 
 
             </items>
