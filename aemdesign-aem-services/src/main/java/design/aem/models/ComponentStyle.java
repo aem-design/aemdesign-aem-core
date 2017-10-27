@@ -4,6 +4,7 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Model;
 
@@ -40,12 +41,16 @@ public class ComponentStyle {
                 Tag tag = tagManager.resolve(modifier);
 
                 if (tag != null) {
-                    ValueMap valueMap = this.resource.getResourceResolver().resolve(tag.getPath()).getValueMap();
+                    Resource valueMapRes = this.resource.getResourceResolver().resolve(tag.getPath());
+                    if (!ResourceUtil.isNonExistingResource(valueMapRes)) {
 
-                    String value = valueMap.get(KEY_TAG_VALUE, String.class);
+                        ValueMap valueMap = valueMapRes.getValueMap();
 
-                    if (StringUtils.isNotBlank(value)) {
-                        modifiers.add(value);
+                        String value = valueMap.get(KEY_TAG_VALUE, String.class);
+
+                        if (StringUtils.isNotBlank(value)) {
+                            modifiers.add(value);
+                        }
                     }
                 }
             }
