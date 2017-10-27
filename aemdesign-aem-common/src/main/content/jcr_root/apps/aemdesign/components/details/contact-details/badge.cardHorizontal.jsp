@@ -1,25 +1,8 @@
-<c:if test="${not empty componentProperties.linkTarget}">
-    <c:set var="linkAttr" value="${linkAttr} target=\"${componentProperties.linkTarget}\""/>
-</c:if>
-<c:if test="${not empty componentProperties.pageImageId}">
-    <c:set var="imageAttr" value="${imageAttr} data-asset-id=\"${componentProperties.pageImageId}\""/>
-</c:if>
-<c:if test="${not empty componentProperties.redirectTarget}">
-    <c:set var="linkAttr" value="${linkAttr} external"/>
-</c:if>
-
-<c:if test="${componentProperties.cardIconShow and fn:length(componentProperties.cardIcon) > 0}">
-    <c:set var="classIconAttr" value="${classIconAttr} ${fn:join(componentProperties.cardIcon,' ')}"/>
-</c:if>
-<c:if test="${fn:length(componentProperties.cardStyle) > 0}">
-    <c:set var="classStyleAttr" value="${classStyleAttr} ${fn:join(componentProperties.cardStyle,' ')}"/>
-</c:if>
-
-<div class="card card-horizontal text-center text-md-left ${classStyleAttr}" ${animationAttr}>
+<div class="card card-horizontal text-center text-md-left ${badgeClassStyleAttr}" ${badgeAnimationAttr}>
     <div class="row align-items-center no-gutters">
         <c:if test="${componentProperties.cardIconShow}">
             <div class="col-md-auto">
-                <i class="icon ${classIconAttr}" title="${componentProperties.title}"></i>
+                <i class="icon ${badgeClassIconAttr}" title="${componentProperties.title}"></i>
             </div>
         </c:if>
         <div class="col p-collapse pt-reset pt-md-collapse pl-reset pr-reset">
@@ -36,11 +19,11 @@
             <p class="card-text">${componentProperties.description}</p>
         </div>
         <div class="col-md-auto mt-reset mt-md-collapse">
-            <a class="card-link ${linkClassAttr}"
+            <a class="card-link ${fn:join(componentProperties.badgeLinkStyle, ' ')}"
                 href="${componentProperties.pageUrl}"
                 target="${componentProperties.badgeLinkTarget}"
                 title="${componentProperties.badgeLinkTitle}"
-                ${linkAttr}>${componentProperties.badgeLinkText}</a>
+                ${badgeLinkAttr}>${componentProperties.badgeLinkText}</a>
         </div>
     </div>
 </div>
