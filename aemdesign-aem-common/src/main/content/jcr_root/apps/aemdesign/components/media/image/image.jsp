@@ -78,104 +78,106 @@
     if (isNotEmpty(fileReference)) {
 
         //get asset
-        AssetManager assetManager = _resourceResolver.adaptTo(AssetManager.class);
-        com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(fileReference);
         Resource assetR = _resourceResolver.resolve(fileReference);
-        Asset assetBasic = assetR.adaptTo(Asset.class);
-        Node assetN = assetR.adaptTo(Node.class);
+        if (!ResourceUtil.isNonExistingResource(assetR)) {
 
-        //get asset metadata
-        String assetUID = asset.getIdentifier();
-        String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
-        String assetUsageTerms = assetBasic.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
-        String licenseInfo = getAssetCopyrightInfo(assetBasic, _i18n.get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
-        componentProperties.put(FIELD_LICENSE_INFO, licenseInfo);
-        componentProperties.put(FIELD_ASSETID, assetUID);
+            AssetManager assetManager = _resourceResolver.adaptTo(AssetManager.class);
+            com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(fileReference);
 
-        //get asset properties and overwrite all existing ones specified in component
-        ComponentProperties assetProperties = getAssetProperties(pageContext, asset, DEFAULT_FIELDS_ASSET_IMAGE);
-        //ensure licensed image meta does not get overwritten
-        componentProperties.putAll(assetProperties,isBlank(licenseInfo));
+            Asset assetBasic = assetR.adaptTo(Asset.class);
+            Node assetN = assetR.adaptTo(Node.class);
 
-        String title = componentProperties.get(DAM_TITLE, "");
-        if (isEmpty(title)) {
-            componentProperties.put(DAM_TITLE, assetBasic.getName());
-        }
+            //get asset metadata
+            String assetUID = asset.getIdentifier();
+            String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
+            String assetUsageTerms = assetBasic.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
+            String licenseInfo = getAssetCopyrightInfo(assetBasic, _i18n.get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
+            componentProperties.put(FIELD_LICENSE_INFO, licenseInfo);
+            componentProperties.put(FIELD_ASSETID, assetUID);
 
-        //update attributes - consider updating to using componentProperties.attr
-        Object[][] componentAttibutes = {
-                {"data-"+FIELD_ASSETID,assetUID},
-                {"data-"+FIELD_ASSET_TRACKABLE,true},
-                {"data-"+FIELD_ASSET_LICENSED,isNotBlank(licenseInfo)},
-                {FIELD_DATA_ANALYTICS_EVENT_LABEL,componentProperties.get(DAM_TITLE)},
-                {FIELD_DATA_ANALYTICS_METATYPE,assetBasic.getMimeType()},
-                {FIELD_DATA_ANALYTICS_FILENAME,assetBasic.getName()},
-        };
-        componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties,componentAttibutes));
+            //get asset properties and overwrite all existing ones specified in component
+            ComponentProperties assetProperties = getAssetProperties(pageContext, asset, DEFAULT_FIELDS_ASSET_IMAGE);
+            //ensure licensed image meta does not get overwritten
+            componentProperties.putAll(assetProperties, isBlank(licenseInfo));
 
-
-        //get page link
-        String linkURL = componentProperties.get(FIELD_LINKURL, StringUtils.EMPTY);
-        if (isNotEmpty(linkURL)) {
-            Page imageTargetPage = _pageManager.getPage(linkURL);
-            if (imageTargetPage != null) {
-                linkURL = getPageUrl(imageTargetPage);
-            }
-        } else {
-            //use dam link source from Asset if not assigned
-            linkURL = _xssAPI.getValidHref(componentProperties.get(DAM_SOURCE_URL, StringUtils.EMPTY));
-        }
-        componentProperties.put(FIELD_LINKURL, linkURL);
-
-        try {
-            String imageOption = componentProperties.get(FIELD_IMAGE_OPTION, IMAGE_OPTION_RESPONSIVE);
-            Map<String, String> responsiveImageSet = new LinkedHashMap<>();
-
-            switch (imageOption) {
-                case IMAGE_OPTION_GENERATED:
-                    String imageHref = "";
-                    Long lastModified = getLastModified(_resource);
-                    imageHref = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, _resource.getPath(), lastModified.toString());
-
-                    componentProperties.put(FIELD_IMAGEURL, imageHref);
-                    break;
-                case IMAGE_OPTION_RENDITION:
-                    int targetWidth = componentProperties.get(ImageResource.PN_WIDTH, 0);
-                    com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(targetWidth, asset);
-                    if (bestRendition != null) {
-                        componentProperties.put(FIELD_IMAGEURL, bestRendition.getPath());
-                    }
-                    break;
-                case IMAGE_OPTION_ADAPTIVE:
-                    String[] adaptiveImageMapping = componentProperties.get(FIELD_ADAPTIVE_MAP, DEFAULT_ADAPTIVE_IMAGE_MAP);
-
-                    responsiveImageSet = getAdaptiveImageSet(adaptiveImageMapping, _resourceResolver, fileReference, null, _sling);
-
-                    componentProperties.put(FIELD_RENDITIONS, responsiveImageSet);
-
-                    break;
-                default: //IMAGE_OPTION_RESPONSIVE
-                    String[] renditionImageMapping = componentProperties.get(FIELD_RESPONSIVE_MAP, DEFAULT_RENDITION_IMAGE_MAP);
-
-                    //get rendition profile prefix selected
-                    String renditionPrefix = componentProperties.get(FIELD_RENDITION_PREFIX, "");
-
-                    //get best fit renditions set
-                    responsiveImageSet = getBestFitMediaQueryRenditionSet(asset, renditionImageMapping, renditionPrefix);
-
-                    componentProperties.put(FIELD_RENDITIONS, responsiveImageSet);
+            String title = componentProperties.get(DAM_TITLE, "");
+            if (isEmpty(title)) {
+                componentProperties.put(DAM_TITLE, assetBasic.getName());
             }
 
-            //pick last one from collection
-            if (responsiveImageSet.values().size() > 0) {
-                componentProperties.put(FIELD_IMAGEURL, responsiveImageSet.values()
-                        .toArray()[responsiveImageSet.values().size()-1]);
+            //update attributes - consider updating to using componentProperties.attr
+            Object[][] componentAttibutes = {
+                    {"data-" + FIELD_ASSETID, assetUID},
+                    {"data-" + FIELD_ASSET_TRACKABLE, true},
+                    {"data-" + FIELD_ASSET_LICENSED, isNotBlank(licenseInfo)},
+                    {FIELD_DATA_ANALYTICS_EVENT_LABEL, componentProperties.get(DAM_TITLE)},
+                    {FIELD_DATA_ANALYTICS_METATYPE, assetBasic.getMimeType()},
+                    {FIELD_DATA_ANALYTICS_FILENAME, assetBasic.getName()},
+            };
+            componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, componentAttibutes));
+
+            //get page link
+            String linkURL = componentProperties.get(FIELD_LINKURL, StringUtils.EMPTY);
+            if (isNotEmpty(linkURL)) {
+                Page imageTargetPage = _pageManager.getPage(linkURL);
+                if (imageTargetPage != null) {
+                    linkURL = getPageUrl(imageTargetPage);
+                }
+            } else {
+                //use dam link source from Asset if not assigned
+                linkURL = _xssAPI.getValidHref(componentProperties.get(DAM_SOURCE_URL, StringUtils.EMPTY));
             }
+            componentProperties.put(FIELD_LINKURL, linkURL);
 
-        } catch (Exception ex) {
-            LOG.error("failed to create Width and Image Mapping : " + ex.getMessage(), ex);
+            try {
+                String imageOption = componentProperties.get(FIELD_IMAGE_OPTION, IMAGE_OPTION_RESPONSIVE);
+                Map<String, String> responsiveImageSet = new LinkedHashMap<>();
+
+                switch (imageOption) {
+                    case IMAGE_OPTION_GENERATED:
+                        String imageHref = "";
+                        Long lastModified = getLastModified(_resource);
+                        imageHref = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, _resource.getPath(), lastModified.toString());
+
+                        componentProperties.put(FIELD_IMAGEURL, imageHref);
+                        break;
+                    case IMAGE_OPTION_RENDITION:
+                        int targetWidth = componentProperties.get(ImageResource.PN_WIDTH, 0);
+                        com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(targetWidth, asset);
+                        if (bestRendition != null) {
+                            componentProperties.put(FIELD_IMAGEURL, bestRendition.getPath());
+                        }
+                        break;
+                    case IMAGE_OPTION_ADAPTIVE:
+                        String[] adaptiveImageMapping = componentProperties.get(FIELD_ADAPTIVE_MAP, DEFAULT_ADAPTIVE_IMAGE_MAP);
+
+                        responsiveImageSet = getAdaptiveImageSet(adaptiveImageMapping, _resourceResolver, fileReference, null, _sling);
+
+                        componentProperties.put(FIELD_RENDITIONS, responsiveImageSet);
+
+                        break;
+                    default: //IMAGE_OPTION_RESPONSIVE
+                        String[] renditionImageMapping = componentProperties.get(FIELD_RESPONSIVE_MAP, DEFAULT_RENDITION_IMAGE_MAP);
+
+                        //get rendition profile prefix selected
+                        String renditionPrefix = componentProperties.get(FIELD_RENDITION_PREFIX, "");
+
+                        //get best fit renditions set
+                        responsiveImageSet = getBestFitMediaQueryRenditionSet(asset, renditionImageMapping, renditionPrefix);
+
+                        componentProperties.put(FIELD_RENDITIONS, responsiveImageSet);
+                }
+
+                //pick last one from collection
+                if (responsiveImageSet.values().size() > 0) {
+                    componentProperties.put(FIELD_IMAGEURL, responsiveImageSet.values()
+                            .toArray()[responsiveImageSet.values().size() - 1]);
+                }
+
+            } catch (Exception ex) {
+                LOG.error("failed to create Width and Image Mapping : " + ex.getMessage(), ex);
+            }
         }
-
     }
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>

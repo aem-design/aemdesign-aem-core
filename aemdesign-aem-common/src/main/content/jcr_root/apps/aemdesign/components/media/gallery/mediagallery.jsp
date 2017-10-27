@@ -72,7 +72,7 @@
         if(StringUtils.isNotEmpty(listPath))
         {
             Resource listPathR = _resourceResolver.resolve(listPath);
-            if (listPathR != null) {
+            if (!ResourceUtil.isNonExistingResource(listPathR)) {
                 listItems = getPicturesFromResource(_resourceResolver, listPathR);
             }
             componentProperties.put("listPathR",listPathR);
@@ -84,7 +84,7 @@
         {
             Resource listPathR = _resourceResolver.resolve(collection);
 
-            if ((listPathR != null) && (listPathR.getResourceType().equals("dam/collection"))) {
+            if (!ResourceUtil.isNonExistingResource(listPathR) && (listPathR.getResourceType().equals("dam/collection"))) {
 
                 listItems = getPicturesFromCollection(_sling, _resourceResolver, listPathR.getPath(), assetViewerPagePath, variant);
                 componentProperties.put("listPathR",listPathR);

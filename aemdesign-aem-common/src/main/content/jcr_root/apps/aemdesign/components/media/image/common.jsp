@@ -75,7 +75,7 @@
                     ResourceResolver resourceResolver = asset.getResourceResolver();
                     if (resourceResolver != null) {
                         Resource assetPathResource = resourceResolver.resolve(assetPath);
-                        if (assetPathResource != null) {
+                        if (!ResourceUtil.isNonExistingResource(assetPathResource)) {
                             renditionPath = assetPath;
                         }
                     }
@@ -127,7 +127,7 @@
                     ResourceResolver resourceResolver = asset.getResourceResolver();
                     if (resourceResolver != null) {
                         Resource assetPathResource = resourceResolver.resolve(assetPath);
-                        if (assetPathResource != null) {
+                        if (!ResourceUtil.isNonExistingResource(assetPathResource)) {
                             renditionPath = assetPath;
                         }
                     }

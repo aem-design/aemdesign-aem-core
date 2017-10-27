@@ -371,6 +371,11 @@
         final String profile = "montage";
         List<Map> pictures = new ArrayList<Map>();
         Resource listPathR = _resourceResolver.resolve(collectionPath);
+        //quick fail
+        if (ResourceUtil.isNonExistingResource(listPathR)) {
+            return pictures;
+        }
+
         ResourceCollectionManager rcm = (ResourceCollectionManager)_resourceResolver.adaptTo(ResourceCollectionManager.class);
         ResourceCollection rc = rcm.getCollection(listPathR);
         Iterator resCol = rc.getResources();

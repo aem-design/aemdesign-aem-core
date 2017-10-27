@@ -55,7 +55,7 @@
 
                 Resource detailsNodeResource = resourceResolver.resolve(detailsNodePath);
 
-                if (detailsNodeResource != null) {
+                if (!ResourceUtil.isNonExistingResource(detailsNodeResource)) {
 
                     componentProperties = getComponentProperties(
                             pageContext,
@@ -158,7 +158,7 @@
             if (isNotEmpty(pageImagePath)) {
                 Resource pageImage = resourceResolver.resolve(pageImagePath);
 
-                if (pageImage != null || !ResourceUtil.isNonExistingResource(pageImage)) {
+                if (!ResourceUtil.isNonExistingResource(pageImage)) {
                     com.adobe.granite.asset.api.Asset pageImageAsset = pageImage.adaptTo(com.adobe.granite.asset.api.Asset.class);
 
                     if (pageImageAsset != null) {

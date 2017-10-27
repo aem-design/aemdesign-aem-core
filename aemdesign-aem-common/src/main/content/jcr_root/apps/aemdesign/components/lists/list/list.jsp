@@ -65,11 +65,9 @@
             pageContext,
             DEFAULT_FIELDS_DETAILS_OPTIONS_OVERRIDE);
 
-    if (_resourceResolver.resolve(badgeRequestAttributes.get(DETAILS_THUMBNAIL,"")) != null) {
-        badgeRequestAttributes.putAll(getAssetInfo(_resourceResolver,
-                getResourceImagePath(_resource, DETAILS_THUMBNAIL),
-                DETAILS_THUMBNAIL));
-    }
+    badgeRequestAttributes.putAll(getAssetInfo(_resourceResolver,
+            getResourceImagePath(_resource, DETAILS_THUMBNAIL),
+            DETAILS_THUMBNAIL));
 
     request.setAttribute(BADGE_REQUEST_ATTRIBUTES, badgeRequestAttributes);
 

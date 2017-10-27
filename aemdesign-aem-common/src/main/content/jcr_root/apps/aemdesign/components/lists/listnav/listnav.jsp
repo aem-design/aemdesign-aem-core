@@ -109,7 +109,7 @@
 
                     List<Map> listItems = null;
 
-                    if ((listPathR != null) && (listPathR.getResourceType().equals("dam/collection"))) {
+                    if (!ResourceUtil.isNonExistingResource(listPathR) && (listPathR.getResourceType().equals("dam/collection"))) {
 
                         listItems = getPicturesFromCollection(_sling, _resourceResolver, listPathR.getPath(), assetViewerPagePath, "montage.assetviewer");
                         componentProperties.put("listPathR",listItems);

@@ -54,10 +54,11 @@
 
             String filePath = download.getFileReference();
             Resource resource = resolver.resolve(filePath);
-            Asset asset = resource.adaptTo(Asset.class);
-            String mimeType = asset.getMimeType();
-            mimeTypeReturn = mimeType.split("/")[1].toUpperCase();
-
+            if (!ResourceUtil.isNonExistingResource(resource)) {
+                Asset asset = resource.adaptTo(Asset.class);
+                String mimeType = asset.getMimeType();
+                mimeTypeReturn = mimeType.split("/")[1].toUpperCase();
+            }
         } catch (Exception ex) {
             getLogger().error("Exception occurred: " + ex.getMessage(), ex);
         }

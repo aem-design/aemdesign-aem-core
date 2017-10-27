@@ -9,6 +9,7 @@
 <%@ page import="com.google.common.collect.Lists" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="org.apache.sling.api.resource.Resource" %>
+<%@ page import="org.apache.sling.api.resource.ResourceUtil" %>
 <%@ page import="javax.jcr.Node" %>
 <%@ page import="javax.jcr.RepositoryException" %>
 <%!
@@ -984,7 +985,7 @@
             assetInfo.put(infoPrefix, assetPath);
 
             Resource pageImageResource = resourceResolver.resolve(assetPath);
-            if (pageImageResource != null) {
+            if (!ResourceUtil.isNonExistingResource(pageImageResource)) {
                 Asset pageImageAsset = pageImageResource.adaptTo(Asset.class);
                 if (pageImageAsset != null) {
                     String pageImageLicenseInfo = getAssetCopyrightInfo(pageImageAsset, DAM_LICENSE_FORMAT);

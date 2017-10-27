@@ -21,7 +21,7 @@
         String listPath = gallery.getProperty("listPath") == null ? "" :gallery.getProperty("listPath").getValue().toString();
         if(StringUtils.isNotEmpty(listPath)) {
         Resource listPathR = _resourceResolver.resolve(listPath);
-            if (listPathR != null) {
+            if (!ResourceUtil.isNonExistingResource(listPathR)) {
             listItems = getPicturesFromResource(_resourceResolver, listPathR);
             }
         }

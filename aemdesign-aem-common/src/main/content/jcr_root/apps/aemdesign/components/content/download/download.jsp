@@ -40,87 +40,91 @@
         String mimeType = getDownloadMimeType(_resourceResolver, dld);
         String mimeTypeLabel = _i18n.get(mimeType, DEFAULT_I18N_CATEGORY);
 
-        Asset asset = dld.getResourceResolver().resolve(dld.getHref()).adaptTo(Asset.class);
-        Node assetN = asset.adaptTo(Node.class);
+        Resource assetRes = dld.getResourceResolver().resolve(dld.getHref());
 
-        String href = mappedUrl(_resourceResolver, dld.getHref());
-        String assetDescription = asset.getMetadataValue(DamConstants.DC_DESCRIPTION);
-        String assetTitle = asset.getMetadataValue(DamConstants.DC_TITLE);
-        String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
+        if( !ResourceUtil.isNonExistingResource(assetRes)) {
 
-        String assetUsageTerms = asset.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
-        String licenseInfo = getAssetCopyrightInfo(asset, _i18n.get("licenseinfo", DEFAULT_I18N_CATEGORY));
+            Asset asset = assetRes.adaptTo(Asset.class);
+            Node assetN = asset.adaptTo(Node.class);
 
-        //override title and description if image has rights
-        String title = componentProperties.get("title","");
-        if (isNotEmpty(licenseInfo) || (isEmpty(title) && isNotEmpty(assetTitle))) {
-            componentProperties.put("title",assetTitle);
-        }
-        String description = componentProperties.get("description","");
-        if (isNotEmpty(licenseInfo) || (isEmpty(description) && isNotEmpty(assetDescription))) {
-            componentProperties.put("description",assetDescription);
-        }
+            String href = mappedUrl(_resourceResolver, dld.getHref());
+            String assetDescription = asset.getMetadataValue(DamConstants.DC_DESCRIPTION);
+            String assetTitle = asset.getMetadataValue(DamConstants.DC_TITLE);
+            String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
 
-        componentProperties.put("licenseInfo", licenseInfo);
+            String assetUsageTerms = asset.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
+            String licenseInfo = getAssetCopyrightInfo(asset, _i18n.get("licenseinfo", DEFAULT_I18N_CATEGORY));
 
-
-        componentProperties.put("mimeTypeLabel", mimeTypeLabel);
-        componentProperties.put("assetTitle", assetTitle);
-        componentProperties.put("assetDescription", assetDescription);
-        componentProperties.put("href", href);
-
-        String thumbnailType = componentProperties.get("thumbnailType","");
-
-        componentProperties.put("thumbnail", DEFAULT_IMAGE_BLANK);
-
-        if (thumbnailType.equals("dam")) {
-
-            Rendition assetRendition = getThumbnail(asset, DEFAULT_THUMB_WIDTH_SM);
-
-            if (assetRendition == null) {
-                componentProperties.put("thumbnail", DEFAULT_DOWNLOAD_THUMB_ICON);
-            } else {
-                componentProperties.put("thumbnail", assetRendition.getPath());
+            //override title and description if image has rights
+            String title = componentProperties.get("title", "");
+            if (isNotEmpty(licenseInfo) || (isEmpty(title) && isNotEmpty(assetTitle))) {
+                componentProperties.put("title", assetTitle);
             }
-        } else if (thumbnailType.equals("customdam")) {
-
-            String thumbnailImagePath = getResourceImagePath(_resource,"thumbnail");
-
-            Resource thumbnailImage = _resourceResolver.resolve(thumbnailImagePath);
-
-            if (thumbnailImage == null) {
-                thumbnailImagePath = DEFAULT_DOWNLOAD_THUMB_ICON;
-            } else {
-                Rendition assetRendition = getThumbnail(thumbnailImage.adaptTo(Asset.class), DEFAULT_THUMB_WIDTH_SM);
-
-                thumbnailImagePath = assetRendition.getPath();
+            String description = componentProperties.get("description", "");
+            if (isNotEmpty(licenseInfo) || (isEmpty(description) && isNotEmpty(assetDescription))) {
+                componentProperties.put("description", assetDescription);
             }
 
-            componentProperties.put("thumbnail", thumbnailImagePath);
+            componentProperties.put("licenseInfo", licenseInfo);
 
-        } else if (thumbnailType.equals("custom")) {
 
-            String thumbnailImage = getResourceImageCustomHref(_resource,"thumbnail");
+            componentProperties.put("mimeTypeLabel", mimeTypeLabel);
+            componentProperties.put("assetTitle", assetTitle);
+            componentProperties.put("assetDescription", assetDescription);
+            componentProperties.put("href", href);
 
-            if (isEmpty(thumbnailImage)) {
-                componentProperties.put("thumbnail", DEFAULT_DOWNLOAD_THUMB_ICON);
-            } else {
-                componentProperties.put("thumbnail", thumbnailImage);
+            String thumbnailType = componentProperties.get("thumbnailType", "");
+
+            componentProperties.put("thumbnail", DEFAULT_IMAGE_BLANK);
+
+            if (thumbnailType.equals("dam")) {
+
+                Rendition assetRendition = getThumbnail(asset, DEFAULT_THUMB_WIDTH_SM);
+
+                if (assetRendition == null) {
+                    componentProperties.put("thumbnail", DEFAULT_DOWNLOAD_THUMB_ICON);
+                } else {
+                    componentProperties.put("thumbnail", assetRendition.getPath());
+                }
+            } else if (thumbnailType.equals("customdam")) {
+
+                String thumbnailImagePath = getResourceImagePath(_resource, "thumbnail");
+
+                Resource thumbnailImage = _resourceResolver.resolve(thumbnailImagePath);
+
+                if (!ResourceUtil.isNonExistingResource(thumbnailImage)) {
+                    thumbnailImagePath = DEFAULT_DOWNLOAD_THUMB_ICON;
+                } else {
+                    Rendition assetRendition = getThumbnail(thumbnailImage.adaptTo(Asset.class), DEFAULT_THUMB_WIDTH_SM);
+
+                    thumbnailImagePath = assetRendition.getPath();
+                }
+
+                componentProperties.put("thumbnail", thumbnailImagePath);
+
+            } else if (thumbnailType.equals("custom")) {
+
+                String thumbnailImage = getResourceImageCustomHref(_resource, "thumbnail");
+
+                if (isEmpty(thumbnailImage)) {
+                    componentProperties.put("thumbnail", DEFAULT_DOWNLOAD_THUMB_ICON);
+                } else {
+                    componentProperties.put("thumbnail", thumbnailImage);
+                }
+
+            } else if (thumbnailType.equals("icon") || isEmpty(thumbnailType)) {
+                componentProperties.put("iconType", dld.getIconType());
             }
 
-        } else if (thumbnailType.equals("icon") || isEmpty(thumbnailType)) {
-            componentProperties.put("iconType",dld.getIconType());
+            Object[][] componentAttibutes = {
+                    {"href", href},
+                    {"data-tags", assetTags},
+            };
+
+            componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, componentAttibutes));
+
+            componentProperties.put("info", MessageFormat.format("({0}, {1})", getFormattedDownloadSize(dld), mimeTypeLabel));
         }
-
-        Object[][] componentAttibutes = {
-                {"href",href},
-                {"data-tags",assetTags},
-        };
-
-        componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties,componentAttibutes));
-
-        componentProperties.put("info",MessageFormat.format("({0}, {1})", getFormattedDownloadSize(dld), mimeTypeLabel));
-
     }
 
 %>
