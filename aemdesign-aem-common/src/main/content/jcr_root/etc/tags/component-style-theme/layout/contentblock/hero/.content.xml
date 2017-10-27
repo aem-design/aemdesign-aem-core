@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:description="Inverts the background and text colour of the parent and any child elements that look for this class"
+    jcr:primaryType="cq:Tag"
+    jcr:title="Hero Banner"
+    sling:resourceType="cq/tagging/components/tag"
+    value="contentblock-hero"/>
