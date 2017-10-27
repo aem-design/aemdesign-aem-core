@@ -2,6 +2,6 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:description="Changes the right padding back to the default spacing"
     jcr:primaryType="cq:Tag"
-    jcr:title="Right Padding - Reset (16px)"
+    jcr:title="Left Padding - Reset (16px)"
     value="pr-reset"
     sling:resourceType="cq/tagging/components/tag"/>

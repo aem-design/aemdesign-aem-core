@@ -3,5 +3,5 @@
     jcr:description=""
     jcr:primaryType="cq:Tag"
     jcr:title="No Top and Bottom Padding"
-    value="py-0"
+    value="py-0 py-collapse"
     sling:resourceType="cq/tagging/components/tag"/>

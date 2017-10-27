@@ -3,5 +3,5 @@
     jcr:description=""
     jcr:primaryType="cq:Tag"
     jcr:title="No Top Padding"
-    value="pt-0"
+    value="pt-0 pt-collapse"
     sling:resourceType="cq/tagging/components/tag"/>

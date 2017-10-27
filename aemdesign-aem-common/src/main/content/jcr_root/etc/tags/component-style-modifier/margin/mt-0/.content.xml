@@ -3,5 +3,5 @@
     jcr:description=""
     jcr:primaryType="cq:Tag"
     jcr:title="No Top Margin"
-    value="mt-0"
+    value="mt-0 mt-collapse"
     sling:resourceType="cq/tagging/components/tag"/>

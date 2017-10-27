@@ -3,5 +3,5 @@
     jcr:description=""
     jcr:primaryType="cq:Tag"
     jcr:title="No Left and Right Padding"
-    value="px-0"
+    value="px-0 px-collapse"
     sling:resourceType="cq/tagging/components/tag"/>
