@@ -72,12 +72,12 @@
     private static final String DETAILS_PAGE_ICON = "pageIcon";
     
     //animation badge config
-    private static final String DETAILS_ANIMATION_ENABLED = "animationEnabled";
-    private static final String DETAILS_ANIMATION_NAME = "animationName";
-    private static final String DETAILS_ANIMATION_ONCE = "animationOnce";
-    private static final String DETAILS_ANIMATION_EASING = "animationEasing";
-    private static final String DETAILS_ANIMATION_DELAY = "animationDelay";
-    private static final String DETAILS_ANIMATION_DURATION = "animationDuration";
+    private static final String DETAILS_ANIMATION_ENABLED = "badgeAnimationEnabled";
+    private static final String DETAILS_ANIMATION_NAME = "badgeAnimationName";
+    private static final String DETAILS_ANIMATION_ONCE = "badgeAnimationOnce";
+    private static final String DETAILS_ANIMATION_EASING = "badgeAnimationEasing";
+    private static final String DETAILS_ANIMATION_DELAY = "badgeAnimationDelay";
+    private static final String DETAILS_ANIMATION_DURATION = "badgeAnimationDuration";
 
     //shared badge config passed from list to all badge elements
     private static final String DETAILS_LINK_TARGET = "badgeLinkTarget";
@@ -131,6 +131,12 @@
     private static final String FIELD_STYLE_COMPONENT_SITETHEMECATEGORY = "siteThemeCategory";
     private static final String FIELD_STYLE_COMPONENT_SITETHEMECOLOR = "siteThemeColor";
     private static final String FIELD_STYLE_COMPONENT_SITETITLECOLOR = "siteTileColor";
+    private static final String FIELD_STYLE_COMPONENT_ANIMATION_ENABLED = "animationEnabled";
+    private static final String FIELD_STYLE_COMPONENT_ANIMATION_NAME = "animationName";
+    private static final String FIELD_STYLE_COMPONENT_ANIMATION_ONCE = "animationOnce";
+    private static final String FIELD_STYLE_COMPONENT_ANIMATION_EASING = "animationEasing";
+    private static final String FIELD_STYLE_COMPONENT_ANIMATION_DELAY = "animationDelay";
+    private static final String FIELD_STYLE_COMPONENT_ANIMATION_DURATION = "animationDuration";
 
     private static final String FIELD_ARIA_ROLE = "ariaRole";
     private static final String FIELD_ARIA_LABEL = "ariaLabel";
@@ -191,6 +197,12 @@
             {FIELD_STYLE_COMPONENT_SITETHEMECOLOR, ""},
             {FIELD_STYLE_COMPONENT_SITETITLECOLOR, ""},
             {FIELD_STYLE_COMPONENT_BOOLEANATTR, new String[]{},"", Tag.class.getCanonicalName()},
+            {FIELD_STYLE_COMPONENT_ANIMATION_ENABLED, false},
+            {FIELD_STYLE_COMPONENT_ANIMATION_NAME, StringUtils.EMPTY, "data-aos"},
+            {FIELD_STYLE_COMPONENT_ANIMATION_ONCE, StringUtils.EMPTY, "data-aos-once"},
+            {FIELD_STYLE_COMPONENT_ANIMATION_EASING, StringUtils.EMPTY, "data-aos-easing"},
+            {FIELD_STYLE_COMPONENT_ANIMATION_DELAY, StringUtils.EMPTY, "data-aos-delay"},
+            {FIELD_STYLE_COMPONENT_ANIMATION_DURATION, StringUtils.EMPTY, "data-aos-duration"},
     };
 
     //COMPONENT ACCESSIBILITY
@@ -242,7 +254,7 @@
             {DETAILS_CARD_SIZE, "small"},
             {DETAILS_CARD_ICONSHOW, false},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_ANIMATION_ENABLED, ""},
+            {DETAILS_ANIMATION_ENABLED, false},
             {DETAILS_ANIMATION_NAME, ""},
             {DETAILS_ANIMATION_ONCE, ""},
             {DETAILS_ANIMATION_EASING, ""},
@@ -289,6 +301,12 @@
             {DETAILS_CARD_SIZE, ""},
             {DETAILS_CARD_ICONSHOW, ""},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_ANIMATION_ENABLED, ""},
+            {DETAILS_ANIMATION_NAME, ""},
+            {DETAILS_ANIMATION_ONCE, ""},
+            {DETAILS_ANIMATION_EASING, ""},
+            {DETAILS_ANIMATION_DELAY, ""},
+            {DETAILS_ANIMATION_DURATION, ""},
             {DETAILS_LINK_TARGET, ""},
             {DETAILS_LINK_TEXT, ""}, //getPageNavTitle(_currentPage)
             {DETAILS_LINK_TITLE, ""}, //getPageTitle(_currentPage)
@@ -330,21 +348,6 @@
             {"analyticsEventLabel", StringUtils.EMPTY, "data-analytics-event-label"},
             {"analyticsTransport", StringUtils.EMPTY, "data-analytics-transport"},
             {"analyticsNonInteraction", StringUtils.EMPTY, "data-analytics-noninteraction"},
-    };
-
-    //COMPONENT ANIMATION
-    // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - name of component attribute to add value into
-    //   4 optional - canonical name of class for handling multivalues, String or Tag
-    // }
-    public static final Object[][] DEFAULT_FIELDS_ANIMATION = {
-            {"animationName", StringUtils.EMPTY, "data-aos"},
-            {"animationOnce", StringUtils.EMPTY, "data-aos-once"},
-            {"animationEasing", StringUtils.EMPTY, "data-aos-easing"},
-            {"animationDelay", StringUtils.EMPTY, "data-aos-delay"},
-            {"animationDuration", StringUtils.EMPTY, "data-aos-duration"},
     };
 
     //LINK ATTRIBUTES

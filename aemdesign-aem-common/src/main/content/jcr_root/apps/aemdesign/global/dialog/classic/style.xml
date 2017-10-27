@@ -100,7 +100,7 @@
                     <items jcr:primaryType="cq:WidgetCollection">
                         <animationConfigGroupLabel
                             jcr:primaryType="cq:Widget"
-                            text="Applies CSS3 animations to any child components that support them"
+                            text="Applies CSS3 animations to this component if supported"
                             xtype="label"/>
 
                         <animationEnabled jcr:primaryType="cq:Widget"
@@ -117,7 +117,7 @@
                             fieldDescription="The type of animation to run"
                             allowBlank="{Boolean}true"
                             name="./animationName"
-                            options="/etc/tags/component-style-theme/common/animation/name.valuelist.json"
+                            options="/etc/tags/component-dialog/html/animation/name.valuelist.json"
                             type="select"
                             defaultValue=""
                             xtype="selection"/>
@@ -135,7 +135,7 @@
                             fieldDescription="How should the animation play?"
                             allowBlank="{Boolean}true"
                             name="./animationEasing"
-                            options="/etc/tags/component-style-theme/common/animation/easing.valuelist.json"
+                            options="/etc/tags/component-dialog/html/animation/easing.valuelist.json"
                             type="select"
                             defaultValue=""
                             xtype="selection"/>
