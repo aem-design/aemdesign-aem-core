@@ -1,7 +1,7 @@
-<div class="card ${componentProperties.cardSize} ${classStyleAttr}" ${animationAttr}>
+<div class="card ${componentProperties.cardSize} ${badgeClassStyleAttr}" ${badgeAnimationAttr}>
     <c:if test="${componentProperties.cardIconShow}">
         <div class="card-icon">
-            <i class="icon ${classIconAttr}" title="${componentProperties.title}"></i>
+            <i class="icon ${badgeClassIconAttr}" title="${componentProperties.title}"></i>
         </div>
     </c:if>
     <div class="card-body">
@@ -16,10 +16,10 @@
             </div>
         </c:if>
         <p class="card-text">${componentProperties.description}</p>
-        <a class="card-link ${linkClassAttr}"
+        <a class="card-link ${fn:join(componentProperties.badgeLinkStyle, ' ')}"
            href="${componentProperties.pageUrl}"
            target="${componentProperties.badgeLinkTarget}"
            title="${componentProperties.badgeLinkTitle}"
-           ${linkAttr}>${componentProperties.badgeLinkText}</a>
+           ${badgeLinkAttr}>${componentProperties.badgeLinkText}</a>
     </div>
 </div>

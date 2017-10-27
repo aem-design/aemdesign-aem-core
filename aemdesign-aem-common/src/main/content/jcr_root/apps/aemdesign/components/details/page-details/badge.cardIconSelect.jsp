@@ -2,11 +2,11 @@
         href="${componentProperties.pageUrl}"
         target="${componentProperties.badgeLinkTarget}"
         title="${componentProperties.badgeLinkTitle}"
-        class="card ${componentProperties.cardSize} ${classStyleAttr}"
-        ${linkAttr} ${animationAttr}>
+        class="card ${componentProperties.cardSize} ${badgeClassStyleAttr}"
+        ${badgeLinkAttr} ${badgeAnimationAttr}>
     <c:if test="${componentProperties.cardIconShow}">
         <div class="card-icon">
-            <i class="icon ${classIconAttr}" title="${componentProperties.title}"></i>
+            <i class="icon ${badgeClassIconAttr}" title="${componentProperties.title}"></i>
         </div>
     </c:if>
     <div class="card-body">

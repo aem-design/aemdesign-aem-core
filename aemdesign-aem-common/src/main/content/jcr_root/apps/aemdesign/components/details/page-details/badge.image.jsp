@@ -1,7 +1,7 @@
 <a
     href="${componentProperties.pageUrl}"
-    title="${componentProperties.title}"${linkAttr}>
-    <img src="${componentProperties.pageImageThumbnail}"${imageAttr}
+    title="${componentProperties.title}"${badgeLinkAttr}>
+    <img src="${componentProperties.pageImageThumbnail}"${badgeImageAttr}
          alt="${componentProperties.title}"
          <c:if test="${not empty componentProperties.pageSecondaryImageThumbnail}">
             class="rollover"

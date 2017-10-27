@@ -1,7 +1,7 @@
-<div class="card ${componentProperties.cardSize} ${classStyleAttr}" ${animationAttr}>
+<div class="card ${componentProperties.cardSize} ${badgeClassStyleAttr}" ${badgeAnimationAttr}>
     <c:if test="${componentProperties.cardIconShow}">
         <div class="card-icon">
-            <i class="icon ${classIconAttr}" title="${componentProperties.title}"></i>
+            <i class="icon ${badgeClassIconAttr}" title="${componentProperties.title}"></i>
         </div>
     </c:if>
     <div class="card-body">

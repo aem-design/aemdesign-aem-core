@@ -2,9 +2,9 @@
         href="${componentProperties.pageUrl}"
         target="${componentProperties.badgeLinkTarget}"
         title="${componentProperties.badgeLinkTitle}"
-        class="card  ${componentProperties.cardSize} ${classAttr}"
-        ${linkAttr} ${animationAttr}>
-    <img src="${componentProperties.pageImageThumbnail}"${imageAttr}
+        class="card  ${componentProperties.cardSize} ${badgeClassAttr}"
+        ${badgeLinkAttr} ${badgeAnimationAttr}>
+    <img src="${componentProperties.pageImageThumbnail}"${badgeImageAttr}
          alt="${componentProperties.title}"
          class="card-img-top"/>
     <div class="card-body">
