@@ -96,6 +96,10 @@
         <%@ include file="badge.cardIconSelect.jsp" %>
     </c:when>
 
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardHorizontal'}">
+        <%@ include file="badge.cardHorizontal.jsp" %>
+    </c:when>
+
     <c:when test="${COMPONENT_BADGE eq 'badge.icon'}">
         <%@ include file="badge.icon.jsp" %>
     </c:when>

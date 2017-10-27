@@ -144,6 +144,10 @@
         <%@ include file="badge.cardIconSelect.jsp" %>
     </c:when>
 
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardHorizontal'}">
+        <%@ include file="badge.cardHorizontal.jsp" %>
+    </c:when>
+
     <c:when test="${COMPONENT_BADGE eq 'badge.icon'}">
         <%@ include file="badge.icon.jsp" %>
     </c:when>
@@ -156,8 +160,8 @@
         <%@ include file="badge.default.jsp" %>
     </c:when>
 
-    <c:when test="${componentProperties.variant eq DEFAULT_VARIANT}">
-        <%@include file="variant.default.jsp" %>
+    <c:when test="${componentProperties.variant eq DEFAULT_VARIANT_HIDDEN}">
+        <%@include file="variant.hidden.jsp" %>
     </c:when>
 
     <c:otherwise>
