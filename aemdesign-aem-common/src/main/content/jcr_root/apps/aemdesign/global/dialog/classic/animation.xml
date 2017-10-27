@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="cq:Dialog"
+          helpPath="en/cq/current/wcm/default_components.html#List"
+          title="Common Page Fields for Classic UI"
+          xtype="tabpanel">
+
+    <items jcr:primaryType="cq:WidgetCollection">
+
+        <animationTab jcr:primaryType="cq:Panel" title="Animation">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <animationName jcr:primaryType="cq:Widget"
+                            fieldLabel="Name"
+                            fieldDescription="The type of animation to run"
+                            allowBlank="{Boolean}true"
+                            name="./animationName"
+                            options="/etc/tags/component-style/theme/common/animation/name.valuelist.json"
+                            type="select"
+                            defaultValue=""
+                            xtype="selection"/>
+                <animationOnce jcr:primaryType="cq:Widget"
+                            fieldLabel="Run Once?"
+                            fieldDescription="Should the animation only run once? By default is runs everytime you scroll past the element on the page"
+                            allowBlank="{Boolean}true"
+                            name="./animationOnce"
+                            options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                            type="select"
+                            defaultValue=""
+                            xtype="selection"/>
+                <animationEasing jcr:primaryType="cq:Widget"
+                            fieldLabel="Easing"
+                            fieldDescription="How should the animation play?"
+                            allowBlank="{Boolean}true"
+                            name="./animationEasing"
+                            options="/etc/tags/component-style/theme/common/animation/easing.valuelist.json"
+                            type="select"
+                            defaultValue=""
+                            xtype="selection"/>
+                <animationDelay jcr:primaryType="cq:Widget"
+                            fieldLabel="Delay"
+                            fieldDescription="How many milliseconds should occur before the animation runs?"
+                            allowBlank="{Boolean}true"
+                            name="./animationDelay"
+                            min="1"
+                            step="100"
+                            defaultValue=""
+                            xtype="numberfield"/>
+                <animationDuration jcr:primaryType="cq:Widget"
+                            fieldLabel="Duration"
+                            fieldDescription="How long should the animation run for? Minimum is '400' and the maximum is '3000'. Values must be in increments of 50, i.e. 450, 500, 550..."
+                            allowBlank="{Boolean}true"
+                            name="./animationDuration"
+                            max="3000"
+                            min="400"
+                            step="50"
+                            defaultValue=""
+                            xtype="numberfield"/>
+            </items>
+        </animationTab>
+
+    </items>
+
+</jcr:root>
+
+
+
