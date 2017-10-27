@@ -17,9 +17,6 @@
 </c:if>
 <!--cloud config: start-->
 
-<!-- webfonts -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700">
-
 <!-- common js and css -->
 <cq:includeClientLib categories="aemdesign.common.head"/>
 
