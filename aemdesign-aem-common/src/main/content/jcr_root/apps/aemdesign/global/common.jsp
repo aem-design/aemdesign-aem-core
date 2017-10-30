@@ -1175,15 +1175,15 @@
                     buffer.append((char)b);
                 }
 
-                @Override
+//                @Override
                 public boolean isReady() {
                     return false;
                 }
 
-                @Override
-                public void setWriteListener(WriteListener writeListener) {
-
-                }
+//                @Override
+//                public void setWriteListener(javax.servlet.WriteListener writeListener) {
+//
+//                }
             };
 
             SlingHttpServletResponseWrapper wrapper = new SlingHttpServletResponseWrapper(response) {
