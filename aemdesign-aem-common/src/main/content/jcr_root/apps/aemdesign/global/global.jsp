@@ -65,7 +65,7 @@
     // can put language, wcmmode here
     final WCMMode CURRENT_WCMMODE = WCMMode.fromRequest(request);
     final String DESIGN_PATH = _currentDesign.getPath();
-    final boolean INCLUDE_PAGE_TIMING = true;
+    final boolean INCLUDE_PAGE_TIMING = false; //does not work on aem 6.0
     final boolean INCLUDE_PAGE_CLOUDSERVICES = true;
     final boolean INCLUDE_PAGE_COMPONENTINIT = true;
     final boolean INCLUDE_PAGE_CONTEXTHUB = true;       //used in Touch UI
