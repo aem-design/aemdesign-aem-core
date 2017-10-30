@@ -10,7 +10,7 @@
         return getPageListInfo(pageContext,pageManager,resourceResolver,paths,DEFAULT_LIST_DETAILS_SUFFIX,DEFAULT_LIST_PAGE_CONTENT);
     }
     protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots) {
-        List<ComponentProperties> pages = new ArrayList<>();
+        List<ComponentProperties> pages = new ArrayList<ComponentProperties>();
         for (String path : paths) {
             Page child = pageManager.getPage(path);
             if (child!=null) {
@@ -24,7 +24,7 @@
         return getPageListInfo(pageContext,pageManager,resourceResolver,pageList,DEFAULT_LIST_DETAILS_SUFFIX,DEFAULT_LIST_PAGE_CONTENT);
     }
     protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots) {
-        List<ComponentProperties> pages = new ArrayList<>();
+        List<ComponentProperties> pages = new ArrayList<ComponentProperties>();
 
         if (pageList != null) {
 
@@ -163,7 +163,7 @@
 
                     if (pageImageAsset != null) {
 
-                        switch (badgeThumbnailType) {
+//                        switch (badgeThumbnailType) {
 //                    case IMAGE_OPTION_GENERATED:
 //                        String imageHref = "";
 //                        Long lastModified = getLastModified(_resource);
@@ -189,16 +189,16 @@
 //                        componentProperties.put(FIELD_RENDITIONS, responsiveImageSet);
 //
 //                        break;
-                            case IMAGE_OPTION_RENDITION:
+//                            case IMAGE_OPTION_RENDITION:
                                 com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(badgeThumbnailWidth, pageImageAsset);
 
                                 if (bestRendition != null) {
                                     badgeConfig.put(FIELD_PAGE_IMAGE_THUMBNAIL, bestRendition.getPath());
                                 }
-                                break;
-                            default: //IMAGE_OPTION_RENDITION
-                                break;
-                        }
+//                                break;
+//                            default: //IMAGE_OPTION_RENDITION
+//                                break;
+//                        }
                     }
                 } else {
                     badgeConfig.put(FIELD_PAGE_IMAGE_THUMBNAIL, pageImagePath);
