@@ -84,13 +84,13 @@
             <version>1.7.6</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.adobe.aem</groupId>
-            <artifactId>uber-jar</artifactId>
-            <version>6.1.0</version>
-            <classifier>obfuscated-apis</classifier>
-            <scope>provided</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.adobe.aem</groupId>-->
+            <!--<artifactId>uber-jar</artifactId>-->
+            <!--<version>6.1.0</version>-->
+            <!--<classifier>obfuscated-apis</classifier>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
@@ -156,16 +156,17 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.github.mickleroy</groupId>
-            <artifactId>aem-sass-compiler</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.3</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.github.mickleroy</groupId>-->
+            <!--<artifactId>aem-sass-compiler</artifactId>-->
+            <!--<version>1.0.1</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.httpcomponents</groupId>-->
+            <!--<artifactId>httpclient</artifactId>-->
+            <!--<version>4.5.3</version>-->
+            <!--<scope>compile</scope>-->
+        <!--</dependency>-->
     </dependencies>
 
     <!-- ====================================================================== -->
