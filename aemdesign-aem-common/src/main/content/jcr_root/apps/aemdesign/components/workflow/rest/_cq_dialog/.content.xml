@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="REST Step"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs">
+        <items jcr:primaryType="nt:unstructured">
+            <processcommon
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Common"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <basic
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <title
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        disabled="false"
+                                        fieldLabel="Title"
+                                        name="./jcr:title"/>
+                                    <description
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                        disabled="false"
+                                        fieldLabel="Description"
+                                        name="./jcr:description"/>
+                                </items>
+                            </basic>
+                            <advanced
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Advanced Settings"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <advance
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                        fieldDescription="Check if your handler will advance to the next step."
+                                        fieldLabel="Handler Advance"
+                                        name="./metaData/PROCESS_AUTO_ADVANCE"
+                                        text="Handler Advance"/>
+                                </items>
+                            </advanced>
+                        </items>
+                    </column>
+                </items>
+            </processcommon>
+            <processargs
+                jcr:primaryType="nt:unstructured"
+                jcr:title="General"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <arguments
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="General Settings"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <servicepath
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Enter the Service Path, this will be added to Service URL from Configurations"
+                                        fieldLabel="Service Path"
+                                        name="./metaData/servicePath"
+                                        required="true"/>
+                                    <configuration/>
+                                </items>
+                            </arguments>
+                        </items>
+                    </column>
+                </items>
+            </processargs>
+            <request
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Request"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <arguments
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Request Settings"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <saveRequest
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="Default is NO"
+                                        fieldLabel="Save request payload to workflow"
+                                        name="./metaData/saveRequest"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <default
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Default"
+                                                value=""/>
+                                            <yes
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Yes"
+                                                value="true"/>
+                                            <no
+                                                jcr:primaryType="nt:unstructured"
+                                                text="No"
+                                                value="false"/>
+                                        </items>
+                                    </saveRequest>
+                                    <sendMetaData
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="Default is NO"
+                                        fieldLabel="Send Metadata"
+                                        name="./metaData/sendMetaData"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <default
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Default"
+                                                value=""/>
+                                            <yes
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Yes"
+                                                value="true"/>
+                                            <no
+                                                jcr:primaryType="nt:unstructured"
+                                                text="No"
+                                                value="false"/>
+                                        </items>
+                                    </sendMetaData>
+                                    <sendMetaDataType
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="Default is FORM"
+                                        fieldLabel="Send Content Type"
+                                        name="./metaData/sendMetaDataType"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <default
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Default"
+                                                value=""/>
+                                            <form
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Form"
+                                                value="form"/>
+                                            <json
+                                                jcr:primaryType="nt:unstructured"
+                                                text="JSON"
+                                                value="json"/>
+                                            <xml
+                                                jcr:primaryType="nt:unstructured"
+                                                text="XML"
+                                                value="xml"/>
+                                            <file
+                                                jcr:primaryType="nt:unstructured"
+                                                text="File"
+                                                value="file"/>
+                                        </items>
+                                    </sendMetaDataType>
+                                    <sendMethod
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="Which HTTP method to use, default is GET"
+                                        fieldLabel="Send Method"
+                                        name="./metaData/sendMethod"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <default
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Default"
+                                                value=""/>
+                                            <get
+                                                jcr:primaryType="nt:unstructured"
+                                                text="GET"
+                                                value="get"/>
+                                            <post
+                                                jcr:primaryType="nt:unstructured"
+                                                text="POST"
+                                                value="post"/>
+                                            <put
+                                                jcr:primaryType="nt:unstructured"
+                                                text="PUT"
+                                                value="put"/>
+                                            <delete
+                                                jcr:primaryType="nt:unstructured"
+                                                text="DELETE"
+                                                value="delete"/>
+                                        </items>
+                                    </sendMethod>
+                                    <requestFields
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                        fieldDescription="Grab following fields from Metadata and send {Metadata Name}={Destination Name}"
+                                        fieldLabel="Request Fields">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
+                                    </requestFields>
+                                    <requestHeader
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                        fieldDescription="Grab following fields from Metadata and send as header {Metadata Name}={Header Name}"
+                                        fieldLabel="Request Headers">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
+                                    </requestHeader>
+                                    <requestTemplatePath
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                        fieldDescription="Template Path"
+                                        fieldLabel="Template Path"
+                                        name="./metaData/requestTemplatePath"
+                                        rootPath="/"/>
+                                    <requestTemplate
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                        fieldDescription="Enter the Service Path, this will be added to Service URL from Configurations"
+                                        fieldLabel="Template Text"
+                                        name="./metaData/requestTemplate"
+                                        required="true"/>
+                                </items>
+                            </arguments>
+                        </items>
+                    </column>
+                </items>
+            </request>
+            <response
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Response"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <arguments
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Response Settings"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <saveResponse
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="Default is NO"
+                                        fieldLabel="Save response payload to workflow"
+                                        name="./metaData/saveResponse"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <default
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Default"
+                                                value=""/>
+                                            <yes
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Yes"
+                                                value="true"/>
+                                            <no
+                                                jcr:primaryType="nt:unstructured"
+                                                text="No"
+                                                value="false"/>
+                                        </items>
+                                    </saveResponse>
+                                    <responseHeaders
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                        fieldDescription="Grab following headers from Response and save them in Metadata {Metadata Name}={Header Name}"
+                                        fieldLabel="Response Headers">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
+                                    </responseHeaders>
+                                    <responseFields
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                        fieldDescription="Filter out following fields from response and save them in Metadata"
+                                        fieldLabel="Response Fields">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/fieldset"
+                                            acs-commons-nested=""
+                                            name="./metaData/responseFields">
+                                            <layout
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                                method="absolute"/>
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <column
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                    <items jcr:primaryType="nt:unstructured">
+                                                        <metadataname
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                            fieldDescription="this will be the output metadata field for the workflow"
+                                                            fieldLabel="Meta Data Name"/>
+                                                        <regex
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                                            fieldDescription="This will be used to parse response content"
+                                                            fieldLabel="Response Regex"/>
+                                                    </items>
+                                                </column>
+                                            </items>
+                                        </field>
+                                    </responseFields>
+                                </items>
+                            </arguments>
+                        </items>
+                    </column>
+                </items>
+            </response>
+        </items>
+    </content>
+</jcr:root>

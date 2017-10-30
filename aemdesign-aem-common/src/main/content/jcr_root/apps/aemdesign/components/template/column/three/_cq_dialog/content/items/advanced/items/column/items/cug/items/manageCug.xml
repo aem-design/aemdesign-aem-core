@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Widget"
+    fieldLabel="Info"
+    hidden="{Boolean}false"
+    hideLabel="{Boolean}true"
+    html="Refer to &lt;a href=mnt/overlay/wcm/core/content/sites/properties.html>link&lt;/a>to setup Closed User Group Properties "
+    ignoreData="{Boolean}true"
+    itemId="./cq:cugEnable"
+    xtype="static"/>

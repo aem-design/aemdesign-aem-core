@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    helpPath="en/cq/current/wcm/default_components.html#Forms Text Field">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs">
+        <items jcr:primaryType="nt:unstructured">
+            <first
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Title and Text"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <name
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="Element Name"
+                                name="./name"
+                                required="{Boolean}true"/>
+                            <title
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="Title"
+                                name="./jcr:title"/>
+                            <hidetitle
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                fieldLabel="Hide Title"
+                                name="./hideTitle"
+                                text="Hide Title"
+                                value="true"/>
+                            <description
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="Description"
+                                name="./jcr:description"/>
+                            <variant
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldLabel="Variant"
+                                name="./variant"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Default"
+                                        value=""/>
+                                    <aemdesign
+                                        jcr:primaryType="nt:unstructured"
+                                        text="AEM.Design Style"
+                                        value="aemdesign"/>
+                                </items>
+                            </variant>
+                            <type
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldLabel="Type"
+                                name="./type"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Default"
+                                        value=""/>
+                                    <text
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Text"
+                                        value="text"/>
+                                    <email
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Email"
+                                        value="email"/>
+                                    <hidden
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Hidden"
+                                        value="hidden"/>
+                                    <submit
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Submit"
+                                        value="submit"/>
+                                </items>
+                            </type>
+                            <placeHolder
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="Place Holder"
+                                name="./placeHolder"/>
+                        </items>
+                    </column>
+                </items>
+            </first>
+            <second
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Initial Values"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <value
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="Default Value"
+                                name="./defaultValue"/>
+                        </items>
+                    </column>
+                </items>
+            </second>
+            <fourth
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Constraints"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <required
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                fieldLabel="Required"
+                                name="./required"
+                                text="Required"
+                                value="true"/>
+                            <requiredMessage
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                fieldLabel="Required Message"
+                                name="./requiredMessage"/>
+                            <constraintType
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldLabel="Constraint"
+                                name="./constraintType">
+                                <items jcr:primaryType="nt:unstructured"/>
+                            </constraintType>
+                            <constraintMessage
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                fieldLabel="Constraint Message"
+                                name="./constraintMessage"/>
+                        </items>
+                    </column>
+                </items>
+            </fourth>
+            <five
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Styling"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <multiLine
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
+                                fieldLabel="Size">
+                                <width
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                    name="./cols"
+                                    unit="cols"/>
+                                <height
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                    name="./rows"
+                                    unit="rows"/>
+                            </multiLine>
+                            <width
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="Width"
+                                name="./width"/>
+                            <class
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="CSS"
+                                name="./css"/>
+                        </items>
+                    </column>
+                </items>
+            </five>
+        </items>
+    </content>
+</jcr:root>

@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Widget"
+    fieldLabel="Text"
+    hideLabel="{Boolean}true"
+    name="./text"
+    xtype="richtext">
+    <rtePlugins jcr:primaryType="nt:unstructured">
+        <table
+            jcr:primaryType="nt:unstructured"
+            features="*"/>
+        <format
+            jcr:primaryType="nt:unstructured"
+            features="*"/>
+        <lists
+            jcr:primaryType="nt:unstructured"
+            features="*"/>
+        <edit
+            jcr:primaryType="nt:unstructured"
+            features="[cut,copy,paste-default,paste-plaintext,paste-wordhtml]">
+            <htmlPasteRules jcr:primaryType="nt:unstructured">
+                <allowBasics
+                    jcr:primaryType="nt:unstructured"
+                    anchor="{Boolean}true"
+                    bold="{Boolean}true"
+                    image="{Boolean}true"
+                    italic="{Boolean}true"
+                    underline="{Boolean}true"/>
+                <allowBlockTags
+                    jcr:primaryType="nt:unstructured"
+                    allowBlockTags="[p,h1,h2,h3,h4,h5,h6,ol,ul,table,hr]"/>
+                <list
+                    jcr:primaryType="nt:unstructured"
+                    allow="{Boolean}false"
+                    ignoreMode="paragraph"/>
+                <table
+                    jcr:primaryType="nt:unstructured"
+                    allow="{Boolean}true"
+                    ignoreMode="paragraph"/>
+            </htmlPasteRules>
+        </edit>
+        <justify
+            jcr:primaryType="nt:unstructured"
+            features="*"/>
+        <findreplace
+            jcr:primaryType="nt:unstructured"
+            features="*"/>
+        <paraformat
+            jcr:primaryType="nt:unstructured"
+            features="*">
+            <formats jcr:primaryType="cq:WidgetCollection">
+                <paragraph
+                    jcr:primaryType="nt:unstructured"
+                    description="Paragraph"
+                    tag="p"/>
+                <heading1
+                    jcr:primaryType="nt:unstructured"
+                    description="Heading 1"
+                    tag="h1"/>
+                <heading2
+                    jcr:primaryType="nt:unstructured"
+                    description="Heading 2"
+                    tag="h2"/>
+                <heading3
+                    jcr:primaryType="nt:unstructured"
+                    description="Heading 3"
+                    tag="h3"/>
+                <heading4
+                    jcr:primaryType="nt:unstructured"
+                    description="Heading 4"
+                    tag="h4"/>
+                <heading5
+                    jcr:primaryType="nt:unstructured"
+                    description="Heading 5"
+                    tag="h5"/>
+                <heading6
+                    jcr:primaryType="nt:unstructured"
+                    description="Heading 6"
+                    tag="h6"/>
+                <blockquote
+                    jcr:primaryType="nt:unstructured"
+                    description="Blockquote"
+                    tag="blockquote"/>
+            </formats>
+        </paraformat>
+        <styles
+            jcr:primaryType="nt:unstructured"
+            features="*">
+            <styles
+                jcr:primaryType="cq:Tag"
+                jcr:title="Styles"
+                sling:resourceType="cq/tagging/components/tag">
+                <iconSmall
+                    jcr:primaryType="cq:Tag"
+                    sling:resourceType="cq/tagging/components/tag"
+                    cssName="icon-sm"
+                    text="Icon Size (Small)"/>
+                <p3
+                    jcr:primaryType="cq:Tag"
+                    sling:resourceType="cq/tagging/components/tag"
+                    cssName="p3"
+                    text="Paragraph (Level 3)"/>
+                <textPrimary
+                    jcr:primaryType="cq:Tag"
+                    sling:resourceType="cq/tagging/components/tag"
+                    cssName="text-primary"
+                    text="Colour (Primary)"/>
+                <p2
+                    jcr:primaryType="cq:Tag"
+                    sling:resourceType="cq/tagging/components/tag"
+                    cssName="p2"
+                    text="Paragraph (Level 2)"/>
+                <textInfo
+                    jcr:primaryType="cq:Tag"
+                    sling:resourceType="cq/tagging/components/tag"
+                    cssName="text-info"
+                    text="Colour (Info)"/>
+                <houschkaFontFamilyBold jcr:primaryType="nt:folder"/>
+                <h2 jcr:primaryType="nt:folder"/>
+                <h5 jcr:primaryType="nt:folder"/>
+                <h4 jcr:primaryType="nt:folder"/>
+                <iconMedium
+                    jcr:primaryType="cq:Tag"
+                    sling:resourceType="cq/tagging/components/tag"
+                    cssName="icon-md"
+                    text="Icon Size (Medium)"/>
+                <h3 jcr:primaryType="nt:folder"/>
+                <iconLarge
+                    jcr:primaryType="cq:Tag"
+                    sling:resourceType="cq/tagging/components/tag"
+                    cssName="icon-lg"
+                    text="Icon Size (Large)"/>
+                <textDanger
+                    jcr:primaryType="cq:Tag"
+                    sling:resourceType="cq/tagging/components/tag"
+                    cssName="text-danger"
+                    text="Colour (Danger)"/>
+                <houschkaFontFamilyExtraBold jcr:primaryType="nt:folder"/>
+                <textWarning
+                    jcr:primaryType="cq:Tag"
+                    sling:resourceType="cq/tagging/components/tag"
+                    cssName="text-warning"
+                    text="Colour (Warning)"/>
+                <p1
+                    jcr:primaryType="cq:Tag"
+                    sling:resourceType="cq/tagging/components/tag"
+                    cssName="p1"
+                    text="Paragraph (Level 1)"/>
+                <h6 jcr:primaryType="nt:folder"/>
+                <h1 jcr:primaryType="nt:folder"/>
+                <iconExtraLarge
+                    jcr:primaryType="cq:Tag"
+                    sling:resourceType="cq/tagging/components/tag"
+                    cssName="icon-xl"
+                    text="Icon Size (Extra Large)"/>
+                <textWhite
+                    jcr:primaryType="cq:Tag"
+                    sling:resourceType="cq/tagging/components/tag"
+                    cssName="text-white"
+                    text="Colour (White)"/>
+                <textMuted
+                    jcr:primaryType="cq:Tag"
+                    sling:resourceType="cq/tagging/components/tag"
+                    cssName="text-muted"
+                    text="Colour (Muted)"/>
+                <textSuccess
+                    jcr:primaryType="cq:Tag"
+                    sling:resourceType="cq/tagging/components/tag"
+                    cssName="text-success"
+                    text="Colour (Success)"/>
+                <houschkaFontFamilyLight jcr:primaryType="nt:folder"/>
+                <iconExtraSmall
+                    jcr:primaryType="cq:Tag"
+                    sling:resourceType="cq/tagging/components/tag"
+                    cssName="icon-xs"
+                    text="Icon Size (Extra Small)"/>
+                <houschkaFontFamilyMedium jcr:primaryType="nt:folder"/>
+            </styles>
+        </styles>
+        <subsuperscript
+            jcr:primaryType="nt:unstructured"
+            features="*"/>
+        <misctools
+            jcr:primaryType="nt:unstructured"
+            features="[specialchars]">
+            <specialCharsConfig
+                jcr:primaryType="cq:Tag"
+                jcr:title="Special Characters"
+                sling:resourceType="cq/tagging/components/tag">
+                <chars
+                    jcr:primaryType="cq:Tag"
+                    jcr:title="List of Special Characters"
+                    sling:resourceType="cq/tagging/components/tag">
+                    <move jcr:primaryType="nt:folder"/>
+                    <chevronLast jcr:primaryType="nt:folder"/>
+                    <billReverse jcr:primaryType="nt:folder"/>
+                    <houseCircle jcr:primaryType="nt:folder"/>
+                    <checkCircleO jcr:primaryType="nt:folder"/>
+                    <twitter jcr:primaryType="nt:folder"/>
+                    <updateDetails jcr:primaryType="nt:folder"/>
+                    <calendar jcr:primaryType="nt:folder"/>
+                    <close jcr:primaryType="nt:folder"/>
+                    <numbers_9 jcr:primaryType="nt:folder"/>
+                    <numbers_7 jcr:primaryType="nt:folder"/>
+                    <bill jcr:primaryType="nt:folder"/>
+                    <directDebit jcr:primaryType="nt:folder"/>
+                    <arrowDecrease jcr:primaryType="nt:folder"/>
+                    <chat jcr:primaryType="nt:folder"/>
+                    <numbers_1 jcr:primaryType="nt:folder"/>
+                    <numbers_6 jcr:primaryType="nt:folder"/>
+                    <arrowIncrease jcr:primaryType="nt:folder"/>
+                    <hob jcr:primaryType="nt:folder"/>
+                    <numbers_8 jcr:primaryType="nt:folder"/>
+                    <fileTextO jcr:primaryType="nt:folder"/>
+                    <energy jcr:primaryType="nt:folder"/>
+                    <padlock jcr:primaryType="nt:folder"/>
+                    <chevronCircleLeft jcr:primaryType="nt:folder"/>
+                    <refresh jcr:primaryType="nt:folder"/>
+                    <chevronLeft jcr:primaryType="nt:folder"/>
+                    <electronics jcr:primaryType="nt:folder"/>
+                    <google jcr:primaryType="nt:folder"/>
+                    <payABillReverse jcr:primaryType="nt:folder"/>
+                    <updateDetailsReverse jcr:primaryType="nt:folder"/>
+                    <chevronCircleRight jcr:primaryType="nt:folder"/>
+                    <mediaReleases jcr:primaryType="nt:folder"/>
+                    <graph jcr:primaryType="nt:folder"/>
+                    <usage jcr:primaryType="nt:folder"/>
+                    <sharePriceArrowDown jcr:primaryType="nt:folder"/>
+                    <document jcr:primaryType="nt:folder"/>
+                    <youtube jcr:primaryType="nt:folder"/>
+                    <print jcr:primaryType="nt:folder"/>
+                    <time jcr:primaryType="nt:folder"/>
+                    <question jcr:primaryType="nt:folder"/>
+                    <search jcr:primaryType="nt:folder"/>
+                    <chevronCircleUp jcr:primaryType="nt:folder"/>
+                    <info jcr:primaryType="nt:folder"/>
+                    <usageReverse jcr:primaryType="nt:folder"/>
+                    <hotwater2 jcr:primaryType="nt:folder"/>
+                    <facebook jcr:primaryType="nt:folder"/>
+                    <cold jcr:primaryType="nt:folder"/>
+                    <numbers_3 jcr:primaryType="nt:folder"/>
+                    <hotwater jcr:primaryType="nt:folder"/>
+                    <numbers_4 jcr:primaryType="nt:folder"/>
+                    <numbers_10 jcr:primaryType="nt:folder"/>
+                    <greenEnergy2 jcr:primaryType="nt:folder"/>
+                    <numbers_5 jcr:primaryType="nt:folder"/>
+                    <chevronUp jcr:primaryType="nt:folder"/>
+                    <numbers_2 jcr:primaryType="nt:folder"/>
+                    <house jcr:primaryType="nt:folder"/>
+                    <switch jcr:primaryType="nt:folder"/>
+                    <phone jcr:primaryType="nt:folder"/>
+                    <chevronFirst jcr:primaryType="nt:folder"/>
+                    <close_2 jcr:primaryType="nt:folder"/>
+                    <lightbulb jcr:primaryType="nt:folder"/>
+                    <washingMachine jcr:primaryType="nt:folder"/>
+                    <greenEnergy jcr:primaryType="nt:folder"/>
+                    <account jcr:primaryType="nt:folder"/>
+                    <calendarCheckO jcr:primaryType="nt:folder"/>
+                    <houseSansCircle jcr:primaryType="nt:folder"/>
+                    <employee jcr:primaryType="nt:folder"/>
+                    <sharePriceArrowUp jcr:primaryType="nt:folder"/>
+                    <chevronCircleDown jcr:primaryType="nt:folder"/>
+                    <tick_2 jcr:primaryType="nt:folder"/>
+                    <pool jcr:primaryType="nt:folder"/>
+                    <instagram jcr:primaryType="nt:folder"/>
+                    <chevronDown jcr:primaryType="nt:folder"/>
+                    <lpg jcr:primaryType="nt:folder"/>
+                    <sharePriceFlat jcr:primaryType="nt:folder"/>
+                    <customer jcr:primaryType="nt:folder"/>
+                    <payABill jcr:primaryType="nt:folder"/>
+                    <chevronRight jcr:primaryType="nt:folder"/>
+                    <linkedin jcr:primaryType="nt:folder"/>
+                    <building jcr:primaryType="nt:folder"/>
+                    <locationPin jcr:primaryType="nt:folder"/>
+                    <tick jcr:primaryType="nt:folder"/>
+                    <directDebitReverse jcr:primaryType="nt:folder"/>
+                    <hr
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&lt;hr>"/>
+                    <lsquo
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;lsquo;"/>
+                    <rsquo
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;rsquo;"/>
+                    <sbquo
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;sbquo;"/>
+                    <ldquo
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;ldquo;"/>
+                    <rdquo
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;rdquo;"/>
+                    <lsaquo
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;lsaquo;"/>
+                    <rsaquo
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;rsaquo;"/>
+                    <spades
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;spades;"/>
+                    <clubs
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;clubs;"/>
+                    <hearts
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;hearts;"/>
+                    <diams
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;diams;"/>
+                    <oline
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;oline;"/>
+                    <larr
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;larr;"/>
+                    <uarr
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;uarr;"/>
+                    <rarr
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;rarr;"/>
+                    <darr
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;darr;"/>
+                    <trade
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="&amp;trade;"/>
+                    <blackdot
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="●"/>
+                    <cleardot
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        entity="○"/>
+                    <charset
+                        jcr:primaryType="cq:Tag"
+                        sling:resourceType="cq/tagging/components/tag"
+                        rangeEnd="190"
+                        rangeStart="161"/>
+                </chars>
+            </specialCharsConfig>
+        </misctools>
+        <links
+            jcr:primaryType="nt:unstructured"
+            features="*">
+            <linkDialogConfig
+                jcr:primaryType="nt:unstructured"
+                height="{Long}316">
+                <linkAttributes jcr:primaryType="cq:WidgetCollection">
+                    <title
+                        jcr:primaryType="nt:unstructured"
+                        fieldLabel="Title"
+                        name="title"
+                        xtype="textfield"/>
+                    <cssclass
+                        jcr:primaryType="nt:unstructured"
+                        fieldLabel="CSS Class"
+                        name="cssClass"
+                        xtype="textfield"/>
+                    <dataTarget
+                        jcr:primaryType="nt:unstructured"
+                        fieldLabel="Data Target"
+                        name="dataTarget"
+                        xtype="textfield"/>
+                </linkAttributes>
+            </linkDialogConfig>
+        </links>
+        <spellcheck
+            jcr:primaryType="nt:unstructured"
+            features="*"
+            invalidStyle="background-color: #ffdddd;"/>
+        <undo
+            jcr:primaryType="nt:unstructured"
+            features="*"/>
+        <image
+            jcr:primaryType="nt:unstructured"
+            features="*"/>
+        <colorpicker
+            jcr:primaryType="nt:unstructured"
+            features="*"/>
+    </rtePlugins>
+</jcr:root>

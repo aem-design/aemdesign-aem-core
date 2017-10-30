@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Widget"
+    allowUpload="false"
+    cropParameter="./imageCrop"
+    ddGroups="[media]"
+    fileNameParameter="./fileName"
+    fileReferenceParameter="./fileReference"
+    mapParameter="./imageMap"
+    name="./file"
+    requestSuffix=".img.png"
+    rotateParameter="./imageRotate"
+    title="Image"
+    xtype="html5smartimage">
+    <cropConfig jcr:primaryType="nt:unstructured">
+        <aspectRatios jcr:primaryType="nt:unstructured">
+            <freehand
+                jcr:primaryType="nt:unstructured"
+                text="Free hand"
+                value="0,0"/>
+            <twobythree
+                jcr:primaryType="nt:unstructured"
+                text="2 x 3"
+                value="2,3"/>
+            <threebyfive
+                jcr:primaryType="nt:unstructured"
+                text="3 x 5"
+                value="3,5"/>
+            <sixteenbynine
+                jcr:primaryType="nt:unstructured"
+                text="16 x 9"
+                value="16,9"/>
+            <square
+                jcr:primaryType="nt:unstructured"
+                text="Square"
+                value="1,1"/>
+        </aspectRatios>
+    </cropConfig>
+</jcr:root>

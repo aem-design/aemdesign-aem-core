@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Content Block"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    helpPath="en/cq/current/wcm/default_components.html#Image">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs">
+        <items jcr:primaryType="nt:unstructured">
+            <basicTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Basic"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <title
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <title
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldLabel="Title"
+                                        name="./title"/>
+                                    <hideTitle
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldLabel="Hide Title"
+                                        name="./hideTitle"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </hideTitle>
+                                    <hideTopLink
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="will hide link Back to Top at the bottom of section"
+                                        fieldLabel="Hide Back to Top link"
+                                        name="./hideTopLink"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </hideTopLink>
+                                    <hideInContentMenu
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="will hide this section from Content Block List"
+                                        fieldLabel="Hide Title in content block menu"
+                                        name="./hideInMenu"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </hideInContentMenu>
+                                    <titleType
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="which paragraph tag to use for Title display"
+                                        fieldLabel="Title Type"
+                                        name="./titleType"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </titleType>
+                                </items>
+                            </title>
+                        </items>
+                    </column>
+                </items>
+            </basicTab>
+            <styleTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Adv Style"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <css
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="CSS Class name"
+                                name="./cssClass"/>
+                            <attrId
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="Id Attribute"
+                                name="./attrId"/>
+                            <showdataTitle
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldLabel="Show dataTitle in section"
+                                name="./showdataTitle"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured"/>
+                            </showdataTitle>
+                            <showdataScroll
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldLabel="Show dataScroll in section"
+                                name="./showdataScroll"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured"/>
+                            </showdataScroll>
+                        </items>
+                    </column>
+                </items>
+            </styleTab>
+            <linkLeftTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Left Links"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <linksLeft
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                fieldDescription="These links will appear on the left title"
+                                fieldLabel="Left Links">
+                                <field
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                    name="./linkPagesLeft"
+                                    required="{Boolean}false"/>
+                            </linksLeft>
+                        </items>
+                    </column>
+                </items>
+            </linkLeftTab>
+            <linkRightTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Right Links"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <title
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="These links will appear on the right title"
+                                fieldLabel="Title"
+                                name="./linksRightTitle"/>
+                            <linksRight
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                fieldDescription="These links will appear on the right title"
+                                fieldLabel="Right Links">
+                                <field
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                    name="./linkPagesRight"
+                                    required="{Boolean}false"/>
+                            </linksRight>
+                        </items>
+                    </column>
+                </items>
+            </linkRightTab>
+            <backgroundTab/>
+        </items>
+    </content>
+</jcr:root>

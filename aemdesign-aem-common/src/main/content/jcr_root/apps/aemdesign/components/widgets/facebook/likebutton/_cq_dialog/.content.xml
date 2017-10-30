@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Facebook Like Button"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                    <url
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Leave empty to use the current page."
+                        fieldLabel="URL to Like"
+                        name="./url"/>
+                    <layout
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                        fieldLabel="Layout Style"
+                        name="./layout"
+                        value="button_count">
+                        <items jcr:primaryType="nt:unstructured">
+                            <standard
+                                jcr:primaryType="nt:unstructured"
+                                text="Standard"
+                                value="standard"/>
+                            <button
+                                jcr:primaryType="nt:unstructured"
+                                text="Button with count"
+                                value="button_count"/>
+                            <box
+                                jcr:primaryType="nt:unstructured"
+                                text="Box with count"
+                                value="box_count"/>
+                        </items>
+                    </layout>
+                    <hideSummary
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                        fieldLabel="Include Send button"
+                        name="./includeSend"
+                        value="">
+                        <items jcr:primaryType="nt:unstructured"/>
+                    </hideSummary>
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>

@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Twitter Embedded Timeline"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs">
+        <items jcr:primaryType="nt:unstructured">
+            <basicTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Twitter"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <href
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="The absolute URL of the Twitter Page that will be liked. This is a required setting."
+                                fieldLabel="URL to Like"
+                                name="./href"/>
+                            <hrefTitle
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="URL Title"
+                                name="./hrefTitle"/>
+                            <widgetScriptSrc
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="Twitter Widget Script URL"
+                                name="./widgetScriptSrc"/>
+                        </items>
+                    </column>
+                </items>
+            </basicTab>
+            <textTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Advanced RTE"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <text/>
+                            <richFlag
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/hidden"
+                                name="./textIsRich"
+                                value="true"/>
+                        </items>
+                    </column>
+                </items>
+            </textTab>
+            <imageExtTab/>
+            <imageExtResourceType
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Image Metadata"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <imageBackgroundTabResourceType
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                name="./image/sling:resourceType"
+                                value="aemdesign/components/media/image"/>
+                        </items>
+                    </column>
+                </items>
+            </imageExtResourceType>
+            <styleTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Style"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <componentId
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="ID"
+                                name="./componentId"
+                                required="{Boolean}false"/>
+                            <componentTheme
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                fieldLabel="Theme"
+                                multiple="{Boolean}true"
+                                name="./componentTheme"/>
+                            <componentModifiers
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                fieldLabel="Modifiers"
+                                multiple="{Boolean}true"
+                                name="./componentModifiers"/>
+                            <componentModule
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                fieldLabel="Module"
+                                multiple="{Boolean}true"
+                                name="./componentModule"/>
+                            <componentChevron
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                fieldLabel="Chevron"
+                                multiple="{Boolean}true"
+                                name="./componentChevron"/>
+                            <componentIcon
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                fieldLabel="Icon"
+                                multiple="{Boolean}true"
+                                name="./componentIcon"/>
+                            <componentBooleanAttrs
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                fieldLabel="Boolean Attributes"
+                                multiple="{Boolean}true"
+                                name="./componentBooleanAttrs"/>
+                            <position
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Position coordinates"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <positions
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
+                                        fieldDescription="The X and Y values of the Position"
+                                        fieldLabel="Positions">
+                                        <width
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            name="./positionX"
+                                            unit="X position"/>
+                                        <height
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            name="./positionY"
+                                            unit="Y position"/>
+                                    </positions>
+                                </items>
+                            </position>
+                            <animation
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Animation"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <animationConfigGroupLabel/>
+                                    <animationEnabled
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="Should the animation be enabled for this component?"
+                                        fieldLabel="Enable animations"
+                                        name="./animationEnabled"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </animationEnabled>
+                                    <animationName
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="The type of animation to run"
+                                        fieldLabel="Name"
+                                        name="./animationName"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </animationName>
+                                    <animationOnce
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="Should the animation only run once? By default is runs everytime you scroll past the element on the page"
+                                        fieldLabel="Run Once?"
+                                        name="./animationOnce"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </animationOnce>
+                                    <animationEasing
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="How should the animation play?"
+                                        fieldLabel="Easing"
+                                        name="./animationEasing"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </animationEasing>
+                                    <animationDelay
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                        defaultValue=""
+                                        fieldDescription="How many milliseconds should occur before the animation runs?"
+                                        fieldLabel="Delay"
+                                        name="./animationDelay"
+                                        required="{Boolean}false"
+                                        step="100"/>
+                                    <animationDuration
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                        defaultValue=""
+                                        fieldDescription="How long should the animation run for? Minimum is '400' and the maximum is '3000'. Values must be in increments of 50, i.e. 450, 500, 550..."
+                                        fieldLabel="Duration"
+                                        name="./animationDuration"
+                                        required="{Boolean}false"
+                                        step="50"/>
+                                </items>
+                            </animation>
+                        </items>
+                    </column>
+                </items>
+            </styleTab>
+            <accessibilityTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Accessibility"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <ariaLabel
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Defines a string value that labels the current element."
+                                fieldLabel="Aria Label"
+                                name="./ariaLabel"
+                                required="{Boolean}false"/>
+                            <ariaRole
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldDescription="Main indicator of type. This semantic association allows tools to present and support interaction with the object in a manner that is consistent with user expectations about other objects of that type."
+                                fieldLabel="Aria Role"
+                                name="./ariaRole"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured"/>
+                            </ariaRole>
+                            <ariaDescribedBy
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Identifies the element (or elements) that describes the object."
+                                fieldLabel="Aria Described By"
+                                name="./ariaDescribedBy"
+                                required="{Boolean}false"/>
+                            <ariaLabelledBy
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Identifies the element (or elements) that labels the current element."
+                                fieldLabel="Aria Labelled By"
+                                name="./ariaLabelledBy"
+                                required="{Boolean}false"/>
+                            <ariaControls
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
+                                fieldLabel="Aria Controls"
+                                name="./ariaControls"
+                                required="{Boolean}false"/>
+                            <ariaLive
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldDescription="Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region."
+                                fieldLabel="Aria Live"
+                                name="./ariaLive"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured"/>
+                            </ariaLive>
+                            <ariaHidden
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldDescription="Indicates that the element and all of its descendants are not visible or perceivable to any user as implemented by the author."
+                                fieldLabel="Aria Hidden"
+                                name="./ariaHidden"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured"/>
+                            </ariaHidden>
+                            <ariaHaspopup
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldDescription="Indicates that the element has a popup context menu or sub-level menu."
+                                fieldLabel="Aria Has-Popup"
+                                name="./ariaHaspopup"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured"/>
+                            </ariaHaspopup>
+                            <ariaAccessKey
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
+                                fieldLabel="Access Key"
+                                name="./ariaAccessKey"
+                                required="{Boolean}false"/>
+                        </items>
+                    </column>
+                </items>
+            </accessibilityTab>
+            <advancedStyle
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Advanced CSS"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <cssClassWidgetHeader
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="CSS Class for Widget header"
+                                name="./cssClassWidgetHeader"/>
+                            <cssClassImage
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="CSS Class for Image"
+                                name="./cssClassImage"/>
+                            <cssClassTwitterFeed
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="CSS Class for Twitter Feed"
+                                name="./cssClassTwitterFeed"/>
+                            <cssClassTwitterTimeline
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="CSS Class for Twitter Timeline"
+                                name="./cssClassTwitterTimeline"/>
+                            <cssIDTwitterWidget
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="CSS ID for Twitter Widget"
+                                name="./cssIDTwitterWidget"/>
+                            <cssIDTwitterScript
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="CSS ID for Twitter Script"
+                                name="./cssIDTwitterScript"/>
+                        </items>
+                    </column>
+                </items>
+            </advancedStyle>
+        </items>
+    </content>
+</jcr:root>

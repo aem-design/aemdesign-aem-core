@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Image"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs">
+        <items jcr:primaryType="nt:unstructured">
+            <imageTab/>
+            <overrideImageMetadataTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Override Image Metadata"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <title
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="This field can include a shorthand reference for the asset primarily for identification."
+                                fieldLabel="Title"
+                                name="./dc:title"/>
+                            <description
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                fieldDescription="The Description field should report the who, what and why of what the photograph depicts. "
+                                fieldLabel="Description"
+                                name="./dc:description"/>
+                            <headline
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="A headline is a brief, publishable synopsis or summary of the contents of the photograph."
+                                fieldLabel="Headline"
+                                name="./photoshop:Headline"/>
+                            <creditLine
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="The Credit Line is a free-text field that specifies how to acknowledge the supplying person(s) and/or organization(s) when publishing the image."
+                                fieldLabel="Credit Line"
+                                name="./photoshop:Credit"/>
+                            <source
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="The Source field should identify the original owner or copyright holder of the photograph. "
+                                fieldLabel="Source"
+                                name="./photoshop:Source"/>
+                            <sourceAsset
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                fieldDescription="Asset source destination, pick asset or enter external url)"
+                                fieldLabel="Asset URL"
+                                name="./sourceAsset"/>
+                        </items>
+                    </column>
+                </items>
+            </overrideImageMetadataTab>
+            <layoutTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Layout"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <variant
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldLabel="Variant"
+                                name="./variant"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Default"
+                                        value=""/>
+                                    <imageOnly
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Image Only"
+                                        value="imageOnly"/>
+                                    <imageCard
+                                        jcr:primaryType="nt:unstructured"
+                                        selectTab="cardConfig"
+                                        text="Image Card"
+                                        value="card"/>
+                                    <imageTitleDescription
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Image with title &amp; description"
+                                        value="imageTitleDescription"/>
+                                </items>
+                            </variant>
+                            <imageOption
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldDescription="Image selection options for rendering image"
+                                fieldLabel="Image Option"
+                                name="./imageOption"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Default"
+                                        value=""/>
+                                    <generated
+                                        jcr:primaryType="nt:unstructured"
+                                        selectTab="imageConfig"
+                                        text="Generate: generate new image with current image edits"
+                                        value="generated"/>
+                                    <rendition
+                                        jcr:primaryType="nt:unstructured"
+                                        selectTab="imageConfig"
+                                        text="Rendition: pick a suitable image rendition"
+                                        value="rendition"/>
+                                    <responsive
+                                        jcr:primaryType="nt:unstructured"
+                                        selectTab="responsiveConfig"
+                                        text="Responsive: use existing renditions"
+                                        value="responsive"/>
+                                    <adaptive
+                                        jcr:primaryType="nt:unstructured"
+                                        selectTab="adaptiveConfig"
+                                        text="Adaptive: generate new renditions with quality settings for each breakpoint"
+                                        value="adaptive"/>
+                                </items>
+                            </imageOption>
+                            <linkURL
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                fieldDescription="link to page or external site"
+                                fieldLabel="Image Link URL"
+                                name="./linkURL"/>
+                        </items>
+                    </column>
+                </items>
+            </layoutTab>
+            <imageConfig
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Image Config"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <imageDimension
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Image Dimension"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <imageSize
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
+                                        fieldDescription=""
+                                        fieldLabel="Image Size">
+                                        <width
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            name="./width"/>
+                                        <height
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            name="./height"/>
+                                    </imageSize>
+                                </items>
+                            </imageDimension>
+                            <resizingProportions
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Resizing Proportions"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <min
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
+                                        fieldLabel="Minimal Size">
+                                        <width
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            name="./minWidth"/>
+                                        <height
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            name="./minHeight"/>
+                                    </min>
+                                    <max
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
+                                        fieldLabel="Maximal Size">
+                                        <width
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            name="./maxWidth"/>
+                                        <height
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            name="./maxHeight"/>
+                                    </max>
+                                </items>
+                            </resizingProportions>
+                        </items>
+                    </column>
+                </items>
+            </imageConfig>
+            <cardConfig
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Card Config"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <thumbnailStyle
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Thumbnail"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <thumbnailSize
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
+                                        fieldDescription="size of image thumbnail visible on the page"
+                                        fieldLabel="Thumbnail Size (w,h)">
+                                        <width
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            name="./htmlWidth"/>
+                                        <height
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            name="./htmlHeight"/>
+                                    </thumbnailSize>
+                                </items>
+                            </thumbnailStyle>
+                            <cardConfig
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Card Config"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <titleType
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="which paragraph tag to use for Title display"
+                                        fieldLabel="Title Type"
+                                        name="./titleType"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </titleType>
+                                </items>
+                            </cardConfig>
+                        </items>
+                    </column>
+                </items>
+            </cardConfig>
+            <responsiveConfig
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Responsive Config"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <responsiveRenditionSize
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Responsive Rendition"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <responsiveImageMapping
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                        fieldDescription="rendition width = media query, &lt;br> &lt;br> ex 48=(min-width: 1px) and (max-width: 100px), this will show rendition of 48px between 1px and 100px device width &lt;br>&lt;br>  ex 1280=(min-width: 478px) will use rendition 1280 starting from width of 487 and up"
+                                        fieldLabel="Rendition Image Mapping">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
+                                    </responsiveImageMapping>
+                                </items>
+                            </responsiveRenditionSize>
+                            <renditionPrefix
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldDescription="Rendition prefix to use as priority for selecting renditions, otherwise best match will be returned"
+                                fieldLabel="Rendition Prefix"
+                                name="./renditionPrefix"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured"/>
+                            </renditionPrefix>
+                        </items>
+                    </column>
+                </items>
+            </responsiveConfig>
+            <adaptiveConfig
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Adaptive Config"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <adaptiveRenditionSize
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Responsive Rendition"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <adaptiveImageMapping
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                        fieldDescription="width.quality.format = media query, &lt;br> &lt;br> ex 480.medium=(min-width: 1px) and (max-width: 533px), this will show rendition of 48px between 1px and 533px device width &lt;br>&lt;br>  ex full=(min-width: 1332px) will create a close to original rendition"
+                                        fieldLabel="Adaptive Image Mapping">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
+                                    </adaptiveImageMapping>
+                                </items>
+                            </adaptiveRenditionSize>
+                        </items>
+                    </column>
+                </items>
+            </adaptiveConfig>
+            <styleTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Style"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <componentId
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="ID"
+                                name="./componentId"
+                                required="{Boolean}false"/>
+                            <componentTheme
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                fieldLabel="Theme"
+                                multiple="{Boolean}true"
+                                name="./componentTheme"/>
+                            <componentModifiers
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                fieldLabel="Modifiers"
+                                multiple="{Boolean}true"
+                                name="./componentModifiers"/>
+                            <componentModule
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                fieldLabel="Module"
+                                multiple="{Boolean}true"
+                                name="./componentModule"/>
+                            <componentChevron
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                fieldLabel="Chevron"
+                                multiple="{Boolean}true"
+                                name="./componentChevron"/>
+                            <componentIcon
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                fieldLabel="Icon"
+                                multiple="{Boolean}true"
+                                name="./componentIcon"/>
+                            <componentBooleanAttrs
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                fieldLabel="Boolean Attributes"
+                                multiple="{Boolean}true"
+                                name="./componentBooleanAttrs"/>
+                            <position
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Position coordinates"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <positions
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
+                                        fieldDescription="The X and Y values of the Position"
+                                        fieldLabel="Positions">
+                                        <width
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            name="./positionX"
+                                            unit="X position"/>
+                                        <height
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            name="./positionY"
+                                            unit="Y position"/>
+                                    </positions>
+                                </items>
+                            </position>
+                            <animation
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Animation"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <animationConfigGroupLabel/>
+                                    <animationEnabled
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="Should the animation be enabled for this component?"
+                                        fieldLabel="Enable animations"
+                                        name="./animationEnabled"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </animationEnabled>
+                                    <animationName
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="The type of animation to run"
+                                        fieldLabel="Name"
+                                        name="./animationName"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </animationName>
+                                    <animationOnce
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="Should the animation only run once? By default is runs everytime you scroll past the element on the page"
+                                        fieldLabel="Run Once?"
+                                        name="./animationOnce"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </animationOnce>
+                                    <animationEasing
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="How should the animation play?"
+                                        fieldLabel="Easing"
+                                        name="./animationEasing"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </animationEasing>
+                                    <animationDelay
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                        defaultValue=""
+                                        fieldDescription="How many milliseconds should occur before the animation runs?"
+                                        fieldLabel="Delay"
+                                        name="./animationDelay"
+                                        required="{Boolean}false"
+                                        step="100"/>
+                                    <animationDuration
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                        defaultValue=""
+                                        fieldDescription="How long should the animation run for? Minimum is '400' and the maximum is '3000'. Values must be in increments of 50, i.e. 450, 500, 550..."
+                                        fieldLabel="Duration"
+                                        name="./animationDuration"
+                                        required="{Boolean}false"
+                                        step="50"/>
+                                </items>
+                            </animation>
+                        </items>
+                    </column>
+                </items>
+            </styleTab>
+            <accessibilityTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Accessibility"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <ariaLabel
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Defines a string value that labels the current element."
+                                fieldLabel="Aria Label"
+                                name="./ariaLabel"
+                                required="{Boolean}false"/>
+                            <ariaRole
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldDescription="Main indicator of type. This semantic association allows tools to present and support interaction with the object in a manner that is consistent with user expectations about other objects of that type."
+                                fieldLabel="Aria Role"
+                                name="./ariaRole"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured"/>
+                            </ariaRole>
+                            <ariaDescribedBy
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Identifies the element (or elements) that describes the object."
+                                fieldLabel="Aria Described By"
+                                name="./ariaDescribedBy"
+                                required="{Boolean}false"/>
+                            <ariaLabelledBy
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Identifies the element (or elements) that labels the current element."
+                                fieldLabel="Aria Labelled By"
+                                name="./ariaLabelledBy"
+                                required="{Boolean}false"/>
+                            <ariaControls
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
+                                fieldLabel="Aria Controls"
+                                name="./ariaControls"
+                                required="{Boolean}false"/>
+                            <ariaLive
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldDescription="Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region."
+                                fieldLabel="Aria Live"
+                                name="./ariaLive"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured"/>
+                            </ariaLive>
+                            <ariaHidden
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldDescription="Indicates that the element and all of its descendants are not visible or perceivable to any user as implemented by the author."
+                                fieldLabel="Aria Hidden"
+                                name="./ariaHidden"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured"/>
+                            </ariaHidden>
+                            <ariaHaspopup
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldDescription="Indicates that the element has a popup context menu or sub-level menu."
+                                fieldLabel="Aria Has-Popup"
+                                name="./ariaHaspopup"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured"/>
+                            </ariaHaspopup>
+                            <ariaAccessKey
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
+                                fieldLabel="Access Key"
+                                name="./ariaAccessKey"
+                                required="{Boolean}false"/>
+                        </items>
+                    </column>
+                </items>
+            </accessibilityTab>
+            <analyticsTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Analytics"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <analyticsType
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldLabel="Analytics Type"
+                                name="./analyticsType"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Default"
+                                        value=""/>
+                                    <ga
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Google Analytics"
+                                        value="ga"/>
+                                    <aa
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Adobe Analytics"
+                                        value="aa"/>
+                                </items>
+                            </analyticsType>
+                            <analyticsHitType
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldDescription="Specifies the event category [AA,GA]"
+                                fieldLabel="Hit Type"
+                                name="./analyticsHitType"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured"/>
+                            </analyticsHitType>
+                            <analyticsEventCategory
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                fieldDescription="Specifies the event category [AA,GA]"
+                                fieldLabel="Event Category"
+                                multiple="{Boolean}true"
+                                name="./analyticsEventCategory"/>
+                            <analyticsEventAction
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                fieldDescription="Specifies the event action [GA]"
+                                fieldLabel="Event Action"
+                                multiple="{Boolean}true"
+                                name="./analyticsEventAction"/>
+                            <analyticsEventLabel
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Specifies the event label [AA,GA]"
+                                fieldLabel="Event Label"
+                                name="./analyticsEventLabel"
+                                required="{Boolean}false"/>
+                            <analyticsTransport
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription=""
+                                fieldLabel="Transport [GA]"
+                                name="./analyticsTransport"
+                                required="{Boolean}false"/>
+                            <analyticsNonInteraction
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldDescription="Is action interactive [GA]"
+                                fieldLabel="Non Interactive"
+                                name="./analyticsNonInteraction"
+                                value="">
+                                <items jcr:primaryType="nt:unstructured"/>
+                            </analyticsNonInteraction>
+                        </items>
+                    </column>
+                </items>
+            </analyticsTab>
+        </items>
+    </content>
+</jcr:root>

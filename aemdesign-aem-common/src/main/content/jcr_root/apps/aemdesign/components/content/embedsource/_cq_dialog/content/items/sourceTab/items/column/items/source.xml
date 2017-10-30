@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Widget"
+    allowBlank="{Boolean}true"
+    fieldLabel="Html"
+    height="220"
+    hideLabel="{Boolean}true"
+    name="./html"
+    xtype="htmleditor"/>

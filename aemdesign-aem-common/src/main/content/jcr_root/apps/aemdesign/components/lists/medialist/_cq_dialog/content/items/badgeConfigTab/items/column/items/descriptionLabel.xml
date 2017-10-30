@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Widget"
+    html="&lt;span style=&quot;color: blue; font-weight: bold; &quot;>This config is used in Badges to display content in other components&lt;/span>"
+    xtype="label"/>

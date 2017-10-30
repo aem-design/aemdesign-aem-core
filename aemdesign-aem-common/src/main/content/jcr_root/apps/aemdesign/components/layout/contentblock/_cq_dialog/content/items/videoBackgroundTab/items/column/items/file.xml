@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Widget"
+    allowBlank="{Boolean}true"
+    allowUpload="{Boolean}false"
+    autoUploadDelay="1"
+    ddGroups="[media]"
+    fieldLabel="File"
+    fileNameParameter="./bgvideo/fileName"
+    fileReferenceParameter="./bgvideo/fileReference"
+    name="./bgvideo/file"
+    xtype="html5smartfile"/>
