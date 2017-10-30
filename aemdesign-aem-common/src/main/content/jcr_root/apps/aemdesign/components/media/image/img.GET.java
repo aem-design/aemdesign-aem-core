@@ -17,6 +17,10 @@ import javax.jcr.RepositoryException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.ArrayList;
+import java.lang.reflect.Field;
+import java.util.Collections;
 
 /**
  * Renders an image
@@ -40,19 +44,86 @@ public class img_GET extends AbstractImageServlet {
         return new Image(resource);
     }
 
+    /***
+     * check if image has a diff of type removed
+     * @param c
+     * @return
+     */
+    private boolean isRemovedDiff(AbstractImageServlet.ImageContext c) {
+        if (c.diffInfo == null) {
+            return false;
+        } else {
+            Resource diffContent = c.diffInfo.getContent();
+            if (diffContent == null) {
+                return false;
+            } else {
+                ImageResource img1 = this.createImageResource(diffContent);
+                if (!img1.hasContent()) {
+                    return false;
+                } else if (c.diffInfo.getType().toString().equals("REMOVED")) {
+                    return true;
+                } else {
+                    ImageResource img0 = this.createImageResource(c.resource);
+                    return !img0.hasContent();
+                }
+            }
+        }
+    }
+
+    private Boolean objectHasProperty(Object obj, String propertyName){
+        List<Field> properties = getAllFields(obj);
+        for(Field field : properties){
+            if(field.getName().equalsIgnoreCase(propertyName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<Field> getAllFields(Object obj){
+        List<Field> fields = new ArrayList<Field>();
+        getAllFieldsRecursive(fields, obj.getClass());
+        return fields;
+    }
+
+    private List<Field> getAllFieldsRecursive(List<Field> fields, Class<?> type) {
+
+        Collections.addAll(fields, type.getDeclaredFields());
+
+        if (type.getSuperclass() != null) {
+            fields = getAllFieldsRecursive(fields, type.getSuperclass());
+        }
+
+        return fields;
+    }
+
+
     @Override
     protected void writeLayer(SlingHttpServletRequest req,
                               SlingHttpServletResponse resp,
                               ImageContext c, Layer layer)
             throws IOException, RepositoryException {
 
+
         Image image = new Image(c.resource);
         if (!image.hasContent()) {
-            if (c.defaultResource != null) {
+
+            Resource defaultResource = null;
+            try {
+                if (objectHasProperty(c,"defaultResource")) {
+                        Object defaultResourceValue = c.getClass().getDeclaredField("defaultResource").get(c);
+                        if (defaultResourceValue != null) {
+                            defaultResource = (Resource) defaultResourceValue;
+                        }
+            }
+            } catch (Exception ex) {
+            }
+
+            if (defaultResource != null) {
                 if (isRemovedDiff(c)) {
                     image = new Image(c.diffInfo.getContent());
                 } else {
-                    image = new Image(c.defaultResource);
+                    image = new Image(defaultResource);
                 }
             } else {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND);
