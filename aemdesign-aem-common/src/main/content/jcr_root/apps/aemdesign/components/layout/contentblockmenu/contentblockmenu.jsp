@@ -25,7 +25,7 @@
             DEFAULT_FIELDS_ACCESSIBILITY);
 
 
-    Map<String, String> contentBlockList = new LinkedHashMap<>();
+    Map<String, String> contentBlockList = new LinkedHashMap<String, String>();
     Resource menuSource = resource.getParent();
 
     if(componentProperties.get(FIELD_MENUSOURCE, DEFAULT_MENUSOURCE_PARENT).equals(DEFAULT_MENUSOURCE_PAGEPATH)) {

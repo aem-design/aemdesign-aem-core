@@ -327,7 +327,7 @@
      * @throws RepositoryException
      */
     private LinkedHashMap<String, Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale) throws RepositoryException {
-        LinkedHashMap<String, Map> tags = new LinkedHashMap<>();
+        LinkedHashMap<String, Map> tags = new LinkedHashMap<String, Map>();
 
         if (sling == null || tagPaths == null || tagPaths.length == 0) {
             return tags;
@@ -339,7 +339,7 @@
             TagManager tagManager = adminResourceResolver.adaptTo(TagManager.class);
 
             for (String path : tagPaths) {
-                Map<String, String> tagValues = new HashMap<>();
+                Map<String, String> tagValues = new HashMap<String, String>();
 
                 Tag tag = tagManager.resolve(path);
                 if (tag != null) {
@@ -440,7 +440,7 @@
         }
 
         int idx = 0;
-        ArrayList<String> tagValues = new ArrayList<>();
+        ArrayList<String> tagValues = new ArrayList<String>();
 
         for (String path : tagPaths) {
             Tag jcrTag = tagManager.resolve(path);

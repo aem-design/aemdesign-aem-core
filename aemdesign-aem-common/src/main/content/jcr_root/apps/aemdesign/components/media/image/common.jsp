@@ -97,7 +97,7 @@
      */
     public Map<String, String> getBestFitMediaQueryRenditionSet(com.adobe.granite.asset.api.Asset asset,  String[] renditionImageMapping, String renditionPrefix){
 
-        Map<String, String> profileRendtiions = new LinkedHashMap<>();
+        Map<String, String> profileRendtiions = new LinkedHashMap<String, String>();
 
         if (isEmpty(renditionPrefix))
 
@@ -211,7 +211,7 @@
      */
     public Map<String, String> getAdaptiveImageSet (String[] adaptiveImageMapping, ResourceResolver resolver, String fileReference, String outputFormat, org.apache.sling.api.scripting.SlingScriptHelper sling){
 
-        Map<String, String> responsiveImageSet = new LinkedHashMap<>();
+        Map<String, String> responsiveImageSet = new LinkedHashMap<String, String>();
 
         URI fileReferenceURI  = URI.create(fileReference);
         if (isBlank(outputFormat)) {
