@@ -14,7 +14,7 @@
         <items jcr:primaryType="nt:unstructured">
             <general
                     jcr:primaryType="nt:unstructured"
-                    jcr:title="General"
+                    jcr:title="General1"
                     sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
