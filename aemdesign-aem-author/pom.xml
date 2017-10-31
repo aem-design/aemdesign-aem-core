@@ -20,10 +20,17 @@
     <name>AEM Design - AEM Author Update</name>
     <description>Updates to OOTB AEM</description>
 
+    <developers>
+        <developer>
+            <email>max@aem.design</email>
+            <name>Max Barrass</name>
+        </developer>
+    </developers>
+
     <scm>
-    <connection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-aem-author.git</connection>
-    <developerConnection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-aem-author.git</developerConnection>
-    <url>https://gitlab.com/aem.design/aemdesign-aem-author.git</url>
+        <connection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-aem-author.git</connection>
+        <developerConnection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-aem-author.git</developerConnection>
+        <url>https://gitlab.com/aem.design/aemdesign-aem-author.git</url>
     </scm>
 
 
