@@ -26,6 +26,10 @@
             <email>max@aem.design</email>
             <name>Max Barrass</name>
         </developer>
+        <developer>
+            <email>cshawaus@gmail.com</email>
+            <name>Chris Shaw</name>
+        </developer>
     </developers>
 
     <scm>
