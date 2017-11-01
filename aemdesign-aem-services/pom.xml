@@ -77,9 +77,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>biz.aQute</groupId>
-            <artifactId>bndlib</artifactId>
-            <version>1.43.0</version>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.annotation</artifactId>
+            <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -248,15 +248,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-scr-plugin</artifactId>
                 <executions>
@@ -279,7 +270,7 @@
                         <Sling-Model-Packages>
                             design.aem.models
                         </Sling-Model-Packages>
-                        <Export-Package>design.aem.*,org.apache.sling.xss</Export-Package>
+                        <Export-Package>design.aem.*</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
@@ -348,7 +339,19 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.1</version>
+                        <configuration>
+                            <source>1.8</source>
+                            <target>1.8</target>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
             <dependencies>
                 <dependency>
                     <groupId>com.adobe.aem</groupId>
@@ -371,6 +374,19 @@
                     <scope>provided</scope>
                 </dependency>
 
+                <dependency>
+                    <groupId>org.apache.sling</groupId>
+                    <artifactId>org.apache.sling.xss</artifactId>
+                    <version>1.0.16</version>
+                    <scope>compile</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>com.day.cq.wcm</groupId>
+                    <artifactId>cq-wcm-api</artifactId>
+                    <version>5.9.4</version>
+                    <scope>provided</scope>
+                </dependency>
             </dependencies>
         </profile>
 
@@ -379,6 +395,34 @@
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.1</version>
+                        <configuration>
+                            <source>1.7</source>
+                            <target>1.7</target>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.felix</groupId>
+                        <artifactId>maven-bundle-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <instructions>
+                                <Bundle-SymbolicName>design.aem.aemdesign-aem-services</Bundle-SymbolicName>
+                                <Embed-Dependency>gson,javax.inject</Embed-Dependency>
+                                <Sling-Model-Packages>
+                                    design.aem.models
+                                </Sling-Model-Packages>
+                                <Export-Package>design.aem.*,org.apache.sling.xss</Export-Package>
+                            </instructions>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
             <dependencies>
 
                 <dependency>
@@ -415,12 +459,6 @@
                     <groupId>com.adobe.granite</groupId>
                     <artifactId>com.adobe.granite.workflow.api</artifactId>
                     <version>1.0.2</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.day.cq.wcm</groupId>
-                    <artifactId>cq-wcm-api</artifactId>
-                    <version>5.9.4</version>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
