@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Dialog"
+    title="Inheritance Paragraph System"
+    xtype="panel">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <inheritance
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Disable inheritance"
+            fieldSubLabel="if checked, the paragraphs of the parent system are not inherited."
+            inputValue="cancel"
+            name="./inheritance"
+            type="checkbox"
+            xtype="selection"/>
+    </items>
+</jcr:root>

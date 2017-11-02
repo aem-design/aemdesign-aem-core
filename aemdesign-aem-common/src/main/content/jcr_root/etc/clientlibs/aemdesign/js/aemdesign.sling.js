@@ -273,7 +273,7 @@ window.AEMDESIGN.sling = window.AEMDESIGN.sling || {};
         PAGE_CONTENT: "jcr:content",
         PATH_PARSYS: "par",
 
-        RESOURCE_PARSYS: "foundation/components/parsys",
+        RESOURCE_PARSYS: "aemdesign/components/common/parsys",
 
         FIELD_SLING_RESOURCE_TYPE: "sling:resourceType",
         FIELD_JCR_PRIMARY_TYPE: "jcr:primaryType",

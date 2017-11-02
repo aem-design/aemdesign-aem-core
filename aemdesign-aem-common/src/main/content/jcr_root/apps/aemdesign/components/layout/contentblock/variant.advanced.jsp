@@ -51,7 +51,7 @@
             </div>
         </c:if>
         <div class="contents">
-            <cq:include path="par" resourceType="foundation/components/parsys"/>
+            <cq:include path="par" resourceType="aemdesign/components/common/parsys"/>
         </div>
     </div>
     <c:if test="${not componentProperties.hideTopLink}">
