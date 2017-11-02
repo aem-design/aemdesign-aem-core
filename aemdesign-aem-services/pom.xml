@@ -168,18 +168,7 @@
             <scope>compile</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.day.cq</groupId>
-            <artifactId>cq-commons</artifactId>
-            <version>5.7.4</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.adobe.granite</groupId>
-            <artifactId>com.adobe.granite.replication.core</artifactId>
-            <version>5.14.8</version>
-            <scope>provided</scope>
-        </dependency>
+
     </dependencies>
 
     <repositories>
@@ -387,7 +376,9 @@
                     <version>5.9.4</version>
                     <scope>provided</scope>
                 </dependency>
+
             </dependencies>
+
         </profile>
 
         <profile>
@@ -425,6 +416,20 @@
             </build>
             <dependencies>
 
+
+                <dependency>
+                    <groupId>com.adobe.granite</groupId>
+                    <artifactId>com.adobe.granite.replication.core</artifactId>
+                    <version>5.14.8</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>com.day.cq</groupId>
+                    <artifactId>cq-commons</artifactId>
+                    <version>5.7.4</version>
+                    <scope>provided</scope>
+                </dependency>
                 <dependency>
                     <groupId>com.adobe.granite</groupId>
                     <artifactId>com.adobe.granite.asset.api</artifactId>
