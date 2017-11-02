@@ -7,7 +7,7 @@ function set_term_title() {
 set_term_title "Deploying Project: mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallBundle,autoInstallPackage"
 #mvn -DskipTests clean install -P autoCleanInstallPackage
 #mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallBundle,autoInstallPackage,autoInstallPackagePublish
-mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallPackage,autoInstallBundle
+mvn -Dvault.useProxy=false -DskipTests clean install -P java8,autoInstallPackage,autoInstallBundle
 
 set_term_title "Deployed"
 
