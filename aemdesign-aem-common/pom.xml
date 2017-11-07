@@ -385,24 +385,5 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>autoInstallBundle</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.sling</groupId>
-                        <artifactId>maven-sling-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>install-bundle</id>
-                                <goals>
-                                    <goal>install</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 </project>
