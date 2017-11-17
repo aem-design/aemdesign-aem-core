@@ -16,25 +16,32 @@
             <tableTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Table"
-                    sling:resourceType="granite/ui/components/foundation/section">
+                    path="/apps/aemdesign/global/dialog/touch/table/content/items/tableTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
-                <layout jcr:primaryType="nt:unstructured"
-                        margin="{Boolean}false"
-                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
-                <items jcr:primaryType="nt:unstructured">
-                    <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
-                            <note
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                    note="Please use inplace editing for modifying content"/>
-                        </items>
-                    </column>
-                </items>
+            <!--<tableTab-->
+                    <!--jcr:primaryType="nt:unstructured"-->
+                    <!--jcr:title="Table"-->
+                    <!--sling:resourceType="granite/ui/components/foundation/section">-->
 
-            </tableTab>
+                <!--<layout jcr:primaryType="nt:unstructured"-->
+                        <!--margin="{Boolean}false"-->
+                        <!--sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>-->
+                <!--<items jcr:primaryType="nt:unstructured">-->
+                    <!--<column-->
+                            <!--jcr:primaryType="nt:unstructured"-->
+                            <!--sling:resourceType="granite/ui/components/foundation/container">-->
+                        <!--<items jcr:primaryType="nt:unstructured">-->
+                            <!--<note-->
+                                    <!--jcr:primaryType="nt:unstructured"-->
+                                    <!--sling:resourceType="cq/gui/components/authoring/dialog/note"-->
+                                    <!--note="Please use inplace editing for modifying content"/>-->
+                        <!--</items>-->
+                    <!--</column>-->
+                <!--</items>-->
+
+            <!--</tableTab>-->
             <layoutTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Layout"
@@ -64,8 +71,19 @@
                         </items>
                     </column>
                 </items>
-
             </layoutTab>
+            <styleTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Style"
+                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <accessibilityTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Accessibility"
+                    path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
         </items>
     </content>
 </jcr:root>
