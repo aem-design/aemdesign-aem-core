@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
-          jcr:title="Table"
+          jcr:title="Text"
           helpPath=""
           sling:resourceType="cq/gui/components/authoring/dialog"
           extraClientlibs="[]">
@@ -13,26 +13,26 @@
                 type="nav"
                 sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
-            <tableTab
+            <textTab
                     jcr:primaryType="nt:unstructured"
-                    jcr:title="Table"
+                    jcr:title="Text"
                     sling:resourceType="granite/ui/components/foundation/section">
-
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column
+                            granite:class="coral-RichText-FixedColumn-column"
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
-                            <table
-                                    jcr:primaryType="cq:Widget"
+                            <text
+                                    jcr:primaryType="nt:unstructured"
                                     hideLabel="{Boolean}false"
-                                    name="./tableData"
-                                    jcr:title="Table"
-                                    textPropertyName="./tableData"
-                                    xtype="tableedit2">
+                                    name="./text"
+                                    jcr:title="Text"
+                                    sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                                    useFixedInlineToolbar="{Boolean}true">
                                 <rtePlugins jcr:primaryType="nt:unstructured">
                                     <findreplace
                                             jcr:primaryType="nt:unstructured"
@@ -48,7 +48,7 @@
                                             features="*"/>
                                     <table
                                             jcr:primaryType="nt:unstructured"
-                                            features="*">
+                                            features="-">
                                         <hiddenHeaderConfig
                                                 jcr:primaryType="nt:unstructured"
                                                 hiddenHeaderClassName="cq-wcm-foundation-aria-visuallyhidden"
@@ -117,7 +117,7 @@
                                     <styles
                                             jcr:primaryType="nt:unstructured"
                                             features="*">
-                                        <styles jcr:primaryType="cq:WidgetCollection">
+                                        <styles jcr:primaryType="nt:unstructured">
                                             <iconExtraSmall
                                                     jcr:primaryType="nt:unstructured"
                                                     cssName="icon-xs"
@@ -199,7 +199,7 @@
                                         <linkDialogConfig
                                                 jcr:primaryType="nt:unstructured"
                                                 height="{Long}316">
-                                            <linkAttributes jcr:primaryType="cq:WidgetCollection">
+                                            <linkAttributes jcr:primaryType="nt:unstructured">
                                                 <linkAdvanced
                                                         jcr:primaryType="cq:Widget"
                                                         collapsed="{Boolean}true"
@@ -208,7 +208,7 @@
                                                         name="./linkdialog/cq:adhocLinkTrackingTab"
                                                         title="Link tracking"
                                                         xtype="dialogfieldset">
-                                                    <items jcr:primaryType="cq:WidgetCollection">
+                                                    <items jcr:primaryType="nt:unstructured">
                                                         <enable
                                                                 jcr:primaryType="nt:unstructured"
                                                                 attribute="enabletracking"
@@ -349,12 +349,12 @@
                                                 <!--toolbar="[table#insertcolumn-before,table#insertcolumn-after,table#removecolumn,-,table#insertrow-before,table#insertrow-after,table#removerow,-,table#mergecells-right,table#mergecells-down,table#mergecells,table#splitcell-horizontal,table#splitcell-vertical,-,table#selectrow,table#selectcolumn,-,table#ensureparagraph,-,table#modifytableandcell,table#removetable,-,undo#undo,undo#redo]"/>-->
                                     </cui>
                                 </uiSettings>
-                            </table>
+                            </text>
                         </items>
                     </column>
                 </items>
 
-            </tableTab>
+            </textTab>
         </items>
     </content>
 </jcr:root>
