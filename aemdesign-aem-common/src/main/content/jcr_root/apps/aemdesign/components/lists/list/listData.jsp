@@ -1,9 +1,6 @@
 <%@ page import="com.day.cq.wcm.api.Page" %>
 <%@ page import="com.day.cq.wcm.api.PageManager" %>
 <%@ page import="com.day.cq.wcm.api.components.ComponentContext" %>
-<%@ page import="org.apache.http.NameValuePair" %>
-<%@ page import="org.apache.http.client.utils.URLEncodedUtils" %>
-<%@ page import="org.apache.http.message.BasicNameValuePair" %>
 <%@ page import="org.slf4j.Logger" %>
 <%@ page import="javax.jcr.query.Row" %>
 <%@ page import="javax.jcr.query.RowIterator" %>
@@ -84,21 +81,27 @@
         return prefix;
     }
 
-    /**
-     *
+
+    /***
+     * generate a query string from map
+     * @param queryStringMap
+     * @return
      */
     private String generateQueryString(Map<String, String> queryStringMap){
         String queryString = StringUtils.EMPTY;
 
-        if (queryStringMap.isEmpty() == false){
+        for (Map.Entry<String, String> parameter : queryStringMap.entrySet()) {
 
-            List<NameValuePair> pairs = new ArrayList<>();
-            for (String key : queryStringMap.keySet()) {
-                pairs.add(new BasicNameValuePair( key, queryStringMap.get(key)));
+            final String encodedKey = URLEncoder.encode(parameter.getKey());
+            final String encodedValue = URLEncoder.encode(parameter.getValue());
+
+            if (isEmpty(queryString)) {
+                queryString = encodedKey + "=" + encodedValue;
+            } else {
+                queryString += "&" + encodedKey + "=" + encodedValue;
             }
-            queryString = URLEncodedUtils.format(pairs,"UTF-8");
-
         }
+
         return queryString;
     }
 

@@ -1,3 +1,3 @@
 <article ${componentProperties.componentAttributes}>
-    <cq:include path="par" resourceType="foundation/components/parsys"/>
+    <cq:include path="par" resourceType="aemdesign/components/common/parsys"/>
 </article>

@@ -866,7 +866,7 @@
                     if (isNotEmpty(variant) && !variant.equals(DEFAULT_VARIANT)) {
                         componentProperties.attr.add(COMPONENT_ATTRIBUTE_CLASS, variant);
                     }
-                    componentProperties.put(COMPONENT_ATTRIBUTES, componentProperties.attr.build());
+                    componentProperties.put(COMPONENT_ATTRIBUTES, componentProperties.attr.build().replaceAll("&#x20;"," "));
                 }
             }
 
@@ -1206,9 +1206,10 @@
 
             if (!componentNode.hasProperty(FIELD_STYLE_COMPONENT_ID)) {
                 String prefix = componentNode.getName();
-                if (prefix.contains(JCR_NAME_SEPARATOR)) {
-                    prefix = prefix.substring(0,prefix.indexOf(JCR_NAME_SEPARATOR));
-                }
+
+                //cleanup prefix
+                prefix = prefix.replaceAll("[^a-zA-Z0-9-_]","_");
+
                 componentNode.setProperty(FIELD_STYLE_COMPONENT_ID,
                          MessageFormat.format(
                                 "{0}_{1}",

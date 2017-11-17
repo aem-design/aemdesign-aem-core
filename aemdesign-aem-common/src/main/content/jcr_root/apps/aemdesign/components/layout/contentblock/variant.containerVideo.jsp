@@ -6,5 +6,5 @@
         </c:forEach>
         </video>
     </div>
-    <cq:include path="par" resourceType="foundation/components/parsys"/>
+    <cq:include path="par" resourceType="aemdesign/components/common/parsys"/>
 </div>

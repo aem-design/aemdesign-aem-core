@@ -978,7 +978,7 @@
         if (isEmpty(infoPrefix)) {
             infoPrefix = "image";
         }
-        Map<String, String> assetInfo = new HashMap<>();
+        Map<String, String> assetInfo = new HashMap<String, String>();
 
         if (isNotEmpty(assetPath)) {
 
@@ -990,7 +990,12 @@
                 if (pageImageAsset != null) {
                     String pageImageLicenseInfo = getAssetCopyrightInfo(pageImageAsset, DAM_LICENSE_FORMAT);
 
-                    assetInfo.put(infoPrefix + "Id", pageImageAsset.getID());
+                    try {
+                        assetInfo.put(infoPrefix + "Id", ((Node)pageImageResource.adaptTo(Node.class)).getProperty("jcr:uuid").getString() );
+                    } catch (Exception ex) {
+                        LOG.error("getAssetInfo: could not get assetID {}", ex.toString());
+                    }
+
                     assetInfo.put(infoPrefix + "LicenseInfo", pageImageLicenseInfo);
                 }
             }
@@ -1004,7 +1009,7 @@
      * @return
      */
     public TreeMap<String, String> getAssetRenditionsVideo(com.adobe.granite.asset.api.Asset asset) {
-        TreeMap<String, String> renditionsSet = new TreeMap<>();
+        TreeMap<String, String> renditionsSet = new TreeMap<String, String>();
 
         if (asset != null) {
             Iterator renditions = asset.listRenditions();

@@ -131,7 +131,7 @@
 
             try {
                 String imageOption = componentProperties.get(FIELD_IMAGE_OPTION, IMAGE_OPTION_RESPONSIVE);
-                Map<String, String> responsiveImageSet = new LinkedHashMap<>();
+                Map<String, String> responsiveImageSet = new LinkedHashMap<String, String>();
 
                 switch (imageOption) {
                     case IMAGE_OPTION_GENERATED:

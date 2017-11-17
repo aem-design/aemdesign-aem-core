@@ -1181,7 +1181,7 @@
                 }
 
                 @Override
-                public void setWriteListener(WriteListener writeListener) {
+                public void setWriteListener(javax.servlet.WriteListener writeListener) {
 
                 }
             };

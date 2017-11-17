@@ -36,7 +36,7 @@
 
         componentProperties.attr.add("class", numColsCSS);
 
-        final String componentAttributes = componentProperties.attr.build();
+        final String componentAttributes = componentProperties.attr.build().replaceAll("&#x20;"," ");
 
         //columns start div
         out.write(MessageFormat.format("<div{0}>", componentAttributes));

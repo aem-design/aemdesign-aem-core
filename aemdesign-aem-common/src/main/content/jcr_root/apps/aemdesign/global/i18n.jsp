@@ -82,7 +82,7 @@
             }
 
         } catch (Exception ex) {
-            throw ex;
+            LOG.error("getPageLanguage: error {}", ex.toString());
         } finally {
             closeAdminResourceResolver(adminResourceResolver);
         }

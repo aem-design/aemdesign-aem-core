@@ -105,7 +105,7 @@
 
             disableEditMode(_componentContext, IncludeOptions.getOptions(request, true), _slingRequest);
 
-            %><cq:include path="par" resourceType="foundation/components/parsys"/><%
+            %><cq:include path="par" resourceType="aemdesign/components/common/parsys"/><%
         }
         catch (Exception ex) {
             %><p class="cq-error">Missing content.</p><%
