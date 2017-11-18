@@ -16,7 +16,7 @@
             <sourceTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Text"
-                    path="/apps/aemdesign/global/dialog/touch/source/content/items/sourceTab"
+                    path="/apps/aemdesign/global/dialog/touch/embedsource/content/items/sourceTab"
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
             <layoutTab
