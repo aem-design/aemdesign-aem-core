@@ -19,6 +19,7 @@
                     path="/apps/aemdesign/global/dialog/touch/text/content/items/textTab"
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
             <layoutTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Layout"

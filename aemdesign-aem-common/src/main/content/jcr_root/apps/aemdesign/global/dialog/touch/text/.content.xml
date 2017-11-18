@@ -28,9 +28,11 @@
                         <items jcr:primaryType="nt:unstructured">
                             <text
                                     jcr:primaryType="nt:unstructured"
+                                    xtype="richtext"
                                     hideLabel="{Boolean}false"
                                     name="./text"
                                     jcr:title="Text"
+                                    textPropertyName="./text"
                                     sling:resourceType="cq/gui/components/authoring/dialog/richtext"
                                     useFixedInlineToolbar="{Boolean}true">
                                 <rtePlugins jcr:primaryType="nt:unstructured">
