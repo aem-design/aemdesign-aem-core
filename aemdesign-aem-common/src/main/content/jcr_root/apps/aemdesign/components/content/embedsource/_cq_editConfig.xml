@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    cq:dialogMode="floating"
-    jcr:primaryType="cq:EditConfig"/>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          cq:actions="[edit,-,copymove,delete,-,insert,-]"
+          cq:dialogMode="floating"
+          cq:disableTargeting="{Boolean}true"
+          jcr:title="Embed Source Widget"
+          title="Embed Source Widget"
+          name="Embed Source Widget"
+          jcr:primaryType="cq:EditConfig">
+    <cq:inplaceEditing
+            jcr:primaryType="cq:InplaceEditingConfig"
+            active="{Boolean}true"
+            configPath="/apps/aemdesign/global/dialog/touch/text/content/items/textTab/items/column/items/text"
+            editorType="text"/>
+</jcr:root>
