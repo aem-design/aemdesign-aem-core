@@ -96,7 +96,7 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <saveRequest
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="Default is NO"
                                         fieldLabel="Save request payload to workflow"
                                         name="./metaData/saveRequest"
@@ -118,7 +118,7 @@
                                     </saveRequest>
                                     <sendMetaData
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="Default is NO"
                                         fieldLabel="Send Metadata"
                                         name="./metaData/sendMetaData"
@@ -140,7 +140,7 @@
                                     </sendMetaData>
                                     <sendMetaDataType
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="Default is FORM"
                                         fieldLabel="Send Content Type"
                                         name="./metaData/sendMetaDataType"
@@ -170,7 +170,7 @@
                                     </sendMetaDataType>
                                     <sendMethod
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="Which HTTP method to use, default is GET"
                                         fieldLabel="Send Method"
                                         name="./metaData/sendMethod"
@@ -252,7 +252,7 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <saveResponse
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="Default is NO"
                                         fieldLabel="Save response payload to workflow"
                                         name="./metaData/saveResponse"

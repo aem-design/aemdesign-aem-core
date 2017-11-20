@@ -3,5 +3,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="File Download Link"
     cq:icon="download"
-    sling:resourceSuperType="foundation/components/download"
     componentGroup="AEM.Design - Content"/>

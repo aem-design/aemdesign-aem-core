@@ -20,7 +20,7 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <showCopyrightOwner
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldLabel="Show Copyright Owner"
                                         name="./showCopyrightOwner"
                                         value="">

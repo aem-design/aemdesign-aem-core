@@ -168,7 +168,7 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <attach
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldLabel="Attach"
                                         name="./metaData/attach"
                                         value="No">

@@ -41,7 +41,7 @@
                                 name="./jcr:description"/>
                             <variant
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldLabel="Variant"
                                 name="./variant"
                                 value="">
@@ -58,7 +58,7 @@
                             </variant>
                             <type
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldLabel="Type"
                                 name="./type"
                                 value="">
@@ -135,7 +135,7 @@
                                 name="./requiredMessage"/>
                             <constraintType
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldLabel="Constraint"
                                 name="./constraintType">
                                 <items jcr:primaryType="nt:unstructured"/>

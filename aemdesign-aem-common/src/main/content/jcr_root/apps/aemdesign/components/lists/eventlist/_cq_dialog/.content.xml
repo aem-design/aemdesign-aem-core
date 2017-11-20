@@ -19,7 +19,7 @@
                         <items jcr:primaryType="nt:unstructured">
                             <listFrom
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldLabel="Build list using"
                                 name="./listFrom"
                                 value="">
@@ -52,7 +52,7 @@
                             </listFrom>
                             <orderBy
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldDescription="Enter a property like 'jcr:created'"
                                 fieldLabel="Order by"
                                 name="./orderBy">
@@ -79,7 +79,7 @@
                                 name="./limit"/>
                             <detailsBadge
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldDescription="Which badge to use from Details component"
                                 fieldLabel="Badges"
                                 name="./detailsBadge"
@@ -212,7 +212,7 @@
                                 name="./tags"/>
                             <match
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldLabel="Match"
                                 name="./tagsMatch"
                                 value="any">
@@ -284,7 +284,7 @@
                         <items jcr:primaryType="nt:unstructured">
                             <variant
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldLabel="Variant"
                                 name="./variant"
                                 value="">
@@ -301,7 +301,7 @@
                             </variant>
                             <printStructure
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldDescription="Don't print structure of the list, omit (OL/UL and LI tags)"
                                 fieldLabel="Print List Structure"
                                 name="./printStructure"
@@ -343,7 +343,7 @@
                         <items jcr:primaryType="nt:unstructured">
                             <topic
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldDescription="Subscribers waiting for notification of the filter value is updated"
                                 fieldLabel="Topic Queue"
                                 name="./topicQueue"
@@ -436,7 +436,7 @@
                                     <animationConfigGroupLabel/>
                                     <animationEnabled
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="Should the animation be enabled for this component?"
                                         fieldLabel="Enable animations"
                                         name="./animationEnabled"
@@ -445,7 +445,7 @@
                                     </animationEnabled>
                                     <animationName
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="The type of animation to run"
                                         fieldLabel="Name"
                                         name="./animationName"
@@ -454,7 +454,7 @@
                                     </animationName>
                                     <animationOnce
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="Should the animation only run once? By default is runs everytime you scroll past the element on the page"
                                         fieldLabel="Run Once?"
                                         name="./animationOnce"
@@ -463,7 +463,7 @@
                                     </animationOnce>
                                     <animationEasing
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="How should the animation play?"
                                         fieldLabel="Easing"
                                         name="./animationEasing"
@@ -512,7 +512,7 @@
                                 required="{Boolean}false"/>
                             <ariaRole
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldDescription="Main indicator of type. This semantic association allows tools to present and support interaction with the object in a manner that is consistent with user expectations about other objects of that type."
                                 fieldLabel="Aria Role"
                                 name="./ariaRole"
@@ -542,7 +542,7 @@
                                 required="{Boolean}false"/>
                             <ariaLive
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldDescription="Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region."
                                 fieldLabel="Aria Live"
                                 name="./ariaLive"
@@ -551,7 +551,7 @@
                             </ariaLive>
                             <ariaHidden
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldDescription="Indicates that the element and all of its descendants are not visible or perceivable to any user as implemented by the author."
                                 fieldLabel="Aria Hidden"
                                 name="./ariaHidden"
@@ -560,7 +560,7 @@
                             </ariaHidden>
                             <ariaHaspopup
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldDescription="Indicates that the element has a popup context menu or sub-level menu."
                                 fieldLabel="Aria Has-Popup"
                                 name="./ariaHaspopup"

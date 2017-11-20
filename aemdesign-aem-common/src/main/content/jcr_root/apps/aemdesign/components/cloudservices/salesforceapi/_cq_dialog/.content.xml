@@ -41,7 +41,7 @@
                                 name="./metaData/redirectUri"/>
                             <granttype
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldLabel="Authentication Type"
                                 name="./metaData/grant_type"
                                 value="password">

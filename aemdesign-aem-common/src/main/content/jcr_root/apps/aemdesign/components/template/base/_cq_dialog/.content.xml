@@ -606,7 +606,7 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <siteThemeCategory
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
                                             fieldDescription="Site theme Category to include"
                                             fieldLabel="Site Theme"
                                             name="./siteThemeCategory"
@@ -615,7 +615,7 @@
                                     </siteThemeCategory>
                                     <siteThemeColor
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
                                             fieldDescription="Used by browsers for Tab and Browser windows colors"
                                             fieldLabel="Theme Color"
                                             name="./siteThemeColor"
@@ -624,7 +624,7 @@
                                     </siteThemeColor>
                                     <siteTileColor
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
                                             fieldDescription="Used by browsers for Tab and Browser tile colors"
                                             fieldLabel="Tile Color"
                                             name="./siteTileColor"
@@ -646,7 +646,7 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <contentType
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
                                             fieldDescription="Used to include specific content metadata"
                                             fieldLabel="OG Content Type"
                                             name="./metadataContentType"

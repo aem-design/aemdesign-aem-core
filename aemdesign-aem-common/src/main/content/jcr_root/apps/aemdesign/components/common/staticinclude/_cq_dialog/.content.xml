@@ -17,7 +17,7 @@
                         <items jcr:primaryType="nt:unstructured">
                             <cancelinheritparent
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldLabel="Cancel Inherit Parent"
                                 name="./cancelInheritParent"
                                 value="">

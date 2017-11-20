@@ -216,7 +216,7 @@
             required="{Boolean}false"/>
         <hrefTarget
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+            sling:resourceType="granite/ui/components/foundation/form/select"
             fieldDescription="Where should the link be loaded when link is clicked"
             fieldLabel="Link Target"
             name="./linkTarget"
@@ -225,7 +225,7 @@
         </hrefTarget>
         <variant
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+            sling:resourceType="granite/ui/components/foundation/form/select"
             fieldLabel="Variant"
             name="./variant"
             value="">

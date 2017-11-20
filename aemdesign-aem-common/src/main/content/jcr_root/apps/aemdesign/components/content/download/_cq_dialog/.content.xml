@@ -5,23 +5,126 @@
     sling:resourceType="cq/gui/components/authoring/dialog"
     helpPath="en/cq/current/wcm/default_components.html#Download">
     <content
-        jcr:primaryType="nt:unstructured"
-        sling:resourceType="granite/ui/components/coral/foundation/tabs">
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                type="nav"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
             <downloadTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="File Download"
-                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Layout"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/container">
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
-                            <file/>
+                            <file
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/authoring/dialog/fileupload"
+                                allowUpload="{Boolean}false"
+                                autoStart="{Boolean}false"
+                                class="cq-droptarget"
+                                fieldLabel="Download File"
+                                fileNameParameter="./fileName"
+                                fileReferenceParameter="./fileReference"
+                                mimeTypes="[media]"
+                                multiple="{Boolean}false"
+                                name="./file"
+                                title="Upload Image Asset"
+                                uploadUrl="${suffix.path}"
+                                useHTML5="{Boolean}true"/>
                         </items>
                     </column>
                 </items>
             </downloadTab>
+            <imageThumbnailTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Layout"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <file
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/authoring/dialog/fileupload"
+                                allowUpload="{Boolean}false"
+                                autoStart="{Boolean}false"
+                                class="cq-droptarget"
+                                fieldLabel="Download File"
+                                fileNameParameter="./fileName"
+                                fileReferenceParameter="./fileReference"
+                                mimeTypes="[media]"
+                                multiple="{Boolean}false"
+                                name="./file"
+                                title="Upload Image Asset"
+                                uploadUrl="${suffix.path}"
+                                useHTML5="{Boolean}true"/>
+                        </items>
+                    </column>
+                </items>
+            </imageThumbnailTab>
+            <layoutTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Layout"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <variant
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Variant"
+                                    name="./variant"
+                                    value="">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Default"
+                                            value=""/>
+                                </items>
+                            </variant>
+                        </items>
+                    </column>
+                </items>
+            </layoutTab>
+            <styleTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Style"
+                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <accessibilityTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Accessibility"
+                    path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+        </items>
+    </content>
+
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs">
+        <items jcr:primaryType="nt:unstructured">
             <layoutTab
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Layout"
@@ -38,7 +141,7 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <variant
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldLabel="Variant"
                                         name="./variant"
                                         value="">
@@ -72,7 +175,7 @@
                                         name="./title"/>
                                     <titleType
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="which paragraph tag to use for Title display"
                                         fieldLabel="Title Type"
                                         name="./titleType"
@@ -94,7 +197,7 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <thumbnail
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="Pick type of thumbnail to use for download. List in order of Custom Thumbnail Rendition will generate a new thumbnail image."
                                         fieldLabel="Thumbnail Type"
                                         name="./thumbnailType"
@@ -243,7 +346,7 @@
                                     <animationConfigGroupLabel/>
                                     <animationEnabled
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="Should the animation be enabled for this component?"
                                         fieldLabel="Enable animations"
                                         name="./animationEnabled"
@@ -252,7 +355,7 @@
                                     </animationEnabled>
                                     <animationName
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="The type of animation to run"
                                         fieldLabel="Name"
                                         name="./animationName"
@@ -261,7 +364,7 @@
                                     </animationName>
                                     <animationOnce
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="Should the animation only run once? By default is runs everytime you scroll past the element on the page"
                                         fieldLabel="Run Once?"
                                         name="./animationOnce"
@@ -270,7 +373,7 @@
                                     </animationOnce>
                                     <animationEasing
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="How should the animation play?"
                                         fieldLabel="Easing"
                                         name="./animationEasing"
@@ -319,7 +422,7 @@
                                 required="{Boolean}false"/>
                             <ariaRole
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldDescription="Main indicator of type. This semantic association allows tools to present and support interaction with the object in a manner that is consistent with user expectations about other objects of that type."
                                 fieldLabel="Aria Role"
                                 name="./ariaRole"
@@ -349,7 +452,7 @@
                                 required="{Boolean}false"/>
                             <ariaLive
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldDescription="Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region."
                                 fieldLabel="Aria Live"
                                 name="./ariaLive"
@@ -358,7 +461,7 @@
                             </ariaLive>
                             <ariaHidden
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldDescription="Indicates that the element and all of its descendants are not visible or perceivable to any user as implemented by the author."
                                 fieldLabel="Aria Hidden"
                                 name="./ariaHidden"
@@ -367,7 +470,7 @@
                             </ariaHidden>
                             <ariaHaspopup
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldDescription="Indicates that the element has a popup context menu or sub-level menu."
                                 fieldLabel="Aria Has-Popup"
                                 name="./ariaHaspopup"
@@ -396,7 +499,7 @@
                         <items jcr:primaryType="nt:unstructured">
                             <analyticsType
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldLabel="Analytics Type"
                                 name="./analyticsType"
                                 value="">
@@ -417,7 +520,7 @@
                             </analyticsType>
                             <analyticsHitType
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldDescription="Specifies the event category [AA,GA]"
                                 fieldLabel="Hit Type"
                                 name="./analyticsHitType"
@@ -454,7 +557,7 @@
                                 required="{Boolean}false"/>
                             <analyticsNonInteraction
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
                                 fieldDescription="Is action interactive [GA]"
                                 fieldLabel="Non Interactive"
                                 name="./analyticsNonInteraction"

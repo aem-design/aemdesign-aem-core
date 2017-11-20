@@ -18,7 +18,7 @@
                         name="./data-href"/>
                     <dataSize
                         jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                        sling:resourceType="granite/ui/components/foundation/form/select"
                         fieldLabel="Size"
                         name="./data-size"
                         value="medium">
@@ -43,7 +43,7 @@
                     </dataSize>
                     <dataAnnotation
                         jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                        sling:resourceType="granite/ui/components/foundation/form/select"
                         fieldLabel="data-annotation"
                         name="./data-annotation"
                         value="bubble">
