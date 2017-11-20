@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
+          xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Analytics Dialog"
+          helpPath=""
+          sling:resourceType="cq/gui/components/authoring/dialog"
+          extraClientlibs="[]">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                type="nav"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+        <items jcr:primaryType="nt:unstructured">
+            <analyticsTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Analytics"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <attributes
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Analytics"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <analyticsType
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                            fieldLabel="Analytics Type"
+                                            name="./analyticsType"
+                                            value="">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <default
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Default"
+                                                    value=""/>
+                                            <ga
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Google Analytics"
+                                                    value="ga"/>
+                                            <aa
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Adobe Analytics"
+                                                    value="aa"/>
+                                        </items>
+                                    </analyticsType>
+                                    <analyticsHitType
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                            fieldDescription="Specifies the event category [AA,GA]"
+                                            fieldLabel="Hit Type"
+                                            name="./analyticsHitType"
+                                            value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </analyticsHitType>
+                                    <analyticsEventCategory
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            fieldDescription="Specifies the event category [AA,GA]"
+                                            fieldLabel="Event Category"
+                                            multiple="{Boolean}true"
+                                            name="./analyticsEventCategory"/>
+                                    <analyticsEventAction
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            fieldDescription="Specifies the event action [GA]"
+                                            fieldLabel="Event Action"
+                                            multiple="{Boolean}true"
+                                            name="./analyticsEventAction"/>
+                                    <analyticsEventLabel
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Specifies the event label [AA,GA]"
+                                            fieldLabel="Event Label"
+                                            name="./analyticsEventLabel"
+                                            required="{Boolean}false"/>
+                                    <analyticsTransport
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription=""
+                                            fieldLabel="Transport [GA]"
+                                            name="./analyticsTransport"
+                                            required="{Boolean}false"/>
+                                    <analyticsNonInteraction
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                            fieldDescription="Is action interactive [GA]"
+                                            fieldLabel="Non Interactive"
+                                            name="./analyticsNonInteraction"
+                                            value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </analyticsNonInteraction>
+                                </items>
+                            </attributes>
+
+                        </items>
+                    </column>
+                </items>
+            </analyticsTab>
+        </items>
+    </content>
+</jcr:root>
