@@ -121,7 +121,7 @@
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
-                            <cardConfig
+                            <layoutConfig
                                     jcr:primaryType="nt:unstructured"
                                     jcr:title="Layout"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
@@ -195,7 +195,7 @@
                                             name="./linkURL"/>
 
                                 </items>
-                            </cardConfig>
+                            </layoutConfig>
 
                         </items>
                     </column1>
