@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
+          xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Image Dialog"
+          helpPath=""
+          sling:resourceType="cq/gui/components/authoring/dialog"
+          extraClientlibs="[]">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                type="nav"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+        <items jcr:primaryType="nt:unstructured">
+            <imageTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Image"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column1
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <attributes
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Asset"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <file
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/authoring/dialog/fileupload"
+                                            autoStart="{Boolean}false"
+                                            class="cq-droptarget"
+                                            fieldLabel="Image asset"
+                                            fileNameParameter="./fileName"
+                                            fileReferenceParameter="./fileReference"
+                                            mimeTypes="[image]"
+                                            multiple="{Boolean}false"
+                                            name="./file"
+                                            title="Image"
+                                            uploadUrl="${suffix.path}"
+                                            allowUpload="false"
+                                            cropParameter="./imageCrop"
+                                            mapParameter="./imageMap"
+                                            requestSuffix=".img.png"
+                                            rotateParameter="./imageRotate"
+                                            useHTML5="{Boolean}true"/>
+                                </items>
+                            </attributes>
+                        </items>
+                    </column1>
+                    <column2
+                            jcr:primaryType="nt:unstructured"
+                            class="u-coral-padding u-coral-noMargin"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <assetAttributes
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Asset Attributes"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <title
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="This field can include a shorthand reference for the asset primarily for identification."
+                                            fieldLabel="Title"
+                                            name="./dc:title"/>
+                                    <description
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                            fieldDescription="The Description field should report the who, what and why of what the photograph depicts. "
+                                            fieldLabel="Description"
+                                            name="./dc:description"/>
+                                    <headline
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="A headline is a brief, publishable synopsis or summary of the contents of the photograph."
+                                            fieldLabel="Headline"
+                                            name="./photoshop:Headline"/>
+                                    <creditLine
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="The Credit Line is a free-text field that specifies how to acknowledge the supplying person(s) and/or organization(s) when publishing the image."
+                                            fieldLabel="Credit Line"
+                                            name="./photoshop:Credit"/>
+                                    <source
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="The Source field should identify the original owner or copyright holder of the photograph. "
+                                            fieldLabel="Source"
+                                            name="./photoshop:Source"/>
+                                    <sourceAsset
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                            fieldDescription="Asset source destination, pick asset or enter external url)"
+                                            fieldLabel="Asset URL"
+                                            name="./sourceAsset"/>
+                                </items>
+                            </assetAttributes>
+                        </items>
+                    </column2>
+                </items>
+            </imageTab>
+            <assetTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Asset"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <attributes
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Asset"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <asset
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/authoring/dialog/fileupload"
+                                            autoStart="{Boolean}false"
+                                            class="cq-droptarget"
+                                            fileNameParameter="./fileName"
+                                            fileReferenceParameter="./fileReference"
+                                            mimeTypes="[image]"
+                                            multiple="{Boolean}false"
+                                            name="./file"
+                                            uploadUrl="${suffix.path}"
+                                            allowUpload="false"
+                                            cropParameter="./imageCrop"
+                                            mapParameter="./imageMap"
+                                            requestSuffix=".img.png"
+                                            rotateParameter="./imageRotate"
+                                            useHTML5="{Boolean}true"/>
+                                </items>
+                            </attributes>
+                            <info
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Metadata Override"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <title
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Set image title, does not apply to Licensed Assets"
+                                            fieldLabel="Title"
+                                            name="./title"/>
+                                    <titleType
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldDescription="which paragraph tag to use for Title display"
+                                            fieldLabel="Title Type"
+                                            name="./titleType"
+                                            value="">
+                                        <items jcr:primaryType="nt:unstructured"/>
+                                    </titleType>
+                                    <description
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                            fieldDescription="Set image description, does not apply to Licensed Assets"
+                                            fieldLabel="Description"
+                                            name="./description"/>
+                                </items>
+                            </info>
+
+                        </items>
+                    </column>
+                </items>
+            </assetTab>
+            <imageThumbnailTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Thumbnail"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <attributes
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Thumbnail Asset"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <imageThumbnail
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/authoring/dialog/fileupload"
+                                            autoStart="{Boolean}false"
+                                            class="cq-droptarget"
+                                            fileNameParameter="./thumbnail/fileName"
+                                            fileReferenceParameter="./thumbnail/fileReference"
+                                            mimeTypes="[image]"
+                                            multiple="{Boolean}false"
+                                            name="./thumbnail/file"
+                                            uploadUrl="${suffix.path}"
+                                            allowUpload="false"
+                                            cropParameter="./thumbnail/imageCrop"
+                                            mapParameter="./thumbnail/imageMap"
+                                            requestSuffix=".img.png"
+                                            rotateParameter="./thumbnail/imageRotate"
+                                            useHTML5="{Boolean}true"/>
+
+                                    <imageThumbnailResourceType
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./thumbnail/sling:resourceType"
+                                            value="aemdesign/components/media/image"/>
+                                </items>
+                            </attributes>
+                            <thumbnailStyle
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Thumbnail Config"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <thumbnail
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldDescription="Pick type of thumbnail to use for download. List in order of Custom Thumbnail Rendition will generate a new thumbnail image."
+                                            fieldLabel="Thumbnail Type"
+                                            name="./thumbnailType"
+                                            value="">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <default
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Default"
+                                                    value=""/>
+                                            <icon
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Icon"
+                                                    value="icon"/>
+                                            <dam
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Asset DAM Rendition"
+                                                    value="dam"/>
+                                            <customdam
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Thumbnail DAM Rendition"
+                                                    value="customdam"/>
+                                            <custom
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Custom Thumbnail Rendition"
+                                                    value="custom"/>
+                                        </items>
+                                    </thumbnail>
+                                    <size
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
+                                            fieldDescription="blank values are not added as attributes"
+                                            fieldLabel="Thumbnail Size (w,h)">
+                                        <width
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                                name="./thumbnailWidth"/>
+                                        <height
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                                name="./thumbnailHeight"/>
+                                    </size>
+                                </items>
+                            </thumbnailStyle>
+                        </items>
+                    </column>
+                </items>
+            </imageThumbnailTab>
+
+        </items>
+    </content>
+</jcr:root>
