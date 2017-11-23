@@ -123,15 +123,15 @@
                                         <dam
                                                 jcr:primaryType="nt:unstructured"
                                                 value="dam"
-                                                text="Asset DAM Rendition"/>
+                                                text="Thumbnail using Asset DAM Rendition"/>
                                         <customdam
                                                 jcr:primaryType="nt:unstructured"
                                                 value="customdam"
-                                                text="Thumbnail DAM Rendition"/>
+                                                text="Thumbnail using Thumbnail DAM Rendition"/>
                                         <custom
                                                 jcr:primaryType="nt:unstructured"
                                                 value="custom"
-                                                text="Custom Thumbnail Rendition"/>
+                                                text="Thumbnail using Custom Thumbnail Rendition"/>
                                     </options>
                                 </thumbnail>
 

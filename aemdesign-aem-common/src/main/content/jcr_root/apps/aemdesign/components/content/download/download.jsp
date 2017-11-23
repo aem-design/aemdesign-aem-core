@@ -23,6 +23,7 @@
             {"description",""},
             {"fileName",""},
             {"fileReference",""},
+            {"thumbnail", DEFAULT_IMAGE_BLANK},
 
     };
 
@@ -43,6 +44,9 @@
         Resource assetRes = dld.getResourceResolver().resolve(dld.getHref());
 
         if( !ResourceUtil.isNonExistingResource(assetRes)) {
+
+            //set title to be asset name first
+            componentProperties.put("title", assetRes.getName());
 
             Asset asset = assetRes.adaptTo(Asset.class);
             Node assetN = asset.adaptTo(Node.class);
@@ -75,7 +79,17 @@
 
             String thumbnailType = componentProperties.get("thumbnailType", "");
 
-            componentProperties.put("thumbnail", DEFAULT_IMAGE_BLANK);
+            String assetAsThumbnail = assetRes.getPath();
+            String thumbnailImagePath = getResourceImagePath(_resource, "thumbnail");
+            if (isNotEmpty(thumbnailImagePath)) {
+                componentProperties.put("thumbnail", thumbnailImagePath);
+            } else {
+                componentProperties.put("thumbnail", assetAsThumbnail);
+            }
+
+//            componentProperties.put("_resource_path", _resource.getPath());
+//            componentProperties.put("assetAsThumbnail", assetAsThumbnail);
+//            componentProperties.put("thumbnailImagePath", thumbnailImagePath);
 
             if (thumbnailType.equals("dam")) {
 
@@ -88,11 +102,11 @@
                 }
             } else if (thumbnailType.equals("customdam")) {
 
-                String thumbnailImagePath = getResourceImagePath(_resource, "thumbnail");
+//                String thumbnailImagePath = getResourceImagePath(_resource, "thumbnail");
 
                 Resource thumbnailImage = _resourceResolver.resolve(thumbnailImagePath);
 
-                if (!ResourceUtil.isNonExistingResource(thumbnailImage)) {
+                if (ResourceUtil.isNonExistingResource(thumbnailImage)) {
                     thumbnailImagePath = DEFAULT_DOWNLOAD_THUMB_ICON;
                 } else {
                     Rendition assetRendition = getThumbnail(thumbnailImage.adaptTo(Asset.class), DEFAULT_THUMB_WIDTH_SM);
