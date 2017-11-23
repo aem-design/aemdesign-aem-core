@@ -27,12 +27,19 @@
                                             granite:class="foundation-layout-util-maximized-alt"
                                             sling:resourceType="granite/ui/components/coral/foundation/container">
                                         <items jcr:primaryType="nt:unstructured">
-                                            <imageTab
+                                            <image
                                                     jcr:primaryType="nt:unstructured"
-                                                    jcr:title="Layout"
+                                                    jcr:title="Image"
                                                     granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/media/image/cq:dialog/content/items/imageTab"
-                                                    resourceType="granite/ui/components/coral/foundation/container"
+                                                    path="/apps/aemdesign/global/dialog/touch/asset_design/content/items/fixedcol/items/col1/items/image"
+                                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                                            <imageAttributes
+                                                    jcr:primaryType="nt:unstructured"
+                                                    jcr:title="Asset Attributes"
+                                                    granite:class="js-cq-IPEPlugin-group"
+                                                    path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageTab/items/column/items/assetAttributes"
+                                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
                                     </col1>
@@ -75,8 +82,6 @@
                             jcr:primaryType="nt:unstructured"
                             jcr:title="Card Config"
                             sling:resourceType="granite/ui/components/coral/foundation/container"
-                            class="hide image-variant-showhide-target"
-                            showhidetargetvalue="card"
                             maximized="{Boolean}true">
                         <items jcr:primaryType="nt:unstructured">
                             <fixedcol
@@ -107,8 +112,6 @@
                             jcr:primaryType="nt:unstructured"
                             jcr:title="Image Config"
                             sling:resourceType="granite/ui/components/coral/foundation/container"
-                            class="hide image-imageoption-showhide-target"
-                            showhidetargetvalue="generated"
                             maximized="{Boolean}true">
                         <items jcr:primaryType="nt:unstructured">
                             <fixedcol
@@ -139,8 +142,6 @@
                             jcr:primaryType="nt:unstructured"
                             jcr:title="Responsive Config"
                             sling:resourceType="granite/ui/components/coral/foundation/container"
-                            class="hide image-imageoption-showhide-target"
-                            showhidetargetvalue="responsive"
                             maximized="{Boolean}true">
                         <items jcr:primaryType="nt:unstructured">
                             <fixedcol
@@ -171,8 +172,6 @@
                             jcr:primaryType="nt:unstructured"
                             jcr:title="Adaptive Config"
                             sling:resourceType="granite/ui/components/coral/foundation/container"
-                            class="hide image-imageoption-showhide-target"
-                            showhidetargetvalue="adaptive"
                             maximized="{Boolean}true">
                         <items jcr:primaryType="nt:unstructured">
                             <fixedcol
