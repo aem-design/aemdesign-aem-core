@@ -41,7 +41,7 @@ Description Compiles a JSON-formatted list of child tags
             w.key("tagID").value(tag.getTagID());
             w.key("path").value(childR.getPath());
             if (!returnPathValue) {
-                w.key("value").value(childVM.get("value", tag.getName()));
+                w.key("value").value(childVM.get("value", ""));
             } else {
                 w.key("value").value(tag.getPath());
             }
@@ -59,7 +59,7 @@ Description Compiles a JSON-formatted list of child tags
         w.key("tagID").value(tag.getTagID());
         w.key("path").value(childR.getPath());
         if (!returnPathValue) {
-            w.key("value").value(childVM.get("value", tag.getName()));
+            w.key("value").value(childVM.get("value", ""));
         } else {
             w.key("value").value(tag.getPath());
         }
