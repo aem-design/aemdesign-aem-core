@@ -35,43 +35,56 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldLabel="ID"
+                                            fieldDescription="Will be added as id attribute"
                                             name="./componentId"
                                             required="{Boolean}false"/>
                                     <componentTheme
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="cq/gui/components/coral/common/form/tagfield"
                                             fieldLabel="Theme"
+                                            fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
+                                            rootPath="/etc/tags/component-style-theme"
                                             name="./componentTheme"/>
                                     <componentModifiers
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="cq/gui/components/coral/common/form/tagfield"
                                             fieldLabel="Modifiers"
+                                            fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
+                                            rootPath="/etc/tags/component-style-modifier"
                                             name="./componentModifiers"/>
                                     <componentModule
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="cq/gui/components/coral/common/form/tagfield"
                                             fieldLabel="Module"
+                                            fieldDescription="Will be added as data-module attribute"
                                             multiple="{Boolean}true"
+                                            rootPath="/etc/tags/component-style-module"
                                             name="./componentModule"/>
                                     <componentChevron
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="cq/gui/components/coral/common/form/tagfield"
                                             fieldLabel="Chevron"
+                                            fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
+                                            rootPath="/etc/tags/component-style-chevron"
                                             name="./componentChevron"/>
                                     <componentIcon
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="cq/gui/components/coral/common/form/tagfield"
                                             fieldLabel="Icon"
+                                            fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
+                                            rootPath="/etc/tags/component-style-icon"
                                             name="./componentIcon"/>
                                     <componentBooleanAttrs
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="cq/gui/components/coral/common/form/tagfield"
                                             fieldLabel="Boolean Attributes"
+                                            fieldDescription="Will be added as tag attributes"
                                             multiple="{Boolean}true"
+                                            rootPath="/etc/tags/component-style-modifier"
                                             name="./componentBooleanAttrs"/>
                                 </items>
                             </style>
@@ -129,7 +142,11 @@
                                             fieldLabel="Enable animations"
                                             name="./animationEnabled"
                                             value="">
-                                        <items jcr:primaryType="nt:unstructured"/>
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-dialog/common/true-false"/>
                                     </animationEnabled>
                                     <animationName
                                             jcr:primaryType="nt:unstructured"
@@ -138,7 +155,11 @@
                                             fieldLabel="Name"
                                             name="./animationName"
                                             value="">
-                                        <items jcr:primaryType="nt:unstructured"/>
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-dialog/html/animation/name"/>
                                     </animationName>
                                     <animationOnce
                                             jcr:primaryType="nt:unstructured"
@@ -147,7 +168,11 @@
                                             fieldLabel="Run Once?"
                                             name="./animationOnce"
                                             value="">
-                                        <items jcr:primaryType="nt:unstructured"/>
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-dialog/common/true-false"/>
                                     </animationOnce>
                                     <animationEasing
                                             jcr:primaryType="nt:unstructured"
@@ -156,7 +181,11 @@
                                             fieldLabel="Easing"
                                             name="./animationEasing"
                                             value="">
-                                        <items jcr:primaryType="nt:unstructured"/>
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-dialog/html/animation/easing"/>
                                     </animationEasing>
                                     <animationDelay
                                             jcr:primaryType="nt:unstructured"

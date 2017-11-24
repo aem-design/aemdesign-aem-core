@@ -332,7 +332,6 @@
                     sling:resourceType="granite/ui/components/coral/foundation/form/hidden"
                     name="./rtePlugins/misctools/specialCharsConfig/chars/override"
                     value="{Boolean}true"/>
-            <items jcr:primaryType="nt:unstructured"/>
         </items>
         <granite:data
                 jcr:primaryType="nt:unstructured"
