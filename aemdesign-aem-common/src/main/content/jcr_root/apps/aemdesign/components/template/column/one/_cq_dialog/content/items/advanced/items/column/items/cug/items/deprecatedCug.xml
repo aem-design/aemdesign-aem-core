@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    jcr:primaryType="cq:Widget"
-    hidden="{Boolean}false"
-    hideLabel="{Boolean}true"
-    html="&lt;a href=https://adobe.com/go/aem6_3_docs_cug_migration_en>Link for migration to new CUG configuration&lt;/a>"
-    ignoreData="{Boolean}true"
-    itemId="./cq:cugDeprecated"
-    xtype="static"/>
