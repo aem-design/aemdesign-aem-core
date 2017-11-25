@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Site Theme Dialog"
+          helpPath=""
+          sling:resourceType="cq/gui/components/authoring/dialog"
+          extraClientlibs="[]">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                type="nav"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+        <items jcr:primaryType="nt:unstructured">
+            <siteThemeTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Theme"
+                    sling:resourceType="granite/ui/components/foundation/section">
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            granite:class="coral-RichText-FixedColumn-column"
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+
+                            <basic
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Theme"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+
+                                    <siteThemeCategory
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
+                                            fieldLabel="Site Theme"
+                                            fieldDescription="Site theme Category to include"
+                                            name="./siteThemeCategory"
+                                            value="">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-style-theme/common/site/themecategory"/>
+                                    </siteThemeCategory>
+
+                                    <siteThemeColor
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
+                                            fieldLabel="Theme Color"
+                                            fieldDescription="Used by browsers for Tab and Browser windows colors"
+                                            name="./siteThemeColor"
+                                            value="">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-style-theme/common/site/themecolor"/>
+                                    </siteThemeColor>
+
+                                    <siteTileColor
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
+                                            fieldLabel="Tile Color"
+                                            fieldDescription="Used by browsers for Tab and Browser tile colors"
+                                            name="./siteTileColor"
+                                            value="">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-style-theme/common/site/tilecolor"/>
+                                    </siteTileColor>
+
+                                </items>
+                            </basic>
+
+                        </items>
+                    </column>
+                </items>
+
+            </siteThemeTab>
+        </items>
+    </content>
+</jcr:root>
