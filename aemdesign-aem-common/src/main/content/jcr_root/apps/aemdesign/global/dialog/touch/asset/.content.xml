@@ -183,6 +183,7 @@
                     </column>
                 </items>
             </assetTab>
+
             <imageThumbnailTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Thumbnail"
@@ -283,9 +284,9 @@
                 </items>
             </imageThumbnailTab>
 
-            <backgroundTab
+            <imageBackgroundTab
                     jcr:primaryType="nt:unstructured"
-                    jcr:title="Background"
+                    jcr:title="Background Image"
                     sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
@@ -298,7 +299,7 @@
                         <items jcr:primaryType="nt:unstructured">
                             <attributes
                                     jcr:primaryType="nt:unstructured"
-                                    jcr:title="Background"
+                                    jcr:title="Background Image"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <asset
@@ -323,7 +324,49 @@
                         </items>
                     </column>
                 </items>
-            </backgroundTab>
+            </imageBackgroundTab>
+
+            <videoBackgroundTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Background Video"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <attributes
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Background Video"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <asset
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/authoring/dialog/fileupload"
+                                            autoStart="{Boolean}false"
+                                            class="cq-droptarget"
+                                            fileNameParameter="./bgvideo/ileName"
+                                            fileReferenceParameter="./bgvideo/fileReference"
+                                            mimeTypes="[image]"
+                                            multiple="{Boolean}false"
+                                            name="./bgvideo/file"
+                                            uploadUrl="${suffix.path}"
+                                            allowUpload="false"
+                                            cropParameter="./bgvideo/imageCrop"
+                                            mapParameter="./bgvideo/imageMap"
+                                            requestSuffix=".img.png"
+                                            rotateParameter="./bgvideo/imageRotate"
+                                            useHTML5="{Boolean}true"/>
+                                </items>
+                            </attributes>
+                        </items>
+                    </column>
+                </items>
+            </videoBackgroundTab>
 
         </items>
     </content>

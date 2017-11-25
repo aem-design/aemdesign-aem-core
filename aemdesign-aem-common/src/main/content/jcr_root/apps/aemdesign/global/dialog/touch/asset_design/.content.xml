@@ -67,7 +67,7 @@
                                     resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
-                            <thumbnail
+                            <imageThumbnail
                                     jcr:primaryType="nt:unstructured"
                                     jcr:title="Thumbnail"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
@@ -87,14 +87,48 @@
                                             name="./thumbnail/sling:resourceType"
                                             value="aemdesign/components/media/image"/>
                                 </items>
-                            </thumbnail>
+                            </imageThumbnail>
 
-                            <thumbnailAttributes
+                            <imageThumbnailAttributes
                                     jcr:primaryType="nt:unstructured"
                                     jcr:title="Asset"
                                     path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageThumbnailTab/items/column/items/thumbnailStyle"
                                     resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                            <imageBackgroundTab
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Background Image"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <reference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Asset"
+                                            name="./bgimage/fileReference"
+                                            predicate="hierarchyNotFile"
+                                            crumbRoot="dam"
+                                            rootPath="/content/dam"/>
+                                </items>
+                            </imageBackgroundTab>
+
+                            <videoBackgroundTab
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Background Video"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <reference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Asset"
+                                            name="./bgvideo/fileReference"
+                                            predicate="hierarchyNotFile"
+                                            crumbRoot="dam"
+                                            rootPath="/content/dam"/>
+                                </items>
+                            </videoBackgroundTab>
+
+
                         </items>
                     </col1>
                 </items>
