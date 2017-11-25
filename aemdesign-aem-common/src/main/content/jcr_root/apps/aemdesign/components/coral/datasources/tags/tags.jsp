@@ -73,7 +73,7 @@ DataSource ds = new SimpleDataSource(new TransformIterator(tags, new Transformer
 
         if (childVM!=null) {
 
-            if ("pathlist".equals(variant)) {
+            if ("pathvalue".equals(variant)) {
 
                 value = tag.getPath();
                 text = tag.getTitle(locale);
