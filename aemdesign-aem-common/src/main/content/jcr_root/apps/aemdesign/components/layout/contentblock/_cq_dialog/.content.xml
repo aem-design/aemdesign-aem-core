@@ -45,6 +45,7 @@
                                             fieldDescription="which paragraph tag to use for Title display"
                                             fieldLabel="Title Type"
                                             name="./titleType"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
@@ -58,6 +59,7 @@
                                             sling:resourceType="granite/ui/components/coral/foundation/form/select"
                                             fieldLabel="Hide Title"
                                             name="./hideTitle"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
@@ -71,6 +73,7 @@
                                             fieldDescription="will hide link Back to Top at the bottom of section"
                                             fieldLabel="Hide Back to Top link"
                                             name="./hideTopLink"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
@@ -84,6 +87,7 @@
                                             fieldDescription="will hide this section from Content Block List"
                                             fieldLabel="Hide Title in content block menu"
                                             name="./hideInMenu"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
@@ -122,6 +126,7 @@
                                             sling:resourceType="granite/ui/components/foundation/form/select"
                                             fieldLabel="Variant"
                                             name="./variant"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <items jcr:primaryType="nt:unstructured">
                                             <default
