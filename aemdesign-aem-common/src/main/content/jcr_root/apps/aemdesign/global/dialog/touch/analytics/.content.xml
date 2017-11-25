@@ -38,6 +38,7 @@
                                             sling:resourceType="granite/ui/components/coral/foundation/form/select"
                                             fieldLabel="Analytics Type"
                                             name="./analyticsType"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <items jcr:primaryType="nt:unstructured">
                                             <default
@@ -60,6 +61,7 @@
                                             fieldDescription="Specifies the event category [AA,GA]"
                                             fieldLabel="Hit Type"
                                             name="./analyticsHitType"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
@@ -101,6 +103,7 @@
                                             fieldDescription="Is action interactive [GA]"
                                             fieldLabel="Non Interactive"
                                             name="./analyticsNonInteraction"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"

@@ -141,6 +141,7 @@
                                             fieldDescription="Should the animation be enabled for this component?"
                                             fieldLabel="Enable animations"
                                             name="./animationEnabled"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
@@ -154,6 +155,7 @@
                                             fieldDescription="The type of animation to run"
                                             fieldLabel="Name"
                                             name="./animationName"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
@@ -167,6 +169,7 @@
                                             fieldDescription="Should the animation only run once? By default is runs everytime you scroll past the element on the page"
                                             fieldLabel="Run Once?"
                                             name="./animationOnce"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
@@ -180,6 +183,7 @@
                                             fieldDescription="How should the animation play?"
                                             fieldLabel="Easing"
                                             name="./animationEasing"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"

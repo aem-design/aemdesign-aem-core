@@ -46,6 +46,7 @@
                                             fieldDescription="Main indicator of type. This semantic association allows tools to present and support interaction with the object in a manner that is consistent with user expectations about other objects of that type."
                                             fieldLabel="Aria Role"
                                             name="./ariaRole"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
@@ -80,6 +81,7 @@
                                             fieldDescription="Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region."
                                             fieldLabel="Aria Live"
                                             name="./ariaLive"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
@@ -93,6 +95,7 @@
                                             fieldDescription="Indicates that the element and all of its descendants are not visible or perceivable to any user as implemented by the author."
                                             fieldLabel="Aria Hidden"
                                             name="./ariaHidden"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
@@ -106,6 +109,7 @@
                                             fieldDescription="Indicates that the element has a popup context menu or sub-level menu."
                                             fieldLabel="Aria Has-Popup"
                                             name="./ariaHaspopup"
+                                            emptyOption="{Boolean}true"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
