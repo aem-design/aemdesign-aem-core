@@ -92,6 +92,9 @@
             <c:when test="${componentProperties.variant eq 'container'}">
                 <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.container.jsp" %>
             </c:when>
+            <c:when test="${componentProperties.variant eq 'containerVideo'}">
+                <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.containerVideo.jsp" %>
+            </c:when>
             <c:otherwise>
                 <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.default.jsp" %>
             </c:otherwise>

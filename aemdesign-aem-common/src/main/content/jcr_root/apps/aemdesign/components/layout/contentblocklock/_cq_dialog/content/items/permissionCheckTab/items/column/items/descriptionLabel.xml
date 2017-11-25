@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    jcr:primaryType="cq:Widget"
-    html="&lt;span style=&quot;color: red; font-weight: bold; font-size: large&quot;>You do not have access to update this component, this is locked for Content Admins.&lt;/span>"
-    xtype="label"/>

@@ -5,7 +5,7 @@
     selectTab="function(tabToSelect) { AEMDESIGN.dialog.manageTabs(this.findByType('tabpanel')[0],tabToSelect,true); }"
     hideTab="function(tabToHide) { AEMDESIGN.dialog.hideTab(tabToHide, this.findByType('tabpanel')[0]); }"
     includeTab="function(tabToInclude) { AEMDESIGN.dialog.includeTab(tabToInclude, this.findByType('tabpanel')[0]); }"
-    title="Content Block"
+    title="Content Block Lock"
     xtype="dialog">
     <listeners
             jcr:primaryType="nt:unstructured"
@@ -80,6 +80,10 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 value="container"
                                                 text="Container"/>
+                                        <containerVideo
+                                                jcr:primaryType="nt:unstructured"
+                                                value="containerVideo"
+                                                text="Container with Video Background"/>
                                         <floating
                                                 jcr:primaryType="nt:unstructured"
                                                 value="floating"
@@ -188,14 +192,24 @@
                         path="/apps/aemdesign/global/dialog/classic/images/items/imageBackgroundTabResourceType.infinity.json"
                         xtype="cqinclude"/>
 
+                <videoBackgroundTab
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/videos/items/videoBackgroundTab.infinity.json"
+                        xtype="cqinclude"/>
+
+                <videoBackgroundTabResourceType
+                        jcr:primaryType="cq:Widget"
+                        path="/apps/aemdesign/global/dialog/classic/videos/items/videoBackgroundTabResourceType.infinity.json"
+                        xtype="cqinclude"/>
+
                 <styleTab
                         jcr:primaryType="cq:Widget"
                         path="/apps/aemdesign/global/dialog/classic/style/items/styleTab.infinity.json"
                         xtype="cqinclude"/>
-                <accessibilityTab jcr:primaryType="cq:Panel"
-                                  path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
-                                  xtype="cqinclude"/>
 
+                <accessibilityTab jcr:primaryType="cq:Panel"
+                        path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
+                        xtype="cqinclude"/>
             </items>
         </tabs>
     </items>
