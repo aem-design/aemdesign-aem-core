@@ -40,7 +40,7 @@
             DEFAULT_FIELDS_ACCESSIBILITY,
             DEFAULT_FIELDS_DETAILS_OPTIONS);
 
-    int zIndex = (Integer) request.getAttribute("zIndex");
+//    int zIndex = (Integer) request.getAttribute("zIndex");
 
     String[] pageList = componentProperties.get("pages", new String[0]);
 
@@ -82,7 +82,7 @@
 
     componentProperties.put("eventList", eventList);
 
-    componentProperties.put("zIndex",zIndex);
+    componentProperties.put("zIndex",0);
 
     componentProperties.putAll(getAssetInfo(_resourceResolver,
             getPageImgReferencePath(_currentPage),
