@@ -159,6 +159,7 @@
                                     <titleType
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
                                             fieldDescription="which paragraph tag to use for Title display"
                                             fieldLabel="Title Type"
                                             name="./titleType"
@@ -233,6 +234,7 @@
                                     <thumbnail
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
                                             fieldDescription="Pick type of thumbnail to use for download. List in order of Custom Thumbnail Rendition will generate a new thumbnail image."
                                             fieldLabel="Thumbnail Type"
                                             name="./thumbnailType"

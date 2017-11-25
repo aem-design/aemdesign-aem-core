@@ -32,8 +32,8 @@
                                     hideLabel="{Boolean}false"
                                     name="./tableData"
                                     jcr:title="Table"
-                                    textPropertyName="./tableData"
                                     useFixedInlineToolbar="{Boolean}true"
+                                    textPropertyName="./tableData"
                                     sling:resourceType="cq/gui/components/authoring/dialog/richtext">
                                 <rtePlugins jcr:primaryType="nt:unstructured">
                                     <findreplace

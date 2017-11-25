@@ -1,20 +1,4 @@
-<%--
-  ADOBE CONFIDENTIAL
-
-  Copyright 2015 Adobe Systems Incorporated
-  All Rights Reserved.
-
-  NOTICE:  All information contained herein is, and remains
-  the property of Adobe Systems Incorporated and its suppliers,
-  if any.  The intellectual and technical concepts contained
-  herein are proprietary to Adobe Systems Incorporated and its
-  suppliers and may be covered by U.S. and Foreign Patents,
-  patents in process, and are protected by trade secret or copyright law.
-  Dissemination of this information or reproduction of this material
-  is strictly forbidden unless prior written permission is obtained
-  from Adobe Systems Incorporated.
---%><%
-%><%@include file="/libs/granite/ui/global.jsp" %><%
+<%@include file="/libs/granite/ui/global.jsp" %><%
 %><%@page session="false"
           import="java.util.Iterator,
                   com.adobe.granite.ui.components.AttrBuilder,
@@ -24,20 +8,20 @@ Accordion
 =========
 
 .. granite:servercomponent:: /libs/granite/ui/components/coral/foundation/accordion
-   
+
    The accordion.
-   
+
    It has the following content structure:
 
    .. gnd:gnd::
 
       [granite:Accordion] > granite:commonAttrs, granite:renderCondition, granite:container
-      
+
       /**
-       * Whether multiple items can be opened at the same time. 
+       * Whether multiple items can be opened at the same time.
        */
       - multiple (Boolean)
-      
+
       /**
        * The variant of the accordion.
        *
@@ -49,43 +33,43 @@ Accordion
        *    Large variant, typically used inside a navigation rail since it does not have borders on the sides.
        */
       - variant (String) = 'default' < 'default', 'quiet', 'large'
-      
+
       /**
        * Put vertical margin to the root element.
        */
       - margin (Boolean)
-      
+
    Each item at least has the following content structure:
-   
+
    .. gnd:gnd::
 
       [granite:AccordionItem]
-      
+
       /**
        * The item title.
        */
       - jcr:title (String) mandatory i18n
-      
+
       /**
        * The item specific config for the parent.
        */
       + parentConfig (granite:AccordionItemParentconfig)
-      
-      
+
+
       [granite:AccordionItemParentconfig]
-      
+
       /**
        * ``true`` to open the item initially; ``false`` otherwise.
        */
       - active (Boolean)
-      
+
       /**
        * ``true`` to disable the item; ``false`` otherwise.
        */
       - disabled (Boolean)
-      
+
    Example::
-   
+
       + myaccordion
         - sling:resourceType = "granite/ui/components/coral/foundation/accordion"
         + items
@@ -121,7 +105,7 @@ if (cfg.get("margin", false)) {
 
 
         AttrBuilder itemAttrs = new AttrBuilder(request, xssAPI);
-        
+
         Resource parentConfig = item.getChild("parentConfig");
 
         if (parentConfig != null) {

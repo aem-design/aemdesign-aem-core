@@ -33,7 +33,7 @@
                                                     jcr:title="Link"
                                                     granite:class="js-cq-IPEPlugin-group"
                                                     path="/apps/aemdesign/global/dialog/touch/link/content/items/linkTab"
-                                                    resourceType="granite/ui/components/foundation/section"
+                                                    resourceType="granite/ui/components/coral/foundation/container"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
                                     </col1>
@@ -64,7 +64,7 @@
                                                     jcr:title="Layout"
                                                     granite:class="js-cq-IPEPlugin-group"
                                                     path="/apps/aemdesign/components/content/external/cq:dialog/content/items/layoutTab"
-                                                    resourceType="granite/ui/components/foundation/section"
+                                                    resourceType="granite/ui/components/coral/foundation/container"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
                                     </col1>
@@ -72,32 +72,6 @@
                             </fixedcol>
                         </items>
                     </layout>
-
-
-                    <features
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Features"
-                            path="/apps/aemdesign/global/dialog/touch/link_design/features"
-                            resourceType="granite/ui/components/coral/foundation/container"
-                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                    <formatting
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Formatting"
-                            path="/apps/aemdesign/global/dialog/touch/link_design/formatting"
-                            resourceType="granite/ui/components/coral/foundation/container"
-                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                    <paraformat
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Paraformat"
-                            path="/apps/aemdesign/global/dialog/touch/link_design/paraformat"
-                            resourceType="granite/ui/components/coral/foundation/container"
-                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                    <characters
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Characters"
-                            path="/apps/aemdesign/global/dialog/touch/link_design/characters"
-                            resourceType="granite/ui/components/coral/foundation/container"
-                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
                     <style
                             jcr:primaryType="nt:unstructured"

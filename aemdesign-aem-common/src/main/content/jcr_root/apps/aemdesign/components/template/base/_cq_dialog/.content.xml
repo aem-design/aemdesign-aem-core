@@ -213,6 +213,7 @@
                                             <language
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="granite/ui/components/foundation/form/select"
+                                                    emptyOption="{Boolean}true"
                                                     class="language"
                                                     cq-msm-lockable="jcr:language"
                                                     emptyText="Select"
@@ -607,6 +608,7 @@
                                     <siteThemeCategory
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
                                             fieldDescription="Site theme Category to include"
                                             fieldLabel="Site Theme"
                                             name="./siteThemeCategory"
@@ -616,6 +618,7 @@
                                     <siteThemeColor
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
                                             fieldDescription="Used by browsers for Tab and Browser windows colors"
                                             fieldLabel="Theme Color"
                                             name="./siteThemeColor"
@@ -625,6 +628,7 @@
                                     <siteTileColor
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
                                             fieldDescription="Used by browsers for Tab and Browser tile colors"
                                             fieldLabel="Tile Color"
                                             name="./siteTileColor"
@@ -647,6 +651,7 @@
                                     <contentType
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
                                             fieldDescription="Used to include specific content metadata"
                                             fieldLabel="OG Content Type"
                                             name="./metadataContentType"

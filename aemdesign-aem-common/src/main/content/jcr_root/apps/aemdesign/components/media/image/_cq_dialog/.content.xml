@@ -129,6 +129,7 @@
                                     <variant
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
                                             fieldLabel="Variant"
                                             class="cq-dialog-dropdown-showhide"
                                             cq-dialog-dropdown-showhide-target=".image-variant-showhide-target"
@@ -156,6 +157,7 @@
                                     <imageOption
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
                                             fieldDescription="Image selection options for rendering image"
                                             fieldLabel="Image Option"
                                             name="./imageOption"
@@ -256,6 +258,7 @@
                                                     <titleType
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="granite/ui/components/foundation/form/select"
+                                                            emptyOption="{Boolean}true"
                                                             fieldDescription="which paragraph tag to use for Title display"
                                                             fieldLabel="Title Type"
                                                             name="./titleType"
@@ -390,6 +393,7 @@
                                             <renditionPrefix
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="granite/ui/components/foundation/form/select"
+                                                    emptyOption="{Boolean}true"
                                                     fieldDescription="Rendition prefix to use as priority for selecting renditions, otherwise best match will be returned"
                                                     fieldLabel="Rendition Prefix"
                                                     name="./renditionPrefix"
