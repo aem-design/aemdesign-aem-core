@@ -34,15 +34,23 @@
                         <items jcr:primaryType="nt:unstructured">
                             <variant
                                     jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/select"
-                                    fieldLabel="Variant"
-                                    name="./variant"
-                                    value="">
+                                    jcr:title="Layout"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <default
+                                    <variant
                                             jcr:primaryType="nt:unstructured"
-                                            text="Default"
-                                            value=""/>
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
+                                            fieldLabel="Variant"
+                                            name="./variant"
+                                            value="">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <default
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Default"
+                                                    value=""/>
+                                        </items>
+                                    </variant>
                                 </items>
                             </variant>
                         </items>
