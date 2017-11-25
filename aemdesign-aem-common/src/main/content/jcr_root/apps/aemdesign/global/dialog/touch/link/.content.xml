@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Link Dialog"
+          helpPath=""
+          sling:resourceType="cq/gui/components/authoring/dialog"
+          extraClientlibs="[]">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                type="nav"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+        <items jcr:primaryType="nt:unstructured">
+            <linkTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Link"
+                    sling:resourceType="granite/ui/components/foundation/section">
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            granite:class="coral-RichText-FixedColumn-column"
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+
+                            <basic
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Basic"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+
+
+                                    <link
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Link Text"
+                                            fieldDescription="dataTarget attribute"
+                                            name="./link"
+                                            required="{Boolean}false"/>
+
+                                    <linkUrl
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                            fieldLabel="Link URL"
+                                            name="./linkUrl"
+                                            required="{Boolean}false"/>
+                                    <linkTarget
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
+                                            fieldDescription="How should the link be opened when clicked"
+                                            fieldLabel="Link Target"
+                                            name="./linkTarget"
+                                            value="">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-dialog/html/linktarget"/>
+                                    </linkTarget>
+
+                                </items>
+                            </basic>
+
+
+                            <attributes
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Data Attributes"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <dataType
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
+                                            fieldLabel="Data Type"
+                                            fieldDescription="data-type attribute"
+                                            name="./dataType"
+                                            value="">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-dialog/html/type"/>
+                                    </dataType>
+
+                                    <dataTarget
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            emptyOption="{Boolean}true"
+                                            fieldLabel="Data Target"
+                                            fieldDescription="data-target attribute"
+                                            name="./dataTarget"
+                                            required="{Boolean}false"/>
+
+                                    <dataToggle
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
+                                            fieldLabel="Data Toggle"
+                                            fieldDescription="data-toggle attribute"
+                                            name="./dataToggle"
+                                            value="">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-dialog/html/toggle"/>
+                                    </dataToggle>
+                                </items>
+                            </attributes>
+
+
+
+
+                        </items>
+                    </column>
+                </items>
+
+            </linkTab>
+        </items>
+    </content>
+</jcr:root>
