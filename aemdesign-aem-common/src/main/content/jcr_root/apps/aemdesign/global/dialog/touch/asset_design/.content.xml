@@ -130,7 +130,7 @@
 
                             <badgeThumbnailTab
                                     jcr:primaryType="nt:unstructured"
-                                    jcr:title="Background Video"
+                                    jcr:title="Background Thumbnail"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <reference
