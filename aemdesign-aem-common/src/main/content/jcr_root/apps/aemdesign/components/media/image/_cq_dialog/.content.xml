@@ -15,99 +15,14 @@
                 type="nav"
                 sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
+
             <imageTab
                     jcr:primaryType="nt:unstructured"
-                    jcr:title="Image"
-                    sling:resourceType="granite/ui/components/foundation/section">
+                    jcr:title="Text"
+                    path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
-                <layout jcr:primaryType="nt:unstructured"
-                        margin="{Boolean}false"
-                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
-                <items jcr:primaryType="nt:unstructured">
-                    <column1
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
-                            <attributes
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Asset"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <file
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/authoring/dialog/fileupload"
-                                            autoStart="{Boolean}false"
-                                            class="cq-droptarget"
-                                            fieldLabel="Image asset"
-                                            fileNameParameter="./fileName"
-                                            fileReferenceParameter="./fileReference"
-                                            mimeTypes="[image]"
-                                            multiple="{Boolean}false"
-                                            name="./file"
-                                            title="Image"
-                                            uploadUrl="${suffix.path}"
-                                            allowUpload="false"
-                                            cropParameter="./imageCrop"
-                                            mapParameter="./imageMap"
-                                            requestSuffix=".img.png"
-                                            rotateParameter="./imageRotate"
-                                            useHTML5="{Boolean}true"/>
-                                </items>
-                            </attributes>
-                        </items>
-                    </column1>
-                    <column2
-                            jcr:primaryType="nt:unstructured"
-                            class="u-coral-padding u-coral-noMargin"
-                            sling:resourceType="granite/ui/components/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
-                            <assetAttributes
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Asset Attributes"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <title
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldDescription="This field can include a shorthand reference for the asset primarily for identification."
-                                            fieldLabel="Title"
-                                            name="./dc:title"/>
-                                    <description
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
-                                            fieldDescription="The Description field should report the who, what and why of what the photograph depicts. "
-                                            fieldLabel="Description"
-                                            name="./dc:description"/>
-                                    <headline
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldDescription="A headline is a brief, publishable synopsis or summary of the contents of the photograph."
-                                            fieldLabel="Headline"
-                                            name="./photoshop:Headline"/>
-                                    <creditLine
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldDescription="The Credit Line is a free-text field that specifies how to acknowledge the supplying person(s) and/or organization(s) when publishing the image."
-                                            fieldLabel="Credit Line"
-                                            name="./photoshop:Credit"/>
-                                    <source
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldDescription="The Source field should identify the original owner or copyright holder of the photograph. "
-                                            fieldLabel="Source"
-                                            name="./photoshop:Source"/>
-                                    <sourceAsset
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                                            fieldDescription="Asset source destination, pick asset or enter external url)"
-                                            fieldLabel="Asset URL"
-                                            name="./sourceAsset"/>
-                                </items>
-                            </assetAttributes>
-                        </items>
-                    </column2>
-                </items>
-            </imageTab>
             <layoutTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Layout"
