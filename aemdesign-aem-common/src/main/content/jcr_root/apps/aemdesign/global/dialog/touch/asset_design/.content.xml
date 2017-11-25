@@ -145,6 +145,23 @@
                             </badgeThumbnailTab>
 
 
+                            <secondaryImageTab
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Secondary Thumbnail"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <reference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Asset"
+                                            name="./secondaryImage/fileReference"
+                                            predicate="hierarchyNotFile"
+                                            crumbRoot="dam"
+                                            rootPath="/content/dam"/>
+                                </items>
+                            </secondaryImageTab>
+
+
                         </items>
                     </col1>
                 </items>

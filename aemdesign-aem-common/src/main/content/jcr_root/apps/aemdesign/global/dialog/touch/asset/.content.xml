@@ -431,6 +431,54 @@
                 </items>
             </badgeThumbnailTab>
 
+            <secondaryImageTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Secondary Image"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <attributes
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Asset"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <imageThumbnail
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/authoring/dialog/fileupload"
+                                            autoStart="{Boolean}false"
+                                            class="cq-droptarget"
+                                            fileNameParameter="./secondaryImage/fileName"
+                                            fileReferenceParameter="./secondaryImage/fileReference"
+                                            mimeTypes="[image]"
+                                            multiple="{Boolean}false"
+                                            name="./secondaryImage/file"
+                                            uploadUrl="${suffix.path}"
+                                            allowUpload="false"
+                                            cropParameter="./secondaryImage/imageCrop"
+                                            mapParameter="./secondaryImage/imageMap"
+                                            requestSuffix=".img.png"
+                                            rotateParameter="./secondaryImage/imageRotate"
+                                            useHTML5="{Boolean}true"/>
+
+                                    <imageThumbnailResourceType
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./secondaryImage/sling:resourceType"
+                                            value="aemdesign/components/media/image"/>
+                                </items>
+                            </attributes>
+                        </items>
+                    </column>
+                </items>
+            </secondaryImageTab>
+
         </items>
     </content>
 </jcr:root>

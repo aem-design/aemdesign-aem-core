@@ -76,6 +76,16 @@
                                             rootPath="/etc/tags/aemdesign"
                                             name="./subCategory"/>
 
+                                    <mixinTypes
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/hidden"
+                                            name="./jcr:mixinTypes"
+                                            value="cq:Taggable"/>
+                                    <mixinTypesHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/hidden"
+                                            name="./jcr:mixinTypes@TypeHint"
+                                            value="jcr:mixinTypes"/>
                                 </items>
                             </basic>
 
