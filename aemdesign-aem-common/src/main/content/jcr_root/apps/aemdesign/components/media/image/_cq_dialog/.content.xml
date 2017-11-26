@@ -18,7 +18,7 @@
 
             <imageTab
                     jcr:primaryType="nt:unstructured"
-                    jcr:title="Text"
+                    jcr:title="Image"
                     path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageTab"
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
