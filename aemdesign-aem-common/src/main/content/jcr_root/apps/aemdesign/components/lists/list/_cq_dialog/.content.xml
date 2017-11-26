@@ -418,8 +418,13 @@
                                             fieldDescription="Don't print structure of the list, omit (OL/UL and LI tags)"
                                             fieldLabel="Print List Structure"
                                             name="./printStructure"
+                                            emptyOption="{Boolean}true"
                                             value="">
-                                        <items jcr:primaryType="nt:unstructured"/>
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-dialog/common/true-false"/>
                                     </printStructure>
                                     <showHidden
                                             jcr:primaryType="nt:unstructured"
@@ -427,8 +432,13 @@
                                             fieldDescription="pages with selected Hide in Navigation will be hidden"
                                             fieldLabel="Show Hidden Pages"
                                             name="./showHidden"
+                                            emptyOption="{Boolean}true"
                                             value="">
-                                        <items jcr:primaryType="nt:unstructured"/>
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-dialog/common/true-false"/>
                                     </showHidden>
                                     <listSplit
                                             jcr:primaryType="nt:unstructured"
@@ -436,8 +446,13 @@
                                             fieldDescription="break list after number of items"
                                             fieldLabel="Split list into section"
                                             name="./listSplit"
+                                            emptyOption="{Boolean}true"
                                             value="">
-                                        <items jcr:primaryType="nt:unstructured"/>
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-dialog/common/true-false"/>
                                     </listSplit>
                                     <listSplitEvery
                                             jcr:primaryType="nt:unstructured"

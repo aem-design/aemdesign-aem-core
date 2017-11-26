@@ -147,8 +147,13 @@
                                             fieldDescription="Subscribers waiting for notification of the filter value is updated"
                                             fieldLabel="Topic Queue"
                                             name="./topicQueue"
+                                            emptyOption="{Boolean}true"
                                             value="">
-                                        <items jcr:primaryType="nt:unstructured"/>
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-topic/topic"/>
                                     </topic>
                                 </items>
                             </variant>
