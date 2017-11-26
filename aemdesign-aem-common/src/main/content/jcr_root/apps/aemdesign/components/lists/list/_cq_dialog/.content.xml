@@ -346,7 +346,7 @@
 
             <listConfigTab
                     jcr:primaryType="nt:unstructured"
-                    jcr:title="Config"
+                    jcr:title="List Config"
                     sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
@@ -496,6 +496,98 @@
                     </column>
                 </items>
             </listConfigTab>
+
+
+            <layoutTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Layout"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <variant
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Layout"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <!--<variant-->
+                                    <!--jcr:primaryType="nt:unstructured"-->
+                                    <!--sling:resourceType="granite/ui/components/foundation/form/select"-->
+                                    <!--fieldLabel="Variant"-->
+                                    <!--name="./variant"-->
+                                    <!--emptyOption="{Boolean}true"-->
+                                    <!--value="">-->
+                                    <!--<items jcr:primaryType="nt:unstructured">-->
+                                    <!--<default-->
+                                    <!--jcr:primaryType="nt:unstructured"-->
+                                    <!--text="Default"-->
+                                    <!--value=""/>-->
+                                    <!--</items>-->
+                                    <!--</variant>-->
+                                    <detailsBadge
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldDescription="Which badge to select from the Details component on the page"
+                                            fieldLabel="Use Badge"
+                                            name="./detailsBadge"
+                                            value="">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <default
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Default"
+                                                    value="image"/>
+                                            <icon
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Icon"
+                                                    value="icon"/>
+                                            <image
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Image"
+                                                    value="image"/>
+                                            <card
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Image"
+                                                    value="card"/>
+                                            <cardIcon
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Icon"
+                                                    value="cardIcon"/>
+                                            <cardIconAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Icon and CTA"
+                                                    value="cardIconAction"/>
+                                            <cardAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Image and CTA"
+                                                    value="cardAction"/>
+                                            <cardIconSelect
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Clickable Card with Icon"
+                                                    value="cardIconSelect"/>
+                                            <cardSelect
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Clickable Card with Image "
+                                                    value="cardSelect"/>
+                                            <cardHorizontal
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Horizontal Card"
+                                                    value="cardHorizontal"/>
+
+                                        </items>
+                                    </detailsBadge>
+                                </items>
+                            </variant>
+                        </items>
+                    </column>
+                </items>
+            </layoutTab>
+
 
             <badgeConfigTab
                     jcr:primaryType="nt:unstructured"
