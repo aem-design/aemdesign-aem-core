@@ -3,5 +3,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Table"
     cq:icon="table"
-    sling:resourceSuperType="foundation/components/table"
     componentGroup="AEM.Design - Content"/>

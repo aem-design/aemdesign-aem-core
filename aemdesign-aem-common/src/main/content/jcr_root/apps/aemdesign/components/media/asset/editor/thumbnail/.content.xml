@@ -4,4 +4,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Thumbnail"
     allowedParents="[*/parsys]"
-    componentGroup="Media"/>
+    componentGroup=".hidden"/>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Contact Details"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                type="nav"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+        <items jcr:primaryType="nt:unstructured">
+
+            <detailsTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Details"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <title
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Title"
+                                    path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/basic/items/title"
+                                    resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+
+                            <category
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Contact Tags"
+                                    path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/basic/items/category"
+                                    resourceType="cq/gui/components/coral/common/form/tagfield"
+                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                            <mixinTypes
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="mixinTypes"
+                                    path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/basic/items/mixinTypes"
+                                    resourceType="granite/ui/components/foundation/form/hidden"
+                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                            <mixinTypesHint
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="mixinTypesHint"
+                                    path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/basic/items/mixinTypesHint"
+                                    resourceType="granite/ui/components/foundation/form/hidden"
+                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                        </items>
+                    </column>
+                </items>
+            </detailsTab>
+
+
+            <layoutTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Layout"
+                    path="/apps/aemdesign/components/details/page-details/cq:dialog/content/items/layoutTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+
+            <badgeConfigTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Badge Config"
+                    path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+            <secondaryImageTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Secondary Image"
+                    path="/apps/aemdesign/global/dialog/touch/asset/content/items/secondaryImageTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+            <imageBackgroundTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Background Image"
+                    path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageBackgroundTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+            <styleTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Style"
+                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <accessibilityTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Accessibility"
+                    path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <analyticsTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Analytics"
+                    path="/apps/aemdesign/global/dialog/touch/analytics/content/items/analyticsTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+        </items>
+    </content>
+
+</jcr:root>

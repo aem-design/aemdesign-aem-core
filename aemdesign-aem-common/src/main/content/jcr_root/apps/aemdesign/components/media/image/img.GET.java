@@ -49,7 +49,8 @@ public class img_GET extends AbstractImageServlet {
      * @param c
      * @return
      */
-    private boolean isRemovedDiff(AbstractImageServlet.ImageContext c) {
+    @Override
+    protected boolean isRemovedDiff(AbstractImageServlet.ImageContext c) {
         if (c.diffInfo == null) {
             return false;
         } else {

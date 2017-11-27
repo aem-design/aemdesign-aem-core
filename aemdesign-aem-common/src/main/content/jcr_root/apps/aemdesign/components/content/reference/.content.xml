@@ -4,6 +4,5 @@
     jcr:primaryType="cq:Component"
     jcr:title="Content Reference"
     cq:icon="linkPage"
-    sling:resourceSuperType="foundation/components/reference"
     allowedParents="[*/parsys]"
     componentGroup="AEM.Design - Content"/>

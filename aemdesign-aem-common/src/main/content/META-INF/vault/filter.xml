@@ -45,4 +45,6 @@
     <filter root="/etc/workflow/notification/aemdesign" mode="update"/>
     <filter root="/etc/workflow/launcher/config/aemdesign" mode="update"/>
 
+    <filter root="/conf/aemdesign" mode="update"/>
+
 </workspaceFilter>

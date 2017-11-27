@@ -13,8 +13,10 @@
                     <items jcr:primaryType="cq:WidgetCollection">
                         <target
                                 jcr:primaryType="cq:Widget"
-                                path="/libs/foundation/components/external/dialog/items/target.infinity.json"
-                                xtype="cqinclude"/>
+                                fieldDescription="URL of web application to be included"
+                                fieldLabel="Target application"
+                                name="./target"
+                                xtype="textfield"/>
                         <!-- Set a default value for OOTB behaviour -->
                         <passparams
                                 jcr:primaryType="cq:Widget"
@@ -26,8 +28,9 @@
                                 xtype="hidden"/>
                         <widthheight
                                 jcr:primaryType="cq:Widget"
-                                path="/libs/foundation/components/external/dialog/items/widthheight.infinity.json"
-                                xtype="cqinclude"/>
+                                fieldDescription="for fixed size only"
+                                fieldLabel="Width and Height"
+                                xtype="sizefield"/>
                         <showScrollbars
                                 jcr:primaryType="cq:Widget"
                                 defaultValue=""

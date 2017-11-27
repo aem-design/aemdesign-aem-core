@@ -85,10 +85,10 @@
         }
     }
     List<String> selectors = Arrays.asList(_slingRequest.getRequestPathInfo().getSelectors());
-    boolean MODE_TOUCHUI = false;
-    if (selectors.contains("touchedit")) {
-        MODE_TOUCHUI = true;
-    }
+    boolean MODE_TOUCHUI = Placeholder.isAuthoringUIModeTouch(slingRequest);
+//    if (selectors.contains("touchedit")) {
+//        MODE_TOUCHUI = true;
+//    }
 
     String componentBadge = getBadgeFromSelectors(_slingRequest.getRequestPathInfo().getSelectorString());
 

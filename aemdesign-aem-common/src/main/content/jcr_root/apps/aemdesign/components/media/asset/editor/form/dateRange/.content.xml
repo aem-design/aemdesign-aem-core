@@ -4,4 +4,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Metadata Date Range"
     allowedParents="[*/parsys]"
-    componentGroup="Media"/>
+    componentGroup=".hidden"/>

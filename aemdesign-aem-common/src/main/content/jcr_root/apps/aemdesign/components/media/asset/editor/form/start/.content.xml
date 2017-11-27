@@ -4,4 +4,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Metadata Form"
     sling:resourceSuperType="foundation/components/form/start"
-    componentGroup="Media"/>
+    componentGroup=".hidden"/>

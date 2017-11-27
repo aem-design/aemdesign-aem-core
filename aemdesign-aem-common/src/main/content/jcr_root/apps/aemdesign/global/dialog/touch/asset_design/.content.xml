@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
+          xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Asset Dialog (Design)"
+          helpPath=""
+          sling:resourceType="cq/gui/components/authoring/dialog"
+          extraClientlibs="[]">
+    <content
+            jcr:primaryType="nt:unstructured"
+            jcr:title="Asset"
+            sling:resourceType="granite/ui/components/coral/foundation/container"
+            maximized="{Boolean}true">
+        <items jcr:primaryType="nt:unstructured">
+            <fixedcol
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+                    maximized="{Boolean}false">
+                <items jcr:primaryType="nt:unstructured">
+                    <col1
+                            granite:class="foundation-layout-util-maximized-alt"
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <image
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Image"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <reference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Image"
+                                            name="./fileReference"
+                                            predicate="hierarchyNotFile"
+                                            crumbRoot="dam"
+                                            rootPath="/content/dam"/>
+                                </items>
+                            </image>
+                            <imageAttributes
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Asset Attributes"
+                                    path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageTab/items/column/items/assetAttributes"
+                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
+                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                            <asset
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Asset"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <reference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Asset"
+                                            name="./fileReference"
+                                            predicate="hierarchyNotFile"
+                                            crumbRoot="dam"
+                                            rootPath="/content/dam"/>
+                                </items>
+                            </asset>
+                            <assetAttributes
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Asset Attributes"
+                                    path="/apps/aemdesign/global/dialog/touch/asset/content/items/assetTab/items/column/items/info"
+                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
+                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                            <imageThumbnail
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Thumbnail"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <reference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Thumbnail"
+                                            name="./thumbnail/fileReference"
+                                            predicate="hierarchyNotFile"
+                                            crumbRoot="dam"
+                                            rootPath="/content/dam"/>
+
+                                    <imageThumbnailResourceType
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./thumbnail/sling:resourceType"
+                                            value="aemdesign/components/media/image"/>
+                                </items>
+                            </imageThumbnail>
+
+                            <imageThumbnailAttributes
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Asset"
+                                    path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageThumbnailTab/items/column/items/thumbnailStyle"
+                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
+                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                            <imageBackgroundTab
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Background Image"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <reference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Asset"
+                                            name="./bgimage/fileReference"
+                                            predicate="hierarchyNotFile"
+                                            crumbRoot="dam"
+                                            rootPath="/content/dam"/>
+                                </items>
+                            </imageBackgroundTab>
+
+                            <videoBackgroundTab
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Background Video"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <reference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Asset"
+                                            name="./bgvideo/fileReference"
+                                            predicate="hierarchyNotFile"
+                                            crumbRoot="dam"
+                                            rootPath="/content/dam"/>
+                                </items>
+                            </videoBackgroundTab>
+
+                            <badgeThumbnailTab
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Background Thumbnail"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <reference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Asset"
+                                            name="./badgeThumbnail/fileReference"
+                                            predicate="hierarchyNotFile"
+                                            crumbRoot="dam"
+                                            rootPath="/content/dam"/>
+                                </items>
+                            </badgeThumbnailTab>
+
+
+                            <secondaryImageTab
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Secondary Thumbnail"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <reference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Asset"
+                                            name="./secondaryImage/fileReference"
+                                            predicate="hierarchyNotFile"
+                                            crumbRoot="dam"
+                                            rootPath="/content/dam"/>
+                                </items>
+                            </secondaryImageTab>
+
+
+                        </items>
+                    </col1>
+                </items>
+            </fixedcol>
+        </items>
+    </content>
+</jcr:root>

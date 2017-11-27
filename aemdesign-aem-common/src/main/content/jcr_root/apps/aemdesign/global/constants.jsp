@@ -85,6 +85,9 @@
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_IMAGE =
             "<img title=\"\" alt=\"\" class=\"cq-dd-image cq-image-placeholder\" src=\"/etc/designs/admin/0.gif\">";
 
+    public final static String DEFAULT_TOUCH_PLACEHOLDER_IMAGE =
+            "<div class=\"cq-placeholder cq-dd-image\" data-emptytext=\"Image\"></div>";
+
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_CAROUSEL =
             "<img src=\"/libs/cq/ui/resources/0.gif\" class=\"cq-carousel-placeholder\" alt=\"\">";
 
@@ -178,3 +181,4 @@
 <c:set var="DEFAULT_CLASSIC_PLACEHOLDER_LIST" value="<%= DEFAULT_CLASSIC_PLACEHOLDER_LIST %>"/>
 <c:set var="DEFAULT_CLASSIC_PLACEHOLDER_TEXT" value="<%= DEFAULT_CLASSIC_PLACEHOLDER_TEXT %>"/>
 <c:set var="DEFAULT_CLASSIC_PLACEHOLDER_IMAGE" value="<%= DEFAULT_CLASSIC_PLACEHOLDER_IMAGE %>"/>
+<c:set var="DEFAULT_TOUCH_PLACEHOLDER_IMAGE" value="<%= DEFAULT_TOUCH_PLACEHOLDER_IMAGE %>"/>

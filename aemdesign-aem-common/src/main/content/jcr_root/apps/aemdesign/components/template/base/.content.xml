@@ -3,5 +3,4 @@
     jcr:description="Base Page Component"
     jcr:primaryType="cq:Component"
     jcr:title="Base Page"
-    sling:resourceSuperType="foundation/components/page"
     componentGroup=".hidden"/>

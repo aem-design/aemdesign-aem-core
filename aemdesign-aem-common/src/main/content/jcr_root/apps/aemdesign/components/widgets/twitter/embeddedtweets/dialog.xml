@@ -20,7 +20,7 @@
                             fieldDescription="Twitter User to follow"
                             xtype="textfield" />
                         <embeddedTweet
-                        	jcr:primaryType="cq:Widget"
+                            jcr:primaryType="cq:Widget"
                             fieldLabel="Embedded Tweet"
                             fieldDescription="Enter the Embedded Tweet HTML from Twitter"
                             name="./embeddedTweet"

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Twitter Follow"
+          helpPath=""
+          sling:resourceType="cq/gui/components/authoring/dialog"
+          extraClientlibs="[]">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                type="nav"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+        <items jcr:primaryType="nt:unstructured">
+            <layoutTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Layout"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <variant
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Layout"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+
+
+                                    <variant
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
+                                            fieldLabel="Variant"
+                                            name="./variant"
+                                            value="">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <default
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Default"
+                                                    value=""/>
+                                        </items>
+                                    </variant>
+
+                                    <user
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="User"
+                                            maxlength="16"
+                                            name="./user"/>
+                                    <showusername
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                            fieldLabel="Show username"
+                                            name="./showUsername"
+                                            text="Show username"
+                                            value="true"/>
+                                    <largebutton
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                            fieldLabel="Large button"
+                                            name="./largeButton"
+                                            text="Large button"
+                                            value="true"/>
+                                </items>
+                            </variant>
+                        </items>
+                    </column>
+                </items>
+            </layoutTab>
+
+
+            <styleTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Style"
+                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <accessibilityTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Accessibility"
+                    path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+        </items>
+    </content>
+</jcr:root>
