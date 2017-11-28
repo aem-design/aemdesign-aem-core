@@ -38,7 +38,7 @@
     }
 
 
-    public String getPageLanguage(SlingScriptHelper sling, Page page) throws RepositoryException {
+    public String getPageLanguage(SlingScriptHelper sling, Page page) {
         /**
          * Locale in BCP 47
          * http://www.w3.org/International/articles/bcp47/
