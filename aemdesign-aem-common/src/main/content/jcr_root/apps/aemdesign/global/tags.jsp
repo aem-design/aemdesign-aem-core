@@ -326,7 +326,7 @@
      * @return
      * @throws RepositoryException
      */
-    private LinkedHashMap<String, Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale) throws RepositoryException {
+    private LinkedHashMap<String, Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale) {
         LinkedHashMap<String, Map> tags = new LinkedHashMap<String, Map>();
 
         if (sling == null || tagPaths == null || tagPaths.length == 0) {
