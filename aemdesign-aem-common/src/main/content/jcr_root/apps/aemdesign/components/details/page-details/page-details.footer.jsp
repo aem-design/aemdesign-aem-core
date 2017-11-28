@@ -1,3 +1,3 @@
 <c:if test="${componentProperties.showParsys}">
-    <cq:include path="par" resourceType="aemdesign/components/common/parsys"/>
+    <cq:include script="/apps/aemdesign/components/common/container/container.jsp"/>
 </c:if>

@@ -71,6 +71,7 @@
     final boolean INCLUDE_PAGE_CONTEXTHUB = true;       //used in Touch UI
     final boolean INCLUDE_PAGE_CLIENTCONTEXT = false;   //used in Classic UI
     final boolean INCLUDE_BADGE_VARIANT_CODE = false; //show component variant template in component BADGE
+    final boolean INCLUDE_USE_GRID = true; //for a parsys use wcm/foundation/components/responsivegrid
 
     //remove decoration for all components
     if (CURRENT_WCMMODE != WCMMode.EDIT && CURRENT_WCMMODE != WCMMode.DESIGN) {
@@ -112,3 +113,4 @@
 <c:set var="MODE_TOUCHUI" value="<%= MODE_TOUCHUI %>"/>
 <c:set var="INCLUDE_BADGE_VARIANT_CODE" value="<%= INCLUDE_BADGE_VARIANT_CODE %>"/>
 <c:set var="COMPONENT_BADGE" value="<%= componentBadge %>"/>
+<c:set var="INCLUDE_USE_GRID" value="<%= INCLUDE_USE_GRID %>"/>
