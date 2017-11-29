@@ -21,6 +21,7 @@
 ../js/aemdesign.events.js
 ../js/aemdesign.log.js
 ../js/aemdesign.http.js
+../js/aemdesign.ajax.js
 ../js/aemdesign.utils.js
 ../js/aemdesign.sling.js
 ../js/aemdesign.services.js
