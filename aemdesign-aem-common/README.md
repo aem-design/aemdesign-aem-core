@@ -47,3 +47,15 @@ mvn archetype:generate \
     -DpackageGroup="AEM.Design"
 
 Please NOTE: additions updates to all 3 POMs were
+
+# Fav Icons
+
+Using AEM Core Page implementation you can create following icon files in your /etc/design for them to be autmaticaly loaded into html head
+```
+favicon.ico
+favicon_32.png
+touch-icon_60.png
+touch-icon_76.png
+touch-icon_120.png
+touch-icon_152.png
+```
