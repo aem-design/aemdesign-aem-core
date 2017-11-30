@@ -41,7 +41,7 @@
 
         for (String key : languageMap.keySet()){
             Map<String, String> langTag = languageMap.get(key);
-            String langName = langTag.get("name");
+            String langName = langTag.get("tagid");
             languageSet.add(new Language(langName));
         }
 
