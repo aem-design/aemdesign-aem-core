@@ -4,6 +4,5 @@
     jcr:description="The external component enables author to embed external applications into the page using an iframe."
     jcr:title="External"
     cq:icon="linkGlobe"
-    sling:resourceSuperType="foundation/components/external"
     allowedParents="[*/parsys]"
     componentGroup="AEM.Design - Content"/>
