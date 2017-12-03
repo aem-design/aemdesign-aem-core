@@ -397,6 +397,21 @@
     };
 
 
+    //DEFAULT NODE METADATA
+    // {
+    //   1 required - property name,
+    //   2 required - default value,
+    //   3 optional - name of component attribute to add value into
+    //   4 optional - canonical name of class for handling multivalues, String or Tag
+    // }
+    public static final Object[][] DEFAULT_FIELDS_PAGE_THEME = {
+            {"themeStyle", ""},
+            {"faviconsPath", ""},
+            {"favicon", ""},
+            {"siteThemeColor", ""},
+            {"siteTileColor", ""},
+    };
+
     /** Local logging container. */
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
@@ -694,6 +709,7 @@
         Component component = componentContext.getComponent();
 
         componentProperties.attr = new AttrBuilder(request, xssAPI);
+        componentProperties.attr.addBoolean("component",true);
 //        AttrBuilder itemAttr = new AttrBuilder(request, xssAPI);
 
         final String CLASS_TYPE_RESOURCE = Resource.class.getCanonicalName();
