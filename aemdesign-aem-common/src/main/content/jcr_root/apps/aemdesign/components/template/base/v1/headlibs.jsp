@@ -13,6 +13,7 @@
 
 <!--cloud config: start-->
 <c:if test="${INCLUDE_PAGE_CLOUDSERVICES}">
+<!--cloud config: included-->
 <cq:include script="/libs/cq/cloudserviceconfigs/components/servicelibs/servicelibs.jsp"/>
 </c:if>
 <!--cloud config: start-->
