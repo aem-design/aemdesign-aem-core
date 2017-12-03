@@ -12,7 +12,6 @@
             <article
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="aemdesign/components/layout/article"
-                componentId="article_HNK3YZNT9"
                 editable="{Boolean}true"/>
         </root>
         <cq:responsive jcr:primaryType="nt:unstructured">

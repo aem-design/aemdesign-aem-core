@@ -10,8 +10,7 @@
             sling:resourceType="wcm/foundation/components/responsivegrid">
             <article
                 jcr:primaryType="nt:unstructured"
-                sling:resourceType="aemdesign/components/layout/article"
-                componentId="article_ZCPWHTDTC"/>
+                sling:resourceType="aemdesign/components/layout/article"/>
         </root>
     </jcr:content>
 </jcr:root>

@@ -3,7 +3,7 @@
     jcr:primaryType="cq:Page">
     <jcr:content
         cq:deviceGroups="[/etc/mobile/groups/responsive]"
-        cq:template="/conf/aemdesign/settings/wcm/templates/base111"
+        cq:template="/conf/aemdesign/settings/wcm/templates/threecolumn"
         jcr:primaryType="cq:PageContent"
         sling:resourceType="aemdesign/components/template/base">
         <root
@@ -12,24 +12,23 @@
             <header
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="aemdesign/components/layout/header"
-                componentId="header_EZMRRKGXO"/>
+                editable="{Boolean}true"/>
             <aside
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="aemdesign/components/layout/aside"
-                componentId="aside_LZAQKHXOI"/>
+                editable="{Boolean}true"/>
             <article
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="aemdesign/components/layout/article"
-                componentId="article_HNK3YZNT9"
                 editable="{Boolean}true"/>
             <asideright
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="aemdesign/components/layout/aside"
-                componentId="asideright_NLBDASNT1"/>
+                editable="{Boolean}true"/>
             <footer
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="aemdesign/components/layout/footer"
-                componentId="footer_ZVSDJ16UV"/>
+                editable="{Boolean}true"/>
         </root>
         <cq:responsive jcr:primaryType="nt:unstructured">
             <breakpoints jcr:primaryType="nt:unstructured">
