@@ -37,4 +37,3 @@
 <c:if test="${not empty info.hasContent}">
     <c:if test="${info.showContent}"><%=includeContents%></c:if>
 </c:if>
-<%@include file="/apps/aemdesign/global/component-badge.jsp" %>

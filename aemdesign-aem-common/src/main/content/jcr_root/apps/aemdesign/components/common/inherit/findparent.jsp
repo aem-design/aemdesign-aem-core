@@ -1,5 +1,3 @@
-<%@include file="/apps/aemdesign/global/global.jsp" %>
-<%@include file="/apps/aemdesign/global/components.jsp" %>
 <%
 final String pageResourcePath = _currentPage.getContentResource().getPath(); // assume that page have resource
 final Resource thisResource = _componentContext.getResource();
@@ -54,12 +52,19 @@ while (null != curPage) {
     curPage = curPage.getParent();
 }
 
-if (!haveInheritance) {
-    //show this message only in edit and design mode
-    if(CURRENT_WCMMODE.equals(WCMMode.EDIT) || CURRENT_WCMMODE.equals(WCMMode.DESIGN)){
-        %><p class="cq-info">No parent page specifies how to render this component</p><%
-    }
-}
-
 %>
-<%@include file="/apps/aemdesign/global/component-badge.jsp" %>
+<c:set var="haveInheritance" value="<%= haveInheritance %>"/>
+
+<c:choose>
+    <c:when test="${componentProperties.isTemplateEditor}">
+        <cq:include script="render.jsp"/>
+    </c:when>
+    <c:otherwise>
+        <c:if test="${not haveInheritance}">
+            <c:if test="${CURRENT_WCMMODE eq WCMMODE_EDIT}">
+                <p class="component inherit notfound">${componentProperties.parentnotfound}</p>
+            </c:if>
+        </c:if>
+    </c:otherwise>
+</c:choose>
+

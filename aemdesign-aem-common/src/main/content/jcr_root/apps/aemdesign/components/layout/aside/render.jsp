@@ -34,4 +34,3 @@
         <%@ include file="variant.default.jsp" %>
     </c:otherwise>
 </c:choose>
-<%@include file="/apps/aemdesign/global/component-badge.jsp" %>
