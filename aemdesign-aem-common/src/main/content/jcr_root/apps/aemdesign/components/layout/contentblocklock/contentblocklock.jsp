@@ -108,7 +108,7 @@
 
             disableEditMode(_componentContext, IncludeOptions.getOptions(request, true), _slingRequest);
 
-            %><cq:include script="/apps/aemdesign/components/common/container/container.jsp"/><%
+            %><cq:include script="/apps/aemdesign/components/layout/container/container.jsp"/><%
         }
         catch (Exception ex) {
             %><p class="cq-error">Missing content.</p><%

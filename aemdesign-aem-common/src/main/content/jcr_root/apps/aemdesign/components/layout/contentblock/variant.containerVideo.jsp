@@ -6,5 +6,5 @@
         </c:forEach>
         </video>
     </div>
-    <cq:include script="/apps/aemdesign/components/common/container/container.jsp"/>
+    <cq:include script="/apps/aemdesign/components/layout/container/container.jsp"/>
 </div>

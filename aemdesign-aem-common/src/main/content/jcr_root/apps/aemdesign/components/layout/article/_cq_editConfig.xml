@@ -3,4 +3,8 @@
     cq:actions="[text:Article,edit,-,delete,insert]"
     cq:layout="editbar"
     cq:dialogMode="floating"
-    jcr:primaryType="cq:EditConfig"/>
+          jcr:primaryType="cq:EditConfig">
+    <cq:listeners
+            jcr:primaryType="cq:EditListenersConfig"
+            afterchildinsert="function(editable){ns.responsive.EditableActions.REFRESH.execute(editable)}"/>
+</jcr:root>
