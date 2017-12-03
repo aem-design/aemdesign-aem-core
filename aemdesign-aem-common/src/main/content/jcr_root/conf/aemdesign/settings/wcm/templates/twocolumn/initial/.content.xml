@@ -5,21 +5,17 @@
         cq:template="/conf/aemdesign/settings/wcm/templates/twocolumn"
         jcr:primaryType="cq:PageContent"
         sling:resourceType="aemdesign/components/template/base">
-        <root
+        <header
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="wcm/foundation/components/responsivegrid">
-            <header
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="aemdesign/components/layout/header"/>
-            <aside
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="aemdesign/components/layout/aside"/>
-            <article
-                jcr:primaryType="nt:unstructured"
-                sling:resourceType="aemdesign/components/layout/article"/>
-            <footer
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="aemdesign/components/layout/footer"/>
-        </root>
+            sling:resourceType="aemdesign/components/layout/header"/>
+        <aside
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="aemdesign/components/layout/aside"/>
+        <article
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="aemdesign/components/layout/article"/>
+        <footer
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="aemdesign/components/layout/footer"/>
     </jcr:content>
 </jcr:root>

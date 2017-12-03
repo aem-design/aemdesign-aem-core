@@ -2,7 +2,7 @@
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Template">
     <jcr:content
-        cq:templateType="/conf/aemdesign/settings/wcm/template-types/base"
+        cq:templateType="/conf/aemdesign/settings/wcm/template-types/onecolumn"
         jcr:primaryType="cq:PageContent"
         jcr:title="One Column"
         status="enabled"/>

@@ -6,30 +6,26 @@
         cq:template="/conf/aemdesign/settings/wcm/templates/threecolumn"
         jcr:primaryType="cq:PageContent"
         sling:resourceType="aemdesign/components/template/base">
-        <root
+        <header
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="wcm/foundation/components/responsivegrid">
-            <header
-                jcr:primaryType="nt:unstructured"
-                sling:resourceType="aemdesign/components/layout/header"
-                editable="{Boolean}true"/>
-            <aside
-                jcr:primaryType="nt:unstructured"
-                sling:resourceType="aemdesign/components/layout/aside"
-                editable="{Boolean}true"/>
-            <article
-                jcr:primaryType="nt:unstructured"
-                sling:resourceType="aemdesign/components/layout/article"
-                editable="{Boolean}true"/>
-            <asideright
-                jcr:primaryType="nt:unstructured"
-                sling:resourceType="aemdesign/components/layout/aside"
-                editable="{Boolean}true"/>
-            <footer
-                jcr:primaryType="nt:unstructured"
-                sling:resourceType="aemdesign/components/layout/footer"
-                editable="{Boolean}true"/>
-        </root>
+            sling:resourceType="aemdesign/components/layout/header"
+            editable="{Boolean}true"/>
+        <aside
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="aemdesign/components/layout/aside"
+            editable="{Boolean}true"/>
+        <article
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="aemdesign/components/layout/article"
+            editable="{Boolean}true"/>
+        <asideright
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="aemdesign/components/layout/aside"
+            editable="{Boolean}true"/>
+        <footer
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="aemdesign/components/layout/footer"
+            editable="{Boolean}true"/>
         <cq:responsive jcr:primaryType="nt:unstructured">
             <breakpoints jcr:primaryType="nt:unstructured">
                 <xs

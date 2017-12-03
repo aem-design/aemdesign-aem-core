@@ -4,38 +4,25 @@
     <jcr:content
         jcr:primaryType="nt:unstructured"
         sling:resourceType="wcm/core/components/policies/mappings">
+        <header
+            cq:policy="wcm/foundation/components/responsivegrid/aemdesign-default"
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/core/components/policies/mapping"/>
+        <aside
+            cq:policy="wcm/foundation/components/responsivegrid/aemdesign-default"
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/core/components/policies/mapping"/>
         <article
             cq:policy="wcm/foundation/components/responsivegrid/aemdesign-default"
             jcr:primaryType="nt:unstructured"
             sling:resourceType="wcm/core/components/policies/mapping"/>
-        <root
+        <asideright
             cq:policy="wcm/foundation/components/responsivegrid/aemdesign-default"
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="wcm/core/components/policies/mapping">
-            <header jcr:primaryType="nt:unstructured">
-                <par
-                    cq:policy="wcm/foundation/components/responsivegrid/aemdesign-default"
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="wcm/core/components/policies/mapping"/>
-            </header>
-            <aside jcr:primaryType="nt:unstructured">
-                <par
-                    cq:policy="wcm/foundation/components/responsivegrid/aemdesign-default"
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="wcm/core/components/policies/mapping"/>
-            </aside>
-            <article jcr:primaryType="nt:unstructured">
-                <par
-                    cq:policy="wcm/foundation/components/responsivegrid/aemdesign-default"
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="wcm/core/components/policies/mapping"/>
-            </article>
-            <footer jcr:primaryType="nt:unstructured">
-                <par
-                    cq:policy="wcm/foundation/components/responsivegrid/aemdesign-default"
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="wcm/core/components/policies/mapping"/>
-            </footer>
-        </root>
+            sling:resourceType="wcm/core/components/policies/mapping"/>
+        <footer
+            cq:policy="wcm/foundation/components/responsivegrid/aemdesign-default"
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/core/components/policies/mapping"/>
     </jcr:content>
 </jcr:root>

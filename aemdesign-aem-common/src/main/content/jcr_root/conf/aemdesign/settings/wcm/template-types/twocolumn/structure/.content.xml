@@ -3,21 +3,20 @@
     jcr:primaryType="cq:Page">
     <jcr:content
         cq:deviceGroups="[/etc/mobile/groups/responsive]"
-        cq:template="/conf/aemdesign/settings/wcm/templates/onecolumn"
         jcr:primaryType="cq:PageContent"
         sling:resourceType="aemdesign/components/template/base">
         <header
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/header"/>
+        <aside
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="aemdesign/components/layout/header"
-            editable="{Boolean}true"/>
+            sling:resourceType="aemdesign/components/layout/aside"/>
         <article
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="aemdesign/components/layout/article"
-            editable="{Boolean}true"/>
+            sling:resourceType="aemdesign/components/layout/article"/>
         <footer
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="aemdesign/components/layout/footer"
-            editable="{Boolean}true"/>
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/footer"/>
         <cq:responsive jcr:primaryType="nt:unstructured">
             <breakpoints jcr:primaryType="nt:unstructured">
                 <xs
