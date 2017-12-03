@@ -3,11 +3,34 @@
     jcr:primaryType="cq:Page">
     <jcr:content
         cq:deviceGroups="[/etc/mobile/groups/responsive]"
+        cq:template="/conf/aemdesign/settings/wcm/templates/base111"
         jcr:primaryType="cq:PageContent"
         sling:resourceType="aemdesign/components/template/base">
         <root
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="wcm/foundation/components/responsivegrid"/>
+            sling:resourceType="wcm/foundation/components/responsivegrid">
+            <header
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/header"
+                componentId="header_EZMRRKGXO"/>
+            <aside
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/aside"
+                componentId="aside_LZAQKHXOI"/>
+            <article
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/article"
+                componentId="article_HNK3YZNT9"
+                editable="{Boolean}true"/>
+            <asideright
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/aside"
+                componentId="asideright_NLBDASNT1"/>
+            <footer
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/footer"
+                componentId="footer_ZVSDJ16UV"/>
+        </root>
         <cq:responsive jcr:primaryType="nt:unstructured">
             <breakpoints jcr:primaryType="nt:unstructured">
                 <xs
