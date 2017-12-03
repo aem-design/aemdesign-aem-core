@@ -5,4 +5,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Redirection Notification"
     cq:icon="linkPage"
-    componentGroup=".hidden"/>
+    componentGroup="AEM.Design - Common"/>
