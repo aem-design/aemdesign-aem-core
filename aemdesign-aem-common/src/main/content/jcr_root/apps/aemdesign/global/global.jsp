@@ -71,7 +71,7 @@
     final boolean INCLUDE_PAGE_CONTEXTHUB = true;       //used in Touch UI
     final boolean INCLUDE_PAGE_CLIENTCONTEXT = false;   //used in Classic UI
     final boolean INCLUDE_BADGE_VARIANT_CODE = false; //show component variant template in component BADGE
-    final boolean INCLUDE_USE_GRID = true; //for a parsys use wcm/foundation/components/responsivegrid
+    final boolean INCLUDE_USE_GRID = true; //for a parsys use aemdesign/components/layout/container
 
     //remove decoration for all components
     if (CURRENT_WCMMODE != WCMMode.EDIT && CURRENT_WCMMODE != WCMMode.DESIGN) {
