@@ -19,7 +19,7 @@
 
     <filter root="/etc/clientlibs/aemdesign"/>
 
-    <filter root="/etc/designs/default" mode="update"/>
+    <!--<filter root="/etc/designs/default" mode="update"/>-->
 
     <filter root="/etc/tags/content-type" mode="update"/>
     <filter root="/etc/tags/component-style-theme" mode="update"/>
@@ -45,6 +45,12 @@
     <filter root="/etc/workflow/notification/aemdesign" mode="update"/>
     <filter root="/etc/workflow/launcher/config/aemdesign" mode="update"/>
 
-    <filter root="/conf/aemdesign" mode="update"/>
+    <filter root="/conf/aemdesign"/>
+
+    <filter root="/etc/blueprints/aemdesign-english"/>
+    <filter root="/etc/blueprints/aemdesign-german"/>
+
+
+
 
 </workspaceFilter>
