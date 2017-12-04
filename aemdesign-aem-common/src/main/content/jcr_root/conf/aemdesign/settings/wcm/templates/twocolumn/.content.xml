@@ -5,6 +5,7 @@
     <jcr:content
         cq:templateType="/conf/aemdesign/settings/wcm/template-types/twocolumn"
         jcr:primaryType="cq:PageContent"
+        jcr:description="AEM.Design Two Column"
         jcr:title="Two Column"
         status="enabled"/>
 </jcr:root>

@@ -5,6 +5,7 @@
     <jcr:content
         cq:templateType="/conf/aemdesign/settings/wcm/template-types/threecolumn"
         jcr:primaryType="cq:PageContent"
+        jcr:description="AEM.Design Three Column"
         jcr:title="Three Column"
         status="enabled"/>
 </jcr:root>

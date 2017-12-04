@@ -5,6 +5,7 @@
     <jcr:content
         cq:templateType="/conf/aemdesign/settings/wcm/template-types/base"
         jcr:primaryType="cq:PageContent"
+        jcr:description="AEM.Design Base"
         jcr:title="Base"
         status="enabled"/>
 </jcr:root>
