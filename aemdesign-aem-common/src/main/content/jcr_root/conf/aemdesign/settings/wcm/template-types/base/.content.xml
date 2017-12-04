@@ -6,6 +6,6 @@
     <jcr:content
         jcr:description="AEM.Design Base Page"
         jcr:primaryType="cq:PageContent"
-        jcr:title="Base Page"
+        jcr:title="AEM.Design Base Page"
         status="enabled"/>
 </jcr:root>

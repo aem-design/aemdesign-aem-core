@@ -6,6 +6,6 @@
     <jcr:content
         jcr:description="AEM.Design One Column"
         jcr:primaryType="cq:PageContent"
-        jcr:title="One Column"
+        jcr:title="AEM.Design One Column"
         status="enabled"/>
 </jcr:root>
