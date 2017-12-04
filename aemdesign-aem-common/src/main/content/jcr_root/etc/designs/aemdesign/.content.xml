@@ -12,7 +12,7 @@
             <par
                     jcr:primaryType="nt:unstructured"
                     components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]"
-                    sling:resourceType="aemdesign/components/common/parsys">
+                    sling:resourceType="aemdesign/components/layout/container">
             </par>
         </base>
         <two jcr:primaryType="nt:unstructured">
