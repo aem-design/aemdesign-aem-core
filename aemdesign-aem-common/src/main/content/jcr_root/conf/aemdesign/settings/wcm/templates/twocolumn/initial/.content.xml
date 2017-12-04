@@ -6,16 +6,32 @@
         jcr:primaryType="cq:PageContent"
         sling:resourceType="aemdesign/components/template/base">
         <header
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="aemdesign/components/layout/header"/>
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/header">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container"/>
+        </header>
         <aside
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="aemdesign/components/layout/aside"/>
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/aside">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container"/>
+        </aside>
         <article
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="aemdesign/components/layout/article"/>
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/article">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container"/>
+        </article>
         <footer
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="aemdesign/components/layout/footer"/>
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/footer">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container"/>
+        </footer>
     </jcr:content>
 </jcr:root>

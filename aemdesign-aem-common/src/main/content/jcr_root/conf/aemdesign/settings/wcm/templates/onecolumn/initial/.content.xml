@@ -5,14 +5,26 @@
         cq:template="/conf/aemdesign/settings/wcm/templates/onecolumn"
         jcr:primaryType="cq:PageContent"
         sling:resourceType="aemdesign/components/template/base">
-        <footer
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="aemdesign/components/layout/footer"/>
         <header
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="aemdesign/components/layout/header"/>
+            sling:resourceType="aemdesign/components/layout/header">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container"/>
+        </header>
         <article
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/article">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container"/>
+        </article>
+        <footer
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="aemdesign/components/layout/article"/>
+            sling:resourceType="aemdesign/components/layout/footer">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container"/>
+        </footer>
     </jcr:content>
 </jcr:root>

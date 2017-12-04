@@ -3,5 +3,41 @@
     jcr:primaryType="cq:Page">
     <jcr:content
         jcr:primaryType="cq:PageContent"
-        sling:resourceType="aemdesign/components/template/base"/>
+        sling:resourceType="aemdesign/components/template/base">
+        <header
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/header">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container"/>
+        </header>
+        <aside
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/aside">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container"/>
+        </aside>
+        <article
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/article">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container"/>
+        </article>
+        <asideright
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/aside">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container"/>
+        </asideright>
+        <footer
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/footer">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container"/>
+        </footer>
+    </jcr:content>
 </jcr:root>

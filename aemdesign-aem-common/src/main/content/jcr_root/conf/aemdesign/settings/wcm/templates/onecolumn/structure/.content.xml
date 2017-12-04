@@ -9,15 +9,30 @@
         <header
             jcr:primaryType="nt:unstructured"
             sling:resourceType="aemdesign/components/layout/header"
-            editable="{Boolean}true"/>
+            editable="{Boolean}true">
+            <par
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/container"
+                editable="{Boolean}true"/>
+        </header>
         <article
             jcr:primaryType="nt:unstructured"
             sling:resourceType="aemdesign/components/layout/article"
-            editable="{Boolean}true"/>
+            editable="{Boolean}true">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container"
+                    editable="{Boolean}true"/>
+        </article>
         <footer
             jcr:primaryType="nt:unstructured"
             sling:resourceType="aemdesign/components/layout/footer"
-            editable="{Boolean}true"/>
+            editable="{Boolean}true">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container"
+                    editable="{Boolean}true"/>
+        </footer>
         <cq:responsive jcr:primaryType="nt:unstructured">
             <breakpoints jcr:primaryType="nt:unstructured">
                 <xs

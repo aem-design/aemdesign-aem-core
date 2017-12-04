@@ -3,5 +3,13 @@
     jcr:primaryType="cq:Page">
     <jcr:content
         jcr:primaryType="cq:PageContent"
-        sling:resourceType="aemdesign/components/template/base"/>
+        sling:resourceType="aemdesign/components/template/base">
+        <article
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="aemdesign/components/layout/article">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container"/>
+        </article>
+    </jcr:content>
 </jcr:root>

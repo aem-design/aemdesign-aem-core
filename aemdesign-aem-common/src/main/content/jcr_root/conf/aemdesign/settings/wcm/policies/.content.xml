@@ -13,7 +13,7 @@
                         jcr:title="AEM.Design Default"
                         sling:resourceType="wcm/core/components/policy/policy"
                         components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets,/libs/cq/experience-fragments/editor/components/experiencefragment,/libs/wcm/designimporter/components/importerEx,/libs/dam/cfm/components/contentfragment]"
-                        policyResourceType="wcm/foundation/components/responsivegrid">
+                        policyresourceType="aemdesign/components/layout/container">
                         <cq:authoring jcr:primaryType="nt:unstructured">
                             <assetToComponentMapping jcr:primaryType="nt:unstructured">
                                 <image
@@ -77,7 +77,7 @@
                         jcr:title="AEM.Design Structure"
                         sling:resourceType="wcm/core/components/policy/policy"
                         components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets,/libs/cq/experience-fragments/editor/components/experiencefragment,/libs/wcm/designimporter/components/importerEx,/libs/dam/cfm/components/contentfragment]"
-                        policyResourceType="wcm/foundation/components/responsivegrid">
+                        policyresourceType="aemdesign/components/layout/container">
                         <cq:authoring jcr:primaryType="nt:unstructured">
                             <assetToComponentMapping jcr:primaryType="nt:unstructured">
                                 <image
