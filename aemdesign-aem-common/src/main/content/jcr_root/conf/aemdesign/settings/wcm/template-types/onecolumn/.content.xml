@@ -4,8 +4,8 @@
     jcr:primaryType="cq:Template"
     ranking="{Long}1">
     <jcr:content
-        jcr:description="Generic template for unstructured pages"
+        jcr:description="AEM.Design One Column"
         jcr:primaryType="cq:PageContent"
-        jcr:title="AEM.Design One Column"
+        jcr:title="One Column"
         status="enabled"/>
 </jcr:root>
