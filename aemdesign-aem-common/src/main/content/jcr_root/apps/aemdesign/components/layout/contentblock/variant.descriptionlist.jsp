@@ -1,5 +1,5 @@
 <section ${componentProperties.componentAttributes}>
     <dl role="row" ${componentProperties.componentAttributes}>
-        <cq:include script="/apps/aemdesign/components/layout/container/container.jsp"/>
+        <cq:include path="par" resourceType="aemdesign/components/layout/container"/>
     </dl>
 </section>

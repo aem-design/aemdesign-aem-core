@@ -1,3 +1,3 @@
 <header ${componentProperties.componentAttributes}>
-    <cq:include script="/apps/aemdesign/components/layout/container/container.jsp"/>
+    <cq:include path="par" resourceType="aemdesign/components/layout/container"/>
 </header>

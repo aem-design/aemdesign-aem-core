@@ -2,4 +2,4 @@
 <c:if test="${CURRENT_WCMMODE ne WCMMODE_DISABLED}">
     <cq:include path="redirectnotification" resourceType="aemdesign/components/common/redirectnotification" />
 </c:if>
-<cq:include script="/apps/aemdesign/components/layout/container/container.jsp"/>
+<cq:include path="par" resourceType="aemdesign/components/layout/container"/>
