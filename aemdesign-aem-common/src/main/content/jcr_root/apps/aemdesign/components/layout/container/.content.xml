@@ -5,5 +5,5 @@
     jcr:title="Container"
     cq:isContainer="{Boolean}true"
     cq:icon="code"
-    sling:resourceSuperType="wcm/foundation/components/responsivegrid"
+    sling:resourceSuperType="aemdesign/components/layout/parsys"
     componentGroup=".hidden"/>
