@@ -6,6 +6,27 @@
 <!-- css: aemdesign.common.components -->
 <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
      data-sly-call="${clientlib.css @ categories='aemdesign.common.components'}"/>
+
+<!-- css: aemdesign.author -->
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-test="${!wcmmode.disabled}"
+     data-sly-call="${clientlib.css @ categories='aemdesign.author'}"/>
+<!-- all: aemdesign.common.components.author -->
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-test="${!wcmmode.disabled}"
+     data-sly-call="${clientlib.all @ categories='aemdesign.common.components.author'}"/>
+
+
+<!-- css: aemdesign.publish -->
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-test="${wcmmode.disabled}"
+     data-sly-call="${clientlib.css @ categories='aemdesign.publish'}"/>
+<!-- all: aemdesign.common.components.publish -->
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-test="${wcmmode.disabled}"
+     data-sly-call="${clientlib.all @ categories='aemdesign.common.components.publish'}"/>
+
+
 <!-- css: aemdesign.common.coralui -->
 <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
      data-sly-test="${wcmmode.preview || wcmmode.edit}"
