@@ -2,4 +2,4 @@
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:VirtualComponent"
     jcr:title="5 Column"
-    componentGroup="AEM.Design - Layout"/>
+    componentGroup=".hidden"/>

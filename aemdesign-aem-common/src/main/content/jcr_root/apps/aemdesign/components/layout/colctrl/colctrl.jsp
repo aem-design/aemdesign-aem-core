@@ -1,13 +1,35 @@
-<%@page session="false"%>
+<%@page session="false" %>
+<%@page import="com.day.cq.commons.jcr.JcrConstants,
+                com.day.cq.wcm.api.Page,
+                com.day.cq.wcm.api.WCMMode,
+                com.day.cq.wcm.api.components.IncludeOptions,
+                com.day.cq.wcm.api.components.Toolbar,
+                com.day.cq.wcm.foundation.Paragraph,
+                com.day.cq.wcm.foundation.ParagraphSystem,
+                java.util.HashSet" %>
+<%@ page import="java.util.Set" %>
+<%
+%>
 <%@include file="/apps/aemdesign/global/global.jsp" %>
-<%@ page import="com.day.cq.i18n.I18n,
-                 com.day.cq.wcm.api.WCMMode,
-                 com.day.cq.wcm.api.components.IncludeOptions,
-                 com.day.cq.wcm.api.components.Toolbar,
-                 com.day.cq.wcm.foundation.Paragraph,
-                 com.day.cq.wcm.foundation.Placeholder" %>
+<%@include file="/apps/aemdesign/global/components.jsp" %>
+<%@include file="/apps/aemdesign/global/utils.jsp" %>
+<%@include file="/apps/aemdesign/global/paragraph.jsp" %>
 <%
 
+    final String DEFAULT_LAYOUT = "1;colctrl-1c";
+    ParagraphSystem parSys = ParagraphSystem.create(resource, slingRequest);
+    String newType = resource.getResourceType() + "/new";
+
+    ComponentProperties componentProperties = getNewComponentProperties(pageContext);
+
+    Object[][] componentFields = {
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"layout", DEFAULT_LAYOUT},
+    };
+
+    String COMPONENT_NAMESPACE = "aemdesign.components.layout.colctrl";
+    String COMPONENT_NAMESPACE_PROPERTIES = ".componentProperties";
+    String COMPONENT_NAMESPACE_CURRENTCOLUMN = ".currentColumn";
 
     //this is being used some other way, Touch UI ajax
     Boolean isForceEditContext = false;
@@ -16,17 +38,29 @@
     WCMMode editMode = WCMMode.fromRequest(request);
     String layout = defaultLayout;
     Integer numCols = 0;
+    Integer currentColumn = 0;
     Paragraph.Type controType = Paragraph.Type.NORMAL;
     String path = resource.getPath();
 
     isForceEditContext = isForceEditContext(_slingRequest);
     uiType = UIMode(_slingRequest);
 
+    //Paragraph par = (Paragraph) resource;
+
     if (resource instanceof Paragraph) {
         Paragraph par = (Paragraph) resource;
         numCols = par.getNumCols();
         controType = par.getType();
         path = par.getPath();
+
+        componentProperties = getComponentProperties(
+                pageContext,
+                _currentPage,
+                par.getPath().replace(_currentPage.getPath() + "/" + JcrConstants.JCR_CONTENT, "."),
+                componentFields,
+                DEFAULT_FIELDS_STYLE,
+                DEFAULT_FIELDS_ACCESSIBILITY);
+
     } else {
         ValueMap resProp = resource.adaptTo(ValueMap.class);
 
@@ -47,6 +81,8 @@
         }
     }
 
+    String[] columnsFormat = new String[0];
+
     if (editContext != null && WCMMode.fromRequest(request) == WCMMode.EDIT) {
         switch (controType) {
             case START: {
@@ -58,7 +94,34 @@
                     // disable ordering to get consistent behavior
                     editContext.getEditConfig().setOrderable(false);
                 }
-//                out.write("<!--columns e start:-->");
+
+                //openRow(numCols,out, componentProperties);
+                //openCol(columnsFormat,0,"columnstart",out, componentProperties);
+
+                out.write("<!--columns e start:-->");
+
+                componentProperties = getComponentProperties(
+                        pageContext,
+                        _currentPage,
+                        componentFields,
+                        DEFAULT_FIELDS_STYLE,
+                        DEFAULT_FIELDS_ACCESSIBILITY);
+                componentProperties.put("numCols",numCols);
+
+                String currentLayout = componentProperties.get("layout",DEFAULT_LAYOUT);
+                if (currentLayout.contains(";")) {
+                    componentProperties.put("layout",currentLayout.split(";")[1]);
+                }
+
+                request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES), componentProperties);
+
+//                openRow(numCols, out, componentProperties);
+//                openCol(currentColumn, out, componentProperties);
+
+                currentColumn = currentColumn + 1;
+                request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn);
+
+
                 break;
             }
             case END: {
@@ -75,31 +138,108 @@
                     // the 'insert' bar with the same content path.
                     editContext.setContentPath(path + "_fake");
                 }
-//                out.write("<!--columns e end:-->");
+
+
+                componentProperties = (ComponentProperties) request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES));
+                request.removeAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES));
+                request.removeAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN));
+
+//                closeCol(null, out);
+//                closeRow(out, false);
+
+
+                out.write("<!--columns e end:-->");
                 break;
             }
-            case BREAK:
-//                out.write("<!--columns e break:-->");
+            case BREAK: {
+
+                //dont print anything if break is on a page on its own
+                if (request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES)) != null &&
+                        request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN)) != null) {
+
+                    componentProperties = (ComponentProperties) request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES));
+                    currentColumn = (Integer) request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN)) + 1;
+
+                    numCols = componentProperties.get("numCols",numCols);
+
+//                    closeCol(null, out);
+//                    openCol(currentColumn, out, componentProperties);
+
+                    request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn);
+
+                    String text = I18n.get(slingRequest, "Columns Break {0} of {1}", "Break", currentColumn-1, numCols-1);
+                    %><%= Placeholder.getDefaultPlaceholder(slingRequest, text, "", "cq-marker-break") %><%
+
+                }
+
+                out.write("<!--columns e break:-->");
                 break;
-            case NORMAL:
-//                out.write("<!--columns e normal:-->");
+                }
+            case NORMAL: {
+                out.write("<!--columns e normal:-->");
                 break;
+            }
         }
     } else {
         switch (controType) {
             case START: {
-//                out.write("<!--columns start:-->");
+                out.write("<!--columns start:-->");
+
+                componentProperties = getComponentProperties(
+                        pageContext,
+                        _currentPage,
+                        componentFields,
+                        DEFAULT_FIELDS_STYLE,
+                        DEFAULT_FIELDS_ACCESSIBILITY);
+                componentProperties.put("numCols",numCols);
+
+                String currentLayout = componentProperties.get("layout",DEFAULT_LAYOUT);
+                if (currentLayout.contains(";")) {
+                    componentProperties.put("layout",currentLayout.split(";")[1]);
+                }
+
+                numCols = componentProperties.get("numCols",numCols);
+
+                request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES), componentProperties);
+
+                openRow(numCols, out, componentProperties);
+                openCol(currentColumn, out, componentProperties);
+                currentColumn = currentColumn + 1;
+                request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn);
                 break;
             }
             case END: {
-//                out.write("<!--columns end:-->");
+
+                componentProperties = (ComponentProperties) request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES));
+                request.removeAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES));
+                request.removeAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN));
+
+                closeCol(null, out);
+                closeRow(out, false);
+                out.write("<!--columns end:-->");
                 break;
             }
             case BREAK:
-//                out.write("<!--columns break:-->");
+                //dont print anything if break is on a page on its own
+                if (request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES)) != null &&
+                        request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN)) != null) {
+
+                    componentProperties = (ComponentProperties) request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES));
+                    currentColumn = (Integer) request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN)) + 1;
+
+                    closeCol(null, out);
+                    openCol(currentColumn, out, componentProperties);
+
+                    request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn);
+                }
+
+                out.write("<!--columns break:-->");
                 break;
             case NORMAL:
-//                out.write("<!--columns content:-->");
+
+                componentProperties = (ComponentProperties) request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES));
+
+                out.write("<!--columns content:-->");
                 break;
         }
 

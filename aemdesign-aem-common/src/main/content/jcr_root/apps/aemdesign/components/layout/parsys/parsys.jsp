@@ -17,7 +17,7 @@
     String newType = resource.getResourceType() + "/new";
 
     ComponentProperties componentProperties = new ComponentProperties();
-
+    ComponentProperties componentProperties = getNewComponentProperties()
     Object[][] componentFields = {
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"layout", ""},

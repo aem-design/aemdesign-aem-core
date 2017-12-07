@@ -26,20 +26,40 @@
      * @param parSys list of pars being processed
      * @param par current par child of parSys being processed
      * @param out html output
+     * @param componentProperties component properties
      * @throws IOException
      */
     final void openRow(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties) throws IOException {
 
-        int n = par.getNumCols();
+        openRow(par.getNumCols(),out,componentProperties);
 
-        final String numColsCSS = MessageFormat.format("colctrl-{0}c",n);
+    }
 
-        componentProperties.attr.add("class", numColsCSS);
 
-        final String componentAttributes = componentProperties.attr.build().replaceAll("&#x20;"," ");
+    /**
+     * advanced open row
+     * @param numCols number of los
+     * @param out html output
+     * @param componentProperties component properties
+     * @throws IOException
+     */
+    final void openRow(Integer numCols, JspWriter out, ComponentProperties componentProperties) throws IOException {
 
-        //columns start div
-        out.write(MessageFormat.format("<div{0}>", componentAttributes));
+        final String numColsCSS = MessageFormat.format("colctrl-{0}c",numCols);
+
+        if (componentProperties!=null) {
+            componentProperties.attr.add("class", numColsCSS);
+
+            final String componentAttributes = componentProperties.attr.build().replaceAll("&#x20;", " ");
+
+            //columns start div
+            out.write(MessageFormat.format("<div{0}>", componentAttributes));
+
+        } else {
+            out.write(MessageFormat.format("<div class=\"{}\">", numColsCSS));
+
+        }
+
 
         // row start
         out.write(MessageFormat.format("<div class=\"parsys_column {0}\">","row"));
@@ -84,18 +104,46 @@
      */
     final void openCol(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties) throws IOException {
 
-        //expected width format: col-md-,4,4,4
-        String[] width = par.getBaseCssClass().split(",");
-        int n = par.getColNr();
+        openCol(par.getBaseCssClass().split(","),par.getColNr(),par.getCssClass(),out,componentProperties);
+
+    }
+
+    /**
+     * used by classic column component, write opening tags for the column for Paragraph System, also check if base alignment is required based
+     * @param colNumber current column number
+     * @param out html output
+     * @throws IOException
+     */
+    final void openCol(String[] columnsFormat, Integer colNumber, String columnClass, JspWriter out, ComponentProperties componentProperties) throws IOException {
 
         //print column start
-        if (width.length > 1) {
+        if (columnsFormat.length > 1 && (colNumber + 1) < columnsFormat.length) {
             //take the [0] = [col-md-] and add to it width by current column number
-            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}{2}\">", "col-sm", width[0], width[n + 1])); //EXTENDED
+            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}{2}\">", "col-sm", columnsFormat[0], columnsFormat[colNumber + 1])); //EXTENDED
         } else {
             //out.write("<div class='parsys_column " + par.getBaseCssClass() + " col-" + n + "'>");
-            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}\">", "col-sm", par.getCssClass())); //ORIGINAL
+            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}\">", "col-sm", columnClass)); //ORIGINAL
         }
+    }
+
+    /**
+     * used by classic column component, write opening tags for the column for Paragraph System, also check if base alignment is required based
+     * @param colNumber current column number
+     * @param out html output
+     * @throws IOException
+     */
+    final void openCol(Integer colNumber, JspWriter out, ComponentProperties componentProperties) throws IOException {
+
+        String[] columnsFormat = new String[0];
+        String defaultFormat = "1;colctrl-1c";
+        String columnClass = "colctrl";
+
+        if (componentProperties != null) {
+            columnsFormat = componentProperties.get("layout",defaultFormat).split(",");
+            columnClass = componentProperties.get("class",columnClass);
+        }
+
+        openCol(columnsFormat, colNumber, columnClass, out, componentProperties);
     }
 
     /**

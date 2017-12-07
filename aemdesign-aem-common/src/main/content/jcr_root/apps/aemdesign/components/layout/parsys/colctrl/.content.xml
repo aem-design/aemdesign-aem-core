@@ -3,6 +3,6 @@
     cq:isContainer="true"
     jcr:primaryType="cq:Component"
     jcr:title="Column Control"
-    sling:resourceSuperType="/libs/foundation/components/parsys/colctrl"
+    sling:resourceSuperType="aemdesign/components/layout/colctrl"
     componentGroup="Columns"
     allowedParents="[*/parsys]"/>
