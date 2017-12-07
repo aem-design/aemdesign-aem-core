@@ -5,10 +5,7 @@ window.AEMDESIGN.author.components = AEMDESIGN.author.components || {};
 window.AEMDESIGN.author.components.list = AEMDESIGN.author.components.list || {};
 
 
-(function ($, ns, log, CQ, Granite, window, undefined) { //add additional dependencies
+(function ($, ns, log, Granite, window, undefined) { //add additional dependencies
 
-    CQ.Ext.onReady(function() {
-        //log.info("extjs list author behaviour");
-    });
 
-})(AEMDESIGN.jQuery, AEMDESIGN.author.components.list, AEMDESIGN.log, CQ, Granite,  this); //pass in additional dependencies
+})(AEMDESIGN.jQuery, AEMDESIGN.author.components.list, AEMDESIGN.log, Granite,  this); //pass in additional dependencies

@@ -23,4 +23,4 @@ window.AEMDESIGN.author.components.list = AEMDESIGN.author.components.list || {}
     };
 
 
-})(AEMDESIGN.jQuery, AEMDESIGN.author.components.list, AEMDESIGN.dialog, CQ, Granite, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery, AEMDESIGN.author.components.list, AEMDESIGN.dialog, Granite, this); //pass in additional dependencies
