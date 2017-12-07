@@ -27,7 +27,7 @@
 %>
 <c:choose>
     <c:when test="<%= yearList == null %>">
-        <p class="cq-info">Please setup the oldest year</p>
+        <p class="component searchlist notfound">Please setup the oldest year</p>
     </c:when>
 
     <c:otherwise>

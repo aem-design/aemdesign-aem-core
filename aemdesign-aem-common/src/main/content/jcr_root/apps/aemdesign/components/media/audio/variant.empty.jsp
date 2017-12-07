@@ -1,1 +1,1 @@
-<p class="cq-info">Please configure the audio component</p>
+<p class="component notfound">Please configure the audio component</p>
