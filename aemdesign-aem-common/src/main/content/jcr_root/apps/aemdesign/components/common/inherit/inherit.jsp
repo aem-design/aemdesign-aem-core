@@ -39,14 +39,15 @@
         LOG.error("Could not check request suffix {}: ", editingModeCookie.getValue(), err);
     }
 %>
+<!-- inherit:start -->
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
-    <c:when test="<%=!cancelInheritParent%>">
+    <c:when test="${!componentProperties.cancelInheritParent}">
         <%@ include file="findparent.jsp" %>
     </c:when>
     <c:otherwise>
         <%@ include file="render.jsp" %>
     </c:otherwise>
 </c:choose>
-
+<!-- inherit:end -->
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>

@@ -1258,6 +1258,29 @@
         }
     }
 
+    //TODO: convert this to JSTL TAG
+    /***
+     * render a resource path as HTML to include in components that reuse content in other resources
+     * @param resource path to resources
+     * @param resourceResolver resource resolver for request
+     * @param sling sling helper
+     * @return html string of output
+     */
+    public String resourceRenderAsHtml(Resource resource, ResourceResolver resourceResolver, SlingScriptHelper sling) {
+        if (resource == null || resourceResolver == null || sling ==null) {
+            String error = format(
+                    "resourceRenderAsHtml4: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
+                    ,resource,resourceResolver,sling);
+            getLogger().error(error);
+            return "<!--".concat(error).concat("-->");
+        }
+        try {
+            return resourceRenderAsHtml(resource.getPath(), resourceResolver, sling, null, null);
+        } catch (SlingException ex) {
+            return "<!--resourceRenderAsHtml:".concat(ex.getMessage()).concat("-->");
+        }
+    }
+
     /***
      * render a resource path as HTML to include in components that reuse content in other resources
      * @param path path to resources

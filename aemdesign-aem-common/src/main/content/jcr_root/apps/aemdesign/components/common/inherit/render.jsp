@@ -1,3 +1,6 @@
 <%
 // do nothing here.
-%><cq:include path="par" resourceType="aemdesign/components/layout/container"/>
+%>
+<!-- inherit.render:start -->
+<cq:include path="par" resourceType="aemdesign/components/layout/parsys"/>
+<!-- inherit.render:end -->

@@ -1275,6 +1275,78 @@
         return returnValue;
     }
 
+
+    /***
+     * find an ancestor resource matching current resource
+     * @param currentPage
+     * @param componentContext
+     * @return
+     */
+    private Resource findInheritedResource(Page currentPage, ComponentContext componentContext) {
+        final String pageResourcePath = currentPage.getContentResource().getPath(); // assume that page have resource
+        final Resource thisResource = componentContext.getResource();
+        final String nodeResourceType = thisResource.getResourceType();
+        final String relativePath = thisResource.getPath().replaceFirst(pageResourcePath.concat("/"),"");
+
+        // defn of a parent node
+        // 1. is from parent page
+        // 2. same sling resource type
+        // 3. same relative path
+
+        Page curPage = currentPage.getParent();
+        Resource curResource = null;
+        Boolean curResourceTypeMatch = false;
+        Boolean curCancelInheritParent = false;
+        ValueMap curProperties = null;
+
+        try {
+            while (null != curPage) {
+                // find by same relative path
+
+                String error = format(
+                        "findInheritedResource: looking for inherited resource for path=\"{0}\" by relative path=\"{1}\" in parent=\"{2}\""
+                        ,pageResourcePath,relativePath,curPage.getPath());
+                getLogger().error(error);
+
+                try {
+                    curResource = curPage.getContentResource(relativePath);
+                } catch (Exception e) {
+                    LOG.info("Failed to get  " + relativePath + " from " + curPage.getContentResource().getPath());
+                }
+
+                if (null != curResource) {
+                    //check for inherit flag + sling resource type
+                    //Boolean cancelInheritParent = properties.get("cancelInheritParent","").contentEquals("true");
+
+                    curProperties = curResource.adaptTo(ValueMap.class);
+                    curResourceTypeMatch = nodeResourceType.contentEquals(curResource.getResourceType());
+                    curCancelInheritParent = curProperties.get("cancelInheritParent", "").contentEquals("true");
+
+                    if (curResourceTypeMatch && curCancelInheritParent) {
+                        String found = format(
+                                "findInheritedResource: FOUND looking for inherited resource for path=\"{0}\" by relative path=\"{1}\" in parent=\"{2}\""
+                                ,pageResourcePath,relativePath,curPage.getPath());
+                        getLogger().error(found);
+
+                        break;
+                    } else {
+                        String notfound = format(
+                                "findInheritedResource: NOT FOUND looking for inherited resource for path=\"{0}\" by relative path=\"{1}\" in parent=\"{2}\""
+                                ,pageResourcePath,relativePath,curPage.getPath());
+                        getLogger().error(notfound);
+
+                    }
+                }
+
+                curPage = curPage.getParent();
+            }
+        } catch (Exception ex) {
+            LOG.info("Failed to find inherited resource. {}", ex);
+        }
+
+        return curResource;
+    }
+
 %>
 <c:set var="DEFAULT_VARIANT" value="<%= DEFAULT_VARIANT %>"/>
 <c:set var="DEFAULT_VARIANT_HIDDEN" value="<%= DEFAULT_VARIANT_HIDDEN %>"/>
