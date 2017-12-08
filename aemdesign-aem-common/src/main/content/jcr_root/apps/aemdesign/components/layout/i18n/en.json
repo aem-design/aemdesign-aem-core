@@ -1,4 +1,6 @@
 {
   "backtotoplabel ((contentblock))": "Back to Top",
   "backtotoptitle ((contentblock))": "Back to Top",
+
+  "parentnotfound ((inherit))": "No parent page specifies how to render this component"
 }

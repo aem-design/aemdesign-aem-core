@@ -12,6 +12,12 @@
                     sling:resourceType="granite/ui/components/coral/foundation/accordion">
                 <items jcr:primaryType="nt:unstructured">
 
+                    <inherit
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Inherit"
+                            path="/apps/aemdesign/global/dialog/touch/inherit_design/content"
+                            resourceType="granite/ui/components/coral/foundation/container"
+                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
                     <inherit
                             jcr:primaryType="nt:unstructured"
@@ -33,7 +39,7 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     jcr:title="Inherit"
                                                     granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/common/inherit/cq:dialog/content/items/inheritTab/items/column/items/inherit"
+                                                    path="/apps/aemdesign/components/layout/inherit/cq:dialog/content/items/inheritTab/items/column/items/inherit"
                                                     resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
