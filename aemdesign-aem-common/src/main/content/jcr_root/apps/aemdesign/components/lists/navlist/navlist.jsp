@@ -5,6 +5,7 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/component-details.jsp" %>
 <%@ include file="/apps/aemdesign/global/utils.jsp" %>
+<%@ include file="/apps/aemdesign/global/i18n.jsp" %>
 <%@ include file="navlistdata.jsp" %>
 <%@page session="false" %>
 
@@ -19,7 +20,8 @@
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"listFrom", DEFAULT_LISTFROM},
             {"parentPage", getPrimaryPath(_slingRequest)},
-            {"linkTitlePrefix", _i18n.get("linkTitlePrefix","navlist")}
+            {"linkTitlePrefix", _i18n.get("linkTitlePrefix","navlist")},
+            {COMPONENT_CANCEL_INHERIT_PARENT, false},
     };
     ComponentProperties componentProperties = getComponentProperties(
             pageContext,
@@ -48,9 +50,19 @@
     componentProperties.put("subMenu",_i18n.get("subMenu","navlist"));
     componentProperties.put("goToTopOfPage",_i18n.get("goToTopOfPage","navlist"));
 
+    componentProperties.put(INHERITED_RESOURCE,findInheritedResource(_currentPage,_componentContext));
+    componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,getDefaultLabelIfEmpty("",DEFAULT_I18N_INHERIT_CATEGORY,DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,DEFAULT_I18N_INHERIT_CATEGORY,_i18n));
+
 %>
-<c:set var="componentProperties" value="<%= componentProperties %>" />
+<c:set var="inheritedResource" value="${componentProperties.inheritedResource}"/>
+
 <c:choose>
+    <c:when test="${!componentProperties.cancelInheritParent and empty componentProperties.inheritedResource}">
+        <%@ include file="parent.notfound.jsp" %>
+    </c:when>
+    <c:when test="${!componentProperties.cancelInheritParent}">
+        <%@ include file="parent.render.jsp" %>
+    </c:when>
     <c:when test="${componentProperties.variant == 'simple'}">
         <%@ include file="variant.simple.jsp" %>
     </c:when>
@@ -61,3 +73,4 @@
         <%@ include file="variant.default.jsp" %>
     </c:otherwise>
 </c:choose>
+<%@include file="/apps/aemdesign/global/component-badge.jsp" %>
