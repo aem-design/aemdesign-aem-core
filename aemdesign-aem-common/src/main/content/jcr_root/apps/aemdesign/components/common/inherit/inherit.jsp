@@ -43,10 +43,10 @@
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
     <c:when test="${!componentProperties.cancelInheritParent}">
-        <%@ include file="findparent.jsp" %>
+        <cq:include script="findparent.jsp"/>
     </c:when>
     <c:otherwise>
-        <%@ include file="render.jsp" %>
+        <cq:include script="render.jsp"/>
     </c:otherwise>
 </c:choose>
 <!-- inherit:end -->
