@@ -115,6 +115,11 @@
     private static final String COMPONENT_TARGET_RESOURCE = "targetResource";
     private static final String COMPONENT_ATTRIBUTE_CLASS = "class";
 
+
+    private static final String COMPONENT_CANCEL_INHERIT_PARENT = "cancelInheritParent";
+
+
+
     private static final String PAR_PAGEDETAILS = "par/page-details";
     private static final String ARTICLE_PAR_PAGEDETAILS = "article/par/page-details";
     private static final String ARTICLE_CONTENTS = "article/par";
@@ -1316,11 +1321,11 @@
 
                 if (null != curResource) {
                     //check for inherit flag + sling resource type
-                    //Boolean cancelInheritParent = properties.get("cancelInheritParent","").contentEquals("true");
+                    //Boolean cancelInheritParent = properties.get(COMPONENT_CANCEL_INHERIT_PARENT","").contentEquals("true");
 
                     curProperties = curResource.adaptTo(ValueMap.class);
                     curResourceTypeMatch = nodeResourceType.contentEquals(curResource.getResourceType());
-                    curCancelInheritParent = curProperties.get("cancelInheritParent", "").contentEquals("true");
+                    curCancelInheritParent = curProperties.get(COMPONENT_CANCEL_INHERIT_PARENT, "").contentEquals("true");
 
                     if (curResourceTypeMatch && curCancelInheritParent) {
                         String found = format(
