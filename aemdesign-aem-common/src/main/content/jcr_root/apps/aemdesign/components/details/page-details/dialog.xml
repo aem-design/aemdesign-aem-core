@@ -5,6 +5,7 @@
         title="Page Details"
         height="490"
         width="600"
+        helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/page-details"
         xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
         <tabs jcr:primaryType="cq:TabPanel">
