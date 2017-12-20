@@ -1,7 +1,7 @@
-Link
-====
+Page Details
+============
 
-Link component
+Page Details component
 
 # Overview
 
