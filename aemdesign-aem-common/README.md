@@ -59,3 +59,5 @@ touch-icon_76.png
 touch-icon_120.png
 touch-icon_152.png
 ```
+
+You can generate the icons un this site [https://realfavicongenerator.net/](https://realfavicongenerator.net/) select the "Use Old Package" option.
