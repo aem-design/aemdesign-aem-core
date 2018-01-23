@@ -1,0 +1,10 @@
+Release Maven:
+  stage: release
+  image: maven:3-jdk-8
+  script:
+    - git checkout master
+    - git reset --hard "origin/master"
+    # Gitlab clones as HTTPS and there's no plan to support SSH
+    # The SSH key needed is built into the custom Maven image
+    - git remote set-url origin $SSH_GIT_URL
+    - mvn --batch-mode clean release:prepare release:perform -Dresume=false -DautoVersionSubmodules=true -DdryRun=false -Dmaven.test.skip=true -DskipITs -DscmCommentPrefix="[ci skip]"
