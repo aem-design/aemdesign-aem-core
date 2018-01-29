@@ -3,29 +3,41 @@ AEM Design Common Components
 
 This a content package project generated using the multimodule-content-package-archetype.
 
+Component Naming Convention
+---------------------------
+
+Some conventions for component creation
+
+* all component should be located in their functional authoring category
+* all component names should be lowercase
+* all component names should only be alphanumeric
+* all "Details" components should have a suffix of "-details", this is used for component search reference
+* all "List" components should have a suffix "list", this is used only as a name convention
+
+Component Attributes Naming Convention
+--------------------------------------
+
+Please follow following conventions for naming attriutes
+
+* all attributes should be in camelCase
+
 Building
 --------
 
-This project uses Maven for building. Common commands:
+Use the deploy script to deploy into AEM.Design VM
 
-From the root directory, run ``mvn -PautoInstallPackage clean install`` to build the bundle and content package and install to a CQ instance.
+```bash
+./deploy
+```
 
-From the bundle directory, run ``mvn -PautoInstallBundle clean install`` to build *just* the bundle and install to a CQ instance.
+or
 
-Using with VLT
---------------
+Use the deploy script to deploy into local AEM instance
 
-To use vlt with this project, first build and install the package to your local CQ instance as described above. Then cd to `content/src/main/content/jcr_root` and run
+```bash
+./deploy-local
+```
 
-    vlt --credentials admin:admin checkout -f ../META-INF/vault/filter.xml --force http://localhost:4502/crx
-
-Once the working copy is created, you can use the normal ``vlt up`` and ``vlt ci`` commands.
-
-Specifying CRX Host/Port
-------------------------
-
-The CRX host and port can be specified on the command line with:
-mvn -Dcrx.host=otherhost -Dcrx.port=5502 <goals>
 
 Maven Archetype Command
 -----------------------
