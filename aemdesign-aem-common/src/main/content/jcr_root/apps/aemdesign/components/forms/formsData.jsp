@@ -16,7 +16,7 @@
 
     //public static final String NODE_PAR = "./article/par";
     public static final String RESOURCE_TYPE_FORMS_ACTION = "aemdesign/components/forms/actions/formRedirect";
-    public static final String RESOURCE_TYPE_FORMS_START = "aemdesign/components/forms/start";
+    public static final String RESOURCE_TYPE_FORMS_START = "aemdesign/components/forms/form";
 
 
 
