@@ -25,7 +25,8 @@
     @name Tags
     @location /libs/cq/gui/components/common/datasources/tags
 
-    @property {String[]} [namespaces] The namespaces of the tags to return. Only the tag which namespace equals to one of this values is returned. If this property is not specified, all tags are returned.
+    @path {String[]} [namespaces] The namespaces of the tags to return. Only the tag which namespace equals to one of this values is returned. If this property is not specified, all tags are returned.
+    @variant {String[]} [namespaces] variant name
 
  */
 Config dsCfg = new Config(resource.getChild("datasource"));
