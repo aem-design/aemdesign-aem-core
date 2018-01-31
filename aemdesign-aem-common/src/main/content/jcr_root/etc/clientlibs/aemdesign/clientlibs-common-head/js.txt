@@ -1,5 +1,5 @@
 
-../vendor/tether/js/tether.js
+../vendor/tether/js/tether.min.js
 
 #../vendor/require/require.js
 ../vendor/jquery/jquery.min.js
