@@ -41,7 +41,7 @@ These fields are available for input by the authors. These fields are used in te
         <tr>
             <td>Content</td>
             <td>Label</td>
-            <td>linklabel</td>
+            <td>label</td>
             <td></td>
             <td>defines the text displayed</td>
         </tr>
