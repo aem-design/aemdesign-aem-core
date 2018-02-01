@@ -14,7 +14,7 @@
 
     //no lambada is available so this is the best that can be done
     Object[][] componentFields = {
-            {"searchURL", "/en/search"},
+            {"searchUrl", "/en/search"},
             {"formMethod", "get"},
             {"formParameterName", StringUtils.EMPTY},
             {"feedUrl", new String[0],"feed-urls"},

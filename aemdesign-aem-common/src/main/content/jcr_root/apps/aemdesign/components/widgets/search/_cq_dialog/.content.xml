@@ -35,11 +35,11 @@
 
 
 
-                                    <searchURL
+                                    <searchUrl
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldLabel="Search URL"
-                                            name="./searchURL"/>
+                                            name="./searchUrl"/>
                                     <formMethod
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
