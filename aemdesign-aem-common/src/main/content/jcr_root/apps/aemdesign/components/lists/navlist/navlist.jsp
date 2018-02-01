@@ -54,8 +54,8 @@
     componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,getDefaultLabelIfEmpty("",DEFAULT_I18N_INHERIT_CATEGORY,DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,DEFAULT_I18N_INHERIT_CATEGORY,_i18n));
 
 %>
+<c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:set var="inheritedResource" value="${componentProperties.inheritedResource}"/>
-
 <c:choose>
     <c:when test="${!componentProperties.cancelInheritParent and empty componentProperties.inheritedResource}">
         <%@ include file="parent.notfound.jsp" %>

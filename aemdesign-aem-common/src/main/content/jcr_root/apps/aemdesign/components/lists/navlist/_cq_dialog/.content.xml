@@ -1,375 +1,209 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-    jcr:primaryType="nt:unstructured"
-    jcr:title="Nav List"
-    sling:resourceType="cq/gui/components/authoring/dialog"
-    helpPath="en/cq/current/wcm/default_components.html#List">
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Nav List"
+          sling:resourceType="cq/gui/components/authoring/dialog">
     <content
-        jcr:primaryType="nt:unstructured"
-        sling:resourceType="granite/ui/components/coral/foundation/tabs">
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                type="nav"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
+
             <inheritTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Inherit"
-                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
-                <items jcr:primaryType="nt:unstructured">
-                    <column
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
-                            <cancelinheritparent
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                fieldLabel="Cancel Inherit Parent"
-                                name="./cancelInheritParent"
-                                value="">
-                                <datasource
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                        variant="valuelist"
-                                        path="/etc/tags/component-dialog/common/true-false"/>
-                            </cancelinheritparent>
-                        </items>
-                    </column>
-                </items>
-            </inheritTab>
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Inherit"
+                    path="/apps/aemdesign/components/common/inherit/cq:dialog/content/items/inheritTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
             <listTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Nav List"
-                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="List"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
-                    <column
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/container">
+                    <column1
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
-                            <listFrom
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                fieldLabel="Build list using"
-                                name="./listFrom"
-                                value="">
+                            <basic
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="List"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <children
-                                        jcr:primaryType="nt:unstructured"
-                                        text="Child pages"
-                                        value="children"/>
-                                    <static
-                                        jcr:primaryType="nt:unstructured"
-                                        text="Fixed list"
-                                        value="static"/>
+                                    <listFrom
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            class="cq-dialog-dropdown-showhide"
+                                            cq-dialog-dropdown-showhide-target=".list-option-listfrom-showhide-target"
+                                            fieldLabel="Build list using"
+                                            emptyOption="{Boolean}true"
+                                            name="./listFrom">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <children
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Child pages"
+                                                    value="children"/>
+                                            <static
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Fixed list"
+                                                    value="static"/>
+                                        </items>
+                                    </listFrom>
+                                    <setChildren
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/container"
+                                            class="hide list-option-listfrom-showhide-target foundation-layout-util-vmargin"
+                                            showhidetargetvalue="children">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <heading
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/heading"
+                                                    class="coral-Heading coral-Heading--4"
+                                                    level="{Long}4"
+                                                    text="Options for Child Pages"/>
+                                            <well
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/container">
+                                                <layout
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <parentPage
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                            fieldDescription="Leave empty to use current page"
+                                                            fieldLabel="Parent page"
+                                                            name="./parentPage"
+                                                            rootPath="/content"/>
+                                                </items>
+                                            </well>
+                                        </items>
+                                    </setChildren>
+                                    <setStatic
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/container"
+                                            class="hide list-option-listfrom-showhide-target foundation-layout-util-vmargin"
+                                            showhidetargetvalue="static">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <heading
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/heading"
+                                                    class="coral-Heading coral-Heading--4"
+                                                    level="{Long}4"
+                                                    text="Options for Fixed list"/>
+                                            <well
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/container">
+                                                <layout
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <pages
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
+                                                            class="foundation-layout-util-maximized-alt">
+                                                        <field
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                name="./pages"
+                                                                rootPath="/content"/>
+                                                    </pages>
+                                                </items>
+                                            </well>
+                                        </items>
+                                    </setStatic>
                                 </items>
-                            </listFrom>
+                            </basic>
                         </items>
-                    </column>
+                    </column1>
                 </items>
             </listTab>
-            <childrenTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Child pages"
-                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
-                <items jcr:primaryType="nt:unstructured">
-                    <column
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
-                            <parentPage
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                                fieldDescription="Leave empty to use current page"
-                                fieldLabel="Parent page"
-                                name="./parentPage"/>
-                        </items>
-                    </column>
-                </items>
-            </childrenTab>
-            <staticTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Fixed list"
-                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
-                <items jcr:primaryType="nt:unstructured">
-                    <column
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
-                            <pages
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
-                                fieldDescription="Click the '+' to add a new page"
-                                fieldLabel="Pages">
-                                <field
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                                    name="./pages"
-                                    required="{Boolean}false"/>
-                            </pages>
-                        </items>
-                    </column>
-                </items>
-            </staticTab>
+
+
             <layoutTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Layout"
-                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Layout"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/container">
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <variant
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                fieldLabel="Variant"
-                                name="./variant"
-                                value="">
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Layout"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <default
-                                        jcr:primaryType="nt:unstructured"
-                                        text="Default"
-                                        value=""/>
-                                    <full
-                                        jcr:primaryType="nt:unstructured"
-                                        text="Full Nav"
-                                        value="full"/>
-                                    <simple
-                                        jcr:primaryType="nt:unstructured"
-                                        text="Simple"
-                                        value="simple"/>
+                                    <variant
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldLabel="Variant"
+                                            name="./variant"
+                                            value="">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <default
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Default"
+                                                    value=""/>
+                                            <full
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Full Nav"
+                                                    value="full"/>
+                                            <simple
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Simple"
+                                                    value="simple"/>
+
+                                        </items>
+                                    </variant>
+
+                                    <linkTitlePrefix
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Text prefix for Nav link title '{Prefix} {Link Title}'"
+                                            fieldLabel="Title Prefix"
+                                            name="./linkTitlePrefix"/>
+
                                 </items>
                             </variant>
-                            <linkTitlePrefix
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                fieldDescription="Text prefix for Nav link title '{Prefix} {Link Title}'"
-                                fieldLabel="Title Prefix"
-                                name="./linkTitlePrefix"/>
                         </items>
                     </column>
                 </items>
             </layoutTab>
+
+
+
             <styleTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Style"
-                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
-                <items jcr:primaryType="nt:unstructured">
-                    <column
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
-                            <componentId
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                fieldLabel="ID"
-                                name="./componentId"
-                                required="{Boolean}false"/>
-                            <componentTheme
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
-                                fieldLabel="Theme"
-                                multiple="{Boolean}true"
-                                name="./componentTheme"/>
-                            <componentModifiers
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
-                                fieldLabel="Modifiers"
-                                multiple="{Boolean}true"
-                                name="./componentModifiers"/>
-                            <componentModule
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
-                                fieldLabel="Module"
-                                multiple="{Boolean}true"
-                                name="./componentModule"/>
-                            <componentChevron
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
-                                fieldLabel="Chevron"
-                                multiple="{Boolean}true"
-                                name="./componentChevron"/>
-                            <componentIcon
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
-                                fieldLabel="Icon"
-                                multiple="{Boolean}true"
-                                name="./componentIcon"/>
-                            <componentBooleanAttrs
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="cq/gui/components/coral/common/form/tagfield"
-                                fieldLabel="Boolean Attributes"
-                                multiple="{Boolean}true"
-                                name="./componentBooleanAttrs"/>
-                            <position
-                                jcr:primaryType="nt:unstructured"
-                                jcr:title="Position coordinates"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <positions
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
-                                        fieldDescription="The X and Y values of the Position"
-                                        fieldLabel="Positions">
-                                        <width
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                            name="./positionX"
-                                            unit="X position"/>
-                                        <height
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                            name="./positionY"
-                                            unit="Y position"/>
-                                    </positions>
-                                </items>
-                            </position>
-                            <animation
-                                jcr:primaryType="nt:unstructured"
-                                jcr:title="Animation"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <animationConfigGroupLabel/>
-                                    <animationEnabled
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="Should the animation be enabled for this component?"
-                                        fieldLabel="Enable animations"
-                                        name="./animationEnabled"
-                                        value="">
-                                        <items jcr:primaryType="nt:unstructured"/>
-                                    </animationEnabled>
-                                    <animationName
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="The type of animation to run"
-                                        fieldLabel="Name"
-                                        name="./animationName"
-                                        value="">
-                                        <items jcr:primaryType="nt:unstructured"/>
-                                    </animationName>
-                                    <animationOnce
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="Should the animation only run once? By default is runs everytime you scroll past the element on the page"
-                                        fieldLabel="Run Once?"
-                                        name="./animationOnce"
-                                        value="">
-                                        <items jcr:primaryType="nt:unstructured"/>
-                                    </animationOnce>
-                                    <animationEasing
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="How should the animation play?"
-                                        fieldLabel="Easing"
-                                        name="./animationEasing"
-                                        value="">
-                                        <items jcr:primaryType="nt:unstructured"/>
-                                    </animationEasing>
-                                    <animationDelay
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                        defaultValue=""
-                                        fieldDescription="How many milliseconds should occur before the animation runs?"
-                                        fieldLabel="Delay"
-                                        name="./animationDelay"
-                                        required="{Boolean}false"
-                                        step="100"/>
-                                    <animationDuration
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                        defaultValue=""
-                                        fieldDescription="How long should the animation run for? Minimum is '400' and the maximum is '3000'. Values must be in increments of 50, i.e. 450, 500, 550..."
-                                        fieldLabel="Duration"
-                                        name="./animationDuration"
-                                        required="{Boolean}false"
-                                        step="50"/>
-                                </items>
-                            </animation>
-                        </items>
-                    </column>
-                </items>
-            </styleTab>
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Style"
+                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
             <accessibilityTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Accessibility"
-                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
-                <items jcr:primaryType="nt:unstructured">
-                    <column
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
-                            <ariaLabel
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                fieldDescription="Defines a string value that labels the current element."
-                                fieldLabel="Aria Label"
-                                name="./ariaLabel"
-                                required="{Boolean}false"/>
-                            <ariaRole
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                fieldDescription="Main indicator of type. This semantic association allows tools to present and support interaction with the object in a manner that is consistent with user expectations about other objects of that type."
-                                fieldLabel="Aria Role"
-                                name="./ariaRole"
-                                value="">
-                                <items jcr:primaryType="nt:unstructured"/>
-                            </ariaRole>
-                            <ariaDescribedBy
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                fieldDescription="Identifies the element (or elements) that describes the object."
-                                fieldLabel="Aria Described By"
-                                name="./ariaDescribedBy"
-                                required="{Boolean}false"/>
-                            <ariaLabelledBy
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                fieldDescription="Identifies the element (or elements) that labels the current element."
-                                fieldLabel="Aria Labelled By"
-                                name="./ariaLabelledBy"
-                                required="{Boolean}false"/>
-                            <ariaControls
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
-                                fieldLabel="Aria Controls"
-                                name="./ariaControls"
-                                required="{Boolean}false"/>
-                            <ariaLive
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                fieldDescription="Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region."
-                                fieldLabel="Aria Live"
-                                name="./ariaLive"
-                                value="">
-                                <items jcr:primaryType="nt:unstructured"/>
-                            </ariaLive>
-                            <ariaHidden
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                fieldDescription="Indicates that the element and all of its descendants are not visible or perceivable to any user as implemented by the author."
-                                fieldLabel="Aria Hidden"
-                                name="./ariaHidden"
-                                value="">
-                                <items jcr:primaryType="nt:unstructured"/>
-                            </ariaHidden>
-                            <ariaHaspopup
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                fieldDescription="Indicates that the element has a popup context menu or sub-level menu."
-                                fieldLabel="Aria Has-Popup"
-                                name="./ariaHaspopup"
-                                value="">
-                                <items jcr:primaryType="nt:unstructured"/>
-                            </ariaHaspopup>
-                            <ariaAccessKey
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
-                                fieldLabel="Access Key"
-                                name="./ariaAccessKey"
-                                required="{Boolean}false"/>
-                        </items>
-                    </column>
-                </items>
-            </accessibilityTab>
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Accessibility"
+                    path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <analyticsTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Analytics"
+                    path="/apps/aemdesign/global/dialog/touch/analytics/content/items/analyticsTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
         </items>
     </content>
+
 </jcr:root>
+
