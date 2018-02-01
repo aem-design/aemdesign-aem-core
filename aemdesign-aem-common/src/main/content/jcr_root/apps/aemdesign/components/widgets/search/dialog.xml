@@ -11,10 +11,10 @@
                            title="Search">
 
                     <items jcr:primaryType="cq:WidgetCollection">
-                        <searchUrl
+                        <formAction
                                 jcr:primaryType="cq:Widget"
                                 fieldLabel="Search URL"
-                                name="./searchUrl"
+                                name="./formAction"
                                 xtype="textfield" />
 
                         <formMethod

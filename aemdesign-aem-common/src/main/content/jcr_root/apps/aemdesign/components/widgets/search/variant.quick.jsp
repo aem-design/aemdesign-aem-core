@@ -1,7 +1,8 @@
 <div ${componentProperties.componentAttributes}>
-    <form ${componentProperties.componentAttributes} name="search" action="${componentProperties.searchUrl}"
-                                                method="${componentProperties.formMethod}"
-                                                data-modules="Search">
+    <form name="search"
+          action="${componentProperties.formAction}"
+          method="${componentProperties.formMethod}"
+          data-modules="search">
         <input type="search"
                name="${componentProperties.formParameterName}"
                placeholder="${componentProperties.placeholderText}">
