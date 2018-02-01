@@ -1,14 +1,13 @@
-Link
-====
+# Link
 
 Link component
 
-# Overview
+## Overview
 
 Component for creating links (calls to action) on a page.
 Call to Acton can be a Link or a Button.
 
-## Information
+### Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v1
 * **Compatibility**: AEM 6.3
@@ -17,14 +16,14 @@ Call to Acton can be a Link or a Button.
 * **Local Code**: /crx/de/#/apps/aemdesign/components/content/link
 * **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/link)
 
-## Features
+### Features
 * Provides support for anchor and button elements
 
-# Authoring
+## Authoring
 
 Following section covers authoring features
 
-## Edit Dialog properties
+### Edit Dialog properties
 
 These fields are available for input by the authors. These fields are used in templates
 
@@ -99,7 +98,7 @@ These fields are available for input by the authors. These fields are used in te
 </table>
 
 
-## Design Dialog Tabs
+### Design Dialog Tabs
 
 This enables creating of default values for components to be use in templates
 
@@ -152,7 +151,7 @@ This enables creating of default values for components to be use in templates
     </tbody>
 </table>
 
-# Variants
+## Variants
 
 This component has the following variants
 
