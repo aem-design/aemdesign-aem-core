@@ -21,6 +21,10 @@
     //use this for loggin
     private final Logger log = LoggerFactory.getLogger(getClass());
 
+    public final String COLUMN_CLASS = "col-sm"; //gets added to cols
+    public final String ROW_CLASS = "row"; //gets added to rows
+    public final String COLUMNS_CLASS = ""; //gets added to rows and columns
+
     /**
      * advanced open row
      * @param parSys list of pars being processed
@@ -62,7 +66,7 @@
 
 
         // row start
-        out.write(MessageFormat.format("<div class=\"parsys_column {0}\">","row"));
+        out.write(MessageFormat.format("<div class=\"{0} {1}\">",COLUMNS_CLASS, ROW_CLASS));
     }
 
     /**
@@ -110,8 +114,11 @@
 
     /**
      * used by classic column component, write opening tags for the column for Paragraph System, also check if base alignment is required based
-     * @param colNumber current column number
+     * @param columnsFormat columns format
+     * @param colNumber current column
+     * @param columnClass column class
      * @param out html output
+     * @param componentProperties columns componentProperties
      * @throws IOException
      */
     final void openCol(String[] columnsFormat, Integer colNumber, String columnClass, JspWriter out, ComponentProperties componentProperties) throws IOException {
@@ -119,10 +126,10 @@
         //print column start
         if (columnsFormat.length > 1 && (colNumber + 1) < columnsFormat.length) {
             //take the [0] = [col-md-] and add to it width by current column number
-            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}{2}\">", "col-sm", columnsFormat[0], columnsFormat[colNumber + 1])); //EXTENDED
+            out.write(MessageFormat.format("<div class=\"{0} {1} {2}{3}\">",COLUMNS_CLASS, COLUMN_CLASS, columnsFormat[0], columnsFormat[colNumber + 1])); //EXTENDED
         } else {
             //out.write("<div class='parsys_column " + par.getBaseCssClass() + " col-" + n + "'>");
-            out.write(MessageFormat.format("<div class=\"parsys_column {0} {1}\">", "col-sm", columnClass)); //ORIGINAL
+            out.write(MessageFormat.format("<div class=\"{0} {1} {2}\">",COLUMNS_CLASS, COLUMN_CLASS, columnClass)); //ORIGINAL
         }
     }
 
@@ -135,7 +142,7 @@
     final void openCol(Integer colNumber, JspWriter out, ComponentProperties componentProperties) throws IOException {
 
         String[] columnsFormat = new String[0];
-        String defaultFormat = "1;colctrl-1c";
+        String defaultFormat = "1;colctrl-1c"; //alt: col-md-,2,3,2,3,2
         String columnClass = "colctrl";
 
         if (componentProperties != null) {
@@ -430,11 +437,11 @@
         //print column start
         if (width.length > 1) {
             // take the [0] = [col-md-] and add to it width by current column number
-            out.write("<div class='col-sm " + width[0] + width[currColNumber] + "'>");
+            out.write("<div class='"+ COLUMN_CLASS +" " + width[0] + width[currColNumber] + "'>");
 
         } else {
             // take the [0] = [col-md-] and add to it width by current column number
-            out.write("<div class='col-sm " + width[0] + "'>");
+            out.write("<div class='"+ COLUMN_CLASS + " " + width[0] + "'>");
         }
     }
 

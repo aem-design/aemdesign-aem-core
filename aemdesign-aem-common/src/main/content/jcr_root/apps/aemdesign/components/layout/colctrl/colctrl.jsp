@@ -119,7 +119,7 @@
 //                openCol(currentColumn, out, componentProperties);
 
                 currentColumn = currentColumn + 1;
-                request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn);
+                request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn + 1);
 
 
                 break;
@@ -158,16 +158,16 @@
                         request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN)) != null) {
 
                     componentProperties = (ComponentProperties) request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES));
-                    currentColumn = (Integer) request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN)) + 1;
+                    currentColumn = (Integer) request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN));
 
                     numCols = componentProperties.get("numCols",numCols);
 
 //                    closeCol(null, out);
 //                    openCol(currentColumn, out, componentProperties);
 
-                    request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn);
+                    request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn + 1);
 
-                    String text = I18n.get(slingRequest, "Columns Break {0} of {1}", "Break", currentColumn-1, numCols-1);
+                    String text = I18n.get(slingRequest, "Columns Break {0} of {1}", "Break", currentColumn, numCols-1);
                     %><%= Placeholder.getDefaultPlaceholder(slingRequest, text, "", "cq-marker-break") %><%
 
                 }
@@ -204,8 +204,7 @@
 
                 openRow(numCols, out, componentProperties);
                 openCol(currentColumn, out, componentProperties);
-                currentColumn = currentColumn + 1;
-                request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn);
+                request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn + 1);
                 break;
             }
             case END: {
@@ -220,20 +219,22 @@
                 break;
             }
             case BREAK:
+
                 //dont print anything if break is on a page on its own
                 if (request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES)) != null &&
                         request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN)) != null) {
 
                     componentProperties = (ComponentProperties) request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES));
-                    currentColumn = (Integer) request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN)) + 1;
+                    currentColumn = (Integer) request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN)) ;
+
 
                     closeCol(null, out);
                     openCol(currentColumn, out, componentProperties);
 
-                    request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn);
+                    request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn + 1);
                 }
+                out.write("<!--column break:-->");
 
-                out.write("<!--columns break:-->");
                 break;
             case NORMAL:
 
