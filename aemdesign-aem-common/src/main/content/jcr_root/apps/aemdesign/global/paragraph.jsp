@@ -23,7 +23,7 @@
 
     public final String COLUMN_CLASS = "col-sm"; //gets added to cols
     public final String ROW_CLASS = "row"; //gets added to rows
-    public final String COLUMNS_CLASS = ""; //gets added to rows and columns
+    public final String COLUMNS_CLASS = "parsys_column"; //gets added to rows and columns
 
     /**
      * advanced open row
