@@ -4,8 +4,8 @@
 #../vendor/require/require.js
 ../vendor/jquery/jquery.min.js
 ../vendor/bootstrap/js/bootstrap.js
-../vendor/knockout/knockout.js
-../vendor/underscore/underscore.js
+../vendor/knockout/knockout.min.js
+../vendor/underscore/underscore.min.js
 ../vendor/stacktrace/js/stacktrace-gps.js
 ../vendor/stacktrace/js/stacktrace.js
 
