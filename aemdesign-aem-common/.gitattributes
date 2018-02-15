@@ -1,0 +1,4 @@
+src/**/*.zip filter=lfs diff=lfs merge=lfs -text
+src/**/*.jar filter=lfs diff=lfs merge=lfs -text
+src/**/*.tar.gz filter=lfs diff=lfs merge=lfs -text
+src/**/original filter=lfs diff=lfs merge=lfs -text
