@@ -28,6 +28,10 @@
     componentProperties.put(INHERITED_RESOURCE,findInheritedResource(_currentPage,_componentContext));
     componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,getDefaultLabelIfEmpty("",DEFAULT_I18N_INHERIT_CATEGORY,DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,DEFAULT_I18N_INHERIT_CATEGORY,_i18n));
 
+    componentProperties.putAll(getAssetInfo(_resourceResolver,
+            getResourceImagePath(_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
+            FIELD_PAGE_IMAGE_BACKGROUND));
+
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:set var="inheritedResource" value="${componentProperties.inheritedResource}"/>
