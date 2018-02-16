@@ -21,6 +21,10 @@
 
     componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME));
 
+    componentProperties.putAll(getAssetInfo(_resourceResolver,
+            getResourceImagePath(_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
+            FIELD_PAGE_IMAGE_BACKGROUND));
+
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
