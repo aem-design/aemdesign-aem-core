@@ -6,11 +6,11 @@
     <description>aemdesign common tags</description>
     <tlib-version>1.0</tlib-version>
     <short-name>aemdesign-common-tags</short-name>
-    <uri>http://www.isobar.com/aemdesign/common/tags</uri>
+    <uri>http://aem.design/tags</uri>
 
     <tag>
         <name>helloWorldTag</name>
-        <tag-class>com.isobar.adobe.aemdesign.common.HelloWorld</tag-class>
+        <tag-class>design.aem.tags.HelloWorld</tag-class>
         <body-content>empty</body-content>
     </tag>
 </taglib>

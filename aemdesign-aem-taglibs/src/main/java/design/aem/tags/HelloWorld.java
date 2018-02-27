@@ -1,4 +1,4 @@
-package com.isobar.adobe.aemdesign.common;
+package design.aem.tags;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
