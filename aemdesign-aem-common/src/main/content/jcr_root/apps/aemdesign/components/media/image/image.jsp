@@ -73,6 +73,7 @@
 
     String fileReference = componentProperties.get(IMAGE_FILEREFERENCE, "");
 
+    Boolean fileReferenceMissing = true;
 
 
     if (isNotEmpty(fileReference)) {
@@ -80,6 +81,8 @@
         //get asset
         Resource assetR = _resourceResolver.resolve(fileReference);
         if (!ResourceUtil.isNonExistingResource(assetR)) {
+
+            fileReferenceMissing = false;
 
             AssetManager assetManager = _resourceResolver.adaptTo(AssetManager.class);
             com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(fileReference);
@@ -179,10 +182,13 @@
             }
         }
     }
+
+    componentProperties.put("fileReferenceMissing",fileReferenceMissing);
+
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
-    <c:when test="${empty componentProperties.fileReference}">
+    <c:when test="${empty componentProperties.fileReference or componentProperties.fileReferenceMissing}">
         <%@include file="variant.empty.jsp" %>
     </c:when>
     <c:when test="${componentProperties.variant eq 'imageTitleDescription'}">

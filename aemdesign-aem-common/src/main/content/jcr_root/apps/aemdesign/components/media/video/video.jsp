@@ -32,57 +32,69 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    String path = (String)componentProperties.get("fileReference");
+    String fileReference = componentProperties.get(IMAGE_FILEREFERENCE, "");
 
-    componentProperties.put("href", path);
+    Boolean fileReferenceMissing = true;
+
+    componentProperties.put("href", fileReference);
+
     msgStart = (String)componentProperties.get("assetTitlePrefix");
 
-    if(!StringUtils.isBlank(path)){
-        Asset asset = (Asset)_resourceResolver.getResource(path).adaptTo(Asset.class);
-        String videoWidth = asset.getMetadataValue("tiff:ImageWidth");
-        String videoHeight = asset.getMetadataValue("tiff:ImageLength");
-        Rendition rd = asset.getRendition(DEFAULT_IMAGE_PATH_SELECTOR);
-        thumbnail = (rd == null)? "" : rd.getPath();
-        componentProperties.put("thumbnail", thumbnail);
+    if (isNotEmpty(fileReference)) {
 
-        componentProperties.put("videoWidth", videoWidth);
-        componentProperties.put("videoHeight", videoHeight);
+        //get asset
+        Resource assetR = _resourceResolver.resolve(fileReference);
+        if (!ResourceUtil.isNonExistingResource(assetR)) {
 
-        metaTitle = StringUtils.isBlank(asset.getMetadataValue(DamConstants.DC_TITLE)) ? "" : asset.getMetadataValue(DamConstants.DC_TITLE);
-        metaDesc = StringUtils.isBlank(asset.getMetadataValue(DamConstants.DC_DESCRIPTION)) ? "" : asset.getMetadataValue(DamConstants.DC_DESCRIPTION);
-        metaCreator = StringUtils.isBlank(asset.getMetadataValue(DamConstants.DC_CREATOR)) ? "" : asset.getMetadataValue(DamConstants.DC_CREATOR);
-        metaCopyRight = StringUtils.isBlank(asset.getMetadataValue(DamConstants.DC_RIGHTS)) ? "" : "&amp;copy;"+asset.getMetadataValue(DamConstants.DC_RIGHTS);
+            fileReferenceMissing = false;
 
-        componentProperties.put("msg", msgStart + metaTitle);
-        componentProperties.put("metaTitle", metaTitle);
-        componentProperties.put("metaDesc", metaDesc);
-        componentProperties.put("metaCreator", metaCreator);
-        componentProperties.put("metaCopyRight", metaCopyRight);
+            Asset asset = _resourceResolver.getResource(fileReference).adaptTo(Asset.class);
+            String videoWidth = asset.getMetadataValue("tiff:ImageWidth");
+            String videoHeight = asset.getMetadataValue("tiff:ImageLength");
+            Rendition rd = asset.getRendition(DEFAULT_IMAGE_PATH_SELECTOR);
+            thumbnail = (rd == null)? "" : rd.getPath();
+            componentProperties.put("thumbnail", thumbnail);
 
-        Node media = getFirstMediaNode(_currentPage);
-        //set display area size to first media node
-        if(media != null && !media.getPath().equals(_currentNode.getPath())){
-            if(media.hasProperty("lightboxHeight")){
-                componentProperties.put("lightboxHeight", media.getProperty("lightboxHeight").getValue().toString());
-            }else{
-                componentProperties.put("lightboxHeight","");
+            componentProperties.put("videoWidth", videoWidth);
+            componentProperties.put("videoHeight", videoHeight);
+
+            metaTitle = StringUtils.isBlank(asset.getMetadataValue(DamConstants.DC_TITLE)) ? "" : asset.getMetadataValue(DamConstants.DC_TITLE);
+            metaDesc = StringUtils.isBlank(asset.getMetadataValue(DamConstants.DC_DESCRIPTION)) ? "" : asset.getMetadataValue(DamConstants.DC_DESCRIPTION);
+            metaCreator = StringUtils.isBlank(asset.getMetadataValue(DamConstants.DC_CREATOR)) ? "" : asset.getMetadataValue(DamConstants.DC_CREATOR);
+            metaCopyRight = StringUtils.isBlank(asset.getMetadataValue(DamConstants.DC_RIGHTS)) ? "" : "&amp;copy;"+asset.getMetadataValue(DamConstants.DC_RIGHTS);
+
+            componentProperties.put("msg", msgStart + metaTitle);
+            componentProperties.put("metaTitle", metaTitle);
+            componentProperties.put("metaDesc", metaDesc);
+            componentProperties.put("metaCreator", metaCreator);
+            componentProperties.put("metaCopyRight", metaCopyRight);
+
+            Node media = getFirstMediaNode(_currentPage);
+            //set display area size to first media node
+            if(media != null && !media.getPath().equals(_currentNode.getPath())){
+                if(media.hasProperty("lightboxHeight")){
+                    componentProperties.put("lightboxHeight", media.getProperty("lightboxHeight").getValue().toString());
+                }else{
+                    componentProperties.put("lightboxHeight","");
+                }
+
+                if(media.hasProperty("lightboxWidth")){
+                    componentProperties.put("lightboxWidth", media.getProperty("lightboxWidth").getValue().toString());
+                }else{
+                    componentProperties.put("lightboxWidth","");
+                }
             }
 
-            if(media.hasProperty("lightboxWidth")){
-                componentProperties.put("lightboxWidth", media.getProperty("lightboxWidth").getValue().toString());
-            }else{
-                componentProperties.put("lightboxWidth","");
-            }
         }
 
     }
 
-
+    componentProperties.put("fileReferenceMissing",fileReferenceMissing);
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
-    <c:when test="${componentProperties.variant == 'default' and not empty componentProperties.href}">
+    <c:when test="${componentProperties.variant == 'default' and not empty componentProperties.href and not componentProperties.fileReferenceMissing}">
         <%@ include file="variant.default.jsp" %>
     </c:when>
 
