@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
+          xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Video"
           helpPath=""
@@ -55,43 +57,43 @@
                                         </items>
                                     </variant>
 
-                                    <lightbox_size
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
-                                            fieldDescription="Note: Max width and height will be crop at 90%. If these fields have no value then it will use 70% as default. The content display size in lightbox of a page, which it is determined by the the first video or media gallery from the page."
-                                            fieldLabel="Lightbox Media Display Area">
-                                        <width
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                                name="./lightboxWidth"
-                                                unit=""/>
-                                        <height
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                                name="./lightboxHeight"
-                                                unit=""/>
-                                    </lightbox_size>
-                                    <thumbnail_size
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
-                                            fieldDescription="Note: If these fields has no value then it will use original image size."
-                                            fieldLabel="Video Thumbnail Size">
-                                        <width
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                                name="./thumbnailWidth"
-                                                unit=""/>
-                                        <height
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                                name="./thumbnailHeight"
-                                                unit=""/>
-                                    </thumbnail_size>
-                                    <assetTitlePrefix
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldLabel="Prefix text for hover"
-                                            name="./assetTitlePrefix"/>
+                                    <!--<lightbox_size-->
+                                            <!--jcr:primaryType="nt:unstructured"-->
+                                            <!--sling:resourceType="cq/gui/components/authoring/dialog/sizefield"-->
+                                            <!--fieldDescription="Note: Max width and height will be crop at 90%. If these fields have no value then it will use 70% as default. The content display size in lightbox of a page, which it is determined by the the first video or media gallery from the page."-->
+                                            <!--fieldLabel="Lightbox Media Display Area">-->
+                                        <!--<width-->
+                                                <!--jcr:primaryType="nt:unstructured"-->
+                                                <!--sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"-->
+                                                <!--name="./lightboxWidth"-->
+                                                <!--unit=""/>-->
+                                        <!--<height-->
+                                                <!--jcr:primaryType="nt:unstructured"-->
+                                                <!--sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"-->
+                                                <!--name="./lightboxHeight"-->
+                                                <!--unit=""/>-->
+                                    <!--</lightbox_size>-->
+                                    <!--<thumbnail_size-->
+                                            <!--jcr:primaryType="nt:unstructured"-->
+                                            <!--sling:resourceType="cq/gui/components/authoring/dialog/sizefield"-->
+                                            <!--fieldDescription="Note: If these fields has no value then it will use original image size."-->
+                                            <!--fieldLabel="Video Thumbnail Size">-->
+                                        <!--<width-->
+                                                <!--jcr:primaryType="nt:unstructured"-->
+                                                <!--sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"-->
+                                                <!--name="./thumbnailWidth"-->
+                                                <!--unit=""/>-->
+                                        <!--<height-->
+                                                <!--jcr:primaryType="nt:unstructured"-->
+                                                <!--sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"-->
+                                                <!--name="./thumbnailHeight"-->
+                                                <!--unit=""/>-->
+                                    <!--</thumbnail_size>-->
+                                    <!--<assetTitlePrefix-->
+                                            <!--jcr:primaryType="nt:unstructured"-->
+                                            <!--sling:resourceType="granite/ui/components/coral/foundation/form/textfield"-->
+                                            <!--fieldLabel="Prefix text for hover"-->
+                                            <!--name="./assetTitlePrefix"/>-->
 
                                 </items>
                             </variant>
@@ -110,6 +112,12 @@
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Accessibility"
                     path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <analyticsTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Analytics"
+                    path="/apps/aemdesign/global/dialog/touch/analytics/content/items/analyticsTab"
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
         </items>

@@ -33,15 +33,15 @@
                 title="Layout"
                 xtype="panel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <lightbox_size
-                        jcr:primaryType="cq:Widget"
-                        fieldDescription="Note: Max width and height will be crop at 90%. If these fields have no value then it will use 70% as default. The content display size in lightbox of a page, which it is determined by the the first video or media gallery from the page."
-                        fieldLabel="Lightbox Media Display Area"
-                        heightParameter="./lightboxHeight"
-                        heightSuffix=""
-                        widthParameter="./lightboxWidth"
-                        widthSuffix=""
-                        xtype="sizefield"/>
+                <!--<lightbox_size-->
+                        <!--jcr:primaryType="cq:Widget"-->
+                        <!--fieldDescription="Note: Max width and height will be crop at 90%. If these fields have no value then it will use 70% as default. The content display size in lightbox of a page, which it is determined by the the first video or media gallery from the page."-->
+                        <!--fieldLabel="Lightbox Media Display Area"-->
+                        <!--heightParameter="./lightboxHeight"-->
+                        <!--heightSuffix=""-->
+                        <!--widthParameter="./lightboxWidth"-->
+                        <!--widthSuffix=""-->
+                        <!--xtype="sizefield"/>-->
                 <thumbnail_size
                         jcr:primaryType="cq:Widget"
                         fieldDescription="Note: If these fields has no value then it will use original image size."
@@ -51,11 +51,11 @@
                         widthParameter="./thumbnailWidth"
                         widthSuffix=""
                         xtype="sizefield"/>
-                <assetTitlePrefix
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Prefix text for hover"
-                        name="./assetTitlePrefix"
-                        xtype="textfield"/>
+                <!--<assetTitlePrefix-->
+                        <!--jcr:primaryType="cq:Widget"-->
+                        <!--fieldLabel="Prefix text for hover"-->
+                        <!--name="./assetTitlePrefix"-->
+                        <!--xtype="textfield"/>-->
 
                 <variant
                         jcr:primaryType="cq:Widget"
@@ -85,6 +85,9 @@
         <accessibilityTab jcr:primaryType="cq:Panel"
                           path="/apps/aemdesign/global/dialog/classic/accessibility/items/accessibilityTab.infinity.json"
                           xtype="cqinclude"/>
+        <analyticsTab jcr:primaryType="cq:Panel"
+                      path="/apps/aemdesign/global/dialog/classic/analytics/items/analyticsTab.infinity.json"
+                      xtype="cqinclude" />
 
     </items>
 </tabs>
