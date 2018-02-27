@@ -6,10 +6,10 @@
             jcr:primaryType="cq:DropTargetConfig"
             accept="[video/.*]"
             groups="[media]"
-            propertyName="./asset">
+            propertyName="./fileReference">
             <parameters
                 jcr:primaryType="nt:unstructured"
-                sling:resourceType="foundation/components/video"/>
+                sling:resourceType="aemdesign/components/media/video"/>
         </video>
     </cq:dropTargets>
 </jcr:root>
