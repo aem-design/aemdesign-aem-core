@@ -251,12 +251,17 @@
                         <embedded>
                             <groupId>${project.parent.groupId}</groupId>
                             <artifactId>aemdesign-aem-services</artifactId>
-                            <target>/apps/aemdesign/install</target>
+                            <target>/apps/${package.appFolder}/install</target>
+                        </embedded>
+                        <embedded>
+                            <groupId>${project.parent.groupId}</groupId>
+                            <artifactId>aemdesign-aem-taglibs</artifactId>
+                            <target>/apps/${package.appFolder}/install</target>
                         </embedded>
                         <embedded>
                             <groupId>com.github.mickleroy</groupId>
                             <artifactId>aem-sass-compiler</artifactId>
-                            <target>/apps/aemdesign/install</target>
+                            <target>/apps/${package.appFolder}/install</target>
                         </embedded>
                     </embeddeds>
 
