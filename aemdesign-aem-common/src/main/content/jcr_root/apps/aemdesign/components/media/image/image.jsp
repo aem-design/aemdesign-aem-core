@@ -115,7 +115,7 @@
                     {"data-" + FIELD_ASSET_LICENSED, isNotBlank(licenseInfo)},
                     {FIELD_DATA_ANALYTICS_EVENT_LABEL, componentProperties.get(DAM_TITLE)},
                     {FIELD_DATA_ANALYTICS_METATYPE, assetBasic.getMimeType()},
-                    {FIELD_DATA_ANALYTICS_FILENAME, assetBasic.getName()},
+                    {FIELD_DATA_ANALYTICS_FILENAME, assetBasic.getPath()},
             };
             componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, componentAttibutes));
 
@@ -154,7 +154,7 @@
                     case IMAGE_OPTION_ADAPTIVE:
                         String[] adaptiveImageMapping = componentProperties.get(FIELD_ADAPTIVE_MAP, DEFAULT_ADAPTIVE_IMAGE_MAP);
 
-                        responsiveImageSet = getAdaptiveImageSet(adaptiveImageMapping, _resourceResolver, fileReference, null, _sling);
+                        responsiveImageSet = getAdaptiveImageSet(adaptiveImageMapping, _resourceResolver, _resource.getPath(), fileReference, null, false, _sling);
 
                         componentProperties.put(FIELD_RENDITIONS, responsiveImageSet);
 

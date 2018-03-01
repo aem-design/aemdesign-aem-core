@@ -205,11 +205,14 @@
      * function to filter out the design dialog values which are not matching adaptive profile
      * @param adaptiveImageMapping
      * @param resolver
-     * @param fileReference
+     * @param componentPath path to component doing the render
+     * @param fileReference path to asset to use for render
+     * @param outputFormat specify which output format to use
+     * @param useFileReferencePathAsRender create paths using fileReference instead of using Component Path
      * @param sling
      * @return Map<Integer, String>
      */
-    public Map<String, String> getAdaptiveImageSet (String[] adaptiveImageMapping, ResourceResolver resolver, String fileReference, String outputFormat, org.apache.sling.api.scripting.SlingScriptHelper sling){
+    public Map<String, String> getAdaptiveImageSet (String[] adaptiveImageMapping, ResourceResolver resolver, String componentPath, String fileReference, String outputFormat, Boolean useFileReferencePathAsRender, org.apache.sling.api.scripting.SlingScriptHelper sling){
 
         Map<String, String> responsiveImageSet = new LinkedHashMap<String, String>();
 
@@ -219,6 +222,13 @@
             outputFormat = extension.substring(extension.lastIndexOf("."));
         }
         String suffix = defaultString(fileReferenceURI.getQuery(), "");
+
+        String renderPath = componentPath;
+
+        if (useFileReferencePathAsRender) {
+            renderPath = fileReference;
+        }
+
 
         for (String entry : adaptiveImageMapping){
 
@@ -250,7 +260,7 @@
             if (adaptiveProfile.equals("full") || ArrayUtils.contains(allowedSizes,profileWidth) ) {
                 responsiveImageSet.put(mediaQuery,
                         MessageFormat.format("{0}.img.{1}{2}{3}",
-                                fileReference,
+                                renderPath,
                                 adaptiveProfile,
                                 profileOutputFormat,
                                 suffix
