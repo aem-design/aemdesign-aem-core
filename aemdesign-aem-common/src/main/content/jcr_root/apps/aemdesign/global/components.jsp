@@ -748,7 +748,7 @@
                     addMoreAttributes=false;
 
                 } catch(Exception ex) {
-                    LOG.error("getComponentProperties: could not evaluate target asset",ex);
+                    getLogger().error("getComponentProperties: could not evaluate target asset",ex);
                     return componentProperties;
                 }
             } else if (targetResource != null &&
@@ -786,13 +786,13 @@
                     //getComponentProperty(ValueMap componentProperties, Style pageStyle, String name, Object defaultValue, Boolean useStyle)
                     //fieldValue = getComponentProperty(resourceProperties, resourceStyle, fieldName, fieldDefaultValue, true);
                 } catch (Exception ex) {
-                    LOG.error("getComponentProperties: could not evaluate target resource",ex);
+                    getLogger().error("getComponentProperties: could not evaluate target resource",ex);
                     return componentProperties;
                 }
             } else if (targetResource != null) {
-                getLogger().error("getComponentProperties: processing is unsupported of target resource of type: " + targetResource.getClass().getCanonicalName());
+                getLogger().warn("getComponentProperties: processing is unsupported of target resource of type: " + targetResource.getClass().getCanonicalName());
             } else if (targetResource == null) {
-                getLogger().error("getComponentProperties: processing of NULL target resource of type return design defaults");
+                getLogger().warn("getComponentProperties: processing of NULL target resource of type return design defaults");
             }
 
             if (currentNode != null && addMoreAttributes) {
@@ -817,7 +817,7 @@
                             //skip entries that already exist
                             //first Object in fieldLists will set a field value
                             //we expect the additional Objects to not override
-                            LOG.debug("getComponentProperties: skipping property [{}] its already defined, {}", fieldName, componentContext.getResource().getPath());
+                            getLogger().debug("getComponentProperties: skipping property [{}] its already defined, {}", fieldName, componentContext.getResource().getPath());
                             continue;
                         }
 
@@ -876,7 +876,7 @@
                         try {
                             componentProperties.put(fieldName, fieldValue);
                         } catch (Exception ex) {
-                            LOG.error("error adding value. " + ex);
+                            getLogger().error("error adding value. " + ex);
                         }
                     }
                 }
@@ -892,7 +892,7 @@
             }
 
         } catch (Exception ex) {
-            LOG.error("getComponentProperties: " + ex.getMessage(), ex);
+            getLogger().error("getComponentProperties: " + ex.getMessage(), ex);
             //out.write( Throwables.getStackTraceAsString(ex) );
         } finally {
             closeAdminResourceResolver(adminResourceResolver);
