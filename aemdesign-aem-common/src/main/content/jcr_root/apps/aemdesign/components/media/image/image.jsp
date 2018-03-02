@@ -65,7 +65,6 @@
     ComponentProperties componentProperties = getComponentProperties(
             pageContext,
             componentFields,
-            DEFAULT_FIELDS_ASSET_IMAGE,
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY,
             DEFAULT_FIELDS_ANALYTICS);
@@ -74,7 +73,6 @@
     String fileReference = componentProperties.get(IMAGE_FILEREFERENCE, "");
 
     Boolean fileReferenceMissing = true;
-
 
     if (isNotEmpty(fileReference)) {
 
@@ -98,11 +96,23 @@
             componentProperties.put(FIELD_LICENSE_INFO, licenseInfo);
             componentProperties.put(FIELD_ASSETID, assetUID);
 
-            //get asset properties and overwrite all existing ones specified in component
-            ComponentProperties assetProperties = getAssetProperties(pageContext, asset, DEFAULT_FIELDS_ASSET_IMAGE);
-            //ensure licensed image meta does not get overwritten
-            componentProperties.putAll(assetProperties, isBlank(licenseInfo));
 
+            //get asset properties
+            ComponentProperties assetProperties = getAssetProperties(pageContext, asset, DEFAULT_FIELDS_ASSET_IMAGE);
+            //add asset properties to component properties and ensure licensed image meta does not get overwritten
+            componentProperties.putAll(assetProperties, isEmpty(licenseInfo));
+
+            //if asset is not licensed
+            if (isEmpty(licenseInfo)) {
+                //get asset properties override from component
+                ComponentProperties assetPropertiesOverride = getComponentProperties(pageContext, null, false, DEFAULT_FIELDS_ASSET_IMAGE);
+
+                //add asset properties override to component properties and ensure licensed image meta does not get overwritten
+                componentProperties.putAll(assetPropertiesOverride, isEmpty(licenseInfo));
+
+            }
+
+            //ensure something is added as title
             String title = componentProperties.get(DAM_TITLE, "");
             if (isEmpty(title)) {
                 componentProperties.put(DAM_TITLE, assetBasic.getName());
