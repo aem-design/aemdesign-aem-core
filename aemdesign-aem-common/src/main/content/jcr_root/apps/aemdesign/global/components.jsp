@@ -29,6 +29,7 @@
 <%@ page import="java.security.NoSuchAlgorithmException" %>
 <%@ page import="java.text.MessageFormat" %>
 <%@ page import="java.util.Calendar" %>
+<%@ page import="org.apache.commons.lang3.BooleanUtils" %>
 <%@ include file="/apps/aemdesign/global/tags.jsp" %>
 <%@ include file="/apps/aemdesign/global/theme.jsp" %>
 <%@ include file="/apps/aemdesign/global/security.jsp" %>
@@ -689,7 +690,7 @@
      * @return
      */
     public ComponentProperties getComponentProperties(PageContext pageContext, Object[][]... fieldLists) {
-        return getComponentProperties(pageContext, null, fieldLists);
+        return getComponentProperties(pageContext, null, true, fieldLists);
     }
 
     /**
@@ -701,7 +702,22 @@
      */
     @SuppressWarnings("unchecked")
     public ComponentProperties getComponentProperties(PageContext pageContext, Object targetResource, Object[][]... fieldLists) {
+        return getComponentProperties(pageContext, targetResource, true, fieldLists);
+    }
+
+    /**
+     * returns component values with defaults from a targetResource, default to pageContext properties
+     * @param pageContext current page context
+     * @param targetResource resource to use as source
+     * @param includeComponentAttributes include additional attibutes associated with component
+     * @param fieldLists list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public ComponentProperties getComponentProperties(PageContext pageContext, Object targetResource, Boolean includeComponentAttributes, Object[][]... fieldLists) {
         ComponentProperties componentProperties = new ComponentProperties();
+
+        boolean addMoreAttributes = includeComponentAttributes;
 
         SlingHttpServletRequest slingRequest = (SlingHttpServletRequest)pageContext.getAttribute("slingRequest");
         ResourceResolver resourceResolver = (ResourceResolver)pageContext.getAttribute("resourceResolver");
@@ -714,7 +730,9 @@
         Component component = componentContext.getComponent();
 
         componentProperties.attr = new AttrBuilder(request, xssAPI);
-        componentProperties.attr.addBoolean("component",true);
+        if (addMoreAttributes) {
+            componentProperties.attr.addBoolean("component", true);
+        }
 //        AttrBuilder itemAttr = new AttrBuilder(request, xssAPI);
 
         final String CLASS_TYPE_RESOURCE = Resource.class.getCanonicalName();
@@ -728,7 +746,6 @@
 
             TagManager tagManager = adminResourceResolver.adaptTo(TagManager.class);
 
-            boolean addMoreAttributes = true;
             // if targetResource == null get defaults
             ValueMap properties = (ValueMap) pageContext.getAttribute("properties");
             Style currentStyle = (Style) pageContext.getAttribute("currentStyle");
