@@ -10,6 +10,9 @@
 
     final static String RENDITION_REGEX_PATTERN = "^(\\w*)\\.(\\w*)\\.(\\d*)\\.(\\d*)\\.(\\S{3,4})$";
 
+    //this is used to store admin config for image component
+    final static String OSGI_CONFIG_MEDIA_IMAGE = "aemdesign.components.media.image";
+
     /**
      * Get the allowedDimension for the Image
      * @param targetDimension
@@ -229,6 +232,7 @@
             renderPath = fileReference;
         }
 
+        int[] allowedSizes = getAdaptiveImageSupportedWidths(sling);
 
         for (String entry : adaptiveImageMapping){
 
@@ -253,9 +257,6 @@
             if (adaptiveProfileArray.length == 3) {
                 profileOutputFormat = "";
             }
-
-            int[] allowedSizes = getAdaptiveImageSupportedWidths(sling);
-
 
             if (adaptiveProfile.equals("full") || ArrayUtils.contains(allowedSizes,profileWidth) ) {
                 responsiveImageSet.put(mediaQuery,
@@ -289,7 +290,7 @@
         try{
             org.osgi.service.cm.ConfigurationAdmin configAdmin = sling.getService(org.osgi.service.cm.ConfigurationAdmin.class);
 
-            org.osgi.service.cm.Configuration config = configAdmin.getConfiguration("com.day.cq.wcm.foundation.impl.AdaptiveImageComponentServlet");
+            org.osgi.service.cm.Configuration config = configAdmin.getConfiguration(OSGI_CONFIG_MEDIA_IMAGE);
 
             Object obj = org.apache.sling.commons.osgi.PropertiesUtil.toStringArray(config.getProperties().get("adapt.supported.widths"));
 
