@@ -54,6 +54,8 @@
             String start_param = path.replace('/', '_').concat("_start");
 
             componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-has-pages", String.valueOf(list.isPaginating())));
+            
+            componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-total-pages", String.valueOf(list.size())));
 
             componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-content-url", _resource.getPath().concat(DEFAULT_EXTENTION)));
 
