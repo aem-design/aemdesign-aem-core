@@ -43,6 +43,25 @@
 
         componentProperties.put("listTag", list.isOrdered() ? "ol" : "ul");
 
+        if (list.isPaginating()) {
+            //copied from com.day.cq.wcm.foundation.List.generateId
+            String path = _resource.getPath();
+            String rootMarker = JcrConstants.JCR_CONTENT.concat("/");
+            int root = path.indexOf(rootMarker);
+            if (root >= 0) {
+                path = path.substring(root + rootMarker.length());
+            }
+            String start_param = path.replace('/', '_').concat("_start");
+
+            componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-has-pages", String.valueOf(list.isPaginating())));
+
+            componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-content-next", list.getNextPageLink()));
+
+            componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-content-start", start_param));
+        } else {
+            componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-has-pages", String.valueOf(false)));
+        }
+
     } else {
         componentProperties.put("isEmpty", true);
     }

@@ -331,6 +331,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Default"
                                                     value=""/>
+                                            <hidden
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Hidden"
+                                                    value="hidden"/>
                                             <prev_next_pages
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Previous and Next Pages"
