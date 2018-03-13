@@ -55,7 +55,7 @@
 
             componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-has-pages", String.valueOf(list.isPaginating())));
 
-            componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-content-next", list.getNextPageLink()));
+            componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-content-url", _resource.getPath().concat(DEFAULT_EXTENTION)));
 
             componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-content-start", start_param));
         } else {
