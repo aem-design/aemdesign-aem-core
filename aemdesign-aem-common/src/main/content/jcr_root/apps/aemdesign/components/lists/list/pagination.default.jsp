@@ -33,6 +33,6 @@
         </div>
     </c:if>
     <p>
-        [${componentProperties.pageStart + 1} - ${componentProperties.pageEnd}] of ${componentProperties.maxItem}
+        [${componentProperties.list.pageStart + 1} - ${componentProperties.pageEnd}] of ${componentProperties.maxItem}
     </p>
 </div>
