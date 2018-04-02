@@ -16,7 +16,7 @@
     String pageType =  ((com.day.cq.wcm.foundation.List)request.getAttribute("list")).getType();
 
     int pageNumber = pageStart / pageMax + 1;
-    if ( pageMax != -1 && list.isEmpty() == false && (totalSize - pageNumber * pageMax) > 0) {
+    if (pageMax != -1 && list.isEmpty() == false && pageStart < list.size()) {
 %>
 
 
