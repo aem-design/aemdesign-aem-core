@@ -42,6 +42,8 @@
 
     public static final String NODE_PAR = "./article/par";
 
+    public static final String DEFAULT_PATH_TAGS = "/etc/tags";
+
     public static final String NODE_DETAILS = "*-details";
 
     public static final String FIELD_REFERENCE_PATH = "path";
@@ -1173,13 +1175,15 @@
 
         String formatTagFieldPath = componentProperties.get(formatTagFieldName,StringUtils.EMPTY);
 
-        String titleFormat = defaultFormat;
+        String fieldFormatValue = defaultFormat;
 
-        if (isNotEmpty(formatTagFieldPath)) {
-            titleFormat = getTagValueAsAdmin(componentProperties.get(formatTagFieldName,defaultFormat),sling);
+        if (isNotEmpty(formatTagFieldPath) && formatTagFieldPath.startsWith(DEFAULT_PATH_TAGS)) {
+            fieldFormatValue = getTagValueAsAdmin(componentProperties.get(formatTagFieldName,defaultFormat),sling);
+        } else if (isNotEmpty(formatTagFieldPath)) {
+            fieldFormatValue = formatTagFieldPath;
         }
 
-        return compileMapMessage(titleFormat,componentProperties);
+        return compileMapMessage(fieldFormatValue,componentProperties);
 
     }
 
@@ -1368,6 +1372,33 @@
 
         return curResource;
     }
+
+    /***
+     * get attribute from first item list of maps
+     * @param sourceMap
+     * @return
+     */
+    public String getFirstAttributeFromList(LinkedHashMap<String, Map> sourceMap, String attributeName) {
+        if (sourceMap != null) {
+            if (!sourceMap.values().isEmpty()) {
+                Map firstItem = sourceMap.values().iterator().next();
+                if (firstItem.containsKey(attributeName)) {
+                    return firstItem.get(attributeName).toString();
+                }
+            }
+        }
+        return "";
+    }
+
+    /***
+     * get value attribute from list of maps
+     * @param sourceMap
+     * @return
+     */
+    public String getFirstValueFromList(LinkedHashMap<String, Map> sourceMap) {
+        return getFirstAttributeFromList(sourceMap,"value");
+    }
+
 
 %>
 <c:set var="DEFAULT_VARIANT" value="<%= DEFAULT_VARIANT %>"/>
