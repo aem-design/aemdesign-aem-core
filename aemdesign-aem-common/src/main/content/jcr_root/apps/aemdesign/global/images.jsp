@@ -438,13 +438,19 @@
     }
 
     /***
-     * get asset reference for image node
-     * @param page
-     * @return
+     * get asset reference for image node from a page
+     * @param page to use as source
+     * @return path to image or return default reference to page thumbnail selector
      * @throws RepositoryException
      */
     protected String getPageImgReferencePath(Page page) {
-        return getResourceImagePath(page.getContentResource(),DEFAULT_IMAGE_NODE_NAME);
+        String imagePath = getResourceImagePath(page.getContentResource(),DEFAULT_IMAGE_NODE_NAME);
+
+        if (isEmpty(imagePath)) {
+            imagePath = page.getPath().concat(DEFAULT_IMAGE_THUMB_SELECTOR);
+        }
+
+        return imagePath;
     }
 
     /***
