@@ -13,7 +13,7 @@ Component for adding content metadata to a page and Badge config info which is u
 * **Compatibility**: AEM 6.3
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/link.html](/content/aemdesign-showcase/en/component/details/page-details.html?wcmmode=disabled)
-* **Local Code**: /crx/de/#/apps/aemdesign/components/content/link
+* **Local Code**: /crx/de/#/apps/aemdesign/components/details/page-details
 * **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/details/page-details)
 
 ## Features
