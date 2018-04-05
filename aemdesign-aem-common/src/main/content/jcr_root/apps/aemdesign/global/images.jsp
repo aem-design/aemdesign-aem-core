@@ -994,7 +994,10 @@
             if (!ResourceUtil.isNonExistingResource(pageImageResource)) {
                 Asset pageImageAsset = pageImageResource.adaptTo(Asset.class);
                 if (pageImageAsset != null) {
-                    String pageImageLicenseInfo = getAssetCopyrightInfo(pageImageAsset, DAM_LICENSE_FORMAT);
+                    assetInfo.put(infoPrefix + "LicenseInfo", getAssetCopyrightInfo(pageImageAsset, DAM_LICENSE_FORMAT));
+
+                    assetInfo.put(infoPrefix + "Title", getAssetPropertyValueWithDefault(pageImageAsset, DamConstants.DC_TITLE, "") );
+                    assetInfo.put(infoPrefix + "Description", getAssetPropertyValueWithDefault(pageImageAsset, DamConstants.DC_DESCRIPTION, ""));
 
                     try {
                         assetInfo.put(infoPrefix + "Id", ((Node)pageImageResource.adaptTo(Node.class)).getProperty("jcr:uuid").getString() );
@@ -1002,7 +1005,6 @@
                         LOG.error("getAssetInfo: could not get assetID {}", ex.toString());
                     }
 
-                    assetInfo.put(infoPrefix + "LicenseInfo", pageImageLicenseInfo);
                 }
             }
         }
