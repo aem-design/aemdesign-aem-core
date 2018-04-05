@@ -1,27 +1,30 @@
-<div class="content visible">
-    <c:if test="${componentProperties.showBreadcrumb }">
-        <cq:include path="breadcrumb" resourceType="aemdesign/components/layout/breadcrumb"/>
-    </c:if>
+<c:if test="${not empty componentProperties.pageBackgroundImage}">
+    <c:set var="extraAttr" value="${extraAttr} style=\"background-image: url(${componentProperties.pageBackgroundImage})\""/>
+</c:if>
 
-    <c:if test="${componentProperties.showToolbar }">
-        <cq:include path="toolbar" resourceType="aemdesign/components/layout/navbar"/>
-    </c:if>
-</div>
+<c:set var="imageTitle" value="${componentProperties.titleFormattedText}"/>
 
-<div class="content">
-    <div ${componentProperties.componentAttributes}>
-        <header class="page_header">
-            <div class="hgroup">
-                <h1>${componentProperties.title}</h1>
-                <h2>
-                    <c:if test="${not empty componentProperties.tags}">
-                        <c:forEach items="${componentProperties.tags}" var="tag">
-                            ${tag.description}
-                            <br>
-                        </c:forEach>
-                    </c:if>
-                </h2>
+<c:if test="${not empty componentProperties.pageImageTitle}">
+    <c:set var="imageTitle" value="${componentProperties.pageImageTitle}"/>
+</c:if>
+
+<div ${componentProperties.componentAttributes}${extraAttr}>
+    <%@include file="contact-details.header.jsp" %>
+    <header>
+        <div itemscope itemtype="http://schema.org/Person">
+            <img class="image" src="${componentProperties.pageImageThumbnail}" itemprop="image" alt="${imageTitle}"/>
+            <div class="title">${componentProperties.titleFormatted}</div>
+        <c:if test="${not componentProperties.hideDescription}">
+            <div class="description">${componentProperties.descriptionFormatted}</div>
+        </c:if>
+        <c:if test="${not empty componentProperties.tags}">
+            <div class="tags" itemprop="keywords">
+            <c:forEach items="${componentProperties.tags}" var="tag">
+                <div>${tag.description}</div>
+            </c:forEach>
             </div>
-        </header>
-    </div>
+        </c:if>
+        </div>
+    </header>
+    <%@include file="contact-details.footer.jsp" %>
 </div>

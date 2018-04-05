@@ -1,20 +1,33 @@
 <%@ page import="com.day.cq.tagging.TagConstants" %>
 <%@ page import="com.google.common.base.Throwables" %>
 <%@ page import="org.apache.commons.lang3.BooleanUtils" %>
+<%@ page import="org.jsoup.Jsoup" %>
+<%@ page import="org.jsoup.nodes.Document" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/component-details.jsp" %>
 <%@ include file="/apps/aemdesign/global/i18n.jsp" %>
+<%@ include file="./common.jsp" %>
 <%
 
+    final Boolean DEFAULT_HIDE_DESCRIPTION = false;
     final Boolean DEFAULT_SHOW_BREADCRUMB = true;
     final Boolean DEFAULT_SHOW_TOOLBAR = true;
     final String DEFAULT_I18N_CATEGORY = "contact-detail";
     final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
 
     Object[][] componentFields = {
-            {"title", _pageProperties.get(JcrConstants.JCR_TITLE, StringUtils.EMPTY)},
+            {"title", _pageProperties.get(JcrConstants.JCR_TITLE, _currentPage.getName())},
+            {"honorificPrefix", ""}, //tag path
+            {"givenName",""},
+            {"familyName",""},
+            {"titleFormat", ""}, //tag path, will be resolved to value in processComponentFields
+            {"jobTitle",""},
+            {"employee",""},
+            {"email",""},
+            {"descriptionFormat", ""}, //tag path, will be resolved to value in processComponentFields
+            {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
             {TagConstants.PN_TAGS, new String[]{},"data-tags", Tag.class.getCanonicalName()},
             {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
             {"showToolbar", DEFAULT_SHOW_TOOLBAR},
@@ -34,7 +47,13 @@
             DEFAULT_FIELDS_DETAILS_OPTIONS);
 
     String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
+
     componentProperties.put("category",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));
+
+    //grab value for prefix
+    componentProperties.put("honorificPrefix",
+            getTagValueAsAdmin(componentProperties.get("honorificPrefix", ""),_sling)
+    );
 
     componentProperties.putAll(getAssetInfo(_resourceResolver,
             getPageImgReferencePath(_currentPage),
@@ -66,6 +85,14 @@
                     _resourceResolver
             )
     );
+
+    componentProperties.putAll(processComponentFields(componentProperties,_i18n,_sling), false);
+
+    //set something if title formatted is empty
+    if (isEmpty(componentProperties.get(FIELD_FORMATTED_TITLE,""))) {
+        componentProperties.put(FIELD_FORMATTED_TITLE,componentProperties.get("title",""));
+        componentProperties.put(FIELD_FORMATTED_TITLE_TEXT,componentProperties.get("title",""));
+    }
 
     componentProperties.putAll(processBadgeRequestConfig(componentProperties,_resourceResolver, request), true);
 
