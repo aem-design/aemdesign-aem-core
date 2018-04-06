@@ -73,3 +73,24 @@ touch-icon_152.png
 ```
 
 You can generate the icons un this site [https://realfavicongenerator.net/](https://realfavicongenerator.net/) select the "Use Old Package" option.
+
+
+# Debug JSP
+
+login into your vm ```./devops accesslocal``` and run
+
+```bash
+docker exec -it author bash
+
+cd /aem/crx-quickstart/launchpad/felix/bundle473/data/classes/org/apache/jsp/apps/aemdesign/components/lists/list
+
+awk 'FNR>=6130 && FNR<=6130' list_jsp.java
+```
+
+# Manually monitor logs
+
+login into your vm ```./devops accesslocal``` and run
+
+```bash
+docker exec -it author tail -f crx-quickstart/logs/error.log
+```
