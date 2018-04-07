@@ -51,6 +51,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Default"
                                                     value=""/>
+                                            <parsys
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Classig Parsys"
+                                                    value="parsys"/>
                                         </items>
                                     </variant>
                                 </items>

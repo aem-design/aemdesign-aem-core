@@ -103,6 +103,9 @@
     <c:when test="${componentProperties.variant eq 'containerVideo'}">
         <%@ include file="variant.containerVideo.jsp" %>
     </c:when>
+    <c:when test="${componentProperties.variant eq 'parsys'}">
+        <%@ include file="variant.parsys.jsp" %>
+    </c:when>
     <c:otherwise>
         <%@ include file="variant.default.jsp" %>
     </c:otherwise>

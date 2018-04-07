@@ -157,6 +157,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Description List"
                                                     value="descriptionlist"/>
+                                            <parsys
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Classic Parsys"
+                                                    value="parsys"/>
                                         </items>
                                     </variant>
                                 </items>
