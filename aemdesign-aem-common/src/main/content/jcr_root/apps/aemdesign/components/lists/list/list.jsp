@@ -78,7 +78,11 @@
             componentProperties.put("feedTitle", "RSS Feed");
             componentProperties.put("feedType", "application/rss+xml");
         }
-        componentProperties.put("feedUrl", componentProperties.get("resourcePath").toString() + componentProperties.get("feedExt").toString());
+        if (isNotEmpty(componentProperties.get("feedExt",""))) {
+            componentProperties.put("feedUrl", _resource.getPath().concat(componentProperties.get("feedExt","")));
+        } else {
+            componentProperties.put("feedUrl",_resource.getPath());
+        }
     }
 
     //prepare request parms to pass to badges

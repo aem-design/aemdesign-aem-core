@@ -1,4 +1,4 @@
-<%
+<%@ page import="com.day.cq.wcm.api.PageFilter" %><%
 
     Boolean showHidden = _properties.get("showHidden", false);
 
@@ -8,7 +8,7 @@
     if (com.day.cq.wcm.foundation.List.SOURCE_CHILDREN.equals(_properties.get(com.day.cq.wcm.foundation.List.SOURCE_PROPERTY_NAME, com.day.cq.wcm.foundation.List.SOURCE_CHILDREN))) {
         String parentPage = _properties.get(com.day.cq.wcm.foundation.List.PARENT_PAGE_PROPERTY_NAME,"");
         if (isEmpty(parentPage)) {
-            list.setStartIn(resource.getPath());
+            list.setStartIn(_resource.getPath());
         }
     }
 

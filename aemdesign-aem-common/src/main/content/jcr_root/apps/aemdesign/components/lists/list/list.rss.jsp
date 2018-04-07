@@ -6,16 +6,17 @@
 <%
 %><%@ taglib prefix="atom" uri="http://sling.apache.org/taglibs/atom/1.0" %><%
 %><%@ include file="/apps/aemdesign/global/global.jsp" %><%
-%><%@ include file="/apps/aemdesign/global/components.jsp" %><%
+%><%@ include file="/apps/aemdesign/global/components.jsp" %>
+<%@ include file="init.jsp"  %><%
+
     String
         url = mappedUrl(_resourceResolver, _resource.getPath().concat(DEFAULT_EXTENTION)),
         link = mappedUrl(_resourceResolver, _resource.getPath() + ".rss"),
         title = getPageTitle(_currentPage),
         subTitle = getFeedDescription(_currentPage, _properties);
 
-    %><cq:include script="init.jsp" /><%
 
-    com.day.cq.wcm.foundation.List list = (com.day.cq.wcm.foundation.List) request.getAttribute("list");
+//    com.day.cq.wcm.foundation.List list = (com.day.cq.wcm.foundation.List) request.getAttribute("list");
 
     response.setHeader("Content-Type", "text/xml");
 %>
@@ -56,14 +57,14 @@
             <item>
                 <title><%= pageTitle %></title>
 
-                <c:if test="<%= !StringUtils.isEmpty(pageDescription) %>">
+                <c:if test="<%= StringUtils.isNotEmpty(pageDescription) %>">
                     <description><%= pageDescription %></description>
                 </c:if>
 
                 <link><%= mappedUrl(_resourceResolver, listPage.getPath()).concat(DEFAULT_EXTENTION) %></link>
                 <guid><%= getUniquePageIdentifier(listPage) %></guid>
 
-                <c:if test="<%= !StringUtils.isBlank(rssDate) %>">
+                <c:if test="<%= StringUtils.isNotBlank(rssDate) %>">
                     <pubDate><%= rssDate %></pubDate>
                 </c:if>
 
