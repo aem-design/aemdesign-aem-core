@@ -38,6 +38,9 @@
     <c:when test="${!componentProperties.cancelInheritParent}">
         <%@ include file="parent.render.jsp" %>
     </c:when>
+    <c:when test="${componentProperties.variant eq 'parsys'}">
+        <%@ include file="variant.parsys.jsp" %>
+    </c:when>
     <c:otherwise>
         <%@ include file="variant.default.jsp" %>
     </c:otherwise>
