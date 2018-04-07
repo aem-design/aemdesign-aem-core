@@ -446,8 +446,8 @@
                                         <items jcr:primaryType="nt:unstructured">
                                             <default
                                                     jcr:primaryType="nt:unstructured"
-                                                    text=""
-                                                    value="none"/>
+                                                    text="Default"
+                                                    value=""/>
                                             <rss
                                                     jcr:primaryType="nt:unstructured"
                                                     text="RSS"
