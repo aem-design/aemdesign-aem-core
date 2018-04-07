@@ -69,7 +69,7 @@
     }
 
     if ((Boolean)componentProperties.get("feedEnabled")) {
-        if ("atom".equals(componentProperties.get("feedEnabled"))) {
+        if ("atom".equals(componentProperties.get("feedType"))) {
             componentProperties.put("feedExt", ".feed");
             componentProperties.put("feedTitle", "Atom 1.0 (List)");
             componentProperties.put("feedType", "application/atom+xml");
