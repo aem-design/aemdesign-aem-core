@@ -182,6 +182,7 @@
     private static final String FIELD_ASSET_TRACKABLE = "asset-trackable";
 
     private static final String DETAILS_TITLE = "title";
+    private static final String DETAILS_DESCRIPTION = "description";
 
 
 
@@ -1064,18 +1065,14 @@
         String pageDescription = page.getDescription();
 
         try {
-            Resource parsysR = page.getContentResource("par");
-            if (parsysR != null) {
-                Node parsysN = parsysR.adaptTo(Node.class);
-                NodeIterator nodeIt = parsysN.getNodes();
-                while (nodeIt.hasNext()) {
-                    Node child = nodeIt.nextNode();
-                    String childName = child.getName().toLowerCase();
-                    if (childName.endsWith(COMPONENT_DETAILS_SUFFIX)) {
-                        return getPropertyWithDefault(child, "summary", pageDescription);
-                    }
+            Node filterDetailComponent = findDetailNode(page);
+
+            if (filterDetailComponent != null) {
+                if (filterDetailComponent.hasProperty(DETAILS_DESCRIPTION)) {
+                    return filterDetailComponent.getProperty(DETAILS_DESCRIPTION).getString();
                 }
             }
+
         } catch (Exception ex) {
             getLogger().error("getPageDescription:" + ex.toString());
         }
@@ -1091,9 +1088,9 @@
      */
     public String getPageDetailsField(Page page, String field) throws RepositoryException {
         String defaultPageValue = StringUtils.EMPTY;
-        if ("title".equals(field)){
+        if (DETAILS_TITLE.equals(field)){
             defaultPageValue =  page.getTitle();
-        }else if ("description".equals(field)){
+        }else if (DETAILS_DESCRIPTION.equals(field)){
             defaultPageValue =  page.getDescription();
         }
 
