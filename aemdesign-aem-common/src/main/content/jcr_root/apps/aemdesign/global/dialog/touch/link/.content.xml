@@ -39,7 +39,7 @@
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldLabel="Link Text"
                                             fieldDescription="dataTarget attribute"
-                                            name="./link"
+                                            name="./label"
                                             required="{Boolean}false"/>
 
                                     <linkUrl
