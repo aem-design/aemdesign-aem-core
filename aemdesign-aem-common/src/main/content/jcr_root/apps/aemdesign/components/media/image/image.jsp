@@ -204,6 +204,9 @@
     <c:when test="${componentProperties.variant eq 'imageTitleDescription'}">
         <%@include file="variant.imageTitleDescription.jsp" %>
     </c:when>
+    <c:when test="${componentProperties.variant eq 'imageDescription'}">
+        <%@include file="variant.imageDescription.jsp" %>
+    </c:when>
     <c:when test="${componentProperties.variant eq 'card'}">
         <%@include file="variant.card.jsp" %>
     </c:when>
