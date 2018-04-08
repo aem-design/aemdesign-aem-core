@@ -510,7 +510,7 @@
                                             <default
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Default"
-                                                    value="image"/>
+                                                    value="default"/>
                                             <icon
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Icon"
