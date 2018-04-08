@@ -8,6 +8,6 @@
         $('.modal-dialog').css('top', viewportHeight * 0.5);
     });
 
-    console.log("clientlibs-author-coralui-authoring - modals");
+    // console.log("clientlibs-author-coralui-authoring - modals");
 
 }(jQuery));

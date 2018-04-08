@@ -20,10 +20,16 @@
 
     // when dialog gets injected
     $(document).on("foundation-contentloaded", function(e) {
+
+        // console.log("clientlibs-author-coralui-dialog - foundation-contentloaded");
+
         // if there is already an inital value make sure the according target element becomes visible
         showHideHandler($(".dialog-dropdown-showhide", e.target));
 
         $(document).on("selected", ".dialog-dropdown-showhide", function(e) {
+
+            // console.log("clientlibs-author-coralui-dialog - dialog-dropdown-showhide");
+
             showHideHandler($(this));
         });
 
@@ -74,6 +80,8 @@
                 value = component.getValue();
             }
 
+
+
             // make sure all unselected target elements are hidden.
             $target.not(".hide").addClass("hide");
 
@@ -88,5 +96,6 @@
         }
     }
 
+    // console.log("clientlibs-author-coralui-dialog");
 
 })(document,Granite.$);
