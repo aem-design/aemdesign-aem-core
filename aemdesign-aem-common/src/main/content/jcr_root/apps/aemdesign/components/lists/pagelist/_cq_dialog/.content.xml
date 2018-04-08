@@ -106,6 +106,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Horizontal Card"
                                                     value="cardHorizontal"/>
+                                            <cardTitleDescriptionAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Title, Description and Action"
+                                                    value="cardTitleDescriptionAction"/>
                                             <!--<categoryTitlePublishDate-->
                                             <!--jcr:primaryType="nt:unstructured"-->
                                             <!--text="Category Title Publish Date"-->

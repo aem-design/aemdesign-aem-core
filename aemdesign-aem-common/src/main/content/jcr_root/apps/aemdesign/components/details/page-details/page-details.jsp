@@ -130,6 +130,10 @@
         <%@ include file="badge.image.jsp" %>
     </c:when>
 
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardTitleDescriptionAction'}">
+        <%@ include file="badge.cardTitleDescriptionAction.jsp" %>
+    </c:when>
+
     <c:when test="${COMPONENT_BADGE eq 'badge' or COMPONENT_BADGE eq 'badge.default'}">
         <%@ include file="badge.default.jsp" %>
     </c:when>
