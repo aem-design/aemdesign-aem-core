@@ -67,6 +67,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Image with title &amp; description"
                                                     value="imageTitleDescription"/>
+                                            <imageDescription
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Image with description"
+                                                    value="imageDescription"/>
                                         </items>
                                     </variant>
                                     <imageOption
@@ -296,12 +300,24 @@
                                                     <responsiveImageMapping
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
-                                                            fieldDescription="rendition width = media query, &lt;br> &lt;br> ex 48=(min-width: 1px) and (max-width: 100px), this will show rendition of 48px between 1px and 100px device width &lt;br>&lt;br>  ex 1280=(min-width: 478px) will use rendition 1280 starting from width of 487 and up"
+                                                            fieldDescription="setup map of rendition size to viewport"
                                                             fieldLabel="Rendition Image Mapping">
                                                         <field
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
                                                     </responsiveImageMapping>
+                                                    <note1
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="cq/gui/components/authoring/dialog/note"
+                                                            note="format: [rendition width]=[media query]"/>
+                                                    <note2
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="cq/gui/components/authoring/dialog/note"
+                                                            note="- ex 48=(min-width: 1px) and (max-width: 100px), this will show rendition of 48px between 1px and 100px device width"/>
+                                                    <note3
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="cq/gui/components/authoring/dialog/note"
+                                                            note="- ex 1280=(min-width: 478px) will use rendition 1280 starting from width of 487 and up"/>
                                                 </items>
                                             </responsiveRenditionSize>
 
@@ -346,12 +362,25 @@
                                                     <adaptiveImageMapping
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
-                                                            fieldDescription="width.quality.format = media query, &lt;br> &lt;br> ex 480.medium=(min-width: 1px) and (max-width: 533px), this will show rendition of 48px between 1px and 533px device width &lt;br>&lt;br>  ex full=(min-width: 1332px) will create a close to original rendition"
+                                                            fieldDescription="setup map of quality setting to view port"
                                                             fieldLabel="Adaptive Image Mapping">
                                                         <field
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
                                                     </adaptiveImageMapping>
+                                                    <note1
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="cq/gui/components/authoring/dialog/note"
+                                                            note="format: [width.quality.format]=[media query]"/>
+                                                    <note2
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="cq/gui/components/authoring/dialog/note"
+                                                            note="- ex 480.medium=(min-width: 1px) and (max-width: 533px), this will show rendition of 48px between 1px and 533px device width"/>
+                                                    <note3
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="cq/gui/components/authoring/dialog/note"
+                                                            note="- ex full=(min-width: 1332px) will create a close to original rendition"/>
+
                                                 </items>
                                             </adaptiveRenditionSize>
                                         </items>
