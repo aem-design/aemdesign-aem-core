@@ -14,6 +14,7 @@
     // default values for the component
     final String DEFAULT_TITLE = getPageTitle(_currentPage);
     final String DEFAULT_DESCRIPTION = _currentPage.getDescription();
+    final String DEFAULT_SUBTITLE = _currentPage.getProperties().get(FIELD_PAGE_TITLE_SUBTITLE,"");
     final Boolean DEFAULT_HIDE_DESCRIPTION = false;
     final Boolean DEFAULT_SHOW_BREADCRUMB = true;
     final Boolean DEFAULT_SHOW_TOOLBAR = true;
@@ -33,6 +34,7 @@
             {"linkTarget", StringUtils.EMPTY, "target"},
             {FIELD_PAGE_URL, getPageUrl(_currentPage)},
             {FIELD_PAGE_TITLE_NAV, getPageNavTitle(_currentPage)},
+            {FIELD_PAGE_TITLE_SUBTITLE, DEFAULT_SUBTITLE},
             {TagConstants.PN_TAGS, new String[]{}},
             {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
             {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
@@ -132,6 +134,14 @@
 
     <c:when test="${COMPONENT_BADGE eq 'badge.cardTitleDescriptionAction'}">
         <%@ include file="badge.cardTitleDescriptionAction.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardImageTitleSubtitleDescriptionAction'}">
+        <%@ include file="badge.cardImageTitleSubtitleDescriptionAction.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardImageTitleAction'}">
+        <%@ include file="badge.cardImageTitleAction.jsp" %>
     </c:when>
 
     <c:when test="${COMPONENT_BADGE eq 'badge' or COMPONENT_BADGE eq 'badge.default'}">

@@ -127,6 +127,7 @@
     public static final String FIELD_PAGE_IMAGE_THUMBNAIL = "pageImageThumbnail";
     public static final String FIELD_PAGE_URL = "pageUrl";
     public static final String FIELD_PAGE_TITLE_NAV = "pageNavTitle";
+    public static final String FIELD_PAGE_TITLE_SUBTITLE = "subtitle";
     public static final String FIELD_VIDEO_BACKGROUND = "backgroundVideo";
 
 

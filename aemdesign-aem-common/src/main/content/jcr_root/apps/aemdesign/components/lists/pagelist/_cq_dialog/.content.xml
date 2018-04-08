@@ -110,6 +110,14 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Card with Title, Description and Action"
                                                     value="cardTitleDescriptionAction"/>
+                                            <cardImageTitleSubtitleDescriptionAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card Colored with Image, Title, Sub Title, Description and Action"
+                                                    value="cardImageTitleSubtitleDescriptionAction"/>
+                                            <cardImageTitleAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Image, Title and Action"
+                                                    value="cardImageTitleAction"/>
                                             <!--<categoryTitlePublishDate-->
                                             <!--jcr:primaryType="nt:unstructured"-->
                                             <!--text="Category Title Publish Date"-->
