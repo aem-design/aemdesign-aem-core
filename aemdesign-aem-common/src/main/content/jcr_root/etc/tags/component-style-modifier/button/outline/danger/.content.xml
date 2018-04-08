@@ -4,4 +4,4 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Danger"
     sling:resourceType="cq/tagging/components/tag"
-    value="btn-outline-danger"/>
+    value="btn btn-outline-danger"/>

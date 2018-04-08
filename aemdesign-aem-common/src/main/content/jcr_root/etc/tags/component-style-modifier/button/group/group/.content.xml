@@ -4,4 +4,4 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Group"
     sling:resourceType="cq/tagging/components/tag"
-    value="btn-group"/>
+    value="btn btn-group"/>

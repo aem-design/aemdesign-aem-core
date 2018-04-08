@@ -4,4 +4,4 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Link"
     sling:resourceType="cq/tagging/components/tag"
-    value="btn-outline-link"/>
+    value="btn btn-outline-link"/>

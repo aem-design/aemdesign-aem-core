@@ -4,4 +4,4 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Success"
     sling:resourceType="cq/tagging/components/tag"
-    value="btn-success"/>
+    value="btn btn-success"/>

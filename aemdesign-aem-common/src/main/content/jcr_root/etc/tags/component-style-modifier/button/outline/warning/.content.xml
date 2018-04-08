@@ -4,4 +4,4 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Warning"
     sling:resourceType="cq/tagging/components/tag"
-    value="btn-outline-warning"/>
+    value="btn btn-outline-warning"/>

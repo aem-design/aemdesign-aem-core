@@ -4,4 +4,4 @@
     jcr:primaryType="cq:Tag"
     jcr:title="Block"
     sling:resourceType="cq/tagging/components/tag"
-    value="btn-block"/>
+    value="btn btn-block"/>
