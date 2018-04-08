@@ -57,6 +57,8 @@ CQ.tagging.TagAdmin.createTag = function () {
                     fieldLabel: CQ.I18n.getMessage("Description"),
                     xtype: "textarea"
                 }
+                //THIS DOES NOT WORK AS THE SERVLET ONLY SUPPORTS FIELDS ABOVE
+                //UPDATE ONLY THE UPDATE SCREEN
                 // ,{
                 //     name: "value",
                 //     fieldLabel: CQ.I18n.getMessage("Value"),
@@ -162,6 +164,11 @@ CQ.tagging.TagAdmin.createTag = function () {
                     {
                         name: "value",
                         fieldLabel: CQ.I18n.getMessage("Value"),
+                        xtype: "textarea"
+                    },
+                    {
+                        name: "href",
+                        fieldLabel: CQ.I18n.getMessage("Reference URL"),
                         xtype: "textarea"
                     },
                     {

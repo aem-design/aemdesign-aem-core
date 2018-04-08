@@ -4,6 +4,8 @@
     <filter root="/apps/dam/widgets/source/widgets/form" mode="update"/>
 
     <filter root="/apps/cq/tagging/components/tag" mode="update"/>
+    <filter root="/apps/cq/tagging/gui/content/tags/tagedit" mode="update"/>
+    <filter root="/apps/cq/tagging/gui/components/tagedit/clientlibs" mode="update"/>
     <filter root="/apps/cq/tagging/widgets/source/widgets/admin" mode="update"/>
     <filter root="/apps/cq/ui/widgets/source/widgets/form/rte/plugins" mode="update"/>
 

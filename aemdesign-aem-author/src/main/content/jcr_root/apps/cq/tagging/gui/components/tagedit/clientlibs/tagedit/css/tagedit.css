@@ -1,0 +1,64 @@
+#tageditsettings {
+    width:100%;
+    height:100%;
+}
+#tageditsettings-left {
+    vertical-align:top;
+    width:700px;
+    padding:20px 40px 0 40px;
+}
+#tagdescription {
+    height:100px;
+}
+span.parttext {
+    font-size:1rem;
+}
+.flexwizard-control.hidden{
+    display: none;
+}
+#tageditsettings-right {
+    vertical-align: top;
+    padding:1rem;
+}
+#tageditsettings-right .block{
+    display: block;
+}
+
+#tageditsettings-adduser {
+    width: 66.66%;
+    margin-top: 1rem;
+}
+#tagedit-settings-userpicker {
+    display: inline-block;
+    width:66.66%;
+    float: left;
+    margin: 0;
+    margin-top:1rem;
+}
+
+/* user picker css*/
+#tageditsettings-adduser .granite-userpicker .dropdown-list ul li {
+    height: 2.3125rem;
+}
+#add-user {
+    width: 6.875rem;
+    margin-top: 5rem;
+}
+
+.tag-edit-right-div {
+    margin-top: 20px;
+    margin-left: 30px;    
+}
+
+.tag-added-language-textfield {
+    width: calc(100% - 48px);
+}
+
+.tag-added-language-remove-button {
+    margin-left: 10px;
+}
+
+
+.stepsContainer {
+    height: calc(100% - 4.25rem);
+}
