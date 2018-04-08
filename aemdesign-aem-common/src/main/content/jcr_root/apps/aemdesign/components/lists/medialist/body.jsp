@@ -6,7 +6,7 @@
 
     // get component properties
     String[] mediaPaths = _properties.get("mediaItems", new String[0]);
-    boolean splitList = _properties.get("splitList", false);
+    boolean splitList = _properties.get("listSplit", false);
     boolean hideThumbnail = _properties.get("hideThumbnail", Boolean.FALSE);
     boolean showIcons = _properties.get("showIcons", Boolean.FALSE);
     boolean showSocial = _properties.get("showShareButton", Boolean.FALSE);

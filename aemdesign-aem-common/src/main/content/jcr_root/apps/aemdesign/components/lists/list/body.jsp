@@ -63,11 +63,12 @@
                 </li>
             </c:if>
 
-            <c:if test="${componentProperties.splitList}">
-                <c:if test="${itemStatus.index % componentProperties.listSplitEvery == 0 && !itemStatus.last}">
+            <c:if test="${componentProperties.listSplit}">
+                <c:if test="${(itemStatus.index + 1) % componentProperties.listSplitEvery == 0 && !itemStatus.last}">
                     <c:if test="${componentProperties.printStructure}">
-                        </li>
-                        <li class="${listClass}">
+                        </${componentProperties.listTag}>
+                        <!--split-->
+                        <${componentProperties.listTag}>
                     </c:if>
                 </c:if>
             </c:if>

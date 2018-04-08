@@ -25,7 +25,7 @@
     //need to retrieve the pages again
     Iterator<Page> items = list.getPages();
 
-    boolean splitList = _properties.get("splitList", false);
+    boolean splitList = _properties.get("listSplit", false);
     String cssClass = _properties.get("cssClassList", "");
     String cssClassItem = _properties.get("cssClassItem", "");
     String cssClassItemLink = _properties.get("cssClassItemLink", "");
