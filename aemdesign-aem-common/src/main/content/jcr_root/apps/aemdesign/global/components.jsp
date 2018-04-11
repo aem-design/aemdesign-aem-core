@@ -184,6 +184,10 @@
     private static final String DETAILS_TITLE = "title";
     private static final String DETAILS_DESCRIPTION = "description";
 
+    private static final String DETAILS_COLUMNS_LAYOUT_CLASS_SMALL = "layoutColumnClassSmall";
+    private static final String DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM = "layoutColumnClassMedium";
+    private static final String DETAILS_COLUMNS_LAYOUT_CLASS_LARGE = "layoutColumnClassLarge";
+    private static final String DETAILS_COLUMNS_LAYOUT_ROW_CLASS = "layoutRowClass";
 
 
     //COMPONENT STYLES

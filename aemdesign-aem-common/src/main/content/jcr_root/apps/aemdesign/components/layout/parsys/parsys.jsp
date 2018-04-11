@@ -53,8 +53,8 @@
                         DEFAULT_FIELDS_STYLE,
                         DEFAULT_FIELDS_ACCESSIBILITY);
 
-                openRow(parSys,par,out, componentProperties);
-                openCol(parSys,par,out, componentProperties);
+                openRow(parSys,par,out, componentProperties,"");
+                openCol(parSys,par,out, componentProperties,"");
 
                 hasColumns = true;
                 break;
@@ -67,7 +67,7 @@
 
                 closeCol(par,out);
 
-                openCol(parSys,par,out, componentProperties);
+                openCol(parSys,par,out, componentProperties,"");
 
                 break;
             case END:

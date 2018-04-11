@@ -25,6 +25,10 @@
     Object[][] componentFields = {
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"layout", DEFAULT_LAYOUT},
+            {DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, new String[]{}},
+            {DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, new String[]{}},
+            {DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, new String[]{}},
+            {DETAILS_COLUMNS_LAYOUT_ROW_CLASS, new String[]{}},
     };
 
     String COMPONENT_NAMESPACE = "aemdesign.components.layout.colctrl";
@@ -107,6 +111,13 @@
                         DEFAULT_FIELDS_STYLE,
                         DEFAULT_FIELDS_ACCESSIBILITY);
                 componentProperties.put("numCols",numCols);
+
+                //read column styles
+                componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, getTagsAsValues(_tagManager, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, new String[]{})));
+                componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, getTagsAsValues(_tagManager, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, new String[]{})));
+                componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, getTagsAsValues(_tagManager, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, new String[]{})));
+                componentProperties.put(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, getTagsAsValues(_tagManager, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, new String[]{})));
+
 
                 String currentLayout = componentProperties.get("layout",DEFAULT_LAYOUT);
                 if (currentLayout.contains(";")) {
@@ -193,6 +204,12 @@
                         DEFAULT_FIELDS_ACCESSIBILITY);
                 componentProperties.put("numCols",numCols);
 
+                //read column styles
+                componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, getTagsAsValues(_tagManager, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, new String[]{})));
+                componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, getTagsAsValues(_tagManager, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, new String[]{})));
+                componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, getTagsAsValues(_tagManager, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, new String[]{})));
+                componentProperties.put(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, getTagsAsValues(_tagManager, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, new String[]{})));
+
                 String currentLayout = componentProperties.get("layout",DEFAULT_LAYOUT);
                 if (currentLayout.contains(";")) {
                     componentProperties.put("layout",currentLayout.split(";")[1]);
@@ -202,8 +219,14 @@
 
                 request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES), componentProperties);
 
-                openRow(numCols, out, componentProperties);
-                openCol(currentColumn, out, componentProperties);
+                String columnClassSmall = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, "");
+                String columnClassMedium = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, "");
+                String columnClassLarge = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, "");
+                String rowClass = componentProperties.get(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, "");
+                String columnClass = MessageFormat.format("{0} {1} {2}",columnClassSmall, columnClassMedium, columnClassLarge).trim();
+
+                openRow(numCols, out, componentProperties, rowClass);
+                openCol(currentColumn, out, componentProperties, columnClass);
                 request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn + 1);
                 break;
             }
@@ -227,9 +250,13 @@
                     componentProperties = (ComponentProperties) request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES));
                     currentColumn = (Integer) request.getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN)) ;
 
+                    String columnClassSmall = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, "");
+                    String columnClassMedium = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, "");
+                    String columnClassLarge = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, "");
+                    String columnClass = MessageFormat.format("{0} {1} {2}",columnClassSmall, columnClassMedium, columnClassLarge).trim();
 
                     closeCol(null, out);
-                    openCol(currentColumn, out, componentProperties);
+                    openCol(currentColumn, out, componentProperties, columnClass);
 
                     request.setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn + 1);
                 }

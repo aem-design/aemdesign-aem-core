@@ -30,17 +30,64 @@
                         <items jcr:primaryType="nt:unstructured">
                             <layout
                                     jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/select"
-                                    fieldLabel="Column Layout"
-                                    name="./layout"
-                                    emptyOption="{Boolean}true"
-                                    value="">
-                                <datasource
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                        variant="valuelist"
-                                        path="/etc/tags/component-style-theme/layout/colctrl/layout"/>
+                                    jcr:title="Layout"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <layout
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldLabel="Column Layout"
+                                            name="./layout"
+                                            emptyOption="{Boolean}true"
+                                            value="">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-style-theme/layout/colctrl/layout"/>
+                                    </layout>
+                                </items>
                             </layout>
+                            <attributes
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Attributes"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <layoutColumnClassSmall
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            fieldLabel="Column Class - Small"
+                                            fieldDescription="class for small view port"
+                                            multiple="{Boolean}true"
+                                            rootPath="/etc/tags/component-style-theme/layout/colctrl/column/small"
+                                            name="./layoutColumnClassSmall"/>
+                                    <layoutColumnClassMedium
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            fieldLabel="Column Class - Medium"
+                                            fieldDescription="class for medium view port"
+                                            multiple="{Boolean}true"
+                                            rootPath="/etc/tags/component-style-theme/layout/colctrl/column/medium"
+                                            name="./layoutColumnClassMedium"/>
+                                    <layoutColumnClassLarge
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            fieldLabel="Column Class - Large"
+                                            fieldDescription="class for large view port"
+                                            multiple="{Boolean}true"
+                                            rootPath="/etc/tags/component-style-theme/layout/colctrl/column/large"
+                                            name="./layoutColumnClassLarge"/>
+                                    <layoutRowClass
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            fieldLabel="Row Class"
+                                            fieldDescription="class for large view port"
+                                            multiple="{Boolean}true"
+                                            rootPath="/etc/tags/component-style-theme/layout/colctrl/row"
+                                            name="./layoutRowClass"/>
+                                </items>
+                            </attributes>
+
                         </items>
                     </column>
                 </items>

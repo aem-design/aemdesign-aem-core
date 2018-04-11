@@ -33,9 +33,9 @@
      * @param componentProperties component properties
      * @throws IOException
      */
-    final void openRow(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties) throws IOException {
+    final void openRow(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties, String rowClass) throws IOException {
 
-        openRow(par.getNumCols(),out,componentProperties);
+        openRow(par.getNumCols(),out,componentProperties, rowClass);
 
     }
 
@@ -47,7 +47,7 @@
      * @param componentProperties component properties
      * @throws IOException
      */
-    final void openRow(Integer numCols, JspWriter out, ComponentProperties componentProperties) throws IOException {
+    final void openRow(Integer numCols, JspWriter out, ComponentProperties componentProperties, String rowClass) throws IOException {
 
         final String numColsCSS = MessageFormat.format("colctrl-{0}c",numCols);
 
@@ -66,7 +66,7 @@
 
 
         // row start
-        out.write(MessageFormat.format("<div class=\"{0} {1}\">",COLUMNS_CLASS, ROW_CLASS));
+        out.write(MessageFormat.format("<div class=\"{0} {1} {2}\">",COLUMNS_CLASS, ROW_CLASS, rowClass));
     }
 
     /**
@@ -106,9 +106,9 @@
      * @param out html output
      * @throws IOException
      */
-    final void openCol(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties) throws IOException {
+    final void openCol(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
 
-        openCol(par.getBaseCssClass().split(","),par.getColNr(),par.getCssClass(),out,componentProperties);
+        openCol(par.getBaseCssClass().split(","),par.getColNr(),par.getCssClass(),out,componentProperties, columnClassStyle);
 
     }
 
@@ -121,15 +121,15 @@
      * @param componentProperties columns componentProperties
      * @throws IOException
      */
-    final void openCol(String[] columnsFormat, Integer colNumber, String columnClass, JspWriter out, ComponentProperties componentProperties) throws IOException {
+    final void openCol(String[] columnsFormat, Integer colNumber, String columnClass, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
 
         //print column start
         if (columnsFormat.length > 1 && (colNumber + 1) < columnsFormat.length) {
             //take the [0] = [col-md-] and add to it width by current column number
-            out.write(MessageFormat.format("<div class=\"{0} {1} {2}{3}\">",COLUMNS_CLASS, COLUMN_CLASS, columnsFormat[0], columnsFormat[colNumber + 1])); //EXTENDED
+            out.write(MessageFormat.format("<div class=\"{0} {1} {2}{3} {4}\">",COLUMNS_CLASS, COLUMN_CLASS, columnsFormat[0], columnsFormat[colNumber + 1], columnClassStyle)); //EXTENDED
         } else {
             //out.write("<div class='parsys_column " + par.getBaseCssClass() + " col-" + n + "'>");
-            out.write(MessageFormat.format("<div class=\"{0} {1} {2}\">",COLUMNS_CLASS, COLUMN_CLASS, columnClass)); //ORIGINAL
+            out.write(MessageFormat.format("<div class=\"{0} {1} {2} {3}\">",COLUMNS_CLASS, COLUMN_CLASS, columnClass, columnClassStyle)); //ORIGINAL
         }
     }
 
@@ -139,7 +139,7 @@
      * @param out html output
      * @throws IOException
      */
-    final void openCol(Integer colNumber, JspWriter out, ComponentProperties componentProperties) throws IOException {
+    final void openCol(Integer colNumber, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
 
         String[] columnsFormat = new String[0];
         String defaultFormat = "1;colctrl-1c"; //alt: col-md-,2,3,2,3,2
@@ -150,7 +150,7 @@
             columnClass = componentProperties.get("class",columnClass);
         }
 
-        openCol(columnsFormat, colNumber, columnClass, out, componentProperties);
+        openCol(columnsFormat, colNumber, columnClass, out, componentProperties, columnClassStyle);
     }
 
     /**
