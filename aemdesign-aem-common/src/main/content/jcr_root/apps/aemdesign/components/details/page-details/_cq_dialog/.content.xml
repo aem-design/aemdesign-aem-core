@@ -105,6 +105,20 @@
                                                 variant="valuelist"
                                                 path="/etc/tags/component-dialog/common/true-false"/>
                                     </showParsys>
+                                    <hideDescription
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldDescription="hide description after title"
+                                            fieldLabel="Hide Description"
+                                            name="./hideDescription"
+                                            emptyOption="{Boolean}true"
+                                            value="">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/etc/tags/component-dialog/common/true-false"/>
+                                    </hideDescription>
                                 </items>
                             </displayOptions>
                             <titleFormat
