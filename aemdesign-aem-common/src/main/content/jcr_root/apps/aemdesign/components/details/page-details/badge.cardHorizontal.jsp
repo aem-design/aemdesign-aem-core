@@ -18,7 +18,7 @@
             </c:if>
             <p class="card-text">${componentProperties.description}</p>
         </div>
-        <div class="col-md-auto mt-reset mt-md-collapse">
+        <div class="card-action col-md-auto mt-reset mt-md-collapse">
             <a class="card-link ${fn:join(componentProperties.badgeLinkStyle, ' ')}"
                 href="${componentProperties.pageUrl}"
                 target="${componentProperties.badgeLinkTarget}"

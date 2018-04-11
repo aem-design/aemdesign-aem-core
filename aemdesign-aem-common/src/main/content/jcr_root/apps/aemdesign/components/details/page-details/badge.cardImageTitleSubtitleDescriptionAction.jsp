@@ -15,7 +15,7 @@
             </div>
         </c:if>
         <p class="card-text">${componentProperties.description}</p>
-        <div class="button">
+        <div class="card-action">
             <a class="card-link ${fn:join(componentProperties.badgeLinkStyle, ' ')}"
                href="${componentProperties.pageUrl}"
                target="${componentProperties.badgeLinkTarget}"
