@@ -34,6 +34,8 @@
             {"linksLeft", new String[]{}},
             {"titleType", DEFAULT_TITLE_TAG_TYPE},
             {"title", ""},
+            {"dataParent", ""},
+            {"dataToggle", ""},
             {FIELD_STYLE_COMPONENT_BOOLEANATTR, DEFAULT_VIDEO_ATTRIBUTES,"", Tag.class.getCanonicalName()},
     };
 
@@ -102,6 +104,9 @@
     </c:when>
     <c:when test="${componentProperties.variant eq 'containerVideo'}">
         <%@ include file="variant.containerVideo.jsp" %>
+    </c:when>
+    <c:when test="${componentProperties.variant eq 'childsection'}">
+        <%@ include file="variant.childsection.jsp" %>
     </c:when>
     <c:when test="${componentProperties.variant eq 'parsys'}">
         <%@ include file="variant.parsys.jsp" %>

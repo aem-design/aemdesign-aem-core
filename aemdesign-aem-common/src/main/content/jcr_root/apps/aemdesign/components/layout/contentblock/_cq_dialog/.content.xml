@@ -127,6 +127,8 @@
                                             fieldLabel="Variant"
                                             name="./variant"
                                             emptyOption="{Boolean}true"
+                                            class="cq-dialog-dropdown-showhide"
+                                            cq-dialog-dropdown-showhide-target=".variant-config-showhide-target"
                                             value="">
                                         <items jcr:primaryType="nt:unstructured">
                                             <default
@@ -161,8 +163,51 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Classic Parsys"
                                                     value="parsys"/>
+                                            <childsection
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Child Section"
+                                                    value="childsection"/>
                                         </items>
                                     </variant>
+
+                                    <variantConfig
+                                            jcr:primaryType="nt:unstructured"
+                                            class="hide variant-config-showhide-target foundation-layout-util-vmargin"
+                                            showhidetargetvalue="childsection"
+                                            sling:resourceType="granite/ui/components/foundation/container">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <childsection
+                                                    jcr:primaryType="nt:unstructured"
+                                                    jcr:title="Parent Section"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                                <items jcr:primaryType="nt:unstructured">
+
+                                                    <dataParent
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                            fieldLabel="Parent ID"
+                                                            name="./dataParent"/>
+
+                                                    <dataToggle
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                                            emptyOption="{Boolean}true"
+                                                            fieldLabel="Data Toggle"
+                                                            fieldDescription="data-toggle attribute"
+                                                            name="./dataToggle"
+                                                            value="">
+                                                        <datasource
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                                variant="valuelist"
+                                                                path="/etc/tags/component-dialog/html/toggle"/>
+                                                    </dataToggle>
+
+                                                </items>
+                                            </childsection>
+
+                                        </items>
+                                    </variantConfig>
                                 </items>
                             </variant>
                         </items>
