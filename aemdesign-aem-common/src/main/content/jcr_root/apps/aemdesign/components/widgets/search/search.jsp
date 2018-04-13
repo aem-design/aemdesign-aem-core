@@ -16,7 +16,7 @@
     Object[][] componentFields = {
             {"formAction", "/en/search"},
             {"formMethod", "get"},
-            {"formParameterName", StringUtils.EMPTY},
+            {"formParameterName", "q"},
             {"feedUrl", new String[0],"feed-urls"},
     };
 
