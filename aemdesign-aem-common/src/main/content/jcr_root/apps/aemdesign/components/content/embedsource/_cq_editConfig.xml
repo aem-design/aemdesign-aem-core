@@ -9,7 +9,5 @@
           jcr:primaryType="cq:EditConfig">
     <cq:inplaceEditing
             jcr:primaryType="cq:InplaceEditingConfig"
-            active="{Boolean}true"
-            configPath="/apps/aemdesign/global/dialog/touch/text/content/items/textTab/items/column/items/text"
-            editorType="text"/>
+            active="{Boolean}false"/>
 </jcr:root>
