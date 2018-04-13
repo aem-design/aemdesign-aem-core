@@ -3,7 +3,6 @@
     cq:isContainer="{Boolean}false"
     jcr:description="This is a search component"
     jcr:primaryType="cq:Component"
-    jcr:title="Search Box"
+    jcr:title="Search Results"
     cq:icon="search"
-    allowedParents="[*/parsys]"
     componentGroup="AEM.Design - Common"/>
