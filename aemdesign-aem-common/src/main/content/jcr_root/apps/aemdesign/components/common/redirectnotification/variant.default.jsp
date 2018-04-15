@@ -1,4 +1,4 @@
-<p class="component notfound">
+<p ${componentProperties.componentAttributes}>
     <c:choose>
         <c:when test="${not empty componentProperties.redirectTarget}">
             ${componentProperties.redirectIsSet}

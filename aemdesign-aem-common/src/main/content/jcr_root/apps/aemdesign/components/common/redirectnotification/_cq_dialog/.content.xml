@@ -43,7 +43,8 @@
                                             required="{Boolean}false"/>
                                     <redirectUrl
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                            rootPath="/content"
                                             fieldDescription="Url to use when target is missing"
                                             fieldLabel="Redirect Url"
                                             name="./redirectUrl"
