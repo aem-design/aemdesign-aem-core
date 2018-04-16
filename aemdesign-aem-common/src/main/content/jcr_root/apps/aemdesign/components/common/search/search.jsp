@@ -27,7 +27,9 @@
         search.setSearchIn(requestSearchPath);
     }
 
-    search.setSearchProperties("jcr:title,jcr:description");
+//    search.setSearchProperties("jcr:title,jcr:description");
+
+
 
     final String escapedQuery = xssAPI.encodeForHTML(search.getQuery());
     final String escapedQueryForAttr = xssAPI.encodeForHTMLAttr(search.getQuery());
