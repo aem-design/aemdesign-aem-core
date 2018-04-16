@@ -9,7 +9,7 @@
     Object[][] componentFields = {
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
-            {FIELD_STYLE_COMPONENT_MODULE, new String[]{DEFAULT_MODULE_TAG},"data-module", Tag.class.getCanonicalName()},
+            {FIELD_STYLE_COMPONENT_MODULES, new String[]{DEFAULT_MODULE_TAG},"data-modules", Tag.class.getCanonicalName()},
             {DEFAULT_CLOUDCONFIG_ADDTHIS_ID,
                     getCloudConfigProperty(_pageProperties,DEFAULT_CLOUDCONFIG_ADDTHIS,DEFAULT_CLOUDCONFIG_ADDTHIS_ID,_sling),
                     "data-pubid"},

@@ -1,8 +1,7 @@
 <div ${componentProperties.componentAttributes}>
     <form name="search"
           action="${componentProperties.formAction}"
-          method="${componentProperties.formMethod}"
-          data-modules="search">
+          method="${componentProperties.formMethod}">
         <input type="search"
                name="${componentProperties.formParameterName}"
                placeholder="${componentProperties.placeholderText}">
@@ -10,14 +9,9 @@
 
         <script type="text/template" class="suggestion-tpl">
             <a href='<@- link @>'>
-                <@ if (isModel) { @>
-                <img src='<@- image @>' alt='<@- title @>'>
-                          <span class='title'>
-                            <strong><@- title @></strong>
-                          </span>
-                <@ } else {@>
-                <@- title @>
-                <@ } @>
+              <span class='title'>
+                <strong><@- title @></strong>
+              </span>
             </a>
 
         </script>

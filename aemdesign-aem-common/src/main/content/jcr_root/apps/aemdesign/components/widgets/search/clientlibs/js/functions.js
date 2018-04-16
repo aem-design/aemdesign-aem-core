@@ -3,7 +3,7 @@ window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
 
-(function ($, _, ko, ns, window, undefined) {
+(function ($, _, ko, utils, ns, window, undefined) {
 
     "use strict";
     var _version = "0.1";
@@ -19,6 +19,7 @@ window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
     };
 
     ns.init = function($el) {
+
         /**
          * HTML template for search suggestion dropdown item
          * @type {string}
@@ -29,8 +30,10 @@ window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
          * converted to an array
          * @type {array}
          */
+
         //quick fail
         if ($el.data('feed-urls')===undefined) {
+            console.log("feed urls not set");
             return;
         }
         var suggestionURLS = $el.data('feed-urls').split(',');
@@ -46,8 +49,9 @@ window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
          * Typeahead plugin once done.
          * @param  {array} urls Array of suggestion URLs
          */
-        function prefetchSuggestions(urls) {
+        function getSuggestions(urls) {
             // Retrieve data if array still contains URLs
+
             if(urls.length) {
                 var url = urls.shift();
 
@@ -57,42 +61,48 @@ window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
                     dataType: 'xml'
                 }).done(function(response) {
                     var responseJson = $.xml2json(response);
-                    var items = responseJson.channel.item;
 
-                    // Add isModel flag
-                    items = setToCarModel(items);
+                    //try to get items first, RSS
+                    var items = utils.jsonPath(responseJson,"$..item");
 
-                    // Append results from response to all prefetched suggestions
-                    prefetchedSuggestions = prefetchedSuggestions.concat(items);
+                    //if not found try entry, ATOM
+                    if (!items) {
+                        items = utils.jsonPath(responseJson,"$..entry");
+                    }
 
-                    prefetchSuggestions(urls);
+                    if (items) {
+                        // Append results from response to all prefetched suggestions
+                        prefetchedSuggestions = prefetchedSuggestions.concat(items[0]);
+                    }
+
+                    getSuggestions(urls);
                 });
             } else {
                 initSearchSuggestions();
             }
         }
-
-        /**
-         * Give 'isModel' flag to array of suggestion items
-         * @param {array} items Array of suggestions passed in from prefetch function
-         */
-        function setToCarModel(items) {
-            // First array of suggestions should always have the thumbnail displayed
-            // The 'isModel' property serves as a flag in the template
-            if(counter === 0) {
-                _.each(items, function(item) {
-                    item.isModel = true;
-                });
-            } else {
-                _.each(items, function(item) {
-                    item.isModel = false;
-                });
-            }
-
-            counter++;
-
-            return items;
-        }
+        //
+        // /**
+        //  * Give 'isModel' flag to array of suggestion items
+        //  * @param {array} items Array of suggestions passed in from prefetch function
+        //  */
+        // function setTemplatedModel(items) {
+        //     // First array of suggestions should always have the thumbnail displayed
+        //     // The 'isModel' property serves as a flag in the template
+        //     if(counter === 0) {
+        //         _.each(items, function(item) {
+        //             item.isTemplated = true;
+        //         });
+        //     } else {
+        //         _.each(items, function(item) {
+        //             item.isTemplated = false;
+        //         });
+        //     }
+        //
+        //     counter++;
+        //
+        //     return items;
+        // }
 
         /**
          * Initialise Typeahead suggestions plugin
@@ -109,7 +119,8 @@ window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
 
             $('input[type="search"]', $el).typeahead(
                 {
-                    hint: false,
+                    hint: true,
+                    highlight: true,
                     minLength: 2
                 },
                 {
@@ -121,13 +132,16 @@ window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
                     templates: {
                         suggestion: suggestionTpl
                     }
-                });
+                }
+            );
         }
 
-        prefetchSuggestions(suggestionURLS);
+        getSuggestions(suggestionURLS);
+
 
         return $el;
     };
 
-})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.search, this);
+
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.utils, AEMDESIGN.components.search, this);
 

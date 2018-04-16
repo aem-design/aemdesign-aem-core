@@ -130,7 +130,7 @@
     private static final String FIELD_STYLE_COMPONENT_ID = "componentId";
     private static final String FIELD_STYLE_COMPONENT_THEME = "componentTheme";
     private static final String FIELD_STYLE_COMPONENT_MODIFIERS = "componentModifiers";
-    private static final String FIELD_STYLE_COMPONENT_MODULE = "componentModule";
+    private static final String FIELD_STYLE_COMPONENT_MODULES = "componentModules";
     private static final String FIELD_STYLE_COMPONENT_CHEVRON = "componentChevron";
     private static final String FIELD_STYLE_COMPONENT_ICON = "componentIcon";
     private static final String FIELD_STYLE_COMPONENT_BOOLEANATTR = "componentBooleanAttrs";
@@ -201,7 +201,7 @@
             {FIELD_STYLE_COMPONENT_ID, "","id"},
             {FIELD_STYLE_COMPONENT_THEME, new String[]{},"class", Tag.class.getCanonicalName()},
             {FIELD_STYLE_COMPONENT_MODIFIERS, new String[]{},"class", Tag.class.getCanonicalName()},
-            {FIELD_STYLE_COMPONENT_MODULE, new String[]{},"data-module", Tag.class.getCanonicalName()},
+            {FIELD_STYLE_COMPONENT_MODULES, new String[]{},"data-modules", Tag.class.getCanonicalName()},
             {FIELD_STYLE_COMPONENT_CHEVRON, new String[]{},"class", Tag.class.getCanonicalName()},
             {FIELD_STYLE_COMPONENT_ICON, new String[]{},"class", Tag.class.getCanonicalName()},
             {FIELD_STYLE_COMPONENT_POSITIONX, ""},

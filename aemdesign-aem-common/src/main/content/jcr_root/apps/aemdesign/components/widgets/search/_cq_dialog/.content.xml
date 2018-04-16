@@ -90,6 +90,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Default"
                                                     value=""/>
+                                            <quick
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Quick Search"
+                                                    value="quick"/>
                                         </items>
                                     </variant>
 

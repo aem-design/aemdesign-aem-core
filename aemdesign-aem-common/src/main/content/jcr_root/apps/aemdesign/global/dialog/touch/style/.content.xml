@@ -54,14 +54,14 @@
                                             multiple="{Boolean}true"
                                             rootPath="/etc/tags/component-style-modifier"
                                             name="./componentModifiers"/>
-                                    <componentModule
+                                    <componentModules
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="cq/gui/components/coral/common/form/tagfield"
                                             fieldLabel="Module"
                                             fieldDescription="Will be added as data-module attribute"
                                             multiple="{Boolean}true"
                                             rootPath="/etc/tags/component-style-module"
-                                            name="./componentModule"/>
+                                            name="./componentModules"/>
                                     <componentChevron
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="cq/gui/components/coral/common/form/tagfield"

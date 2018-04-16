@@ -3,18 +3,22 @@ window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
 
-(function ($, _, ko, utils, log, ns, window, undefined) { //add additional dependencies
+(function ($, _, ko, utils, log, search, window, undefined) { //add additional dependencies
 
+    //log.enableLog();
 
     $(document).ready(function () {
 
-        // $("[data-modules='search']").each(function() {
-        //
-        //     var base = $(this);
-        //     log.info("loading search box");
-        //     search.init(base);
-        //
-        // });
+        $("[data-modules*='search']").each(function() {
+
+            var base = $(this);
+
+            search.init(base);
+
+
+        });
+
+
     });
 
 

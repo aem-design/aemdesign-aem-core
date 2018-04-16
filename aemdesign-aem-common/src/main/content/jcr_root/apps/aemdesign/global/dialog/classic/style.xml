@@ -36,12 +36,12 @@
                                     namespaces="[component-style-modifier]"
                                     xtype="tags"/>
 
-                <componentModule jcr:primaryType="cq:Widget"
+                <componentModules jcr:primaryType="cq:Widget"
                                  allowBlank="{Boolean}true"
                                  defaultValue=""
                                  value=""
                                  fieldLabel="Module"
-                                 name="./componentModule"
+                                 name="./componentModules"
                                  namespaces="[component-style-module]"
                                  xtype="tags"/>
 

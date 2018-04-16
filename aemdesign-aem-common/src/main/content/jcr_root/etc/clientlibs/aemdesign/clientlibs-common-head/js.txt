@@ -16,6 +16,8 @@
 ../vendor/jsonpath/jsonpath.js
 ../vendor/masonry/masonry.js
 ../vendor/picturefill/js/picturefill.js
+../vendor/typeahead/typeahead.bundle.js
+../vendor/xml2json/jquery.xml2json.js
 
 ../js/aemdesign.js
 ../js/aemdesign.class.js

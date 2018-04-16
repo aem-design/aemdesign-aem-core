@@ -14,10 +14,11 @@
 
     //no lambada is available so this is the best that can be done
     Object[][] componentFields = {
+            {FIELD_VARIANT, DEFAULT_VARIANT},
             {"formAction", "/en/search"},
             {"formMethod", "get"},
             {"formParameterName", "q"},
-            {"feedUrl", new String[0],"feed-urls"},
+            {"feedUrl", new String[0],"data-feed-urls"},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -41,7 +42,7 @@
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <cq:includeClientLib categories="granite.csrf.standalone"/>
 <c:choose>
-    <c:when test="${componentProperties.variant == 'advanced'}">
+    <c:when test="${componentProperties.variant == 'quick'}">
         <%@ include file="variant.quick.jsp" %>
     </c:when>
     <c:otherwise>
