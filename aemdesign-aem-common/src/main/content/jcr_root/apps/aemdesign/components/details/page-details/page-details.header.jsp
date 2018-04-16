@@ -1,4 +1,3 @@
-<div class="container">
 <c:if test="${componentProperties.showBreadcrumb}">
     <cq:include path="breadcrumb" resourceType="aemdesign/components/layout/breadcrumb"/>
 </c:if>
