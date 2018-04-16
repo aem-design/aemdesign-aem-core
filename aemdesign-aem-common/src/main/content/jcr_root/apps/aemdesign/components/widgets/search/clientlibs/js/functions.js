@@ -3,7 +3,7 @@ window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
 
-(function ($, _, ko, utils, ns, window, undefined) {
+(function ($, _, ko, log, utils, ns, window, undefined) {
 
     "use strict";
     var _version = "0.1";
@@ -33,7 +33,7 @@ window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
 
         //quick fail
         if ($el.data('feed-urls')===undefined) {
-            console.log("feed urls not set");
+            log.info("feed urls not set");
             return;
         }
         var suggestionURLS = $el.data('feed-urls').split(',');
@@ -42,7 +42,7 @@ window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
          * @type {Array}
          */
         var prefetchedSuggestions = [];
-        var counter = 0;
+        // var counter = 0;
 
         /**
          * Recursive function that retrieves suggestion data and intialises
@@ -81,28 +81,7 @@ window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
                 initSearchSuggestions();
             }
         }
-        //
-        // /**
-        //  * Give 'isModel' flag to array of suggestion items
-        //  * @param {array} items Array of suggestions passed in from prefetch function
-        //  */
-        // function setTemplatedModel(items) {
-        //     // First array of suggestions should always have the thumbnail displayed
-        //     // The 'isModel' property serves as a flag in the template
-        //     if(counter === 0) {
-        //         _.each(items, function(item) {
-        //             item.isTemplated = true;
-        //         });
-        //     } else {
-        //         _.each(items, function(item) {
-        //             item.isTemplated = false;
-        //         });
-        //     }
-        //
-        //     counter++;
-        //
-        //     return items;
-        // }
+
 
         /**
          * Initialise Typeahead suggestions plugin
@@ -143,5 +122,5 @@ window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
     };
 
 
-})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.utils, AEMDESIGN.components.search, this);
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.log, AEMDESIGN.utils, AEMDESIGN.components.search, this);
 

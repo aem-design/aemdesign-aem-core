@@ -5,7 +5,7 @@
         <input type="search"
                name="${componentProperties.formParameterName}"
                placeholder="${componentProperties.placeholderText}">
-        <button type="submit"><img src="/etc/designs/aemdesign/img/icon-search-header.gif"/></button>
+        <button type="submit">Search</button>
 
         <script type="text/template" class="suggestion-tpl">
             <a href='<@- link @>'>
