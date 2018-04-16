@@ -100,7 +100,7 @@ window.AEMDESIGN.log = window.AEMDESIGN.log || {};
             };
 
             if (settings.enableLog) {
-                log.info([url,data,debug]);
+                console.log([url,data,debug]);
             }
         }
 
