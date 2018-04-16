@@ -1333,7 +1333,7 @@
                 String error = format(
                         "findInheritedResource: looking for inherited resource for path=\"{0}\" by relative path=\"{1}\" in parent=\"{2}\""
                         ,pageResourcePath,relativePath,curPage.getPath());
-                getLogger().error(error);
+                getLogger().info(error);
 
                 try {
                     curResource = curPage.getContentResource(relativePath);
@@ -1353,14 +1353,14 @@
                         String found = format(
                                 "findInheritedResource: FOUND looking for inherited resource for path=\"{0}\" by relative path=\"{1}\" in parent=\"{2}\""
                                 ,pageResourcePath,relativePath,curPage.getPath());
-                        getLogger().error(found);
+                        getLogger().info(found);
 
                         break;
                     } else {
                         String notfound = format(
                                 "findInheritedResource: NOT FOUND looking for inherited resource for path=\"{0}\" by relative path=\"{1}\" in parent=\"{2}\""
                                 ,pageResourcePath,relativePath,curPage.getPath());
-                        getLogger().error(notfound);
+                        getLogger().info(notfound);
 
                     }
                 }
@@ -1368,7 +1368,7 @@
                 curPage = curPage.getParent();
             }
         } catch (Exception ex) {
-            LOG.info("Failed to find inherited resource. {}", ex);
+            LOG.warn("Failed to find inherited resource. {}", ex);
         }
 
         return curResource;
