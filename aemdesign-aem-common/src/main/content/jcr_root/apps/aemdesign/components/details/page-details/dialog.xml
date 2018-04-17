@@ -50,7 +50,7 @@
                                                 fieldDescription="show breadcrumb above title"
                                                 allowBlank="{Boolean}true"
                                                 name="./showBreadcrumb"
-                                                options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                                options="/etc/tags/component-dialog/common/true-false.valuelist.json"
                                                 type="select"
                                                 defaultValue=""
                                                 value=""
@@ -61,7 +61,7 @@
                                              fieldDescription="show toolbar above title"
                                              allowBlank="{Boolean}true"
                                              name="./showToolbar"
-                                             options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                             options="/etc/tags/component-dialog/common/true-false.valuelist.json"
                                              type="select"
                                              defaultValue=""
                                              value=""
@@ -72,11 +72,34 @@
                                             fieldDescription="show parsys after title"
                                             allowBlank="{Boolean}true"
                                             name="./showParsys"
-                                            options="/etc/tags/component-dialog/common/yes-no.valuelist.json"
+                                            options="/etc/tags/component-dialog/common/true-false.valuelist.json"
                                             type="select"
                                             defaultValue=""
                                             value=""
                                             xtype="selection"/>
+
+                                <hideTitle jcr:primaryType="cq:Widget"
+                                            fieldLabel="Hide Title"
+                                            fieldDescription="hide title"
+                                            allowBlank="{Boolean}true"
+                                            name="./hideTitle"
+                                            options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                            type="select"
+                                            defaultValue=""
+                                            value=""
+                                            xtype="selection"/>
+
+                                <hideDescription jcr:primaryType="cq:Widget"
+                                            fieldLabel="Hide Description"
+                                            fieldDescription="hide description"
+                                            allowBlank="{Boolean}true"
+                                            name="./hideDescription"
+                                            options="/etc/tags/component-dialog/common/true-false.valuelist.json"
+                                            type="select"
+                                            defaultValue=""
+                                            value=""
+                                            xtype="selection"/>
+
                             </items>
                         </displayOptions>
 

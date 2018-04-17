@@ -5,7 +5,9 @@
     <div class="container">
         <%@include file="page-details.header.jsp" %>
         <header>
-        <${componentProperties.titleType}>${componentProperties.titleFormatted}</${componentProperties.titleType}>
+        <c:if test="${not componentProperties.hideTitle}">
+            <${componentProperties.titleType}>${componentProperties.titleFormatted}</${componentProperties.titleType}>
+        </c:if>
         <c:if test="${not componentProperties.hideDescription}">
             <div class="description">${componentProperties.description}</div>
         </c:if>

@@ -15,6 +15,7 @@
     final String DEFAULT_TITLE = getPageTitle(_currentPage);
     final String DEFAULT_DESCRIPTION = _currentPage.getDescription();
     final String DEFAULT_SUBTITLE = _currentPage.getProperties().get(FIELD_PAGE_TITLE_SUBTITLE,"");
+    final Boolean DEFAULT_HIDE_TITLE = false;
     final Boolean DEFAULT_HIDE_DESCRIPTION = false;
     final Boolean DEFAULT_SHOW_BREADCRUMB = true;
     final Boolean DEFAULT_SHOW_TOOLBAR = true;
@@ -28,6 +29,7 @@
             {"titleFormat",""},
             {"description", DEFAULT_DESCRIPTION},
             {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
+            {"hideTitle", DEFAULT_HIDE_TITLE},
             {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
             {"showToolbar", DEFAULT_SHOW_TOOLBAR},
             {"showParsys", DEFAULT_SHOW_PARSYS},
