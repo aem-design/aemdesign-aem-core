@@ -73,8 +73,6 @@
                     componentProperties.putAll(getAssetInfo(resourceResolver,
                             getResourceImagePath(detailsNodeResource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
                             FIELD_PAGE_IMAGE_BACKGROUND));
-//                    Node detailsNode = detailsNodeResource.adaptTo(Node.class);
-//                    componentProperties.putAll(getDetailsBadgeConfig(detailsNode,page.getTitle()));
                 }
 
             }
@@ -91,13 +89,6 @@
             componentProperties.putAll(getAssetInfo(resourceResolver,
                     getPageImgReferencePath(page),
                     FIELD_PAGE_IMAGE));
-
-
-//            Image image = getPageImage(page);
-//
-//            if(image!=null) {
-//                componentProperties.put("pageImage", image.getFileReference());
-//            }
 
             String contentNode = getComponentNodePath(page, pageRoots);
 
@@ -162,43 +153,11 @@
                     com.adobe.granite.asset.api.Asset pageImageAsset = pageImage.adaptTo(com.adobe.granite.asset.api.Asset.class);
 
                     if (pageImageAsset != null) {
-
-//                        switch (badgeThumbnailType) {
-//                    case IMAGE_OPTION_GENERATED:
-//                        String imageHref = "";
-//                        Long lastModified = getLastModified(_resource);
-//                        imageHref = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, _resource.getPath(), lastModified.toString());
-//
-//                        componentProperties.put(FIELD_IMAGEURL, imageHref);
-//                        break;
-//                    case IMAGE_OPTION_RESPONSIVE:
-//                        String[] renditionImageMapping = componentProperties.get(FIELD_RESPONSIVE_MAP, DEFAULT_RENDITION_IMAGE_MAP);
-//
-//                        //get rendition profile prefix selected
-//                        String renditionPrefix = componentProperties.get(FIELD_RENDITION_PREFIX, "");
-//
-//                        //get best fit renditions set
-//                        responsiveImageSet = getBestFitMediaQueryRenditionSet(asset, renditionImageMapping, renditionPrefix);
-//
-//                        componentProperties.put(FIELD_RENDITIONS, responsiveImageSet);
-//                    case IMAGE_OPTION_ADAPTIVE:
-//                        String[] adaptiveImageMapping = componentProperties.get(FIELD_ADAPTIVE_MAP, DEFAULT_ADAPTIVE_IMAGE_MAP);
-//
-//                        responsiveImageSet = getAdaptiveImageSet(adaptiveImageMapping, _resourceResolver, fileReference, null, _sling);
-//
-//                        componentProperties.put(FIELD_RENDITIONS, responsiveImageSet);
-//
-//                        break;
-//                            case IMAGE_OPTION_RENDITION:
                                 com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(badgeThumbnailWidth, pageImageAsset);
 
                                 if (bestRendition != null) {
                                     badgeConfig.put(FIELD_PAGE_IMAGE_THUMBNAIL, bestRendition.getPath());
-                                }
-//                                break;
-//                            default: //IMAGE_OPTION_RENDITION
-//                                break;
-//                        }
+                                }  }
                     }
                 } else {
                     badgeConfig.put(FIELD_PAGE_IMAGE_THUMBNAIL, pageImagePath);
