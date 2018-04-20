@@ -114,6 +114,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Card Colored with Image, Title, Sub Title, Description and Action"
                                                     value="cardImageTitleSubtitleDescriptionAction"/>
+                                            <cardImageTitleDescriptionAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Image, Title, Description and Action"
+                                                    value="cardImageTitleDescriptionAction"/>
                                             <cardImageTitleAction
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Card with Image, Title and Action"
