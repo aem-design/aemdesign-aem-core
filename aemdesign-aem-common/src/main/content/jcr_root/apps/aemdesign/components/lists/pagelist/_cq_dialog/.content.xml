@@ -134,6 +134,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Clickable Card with Icon and Description"
                                                     value="cardIconDescription"/>
+                                            <cardIconTitleDescription
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Clickable Card with Icon, Title and Description"
+                                                    value="cardIconTitleDescription"/>
                                             <!--<categoryTitlePublishDate-->
                                             <!--jcr:primaryType="nt:unstructured"-->
                                             <!--text="Category Title Publish Date"-->

@@ -158,6 +158,10 @@
         <%@ include file="badge.cardIconDescription.jsp" %>
     </c:when>
 
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconTitleDescription'}">
+        <%@ include file="badge.cardIconTitleDescription.jsp" %>
+    </c:when>
+
     <c:when test="${COMPONENT_BADGE eq 'badge.cardImageTitleDescription'}">
         <%@ include file="badge.cardImageTitleDescription.jsp" %>
     </c:when>
