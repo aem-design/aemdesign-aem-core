@@ -297,15 +297,19 @@
                                         <items jcr:primaryType="nt:unstructured">
                                             <title
                                                     jcr:primaryType="nt:unstructured"
+                                                    text="jcr:title"
                                                     value="jcr:title"/>
                                             <created
                                                     jcr:primaryType="nt:unstructured"
+                                                    text="jcr:created"
                                                     value="jcr:created"/>
                                             <modified
                                                     jcr:primaryType="nt:unstructured"
+                                                    text="cq:lastModified"
                                                     value="cq:lastModified"/>
                                             <template
                                                     jcr:primaryType="nt:unstructured"
+                                                    text="cq:template"
                                                     value="cq:template"/>
                                         </items>
                                     </orderBy>
