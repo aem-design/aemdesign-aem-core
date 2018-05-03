@@ -16,7 +16,7 @@
             try{
                 session = _slingRepository.loginAdministrative(null);
                 Map authInfo = new HashMap();
-                authInfo.put(org.apache.sling.jcr.resource.JcrResourceConstants.AUTHENTICATION_INFO_SESSION, session);
+                authInfo.put(org.apache.sling.jcr.resource.api.JcrResourceConstants.AUTHENTICATION_INFO_SESSION, session);
                 _adminResourceResolver  = resolverFactory.getResourceResolver(authInfo);
             }catch (Exception ex){
                 // ex.printStackTrace();
