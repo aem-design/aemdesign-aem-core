@@ -12,6 +12,7 @@
 <%@ page import="org.apache.sling.api.wrappers.SlingHttpServletResponseWrapper" %>
 <%@ page import="org.apache.sling.engine.SlingRequestProcessor" %>
 <%@ page import="org.apache.sling.api.scripting.SlingScriptHelper" %>
+<%@ page import="com.day.cq.replication.ReplicationStatus" %>
 <%@ page import="javax.jcr.Node" %>
 <%@ page import="javax.jcr.NodeIterator" %>
 <%@ page import="javax.jcr.Property" %>
@@ -1436,6 +1437,27 @@
         setDecoration(componentContext,includeOptions,defDecoration);
 
         toWCMMode.toRequest(request);
+    }
+
+    /**
+     * return published date for a page
+     * @param page
+     * @param defaultValue
+     * @return
+     */
+    public Date getPageLastPublished(Page page, Date defaultValue) {
+
+        if (page == null) {
+            return defaultValue;
+        }
+
+        ValueMap pageProps = page.getProperties();
+
+        if (pageProps != null) {
+            return pageProps.get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, defaultValue);
+        }
+
+        return defaultValue;
     }
 
 %>
