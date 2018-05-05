@@ -210,7 +210,7 @@
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="pathvalue"
+                                                variant="tagidvalue"
                                                 path="/etc/tags/component-style-theme/details/event-details/format/title"/>
                                     </titleFormat>
 
@@ -225,7 +225,7 @@
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="pathvalue"
+                                                variant="tagidvalue"
                                                 path="/etc/tags/component-style-theme/details/event-details/format/subtitle"/>
                                     </subTitleFormat>
                                     <eventDisplayDateFormat
@@ -239,7 +239,7 @@
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="pathvalue"
+                                                variant="tagidvalue"
                                                 path="/etc/tags/component-style-theme/details/event-details/format/displaydate"/>
                                     </eventDisplayDateFormat>
                                     <showTags

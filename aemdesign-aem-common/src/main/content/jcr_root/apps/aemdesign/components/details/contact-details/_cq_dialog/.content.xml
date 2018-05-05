@@ -46,7 +46,7 @@
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="pathvalue"
+                                                variant="tagidvalue"
                                                 path="/etc/tags/component-dialog/honorific/prefix"/>
                                     </honorificPrefix>
 
@@ -75,7 +75,7 @@
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="pathvalue"
+                                                variant="tagidvalue"
                                                 path="/etc/tags/component-style-theme/details/contact-details/format/title"/>
                                     </titleFormat>
                                 </items>
@@ -120,7 +120,7 @@
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="pathvalue"
+                                                variant="tagidvalue"
                                                 path="/etc/tags/component-style-theme/details/contact-details/format/description"/>
                                     </descriptionFormat>
 
