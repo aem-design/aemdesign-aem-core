@@ -313,7 +313,7 @@
             }
 
         } catch(Exception ex){
-            LOG.warn("using default adapt.supported.widths=[{}] as config is missing OSGI configuration: {}", defaultWidths, OSGI_CONFIG_MEDIA_IMAGE,);
+            LOG.warn("using default adapt.supported.widths=[{}] as config is missing OSGI configuration: {}", defaultWidths, OSGI_CONFIG_MEDIA_IMAGE);
             return defaultWidths;
         }
         return supportedWidths;
