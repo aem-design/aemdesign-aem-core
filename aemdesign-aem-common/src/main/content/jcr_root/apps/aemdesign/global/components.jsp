@@ -875,9 +875,9 @@
                                     if (fieldValueType.equals(Tag.class.getCanonicalName())) {
                                         //if data-attribute not specified return values as map entry
                                         if (isEmpty(fieldDataName)) {
-                                            fieldValue = getTagsValues(tagManager, " ", (String[]) fieldValue);
+                                            fieldValue = getTagsValues(tagManager, resourceResolver, " ", (String[]) fieldValue);
                                         }
-                                        fieldValueString = getTagsAsValues(tagManager, " ", (String[]) fieldValue);
+                                        fieldValueString = getTagsAsValues(tagManager, resourceResolver, " ", (String[]) fieldValue);
                                     } else {
                                         fieldValueString = StringUtils.join((String[]) fieldValue, ",");
                                     }
@@ -1161,28 +1161,29 @@
 
     /***
      * compile a message from component properties using one of the component format tag fields
-     * @param formatTagFieldName
-     * @param defaultFormat
+     * @param formatFieldName field with format path
+     * @param defaultFormat default format template
      * @param componentProperties
      * @param sling
      * @return
      */
-    public String compileComponentMessage(String formatTagFieldName, String defaultFormat, ComponentProperties componentProperties, SlingScriptHelper sling) {
+    public String compileComponentMessage(String formatFieldName, String defaultFormat, ComponentProperties componentProperties, SlingScriptHelper sling) {
 
         if (componentProperties == null || sling == null) {
             return StringUtils.EMPTY;
         }
 
 
-        String formatTagFieldPath = componentProperties.get(formatTagFieldName,StringUtils.EMPTY);
+        String formatFieldTagPath = componentProperties.get(formatFieldName,StringUtils.EMPTY);
 
+        //set default
         String fieldFormatValue = defaultFormat;
 
-        if (isNotEmpty(formatTagFieldPath) && formatTagFieldPath.startsWith(DEFAULT_PATH_TAGS)) {
-            fieldFormatValue = getTagValueAsAdmin(componentProperties.get(formatTagFieldName,defaultFormat),sling);
-        } else if (isNotEmpty(formatTagFieldPath)) {
-            fieldFormatValue = formatTagFieldPath;
+        if (isNotEmpty(formatFieldTagPath)) {
+            fieldFormatValue = getTagValueAsAdmin(formatFieldTagPath,sling);
         }
+
+        //getLogger().error("compileComponentMessage {}",fieldFormatValue);
 
         return compileMapMessage(fieldFormatValue,componentProperties);
 

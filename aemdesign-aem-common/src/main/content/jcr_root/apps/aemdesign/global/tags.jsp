@@ -277,7 +277,7 @@
 
     /***
      * get value of tag path as admin
-     * @param tagPath
+     * @param tagPath path or tagid of tag
      * @param sling
      * @return
      */
@@ -292,7 +292,7 @@
         try {
             TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
 
-            Tag jcrTag = _adminTagManager.resolve(tagPath);
+            Tag jcrTag = getTag(tagPath,adminResourceResolver,_adminTagManager);
 
             if (jcrTag != null) {
                 tagValue = jcrTag.getName();
@@ -304,6 +304,8 @@
                         tagValue = tagVM.get("value", jcrTag.getName());
                     }
                 }
+            } else {
+                getLogger().error("Could not find tag path: {}",tagPath);
             }
 
         } catch (Exception ex) {
@@ -341,7 +343,8 @@
             for (String path : tagPaths) {
                 Map<String, String> tagValues = new HashMap<String, String>();
 
-                Tag tag = tagManager.resolve(path);
+                Tag tag = getTag(path,adminResourceResolver,tagManager);
+
                 if (tag != null) {
                     tagValues.put("title",tag.getTitle());
                     tagValues.put("description",tag.getDescription());
@@ -394,7 +397,7 @@
      * @return
      */
 
-    public String getTagsAsValues(TagManager tagManager, String separator, String tagPaths[]) {
+    public String getTagsAsValues(TagManager tagManager, ResourceResolver resourceResolver, String separator, String tagPaths[]) {
         if (tagPaths == null || tagPaths.length == 0) {
             return null;
         }
@@ -434,7 +437,7 @@
      * @return
      */
 
-    public String[] getTagsValues(TagManager tagManager, String separator, String tagPaths[]) {
+    public String[] getTagsValues(TagManager tagManager, ResourceResolver resourceResolver, String separator, String tagPaths[]) {
         if (tagPaths == null || tagPaths.length == 0) {
             return null;
         }
@@ -565,4 +568,67 @@
 
     }
 
+
+    /**
+     * return tag object from path uses tag manager to resolve and resource resolver as backup
+     * @param path tag from apth path or from tagId path
+     * @param resourceResolver
+     * @param tagManager
+     * @return return null or Tag
+     */
+    private Tag getTag(String path, ResourceResolver resourceResolver, TagManager tagManager) {
+
+        boolean possibleTagId = path.contains(String.valueOf(TagConstants.NAMESPACE_DELIMITER_CHR));
+        String tagPath = path;
+        if (possibleTagId) {
+            Tag tag = tagManager.resolve(path);
+            if (tag != null) {
+                return tag;
+            } else {
+                //second chance to manually find the tag
+                //TODO: detect tennant TAG path
+                tagPath = getPathFromTagId(path, DEFAULT_PATH_TAGS);
+            }
+
+        }
+
+        if (isNotEmpty(tagPath)){
+            Resource rs = resourceResolver.resolve(tagPath);
+            if (rs != null) {
+                return rs.adaptTo(Tag.class);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * manually resolve path to tag as OOTB does not have tennant support
+     * @param tagID tagId path  [namespace]:[namespace/path/to/tag]
+     * @param tagsRoot root for tags default /etc/tags
+     * @return
+     */
+    private String getPathFromTagId(String tagID,String tagsRoot) {
+
+        int colonPos = tagID.indexOf(TagConstants.NAMESPACE_DELIMITER_CHR);
+        String namespace;
+        String localID;
+        if (colonPos > 0) {
+            namespace = tagID.substring(0, colonPos);
+            localID = tagID.substring(colonPos + 1);
+        } else if (colonPos == 0) {
+            namespace = TagConstants.DEFAULT_NAMESPACE;
+            localID = tagID.substring(1);
+        } else {
+            namespace = TagConstants.DEFAULT_NAMESPACE;
+            localID = tagID;
+        }
+
+        if (localID.endsWith(TagConstants.SEPARATOR)) {
+            localID = localID.substring(0, localID.length() - 1);
+        } else if (localID.length() == 0) {
+            return tagsRoot + TagConstants.SEPARATOR + namespace;
+        }
+
+        return tagsRoot + TagConstants.SEPARATOR + namespace + TagConstants.SEPARATOR + localID;
+    }
 %>

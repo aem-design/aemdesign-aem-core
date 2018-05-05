@@ -113,10 +113,10 @@
                 componentProperties.put("numCols",numCols);
 
                 //read column styles
-                componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, getTagsAsValues(_tagManager, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, new String[]{})));
-                componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, getTagsAsValues(_tagManager, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, new String[]{})));
-                componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, getTagsAsValues(_tagManager, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, new String[]{})));
-                componentProperties.put(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, getTagsAsValues(_tagManager, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, new String[]{})));
+                componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, getTagsAsValues(_tagManager, _resourceResolver,  " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, new String[]{})));
+                componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, getTagsAsValues(_tagManager, _resourceResolver, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, new String[]{})));
+                componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, getTagsAsValues(_tagManager, _resourceResolver, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, new String[]{})));
+                componentProperties.put(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, getTagsAsValues(_tagManager, _resourceResolver, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, new String[]{})));
 
 
                 String currentLayout = componentProperties.get("layout",DEFAULT_LAYOUT);
