@@ -30,6 +30,7 @@
 <%@ page import="org.apache.sling.api.SlingException" %>
 <%@ page import="static java.text.MessageFormat.*" %>
 <%@ page import="java.util.regex.Matcher" %>
+<%@ page import="java.util.Date" %>
 <%!
 
     private static final String PATH_MEDIA_ROOT = "/apps/aemdesign/components/media/";
