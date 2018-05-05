@@ -27,8 +27,9 @@
      * @return the parsed date, or null if not parseable
      */
     private static boolean isDate(String sDate) {
-        return isDate(sDate,SLING_FORMATS);
+        return isDate(sDate, SLING_FORMATS);
     }
+
     /**
      * Parse a date/time using an array of DateFormat objects
      *
@@ -42,21 +43,22 @@
                 formats[i].setLenient(false);
                 Date d = formats[i].parse(sDate, new ParsePosition(0));
                 if (d != null) return true;
+            } catch (NumberFormatException ex) {
+            } catch (Exception ex) {
             }
-            catch (NumberFormatException ex) {}
-            catch (Exception ex) {}
         }
         return false;
     }
+
     private static SimpleDateFormat getDateFormat(String sDate, SimpleDateFormat[] formats) {
         for (int i = 0; i < formats.length; i++) {
             try {
                 formats[i].setLenient(false);
                 Date d = formats[i].parse(sDate, new ParsePosition(0));
                 if (d != null) return formats[i];
+            } catch (NumberFormatException ex) {
+            } catch (Exception ex) {
             }
-            catch (NumberFormatException ex) {}
-            catch (Exception ex) {}
         }
         return null;
     }
@@ -94,56 +96,53 @@
         try {
             Date dateObj = inFormat.parse(date);
             return outFormat.format(dateObj);
-        }
-        catch (ParseException pEx) {
+        } catch (ParseException pEx) {
             // couldn't parse date, just return our input
             return orgDate;
         }
 
     }
 
-	/**
-		
-	*/
-	public String getFormattedDate(String date, String format) {
-	
-	    // null? return null.
-	    if (date == null) {
-	        return null;
-	    }
-	
-	    date = date.trim();
-	    String orgDate = date;
-	
-	    // contains spaces? is probably already formatted.
-	    if (date.indexOf(' ') != -1) {
-	        return date;
-	    }
-	
-	    SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-	    SimpleDateFormat outFormat = new SimpleDateFormat(format);
-	    try {
-	        Date dateObj = inFormat.parse(date);
-	        return outFormat.format(dateObj);
-	    }
-	    catch (ParseException pEx) {
-	        // couldn't parse date, just return our input
-	        return orgDate;
-	    }
-	
-	}
+    /**
+
+     */
+    public String getFormattedDate(String date, String format) {
+
+        // null? return null.
+        if (date == null) {
+            return null;
+        }
+
+        date = date.trim();
+        String orgDate = date;
+
+        // contains spaces? is probably already formatted.
+        if (date.indexOf(' ') != -1) {
+            return date;
+        }
+
+        SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        SimpleDateFormat outFormat = new SimpleDateFormat(format);
+        try {
+            Date dateObj = inFormat.parse(date);
+            return outFormat.format(dateObj);
+        } catch (ParseException pEx) {
+            // couldn't parse date, just return our input
+            return orgDate;
+        }
+
+    }
 
     /**
 
      */
     public String getFormattedDateWithDefauls(String date, SimpleDateFormat[] inFormats, SimpleDateFormat outFormat, String defaultDate) {
         SimpleDateFormat dateFormat = getDateFormat(date, inFormats);
-        if (dateFormat!=null) {
+        if (dateFormat != null) {
             try {
                 Date dateObj = dateFormat.parse(date);
                 return outFormat.format(dateObj);
-            }
-            catch (Exception Ex) {
+            } catch (Exception Ex) {
                 // couldn't parse date, just return default
             }
         }
@@ -217,33 +216,33 @@
     }
 
     /**
-  	* Method returns a short formated string for the given date object, it returns the date in "dd MMM YYYY" format.
-  	*
-  	*/
-  	public String getShortFormattedDate(Date thedate){
-  	
-  	        // null? return null.
-  	        if (thedate == null) {
-  	            return null;
-  	        }
-  	       
-  	       SimpleDateFormat outFormat = new SimpleDateFormat("dd MMM yyyy");
-  	       return outFormat.format(thedate); 
-  	}
-  	
-  	/**
-  	* Method returns a full formated string for the given date object, it returns the date in "dd MMM YYYY" format.
-  	*
-  	*/
-	public String getFullFormattedDate(Date thedate){
-	
-	        // null? return null.
-	        if (thedate == null) {
-	            return null;
-	        }
-	        
-	        SimpleDateFormat outFormat = new SimpleDateFormat("d MMM yyyy, h:mmaaa");
-	        return outFormat.format(thedate); 
-	 }
+     * Method returns a short formated string for the given date object, it returns the date in "dd MMM YYYY" format.
+     *
+     */
+    public String getShortFormattedDate(Date thedate) {
+
+        // null? return null.
+        if (thedate == null) {
+            return null;
+        }
+
+        SimpleDateFormat outFormat = new SimpleDateFormat("dd MMM yyyy");
+        return outFormat.format(thedate);
+    }
+
+    /**
+     * Method returns a full formated string for the given date object, it returns the date in "dd MMM YYYY" format.
+     *
+     */
+    public String getFullFormattedDate(Date thedate) {
+
+        // null? return null.
+        if (thedate == null) {
+            return null;
+        }
+
+        SimpleDateFormat outFormat = new SimpleDateFormat("d MMM yyyy, h:mmaaa");
+        return outFormat.format(thedate);
+    }
 
 %>
