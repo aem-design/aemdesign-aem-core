@@ -1,6 +1,4 @@
 <%@ page import="java.util.*" %>
-<%@ page import="com.day.cq.dam.video.servlet.VideoClipServlet" %>
-<%@ page import="com.day.cq.dam.video.VideoProfile" %>
 <%@ page import="com.day.cq.dam.commons.util.DamUtil" %>
 <%@ page import="com.day.cq.dam.api.*" %>
 
