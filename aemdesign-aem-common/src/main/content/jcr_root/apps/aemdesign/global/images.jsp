@@ -12,6 +12,7 @@
 <%@ page import="org.apache.sling.api.resource.ResourceUtil" %>
 <%@ page import="javax.jcr.Node" %>
 <%@ page import="javax.jcr.RepositoryException" %>
+<%@ page import="com.adobe.xmp.XMPDateTimeFactory" %>
 <%!
 
     final String DEFAULT_IMAGE_THUMB_SELECTOR = ".thumb.319.319.png";
@@ -677,9 +678,10 @@
             String assetLicense = getAssetPropertyValueWithDefault(asset, DamConstants.DC_RIGHTS, "");
             String assetCopyrightOwner = getAssetPropertyValueWithDefault(asset, DAM_FIELD_LICENSE_COPYRIGHT_OWNER, "");
             String assetExpiresYear = "";
-            Object assetExpires = asset.getMetadata(DAM_FIELD_LICENSE_EXPIRY);
+            String assetExpires = asset.getMetadataValue(DAM_FIELD_LICENSE_EXPIRY);
+
             if (assetExpires != null) {
-                XMPDateTime assetExpiresDate = (XMPDateTime)assetExpires;
+                XMPDateTime assetExpiresDate = XMPDateTimeFactory.createFromISO8601(assetExpires);
                 assetExpiresYear = Integer.toString(assetExpiresDate.getCalendar().get(Calendar.YEAR));
             }
 
