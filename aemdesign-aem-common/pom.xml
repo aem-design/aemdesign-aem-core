@@ -284,11 +284,11 @@
                             <!--<name>aemdesign-aem-config</name>-->
                             <!--<version>[0.0.0-SNAPSHOT,)</version>-->
                         <!--</dependency>-->
-                        <dependency>
-                            <group>${package.group}</group>
-                            <name>aemdesign-aem-author</name>
-                            <version>[0.0.0-SNAPSHOT,)</version>
-                        </dependency>
+                        <!--<dependency>-->
+                            <!--<group>${package.group}</group>-->
+                            <!--<name>aemdesign-aem-author</name>-->
+                            <!--<version>[0.0.0-SNAPSHOT,)</version>-->
+                        <!--</dependency>-->
 
                         <!--<dependency>-->
                             <!--<group>day_internal/consulting</group>-->
