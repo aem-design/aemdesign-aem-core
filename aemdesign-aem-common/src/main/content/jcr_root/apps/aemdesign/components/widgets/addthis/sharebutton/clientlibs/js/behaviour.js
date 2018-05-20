@@ -8,7 +8,7 @@ window.AEMDESIGN.components.sharebutton = AEMDESIGN.components.sharebutton || {}
     $(document).ready(function () {
 
 
-        $("[data-modules='sharebutton']").each(function () {
+        $("[data-modules*='sharebutton']").each(function () {
 
             ns.loadShareButton(this);
 
