@@ -1,10 +1,10 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.day.cq.wcm.api.Page" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
+<%@ include file="/apps/aemdesign/global/utils.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/component-details.jsp" %>
-<%@ include file="/apps/aemdesign/global/utils.jsp" %>
 <%@ include file="/apps/aemdesign/global/i18n.jsp" %>
 <%@ include file="navlistdata.jsp" %>
 <%@page session="false" %>
@@ -36,12 +36,12 @@
     if (componentProperties.get("listFrom", DEFAULT_LISTFROM).equals(LISTFROM_CHILDREN)) {
         Page parentPage = _pageManager.getPage(componentProperties.get("parentPage", ""));
         if (parentPage != null) {
-            pagesInfo = getPageListInfo(pageContext,_pageManager, _resourceResolver, parentPage.listChildren(), supportedDetails, supportedRoots);
+            pagesInfo = getPageListInfo(pageContext,_pageManager, _resourceResolver, parentPage.listChildren(), supportedDetails, supportedRoots, 2);
         }
-    }else {
+    } else {
         String[] paths = componentProperties.get("pages", new String[0]);
         if (paths.length != 0) {
-            pagesInfo = getPageListInfo(pageContext,_pageManager, _resourceResolver, paths, supportedDetails, supportedRoots);
+            pagesInfo = getPageListInfo(pageContext,_pageManager, _resourceResolver, paths, supportedDetails, supportedRoots, 2);
         }
     }
 
@@ -65,6 +65,9 @@
     </c:when>
     <c:when test="${componentProperties.variant == 'simple'}">
         <%@ include file="variant.simple.jsp" %>
+    </c:when>
+    <c:when test="${componentProperties.variant == 'stacked'}">
+        <%@ include file="variant.stacked.jsp" %>
     </c:when>
     <c:when test="${componentProperties.variant == 'full'}">
         <%@ include file="variant.full.jsp" %>

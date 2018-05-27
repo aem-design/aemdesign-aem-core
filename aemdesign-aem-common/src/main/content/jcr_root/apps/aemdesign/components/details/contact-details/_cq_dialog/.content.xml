@@ -47,7 +47,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="tagidvalue"
-                                                path="/etc/tags/component-dialog/honorific/prefix"/>
+                                                path="/etc/tags/aemdesign/component-dialog/honorific/prefix"/>
                                     </honorificPrefix>
 
                                     <givenName
@@ -76,7 +76,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="tagidvalue"
-                                                path="/etc/tags/component-style-theme/details/contact-details/format/title"/>
+                                                path="/etc/tags/aemdesign/component-style-theme/details/contact-details/format/title"/>
                                     </titleFormat>
                                 </items>
                             </title>
@@ -121,7 +121,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="tagidvalue"
-                                                path="/etc/tags/component-style-theme/details/contact-details/format/description"/>
+                                                path="/etc/tags/aemdesign/component-style-theme/details/contact-details/format/description"/>
                                     </descriptionFormat>
 
                                     <hideDescription
@@ -135,7 +135,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/component-dialog/common/true-false"/>
+                                                path="/etc/tags/aemdesign/component-dialog/common/true-false"/>
                                     </hideDescription>
 
                                 </items>
@@ -232,7 +232,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/component-dialog/common/true-false"/>
+                                                path="/etc/tags/aemdesign/component-dialog/common/true-false"/>
                                     </showBreadcrumb>
                                     <showToolbar
                                             jcr:primaryType="nt:unstructured"
@@ -246,7 +246,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/component-dialog/common/true-false"/>
+                                                path="/etc/tags/aemdesign/component-dialog/common/true-false"/>
                                     </showToolbar>
                                     <showParsys
                                             jcr:primaryType="nt:unstructured"
@@ -260,7 +260,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/component-dialog/common/true-false"/>
+                                                path="/etc/tags/aemdesign/component-dialog/common/true-false"/>
                                     </showParsys>
                                 </items>
                             </displayOptions>

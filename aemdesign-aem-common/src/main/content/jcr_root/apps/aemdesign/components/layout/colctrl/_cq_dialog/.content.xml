@@ -44,7 +44,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/component-style-theme/layout/colctrl/layout"/>
+                                                path="/etc/tags/aemdesign/component-style-theme/layout/colctrl/layout"/>
                                     </layout>
                                 </items>
                             </layout>
@@ -59,7 +59,7 @@
                                             fieldLabel="Column Class - Small"
                                             fieldDescription="class for small view port"
                                             multiple="{Boolean}true"
-                                            rootPath="/etc/tags/component-style-theme/layout/colctrl/column/small"
+                                            rootPath="/etc/tags/aemdesign/component-style-theme/layout/colctrl/column/small"
                                             name="./layoutColumnClassSmall"/>
                                     <layoutColumnClassMedium
                                             jcr:primaryType="nt:unstructured"
@@ -67,7 +67,7 @@
                                             fieldLabel="Column Class - Medium"
                                             fieldDescription="class for medium view port"
                                             multiple="{Boolean}true"
-                                            rootPath="/etc/tags/component-style-theme/layout/colctrl/column/medium"
+                                            rootPath="/etc/tags/aemdesign/component-style-theme/layout/colctrl/column/medium"
                                             name="./layoutColumnClassMedium"/>
                                     <layoutColumnClassLarge
                                             jcr:primaryType="nt:unstructured"
@@ -75,7 +75,7 @@
                                             fieldLabel="Column Class - Large"
                                             fieldDescription="class for large view port"
                                             multiple="{Boolean}true"
-                                            rootPath="/etc/tags/component-style-theme/layout/colctrl/column/large"
+                                            rootPath="/etc/tags/aemdesign/component-style-theme/layout/colctrl/column/large"
                                             name="./layoutColumnClassLarge"/>
                                     <layoutRowClass
                                             jcr:primaryType="nt:unstructured"
@@ -83,7 +83,7 @@
                                             fieldLabel="Row Class"
                                             fieldDescription="class for large view port"
                                             multiple="{Boolean}true"
-                                            rootPath="/etc/tags/component-style-theme/layout/colctrl/row"
+                                            rootPath="/etc/tags/aemdesign/component-style-theme/layout/colctrl/row"
                                             name="./layoutRowClass"/>
                                 </items>
                             </attributes>

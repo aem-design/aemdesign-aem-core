@@ -165,6 +165,11 @@
                                                     text="Simple"
                                                     value="simple"/>
 
+                                            <stacked
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Stacked"
+                                                    value="stacked"/>
+
                                         </items>
                                     </variant>
 

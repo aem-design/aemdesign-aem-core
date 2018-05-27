@@ -196,7 +196,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/component-dialog/html/heading"/>
+                                                path="/etc/tags/aemdesign/component-dialog/html/heading"/>
                                     </titleType>
 
                                     <titleFormat
@@ -211,7 +211,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="tagidvalue"
-                                                path="/etc/tags/component-style-theme/details/event-details/format/title"/>
+                                                path="/etc/tags/aemdesign/component-style-theme/details/event-details/format/title"/>
                                     </titleFormat>
 
                                     <subTitleFormat
@@ -226,7 +226,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="tagidvalue"
-                                                path="/etc/tags/component-style-theme/details/event-details/format/subtitle"/>
+                                                path="/etc/tags/aemdesign/component-style-theme/details/event-details/format/subtitle"/>
                                     </subTitleFormat>
                                     <eventDisplayDateFormat
                                             jcr:primaryType="nt:unstructured"
@@ -240,7 +240,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="tagidvalue"
-                                                path="/etc/tags/component-style-theme/details/event-details/format/displaydate"/>
+                                                path="/etc/tags/aemdesign/component-style-theme/details/event-details/format/displaydate"/>
                                     </eventDisplayDateFormat>
                                     <showTags
                                             jcr:primaryType="nt:unstructured"
@@ -254,7 +254,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/component-dialog/common/true-false"/>
+                                                path="/etc/tags/aemdesign/component-dialog/common/true-false"/>
                                     </showTags>
 
                                 </items>
