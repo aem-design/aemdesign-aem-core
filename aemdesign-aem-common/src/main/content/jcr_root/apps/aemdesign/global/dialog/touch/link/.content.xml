@@ -60,7 +60,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/component-dialog/html/linktarget"/>
+                                                path="/etc/tags/aemdesign/component-dialog/html/linktarget"/>
                                     </linkTarget>
 
                                 </items>
@@ -84,7 +84,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/component-dialog/html/type"/>
+                                                path="/etc/tags/aemdesign/component-dialog/html/type"/>
                                     </dataType>
 
                                     <dataTarget
@@ -108,7 +108,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/component-dialog/html/toggle"/>
+                                                path="/etc/tags/aemdesign/component-dialog/html/toggle"/>
                                     </dataToggle>
                                 </items>
                             </attributes>

@@ -169,7 +169,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/component-dialog/html/heading"/>
+                                                path="/etc/tags/aemdesign/component-dialog/html/heading"/>
                                     </titleType>
                                     <description
                                             jcr:primaryType="nt:unstructured"
