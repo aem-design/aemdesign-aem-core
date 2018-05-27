@@ -4,6 +4,12 @@
     <sly data-sly-call="${clientlib.js @ categories='aemdesign.common.components'}"/>
     <!-- js: aemdesign.common.body -->
     <sly data-sly-call="${clientlib.js @ categories='aemdesign.common.body'}"/>
+
+    <!-- js: aemdesign.footer start -->
+    <!--<sly data-sly-call="${clientlib.js @ categories='aemdesign.footer'}"/>-->
+    <script type="text/javascript" src="/etc/clientlibs/aemdesign/clientlibs-footer.js"></script>
+    <!-- js: aemdesign.footer end -->
+
     <!--/* Load authoring related client libraries */-->
     <!-- js: aemdesign.common.coralui -->
     <sly data-sly-test="${wcmmode.preview || wcmmode.edit}" data-sly-call="${clientLib.js @ categories='aemdesign.common.coralui'}"/>
