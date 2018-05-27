@@ -17,9 +17,9 @@
     final String DEFAULT_I18N_BACKTOTOP_TITLE = "backtotoptitle";
     final String DEFAULT_TITLE_TAG_TYPE = "h2";
     final String[] DEFAULT_VIDEO_ATTRIBUTES = new String[]{
-                "component-style-modifier:video/playsinline",
-                "component-style-modifier:video/loop",
-                "component-style-modifier:video/muted",
+                "aemdesign:component-style-modifier/video/playsinline",
+                "aemdesign:component-style-modifier/video/loop",
+                "aemdesign:component-style-modifier/video/muted",
                 };
 
     Object[][] componentFields = {

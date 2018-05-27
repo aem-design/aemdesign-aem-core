@@ -50,7 +50,7 @@
     componentProperties.put("markerPointX", "17");
     componentProperties.put("markerPointY", "0");
 
-    String tagPath = "component-style-theme:lists/navlist/color/" + componentProperties.get("menuColor", String.class);
+    String tagPath = "aemdesign:component-style-theme/lists/navlist/color/" + componentProperties.get("menuColor", String.class);
     componentProperties.put("menuColorCode", getTagValueAsAdmin(tagPath,_sling));
 
     List<Map<String, String>> eventList = new ArrayList<Map<String, String>>();
