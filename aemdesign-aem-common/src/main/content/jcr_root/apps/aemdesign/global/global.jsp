@@ -54,6 +54,7 @@
 <cq:defineObjects/>
 
 <%@include file="/apps/aemdesign/global/context-objects.jsp"%>
+<%@include file="/apps/aemdesign/global/tenant.jsp"%>
 <%@include file="/apps/aemdesign/global/constants.jsp"%>
 <%@include file="/apps/aemdesign/global/errors.jsp"%>
 <%@include file="/apps/aemdesign/global/common.jsp"%>
@@ -64,7 +65,7 @@
     // add initialization code here
     // can put language, wcmmode here
     final WCMMode CURRENT_WCMMODE = WCMMode.fromRequest(request);
-    final String DESIGN_PATH = _currentDesign.getPath();
+    final String DESIGN_PATH = "";//_currentDesign.getPath();
     final boolean INCLUDE_PAGE_TIMING = false; //does not work on aem 6.0
     final boolean INCLUDE_PAGE_CLOUDSERVICES = true;
     final boolean INCLUDE_PAGE_COMPONENTINIT = true;
@@ -86,7 +87,7 @@
         }
     }
     List<String> selectors = Arrays.asList(_slingRequest.getRequestPathInfo().getSelectors());
-    boolean MODE_TOUCHUI = Placeholder.isAuthoringUIModeTouch(slingRequest);
+    boolean MODE_TOUCHUI = Placeholder.isAuthoringUIModeTouch(_slingRequest);
 //    if (selectors.contains("touchedit")) {
 //        MODE_TOUCHUI = true;
 //    }
@@ -103,7 +104,7 @@
 <c:set var="WCMMODE_DESIGN" value="<%= WCMMode.DESIGN %>"/>
 <c:set var="WCMMODE_PREVIEW" value="<%= WCMMode.PREVIEW %>"/>
 <c:set var="DESIGN_PATH" value="<%= DESIGN_PATH %>"/>
-<c:set var="LOCALE" value="<%= _currentPage.getLanguage(true) %>"/>
+<c:set var="LOCALE" value="<%= request.getLocale() %>"/>
 <c:set var="REMOVEDECORATION" value="<%= REMOVEDECORATION %>"/>
 <c:set var="INCLUDE_PAGE_TIMING" value="<%= INCLUDE_PAGE_TIMING %>"/>
 <c:set var="INCLUDE_PAGE_CONTEXTHUB" value="<%= INCLUDE_PAGE_CONTEXTHUB %>"/>
