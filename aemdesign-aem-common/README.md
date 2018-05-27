@@ -1,10 +1,14 @@
-AEM Design Common Components
-============================
+#AEM Design Common Components
 
 This a content package project generated using the multimodule-content-package-archetype.
 
-Component Naming Convention
----------------------------
+##Branches
+
+Master      - has all components that
+Dev         - has all dev changes ready to be merged into master
+Research    - has all the R&D code from other projects prepared to merge into Dev branch
+
+##Component Naming Convention
 
 Some conventions for component creation
 
@@ -14,15 +18,13 @@ Some conventions for component creation
 * all "Details" components should have a suffix of "-details", this is used for component search reference
 * all "List" components should have a suffix "list", this is used only as a name convention
 
-Component Attributes Naming Convention
---------------------------------------
+##Component Attributes Naming Convention
 
 Please follow following conventions for naming attriutes
 
 * all attributes should be in camelCase
 
-Building
---------
+##Building
 
 Use the deploy script to deploy into AEM.Design VM
 
@@ -39,8 +41,7 @@ Use the deploy script to deploy into local AEM instance
 ```
 
 
-Maven Archetype Command
------------------------
+##Maven Archetype Command
 
 This command was used to generate this project:
 
@@ -60,7 +61,7 @@ mvn archetype:generate \
 
 Please NOTE: additions updates to all 3 POMs were
 
-# Fav Icons
+## Fav Icons
 
 Using AEM Core Page implementation you can create following icon files in your /etc/design for them to be autmaticaly loaded into html head
 ```
@@ -75,7 +76,7 @@ touch-icon_152.png
 You can generate the icons un this site [https://realfavicongenerator.net/](https://realfavicongenerator.net/) select the "Use Old Package" option.
 
 
-# Debug JSP
+## Debug JSP
 
 login into your vm ```./devops accesslocal``` and run
 
@@ -87,7 +88,7 @@ cd /aem/crx-quickstart/launchpad/felix/bundle473/data/classes/org/apache/jsp/app
 awk 'FNR>=6130 && FNR<=6130' list_jsp.java
 ```
 
-# Manually monitor logs
+## Manually monitor logs
 
 login into your vm ```./devops accesslocal``` and run
 
