@@ -24,12 +24,12 @@
 
     final String FORM_CHOOSER_SELECTOR_SERVLET = ".form";
 
-    final String DEFAULT_IMAGE_PATH = "/content/dam/aemdesign/admin/defaults/blank.png";
-    final String DEFAULT_IMAGE_PATH_RENDITION = "/content/dam/aemdesign/admin/defaults/blank".concat(DEFAULT_IMAGE_THUMB_SELECTOR);
+    final String DEFAULT_IMAGE_PATH = "/content/dam/aemdesign/common/placeholder.png";
+    final String DEFAULT_IMAGE_PATH_RENDITION = "/content/dam/aemdesign/common/placeholder".concat(DEFAULT_IMAGE_THUMB_SELECTOR);
 
     final String SMALL_IMAGE_PATH_SELECTOR = "cq5dam" + SMALL_IMAGE_THUMB_SELECTOR;
     final String DEFAULT_IMAGE_PATH_SELECTOR = "cq5dam" + DEFAULT_IMAGE_THUMB_SELECTOR;
-    final String DEFAULT_DOWNLOAD_THUMB_ICON = "/etc/clientlibs/aemdesign/icons/file/file.gif";
+    final String DEFAULT_DOWNLOAD_THUMB_ICON = "/content/dam/aemdesign/common/download.png";
 
     final String MEDIUM_THUMBNAIL_SIZE = "320";
     final String LARGE_THUMBNAIL_SIZE = "480";

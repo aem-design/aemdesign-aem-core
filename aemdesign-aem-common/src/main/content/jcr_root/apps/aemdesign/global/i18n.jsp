@@ -293,4 +293,20 @@
 
         return page;
     }
+
+    /**
+     * A shortcut for <code>xssAPI.encodeForHTML(i18n.getVar(text))</code>.
+     */
+    protected final String outVar(XSSAPI xssAPI, I18n i18n, String text) {
+        return xssAPI.encodeForHTML(i18n.getVar(text));
+    }
+
+    /**
+     * A shortcut for <code>xssAPI.encodeForHTMLAttr(i18n.getVar(text))</code>.
+     */
+    protected final String outAttrVar(XSSAPI xssAPI, I18n i18n, String text) {
+        return xssAPI.encodeForHTMLAttr(i18n.getVar(text));
+    }
+
+
 %>

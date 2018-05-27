@@ -10,11 +10,15 @@
         return getPageListInfo(pageContext,pageManager,resourceResolver,paths,DEFAULT_LIST_DETAILS_SUFFIX,DEFAULT_LIST_PAGE_CONTENT);
     }
     protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots) {
+        return getPageListInfo(pageContext,pageManager,resourceResolver,paths,componentNames,pageRoots,null);
+    }
+
+    protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot) {
         List<ComponentProperties> pages = new ArrayList<ComponentProperties>();
         for (String path : paths) {
             Page child = pageManager.getPage(path);
             if (child!=null) {
-                pages.add(getPageInfo(pageContext,child,resourceResolver,componentNames,pageRoots));
+                pages.add(getPageInfo(pageContext,child,resourceResolver,componentNames,pageRoots,collectChildrenFromRoot));
             }
         }
         return pages;
@@ -24,6 +28,11 @@
         return getPageListInfo(pageContext,pageManager,resourceResolver,pageList,DEFAULT_LIST_DETAILS_SUFFIX,DEFAULT_LIST_PAGE_CONTENT);
     }
     protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots) {
+        return getPageListInfo(pageContext,pageManager,resourceResolver, pageList, detailsComponentName, pageRoots, null);
+    }
+
+
+    protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots, Integer collectChildrenFromRoot) {
         List<ComponentProperties> pages = new ArrayList<ComponentProperties>();
 
         if (pageList != null) {
@@ -31,20 +40,39 @@
             while (pageList.hasNext()) {
                 Page child = pageList.next();
 
-                pages.add(getPageInfo(pageContext, child,resourceResolver,detailsComponentName,pageRoots));
+                pages.add(getPageInfo(pageContext, child,resourceResolver,detailsComponentName,pageRoots,collectChildrenFromRoot));
             }
         }
         return pages;
     }
 
-    /**
+    /***
+     * return pge info without children
+     * @param pageContext
+     * @param page
+     * @param resourceResolver
+     * @param componentNames
+     * @param pageRoots
+     * @return
+     */
+    protected ComponentProperties getPageInfo(PageContext pageContext, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots) {
+        return getPageInfo(pageContext,page,resourceResolver,componentNames,pageRoots,null);
+
+    }
+
+    /***
      * Get page info from list of page paths
      *
      * @param page page to get info from
+     * @param pageContext
+     * @param page
+     * @param resourceResolver
+     * @param componentNames
+     * @param pageRoots
+     * @param collectChildrenFromRoot how many levels down to collect children
      * @return
      */
-
-    protected ComponentProperties getPageInfo(PageContext pageContext, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots) {
+    protected ComponentProperties getPageInfo(PageContext pageContext, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot) {
         ComponentProperties componentProperties = getNewComponentProperties(pageContext);
 
         if (page!=null) {
@@ -85,7 +113,6 @@
             componentProperties.put("authHref", page.getPath().concat(DEFAULT_EXTENTION));
             componentProperties.put("path", page.getPath());
             componentProperties.put("vanityPath", defaultIfEmpty(page.getVanityUrl(), ""));
-
             componentProperties.putAll(getAssetInfo(resourceResolver,
                     getPageImgReferencePath(page),
                     FIELD_PAGE_IMAGE));
@@ -94,6 +121,56 @@
 
             if (isNotEmpty(contentNode)) {
                 componentProperties.put("pageContent",contentNode);
+            }
+
+            //check if current page is in request page hierarchy
+            Page currentPage = (com.day.cq.wcm.api.Page) pageContext.getAttribute("currentPage");
+            if (currentPage !=null ) {
+                String currentPath = currentPage.getPath();
+                Page chidParent = page.getParent();
+
+                if (chidParent != null) {
+                    String childPath = chidParent.getPath();
+
+                    boolean current = false;
+                    if (currentPath.equals(childPath)) {
+                        current = true;
+                    } else if (currentPath.startsWith(childPath + "/")) {
+                        current = true;
+                    } else if (currentPath.indexOf(childPath + "/") > 0) {
+                        current = true;
+                    }
+
+                    componentProperties.put("current", current);
+                }
+            }
+
+            //get children
+            if (collectChildrenFromRoot != null && collectChildrenFromRoot > 0 ) {
+                //keep going
+                List<Map> childrenList = new ArrayList<Map>();
+
+                SlingHttpServletRequest req = (SlingHttpServletRequest) pageContext.getAttribute("slingRequest");
+
+
+                if (req != null) {
+                    Iterator<Page> children = page.listChildren(new com.day.cq.wcm.api.PageFilter(req));
+
+                    if (children != null) {
+
+                        componentProperties.put("hasChildren", children.hasNext());
+
+                        while (children.hasNext()) {
+                            Page nextchild = children.next();
+
+                            childrenList.add(getPageInfo(pageContext, nextchild, resourceResolver, componentNames, pageRoots, collectChildrenFromRoot--));
+                        }
+
+                        componentProperties.put("children", childrenList);
+
+                    }
+                }
+
             }
 
         }

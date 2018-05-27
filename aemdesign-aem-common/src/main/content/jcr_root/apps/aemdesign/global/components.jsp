@@ -1,6 +1,6 @@
 <%@page session="false" %>
 <%@ page import="com.adobe.granite.ui.components.AttrBuilder" %>
-<%@ page import="com.adobe.granite.xss.XSSAPI" %>
+<%@ page import="org.apache.sling.xss.XSSAPI" %>
 <%@ page import="com.day.cq.dam.api.DamConstants" %>
 <%@ page import="com.day.cq.wcm.api.components.Component" %>
 <%@ page import="com.day.cq.wcm.api.components.ComponentContext" %>
@@ -680,8 +680,8 @@
         try {
             SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) pageContext.getAttribute("slingRequest");
             HttpServletRequest request = (HttpServletRequest) slingRequest;
-            XSSAPI xssAPI = slingRequest.adaptTo(XSSAPI.class);
-            componentProperties.attr = new AttrBuilder(request, xssAPI);
+            com.adobe.granite.xss.XSSAPI oldXssAPI = slingRequest.adaptTo(com.adobe.granite.xss.XSSAPI.class);
+            componentProperties.attr = new AttrBuilder(request, oldXssAPI);
 
         } catch (Exception ex) {
             getLogger().error("getNewComponentProperties: could not configure componentProperties with attributeBuilder");
@@ -731,16 +731,17 @@
 
         SlingScriptHelper sling = (SlingScriptHelper)pageContext.getAttribute("sling");
         HttpServletRequest request = (HttpServletRequest)slingRequest;
-        XSSAPI xssAPI = slingRequest.adaptTo(XSSAPI.class);
+
+        com.adobe.granite.xss.XSSAPI oldXssAPI = slingRequest.adaptTo(com.adobe.granite.xss.XSSAPI.class);
 
         ComponentContext componentContext = (ComponentContext) pageContext.getAttribute("componentContext");
         Component component = componentContext.getComponent();
 
-        componentProperties.attr = new AttrBuilder(request, xssAPI);
+        componentProperties.attr = new AttrBuilder(request, oldXssAPI);
         if (addMoreAttributes) {
             componentProperties.attr.addBoolean("component", true);
         }
-//        AttrBuilder itemAttr = new AttrBuilder(request, xssAPI);
+//        AttrBuilder itemAttr = new AttrBuilder(request, oldXssAPI);
 
         final String CLASS_TYPE_RESOURCE = Resource.class.getCanonicalName();
         final String CLASS_TYPE_JCRNODERESOURCE = "org.apache.sling.jcr.resource.internal.helper.jcr.JcrNodeResource";
