@@ -5,7 +5,7 @@ window.AEMDESIGN.author.components = AEMDESIGN.author.components || {};
 window.AEMDESIGN.author.components.list = AEMDESIGN.author.components.list || {};
 
 
-(function ($, ns, nsDialog, CQ, Granite, window, undefined) { //add additional dependencies
+(function ($, ns, nsDialog, CQ, Granite, window, undefined) { //NOSONAR convention for wrapping all modules
 
     "use strict";
     var _version = "0.1";

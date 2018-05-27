@@ -4,7 +4,7 @@ window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.link = AEMDESIGN.components.link || {};
 
 
-(function ($, _, ko, ns, analytics, window, undefined) { //add additional dependencies
+(function ($, _, ko, ns, analytics, window, undefined) { //NOSONAR convention for wrapping all modules
 
 
     $(document).ready(function () {
@@ -20,7 +20,7 @@ window.AEMDESIGN.components.link = AEMDESIGN.components.link || {};
             var button = $(this);
             analytics.enableButton(button);
         });
-    })
+    });
 
 
 })(AEMDESIGN.jQuery, _, ko, AEMDESIGN.components.link, AEMDESIGN.analytics, this); //pass in additional dependencies

@@ -3,10 +3,9 @@ window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.sharebutton = AEMDESIGN.components.sharebutton || {};
 
-(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
+//add additional dependencies
+(function ($, _, ko, ns, log, window, undefined) { //NOSONAR convention for wrapping all modules
 
-
-    // log.info("ShareButton Start !!!");
 
     "use strict";
     var _version = "0.1";
@@ -27,7 +26,7 @@ window.AEMDESIGN.components.sharebutton = AEMDESIGN.components.sharebutton || {}
     };
 
     ns.loadAddThis = function (pubId){
-        if(ns.addThisLoaded() == false) {
+        if(ns.addThisLoaded() === false) {
 
             var script_tag = document.createElement('script');
             script_tag.setAttribute("type", "text/javascript");
@@ -53,22 +52,18 @@ window.AEMDESIGN.components.sharebutton = AEMDESIGN.components.sharebutton || {}
         $(el).find(".share > a").bind('click', function(a){
             a.preventDefault();
             var b = $(el), c = $(el).find(".addthis_toolbox");
-            b.hasClass("focus") ? (c.stop(!0, !0).fadeOut({
-                duration: "fast",
-                queue: !1
-            }).slideUp("fast"),
-                b.removeClass("focus").blur()) : (c.stop(!0, !0).fadeIn({
-                duration: "fast",
-                queue: !1
-            }).css("display", "none").slideDown("fast"),
-                b.addClass("focus").focus())
+            if (b.hasClass("focus") ) {
+                c.stop(!0, !0).fadeOut({duration: "fast", queue: !1}).slideUp("fast");
+                b.removeClass("focus").blur();
+            } else {
+                c.stop(!0, !0).fadeIn({duration: "fast", queue: !1}).css("display", "none").slideDown("fast");
+                b.addClass("focus").focus();
+            }
 
         });
 
         ns.loadAddThis(pubId);
     };
-
-   // log.disableLog();
 
 })(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.sharebutton, AEMDESIGN.log, this); //pass in additional dependencies
 

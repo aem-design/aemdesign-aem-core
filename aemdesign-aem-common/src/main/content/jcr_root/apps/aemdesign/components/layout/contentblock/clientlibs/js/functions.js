@@ -3,7 +3,7 @@ window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.contentblock = AEMDESIGN.components.contentblock || {};
 
-(function ($, ns, window, undefined) {
+(function ($, ns, window, undefined) { //NOSONAR convention for wrapping all modules
 
     "use strict";
     var _version = "0.1";

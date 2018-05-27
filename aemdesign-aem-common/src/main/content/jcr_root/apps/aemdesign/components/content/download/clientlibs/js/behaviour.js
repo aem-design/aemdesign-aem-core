@@ -4,7 +4,7 @@ window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.download = AEMDESIGN.components.download || {};
 
 
-(function ($, _, ko, ns, analytics, window, undefined) { //add additional dependencies
+(function ($, _, ko, ns, analytics, window, undefined) { //NOSONAR convention for wrapping all modules
 
 
     $(document).ready(function () {
@@ -24,7 +24,7 @@ window.AEMDESIGN.components.download = AEMDESIGN.components.download || {};
             var link = $(this).find("a");
             analytics.enableGA(link);
         });
-    })
+    });
 
 
 })(AEMDESIGN.jQuery, _, ko, AEMDESIGN.components.download, AEMDESIGN.analytics, this); //pass in additional dependencies

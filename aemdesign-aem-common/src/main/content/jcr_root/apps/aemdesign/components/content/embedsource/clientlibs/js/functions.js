@@ -3,7 +3,7 @@ window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.embedsource = AEMDESIGN.components.embedsource || {};
 
-(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
+(function ($, _, ko, ns, log, window, undefined) { //NOSONAR convention for wrapping all modules
 
     "use strict";
     var _version = "0.1";
@@ -22,11 +22,11 @@ window.AEMDESIGN.components.embedsource = AEMDESIGN.components.embedsource || {}
             "error": ""
         };
         var tags = [];
-        $.each(input.split('\n'), function (i, line) {
-            $.each(line.match(/<[^>]*[^/]>/g) || [], function (j, tag) {
+        $.each(input.split('\n'), function (i, line) { //NOSONAR acceptable jquery pattern
+            $.each(line.match(/<[^>]*[^/]>/g) || [], function (j, tag) { //NOSONAR acceptable jquery pattern
                 var matches = tag.match(/<\/?([a-z0-9]+)/i);
                 if (matches) {
-                    tags.push({tag: tag, name: matches[1], line: i+1, closing: tag[1] == '/'});
+                    tags.push({tag: tag, name: matches[1], line: i+1, closing: tag[1] === '/'});
                 }
             });
         });
@@ -37,6 +37,7 @@ window.AEMDESIGN.components.embedsource = AEMDESIGN.components.embedsource || {}
         var openTags = [];
         var error = false;
         var indent = 0;
+        var openTag;
         for (var i = 0; i < tags.length; i++) {
             var tag = tags[i];
             if (tag.closing) {
@@ -45,18 +46,23 @@ window.AEMDESIGN.components.embedsource = AEMDESIGN.components.embedsource || {}
                     continue;
                 }
                 if (openTags.length == 0) {
-                    result.error = 'Closing tag ' + closingTag.tag + ' on line ' + closingTag.line + ' does not have corresponding open tag.';
+                    result.error = 'Closing tag ' + closingTag.tag
+                        + ' on line ' + closingTag.line
+                        + ' does not have corresponding open tag.';
                     return result;
                 }
-                var openTag = openTags[openTags.length - 1];
-                if (closingTag.name != openTag.name) {
-                    result.error = 'Closing tag ' + closingTag.tag + ' on line ' + closingTag.line + ' does not match open tag ' + openTag.tag + ' on line ' + openTag.line + '.';
+                openTag = openTags[openTags.length - 1];
+                if (closingTag.name !== openTag.name) {
+                    result.error = 'Closing tag ' + closingTag.tag
+                        + ' on line ' + closingTag.line
+                        + ' does not match open tag ' + openTag.tag
+                        + ' on line ' + openTag.line + '.';
                     return result;
                 } else {
                     openTags.pop();
                 }
             } else {
-                var openTag = tag;
+                openTag = tag;
                 if (ns.isSelfClosingTag(openTag.name)) {
                     continue;
                 }
@@ -64,8 +70,10 @@ window.AEMDESIGN.components.embedsource = AEMDESIGN.components.embedsource || {}
             }
         }
         if (openTags.length > 0) {
-            var openTag = openTags[openTags.length - 1];
-            result.error = 'Open tag ' + openTag.tag + ' on line ' + openTag.line + ' does not have a corresponding closing tag.';
+            openTag = openTags[openTags.length - 1];
+            result.error = 'Open tag ' + openTag.tag
+                + ' on line ' + openTag.line
+                + ' does not have a corresponding closing tag.';
             return result;
         }
         result.error = 'Success: No unclosed tags found.';

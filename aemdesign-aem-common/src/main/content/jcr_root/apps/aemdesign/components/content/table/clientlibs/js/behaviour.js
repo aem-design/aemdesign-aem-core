@@ -4,7 +4,7 @@ window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.table = AEMDESIGN.components.table || {};
 
 
-(function ($, _, ko, ns, window, undefined) { //add additional dependencies
+(function ($, _, ko, ns, window, undefined) { //NOSONAR convention for wrapping all modules
 
 
     $(document).ready(function () {
