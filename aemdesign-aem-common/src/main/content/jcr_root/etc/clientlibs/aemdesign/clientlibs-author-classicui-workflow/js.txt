@@ -1,4 +1,4 @@
-#base=../js/classicui
+#base=../utils/classicui
 metadataKeyValueField.js
 metadataKeyValueActions.js
 metadataKeyValueActionField.js

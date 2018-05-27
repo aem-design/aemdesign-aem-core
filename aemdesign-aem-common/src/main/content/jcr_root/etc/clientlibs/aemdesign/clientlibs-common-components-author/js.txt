@@ -1,2 +1,0 @@
-#../js/main/scriptmobile.js
-#../js/main/theme.js
