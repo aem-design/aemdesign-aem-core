@@ -38,7 +38,7 @@
                     </div>
                 </c:if>
                 <c:if test="${not linkL1.hasChildren}">
-                    <a class="nav-link l-1" href="#">${linkL1.title}</a>
+                    <a class="nav-link l-1" href="${linkL1.href}">${linkL1.title}</a>
                 </c:if>
             </li>
         </c:forEach>
