@@ -1,0 +1,10 @@
+Subject: You have been delegated a task
+To: ${delegateToUserEmail}
+To: ${lastModifiedByEmail}
+
+Hello ${delegateToUserName},
+
+You have been delegated a task by ${lastModifiedByName}, to original view details click on the below links:
+Original Task Details: ${authorPath}/mnt/overlay/cq/core/content/projects/showtasks/taskdetails.html?item=${payloadPath}
+Workspace: ${authorPath}/projects/details.html${projectPath}
+Details: ${authorPath}/mnt/overlay/cq/core/content/projects/properties.html?item=${projectPath}

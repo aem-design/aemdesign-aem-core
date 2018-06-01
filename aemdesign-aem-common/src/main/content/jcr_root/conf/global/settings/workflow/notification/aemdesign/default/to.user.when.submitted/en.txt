@@ -1,0 +1,30 @@
+Subject: ${emailSubject}
+To: ${createdByEmail}
+To: ${lastModifiedByEmail}
+
+Hello ${createdByName},
+
+A Project has been updated
+${title} - ${description}
+
+Created on ${jcr:created}
+Created by ${createdByName}
+Modified on: ${jcr:lastModified}
+Modified by: ${lastModifiedByName}
+Is Active: ${active}
+
+Project Links:
+- Details: ${authorPath}/mnt/overlay/cq/core/content/projects/properties.html?item=${resourcePath}
+- Workspace: ${authorPath}${detailsHref}${resourcePath}
+- Team: ${authorPath}/mnt/overlay/cq/core/content/projects/teampage.html?item=${resourcePath}
+- Task List: ${authorPath}/mnt/overlay/cq/core/content/projects/showtasks.html?item=${resourcePath}
+
+Project Tasks Summary:
+- Active: ${activeTasks}
+- Overdue: ${overdueTasks}
+- Total: ${totalTasks}
+
+Project Teams:
+- Approvers: ${role_editor}
+- Observers: ${role_observer}
+- Owners: ${role_owner}

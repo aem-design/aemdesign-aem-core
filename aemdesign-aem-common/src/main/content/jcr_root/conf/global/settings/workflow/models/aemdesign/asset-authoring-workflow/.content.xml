@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:template="/libs/cq/workflow/templates/model"
+        jcr:description="Asset Co-Authoring Workflow"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="Asset Co-Authoring Workflow"
+        sling:resourceType="cq/workflow/components/pages/model"
+        navTitle="Asset Co-Authoring Workflow"
+        pageTitle="Asset Co-Authoring Workflow">
+        <flow
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="foundation/components/parsys">
+            <projecttaskmanager
+                jcr:description="A process for managing tasks in a project"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Project Task Manager"
+                sling:resourceType="aemdesign/components/workflow/projecttaskmanager">
+                <metaData
+                    jcr:primaryType="nt:unstructured"
+                    PROCESS="/apps/aemdesign/components/workflow/projecttaskmanager/scripts/projecttaskmanager.ecma"
+                    PROCESS_AUTO_ADVANCE="false"
+                    PROCESS_PERSIST_ANONYMOUS_WORKITEM="true"/>
+            </projecttaskmanager>
+            <goto
+                jcr:description="Goto Step"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Go back and assign if not done"
+                sling:resourceType="cq/workflow/components/model/goto"
+                PROCESS="com.adobe.granite.workflow.core.process.GotoProcess"
+                PROCESS_AUTO_ADVANCE="false">
+                <metaData
+                    jcr:primaryType="nt:unstructured"
+                    PROCESS="com.adobe.granite.workflow.core.process.GotoProcess"
+                    PROCESS_AUTO_ADVANCE="false"
+                    script="function check() {&#xa;&#xa;    if (workflowData.getMetaDataMap().get(&quot;lastTaskAction&quot;,&quot;&quot;) == &quot;Finish&quot;) {&#xa;        return false&#xa;    }&#xa;    return true;&#xa;}"
+                    TARGET_NODE_PATH="/conf/global/settings/workflow/models/aemdesign/asset-authoring-workflow/jcr:content/flow/projecttaskmanager"/>
+            </goto>
+            <projecttaskmanager_179778591
+                jcr:description="A process for managing tasks in a project"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Project Task Manager"
+                sling:resourceType="aemdesign/components/workflow/projecttaskmanager">
+                <metaData
+                    jcr:primaryType="nt:unstructured"
+                    PROCESS="/apps/aemdesign/components/workflow/projecttaskmanager/scripts/projecttaskmanager.ecma"
+                    PROCESS_AUTO_ADVANCE="true"
+                    PROCESS_PERSIST_ANONYMOUS_WORKITEM="true"/>
+            </projecttaskmanager_179778591>
+        </flow>
+        <image
+            jcr:primaryType="nt:unstructured"
+            imageRotate="0">
+            <file/>
+        </image>
+        <model/>
+    </jcr:content>
+</jcr:root>

@@ -1,0 +1,7 @@
+To: ${toEmail}
+Subject: ACTION REQUIRED: Your assets are due for review
+
+Hello ${username},
+
+Please review your assets from the below link that are due to expire or due to be reviewed
+Asset Expiry Report: ${authorPath}${reportLink}

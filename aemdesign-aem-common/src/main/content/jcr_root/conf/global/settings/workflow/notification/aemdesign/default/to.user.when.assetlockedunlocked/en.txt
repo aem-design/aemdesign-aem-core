@@ -1,0 +1,6 @@
+To: ${toEmail}
+Subject: Asset ${operation}
+
+Hello ${username},
+
+Asset ${operation}: ${authorPath}/assetdetails.html${path}

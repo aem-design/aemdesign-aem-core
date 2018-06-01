@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:WorkflowLauncher"
+    condition="rep:members!="
+    description="Projects Notification Membership Update - Created"
+    enabled="{Boolean}false"
+    eventType="{Long}1"
+    excludeList=""
+    glob="/home/groups/projects/admin"
+    nodetype="rep:Group"
+    runModes="author"
+    workflow="/conf/global/settings/workflow/models/aemdesign/projects-notification-membershipupdate/jcr:content/model"/>

@@ -1,0 +1,6 @@
+To: ${createdByEmail}
+Subject: Asset Unlocked
+
+Hello ${createdByName},
+
+Asset Unlocked: ${authorPath}/assetdetails.html${payloadPath}

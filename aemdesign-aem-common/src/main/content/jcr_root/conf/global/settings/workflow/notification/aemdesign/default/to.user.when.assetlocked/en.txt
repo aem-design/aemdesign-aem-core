@@ -1,0 +1,6 @@
+To: ${createdByEmail}
+Subject: Asset Locked
+
+Hello ${createdByName},
+
+Asset Locked by ${lockedByName}: ${authorPath}/assetdetails.html${payloadPath}

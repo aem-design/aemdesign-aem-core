@@ -1,0 +1,7 @@
+Subject: Project Group has been updated, no action required
+To: ${createdByEmail}
+
+Hello Team,
+
+The group "${groupId} - ${groupTitle}" has been updated, here is the list of group members:
+${teamMembersNames}
