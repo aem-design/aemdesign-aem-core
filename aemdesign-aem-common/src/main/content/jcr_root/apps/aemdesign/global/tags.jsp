@@ -604,7 +604,7 @@
     /**
      * manually resolve path to tag as OOTB does not have tennant support
      * @param tagID tagId path  [namespace]:[namespace/path/to/tag]
-     * @param tagsRoot root for tags default /etc/tags
+     * @param tagsRoot root for tags default /content/cq:tags
      * @return
      */
     private String getPathFromTagId(String tagID,String tagsRoot) {

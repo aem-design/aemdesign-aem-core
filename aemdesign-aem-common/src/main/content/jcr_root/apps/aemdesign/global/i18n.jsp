@@ -4,7 +4,7 @@
 <%@page session="false"%>
 <%!
 
-    public static String LANGUAGE_TAG_PATH = "/etc/tags/language";
+    public static String LANGUAGE_TAG_PATH = "/content/cq:tags/language";
     public static String LANGUAGE_DEFAULT = Locale.ENGLISH.getLanguage();
     public static String LANGUAGE_DEFAULT_LABEL = "Missing Label";
 
@@ -214,7 +214,7 @@
 
         String bcp47Lang = "";
 
-        Resource rootLanguage = resourceResolver.getResource("/etc/tags/language");
+        Resource rootLanguage = resourceResolver.getResource("/content/cq:tags/language");
 
         Iterator iterator = rootLanguage.listChildren();
 

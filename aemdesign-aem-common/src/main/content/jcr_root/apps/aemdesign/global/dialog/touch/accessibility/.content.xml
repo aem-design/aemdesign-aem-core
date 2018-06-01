@@ -52,7 +52,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/aemdesign/component-aria/role"/>
+                                                path="/content/cq:tags/aemdesign/component-aria/role"/>
                                     </ariaRole>
                                     <ariaDescribedBy
                                             jcr:primaryType="nt:unstructured"
@@ -87,7 +87,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/aemdesign/component-aria/live"/>
+                                                path="/content/cq:tags/aemdesign/component-aria/live"/>
                                     </ariaLive>
                                     <ariaHidden
                                             jcr:primaryType="nt:unstructured"
@@ -101,7 +101,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/aemdesign/component-dialog/common/true-false"/>
+                                                path="/content/cq:tags/aemdesign/component-dialog/common/true-false"/>
                                     </ariaHidden>
                                     <ariaHaspopup
                                             jcr:primaryType="nt:unstructured"
@@ -115,7 +115,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/aemdesign/component-dialog/common/true-false"/>
+                                                path="/content/cq:tags/aemdesign/component-dialog/common/true-false"/>
                                     </ariaHaspopup>
                                     <ariaAccessKey
                                             jcr:primaryType="nt:unstructured"

@@ -60,7 +60,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/aemdesign/component-topic/topic"/>
+                                                path="/content/cq:tags/aemdesign/component-topic/topic"/>
                                     </topic>
 
                                     <filterList
@@ -68,7 +68,7 @@
                                             sling:resourceType="cq/gui/components/coral/common/form/tagfield"
                                             fieldLabel="Filter List"
                                             multiple="{Boolean}true"
-                                            rootPath="/etc/tags/aemdesign"
+                                            rootPath="/content/cq:tags/aemdesign"
                                             name="./titleIcon"/>
 
                                     <defaultFilters
@@ -76,7 +76,7 @@
                                             sling:resourceType="cq/gui/components/coral/common/form/tagfield"
                                             fieldLabel="Default Filter"
                                             multiple="{Boolean}true"
-                                            rootPath="/etc/tags/aemdesign"
+                                            rootPath="/content/cq:tags/aemdesign"
                                             name="./defaultFilters"/>
 
 

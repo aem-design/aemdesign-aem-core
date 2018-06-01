@@ -42,7 +42,7 @@
 
     public static final String NODE_PAR = "./article/par";
 
-    public static final String DEFAULT_PATH_TAGS = "/etc/tags";
+    public static final String DEFAULT_PATH_TAGS = "/content/cq:tags";
 
     public static final String NODE_DETAILS = "*-details";
 

@@ -21,7 +21,7 @@ var DEFAULT_CONTENT_NODE_NAME = "jcr:content";
 // var PAYLOAD_NODE_TYPE_CHECK = "sling:resourceType";
 // var PAYLOAD_NODE_TYPE_CHECK_VALUE = "cq/gui/components/projects/admin/card/projectcard";
 
-var DEFAULT_PROCESS_TEMPLATEPATH = "/etc/workflow/notification/aemdesign/default/to.user.when.submitted/en.txt";
+var DEFAULT_PROCESS_TEMPLATEPATH = "/conf/global/settings/workflow/notification/aemdesign/default/to.user.when.submitted/en.txt";
 // var DEFAULT_PROCESS_TEMPLATEPATH = "/etc/notification/email/aemdesign/default/to.user.when.submitted/en.html";
 var DEFAULT_PATHMATCH =/(.+)\/([^/]+)/i;
 

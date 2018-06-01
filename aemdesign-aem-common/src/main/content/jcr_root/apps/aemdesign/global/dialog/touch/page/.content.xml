@@ -64,7 +64,7 @@
                                             fieldLabel="Primary Category"
                                             fieldDescription="this will be displayed as Primary Category on the page and on cards in grids"
                                             multiple="{Boolean}true"
-                                            rootPath="/etc/tags/aemdesign"
+                                            rootPath="/content/cq:tags/aemdesign"
                                             name="./cq:tags"/>
 
                                     <subCategory
@@ -73,7 +73,7 @@
                                             fieldLabel="Secondary Category"
                                             fieldDescription="this will be display as Secondary Category on cards in grids"
                                             multiple="{Boolean}true"
-                                            rootPath="/etc/tags/aemdesign"
+                                            rootPath="/content/cq:tags/aemdesign"
                                             name="./subCategory"/>
 
                                     <mixinTypes
@@ -129,7 +129,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/content-type/page"/>
+                                                path="/content/cq:tags/content-type/page"/>
                                     </metadataContentType>
                                 </items>
                             </openGraph>

@@ -67,7 +67,7 @@ These fields are available for input by the authors. These fields are used in te
             <td>Title Format</td>
             <td>titleFormat</td>
             <td>${honorificPrefix} ${givenName} ${familyName}</td>
-            <td>Format of Title to be used for display.<br>Configure templates in <a href="/libs/cq/tagging/gui/content/tags.html/etc/tags/aemdesign/component-style-theme/details/contact-details/format/title">component-style-theme/details/contact-details/format/title</a></td>
+            <td>Format of Title to be used for display.<br>Configure templates in <a href="/libs/cq/tagging/gui/content/tags.html/content/cq:tags/aemdesign/component-style-theme/details/contact-details/format/title">component-style-theme/details/contact-details/format/title</a></td>
         </tr>
         <tr>
             <td>Details / Description</td>
@@ -95,7 +95,7 @@ These fields are available for input by the authors. These fields are used in te
             <td>Description Format</td>
             <td>descriptionFormat</td>
             <td></td>
-            <td>Format of Description to be used for display.<br>Configure templates in <a href="/libs/cq/tagging/gui/content/tags.html/etc/tags/aemdesign/component-style-theme/details/contact-details/format/description">component-style-theme/details/contact-details/format/description</a></td>
+            <td>Format of Description to be used for display.<br>Configure templates in <a href="/libs/cq/tagging/gui/content/tags.html/content/cq:tags/aemdesign/component-style-theme/details/contact-details/format/description">component-style-theme/details/contact-details/format/description</a></td>
         </tr>
         <tr>
             <td>Details / Description</td>

@@ -56,7 +56,7 @@ window.AEMDESIGN.components.onlinemedia = AEMDESIGN.components.onlinemedia || {}
 
             $(el).find("video").each(function () {
                 $(this).mediaelementplayer({
-                    pluginPath: "/etc/designs/aemdesign/vendor/mediaelementplayer/",
+                    pluginPath: "/apps/settings/wcm/design/vendor/mediaelementplayer/",
                     enablePluginDebug: false
                 });
                 $('span.mejs-offscreen').css("display", "none");

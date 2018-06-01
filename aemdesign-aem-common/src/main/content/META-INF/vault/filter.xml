@@ -7,32 +7,30 @@
         <exclude pattern="/apps/aemdesign/config(.*)?"/>
     </filter>
 
-    <!--<filter root="/etc/workflow" mode="update">-->
+    <!--<filter root="/conf/global/settings/workflow" mode="update">-->
         <!--&lt;!&ndash; Exclude the instances to avoid overriding &ndash;&gt;-->
-        <!--<exclude pattern="/etc/workflow/instances(/.*)?"/>-->
+        <!--<exclude pattern="/conf/global/settings/workflow/instances(/.*)?"/>-->
     <!--</filter>-->
 
-    <filter root="/etc/designs/aemdesign">
+    <filter root="/apps/settings/wcm/design">
         <!-- Exclude the content.xml to avoid overriding
-        <exclude pattern="/etc/designs/aemdesign/jcr:.*"/> -->
+        <exclude pattern="/apps/settings/wcm/design/jcr:.*"/> -->
     </filter>
 
     <filter root="/etc/clientlibs/aemdesign"/>
 
-    <!--<filter root="/etc/designs/default" mode="update"/>-->
 
-    <filter root="/etc/tags/.content.xml" mode="update"/>
-
-    <filter root="/etc/cloudservices/rest" mode="update"/>
-    <filter root="/etc/cloudservices/salesforceapi" mode="update"/>
+    <filter root="/content/cq:tags/.content.xml" mode="update"/>
 
 
+    <filter root="/conf/global/settings/workflow/models/aemdesign" mode="update"/>
+    <filter root="/conf/global/settings/workflow/notification/aemdesign" mode="update"/>
+    <filter root="/conf/global/settings/workflow/launcher/config/aemdesign" mode="update"/>
 
-    <filter root="/etc/workflow/models/aemdesign" mode="update"/>
-    <filter root="/etc/workflow/notification/aemdesign" mode="update"/>
-    <filter root="/etc/workflow/launcher/config/aemdesign" mode="update"/>
-
-    <filter root="/conf/aemdesign"/>
+    <filter root="/conf/aemdesign/settings/wcm" mode="update"/>
+    <filter root="/conf/aemdesign/global/settings/workflow/launcher/config/aemdesign" mode="update"/>
+    <filter root="/conf/aemdesign/global/settings/workflow/models/aemdesign" mode="update"/>
+    <filter root="/conf/aemdesign/global/settings/workflow/notification/aemdesign" mode="update"/>
 
     <filter root="/etc/blueprints/aemdesign-english"/>
     <filter root="/etc/blueprints/aemdesign-german"/>

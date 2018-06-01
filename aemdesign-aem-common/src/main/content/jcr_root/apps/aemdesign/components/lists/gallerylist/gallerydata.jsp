@@ -145,7 +145,7 @@
 //                        }
 //                    }
 //                } else if (tags.startsWith("honda-product")) {
-//                    tags = "/etc/tags/" + tags.replace(':', '/');
+//                    tags = "/content/cq:tags/" + tags.replace(':', '/');
 //                    Node tagNode  = resolver.resolve(tags).adaptTo(Node.class);
 //                    try {
 //                        //get the title of the tag

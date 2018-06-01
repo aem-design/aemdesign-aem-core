@@ -20,9 +20,9 @@ window.AEMDESIGN.services = window.AEMDESIGN.services || {};
     ns.endpoints = {
 
 
-        PRODUCTS: {path: "/etc/tags/aemdesign/products.valuelist.json" },
-        ENQUIRY_TYPE: {path: "/etc/tags/aemdesign/forms/enquiry-type.valuelist.json"},
-        SALUTATIONS: {path: "/etc/tags/aemdesign/forms/salutations.valuelist.json"},
+        PRODUCTS: {path: "/content/cq:tags/aemdesign/products.valuelist.json" },
+        ENQUIRY_TYPE: {path: "/content/cq:tags/aemdesign/forms/enquiry-type.valuelist.json"},
+        SALUTATIONS: {path: "/content/cq:tags/aemdesign/forms/salutations.valuelist.json"},
 
         PRICES: {path: "/service/price"},
 
@@ -38,17 +38,17 @@ window.AEMDESIGN.services = window.AEMDESIGN.services || {};
             extension: "json"
         },
         TAG: {
-            path: "/etc/tags/aemdesign",
+            path: "/content/cq:tags/aemdesign",
             levels:"",
             extension: "valuelist.current.json"
         },
         CHILDTAG: {
-            path: "/etc/tags/aemdesign",
+            path: "/content/cq:tags/aemdesign",
             levels:"",
             extension: "valuelist.json"
         },
         TAGS: {
-            path: "/etc/tags/aemdesign",
+            path: "/content/cq:tags/aemdesign",
             levels:"5",
             extension: "json"
         }
