@@ -2,8 +2,6 @@
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Template">
     <jcr:content
-        cq:lastModified="{Date}2016-11-22T17:32:00.712+02:00"
-        cq:lastModifiedBy="admin"
         cq:templateType="/conf/aemdesign/settings/wcm/template-types/base"
         jcr:primaryType="cq:PageContent"
         jcr:title="AEM.Design Experience Fragment Web Variation"
