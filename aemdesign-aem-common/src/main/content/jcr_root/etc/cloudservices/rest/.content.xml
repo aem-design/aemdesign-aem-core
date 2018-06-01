@@ -13,6 +13,7 @@
             serviceUrl=""
             serviceAdminUrl=""
             showOnDashboard="{Boolean}true"
+            visible="{Boolean}true"
             sling:resourceType="cq/cloudserviceconfigs/components/servicepage"
             thumbnailPath="/apps/aemdesign/templates/cloudconfig/rest/rest.png"/>
 </jcr:root>

@@ -5,14 +5,15 @@
             jcr:primaryType="nt:unstructured"
             jcr:title="SalesForce API"
             cq:template="/libs/cq/cloudserviceconfigs/templates/servicepage"
-            description="Salesforce.com is the enterprise cloud computing company that is leading the shift to the Social Enterprise."
-            descriptionExtended="The Force.com platform is the world's first Platform as a Service (PaaS), enabling developers to create and deliver any kind of business application in the cloud, entirely on-demand and without software"
+            description="Simple Salesforce integration API"
+            descriptionExtended="Simple Salesforce integration API"
             jcr:description="Salesforce Marketing Cloud API"
             inclusionRank="100"
             ranking="40"
             serviceUrl="http://www.salesforce.com/"
             serviceAdminUrl="http://www.salesforce.com/"
             showOnDashboard="{Boolean}true"
+            visible="{Boolean}true"
             sling:resourceType="cq/cloudserviceconfigs/components/servicepage"
             thumbnailPath="/apps/aemdesign/templates/cloudconfig/salesforceapi/salesforce.png"/>
 </jcr:root>
