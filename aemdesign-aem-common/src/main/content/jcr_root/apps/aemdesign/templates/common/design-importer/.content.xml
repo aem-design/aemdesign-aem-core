@@ -6,7 +6,7 @@
     ranking="{Long}114"
     shortTitle="Design Importer">
     <jcr:content
-        cq:designPath="/etc/designs/aemdesign"
+        cq:designPath="/apps/settings/wcm/design"
         jcr:primaryType="cq:PageContent"
         sling:resourceType="aemdesign/components/template/common/design-importer"/>
 </jcr:root>

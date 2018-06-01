@@ -12,10 +12,7 @@
         <!--<exclude pattern="/conf/global/settings/workflow/instances(/.*)?"/>-->
     <!--</filter>-->
 
-    <filter root="/apps/settings/wcm/design">
-        <!-- Exclude the content.xml to avoid overriding
-        <exclude pattern="/apps/settings/wcm/design/jcr:.*"/> -->
-    </filter>
+    <filter root="/apps/settings/wcm/design/aemdesign"/>
 
     <filter root="/etc/clientlibs/aemdesign"/>
 

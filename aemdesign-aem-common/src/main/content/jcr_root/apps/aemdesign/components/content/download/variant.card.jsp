@@ -13,7 +13,7 @@
     </c:if>
     <div class="card-block">
         <c:if test="${componentProperties.thumbnailType eq 'icon'}">
-            <span class="icon type_${componentProperties.iconType}"><img src="/libs/cq/ui/resources/0.gif" alt="${componentProperties.mimeTypeLabel}"/></span>
+            <span class="icon type_${componentProperties.iconType}"><img src="/apps/settings/wcm/design/aemdesign/blank.gif" alt="${componentProperties.mimeTypeLabel}"/></span>
         </c:if>
         <c:if test="${not componentProperties.hideTitle and not empty componentProperties.title}">
         <${componentProperties.titleType} class="card-title" id="${componentProperties.ariaLabelledBy}">${componentProperties.title}</${componentProperties.titleType}>

@@ -137,7 +137,7 @@
                 </c:if>
                 <c:forEach var="hit" items="${result.hits}" varStatus="status">
                     <c:if test="${hit.extension != \"\" && hit.extension != \"html\"}">
-                        <span class="icon type_${hit.extension}"><img src="/etc/designs/admin/0.gif" alt="*"></span>
+                        <span class="icon type_${hit.extension}"><img src="/apps/settings/wcm/design/aemdesign/blank.gif" alt="*"></span>
                     </c:if>
                     <div class="result-item">
                         <div class="result-item-title">

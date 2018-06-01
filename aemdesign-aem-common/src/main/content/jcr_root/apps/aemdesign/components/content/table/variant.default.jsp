@@ -1,7 +1,7 @@
 <div ${componentProperties.componentAttributes}>
     <cq:text property="tableData"
                  escapeXml="false"
-                 placeholder="<img src=\"/libs/cq/ui/resources/0.gif\" class=\"cq-table-placeholder\" alt=\"\" />"
+                 placeholder="<img src=\"/apps/settings/wcm/design/aemdesign/blank.gif\" class=\"cq-table-placeholder\" alt=\"\" />"
         />
 </div>
 
