@@ -6,7 +6,7 @@
         jcr:primaryType="nt:unstructured"
         jcr:title="AEM.Design German"
         sling:resourceType="wcm/msm/components/blueprint"
-        sitePath="/content/we-retail/language-masters/de">
+        sitePath="/content/aemdesign/language-masters/de">
         <dialog/>
     </jcr:content>
 </jcr:root>
