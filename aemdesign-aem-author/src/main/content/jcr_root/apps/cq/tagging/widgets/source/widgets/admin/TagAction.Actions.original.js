@@ -187,7 +187,7 @@ CQ.tagging.TagAdmin.getName = function (path) {
         tagPath: function (val, field) {
             return ( /^\/etc\/tags(\/|$)/.test(val) );
         },
-        tagPathText: CQ.I18n.getMessage("Not a valid tag path. Must start with /etc/tags.")
+        tagPathText: CQ.I18n.getMessage("Not a valid tag path. Must start with /content/cq:tags.")
     });
 })();
 

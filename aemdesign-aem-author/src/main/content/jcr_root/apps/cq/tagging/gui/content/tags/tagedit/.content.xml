@@ -30,7 +30,7 @@
                     granite:id="tag-edit-form"
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="granite/ui/components/coral/foundation/form"
-                    action="/etc/tags"
+                    action="/content/cq:tags"
                     foundationForm="{Boolean}true"
                     maximized="{Boolean}true"
                     method="post"
