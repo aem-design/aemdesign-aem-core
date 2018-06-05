@@ -166,7 +166,7 @@
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
+                                                variant="tagidvalue"
                                                 path="/content/cq:tags/aemdesign/component-style-theme/details/page-details/format/title"/>
                                     </titleFormat>
                                 </items>

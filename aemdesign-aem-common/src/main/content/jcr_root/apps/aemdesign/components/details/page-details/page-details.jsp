@@ -1,4 +1,6 @@
 <%@ page import="com.adobe.granite.asset.api.AssetManager" %>
+<%@ page import="org.jsoup.Jsoup" %>
+<%@ page import="org.jsoup.nodes.Document" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
@@ -26,7 +28,7 @@
     Object[][] componentFields = {
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"title", DEFAULT_TITLE},
-            {"titleFormat",""},
+            {"titleFormat",""}, //tag path, will be resolved to value in processComponentFields
             {"description", DEFAULT_DESCRIPTION},
             {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
             {"hideTitle", DEFAULT_HIDE_TITLE},
