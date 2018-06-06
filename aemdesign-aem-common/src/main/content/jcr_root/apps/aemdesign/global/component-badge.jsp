@@ -8,7 +8,7 @@
         <%
         String originLocation = "";
         String originVariant = "";
-        String componentId = "";
+        String componentFieldId = "";
         String originLocationLink = " Source: <a target=\"_blank\" href=\"{0}.html\">{1}</a>";
 
         try {
@@ -19,7 +19,7 @@
                 ValueMap resourceProps = originalResource.getValueMap();
                 if (resourceProps!=null) {
                     originVariant = resourceProps.get(FIELD_VARIANT,"variant not set");
-                    componentId = resourceProps.get(FIELD_STYLE_COMPONENT_ID,"");
+                    componentFieldId = resourceProps.get(FIELD_STYLE_COMPONENT_ID,"");
                 }
                 if (originPath.indexOf("/jcr") > 0) {
                     originPath = originPath.substring(0, originPath.indexOf("/jcr"));
@@ -37,7 +37,7 @@
                 ValueMap resourceProps = _resource.getValueMap();
                 if (resourceProps!=null) {
                     originVariant = resourceProps.get(FIELD_VARIANT,"variant not set");
-                    componentId = resourceProps.get(FIELD_STYLE_COMPONENT_ID,"");
+                    componentFieldId = resourceProps.get(FIELD_STYLE_COMPONENT_ID,"");
 
                     String referencePath = resourceProps.get(FIELD_REFERENCE_PATH,"");
                     if (isNotEmpty(referencePath)) {
@@ -61,7 +61,7 @@
         <%--<c:if test="${not empty componentProperties}">--%>
             <%--<c:forEach items="${componentProperties}" var="property" varStatus="status"> <small>${property.key}: ${property.value};</small></c:forEach>--%>
         <%--</c:if>--%>
-        <small>(<%=_componentContext.getCell().getName()%> : <%=_resource.getName()%> #<%=componentId%> v:<%=originVariant%>)<%=originLocation%></small>
+        <small>(<%=_componentContext.getCell().getName()%> : <%=_resource.getName()%> #<%=componentFieldId%> v:<%=originVariant%>)<%=originLocation%></small>
         <%
 
         if (INCLUDE_BADGE_VARIANT_CODE) {
