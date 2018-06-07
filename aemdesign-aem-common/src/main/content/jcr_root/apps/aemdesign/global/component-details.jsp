@@ -106,6 +106,8 @@
             }
 
             componentProperties.put("title", page.getTitle());
+            componentProperties.put("pageTags", page.getTags());
+            componentProperties.put("description", page.getDescription());
             componentProperties.put("hideInNav", page.isHideInNav());
             componentProperties.put("pageNavTitle", getPageNavTitle(page));
             componentProperties.put("name", page.getName());
