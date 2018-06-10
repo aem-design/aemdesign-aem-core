@@ -44,7 +44,7 @@
                                             fieldLabel="Theme"
                                             fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) or tenantId == 'global' ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme"
+                                            rootPath="/content/cq:tags/aemdesign/component-style-theme"
                                             name="./componentTheme"/>
                                     <componentModifiers
                                             jcr:primaryType="nt:unstructured"
@@ -52,7 +52,7 @@
                                             fieldLabel="Modifiers"
                                             fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) or tenantId == 'global' ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
+                                            rootPath="/content/cq:tags/aemdesign/component-style-modifier"
                                             name="./componentModifiers"/>
                                     <componentModules
                                             jcr:primaryType="nt:unstructured"
@@ -60,7 +60,7 @@
                                             fieldLabel="Module"
                                             fieldDescription="Will be added as data-module attribute"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) or tenantId == 'global' ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-module"
+                                            rootPath="/content/cq:tags/aemdesign/component-style-module"
                                             name="./componentModules"/>
                                     <componentChevron
                                             jcr:primaryType="nt:unstructured"
@@ -68,7 +68,7 @@
                                             fieldLabel="Chevron"
                                             fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) or tenantId == 'global' ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-chevron"
+                                            rootPath="/content/cq:tags/aemdesign/component-style-chevron"
                                             name="./componentChevron"/>
                                     <componentIcon
                                             jcr:primaryType="nt:unstructured"
@@ -76,7 +76,7 @@
                                             fieldLabel="Icon"
                                             fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) or tenantId == 'global' ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
+                                            rootPath="/content/cq:tags/aemdesign/component-style-icon"
                                             name="./componentIcon"/>
                                     <componentBooleanAttrs
                                             jcr:primaryType="nt:unstructured"
@@ -84,7 +84,7 @@
                                             fieldLabel="Boolean Attributes"
                                             fieldDescription="Will be added as tag attributes"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) or tenantId == 'global' ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
+                                            rootPath="/content/cq:tags/aemdesign/component-style-modifier"
                                             name="./componentBooleanAttrs"/>
                                 </items>
                             </style>
