@@ -70,11 +70,13 @@
                                     </menuSource>
                                     <menuSourcePagePath
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldDescription="Enter path relative to page content [page/jcr:content/...]"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                             fieldLabel="Page Path"
+                                            fieldDescription="Select path in page to use as source for menu items"
                                             name="./menuSourcePagePath"
-                                            required="{Boolean}false"/>
+                                            predicate="nosystem"
+                                            required="{Boolean}false"
+                                            rootPath="${requestPathInfo.suffixResource.parent.path}"/>
                                 </items>
                             </variant>
                         </items>

@@ -31,7 +31,7 @@
     if(componentProperties.get(FIELD_MENUSOURCE, DEFAULT_MENUSOURCE_PARENT).equals(DEFAULT_MENUSOURCE_PAGEPATH)) {
         String menuSourcePagePath = componentProperties.get(FIELD_MENUSOURCEPAGEPATH, "");
         if (isNotEmpty(menuSourcePagePath)) {
-            Resource menuSourcePagePathRes = _currentPage.getContentResource(menuSourcePagePath);
+            Resource menuSourcePagePathRes = _resourceResolver.getResource(menuSourcePagePath);
             if (menuSourcePagePathRes != null) {
                 menuSource = menuSourcePagePathRes;
             }
