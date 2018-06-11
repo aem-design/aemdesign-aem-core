@@ -147,7 +147,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) or tenantId == 'global' ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
                                     </animationEnabled>
                                     <animationName
                                             jcr:primaryType="nt:unstructured"
@@ -161,7 +161,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) or tenantId == 'global' ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/animation/name"/>
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/animation/name"/>
                                     </animationName>
                                     <animationOnce
                                             jcr:primaryType="nt:unstructured"
@@ -175,7 +175,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) or tenantId == 'global' ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
                                     </animationOnce>
                                     <animationEasing
                                             jcr:primaryType="nt:unstructured"
@@ -189,7 +189,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) or tenantId == 'global' ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/animation/easing"/>
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/animation/easing"/>
                                     </animationEasing>
                                     <animationDelay
                                             jcr:primaryType="nt:unstructured"
