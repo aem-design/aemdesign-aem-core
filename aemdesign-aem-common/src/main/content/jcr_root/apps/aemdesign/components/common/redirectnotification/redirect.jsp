@@ -7,7 +7,7 @@
 %><cq:defineObjects/><%
     // read the redirect target from the 'page properties' and perform the
     // redirect if WCM is disabled.
-    String location = properties.get("redirectUrl", "");
+    String location = properties.get("cq:redirectTarget", "");
     // resolve variables in path
     location = ELEvaluator.evaluate(location, slingRequest, pageContext);
     boolean wcmModeIsDisabled = WCMMode.fromRequest(request) == WCMMode.DISABLED;

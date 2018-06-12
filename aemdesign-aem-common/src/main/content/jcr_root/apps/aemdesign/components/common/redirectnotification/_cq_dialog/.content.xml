@@ -47,7 +47,7 @@
                                             rootPath="/content"
                                             fieldDescription="Url to use when target is missing"
                                             fieldLabel="Redirect Url"
-                                            name="./redirectUrl"
+                                            name="./cq:redirectTarget"
                                             required="{Boolean}false"/>
                                 </items>
                             </basic>
