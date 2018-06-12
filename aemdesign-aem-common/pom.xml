@@ -372,6 +372,9 @@
     <profiles>
         <profile>
             <id>autoInstallPackage</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -425,6 +428,9 @@
         </profile>
         <profile>
             <id>autoInstallBundle</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -472,16 +478,6 @@
 
             </dependencies>
         </profile>
-
-        <profile>
-            <id>java7</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <dependencies>
-
-            </dependencies>
-        </profile>
-
+        
     </profiles>
 </project>
