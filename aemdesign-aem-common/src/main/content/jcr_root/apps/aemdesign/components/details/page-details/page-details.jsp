@@ -21,6 +21,7 @@
     final Boolean DEFAULT_HIDE_DESCRIPTION = false;
     final Boolean DEFAULT_SHOW_BREADCRUMB = true;
     final Boolean DEFAULT_SHOW_TOOLBAR = true;
+    final Boolean DEFAULT_SHOW_PAGE_DATE = true;
     final Boolean DEFAULT_SHOW_PARSYS = true;
 
 
@@ -34,6 +35,7 @@
             {"hideTitle", DEFAULT_HIDE_TITLE},
             {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
             {"showToolbar", DEFAULT_SHOW_TOOLBAR},
+            {"showPageDate", DEFAULT_SHOW_PAGE_DATE},
             {"showParsys", DEFAULT_SHOW_PARSYS},
             {"linkTarget", StringUtils.EMPTY, "target"},
             {FIELD_PAGE_URL, getPageUrl(_currentPage)},
