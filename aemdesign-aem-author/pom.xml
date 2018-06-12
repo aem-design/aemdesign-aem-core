@@ -229,6 +229,9 @@
     <profiles>
         <profile>
             <id>autoInstallPackage</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
