@@ -12,13 +12,11 @@
         <!--<exclude pattern="/conf/global/settings/workflow/instances(/.*)?"/>-->
     <!--</filter>-->
 
-    <filter root="/apps/settings/wcm/design/aemdesign"/>
+    <filter root="/apps/settings/wcm/design/aemdesign" mode="update"/>
 
-    <filter root="/etc/clientlibs/aemdesign"/>
-
+    <filter root="/etc/clientlibs/aemdesign" mode="update"/>
 
     <filter root="/content/cq:tags/.content.xml" mode="update"/>
-
 
     <filter root="/conf/global/settings/workflow/models/aemdesign" mode="update"/>
     <filter root="/conf/global/settings/workflow/notification/aemdesign" mode="update"/>

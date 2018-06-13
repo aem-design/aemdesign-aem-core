@@ -197,6 +197,10 @@
                     <exclude>**/.DS_Store</exclude>
                     <exclude>**/target/**</exclude>
                     <exclude>**/pom.xml</exclude>
+                    <exclude>**/etc/clientlibs/aemdesign/css/**</exclude>
+                    <exclude>**/etc/clientlibs/aemdesign/fonts/**</exclude>
+                    <exclude>**/etc/clientlibs/aemdesign/js/**</exclude>
+                    <exclude>**/etc/clientlibs/aemdesign/images/**</exclude>
                 </excludes>
             </resource>
         </resources>
