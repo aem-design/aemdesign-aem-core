@@ -133,10 +133,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Default"
                                                     value=""/>
-                                            <card
+                                            <cards
                                                     jcr:primaryType="nt:unstructured"
-                                                    text="Card"
-                                                    value="card"/>
+                                                    text="Cards"
+                                                    value="cards"/>
                                         </items>
                                     </variant>
                                 </items>

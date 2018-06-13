@@ -119,8 +119,8 @@
     </c:when>
     <c:otherwise>
         <c:choose>
-            <c:when test="${componentProperties.variant eq 'card' }">
-                <%@ include file="variant.card.jsp" %>
+            <c:when test="${componentProperties.variant eq 'cards' }">
+                <%@ include file="variant.cards.jsp" %>
             </c:when>
             <c:otherwise>
                 <%@ include file="variant.default.jsp" %>

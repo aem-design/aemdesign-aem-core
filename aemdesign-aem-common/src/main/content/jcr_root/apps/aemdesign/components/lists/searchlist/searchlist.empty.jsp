@@ -1,2 +1,2 @@
 <!-- no results -->
-<div class="search-empty"></div>
+<div ${componentProperties.componentAttributes} empty></div>
