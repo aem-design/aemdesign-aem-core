@@ -28,6 +28,8 @@
         {"orderBy", ""},
         {"detailsBadge", DEFAULT_BADGE},
         {"printStructure", DEFAULT_PRINT_STRUCTURE},
+        {com.day.cq.wcm.foundation.List.LIMIT_PROPERTY_NAME, ""},
+        {com.day.cq.wcm.foundation.List.PAGE_MAX_PROPERTY_NAME, ""},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -98,6 +100,15 @@
 
 
     request.setAttribute(COMPONENT_PROPERTIES, componentProperties);
+
+    String strItemLimit = componentProperties.get(com.day.cq.wcm.foundation.List.LIMIT_PROPERTY_NAME, "");
+    String strPageItems = componentProperties.get(com.day.cq.wcm.foundation.List.PAGE_MAX_PROPERTY_NAME, "");
+
+    // no limit set, but pagination enabled, set limit to infinite
+    if (StringUtils.isBlank(strItemLimit) && !StringUtils.isBlank(strPageItems)) {
+        list.setLimit(Integer.MAX_VALUE);
+    }
+
 
 %>
 

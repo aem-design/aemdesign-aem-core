@@ -14,12 +14,4 @@
 
     request.setAttribute("list", list);
 
-    String strItemLimit = _properties.get(com.day.cq.wcm.foundation.List.LIMIT_PROPERTY_NAME, (String) null);
-    String strPageItems = _properties.get(com.day.cq.wcm.foundation.List.PAGE_MAX_PROPERTY_NAME, (String) null);
-
-    // no limit set, but pagination enabled, set limit to infinite
-    if (StringUtils.isBlank(strItemLimit) && !StringUtils.isBlank(strPageItems)) {
-        list.setLimit(Integer.MAX_VALUE);
-    }
-
 %>
