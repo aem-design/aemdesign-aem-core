@@ -976,6 +976,24 @@
     }
 
     /***
+     * get basic asset info and return default if asset not found
+     * @param resourceResolver
+     * @param assetPath
+     * @param infoPrefix
+     * @return
+     */
+    public Map<String,String> getAssetInfo(ResourceResolver resourceResolver, String assetPath, String infoPrefix, String defaultPath){
+
+        Map<String, String> assetInfo = getAssetInfo(resourceResolver,assetPath,infoPrefix);
+
+        if (assetInfo.size() == 0) {
+            assetInfo.put(infoPrefix, defaultPath);
+        }
+
+        return assetInfo;
+    }
+
+    /***
      * get basic asset info
      * @param resourceResolver
      * @param assetPath
