@@ -46,6 +46,62 @@
                                                     value=""/>
                                         </items>
                                     </variant>
+                                    <startLevel
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            fieldDescription="Start at level in URL"
+                                            fieldLabel="Start Level"
+                                            name="./startLevel"/>
+                                    <endLevel
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            fieldDescription=""
+                                            fieldLabel="End Level"
+                                            name="./endLevel"/>
+                                    <hideCurrent
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldDescription="Hide current page in breadcrumb"
+                                            fieldLabel="Hide Current"
+                                            name="./hideCurrent"
+                                            emptyOption="{Boolean}true"
+                                            value="">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/content/cq:tags/aemdesign/component-dialog/common/true-false"/>
+                                    </hideCurrent>
+                                    <showHidden
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldDescription="show pages hidden from nav"
+                                            fieldLabel="Show Hidden"
+                                            name="./showHidden"
+                                            emptyOption="{Boolean}true"
+                                            value="">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/content/cq:tags/aemdesign/component-dialog/common/true-false"/>
+                                    </showHidden>
+                                    <trail
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Trail"
+                                            fieldDescription="add trail after last item"
+                                            name="./trail"
+                                            required="{Boolean}false"/>
+
+                                    <delimiter
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Delimiter"
+                                            fieldDescription="add delimiter between items"
+                                            name="./delimiter"
+                                            required="{Boolean}false"/>
+
                                 </items>
                             </variant>
                         </items>
