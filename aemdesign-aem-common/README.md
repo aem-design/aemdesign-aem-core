@@ -95,3 +95,66 @@ login into your vm ```./devops accesslocal``` and run
 ```bash
 docker exec -it author tail -f crx-quickstart/logs/error.log
 ```
+
+# Showcase Template
+
+For consistency of testing and validation each page in showcase should be similar to others. Existing test template are tailored to match template structure described in this section.
+
+What your showcase page should contain:
+
+* a ```layout/article``` container for page contents
+    * a ```details/page-details``` component with info about showcase page
+    * a ```layout/contentblockmenu``` to show all component variants in showcase
+    * a ```layout/contentblock``` with info about  variant with a sequential name to ensure news variants cant be added easily
+
+
+Please use following as a template for Component showcase page.
+
+WARNING: Please DO NOT commit auto generated content, only commit what you expect to be there for testing.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="cq:Page">
+    <jcr:content
+            cq:tags="[aemdesign:content-type/page]"
+            cq:template="/conf/aemdesign/settings/wcm/templates/twocolumn"
+            jcr:primaryType="cq:PageContent"
+            jcr:title="Nav List"
+            sling:resourceType="aemdesign/components/template/base">
+        <article
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="/apps/aemdesign/components/layout/article">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="aemdesign/components/layout/container">
+                <page-details
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/details/page-details"/>
+                <contentblockmenu1
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/layout/contentblockmenu"
+                        componentId="contentblockmenu1"/>
+                <contentblock1
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/layout/contentblock"
+                        componentId="contentblock1"
+                        hideTitle="false"
+                        hideTitleSeparator="true"
+                        title="Default Fixed List"
+                        variant="advsection">
+                    <par
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="aemdesign/components/layout/container">
+
+                        <!-- YOUR COMPONENT GOES HERE -->
+
+                    </par>
+                </contentblock1>
+
+            </par>
+        </article>
+    </jcr:content>
+</jcr:root>
+
+```
