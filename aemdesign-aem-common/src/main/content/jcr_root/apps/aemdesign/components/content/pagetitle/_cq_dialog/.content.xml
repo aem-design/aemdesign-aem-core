@@ -26,12 +26,12 @@
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
-                            <pageTitleOverride
+                            <pageTitle
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                     fieldDescription="Override page title"
                                     fieldLabel="Page Title Override"
-                                    name="./pageTitleOverride"
+                                    name="./pageTitle"
                                     required="{Boolean}false"/>
                         </items>
                     </column>
