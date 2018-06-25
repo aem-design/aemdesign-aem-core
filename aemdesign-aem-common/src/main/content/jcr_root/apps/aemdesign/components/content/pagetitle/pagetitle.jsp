@@ -5,9 +5,13 @@
 <%@ include file="/apps/aemdesign/global/i18n.jsp" %>
 <%
 
+    String jcrTitle = (String) _pageProperties.get(JcrConstants.JCR_TITLE);
+    String overrideTitle = _currentNode.hasProperty("pageTitleOverride") ? _currentNode.getProperty("pageTitleOverride").getString() : "";
+
+
     Object[][] componentFields = {
             {FIELD_VARIANT, DEFAULT_VARIANT},
-            {"pagetitle", _pageProperties.get(JcrConstants.JCR_TITLE)}
+            {"pagetitle", StringUtils.isEmpty(overrideTitle) ? jcrTitle : overrideTitle}
     };
 
     ComponentProperties componentProperties = getComponentProperties(
