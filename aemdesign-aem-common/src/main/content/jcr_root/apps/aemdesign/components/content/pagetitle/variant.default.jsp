@@ -1,1 +1,3 @@
-${componentProperties.pagetitle}
+<span ${componentProperties.componentAttributes}>
+    ${componentProperties.pagetitle}
+</span>
