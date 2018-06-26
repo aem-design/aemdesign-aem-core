@@ -31,7 +31,7 @@
                                     sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                     fieldDescription="Override page title"
                                     fieldLabel="Page Title Override"
-                                    name="./pageTitle"
+                                    name="./jcr:title"
                                     required="{Boolean}false"/>
                         </items>
                     </column>
