@@ -14,7 +14,7 @@
 
                     <pageTitle
                             jcr:primaryType="nt:unstructured"
-                            jcr:title="Page Date"
+                            jcr:title="Page Title"
                             sling:resourceType="granite/ui/components/coral/foundation/container"
                             maximized="{Boolean}true">
                         <items jcr:primaryType="nt:unstructured">
