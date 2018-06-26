@@ -12,9 +12,9 @@
                     sling:resourceType="granite/ui/components/coral/foundation/accordion">
                 <items jcr:primaryType="nt:unstructured">
 
-                    <pageTitle
+                    <basic
                             jcr:primaryType="nt:unstructured"
-                            jcr:title="Page Date"
+                            jcr:title="Page Description"
                             sling:resourceType="granite/ui/components/coral/foundation/container"
                             maximized="{Boolean}true">
                         <items jcr:primaryType="nt:unstructured">
@@ -34,7 +34,7 @@
                                 </items>
                             </fixedcol>
                         </items>
-                    </pageTitle>
+                    </basic>
 
                     <style
                             jcr:primaryType="nt:unstructured"
