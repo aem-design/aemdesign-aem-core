@@ -13,9 +13,9 @@
                 sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
 
-            <pageTitle
+            <basicTab
                     jcr:primaryType="nt:unstructured"
-                    jcr:title="Page Title"
+                    jcr:title="Basic"
                     sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
@@ -36,7 +36,7 @@
                         </items>
                     </column>
                 </items>
-            </pageTitle>
+            </basicTab>
 
             <styleTab
                     jcr:primaryType="nt:unstructured"
