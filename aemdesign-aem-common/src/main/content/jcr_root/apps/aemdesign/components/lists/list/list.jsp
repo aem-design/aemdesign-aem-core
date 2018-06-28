@@ -56,8 +56,21 @@
             String start_param = path.replace('/', '_').concat("_start");
 
             componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-has-pages", String.valueOf(list.isPaginating())));
-            
-            componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-total-pages", String.valueOf(list.size())));
+
+            int totalPages = 0;
+            int itemsPerPage = list.getPageMaximum();
+
+            // When the maximum number of pages is greater than zero, calculate the total number by checking
+            // the modulus of each item compared to the total known number of items that can be shown per page.
+            if (itemsPerPage > 0) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (i > 0 && i % itemsPerPage == 0) {
+                        totalPages++;
+                    }
+                }
+            }
+
+            componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-total-pages", String.valueOf(totalPages)));
 
             componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-content-url", _resource.getPath().concat(DEFAULT_EXTENTION)));
 
