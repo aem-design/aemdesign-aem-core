@@ -60,20 +60,20 @@
 
                                     <category
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                             fieldLabel="Primary Category"
                                             fieldDescription="this will be displayed as Primary Category on the page and on cards in grids"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/aemdesign"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}"
                                             name="./cq:tags"/>
 
                                     <subCategory
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                             fieldLabel="Secondary Category"
                                             fieldDescription="this will be display as Secondary Category on cards in grids"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/aemdesign"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}"
                                             name="./subCategory"/>
 
                                     <mixinTypes

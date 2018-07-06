@@ -3,7 +3,10 @@
     // System config located
     // http://localhost:4502/system/console/configMgr/org.apache.sling.tenant.internal.TenantProviderImpl
     final List<Pattern> tenantPathPatterns = Arrays.asList(
-            Pattern.compile("(aemdesign)")
+            Pattern.compile("(aemdesign)"),
+            Pattern.compile(".*/(.+)-showcase"),
+            Pattern.compile(".*/(.+)-training"),
+            Pattern.compile("/content/([^/]+)")
 //            Pattern.compile("/apps/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/content/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/content/dam/aemdesign/([^/]+)/*"),

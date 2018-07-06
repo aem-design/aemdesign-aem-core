@@ -61,16 +61,16 @@
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                         variant="valuelist"
-                                                        path="/content/cq:tags/aemdesign/component-dialog/common/true-false"/>
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
                                             </titleIconShow>
 
                                             <titleIcon
                                                     jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                                    sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                                     fieldDescription="When showing this page links show this Icon"
                                                     fieldLabel="Title Icon"
                                                     multiple="{Boolean}true"
-                                                    rootPath="/content/cq:tags/aemdesign/component-style-icon"
+                                                    rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
                                                     name="./titleIcon"/>
                                         </items>
                                     </titleConfigGroup>
@@ -98,23 +98,23 @@
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                         variant="valuelist"
-                                                        path="/content/cq:tags/aemdesign/component-dialog/common/true-false"/>
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
                                             </cardIconShow>
                                             <cardIcon
                                                     jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                                    sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                                     fieldDescription="When showing this page as card badge use this Icon"
                                                     fieldLabel="Card Icon"
                                                     multiple="{Boolean}true"
-                                                    rootPath="/content/cq:tags/aemdesign/component-style-icon"
+                                                    rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
                                                     name="./cardIcon"/>
                                             <cardStyle
                                                     jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                                    sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                                     fieldDescription="Apply this style to card badge"
                                                     fieldLabel="Card Style"
                                                     multiple="{Boolean}true"
-                                                    rootPath="/content/cq:tags/aemdesign/component-style-modifier"
+                                                    rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
                                                     name="./cardStyle"/>
                                             <cardSize
                                                     jcr:primaryType="nt:unstructured"
@@ -128,7 +128,7 @@
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                         variant="valuelist"
-                                                        path="/content/cq:tags/aemdesign/component-style-theme/common/card/size"/>
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/common/card/size"/>
                                             </cardSize>
                                         </items>
                                     </cardConfigGroup>
@@ -155,7 +155,7 @@
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                         variant="valuelist"
-                                                        path="/content/cq:tags/aemdesign/component-dialog/html/heading"/>
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/heading"/>
                                             </badgeTitleType>
                                             <badgeTitleTrim
                                                     jcr:primaryType="nt:unstructured"
@@ -169,7 +169,7 @@
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                         variant="valuelist"
-                                                        path="/content/cq:tags/aemdesign/component-dialog/common/true-false"/>
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
                                             </badgeTitleTrim>
                                             <badgeTitleTrimLengthMax
                                                     jcr:primaryType="nt:unstructured"
@@ -195,7 +195,7 @@
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                         variant="valuelist"
-                                                        path="/content/cq:tags/aemdesign/component-dialog/common/true-false"/>
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
                                             </badgeSummaryTrim>
                                             <badgeSummaryLengthMax
                                                     jcr:primaryType="nt:unstructured"
@@ -235,7 +235,7 @@
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                         variant="valuelist"
-                                                        path="/content/cq:tags/aemdesign/component-dialog/html/linktarget"/>
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/linktarget"/>
                                             </badgeLinkTarget>
                                             <badgeLinkText
                                                     jcr:primaryType="nt:unstructured"
@@ -251,11 +251,11 @@
                                                     name="./badgeLinkTitle"/>
                                             <badgeLinkStyle
                                                     jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                                    sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                                     fieldDescription="The type of button that should appear on the card"
                                                     fieldLabel="Card CTA Style"
                                                     multiple="{Boolean}true"
-                                                    rootPath="/content/cq:tags/aemdesign/component-style-modifier"
+                                                    rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
                                                     name="./badgeLinkStyle"/>
                                         </items>
                                     </linkConfigGroup>
@@ -272,11 +272,11 @@
                                                     note="General icon for use in Icon Badge and other components"/>
                                             <pageIcon
                                                     jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                                    sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                                     fieldDescription="Use this icon when icon is required for display"
                                                     fieldLabel="Page Icon"
                                                     multiple="{Boolean}true"
-                                                    rootPath="/content/cq:tags/aemdesign/component-style-icon"
+                                                    rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
                                                     name="./pageIcon"/>
                                         </items>
                                     </iconConfigGroup>
@@ -331,15 +331,15 @@
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                         variant="valuelist"
-                                                        path="/content/cq:tags/aemdesign/component-dialog/common/true-false"/>
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
                                             </badgeOverlayIconShow>
                                             <badgeOverlayIcon
                                                     jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                                    sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                                     fieldDescription="When showing this page in a list show this icon for overlay"
                                                     fieldLabel="Overlay Icon"
                                                     multiple="{Boolean}true"
-                                                    rootPath="/content/cq:tags/aemdesign/component-style-icon"
+                                                    rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
                                                     name="./badgeOverlayIcon"/>
                                         </items>
                                     </thumbnailConfig>
@@ -368,7 +368,7 @@
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                         variant="valuelist"
-                                                        path="/content/cq:tags/aemdesign/component-style-theme/lists/navlist/color"/>
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/lists/navlist/color"/>
                                             </menuColor>
                                             <menuIconShow
                                                     jcr:primaryType="nt:unstructured"
@@ -382,15 +382,15 @@
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                         variant="valuelist"
-                                                        path="/content/cq:tags/aemdesign/component-dialog/common/true-false"/>
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
                                             </menuIconShow>
                                             <menuIcon
                                                     jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                                    sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                                     fieldDescription="Use this icon for Icon badge"
                                                     fieldLabel="Menu Icon"
                                                     multiple="{Boolean}true"
-                                                    rootPath="/content/cq:tags/aemdesign/component-style-icon"
+                                                    rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
                                                     name="./menuIcon"/>
                                             <menuAccesskey
                                                     jcr:primaryType="nt:unstructured"
@@ -424,15 +424,15 @@
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                         variant="valuelist"
-                                                        path="/content/cq:tags/aemdesign/component-dialog/common/true-false"/>
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
                                             </tabIconShow>
                                             <tabIcon
                                                     jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                                    sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                                     fieldDescription="When showing this page in a tab show this Icon"
                                                     fieldLabel="Tab Icon"
                                                     multiple="{Boolean}true"
-                                                    rootPath="/content/cq:tags/aemdesign/component-style-icon"
+                                                    rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
                                                     name="./tabIcon"/>
                                         </items>
                                     </tabConfigGroup>
