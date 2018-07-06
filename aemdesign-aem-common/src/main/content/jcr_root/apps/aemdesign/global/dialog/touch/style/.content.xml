@@ -40,51 +40,51 @@
                                             required="{Boolean}false"/>
                                     <componentTheme
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                             fieldLabel="Theme"
                                             fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/aemdesign/component-style-theme"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme"
                                             name="./componentTheme"/>
                                     <componentModifiers
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                             fieldLabel="Modifiers"
                                             fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/aemdesign/component-style-modifier"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
                                             name="./componentModifiers"/>
                                     <componentModules
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                             fieldLabel="Module"
                                             fieldDescription="Will be added as data-module attribute"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/aemdesign/component-style-module"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-module"
                                             name="./componentModules"/>
                                     <componentChevron
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                             fieldLabel="Chevron"
                                             fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/aemdesign/component-style-chevron"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-chevron"
                                             name="./componentChevron"/>
                                     <componentIcon
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                             fieldLabel="Icon"
                                             fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/aemdesign/component-style-icon"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
                                             name="./componentIcon"/>
                                     <componentBooleanAttrs
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                             fieldLabel="Boolean Attributes"
                                             fieldDescription="Will be added as tag attributes"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/aemdesign/component-style-modifier"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
                                             name="./componentBooleanAttrs"/>
                                 </items>
                             </style>

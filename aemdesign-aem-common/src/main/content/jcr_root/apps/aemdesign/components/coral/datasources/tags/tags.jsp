@@ -45,6 +45,8 @@
 
     Tenant tenant = _resourceResolver.adaptTo(Tenant.class);
 
+    String requestSuffix = _slingRequest.getRequestPathInfo().getSuffix();
+
     if (tenant == null) {
         tenant = _resource.adaptTo(Tenant.class);
 
@@ -52,8 +54,13 @@
             expressionCustomizer.setVariable("tenantId", tenant.getId());
             expressionCustomizer.setVariable("tenant", tenant);
         } else {
-            String finalTenantId = resolveTenantIdFromPath(_resource.getPath());
-            if (finalTenantId != null) {
+            String finalTenantId;
+            if (isNotEmpty(requestSuffix)) {
+                finalTenantId = resolveTenantIdFromPath(requestSuffix);
+            } else {
+                finalTenantId = resolveTenantIdFromPath(_resource.getPath());
+            }
+            if (isNotEmpty(finalTenantId)) {
                 expressionCustomizer.setVariable("tenantId", finalTenantId);
             }
 
