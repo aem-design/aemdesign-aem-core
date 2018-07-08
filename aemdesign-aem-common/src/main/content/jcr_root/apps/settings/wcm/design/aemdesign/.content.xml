@@ -5,6 +5,7 @@
             cq:doctype="html_5"
             jcr:isCheckedOut="{Boolean}true"
             jcr:mixinTypes="[cq:ReplicationStatus,mix:versionable]"
+            cq:template="/libs/wcm/core/templates/designpage"
             jcr:primaryType="nt:unstructured"
             jcr:title="AEM.Design Design"
             sling:resourceType="wcm/core/components/designer">
