@@ -36,7 +36,7 @@
                                     <analyticsType
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                            fieldLabel="Analytics Type"
+                                            fieldLabel="Analytics Type [AA,GA]"
                                             name="./analyticsType"
                                             emptyOption="{Boolean}true"
                                             value="">
@@ -49,7 +49,7 @@
                                     <analyticsEventLabel
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldDescription="Event label"
+                                            fieldDescription="Event label [AA,GA]"
                                             fieldLabel="Event Label"
                                             name="./analyticsEventLabel"
                                             required="{Boolean}false"/>
@@ -73,7 +73,7 @@
                                             fieldDescription="Specifies the event category [AA,GA]"
                                             fieldLabel="Event Category"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/event-category"
                                             name="./analyticsEventCategory"/>
                                     <analyticsEventAction
                                             jcr:primaryType="nt:unstructured"
@@ -81,7 +81,7 @@
                                             fieldDescription="Specifies the event action [GA]"
                                             fieldLabel="Event Action"
                                             multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/event-action"
                                             name="./analyticsEventAction"/>
                                     <analyticsTransport
                                             jcr:primaryType="nt:unstructured"
