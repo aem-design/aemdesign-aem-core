@@ -12,7 +12,7 @@
         <!--<exclude pattern="/conf/global/settings/workflow/instances(/.*)?"/>-->
     <!--</filter>-->
 
-    <filter root="/apps/settings/wcm/design/aemdesign" mode="update"/>
+    <filter root="/apps/settings/wcm/designs/aemdesign" mode="update"/>
 
     <filter root="/etc/clientlibs/aemdesign" mode="update"/>
 
