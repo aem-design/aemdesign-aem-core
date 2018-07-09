@@ -1,6 +1,6 @@
-<div ${componentProperties.componentAttributes}>
+<div ${componentProperties.componentAttributes} data-toggle="${componentProperties.dataToggle}" data-target="#${componentProperties.componentId}-content" aria-controls="${componentProperties.componentId}-content">
     <div class="header" id="${componentProperties.componentId}-heading">
-        <button class="btn btn-link title" data-toggle="${componentProperties.dataToggle}" data-target="#${componentProperties.componentId}-content" aria-controls="${componentProperties.componentId}-content">
+        <button class="btn btn-link title">
             ${componentProperties.title}
         </button>
     </div>
