@@ -13,12 +13,16 @@
     final String DEFAULT_LISTFROM = "children";
     final String LISTFROM_CHILDREN = "children";
     final String DEFAULT_VARIANT = "default";
+    final String DEFAULT_MENUT_TITLE = "Menu";
+
+    // getDefaultLabelIfEmpty
 
     //no lambada is available so this is the best that can be done
     Object[][] componentFields = {
             {"pages", new String[0]},
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"listFrom", DEFAULT_LISTFROM},
+            {"menuTitle", _i18n.get("navList","navList")},
             {"parentPage", getPrimaryPath(_slingRequest)},
             {"linkTitlePrefix", _i18n.get("linkTitlePrefix","navlist")},
             {COMPONENT_CANCEL_INHERIT_PARENT, false},
@@ -46,9 +50,9 @@
     }
 
     componentProperties.put("menuItems",pagesInfo);
-    componentProperties.put("mainMenu",_i18n.get("mainMenu","navlist"));
-    componentProperties.put("subMenu",_i18n.get("subMenu","navlist"));
-    componentProperties.put("goToTopOfPage",_i18n.get("goToTopOfPage","navlist"));
+//    componentProperties.put("mainMenu",_i18n.get("navList","navList"));
+//    componentProperties.put("subMenu",_i18n.get("subMenu","navlist"));
+//    componentProperties.put("goToTopOfPage",_i18n.get("goToTopOfPage","navlist"));
 
     componentProperties.put(INHERITED_RESOURCE,findInheritedResource(_currentPage,_componentContext));
     componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,getDefaultLabelIfEmpty("",DEFAULT_I18N_INHERIT_CATEGORY,DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,DEFAULT_I18N_INHERIT_CATEGORY,_i18n));
@@ -68,9 +72,6 @@
     </c:when>
     <c:when test="${componentProperties.variant == 'stacked'}">
         <%@ include file="variant.stacked.jsp" %>
-    </c:when>
-    <c:when test="${componentProperties.variant == 'full'}">
-        <%@ include file="variant.full.jsp" %>
     </c:when>
     <c:otherwise>
         <%@ include file="variant.default.jsp" %>
