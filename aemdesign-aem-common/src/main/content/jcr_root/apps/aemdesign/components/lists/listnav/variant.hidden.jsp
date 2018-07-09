@@ -1,5 +1,5 @@
-<div class="${componentProperties.cssClassRow}">
-</div>
-<c:if test="<%= CURRENT_WCMMODE == WCMMode.EDIT %>">
-    <p class="component notfound"><small>List Navigation is hidden</small></p>
+<div ${componentProperties.componentAttributes} hidden>
+<c:if test="${CURRENT_WCMMODE == WCMMODE_EDIT}">
+    <p class="component notfound">${componentProperties.hiddenText}</p>
 </c:if>
+</div>

@@ -48,10 +48,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Fixed list"
                                                     value="static"/>
-                                            <damCollection
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="DAM Collection"
-                                                    value="collection"/>
+                                            <!--<damCollection-->
+                                                    <!--jcr:primaryType="nt:unstructured"-->
+                                                    <!--text="DAM Collection"-->
+                                                    <!--value="collection"/>-->
                                         </items>
                                     </listFrom>
                                     <setChildren
@@ -117,47 +117,47 @@
                                             </well>
                                         </items>
                                     </setStatic>
-                                    <setDamCollection
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/container"
-                                            class="hide list-option-listfrom-showhide-target foundation-layout-util-vmargin"
-                                            showhidetargetvalue="collection">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <heading
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/heading"
-                                                    class="coral-Heading coral-Heading--4"
-                                                    level="{Long}4"
-                                                    text="Options for DAM Collection"/>
-                                            <well
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/container">
-                                                <layout
-                                                        jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
-                                                <items jcr:primaryType="nt:unstructured">
-                                                    <listCollections
-                                                            jcr:primaryType="nt:unstructured"
-                                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                                            fieldLabel="Collection"
-                                                            name="./collection"
-                                                            emptyOption="{Boolean}true"
-                                                            value="">
-                                                        <datasource
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="dam/gui/coral/components/admin/collections/collectionsdatasource"/>
-                                                    </listCollections>
-                                                    <assetViewerPage
-                                                            jcr:primaryType="nt:unstructured"
-                                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                                                            fieldDescription="The location of the Asset Viewer Page to use"
-                                                            fieldLabel="Asset Viewer Page Path"
-                                                            name="./assetViewerPagePath"
-                                                            rootPath="/content"/>
-                                                </items>
-                                            </well>
-                                        </items>
-                                    </setDamCollection>
+                                    <!--<setDamCollection-->
+                                            <!--jcr:primaryType="nt:unstructured"-->
+                                            <!--sling:resourceType="granite/ui/components/foundation/container"-->
+                                            <!--class="hide list-option-listfrom-showhide-target foundation-layout-util-vmargin"-->
+                                            <!--showhidetargetvalue="collection">-->
+                                        <!--<items jcr:primaryType="nt:unstructured">-->
+                                            <!--<heading-->
+                                                    <!--jcr:primaryType="nt:unstructured"-->
+                                                    <!--sling:resourceType="granite/ui/components/foundation/heading"-->
+                                                    <!--class="coral-Heading coral-Heading&#45;&#45;4"-->
+                                                    <!--level="{Long}4"-->
+                                                    <!--text="Options for DAM Collection"/>-->
+                                            <!--<well-->
+                                                    <!--jcr:primaryType="nt:unstructured"-->
+                                                    <!--sling:resourceType="granite/ui/components/foundation/container">-->
+                                                <!--<layout-->
+                                                        <!--jcr:primaryType="nt:unstructured"-->
+                                                        <!--sling:resourceType="granite/ui/components/foundation/layouts/well"/>-->
+                                                <!--<items jcr:primaryType="nt:unstructured">-->
+                                                    <!--<listCollections-->
+                                                            <!--jcr:primaryType="nt:unstructured"-->
+                                                            <!--sling:resourceType="granite/ui/components/foundation/form/select"-->
+                                                            <!--fieldLabel="Collection"-->
+                                                            <!--name="./collection"-->
+                                                            <!--emptyOption="{Boolean}true"-->
+                                                            <!--value="">-->
+                                                        <!--<datasource-->
+                                                                <!--jcr:primaryType="nt:unstructured"-->
+                                                                <!--sling:resourceType="dam/gui/coral/components/admin/collections/collectionsdatasource"/>-->
+                                                    <!--</listCollections>-->
+                                                    <!--<assetViewerPage-->
+                                                            <!--jcr:primaryType="nt:unstructured"-->
+                                                            <!--sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"-->
+                                                            <!--fieldDescription="The location of the Asset Viewer Page to use"-->
+                                                            <!--fieldLabel="Asset Viewer Page Path"-->
+                                                            <!--name="./assetViewerPagePath"-->
+                                                            <!--rootPath="/content"/>-->
+                                                <!--</items>-->
+                                            <!--</well>-->
+                                        <!--</items>-->
+                                    <!--</setDamCollection>-->
                                 </items>
                             </basic>
                         </items>
