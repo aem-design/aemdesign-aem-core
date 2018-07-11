@@ -428,7 +428,7 @@
         if (imageResource != null) {
             Resource fileReference = imageResource.getChild(IMAGE_FILEREFERENCE);
             if (fileReference != null) {
-                if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE)) {
+                if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE) || imageResource.getResourceType().endsWith(DEFAULT_IMAGE_RESOURCETYPE_SUFFIX)) {
                     Long lastModified = getLastModified(imageResource);
                     imageSrc = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, imageResource.getPath(), lastModified.toString());
                     imageSrc = mappedUrl(resource.getResourceResolver(), imageSrc);

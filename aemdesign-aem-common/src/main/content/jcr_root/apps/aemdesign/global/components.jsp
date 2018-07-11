@@ -104,6 +104,7 @@
     private static final String DEFAULT_IMAGE_GENERATED_FORMAT = "{0}.img.png/{1}.png";
 
     private static final String DEFAULT_IMAGE_RESOURCETYPE = "aemdesign/components/media/image";
+    private static final String DEFAULT_IMAGE_RESOURCETYPE_SUFFIX = "/components/media/image";
 
     private static final String COMPONENT_ATTRIBUTES = "componentAttributes";
     private static final String COMPONENT_INSTANCE_NAME = "instanceName";
@@ -925,11 +926,11 @@
             Resource fileReference = imageResource.getChild("fileReference");
             if (fileReference != null) {
                 String imageSrc = "";
-                if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE)) {
+                if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE) || imageResource.getResourceType().endsWith(DEFAULT_IMAGE_RESOURCETYPE_SUFFIX)) {
                     Long lastModified = getLastModified(imageResource);
                     imageSrc = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, imageResource.getPath(), lastModified.toString());
+                    componentAttributes += MessageFormat.format(" style=\"background-image: url({0})\"", mappedUrl(resource.getResourceResolver(), imageSrc));
                 }
-                componentAttributes += MessageFormat.format(" style=\"background-image: url({0})\"", mappedUrl(resource.getResourceResolver(), imageSrc));
             }
         }
 
