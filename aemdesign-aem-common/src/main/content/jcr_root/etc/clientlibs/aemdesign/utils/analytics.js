@@ -12,6 +12,34 @@ window.AEMDESIGN.analytics = AEMDESIGN.analytics || {};
         return _version;
     };
 
+    /*
+
+digitalData.event[n].eventInfo = {
+    eventName: "Add News Portal",
+    eventAction: "addportal",
+    eventPoints: 200,
+    type: "contentModifier",
+    timeStamp: new Date(),
+    effect: "include portal 1234"
+};
+     */
+    // ns.getEventData = function($element) {
+    //     return {
+    //         "componentid"               : $element.attr("componentid"), //component id
+    //         "href"                      : $element.attr("href"), //event
+    //         "target"                    : $element.attr("target") || "", //event
+    //         "eventName"             : $element.attr("data-analytics-type") || "", //event
+    //         "analyticsHitType"          : $element.attr("data-analytics-hit-type") || "", //hit / type
+    //         "analyticsEventCategory"    : $element.attr("data-analytics-event-category") || "", //eg Link Click
+    //         "eventAction"      : $element.attr("data-analytics-event-action") || "", //eg Content, Navigation, Email, Phone
+    //         "eventName"       : $element.attr("data-analytics-event-label") || "", //title of link
+    //         "analyticsTransport"        : $element.attr("data-analytics-transport") || "", //beacon
+    //         "analyticsNonInteraction"   : $element.attr("data-analytics-noninteraction") || "" //hidden transactions
+    //     };
+    // };
+
+
+
     ns.getAnalyticsData = function($element) {
         return {
             "componentid"               : $element.attr("componentid"), //component id
