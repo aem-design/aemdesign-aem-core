@@ -22,7 +22,7 @@
             {"pages", new String[0]},
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"listFrom", DEFAULT_LISTFROM},
-            {"menuTitle", _i18n.get("navList","navList")},
+            {"menuTitle", _i18n.get("menuTitle","navlist")},
             {"parentPage", getPrimaryPath(_slingRequest)},
             {"linkTitlePrefix", _i18n.get("linkTitlePrefix","navlist")},
             {COMPONENT_CANCEL_INHERIT_PARENT, false},
