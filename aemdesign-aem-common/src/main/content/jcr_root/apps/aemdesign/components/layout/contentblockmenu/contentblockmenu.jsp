@@ -24,6 +24,7 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
+    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME));
 
     Map<String, String> contentBlockList = new LinkedHashMap<String, String>();
     Resource menuSource = resource.getParent();
