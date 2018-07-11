@@ -73,14 +73,6 @@
     private static final String DETAILS_CARD_ICONSHOW = "cardIconShow";
     private static final String DETAILS_CARD_ICON = "cardIcon";
     private static final String DETAILS_PAGE_ICON = "pageIcon";
-    
-    //animation badge config
-    private static final String DETAILS_ANIMATION_ENABLED = "badgeAnimationEnabled";
-    private static final String DETAILS_ANIMATION_NAME = "badgeAnimationName";
-    private static final String DETAILS_ANIMATION_ONCE = "badgeAnimationOnce";
-    private static final String DETAILS_ANIMATION_EASING = "badgeAnimationEasing";
-    private static final String DETAILS_ANIMATION_DELAY = "badgeAnimationDelay";
-    private static final String DETAILS_ANIMATION_DURATION = "badgeAnimationDuration";
 
     //shared badge config passed from list to all badge elements
     private static final String DETAILS_LINK_TARGET = "badgeLinkTarget";
@@ -267,12 +259,6 @@
             {DETAILS_CARD_SIZE, "small"},
             {DETAILS_CARD_ICONSHOW, false},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_ANIMATION_ENABLED, false},
-            {DETAILS_ANIMATION_NAME, ""},
-            {DETAILS_ANIMATION_ONCE, ""},
-            {DETAILS_ANIMATION_EASING, ""},
-            {DETAILS_ANIMATION_DELAY, ""},
-            {DETAILS_ANIMATION_DURATION, ""},
             {DETAILS_LINK_TARGET, "_blank"},
             {DETAILS_LINK_TEXT, ""}, //getPageNavTitle(_currentPage)
             {DETAILS_LINK_TITLE, ""}, //getPageTitle(_currentPage)
@@ -314,12 +300,6 @@
             {DETAILS_CARD_SIZE, ""},
             {DETAILS_CARD_ICONSHOW, ""},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_ANIMATION_ENABLED, ""},
-            {DETAILS_ANIMATION_NAME, ""},
-            {DETAILS_ANIMATION_ONCE, ""},
-            {DETAILS_ANIMATION_EASING, ""},
-            {DETAILS_ANIMATION_DELAY, ""},
-            {DETAILS_ANIMATION_DURATION, ""},
             {DETAILS_LINK_TARGET, ""},
             {DETAILS_LINK_TEXT, ""}, //getPageNavTitle(_currentPage)
             {DETAILS_LINK_TITLE, ""}, //getPageTitle(_currentPage)
