@@ -124,7 +124,7 @@
     final void openCol(List<String> columnsFormat, Integer colNumber, String columnClass, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
 
         //print column start
-        if (columnsFormat.size() > 1 && (colNumber) < columnsFormat.size()) {
+        if (columnsFormat.size() >= 1 && (colNumber) <= columnsFormat.size() && columnsFormat.get(0).contains(",")) {
             //take the [0] = [col-md-] and add to it width by current column number
             StringBuilder columnClassBuilder = new StringBuilder();
             for(int i=0; i < columnsFormat.size(); i++){
