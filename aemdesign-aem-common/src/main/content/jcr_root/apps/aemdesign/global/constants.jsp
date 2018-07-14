@@ -119,12 +119,15 @@
     public static final String FIELD_THUMBNAIL_TYPE = "thumbnailType";
 
     public static final String FIELD_PAGE_IMAGE = "pageImage";
+    public static final String FIELD_PAGE_IMAGE_THUMBNAIL = "pageImageThumbnail";
     public static final String FIELD_PAGE_IMAGE_ID = "pageImageId";
     public static final String FIELD_PAGE_IMAGE_LICENSE_INFO = "pageImageLicenseInfo";
-    public static final String FIELD_PAGE_IMAGE_SECONDARY = "pageSecondaryImage";
-    public static final String FIELD_PAGE_IMAGE_SECONDARY_THUMBNAIL = "pageSecondaryImageThumbnail";
-    public static final String FIELD_PAGE_IMAGE_BACKGROUND = "pageBackgroundImage";
-    public static final String FIELD_PAGE_IMAGE_THUMBNAIL = "pageImageThumbnail";
+    public static final String FIELD_PAGE_SECONDARY_IMAGE = "pageSecondaryImage";
+    public static final String FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL = "pageSecondaryImageThumbnail";
+    public static final String FIELD_PAGE_BACKGROUND_IMAGE = "pageBackgroundImage";
+    public static final String FIELD_PAGE_THUMBNAIL_IMAGE = "pageThumbnailImage";
+    public static final String FIELD_PAGE_THUMBNAIL_IMAGE_THUMBNAIL = "pageThumbnailImageThumbnail";
+    public static final String FIELD_PAGE_THUMBNAIL = "pageThumbnail";
     public static final String FIELD_PAGE_URL = "pageUrl";
     public static final String FIELD_PAGE_TITLE_NAV = "pageNavTitle";
     public static final String FIELD_PAGE_TITLE_SUBTITLE = "subtitle";

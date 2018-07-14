@@ -96,11 +96,11 @@
 
                     componentProperties.putAll(getAssetInfo(resourceResolver,
                             getResourceImagePath(detailsNodeResource,DEFAULT_SECONDARY_IMAGE_NODE_NAME),
-                            FIELD_PAGE_IMAGE_SECONDARY));
+                            FIELD_PAGE_SECONDARY_IMAGE));
 
                     componentProperties.putAll(getAssetInfo(resourceResolver,
                             getResourceImagePath(detailsNodeResource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
-                            FIELD_PAGE_IMAGE_BACKGROUND));
+                            FIELD_PAGE_BACKGROUND_IMAGE));
                 }
 
             }
@@ -193,61 +193,76 @@
 
         ComponentProperties badgeConfig = (ComponentProperties)request.getAttribute(BADGE_REQUEST_ATTRIBUTES);
 
+        //quick fail
         if (badgeConfig == null || resourceResolver == null || request == null || componentProperties == null) {
             return new ComponentProperties();
         }
 
         try {
-            String pageImagePath = componentProperties.get(FIELD_PAGE_IMAGE, "");
-
-            String badgeThumbnailType = componentProperties.get(FIELD_PAGE_IMAGE, IMAGE_OPTION_RENDITION);
-            int badgeThumbnailWidth = componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM);
-            String badgeThumbnailDefault = componentProperties.get(DETAILS_THUMBNAIL, DEFAULT_IMAGE_BLANK);
-            String badgeThumbnailSecondaryDefault = componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY, "");
-
-            if (badgeConfig != null) {
-                //get primary image
-
-                //check if page image is not set and use passed params if any
-                badgeThumbnailDefault = badgeConfig.get(DETAILS_THUMBNAIL, badgeThumbnailDefault);
-                //badgeThumbnailSecondaryDefault = badgeConfig.get(FIELD_PAGE_IMAGE_SECONDARY_THUMBNAIL, badgeThumbnailDefault);
-
-                //set default straight away.
-                badgeConfig.put(DETAILS_THUMBNAIL, badgeThumbnailDefault);
-
-                //If secondary image is set, use it to override primary image.
-                if (isNotEmpty(badgeThumbnailSecondaryDefault)) {
-                    badgeConfig.put(FIELD_PAGE_IMAGE_THUMBNAIL, badgeThumbnailSecondaryDefault);
-                } else {
-                    badgeConfig.put(FIELD_PAGE_IMAGE_THUMBNAIL, badgeThumbnailDefault);
-                }
-
-                if (isEmpty(pageImagePath)) {
-                    badgeConfig.put(FIELD_PAGE_IMAGE, badgeThumbnailDefault);
-                }
-
-                badgeThumbnailType = badgeConfig.get(DETAILS_THUMBNAIL_TYPE, badgeThumbnailType);
-                badgeThumbnailWidth = badgeConfig.get(DETAILS_THUMBNAIL_WIDTH, badgeThumbnailWidth);
-            }
 
 
-            if (isNotEmpty(pageImagePath)) {
-                Resource pageImage = resourceResolver.resolve(pageImagePath);
+            int thumbnailWidth = componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM);
 
-                if (!ResourceUtil.isNonExistingResource(pageImage)) {
-                    com.adobe.granite.asset.api.Asset pageImageAsset = pageImage.adaptTo(com.adobe.granite.asset.api.Asset.class);
 
-                    if (pageImageAsset != null) {
-                        com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(badgeThumbnailWidth, pageImageAsset);
+            String badgeThumbnailType = componentProperties.get(DETAILS_THUMBNAIL_TYPE, IMAGE_OPTION_RENDITION);
+
+            //page and page details properties
+            String pageImage = componentProperties.get(FIELD_PAGE_IMAGE, ""); //page image
+            String pageImage_Thumbnail = componentProperties.get(FIELD_PAGE_IMAGE_THUMBNAIL, ""); //page image - thumbnail
+
+            String pageSecondaryImage = componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE, ""); //page details - secondary
+            String pageSecondaryImage_Thumbnail = componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL, ""); //page details - secondary image - thumbnail
+
+            String pageThumbnailImage = componentProperties.get(FIELD_PAGE_THUMBNAIL_IMAGE, ""); //page details - thumbnail
+            String pageThumbnailImage_Thumbnail = componentProperties.get(FIELD_PAGE_THUMBNAIL_IMAGE_THUMBNAIL, ""); //page details - thumbnail image - thumbnail
+
+            String badgeThumbnail = badgeConfig.get(DETAILS_THUMBNAIL, ""); //list badge thumbnail
+            String badgeThumbnail_Thumbnail = "";
+
+            int badgeThumbnailWidth = badgeConfig.get(DETAILS_THUMBNAIL_WIDTH, thumbnailWidth);
+
+            if (isNotEmpty(badgeThumbnail)) {
+                Resource badgeThumbnailResource = resourceResolver.resolve(badgeThumbnail);
+
+                if (!ResourceUtil.isNonExistingResource(badgeThumbnailResource)) {
+                    com.adobe.granite.asset.api.Asset badgeThumbnailAsset = badgeThumbnailResource.adaptTo(com.adobe.granite.asset.api.Asset.class);
+
+                    if (badgeThumbnailAsset != null) {
+                        com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(badgeThumbnailWidth, badgeThumbnailAsset);
 
                         if (bestRendition != null) {
-                            badgeConfig.put(FIELD_PAGE_IMAGE_THUMBNAIL, bestRendition.getPath());
+                            badgeThumbnail_Thumbnail = bestRendition.getPath();
                         }
                     }
                 }
-            } else {
-                badgeConfig.put(FIELD_PAGE_IMAGE_THUMBNAIL, pageImagePath);
             }
+
+//            String pageThumbnailType = componentProperties.get(FIELD_PAGE_IMAGE, IMAGE_OPTION_RENDITION);
+
+            //set default straight away.
+            badgeConfig.put(FIELD_PAGE_THUMBNAIL, DEFAULT_IMAGE_BLANK);
+
+
+            //use primary image as thumbnail
+            if (isNotEmpty(pageImage_Thumbnail)) {
+                badgeConfig.put(FIELD_PAGE_THUMBNAIL, pageImage_Thumbnail);
+            }
+
+            //use secondary image as thumbnail
+            if (isNotEmpty(pageSecondaryImage_Thumbnail)) {
+                badgeConfig.put(FIELD_PAGE_THUMBNAIL, pageSecondaryImage_Thumbnail);
+            }
+
+            //use thumbnail image as thumbnial
+            if (isNotEmpty(pageThumbnailImage_Thumbnail)) {
+                badgeConfig.put(FIELD_PAGE_THUMBNAIL, pageThumbnailImage_Thumbnail);
+            }
+
+            //use badge override as thumbnail
+            if (isNotEmpty(badgeThumbnail_Thumbnail)) {
+                badgeConfig.put(FIELD_PAGE_THUMBNAIL, badgeThumbnail_Thumbnail);
+            }
+
         } catch (Exception ex) {
             getLogger().error("processBadgeRequestConfig: could not process {}",ex.toString());
         }
