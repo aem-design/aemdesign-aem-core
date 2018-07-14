@@ -68,7 +68,7 @@
 
     componentProperties.putAll(getAssetInfo(_resourceResolver,
             getResourceImagePath(_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
-            FIELD_PAGE_IMAGE_BACKGROUND));
+            FIELD_PAGE_BACKGROUND_IMAGE));
 
     Search.Result result = null;
     try {
