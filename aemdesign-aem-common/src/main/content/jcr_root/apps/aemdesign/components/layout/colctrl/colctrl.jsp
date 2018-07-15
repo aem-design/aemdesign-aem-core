@@ -212,7 +212,7 @@
 
                 String currentLayout = componentProperties.get("layout",DEFAULT_LAYOUT);
                 if (currentLayout.contains(";")) {
-                    componentProperties.put("layout",currentLayout.split(";")[1]);
+                    componentProperties.put("layout",currentLayout.substring(currentLayout.indexOf(";")+1,currentLayout.length()));
                 }
 
                 numCols = componentProperties.get("numCols",numCols);
