@@ -1,6 +1,6 @@
 <div ${componentProperties.componentAttributes}>
     <!--google analytics -->
     <c:if test="${CURRENT_WCMMODE ne WCMMODE_DISABLED}">
-        <p class="component notfound"><small>Google Analytics Configuration is missing</small></p>
+        <div class="component notfound">Google Analytics Configuration is missing</div>
     </c:if>
 </div>

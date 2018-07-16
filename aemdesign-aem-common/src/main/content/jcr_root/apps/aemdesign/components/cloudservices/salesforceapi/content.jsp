@@ -6,7 +6,7 @@
 %><%@include file="/libs/cq/cloudserviceconfigs/components/configpage/init.jsp"
 %><% I18n i18n = new I18n(request); %>
 <cq:setContentBundle/>
-<div>
+<div class="content">
     <h3><fmt:message key="Salesforce API Settings"/></h3>
     <ul style="float: left; margin: 0px;">
         <li><div class="li-bullet"><strong><fmt:message key="Login Token Url"/>: </strong><%= xssAPI.encodeForHTML(properties.get("./metaData/environment", "")) %></div></li>

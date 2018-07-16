@@ -30,12 +30,12 @@
     final I18n i18n = new I18n(request);
     thumbnailPath = "/apps/aemdesign/templates/cloudconfig/addthisconnect/thumbnail.png";
 %>
-<div>
+<div class="content">
     <h3><%= i18n.get("AddThis Account Settings") %></h3>
     <img src="<%= xssAPI.getValidHref(thumbnailPath) %>" alt="<%= xssAPI.encodeForHTMLAttr(serviceName) %>" style="float: left;" />
-    <div>
+    <div class="content">
         <ul style="float: left; margin: 0px;">
             <li><div class="li-bullet"><strong><%= i18n.get("Pub ID") %>: </strong><%= xssAPI.encodeForHTML(properties.get("pubId", "")) %></div></li>
         </ul>
-    <div>
+    </div>
 </div>

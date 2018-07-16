@@ -55,8 +55,8 @@
         <img alt="${componentProperties.category}" src="${componentProperties.thumbnailUrl}"/>
     </a>
     <div class="body">
-        <p class="title" >${componentProperties.title}</p>
-        <p class="director">${componentProperties.director}</p>
-        <p class="artiststatement">${componentProperties.artistStatement}</p>
+        <div class="title" >${componentProperties.title}</div>
+        <div class="director">${componentProperties.director}</div>
+        <div class="artiststatement">${componentProperties.artistStatement}</div>
     </div>
 </div>

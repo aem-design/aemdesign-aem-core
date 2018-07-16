@@ -47,8 +47,8 @@
         <img alt="<%= escapeBody(category) %>" src="<%= thumbnailUrl %>"/>
     </a>
     <div class="body">
-        <p class="title" ><%= escapeBody(title) %></p>
-        <p class="description"><%= escapeBody(description) %></p>
+        <div class="title" ><%= escapeBody(title) %></div>
+        <div class="description"><%= escapeBody(description) %></div>
     </div>
 </div>
 

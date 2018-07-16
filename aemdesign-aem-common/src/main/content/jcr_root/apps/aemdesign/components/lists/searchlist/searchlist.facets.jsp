@@ -1,7 +1,7 @@
 <c:if test="${result.facets.tags.containsHit}">
     <div class="facets">
 
-        <p><%=i18n.get("Tags")%></p>
+        <div class="tags"><%=i18n.get("Tags")%></div>
         <ul>
             <c:forEach var="bucket" items="${result.facets.tags.buckets}">
                 <c:set var="bucketValue" value="${bucket.value}"/>

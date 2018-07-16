@@ -10,12 +10,12 @@
                         <div class="card-file-type">${hit.extension}</div>
                     </c:if>
                     <div class="card-body">
-                        <p class="card-product-name">${hit.title}</p>
+                        <div class="card-product-name">${hit.title}</div>
                         <c:if test="${not empty hit.properties and not empty hit.properties.subtitle}">
                             <h5 class="card-title">${hit.properties.subtitle}</h5>
                         </c:if>
                         <div class="card-text">
-                            <p>${hit.excerpt}</p>
+                            <div class="excerpt">${hit.excerpt}</div>
                         </div>
                         <div class="card-buttons">
                             <c:choose>

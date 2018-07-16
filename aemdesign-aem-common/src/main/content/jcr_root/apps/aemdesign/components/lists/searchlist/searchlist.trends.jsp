@@ -1,6 +1,6 @@
 <c:if test="${fn:length(trends.queries) > 0}">
     <div class="trends">
-        <p>${componentProperties.searchTrendsText}</p>
+        <div class="text">${componentProperties.searchTrendsText}</div>
         <div class="searchTrends">
             <ul>
                 <c:forEach var="query" items="${trends.queries}">

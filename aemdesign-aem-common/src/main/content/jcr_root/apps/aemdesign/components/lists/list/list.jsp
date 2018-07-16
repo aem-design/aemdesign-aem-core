@@ -130,7 +130,7 @@
     <cq:include script="list-start.jsp" />
 </c:catch>
 <c:if test="${ exception != null }">
-    <p class="cq-error">List start error<br>${exception.message}<br>${exception.stackTrace}</p>
+    <div class="cq-error">List start error<br>${exception.message}<br>${exception.stackTrace}</div>
 </c:if>
 
 <%--LIST FEED LINK--%>
@@ -138,7 +138,7 @@
     <cq:include script="list-feed.jsp" />
 </c:catch>
 <c:if test="${ exception != null }">
-    <p class="cq-error">List feed error<br>${exception.message}<br>${exception.stackTrace}</p>
+    <div class="cq-error">List feed error<br>${exception.message}<br>${exception.stackTrace}</div>
 </c:if>
 
 <%--LIST CONTENT START--%>
@@ -146,7 +146,7 @@
     <cq:include script="list-content-start.jsp" />
 </c:catch>
 <c:if test="${ exception != null }">
-    <p class="cq-error">List content start error<br>${exception.message}<br>${exception.stackTrace}</p>
+    <div class="cq-error">List content start error<br>${exception.message}<br>${exception.stackTrace}</div>
 </c:if>
 
 <%--LIST BODY CONFIG--%>
@@ -154,7 +154,7 @@
     <cq:include script="bodyData.jsp" />
 </c:catch>
 <c:if test="${ exception != null }">
-    <p class="cq-error">List body data error<br>${exception.message}<br>${exception.stackTrace}</p>
+    <div class="cq-error">List body data error<br>${exception.message}<br>${exception.stackTrace}</div>
 </c:if>
 
 <%--LIST BODY--%>
@@ -162,7 +162,7 @@
     <cq:include script="body.jsp" />
 </c:catch>
 <c:if test="${ exception != null }">
-    <p class="cq-error">List body error<br>${exception.message}<br>${exception.stackTrace}</p>
+    <div class="cq-error">List body error<br>${exception.message}<br>${exception.stackTrace}</div>
 </c:if>
 
 <%--LIST CONTENT END--%>
@@ -170,7 +170,7 @@
     <cq:include script="list-content-end.jsp" />
 </c:catch>
 <c:if test="${ exception != null }">
-    <p class="cq-error">List content end error<br>${exception.message}<br>${exception.stackTrace}</p>
+    <div class="cq-error">List content end error<br>${exception.message}<br>${exception.stackTrace}</div>
 </c:if>
 
 <%--LIST PAGINATION--%>
@@ -178,7 +178,7 @@
     <cq:include script="pagination.jsp" />
 </c:catch>
 <c:if test="${not empty exception}">
-    <p class="cq-error">List pagination error<br/>${exception.message}<br/>${exception.stackTrace}</p>
+    <div class="cq-error">List pagination error<br/>${exception.message}<br/>${exception.stackTrace}</div>
 </c:if>
 
 <%--LIST END--%>
@@ -186,7 +186,7 @@
     <cq:include script="list-end.jsp" />
 </c:catch>
 <c:if test="${ exception != null }">
-    <p class="cq-error">List end error<br>${exception.message}<br>${exception.stackTrace}</p>
+    <div class="cq-error">List end error<br>${exception.message}<br>${exception.stackTrace}</div>
 </c:if>
 
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>

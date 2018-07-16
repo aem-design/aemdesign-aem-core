@@ -111,7 +111,7 @@
             %><cq:include path="par" resourceType="aemdesign/components/layout/container"/><%
         }
         catch (Exception ex) {
-            %><p class="cq-error">Missing content.</p><%
+            %><div class="cq-error">Missing content.</div><%
         }
         finally {
 

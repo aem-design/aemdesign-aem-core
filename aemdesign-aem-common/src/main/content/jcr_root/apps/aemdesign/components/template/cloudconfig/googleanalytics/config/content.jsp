@@ -32,10 +32,10 @@
     thumbnailPath = "/apps/aemdesign/templates/cloudconfig/googleanalytics/thumbnail.png";
 
 %>
-<div>
+<div class="content">
     <h3><%= i18n.get("Google Analytics Account Settings") %></h3>
     <img src="<%= xssAPI.getValidHref(thumbnailPath) %>" alt="<%= xssAPI.encodeForHTMLAttr(serviceName) %>" style="float: left;" />
-    <div>
+    <div class="content">
         <ul style="float: left; margin: 0px;">
             <li><div class="li-bullet">
                 <strong><%= i18n.get("Command Method") %>: </strong><%= xssAPI.encodeForHTML(properties.get("commandMethod", "")) %></div></li>
@@ -43,5 +43,5 @@
             <li><div class="li-bullet"><strong><%= i18n.get("Cookie Domain") %>: </strong><%= xssAPI.encodeForHTML(properties.get("cookieDomain", "")) %></div></li>
             <li><div class="li-bullet"><strong><%= i18n.get("Tracking Name") %>: </strong><%= xssAPI.encodeForHTML(properties.get("trackingName", "")) %></div></li>
         </ul>
-    <div>
+    </div>
 </div>

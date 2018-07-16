@@ -41,7 +41,7 @@
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <a href="${componentProperties.linkURL}">${componentProperties.title}</a>
-<p class="description">${componentProperties.description}</p>
+<div class="description">${componentProperties.description}</div>
 <c:if test="${not componentProperties.hideThumbnail}">
     <div class="image">
         <a href="${componentProperties.linkURL}" class="thumbnail">

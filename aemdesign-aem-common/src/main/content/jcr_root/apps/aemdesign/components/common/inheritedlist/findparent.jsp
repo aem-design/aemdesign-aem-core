@@ -51,7 +51,7 @@ while (null != curPage) {
 if (!haveInheritance) {
     //show this message only in edit and design mode
     if(CURRENT_WCMMODE.equals(WCMMode.EDIT) || CURRENT_WCMMODE.equals(WCMMode.DESIGN)){
-        %><p class="component notfound">No parent page specifies how to render this component</p><%
+        %><div class="component notfound">No parent page specifies how to render this component</div><%
     }
 }
 %>
