@@ -3,7 +3,7 @@
         target="${componentProperties.badgeLinkTarget}"
         title="${componentProperties.badgeLinkTitle}"
         class="card ${componentProperties.cardSize} ${badgeClassStyleAttr}"
-        ${badgeLinkAttr} ${badgeAnimationAttr}>
+        ${badgeLinkAttr}>
     <c:if test="${componentProperties.cardIconShow}">
         <div class="card-icon">
             <i class="icon ${badgeClassIconAttr}" title="${componentProperties.title}"></i>
@@ -20,6 +20,6 @@
                 </ul>
             </div>
         </c:if>
-        <p class="card-text">${componentProperties.description}</p>
+        <div class="card-text">${componentProperties.description}</div>
     </div>
 </a>

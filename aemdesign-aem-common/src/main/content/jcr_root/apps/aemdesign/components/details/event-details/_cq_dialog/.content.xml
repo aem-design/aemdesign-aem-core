@@ -277,6 +277,13 @@
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
+            <thumbnailImageTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Thumbnail"
+                    path="/apps/aemdesign/global/dialog/touch/asset/content/items/thumbnailImageTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
             <imageBackgroundTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Background Image"

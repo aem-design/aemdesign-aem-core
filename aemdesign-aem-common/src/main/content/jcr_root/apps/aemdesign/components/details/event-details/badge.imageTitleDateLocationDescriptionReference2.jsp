@@ -67,8 +67,8 @@
        </div>
         <div class="imgLocRef2_body">
             <h4><a href="${componentProperties.url}">${componentProperties.titleFormatted}</a></h4>
-            <p>${componentProperties.subTitleFormatted}</p>
-            <p>${componentProperties.description}</p>
+            <div class="subtitle">${componentProperties.subTitleFormatted}</div>
+            <div class="description">${componentProperties.description}</div>
             <a href="${componentProperties.eventRefLink}">
                 <span>${componentProperties.eventRefLabel}</span>
             </a>

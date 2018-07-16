@@ -22,7 +22,7 @@
     <a
         href="${componentProperties.pageUrl}"
         title="${componentProperties.title}"${linkAttr}>
-        <img src="${componentProperties.pageImageImage}"${imageAttr}
+        <img src="${componentProperties.pageThumbnail}"${imageAttr}
              alt="${componentProperties.title}">
     </a>
 </div>

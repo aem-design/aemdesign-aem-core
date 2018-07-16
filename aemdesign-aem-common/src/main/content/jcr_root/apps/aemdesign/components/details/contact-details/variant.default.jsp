@@ -20,7 +20,7 @@
         <c:if test="${not empty componentProperties.tags}">
             <div class="tags" itemprop="keywords">
             <c:forEach items="${componentProperties.tags}" var="tag">
-                <div>${tag.description}</div>
+                <div class="text">${tag.description}</div>
             </c:forEach>
             </div>
         </c:if>

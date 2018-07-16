@@ -3,8 +3,8 @@
         target="${componentProperties.badgeLinkTarget}"
         title="${componentProperties.badgeLinkTitle}"
         class="card  ${componentProperties.cardSize} ${badgeClassAttr}"
-        ${badgeLinkAttr} ${badgeAnimationAttr}>
-    <img src="${componentProperties.pageImageThumbnail}"${badgeImageAttr}
+        ${badgeLinkAttr}>
+    <img src="${componentProperties.pageThumbnail}" ${badgeImageAttr}
          alt="${componentProperties.title}"
          class="card-img-top"/>
     <div class="card-body">
@@ -18,6 +18,6 @@
                 </ul>
             </div>
         </c:if>
-        <p class="card-text">${componentProperties.description}</p>
+        <div class="card-text">${componentProperties.description}</div>
     </div>
 </a>

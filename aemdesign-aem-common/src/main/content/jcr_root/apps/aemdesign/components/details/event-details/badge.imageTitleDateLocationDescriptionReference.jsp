@@ -82,33 +82,29 @@
             <a href="<c:out value="${componentProperties.url}"/>" title="<c:out value="${componentProperties.imgAlt}" />">${componentProperties.titleFormatted}</a>
         </h4>
 
-        <p>${componentProperties.subTitleFormatted}</p>
+        <div class="subtitle">${componentProperties.subTitleFormatted}</div>
 
-        <p>${componentProperties.description}</p>
+        <div class="card-text">${componentProperties.description}</div>
 
         <c:if test="${not empty componentProperties.eventRefLink}">
-            <p>
+            <div class="label">
                 <c:choose>
                     <c:when test="${not empty componentProperties.eventRefLink}">
                         <a title="${componentProperties.eventRefLabel}" href="${componentProperties.eventRefLink}">
-                            <span style="font-size: 90%; background-color: #000000; color: white; padding: 3px; display: block; width: 170px; margin-top: 7px; text-align: center; font-family: 'ramblabold';">
-                                    ${componentProperties.eventRefLabel}
-                            </span>
+                            <span>${componentProperties.eventRefLabel}</span>
                         </a>
                     </c:when>
                     <c:otherwise>
-                            <span style="font-size: 90%; background-color: #000000; color: white; padding: 3px; display: block; width: 170px; margin-top: 7px; text-align: center; font-family: 'ramblabold';">
-                                    ${componentProperties.eventRefLabel}
-                            </span>
+                            <span>${componentProperties.eventRefLabel}</span>
                     </c:otherwise>
                 </c:choose>
-            </p>
+            </div>
         </c:if>
 
         <c:if test="${componentProperties.isPastEventDate}">
-            <p>
-                <span class="past">${componentProperties.pastEvent}</span>
-            </p>
+            <div class="pastdate">
+                <span class="date">${componentProperties.pastEvent}</span>
+            </div>
         </c:if>
 
     </div>

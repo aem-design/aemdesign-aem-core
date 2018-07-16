@@ -1,10 +1,10 @@
-<div class="card ${componentProperties.cardSize} ${badgeClassAttr}" ${badgeAnimationAttr}>
+<div class="card ${componentProperties.cardSize} ${badgeClassAttr}">
     <div class="card-img-top">
-        <img src="${componentProperties.pageImageThumbnail}" ${badgeImageAttr} alt="${componentProperties.title}">
+        <img src="${componentProperties.pageThumbnail}" ${badgeImageAttr} alt="${componentProperties.title}">
     </div>
     <div class="card-body">
         <${componentProperties.badgeTitleType} class="card-title">${componentProperties.pageNavTitle}</${componentProperties.badgeTitleType}>
-        <p class="card-subtitle">${componentProperties.subtitle}</p>
+        <div class="card-subtitle">${componentProperties.subtitle}</div>
         <c:if test="${not empty componentProperties.category}">
             <div class="card-category">
                 <ul class="tags">
@@ -14,7 +14,7 @@
                 </ul>
             </div>
         </c:if>
-        <p class="card-text">${componentProperties.description}</p>
+        <div class="card-text">${componentProperties.description}</div>
         <div class="card-action">
             <a class="card-link ${fn:join(componentProperties.badgeLinkStyle, ' ')}"
                href="${componentProperties.pageUrl}"

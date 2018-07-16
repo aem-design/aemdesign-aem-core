@@ -1,4 +1,4 @@
-<div class="card ${componentProperties.cardSize} ${badgeClassStyleAttr}" ${badgeAnimationAttr}>
+<div class="card ${componentProperties.cardSize} ${badgeClassStyleAttr}">
     <c:if test="${componentProperties.cardIconShow}">
         <div class="card-icon">
             <i class="icon ${badgeClassIconAttr}" title="${componentProperties.title}"></i>
@@ -6,6 +6,6 @@
     </c:if>
     <div class="card-body">
         <${componentProperties.badgeTitleType} class="card-title">${componentProperties.pageNavTitle}</${componentProperties.badgeTitleType}>
-        <p class="card-text">${componentProperties.description}</p>
+        <div class="card-text">${componentProperties.description}</div>
     </div>
 </div>

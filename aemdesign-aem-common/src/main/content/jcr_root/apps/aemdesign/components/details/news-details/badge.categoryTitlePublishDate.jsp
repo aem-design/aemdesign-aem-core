@@ -44,9 +44,9 @@
     <div class="minor module news twin">
         <div class="body">
             <h3><a href="<c:out value="${componentProperties.url}"/>" title="<c:out value="${componentProperties.imgAlt}"/>">${componentProperties.category[0].title}</a></h3>
-            <p>
+            <div class="title">
                 <b><a href="<c:out value="${componentProperties.url}"/>" title="<c:out value="${componentProperties.imgAlt}"/>">${componentProperties.title}</a></b>
-            </p>
+            </div>
 
             <c:if test="${not empty componentProperties.publishDate}">
                 <span>
