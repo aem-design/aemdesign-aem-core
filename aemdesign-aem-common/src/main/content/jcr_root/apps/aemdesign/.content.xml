@@ -2,17 +2,9 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:rep="internal"
     jcr:mixinTypes="[rep:AccessControllable]"
   jcr:primaryType="sling:OrderedFolder">
-    <cloundservices/>
-    <commerce/>
-    <common/>
-    <content/>
-    <coral/>
-    <details/>
-    <forms/>
-    <layout/>
-    <list/>
-    <media/>
-    <template/>
-    <widgets/>
-    <workflow/>
+    <components/>
+    <global/>
+    <i18n/>
+    <install/>
+    <templates/>
 </jcr:root>
