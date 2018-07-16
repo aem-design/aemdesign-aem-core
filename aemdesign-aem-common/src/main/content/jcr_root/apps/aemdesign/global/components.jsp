@@ -283,7 +283,7 @@
             {DETAILS_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE_BADGE},
             {DETAILS_THUMBNAIL_ID, ""},
             {DETAILS_THUMBNAIL_LICENSE_INFO, ""},
-            {DETAILS_THUMBNAIL, DEFAULT_IMAGE_BLANK},
+            {DETAILS_THUMBNAIL, ""},
     };
 
     // {
