@@ -13,7 +13,7 @@
 
     Object[][] componentFields = {
             {FIELD_VARIANT, "aemdesign"},
-            {"path", "/apps/settings/wcm/design/aemdesign/blank.gif"},
+            {"path", "/apps/settings/wcm/design/aemdesign/blank.png"},
             {"profile", "assetViewer"},
             {"title", StringUtils.EMPTY},
             {"copyrightOwner", StringUtils.EMPTY},
