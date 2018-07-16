@@ -133,7 +133,7 @@
                 columnClassBuilder.append(columnsFormat.get(i).split(",")[colNumber + 1]);
                 columnClassBuilder.append(spacer);
             }
-            out.write(MessageFormat.format("<div class=\"{0} {1} {2} {3}\">",COLUMNS_CLASS, COLUMN_CLASS, columnClassBuilder, columnClassStyle)); //EXTENDED
+            out.write(MessageFormat.format("<div class=\"{0} {1} {2} {3}\">",COLUMNS_CLASS, COLUMN_CLASS, columnClassBuilder.toString(), columnClassStyle)); //EXTENDED
         } else {
             //out.write("<div class='parsys_column " + par.getBaseCssClass() + " col-" + n + "'>");
             out.write(MessageFormat.format("<div class=\"{0} {1} {2} {3}\">",COLUMNS_CLASS, COLUMN_CLASS, columnClass, columnClassStyle)); //ORIGINAL
