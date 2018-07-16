@@ -165,7 +165,7 @@
                         while (children.hasNext()) {
                             Page nextchild = children.next();
 
-                            childrenList.add(getPageInfo(pageContext, nextchild, resourceResolver, componentNames, pageRoots, collectChildrenFromRoot--));
+                            childrenList.add(getPageInfo(pageContext, nextchild, resourceResolver, componentNames, pageRoots, collectChildrenFromRoot-1));
                         }
 
                         componentProperties.put("children", childrenList);
