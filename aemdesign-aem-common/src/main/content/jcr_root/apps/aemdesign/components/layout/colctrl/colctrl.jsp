@@ -28,6 +28,7 @@
             {DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, new String[]{}},
             {DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, new String[]{}},
             {DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, new String[]{}},
+            {DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, new String[]{}},
             {DETAILS_COLUMNS_LAYOUT_ROW_CLASS, new String[]{}},
     };
 
@@ -116,8 +117,8 @@
                 componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, getTagsAsValues(_tagManager, _resourceResolver,  " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, new String[]{})));
                 componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, getTagsAsValues(_tagManager, _resourceResolver, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, new String[]{})));
                 componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, getTagsAsValues(_tagManager, _resourceResolver, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, new String[]{})));
+                componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, getTagsAsValues(_tagManager, _resourceResolver, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, new String[]{})));
                 componentProperties.put(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, getTagsAsValues(_tagManager, _resourceResolver, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, new String[]{})));
-
 
                 String currentLayout = componentProperties.get("layout",DEFAULT_LAYOUT);
                 if (currentLayout.contains(";")) {
@@ -208,6 +209,7 @@
                 componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, getTagsAsValues(_tagManager, _resourceResolver, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, new String[]{})));
                 componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, getTagsAsValues(_tagManager, _resourceResolver, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, new String[]{})));
                 componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, getTagsAsValues(_tagManager, _resourceResolver, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, new String[]{})));
+                componentProperties.put(DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, getTagsAsValues(_tagManager, _resourceResolver, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, new String[]{})));
                 componentProperties.put(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, getTagsAsValues(_tagManager, _resourceResolver, " ", componentProperties.get(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, new String[]{})));
 
                 String currentLayout = componentProperties.get("layout",DEFAULT_LAYOUT);
@@ -222,8 +224,9 @@
                 String columnClassSmall = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, "");
                 String columnClassMedium = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, "");
                 String columnClassLarge = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, "");
+                String columnClassXLarge = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, "");
                 String rowClass = componentProperties.get(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, "");
-                String columnClass = MessageFormat.format("{0} {1} {2}",columnClassSmall, columnClassMedium, columnClassLarge).trim();
+                String columnClass = MessageFormat.format("{0} {1} {2} {3}",columnClassSmall, columnClassMedium, columnClassLarge, columnClassXLarge).trim();
 
                 openRow(numCols, out, componentProperties, rowClass);
                 openCol(currentColumn, out, componentProperties, columnClass);
@@ -253,7 +256,8 @@
                     String columnClassSmall = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, "");
                     String columnClassMedium = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, "");
                     String columnClassLarge = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, "");
-                    String columnClass = MessageFormat.format("{0} {1} {2}",columnClassSmall, columnClassMedium, columnClassLarge).trim();
+                    String columnClassXLarge = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, "");
+                    String columnClass = MessageFormat.format("{0} {1} {2} {3}",columnClassSmall, columnClassMedium, columnClassLarge, columnClassXLarge).trim();
 
                     closeCol(null, out);
                     openCol(currentColumn, out, componentProperties, columnClass);
