@@ -246,25 +246,21 @@
             //use primary image as thumbnail
             if (isNotEmpty(pageImage_Thumbnail)) {
                 badgeConfig.put(FIELD_PAGE_THUMBNAIL, pageImage_Thumbnail);
-                badgeConfig.put("ZZZZZZZZZZZZZZZZZZZZZZZZZZZ1", pageImage_Thumbnail);
             }
 
             //use secondary image as thumbnail
             if (isNotEmpty(pageSecondaryImage_Thumbnail)) {
                 badgeConfig.put(FIELD_PAGE_THUMBNAIL, pageSecondaryImage_Thumbnail);
-                badgeConfig.put("ZZZZZZZZZZZZZZZZZZZZZZZZZZZ2", pageSecondaryImage_Thumbnail);
             }
 
             //use thumbnail image as thumbnial
             if (isNotEmpty(pageThumbnailImage_Thumbnail)) {
                 badgeConfig.put(FIELD_PAGE_THUMBNAIL, pageThumbnailImage_Thumbnail);
-                badgeConfig.put("ZZZZZZZZZZZZZZZZZZZZZZZZZZZ3", pageThumbnailImage_Thumbnail);
             }
 
             //use badge override as thumbnail
             if (isNotEmpty(badgeThumbnail_Thumbnail)) {
                 badgeConfig.put(FIELD_PAGE_THUMBNAIL, badgeThumbnail_Thumbnail);
-                badgeConfig.put("ZZZZZZZZZZZZZZZZZZZZZZZZZZZ4", badgeThumbnail_Thumbnail);
             }
 
         } catch (Exception ex) {
