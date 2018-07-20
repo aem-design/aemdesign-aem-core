@@ -28,9 +28,57 @@
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
-                            <attributes
+                            <basic
                                     jcr:primaryType="nt:unstructured"
-                                    jcr:title="Analytics"
+                                    jcr:title="Basic"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+
+                                    <analyticsPageName
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Page Name"
+                                            name="./analyticsPageName"
+                                            required="{Boolean}false"/>
+                                    <analyticsPageType
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                            fieldLabel="Page Type"
+                                            name="./analyticsPageType"
+                                            emptyOption="{Boolean}true"
+                                            value="">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="tagname"
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/pagetype"/>
+                                    </analyticsPageType>
+                                    <analyticsPlatform
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Default value is [aem]"
+                                            fieldLabel="Platform"
+                                            name="./analyticsPlatform"
+                                            required="{Boolean}false"/>
+                                    <analyticsAbort
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                            fieldLabel="Abort"
+                                            name="./analyticsAbort"
+                                            emptyOption="{Boolean}true"
+                                            value="">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                    </analyticsAbort>
+                                </items>
+                            </basic>
+
+                            <advanced
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Advanced"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <analyticsType
@@ -105,7 +153,7 @@
                                                 path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
                                     </analyticsNonInteraction>
                                 </items>
-                            </attributes>
+                            </advanced>
 
                         </items>
                     </column>

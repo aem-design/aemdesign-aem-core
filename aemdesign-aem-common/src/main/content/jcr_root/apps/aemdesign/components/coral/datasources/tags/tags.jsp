@@ -122,6 +122,10 @@
 
                     value = tag.getTagID();
                     text = tag.getTitle(locale);
+                } else if ("tagname".equals(variant)) {
+
+                    value = tag.getName();
+                    text = tag.getTitle(locale);
                 } else if ("valuelist".equals(variant)) {
 
                     value = childVM.get("value", "");

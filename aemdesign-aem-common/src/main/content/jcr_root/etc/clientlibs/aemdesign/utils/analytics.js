@@ -2,7 +2,7 @@
 window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.analytics = AEMDESIGN.analytics || {};
 
-(function ($, _, ko, ns, log, window, undefined) { //NOSONAR module conventions
+(function ($, log, ns, window, undefined) { //NOSONAR module conventions
 
 
     "use strict";
@@ -165,6 +165,46 @@ digitalData.event[n].eventInfo = {
 
     };
 
+    ns.getBreakpoint = function() {
+        var breakpoints = [
+            {label: "XS", width: 320, height: 480},
+            {label: "SM", width: 640, height: 480},
+            {label: "MD", width: 1024, height: 768},
+            {label: "LG", width: 1366, height: 1024},
+            {label: "XLG", width: 1920, height: 1280},
+            {label: "XXLG", width: 2560, height: 1440}
+        ];
 
-})(AEMDESIGN.jQuery, _, ko, AEMDESIGN.analytics, AEMDESIGN.log, this); //pass in additional dependencies
+        // var results = breakpoints.map(function(breakpoint) {
+        //     var query = window.matchMedia('(min-width: ' + breakpoint.width + 'px) and (min-height: ' + breakpoint.height + 'px)');
+        //     return query && query.matches && breakpoint || null
+        // }).filter(function(x) {
+        //     return x;
+        // });
+        // console.log(results);
+        // if (results.length === 0) {
+        //     return breakpoints[0];
+        // }
+        //
+        // return results[0];
+
+        var w = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
+
+        var match = breakpoints.filter(breakpoint => breakpoint.width < w);
+
+        if (match.length === 0) {
+            return breakpoints[0];
+        } else {
+            return match[match.length-1];
+        }
+    };
+
+    ns.getDestinationUrl = function() {
+        return window.location.href.split("?")[0];
+    };
+    ns.getReferringUrl = function() {
+        return window.document.referrer.split("?")[0] || "";
+    };
+
+})(AEMDESIGN.jQuery, AEMDESIGN.log, AEMDESIGN.analytics, this); //pass in additional dependencies
 
