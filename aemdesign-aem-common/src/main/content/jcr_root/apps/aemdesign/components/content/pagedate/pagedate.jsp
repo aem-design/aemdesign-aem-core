@@ -8,7 +8,7 @@
     final String DEFAULT_I18N_CATEGORY = "pagedate";
 
 
-    //no lambada is available so this is the best that can be done
+    //not using lamda is available so this is the best that can be done
     Object[][] componentFields = {
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"publishDate", _pageProperties.get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED,_pageProperties.get(JcrConstants.JCR_CREATED, Calendar.getInstance()))},

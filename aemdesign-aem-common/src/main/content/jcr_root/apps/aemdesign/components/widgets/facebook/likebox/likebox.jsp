@@ -35,7 +35,7 @@
     if(dataShowBorder!=null && dataShowBorder.length() > 0)
        info.put("dataShowBorder"," data-show-border="+dataShowBorder);*/
 
-    //no lambada is available so this is the best that can be done
+    //not using lamda is available so this is the best that can be done
     Object[][] componentFields = {
             {"href", StringUtils.EMPTY},
             /*{"handle", StringUtils.EMPTY},*/

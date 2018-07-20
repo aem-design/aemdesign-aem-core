@@ -24,7 +24,7 @@
         }
     }
 
-    //no lambada is available so this is the best that can be done
+    //not using lamda is available so this is the best that can be done
     Object[][] componentFields = {
             {"component", "googleanalytics", "modules"},
             {"trackingId", trackingid, "trackingid"},

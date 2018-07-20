@@ -12,7 +12,7 @@
     final String DEFAULT_I18N_CATEGORY = "event-detail";
     final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
 
-    //no lambada is available so this is the best that can be done
+    //not using lamda is available so this is the best that can be done
     Object[][] componentFields = {
             {"title", DEFAULT_TITLE},
             {"hideSiteTitle", DEFAULT_HIDE_SITE_TITLE},

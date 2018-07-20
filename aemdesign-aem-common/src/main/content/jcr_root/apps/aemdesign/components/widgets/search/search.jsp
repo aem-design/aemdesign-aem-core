@@ -12,7 +12,7 @@
     final String DEFAULT_I18N_CODE_LEBEL = "labelText";
     final String DEFAULT_I18N_CODE_SEARCH = "searchButtonText";
 
-    //no lambada is available so this is the best that can be done
+    //not using lamda is available so this is the best that can be done
     Object[][] componentFields = {
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"formAction", "/en/search"},

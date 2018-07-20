@@ -17,7 +17,7 @@
 
     // getDefaultLabelIfEmpty
 
-    //no lambada is available so this is the best that can be done
+    //not using lamda is available so this is the best that can be done
     Object[][] componentFields = {
             {"pages", new String[0]},
             {FIELD_VARIANT, DEFAULT_VARIANT},
