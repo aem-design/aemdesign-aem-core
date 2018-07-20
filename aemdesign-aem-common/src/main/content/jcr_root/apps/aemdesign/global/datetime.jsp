@@ -9,7 +9,6 @@
 <%@ page import="static org.apache.commons.lang3.StringUtils.join" %>
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.util.Date" %>
-<%@ include file="/apps/aemdesign/global/logging.jsp" %>
 <%!
 
     final static SimpleDateFormat[] SLING_FORMATS = new SimpleDateFormat[]{
