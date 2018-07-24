@@ -1,4 +1,4 @@
-<div class="card card-horizontal text-center text-md-left ${badgeClassStyleAttr}" ${badgeAnimationAttr}>
+<div class="card card-horizontal text-center text-md-left ${badgeClassStyleAttr}">
     <div class="row align-items-center no-gutters">
         <c:if test="${componentProperties.cardIconShow}">
             <div class="col-md-auto">
@@ -16,7 +16,7 @@
                     </ul>
                 </div>
             </c:if>
-            <p class="card-text">${componentProperties.description}</p>
+            <div class="card-text">${componentProperties.description}</div>
         </div>
         <div class="col-md-auto mt-reset mt-md-collapse">
             <a class="card-link ${fn:join(componentProperties.badgeLinkStyle, ' ')}"

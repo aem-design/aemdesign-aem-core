@@ -44,21 +44,4 @@
     <c:set var="badgeClassStyleAttr" value="${badgeClassStyleAttr} ${fn:join(componentProperties.cardStyle,' ')}"/>
 </c:if>
 
-<%-- BADGE ANIMATION CONFIG  --%>
-<c:if test="${componentProperties.badgeAnimationEnabled}">
-    <c:if test="${not empty componentProperties.badgeAnimationName}">
-        <c:set var="badgeAnimationAttr" value="${badgeAnimationAttr} data-aos=\"${componentProperties.badgeAnimationName}\""/>
-    </c:if>
-    <c:if test="${not empty componentProperties.badgeAnimationOnce}">
-        <c:set var="badgeAnimationAttr" value="${badgeAnimationAttr} data-aos-once=\"${componentProperties.badgeAnimationOnce}\""/>
-    </c:if>
-    <c:if test="${not empty componentProperties.badgeAnimationEasing}">
-        <c:set var="badgeAnimationAttr" value="${badgeAnimationAttr} data-aos-easing=\"${componentProperties.badgeAnimationEasing}\""/>
-    </c:if>
-    <c:if test="${not empty componentProperties.badgeAnimationDelay}">
-        <c:set var="badgeAnimationAttr" value="${badgeAnimationAttr} data-aos-delay=\"${componentProperties.badgeAnimationDelay}\""/>
-    </c:if>
-    <c:if test="${not empty componentProperties.badgeAnimationDuration}">
-        <c:set var="badgeAnimationAttr" value="${badgeAnimationAttr} data-aos-duration=\"${componentProperties.badgeAnimationDuration}\""/>
-    </c:if>
-</c:if>
+

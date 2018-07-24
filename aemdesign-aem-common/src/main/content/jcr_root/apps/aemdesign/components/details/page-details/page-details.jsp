@@ -1,4 +1,6 @@
 <%@ page import="com.adobe.granite.asset.api.AssetManager" %>
+<%@ page import="org.jsoup.Jsoup" %>
+<%@ page import="org.jsoup.nodes.Document" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
@@ -19,19 +21,21 @@
     final Boolean DEFAULT_HIDE_DESCRIPTION = false;
     final Boolean DEFAULT_SHOW_BREADCRUMB = true;
     final Boolean DEFAULT_SHOW_TOOLBAR = true;
+    final Boolean DEFAULT_SHOW_PAGE_DATE = true;
     final Boolean DEFAULT_SHOW_PARSYS = true;
 
 
-    //no lambada is available so this is the best that can be done
+    //not using lamda is available so this is the best that can be done
     Object[][] componentFields = {
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"title", DEFAULT_TITLE},
-            {"titleFormat",""},
+            {"titleFormat",""}, //tag path, will be resolved to value in processComponentFields
             {"description", DEFAULT_DESCRIPTION},
             {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
             {"hideTitle", DEFAULT_HIDE_TITLE},
             {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
             {"showToolbar", DEFAULT_SHOW_TOOLBAR},
+            {"showPageDate", DEFAULT_SHOW_PAGE_DATE},
             {"showParsys", DEFAULT_SHOW_PARSYS},
             {"linkTarget", StringUtils.EMPTY, "target"},
             {FIELD_PAGE_URL, getPageUrl(_currentPage)},
@@ -56,37 +60,54 @@
     String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
     componentProperties.put("category",getTagsAsAdmin(_sling, tags, _slingRequest.getLocale()));
 
+    //read the image node
     componentProperties.putAll(getAssetInfo(_resourceResolver,
             getPageImgReferencePath(_currentPage),
             FIELD_PAGE_IMAGE));
 
+    //read the secondary image node
     componentProperties.putAll(getAssetInfo(_resourceResolver,
             getResourceImagePath(_resource,DEFAULT_SECONDARY_IMAGE_NODE_NAME),
-            FIELD_PAGE_IMAGE_SECONDARY));
+            FIELD_PAGE_SECONDARY_IMAGE));
 
+    //read the background image node
     componentProperties.putAll(getAssetInfo(_resourceResolver,
             getResourceImagePath(_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
-            FIELD_PAGE_IMAGE_BACKGROUND));
+            FIELD_PAGE_BACKGROUND_IMAGE));
+
+    //read the thumbnail image node
+    componentProperties.putAll(getAssetInfo(_resourceResolver,
+            getResourceImagePath(_resource,DEFAULT_THUMBNAIL_IMAGE_NODE_NAME),
+            FIELD_PAGE_THUMBNAIL_IMAGE));
 
     componentProperties.put(FIELD_REDIRECT_TARGET,_pageProperties.get(FIELD_REDIRECT_TARGET,""));
 
-
+    //set thumbnail path for image node
     componentProperties.put(FIELD_PAGE_IMAGE_THUMBNAIL,
             getBestFitRendition(
-                    componentProperties.get(FIELD_PAGE_IMAGE, DEFAULT_IMAGE_BLANK),
+                    componentProperties.get(FIELD_PAGE_IMAGE, ""),
                     componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
                     _resourceResolver
             )
     );
 
-    componentProperties.put(FIELD_PAGE_IMAGE_SECONDARY_THUMBNAIL,
+    //set thumbnail path for secondary image node
+    componentProperties.put(FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL,
             getBestFitRendition(
-                    componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY, DEFAULT_IMAGE_BLANK),
+                    componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE, ""),
                     componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
                     _resourceResolver
             )
     );
 
+    //set thumbnail path for thumbnail image node
+    componentProperties.put(FIELD_PAGE_THUMBNAIL_IMAGE_THUMBNAIL,
+            getBestFitRendition(
+                    componentProperties.get(FIELD_PAGE_THUMBNAIL_IMAGE, ""),
+                    componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
+                    _resourceResolver
+            )
+    );
 
     componentProperties.putAll(processComponentFields(componentProperties,_i18n,_sling), false);
 

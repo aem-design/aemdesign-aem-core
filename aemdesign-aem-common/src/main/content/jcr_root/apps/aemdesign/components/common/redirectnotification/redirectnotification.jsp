@@ -15,7 +15,7 @@
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"redirectTitle", ""},
             {"redirectUrl", "#"},
-            {"redirectTarget", _pageProperties.get("redirectTarget", "")},
+            {"redirectTarget", _pageProperties.get("cq:redirectTarget", "")},
     };
 
     ComponentProperties componentProperties = getComponentProperties(

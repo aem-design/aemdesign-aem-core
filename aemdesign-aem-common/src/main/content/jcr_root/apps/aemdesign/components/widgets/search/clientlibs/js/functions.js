@@ -3,7 +3,7 @@ window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
 
-(function ($, _, ko, log, utils, ns, window, undefined) {
+(function ($, _, ko, log, utils, ns, window, undefined) { //NOSONAR convention for wrapping all modules
 
     "use strict";
     var _version = "0.1";
@@ -18,7 +18,7 @@ window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
         return _version;
     };
 
-    ns.init = function($el) {
+    ns.init = function($el) { //NOSONAR convention for wrapping all modules
 
         /**
          * HTML template for search suggestion dropdown item
@@ -42,7 +42,6 @@ window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
          * @type {Array}
          */
         var prefetchedSuggestions = [];
-        // var counter = 0;
 
         /**
          * Recursive function that retrieves suggestion data and intialises

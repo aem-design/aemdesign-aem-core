@@ -1,7 +1,7 @@
 <a ${componentProperties.componentAttributes} download>
     <c:choose>
         <c:when test="${componentProperties.thumbnailType eq 'icon'}">
-            <span class="icon type_${componentProperties.iconType}"><img src="/libs/cq/ui/resources/0.gif" alt="${componentProperties.mimeTypeLabel}"/></span>
+            <span class="icon type_${componentProperties.iconType}"><img src="/apps/settings/wcm/design/aemdesign/blank.png" alt="${componentProperties.mimeTypeLabel}"/></span>
         </c:when>
         <c:otherwise>
             <c:if test="${not empty componentProperties.thumbnailWidth}">

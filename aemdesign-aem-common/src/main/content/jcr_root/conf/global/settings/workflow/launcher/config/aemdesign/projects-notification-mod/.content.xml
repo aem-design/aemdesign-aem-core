@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:WorkflowLauncher"
+    condition="sling:resourceType==cq/gui/components/projects/admin/card/projectcontent"
+    description="Project Notification - Updated"
+    enabled="{Boolean}false"
+    eventType="{Long}16"
+    excludeList=""
+    glob="/content/projects"
+    nodetype="nt:unstructured"
+    runModes="author"
+    workflow="/conf/global/settings/workflow/models/aemdesign/projects-notification/jcr:content/model"/>

@@ -53,17 +53,17 @@
 
     <c:if test="${imageCount > 0 }">
         <li class="image">
-            <c:out value="${imageCount}"/><small>Images</small>
+            <c:out value="${imageCount}"/><span class="label">Images</span>
         </li>
     </c:if>
     <c:if test="${videoCount > 0 }">
         <li class="video">
-            <c:out value="${videoCount}"/><small>Videos</small>
+            <c:out value="${videoCount}"/><span class="label">Videos</span>
         </li>
     </c:if>
     <c:if test="${audioCount > 0 }">
         <li class="audio">
-            <c:out value="${audioCount}"/><small>Audios</small>
+            <c:out value="${audioCount}"/><span class="label">Audios</span>
         </li>
     </c:if>
     </ul>

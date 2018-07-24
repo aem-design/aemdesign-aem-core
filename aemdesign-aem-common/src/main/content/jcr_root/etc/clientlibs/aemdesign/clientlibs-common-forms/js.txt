@@ -1,5 +1,5 @@
 
-../vendor/jquery/inputmask/jquery.inputmask.bundle.js
+../vendorlib/jquery/inputmask/jquery.inputmask.bundle.js
 
 
-../js/aemdesign.forms.js
+../utils/forms.js

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:template="/libs/cq/workflow/templates/model"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="Asset Locked-Unlocked Notification"
+        sling:resourceType="cq/workflow/components/pages/model">
+        <flow
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="foundation/components/parsys">
+            <sendemail
+                jcr:description="A process to send email using form metadata"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Send Email"
+                sling:resourceType="aemdesign/components/workflow/sendemail"
+                PROCESS="/apps/aemdesign/components/workflow/sendemail/scripts/sendemail.ecma"
+                PROCESS_AUTO_ADVANCE="true">
+                <metaData
+                    jcr:primaryType="nt:unstructured"
+                    attach="No"
+                    emailSubject="noreply@aem.design"
+                    fromEmail="noreply@aem.design"
+                    PROCESS="/apps/aemdesign/components/workflow/sendemail/scripts/sendemail.ecma"
+                    PROCESS_AUTO_ADVANCE="true"
+                    templatePath="/conf/global/settings/workflow/notification/aemdesign/default/to.user.when.assetlockedunlocked/en.html"
+                    toEmail="noreply@aem.design"/>
+            </sendemail>
+        </flow>
+        <model/>
+    </jcr:content>
+</jcr:root>

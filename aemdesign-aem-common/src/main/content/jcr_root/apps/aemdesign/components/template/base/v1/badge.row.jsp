@@ -44,7 +44,7 @@
         <%= displayTitle %>
     </a>
     <div class="longTxt">
-        <p><%= displayDescription %></p>
+        <div class="description"><%= displayDescription %></div>
     </div>
 
     <c:if test="<%= !hideThumbnail %>">

@@ -86,7 +86,7 @@
             <a href="<c:out value="${componentProperties.url}"/>" title="<c:out value="${componentProperties.imgAlt}" />">${componentProperties.titleFormatted}</a>
         </h4>
 
-        <p>${componentProperties.subTitleFormatted}</p>
+        <div class="subtitle">${componentProperties.subTitleFormatted}</div>
 
     </div>
 </div>

@@ -55,32 +55,50 @@
             getTagValueAsAdmin(componentProperties.get("honorificPrefix", ""),_sling)
     );
 
+    //read the image node
     componentProperties.putAll(getAssetInfo(_resourceResolver,
             getPageImgReferencePath(_currentPage),
             FIELD_PAGE_IMAGE));
 
+    //read the secondary image node
     componentProperties.putAll(getAssetInfo(_resourceResolver,
             getResourceImagePath(_resource,DEFAULT_SECONDARY_IMAGE_NODE_NAME),
-            FIELD_PAGE_IMAGE_SECONDARY));
+            FIELD_PAGE_SECONDARY_IMAGE));
 
+    //read the background image node
     componentProperties.putAll(getAssetInfo(_resourceResolver,
             getResourceImagePath(_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
-            FIELD_PAGE_IMAGE_BACKGROUND));
+            FIELD_PAGE_BACKGROUND_IMAGE));
+
+    //read the thumbnail image node
+    componentProperties.putAll(getAssetInfo(_resourceResolver,
+            getResourceImagePath(_resource,DEFAULT_THUMBNAIL_IMAGE_NODE_NAME),
+            FIELD_PAGE_THUMBNAIL_IMAGE));
 
     componentProperties.put(FIELD_REDIRECT_TARGET,_pageProperties.get(FIELD_REDIRECT_TARGET,""));
 
-
+    //set thumbnail path for image node
     componentProperties.put(FIELD_PAGE_IMAGE_THUMBNAIL,
             getBestFitRendition(
-                    componentProperties.get(FIELD_PAGE_IMAGE, DEFAULT_IMAGE_BLANK),
+                    componentProperties.get(FIELD_PAGE_IMAGE, ""),
                     componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
                     _resourceResolver
             )
     );
 
-    componentProperties.put(FIELD_PAGE_IMAGE_SECONDARY_THUMBNAIL,
+    //set thumbnail path for secondary image node
+    componentProperties.put(FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL,
             getBestFitRendition(
-                    componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY, DEFAULT_IMAGE_BLANK),
+                    componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE, ""),
+                    componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
+                    _resourceResolver
+            )
+    );
+
+    //set thumbnail path for thumbnail image node
+    componentProperties.put(FIELD_PAGE_THUMBNAIL_IMAGE_THUMBNAIL,
+            getBestFitRendition(
+                    componentProperties.get(FIELD_PAGE_THUMBNAIL_IMAGE, ""),
                     componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
                     _resourceResolver
             )

@@ -46,7 +46,7 @@
                                             name="./file"
                                             title="Image"
                                             uploadUrl="${suffix.path}"
-                                            allowUpload="false"
+                                            allowUpload="{Boolean}false"
                                             cropParameter="./imageCrop"
                                             mapParameter="./imageMap"
                                             requestSuffix=".img.png"
@@ -138,7 +138,7 @@
                                             multiple="{Boolean}false"
                                             name="./file"
                                             uploadUrl="${suffix.path}"
-                                            allowUpload="false"
+                                            allowUpload="{Boolean}false"
                                             cropParameter="./imageCrop"
                                             mapParameter="./imageMap"
                                             requestSuffix=".img.png"
@@ -169,7 +169,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/etc/tags/component-dialog/html/heading"/>
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/heading"/>
                                     </titleType>
                                     <description
                                             jcr:primaryType="nt:unstructured"
@@ -214,7 +214,7 @@
                                             multiple="{Boolean}false"
                                             name="./thumbnail/file"
                                             uploadUrl="${suffix.path}"
-                                            allowUpload="false"
+                                            allowUpload="{Boolean}false"
                                             cropParameter="./thumbnail/imageCrop"
                                             mapParameter="./thumbnail/imageMap"
                                             requestSuffix=".img.png"
@@ -285,6 +285,54 @@
                 </items>
             </imageThumbnailTab>
 
+            <thumbnailImageTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Thumbnail"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <attributes
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Thumbnail"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <asset
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/authoring/dialog/fileupload"
+                                            autoStart="{Boolean}false"
+                                            class="cq-droptarget"
+                                            fileNameParameter="./thumbnail/ileName"
+                                            fileReferenceParameter="./thumbnail/fileReference"
+                                            mimeTypes="[image]"
+                                            multiple="{Boolean}false"
+                                            name="./thumbnail/file"
+                                            uploadUrl="${suffix.path}"
+                                            allowUpload="{Boolean}false"
+                                            cropParameter="./thumbnail/imageCrop"
+                                            mapParameter="./thumbnail/imageMap"
+                                            rotateParameter="./thumbnail/imageRotate"
+                                            useHTML5="{Boolean}true"/>
+
+                                    <assetResourceType
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./thumbnail/sling:resourceType"
+                                            value="aemdesign/components/media/image"/>
+
+                                </items>
+                            </attributes>
+                        </items>
+                    </column>
+                </items>
+            </thumbnailImageTab>
+
             <imageBackgroundTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Background Image"
@@ -314,7 +362,7 @@
                                             multiple="{Boolean}false"
                                             name="./bgimage/file"
                                             uploadUrl="${suffix.path}"
-                                            allowUpload="false"
+                                            allowUpload="{Boolean}false"
                                             cropParameter="./bgimage/imageCrop"
                                             mapParameter="./bgimage/imageMap"
                                             requestSuffix=".img.png"
@@ -363,7 +411,7 @@
                                             multiple="{Boolean}false"
                                             name="./bgvideo/file"
                                             uploadUrl="${suffix.path}"
-                                            allowUpload="false"
+                                            allowUpload="{Boolean}false"
                                             cropParameter="./bgvideo/imageCrop"
                                             mapParameter="./bgvideo/imageMap"
                                             requestSuffix=".img.png"
@@ -412,7 +460,7 @@
                                             multiple="{Boolean}false"
                                             name="./badgeThumbnail/file"
                                             uploadUrl="${suffix.path}"
-                                            allowUpload="false"
+                                            allowUpload="{Boolean}false"
                                             cropParameter="./badgeThumbnail/imageCrop"
                                             mapParameter="./badgeThumbnail/imageMap"
                                             requestSuffix=".img.png"
@@ -460,7 +508,7 @@
                                             multiple="{Boolean}false"
                                             name="./secondaryImage/file"
                                             uploadUrl="${suffix.path}"
-                                            allowUpload="false"
+                                            allowUpload="{Boolean}false"
                                             cropParameter="./secondaryImage/imageCrop"
                                             mapParameter="./secondaryImage/imageMap"
                                             requestSuffix=".img.png"

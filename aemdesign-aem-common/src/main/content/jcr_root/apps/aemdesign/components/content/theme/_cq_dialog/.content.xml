@@ -79,7 +79,7 @@
                                             fieldLabel="Style Path"
                                             name="./cssPath"
                                             required="{Boolean}false"
-                                            rootPath="/etc/designs/aemdesign/css/main/minisite"/>
+                                            rootPath="/apps/settings/wcm/design/css/main/minisite"/>
                                 </items>
                             </theme>
                         </items>

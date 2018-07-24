@@ -24,6 +24,7 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
+    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME));
 
     Map<String, String> contentBlockList = new LinkedHashMap<String, String>();
     Resource menuSource = resource.getParent();
@@ -31,7 +32,7 @@
     if(componentProperties.get(FIELD_MENUSOURCE, DEFAULT_MENUSOURCE_PARENT).equals(DEFAULT_MENUSOURCE_PAGEPATH)) {
         String menuSourcePagePath = componentProperties.get(FIELD_MENUSOURCEPAGEPATH, "");
         if (isNotEmpty(menuSourcePagePath)) {
-            Resource menuSourcePagePathRes = _currentPage.getContentResource(menuSourcePagePath);
+            Resource menuSourcePagePathRes = _resourceResolver.getResource(menuSourcePagePath);
             if (menuSourcePagePathRes != null) {
                 menuSource = menuSourcePagePathRes;
             }

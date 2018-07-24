@@ -6,7 +6,7 @@
 <%@include file="/apps/aemdesign/global/i18n.jsp" %>
 
 <%
-    //no lambada is available so this is the best that can be done
+    //not using lamda is available so this is the best that can be done
 
 
     Object[][] componentFields = {

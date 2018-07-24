@@ -69,7 +69,7 @@
                     if (!"JspException".equals(ex.getClass().getSimpleName())) {
                         throw ex;
                     }
-                    %><p class="cq-error">Variation not found for this content type</p><%
+                    %><div class="cq-error">Variation not found for this content type</div><%
                 }
                 finally {
 

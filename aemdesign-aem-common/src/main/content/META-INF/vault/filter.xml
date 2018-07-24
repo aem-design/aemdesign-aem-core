@@ -7,45 +7,25 @@
         <exclude pattern="/apps/aemdesign/config(.*)?"/>
     </filter>
 
-    <!--<filter root="/etc/workflow" mode="update">-->
+    <!--<filter root="/conf/global/settings/workflow" mode="update">-->
         <!--&lt;!&ndash; Exclude the instances to avoid overriding &ndash;&gt;-->
-        <!--<exclude pattern="/etc/workflow/instances(/.*)?"/>-->
+        <!--<exclude pattern="/conf/global/settings/workflow/instances(/.*)?"/>-->
     <!--</filter>-->
 
-    <filter root="/etc/designs/aemdesign">
-        <!-- Exclude the content.xml to avoid overriding
-        <exclude pattern="/etc/designs/aemdesign/jcr:.*"/> -->
-    </filter>
+    <filter root="/apps/settings/wcm/design/aemdesign" mode="update"/>
 
-    <filter root="/etc/clientlibs/aemdesign"/>
+    <filter root="/etc/clientlibs/aemdesign" mode="update"/>
 
-    <!--<filter root="/etc/designs/default" mode="update"/>-->
+    <filter root="/content/cq:tags/.content.xml" mode="update"/>
 
-    <filter root="/etc/tags/content-type" mode="update"/>
-    <filter root="/etc/tags/component-style-theme" mode="update"/>
-    <filter root="/etc/tags/component-style-modifier" mode="update"/>
-    <filter root="/etc/tags/component-style-module" mode="update"/>
-    <filter root="/etc/tags/component-style-chevron" mode="update"/>
-    <filter root="/etc/tags/component-style-icon" mode="update"/>
-    <filter root="/etc/tags/component-dialog" mode="update"/>
-    <filter root="/etc/tags/component-topic" mode="update"/>
-    <filter root="/etc/tags/component-aria" mode="update"/>
-    <filter root="/etc/tags/component-analytics" mode="update"/>
+    <filter root="/conf/global/settings/workflow/models/aemdesign" mode="update"/>
+    <filter root="/conf/global/settings/workflow/notification/aemdesign" mode="update"/>
+    <filter root="/conf/global/settings/workflow/launcher/config/aemdesign" mode="update"/>
 
-    <filter root="/etc/tags/language" mode="update"/>
-
-    <filter root="/etc/tags/.content.xml" mode="update"/>
-
-    <filter root="/etc/cloudservices/rest" mode="update"/>
-    <filter root="/etc/cloudservices/salesforceapi" mode="update"/>
-
-
-
-    <filter root="/etc/workflow/models/aemdesign" mode="update"/>
-    <filter root="/etc/workflow/notification/aemdesign" mode="update"/>
-    <filter root="/etc/workflow/launcher/config/aemdesign" mode="update"/>
-
-    <filter root="/conf/aemdesign"/>
+    <filter root="/conf/aemdesign/settings/wcm" mode="update"/>
+    <filter root="/conf/aemdesign/global/settings/workflow/launcher/config/aemdesign" mode="update"/>
+    <filter root="/conf/aemdesign/global/settings/workflow/models/aemdesign" mode="update"/>
+    <filter root="/conf/aemdesign/global/settings/workflow/notification/aemdesign" mode="update"/>
 
     <filter root="/etc/blueprints/aemdesign-english"/>
     <filter root="/etc/blueprints/aemdesign-german"/>

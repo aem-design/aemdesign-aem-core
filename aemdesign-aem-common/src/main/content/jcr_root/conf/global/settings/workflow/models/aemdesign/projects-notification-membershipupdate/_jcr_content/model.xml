@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:isCheckedOut="{Boolean}false"
+    jcr:primaryType="cq:WorkflowModel"
+    jcr:uuid="ec8cc158-772c-4cd9-9c49-779977d42299"
+    sling:resourceType="cq/workflow/components/model"
+    description="No Description"
+    title="Project Notification Membership Update">
+    <metaData
+        jcr:primaryType="nt:unstructured"/>
+    <nodes jcr:primaryType="nt:unstructured">
+        <node0
+            jcr:primaryType="cq:WorkflowNode"
+            title="Start"
+            type="START">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node0>
+        <node1
+            jcr:primaryType="cq:WorkflowNode"
+            description="A process to send email using node metadata"
+            title="Send Email"
+            type="PROCESS">
+            <metaData
+                jcr:primaryType="nt:unstructured"
+                emailSubject="Project Update"
+                fieldconfig="[{&quot;key&quot;:&quot;teamMembers&quot;\,&quot;value&quot;:&quot;./rep:members&quot;\,&quot;action&quot;:&quot;&quot;},{&quot;key&quot;:&quot;projectPath&quot;\,&quot;value&quot;:&quot;./rep:authorizableId&quot;\,&quot;action&quot;:&quot;&quot;},{&quot;key&quot;:&quot;groupTitle&quot;\,&quot;value&quot;:&quot;./profile/givenName&quot;\,&quot;action&quot;:&quot;&quot;},{&quot;key&quot;:&quot;groupId&quot;\,&quot;value&quot;:&quot;./rep:principalName&quot;\,&quot;action&quot;:&quot;&quot;},{&quot;key&quot;:&quot;teamMembersEmails&quot;\,&quot;value&quot;:&quot;./rep:authorizableId&quot;\,&quot;action&quot;:&quot;getProjectTeamEmailsFromGroup&quot;},{&quot;key&quot;:&quot;teamMembersNames&quot;\,&quot;value&quot;:&quot;./rep:authorizableId&quot;\,&quot;action&quot;:&quot;getProjectTeamNamesFromGroup&quot;},{&quot;key&quot;:&quot;toEmailList&quot;\,&quot;value&quot;:&quot;./rep:authorizableId&quot;\,&quot;action&quot;:&quot;getProjectTeamEmailsFromGroup&quot;}]"
+                fromEmail="noreply@aem.design"
+                PROCESS="/apps/aemdesign/components/workflow/sendemail/scripts/sendemail.ecma"
+                PROCESS_AUTO_ADVANCE="true"
+                templatePath="/conf/global/settings/workflow/notification/aemdesign/default/to.user.when.memebershipupdate/en.html"/>
+        </node1>
+        <node2
+            jcr:primaryType="cq:WorkflowNode"
+            title="End"
+            type="END">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node2>
+    </nodes>
+    <transitions jcr:primaryType="nt:unstructured">
+        <node0_x0023_node1
+            jcr:primaryType="cq:WorkflowTransition"
+            from="node0"
+            rule=""
+            to="node1">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node0_x0023_node1>
+        <node1_x0023_node2
+            jcr:primaryType="cq:WorkflowTransition"
+            from="node1"
+            to="node2">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node1_x0023_node2>
+    </transitions>
+</jcr:root>

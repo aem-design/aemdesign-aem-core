@@ -137,12 +137,6 @@
                                                     path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/tabConfigGroup"
                                                     resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                                            <animationConfigGroup
-                                                    jcr:primaryType="nt:unstructured"
-                                                    jcr:title="Badge Animation"
-                                                    path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/animationConfigGroup"
-                                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
                                     </col1>
                                 </items>

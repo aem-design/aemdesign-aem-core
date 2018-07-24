@@ -67,9 +67,7 @@
         <c:if test="${fn:length(componentProperties.tags) > 0}">
             <span class="label">${componentProperties.tags[0].localizedTitles[LOCALE]}</span>
         </c:if>
-        <p>
-            ${componentProperties.description}
-        </p>
+        <div class="card-text">${componentProperties.description}</div>
     </div>
 
     <div class="col-3 thumbnail">

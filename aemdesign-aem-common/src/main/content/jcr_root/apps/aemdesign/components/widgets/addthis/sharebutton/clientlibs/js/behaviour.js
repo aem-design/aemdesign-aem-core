@@ -3,7 +3,8 @@ window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.sharebutton = AEMDESIGN.components.sharebutton || {};
 
-(function ($, _, ko, ns, window, undefined) { //add additional dependencies
+//add additional dependencies
+(function ($, _, ko, ns, window, undefined) { //NOSONAR convention for wrapping all modules
 
     $(document).ready(function () {
 

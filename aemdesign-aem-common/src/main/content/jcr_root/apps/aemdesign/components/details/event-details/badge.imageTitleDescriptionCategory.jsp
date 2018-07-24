@@ -89,7 +89,7 @@
                        title="${componentProperties.imgAlt}">${componentProperties.title}</a>
                 </h3>
 
-                <p>${componentProperties.description}</p>
+                <div class="card-text">${componentProperties.description}</div>
             </div>
         </div>
     </section>

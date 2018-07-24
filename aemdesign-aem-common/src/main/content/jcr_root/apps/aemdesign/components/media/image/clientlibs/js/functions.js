@@ -4,7 +4,7 @@ window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.image = AEMDESIGN.components.image || {};
 
 
-(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
+(function ($, _, ko, ns, log, window, undefined) { //NOSONAR convention for wrapping all modules
 
     // Enable strict mode
     "use strict";

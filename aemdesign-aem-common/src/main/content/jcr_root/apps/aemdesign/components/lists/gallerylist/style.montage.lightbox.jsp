@@ -1,5 +1,5 @@
 <div ${componentProperties.componentAttributes}>
-    <div>
+    <div class="content">
         <c:forEach items="${componentProperties.listItems}" var="item">
             <div class="cell aqua">
                 <a class="caption lightbox <c:if test='${item.isvideo}'>media</c:if>"

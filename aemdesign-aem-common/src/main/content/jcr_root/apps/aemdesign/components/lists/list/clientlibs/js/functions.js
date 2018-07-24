@@ -4,7 +4,7 @@ window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.list = AEMDESIGN.components.list || {};
 
 
-(function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
+(function ($, _, ko, ns, log, window, undefined) { //NOSONAR convention for wrapping all modules
 
 
     "use strict";
@@ -40,8 +40,16 @@ window.AEMDESIGN.components.list = AEMDESIGN.components.list || {};
      * @returns {*}
      */
     ns.getQueryParameters = function(str) {
-        return (str || document.location.search).replace(/(^\?)/,'').split("&").map(function(n){return n = n.split("="),this[n[0]] = n[1],this}.bind({}))[0];
-    }
+        return (str || document.location.search)
+            .replace(/(^\?)/,'')
+            .split("&")
+            .map(function(n){
+                n = n.split("=");
+                this[n[0]] = n[1];
+                return this;
+            }.bind({}))
+            [0];
+    };
 
 
     ns.extractObject = function(queryString) {
@@ -59,7 +67,7 @@ window.AEMDESIGN.components.list = AEMDESIGN.components.list || {};
         }
 
         return paramObj;
-    }
+    };
 
     ns.combineQueryStrings = function(queryString1, queryString2) {
         var paramObj1 = ns.extractObject(queryString1);
@@ -80,34 +88,35 @@ window.AEMDESIGN.components.list = AEMDESIGN.components.list || {};
 
         var conslidateQueryStrings = "";
 
-        var start, max;
+        var start=0;
+        var max=0;
 
-        for (var param in paramObj) {
-            if (param.match(ns.startParaNameSuffix())){
-                start = paramObj[param];
+        for (var param1 in paramObj) {
+            if (param1.match(ns.startParaNameSuffix())){
+                start = paramObj[param1];
             }
 
-            if (param.match(ns.maxParaNameSuffix())){
-                max = paramObj[param];
+            if (param1.match(ns.maxParaNameSuffix())){
+                max = paramObj[param1];
             }
 
         }
 
-        if (start > 0 && max > 0){
+        if (start !== undefined && max !== undefined &&  start > 0 && max > 0){
 
-            for (var param in paramObj) {
-                if (param.match(ns.startParaNameSuffix())){
-                    paramObj[param] = 0;
+            for (var param2 in paramObj) {
+                if (param2.match(ns.startParaNameSuffix())){
+                    paramObj[param2] = 0;
                 }
 
-                if (param.match(ns.maxParaNameSuffix())){
+                if (param2.match(ns.maxParaNameSuffix())){
 
-                    paramObj[param] = parseInt(start) + parseInt(max);
+                    paramObj[param2] = parseInt(start) + parseInt(max);
                 }
-                if (conslidateQueryStrings != "") {
+                if (conslidateQueryStrings !== "") {
                     conslidateQueryStrings += "&";
                 }
-                conslidateQueryStrings += param + "=" + paramObj[param];
+                conslidateQueryStrings += param2 + "=" + paramObj[param2];
 
             }
 
@@ -144,9 +153,9 @@ window.AEMDESIGN.components.list = AEMDESIGN.components.list || {};
         // do XHR to load list
         var  xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4
-                && xhr.status == 200
-                && xhr.responseText != "") {
+            if (xhr.readyState === 4
+                && xhr.status === 200
+                && xhr.responseText !== "") {
                 var targetList = document.getElementById(listId);
                 if (targetList) {
 
@@ -158,7 +167,7 @@ window.AEMDESIGN.components.list = AEMDESIGN.components.list || {};
                     }
 
                     if (ns.currentState()
-                        && ns.currentState().listId != listId) {
+                        && ns.currentState().listId !== listId) {
                         ns.currentState()["extraListId"] = listId;
                         ns.currentState()["extraContent"] = targetList.outerHTML;
                         window.history.replaceState(ns.currentState(), null, window.location.href);
@@ -182,7 +191,7 @@ window.AEMDESIGN.components.list = AEMDESIGN.components.list || {};
                     var stateContent = innerHTML;
                     var currentUrl = window.location.href;
                     var currentQueryString = "";
-                    var queryIdx = currentUrl.indexOf("?");
+                    var queryIdx = currentUrl.indexOf("?"); //NOSONAR internal to this function
                     if (queryIdx >= 0) {
                         currentQueryString = currentUrl.substring(queryIdx + 1);
                         currentUrl = currentUrl.substring(0, queryIdx);
@@ -190,7 +199,6 @@ window.AEMDESIGN.components.list = AEMDESIGN.components.list || {};
 
 
                     var useQueryString = ns.combineQueryStrings(currentQueryString, queryString);
-                    //log.info(["currentQueryString",currentQueryString,"queryString",queryString,"useQueryString",useQueryString]);
 
                     var currentState = {
                         listId: listId,
@@ -209,10 +217,8 @@ window.AEMDESIGN.components.list = AEMDESIGN.components.list || {};
 
     ns.handlePopStateListNavigation = function(event) {
 
-        if (event.state) {
-            if (event.state.listId) {
-                window.location.reload();
-            }
+        if (event.state && event.state.listId) {
+            window.location.reload();
         }
     };
 

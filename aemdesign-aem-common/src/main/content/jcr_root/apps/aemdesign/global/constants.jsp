@@ -68,33 +68,33 @@
             "<div class=\"cq-dd-video cq-video-placeholder\"></div>";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_CHART =
-            "<img src=\"/etc/designs/admin/0.gif\" class=\"cq-chart-placeholder\">";
+            "<img src=\"/apps/settings/wcm/design/aemdesign/blank.png\" class=\"cq-chart-placeholder\">";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_TAGCLOUD =
-            "<img src=\"/libs/cq/ui/resources/0.gif\" class=\"cq-tagcloud-placeholder\" alt=\"\">";
+            "<img src=\"/apps/settings/wcm/design/aemdesign/blank.png\" class=\"cq-tagcloud-placeholder\" alt=\"\">";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_LINK =
-            "<img src=\"/libs/cq/ui/resources/0.gif\" class=\"cq-reference-placeholder cq-dd-paragraph\" alt=\"\">";
+            "<img src=\"/apps/settings/wcm/design/aemdesign/blank.png\" class=\"cq-reference-placeholder cq-dd-paragraph\" alt=\"\">";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_TABLE =
-            "<img src=\"/libs/cq/ui/resources/0.gif\" class=\"cq-table-placeholder\" alt=\"\">";
+            "<img src=\"/apps/settings/wcm/design/aemdesign/blank.png\" class=\"cq-table-placeholder\" alt=\"\">";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_LIST =
-            "<img src=\"/libs/cq/ui/resources/0.gif\" class=\"cq-list-placeholder\" alt=\"\">";
+            "<img src=\"/apps/settings/wcm/design/aemdesign/blank.png\" class=\"cq-list-placeholder\" alt=\"\">";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_IMAGE =
-            "<img title=\"\" alt=\"\" class=\"cq-dd-image cq-image-placeholder\" src=\"/etc/designs/admin/0.gif\">";
+            "<img title=\"\" alt=\"\" class=\"cq-dd-image cq-image-placeholder\" src=\"/apps/settings/wcm/design/aemdesign/blank.png\">";
 
     public final static String DEFAULT_TOUCH_PLACEHOLDER_IMAGE =
             "<div class=\"cq-placeholder cq-dd-image\" data-emptytext=\"Image\"></div>";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_CAROUSEL =
-            "<img src=\"/libs/cq/ui/resources/0.gif\" class=\"cq-carousel-placeholder\" alt=\"\">";
+            "<img src=\"/apps/settings/wcm/design/aemdesign/blank.png\" class=\"cq-carousel-placeholder\" alt=\"\">";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_TEXT =
             "<span class=\"cq-text-placeholder-ipe\">&para;</span>";
 
-    private static final String DEFAULT_IMAGE_BLANK = "/libs/cq/ui/resources/0.gif"; // /etc/designs/default/0.gif
+    private static final String DEFAULT_IMAGE_BLANK = "/apps/settings/wcm/design/aemdesign/blank.png";
 
     private static final int DEFAULT_THUMB_WIDTH_XSM = 140;
     private static final int DEFAULT_THUMB_WIDTH_SM = 319;
@@ -119,12 +119,15 @@
     public static final String FIELD_THUMBNAIL_TYPE = "thumbnailType";
 
     public static final String FIELD_PAGE_IMAGE = "pageImage";
+    public static final String FIELD_PAGE_IMAGE_THUMBNAIL = "pageImageThumbnail";
     public static final String FIELD_PAGE_IMAGE_ID = "pageImageId";
     public static final String FIELD_PAGE_IMAGE_LICENSE_INFO = "pageImageLicenseInfo";
-    public static final String FIELD_PAGE_IMAGE_SECONDARY = "pageSecondaryImage";
-    public static final String FIELD_PAGE_IMAGE_SECONDARY_THUMBNAIL = "pageSecondaryImageThumbnail";
-    public static final String FIELD_PAGE_IMAGE_BACKGROUND = "pageBackgroundImage";
-    public static final String FIELD_PAGE_IMAGE_THUMBNAIL = "pageImageThumbnail";
+    public static final String FIELD_PAGE_SECONDARY_IMAGE = "pageSecondaryImage";
+    public static final String FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL = "pageSecondaryImageThumbnail";
+    public static final String FIELD_PAGE_BACKGROUND_IMAGE = "pageBackgroundImage";
+    public static final String FIELD_PAGE_THUMBNAIL_IMAGE = "pageThumbnailImage";
+    public static final String FIELD_PAGE_THUMBNAIL_IMAGE_THUMBNAIL = "pageThumbnailImageThumbnail";
+    public static final String FIELD_PAGE_THUMBNAIL = "pageThumbnail";
     public static final String FIELD_PAGE_URL = "pageUrl";
     public static final String FIELD_PAGE_TITLE_NAV = "pageNavTitle";
     public static final String FIELD_PAGE_TITLE_SUBTITLE = "subtitle";

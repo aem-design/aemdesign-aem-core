@@ -9,19 +9,19 @@
     <%
 
         Object[][] componentFields = {
-
             //list
             {"listFrom", "children"},
-
             //page
             {"searchInPath", StringUtils.EMPTY},
             {"filterPage", _currentPage.getPath()},
             //dam asset
             {"collection", StringUtils.EMPTY},
             {"assetViewerPagePath", _currentPage.getPath()},
-
             {"backPage", StringUtils.EMPTY},
-            {"numOfFetchItems", 1}
+            {"numOfFetchItems", 1},
+            {"hiddenText","List Navigation is hidden"},
+            {"missingFilterText","Missing Filter Page or Wrong Content Type"},
+            {"noResultsText","No result found"},
         };
 
         ComponentProperties componentProperties = getComponentProperties(

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:isCheckedOut="{Boolean}false"
+    jcr:primaryType="cq:WorkflowModel"
+    jcr:uuid="65dbee92-1327-4a25-bbe3-7d76f51387d2"
+    sling:resourceType="cq/workflow/components/model"
+    description="Asset Co-Authoring Workflow"
+    title="Asset Co-Authoring Workflow">
+    <metaData
+        jcr:primaryType="nt:unstructured"
+        navTitle="Asset Co-Authoring Workflow"
+        pageTitle="Asset Co-Authoring Workflow"/>
+    <nodes jcr:primaryType="nt:unstructured">
+        <node0
+            jcr:primaryType="cq:WorkflowNode"
+            title="Start"
+            type="START">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node0>
+        <node1
+            jcr:primaryType="cq:WorkflowNode"
+            description="A process for managing tasks in a project"
+            title="Project Task Manager"
+            type="PROCESS">
+            <metaData
+                jcr:primaryType="nt:unstructured"
+                PROCESS="/apps/aemdesign/components/workflow/projecttaskmanager/scripts/projecttaskmanager.ecma"
+                PROCESS_AUTO_ADVANCE="false"
+                PROCESS_PERSIST_ANONYMOUS_WORKITEM="true"/>
+        </node1>
+        <node2
+            jcr:primaryType="cq:WorkflowNode"
+            description="Goto Step"
+            title="Go back and assign if not done"
+            type="PROCESS">
+            <metaData
+                jcr:primaryType="nt:unstructured"
+                PROCESS="com.adobe.granite.workflow.core.process.GotoProcess"
+                PROCESS_AUTO_ADVANCE="false"
+                script="function check() {&#xa;&#xa;    if (workflowData.getMetaDataMap().get(&quot;lastTaskAction&quot;,&quot;&quot;) == &quot;Finish&quot;) {&#xa;        return false&#xa;    }&#xa;    return true;&#xa;}"
+                TARGET_NODE_ID="node1"
+                TARGET_NODE_PATH="/conf/global/settings/workflow/models/aemdesign/asset-authoring-workflow/jcr:content/flow/projecttaskmanager"/>
+        </node2>
+        <node3
+            jcr:primaryType="cq:WorkflowNode"
+            description="A process for managing tasks in a project"
+            title="Project Task Manager"
+            type="PROCESS">
+            <metaData
+                jcr:primaryType="nt:unstructured"
+                PROCESS="/apps/aemdesign/components/workflow/projecttaskmanager/scripts/projecttaskmanager.ecma"
+                PROCESS_AUTO_ADVANCE="true"
+                PROCESS_PERSIST_ANONYMOUS_WORKITEM="true"/>
+        </node3>
+        <node4
+            jcr:primaryType="cq:WorkflowNode"
+            title="End"
+            type="END">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node4>
+    </nodes>
+    <transitions jcr:primaryType="nt:unstructured">
+        <node0_x0023_node1
+            jcr:primaryType="cq:WorkflowTransition"
+            from="node0"
+            rule=""
+            to="node1">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node0_x0023_node1>
+        <node1_x0023_node2
+            jcr:primaryType="cq:WorkflowTransition"
+            from="node1"
+            rule=""
+            to="node2">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node1_x0023_node2>
+        <node2_x0023_node3
+            jcr:primaryType="cq:WorkflowTransition"
+            from="node2"
+            rule=""
+            to="node3">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node2_x0023_node3>
+        <node3_x0023_node4
+            jcr:primaryType="cq:WorkflowTransition"
+            from="node3"
+            to="node4">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node3_x0023_node4>
+    </transitions>
+</jcr:root>

@@ -125,7 +125,7 @@
             if (!"JspException".equals(ex.getClass().getSimpleName())) {
                 throw ex;
             }
-        %><p class="cq-error">Variation not found for <%=badgeSelector%> content type (<%=script%> not found)</p><%
+        %><div class="cq-error">Variation not found for <%=badgeSelector%> content type (<%=script%> not found)</div><%
         }finally {
             enableEditMode(CURRENT_WCMMODE, _componentContext, defDecor, IncludeOptions.getOptions(request, true), _slingRequest);
         }

@@ -1,3 +1,3 @@
-<c:if test="<%= CURRENT_WCMMODE == WCMMode.EDIT %>">
-    <p class="component notfound"><small>PubID not set</small></p>
+<c:if test="${WCMMODE_EDIT == CURRENT_WCMMODE}">
+    <div class="component notfound">PubID not set</div>
 </c:if>

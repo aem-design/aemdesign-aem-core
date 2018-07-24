@@ -1,4 +1,4 @@
-<p ${componentProperties.componentAttributes}>
+<div ${componentProperties.componentAttributes}>
     <c:choose>
         <c:when test="${not empty componentProperties.redirectTarget}">
             ${componentProperties.redirectIsSet}
@@ -8,4 +8,4 @@
             ${componentProperties.redirectIsNotSet}
         </c:otherwise>
     </c:choose>
-</p>
+</div>

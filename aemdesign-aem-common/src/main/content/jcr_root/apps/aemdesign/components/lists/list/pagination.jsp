@@ -25,7 +25,7 @@
         <cq:include script="<%=script%>" />
     </c:catch>
     <c:if test="${ exception != null }">
-        <p class="cq-error">List initialize error.<br/>${exception.message}<br>${exception.stackTrace}</p>
+        <div class="cq-error">List initialize error.<br/>${exception.message}<br>${exception.stackTrace}</div>
     </c:if>
     <c:if test="${ exception == null }">
         <% //enableEditMode(CURRENT_WCMMODE, _componentContext, defDecor, IncludeOptions.getOptions(request, true), _slingRequest); %>

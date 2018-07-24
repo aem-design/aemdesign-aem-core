@@ -1,6 +1,6 @@
 <%@page session="false" %>
 <%@ page import="com.adobe.granite.ui.components.AttrBuilder" %>
-<%@ page import="com.adobe.granite.xss.XSSAPI" %>
+<%@ page import="org.apache.sling.xss.XSSAPI" %>
 <%@ page import="com.day.cq.dam.api.DamConstants" %>
 <%@ page import="com.day.cq.wcm.api.components.Component" %>
 <%@ page import="com.day.cq.wcm.api.components.ComponentContext" %>
@@ -42,7 +42,7 @@
 
     public static final String NODE_PAR = "./article/par";
 
-    public static final String DEFAULT_PATH_TAGS = "/etc/tags";
+    public static final String DEFAULT_PATH_TAGS = "/content/cq:tags";
 
     public static final String NODE_DETAILS = "*-details";
 
@@ -73,14 +73,6 @@
     private static final String DETAILS_CARD_ICONSHOW = "cardIconShow";
     private static final String DETAILS_CARD_ICON = "cardIcon";
     private static final String DETAILS_PAGE_ICON = "pageIcon";
-    
-    //animation badge config
-    private static final String DETAILS_ANIMATION_ENABLED = "badgeAnimationEnabled";
-    private static final String DETAILS_ANIMATION_NAME = "badgeAnimationName";
-    private static final String DETAILS_ANIMATION_ONCE = "badgeAnimationOnce";
-    private static final String DETAILS_ANIMATION_EASING = "badgeAnimationEasing";
-    private static final String DETAILS_ANIMATION_DELAY = "badgeAnimationDelay";
-    private static final String DETAILS_ANIMATION_DURATION = "badgeAnimationDuration";
 
     //shared badge config passed from list to all badge elements
     private static final String DETAILS_LINK_TARGET = "badgeLinkTarget";
@@ -112,6 +104,7 @@
     private static final String DEFAULT_IMAGE_GENERATED_FORMAT = "{0}.img.png/{1}.png";
 
     private static final String DEFAULT_IMAGE_RESOURCETYPE = "aemdesign/components/media/image";
+    private static final String DEFAULT_IMAGE_RESOURCETYPE_SUFFIX = "/components/media/image";
 
     private static final String COMPONENT_ATTRIBUTES = "componentAttributes";
     private static final String COMPONENT_INSTANCE_NAME = "instanceName";
@@ -187,6 +180,7 @@
     private static final String DETAILS_COLUMNS_LAYOUT_CLASS_SMALL = "layoutColumnClassSmall";
     private static final String DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM = "layoutColumnClassMedium";
     private static final String DETAILS_COLUMNS_LAYOUT_CLASS_LARGE = "layoutColumnClassLarge";
+    private static final String DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE = "layoutColumnClassExtraLarge";
     private static final String DETAILS_COLUMNS_LAYOUT_ROW_CLASS = "layoutRowClass";
 
 
@@ -267,12 +261,6 @@
             {DETAILS_CARD_SIZE, "small"},
             {DETAILS_CARD_ICONSHOW, false},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_ANIMATION_ENABLED, false},
-            {DETAILS_ANIMATION_NAME, ""},
-            {DETAILS_ANIMATION_ONCE, ""},
-            {DETAILS_ANIMATION_EASING, ""},
-            {DETAILS_ANIMATION_DELAY, ""},
-            {DETAILS_ANIMATION_DURATION, ""},
             {DETAILS_LINK_TARGET, "_blank"},
             {DETAILS_LINK_TEXT, ""}, //getPageNavTitle(_currentPage)
             {DETAILS_LINK_TITLE, ""}, //getPageTitle(_currentPage)
@@ -296,7 +284,7 @@
             {DETAILS_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE_BADGE},
             {DETAILS_THUMBNAIL_ID, ""},
             {DETAILS_THUMBNAIL_LICENSE_INFO, ""},
-            {DETAILS_THUMBNAIL, DEFAULT_IMAGE_BLANK},
+            {DETAILS_THUMBNAIL, ""},
     };
 
     // {
@@ -314,12 +302,6 @@
             {DETAILS_CARD_SIZE, ""},
             {DETAILS_CARD_ICONSHOW, ""},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_ANIMATION_ENABLED, ""},
-            {DETAILS_ANIMATION_NAME, ""},
-            {DETAILS_ANIMATION_ONCE, ""},
-            {DETAILS_ANIMATION_EASING, ""},
-            {DETAILS_ANIMATION_DELAY, ""},
-            {DETAILS_ANIMATION_DURATION, ""},
             {DETAILS_LINK_TARGET, ""},
             {DETAILS_LINK_TEXT, ""}, //getPageNavTitle(_currentPage)
             {DETAILS_LINK_TITLE, ""}, //getPageTitle(_currentPage)
@@ -680,8 +662,8 @@
         try {
             SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) pageContext.getAttribute("slingRequest");
             HttpServletRequest request = (HttpServletRequest) slingRequest;
-            XSSAPI xssAPI = slingRequest.adaptTo(XSSAPI.class);
-            componentProperties.attr = new AttrBuilder(request, xssAPI);
+            com.adobe.granite.xss.XSSAPI oldXssAPI = slingRequest.adaptTo(com.adobe.granite.xss.XSSAPI.class);
+            componentProperties.attr = new AttrBuilder(request, oldXssAPI);
 
         } catch (Exception ex) {
             getLogger().error("getNewComponentProperties: could not configure componentProperties with attributeBuilder");
@@ -731,16 +713,17 @@
 
         SlingScriptHelper sling = (SlingScriptHelper)pageContext.getAttribute("sling");
         HttpServletRequest request = (HttpServletRequest)slingRequest;
-        XSSAPI xssAPI = slingRequest.adaptTo(XSSAPI.class);
+
+        com.adobe.granite.xss.XSSAPI oldXssAPI = slingRequest.adaptTo(com.adobe.granite.xss.XSSAPI.class);
 
         ComponentContext componentContext = (ComponentContext) pageContext.getAttribute("componentContext");
         Component component = componentContext.getComponent();
 
-        componentProperties.attr = new AttrBuilder(request, xssAPI);
+        componentProperties.attr = new AttrBuilder(request, oldXssAPI);
         if (addMoreAttributes) {
             componentProperties.attr.addBoolean("component", true);
         }
-//        AttrBuilder itemAttr = new AttrBuilder(request, xssAPI);
+//        AttrBuilder itemAttr = new AttrBuilder(request, oldXssAPI);
 
         final String CLASS_TYPE_RESOURCE = Resource.class.getCanonicalName();
         final String CLASS_TYPE_JCRNODERESOURCE = "org.apache.sling.jcr.resource.internal.helper.jcr.JcrNodeResource";
@@ -944,11 +927,11 @@
             Resource fileReference = imageResource.getChild("fileReference");
             if (fileReference != null) {
                 String imageSrc = "";
-                if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE)) {
+                if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE) || imageResource.getResourceType().endsWith(DEFAULT_IMAGE_RESOURCETYPE_SUFFIX)) {
                     Long lastModified = getLastModified(imageResource);
                     imageSrc = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, imageResource.getPath(), lastModified.toString());
+                    componentAttributes += MessageFormat.format(" style=\"background-image: url({0})\"", mappedUrl(resource.getResourceResolver(), imageSrc));
                 }
-                componentAttributes += MessageFormat.format(" style=\"background-image: url({0})\"", mappedUrl(resource.getResourceResolver(), imageSrc));
             }
         }
 

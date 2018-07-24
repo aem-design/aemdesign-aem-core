@@ -2,16 +2,16 @@
     <button class="navbar-toggler navbar-toggler-right"
             type="button"
             data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
+            data-target="#${componentProperties.componentId}Content"
+            aria-controls="${componentProperties.componentId}Content"
             aria-expanded="false"
             aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-button" href="#">${componentProperties.menuTitle}</a>
 <c:if test="${not empty(componentProperties.menuItems)}">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul ${componentProperties.componentAttributes}>
+    <div class="collapse navbar-collapse" id="${componentProperties.componentId}Content">
+    <ul class="menu">
     <c:forEach items="${componentProperties.menuItems}" var="link">
         <c:set var="activeCssSimple" value=""/>
         <c:if test="${link.current}">

@@ -32,15 +32,15 @@
     thumbnailPath = "/apps/aemdesign/templates/cloudconfig/googlemap/thumbnail.png";
 
 %>
-<div>
+<div class="content">
     <h3><%= i18n.get("Google Map API Settings") %></h3>
     <img src="<%= xssAPI.getValidHref(thumbnailPath) %>" alt="<%= xssAPI.encodeForHTMLAttr(serviceName) %>" style="float: left;" />
-    <div>
+    <div class="content">
         <ul style="float: left; margin: 0px;">
             <li><div class="li-bullet">
                 <strong><%= i18n.get("Command Method") %>: </strong><%= xssAPI.encodeForHTML(properties.get("commandMethod", "")) %></div></li>
             <li><div class="li-bullet"><strong><%= i18n.get("Google MAP API Key") %>: </strong><%= xssAPI.encodeForHTML(properties.get("googleApiKey", "")) %></div></li>
 
         </ul>
-    <div>
+    </div>
 </div>

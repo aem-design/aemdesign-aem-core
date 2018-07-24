@@ -604,7 +604,7 @@
     /**
      * manually resolve path to tag as OOTB does not have tennant support
      * @param tagID tagId path  [namespace]:[namespace/path/to/tag]
-     * @param tagsRoot root for tags default /etc/tags
+     * @param tagsRoot root for tags default /content/cq:tags
      * @return
      */
     private String getPathFromTagId(String tagID,String tagsRoot) {
@@ -631,4 +631,39 @@
 
         return tagsRoot + TagConstants.SEPARATOR + namespace + TagConstants.SEPARATOR + localID;
     }
+
+
+
+    /***
+     * return page tags and don't error
+     * @param page
+     * @return
+     */
+    private com.day.cq.tagging.Tag[] getPageTags(Page page) {
+        return getPageTags(page, new Tag[]{});
+    }
+
+    /***
+     * return page tags and don't error
+     * @param page
+     * @param defaultTags
+     * @return
+     */
+
+    private com.day.cq.tagging.Tag[] getPageTags(Page page, com.day.cq.tagging.Tag[] defaultTags) {
+
+        if (page == null) {
+            return defaultTags;
+        }
+
+        try {
+            return page.getTags();
+        } catch (Exception ex) {
+            getLogger().error("could not read page tags {}",page);
+        }
+
+        return new Tag[]{};
+    }
+
+
 %>

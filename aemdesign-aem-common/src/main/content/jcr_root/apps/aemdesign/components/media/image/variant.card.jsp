@@ -14,12 +14,12 @@
         </a>
         </c:if>
         <c:if test="${not empty componentProperties['dc:description']}">
-        <p class="card-text">${componentProperties['dc:description']}</p>
+        <div class="card-text">${componentProperties['dc:description']}</div>
         </c:if>
     </div>
     <c:if test="${not empty componentProperties.licenseInfo}">
     <div class="card-footer">
-        <small class="text-muted license">${componentProperties.licenseInfo}</small>
+        <span class="text-muted license">${componentProperties.licenseInfo}</span>
     </div>
     </c:if>
 </div>

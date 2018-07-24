@@ -40,51 +40,51 @@
                                             required="{Boolean}false"/>
                                     <componentTheme
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                             fieldLabel="Theme"
                                             fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
-                                            rootPath="/etc/tags/component-style-theme"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme"
                                             name="./componentTheme"/>
                                     <componentModifiers
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                             fieldLabel="Modifiers"
                                             fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
-                                            rootPath="/etc/tags/component-style-modifier"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
                                             name="./componentModifiers"/>
                                     <componentModules
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                             fieldLabel="Module"
                                             fieldDescription="Will be added as data-module attribute"
                                             multiple="{Boolean}true"
-                                            rootPath="/etc/tags/component-style-module"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-module"
                                             name="./componentModules"/>
                                     <componentChevron
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                             fieldLabel="Chevron"
                                             fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
-                                            rootPath="/etc/tags/component-style-chevron"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-chevron"
                                             name="./componentChevron"/>
                                     <componentIcon
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                             fieldLabel="Icon"
                                             fieldDescription="Will be added as class attributes"
                                             multiple="{Boolean}true"
-                                            rootPath="/etc/tags/component-style-icon"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
                                             name="./componentIcon"/>
                                     <componentBooleanAttrs
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                             fieldLabel="Boolean Attributes"
                                             fieldDescription="Will be added as tag attributes"
                                             multiple="{Boolean}true"
-                                            rootPath="/etc/tags/component-style-modifier"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
                                             name="./componentBooleanAttrs"/>
                                 </items>
                             </style>
@@ -120,99 +120,7 @@
                             </position>
                         </items>
                     </column2>
-                    <column3
-                            jcr:primaryType="nt:unstructured"
-                            class="u-coral-padding u-coral-noMargin"
-                            sling:resourceType="granite/ui/components/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
-                            <animation
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Animation"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <animationConfigGroupLabel
-                                            granite:class="fieldDescription"
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/text"
-                                            text="Applies CSS3 animations to this component if supported"/>
-                                    <animationEnabled
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                            fieldDescription="Should the animation be enabled for this component?"
-                                            fieldLabel="Enable animations"
-                                            name="./animationEnabled"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/etc/tags/component-dialog/common/true-false"/>
-                                    </animationEnabled>
-                                    <animationName
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                            fieldDescription="The type of animation to run"
-                                            fieldLabel="Name"
-                                            name="./animationName"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/etc/tags/component-dialog/html/animation/name"/>
-                                    </animationName>
-                                    <animationOnce
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                            fieldDescription="Should the animation only run once? By default is runs everytime you scroll past the element on the page"
-                                            fieldLabel="Run Once?"
-                                            name="./animationOnce"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/etc/tags/component-dialog/common/true-false"/>
-                                    </animationOnce>
-                                    <animationEasing
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                            fieldDescription="How should the animation play?"
-                                            fieldLabel="Easing"
-                                            name="./animationEasing"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/etc/tags/component-dialog/html/animation/easing"/>
-                                    </animationEasing>
-                                    <animationDelay
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                            defaultValue=""
-                                            fieldDescription="How many milliseconds should occur before the animation runs?"
-                                            fieldLabel="Delay"
-                                            name="./animationDelay"
-                                            required="{Boolean}false"
-                                            step="100"/>
-                                    <animationDuration
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                            defaultValue=""
-                                            fieldDescription="How long should the animation run for? Minimum is '400' and the maximum is '3000'. Values must be in increments of 50, i.e. 450, 500, 550..."
-                                            fieldLabel="Duration"
-                                            name="./animationDuration"
-                                            required="{Boolean}false"
-                                            step="50"/>
-                                </items>
-                            </animation>
-                        </items>
-                    </column3>
+
                 </items>
 
             </styleTab>

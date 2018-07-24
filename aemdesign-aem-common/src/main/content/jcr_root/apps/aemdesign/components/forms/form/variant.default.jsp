@@ -21,11 +21,11 @@
     // check if we have validation errors
     final ValidationInfo info = ValidationInfo.getValidationInfo(request);
     if ( info != null ) {
-        %><p class="form_error"><fmt:message key="Please correct the errors and send your information again."/></p><%
+        %><div class="form_error"><fmt:message key="Please correct the errors and send your information again."/></div><%
         final String[] msgs = info.getErrorMessages(null);
         if ( msgs != null ) {
             for(int i=0;i<msgs.length;i++) {
-                %><p class="form_error"><%=msgs[i]%></p><%
+                %><div class="form_error"><%=msgs[i]%></div><%
             }
         }
     }

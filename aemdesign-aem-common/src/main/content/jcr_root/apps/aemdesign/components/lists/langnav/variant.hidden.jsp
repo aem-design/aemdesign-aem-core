@@ -1,5 +1,5 @@
 <div class="${componentProperties.cssClassRow}">
+    <c:if test="<%= CURRENT_WCMMODE == WCMMode.EDIT %>">
+        <div class="component notfound">Language Select is hidden</div>
+    </c:if>
 </div>
-<c:if test="<%= CURRENT_WCMMODE == WCMMode.EDIT %>">
-    <p class="component notfound"><small>Language Select is hidden</small></p>
-</c:if>

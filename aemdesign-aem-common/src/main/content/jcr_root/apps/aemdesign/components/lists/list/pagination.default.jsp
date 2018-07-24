@@ -32,7 +32,5 @@
             <a href="<c:out value="${componentProperties.list.previousPageLink}"/>">Previous</a>
         </div>
     </c:if>
-    <p>
-        [${componentProperties.list.pageStart + 1} - ${componentProperties.pageEnd}] of ${componentProperties.maxItem}
-    </p>
+    <div class="label">[${componentProperties.list.pageStart + 1} - ${componentProperties.pageEnd}] of ${componentProperties.maxItem}</div>
 </div>

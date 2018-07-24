@@ -125,8 +125,7 @@
                         </h3>
                     </c:if>
 
-                    <p>${componentProperties.description}
-                    </p>
+                    <div class="card-text">${componentProperties.description}</div>
                 </div>
             </div>
         </section>

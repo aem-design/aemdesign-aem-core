@@ -1,4 +1,4 @@
 
 
-../css/author/aemdesign.author.css
-../css/author/aemdesign.dialog.css
+css/author.css
+css/dialog.css

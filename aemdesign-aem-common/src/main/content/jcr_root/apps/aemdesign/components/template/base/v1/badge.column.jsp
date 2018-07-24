@@ -27,11 +27,11 @@
     <a href="<%= pagePath %>" class="hl">
         <c:choose>
             <c:when test="<%= fileReference != null || hideThumbnail %>">
-                <p class="highlightItem"></p>
+                <div class="highlightItem"></div>
             </c:when>
             <c:otherwise>
-                <p class="highlightItem"
-                   style="background-image: url('<%= mappedUrl(_resourceResolver, fileReference) %>'); background-position: top center;"><!----></p>
+                <div class="highlightItem"
+                   style="background-image: url('<%= mappedUrl(_resourceResolver, fileReference) %>'); background-position: top center;"><!----></div>
             </c:otherwise>
         </c:choose>
     </a>

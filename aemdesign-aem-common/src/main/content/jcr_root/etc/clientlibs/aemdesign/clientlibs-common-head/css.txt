@@ -1,13 +1,4 @@
-../vendor/tether/css/tether.css
+../vendorlib/tether/css/tether.css
 
-#../vendor/jquery-ui/jquery-ui.css
-#../vendor/jquery-ui/jquery-ui.structure.css
-#../vendor/jquery-ui/jquery-ui.theme.css
+../vendorlib/font-awesome/css/font-awesome.css
 
-#../vendor/bootstrap/css/bootstrap.css
-
-../vendor/font-awesome/css/font-awesome.css
-
-../css/aemdesign.css
-../css/aemdesign.padding.css
-../css/aemdesign.margin.css

@@ -1,6 +1,5 @@
-<%@ page import="com.day.cq.wcm.api.WCMMode" %>
-<%@ page import="java.net.URL" %>
-<%@ page import="java.net.MalformedURLException" %>
+<%@ page import="org.apache.sling.api.resource.Resource" %>
+<%@ page import="org.apache.sling.api.resource.ResourceUtil" %>
 <%@ include file="/apps/aemdesign/global/global.jsp"%>
 <%@ include file="/apps/aemdesign/global/components.jsp"%>
 <%@ include file="/apps/aemdesign/global/i18n.jsp" %>
@@ -37,8 +36,11 @@
     String linkUrl = componentProperties.get(FIELD_LINKURL, StringUtils.EMPTY);
 
     if (isNotEmpty(linkUrl)) {
-        if(!linkUrl.endsWith(DEFAULT_EXTENTION) && !linkUrl.contains(DEFAULT_LINKURL)){
-            linkUrl= linkUrl.concat(DEFAULT_EXTENTION);
+        Resource linkResource = _resourceResolver.resolve(linkUrl);
+        if (!ResourceUtil.isNonExistingResource(linkResource) && linkResource.isResourceType(NameConstants.NT_PAGE)) {
+            if (!linkUrl.endsWith(DEFAULT_EXTENTION) && !linkUrl.contains(DEFAULT_LINKURL)) {
+                linkUrl = linkUrl.concat(DEFAULT_EXTENTION);
+            }
         }
 
         linkUrl = _xssAPI.getValidHref(linkUrl);

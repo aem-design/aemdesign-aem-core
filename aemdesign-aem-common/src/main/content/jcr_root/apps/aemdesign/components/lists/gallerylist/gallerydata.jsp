@@ -3,6 +3,7 @@
 <%@ page import="com.day.cq.dam.api.DamConstants" %>
 <%@ page import="org.apache.sling.resource.collection.ResourceCollectionManager" %>
 <%@ page import="org.apache.sling.resource.collection.ResourceCollection" %>
+<%@ page import="org.apache.sling.jcr.resource.api.JcrResourceConstants" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%!
 
@@ -145,7 +146,7 @@
 //                        }
 //                    }
 //                } else if (tags.startsWith("honda-product")) {
-//                    tags = "/etc/tags/" + tags.replace(':', '/');
+//                    tags = "/content/cq:tags/" + tags.replace(':', '/');
 //                    Node tagNode  = resolver.resolve(tags).adaptTo(Node.class);
 //                    try {
 //                        //get the title of the tag
@@ -519,7 +520,7 @@
         while (collection.hasNext()){
             Resource res = (Resource)collection.next();
 
-            if (res.isResourceType("sling:OrderedFolder")){
+            if (res.isResourceType(JcrResourceConstants.NT_SLING_ORDERED_FOLDER)){
                 Iterator folderItem = res.listChildren();
                 result.addAll(traverseCollectionFolder(folderItem));
             }else{

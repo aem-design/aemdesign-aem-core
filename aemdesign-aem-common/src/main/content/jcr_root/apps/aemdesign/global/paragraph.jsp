@@ -108,7 +108,7 @@
      */
     final void openCol(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
 
-        openCol(par.getBaseCssClass().split(","),par.getColNr(),par.getCssClass(),out,componentProperties, columnClassStyle);
+        openCol(Arrays.asList(par.getBaseCssClass().split(",")),par.getColNr(),par.getCssClass(),out,componentProperties, columnClassStyle);
 
     }
 
@@ -121,12 +121,19 @@
      * @param componentProperties columns componentProperties
      * @throws IOException
      */
-    final void openCol(String[] columnsFormat, Integer colNumber, String columnClass, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
+    final void openCol(List<String> columnsFormat, Integer colNumber, String columnClass, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
 
         //print column start
-        if (columnsFormat.length > 1 && (colNumber + 1) < columnsFormat.length) {
+        if (columnsFormat.size() >= 1 && columnsFormat.get(0).contains(",")) {
             //take the [0] = [col-md-] and add to it width by current column number
-            out.write(MessageFormat.format("<div class=\"{0} {1} {2}{3} {4}\">",COLUMNS_CLASS, COLUMN_CLASS, columnsFormat[0], columnsFormat[colNumber + 1], columnClassStyle)); //EXTENDED
+            StringBuilder columnClassBuilder = new StringBuilder();
+            for(int i=0; i < columnsFormat.size(); i++){
+                String spacer = (i == columnsFormat.size()-1 ? "" : " ");
+                columnClassBuilder.append(columnsFormat.get(i).split(",")[0]);
+                columnClassBuilder.append(columnsFormat.get(i).split(",")[colNumber + 1]);
+                columnClassBuilder.append(spacer);
+            }
+            out.write(MessageFormat.format("<div class=\"{0} {1} {2} {3}\">",COLUMNS_CLASS, COLUMN_CLASS, columnClassBuilder.toString(), columnClassStyle)); //EXTENDED
         } else {
             //out.write("<div class='parsys_column " + par.getBaseCssClass() + " col-" + n + "'>");
             out.write(MessageFormat.format("<div class=\"{0} {1} {2} {3}\">",COLUMNS_CLASS, COLUMN_CLASS, columnClass, columnClassStyle)); //ORIGINAL
@@ -141,12 +148,13 @@
      */
     final void openCol(Integer colNumber, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
 
-        String[] columnsFormat = new String[0];
+        //String[] columnsFormat = new String[0];
+        List<String> columnsFormat = new ArrayList<String>();
         String defaultFormat = "1;colctrl-1c"; //alt: col-md-,2,3,2,3,2
         String columnClass = "colctrl";
 
         if (componentProperties != null) {
-            columnsFormat = componentProperties.get("layout",defaultFormat).split(",");
+            columnsFormat = Arrays.asList(componentProperties.get("layout",defaultFormat).split(";"));
             columnClass = componentProperties.get("class",columnClass);
         }
 

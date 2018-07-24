@@ -3,9 +3,7 @@ window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.search = AEMDESIGN.components.search || {};
 
-(function ($, _, ko, utils, log, search, window, undefined) { //add additional dependencies
-
-    //log.enableLog();
+(function ($, _, ko, utils, log, search, window, undefined) { //NOSONAR convention for wrapping all modules
 
     $(document).ready(function () {
 

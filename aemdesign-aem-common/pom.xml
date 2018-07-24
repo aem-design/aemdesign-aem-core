@@ -9,6 +9,7 @@
         <groupId>aemdesign</groupId>
         <artifactId>aemdesign-parent</artifactId>
         <version>0.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <!-- ====================================================================== -->
@@ -197,6 +198,10 @@
                     <exclude>**/.DS_Store</exclude>
                     <exclude>**/target/**</exclude>
                     <exclude>**/pom.xml</exclude>
+                    <exclude>**/etc/clientlibs/aemdesign/css/**</exclude>
+                    <exclude>**/etc/clientlibs/aemdesign/fonts/**</exclude>
+                    <exclude>**/etc/clientlibs/aemdesign/js/**</exclude>
+                    <exclude>**/etc/clientlibs/aemdesign/images/**</exclude>
                 </excludes>
             </resource>
         </resources>
@@ -372,6 +377,9 @@
     <profiles>
         <profile>
             <id>autoInstallPackage</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -425,6 +433,9 @@
         </profile>
         <profile>
             <id>autoInstallBundle</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -472,16 +483,6 @@
 
             </dependencies>
         </profile>
-
-        <profile>
-            <id>java7</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <dependencies>
-
-            </dependencies>
-        </profile>
-
+        
     </profiles>
 </project>

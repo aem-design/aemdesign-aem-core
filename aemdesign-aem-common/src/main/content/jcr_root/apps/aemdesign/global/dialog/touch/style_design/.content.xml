@@ -35,12 +35,6 @@
                                     path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab/items/column2/items/position"
                                     resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                            <animation
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Animation"
-                                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab/items/column3/items/animation"
-                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
-                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
                         </items>
                     </col1>
                 </items>

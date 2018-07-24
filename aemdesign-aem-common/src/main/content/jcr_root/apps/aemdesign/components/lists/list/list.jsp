@@ -18,7 +18,7 @@
     final String DEFAULT_I18N_CATEGORY = "list";
     final String DEFAULT_BADGE = "default";
 
-    //no lambada is available so this is the best that can be done
+    //not using lamda is available so this is the best that can be done
     Object[][] componentFields = {
         {"feedEnabled", false},
         {"feedType", "rss"},
@@ -28,6 +28,8 @@
         {"orderBy", ""},
         {"detailsBadge", DEFAULT_BADGE},
         {"printStructure", DEFAULT_PRINT_STRUCTURE},
+        {com.day.cq.wcm.foundation.List.LIMIT_PROPERTY_NAME, ""},
+        {com.day.cq.wcm.foundation.List.PAGE_MAX_PROPERTY_NAME, ""},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -54,7 +56,7 @@
             String start_param = path.replace('/', '_').concat("_start");
 
             componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-has-pages", String.valueOf(list.isPaginating())));
-            
+
             int totalPages = 0;
             int itemsPerPage = list.getPageMaximum();
 
@@ -67,7 +69,7 @@
                     }
                 }
             }
-            
+
             componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-total-pages", String.valueOf(totalPages)));
 
             componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, "data-content-url", _resource.getPath().concat(DEFAULT_EXTENTION)));
@@ -112,6 +114,15 @@
 
     request.setAttribute(COMPONENT_PROPERTIES, componentProperties);
 
+    String strItemLimit = componentProperties.get(com.day.cq.wcm.foundation.List.LIMIT_PROPERTY_NAME, "");
+    String strPageItems = componentProperties.get(com.day.cq.wcm.foundation.List.PAGE_MAX_PROPERTY_NAME, "");
+
+    // no limit set, but pagination enabled, set limit to infinite
+    if (StringUtils.isBlank(strItemLimit) && !StringUtils.isBlank(strPageItems)) {
+        list.setLimit(Integer.MAX_VALUE);
+    }
+
+
 %>
 
 <%--LIST START--%>
@@ -119,7 +130,7 @@
     <cq:include script="list-start.jsp" />
 </c:catch>
 <c:if test="${ exception != null }">
-    <p class="cq-error">List start error<br>${exception.message}<br>${exception.stackTrace}</p>
+    <div class="cq-error">List start error<br>${exception.message}<br>${exception.stackTrace}</div>
 </c:if>
 
 <%--LIST FEED LINK--%>
@@ -127,7 +138,7 @@
     <cq:include script="list-feed.jsp" />
 </c:catch>
 <c:if test="${ exception != null }">
-    <p class="cq-error">List feed error<br>${exception.message}<br>${exception.stackTrace}</p>
+    <div class="cq-error">List feed error<br>${exception.message}<br>${exception.stackTrace}</div>
 </c:if>
 
 <%--LIST CONTENT START--%>
@@ -135,7 +146,7 @@
     <cq:include script="list-content-start.jsp" />
 </c:catch>
 <c:if test="${ exception != null }">
-    <p class="cq-error">List content start error<br>${exception.message}<br>${exception.stackTrace}</p>
+    <div class="cq-error">List content start error<br>${exception.message}<br>${exception.stackTrace}</div>
 </c:if>
 
 <%--LIST BODY CONFIG--%>
@@ -143,7 +154,7 @@
     <cq:include script="bodyData.jsp" />
 </c:catch>
 <c:if test="${ exception != null }">
-    <p class="cq-error">List body data error<br>${exception.message}<br>${exception.stackTrace}</p>
+    <div class="cq-error">List body data error<br>${exception.message}<br>${exception.stackTrace}</div>
 </c:if>
 
 <%--LIST BODY--%>
@@ -151,7 +162,7 @@
     <cq:include script="body.jsp" />
 </c:catch>
 <c:if test="${ exception != null }">
-    <p class="cq-error">List body error<br>${exception.message}<br>${exception.stackTrace}</p>
+    <div class="cq-error">List body error<br>${exception.message}<br>${exception.stackTrace}</div>
 </c:if>
 
 <%--LIST CONTENT END--%>
@@ -159,7 +170,7 @@
     <cq:include script="list-content-end.jsp" />
 </c:catch>
 <c:if test="${ exception != null }">
-    <p class="cq-error">List content end error<br>${exception.message}<br>${exception.stackTrace}</p>
+    <div class="cq-error">List content end error<br>${exception.message}<br>${exception.stackTrace}</div>
 </c:if>
 
 <%--LIST PAGINATION--%>
@@ -167,7 +178,7 @@
     <cq:include script="pagination.jsp" />
 </c:catch>
 <c:if test="${not empty exception}">
-    <p class="cq-error">List pagination error<br/>${exception.message}<br/>${exception.stackTrace}</p>
+    <div class="cq-error">List pagination error<br/>${exception.message}<br/>${exception.stackTrace}</div>
 </c:if>
 
 <%--LIST END--%>
@@ -175,7 +186,7 @@
     <cq:include script="list-end.jsp" />
 </c:catch>
 <c:if test="${ exception != null }">
-    <p class="cq-error">List end error<br>${exception.message}<br>${exception.stackTrace}</p>
+    <div class="cq-error">List end error<br>${exception.message}<br>${exception.stackTrace}</div>
 </c:if>
 
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>
