@@ -2,7 +2,11 @@ package design.aem.impl.commands;
 
 import design.aem.CommandHandler;
 import design.aem.CommandService;
-import org.apache.felix.scr.annotations.*;
+import org.apache.felix.scr.annotations.ReferenceCardinality;
+import org.apache.felix.scr.annotations.ReferencePolicy;
+import org.apache.felix.scr.annotations.Service;
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,14 +33,12 @@ public class CommandServiceImpl implements CommandService {
         commandHandlers = new CopyOnWriteArraySet<CommandHandler>();
     }
 
-    public void registerHandler(CommandHandler commandHandler)
-    {
+    public void registerHandler(CommandHandler commandHandler) {
         log.debug("Binding CommandHandler: {}", commandHandler);
         commandHandlers.add(commandHandler);
     }
 
-    public void unregisterHandler(CommandHandler commandHandler)
-    {
+    public void unregisterHandler(CommandHandler commandHandler) {
         log.debug("Unbinding CommandHandler: {}", commandHandler);
         commandHandlers.remove(commandHandler);
     }

@@ -31,11 +31,11 @@ public final class UserManagementUtil {
     public static final String PROPERTY_PROFILE_USER_FAMILY_NAME = PATH_PROFILE + "/familyName";
     public static final String PROPERTY_PROFILE_ABOUT = PATH_PROFILE + "/aboutMe";
 
-    /**
-     * Gets UserManager from session
-     * @param session
+    /***
+     * <p>Gets UserManager from session.</p>
+     * @param session JCR session
      * @return UserManager instance
-     * @throws RepositoryException
+     * @throws RepositoryException repository exception
      */
     public static UserManager getUserManager(Session session) throws RepositoryException {
         if (session == null) {
@@ -53,23 +53,23 @@ public final class UserManagementUtil {
         return getUser(resourceResolver.adaptTo(Session.class), resourceResolver.getUserID());
     }
 
-    /**
-     * Gets authorizable instance from ID
-     * @param session
-     * @param authorizableID
+    /***
+     * <p>Gets authorizable instance from ID.</p>
+     * @param session JCR session
+     * @param authorizableId id of user
      * @return User instance or null if not exists
-     * @throws RepositoryException
+     * @throws RepositoryException repository exception
      */
-    public static Authorizable getAuthorizable(Session session, String authorizableID) throws RepositoryException {
-        return getUserManager(session).getAuthorizable(authorizableID);
+    public static Authorizable getAuthorizable(Session session, String authorizableId) throws RepositoryException {
+        return getUserManager(session).getAuthorizable(authorizableId);
     }
 
     /**
-     * Gets user instance from a user ID
-     * @param session
-     * @param userId
+     * <p>Gets user instance from a user ID.</p>
+     * @param session JCR session
+     * @param userId is of user
      * @return User instance or null if not exists
-     * @throws RepositoryException
+     * @throws RepositoryException repository exception
      */
     public static User getUser(Session session, String userId) throws RepositoryException {
         Authorizable authorizable = getAuthorizable(session, userId);
@@ -80,11 +80,11 @@ public final class UserManagementUtil {
     }
 
     /**
-     * Gets group instance from a user ID
-     * @param session
-     * @param groupId
+     * <p>Gets group instance from a user ID.</p>
+     * @param session JCR session
+     * @param groupId is of group
      * @return Group instance or null if not exists
-     * @throws RepositoryException
+     * @throws RepositoryException repository exception
      */
     public static Group getGroup(Session session, String groupId) throws RepositoryException {
         Authorizable authorizable = getAuthorizable(session, groupId);
@@ -95,10 +95,10 @@ public final class UserManagementUtil {
     }
 
     /**
-     * Gets user formatted display name (given name + family name) or group name
+     * Gets user formatted display name (given name + family name) or group name.
      *
-     * @param resourceResolver
-     * @param authorizableId
+     * @param resourceResolver sling resolver
+     * @param authorizableId is of user
      * @return formatted display name or authorizable ID when name could not be determined
      */
     public static String getDisplayName(ResourceResolver resourceResolver, String authorizableId) {
@@ -106,11 +106,11 @@ public final class UserManagementUtil {
     }
 
     /**
-     * Checks if user or group is active - enabled and not deactivated
-     * @param session
-     * @param authorizable
+     * <p>Checks if user or group is active - enabled and not deactivated.</p>
+     * @param session JCR session
+     * @param authorizable user
      * @return true when active and false when non-active (disabled or deactivated)
-     * @throws RepositoryException
+     * @throws RepositoryException repository exception
      */
     public static boolean isActive(Session session, Authorizable authorizable) throws RepositoryException {
         if (session == null) {
@@ -142,10 +142,10 @@ public final class UserManagementUtil {
     }
 
     /**
-     * Gets e-mail from authorizable's profile
+     * <p>Gets e-mail from authorizable's profile.</p>
      * @param authorizable Group or User
      * @return email string or empty string when user does not have e-mail property (never null)
-     * @throws RepositoryException
+     * @throws RepositoryException repository exception
      */
     public static String getEmail(Authorizable authorizable) throws RepositoryException {
         if (authorizable == null) {
@@ -164,8 +164,8 @@ public final class UserManagementUtil {
     }
 
     /**
-     * Returns mailing target in format: "NAME" <E-MAIL>
-     * @param authorizable
+     * <p>Returns mailing target in format: "NAME" [E-MAIL].</p>
+     * @param authorizable user
      * @return Mailing target or null in case of non-specified email
      */
     public static String getNameAndEmail(ResourceResolver resourceResolver, Authorizable authorizable) throws RepositoryException {
@@ -200,11 +200,11 @@ public final class UserManagementUtil {
     }
 
     /**
-     * Return single value of a property from authorizable
-     * @param authorizable
-     * @param property
+     * <p>Return single value of a property from authorizable.</p>
+     * @param authorizable user
+     * @param property prop name
      * @return value or null in case of no value or multiple values
-     * @throws RepositoryException
+     * @throws RepositoryException repository exception
      */
     public static Value getSingleValuedProperty(Authorizable authorizable, String property) throws RepositoryException {
         if (authorizable == null) {
@@ -229,11 +229,11 @@ public final class UserManagementUtil {
         return null;
     }
 
-    /**
-     * Checks provided as an argument authorizable and all of its members (when it's a group) to find authorizables having e-mail address
-     * @param rootAuthorizable
+    /***
+     * <p>Checks provided as an argument authorizable and all of its members (when it's a group) to find authorizables having e-mail address.</p>
+     * @param rootAuthorizable root user
      * @return collection of authorizables, may be empty but never null
-     * @throws RepositoryException
+     * @throws RepositoryException repository exception
      */
     public static Collection<Authorizable> provideAuthorizablesHavingEmail(Authorizable rootAuthorizable) throws RepositoryException {
         Collection<Authorizable> authorizables = new LinkedHashSet<Authorizable>();

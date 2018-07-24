@@ -6,12 +6,10 @@ import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
-//import org.apache.sling.api.servlets.HtmlResponse;
 import org.apache.sling.servlets.post.HtmlResponse;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -24,35 +22,34 @@ import java.io.IOException;
 )
 public class CommandServlet extends SlingAllMethodsServlet {
 
-    private static final Logger log = LoggerFactory.getLogger(CommandServlet.class);
+  private static final Logger log = LoggerFactory.getLogger(CommandServlet.class);
 
-    @Reference
-    private CommandService commandService;
+  @Reference
+  private CommandService commandService;
 
-    @Override
-    protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
-        String cmd = request.getRequestParameter("cmd").getString();
+  @Override
+  protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
+    String cmd = request.getRequestParameter("cmd").getString();
 
-        CommandHandler commandHandler = commandService.getCommandHandler(cmd);
+    CommandHandler commandHandler = commandService.getCommandHandler(cmd);
 
-        if (commandHandler != null) {
-            try {
-                Object ret = commandHandler.performCommand(cmd, request, response);
+    if (commandHandler != null) {
+      try {
+        Object ret = commandHandler.performCommand(cmd, request, response);
 
-                if (ret != null) {
-                    if (ret instanceof HtmlResponse) {
-                        ((HtmlResponse) ret).send(response, true);
-                    }
-                }
-            } catch (ServletException | IOException e) {
-                throw e;
-            } catch (Exception e) {
-                throw new ServletException("Command " + cmd + " processing caused an exception", e);
-            }
+        if (ret != null) {
+          if (ret instanceof HtmlResponse) {
+            ((HtmlResponse) ret).send(response, true);
+          }
         }
-        else {
-            log.warn("API Command not supported: {}", cmd);
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-        }
+      } catch (ServletException | IOException ex) {
+        throw ex;
+      } catch (Exception ex) {
+        throw new ServletException("Command " + cmd + " processing caused an exception", ex);
+      }
+    } else {
+      log.warn("API Command not supported: {}", cmd);
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
+  }
 }

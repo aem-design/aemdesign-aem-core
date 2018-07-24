@@ -13,7 +13,9 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Session;
 
 import static com.day.cq.dam.api.DamConstants.DC_TITLE;
-import static org.apache.jackrabbit.vault.util.JcrConstants.*;
+import static org.apache.jackrabbit.vault.util.JcrConstants.JCR_CONTENT;
+import static org.apache.jackrabbit.vault.util.JcrConstants.JCR_CREATED_BY;
+import static org.apache.jackrabbit.vault.util.JcrConstants.JCR_LAST_MODIFIED_BY;
 
 public final class AssetUtil {
 
@@ -56,8 +58,8 @@ public final class AssetUtil {
     }
 
     /**
-     * Looks for active asset ownership
-     * @param asset
+     * <p>Looks for active asset ownership.</p>
+     * @param asset asset to use
      * @return Authorizable or null when active owner not found
      */
     public static Authorizable getAssetOwner(Resource asset) {
@@ -74,11 +76,11 @@ public final class AssetUtil {
 
     private static Authorizable getActiveAuthorizableFromProperty(Resource resource, String property) {
         ValueMap valueMap = resource.adaptTo(ValueMap.class);
-        String authorizableID = valueMap.get(property, String.class);
+        String authorizableId = valueMap.get(property, String.class);
 
         try {
             Session session = resource.getResourceResolver().adaptTo(Session.class);
-            Authorizable authorizable = UserManagementUtil.getAuthorizable(session, authorizableID);
+            Authorizable authorizable = UserManagementUtil.getAuthorizable(session, authorizableId);
             if (UserManagementUtil.isActive(session, authorizable)) {
                 return authorizable;
             }

@@ -38,7 +38,7 @@ public class NodeLockCommandHandler implements CommandHandler {
 
     public static final String EXPIRE_PARAM = "expire";
 
-    private static final long DEFAULT_LOCK_EXPIRE_IN_SECONDS = 24*60*60; //default: 1 day lock
+    private static final long DEFAULT_LOCK_EXPIRE_IN_SECONDS = 24 * 60 * 60; //default: 1 day lock
 
     @Reference
     private LockService lockService;
@@ -54,7 +54,7 @@ public class NodeLockCommandHandler implements CommandHandler {
 
         boolean success = false;
 
-        String paths[] = request.getParameterValues(WCMCommand.PATH_PARAM);
+        String[] paths = request.getParameterValues(WCMCommand.PATH_PARAM);
         String[] msgs = new String[paths.length];
 
         ResourceResolver resolver = request.getResourceResolver();
@@ -91,16 +91,15 @@ public class NodeLockCommandHandler implements CommandHandler {
                     msgs[i] = "Unlocked: " + path;
                 }
                 success = true;
-            } catch (Exception e) {
-                String errorText = ExceptionUtils.getStackTrace(e);
-
+            } catch (Exception ex) {
+                String errorText = ExceptionUtils.getStackTrace(ex);
 
                 if (lock) {
                     log.warn("Unable to lock: {}, {}", path, errorText);
-                    msgs[i] = "Unable to lock: " + path + " " + e.getMessage();
+                    msgs[i] = "Unable to lock: " + path + " " + ex.getMessage();
                 } else {
                     log.warn("Unable to unlock: {}, {}", path, errorText);
-                    msgs[i] = "Unable to unlock: " + path + " " + e.getMessage();
+                    msgs[i] = "Unable to unlock: " + path + " " + ex.getMessage();
                 }
             }
         }
@@ -128,8 +127,8 @@ public class NodeLockCommandHandler implements CommandHandler {
                         return true;
                     }
                 }
-            } catch (Exception e) {
-
+            } catch (Exception ex) {
+                log.error("isMemeberOfGroup: {}" ,ex);
             }
         }
         return false;

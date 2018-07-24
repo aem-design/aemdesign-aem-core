@@ -9,6 +9,7 @@
         <groupId>aemdesign</groupId>
         <artifactId>aemdesign-parent</artifactId>
         <version>0.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <!-- ====================================================================== -->
@@ -35,8 +36,8 @@
         <tag>0.0.0</tag>
     </scm>
 
-    <dependencies>
 
+    <dependencies>
 
         <dependency>
             <groupId>org.mockito</groupId>
@@ -176,14 +177,37 @@
         </dependency>
 
         <dependency>
+            <groupId>biz.aQute.bnd</groupId>
+            <artifactId>annotation</artifactId>
+            <version>2.4.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.adobe.granite</groupId>
+            <artifactId>com.adobe.granite.ui.commons</artifactId>
+            <version>5.5.76</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.api</artifactId>
+            <version>2.7.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.11.2</version>
             <scope>compile</scope>
         </dependency>
-
-
     </dependencies>
+
+
 
     <repositories>
         <repository>
@@ -245,11 +269,21 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
     <!-- ====================================================================== -->
     <!-- B U I L D D E F I N I T I O N -->
     <!-- ====================================================================== -->
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-scr-plugin</artifactId>
@@ -265,6 +299,7 @@
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.0.1</version>
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
@@ -286,14 +321,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.sling</groupId>
-                <artifactId>maven-sling-plugin</artifactId>
-                <configuration>
-                    <slingUrl>http://${crx.host}:${crx.port}/apps/aemdesign/install</slingUrl>
-                    <usePut>true</usePut>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                  <configuration>
@@ -302,7 +329,19 @@
                     </excludePackageNames>
                  </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>checkstyle</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -334,14 +373,22 @@
         </plugins>
     </build>
 
+
     <profiles>
         <profile>
             <id>autoInstallBundle</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.sling</groupId>
                         <artifactId>maven-sling-plugin</artifactId>
+                        <configuration>
+                            <slingUrl>${package.uploadProtocol}://${crx.host}:${crx.port}/apps/${package.appFolder}/install</slingUrl>
+                            <usePut>true</usePut>
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>install-bundle</id>
@@ -354,6 +401,7 @@
                 </plugins>
             </build>
         </profile>
+
 
         <profile>
             <id>java8</id>
@@ -378,7 +426,7 @@
                     <groupId>com.adobe.aem</groupId>
                     <artifactId>uber-jar</artifactId>
                     <version>6.3.0</version>
-                    <classifier>obfuscated-apis</classifier>
+                    <classifier>apis</classifier>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
@@ -409,184 +457,10 @@
                     <scope>provided</scope>
                 </dependency>
 
+
             </dependencies>
 
         </profile>
-
-        <profile>
-            <id>java7</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <version>3.1</version>
-                        <configuration>
-                            <source>1.7</source>
-                            <target>1.7</target>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.felix</groupId>
-                        <artifactId>maven-bundle-plugin</artifactId>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <instructions>
-                                <Bundle-SymbolicName>design.aem.aemdesign-aem-services</Bundle-SymbolicName>
-                                <Embed-Dependency>gson,javax.inject,jsoup</Embed-Dependency>
-                                <Sling-Model-Packages>
-                                    design.aem.models
-                                </Sling-Model-Packages>
-                                <Export-Package>design.aem.*,org.apache.sling.xss</Export-Package>
-                            </instructions>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-            <dependencies>
-
-
-                <dependency>
-                    <groupId>com.adobe.granite</groupId>
-                    <artifactId>com.adobe.granite.replication.core</artifactId>
-                    <version>5.14.8</version>
-                    <scope>provided</scope>
-                </dependency>
-
-                <dependency>
-                    <groupId>com.day.cq</groupId>
-                    <artifactId>cq-commons</artifactId>
-                    <version>5.7.4</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.adobe.granite</groupId>
-                    <artifactId>com.adobe.granite.asset.api</artifactId>
-                    <version>1.6</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.jackrabbit</groupId>
-                    <artifactId>jackrabbit-api</artifactId>
-                    <version>2.8.0</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.day.cq.dam</groupId>
-                    <artifactId>cq-dam-api</artifactId>
-                    <version>5.6.6</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.jackrabbit.vault</groupId>
-                    <artifactId>org.apache.jackrabbit.vault</artifactId>
-                    <version>3.1.6</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.day.cq</groupId>
-                    <artifactId>cq-search</artifactId>
-                    <version>5.6.4</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.adobe.granite</groupId>
-                    <artifactId>com.adobe.granite.workflow.api</artifactId>
-                    <version>1.0.2</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.adobe.granite</groupId>
-                    <artifactId>com.adobe.granite.i18n</artifactId>
-                    <version>5.5.10</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.jackrabbit</groupId>
-                    <artifactId>jackrabbit-jcr-commons</artifactId>
-                    <version>2.8.0</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.sling</groupId>
-                    <artifactId>org.apache.sling.commons.json</artifactId>
-                    <version>2.0.6</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.day.cq</groupId>
-                    <artifactId>cq-tagging</artifactId>
-                    <version>5.6.4</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.sling</groupId>
-                    <artifactId>org.apache.sling.servlets.post</artifactId>
-                    <version>2.3.4</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.adobe.granite</groupId>
-                    <artifactId>com.adobe.granite.ui.commons</artifactId>
-                    <version>5.5.76</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.sling</groupId>
-                    <artifactId>org.apache.sling.commons.scheduler</artifactId>
-                    <version>2.4.2</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.sling</groupId>
-                    <artifactId>org.apache.sling.event</artifactId>
-                    <version>3.3.10</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.adobe.granite</groupId>
-                    <artifactId>com.adobe.granite.security.user</artifactId>
-                    <version>0.1.6</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.day.cq.wcm</groupId>
-                    <artifactId>cq-wcm-commons</artifactId>
-                    <version>5.6.4</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.sling</groupId>
-                    <artifactId>org.apache.sling.xss</artifactId>
-                    <version>1.0.0</version>
-                    <scope>compile</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.day.cq.wcm</groupId>
-                    <artifactId>cq-wcm-api</artifactId>
-                    <version>5.6.6</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.sling</groupId>
-                    <artifactId>org.apache.sling.api</artifactId>
-                    <version>2.7.0</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.sling</groupId>
-                    <artifactId>org.apache.sling.models.api</artifactId>
-                    <version>1.0.0</version>
-                    <scope>provided</scope>
-                </dependency>
-
-            </dependencies>
-        </profile>
-
-
 
     </profiles>
 

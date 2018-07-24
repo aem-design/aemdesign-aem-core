@@ -12,7 +12,12 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
 
 import static org.apache.jackrabbit.JcrConstants.JCR_CONTENT;
 
@@ -44,8 +49,8 @@ public final class ProjectsUtil {
             try {
                 Session session = project.getResourceResolver().adaptTo(Session.class);
                 return (Group) UserManagementUtil.getAuthorizable(session, authorizableId);
-            } catch (RepositoryException e) {
-                throw new RuntimeException("Could not fetch project authorizable", e);
+            } catch (RepositoryException ex) {
+                throw new RuntimeException("Could not fetch project authorizable, {}", ex);
             }
         }
         return null;
@@ -67,7 +72,7 @@ public final class ProjectsUtil {
         return project.getChild(JCR_CONTENT).adaptTo(ValueMap.class).get("active", false);
     }
 
-    public static String getDAMFolderPath(Resource project) {
+    public static String getAssetFolderPath(Resource project) {
         return project.getChild(JCR_CONTENT).adaptTo(ValueMap.class).get("damFolderPath", String.class);
     }
 
@@ -78,8 +83,8 @@ public final class ProjectsUtil {
         query.put("property.value", PROJECTS_TEMPLATE);
         try {
             return QueryBuilderUtil.queryForPaths(resourceResolver, query);
-        } catch (RepositoryException e) {
-            log.error("Could not execute all PROJECTSs query", e);
+        } catch (RepositoryException ex) {
+            log.error("Could not execute all PROJECTSs query, {}", ex);
             return Collections.emptyList();
         }
     }
@@ -94,8 +99,8 @@ public final class ProjectsUtil {
         query.put("group.1_property.value", "true");
         try {
             return QueryBuilderUtil.queryForPaths(resourceResolver, query);
-        } catch (RepositoryException e) {
-            log.error("Could not execute active projects query", e);
+        } catch (RepositoryException ex) {
+            log.error("Could not execute active projects query {}", ex);
             return Collections.emptyList();
         }
     }
@@ -163,7 +168,7 @@ public final class ProjectsUtil {
 
             if (isAsset) {
                 //check DAM Asset path
-                String damFolderPath = getDAMFolderPath(project);
+                String damFolderPath = getAssetFolderPath(project);
                 if (path.equals(damFolderPath + "/" + resource.getName())) {
                     matches = true;
                 } else {
