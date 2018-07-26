@@ -16,6 +16,8 @@
     HashMap<String,Object> digitalData = new HashMap<String,Object>();
     HashMap<String,Object> digitalDataPage = new HashMap<String,Object>();
     HashMap<String,Object> digitalDataPagePageInfo = new HashMap<String,Object>();
+    ArrayList<String> digitalDataPageEvent = new ArrayList<String>();
+    ArrayList<String> digitalDataPageError = new ArrayList<String>();
     HashMap<String,Object> digitalDataPageAttributes = new HashMap<String,Object>();
 
     digitalDataPagePageInfo.put("pageName",detailsProperties.get("analyticsPageName",pageName));
@@ -30,11 +32,14 @@
 
     digitalDataPageAttributes.put("platform",detailsProperties.get("analyticsPlatform","aem"));
     digitalDataPageAttributes.put("abort",detailsProperties.get("analyticsAbort","false"));
+    digitalDataPageAttributes.put("detailsMissing",isEmpty(detailsPath));
 
     digitalDataPage.put("pageInfo", digitalDataPagePageInfo);
     digitalDataPage.put("attributes", digitalDataPageAttributes);
 
     digitalData.put("page", digitalDataPage);
+    digitalData.put("event", digitalDataPageEvent);
+    digitalData.put("error", digitalDataPageError);
 
     Gson gson = new Gson();
 
