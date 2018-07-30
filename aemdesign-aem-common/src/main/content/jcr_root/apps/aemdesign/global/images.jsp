@@ -810,18 +810,27 @@
     public String getBestFitRendition(String assetPath, int renditionWidth, ResourceResolver resourceResolver) {
         String renditionPath = assetPath;
 
-        com.adobe.granite.asset.api.AssetManager assetManager = resourceResolver.adaptTo(com.adobe.granite.asset.api.AssetManager.class);
-        com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(assetPath);
-
-        if (asset != null) {
-
-            com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(renditionWidth, asset);
-            if (bestRendition != null) {
-                renditionPath = bestRendition.getPath();
-            }
-
+        if (isEmpty(assetPath)) {
+          return "";
         }
 
+        try {
+
+            com.adobe.granite.asset.api.AssetManager assetManager = resourceResolver.adaptTo(com.adobe.granite.asset.api.AssetManager.class);
+            com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(assetPath);
+
+            if (asset != null) {
+
+                com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(renditionWidth, asset);
+                if (bestRendition != null) {
+                    renditionPath = bestRendition.getPath();
+                }
+
+            }
+
+        } catch (Exception ex) {
+            LOG.error("getBestFitRendition error {} ", ex);
+        }
         return renditionPath;
     }
 
