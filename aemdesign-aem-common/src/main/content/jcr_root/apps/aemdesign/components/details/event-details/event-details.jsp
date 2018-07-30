@@ -1,4 +1,3 @@
-<%@ page import="org.apache.commons.lang.BooleanUtils" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
