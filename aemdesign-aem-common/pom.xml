@@ -420,7 +420,7 @@
                                         <argument>User-Agent:curl</argument>
                                         <argument>-X</argument>
                                         <argument>POST</argument>
-                                        <argument>http://${crx.host}:${crx.port}/system/console/slingjsp</argument>
+                                        <argument>${package.uploadProtocol}://${crx.host}:${crx.port}/system/console/slingjsp</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
