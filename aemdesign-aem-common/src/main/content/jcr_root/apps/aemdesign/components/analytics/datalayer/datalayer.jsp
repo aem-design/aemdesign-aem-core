@@ -4,46 +4,56 @@
 <%@ include file="/apps/aemdesign/global/datetime.jsp" %>
 <%
 
-    String detailsPath = findComponentInPage(_currentPage,DEFAULT_LIST_DETAILS_SUFFIX);
-    Resource details = _resourceResolver.getResource(detailsPath);
-    ValueMap detailsProperties = details.adaptTo(ValueMap.class);
+    String digitalDataJson = "{\"error\":\"could not load data layer\"}";
+
+    try {
+        String detailsPath = findComponentInPage(_currentPage, DEFAULT_LIST_DETAILS_SUFFIX);
+        Resource details = _resourceResolver.getResource(detailsPath);
+        ValueMap detailsProperties = details.adaptTo(ValueMap.class);
+        if (detailsProperties == null) {
+            detailsProperties = _properties;
+        }
 
 
-    String pageName = _currentPage.getPath().substring(1).replace('/',':');
-    pageName = pageName.replace("content:", "");
+        String pageName = _currentPage.getPath().substring(1).replace('/', ':');
+        pageName = pageName.replace("content:", "");
 
 
-    HashMap<String,Object> digitalData = new HashMap<String,Object>();
-    HashMap<String,Object> digitalDataPage = new HashMap<String,Object>();
-    HashMap<String,Object> digitalDataPagePageInfo = new HashMap<String,Object>();
-    ArrayList<String> digitalDataPageEvent = new ArrayList<String>();
-    ArrayList<String> digitalDataPageError = new ArrayList<String>();
-    HashMap<String,Object> digitalDataPageAttributes = new HashMap<String,Object>();
+        HashMap<String, Object> digitalData = new HashMap<String, Object>();
+        HashMap<String, Object> digitalDataPage = new HashMap<String, Object>();
+        HashMap<String, Object> digitalDataPagePageInfo = new HashMap<String, Object>();
+        ArrayList<String> digitalDataPageEvent = new ArrayList<String>();
+        ArrayList<String> digitalDataPageError = new ArrayList<String>();
+        HashMap<String, Object> digitalDataPageAttributes = new HashMap<String, Object>();
 
-    digitalDataPagePageInfo.put("pageName",detailsProperties.get("analyticsPageName",pageName));
-    digitalDataPagePageInfo.put("pageType",detailsProperties.get("analyticsPageType",""));
-    if (isNotEmpty(_properties.get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, ""))) {
-        digitalDataPagePageInfo.put("effectiveDate", formatDate(_properties.get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, Calendar.getInstance()), "YYYY-MM-DD"));
-    } else {
-        digitalDataPagePageInfo.put("effectiveDate","");
+        digitalDataPagePageInfo.put("pageName", detailsProperties.get("analyticsPageName", pageName));
+        digitalDataPagePageInfo.put("pageType", detailsProperties.get("analyticsPageType", ""));
+        if (isNotEmpty(_properties.get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, ""))) {
+            digitalDataPagePageInfo.put("effectiveDate", formatDate(_properties.get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, Calendar.getInstance()), "YYYY-MM-DD"));
+        } else {
+            digitalDataPagePageInfo.put("effectiveDate", "");
+        }
+        digitalDataPagePageInfo.put("contentLanguage", _currentPage.getLanguage(false).getDisplayCountry());
+        digitalDataPagePageInfo.put("contentCountry", _currentPage.getLanguage(false).getDisplayLanguage().toLowerCase());
+
+        digitalDataPageAttributes.put("platform", detailsProperties.get("analyticsPlatform", "aem"));
+        digitalDataPageAttributes.put("abort", detailsProperties.get("analyticsAbort", "false"));
+        digitalDataPageAttributes.put("detailsMissing", isEmpty(detailsPath));
+
+        digitalDataPage.put("pageInfo", digitalDataPagePageInfo);
+        digitalDataPage.put("attributes", digitalDataPageAttributes);
+
+        digitalData.put("page", digitalDataPage);
+        digitalData.put("event", digitalDataPageEvent);
+        digitalData.put("error", digitalDataPageError);
+
+        Gson gson = new Gson();
+
+        digitalDataJson = gson.toJson(digitalData);
+
+    } catch (Exception ex) {
+        LOG.error("dattalayer: {}", ex);
     }
-    digitalDataPagePageInfo.put("contentLanguage",_currentPage.getLanguage(false).getDisplayCountry());
-    digitalDataPagePageInfo.put("contentCountry",_currentPage.getLanguage(false).getDisplayLanguage().toLowerCase());
-
-    digitalDataPageAttributes.put("platform",detailsProperties.get("analyticsPlatform","aem"));
-    digitalDataPageAttributes.put("abort",detailsProperties.get("analyticsAbort","false"));
-    digitalDataPageAttributes.put("detailsMissing",isEmpty(detailsPath));
-
-    digitalDataPage.put("pageInfo", digitalDataPagePageInfo);
-    digitalDataPage.put("attributes", digitalDataPageAttributes);
-
-    digitalData.put("page", digitalDataPage);
-    digitalData.put("event", digitalDataPageEvent);
-    digitalData.put("error", digitalDataPageError);
-
-    Gson gson = new Gson();
-
-    String digitalDataJson = gson.toJson(digitalData);
 
 %>
 <c:set var="digitalDataJson" value="<%= digitalDataJson %>"/>
