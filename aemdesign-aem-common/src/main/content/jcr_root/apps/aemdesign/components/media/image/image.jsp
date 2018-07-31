@@ -172,13 +172,20 @@
                     default: //IMAGE_OPTION_RESPONSIVE
                         String[] renditionImageMapping = componentProperties.get(FIELD_RESPONSIVE_MAP, DEFAULT_RENDITION_IMAGE_MAP);
 
-                        //get rendition profile prefix selected
-                        String renditionPrefix = componentProperties.get(FIELD_RENDITION_PREFIX, "");
+                        // Check if the image suffix is '.svg', if it is skip any rendition checks and simply return
+                        // the path to it as no scaling or modifications should be applied.
+                        if (fileReference.endsWith(".svg")) {
+                            componentProperties.put(FIELD_IMAGEURL, fileReference);
+                            componentProperties.put(FIELD_IMAGE_OPTION, "simple");
+                        } else {
+                            //get rendition profile prefix selected
+                            String renditionPrefix = componentProperties.get(FIELD_RENDITION_PREFIX, "");
 
-                        //get best fit renditions set
-                        responsiveImageSet = getBestFitMediaQueryRenditionSet(asset, renditionImageMapping, renditionPrefix);
+                            //get best fit renditions set
+                            responsiveImageSet = getBestFitMediaQueryRenditionSet(asset, renditionImageMapping, renditionPrefix);
 
-                        componentProperties.put(FIELD_RENDITIONS, responsiveImageSet);
+                            componentProperties.put(FIELD_RENDITIONS, responsiveImageSet);
+                        }
                 }
 
                 //pick last one from collection
