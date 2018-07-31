@@ -1,4 +1,5 @@
 <%@ page import="com.google.gson.Gson" %>
+<%@ page import="org.apache.sling.api.resource.ResourceUtil" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/datetime.jsp" %>
@@ -8,12 +9,15 @@
 
     try {
         String detailsPath = findComponentInPage(_currentPage, DEFAULT_LIST_DETAILS_SUFFIX);
+        ValueMap detailsProperties = _properties;
         Resource details = _resourceResolver.getResource(detailsPath);
-        ValueMap detailsProperties = details.adaptTo(ValueMap.class);
-        if (detailsProperties == null) {
-            detailsProperties = _properties;
+        //get details properties if its found
+        if (details != null && !ResourceUtil.isNonExistingResource(details)) {
+            detailsProperties = details.adaptTo(ValueMap.class);
+            if (detailsProperties == null) {
+                detailsProperties = _properties;
+            }
         }
-
 
         String pageName = _currentPage.getPath().substring(1).replace('/', ':');
         pageName = pageName.replace("content:", "");
@@ -52,7 +56,7 @@
         digitalDataJson = gson.toJson(digitalData);
 
     } catch (Exception ex) {
-        LOG.error("dattalayer: {}", ex);
+        LOG.error("datalayer: {}", ex);
     }
 
 %>
