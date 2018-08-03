@@ -206,5 +206,9 @@ digitalData.event[n].eventInfo = {
         return window.document.referrer.split("?")[0] || "";
     };
 
+    ns.getSections = function() {
+        return $.map($("header[component],header[component] > div > [component],aside[component],aside[component] > div > [component],article[component],article[component] > div > [component],footer[component],footer[component] > div > [component]"), function(a){return a.id}).join(",");
+    };
+
 })(AEMDESIGN.jQuery, AEMDESIGN.log, AEMDESIGN.analytics, this); //pass in additional dependencies
 
