@@ -19,8 +19,8 @@
             }
         }
 
-        String pageName = _currentPage.getPath().substring(1).replace('/', ':');
-        pageName = pageName.replace("content:", "");
+//        String pageName = _currentPage.getPath().substring(1).replace('/', ':');
+//        pageName = pageName.replace("content:", "");
 
 
         HashMap<String, Object> digitalData = new HashMap<String, Object>();
@@ -30,8 +30,9 @@
         ArrayList<String> digitalDataPageError = new ArrayList<String>();
         HashMap<String, Object> digitalDataPageAttributes = new HashMap<String, Object>();
 
-        digitalDataPagePageInfo.put("pageName", detailsProperties.get("analyticsPageName", pageName));
+        digitalDataPagePageInfo.put("pageName", detailsProperties.get("analyticsPageName", ""));
         digitalDataPagePageInfo.put("pageType", detailsProperties.get("analyticsPageType", ""));
+        digitalDataPagePageInfo.put("pagePath", _currentPage.getPath());
         if (isNotEmpty(_properties.get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, ""))) {
             digitalDataPagePageInfo.put("effectiveDate", formatDate(_properties.get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, Calendar.getInstance()), "YYYY-MM-DD"));
         } else {
@@ -66,5 +67,8 @@
     window.digitalData = ${digitalDataJson};
     window.digitalData.page.pageInfo.referringURL = AEMDESIGN.analytics.getReferringUrl();
     window.digitalData.page.pageInfo.destinationUrl = AEMDESIGN.analytics.getDestinationUrl();
+    $(document).ready(function(){
+        window.digitalData.page.pageInfo.sections = AEMDESIGN.analytics.getSections();
+    });
     window.digitalData.page.attributes.breakPoint = AEMDESIGN.analytics.getBreakpoint()["label"];
 </script>
