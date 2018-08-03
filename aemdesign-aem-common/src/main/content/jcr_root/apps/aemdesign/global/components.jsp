@@ -92,6 +92,17 @@
     private static final String DETAILS_THUMBNAIL_ID = "badgeThumbnailId";
     private static final String DETAILS_THUMBNAIL_LICENSE_INFO = "badgeThumbnailLicenseInfo";
     private static final String DETAILS_THUMBNAIL = "badgeThumbnail";
+    //badge analytics
+    private static final String DETAILS_BADGE_ANALYTICS_EVENT_TYPE = "badgeAnalyticsEventType";
+    private static final String DETAILS_BADGE_ANALYTICS_LINK_TYPE = "badgeAnalyticsLinkType";
+    private static final String DETAILS_BADGE_ANALYTICS_LINK_LOCATION = "badgeAnalyticsLinkLocation";
+    private static final String DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION = "badgeAnalyticsLinkDescription";
+
+    //analytics
+    private static final String DETAILS_ANALYTICS_EVENT_TYPE = "analyticsEventType";
+    private static final String DETAILS_ANALYTICS_LINK_TYPE = "analyticsLinkType";
+    private static final String DETAILS_ANALYTICS_LINK_LOCATION = "analyticsLinkLocation";
+    private static final String DETAILS_ANALYTICS_LINK_DESCRIPTION = "analyticsLinkDescription";
 
 
     private static final String FIELD_HIDEINMENU = "hideInMenu";
@@ -285,6 +296,11 @@
             {DETAILS_THUMBNAIL_ID, ""},
             {DETAILS_THUMBNAIL_LICENSE_INFO, ""},
             {DETAILS_THUMBNAIL, ""},
+            {DETAILS_BADGE_ANALYTICS_EVENT_TYPE, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LINK_TYPE, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LINK_LOCATION, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION, StringUtils.EMPTY}, //basic
+
     };
 
     // {
@@ -326,6 +342,11 @@
             {DETAILS_THUMBNAIL_ID, ""},
             {DETAILS_THUMBNAIL_LICENSE_INFO, ""},
             {DETAILS_THUMBNAIL, ""},
+            {DETAILS_BADGE_ANALYTICS_EVENT_TYPE, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LINK_TYPE, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LINK_LOCATION, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION, StringUtils.EMPTY}, //basic
+
     };
 
     //COMPONENT ANALYTICS
@@ -336,13 +357,17 @@
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
     public static final Object[][] DEFAULT_FIELDS_ANALYTICS = {
-            {"analyticsType", StringUtils.EMPTY, "data-analytics-type"},
-            {"analyticsHitType", StringUtils.EMPTY, "data-analytics-hit-type"},
-            {"analyticsEventCategory", StringUtils.EMPTY, "data-analytics-event-category"},
-            {"analyticsEventAction", StringUtils.EMPTY, "data-analytics-event-action"},
-            {"analyticsEventLabel", StringUtils.EMPTY, "data-analytics-event-label"},
-            {"analyticsTransport", StringUtils.EMPTY, "data-analytics-transport"},
-            {"analyticsNonInteraction", StringUtils.EMPTY, "data-analytics-noninteraction"},
+            {DETAILS_ANALYTICS_EVENT_TYPE, StringUtils.EMPTY, "data-layer-event"}, //basic
+            {DETAILS_ANALYTICS_LINK_TYPE, StringUtils.EMPTY, "data-layer-linktype"}, //basic
+            {DETAILS_ANALYTICS_LINK_LOCATION, StringUtils.EMPTY, "data-layer-linklocation"}, //basic
+            {DETAILS_ANALYTICS_LINK_DESCRIPTION, StringUtils.EMPTY, "data-layer-linkdescription"}, //basic
+            {"analyticsEventType", StringUtils.EMPTY, "data-analytics-event"}, //advanced
+            {"analyticsHitType", StringUtils.EMPTY, "data-analytics-hit-type"}, //advanced
+            {"analyticsEventCategory", StringUtils.EMPTY, "data-analytics-event-category"}, //advanced
+            {"analyticsEventAction", StringUtils.EMPTY, "data-analytics-event-action"}, //advanced
+            {"analyticsEventLabel", StringUtils.EMPTY, "data-analytics-event-label"}, //advanced
+            {"analyticsTransport", StringUtils.EMPTY, "data-analytics-transport"}, //advanced
+            {"analyticsNonInteraction", StringUtils.EMPTY, "data-analytics-noninteraction"}, //advanced
     };
 
     //LINK ATTRIBUTES
