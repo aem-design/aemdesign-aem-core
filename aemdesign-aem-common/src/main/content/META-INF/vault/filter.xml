@@ -27,10 +27,5 @@
     <filter root="/conf/aemdesign/global/settings/workflow/models/aemdesign" mode="update"/>
     <filter root="/conf/aemdesign/global/settings/workflow/notification/aemdesign" mode="update"/>
 
-    <filter root="/etc/blueprints/aemdesign-english"/>
-    <filter root="/etc/blueprints/aemdesign-german"/>
-
-
-
 
 </workspaceFilter>
