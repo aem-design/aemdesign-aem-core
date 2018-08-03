@@ -5,6 +5,20 @@
 <c:if test="${not empty componentProperties.redirectTarget}">
     <c:set var="badgeLinkAttr" value="${badgeLinkAttr} external"/>
 </c:if>
+<%-- BADGE LINK CONFIG - ANALYTICS --%>
+<c:if test="${not empty componentProperties.badgeAnalyticsEventType}">
+    <c:set var="badgeLinkAttr" value="${badgeLinkAttr} data-layer-event=\"${componentProperties.badgeAnalyticsEventType}\""/>
+</c:if>
+<c:if test="${not empty componentProperties.badgeAnalyticsLinkType}">
+    <c:set var="badgeLinkAttr" value="${badgeLinkAttr} data-layer-linktype=\"${componentProperties.badgeAnalyticsLinkType}\""/>
+</c:if>
+<c:if test="${not empty componentProperties.badgeAnalyticsLinkLocation}">
+    <c:set var="badgeLinkAttr" value="${badgeLinkAttr} data-layer-linklocation=\"${componentProperties.badgeAnalyticsLinkLocation}\""/>
+</c:if>
+<c:if test="${not empty componentProperties.badgeAnalyticsLinkDescription}">
+    <c:set var="badgeLinkAttr" value="${badgeLinkAttr} data-layer-linkdescription=\"${componentProperties.badgeAnalyticsLinkDescription}\""/>
+</c:if>
+
 
 <%-- BADGE IMAGE CONFIG  --%>
 <c:if test="${not empty componentProperties.pageImageId}">
