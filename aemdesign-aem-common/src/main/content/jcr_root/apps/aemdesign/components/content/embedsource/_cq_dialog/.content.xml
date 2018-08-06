@@ -49,6 +49,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Default"
                                                     value=""/>
+                                            <clean
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="No Wrapper"
+                                                    value="clean"/>
                                         </items>
                                     </variant>
                                 </items>

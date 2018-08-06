@@ -31,6 +31,9 @@
     <c:when test="${componentProperties.variant == 'default' and not empty componentProperties.html}">
         <%@ include file="variant.default.jsp" %>
     </c:when>
+    <c:when test="${componentProperties.variant == 'clean' and not empty componentProperties.html}">
+        <%@ include file="variant.default.jsp" %>
+    </c:when>
     <c:otherwise>
         <%@ include file="variant.empty.jsp" %>
     </c:otherwise>
