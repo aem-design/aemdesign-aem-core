@@ -30,6 +30,10 @@
         {"printStructure", DEFAULT_PRINT_STRUCTURE},
         {com.day.cq.wcm.foundation.List.LIMIT_PROPERTY_NAME, ""},
         {com.day.cq.wcm.foundation.List.PAGE_MAX_PROPERTY_NAME, ""},
+        {DETAILS_BADGE_ANALYTICS_EVENT_TYPE, StringUtils.EMPTY, "data-layer-event"}, //basic
+        {DETAILS_BADGE_ANALYTICS_LINK_TYPE, StringUtils.EMPTY, "data-layer-linktype"}, //basic
+        {DETAILS_BADGE_ANALYTICS_LINK_LOCATION, StringUtils.EMPTY, "data-layer-linklocation"}, //basic
+        {DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION, StringUtils.EMPTY, "data-layer-linkdescription"}, //basic
     };
 
     ComponentProperties componentProperties = getComponentProperties(
