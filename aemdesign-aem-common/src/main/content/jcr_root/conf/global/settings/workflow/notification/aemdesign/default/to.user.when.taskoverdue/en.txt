@@ -1,8 +1,0 @@
-To: ${toEmail}
-Subject: Overdue task(s)
-
-Hello ${username},
-
-Some of your tasks are overdue.
-
-Please visit Notification: ${authorPath}${notificationsLink}

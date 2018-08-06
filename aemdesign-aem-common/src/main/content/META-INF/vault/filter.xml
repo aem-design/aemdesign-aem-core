@@ -15,17 +15,7 @@
     <filter root="/apps/settings/wcm/design/aemdesign" mode="update"/>
 
     <filter root="/etc/clientlibs/aemdesign" mode="update"/>
-
-    <filter root="/content/cq:tags/.content.xml" mode="update"/>
-
-    <filter root="/conf/global/settings/workflow/models/aemdesign" mode="update"/>
-    <filter root="/conf/global/settings/workflow/notification/aemdesign" mode="update"/>
-    <filter root="/conf/global/settings/workflow/launcher/config/aemdesign" mode="update"/>
-
-    <filter root="/conf/aemdesign/settings/wcm" mode="update"/>
-    <filter root="/conf/aemdesign/global/settings/workflow/launcher/config/aemdesign" mode="update"/>
-    <filter root="/conf/aemdesign/global/settings/workflow/models/aemdesign" mode="update"/>
-    <filter root="/conf/aemdesign/global/settings/workflow/notification/aemdesign" mode="update"/>
+    <filter root="/etc/designs/aemdesign" mode="update"/>
 
 
 </workspaceFilter>
