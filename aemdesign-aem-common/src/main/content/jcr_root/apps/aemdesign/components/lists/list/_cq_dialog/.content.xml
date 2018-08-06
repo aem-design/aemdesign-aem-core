@@ -293,6 +293,7 @@
                                             sling:resourceType="granite/ui/components/foundation/form/select"
                                             fieldDescription="Enter a property like 'jcr:created'"
                                             fieldLabel="Order by"
+                                            emptyOption="{Boolean}true"
                                             name="./orderBy">
                                         <items jcr:primaryType="nt:unstructured">
                                             <title
