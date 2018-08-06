@@ -26,7 +26,7 @@
         {"listSplitEvery", 5, "data-list-split-every"},
         {"tags", new String[]{},"data-search-tags", Tag.class.getCanonicalName()},
         {"orderBy", ""},
-        {"detailsBadge", DEFAULT_BADGE},
+        {"detailsBadge", DEFAULT_BADGE, "data-badge"},
         {"printStructure", DEFAULT_PRINT_STRUCTURE},
         {com.day.cq.wcm.foundation.List.LIMIT_PROPERTY_NAME, ""},
         {com.day.cq.wcm.foundation.List.PAGE_MAX_PROPERTY_NAME, ""},
