@@ -1,9 +1,3 @@
-<%@ page import="com.day.cq.wcm.api.PageFilter" %>
-<%@ page import="javax.jcr.query.Query"%>
-<%@ page import="javax.jcr.query.QueryResult" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.GregorianCalendar" %>
-
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
