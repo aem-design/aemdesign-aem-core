@@ -38,8 +38,8 @@
         } else {
             digitalDataPagePageInfo.put("effectiveDate", "");
         }
-        digitalDataPagePageInfo.put("contentLanguage", _currentPage.getLanguage(false).getDisplayCountry());
-        digitalDataPagePageInfo.put("contentCountry", _currentPage.getLanguage(false).getDisplayLanguage().toLowerCase());
+        digitalDataPagePageInfo.put("contentCountry", _currentPage.getLanguage(false).getDisplayCountry());
+        digitalDataPagePageInfo.put("contentLanguage", _currentPage.getLanguage(false).getDisplayLanguage().toLowerCase());
 
         digitalDataPageAttributes.put("platform", detailsProperties.get("analyticsPlatform", "aem"));
         digitalDataPageAttributes.put("abort", detailsProperties.get("analyticsAbort", "false"));
