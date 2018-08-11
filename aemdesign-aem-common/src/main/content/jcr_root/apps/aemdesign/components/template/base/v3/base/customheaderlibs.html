@@ -1,0 +1,63 @@
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<!-- custom header libs -->
+
+
+<!-- all: aemdesign.header.js start -->
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-call="${clientlib.js @ categories='aemdesign.header'}"/>
+<!-- all: aemdesign.header.js end -->
+
+<!-- all: swinburne.common.head.dependencies start -->
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-call="${clientlib.all @ categories='swinburne.common.head.dependencies'}"/>
+<!-- all: swinburne.common.head.dependencies end -->
+
+<!-- all: aemdesign.common.head.js -->
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-call="${clientlib.js @ categories='aemdesign.common.head'}"/>
+
+<!-- css: aemdesign.common.components -->
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-call="${clientlib.css @ categories='aemdesign.common.components'}"/>
+
+<!-- css: aemdesign.author -->
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-test="${!wcmmode.disabled}"
+     data-sly-call="${clientlib.css @ categories='aemdesign.author'}"/>
+<!-- all: aemdesign.common.components.author -->
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-test="${!wcmmode.disabled}"
+     data-sly-call="${clientlib.all @ categories='aemdesign.common.components.author'}"/>
+
+
+<!-- css: aemdesign.publish -->
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-test="${wcmmode.disabled}"
+     data-sly-call="${clientlib.css @ categories='aemdesign.publish'}"/>
+<!-- all: aemdesign.common.components.publish -->
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-test="${wcmmode.disabled}"
+     data-sly-call="${clientlib.all @ categories='aemdesign.common.components.publish'}"/>
+
+
+<!-- css: aemdesign.common.coralui -->
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-test="${wcmmode.preview || wcmmode.edit}"
+     data-sly-call="${clientlib.css @ categories='aemdesign.common.coralui'}"/>
+
+<!-- all: swinburne.header.all start -->
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-call="${clientlib.all @ categories='swinburne.header'}"/>
+<!-- all: swinburne.header.all end -->
+
+<!-- aemdesign/components/analytics/datalayer -->
+<sly data-sly-resource="${ @ resourceType='swinburne/components/analytics/datalayer'}"/>
+
+<!-- contexthub start -->
+<sly data-sly-resource="${'contexthub' @ resourceType='granite/contexthub/components/contexthub'}"/>
+<!-- contexthub end -->
+
+
