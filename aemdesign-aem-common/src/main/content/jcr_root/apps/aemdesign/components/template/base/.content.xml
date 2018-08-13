@@ -3,5 +3,5 @@
     jcr:primaryType="cq:Component"
     jcr:title="AEM.Design Base Page"
     jcr:description="AEM.Design Base template"
-    sling:resourceSuperType="aemdesign/components/template/base/v3"
+    sling:resourceSuperType="aemdesign/components/template/base/v3/base"
     componentGroup=".hidden"/>
