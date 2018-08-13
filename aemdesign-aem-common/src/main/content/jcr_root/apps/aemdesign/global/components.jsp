@@ -30,6 +30,7 @@
 <%@ page import="java.text.MessageFormat" %>
 <%@ page import="java.util.Calendar" %>
 <%@ page import="org.apache.commons.lang3.BooleanUtils" %>
+<%@ page import="org.apache.jackrabbit.core.fs.FileSystem" %>
 <%@ include file="/apps/aemdesign/global/tags.jsp" %>
 <%@ include file="/apps/aemdesign/global/theme.jsp" %>
 <%@ include file="/apps/aemdesign/global/security.jsp" %>
@@ -121,6 +122,8 @@
     private static final String COMPONENT_INSTANCE_NAME = "instanceName";
     private static final String COMPONENT_TARGET_RESOURCE = "targetResource";
     private static final String COMPONENT_ATTRIBUTE_CLASS = "class";
+    private static final String COMPONENT_INPAGEPATH = "componentInPagePath";
+    private static final String COMPONENT_ATTRIBUTE_INPAGEPATH = "data-layer-componentpath";
 
 
     private static final String COMPONENT_CANCEL_INHERIT_PARENT = "cancelInheritParent";
@@ -831,6 +834,9 @@
                 componentProperties.put(COMPONENT_INSTANCE_NAME, currentNode.getName());
                 //get/generate component id
                 String componentId = getComponentId(currentNode);
+                String componentInPagePath = getComponentInPagePath(currentNode);
+                componentProperties.put(COMPONENT_INPAGEPATH, componentInPagePath);
+                componentProperties.attr.add(COMPONENT_ATTRIBUTE_INPAGEPATH, componentInPagePath);
             }
 
             if (component != null && addMoreAttributes) {
@@ -1035,7 +1041,7 @@
      * @return the md5 hash of the page's content path
      */
     public String getUniquePageIdentifier(Page listPage) {
-        String uniqueBase = listPage.getPath().substring(1).replace("/", "-");
+        String uniqueBase = listPage.getPath().substring(1).replace(FileSystem.SEPARATOR, "-");
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
             byte[] md5Arr = digest.digest(uniqueBase.getBytes("UTF-8"));
@@ -1322,7 +1328,7 @@
         final String pageResourcePath = currentPage.getContentResource().getPath(); // assume that page have resource
         final Resource thisResource = componentContext.getResource();
         final String nodeResourceType = thisResource.getResourceType();
-        final String relativePath = thisResource.getPath().replaceFirst(pageResourcePath.concat("/"),"");
+        final String relativePath = thisResource.getPath().replaceFirst(pageResourcePath.concat(FileSystem.SEPARATOR),"");
 
         // defn of a parent node
         // 1. is from parent page
@@ -1410,6 +1416,30 @@
     }
 
 
+    public String getComponentInPagePath(Node componentNode) {
+        String componentInPagePath = "";
+        if (componentNode == null) {
+            return "";
+        }
+
+        try {
+            componentInPagePath = componentNode.getPath();
+            if (isNotEmpty(componentInPagePath) && componentInPagePath.contains(JcrConstants.JCR_CONTENT)) {
+                String[] parts = componentInPagePath.split(JcrConstants.JCR_CONTENT);
+                if (parts.length > 0) {
+                    componentInPagePath = parts[1];
+                    if (isNotEmpty(componentInPagePath) && componentInPagePath.startsWith(FileSystem.SEPARATOR)) {
+                        componentInPagePath = componentInPagePath.replaceFirst(FileSystem.SEPARATOR,"");
+                    }
+                }
+            }
+        } catch (Exception ex) {
+
+        }
+        return componentInPagePath;
+    }
+
 %>
 <c:set var="DEFAULT_VARIANT" value="<%= DEFAULT_VARIANT %>"/>
 <c:set var="DEFAULT_VARIANT_HIDDEN" value="<%= DEFAULT_VARIANT_HIDDEN %>"/>
+<c:set var="COMPONENT_ATTRIBUTE_INPAGEPATH" value="<%= COMPONENT_ATTRIBUTE_INPAGEPATH %>"/>

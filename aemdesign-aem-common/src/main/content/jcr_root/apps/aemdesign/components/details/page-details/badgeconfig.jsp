@@ -18,6 +18,9 @@
 <c:if test="${not empty componentProperties.badgeAnalyticsLinkDescription}">
     <c:set var="badgeLinkAttr" value="${badgeLinkAttr} data-layer-linkdescription=\"${componentProperties.badgeAnalyticsLinkDescription}\""/>
 </c:if>
+<c:if test="${not empty componentProperties.componentInPagePath}">
+    <c:set var="badgeLinkAttr" value="${badgeLinkAttr} ${COMPONENT_ATTRIBUTE_INPAGEPATH}=\"${componentProperties.componentInPagePath}\""/>
+</c:if>
 
 
 <%-- BADGE IMAGE CONFIG  --%>
