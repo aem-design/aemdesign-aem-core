@@ -1,13 +1,15 @@
 #!/bin/bash
 
-function set_term_title() {
-   echo -en "\033]0;$1\a"
-}
+POM_FILE="../pom.xml"
+SCRIPT_PARAMS="$@"
 
-set_term_title "Deploying Project: mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallBundle,autoInstallPackage"
-#mvn -DskipTests clean install -P autoCleanInstallPackage
-#mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallBundle,autoInstallPackage,autoInstallPackagePublish
-mvn -Dvault.useProxy=false -DskipTests clean install -P java8,autoInstallPackage,autoInstallBundle
+source "../scripts/functions-debug.sh"
+source "../scripts/functions-maven.sh"
+source "../scripts/functions-curl.sh"
 
+set_term_title "Deploying Package: mvn -Dvault.useProxy=false -DskipTests clean install -P java8,autoInstallPackage,autoInstallBundle "$@""
+echo "- Deploy"
+mvn -Dvault.useProxy=false -DskipTests clean install -P java8,autoInstallPackage,autoInstallBundle "$@"
 set_term_title "Deployed"
+echo "- Deployed"
 

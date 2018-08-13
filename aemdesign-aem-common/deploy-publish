@@ -1,13 +1,3 @@
 #!/bin/bash
 
-function set_term_title() {
-   echo -en "\033]0;$1\a"
-}
-
-set_term_title "Deploying Project: mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallBundle,autoInstallPackage"
-#mvn -DskipTests clean install -P autoCleanInstallPackage
-#mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallBundle,autoInstallPackage,autoInstallPackagePublish
-mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallPackage,autoInstallBundle -Dcrx.port=4503
-
-set_term_title "Deployed"
-
+./deploy -Dcrx.port=4503
