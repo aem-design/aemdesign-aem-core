@@ -14,7 +14,7 @@
     // {
     //   1 required - property name,
     //   2 required - default value,
-    //   3 optional - compile into a data-{name} attribute
+    //   3 optional - compile into a {name} attribute
     // }
 
     Object[][] componentFields = {
