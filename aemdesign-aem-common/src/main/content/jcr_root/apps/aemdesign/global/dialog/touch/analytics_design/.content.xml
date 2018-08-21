@@ -9,7 +9,7 @@
           extraClientlibs="[]">
     <content
             jcr:primaryType="nt:unstructured"
-            jcr:title="Accessibility"
+            jcr:title="Analytics"
             sling:resourceType="granite/ui/components/coral/foundation/container"
             maximized="{Boolean}true">
         <items jcr:primaryType="nt:unstructured">
@@ -26,7 +26,7 @@
                             <analytics
                                     jcr:primaryType="nt:unstructured"
                                     jcr:title="Analytics"
-                                    path="/apps/aemdesign/global/dialog/touch/analytics/content/items/analyticsTab/items/column/items/attributes"
+                                    path="/apps/aemdesign/global/dialog/touch/analytics/content/items/analyticsTab/items/column/items/basic"
                                     resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                         </items>
