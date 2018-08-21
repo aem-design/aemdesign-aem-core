@@ -34,7 +34,7 @@
         digitalDataPagePageInfo.put("pageType", detailsProperties.get("analyticsPageType", ""));
         digitalDataPagePageInfo.put("pagePath", _currentPage.getPath());
         if (isNotEmpty(_properties.get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, ""))) {
-            digitalDataPagePageInfo.put("effectiveDate", formatDate(_properties.get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, Calendar.getInstance()), "YYYY-MM-DD"));
+            digitalDataPagePageInfo.put("effectiveDate", formatDate(_properties.get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, Calendar.getInstance()), "yyyy-MM-dd"));
         } else {
             digitalDataPagePageInfo.put("effectiveDate", "");
         }
