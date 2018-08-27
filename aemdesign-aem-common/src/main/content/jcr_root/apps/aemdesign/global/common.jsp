@@ -105,11 +105,15 @@
         String pageUrl = "#";
 
         if (page != null) {
-            String redirectTarget = page.getProperties().get("redirectTarget","");
-            if (isNotEmpty(redirectTarget)) {
-                pageUrl = redirectTarget;
-            } else {
-                pageUrl = page.getPath();
+
+            pageUrl = page.getPath();
+
+            ValueMap pageProps = page.getProperties();
+            if (pageProps != null) {
+                String redirectTarget = pageProps.get("redirectTarget", pageProps.get("cq:redirectTarget", pageProps.get("sling:redirect", "")));
+                if (isNotEmpty(redirectTarget)) {
+                    pageUrl = redirectTarget;
+                }
             }
 
             if (pageUrl.startsWith("/content") && !pageUrl.endsWith(DEFAULT_EXTENTION)) {
