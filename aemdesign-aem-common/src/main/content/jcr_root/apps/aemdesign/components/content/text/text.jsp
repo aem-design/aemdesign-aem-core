@@ -11,6 +11,7 @@
             pageContext,
             componentFields,
             DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ANALYTICS,
             DEFAULT_FIELDS_ACCESSIBILITY);
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
