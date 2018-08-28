@@ -16,7 +16,7 @@
             {"height", "", "height"},
             {"width", "", "width"},
             {"showScrollbar", "yes", "scrolling"},
-            {FIELD_VARIANT, DEFAULT_VARIANT}
+            {FIELD_VARIANT, "iframe"}
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -28,8 +28,11 @@
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
-    <c:when test="${componentProperties.variant eq 'default'}">
-        <%@include file="variant.default.jsp" %>
+    <c:when test="${componentProperties.variant eq 'include'}">
+        <%@include file="variant.include.jsp" %>
+    </c:when>
+    <c:when test="${componentProperties.variant eq 'import'}">
+        <%@include file="variant.import.jsp" %>
     </c:when>
     <c:otherwise>
         <%@include file="variant.default.jsp" %>

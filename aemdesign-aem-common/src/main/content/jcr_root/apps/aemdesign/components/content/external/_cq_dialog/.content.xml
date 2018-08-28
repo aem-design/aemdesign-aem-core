@@ -36,36 +36,6 @@
                                             fieldDescription="URL of web application to be included"
                                             fieldLabel="Target application"
                                             name="./target"/>
-                                    <passparams
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/hidden"
-                                            name="./passparams"
-                                            value="{Boolean}true"/>
-                                    <widthheight
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
-                                            fieldDescription="for fixed size only"
-                                            fieldLabel="Width and Height">
-                                        <width
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"/>
-                                        <height
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"/>
-                                    </widthheight>
-                                    <showScrollbars
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            emptyOption="{Boolean}true"
-                                            fieldLabel="Show scrollbars"
-                                            name="./showScrollbar"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </showScrollbars>
                                 </items>
                             </variant>
                         </items>
@@ -82,7 +52,7 @@
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
-                    <column
+                    <column1
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
@@ -94,6 +64,8 @@
                                     <variant
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
+                                            class="cq-dialog-dropdown-showhide"
+                                            cq-dialog-dropdown-showhide-target=".external-variant-showhide-target"
                                             emptyOption="{Boolean}true"
                                             fieldLabel="Variant"
                                             name="./variant"
@@ -103,12 +75,81 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Default"
                                                     value=""/>
+                                            <iframe
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="iFrame"
+                                                    value="iframe"/>
+                                            <include
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="SSI Include"
+                                                    value="include"/>
+                                            <import
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Server Import"
+                                                    value="import"/>
                                         </items>
                                     </variant>
                                 </items>
                             </variant>
                         </items>
-                    </column>
+                    </column1>
+                    <column2
+                            jcr:primaryType="nt:unstructured"
+                            class="u-coral-padding u-coral-noMargin"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+
+                            <iframeConfig
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/container"
+                                    class="hide external-variant-showhide-target foundation-layout-util-vmargin"
+                                    showhidetargetvalue="iframe">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <iframeConfig
+                                            jcr:primaryType="nt:unstructured"
+                                            jcr:title="iFrame Config"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                        <items jcr:primaryType="nt:unstructured">
+
+                                            <passparams
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/hidden"
+                                                    name="./passparams"
+                                                    value="{Boolean}true"/>
+                                            <widthheight
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
+                                                    fieldDescription="for fixed size only"
+                                                    fieldLabel="Width and Height">
+                                                <width
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"/>
+                                                <height
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"/>
+                                            </widthheight>
+                                            <showScrollbars
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                                    emptyOption="{Boolean}true"
+                                                    fieldLabel="Show scrollbars"
+                                                    name="./showScrollbar"
+                                                    value="">
+                                                <datasource
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                        variant="valuelist"
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            </showScrollbars>
+
+
+                                        </items>
+                                    </iframeConfig>
+                                </items>
+                            </iframeConfig>
+
+                        </items>
+                    </column2>
                 </items>
             </layoutTab>
 
