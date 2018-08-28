@@ -215,10 +215,10 @@
                             path="/apps/aemdesign/global/dialog/touch/accessibility_design/content"
                             resourceType="granite/ui/components/coral/foundation/container"
                             sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                    <analytics
+                    <pageAnalytics
                             jcr:primaryType="nt:unstructured"
-                            jcr:title="Analytics"
-                            path="/apps/aemdesign/global/dialog/touch/analytics_design/content"
+                            jcr:title="Page Analytics"
+                            path="/apps/aemdesign/global/dialog/touch/pageAnalytics_design/content"
                             resourceType="granite/ui/components/coral/foundation/container"
                             sling:resourceType="granite/ui/components/coral/foundation/include"/>
                 </items>

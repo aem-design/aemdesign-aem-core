@@ -303,10 +303,10 @@
                     path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
-            <analyticsTab
+            <pageAnalyticsTab
                     jcr:primaryType="nt:unstructured"
-                    jcr:title="Analytics"
-                    path="/apps/aemdesign/global/dialog/touch/analytics/content/items/analyticsTab"
+                    jcr:title="Page Analytics"
+                    path="/apps/aemdesign/global/dialog/touch/pageAnalytics/content/items/pageAnalyticsTab"
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
         </items>
