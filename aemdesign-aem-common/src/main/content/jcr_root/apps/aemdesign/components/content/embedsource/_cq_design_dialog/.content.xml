@@ -41,30 +41,31 @@
                         </items>
                     </layout>
 
-                    <features
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Features"
-                            path="/apps/aemdesign/global/dialog/touch/text_design/features"
-                            resourceType="granite/ui/components/coral/foundation/container"
-                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                    <formatting
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Formatting"
-                            path="/apps/aemdesign/global/dialog/touch/text_design/formatting"
-                            resourceType="granite/ui/components/coral/foundation/container"
-                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                    <paraformat
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Paraformat"
-                            path="/apps/aemdesign/global/dialog/touch/text_design/paraformat"
-                            resourceType="granite/ui/components/coral/foundation/container"
-                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                    <characters
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Characters"
-                            path="/apps/aemdesign/global/dialog/touch/text_design/characters"
-                            resourceType="granite/ui/components/coral/foundation/container"
-                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                    <!-- controlled by prototype -->
+                    <!--<features-->
+                            <!--jcr:primaryType="nt:unstructured"-->
+                            <!--jcr:title="Features"-->
+                            <!--path="/apps/aemdesign/global/dialog/touch/text_design/features"-->
+                            <!--resourceType="granite/ui/components/coral/foundation/container"-->
+                            <!--sling:resourceType="granite/ui/components/coral/foundation/include"/>-->
+                    <!--<formatting-->
+                            <!--jcr:primaryType="nt:unstructured"-->
+                            <!--jcr:title="Formatting"-->
+                            <!--path="/apps/aemdesign/global/dialog/touch/text_design/formatting"-->
+                            <!--resourceType="granite/ui/components/coral/foundation/container"-->
+                            <!--sling:resourceType="granite/ui/components/coral/foundation/include"/>-->
+                    <!--<paraformat-->
+                            <!--jcr:primaryType="nt:unstructured"-->
+                            <!--jcr:title="Paraformat"-->
+                            <!--path="/apps/aemdesign/global/dialog/touch/text_design/paraformat"-->
+                            <!--resourceType="granite/ui/components/coral/foundation/container"-->
+                            <!--sling:resourceType="granite/ui/components/coral/foundation/include"/>-->
+                    <!--<characters-->
+                            <!--jcr:primaryType="nt:unstructured"-->
+                            <!--jcr:title="Characters"-->
+                            <!--path="/apps/aemdesign/global/dialog/touch/text_design/characters"-->
+                            <!--resourceType="granite/ui/components/coral/foundation/container"-->
+                            <!--sling:resourceType="granite/ui/components/coral/foundation/include"/>-->
 
                     <style
                             jcr:primaryType="nt:unstructured"
