@@ -446,10 +446,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="cq/gui/components/authoring/dialog/note"
                                                     note="This information is used in badges that have an action. These badges will be used in Lists for presentation."/>
-
                                             <analyticsEventType
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                    fieldDescription="Event Type"
                                                     fieldLabel="Event Type"
                                                     name="./badgeAnalyticsEventType"
                                                     emptyOption="{Boolean}true"
@@ -461,19 +461,33 @@
                                                         path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/eventtype"/>
                                             </analyticsEventType>
                                             <analyticsLinkType
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                fieldDescription="Link Type"
+                                                fieldLabel="Link Type"
+                                                name="./badgeAnalyticsLinkType"
+                                                emptyOption="{Boolean}true"
+                                                value="">
+                                                <datasource
                                                     jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                    fieldDescription="Link Type"
-                                                    fieldLabel="Link Type"
-                                                    name="./badgeAnalyticsLinkType"
-                                                    required="{Boolean}false"/>
+                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                    variant="valuelist"
+                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/linktype"/>
+                                            </analyticsLinkType>
                                             <analyticsLinkLocation
                                                     jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/select"
                                                     fieldDescription="Link Location"
                                                     fieldLabel="Link Location"
                                                     name="./badgeAnalyticsLinkLocation"
-                                                    required="{Boolean}false"/>
+                                                    emptyOption="{Boolean}true"
+                                                    value="">
+                                                <datasource
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                        variant="valuelist"
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/linklocation"/>
+                                            </analyticsLinkLocation>
                                             <analyticsLinkDescription
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -481,7 +495,6 @@
                                                     fieldLabel="Link Description"
                                                     name="./badgeAnalyticsLinkDescription"
                                                     required="{Boolean}false"/>
-
                                         </items>
                                     </analyticsConfigGroup>
 
