@@ -2,6 +2,7 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:rep="internal"
     jcr:mixinTypes="[rep:AccessControllable]"
   jcr:primaryType="sling:OrderedFolder">
+    <ananlytics/>
     <cloundservices/>
     <commerce/>
     <common/>
@@ -10,7 +11,7 @@
     <details/>
     <forms/>
     <layout/>
-    <list/>
+    <lists/>
     <media/>
     <template/>
     <widgets/>

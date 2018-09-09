@@ -112,7 +112,7 @@
                                                     value="cardTitleDescriptionAction"/>
                                             <cardImageTitleSubtitleDescriptionAction
                                                     jcr:primaryType="nt:unstructured"
-                                                    text="Card Colored with Image, Title, Sub Title, Description and Action"
+                                                    text="Card with Image, Title, Sub Title, Description and Action"
                                                     value="cardImageTitleSubtitleDescriptionAction"/>
                                             <cardImageTitleDescriptionAction
                                                     jcr:primaryType="nt:unstructured"
