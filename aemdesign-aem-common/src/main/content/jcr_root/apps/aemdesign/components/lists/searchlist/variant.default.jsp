@@ -14,10 +14,10 @@
 
         <div class="results">
             <c:forEach var="hit" items="${result.hits}" varStatus="status">
-                <c:if test="${hit.extension != \"\" && hit.extension != \"html\"}">
-                    <span class="icon type_${hit.extension}"><img src="/etc/clientlibs/aemdesign/icons/file/${hit.extension}.gif" alt="*"></span>
-                </c:if>
                 <div class="result-item">
+                    <c:if test="${hit.extension != \"\" && hit.extension != \"html\"}">
+                        <span class="icon type_${hit.extension}"><img src="/etc/clientlibs/aemdesign/icons/file/${hit.extension}.gif" alt="*"></span>
+                    </c:if>
                     <div class="result-item-title">
                         <a href="${hit.URL}" onclick="trackSelectedResult(this, ${status.index + 1})">${hit.title}</a>
                     </div>

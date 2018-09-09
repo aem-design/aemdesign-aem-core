@@ -5,10 +5,10 @@
         <div class="pages">
             <ul>
                 <c:if test="${result.previousPage != null}">
-                    <li><a href="${result.previousPage.URL}">${componentProperties.previousText}</a></li>
+                    <li class="previous"><a href="${result.previousPage.URL}">${componentProperties.previousText}</a></li>
                 </c:if>
                 <c:forEach var="page" items="${result.resultPages}">
-                    <li>
+                    <li<c:if test="${page.currentPage}"> class="current"</c:if>>
                         <c:choose>
                             <c:when test="${page.currentPage}">${page.index + 1}</c:when>
                             <c:otherwise>
@@ -18,7 +18,7 @@
                     </li>
                 </c:forEach>
                 <c:if test="${result.nextPage != null}">
-                    <li><a href="${result.nextPage.URL}">${componentProperties.nextText}</a></li>
+                    <li class="next"><a href="${result.nextPage.URL}">${componentProperties.nextText}</a></li>
                 </c:if>
             </ul>
         </div>
