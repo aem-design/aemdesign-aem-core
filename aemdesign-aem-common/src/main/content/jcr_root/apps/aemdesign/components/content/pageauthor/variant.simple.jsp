@@ -1,3 +1,3 @@
 <div ${componentProperties.componentAttributes}>
-    <cq:text property="text"/>
+    <address class="address">${componentProperties.author}</address>
 </div>
