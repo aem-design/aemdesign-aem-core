@@ -21,8 +21,8 @@
         <module>aemdesign-aem-services</module>
         <module>aemdesign-aem-showcase</module>
         <module>aemdesign-aem-taglibs</module>
-        <!-- <module>aemdesign-aem-deploy</module> -->
         <module>aemdesign-aem-prototype</module>
+        <module>aemdesign-aem-deploy</module>
     </modules>
 
     <!-- ====================================================================== -->
@@ -461,8 +461,8 @@
                 <module>aemdesign-aem-services</module>
                 <module>aemdesign-aem-showcase</module>
                 <module>aemdesign-aem-taglibs</module>
-                <!-- <module>aemdesign-aem-deploy</module> -->
                 <module>aemdesign-aem-prototype</module>
+                <module>aemdesign-aem-deploy</module>
             </modules>
         </profile>
     </profiles>
