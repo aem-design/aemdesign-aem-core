@@ -1,0 +1,31 @@
+#!/bin/bash
+
+SCRIPT_PARAMS="$@"
+
+source "./scripts/functions-debug.sh"
+source "./scripts/functions-maven.sh"
+source "./scripts/functions-curl.sh"
+
+
+set_term_title "Turn-off Workflows"
+echo "- Workflows Turn-off"
+doWorkflowsTurnOff
+
+
+set_term_title "Deploying Monolith Package: mvn -Dvault.useProxy=false -DskipTests -e -U -P deploymentpackage clean install "
+echo "- Deploy"
+mvn -Dvault.useProxy=false -DskipTests -e -U -P deploymentpackage clean install "$@"
+set_term_title "Deployed"
+
+
+set_term_title "Turn-on Workflows"
+echo "- Workflows Turn-on "
+doWorkflowsTurnOn
+
+
+set_term_title "Clear Cache"
+echo "- Clear Cache"
+doCacheClear
+
+set_term_title "Deployed"
+echo "- Deployed"

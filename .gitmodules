@@ -30,10 +30,6 @@
 	path = aemdesign-aem-taglibs
 	url = git@gitlab.com:aem.design/aemdesign-aem-taglibs.git
 	branch = master
-[submodule "aemdesign-deploy"]
-	path = aemdesign-deploy
-	url = git@gitlab.com:aem.design/aemdesign-deploy.git
-	branch = master
 [submodule "aemdesign-testing"]
 	path = aemdesign-testing
 	url = git@gitlab.com:aem.design/aemdesign-testing.git
