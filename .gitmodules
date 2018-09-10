@@ -1,0 +1,40 @@
+[submodule "aemdesign-aem-author"]
+	path = aemdesign-aem-author
+	url = git@gitlab.com:aem.design/aemdesign-aem-author.git
+	branch = master
+[submodule "aemdesign-aem-common"]
+	path = aemdesign-aem-common
+	url = git@gitlab.com:aem.design/aemdesign-aem-common.git
+	branch = master
+[submodule "aemdesign-aem-config"]
+	path = aemdesign-aem-config
+	url = git@gitlab.com:aem.design/aemdesign-aem-config.git
+	branch = master
+[submodule "aemdesign-aem-content"]
+	path = aemdesign-aem-content
+	url = git@gitlab.com:aem.design/aemdesign-aem-content.git
+	branch = master
+[submodule "aemdesign-aem-services"]
+	path = aemdesign-aem-services
+	url = git@gitlab.com:aem.design/aemdesign-aem-services.git
+	branch = master
+[submodule "aemdesign-aem-showcase"]
+	path = aemdesign-aem-showcase
+	url = git@gitlab.com:aem.design/aemdesign-aem-showcase.git
+	branch = master
+[submodule "aemdesign-aem-prototype"]
+	path = aemdesign-aem-prototype
+	url = git@gitlab.com:aem.design/aemdesign-aem-prototype.git
+	branch = master
+[submodule "aemdesign-aem-taglibs"]
+	path = aemdesign-aem-taglibs
+	url = git@gitlab.com:aem.design/aemdesign-aem-taglibs.git
+	branch = master
+[submodule "aemdesign-deploy"]
+	path = aemdesign-deploy
+	url = git@gitlab.com:aem.design/aemdesign-deploy.git
+	branch = master
+[submodule "aemdesign-testing"]
+	path = aemdesign-testing
+	url = git@gitlab.com:aem.design/aemdesign-testing.git
+	branch = master
