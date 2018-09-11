@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+
+<div class="container">
+    <sly data-sly-use.templatedContainer="com.day.cq.wcm.foundation.TemplatedContainer"
+         data-sly-repeat.child="${templatedContainer.structureResources}"
+         data-sly-resource="${child.path @ resourceType=child.resourceType, decorationTagName='div'}"/>
+</div>
+<div data-sly-resource="${'cloudservices' @ resourceType='cq/cloudserviceconfigs/components/servicecomponents'}" data-sly-unwrap></div>
+<sly data-sly-include="footerlibs.html" />

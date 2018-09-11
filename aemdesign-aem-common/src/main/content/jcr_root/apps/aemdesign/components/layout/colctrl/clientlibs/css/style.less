@@ -1,0 +1,389 @@
+/*colctrl -style */
+/*div{
+    height: auto;
+
+    &.container {
+        height: 100%;
+    }
+    &.section {
+        !* Property added to avoid IE hasLayout issue on paragraphs
+           see #20817 - IE6: div around Drag Components image not big enough
+        *!
+        zoom: 1;
+    }
+    &.par, &.rightpar {
+        clear: both;
+    }
+    &.parsys_column {
+        height: 100%;
+        width: 100%;
+        float: left;
+        !*border: 0;*!
+        !*vertical-align:top;*!
+        !*padding: 0;*!
+        !*margin: 0;*!
+        .section {
+            !*overflow:hidden;*!
+            width: 100%;
+            height: 100%;
+        }
+    }
+    !* column control layouts *!
+    &.colctrl-cols {
+        width: 100%;
+        float: left;
+    }
+    !* layout 1 : 100% ( grid6 + grid6 ) *!
+    &.colctrl-1c {
+        width: 99%;
+    }
+    !* layout 2 : 50% 50% ( grid6 + grid6 ) *!
+    &.colctrl-2c {
+
+    }
+    &.colctrl-2c-c0 {
+        width: 48%;
+        margin-right:10px
+    }
+    &.colctrl-2c-c1 {
+        width: 48%;
+        margin-left: 10px
+    }
+
+    !* layout 3 : 33% 33% 33%( grid4 + grid4 + grid4 ) *!
+    &.colctrl-3 { }
+    &.colctrl-3c-c0 {
+        width: 32%;
+        border-right: 10px;
+    }
+    &.colctrl-3c-c1 {
+        width: 32%;
+        border-left: 10px;
+        border-right: 10px;
+    }
+    &.colctrl-3c-c2 {
+        width: 32%;
+        border-left: 10px;
+    }
+    !* layout 4: 4 x 25% ( grid3 + grid3 + grid3 + grid3 ) *!
+    &.colctrl-4 { }
+    &.colctrl-4c-c0 {
+        width: 24%;
+        margin-right: 10px;
+    }
+    &.colctrl-4c-c1 {
+        width: 24%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    &.colctrl-4c-c2 {
+        width: 24%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    &.colctrl-4c-c3 {
+        width: 24%;
+        margin-left: 10px;
+    }
+    !* layout 5: 5 x 20% ( grid2.5 + grid2.5 + grid2.5 + grid2.5 + grid2.5 ) *!
+    &.colctrl-5 { }
+    &.colctrl-5c-c0 {
+        width: 19%;
+        margin-right: 10px;
+    }
+    &.colctrl-5c-c1 {
+        width: 19%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    &.colctrl-5c-c2 {
+        width: 19%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    &.colctrl-5c-c3 {
+        width: 19%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    &.colctrl-5c-c4 {
+        width: 19%;
+        margin-left: 10px;
+    }
+    !* layout 6: 6 x 20% ( grid2 + grid2 + grid2 + grid2 + grid2 ) *!
+    &.colctrl-6 { }
+
+    &.colctrl-6c-c0 {
+        width: 15%;
+        margin-right: 10px;
+    }
+    &.colctrl-6c-c1 {
+        width: 15%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    &.colctrl-6c-c2 {
+        width: 15%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    &.colctrl-6c-c3 {
+        width: 15%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    &.colctrl-6c-c4 {
+        width: 16%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    &.colctrl-6c-c5 {
+        width: 16%;
+        margin-left: 10px;
+    }
+}*/
+
+/* parsys component */
+div.container {
+    height: 100%;
+}
+div.section {
+    /* Property added to avoid IE hasLayout issue on paragraphs
+             see #20817 - IE6: div around Drag Components image not big enough
+          */
+    zoom: 1;
+}
+
+div.colctrl {
+    display: flex;
+}
+
+
+div.par,
+div.rightpar {
+    clear: both;
+}
+div.parsys_column {
+    height: 100%;
+    width: 100%;
+    float: left;
+    /*border: 0;*/
+    /*vertical-align:top;*/
+    /*padding: 0;*/
+    /*margin: 0;*/
+}
+div.parsys_column .section {
+    /*overflow:hidden;*/
+    width: 100%;
+    height: 100%;
+}
+div.colctrl-cols {
+    width: 100%;
+    float: left;
+}
+div.colctrl-1c {
+    width: 99%;
+}
+div.colctrl-2c-c0 {
+    width: 48%;
+    margin-right: 10px;
+}
+div.colctrl-2c-c1 {
+    width: 48%;
+    margin-left: 10px;
+}
+div.colctrl-3c-c0 {
+    width: 32%;
+    border-right: 10px;
+}
+div.colctrl-3c-c1 {
+    width: 32%;
+    border-left: 10px;
+    border-right: 10px;
+}
+div.colctrl-3c-c2 {
+    width: 32%;
+    border-left: 10px;
+}
+div.colctrl-4c-c0 {
+    width: 24%;
+    margin-right: 10px;
+}
+div.colctrl-4c-c1 {
+    width: 24%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+div.colctrl-4c-c2 {
+    width: 24%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+div.colctrl-4c-c3 {
+    width: 24%;
+    margin-left: 10px;
+}
+div.colctrl-5c-c0 {
+    width: 19%;
+    margin-right: 10px;
+}
+div.colctrl-5c-c1 {
+    width: 19%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+div.colctrl-5c-c2 {
+    width: 19%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+div.colctrl-5c-c3 {
+    width: 19%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+div.colctrl-5c-c4 {
+    width: 19%;
+    margin-left: 10px;
+}
+div.colctrl-6c-c0 {
+    width: 15%;
+    margin-right: 10px;
+}
+div.colctrl-6c-c1 {
+    width: 15%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+div.colctrl-6c-c2 {
+    width: 15%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+div.colctrl-6c-c3 {
+    width: 15%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+div.colctrl-6c-c4 {
+    width: 16%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+div.colctrl-6c-c5 {
+    width: 16%;
+    margin-left: 10px;
+}
+
+/* columns */
+
+.colctrl-1c,
+.colctrl-2c,
+.colctrl-3c,
+.colctrl-4c,
+.colctrl-5c,
+.colctrl-6c {
+    overflow: hidden;
+}
+
+.colctrl-2c-c0,
+.colctrl-2c-c1,
+.colctrl-3c-c0,
+.colctrl-3c-c1,
+.colctrl-3c-c2,
+.colctrl-4c-c0,
+.colctrl-4c-c1,
+.colctrl-4c-c2,
+.colctrl-4c-c3,
+.colctrl-5c-c0,
+.colctrl-5c-c1,
+.colctrl-5c-c2,
+.colctrl-5c-c3,
+.colctrl-5c-c4,
+.colctrl-6c-c0,
+.colctrl-6c-c1,
+.colctrl-6c-c2,
+.colctrl-6c-c3,
+.colctrl-6c-c4,
+.colctrl-6c-c5 {
+    float: left;
+    overflow: hidden;
+
+    /* make it so that margin falls within width property */
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.colctrl-2c-c0,
+.colctrl-2c-c1 {
+    width: 50%;
+}
+
+.colctrl-3c-c0,
+.colctrl-3c-c1,
+.colctrl-3c-c2 {
+    width: 33.33%;
+}
+
+.colctrl-4c-c0,
+.colctrl-4c-c1,
+.colctrl-4c-c2,
+.colctrl-4c-c3 {
+    width: 25%;
+}
+
+.colctrl-5c-c0,
+.colctrl-5c-c1,
+.colctrl-5c-c2,
+.colctrl-5c-c3,
+.colctrl-5c-c4 {
+    width: 20%;
+}
+
+.colctrl-6c-c0,
+.colctrl-6c-c1,
+.colctrl-6c-c2,
+.colctrl-6c-c3,
+.colctrl-6c-c4,
+.colctrl-6c-c5 {
+    width: 16.66%;
+}
+
+.colctrl-2c-c0,
+.colctrl-3c-c0,
+.colctrl-3c-c1,
+.colctrl-4c-c0,
+.colctrl-4c-c1,
+.colctrl-4c-c2,
+.colctrl-5c-c0,
+.colctrl-5c-c1,
+.colctrl-5c-c2,
+.colctrl-5c-c3,
+.colctrl-6c-c0,
+.colctrl-6c-c1,
+.colctrl-6c-c2,
+.colctrl-6c-c3,
+.colctrl-6c-c4 {
+    padding-right: 5px;
+}
+
+.colctrl-2c-c1,
+.colctrl-3c-c1,
+.colctrl-3c-c2,
+.colctrl-4c-c1,
+.colctrl-4c-c2,
+.colctrl-4c-c3,
+.colctrl-5c-c1,
+.colctrl-5c-c2,
+.colctrl-5c-c3,
+.colctrl-5c-c4,
+.colctrl-6c-c1,
+.colctrl-6c-c2,
+.colctrl-6c-c3,
+.colctrl-6c-c4,
+.colctrl-6c-c5 {
+    padding-left: 5px;
+}

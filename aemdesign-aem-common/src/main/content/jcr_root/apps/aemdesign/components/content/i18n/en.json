@@ -1,0 +1,27 @@
+{
+  "PDF ((download))": "pdf file",
+  "PNG ((download))": "png file",
+  "TIFF ((download))": "tiff file",
+  "GIF ((download))": "gif file",
+  "BMP ((download))": "bmp file",
+  "ICO ((download))": "ico file",
+  "JPG ((download))": "jpg file",
+  "JPEG ((download))": "jpeg file",
+  "MSWORD ((download))": "MS word file",
+  "VND.OPENXMLFORMATS-OFFICEDOCUMENT.PRESENTATIONML.PRESENTATION ((download))": "pptx file",
+  "PPT ((download))": "ppt file",
+  "VND.OPENXMLFORMATS-OFFICEDOCUMENT.WORDPROCESSINGML.DOCUMENT ((download))": "MS word file",
+  "QUICKTIME ((download))": "quicktime file",
+  "X-SHOCKWAVE-FLASH ((download))": "flash file",
+  "MP4 ((download))": "mp4 file",
+  "X-M4V ((download))": "m4v file",
+  "MPEG ((download))": "mpeg file",
+  "3GPP ((download))": "3gpp file",
+  "PLAIN ((download))": "txt file",
+  "downloadlabel ((download))": "Download",
+  "licenseinfo ((download))": "© {4} {0} {1} {2} {3}",
+  "linklabel ((link))": "Link",
+  "publishDateDisplayFormat ((pagedate))": "MMMM d, YYYY",
+  "publishDateFormat ((pagedate))": "yyyy-MM-dd"
+
+}

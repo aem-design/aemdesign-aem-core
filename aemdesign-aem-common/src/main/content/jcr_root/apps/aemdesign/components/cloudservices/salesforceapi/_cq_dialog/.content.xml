@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Salesforce API Settings"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                type="nav"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+        <items jcr:primaryType="nt:unstructured">
+
+            <configTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Config"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <variant
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Config"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <clientid
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Client Id"
+                                            name="./metaData/clientId"/>
+                                    <clientsecret
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/password"
+                                            fieldLabel="Client Secret"
+                                            name="./metaData/clientSecret"/>
+                                    <clientsecretencryption
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/hidden"
+                                            name="./metaData/clientSecret@Encrypted"/>
+                                    <environment
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Login Token Url"
+                                            name="./metaData/environment"/>
+                                    <redirecturi
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Service Url"
+                                            name="./metaData/redirectUri"/>
+                                    <granttype
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldLabel="Authentication Type"
+                                            name="./metaData/grant_type"
+                                            value="password">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <default
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Default"
+                                                    value=""/>
+                                            <password
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Password"
+                                                    value="password"/>
+                                            <authorizationcode
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Token"
+                                                    value="authorization_code"/>
+                                        </items>
+                                    </granttype>
+                                    <user
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="User Id"
+                                            name="./metaData/user"/>
+                                    <password
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/password"
+                                            fieldLabel="Password"
+                                            name="./metaData/password"/>
+                                    <passwordencryption
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/hidden"
+                                            name="./metaData/password@Encrypted"/>
+                                </items>
+                            </variant>
+                        </items>
+                    </column>
+                </items>
+            </configTab>
+
+        </items>
+    </content>
+
+</jcr:root>

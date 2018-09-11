@@ -1,0 +1,22 @@
+/*aemdesign.author.css - specific author rules*/
+
+/* TODO: need to align to [badge badge-pill badge-{default,primary,success,info,warning,danger}] */
+.cq-info {
+    /* #EEE49D */
+    border: 1px dashed #999;
+    background-color: #eeecd8;
+    color: #333;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 10px;
+}
+
+
+/* hide component badges in preview */
+.cq-wcm-preview details.component.badge, .cq-wcm-preview .cq-info{
+    display: none;
+}
+
+details.component div.code.variant {
+    display: none;
+}

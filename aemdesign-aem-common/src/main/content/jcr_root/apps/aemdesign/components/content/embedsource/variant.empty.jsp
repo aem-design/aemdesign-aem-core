@@ -1,0 +1,3 @@
+<c:if test="${WCMMODE_EDIT == CURRENT_WCMMODE}">
+    ${DEFAULT_CLASSIC_PLACEHOLDER_TEXT}
+</c:if>

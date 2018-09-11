@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
+          xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Style Dialog (Design)"
+          helpPath=""
+          sling:resourceType="cq/gui/components/authoring/dialog"
+          extraClientlibs="[]">
+    <content
+            jcr:primaryType="nt:unstructured"
+            jcr:title="Style"
+            sling:resourceType="granite/ui/components/coral/foundation/container"
+            maximized="{Boolean}true">
+        <items jcr:primaryType="nt:unstructured">
+            <fixedcol
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+                    maximized="{Boolean}false">
+                <items jcr:primaryType="nt:unstructured">
+                    <col1
+                            granite:class="foundation-layout-util-maximized-alt"
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <style
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Style"
+                                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab/items/column1/items/style"
+                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
+                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                            <position
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Position"
+                                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab/items/column2/items/position"
+                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
+                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                        </items>
+                    </col1>
+                </items>
+            </fixedcol>
+        </items>
+    </content>
+</jcr:root>

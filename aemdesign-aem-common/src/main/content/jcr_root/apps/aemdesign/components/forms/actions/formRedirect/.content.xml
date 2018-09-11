@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:description="Send Form Request to another Form. The request being redirected"
+    jcr:primaryType="sling:Folder"
+    jcr:title="Send Form Request to another Form"
+    componentGroup="AEM.Design - Forms"
+    sling:resourceType="foundation/components/form/action"/>
