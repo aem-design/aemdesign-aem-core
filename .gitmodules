@@ -1,7 +1,3 @@
-[submodule "aemdesign-aem-author"]
-	path = aemdesign-aem-author
-	url = git@gitlab.com:aem.design/aemdesign-aem-author.git
-	branch = master
 [submodule "aemdesign-aem-common"]
 	path = aemdesign-aem-common
 	url = git@gitlab.com:aem.design/aemdesign-aem-common.git
