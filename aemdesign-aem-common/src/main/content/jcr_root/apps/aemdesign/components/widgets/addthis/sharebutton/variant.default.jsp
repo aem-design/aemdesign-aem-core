@@ -1,0 +1,1 @@
+<div ${componentProperties.componentAttributes}></div>

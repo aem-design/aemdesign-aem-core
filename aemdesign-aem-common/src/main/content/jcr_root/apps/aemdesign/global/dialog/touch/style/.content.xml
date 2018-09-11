@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Style Dialog"
+          helpPath=""
+          sling:resourceType="cq/gui/components/authoring/dialog"
+          extraClientlibs="[]">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                type="nav"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+        <items jcr:primaryType="nt:unstructured">
+            <styleTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Style"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column1
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <style
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Attributes"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <componentId
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="ID"
+                                            fieldDescription="Will be added as id attribute"
+                                            name="./componentId"
+                                            required="{Boolean}false"/>
+                                    <componentTheme
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
+                                            fieldLabel="Theme"
+                                            fieldDescription="Will be added as class attributes"
+                                            multiple="{Boolean}true"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme"
+                                            name="./componentTheme"/>
+                                    <componentModifiers
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
+                                            fieldLabel="Modifiers"
+                                            fieldDescription="Will be added as class attributes"
+                                            multiple="{Boolean}true"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
+                                            name="./componentModifiers"/>
+                                    <componentModules
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
+                                            fieldLabel="Module"
+                                            fieldDescription="Will be added as data-module attribute"
+                                            multiple="{Boolean}true"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-module"
+                                            name="./componentModules"/>
+                                    <componentChevron
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
+                                            fieldLabel="Chevron"
+                                            fieldDescription="Will be added as class attributes"
+                                            multiple="{Boolean}true"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-chevron"
+                                            name="./componentChevron"/>
+                                    <componentIcon
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
+                                            fieldLabel="Icon"
+                                            fieldDescription="Will be added as class attributes"
+                                            multiple="{Boolean}true"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
+                                            name="./componentIcon"/>
+                                    <componentBooleanAttrs
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
+                                            fieldLabel="Boolean Attributes"
+                                            fieldDescription="Will be added as tag attributes"
+                                            multiple="{Boolean}true"
+                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
+                                            name="./componentBooleanAttrs"/>
+                                </items>
+                            </style>
+                        </items>
+                    </column1>
+                    <column2
+                            jcr:primaryType="nt:unstructured"
+                            class="u-coral-padding u-coral-noMargin"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <position
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Position coordinates"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <positions
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
+                                            fieldDescription="The X and Y values of the Position"
+                                            fieldLabel="Positions">
+                                        <width
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                                name="./positionX"
+                                                unit="X position"/>
+                                        <height
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                                name="./positionY"
+                                                unit="Y position"/>
+                                    </positions>
+                                </items>
+                            </position>
+                        </items>
+                    </column2>
+
+                </items>
+
+            </styleTab>
+        </items>
+    </content>
+</jcr:root>

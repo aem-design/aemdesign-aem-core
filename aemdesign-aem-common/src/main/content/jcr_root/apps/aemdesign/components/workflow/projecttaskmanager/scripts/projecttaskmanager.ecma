@@ -1,0 +1,1013 @@
+/*
+
+ Available Objects
+ Java Class                                                   Script variable name            Description
+ ------------------------------------------------------------ ------------------------------- ---------------------------------------------------
+ com.adobe.granite.workflow.exec.WorkItem                     workItem                        The current step instance.
+ com.adobe.granite.workflow.WorkflowSession                   workflowSession                 The workflow session of the current step instance.
+ String[] (contains process arguments)                        args                            The step arguments.
+ com.adobe.granite.workflow.metadata.MetaDataMap              metaData                        The meta data of the current step instance.
+ org.apache.sling.scripting.core.impl.InternalScriptHelper    sling                           Provides access to the Sling runtime environment.
+ com.adobe.granite.workflow.exec.WorkItem                     graniteWorkItem                  The current step instance.
+ com.adobe.granite.workflow.WorkflowSession                   graniteWorkflowSession          The workflow session of the current step instance.
+
+ */
+
+var FIELDS = {
+
+    TYPE_JCR_PATH: "JCR_PATH",
+    WORKFLOW_ERROR: "workflow.error",
+
+    WORK_ITEM_ID:  "workItemId",
+    WORKFLOW_INSTANCE_ID:  "wfInstanceId",
+    PARM_PUSH_PAYLOAD_CHANGES:  "pushPayloadChanges",
+    ARG_TASK_TYPE:  "argTaskType",
+    ARG_TASK_NAME:  "argTaskName",
+    ARG_TASK_DUE_DELTA_DAYS:  "argTaskDueDeltaDays",
+    ARG_TASK_DUE_DELTA_HOURS:  "argTaskDueDeltaHours",
+    ARG_ACTIONS:  "argActions",
+    ARG_TASK_PRIORITY:  "argTaskPriority",
+    ARG_TASK_DESCRIPTION:  "argTaskDescription",
+    ARGS_SEND_EMAIL_NOTIFICATION:  "sendEmailNotification",
+    TASKPROPERTY_DUE_DATE:  "taskDueDate",
+    TASKPROPERTY_PRIORITY:  "taskPriority",
+    ARG_TASK_OWNER:  "argTaskOwner",
+    WORKITEMPROPERTY_TASK_ID:  "taskId",
+    ARG_ON_ASSIGN_SCRIPT:  "onCreateScript",
+    ARG_ON_ASSIGN_INLINE_SCRIPT:  "script",
+    TASKPROPERTY_COMMENT:  "comment",
+    WORKITEM_COMMENT:  "comment",
+    PROJECT:  "project",
+    PROJECT_PATH:  "project.path",
+    PROJECT_DUE_DATE:  "project.dueDate",
+    PROJECT_TASK_FOLDER: "tasks.folder",
+    PROJECT_WORK_FOLDER: "work.folder",
+    PROJECT_WORKLINKPATH: "project.workLinkPath",
+    NODE_PROJECT_CONTENT_TASKS:  "tasks",
+    NODE_PROJECT_CONTENT_WORK:  "work",
+    NODE_PROJECT_CONTENT:  "jcr:content",
+    TASKPROPERTY_PREVIOUS_TASK_ACTION:  "previousTaskAction",
+    TASKPROPERTY_PREVIOUS_COMPLETED_BY:  "previousCompletedBy",
+    TASKPROPERTY_PREVIOUS_COMMENT:  "previous_comment",
+
+    TASKPROPERTY_PARENTID:  "task.parentId",
+
+
+    WORKFLOW_ASIGNEES: "assignees",
+    WORKFLOW_ASIGNEE: "assignee",
+
+    WORKFLOW_LASTTASKACTION: "lastTaskAction"
+
+};
+
+log.info(">>> MANUAL PROJECT LINKING"); //OOTB does not handle parameters
+log.info(">>> we are going to assign workflows to team members");
+
+
+var workflowData = workItem.getWorkflowData();
+var payloadPath = workflowData.getPayload().toString();
+
+
+
+log.info(">> step args # {}", Packages.java.util.Arrays.toString(args));
+log.info(">> step meta, # {}", metaData);
+log.info(">> workflowData, # {}", workflowData.getMetaDataMap());
+
+
+
+
+
+var session = workflowSession.getSession();
+// var session = workflowSession; //sling.getResourceResolver().adaptTo(Session.class);
+var resolver = sling.getService(Packages.org.apache.sling.jcr.resource.JcrResourceResolverFactory).getResourceResolver(session);
+var externalizer = resolver.adaptTo(Packages.com.day.cq.commons.Externalizer);
+var userPropertiesService = sling.getService(Packages.com.adobe.granite.security.user.UserPropertiesService);
+var userPropertiesManager = userPropertiesService.createUserPropertiesManager(session, resolver);
+var userManager = resolver.adaptTo(Packages.org.apache.jackrabbit.api.security.user.UserManager);
+var resolverFactory = sling.getService(Packages.org.apache.sling.api.resource.ResourceResolverFactory);
+// var blankArray = new Packages.org.apache.commons.lang3.StringUtils.split(" ");
+
+var isMetadatValid = validateMetadata(metaData,workflowSession,workItem);
+
+log.info(">> isMetadatValid: {}", isMetadatValid);
+
+if (isMetadatValid) {
+
+    var path = workflowData.getPayload().toString();
+
+    log.info(">> payload path: {}", path);
+
+    var payloadNode = workflowSession.getSession().getItem(path);
+
+    log.info(">> payload payloadNode: {}", payloadNode);
+
+    var isPlayloadValid = validatePlayload(payloadNode);
+
+    log.info(">> isPlayloadValid: {}", isPlayloadValid);
+
+    if (isPlayloadValid) {
+
+        // log.info(">> fixBrokenMetadata");
+        // fixTypeHintsInMetadata(workflowData.getMetaDataMap(),workflowSession);
+        log.info(">> createProjectTasks");
+
+        updateWorkflowMetadata(workItem, workflowSession, workflowData.getMetaDataMap(), resolver);
+
+        var lastAction = workflowData.getMetaDataMap().get(FIELDS.WORKFLOW_LASTTASKACTION);
+
+        if (lastAction == null) {
+            log.info(">> RUNNING FIRST TIME");
+            createProjectTasks(workItem, workflowSession, workflowData.getMetaDataMap(), resolver)
+
+            log.info(">> PROJECT TASKS CREATED");
+
+            //can't remove/replace metadata fields :(
+            // log.info(">> UPDATING WORFKLOW METADATA");
+            //
+            // fixTypeHintsInMetadata( workflowData.getMetaDataMap(),workflowSession);
+            //
+            // log.info(">> WORFKLOW METADATA UPDATED");
+
+        } else {
+
+            log.info(">> PERFORMING ACTIONS: {}",lastAction);
+
+            if (lastAction == "Delegate") {
+                log.info(">> task has been delegated");
+                var stepMeta = workItem.getMetaDataMap();
+
+                var actionCmment = stepMeta.get("comment");
+                log.info(">> action comment {}",actionCmment);
+
+                //yes for many reasons...
+                if (actionCmment.startsWith("@")) {
+                    var delegate = actionCmment.substring(1,actionCmment.indexOf(": "));
+
+                    log.info(">> new delegate is {}",delegate);
+
+                    delegateProjectTasks(workItem, workflowSession, workflowData.getMetaDataMap(), resolver, delegate)
+
+                } else {
+                    log.info(">> no delegate specified format [@username: {comment}] {}",delegate);
+                }
+            } else if (lastAction == "Finish") {
+                log.info(">> auto complete all project tasks that have not been closed?");
+
+                var stepMeta = workItem.getMetaDataMap();
+
+                var actionCmment = stepMeta.get("comment");
+
+                closeProjectTasks(workItem, workflowSession, workflowData.getMetaDataMap(), resolver, lastAction, actionCmment);
+
+                advanceStep(workItem, workflowSession);
+
+            } else if (lastAction == "Complete") {
+                log.info(">> task has been completed, do nothing, let workflow do something");
+            } else {
+                log.info(">> come other action, do nothing");
+            }
+        }
+    }
+}
+
+updateWorkflow();
+/*
+* DONE
+* */
+
+
+function advanceStep(_workItem, _workflowSession) {
+    //advance step
+    var routes = _workflowSession.getRoutes(_workItem, false);
+    _workflowSession.complete(_workItem, routes.get(0));
+}
+
+function closeProjectTasks( _workItem, _workflowSession, _workflowMetaDataMap, _resolver, _taskAction, _taskCmment) {
+    try {
+        // var workflowMetaDataMap = workflowData.getMetaDataMap();
+        var projectPath = _workflowMetaDataMap.get(FIELDS.PROJECT, "");
+        var projectResource = _resolver.getResource(projectPath);
+        var projectResourceVM = projectResource.adaptTo(Packages.org.apache.sling.api.resource.ValueMap);
+        var project = projectResource.adaptTo(Packages.com.adobe.cq.projects.api.Project);
+
+        var projectOwner = projectResourceVM.get(Packages.com.day.cq.commons.jcr.JcrConstants.JCR_CREATED_BY ,"");
+
+        log.info(">> createProjectTasks info : {}",projectPath,projectResource);
+
+        log.info(">> workflow info updated : {}",projectPath,projectResource);
+
+        var taskManager = getTaskManager(projectResource,_workflowSession);
+
+        log.info(">> Task Manager: {}",taskManager);
+
+        //var task = createTask(taskOwner, taskManager, _workItem, _workflowSession, _workflowMetaDataMap, ["Delegate", "Complete"], projectResource, _resolver);
+
+        var wfInstanceId = _workItem.getWorkflow().getId();
+
+        log.info(">> workflow: {}",wfInstanceId);
+
+        var workflowInstanceCondition = new Packages.com.adobe.granite.taskmanagement.Condition();
+        workflowInstanceCondition.setComparisonOperator(Packages.com.adobe.granite.taskmanagement.ComparisonOperator.EQUALS);
+        workflowInstanceCondition.setPropertyName(FIELDS.WORKFLOW_INSTANCE_ID);
+        workflowInstanceCondition.setComparisonValue(wfInstanceId);
+
+        var workflowStatusCondition = new Packages.com.adobe.granite.taskmanagement.Condition();
+        workflowStatusCondition.setComparisonOperator(Packages.com.adobe.granite.taskmanagement.ComparisonOperator.EQUALS);
+        workflowStatusCondition.setTaskProperty(Packages.com.adobe.granite.taskmanagement.TaskProperty.STATUS);
+        workflowStatusCondition.setComparisonValue(Packages.com.adobe.granite.workflow.exec.Status.ACTIVE);
+
+        var filter = new Packages.com.adobe.granite.taskmanagement.Filter();
+        filter.addCondition(workflowInstanceCondition);
+        filter.addCondition(workflowStatusCondition);
+        filter.setReturnFlatStructure(true);
+        var tasks = taskManager.getTasks(filter);
+        while (tasks.hasNext())
+        {
+            var nextTask = tasks.next();
+            try
+            {
+                //taskManager.terminateTask(nextTask.getId());
+                log.info(">> close task id: {}, {}",nextTask.getId(), _taskAction);
+
+                //close tasks without notifications
+                var nextTaskResource = request.getResourceResolver().getResource(nextTask.getId());
+                var nextTaskMap = nextTaskResource.adaptTo(org.apache.sling.api.resource.ModifiableValueMap);
+
+                nextTaskMap.put("status","COMPLETE");
+                log.info(">> update task status: {}", nextTaskMap.get("status"));
+                nextTaskMap.put("selectedAction",_taskAction.toString());
+                log.info(">> update task selectedAction: {}", nextTaskMap.get("selectedAction"));
+                nextTaskMap.put("comment",_taskCmment.toString());
+                log.info(">> update task comment: {}", nextTaskMap.get("comment"));
+
+
+                _workflowSession.getSession().save();
+
+            }
+            catch (ex)
+            {
+                log.info(">> error closing task: {}, {}", nextTask.getId(), ex.toString());
+            }
+        }
+
+
+    } catch (ex) {
+        log.error("Failed to close task {}", ex);
+    }
+}
+
+function delegateProjectTasks( _workItem, _workflowSession, _workflowMetaDataMap, _resolver, taskOwner) {
+    try {
+        // var workflowMetaDataMap = workflowData.getMetaDataMap();
+        var projectPath = _workflowMetaDataMap.get(FIELDS.PROJECT, "");
+        var projectResource = _resolver.getResource(projectPath);
+        var projectResourceVM = projectResource.adaptTo(Packages.org.apache.sling.api.resource.ValueMap);
+        var project = projectResource.adaptTo(Packages.com.adobe.cq.projects.api.Project);
+
+        var projectOwner = projectResourceVM.get(Packages.com.day.cq.commons.jcr.JcrConstants.JCR_CREATED_BY ,"");
+
+        log.info(">> createProjectTasks info : {}",projectPath,projectResource);
+
+        log.info(">> workflow info updated : {}",projectPath,projectResource);
+
+        var taskManager = getTaskManager(projectResource,_workflowSession);
+
+        log.info(">> Task Manager: {}",taskManager);
+
+
+        log.info(">> task owner: {}",taskOwner);
+
+        var task = createTask(taskOwner, taskManager, _workItem, _workflowSession, _workflowMetaDataMap, ["Delegate", "Complete"], projectResource, _resolver);
+
+        log.info(">> delegated task id: {}",task.getId());
+
+    } catch (ex) {
+        log.error("Failed to delegate task {}", ex);
+    }
+}
+
+function createProjectTasks( _workItem, _workflowSession, _workflowMetaDataMap, _resolver) {
+    try {
+        // var workflowMetaDataMap = workflowData.getMetaDataMap();
+        var projectPath = _workflowMetaDataMap.get(FIELDS.PROJECT, "");
+        var projectResource = _resolver.getResource(projectPath);
+        var projectResourceVM = projectResource.adaptTo(Packages.org.apache.sling.api.resource.ValueMap);
+        var project = projectResource.adaptTo(Packages.com.adobe.cq.projects.api.Project);
+
+        var projectOwner = projectResourceVM.get(Packages.com.day.cq.commons.jcr.JcrConstants.JCR_CREATED_BY ,"");
+
+        log.info(">> createProjectTasks info : {}",projectPath,projectResource);
+
+        log.info(">> workflow info updated : {}",projectPath,projectResource);
+
+        var taskManager = getTaskManager(projectResource,_workflowSession);
+
+        log.info(">> Task Manager: {}",taskManager);
+
+        //create a task for project owner
+        var ownersTask = createTask(projectOwner, taskManager, _workItem,_workflowSession, _workflowMetaDataMap, ["Finish"], projectResource, _resolver);
+
+        log.info(">> new ownersTask: {}",ownersTask);
+
+        var ownersTaskId = ownersTask.getId();
+
+        log.info(">> new ownersTaskId: {}",ownersTaskId);
+
+        _workItem.getMetaDataMap().put("taskId", ownersTaskId);
+
+        log.info(">> workflow is linked to owner task: {}",ownersTaskId);
+
+        updateMetadata(FIELDS.TASKPROPERTY_PARENTID, ownersTaskId);
+
+
+        // //create a task for each assignee
+        // var taskAssignee = _workflowMetaDataMap.get(FIELDS.WORKFLOW_ASIGNEE, "admin");
+        //
+        // log.info(">> task owner: {}",taskOwner);
+        var taskAssignees = _workflowMetaDataMap.get(FIELDS.WORKFLOW_ASIGNEES, "");
+
+        log.info(">> task owners: {}",taskAssignees);
+
+
+        if (taskAssignees!="") {
+            taskAssignees=taskAssignees.split(",");
+            log.info(">> task owners array: {}",taskAssignees);
+            for (var item in taskAssignees) {
+                var newowner = taskAssignees[item];
+                log.info(">> new task owner {}, {}", item, newowner);
+                if (newowner!="") {
+                    if (projectOwner!=newowner) {
+                        var asigneeTask = createTask(newowner, taskManager, _workItem, _workflowSession, _workflowMetaDataMap, ["Delegate", "Complete"], projectResource, _resolver);
+                        if (asigneeTask != null) {
+                            log.info(">> new asigneeTask: {}", asigneeTask.getId());
+                        }
+
+                    } else {
+                        log.info(">> skipping assignee same as project owner {}", newowner);
+                    }
+                }
+            }
+        }
+
+
+    } catch (ex) {
+        log.error("Failed to create task {}", ex);
+    }
+}
+
+
+function createTask(_taskOwner, _taskManager, _workItem, _workflowSession, _workflowMetaDataMap, _actions, _projectResource, _resolver) {
+    log.info("-> createTask {}, {}", _taskOwner, _actions);
+    var task = constructTaskInstanceFromParameters(_taskOwner, _taskManager, _workItem, _workflowMetaDataMap, _actions, _resolver);
+
+    log.info(">> task constructed: {}",task.getName());
+
+    task.setProperty(FIELDS.PROJECT_PATH, _projectResource.getPath());
+
+    addPreviousTaskInfo(_workflowSession, _taskManager, task, _workItem);
+
+    log.info("<- addPreviousTaskInfo");
+
+    var dueDateProperty = task.getProperty(FIELDS.TASKPROPERTY_DUE_DATE);
+
+    log.info(">> dueDateProperty: {}",dueDateProperty);
+
+    if (_isBlank(dueDateProperty.toString())) {
+        var valueMap = _projectResource.adaptTo(Packages.org.apache.sling.api.resource.ValueMap);
+        var dueDate = valueMap.get(FIELDS.PROJECT_DUE_DATE, Packages.java.util.Date);
+        log.info(">> "+FIELDS.PROJECT_DUE_DATE+": {}",dueDate);
+        task.setProperty(FIELDS.TASKPROPERTY_DUE_DATE, dueDate);
+    }
+    //runOnCreateScript(_workflowSession, _workItem, task, project, _workflowMetaDataMap,_resolver);
+    try {
+        var newTask = _taskManager.createTask(task);
+        var tasks = _workflowMetaDataMap.get("tasks",_blankArray());
+        if (tasks!=null) {
+            var tasksUpdate = _push(tasks,newTask.getId());
+            log.info(">> existing task list {}",_join(tasksUpdate,","));
+            updateMetadata("tasks", tasksUpdate);
+        } else {
+
+        }
+    } catch (ex) {
+        log.error("error with task info {}",task);
+        log.error("could not create task {}",ex);
+    }
+
+    return newTask;
+}
+
+/*Update Metadata*/
+
+
+function updateWorkflowMetadata(_workItem, _workflowSession, _workflowMetaDataMap, _resolver) {
+    log.info("-> updateWorkflowMetadata");
+    try {
+        if (_workflowMetaDataMap[FIELDS.PROJECT_WORKLINKPATH]==null) {
+            log.info("-> updating workflow metadata");
+            // var workflowMetaDataMap = workflowData.getMetaDataMap();
+            var projectPath = _workflowMetaDataMap.get(FIELDS.PROJECT, "");
+            var projectResource = _resolver.getResource(projectPath);
+            var project = projectResource.adaptTo(Packages.com.adobe.cq.projects.api.Project);
+
+            log.info(">> createProjectTasks info : {}",projectPath,projectResource);
+
+            //update metadata of the project
+            updateInfoFromProject(projectResource, _workflowMetaDataMap,_workflowSession,_workItem);
+            linkWorkflowToProject(projectResource,_workflowMetaDataMap,_workflowSession,_workItem)
+            updateInfoFromProjectGroups(projectResource, _workflowMetaDataMap,_workflowSession);
+        }
+    } catch (ex) {
+        log.error("Failed to update worflow {}", ex);
+    }
+    log.info("<- updateWorkflowMetadata");
+}
+
+
+function updateInfoFromProject(_projectResource,_workflowMetaDataMap,_workflowSession,_workItem) {
+    log.info("->updateInfoFromProject");
+
+    updateMetadata(FIELDS.PROJECT_PATH, _projectResource.getPath());
+
+}
+
+function linkWorkflowToProject(_projectResource,_workflowMetaDataMap,_workflowSession,_workItem) {
+
+    var modelId = _workflowMetaDataMap.get("modelId", "");
+    // var wfModel = _workflowSession.getModel(modelId);
+
+    //create work folder
+    var workFolder = getOrCreateWorkFolder(_projectResource,_workflowSession);
+    var refName = _workflowMetaDataMap.get("workflowTitle", "");
+    refName = _createValidName(refName).replaceAll("-", "");
+    var workNode = _getOrCreateUniqueByPath(workFolder.adaptTo(Packages.javax.jcr.Node), refName, "nt:unstructured");
+
+    //create comments folder for work
+    var workResourceComment = _getOrCreateUniqueByPath(workNode, "default", "nt:unstructured");
+
+    updateMetadata(FIELDS.PROJECT_WORKLINKPATH, workNode.getPath());
+
+    var workResource = request.getResourceResolver().getResource(workNode.getPath());
+    var workResProps = workResource.adaptTo(org.apache.sling.api.resource.ModifiableValueMap);
+    workResProps.put("workflow.id", _workItem.getWorkflow().getId());
+    workResProps.put("model.id", modelId);
+    workResProps.put("model.tags", "");
+}
+
+
+function updateInfoFromProjectGroups(_projectResource,_workflowMetaDataMap,_workflowSession) {
+    log.info("->updateInfoFromProjectGroups");
+    var projectValueMap = _projectResource.adaptTo(Packages.org.apache.sling.api.resource.ValueMap);
+    log.info(">> projectValueMap {}", projectValueMap);
+    var items = new Packages.java.util.ArrayList(projectValueMap.keySet());
+    log.info(">> items {},{}", items,items.size());
+    for (var i=0; i < items.size();i++) {
+        var entry = items.get(i);
+        log.info(">> item {}", entry);
+
+        if (entry.startsWith("role_")) {
+            var role = (entry).substring(entry.indexOf("role_") + "role_".length);
+
+            updateMetadata("project.group." + role, projectValueMap.get(entry,""));
+
+            //_workflowMetaDataMap.put("project.group." + role, entry.getValue());
+        }
+    }
+    // _workflowMetaDataMap.put(FIELDS.PROJECT_PATH, _projectResource.getPath());
+
+}
+
+
+function getTaskManager(_projectResource, _workflowSession) {
+    log.info("-> getTaskManager {}", _projectResource);
+    var projectContent = _projectResource.getChild("jcr:content");
+    log.info(">> projectContent {}", projectContent);
+    var projectContentNode = projectContent.adaptTo(Packages.javax.jcr.Node);
+    log.info(">> projectContentNode {}", projectContentNode);
+    var valueMap = projectContent.adaptTo(Packages.org.apache.sling.api.resource.ValueMap);
+
+    log.info(">> valueMap {}", valueMap);
+
+    var tasksFolderName = valueMap.get(FIELDS.PROJECT_TASK_FOLDER, FIELDS.NODE_PROJECT_CONTENT_TASKS);
+
+    var tasksNode = getOrCreateTasksFolder(projectContent,projectContentNode,tasksFolderName,_workflowSession); //projectContent.getChild(tasksFolderName);
+
+    var taskManager;
+
+    if (tasksNode == null) {
+
+        var errorText = "Child resource for creating tasks: '" + tasksFolderName + "' does not exist at location: '" + projectContent.getPath() + "'";
+        updateMetadata(FIELDS.WORKFLOW_ERROR, errorText);
+        log.error(errorText);
+    } else {
+        taskManager = tasksNode.adaptTo(Packages.com.adobe.granite.taskmanagement.TaskManager);
+    }
+
+    return taskManager;
+}
+
+
+function getOrCreateTasksFolder(_projectContentResource,_projectContentNode,_tasksFolderName,_workflowSession) {
+    log.info("-> getOrCreateTasksFolder");
+    if (!_projectContentNode.hasNode(_tasksFolderName)) {
+        var tasksNode = _projectContentNode.addNode(_tasksFolderName, "nt:unstructured");
+        log.info(">> tasksNode {}", tasksNode);
+
+
+        var valueMap = _projectContentResource.adaptTo(Packages.org.apache.sling.api.resource.ModifiableValueMap);
+        log.info(">> valueMap {}", valueMap);
+        valueMap.put(FIELDS.PROJECT_TASK_FOLDER, tasksNode.getName());
+
+        // _projectContentNode.setProperty(FIELDS.PROJECT_TASK_FOLDER,tasksNode.getName());
+
+        _workflowSession.getSession().save();
+    }
+
+    return  _projectContentResource.getChild(_tasksFolderName);
+
+}
+
+
+function getOrCreateWorkFolder(_projectResource,_workflowSession)
+{
+
+    var workResource = _projectResource.getChild(FIELDS.NODE_PROJECT_CONTENT+"/"+FIELDS.NODE_PROJECT_CONTENT_WORK);
+    if (workResource == null)
+    {
+        var projectContent = _projectResource.getChild(FIELDS.NODE_PROJECT_CONTENT);
+        var workResource = _projectResource.getResourceResolver().create(projectContent, FIELDS.NODE_PROJECT_CONTENT_WORK, null);
+
+        // projectContent.setProperty(FIELDS.PROJECT_WORK_FOLDER,workResource.getName());
+        var valueMap = projectContent.adaptTo(Packages.org.apache.sling.api.resource.ModifiableValueMap);
+        valueMap.put(FIELDS.PROJECT_WORK_FOLDER, workResource.getName());
+
+        _workflowSession.getSession().save();
+    }
+    return workResource;
+}
+
+
+function constructTaskInstanceFromParameters(_taskOwner, _taskManager, _workItem, _workflowMetaDataMap, _taskActions, _resolver) {
+    log.info("-> constructTaskInstanceFromParameters");
+
+    // var _taskOwner = _workflowMetaDataMap.get("argTaskOwner", "admin");
+    // var _taskOwner = _workflowMetaDataMap.get(FIELDS.WORKFLOW_ASIGNEE, "admin");
+
+
+    var taskType = _workflowMetaDataMap.get("taskType", ""); //projects
+    // var taskTypeName = _workflowMetaDataMap.get("taskTypeName", ""); //dam - taskType is used for consistency
+    if (taskType == null) {
+        taskType = "default";
+    }
+    var newTask = _taskManager.getTaskManagerFactory().newTask(taskType);
+
+
+    newTask.setCurrentAssignee(_taskOwner);
+
+    newTask.setProperty(FIELDS.WORK_ITEM_ID, _workItem.getId());
+    newTask.setProperty(FIELDS.WORKFLOW_INSTANCE_ID, _workItem.getWorkflow().getId());
+
+    var taskName = _workflowMetaDataMap.get("taskName", "New Task");
+    if (taskName != null) {
+        newTask.setName(taskName);
+    }
+    var pushPayloadChange = "false";
+    var wfPayload = _workItem.getWorkflowData().getPayload();
+    if (_isNotBlank(wfPayload)) {
+        newTask.setContentPath(wfPayload);
+        pushPayloadChange = "true";
+
+        if (isAsset(_resolver, wfPayload)) {
+            newTask.setProperty("dam:resolvedPath", wfPayload);
+        }
+    }
+    newTask.setProperty(FIELDS.PARM_PUSH_PAYLOAD_CHANGES, pushPayloadChange);
+
+
+    var taskDescription = _workflowMetaDataMap.get("taskDescription", "");
+    if (taskDescription != null) {
+        newTask.setDescription(taskDescription);
+    }
+
+    var resourceType = _workflowMetaDataMap.get("sling:resourceType", "");
+    if (_isNotEmpty(resourceType)) {
+        newTask.setProperty("sling:resourceType",resourceType)
+    }
+
+    var resolvedPath = _workflowMetaDataMap.get("dam:resolvedPath", "");
+    if (resolvedPath != null) {
+        newTask.setProperty("dam:resolvedPath",resolvedPath)
+    }
+
+
+    var taskParentId = _workflowMetaDataMap.get(FIELDS.TASKPROPERTY_PARENTID,"");
+    log.info(">> taskParentId {} ",taskParentId);
+    if (taskParentId != null) {
+        newTask.setParentId(taskParentId);
+        log.info(">> linked to parent {}",taskParentId);
+    }
+    // var deltaDays = parseInt(_workflowMetaDataMap.get("taskDueDeltaDays",0));
+    // var deltaHours = parseInt(_workflowMetaDataMap.get("taskDueDeltaHours",0));
+    // if ((deltaDays != 0) || (deltaHours != 0))
+    // {
+    //     var calendar = Packages.java.util.Calendar.getInstance();
+    //     calendar.add(10, deltaHours);
+    //     calendar.add(5, deltaDays);
+    //
+    //     newTask.setProperty(FIELDS.TASKPROPERTY_DUE_DATE, calendar.getTime());
+    // }
+
+
+    var taskDueDate = _workflowMetaDataMap.get(FIELDS.TASKPROPERTY_DUE_DATE, "");
+    log.info(">> taskDueDate {} ",taskDueDate);
+    if (_isNotEmpty(taskDueDate)) {
+        var taskDueDateCal = parseDate(taskDueDate);
+        log.info(">> taskDueDateCal {} ",taskDueDateCal.getTime());
+        newTask.setProperty(FIELDS.TASKPROPERTY_DUE_DATE, taskDueDateCal.getTime());
+
+        log.info(">> taskDueDateCal {} ",newTask.getProperty(FIELDS.TASKPROPERTY_DUE_DATE));
+    }
+
+    log.info(">> taskActions {}", _taskActions);
+
+    var  actions = _workflowMetaDataMap.get("actions", _taskActions);
+
+    log.info(">> actions provided {}", actions);
+
+    if ((actions != null) && (actions.length > 0))
+    {
+        var actionList = new Packages.java.util.ArrayList();
+        log.info(">> actionList {}", actionList);
+
+        for (var item in actions) {
+            var action = actions[item];
+            log.info(">> item {}", item, action);
+            if (action!="") {
+                actionList.add(_taskManager.getTaskManagerFactory().newTaskAction(action));
+            }
+        }
+
+        log.info(">> actionList updated {}", actionList);
+
+        if (actionList.size() > 0) {
+            newTask.setActions(actionList);
+        }
+    }
+    // var taskPriority = _workflowMetaDataMap.get("argTaskPriority", "");
+    var taskPriority = _workflowMetaDataMap.get("taskPriority", "");
+    if (taskPriority != null) {
+        newTask.setProperty("taskPriority", taskPriority);
+    }
+
+    var notifyUser = _workflowMetaDataMap.get("sendEmailNotification", "");
+    if (_isNotBlank(notifyUser)) {
+        newTask.setProperty("sendEmailNotification", notifyUser);
+    }
+    return newTask;
+}
+
+
+function addPreviousTaskInfo(_workflowSession, _taskManager, _task, _workItem) {
+    log.info("-> addPreviousTaskInfo");
+    var previousUserWorkItem = findPreviousUserWorkItem(_workflowSession, _workItem);
+
+
+    if (previousUserWorkItem != null) {
+        log.info(">> previousUserWorkItem {}",previousUserWorkItem);
+
+        var previousTaskId = previousUserWorkItem.getMetaDataMap().get(FIELDS.WORKITEMPROPERTY_TASK_ID, "");
+        if (_isNotBlank(previousTaskId)) {
+            try {
+                var previousTask = _taskManager.getTask(previousTaskId);
+                if (previousTask != null) {
+                    var selectedAction = previousTask.getSelectedAction();
+                    if (selectedAction != null) {
+                        _task.setProperty("previousTaskAction", selectedAction.getActionID());
+                    }
+                    _task.setProperty("previous_comment", previousTask.getProperty(FIELDS.TASKPROPERTY_COMMENT));
+                    _task.setProperty("previousCompletedBy", previousTask.getCompletedBy());
+                }
+            }
+            catch (ex) {
+                log.info("Failed to load task for workitem {} and task id {}", previousUserWorkItem.getId(), previousTaskId);
+                log.info(ex);
+            }
+            return;
+        }
+    }
+
+    var workitemComment = _workItem.getMetaDataMap().get(FIELDS.WORKITEM_COMMENT, "");
+    if (workitemComment != null) {
+        _task.setProperty(FIELDS.TASKPROPERTY_COMMENT, workitemComment);
+    }
+}
+
+function findPreviousUserWorkItem( _workflowSession,  _workItem) {
+    log.info("-> findPreviousUserWorkItem");
+    try
+    {
+        var history = _workflowSession.getHistory(_workItem.getWorkflow());
+        log.info(">> history {}",history);
+
+        var previousHistoryEntry = _workItem.getMetaDataMap().get("historyEntryPath", "");
+        log.info(">> previousHistoryEntry {}",previousHistoryEntry);
+
+        previousHistoryEntry = previousHistoryEntry + "/workItem";
+
+        log.info(">> previousHistoryEntry updated {}",previousHistoryEntry);
+
+        log.info(">> history.size() {}",history.size());
+        for (var index = history.size() - 1; index >= 0; index--)
+        {
+            var historyEntry = history.get(index);
+            log.info(">> historyEntry {}",historyEntry);
+
+            var historyWorkItem = historyEntry.getWorkItem();
+            log.info(">> historyEntry {}",historyWorkItem);
+
+            if (historyWorkItem) {
+                if (historyWorkItem.getId().equals(previousHistoryEntry)) {
+                    if (isTaskOrParticipantWorkItem(historyWorkItem)) {
+                        return historyWorkItem;
+                    }
+                    if (historyEntry.getPreviousHistoryItem() != null) {
+                        previousHistoryEntry = historyEntry.getPreviousHistoryItem().getWorkItem().getId();
+                    }
+                }
+            }
+        }
+        log.info(">> task has no history");
+    }
+    catch (ex)
+    {
+        log.warn("Failed to load history for workitem {} and workflow {}", workItem.getId(), workItem.getWorkflow().getId());
+        log.warn("Error: {}",ex.toString());
+    }
+    return null;
+}
+
+
+function isTaskOrParticipantWorkItem( _historyWorkItem) {
+    log.info("-> isTaskOrParticipantWorkItem");
+    if (_historyWorkItem) {
+        try {
+            log.info("-> isTaskOrParticipantWorkItem: {}", _historyWorkItem);
+            var taskId = _historyWorkItem.getMetaDataMap().get(FIELDS.WORKITEMPROPERTY_TASK_ID, "");
+            if (_isNotBlank(taskId)) {
+                return true;
+            }
+        } catch (ex) {
+            log.info("-> isTaskOrParticipantWorkItem error: {}", ex.toString());
+        }
+    }
+    return false;
+}
+
+
+/*Parse workflw Params, find all @TypeHint and fix their attribute types */
+function fixTypeHintsInMetadata(_workflowMetaDataMap,_workflowSession) {
+    log.info("-> fixBrokenMetadata");
+    //TODO:Parse workflw metadta, find all @TypeHint and fix their attribute types
+
+    log.info(">> _workflowMetaDataMap {}", _workflowMetaDataMap);
+    var items = new Packages.java.util.ArrayList(_workflowMetaDataMap.keySet());
+    log.info(">> items {},{}", items,items.size());
+    for (var i=0; i < items.size();i++) {
+        var entry = items.get(i);
+        log.info(">> item {}", entry);
+
+        log.info(">> endsWith @TypeHint {} ",entry.endsWith("@TypeHint"));
+
+        if (entry.endsWith("@TypeHint")) {
+            var paramName = entry.substring(0,entry.lastIndexOf("@TypeHint"));
+            log.info(">> paramName {} ",paramName);
+
+            var typeHintValue = _workflowMetaDataMap.get(entry,"");
+            log.info(">> typeHintValue {} ",typeHintValue);
+
+            var paramNameValue = _workflowMetaDataMap.get(paramName,"");
+            // log.info(">> paramNameValue {} ",paramNameValue);
+
+            try
+            {
+                switch(true) {
+                    case (typeHintValue == "String[]"):
+                        paramNameValue = _split(paramNameValue,",");
+                        // paramNameValue = _converToValues(paramNameValue);
+                        log.info(">> paramNameValue {} ",paramNameValue);
+                        break;
+                    case (typeHintValue == "Long"):
+                        paramNameValue = parseFloat(paramNameValue);
+                        log.info(">> paramNameValue {} ",paramNameValue);
+                        break;
+                    case (typeHintValue == "Boolean"):
+                        paramNameValue = (paramNameValue === "true");
+                        log.info(">> paramNameValue {} ",paramNameValue);
+                        break;
+                    case (typeHintValue == "Data" || typeHintValue == "Calendar"):
+                        paramNameValue = parseDate(paramNameValue);
+                        log.info(">> paramNameValue {} ",paramNameValue);
+                        break;
+                    default:
+                        break;
+                }
+                replaceMetadata(paramName, paramNameValue);
+            }
+            catch (ex)
+            {
+                log.error("Unable to parse value {}", ex);
+            }
+
+            //updateMetadata("project.group." + role, projectValueMap.get(entry,""));
+
+        }
+    }
+
+}
+
+
+/* RUN OTHER SCRIPTS */
+
+
+function runOnCreateScript(_workflowSession, _workItem, _task, _project, _workflowMetaDataMap, _resolver) {
+    //_workItem.getNode().getMetaDataMap().get("argTaskName", "");
+    if (args.containsKey("onCreateScript"))
+    {
+        var resourceResolver = _resolver;
+        var scriptPath = _workflowMetaDataMap.get("onCreateScript", "");
+        var script = resourceResolver.getResource(scriptPath);
+        runOnCreateScript(script, _workItem, _task, _project, _workflowSession, _resolver);
+    }
+    if (_workflowMetaDataMap.containsKey(FIELDS.ARG_ON_ASSIGN_INLINE_SCRIPT))
+    {
+        var script = _workflowMetaDataMap.get(FIELDS.ARG_ON_ASSIGN_INLINE_SCRIPT, "");
+        var resolver = null;
+        try
+        {
+            resolver = resolverFactory.getResourceResolver(Packages.java.util.Collections.singletonMap("user.jcr.session", session));
+        }
+        catch (ex)
+        {
+            log.error("Can't create resource resolver. {}", ex);
+        }
+        //var scriptResource = new DynamicScriptResource(resolver, script);
+        // var scriptResource = new Packages.org.apache.sling.api.resource.SyntheticResource(resolver, script);
+        // runOnCreateScript(scriptResource, workItem, task, project, session, resolver);
+    }
+}
+
+function runOnCreateScript(_scriptResource, _workItem, _task, _project, _workflowSession, _resolver, _session) {
+    var script = _scriptResource.adaptTo(Packages.org.apache.sling.api.scripting.SlingScript);
+
+    var props = new Packages.org.apache.sling.api.scripting.SlingBindings();
+    props.put("workflowData", _workItem.getWorkflowData());
+    props.put("workItem", _workItem);
+    props.put("workflowSession", _workflowSession);
+    props.put("jcrSession", _session);
+    props.put("task", task);
+    props.put("project", project);
+    log.debug("Calling script {}.", script);
+    var result = script.eval(props);
+    log.debug("Result from script {} is {}", script, result);
+}
+
+/* GENERIC WORFKLOW FUNCTIONS */
+
+
+function saveSession(_workflowSession) {
+    _workflowSession.getSession().save();
+}
+
+function updateMetadata(name,value) {
+    workItem.getWorkflowData().getMetaDataMap().put(name, value);
+}
+
+function replaceMetadata(name,value) {
+
+    log.info("-> replaceMetadata {}, {}",name,value);
+    try {
+        log.info(">> remove {}", name);
+        // workItem.getWorkflowData().getMetaDataMap().setMetaDataProperty
+
+        workItem.getWorkflowData().getMetaDataMap().remove(name);
+        workItem.getMetaDataMap().remove(name);
+        // saveSession();
+//        workflowSession.updateWorkflowData(workItem.getWorkflow(), workItem.getWorkflowData());
+        log.info(">> saved {}", workItem.getWorkflowData().getMetaDataMap());
+        log.info(">> add {}, {}", name, value);
+        workItem.getMetaDataMap().put(name, value);
+        workItem.getWorkflowData().getMetaDataMap().put(name, value);
+//        saveSession();
+  //      workflowSession.updateWorkflowData(workItem.getWorkflow(), workItem.getWorkflowData());
+        log.info(">> saved {}", workItem.getWorkflowData().getMetaDataMap());
+    } catch (ex) {
+        log.error("Could not replace metadata item {} with {}",name,value);
+    }
+}
+
+function _converToValues(array) {
+    return Packages.com.adobe.granite.workflow.core.metadata.MetaDataUtilImpl.convertToValues(array);
+}
+
+function updateWorkflow() {
+    workflowSession.updateWorkflowData(workItem.getWorkflow(), workItem.getWorkflowData());
+}
+
+
+function validateMetadata(_metadata,_workflowSession,_workItem) {
+    try {
+        if (FIELDS.TYPE_JCR_PATH == workflowData.getPayloadType()) {
+            var path = _workItem.getWorkflowData().getPayload().toString();
+
+            if (_workflowSession.getSession().itemExists(path)) {
+                return true;
+            } else {
+                updateMetadata(FIELDS.WORKFLOW_ERROR, "payload path does not exist");
+            }
+
+        } else {
+            updateMetadata(FIELDS.WORKFLOW_ERROR, "invalid playload type");
+        }
+        return false;
+    } catch (ex) {
+        updateMetadata(FIELDS.WORKFLOW_ERROR, ex);
+    }
+    return false;
+}
+
+function validatePlayload(payloadNode) {
+    return true;
+}
+
+/*
+* HELPER FUNCTIONS
+* */
+
+function parseDate(dateString)
+{
+    var cal = Packages.java.util.Calendar.getInstance();
+    try {
+        var dateStringDate = Packages.com.day.cq.dam.commons.util.DateParser.parseDate(dateString);
+        cal.setTime(dateStringDate);
+    } catch(ex) {
+        log.error("Could not parse time {}, {}",dateString,ex);
+    }
+    return cal;
+}
+
+
+function messageFormat(template,fieldMap) {
+    try {
+        var substitutor = new Packages.org.apache.commons.lang3.text.StrSubstitutor(fieldMap);
+        return substitutor.replace(template);
+    } catch (ex) {
+
+    }
+    return "";
+}
+
+function _isBlank(source) {
+    return Packages.org.apache.commons.lang3.StringUtils.isBlank(source);
+}
+function _isNotBlank(source) {
+    return Packages.org.apache.commons.lang3.StringUtils.isNotBlank(source);
+}
+function _isNotEmpty(source) {
+    return Packages.org.apache.commons.lang3.StringUtils.isNotEmpty(source);
+}
+function _blankArray() {
+    return Packages.org.apache.commons.lang3.StringUtils.split(" ");
+}
+
+function _split(string,separator) {
+    return Packages.org.apache.commons.lang3.StringUtils.split(string,separator);
+}
+
+function _join(array,separator) {
+    return Packages.org.apache.commons.lang3.StringUtils.join(array,separator);
+}
+
+function _push(array,newitem) {
+    return Packages.org.apache.commons.lang3.ArrayUtils.add(array,newitem);
+}
+
+
+function _createValidName(_name){
+    return Packages.com.day.cq.commons.jcr.JcrUtil.createValidName(_name)
+}
+
+function _getOrCreateUniqueByPath(_node,_name,_type) {
+    return Packages.org.apache.jackrabbit.commons.JcrUtils.getOrCreateUniqueByPath(_node,_name,_type);
+}
+
+
+function isAsset(_resourceResolver, _resourcePath) {
+    if (_isBlank(_resourcePath)) {
+        return false;
+    }
+    var resource = _resourceResolver.getResource(_resourcePath);
+    if (resource != null) {
+        return resource.adaptTo(Packages.com.adobe.granite.asset.api.Asset) != null;
+    }
+    return false;
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:ClientLibraryFolder"
+    allowProxy="{Boolean}true"
+    categories="[aemdesign.common.coralui]"
+    embed="[granite.shared,cq.shared,cq.underscore,cq.handlebars,cq.backbone,moment,cq.social.scf,cq.jquery.ui,aemdesign.common.coralui.authoring,aemdesign.common.coralui.dialog,aemdesign.common.coralui.page]"/>

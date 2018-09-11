@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Panel"
+    title="Attachment">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <arguments
+            jcr:primaryType="cq:Widget"
+            collapsed="{Boolean}false"
+            collapsible="{Boolean}false"
+            title="Response Fields"
+            xtype="dialogfieldset">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <attach
+                        jcr:primaryType="cq:Widget"
+                        defaultValue="No"
+                        fieldLabel="Attach"
+                        allowBlank="true"
+                        name="./metaData/attach"
+                        type="select"
+                        xtype="selection">
+                    <options jcr:primaryType="cq:WidgetCollection">
+                        <default
+                                jcr:primaryType="nt:unstructured"
+                                text="Default"
+                                value=""/>
+                        <yes
+                                jcr:primaryType="nt:unstructured"
+                                text="Yes"
+                                value="true"/>
+                        <no
+                                jcr:primaryType="nt:unstructured"
+                                text="No"
+                                value="false"/>
+                    </options>
+                </attach>
+                <attachurl
+                        jcr:primaryType="cq:Widget"
+                        fieldDescription="URL will be Downloaded and Attached to Email"
+                        fieldLabel="URL"
+                        name="./metaData/attachurl"
+                        xtype="textfield"/>
+                <attachtitle
+                        jcr:primaryType="cq:Widget"
+                        fieldDescription="URL will be Downloaded and Attached to Email, Report for ${title}"
+                        fieldLabel="Title"
+                        name="./metaData/attachtitle"
+                        xtype="textfield"/>
+                <contenttype
+                        jcr:primaryType="cq:Widget"
+                        fieldDescription="URL content type, default application/octet-stream"
+                        fieldLabel="Content Type"
+                        name="./metaData/attachcontenttype"
+                        xtype="textfield"/>
+            </items>
+        </arguments>
+    </items>
+</jcr:root>

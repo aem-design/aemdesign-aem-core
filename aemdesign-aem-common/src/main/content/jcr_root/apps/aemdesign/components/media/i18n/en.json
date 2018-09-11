@@ -1,0 +1,11 @@
+{
+  "prevLinkText ((gallery))": "Previous",
+  "nextLinkText ((gallery))": "Next",
+  "closeText ((gallery))": "Close",
+  "titleAltPrefixText ((gallery))": "Read more about ",
+  "titleAltReadMore ((assetviewer))": "Read more",
+  "textField ((assetviewer))": "Text Field",
+  "dateRangeField ((assetviewer))": "Date Range Field",
+  "licenseinfo ((image))": "© {4} {0} {1} {2} {3}",
+  "directorLine ((image))": "Director: {0}"
+}

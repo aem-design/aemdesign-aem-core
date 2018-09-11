@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Panel"
+    title="Simple Fields">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <arguments
+            jcr:primaryType="cq:Widget"
+            collapsed="{Boolean}false"
+            collapsible="{Boolean}false"
+            title="Email Fields Override"
+            xtype="dialogfieldset">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <fromEmail
+                    jcr:primaryType="cq:Widget"
+                    fieldDescription="Field used as From email field, ${fromEmail}"
+                    fieldLabel="From Email"
+                    name="./metaData/fromEmail"
+                    vtype="email"
+                    xtype="textfield"/>
+                <toEmail
+                    jcr:primaryType="cq:Widget"
+                    fieldDescription="Field used as To email field, ${toEmail}"
+                    fieldLabel="To Email"
+                    name="./metaData/toEmail"
+                    xtype="textfield"/>
+
+                <emailSubject
+                    jcr:primaryType="cq:Widget"
+                    fieldDescription="Field used as To email field, ${emailSubject}"
+                    fieldLabel="Email Subject"
+                    name="./metaData/emailSubject"
+                    xtype="textfield"/>
+
+                <!--<metadataname-->
+                        <!--jcr:primaryType="cq:Widget"-->
+                        <!--hideLabel="false"-->
+                        <!--fieldLabel="Meta Data Name"-->
+                        <!--fieldDescription="this will be the output metadata field for the workflow"-->
+                        <!--key="metadataname"-->
+                        <!--xtype="textfield"/>-->
+
+                <!--<emailFields-->
+                        <!--jcr:primaryType="cq:Widget"-->
+                        <!--allowBlank="true"-->
+                        <!--fieldDescription="Specify list of metadata attributes to be read from payload metadata"-->
+                        <!--fieldLabel="Other Email Fields"-->
+                        <!--name="./metaData/metaDataFields"-->
+                        <!--xtype="multifield">-->
+                <!--</emailFields>-->
+            </items>
+        </arguments>
+    </items>
+</jcr:root>

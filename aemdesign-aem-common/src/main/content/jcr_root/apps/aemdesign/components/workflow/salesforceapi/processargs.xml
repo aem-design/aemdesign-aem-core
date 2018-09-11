@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Panel"
+    title="Arguments">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <arguments
+            jcr:primaryType="cq:Widget"
+            collapsed="{Boolean}false"
+            collapsible="{Boolean}false"
+            title="Process Arguments"
+            xtype="dialogfieldset">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <serviceurl
+                    jcr:primaryType="cq:Widget"
+                    fieldDescription="Enter Service Url"
+                    fieldLabel="Service Url"
+                    name="./metaData/serviceurl"
+                    xtype="textfield"/>
+                <configuration
+                    jcr:primaryType="cq:Widget"
+                    fieldLabel="Configuration"
+                    flex="{Long}1"
+                    name="./metaData/cq:cloudserviceconfig"
+                    rootPath="/etc/cloudservices/salesforceapi"
+                    xtype="cloudservicescombo"/>
+                <requestFields
+                    jcr:primaryType="cq:Widget"
+                    allowBlank="{Boolean}true"
+                    fieldDescription="Grab following fields from Metadata and send {Metadata Name}={Destination Name}"
+                    fieldLabel="Request Fields"
+                    name="./metaData/requestFields"
+                    xtype="multifield"/>
+            </items>
+        </arguments>
+    </items>
+</jcr:root>

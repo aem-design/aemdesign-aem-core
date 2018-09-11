@@ -1,0 +1,43 @@
+html.aem-AuthorLayer-Preview details.component.badge {
+    display: none;
+}
+
+html.aem-AuthorLayer-Preview p.component.notfound {
+    display: none;
+}
+
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: 15px;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: center;
+    background-color: #272727;
+    border-radius: 0;
+}
+.badge:empty {
+    display: none;
+}
+
+.notfound {
+    display: table-cell;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: 15px;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: center;
+    background-color: #272727;
+    border-radius: 0;
+}
+.notfound:empty {
+    display: none;
+}

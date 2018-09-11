@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="cq:Page">
+    <jcr:content
+            cq:doctype="html_5"
+            jcr:isCheckedOut="{Boolean}true"
+            jcr:mixinTypes="[cq:ReplicationStatus,mix:versionable]"
+            cq:template="/libs/wcm/core/templates/designpage"
+            jcr:primaryType="nt:unstructured"
+            jcr:title="AEM.Design Design"
+            sling:resourceType="wcm/core/components/designer">
+        <base jcr:primaryType="nt:unstructured">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]"
+                    sling:resourceType="aemdesign/components/layout/container">
+            </par>
+        </base>
+        <two jcr:primaryType="nt:unstructured">
+            <header
+                    jcr:primaryType="nt:unstructured"
+                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]"
+                    sling:resourceType="aemdesign/components/layout/header">
+            </header>
+            <footer jcr:primaryType="nt:unstructured"
+                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]"
+                    sling:resourceType="aemdesign/components/layout/footer">
+            </footer>
+            <aside
+                    jcr:primaryType="nt:unstructured"
+                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]"
+                    sling:resourceType="aemdesign/components/layout/aside">
+            </aside>
+            <article
+                    jcr:primaryType="nt:unstructured"
+                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]"
+                    sling:resourceType="aemdesign/components/layout/article">
+            </article>
+        </two>
+        <one jcr:primaryType="nt:unstructured">
+            <header
+                    jcr:primaryType="nt:unstructured"
+                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]"
+                    sling:resourceType="aemdesign/components/layout/header">
+            </header>
+            <footer jcr:primaryType="nt:unstructured"
+                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]"
+                    sling:resourceType="aemdesign/components/layout/footer">
+            </footer>
+            <article
+                    jcr:primaryType="nt:unstructured"
+                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]"
+                    sling:resourceType="aemdesign/components/layout/article">
+            </article>
+        </one>
+        <three jcr:primaryType="nt:unstructured">
+            <header
+                    jcr:primaryType="nt:unstructured"
+                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]"
+                    sling:resourceType="aemdesign/components/layout/header">
+            </header>
+            <footer jcr:primaryType="nt:unstructured"
+                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]"
+                    sling:resourceType="aemdesign/components/layout/footer">
+            </footer>
+            <aside
+                    jcr:primaryType="nt:unstructured"
+                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]"
+                    sling:resourceType="aemdesign/components/layout/aside">
+            </aside>
+            <asideright
+                    jcr:primaryType="nt:unstructured"
+                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]"
+                    sling:resourceType="aemdesign/components/layout/aside">
+            </asideright>
+            <article
+                    jcr:primaryType="nt:unstructured"
+                    components="[group:AEM.Design - Content,group:AEM.Design - Media,group:AEM.Design - Details,group:AEM.Design - Layout,group:AEM.Design - Forms,group:AEM.Design - Lists,group:AEM.Design - Widgets]"
+                    sling:resourceType="aemdesign/components/layout/article">
+            </article>
+        </three>
+    </jcr:content>
+    <clientlibs-theme/>
+</jcr:root>

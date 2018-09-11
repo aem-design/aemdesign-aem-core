@@ -1,0 +1,4 @@
+#!/bin/bash
+
+./deploy -Dcrx.host=localhost
+

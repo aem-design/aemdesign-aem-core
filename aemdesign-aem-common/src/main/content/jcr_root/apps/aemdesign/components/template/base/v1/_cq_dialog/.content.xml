@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Page"
+          sling:resourceType="cq/gui/components/authoring/dialog"
+          extraClientlibs="[cq.common.wcm,cq.siteadmin.admin.properties]"
+          mode="edit">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container"
+            class="cq-dialog-content-page">
+        <items jcr:primaryType="nt:unstructured">
+            <tabs
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/container"
+                    rel="cq-siteadmin-admin-properties-tabs">
+                <layout
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+                        type="nav"/>
+                <items jcr:primaryType="nt:unstructured">
+
+                    <basic
+                            jcr:primaryType="nt:unstructured"
+                            cq:showOnCreate="{Boolean}false"
+                            jcr:title="Basic"
+                            path="/libs/foundation/components/page/cq:dialog/content/items/tabs/items/basic"
+                            resourceType="granite/ui/components/foundation/section"
+                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                    <advanced
+                            jcr:primaryType="nt:unstructured"
+                            cq:showOnCreate="{Boolean}false"
+                            jcr:title="Advanced"
+                            path="/libs/foundation/components/page/cq:dialog/content/items/tabs/items/advanced"
+                            resourceType="granite/ui/components/foundation/section"
+                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                    <thumbnail
+                            jcr:primaryType="nt:unstructured"
+                            cq:showOnCreate="{Boolean}false"
+                            jcr:title="Thumbnail"
+                            path="/libs/foundation/components/page/cq:dialog/content/items/tabs/items/thumbnail"
+                            resourceType="granite/ui/components/foundation/section"
+                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                    <cloudservices
+                            jcr:primaryType="nt:unstructured"
+                            cq:showOnCreate="{Boolean}false"
+                            jcr:title="Cloud Services"
+                            path="/libs/foundation/components/page/cq:dialog/content/items/tabs/items/cloudservices"
+                            resourceType="granite/ui/components/foundation/section"
+                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                    <personalization
+                            jcr:primaryType="nt:unstructured"
+                            cq:showOnCreate="{Boolean}false"
+                            jcr:title="Personalization"
+                            path="/libs/foundation/components/page/cq:dialog/content/items/tabs/items/personalization"
+                            resourceType="granite/ui/components/foundation/section"
+                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+
+                    <permissions
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Permissions"
+                            sling:resourceType="granite/ui/components/foundation/include"
+                            path="/mnt/overlay/wcm/core/content/sites/properties/tabs/permissions"/>
+
+
+                    <blueprint
+                            jcr:primaryType="nt:unstructured"
+                            cq:showOnCreate="{Boolean}false"
+                            granite:rel="cq-siteadmin-admin-properties-blueprint"
+                            jcr:title="Blueprint"
+                            path="/libs/foundation/components/page/cq:dialog/content/items/tabs/items/blueprint"
+                            resourceType="granite/ui/components/foundation/section"
+                            sling:resourceType="granite/ui/components/coral/foundation/include">
+                        <rendercondition
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="wcm/msm/components/touch-ui/renderconditions/isblueprint"
+                                path="${empty param.item ? requestPathInfo.suffix : param.item}"/>
+                    </blueprint>
+
+                    <livecopy
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Live Copy"
+                            cq:showOnCreate="{Boolean}false"
+                            granite:rel="cq-siteadmin-admin-properties-livecopy"
+                            path="/libs/foundation/components/page/cq:dialog/content/items/tabs/items/livecopy"
+                            resourceType="granite/ui/components/foundation/section"
+                            sling:resourceType="granite/ui/components/coral/foundation/include">
+                        <rendercondition
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="wcm/msm/components/touch-ui/renderconditions/islivecopy"
+                                path="${empty param.item ? requestPathInfo.suffix : param.item}"/>
+                    </livecopy>
+
+
+                    <siteThemeTab
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Theme"
+                            path="/apps/aemdesign/global/dialog/touch/sitetheme/content/items/siteThemeTab"
+                            resourceType="granite/ui/components/foundation/section"
+                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                    <openGraphTab
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Metadata"
+                            path="/apps/aemdesign/global/dialog/touch/page/content/items/openGraphTab"
+                            resourceType="granite/ui/components/foundation/section"
+                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                    <styleTab
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Style"
+                            path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
+                            resourceType="granite/ui/components/foundation/section"
+                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                    <accessibilityTab
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Accessibility"
+                            path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
+                            resourceType="granite/ui/components/foundation/section"
+                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                    <analyticsTab
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Analytics"
+                            path="/apps/aemdesign/global/dialog/touch/analytics/content/items/analyticsTab"
+                            resourceType="granite/ui/components/foundation/section"
+                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+
+
+                </items>
+            </tabs>
+        </items>
+    </content>
+</jcr:root>

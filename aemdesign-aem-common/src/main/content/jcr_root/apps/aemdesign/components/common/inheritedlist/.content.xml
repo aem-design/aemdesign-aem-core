@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    cq:cellName="list"
+    jcr:primaryType="cq:Component"
+    jcr:title="Inherited List"
+    cq:icon="code"
+    sling:resourceSuperType="apps/aemdesign/components/list"
+    display-options-scan-path="/apps/aemdesign/components/lists/list"
+    inheritable-rows="[listitem_icon_row.jsp]"
+    allowedParents="[*/parsys]"
+    componentGroup=".hidden"/>

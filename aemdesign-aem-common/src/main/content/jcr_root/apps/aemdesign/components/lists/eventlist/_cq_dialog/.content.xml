@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Event List"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                type="nav"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+        <items jcr:primaryType="nt:unstructured">
+
+            <listTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="List"
+                    path="/apps/aemdesign/components/lists/list/cq:dialog/content/items/listTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+            <listConfigTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="List Config"
+                    path="/apps/aemdesign/components/lists/list/cq:dialog/content/items/listConfigTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+            <layoutTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Layout"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <variant
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Layout"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <!--<variant-->
+                                    <!--jcr:primaryType="nt:unstructured"-->
+                                    <!--sling:resourceType="granite/ui/components/foundation/form/select"-->
+                                    <!--fieldLabel="Variant"-->
+                                    <!--name="./variant"-->
+                                    <!--emptyOption="{Boolean}true"-->
+                                    <!--value="">-->
+                                    <!--<items jcr:primaryType="nt:unstructured">-->
+                                    <!--<default-->
+                                    <!--jcr:primaryType="nt:unstructured"-->
+                                    <!--text="Default"-->
+                                    <!--value=""/>-->
+                                    <!--</items>-->
+                                    <!--</variant>-->
+                                    <detailsBadge
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldDescription="Which badge to select from the Details component on the page"
+                                            fieldLabel="Use Badge"
+                                            name="./detailsBadge"
+                                            value="">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <default
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Default"
+                                                    value="default"/>
+                                            <icon
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Icon"
+                                                    value="icon"/>
+                                            <image
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Image"
+                                                    value="image"/>
+                                            <card
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Image"
+                                                    value="card"/>
+                                            <cardIcon
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Icon"
+                                                    value="cardIcon"/>
+                                            <cardIconAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Icon and CTA"
+                                                    value="cardIconAction"/>
+                                            <cardAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Image and CTA"
+                                                    value="cardAction"/>
+                                            <cardIconSelect
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Clickable Card with Icon"
+                                                    value="cardIconSelect"/>
+                                            <cardSelect
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Clickable Card with Image "
+                                                    value="cardSelect"/>
+                                            <cardHorizontal
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Horizontal Card"
+                                                    value="cardHorizontal"/>
+                                            <!--<imageTitleDateLocationDescriptionReference-->
+                                                    <!--jcr:primaryType="nt:unstructured"-->
+                                                    <!--text="Image Title Date Location Description Reference"-->
+                                                    <!--value="imageTitleDateLocationDescriptionReference"/>-->
+                                            <!--<imageTitleDate-->
+                                                    <!--jcr:primaryType="nt:unstructured"-->
+                                                    <!--text="Image Title Date"-->
+                                                    <!--value="imageTitleDate"/>-->
+                                            <!--<imageTitleDescriptionCategoryMansory-->
+                                                    <!--jcr:primaryType="nt:unstructured"-->
+                                                    <!--text="Image Title Description Category (Mansory)"-->
+                                                    <!--value="imageTitleDescriptionCategoryMansory"/>-->
+                                            <!--<imageTitleDescriptionCategory-->
+                                                    <!--jcr:primaryType="nt:unstructured"-->
+                                                    <!--text="Image Title Description Category"-->
+                                                    <!--value="imageTitleDescriptionCategory"/>-->
+                                            <!--<titleDateTimeCategory-->
+                                                    <!--jcr:primaryType="nt:unstructured"-->
+                                                    <!--text="Title Date Time Category"-->
+                                                    <!--value="titleDateTimeCategory"/>-->
+                                            <!--<dateTimeLocationEnquiryInfo-->
+                                                    <!--jcr:primaryType="nt:unstructured"-->
+                                                    <!--text="Date Time Location Enquiry Info"-->
+                                                    <!--value="dateTimeLocationEnquiryInfo"/>-->
+                                            <!--<aPartOf-->
+                                                    <!--jcr:primaryType="nt:unstructured"-->
+                                                    <!--text="A Part Of"-->
+                                                    <!--value="aPartOf"/>-->
+                                            <!--<imageTitleDateLocationDescriptionReference2-->
+                                                    <!--jcr:primaryType="nt:unstructured"-->
+                                                    <!--text="Image Title Date Location Description Multi References"-->
+                                                    <!--value="imageTitleDateLocationDescriptionReference2"/>-->
+
+                                        </items>
+                                    </detailsBadge>
+                                    <topic
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldDescription="Subscribers waiting for notification of the filter value is updated"
+                                            fieldLabel="Topic Queue"
+                                            name="./topicQueue"
+                                            emptyOption="{Boolean}true"
+                                            value="">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-topic/topic"/>
+                                    </topic>
+                                </items>
+                            </variant>
+                        </items>
+                    </column>
+                </items>
+            </layoutTab>
+
+
+            <badgeConfigTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Badge Config"
+                    path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+            <badgeThumbnailTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Badge Thumbnail"
+                    path="/apps/aemdesign/global/dialog/touch/asset/content/items/badgeThumbnailTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+
+            <styleTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Style"
+                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <accessibilityTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Accessibility"
+                    path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+        </items>
+    </content>
+
+</jcr:root>

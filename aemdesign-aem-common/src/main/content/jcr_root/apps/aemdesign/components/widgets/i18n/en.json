@@ -1,0 +1,12 @@
+{
+  "share ((addthis.sharebutton))": "Share",
+  "shareThisPage ((addthis.sharebutton))": "Share this page",
+  "shareOnFacebook ((addthis.sharebutton))": "Share On Facebook",
+  "shareOnTwitter ((addthis.sharebutton))": "Share On Twitter",
+  "shareOnGooglePlus ((addthis.sharebutton))": "Share On Google +",
+  "shareOnWeibo ((addthis.sharebutton))": "Share On Weibo",
+  "placeholderText ((search))": "Keywords...",
+  "labelText ((search))": "Search across the website",
+  "legendText ((search))": "Keywords",
+  "searchButtonText ((search))": "Search"
+}

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Text"
+          helpPath=""
+          sling:resourceType="cq/gui/components/authoring/dialog"
+          extraClientlibs="[]">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                type="nav"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+        <items jcr:primaryType="nt:unstructured">
+            <textTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Text"
+                    sling:resourceType="granite/ui/components/foundation/section">
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            granite:class="coral-RichText-FixedColumn-column"
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <text
+                                    jcr:primaryType="nt:unstructured"
+                                    xtype="richtext"
+                                    hideLabel="{Boolean}false"
+                                    name="./text"
+                                    jcr:title="Text"
+                                    textPropertyName="./text"
+                                    sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                                    useFixedInlineToolbar="{Boolean}true">
+                                <rtePlugins jcr:primaryType="nt:unstructured">
+                                    <findreplace
+                                            jcr:primaryType="nt:unstructured"
+                                            features="*"/>
+                                    <format
+                                            jcr:primaryType="nt:unstructured"
+                                            features="*"/>
+                                    <image
+                                            jcr:primaryType="nt:unstructured"
+                                            features="*"/>
+                                    <undo
+                                            jcr:primaryType="nt:unstructured"
+                                            features="*"/>
+                                    <table
+                                            jcr:primaryType="nt:unstructured"
+                                            features="-">
+                                        <hiddenHeaderConfig
+                                                jcr:primaryType="nt:unstructured"
+                                                hiddenHeaderClassName="cq-wcm-foundation-aria-visuallyhidden"
+                                                hiddenHeaderEditingCSS="coral-RichText-hiddenHeader--editing"/>
+                                    </table>
+                                    <subsuperscript
+                                            jcr:primaryType="nt:unstructured"
+                                            features="*"/>
+                                    <spellcheck
+                                            jcr:primaryType="nt:unstructured"
+                                            features="*"
+                                            invalidStyle="background-color: #ffdddd;"/>
+                                    <colorpicker
+                                            jcr:primaryType="nt:unstructured"
+                                            features="*"/>
+                                    <lists
+                                            jcr:primaryType="nt:unstructured"
+                                            features="*"/>
+                                    <justify
+                                            jcr:primaryType="nt:unstructured"
+                                            features="*"/>
+                                    <keys
+                                            jcr:primaryType="nt:unstructured"
+                                            features="*"/>
+                                    <paraformat jcr:primaryType="nt:unstructured"
+                                                features="*">
+                                        <formats jcr:primaryType="nt:unstructured">
+                                            <!-- added by prototype project -->
+                                        </formats>
+                                    </paraformat>
+                                    <styles
+                                            jcr:primaryType="nt:unstructured"
+                                            features="*">
+                                        <styles jcr:primaryType="nt:unstructured">
+                                            <!-- added by prototype project -->
+                                        </styles>
+                                    </styles>
+                                    <edit
+                                            jcr:primaryType="nt:unstructured"
+                                            features="[cut,copy,paste-default,paste-plaintext,paste-wordhtml]">
+                                        <!-- to filter out from html attribue data-->
+                                        <htmlPasteRules jcr:primaryType="nt:unstructured">
+                                            <allowBasics jcr:primaryType="nt:unstructured"
+                                                         bold="{Boolean}true"
+                                                         italic="{Boolean}true"
+                                                         underline="{Boolean}true"
+                                                         anchor="{Boolean}true"
+                                                         image="{Boolean}true">
+                                            </allowBasics>
+                                            <allowBlockTags jcr:primaryType="nt:unstructured"
+                                                            allowBlockTags="[p,h1,h2,h3,h4,h5,h6,ol,ul,table,hr]"/>
+                                            <list jcr:primaryType="nt:unstructured"
+                                                  allow="{Boolean}true"
+                                                  ignoreMode="paragraph"/>
+                                            <table jcr:primaryType="nt:unstructured"
+                                                   allow="{Boolean}true"
+                                                   ignoreMode="paragraph"/>
+                                        </htmlPasteRules>
+                                    </edit>
+                                    <tracklinks
+                                            jcr:primaryType="nt:unstructured"
+                                            features="*"/>
+                                    <links
+                                            jcr:primaryType="nt:unstructured"
+                                            features="*">
+                                        <linkDialogConfig
+                                                jcr:primaryType="nt:unstructured"
+                                                height="{Long}316">
+                                            <linkAttributes jcr:primaryType="nt:unstructured">
+                                                <linkAdvanced
+                                                        jcr:primaryType="cq:Widget"
+                                                        collapsed="{Boolean}true"
+                                                        collapsible="{Boolean}true"
+                                                        inputValue="advanced"
+                                                        name="./linkdialog/cq:adhocLinkTrackingTab"
+                                                        title="Link tracking"
+                                                        xtype="dialogfieldset">
+                                                    <items jcr:primaryType="nt:unstructured">
+                                                        <enable
+                                                                jcr:primaryType="nt:unstructured"
+                                                                attribute="enabletracking"
+                                                                fieldDescription="override analytics framework settings"
+                                                                fieldLabel="Custom link tracking"
+                                                                name="./linkdialog/cq:adhocLinkTrackingEnableTracking"
+                                                                xtype="checkbox">
+                                                            <listeners
+                                                                    jcr:primaryType="nt:unstructured"
+                                                                    check="function(component){var dlg=component.findParentByType('rtelinkdialog');dlg.enableSCFields(component.checked);}"/>
+                                                        </enable>
+                                                        <events
+                                                                jcr:primaryType="nt:unstructured"
+                                                                attribute="adhocevents"
+                                                                fieldDescription="e.g.: event2, event7"
+                                                                fieldLabel="Include SiteCatalyst events"
+                                                                name="./linkdialog/cq:adhocLinkTrackingEvents"
+                                                                xtype="textfield"/>
+                                                        <evars
+                                                                jcr:primaryType="nt:unstructured"
+                                                                attribute="adhocevars"
+                                                                fieldDescription="e.g.: eVar1: pagedata.url, prop4: 'const'"
+                                                                fieldLabel="Include SiteCatalyst variables"
+                                                                name="./linkdialog/cq:adhocLinkTrackingEvars"
+                                                                xtype="textfield"/>
+                                                    </items>
+                                                </linkAdvanced>
+                                            </linkAttributes>
+                                        </linkDialogConfig>
+                                    </links>
+                                    <misctools
+                                            jcr:primaryType="nt:unstructured"
+                                            features="*">
+                                        <specialCharsConfig jcr:primaryType="nt:unstructured">
+                                            <chars jcr:primaryType="nt:unstructured">
+                                                <!-- added by prototype project -->
+                                            </chars>
+                                        </specialCharsConfig>
+                                    </misctools>
+                                </rtePlugins>
+                                <uiSettings jcr:primaryType="nt:unstructured">
+                                    <cui jcr:primaryType="nt:unstructured">
+                                        <inline
+                                                jcr:primaryType="nt:unstructured"
+                                                toolbar="[#format,#justify,#lists,#styles,#paraformat,-,links#modifylink,links#unlink,-,fullscreen#start,-,control#close,control#save]">
+                                            <popovers jcr:primaryType="nt:unstructured">
+                                                <format
+                                                        jcr:primaryType="nt:unstructured"
+                                                        items="[format#bold,format#italic,format#underline,subsuperscript#subscript,subsuperscript#superscript]"
+                                                        ref="format"/>
+                                                <justify
+                                                        jcr:primaryType="nt:unstructured"
+                                                        items="[justify#justifyleft,justify#justifycenter,justify#justifyright]"
+                                                        ref="justify"/>
+                                                <lists
+                                                        jcr:primaryType="nt:unstructured"
+                                                        items="[lists#unordered,lists#ordered,lists#outdent,lists#indent]"
+                                                        ref="lists"/>
+                                                <styles
+                                                        jcr:primaryType="nt:unstructured"
+                                                        items="styles:getStyles:styles-pulldown"
+                                                        ref="styles"/>
+                                                <paraformat
+                                                        jcr:primaryType="nt:unstructured"
+                                                        items="paraformat:getFormats:paraformat-pulldown"
+                                                        ref="paraformat"/>
+                                            </popovers>
+                                        </inline>
+                                        <fullscreen
+                                                jcr:primaryType="nt:unstructured"
+                                                toolbar="[edit#cut,edit#copy,edit#paste-default,edit#paste-plaintext,edit#paste-wordhtml,-,undo#undo,undo#redo,-,findreplace#find,findreplace#replace,-,#paraformat,#format,#justify,#lists,#styles,-,links#modifylink,links#unlink,links#anchor,tracklinks#modifylinktracking,-,image#imageProps,-,spellcheck#checktext,misctools#sourceedit,misctools#specialchars,-,table#insertcolumn-before,table#insertcolumn-after,table#removecolumn,-,table#insertrow-before,table#insertrow-after,table#removerow,-,table#mergecells-right,table#mergecells-down,table#mergecells,table#splitcell-horizontal,table#splitcell-vertical,-,table#selectrow,table#selectcolumn,-,table#modifytableandcell,table#removetable,,fullscreen#finish]">
+                                            <popovers jcr:primaryType="nt:unstructured">
+                                                <format
+                                                        jcr:primaryType="nt:unstructured"
+                                                        items="[format#bold,format#italic,format#underline,subsuperscript#subscript,subsuperscript#superscript]"
+                                                        ref="format"/>
+                                                <justify
+                                                        jcr:primaryType="nt:unstructured"
+                                                        items="[justify#justifyleft,justify#justifycenter,justify#justifyright]"
+                                                        ref="justify"/>
+                                                <lists
+                                                        jcr:primaryType="nt:unstructured"
+                                                        items="[lists#unordered,lists#ordered,lists#outdent,lists#indent]"
+                                                        ref="lists"/>
+                                                <styles
+                                                        jcr:primaryType="nt:unstructured"
+                                                        items="styles:getStyles:styles-pulldown"
+                                                        ref="styles"/>
+                                                <paraformat
+                                                        jcr:primaryType="nt:unstructured"
+                                                        items="paraformat:getFormats:paraformat-pulldown"
+                                                        ref="paraformat"/>
+                                            </popovers>
+                                        </fullscreen>
+                                        <dialogFullScreen
+                                                jcr:primaryType="nt:unstructured"
+                                                toolbar="[edit#cut,edit#copy,edit#paste-default,edit#paste-plaintext,edit#paste-wordhtml,-,undo#undo,undo#redo,-,findreplace#find,findreplace#replace,-,#paraformat,#format,#justify,#lists,#styles,-,links#modifylink,links#unlink,links#anchor,tracklinks#modifylinktracking,-,image#imageProps,-,spellcheck#checktext,misctools#sourceedit,misctools#specialchars,-,table#insertcolumn-before,table#insertcolumn-after,table#removecolumn,-,table#insertrow-before,table#insertrow-after,table#removerow,-,table#mergecells-right,table#mergecells-down,table#mergecells,table#splitcell-horizontal,table#splitcell-vertical,-,table#selectrow,table#selectcolumn,-,table#modifytableandcell,table#removetable,,fullscreen#finish]">
+                                            <popovers jcr:primaryType="nt:unstructured">
+                                                <format
+                                                        jcr:primaryType="nt:unstructured"
+                                                        items="[format#bold,format#italic,format#underline,subsuperscript#subscript,subsuperscript#superscript]"
+                                                        ref="format"/>
+                                                <justify
+                                                        jcr:primaryType="nt:unstructured"
+                                                        items="[justify#justifyleft,justify#justifycenter,justify#justifyright]"
+                                                        ref="justify"/>
+                                                <lists
+                                                        jcr:primaryType="nt:unstructured"
+                                                        items="[lists#unordered,lists#ordered,lists#outdent,lists#indent]"
+                                                        ref="lists"/>
+                                                <styles
+                                                        jcr:primaryType="nt:unstructured"
+                                                        items="styles:getStyles:styles-pulldown"
+                                                        ref="styles"/>
+                                                <paraformat
+                                                        jcr:primaryType="nt:unstructured"
+                                                        items="paraformat:getFormats:paraformat-pulldown"
+                                                        ref="paraformat"/>
+                                            </popovers>
+                                        </dialogFullScreen>
+                                        <!--<tableEditOptions-->
+                                        <!--jcr:primaryType="nt:unstructured"-->
+                                        <!--toolbar="[table#insertcolumn-before,table#insertcolumn-after,table#removecolumn,-,table#insertrow-before,table#insertrow-after,table#removerow,-,table#mergecells-right,table#mergecells-down,table#mergecells,table#splitcell-horizontal,table#splitcell-vertical,-,table#selectrow,table#selectcolumn,-,table#ensureparagraph,-,table#modifytableandcell,table#removetable,-,undo#undo,undo#redo]"/>-->
+                                    </cui>
+                                </uiSettings>
+                            </text>
+                        </items>
+                    </column>
+                </items>
+
+            </textTab>
+        </items>
+    </content>
+</jcr:root>

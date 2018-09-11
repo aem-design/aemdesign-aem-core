@@ -1,0 +1,213 @@
+/*download*/
+a.download span {
+    &.icon {
+        width: 16px;
+        height: 16px;
+        float: left;
+        margin-right: 8px;
+        background-position: center;
+        &.type_doc {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/doc.gif");
+        }
+        &.type_docx {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/docx.gif");
+        }
+        &.type_gif {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/gif.gif");
+        }
+        &.type_mov {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/mov.gif");
+        }
+        &.type_pdf {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/pdf.gif");
+        }
+        &.type_png {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/png.gif");
+        }
+        &.type_ppt {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/ppt.gif");
+        }
+        &.type_pptx {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/pptx.gif");
+        }
+        &.type_rar {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/rar.gif");
+        }
+        &.type_rtf {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/rtf.gif");
+        }
+        &.type_txt {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/txt.gif");
+        }
+        &.type_wmv {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/wmv.gif");
+        }
+        &.type_xls {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/xls.gif");
+        }
+        &.type_xlsx {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/xlsx.gif");
+        }
+        &.type_xml {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/xml.gif");
+        }
+        &.type_zip {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/zip.gif");
+        }
+        &.type_jpg {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/jpg.gif");
+        }
+        &.type_flash {
+            background-image: url("/etc/clientlibs/aemdesign/icons/file/flash.gif");
+
+        }
+    }
+}
+/*
+
+.content_list {
+    .body p {
+    font-size: 14px;
+    padding: 0 10px;
+    }
+    ul {
+        width: 100%;
+        display: table;
+        padding: 30px 0 10px
+    }
+    li {
+        display: table-row;
+        &>* {
+            display: table-cell;
+            padding: 10px 0;
+            &>* {
+                line-height: 120%;
+            }
+        }
+        &* {
+            vertical-align: middle;
+        }
+    }
+    .graphics>* {
+        display: inline-block;
+        overflow: hidden;
+        margin: 0 10px;
+        img {
+    display: inline-block;
+    }
+    }
+    .location {
+        min-height: 59px;
+        &>* {
+            background: url(static/img/location.png) center center no-repeat;
+            display: inline-block;
+            width: 34px;
+            height: 59px;
+            font-size: 0;
+            line-height: 0;
+            text-indent: -90000px;
+            margin-left: 20px
+        }
+    }
+    .media {
+        min-height: 46px;
+        &>* {
+            background: url(static/img/media.png) center center no-repeat;
+            display: inline-block;
+            width: 46px;
+            height: 46px;
+            font-size: 0;
+            line-height: 0;
+            text-indent: -90000px;
+            margin-left: 20px
+        }
+    }
+
+    .placeholder {
+        span {
+            background: #2C3E50;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            width: 60px;
+            height: 60px;
+            font-family: ramblabold, Helvetica, Arial, "华文宋体",STSong,"新細明體", PMingLiU, sans-serif;
+            font-size: 20px;
+            color: #fff;
+            line-height: 60px;
+            text-align: center;
+            margin-right: 20px;
+            -webkit-border-radius: 60px;
+            border-radius: 60px;
+            z-index: 2;
+            &:after, &before {
+                content: "";
+                position: absolute;
+                width: 0;
+                top: 10px;
+                opacity: .2;
+            }
+            &:before {
+                right: 0;
+                height: 50px;
+                border-width: 25px 0 0 60px;
+                border-color: transparent transparent transparent #fff;
+                border-style: solid;
+                z-index: 3;
+            }
+            &:after {
+                height: 0;
+                right: 0;
+                border-width: 50px 15px 0 0;
+                border-color: transparent #fff transparent transparent;
+                border-style: solid;
+                z-index: 4;
+            }
+        }
+    }
+
+    .avatar{
+        a{
+            background: #EFEEED;
+            display: block;
+            overflow: hidden;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            -webkit-border-radius: 60px;
+            border-radius: 60px;
+            &:focus{
+                img{
+                    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+                    opacity: 1;
+                }
+            }
+            &:hover{
+                img{
+                    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    header {
+        h3 {
+            font-family: ramblabold,Helvetica,Arial,"华文宋体",STSong,"新細明體",PMingLiU,sans-serif;
+            font-size: 16px;
+            padding: 0 10px;
+        }
+        a {
+            opacity: 1;
+            -webkit-transition: opacity .2s ease-in-out;
+            -moz-transition: opacity .2s ease-in-out;
+            -o-transition: opacity .2s ease-in-out;
+            transition: opacity .2s ease-in-out;
+            &:focus, &:hover {
+                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+                opacity: .5;
+            }
+        }
+    }
+}
+*/
