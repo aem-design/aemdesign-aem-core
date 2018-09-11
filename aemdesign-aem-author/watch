@@ -1,0 +1,80 @@
+#!/bin/bash
+function set_term_title() {
+   echo -en "\033]0;$1\a"
+}
+
+function lowercase() {
+    #echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
+    echo "$1" | awk '{print tolower($0)}'
+}
+
+function getOS() {
+    OS=$(lowercase "$(uname -a | grep Microsoft -q && echo windowsnt || uname)")
+    echo "OS=${OS}"
+}
+
+function main() {
+    getOS
+
+    if [[ "$OS" == "windowsnt" || "$OS" == *"mingw"* || "$OS" == *"cygwin"*  ]]; then
+        OS=windows
+        if [[ "false" == "$(which watch && echo true || echo false)" ]]; then
+            echo "You need to install 'procps-ng' package"
+        else
+            # shellcheck disable=SC2050
+            while [ "1" == "1" ];
+            do
+                set_term_title "Monitoring changes"
+                #TODO: does this work?
+                watch -g -t -d ls -lR
+                ./deploy
+                set_term_title "Up-to-date"
+                sleep 1
+            done
+
+        fi
+
+        ./deploy
+
+    elif [ "$OS" == "linux" ]; then
+        OS=linux
+
+        if [[ "false" == "$(which inotifywait && echo true || echo false)" ]]; then
+            echo "You need to install 'inotify-tools'"
+        else
+            # shellcheck disable=SC2050
+            while [ "1" == "1" ];
+            do
+                set_term_title "Monitoring changes"
+                inotifywait -e modify -e create -r ./*
+                ./deploy
+                set_term_title "Up-to-date"
+                sleep 1
+            done
+        fi
+
+    elif [ "$OS" == "darwin" ]; then
+        OS="mac"
+
+        if [[ "false" == "$(which fswatch && echo true || echo false)" ]]; then
+            echo "Install FSWatch install https://github.com/wildone/fswatch"
+        else
+            # shellcheck disable=SC2050
+            while [ "1" == "1" ];
+            do
+                set_term_title "Monitoring changes"
+                fswatch --silent --quit --ignore .DS_Store:.idea:.git:.iml --p .
+                ./deploy
+                set_term_title "Up-to-date"
+                sleep 1
+            done
+
+        fi
+
+
+    fi
+
+}
+
+#start
+main "$@";
