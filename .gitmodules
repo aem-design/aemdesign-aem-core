@@ -1,7 +1,3 @@
-[submodule "aemdesign-aem-services"]
-	path = aemdesign-aem-services
-	url = git@gitlab.com:aem.design/aemdesign-aem-services.git
-	branch = master
 [submodule "aemdesign-aem-taglibs"]
 	path = aemdesign-aem-taglibs
 	url = git@gitlab.com:aem.design/aemdesign-aem-taglibs.git
