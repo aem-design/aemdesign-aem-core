@@ -8,7 +8,7 @@
     <parent>
         <groupId>aemdesign</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -20,7 +20,7 @@
     <packaging>content-package</packaging>
     <name>AEM Design - Core Deployment Package</name>
     <description>AEM package for deploying all packages as one</description>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <developers>
         <developer>
@@ -50,18 +50,6 @@
             <type>zip</type>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>aemdesign-aem-services</artifactId>
-            <type>zip</type>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>aemdesign-aem-taglibs</artifactId>
-            <type>zip</type>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
     <!-- ====================================================================== -->
@@ -69,7 +57,6 @@
     <!-- ====================================================================== -->
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -165,7 +152,6 @@
                     <failOnError>true</failOnError>
                     <filterSource>src/content/META-INF/vault/filter.xml</filterSource>
                     <group>${package.group}</group>
-
                     <subPackages>
                         <subPackage>
                             <!-- include all packages -->
@@ -173,8 +159,6 @@
                             <filter>true</filter>
                         </subPackage>
                     </subPackages>
-
-
                 </configuration>
             </plugin>
         </plugins>

@@ -7,7 +7,7 @@
 
     <groupId>aemdesign</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -445,14 +445,8 @@
     <profiles>
         <profile>
             <id>deploymentpackage</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <modules>
-                <module>aemdesign-aem-author</module>
-                <module>aemdesign-aem-common</module>
-                <module>aemdesign-aem-services</module>
-                <module>aemdesign-aem-taglibs</module>
+                <module>aemdesign-core-deploy</module>
             </modules>
         </profile>
     </profiles>
