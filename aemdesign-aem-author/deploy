@@ -1,0 +1,17 @@
+#!/bin/bash
+
+POM_FILE="../pom.xml"
+SCRIPT_PARAMS="$@"
+
+source "../scripts/functions-debug.sh"
+source "../scripts/functions-maven.sh"
+source "../scripts/functions-curl.sh"
+
+set_term_title "Deploying Package: mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallPackage "$@""
+echo "- Deploy"
+mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallPackage "$@"
+set_term_title "Deployed"
+echo "- Deployed"
+
+
+
