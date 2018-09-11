@@ -1,5 +1,0 @@
-[submodule "aemdesign-aem-taglibs"]
-	path = aemdesign-aem-taglibs
-	url = git@gitlab.com:aem.design/aemdesign-aem-taglibs.git
-	branch = master
-
