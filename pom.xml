@@ -437,7 +437,6 @@
                         <violationIgnore>JavadocMethod,CustomImportOrder,indentation,sizes</violationIgnore>
                     </configuration>
                 </plugin>
-
             </plugins>
         </pluginManagement>
     </build>
@@ -450,6 +449,5 @@
             </modules>
         </profile>
     </profiles>
-
 
 </project>
