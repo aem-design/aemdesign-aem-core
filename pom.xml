@@ -16,13 +16,8 @@
     <modules>
         <module>aemdesign-aem-author</module>
         <module>aemdesign-aem-common</module>
-        <module>aemdesign-aem-config</module>
-        <module>aemdesign-aem-content</module>
         <module>aemdesign-aem-services</module>
-        <module>aemdesign-aem-showcase</module>
         <module>aemdesign-aem-taglibs</module>
-        <module>aemdesign-aem-prototype</module>
-        <module>aemdesign-aem-deploy</module>
     </modules>
 
     <!-- ====================================================================== -->
@@ -456,13 +451,8 @@
             <modules>
                 <module>aemdesign-aem-author</module>
                 <module>aemdesign-aem-common</module>
-                <module>aemdesign-aem-config</module>
-                <module>aemdesign-aem-content</module>
                 <module>aemdesign-aem-services</module>
-                <module>aemdesign-aem-showcase</module>
                 <module>aemdesign-aem-taglibs</module>
-                <module>aemdesign-aem-prototype</module>
-                <module>aemdesign-aem-deploy</module>
             </modules>
         </profile>
     </profiles>

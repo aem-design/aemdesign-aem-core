@@ -40,16 +40,10 @@
         -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>aemdesign-aem-config</artifactId>
+            <artifactId>aemdesign-aem-author</artifactId>
             <type>zip</type>
             <version>${project.version}</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>${project.groupId}</groupId>-->
-            <!--<artifactId>aemdesign-aem-author</artifactId>-->
-            <!--<type>zip</type>-->
-            <!--<version>${project.version}</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>aemdesign-aem-common</artifactId>
@@ -58,19 +52,13 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>aemdesign-aem-showcase</artifactId>
+            <artifactId>aemdesign-aem-services</artifactId>
             <type>zip</type>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>aemdesign-aem-content</artifactId>
-            <type>zip</type>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>aemdesign-aem-prototype</artifactId>
+            <artifactId>aemdesign-aem-taglibs</artifactId>
             <type>zip</type>
             <version>${project.version}</version>
         </dependency>
