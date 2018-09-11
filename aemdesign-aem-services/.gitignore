@@ -1,0 +1,27 @@
+# Ignore VLT files
+.vlt
+.vlt-sync.log
+.vlt-sync-config.properties
+
+# Ignore compilation results
+target
+
+# Ignore IDE and Operating System artifacts
+.idea
+.classpath
+.metadata
+.project
+.settings
+maven-eclipse.xml
+*.iml
+*.ipr
+*.iws
+.DS_Store
+
+# Velocity
+bundle/velocity.log.*
+bundle/velocity.log
+velocity.log*
+
+# Other
+lib/
