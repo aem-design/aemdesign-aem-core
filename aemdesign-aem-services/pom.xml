@@ -8,7 +8,7 @@
     <parent>
         <groupId>aemdesign</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,9 +17,9 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-services</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>bundle</packaging>
-    <name>AEM Design - AEM Services</name>
+    <name>AEM Design - AEM Services ${project.version}</name>
 
     <description>AEM Service - OSGI Services</description>
 

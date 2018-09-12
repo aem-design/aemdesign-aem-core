@@ -8,7 +8,7 @@
     <parent>
         <groupId>aemdesign</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,8 +17,9 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-author</artifactId>
+    <version>1.0.0</version>
     <packaging>content-package</packaging>
-    <name>AEM Design - AEM Author Update</name>
+    <name>AEM Design - AEM Author Update ${project.version}</name>
     <description>Updates to OOTB AEM</description>
 
     <developers>

@@ -17,7 +17,7 @@ Minimal core artifacts required for providing overridable AEM components.
 ## To build
 To ensure the project builds correctly locally run:
 
-`mvn -Dvault.useProxy=false -DskipTests -e -U -P clean package`
+`mvn -Dvault.useProxy=false -DskipTests -e -U clean package`
 
 ## To deploy
 To build and deploy the project to your local aem instance (default localhost:4502), in the project root run:
