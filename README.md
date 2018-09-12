@@ -36,7 +36,7 @@ In preparation for a release, create a new git release branch from the current m
  1. Create a new release branch.
     * `mvn scm:branch -Dbranch=release/<version> -Dmessage="creating release branch <version>"`
  2. Ensure you are on the new release branch.
-    * `git checkout -b release/<version>`
+    * `git checkout release/<version>`
  3. Update the maven `version` parameter. 
     * `mvn versions:set -DnewVersion=<version>`
  4. Check the version number was correctly applied and confirm.
