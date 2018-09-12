@@ -55,15 +55,14 @@
     </properties>
 
     <scm>
-        <connection>scm:git:ssh://git@gitlab.com/aem.design/aemdesign-parent.git</connection>
-        <developerConnection>scm:git:ssh://git@gitlab.com/aem.design/aemdesign-parent.git</developerConnection>
-        <url>https://gitlab.com/aem.design/aemdesign-parent.git</url>
-        <!--<tag>v0.0.0</tag>-->
+        <connection>scm:git:ssh://git@gitlab.com/aem.design/aemdesign-aem-core.git</connection>
+        <developerConnection>scm:git:ssh://git@gitlab.com/aem.design/aemdesign-aem-core.git</developerConnection>
+        <url>https://gitlab.com/aem.design/aemdesign-aem-core.git</url>
     </scm>
 
     <issueManagement>
         <system>Gitlab</system>
-        <url>https://gitlab.com/aem.design/aemdesign-parent/issues</url>
+        <url>https://gitlab.com/aem.design/aemdesign-aem-core/issues</url>
     </issueManagement>
 
     <distributionManagement>
@@ -76,23 +75,18 @@
 
     <dependencyManagement>
         <dependencies>
-
-            <!-- Servlet API -->
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
                 <version>2.5</version>
                 <scope>provided</scope>
             </dependency>
-            <!-- JSP API -->
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>jsp-api</artifactId>
                 <version>2.0</version>
                 <scope>provided</scope>
             </dependency>
-            <!-- JSTL Dependencies -->
-
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>jstl</artifactId>
@@ -312,13 +306,11 @@
                     <artifactId>maven-scm-plugin</artifactId>
                     <version>1.10.0</version>
                 </plugin>
-                <!-- Apache Felix Plugins -->
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-scr-plugin</artifactId>
                     <version>1.7.4</version>
                 </plugin>
-                <!-- Maven Plugins -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -357,7 +349,6 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>2.9</version>
                 </plugin>
-                <!-- Apache Sling Plugin -->
                 <plugin>
                     <groupId>org.apache.sling</groupId>
                     <artifactId>maven-sling-plugin</artifactId>
@@ -367,7 +358,6 @@
                         <password>${crx.password}</password>
                     </configuration>
                 </plugin>
-                <!-- Content Package Plugin -->
                 <plugin>
                     <groupId>com.day.jcr.vault</groupId>
                     <artifactId>content-package-maven-plugin</artifactId>
