@@ -57,4 +57,7 @@ Once the testing cycle has been completed and all code fixes have been applied t
   
  
 ## Release history
-`<ToDo>`
+| Version   | Release Date  | Features                      |
+|: ---------|:-------------:| :----------------------------:|
+|  1.0.0    | 12/09/2018    | Initial release after refactor|
+|           |               |                               |
