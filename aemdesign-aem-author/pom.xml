@@ -28,15 +28,7 @@
         </developer>
     </developers>
 
-    <scm>
-        <connection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-aem-author.git</connection>
-        <developerConnection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-aem-author.git</developerConnection>
-        <url>https://gitlab.com/aem.design/aemdesign-aem-author.git</url>
-    </scm>
-
-
     <dependencies>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -126,7 +118,6 @@
             <version>1.18</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.api</artifactId>
@@ -253,7 +244,6 @@
                             </execution>
                         </executions>
                     </plugin>
-
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
@@ -280,7 +270,6 @@
                             </execution>
                         </executions>
                     </plugin>
-
                 </plugins>
             </build>
         </profile>

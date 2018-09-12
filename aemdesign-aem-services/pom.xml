@@ -30,13 +30,6 @@
         </developer>
     </developers>
 
-    <scm>
-        <connection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-aem-services.git</connection>
-        <developerConnection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-aem-services.git</developerConnection>
-        <url>https://gitlab.com/aem.design/aemdesign-aem-services.git</url>
-        <tag>0.0.0</tag>
-    </scm>
-
     <dependencies>
         <dependency>
             <groupId>org.mockito</groupId>

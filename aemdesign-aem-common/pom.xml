@@ -33,12 +33,6 @@
         </developer>
     </developers>
 
-    <scm>
-        <connection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-aem-common.git</connection>
-        <developerConnection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-aem-common.git</developerConnection>
-        <url>https://gitlab.com/aem.design/aemdesign-aem-common.git</url>
-    </scm>
-
     <dependencies>
         <!--Add aemdesign dependencies to be embedded via content-package-maven-plugin-->
         <dependency>
