@@ -1,6 +1,6 @@
 # aemdesign-aem-core
 
-Current developement version `1.0.0-SNAPSHOT`
+Current development version `1.0.0-SNAPSHOT`
 
 Current release version `1.0.0-SNAPSHOT`
 
