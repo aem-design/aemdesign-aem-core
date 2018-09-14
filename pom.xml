@@ -435,7 +435,7 @@
         <profile>
             <id>deploymentpackage</id>
             <modules>
-                <module>aemdesign-core-deploy</module>
+                <module>aemdesign-aem-core-deploy</module>
             </modules>
         </profile>
     </profiles>

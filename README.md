@@ -2,11 +2,11 @@
 
 Current development version `1.0.0-SNAPSHOT`
 
-Current release version `1.0.0-SNAPSHOT`
+Current release version `1.0.0`
 
 Minimal core artifacts required for providing overridable AEM components.
  
-`aemdesign-core-deploy` module creates an aem package for deployment which contains:
+`aemdesign-aem-core-deploy` module creates an aem package for deployment which contains:
  * `aemdesign-aem-author`
  * `amedesign-aem-common`
  
