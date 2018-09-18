@@ -1,3 +1,5 @@
+<!-- TODO: Refactoring & cleanup, Please refer to `badge.cardIconTitleDateTimeDescriptionAction` changes. -->
+
 <a
         href="${componentProperties.pageUrl}"
         target="${componentProperties.badgeLinkTarget}"

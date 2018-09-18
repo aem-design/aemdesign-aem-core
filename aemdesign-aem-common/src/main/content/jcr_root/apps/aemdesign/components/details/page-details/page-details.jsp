@@ -49,7 +49,6 @@
             {DETAILS_LINK_TITLE, getPageTitle(_currentPage)},
     };
 
-
     ComponentProperties componentProperties = getComponentProperties(
             pageContext,
             componentFields,
@@ -201,4 +200,3 @@
 
 </c:choose>
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>
-

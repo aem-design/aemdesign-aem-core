@@ -1,11 +1,19 @@
-<!-- TODO: Refactoring & cleanup, Please refer to `badge.cardIconTitleDateTimeDescriptionAction` changes. -->
-
-<div class="card ${componentProperties.cardSize} ${badgeClassAttr}">
-    <div class="card-img-top">
-        <img src="${componentProperties.pageThumbnail}" ${badgeImageAttr} alt="${componentProperties.title}">
-    </div>
+<div class="card ${componentProperties.cardSize} ${badgeClassStyleAttr} ${componentProperties.isPastEventDate==true?' finished':''}">
+    <c:if test="${componentProperties.cardIconShow}">
+        <div class="card-icon">
+            <i class="icon ${badgeClassIconAttr}" title="${componentProperties.title}"></i>
+        </div>
+    </c:if>
     <div class="card-body">
         <${componentProperties.badgeTitleType} class="card-title">${componentProperties.pageNavTitle}</${componentProperties.badgeTitleType}>
+        <div class="card-date">
+            <div class="date">
+                <p>
+                    ${componentProperties.subTitleFormatted}
+                    </br>${componentProperties.eventDisplayTimeFormatted}
+                </p>
+            </div>
+        </div>
         <c:if test="${not empty componentProperties.category}">
             <div class="card-category">
                 <ul class="tags">

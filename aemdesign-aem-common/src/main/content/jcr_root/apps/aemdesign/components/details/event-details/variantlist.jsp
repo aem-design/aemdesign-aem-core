@@ -1,5 +1,3 @@
-<!-- TODO: Refactoring & cleanup, Please refer to `badge.cardIconTitleDateTimeDescriptionAction` changes. -->
-
 <%@ page import="org.apache.sling.api.resource.ResourceUtil" %>
 <%@ page import="org.apache.sling.commons.json.io.JSONWriter" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
@@ -8,8 +6,7 @@
     Resource componentResource = _resourceResolver.resolve(componentPath);
 
     String SCRIPT_EXTENTION = ".jsp";
-    String NAME_PREFIX = "badge.";
-
+    String NAME_PREFIX = "variant.";
 
     final JSONWriter w = new JSONWriter(response.getWriter());
     w.setTidy(Arrays.asList(_slingRequest.getRequestPathInfo().getSelectors()).contains("tidy"));
@@ -36,9 +33,7 @@
                 w.endObject();
             }
         }
-
     }
-
     w.endArray();
 
 %>

@@ -70,6 +70,7 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Default"
                                                     value="default"/>
+                                            <!--TODO: Before enabling below badge options, Please Cleanup the respective JSP, refer to `badge.cardIconTitleDateTimeDescriptionAction.jsp` code changes.
                                             <icon
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Icon"
@@ -105,7 +106,23 @@
                                             <cardHorizontal
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Horizontal Card"
-                                                    value="cardHorizontal"/>
+                                                    value="cardHorizontal"/>-->
+                                            <cardIconTitleAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Icon, Title and Action"
+                                                    value="cardIconTitleAction"/>
+                                            <cardIconTitleDateTime
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Icon, Title, Date and Time"
+                                                    value="cardIconTitleDateTime"/>
+                                            <cardIconTitleDescriptionAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Icon, Title, Description and Action"
+                                                    value="cardIconTitleDescriptionAction"/>
+                                            <cardIconTitleDateTimeDescriptionAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Icon, Title, Date, Time, Description and Action"
+                                                    value="cardIconTitleDateTimeDescriptionAction"/>
                                             <!--<imageTitleDateLocationDescriptionReference-->
                                                     <!--jcr:primaryType="nt:unstructured"-->
                                                     <!--text="Image Title Date Location Description Reference"-->
