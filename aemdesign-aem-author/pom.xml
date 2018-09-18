@@ -19,7 +19,7 @@
     <artifactId>aemdesign-aem-author</artifactId>
     <version>1.0.0</version>
     <packaging>content-package</packaging>
-    <name>AEM Design - AEM Author UI Updates</name>
+    <name>AEM Design - Core - AEM Author UI Updates</name>
     <description>Updates to OOTB AEM</description>
 
     <developers>

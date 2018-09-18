@@ -19,7 +19,7 @@
     <artifactId>aemdesign-aem-taglibs</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
-    <name>AEM Design - AEM JSTL Taglibs</name>
+    <name>AEM Design - Core - AEM JSTL Taglibs</name>
     <description>AEM Design package with all taglibs</description>
 
     <dependencies>
