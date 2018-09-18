@@ -50,10 +50,10 @@
     if (tenant == null) {
         tenant = _resource.adaptTo(Tenant.class);
 
-        if (tenant != null) {
-            expressionCustomizer.setVariable("tenantId", tenant.getId());
-            expressionCustomizer.setVariable("tenant", tenant);
-        } else {
+//        if (tenant != null) {
+//            expressionCustomizer.setVariable("tenantId", tenant.getId());
+//            expressionCustomizer.setVariable("tenant", tenant);
+//        } else {
             String finalTenantId;
             if (isNotEmpty(requestSuffix)) {
                 finalTenantId = resolveTenantIdFromPath(requestSuffix);
@@ -64,7 +64,7 @@
                 expressionCustomizer.setVariable("tenantId", finalTenantId);
             }
 
-        }
+//        }
     }
 
     ExpressionHelper ex = cmp.getExpressionHelper();

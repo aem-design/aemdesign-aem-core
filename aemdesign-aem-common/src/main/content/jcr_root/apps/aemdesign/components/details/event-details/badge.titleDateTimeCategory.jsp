@@ -1,3 +1,5 @@
+<!-- TODO: Refactoring & cleanup, Please refer to `badge.cardIconTitleDateTimeDescriptionAction` changes. -->
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.day.cq.wcm.api.Page" %>
 <%@ page import="com.day.cq.tagging.TagManager" %>

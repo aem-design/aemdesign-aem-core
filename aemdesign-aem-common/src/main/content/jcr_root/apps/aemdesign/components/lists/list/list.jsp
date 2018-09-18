@@ -109,7 +109,6 @@
 
     request.setAttribute(BADGE_REQUEST_ATTRIBUTES, badgeRequestAttributes);
 
-
     request.setAttribute(COMPONENT_PROPERTIES, componentProperties);
 
     String strItemLimit = componentProperties.get(com.day.cq.wcm.foundation.List.LIMIT_PROPERTY_NAME, "");
@@ -188,3 +187,8 @@
 </c:if>
 
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>
+<%
+    //remove request attributes to ensure other component don't inherit these
+    request.removeAttribute(BADGE_REQUEST_ATTRIBUTES);
+    request.removeAttribute(COMPONENT_PROPERTIES);
+%>

@@ -9,8 +9,11 @@
 <%@ page import="static org.apache.commons.lang3.StringUtils.isEmpty" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.text.MessageFormat" %>
+<%@ page import="org.slf4j.Logger" %>
+<%@ page import="org.slf4j.LoggerFactory" %>
+
 <%!
-//    private final Logger LOG = LoggerFactory.getLogger(getClass());
+    private final Logger SECLOG = LoggerFactory.getLogger(getClass());
 
     @SuppressWarnings("unchecked")
     public org.apache.sling.api.resource.ResourceResolver openAdminResourceResolver(org.apache.sling.api.scripting.SlingScriptHelper _sling) {
@@ -83,15 +86,15 @@
                     }
 
                 } else {
-                    LOG.warn(">> getUserEmail: userId: {0}, has not profile", userId);
+                    SECLOG.warn(">> getUserEmail: userId: {0}, has not profile", userId);
                 }
 
             } else {
-                LOG.warn(">> getUserEmail: userId: {0}, does not exist1", userId);
+                SECLOG.warn(">> getUserEmail: userId: {0}, does not exist1", userId);
             }
 
         } catch (Exception ex) {
-            LOG.error("could not get user email {0}, {1}", userId, ex);
+            SECLOG.error("could not get user email {0}, {1}", userId, ex);
         }
         return email;
     }
@@ -131,15 +134,15 @@
                     }
 
                 } else {
-                    LOG.warn(">> getUserFullName: userId: {0}, has not profile", userId);
+                    SECLOG.warn(">> getUserFullName: userId: {0}, has not profile", userId);
                 }
 
             } else {
-                LOG.warn(">> getUserFullName: userId: {0}, does not exist1", userId);
+                SECLOG.warn(">> getUserFullName: userId: {0}, does not exist1", userId);
             }
 
         } catch (Exception ex) {
-            LOG.error("could not get user full name {0}, {1}", userId, ex);
+            SECLOG.error("could not get user full name {0}, {1}", userId, ex);
         }
         return fullName;
     }
