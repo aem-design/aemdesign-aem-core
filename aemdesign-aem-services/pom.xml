@@ -19,7 +19,7 @@
     <artifactId>aemdesign-aem-services</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
-    <name>AEM Design - AEM Services ${project.version}</name>
+    <name>AEM Design - AEM Services</name>
 
     <description>AEM Service - OSGI Services</description>
 
