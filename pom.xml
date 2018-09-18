@@ -18,6 +18,7 @@
         <module>aemdesign-aem-common</module>
         <module>aemdesign-aem-services</module>
         <module>aemdesign-aem-taglibs</module>
+        <module>aemdesign-aem-core-deploy</module>
     </modules>
 
     <!-- ====================================================================== -->
