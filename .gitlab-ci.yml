@@ -26,8 +26,8 @@ package:
   script:
 #    - echo $PATH
 #    - ls -latr /apps/maven/bin
-#    - export PATH=/apps/maven/bin:${PATH}
-#    - export PATH=/usr/lib/node_modules/yarn/bin:${PATH}
+    - export PATH=/apps/maven/bin:${PATH}
+    - export PATH=/usr/lib/node_modules/yarn/bin:${PATH}
 #    - echo $PATH
 #    - which mvn
 #    - which yarn
