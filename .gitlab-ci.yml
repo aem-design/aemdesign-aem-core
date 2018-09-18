@@ -1,0 +1,73 @@
+stages:
+#  - prep
+#  - pre-package
+  - package
+  #- test
+  #- release
+  #- deploy
+
+variables:
+  GIT_URL_HTTPS: https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/aem.design/aemdesign-aem-core.git
+
+
+before_script:
+
+
+## Cache modules in between jobs
+#cache:
+#  key: ${CI_COMMIT_REF_SLUG}
+#  paths:
+#  - aemdesign-aem-prototype/node_modules/
+#  - aemdesign-aem-prototype/node/
+
+package:
+  stage: package
+  image: aemdesign/centos-java-buildpack:latest
+  script:
+#    - echo $PATH
+#    - ls -latr /apps/maven/bin
+#    - export PATH=/apps/maven/bin:${PATH}
+#    - export PATH=/usr/lib/node_modules/yarn/bin:${PATH}
+#    - echo $PATH
+#    - which mvn
+#    - which yarn
+#    - which node
+#    - mvn -version
+#    - yarn --version
+#    - npm --version
+    - git lfs install
+    - git checkout master
+    - git reset --hard "origin/master"
+    - git remote set-url origin ${GIT_URL_HTTPS}
+#    - for name in $(git submodule status | awk '{ print $2}'); do git config --file=.gitmodules submodule.$name.url https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/aem.design/$name.git; done
+#    - git submodule sync
+#    - git submodule --quiet update --remote --init
+#    - ls -latr
+#    - cd aemdesign-aem-prototype && ls -latr && yarn install && ls -latr && cd ..
+    - mvn clean package -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+
+
+#Release Maven:
+#  stage: release
+#  image: aemdesign/centos-java-buildpack:latest
+#  artifacts:
+#    name: aemdesign-release
+#    paths:
+#      - aemdesign-aem-author/target/*.zip
+#      - aemdesign-aem-common/target/*.zip
+#      - target/*.zip
+#    policy: push
+#  only:
+#    - tags
+#  script:
+#    - git lfs install
+#    - git checkout master
+#    - git reset --hard "origin/master"
+#    # Gitlab clones as HTTPS and there's no plan to support SSH
+#    # The SSH key needed is built into the custom Maven image
+#    - git remote set-url origin ${GIT_URL_HTTPS}
+#    - for name in $(git submodule status | awk '{ print $2}'); do git config --file=.gitmodules submodule.$name.url https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/aem.design/$name.git; done
+#    - git submodule sync
+#    - git submodule update --remote --init
+#    - mvn --batch-mode clean release:prepare release:perform -Dresume=false -DautoVersionSubmodules=true -DdryRun=false -Dmaven.test.skip=true -DskipITs -DscmCommentPrefix="[ci skip]"
+##    - git tag -a v1.05 -m "1st stabe release
