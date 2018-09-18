@@ -19,9 +19,8 @@
     <artifactId>aemdesign-aem-services</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
-    <name>AEM Design - AEM Services</name>
-
-    <description>AEM Service - OSGI Services</description>
+    <name>AEM Design - Core - AEM Services</name>
+    <description>Project for all AEM and OSGI Services</description>
 
     <developers>
         <developer>
