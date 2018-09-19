@@ -47,8 +47,8 @@ package:
     - mvn clean package -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
   artifacts:
     paths:
-      - target/*.zip
-      - target/*.jar
+      - */target/*.zip
+      - */target/*.jar
     expire_in: 1 week
 
 #Release Maven:
