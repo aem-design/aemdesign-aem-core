@@ -52,7 +52,7 @@ mvn archetype:generate \
     -DarchetypeVersion=1.0.2 \
     -DgroupId=training-aem \
     -DartifactId=aemdesign-aem-common \
-    -Dversion=1.0-SNAPSHOT \
+    -Dversion=1.0.0 \
     -Dpackage=aemdesign \
     -DappsFolderName=aemdesign-common \
     -DartifactName="AEM Design Commom Components" \
