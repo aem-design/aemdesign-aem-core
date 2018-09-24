@@ -191,4 +191,5 @@
     //remove request attributes to ensure other component don't inherit these
     request.removeAttribute(BADGE_REQUEST_ATTRIBUTES);
     request.removeAttribute(COMPONENT_PROPERTIES);
+    request.removeAttribute(REQUEST_COMPONENT_DETAILS_SUFFIX);
 %>

@@ -68,7 +68,7 @@
             String componentVariant = DEFAULT_VARIANT;
 
             //print component variant template
-            ComponentProperties componentBadgeProperties = (ComponentProperties) pageContext.getAttribute("componentProperties");
+            ComponentProperties componentBadgeProperties = (ComponentProperties) pageContext.getAttribute(COMPONENT_PROPERTIES);
             if (componentBadgeProperties != null) {
                 componentVariant = componentBadgeProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
             }
