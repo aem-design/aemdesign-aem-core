@@ -72,7 +72,7 @@
     String badgeSelector = _properties.get(FIELD_VARIANT, DEFAULT_BADGE);
 
 %>
-<c:set var="componentProperties" value="<%= _componentContext.getAttribute("componentProperties") %>"/>
+<c:set var="componentProperties" value="<%= _componentContext.getAttribute(COMPONENT_PROPERTIES) %>"/>
 <c:set var="innerComponentProperties" value="<%=componentProperties %>"/>
 
 

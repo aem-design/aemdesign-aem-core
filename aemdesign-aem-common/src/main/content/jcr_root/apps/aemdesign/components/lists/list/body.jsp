@@ -38,7 +38,7 @@
             <c:catch var="badgeException">
                 <%
                     //choose which details component to look for
-                    String[] listLookForDetailComponent = (String[])request.getAttribute("COMPONENT_DETAILS_SUFFIX");
+                    String[] listLookForDetailComponent = (String[])request.getAttribute(REQUEST_COMPONENT_DETAILS_SUFFIX);
                     if (listLookForDetailComponent ==  null) {
                         //first found details component
                         listLookForDetailComponent = DEFAULT_LIST_DETAILS_SUFFIX;
