@@ -38,6 +38,7 @@
     private static final String PATH_DAM_ROOT = "/content/dam/";
     private static final String PATH_DEFAULT_BADGE_BASE = "/apps/aemdesign/components/details/page-details/";
     private static final String COMPONENT_DETAILS_SUFFIX = "-details";
+    private static final String REQUEST_COMPONENT_DETAILS_SUFFIX = "COMPONENT_DETAILS_SUFFIX";
     private static final String PATH_DEFAULT_CONTENT = "article/par";
     private static final String DEFAULT_PAR_NAME = "par";
     private static final String DEFAULT_ARTICLE_NAME = "article";
