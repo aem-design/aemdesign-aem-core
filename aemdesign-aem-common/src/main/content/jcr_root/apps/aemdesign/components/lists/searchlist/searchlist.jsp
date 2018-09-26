@@ -1,33 +1,50 @@
 <%@page session="false"%>
-<%@ page import="com.google.common.base.Throwables" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.Locale,
-                                          java.util.ResourceBundle,
-                                          com.day.cq.i18n.I18n,
-                                          com.day.cq.tagging.TagManager,
-                                          com.day.cq.wcm.foundation.Search" %>
+    java.util.ResourceBundle,
+    com.day.cq.i18n.I18n,
+    com.day.cq.search.Predicate,
+    design.aem.CustomSearchResult" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
-<%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
+<%@ include file="/apps/aemdesign/global/images.jsp" %>
+<%@ include file="/apps/aemdesign/global/component-details.jsp" %>
+<%@ include file="/apps/aemdesign/global/i18n.jsp" %>
+<%@ include file="init.jsp" %>
 <cq:setContentBundle source="page" />
 <%
+
     final String DEFAULT_ARIA_ROLE = "search";
 
+    final String componentName = _componentContext.getComponent().getName().trim();
     final Locale pageLocale = _currentPage.getLanguage(true);
     final ResourceBundle resourceBundle = _slingRequest.getResourceBundle(pageLocale);
 
-    Search search = new Search(_slingRequest);
+    final List<CustomSearchResult> results = new ArrayList<>();
 
+    // Perform the search
+    final Query query = composeQueryBulilder(_slingRequest, _resourceResolver);
 
-    final String escapedQuery = _xssAPI.encodeForHTML(search.getQuery());
-    final String escapedQueryForAttr = _xssAPI.encodeForHTMLAttr(search.getQuery());
-    final String escapedQueryForHref = _xssAPI.getValidHref(search.getQuery());
+    SearchResult result = null;
+    String queryText = StringUtils.EMPTY;
+
+    if (query != null) {
+        result = query.getResult();
+
+        Predicate fulltextPredicate = query.getPredicates().getByName("fulltext");
+
+        if (fulltextPredicate != null) {
+            queryText = fulltextPredicate.get("fulltext", StringUtils.EMPTY);
+        }
+    }
+
+    final String escapedQuery = _xssAPI.encodeForHTML(queryText);
+    final String escapedQueryForAttr = _xssAPI.encodeForHTMLAttr(queryText);
+    final String escapedQueryForHref = _xssAPI.getValidHref(queryText);
 
     pageContext.setAttribute("escapedQuery", escapedQuery);
     pageContext.setAttribute("escapedQueryForAttr", escapedQueryForAttr);
     pageContext.setAttribute("escapedQueryForHref", escapedQueryForHref);
-
-    pageContext.setAttribute("search", search);
 
     I18n i18n = new I18n(resourceBundle);
 
@@ -53,79 +70,97 @@
             {"escapedQuery",escapedQuery},
             {"escapedQueryForAttr",escapedQueryForAttr},
             {"escapedQueryForHref",escapedQueryForHref},
-            {"searchIn",""},
+            {"printStructure", true},
+            {"listTag", "ul"},
             {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, DEFAULT_ARIA_ROLE_ATTRIBUTE},
-            {FIELD_VARIANT, DEFAULT_VARIANT},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
             pageContext,
             componentFields,
             DEFAULT_FIELDS_STYLE,
-            DEFAULT_FIELDS_ACCESSIBILITY);
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_DETAILS_OPTIONS);
 
-    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME));
+    componentProperties.put(COMPONENT_ATTRIBUTES,
+            addComponentBackgroundToAttributes(componentProperties,_resource, DEFAULT_BACKGROUND_IMAGE_NODE_NAME));
 
-    componentProperties.putAll(getAssetInfo(_resourceResolver,
-            getResourceImagePath(_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
-            FIELD_PAGE_BACKGROUND_IMAGE));
+    componentProperties.putAll(
+            getAssetInfo(_resourceResolver, getResourceImagePath(_resource, DEFAULT_BACKGROUND_IMAGE_NODE_NAME), FIELD_PAGE_BACKGROUND_IMAGE));
 
-    Search.Result result = null;
-    try {
-        result = search.getResult();
+    componentProperties.putAll(processBadgeRequestConfig(componentProperties,_resourceResolver, request), true);
 
-        if (result != null) {
-            if (!isEmpty(componentProperties.get("statisticsText", ""))) {
-                componentProperties.put("statisticsText",
-                        i18n.get(
-                                componentProperties.get("statisticsText", ""),
-                                componentProperties.get("searchQueryInformation", ""),
-                                result.getTotalMatches(),
-                                escapedQuery)
-                );
+    componentProperties.put(COMPONENT_ATTRIBUTES,
+            addComponentAttributes(componentProperties, "data-component-id", componentName));
+
+    if (result != null) {
+        if (!isEmpty(componentProperties.get("statisticsText", ""))) {
+            componentProperties.put("statisticsText",
+                    i18n.get(
+                            componentProperties.get("statisticsText", ""),
+                            componentProperties.get("searchQueryInformation", ""),
+                            result.getTotalMatches(),
+                            escapedQuery)
+            );
+        }
+
+        // Normalise the results tree
+        normaliseContentTree(results, _sling, _slingRequest, result);
+
+        // Pagination
+        if (result.getResultPages().size() > 0 && result.getNextPage() != null) {
+            boolean hasPages = false;
+
+            if (result.getNextPage() != null) {
+                hasPages = true;
+
+                // This value is offset by one because the front end code is expecting the index to begin at '0'
+                componentProperties.put(COMPONENT_ATTRIBUTES,
+                        addComponentAttributes(componentProperties, "data-total-pages", String.valueOf(result.getResultPages().size() - 1)));
+
+                componentProperties.put(COMPONENT_ATTRIBUTES,
+                        addComponentAttributes(componentProperties, "data-content-target", "#" + componentProperties.get(FIELD_STYLE_COMPONENT_ID)));
+
+                componentProperties.put(COMPONENT_ATTRIBUTES,
+                        addComponentAttributes(componentProperties, "data-page-offset", String.valueOf(result.getHits().size())));
+
+                componentProperties.put(COMPONENT_ATTRIBUTES,
+                        addComponentAttributes(componentProperties, "data-showing-text", componentProperties.get("statisticsTextFooter", "")));
             }
+
+            componentProperties.put(COMPONENT_ATTRIBUTES,
+                    addComponentAttributes(componentProperties, "data-content-url", request.getPathInfo() + "?q=" + queryText));
+
+            componentProperties.put(COMPONENT_ATTRIBUTES,
+                    addComponentAttributes(componentProperties, "data-content-start", "start"));
+
+            componentProperties.put(COMPONENT_ATTRIBUTES,
+                    addComponentAttributes(componentProperties, "data-has-pages", String.valueOf(hasPages)));
         }
-
-    } catch (RepositoryException ex) {
-        _log.error("Unable to get search results", ex);
     }
-    pageContext.setAttribute("result", result);
 
+    pageContext.setAttribute("results", results);
 
-    String searchIn = componentProperties.get("searchIn","");
-    String requestSearchPath = request.getParameter("path");
-    if (!isEmpty(searchIn)) {
-        // only allow the "path" request parameter to be used if it
-        // is within the searchIn path configured
-        if (requestSearchPath != null && requestSearchPath.startsWith(searchIn)) {
-            search.setSearchIn(requestSearchPath);
-        } else {
-            search.setSearchIn(searchIn);
-        }
-    } else if (requestSearchPath != null) {
-        search.setSearchIn(requestSearchPath);
-    }
+    request.setAttribute(COMPONENT_PROPERTIES, componentProperties);
 
 %>
-<c:set var="trends" value="${search.trends}"/>
-<c:set var="result" value="${result}"/>
+<c:set var="results" value="${results}"/>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
-    <c:when test="${empty result && empty escapedQuery}">
+    <c:when test="${empty escapedQuery}">
         <%@ include file="searchlist.empty.jsp" %>
     </c:when>
-    <c:when test="${empty result.hits}">
+    <c:when test="${empty results}">
         <%@ include file="searchlist.noresults.jsp" %>
     </c:when>
     <c:otherwise>
-        <c:choose>
-            <c:when test="${componentProperties.variant eq 'cards' }">
-                <%@ include file="variant.cards.jsp" %>
-            </c:when>
-            <c:otherwise>
-                <%@ include file="variant.default.jsp" %>
-            </c:otherwise>
-        </c:choose>
+        <cq:include script="bodyData.jsp" />
+        <%@ include file="variant.default.jsp" %>
     </c:otherwise>
 </c:choose>
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>
+<%
+    request.removeAttribute(COMPONENT_PROPERTIES);
+
+    pageContext.removeAttribute("results");
+%>

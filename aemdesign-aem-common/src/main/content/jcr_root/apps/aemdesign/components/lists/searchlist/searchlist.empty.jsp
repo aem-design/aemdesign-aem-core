@@ -1,2 +1,4 @@
 <!-- no results -->
-<div ${componentProperties.componentAttributes} empty></div>
+<div ${componentProperties.componentAttributes} empty>
+    <p>Invalid query given!</p>
+</div>
