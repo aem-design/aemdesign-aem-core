@@ -11,12 +11,10 @@
                 type="nav"
                 sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
-
             <basicTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Basic"
                     sling:resourceType="granite/ui/components/foundation/section">
-
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
@@ -30,11 +28,6 @@
                                     jcr:title="Basic"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <searchIn
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                                            fieldLabel="Path to search in"
-                                            name="./searchIn"/>
                                     <searchButtonText
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -91,7 +84,6 @@
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldLabel="Next label"
                                             name="./nextText"/>
-
                                 </items>
                             </basic>
                         </items>
@@ -99,13 +91,10 @@
                 </items>
             </basicTab>
 
-
-
             <layoutTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Layout"
                     sling:resourceType="granite/ui/components/foundation/section">
-
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
@@ -114,87 +103,52 @@
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
-                            <variant
+                            <config
                                     jcr:primaryType="nt:unstructured"
-                                    jcr:title="Layout"
+                                    jcr:title="Config"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <variant
+                                    <printStructure
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldLabel="Variant"
-                                            name="./variant"
+                                            fieldDescription="Don't print structure of the list, omit (OL/UL and LI tags)"
+                                            fieldLabel="Print List Structure"
+                                            name="./printStructure"
                                             emptyOption="{Boolean}true"
-                                            class="cq-dialog-dropdown-showhide"
-                                            cq-dialog-dropdown-showhide-target=".variant-config-showhide-target"
                                             value="">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <default
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Default"
-                                                    value=""/>
-                                            <cards
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Cards"
-                                                    value="cards"/>
-                                        </items>
-                                    </variant>
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                    </printStructure>
                                 </items>
-                            </variant>
-
-
-                            <variantConfigCard
-                                    jcr:primaryType="nt:unstructured"
-                                    class="hide variant-config-showhide-target foundation-layout-util-vmargin"
-                                    showhidetargetvalue="card"
-                                    sling:resourceType="granite/ui/components/foundation/container">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <childsection
-                                            jcr:primaryType="nt:unstructured"
-                                            jcr:title="Card Config"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                        <items jcr:primaryType="nt:unstructured">
-
-                                            <assetActionText
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                    fieldLabel="Asset Action Text"
-                                                    name="./assetActionText"/>
-                                            <pageActionText
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                    fieldLabel="Page Action Text"
-                                                    name="./pageActionText"/>
-                                            <otherActionText
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                    fieldLabel="Page Action Text"
-                                                    name="./otherActionText"/>
-
-                                        </items>
-                                    </childsection>
-
-                                </items>
-                            </variantConfigCard>
+                            </config>
                         </items>
                     </column>
                 </items>
             </layoutTab>
 
+            <badgeConfigTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Badge Config"
+                    path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include" />
 
             <styleTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Style"
                     path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
                     resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                    sling:resourceType="granite/ui/components/coral/foundation/include" />
+
             <accessibilityTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Accessibility"
                     path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
                     resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                    sling:resourceType="granite/ui/components/coral/foundation/include" />
         </items>
     </content>
-
 </jcr:root>
