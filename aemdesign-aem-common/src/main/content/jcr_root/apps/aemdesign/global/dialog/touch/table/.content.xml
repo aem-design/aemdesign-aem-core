@@ -78,96 +78,14 @@
                                     <paraformat jcr:primaryType="nt:unstructured"
                                                 features="*">
                                         <formats jcr:primaryType="nt:unstructured">
-                                            <default_p
-                                                    jcr:primaryType="nt:unstructured"
-                                                    description="Paragraph"
-                                                    tag="p"/>
-                                            <default_h1
-                                                    jcr:primaryType="nt:unstructured"
-                                                    description="Heading 1"
-                                                    tag="h1"/>
-                                            <default_h2
-                                                    jcr:primaryType="nt:unstructured"
-                                                    description="Heading 2"
-                                                    tag="h2"/>
-                                            <default_h3
-                                                    jcr:primaryType="nt:unstructured"
-                                                    description="Heading 3"
-                                                    tag="h3"/>
-                                            <default_h4
-                                                    jcr:primaryType="nt:unstructured"
-                                                    description="Heading 4"
-                                                    tag="h4"/>
-                                            <default_h5
-                                                    jcr:primaryType="nt:unstructured"
-                                                    description="Heading 5"
-                                                    tag="h5"/>
-                                            <default_h6
-                                                    jcr:primaryType="nt:unstructured"
-                                                    description="Heading 6"
-                                                    tag="h6"/>
-                                            <default_blockquote
-                                                    jcr:primaryType="nt:unstructured"
-                                                    description="Quote"
-                                                    tag="blockquote"/>
-                                            <default_pre
-                                                    jcr:primaryType="nt:unstructured"
-                                                    description="Preformatted"
-                                                    tag="pre"/>
+                                            <!-- added by prototype project -->
                                         </formats>
                                     </paraformat>
                                     <styles
                                             jcr:primaryType="nt:unstructured"
                                             features="*">
                                         <styles jcr:primaryType="nt:unstructured">
-                                            <iconExtraSmall
-                                                    jcr:primaryType="nt:unstructured"
-                                                    cssName="icon-xs"
-                                                    text="Icon Size (Extra Small)"/>
-                                            <iconSmall
-                                                    jcr:primaryType="nt:unstructured"
-                                                    cssName="icon-sm"
-                                                    text="Icon Size (Small)"/>
-                                            <iconMedium
-                                                    jcr:primaryType="nt:unstructured"
-                                                    cssName="icon-md"
-                                                    text="Icon Size (Medium)"/>
-                                            <iconLarge
-                                                    jcr:primaryType="nt:unstructured"
-                                                    cssName="icon-lg"
-                                                    text="Icon Size (Large)"/>
-                                            <iconExtraLarge
-                                                    jcr:primaryType="nt:unstructured"
-                                                    cssName="icon-xl"
-                                                    text="Icon Size (Extra Large)"/>
-                                            <textPrimary
-                                                    jcr:primaryType="nt:unstructured"
-                                                    cssName="text-primary"
-                                                    text="Colour (Primary)"/>
-                                            <textInfo
-                                                    jcr:primaryType="nt:unstructured"
-                                                    cssName="text-info"
-                                                    text="Colour (Info)"/>
-                                            <textDanger
-                                                    jcr:primaryType="nt:unstructured"
-                                                    cssName="text-danger"
-                                                    text="Colour (Danger)"/>
-                                            <textWarning
-                                                    jcr:primaryType="nt:unstructured"
-                                                    cssName="text-warning"
-                                                    text="Colour (Warning)"/>
-                                            <textWhite
-                                                    jcr:primaryType="nt:unstructured"
-                                                    cssName="text-white"
-                                                    text="Colour (White)"/>
-                                            <textMuted
-                                                    jcr:primaryType="nt:unstructured"
-                                                    cssName="text-muted"
-                                                    text="Colour (Muted)"/>
-                                            <textSuccess
-                                                    jcr:primaryType="nt:unstructured"
-                                                    cssName="text-success"
-                                                    text="Colour (Success)"/>
+                                            <!-- added by prototype project -->
                                         </styles>
                                     </styles>
                                     <edit
@@ -243,25 +161,10 @@
                                     </links>
                                     <misctools
                                             jcr:primaryType="nt:unstructured"
-                                            features="*">
+                                            features="specialchars">
                                         <specialCharsConfig jcr:primaryType="nt:unstructured">
                                             <chars jcr:primaryType="nt:unstructured">
-                                                <default_copyright
-                                                        jcr:primaryType="nt:unstructured"
-                                                        entity="&amp;copy;"
-                                                        name="copyright"/>
-                                                <default_euro
-                                                        jcr:primaryType="nt:unstructured"
-                                                        entity="&amp;euro;"
-                                                        name="euro"/>
-                                                <default_registered
-                                                        jcr:primaryType="nt:unstructured"
-                                                        entity="&amp;reg;"
-                                                        name="registered"/>
-                                                <default_trademark
-                                                        jcr:primaryType="nt:unstructured"
-                                                        entity="&amp;trade;"
-                                                        name="trademark"/>
+                                                <!-- added by prototype project -->
                                             </chars>
                                         </specialCharsConfig>
                                     </misctools>
@@ -296,7 +199,7 @@
                                         </inline>
                                         <fullscreen
                                                 jcr:primaryType="nt:unstructured"
-                                                toolbar="[edit#cut,edit#copy,edit#paste-default,edit#paste-plaintext,edit#paste-wordhtml,-,undo#undo,undo#redo,-,findreplace#find,findreplace#replace,-,#paraformat,#format,#justify,#lists,#styles,-,links#modifylink,links#unlink,links#anchor,tracklinks#modifylinktracking,-,image#imageProps,-,spellcheck#checktext,misctools#sourceedit,misctools#specialchars,-,table#insertcolumn-before,table#insertcolumn-after,table#removecolumn,-,table#insertrow-before,table#insertrow-after,table#removerow,-,table#mergecells-right,table#mergecells-down,table#mergecells,table#splitcell-horizontal,table#splitcell-vertical,-,table#selectrow,table#selectcolumn,-,table#modifytableandcell,table#removetable,,fullscreen#finish]">
+                                                toolbar="[edit#cut,edit#copy,edit#paste-default,edit#paste-plaintext,edit#paste-wordhtml,-,undo#undo,undo#redo,-,findreplace#find,findreplace#replace,-,#paraformat,#format,#justify,#lists,#styles,-,links#modifylink,links#unlink,links#anchor,tracklinks#modifylinktracking,-,image#imageProps,-,spellcheck#checktext,misctools#specialchars,-,table#insertcolumn-before,table#insertcolumn-after,table#removecolumn,-,table#insertrow-before,table#insertrow-after,table#removerow,-,table#mergecells-right,table#mergecells-down,table#mergecells,table#splitcell-horizontal,table#splitcell-vertical,-,table#selectrow,table#selectcolumn,-,table#modifytableandcell,table#removetable,,fullscreen#finish]">
                                             <popovers jcr:primaryType="nt:unstructured">
                                                 <format
                                                         jcr:primaryType="nt:unstructured"
@@ -322,7 +225,7 @@
                                         </fullscreen>
                                         <dialogFullScreen
                                                 jcr:primaryType="nt:unstructured"
-                                                toolbar="[edit#cut,edit#copy,edit#paste-default,edit#paste-plaintext,edit#paste-wordhtml,-,undo#undo,undo#redo,-,findreplace#find,findreplace#replace,-,#paraformat,#format,#justify,#lists,#styles,-,links#modifylink,links#unlink,links#anchor,tracklinks#modifylinktracking,-,image#imageProps,-,spellcheck#checktext,misctools#sourceedit,misctools#specialchars,-,table#insertcolumn-before,table#insertcolumn-after,table#removecolumn,-,table#insertrow-before,table#insertrow-after,table#removerow,-,table#mergecells-right,table#mergecells-down,table#mergecells,table#splitcell-horizontal,table#splitcell-vertical,-,table#selectrow,table#selectcolumn,-,table#modifytableandcell,table#removetable,,fullscreen#finish]">
+                                                toolbar="[edit#cut,edit#copy,edit#paste-default,edit#paste-plaintext,edit#paste-wordhtml,-,undo#undo,undo#redo,-,findreplace#find,findreplace#replace,-,#paraformat,#format,#justify,#lists,#styles,-,links#modifylink,links#unlink,links#anchor,tracklinks#modifylinktracking,-,image#imageProps,-,spellcheck#checktext,misctools#specialchars,-,table#insertcolumn-before,table#insertcolumn-after,table#removecolumn,-,table#insertrow-before,table#insertrow-after,table#removerow,-,table#mergecells-right,table#mergecells-down,table#mergecells,table#splitcell-horizontal,table#splitcell-vertical,-,table#selectrow,table#selectcolumn,-,table#modifytableandcell,table#removetable,,fullscreen#finish]">
                                             <popovers jcr:primaryType="nt:unstructured">
                                                 <format
                                                         jcr:primaryType="nt:unstructured"
@@ -347,8 +250,8 @@
                                             </popovers>
                                         </dialogFullScreen>
                                         <!--<tableEditOptions-->
-                                                <!--jcr:primaryType="nt:unstructured"-->
-                                                <!--toolbar="[table#insertcolumn-before,table#insertcolumn-after,table#removecolumn,-,table#insertrow-before,table#insertrow-after,table#removerow,-,table#mergecells-right,table#mergecells-down,table#mergecells,table#splitcell-horizontal,table#splitcell-vertical,-,table#selectrow,table#selectcolumn,-,table#ensureparagraph,-,table#modifytableandcell,table#removetable,-,undo#undo,undo#redo]"/>-->
+                                        <!--jcr:primaryType="nt:unstructured"-->
+                                        <!--toolbar="[table#insertcolumn-before,table#insertcolumn-after,table#removecolumn,-,table#insertrow-before,table#insertrow-after,table#removerow,-,table#mergecells-right,table#mergecells-down,table#mergecells,table#splitcell-horizontal,table#splitcell-vertical,-,table#selectrow,table#selectcolumn,-,table#ensureparagraph,-,table#modifytableandcell,table#removetable,-,undo#undo,undo#redo]"/>-->
                                     </cui>
                                 </uiSettings>
                             </table>
