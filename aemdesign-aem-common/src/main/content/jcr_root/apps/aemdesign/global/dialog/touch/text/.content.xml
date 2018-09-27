@@ -161,7 +161,7 @@
                                     </links>
                                     <misctools
                                             jcr:primaryType="nt:unstructured"
-                                            features="*">
+                                            features="specialchars">
                                         <specialCharsConfig jcr:primaryType="nt:unstructured">
                                             <chars jcr:primaryType="nt:unstructured">
                                                 <!-- added by prototype project -->
@@ -199,7 +199,7 @@
                                         </inline>
                                         <fullscreen
                                                 jcr:primaryType="nt:unstructured"
-                                                toolbar="[edit#cut,edit#copy,edit#paste-default,edit#paste-plaintext,edit#paste-wordhtml,-,undo#undo,undo#redo,-,findreplace#find,findreplace#replace,-,#paraformat,#format,#justify,#lists,#styles,-,links#modifylink,links#unlink,links#anchor,tracklinks#modifylinktracking,-,image#imageProps,-,spellcheck#checktext,misctools#sourceedit,misctools#specialchars,-,table#insertcolumn-before,table#insertcolumn-after,table#removecolumn,-,table#insertrow-before,table#insertrow-after,table#removerow,-,table#mergecells-right,table#mergecells-down,table#mergecells,table#splitcell-horizontal,table#splitcell-vertical,-,table#selectrow,table#selectcolumn,-,table#modifytableandcell,table#removetable,,fullscreen#finish]">
+                                                toolbar="[edit#cut,edit#copy,edit#paste-default,edit#paste-plaintext,edit#paste-wordhtml,-,undo#undo,undo#redo,-,findreplace#find,findreplace#replace,-,#paraformat,#format,#justify,#lists,#styles,-,links#modifylink,links#unlink,links#anchor,tracklinks#modifylinktracking,-,image#imageProps,-,spellcheck#checktext,misctools#specialchars,-,table#insertcolumn-before,table#insertcolumn-after,table#removecolumn,-,table#insertrow-before,table#insertrow-after,table#removerow,-,table#mergecells-right,table#mergecells-down,table#mergecells,table#splitcell-horizontal,table#splitcell-vertical,-,table#selectrow,table#selectcolumn,-,table#modifytableandcell,table#removetable,,fullscreen#finish]">
                                             <popovers jcr:primaryType="nt:unstructured">
                                                 <format
                                                         jcr:primaryType="nt:unstructured"
@@ -225,7 +225,7 @@
                                         </fullscreen>
                                         <dialogFullScreen
                                                 jcr:primaryType="nt:unstructured"
-                                                toolbar="[edit#cut,edit#copy,edit#paste-default,edit#paste-plaintext,edit#paste-wordhtml,-,undo#undo,undo#redo,-,findreplace#find,findreplace#replace,-,#paraformat,#format,#justify,#lists,#styles,-,links#modifylink,links#unlink,links#anchor,tracklinks#modifylinktracking,-,image#imageProps,-,spellcheck#checktext,misctools#sourceedit,misctools#specialchars,-,table#insertcolumn-before,table#insertcolumn-after,table#removecolumn,-,table#insertrow-before,table#insertrow-after,table#removerow,-,table#mergecells-right,table#mergecells-down,table#mergecells,table#splitcell-horizontal,table#splitcell-vertical,-,table#selectrow,table#selectcolumn,-,table#modifytableandcell,table#removetable,,fullscreen#finish]">
+                                                toolbar="[edit#cut,edit#copy,edit#paste-default,edit#paste-plaintext,edit#paste-wordhtml,-,undo#undo,undo#redo,-,findreplace#find,findreplace#replace,-,#paraformat,#format,#justify,#lists,#styles,-,links#modifylink,links#unlink,links#anchor,tracklinks#modifylinktracking,-,image#imageProps,-,spellcheck#checktext,misctools#specialchars,-,table#insertcolumn-before,table#insertcolumn-after,table#removecolumn,-,table#insertrow-before,table#insertrow-after,table#removerow,-,table#mergecells-right,table#mergecells-down,table#mergecells,table#splitcell-horizontal,table#splitcell-vertical,-,table#selectrow,table#selectcolumn,-,table#modifytableandcell,table#removetable,,fullscreen#finish]">
                                             <popovers jcr:primaryType="nt:unstructured">
                                                 <format
                                                         jcr:primaryType="nt:unstructured"
