@@ -65,15 +65,39 @@
         String eventStartDateText = dateFormat.format(eventStartDate.getTime());
         String eventEndDateText = dateFormat.format(eventEndDate.getTime());
 
+        String eventStartDateUppercase = dateFormat.format(eventStartDate.getTime()).toUpperCase();
+        String eventEndDateUppercase = dateFormat.format(eventEndDate.getTime()).toUpperCase();
+
+        String eventStartDateLowercase = dateFormat.format(eventStartDate.getTime()).toLowerCase();
+        String eventEndDateLowercase = dateFormat.format(eventEndDate.getTime()).toLowerCase();
+
         newFields.put("eventStartDateText",eventStartDateText);
         newFields.put("eventEndDateText",eventEndDateText);
 
+        newFields.put("eventStartDateUppercase",eventStartDateUppercase);
+        newFields.put("eventEndDateUppercase",eventEndDateUppercase);
+
+        newFields.put("eventStartDateLowercase",eventStartDateLowercase);
+        newFields.put("eventEndDateLowercase",eventEndDateLowercase);
+
         SimpleDateFormat timeFormat = new SimpleDateFormat(EVENT_DISPLAY_TIME_FORMAT);
-        String eventStartTimeText = timeFormat.format(eventStartDate.getTime()).toLowerCase();
-        String eventEndTimeText = timeFormat.format(eventEndDate.getTime()).toLowerCase();
+        String eventStartTimeText = timeFormat.format(eventStartDate.getTime());
+        String eventEndTimeText = timeFormat.format(eventEndDate.getTime());
+
+        String eventStartTimeLowercase = timeFormat.format(eventStartDate.getTime()).toLowerCase();
+        String eventEndTimeLowercase = timeFormat.format(eventEndDate.getTime()).toLowerCase();
+
+        String eventStartTimeUppercase = timeFormat.format(eventStartDate.getTime()).toUpperCase();
+        String eventEndTimeUppercase = timeFormat.format(eventEndDate.getTime()).toUpperCase();
 
         newFields.put("eventStartTimeText",eventStartTimeText);
         newFields.put("eventEndTimeText",eventEndTimeText);
+
+        newFields.put("eventStartTimeUppercase",eventStartTimeUppercase);
+        newFields.put("eventEndTimeUppercase",eventEndTimeUppercase);
+
+        newFields.put("eventStartTimeLowercase",eventStartTimeLowercase);
+        newFields.put("eventEndTimeLowercase",eventEndTimeLowercase);
 
         componentProperties.putAll(newFields);
 
