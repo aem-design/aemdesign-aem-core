@@ -1,5 +1,5 @@
 #!/bin/bash
 
-echo "Deploying Monolith Package: mvn -Dvault.useProxy=false -DskipTests -e -U -P deploymentpackage clean install"
-mvn -Dvault.useProxy=false -DskipTests -e -U -P deploymentpackage clean install "$@"
+echo "Deploying Monolith Package: mvn -Dvault.useProxy=false -DskipTests -e -U -P installdeploymentpackage,deploymentpackage clean install"
+mvn -Dvault.useProxy=false -DskipTests -e -U -P installdeploymentpackage,deploymentpackage clean install "$@"
 echo "Deployed"
