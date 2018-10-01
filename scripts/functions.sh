@@ -1,5 +1,7 @@
 #!/bin/bash
 
-source "functions-debug.sh"
-source "functions-maven.sh"
-source "functions-curl.sh"
+SCRIPTS_PARENT=$(realpath ../scripts)
+
+source "$SCRIPTS_PARENT/functions-debug.sh"
+source "$SCRIPTS_PARENT/functions-maven.sh"
+source "$SCRIPTS_PARENT/functions-curl.sh"
