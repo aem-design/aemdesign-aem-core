@@ -3,7 +3,7 @@
 POM_FILE="../pom.xml"
 SCRIPT_PARAMS="$@"
 
-source "../functions.sh"
+source "../scripts/functions.sh"
 
 set_term_title "Deploying Package: mvn -Dvault.useProxy=false -DskipTests clean deploy -P autoInstallBundle -Dmaven.deploy.skip=true -DskipNexusStagingDeployMojo=true "$@""
 echo "- Deploy"

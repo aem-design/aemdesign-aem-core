@@ -4,7 +4,7 @@ function set_term_title() {
    echo -en "\033]0;$1\a"
 }
 
-source "../functions.sh"
+source "../scripts/functions.sh"
 
 set_term_title "Deploying Project"
 mvn -Dvault.useProxy=false -DskipTests clean install -P installdeploymentpackage "$@"
