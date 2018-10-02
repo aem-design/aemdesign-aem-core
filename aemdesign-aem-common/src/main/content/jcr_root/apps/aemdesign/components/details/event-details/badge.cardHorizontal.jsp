@@ -29,6 +29,7 @@
         </div>
     </div>
 </div>
+<%--
 
 <div component class="eventlist  theme--list-card column-3 cards-horizontal  " id="eventlist2" data-modules="">
     <div class="content">
@@ -50,4 +51,4 @@
             </li>
         </ul>
     </div>
-</div>
+</div>--%>
