@@ -29,26 +29,4 @@
         </div>
     </div>
 </div>
-<%--
 
-<div component class="eventlist  theme--list-card column-3 cards-horizontal  " id="eventlist2" data-modules="">
-    <div class="content">
-        <ul>
-            <li class="first">
-                <div class="card small ">
-                    <div class="card-icon">
-                        <i class="fa fa-calendar-alt"></i>
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title">Wantirna Advice Night</h3>
-                        <div class="card-date">
-                            <div class="col-1 date">
-                                <p>MON 10 SEPTEMBER</br>4pm – 6pm</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>--%>
