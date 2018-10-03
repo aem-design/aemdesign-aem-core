@@ -1,4 +1,3 @@
-<!-- TODO: Refactoring & cleanup, Please refer to `badge.cardIconTitleDateTimeDescriptionAction` changes. -->
 
 <%-- BADGE LINK CONFIG  --%>
 <c:if test="${not empty componentProperties.linkTarget}">
@@ -52,15 +51,13 @@
 <c:if test="${componentProperties.titleIconShow and fn:length(componentProperties.titleIcon) > 0}">
     <c:set var="badgeClassAttr" value="${badgeClassAttr} ${fn:join(componentProperties.titleIcon,' ')}"/>
 </c:if>
+<c:if test="${componentProperties.isPastEventDate}">
+    <c:set var="badgeClassAttr" value="${badgeClassAttr} finished"/>
+</c:if>
 
 <%-- BADGE CARD ICON CONFIG  --%>
 <c:if test="${componentProperties.cardIconShow and fn:length(componentProperties.cardIcon) > 0}">
     <c:set var="badgeClassIconAttr" value="${badgeClassIconAttr} ${fn:join(componentProperties.cardIcon,' ')}"/>
-</c:if>
-
-<%-- BADGE CARD STYLE CONFIG  --%>
-<c:if test="${fn:length(componentProperties.cardStyle) > 0}">
-    <c:set var="badgeClassStyleAttr" value="${badgeClassStyleAttr} ${fn:join(componentProperties.cardStyle,' ')}"/>
 </c:if>
 
 

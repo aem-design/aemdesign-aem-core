@@ -9,7 +9,7 @@
                href="${componentProperties.pageUrl}"
                target="${componentProperties.badgeLinkTarget}"
                title="${componentProperties.badgeLinkTitle}"
-               ${badgeLinkAttr}>${componentProperties.badgeLinkText}</a>
+               ${badgeLinkAttr}><span>${componentProperties.badgeLinkText}</span></a>
         </div>
     </div>
 </div>

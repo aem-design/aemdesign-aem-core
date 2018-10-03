@@ -1,15 +1,13 @@
-<!-- TODO: Refactoring & cleanup, Please refer to `badge.cardIconTitleDateTimeDescriptionAction` changes. -->
-
-<div class="card ${componentProperties.cardSize} ${badgeClassAttr}">
+<div class="card ${componentProperties.cardSize} ${badgeClassAttr}" itemscope itemtype="http://schema.org/Event">
     <div class="card-body">
-        <${componentProperties.badgeTitleType} class="card-title">${componentProperties.pageNavTitle}</${componentProperties.badgeTitleType}>
-        <div class="card-text">${componentProperties.description}</div>
+        <${componentProperties.badgeTitleType} class="card-title" itemprop="name">${componentProperties.pageNavTitle}</${componentProperties.badgeTitleType}>
+        <div class="card-text" itemprop="description">${componentProperties.description}</div>
         <div class="card-action">
             <a class="card-link ${fn:join(componentProperties.badgeLinkStyle, ' ')}"
                href="${componentProperties.pageUrl}"
                target="${componentProperties.badgeLinkTarget}"
                title="${componentProperties.badgeLinkTitle}"
-               ${badgeLinkAttr}>${componentProperties.badgeLinkText}</a>
+               ${badgeLinkAttr}><span>${componentProperties.badgeLinkText}</span></a>
         </div>
     </div>
 </div>

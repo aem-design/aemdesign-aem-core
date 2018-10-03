@@ -33,8 +33,8 @@
             {"description", DEFAULT_DESCRIPTION},
             //{"hideSeparator", DEFAULT_HIDE_SEPARATOR},
             //{"hideSummary", DEFAULT_HIDE_SUMMARY},
-            {"eventStartDate", _pageProperties.get("eventStartDate", Calendar.getInstance())},
-            {"eventEndDate", _pageProperties.get("eventEndDate", Calendar.getInstance())},
+            {"eventStartDate", _pageProperties.get(NameConstants.PN_ON_TIME, _pageProperties.get(JcrConstants.JCR_CREATED,Calendar.getInstance()))},
+            {"eventEndDate", _pageProperties.get(NameConstants.PN_OFF_TIME, _pageProperties.get(JcrConstants.JCR_CREATED,Calendar.getInstance()))},
             //{"eventTime", DEFAULT_EVENT_TIME},
             {"eventLoc", ""},
             {"eventRefLabel", ""},
@@ -130,41 +130,47 @@
 <%@ include file="badgeconfig.jsp" %>
 
 <c:choose>
-    <%-- TODO: Cleanup the respective JSP
-    <c:when test="${COMPONENT_BADGE eq 'badge.card'}">
-        <%@ include file="badge.card.jsp" %>
-    </c:when>
 
-    <c:when test="${COMPONENT_BADGE eq 'badge.cardAction'}">
-        <%@ include file="badge.cardAction.jsp" %>
-    </c:when>
-
-    <c:when test="${COMPONENT_BADGE eq 'badge.cardSelect'}">
-        <%@ include file="badge.cardSelect.jsp" %>
-    </c:when>
+    <%-- NORMAL BADGES --%>
 
     <c:when test="${COMPONENT_BADGE eq 'badge.cardIcon'}">
         <%@ include file="badge.cardIcon.jsp" %>
     </c:when>
 
-    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconAction'}">
-        <%@ include file="badge.cardIconAction.jsp" %>
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconTitleAction'}">
+        <%@ include file="badge.cardIconTitleAction.jsp" %>
     </c:when>
 
-    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconSelect'}">
-        <%@ include file="badge.cardIconSelect.jsp" %>
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconTitleCategoryDescriptionAction'}">
+        <%@ include file="badge.cardIconTitleCategoryDescriptionAction.jsp" %>
     </c:when>
 
-    <c:when test="${COMPONENT_BADGE eq 'badge.cardHorizontal'}">
-        <%@ include file="badge.cardHorizontal.jsp" %>
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconTitleDate'}">
+        <%@ include file="badge.cardIconTitleDate.jsp" %>
     </c:when>
 
-    <c:when test="${COMPONENT_BADGE eq 'badge.icon'}">
-        <%@ include file="badge.icon.jsp" %>
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconTitleDescriptionAction'}">
+        <%@ include file="badge.cardIconTitleDescriptionAction.jsp" %>
     </c:when>
 
-    <c:when test="${COMPONENT_BADGE eq 'badge.cardTitleDescriptionAction'}">
-        <%@ include file="badge.cardTitleDescriptionAction.jsp" %>
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconTitleSubtitleDate'}">
+        <%@ include file="badge.cardIconTitleSubtitleDate.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconTitleSubtitleDateDescriptionAction'}">
+        <%@ include file="badge.cardIconTitleSubtitleDateDescriptionAction.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconTitleSubtitleDescriptionAction'}">
+        <%@ include file="badge.cardIconTitleSubtitleDescriptionAction.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardImageTitleAction'}">
+        <%@ include file="badge.cardImageTitleAction.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardImageTitleCategoryDescriptionAction'}">
+        <%@ include file="badge.cardImageTitleCategoryDescriptionAction.jsp" %>
     </c:when>
 
     <c:when test="${COMPONENT_BADGE eq 'badge.cardImageTitleDescriptionAction'}">
@@ -175,33 +181,44 @@
         <%@ include file="badge.cardImageTitleSubtitleDescriptionAction.jsp" %>
     </c:when>
 
-    <c:when test="${COMPONENT_BADGE eq 'badge.cardImageTitleAction'}">
-        <%@ include file="badge.cardImageTitleAction.jsp" %>
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardTitleDescriptionAction'}">
+        <%@ include file="badge.cardTitleDescriptionAction.jsp" %>
+    </c:when>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.icon'}">
+        <%@ include file="badge.icon.jsp" %>
+    </c:when>
+
+
+    <%-- ACTION BADGES --%>
+
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardActionIconTitleCategoryDescription'}">
+        <%@ include file="badge.cardActionIconTitleCategoryDescription.jsp" %>
     </c:when>
 
     <c:when test="${COMPONENT_BADGE eq 'badge.cardActionImageTitle'}">
         <%@ include file="badge.cardActionImageTitle.jsp" %>
-    </c:when>--%>
-
-    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconTitleAction'}">
-        <%@ include file="badge.cardIconTitleAction.jsp" %>
     </c:when>
 
-    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconTitleDateTime'}">
-        <%@ include file="badge.cardIconTitleDateTime.jsp" %>
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardActionImageTitleCategoryDescription'}">
+        <%@ include file="badge.cardActionImageTitleCategoryDescription.jsp" %>
     </c:when>
 
-    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconTitleDateTimeDescriptionAction'}">
-        <%@ include file="badge.cardIconTitleDateTimeDescriptionAction.jsp" %>
+
+    <%-- HORIZONTAL BADGES --%>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardHorizontalIconTitleCategoryDescriptionAction'}">
+        <%@ include file="badge.cardHorizontalIconTitleCategoryDescriptionAction.jsp" %>
     </c:when>
 
-    <c:when test="${COMPONENT_BADGE eq 'badge.cardIconTitleDescriptionAction'}">
-        <%@ include file="badge.cardIconTitleDescriptionAction.jsp" %>
-    </c:when>
+    <%-- DEFAULT BADGES --%>
 
     <c:when test="${COMPONENT_BADGE eq 'badge' or COMPONENT_BADGE eq 'badge.default'}">
         <%@ include file="badge.default.jsp" %>
     </c:when>
+
+    <%-- VARIANTS --%>
 
     <c:when test="${componentProperties.variant eq DEFAULT_VARIANT_HIDDEN}">
         <%@ include file="variant.hidden.jsp" %>

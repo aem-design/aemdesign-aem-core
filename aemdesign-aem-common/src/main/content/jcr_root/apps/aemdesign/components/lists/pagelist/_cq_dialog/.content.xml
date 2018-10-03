@@ -86,26 +86,26 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Card with Icon"
                                                     value="cardIcon"/>
-                                            <cardIconAction
+                                            <cardIconTitleCategoryDescriptionAction
                                                     jcr:primaryType="nt:unstructured"
-                                                    text="Card with Icon and CTA"
-                                                    value="cardIconAction"/>
-                                            <cardAction
+                                                    text="Card with Icon, Title, Category, Description and Action"
+                                                    value="cardIconTitleCategoryDescriptionAction"/>
+                                            <cardImageTitleCategoryDescriptionAction
                                                     jcr:primaryType="nt:unstructured"
-                                                    text="Card with Image and CTA"
-                                                    value="cardAction"/>
-                                            <cardIconSelect
+                                                    text="Card with Image, Title, Category, Description and Action"
+                                                    value="cardImageTitleCategoryDescriptionAction"/>
+                                            <cardIconTitleCategoryDescription
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Clickable Card with Icon"
-                                                    value="cardIconSelect"/>
-                                            <cardSelect
+                                                    value="cardIconTitleCategoryDescription"/>
+                                            <cardImageTitleCategoryDescription
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Clickable Card with Image "
-                                                    value="cardSelect"/>
-                                            <cardHorizontal
+                                                    value="cardImageTitleCategoryDescription"/>
+                                            <cardHorizontalIconTitleCategoryDescriptionAction
                                                     jcr:primaryType="nt:unstructured"
-                                                    text="Horizontal Card"
-                                                    value="cardHorizontal"/>
+                                                    text="Horizontal Card with Icon, Title, Category, Description and Action"
+                                                    value="cardHorizontalIconTitleCategoryDescriptionAction"/>
                                             <cardTitleDescriptionAction
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Card with Title, Description and Action"
@@ -122,34 +122,54 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Card with Image, Title and Action"
                                                     value="cardImageTitleAction"/>
+                                            <cardImageTitleDescription
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Image, Title and Description"
+                                                    value="cardImageTitleDescription"/>
+                                            <cardIconDescription
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Icon and Description"
+                                                    value="cardIconDescription"/>
+                                            <cardIconTitleDescription
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Icon, Title and Description"
+                                                    value="cardIconTitleDescription"/>
+
+                                            <cardIconTitleDescriptionAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Icon, Title, Description and Action"
+                                                    value="cardIconTitleDescriptionAction"/>
+
                                             <cardActionImageTitle
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Clickable Card with Image and Title"
                                                     value="cardActionImageTitle"/>
-                                            <cardImageTitleDescription
+                                            <cardActionIconTitleCategoryDescription
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Clickable Card with Icon, Title, Category and Description"
+                                                    value="cardActionIconTitleCategoryDescription"/>
+                                            <cardActionImageTitleDescription
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Clickable Card with Image, Title and Description"
-                                                    value="cardImageTitleDescription"/>
-                                            <cardIconDescription
+                                                    value="cardActionImageTitleDescription"/>
+                                            <cardActionIconDescription
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Clickable Card with Icon and Description"
-                                                    value="cardIconDescription"/>
-                                            <cardIconTitleDescription
+                                                    value="cardActionIconDescription"/>
+                                            <cardActionImageTitleCategoryDescription
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Clickable Card with Image, Title, Category and Description "
+                                                    value="cardActionImageTitleCategoryDescription"/>
+                                            <cardActionIconTitleDescription
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Clickable Card with Icon, Title and Description"
-                                                    value="cardIconTitleDescription"/>
-                                            <!--<categoryTitlePublishDate-->
-                                            <!--jcr:primaryType="nt:unstructured"-->
-                                            <!--text="Category Title Publish Date"-->
-                                            <!--value="categoryTitlePublishDate"/>-->
-                                            <!--<imageTitleDescriptionCategory-->
-                                            <!--jcr:primaryType="nt:unstructured"-->
-                                            <!--text="Image Title Description Category (Masonry)"-->
-                                            <!--value="imageTitleDescriptionCategory"/>-->
-                                            <!--<imageTitleDescriptionCategoryGrid-->
-                                            <!--jcr:primaryType="nt:unstructured"-->
-                                            <!--text="Image Title Description Category"-->
-                                            <!--value="imageTitleDescriptionCategoryGrid"/>-->
+                                                    value="cardActionIconTitleDescription"/>
+
+                                            <cardHorizontalIconTitleCategoryDescriptionAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Horizontal Card with Icon, Category, Description and Action"
+                                                    value="cardHorizontalIconTitleCategoryDescriptionAction"/>
+
 
                                         </items>
                                     </detailsBadge>

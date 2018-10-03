@@ -7,6 +7,7 @@
     final String DEFAULT_HIDE_SEPARATOR = "false";
     final String DEFAULT_HIDE_SUMMARY = "false";
     final String EVENT_DISPLAY_DATE_FORMAT = "EEE d MMMMM";
+    final String EVENT_DISPLAY_DATE_FORMAT_ISO = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     final String EVENT_DISPLAY_TIME_FORMAT = "ha";
     final Calendar DEFAULT_EVENT_START_DATE = Calendar.getInstance();
     final Calendar DEFAULT_EVENT_END_DATE = Calendar.getInstance();
@@ -58,8 +59,15 @@
 
         newFields.put("isPastEventDate", eventEndDate.before(Calendar.getInstance()));
 
+        //
+
         newFields.put("eventStartDate",eventStartDate);
         newFields.put("eventEndDate",eventEndDate);
+
+        SimpleDateFormat dateFormatString = new SimpleDateFormat(EVENT_DISPLAY_DATE_FORMAT_ISO);
+
+        newFields.put("eventStartDateISO",dateFormatString.format(eventStartDate.getTime()));
+        newFields.put("eventEndDateISO",dateFormatString.format(eventEndDate.getTime()));
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(EVENT_DISPLAY_DATE_FORMAT);
         String eventStartDateText = dateFormat.format(eventStartDate.getTime());
