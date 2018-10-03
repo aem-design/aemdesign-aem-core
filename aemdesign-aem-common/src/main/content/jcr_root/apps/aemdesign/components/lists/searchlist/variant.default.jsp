@@ -1,39 +1,49 @@
 <div ${componentProperties.componentAttributes}>
-
-    <%@ include file="searchlist.tracking.jsp" %>
-
-    <div class="results-total">
-        ${componentProperties.statisticsText}
-    </div>
-
     <div class="content">
-
-        <%@ include file="searchlist.trends.jsp" %>
-        <%@ include file="searchlist.facets.jsp" %>
-        <%@ include file="searchlist.related.jsp" %>
-
         <div class="results">
-            <c:forEach var="hit" items="${result.hits}" varStatus="status">
-                <div class="result-item">
-                    <c:if test="${hit.extension != \"\" && hit.extension != \"html\"}">
-                        <span class="icon type_${hit.extension}"><img src="/etc/clientlibs/aemdesign/icons/file/${hit.extension}.gif" alt="*"></span>
+            <c:if test="${componentProperties.printStructure}">
+                <${componentProperties.listTag}>
+            </c:if>
+
+            <c:forEach items="${results}" var="result" varStatus="itemStatus">
+                <c:set var="resultItem" value="${result}" scope="request" />
+
+                <c:if test="${componentProperties.printStructure}">
+                    <li>
+                </c:if>
+
+                <c:choose>
+                    <c:when test="${not empty resultItem.damAsset}">
+                        <%@ include file="badge.asset.jsp" %>
+                    </c:when>
+                    <c:when test="${resultItem.pageDetails}">
+                        <%@ include file="badge.details.jsp" %>
+                    </c:when>
+                    <c:otherwise>
+                        <%@ include file="badge.default.jsp" %>
+                    </c:otherwise>
+                </c:choose>
+
+                <c:if test="${componentProperties.printStructure}">
+                    </li>
+                </c:if>
+
+                <c:if test="${componentProperties.listSplit}">
+                    <c:if test="${(itemStatus.index + 1) % componentProperties.listSplitEvery == 0 && !itemStatus.last}">
+                        <c:if test="${componentProperties.printStructure}">
+                            </${componentProperties.listTag}>
+                            <!--split-->
+                            <${componentProperties.listTag}>
+                        </c:if>
                     </c:if>
-                    <div class="result-item-title">
-                        <a href="${hit.URL}" onclick="trackSelectedResult(this, ${status.index + 1})">${hit.title}</a>
-                    </div>
-                    <div class="result-item-excerpt-link">
-                        <a href="${hit.URL}">${hit.URL}</a>
-                    </div>
-
-                    <div class="result-item-excerpt">${hit.excerpt}</div>
-
-                </div>
-
+                </c:if>
             </c:forEach>
 
+            <c:if test="${componentProperties.printStructure}">
+                </${componentProperties.listTag}>
+            </c:if>
         </div>
 
-        <%@ include file="searchlist.pagination.jsp" %>
-
+        <%--<%@ include file="searchlist.pagination.jsp" %>--%>
     </div>
 </div>
