@@ -1,6 +1,6 @@
 <a
     href="${componentProperties.pageUrl}"
-    title="${componentProperties.title}"${badgeLinkAttr}>
+    title="${componentProperties.title}"${badgeLinkAttr} ${badgeLinkAttr}>
     <img src="${componentProperties.pageThumbnail}" ${badgeImageAttr}
          alt="${componentProperties.title}"
          <c:if test="${not empty componentProperties.pageSecondaryImageThumbnail}">

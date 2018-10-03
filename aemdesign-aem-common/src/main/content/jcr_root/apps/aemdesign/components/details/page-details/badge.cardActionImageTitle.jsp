@@ -1,7 +1,8 @@
 <a class="card ${componentProperties.cardSize} ${badgeClassAttr}"
-   href="${componentProperties.pageUrl}"
-   target="${componentProperties.badgeLinkTarget}"
-   title="${componentProperties.badgeLinkTitle}">
+    href="${componentProperties.pageUrl}"
+    target="${componentProperties.badgeLinkTarget}"
+    title="${componentProperties.badgeLinkTitle}"
+    ${badgeLinkAttr}>
     <div class="card-img-top">
         <img src="${componentProperties.pageThumbnail}" ${badgeImageAttr} alt="${componentProperties.title}">
     </div>

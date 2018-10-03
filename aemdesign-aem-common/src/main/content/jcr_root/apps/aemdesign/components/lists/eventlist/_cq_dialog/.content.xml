@@ -70,91 +70,87 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Default"
                                                     value="default"/>
-                                            <!--TODO: Before enabling below badge options, Please Cleanup the respective JSP, refer to `badge.cardIconTitleDateTimeDescriptionAction.jsp` code changes.
                                             <icon
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Icon"
                                                     value="icon"/>
-                                            <image
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Image"
-                                                    value="image"/>
-                                            <card
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Card with Image"
-                                                    value="card"/>
+
+
                                             <cardIcon
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Card with Icon"
                                                     value="cardIcon"/>
-                                            <cardIconAction
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Card with Icon and CTA"
-                                                    value="cardIconAction"/>
-                                            <cardAction
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Card with Image and CTA"
-                                                    value="cardAction"/>
-                                            <cardIconSelect
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Clickable Card with Icon"
-                                                    value="cardIconSelect"/>
-                                            <cardSelect
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Clickable Card with Image "
-                                                    value="cardSelect"/>
-                                            <cardHorizontal
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Horizontal Card"
-                                                    value="cardHorizontal"/>-->
                                             <cardIconTitleAction
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Card with Icon, Title and Action"
                                                     value="cardIconTitleAction"/>
-                                            <cardIconTitleDateTime
+                                            <cardIconTitleCategoryDescriptionAction
                                                     jcr:primaryType="nt:unstructured"
-                                                    text="Card with Icon, Title, Date and Time"
-                                                    value="cardIconTitleDateTime"/>
+                                                    text="Card with Icon, Title, Category, Description and Action"
+                                                    value="cardIconTitleCategoryDescriptionAction"/>
+                                            <cardIconTitleDate
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Icon, Title and Date"
+                                                    value="cardIconTitleDate"/>
                                             <cardIconTitleDescriptionAction
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Card with Icon, Title, Description and Action"
                                                     value="cardIconTitleDescriptionAction"/>
-                                            <cardIconTitleDateTimeDescriptionAction
+                                            <cardIconTitleSubtitleDate
                                                     jcr:primaryType="nt:unstructured"
-                                                    text="Card with Icon, Title, Date, Time, Description and Action"
-                                                    value="cardIconTitleDateTimeDescriptionAction"/>
-                                            <!--<imageTitleDateLocationDescriptionReference-->
-                                                    <!--jcr:primaryType="nt:unstructured"-->
-                                                    <!--text="Image Title Date Location Description Reference"-->
-                                                    <!--value="imageTitleDateLocationDescriptionReference"/>-->
-                                            <!--<imageTitleDate-->
-                                                    <!--jcr:primaryType="nt:unstructured"-->
-                                                    <!--text="Image Title Date"-->
-                                                    <!--value="imageTitleDate"/>-->
-                                            <!--<imageTitleDescriptionCategoryMansory-->
-                                                    <!--jcr:primaryType="nt:unstructured"-->
-                                                    <!--text="Image Title Description Category (Mansory)"-->
-                                                    <!--value="imageTitleDescriptionCategoryMansory"/>-->
-                                            <!--<imageTitleDescriptionCategory-->
-                                                    <!--jcr:primaryType="nt:unstructured"-->
-                                                    <!--text="Image Title Description Category"-->
-                                                    <!--value="imageTitleDescriptionCategory"/>-->
-                                            <!--<titleDateTimeCategory-->
-                                                    <!--jcr:primaryType="nt:unstructured"-->
-                                                    <!--text="Title Date Time Category"-->
-                                                    <!--value="titleDateTimeCategory"/>-->
-                                            <!--<dateTimeLocationEnquiryInfo-->
-                                                    <!--jcr:primaryType="nt:unstructured"-->
-                                                    <!--text="Date Time Location Enquiry Info"-->
-                                                    <!--value="dateTimeLocationEnquiryInfo"/>-->
-                                            <!--<aPartOf-->
-                                                    <!--jcr:primaryType="nt:unstructured"-->
-                                                    <!--text="A Part Of"-->
-                                                    <!--value="aPartOf"/>-->
-                                            <!--<imageTitleDateLocationDescriptionReference2-->
-                                                    <!--jcr:primaryType="nt:unstructured"-->
-                                                    <!--text="Image Title Date Location Description Multi References"-->
-                                                    <!--value="imageTitleDateLocationDescriptionReference2"/>-->
+                                                    text="Card with Icon, Title, Subtitle and Date"
+                                                    value="cardIconTitleSubtitleDate"/>
+                                            <cardIconTitleSubtitleDateDescriptionAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Icon, Title, Subtitle, Date, Description and Action"
+                                                    value="cardIconTitleSubtitleDateDescriptionAction"/>
+                                            <cardIconTitleSubtitleDescriptionAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Icon, Title, Subtitle, Description and Action"
+                                                    value="cardIconTitleSubtitleDescriptionAction"/>
+
+                                            <cardImageTitleAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Image, Title and Action"
+                                                    value="cardImageTitleAction"/>
+
+                                            <cardImageTitleCategoryDescriptionAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Image, Title, Category, Description and Action"
+                                                    value="cardImageTitleCategoryDescriptionAction"/>
+
+                                            <cardImageTitleDescriptionAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Image, Title, Description and Action"
+                                                    value="cardImageTitleDescriptionAction"/>
+                                            <cardImageTitleSubtitleDescriptionAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Image, Title, Subtitle, Description and Action"
+                                                    value="cardImageTitleSubtitleDescriptionAction"/>
+                                            <cardTitleDescriptionAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Card with Title, Description and Action"
+                                                    value="cardTitleDescriptionAction"/>
+
+                                            <cardActionIconTitleCategoryDescription
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Clickable Card with Icon, Title, Category and Description"
+                                                    value="cardActionIconTitleCategoryDescription"/>
+
+                                            <cardActionImageTitle
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Clickable Card with Image and Title"
+                                                    value="cardActionImageTitle"/>
+
+                                            <cardActionImageTitleCategoryDescription
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Clickable Card with Image, Title, Category and Description"
+                                                    value="cardActionImageTitleCategoryDescription"/>
+
+                                            <cardHorizontalIconTitleCategoryDescriptionAction
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Horizontal Card with Icon, Title, Category, Description and Action"
+                                                    value="cardHorizontalIconTitleCategoryDescriptionAction"/>
 
                                         </items>
                                     </detailsBadge>
