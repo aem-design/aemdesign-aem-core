@@ -67,6 +67,7 @@
     private static final String DETAILS_TAB_ICON = "tabIcon";
     private static final String DETAILS_TITLE_ICONSHOW = "titleIconShow";
     private static final String DETAILS_TITLE_ICON = "titleIcon";
+    private static final String DETAILS_TITLE_TYPE = "titleType";
     private static final String DETAILS_OVERLAY_ICONSHOW = "badgeOverlayIconShow";
     private static final String DETAILS_OVERLAY_ICON = "badgeOverlayIcon";
     private static final String DETAILS_CARD_STYLE = "cardStyle";

@@ -39,9 +39,4 @@
     <c:set var="badgeClassIconAttr" value="${badgeClassIconAttr} ${fn:join(componentProperties.cardIcon,' ')}"/>
 </c:if>
 
-<%-- BADGE CARD STYLE CONFIG  --%>
-<c:if test="${fn:length(componentProperties.cardStyle) > 0}">
-    <c:set var="badgeClassStyleAttr" value="${badgeClassStyleAttr} ${fn:join(componentProperties.cardStyle,' ')}"/>
-</c:if>
-
 
