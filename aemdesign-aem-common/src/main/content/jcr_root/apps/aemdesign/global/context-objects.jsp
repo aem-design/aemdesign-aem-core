@@ -1,5 +1,6 @@
 <%@page session="false" import="
                                 com.day.cq.commons.jcr.JcrConstants,
+                                com.day.cq.wcm.api.NameConstants,
                                 com.day.cq.wcm.api.designer.Style,
                                 com.day.cq.wcm.foundation.Paragraph,
                                 com.day.cq.wcm.foundation.ParagraphSystem,

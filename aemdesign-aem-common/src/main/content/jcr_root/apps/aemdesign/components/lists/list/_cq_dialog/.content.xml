@@ -532,26 +532,26 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Card with Icon"
                                                     value="cardIcon"/>
-                                            <cardIconAction
+                                            <cardIconTitleCategoryDescriptionAction
                                                     jcr:primaryType="nt:unstructured"
-                                                    text="Card with Icon and CTA"
-                                                    value="cardIconAction"/>
-                                            <cardAction
+                                                    text="Card with Icon, Title, Category, Description and Action"
+                                                    value="cardIconTitleCategoryDescriptionAction"/>
+                                            <cardImageTitleCategoryDescriptionAction
                                                     jcr:primaryType="nt:unstructured"
-                                                    text="Card with Image and CTA"
-                                                    value="cardAction"/>
-                                            <cardIconSelect
+                                                    text="Card with Image, Title, Category, Description and Action"
+                                                    value="cardImageTitleCategoryDescriptionAction"/>
+                                            <cardIconTitleCategoryDescription
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Clickable Card with Icon"
-                                                    value="cardIconSelect"/>
-                                            <cardSelect
+                                                    value="cardIconTitleCategoryDescription"/>
+                                            <cardImageTitleCategoryDescription
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Clickable Card with Image "
-                                                    value="cardSelect"/>
-                                            <cardHorizontal
+                                                    value="cardImageTitleCategoryDescription"/>
+                                            <cardHorizontalIconTitleCategoryDescriptionAction
                                                     jcr:primaryType="nt:unstructured"
-                                                    text="Horizontal Card"
-                                                    value="cardHorizontal"/>
+                                                    text="Horizontal Card with Icon, Title, Category, Description and Action"
+                                                    value="cardHorizontalIconTitleCategoryDescriptionAction"/>
 
                                         </items>
                                     </detailsBadge>

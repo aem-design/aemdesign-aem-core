@@ -1,4 +1,3 @@
-<!-- TODO: Refactoring & cleanup, Please refer to `badge.cardIconTitleDateTimeDescriptionAction` changes. -->
 
 <c:choose>
     <c:when test="${not empty componentProperties.pageUrl}">

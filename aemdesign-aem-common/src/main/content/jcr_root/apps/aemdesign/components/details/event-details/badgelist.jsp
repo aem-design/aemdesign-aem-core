@@ -1,4 +1,3 @@
-<!-- TODO: Refactoring & cleanup, Please refer to `badge.cardIconTitleDateTimeDescriptionAction` changes. -->
 
 <%@ page import="org.apache.sling.api.resource.ResourceUtil" %>
 <%@ page import="org.apache.sling.commons.json.io.JSONWriter" %>
