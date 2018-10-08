@@ -1354,7 +1354,7 @@
                 try {
                     curResource = curPage.getContentResource(relativePath);
                 } catch (Exception e) {
-                    LOG.info("Failed to get  " + relativePath + " from " + curPage.getContentResource().getPath());
+                    getLogger().info("Failed to get  " + relativePath + " from " + curPage.getContentResource().getPath());
                 }
 
                 if (null != curResource) {
@@ -1362,7 +1362,7 @@
                     //Boolean cancelInheritParent = properties.get(COMPONENT_CANCEL_INHERIT_PARENT","").contentEquals("true");
 
                     curProperties = curResource.adaptTo(ValueMap.class);
-                    curResourceTypeMatch = nodeResourceType.contentEquals(curResource.getResourceType());
+                    curResourceTypeMatch = curResource.isResourceType(nodeResourceType);
                     curCancelInheritParent = curProperties.get(COMPONENT_CANCEL_INHERIT_PARENT, "").contentEquals("true");
 
                     if (curResourceTypeMatch && curCancelInheritParent) {
@@ -1384,7 +1384,7 @@
                 curPage = curPage.getParent();
             }
         } catch (Exception ex) {
-            LOG.warn("Failed to find inherited resource. {}", ex);
+            getLogger().warn("Failed to find inherited resource. {}", ex);
         }
 
         return curResource;
