@@ -1,127 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-          jcr:primaryType="nt:unstructured"
-          jcr:title="Online Media"
-          helpPath=""
-          sling:resourceType="cq/gui/components/authoring/dialog"
-          extraClientlibs="[]">
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Online Media"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    extraClientlibs="[]"
+    helpPath="">
     <content
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/foundation/container">
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
         <layout
-                jcr:primaryType="nt:unstructured"
-                type="nav"
-                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            type="nav"/>
         <items jcr:primaryType="nt:unstructured">
-            <layoutTab
+            <basicTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Basic"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
                     jcr:primaryType="nt:unstructured"
-                    jcr:title="Layout"
-                    sling:resourceType="granite/ui/components/foundation/section">
-
-                <layout jcr:primaryType="nt:unstructured"
-                        margin="{Boolean}false"
-                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <basic
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Basic"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <providerurl
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Enter the Service URL"
+                                        fieldLabel="Provider URL"
+                                        name="./providerUrl"
+                                        required="{Boolean}true"/>
+                                </items>
+                            </basic>
+                        </items>
+                    </column>
+                </items>
+            </basicTab>
+            <layoutTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Layout"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <variant
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Layout"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Layout"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
-
-
                                     <variant
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        emptyOption="{Boolean}true"
+                                        fieldLabel="Variant"
+                                        name="./variant"
+                                        value="">
+                                        <datasource
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            emptyOption="{Boolean}true"
-                                            fieldLabel="Variant"
-                                            name="./variant"
-                                            value="">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <default
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Default"
-                                                    value=""/>
-                                        </items>
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/widgets/onlinemedia/layout/variant/"
+                                            variant="valuelist"/>
                                     </variant>
-
-                                    <provider
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldLabel="Provider"
-                                            name="./provider"
-                                            value="">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <default
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Default"
-                                                    value=""/>
-                                            <youtube
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Youtube"
-                                                    value="youtube"/>
-                                            <vimeo
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Vimeo"
-                                                    value="vimeo"/>
-                                            <issue
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Issuu Digital Publishing"
-                                                    value="issuu"/>
-                                        </items>
-                                    </provider>
-                                    <mediaId
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldDescription="Media Identifier for Provider above"
-                                            fieldLabel="Media ID"
-                                            name="./mediaId"
-                                            required="{Boolean}true"/>
-
-                                    <mediaGroup
-                                            jcr:primaryType="nt:unstructured"
-                                            jcr:title="Media Attribute Configuration"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <imageSize
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
-                                                    fieldDescription="Note: No specified video size, the inline width and height will become 100%. Then, it stretches to fit to the containing div' size to display ."
-                                                    fieldLabel="Media Size">
-                                                <width
-                                                        jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                                        name="./width"/>
-                                                <height
-                                                        jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                                        name="./height"/>
-                                            </imageSize>
-                                        </items>
-                                    </mediaGroup>
-
                                 </items>
                             </variant>
                         </items>
                     </column>
                 </items>
             </layoutTab>
-
             <styleTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Style"
-                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Style"
+                sling:resourceType="granite/ui/components/coral/foundation/include"
+                path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
+                resourceType="granite/ui/components/foundation/section"/>
             <accessibilityTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Accessibility"
-                    path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Accessibility"
+                sling:resourceType="granite/ui/components/coral/foundation/include"
+                path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
+                resourceType="granite/ui/components/foundation/section"/>
         </items>
     </content>
 </jcr:root>
