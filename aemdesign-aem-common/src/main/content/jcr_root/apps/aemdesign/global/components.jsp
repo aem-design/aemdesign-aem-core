@@ -436,6 +436,17 @@
             {"siteTileColor", ""},
     };
 
+    //DEFAULT MEDIA METADATA
+    // {
+    //   1 required - property name,
+    //   2 required - default value,
+    //   3 optional - name of component attribute to add value into
+    //   4 optional - canonical name of class for handling multivalues, String or Tag
+    // }
+    public static final Object[][] DEFAULT_FIELDS_MEDIA = {
+            {"providerUrl", StringUtils.EMPTY},
+    };
+
     /** Local logging container. */
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
