@@ -3,11 +3,11 @@
     cq:dialogMode="floating"
     jcr:primaryType="cq:EditConfig">
     <cq:listeners
-        jcr:primaryType="cq:EditListenersConfig"
-        afterchildinsert="REFRESH_PAGE"
-        aftercopy="REFRESH_PAGE"
-        afterdelete="REFRESH_PAGE"
-        afteredit="REFRESH_PAGE"
-        afterinsert="REFRESH_PAGE"
-        aftermove="REFRESH_PAGE"/>
+            jcr:primaryType="cq:EditListenersConfig"
+            aftercopy="REFRESH_PAGE"
+            afterdelete="REFRESH_PAGE"
+            afteredit="REFRESH_PAGE"
+            aftermove="REFRESH_PAGE"
+            afterchildinsert="REFRESH_PAGE"
+            afterinsert="REFRESH_PAGE"/>
 </jcr:root>
