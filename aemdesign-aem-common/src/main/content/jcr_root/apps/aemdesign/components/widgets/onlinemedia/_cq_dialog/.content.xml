@@ -65,10 +65,8 @@
                                     <variant
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/select"
-                                        emptyOption="{Boolean}true"
                                         fieldLabel="Variant"
-                                        name="./variant"
-                                        value="">
+                                        name="./variant">
                                         <datasource
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"

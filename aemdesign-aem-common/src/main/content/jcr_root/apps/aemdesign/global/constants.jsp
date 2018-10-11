@@ -18,6 +18,8 @@
 
     public static final String DEFAULT_EXTENTION = ".html";
 
+    public static final String EXTENTION_JSP = ".jsp";
+
     //Do not update unless you have verified all components work
     public static Boolean REMOVEDECORATION = true; //change this if you want component decoration removed
 
@@ -149,7 +151,7 @@
     private final static String BADGE_REQUEST_ATTRIBUTES = "badgeRequestAttributes";
     private final static String COMPONENT_PROPERTIES = "componentProperties";
 
-
+    private final String LABEL_VARIANT = "variant";
 
     /**
      * CQ
