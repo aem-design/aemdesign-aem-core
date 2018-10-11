@@ -8,6 +8,10 @@
             {FIELD_VARIANT, DEFAULT_VARIANT}
     };
 
+   Object[][] DEFAULT_FIELDS_MEDIA = {
+            {"providerUrl", StringUtils.EMPTY},
+    };
+
     ComponentProperties componentProperties = getComponentProperties(
             pageContext,
             componentFields,
@@ -22,8 +26,8 @@
 
 <c:choose>
     <c:when test="${componentProperties.resourceExists eq true}">
-        <c:if test="${componentProperties.variant eq 'iframe'}">
-            <%@ include file="variant.iframe.jsp"  %>
+        <c:if test="${componentProperties.variant eq 'videoIframe'}">
+            <%@ include file="variant.videoIframe.jsp"  %>
         </c:if>
     </c:when>
     <c:otherwise>

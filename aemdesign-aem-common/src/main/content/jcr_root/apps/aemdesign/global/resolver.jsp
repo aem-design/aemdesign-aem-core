@@ -89,7 +89,7 @@
     }
 
     /**
-     * check if provide resource exists
+     * check if provided resource exists
      * @param resourceName
      * @param _resource
      * @param _resourceResolver
