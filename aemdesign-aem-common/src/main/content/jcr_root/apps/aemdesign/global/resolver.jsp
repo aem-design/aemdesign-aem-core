@@ -1,6 +1,7 @@
 <%@ page import="com.day.cq.wcm.foundation.ELEvaluator" %>
 <%@ page import="com.day.cq.commons.Externalizer" %>
-<%@ page import="org.apache.sling.api.SlingHttpServletResponse" %><%!
+<%@ page import="org.apache.sling.api.SlingHttpServletResponse" %>
+<%@ page import="org.apache.sling.api.resource.ResourceUtil" %><%!
 
     final String PAGE_PROP_REDIRECT = "redirectTarget";
 
@@ -87,4 +88,20 @@
         return false;
     }
 
+    /**
+     * check if provide resource exists
+     * @param resourceName
+     * @param _resource
+     * @param _resourceResolver
+     * @return
+     * @throws Exception
+     */
+    public boolean checkResourceExist (String resourceName, Resource _resource, ResourceResolver _resourceResolver) {
+        String file_name = _resourceResolver.getResource(ResourceUtil.findResourceSuperType(_resource)+ "/" + resourceName).getName();
+        Boolean resourceExist = false;
+        if (file_name.equals(resourceName)) {
+            resourceExist = true;
+        }
+        return resourceExist;
+    }
 %>
