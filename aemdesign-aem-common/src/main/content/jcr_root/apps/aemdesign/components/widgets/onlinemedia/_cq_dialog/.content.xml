@@ -36,8 +36,7 @@
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                         fieldDescription="Enter the Service URL"
                                         fieldLabel="Provider URL"
-                                        name="./providerUrl"
-                                        required="{Boolean}true"/>
+                                        name="./providerUrl"/>
                                 </items>
                             </basic>
                         </items>
