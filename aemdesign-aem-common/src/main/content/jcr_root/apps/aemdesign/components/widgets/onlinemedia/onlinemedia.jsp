@@ -22,10 +22,8 @@
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 
 <c:choose>
-    <c:when test="${componentProperties.resourceExists eq true}">
-        <c:if test="${componentProperties.variant eq 'videoIframe'}">
-            <%@ include file="variant.videoIframe.jsp"  %>
-        </c:if>
+    <c:when test="${componentProperties.resourceExists eq true and componentProperties.variant eq 'videoIframe'}">
+        <%@ include file="variant.videoIframe.jsp"  %>
     </c:when>
     <c:otherwise>
         <%@ include file="variant.default.jsp"  %>
