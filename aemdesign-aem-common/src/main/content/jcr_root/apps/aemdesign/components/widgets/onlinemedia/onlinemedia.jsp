@@ -5,21 +5,18 @@
     final String RESOURCE_EXISTS = "resourceExists";
 
     Object[][] componentFields = {
-            {FIELD_VARIANT, DEFAULT_VARIANT}
-    };
-
-   Object[][] DEFAULT_FIELDS_MEDIA = {
-            {"providerUrl", StringUtils.EMPTY},
+        {FIELD_VARIANT, DEFAULT_VARIANT},
+        {FIELD_PROVIDER_URL, StringUtils.EMPTY},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
-            pageContext,
-            componentFields,
-            DEFAULT_FIELDS_STYLE,
-            DEFAULT_FIELDS_ACCESSIBILITY,
-            DEFAULT_FIELDS_MEDIA);
+        pageContext,
+        componentFields,
+        DEFAULT_FIELDS_STYLE,
+        DEFAULT_FIELDS_ACCESSIBILITY);
+
     String field_variant = componentProperties.get(FIELD_VARIANT,StringUtils.EMPTY);
-    String resourceName = LABEL_VARIANT + "." + field_variant + EXTENTION_JSP;
+    String resourceName = String.format("%s.%s.%s", FIELD_VARIANT, field_variant, EXTENSION_JSP);
     componentProperties.put(RESOURCE_EXISTS,checkResourceExist(resourceName, _resource, _resourceResolver));
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
