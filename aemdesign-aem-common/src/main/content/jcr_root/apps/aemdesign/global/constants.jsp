@@ -18,6 +18,8 @@
 
     public static final String DEFAULT_EXTENTION = ".html";
 
+    public static final String EXTENSION_JSP = "jsp";
+
     //Do not update unless you have verified all components work
     public static Boolean REMOVEDECORATION = true; //change this if you want component decoration removed
 
@@ -133,6 +135,7 @@
     public static final String FIELD_PAGE_TITLE_SUBTITLE = "subtitle";
     public static final String FIELD_VIDEO_BACKGROUND = "backgroundVideo";
 
+    public static final String FIELD_PROVIDER_URL = "providerUrl";
 
     public static final String INHERITED_RESOURCE = "inheritedResource";
 
@@ -148,8 +151,6 @@
 
     private final static String BADGE_REQUEST_ATTRIBUTES = "badgeRequestAttributes";
     private final static String COMPONENT_PROPERTIES = "componentProperties";
-
-
 
     /**
      * CQ
