@@ -218,7 +218,7 @@
             {FIELD_STYLE_COMPONENT_SITETHEMECATEGORY, ""},
             {FIELD_STYLE_COMPONENT_SITETHEMECOLOR, ""},
             {FIELD_STYLE_COMPONENT_SITETITLECOLOR, ""},
-            {FIELD_STYLE_COMPONENT_BOOLEANATTR, new String[]{},"", Tag.class.getCanonicalName()},
+            {FIELD_STYLE_COMPONENT_BOOLEANATTR, new String[]{}," ", Tag.class.getCanonicalName()}, //do not store content in data attributes
             {FIELD_STYLE_COMPONENT_ANIMATION_ENABLED, false},
             {FIELD_STYLE_COMPONENT_ANIMATION_NAME, StringUtils.EMPTY, "data-aos"},
             {FIELD_STYLE_COMPONENT_ANIMATION_ONCE, StringUtils.EMPTY, "data-aos-once"},
@@ -906,8 +906,10 @@
                                 fieldValueString = fieldValue.toString();
                             }
 
-                            if (isNotEmpty(fieldValueString) && isNotEmpty(fieldDataName)) {
+                            if (isNotEmpty(fieldValueString) && isNotEmpty(fieldDataName) && !fieldDataName.equals(" ")) {
                                 componentProperties.attr.add(fieldDataName, fieldValueString);
+                            } else if (isNotEmpty(fieldValueString) && fieldDataName.equals(" ")) {
+                                componentProperties.attr.addBoolean(fieldValueString,true);
                             }
 
                         }
@@ -926,7 +928,7 @@
                     if (isNotEmpty(variant) && !variant.equals(DEFAULT_VARIANT)) {
                         componentProperties.attr.add(COMPONENT_ATTRIBUTE_CLASS, variant);
                     }
-                    componentProperties.put(COMPONENT_ATTRIBUTES, componentProperties.attr.build().replaceAll("&#x20;"," "));
+                    componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(),oldXssAPI));
                 }
             }
 
@@ -938,6 +940,66 @@
         }
 
         return componentProperties;
+    }
+
+    /***
+     * build attributes from attributes data without encoding
+     * @param data map of data attributes and values
+     * @param xssAPI old xssi api
+     * @return
+     * @throws IOException
+     */
+    public String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI) throws IOException {
+        return buildAttributesString(data,xssAPI,null);
+    }
+
+    /***
+     * build attributes from attributes data
+     * @param data map of data attributes and values
+     * @param xssAPI old xssi api
+     * @param encodings map of encoding per data attribute
+     * @return
+     * @throws IOException
+     */
+    public String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI, Map<String, String> encodings) throws IOException {
+        try {
+            StringWriter out = new StringWriter();
+            String key;
+            String value;
+
+            Iterator items = data.entrySet().iterator();
+            while (items.hasNext()) {
+                Map.Entry<String, String> e = (Map.Entry)items.next();
+                key = (String)e.getKey();
+                value = (String)e.getValue();
+
+                //encode values if encoding is specified
+                if (encodings != null) {
+                    String encoding = encodings.get(e.getKey());
+                    if (encoding != null && value != null && value.length() > 0) {
+                        switch (encoding) {
+                            case "HREF":
+                                value = xssAPI.getValidHref(value);
+                                break;
+                            case "HTML_ATTR":
+                                value = xssAPI.encodeForHTMLAttr(value);
+                                break;
+                        }
+                    }
+                }
+
+                out.append(" ");
+                if (value.length() > 0) {
+                    out.append(key).append("=\"").append(value).append("\"");
+                } else {
+                    out.append(key);
+                }
+            }
+            //return string without invalid characters
+            return out.toString().replaceAll("&#x20;"," ");
+        } catch (Exception ex) {
+            return "";
+        }
     }
 
     /***
