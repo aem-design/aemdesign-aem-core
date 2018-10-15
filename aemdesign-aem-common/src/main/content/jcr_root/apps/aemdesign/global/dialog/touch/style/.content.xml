@@ -104,18 +104,34 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
                                             fieldDescription="The X and Y values of the Position"
-                                            fieldLabel="Positions">
+                                            fieldLabel="Position (x,y)">
                                         <width
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                                name="./positionX"
-                                                unit="X position"/>
+                                                name="./componentPositionX"
+                                                unit="px"/>
                                         <height
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                                name="./positionY"
-                                                unit="Y position"/>
+                                                name="./componentPositionY"
+                                                unit="px"/>
                                     </positions>
+                                    <size
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
+                                            fieldDescription="The X and Y values of the Position"
+                                            fieldLabel="Size (width, height)">
+                                        <width
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                                name="./componentWidth"
+                                                unit="px"/>
+                                        <height
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                                name="./componentHeight"
+                                                unit="px"/>
+                                    </size>
                                 </items>
                             </position>
                         </items>

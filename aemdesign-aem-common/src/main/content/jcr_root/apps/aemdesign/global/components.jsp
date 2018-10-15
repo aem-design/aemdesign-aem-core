@@ -142,8 +142,10 @@
     private static final String FIELD_STYLE_COMPONENT_CHEVRON = "componentChevron";
     private static final String FIELD_STYLE_COMPONENT_ICON = "componentIcon";
     private static final String FIELD_STYLE_COMPONENT_BOOLEANATTR = "componentBooleanAttrs";
-    private static final String FIELD_STYLE_COMPONENT_POSITIONX = "positionX";
-    private static final String FIELD_STYLE_COMPONENT_POSITIONY = "positionY";
+    private static final String FIELD_STYLE_COMPONENT_POSITIONX = "componentPositionX";
+    private static final String FIELD_STYLE_COMPONENT_POSITIONY = "componentPositionY";
+    private static final String FIELD_STYLE_COMPONENT_WIDTH = "componentWidth";
+    private static final String FIELD_STYLE_COMPONENT_HEIGHT = "componentHeight";
     private static final String FIELD_STYLE_COMPONENT_SITETHEMECATEGORY = "siteThemeCategory";
     private static final String FIELD_STYLE_COMPONENT_SITETHEMECOLOR = "siteThemeColor";
     private static final String FIELD_STYLE_COMPONENT_SITETITLECOLOR = "siteTileColor";
@@ -213,8 +215,10 @@
             {FIELD_STYLE_COMPONENT_MODULES, new String[]{},"data-modules", Tag.class.getCanonicalName()},
             {FIELD_STYLE_COMPONENT_CHEVRON, new String[]{},"class", Tag.class.getCanonicalName()},
             {FIELD_STYLE_COMPONENT_ICON, new String[]{},"class", Tag.class.getCanonicalName()},
-            {FIELD_STYLE_COMPONENT_POSITIONX, ""},
-            {FIELD_STYLE_COMPONENT_POSITIONY, ""},
+            {FIELD_STYLE_COMPONENT_POSITIONX, "", "x"},
+            {FIELD_STYLE_COMPONENT_POSITIONY, "", "y"},
+            {FIELD_STYLE_COMPONENT_WIDTH, "", "width"},
+            {FIELD_STYLE_COMPONENT_HEIGHT, "", "height"},
             {FIELD_STYLE_COMPONENT_SITETHEMECATEGORY, ""},
             {FIELD_STYLE_COMPONENT_SITETHEMECOLOR, ""},
             {FIELD_STYLE_COMPONENT_SITETITLECOLOR, ""},
