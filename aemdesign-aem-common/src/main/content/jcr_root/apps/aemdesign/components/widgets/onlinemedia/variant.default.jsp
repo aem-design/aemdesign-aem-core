@@ -1,3 +1,1 @@
-<div ${componentProperties.componentAttributes}>
-    <iframe src="${componentProperties.providerUrl}" width="${componentProperties.positionX}" height="${componentProperties.positionY}"></iframe>
-</div>
+<iframe ${componentProperties.componentAttributes} frameborder="0"></iframe>

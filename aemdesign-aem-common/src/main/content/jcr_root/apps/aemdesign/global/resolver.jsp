@@ -96,11 +96,17 @@
      * @return
      * @throws Exception
      */
-    public boolean checkResourceExist (String resourceName, Resource _resource, ResourceResolver _resourceResolver) {
-        String file_name = _resourceResolver.getResource(ResourceUtil.findResourceSuperType(_resource)+ "/" + resourceName).getName();
-        Boolean resourceExist = false;
-        if (file_name.equals(resourceName)) {
-            resourceExist = true;
+    public boolean checkResourceHasChildResource(String resourceName, Resource _resource, ResourceResolver _resourceResolver) {
+        boolean resourceExist = false;
+        String foundResourceType = ResourceUtil.findResourceSuperType(_resource);
+        if (foundResourceType != null) {
+            Resource foundResource = _resourceResolver.getResource(ResourceUtil.findResourceSuperType(_resource) + "/" + resourceName);
+            if (foundResource != null) {
+                String file_name = foundResource.getName();
+                if (file_name.equals(resourceName)) {
+                    resourceExist = true;
+                }
+            }
         }
         return resourceExist;
     }
