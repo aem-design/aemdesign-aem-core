@@ -1,6 +1,9 @@
 #!/bin/bash
 
-source "functions.sh"
+POM_FILE="pom.xml"
+SCRIPT_PARAMS="$@"
+
+source "./scripts/functions.sh"
 
 echo "Deploying Monolith Package: mvn -Dvault.useProxy=false -DskipTests -e -U -P installdeploymentpackage,deploymentpackage clean install"
 mvn -Dvault.useProxy=false -DskipTests -e -U -P deploymentpackage,installdeploymentpackage clean install "$@"
