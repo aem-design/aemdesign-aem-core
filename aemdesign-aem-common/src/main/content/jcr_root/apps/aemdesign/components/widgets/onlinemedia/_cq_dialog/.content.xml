@@ -31,7 +31,7 @@
                                 jcr:title="Basic"
                                 sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <provider
+                                    <mediaProvider
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldLabel="Media Provider"
@@ -42,7 +42,7 @@
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
                                             path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/content-type/widgets/onlinemedia/provider"/>
-                                    </provider>
+                                    </mediaProvider>
                                     <mediaTitle
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -55,19 +55,19 @@
                                         fieldDescription="Requires media id, like video id."
                                         fieldLabel="Media ID"
                                         name="./mediaId"/>
-                                    <partnerId
+                                    <mediaPartnerId
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                         fieldDescription="Required only for media provider like Kaltura."
                                         fieldLabel="Partner ID"
                                         name="./mediaPartnerId"/>
-                                    <playerId
+                                    <mediaPlayerId
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                         fieldDescription="Required only for media provider like Kaltura."
                                         fieldLabel="Player ID"
                                         name="./mediaPlayerId"/>
-                                    <providerurl
+                                    <mediaProviderUrl
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                         fieldDescription="This is required only for Variant - IFrame."
