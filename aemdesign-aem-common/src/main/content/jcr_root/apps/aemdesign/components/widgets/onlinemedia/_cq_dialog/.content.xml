@@ -67,6 +67,12 @@
                                         fieldDescription="Required only for media provider like Kaltura."
                                         fieldLabel="Player ID"
                                         name="./mediaPlayerId"/>
+                                    <providerurl
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="This is required only for Variant - IFrame."
+                                        fieldLabel="Media Provider URL"
+                                        name="./mediaProviderUrl"/>
                                 </items>
                             </basic>
                         </items>
