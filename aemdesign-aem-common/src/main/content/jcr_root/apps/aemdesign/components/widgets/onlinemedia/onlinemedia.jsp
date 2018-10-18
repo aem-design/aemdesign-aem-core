@@ -6,7 +6,11 @@
 
     Object[][] componentFields = {
         {FIELD_VARIANT, DEFAULT_VARIANT},
-        {FIELD_PROVIDER_URL, StringUtils.EMPTY, "src"},
+        {FIELD_MEDIA_PROVIDER, StringUtils.EMPTY, FIELD_DATA_MEDIA_PROVIDER},
+        {FIELD_MEDIA_TITLE, StringUtils.EMPTY, FIELD_DATA_MEDIA_TITLE},
+        {FIELD_MEDIA_ID, StringUtils.EMPTY, FIELD_DATA_MEDIA_ID},
+        {FIELD_MEDIA_PARTNER_ID, StringUtils.EMPTY, FIELD_DATA_MEDIA_PARTNER_ID},
+        {FIELD_MEDIA_PLAYER_ID, StringUtils.EMPTY, FIELD_DATA_MEDIA_PLAYER_ID},
     };
 
     ComponentProperties componentProperties = getComponentProperties(
@@ -22,8 +26,8 @@
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 
 <c:choose>
-    <c:when test="${componentProperties.resourceExists eq true and componentProperties.variant eq 'default'}">
-        <%@ include file="variant.default.jsp" %>
+    <c:when test="${componentProperties.resourceExists eq true and componentProperties.variant eq 'iframe'}">
+        <%@ include file="variant.iframe.jsp" %>
     </c:when>
     <c:otherwise>
         <%@ include file="variant.default.jsp" %>
