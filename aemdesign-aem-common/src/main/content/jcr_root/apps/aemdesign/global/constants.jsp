@@ -135,7 +135,17 @@
     public static final String FIELD_PAGE_TITLE_SUBTITLE = "subtitle";
     public static final String FIELD_VIDEO_BACKGROUND = "backgroundVideo";
 
-    public static final String FIELD_PROVIDER_URL = "providerUrl";
+    public static final String FIELD_MEDIA_PROVIDER = "mediaProvider";
+    public static final String FIELD_MEDIA_TITLE = "mediaTitle";
+    public static final String FIELD_MEDIA_ID = "mediaId";
+    public static final String FIELD_MEDIA_PARTNER_ID = "mediaPartnerId";
+    public static final String FIELD_MEDIA_PLAYER_ID = "mediaPlayerId";
+
+    public static final String FIELD_DATA_MEDIA_PROVIDER = "data-mediaprovider";
+    public static final String FIELD_DATA_MEDIA_TITLE = "data-mediatitle";
+    public static final String FIELD_DATA_MEDIA_ID = "data-mediaid";
+    public static final String FIELD_DATA_MEDIA_PARTNER_ID = "data-mediapartnerid";
+    public static final String FIELD_DATA_MEDIA_PLAYER_ID = "data-mediaplayerid";
 
     public static final String INHERITED_RESOURCE = "inheritedResource";
 
