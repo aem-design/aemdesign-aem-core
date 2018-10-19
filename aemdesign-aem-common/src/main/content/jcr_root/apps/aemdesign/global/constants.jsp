@@ -114,7 +114,7 @@
     public static final String SITE_INCLUDE_PATHS = "includePaths";
 
     public static final String FIELD_SOURCE_ATTRIBUTE = "src";
-    public static final String FIELD_PROVIDER_URL = "mediaProviderUrl";
+    public static final String FIELD_MEDIA_PROVIDER_URL = "mediaProviderUrl";
 
     public static final String IMAGE_FILEREFERENCE = "fileReference";
     public static final String COMPONENT_LIST_PROPERTIES = "component.list.properties";
