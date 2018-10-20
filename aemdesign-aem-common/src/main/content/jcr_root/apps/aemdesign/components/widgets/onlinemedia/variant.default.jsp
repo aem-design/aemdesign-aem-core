@@ -1,1 +1,4 @@
-<iframe ${componentProperties.componentAttributes} frameborder="0"></iframe>
+<div ${componentProperties.componentAttributes}>
+    <div class="contents">
+    </div>
+</div>
