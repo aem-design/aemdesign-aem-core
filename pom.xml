@@ -7,7 +7,7 @@
 
     <groupId>aemdesign</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>7903acf-SNAPSHOT</version>
+    <version>69143a1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -312,7 +312,7 @@
                 <version>2.5</version>
                 <executions>
                     <execution>
-                        <phase>validate</phase>
+                        <phase>process-sources</phase>
                         <goals>
                             <goal>set</goal>
                         </goals>
@@ -332,7 +332,7 @@
                 <version>2.0</version>
                 <executions>
                     <execution>
-                        <phase>validate</phase>
+                        <phase>process-sources</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
@@ -351,7 +351,7 @@
                 <executions>
                     <execution>
                         <id>change-version</id>
-                        <phase>validate</phase>
+                        <phase>process-sources</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
@@ -411,34 +411,34 @@
                 </dependencies>
             </plugin>
 
-            <!--&lt;!&ndash; ensure all variables are set &ndash;&gt;-->
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>flatten-maven-plugin</artifactId>-->
-                <!--<version>1.0.1</version>-->
-                <!--<configuration>-->
-                    <!--&lt;!&ndash; <flattenMode>ossrh</flattenMode> &ndash;&gt;-->
-                    <!--<flattenedPomFilename>.flattened-pom.xml</flattenedPomFilename>-->
-                    <!--<outputDirectory>${project.build.directory}</outputDirectory>-->
-                    <!--<updatePomFile>true</updatePomFile>-->
-                <!--</configuration>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>flatten</id>-->
-                        <!--<phase>process-resources</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>flatten</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                    <!--<execution>-->
-                        <!--<id>flatten.clean</id>-->
-                        <!--<phase>clean</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>clean</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
+            <!-- ensure all variables are set -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.0.1</version>
+                <configuration>
+                    <!-- <flattenMode>ossrh</flattenMode> -->
+                    <flattenedPomFilename>.flattened-pom.xml</flattenedPomFilename>
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                    <updatePomFile>true</updatePomFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
         </plugins>
         <!-- ensure all artifact names are set to updated version -->
