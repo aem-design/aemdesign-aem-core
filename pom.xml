@@ -7,7 +7,7 @@
 
     <groupId>aemdesign</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>66dd311-SNAPSHOT</version>
+    <version>1571706-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -320,6 +320,7 @@
                         <configuration>
                             <!-- comes from the git-commit-id-plugin -->
                             <newVersion>${git.commit.id.describe}</newVersion>
+                            <generateBackupPoms>false</generateBackupPoms>
                         </configuration>
                     </execution>
                 </executions>
