@@ -47,31 +47,31 @@
                                     <mediaTitle
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                        fieldDescription="Requires video title provided by the Media provider."
+                                        fieldDescription="Display title of the media"
                                         fieldLabel="Media Title"
                                         name="./mediaTitle"/>
                                     <mediaId
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                        fieldDescription="Requires media id, like video id."
+                                        fieldDescription="Media ID to use for finding the media"
                                         fieldLabel="Media ID"
                                         name="./mediaId"/>
                                     <mediaPartnerId
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                        fieldDescription="Required only for media provider like Kaltura."
+                                        fieldDescription="required for some media providers"
                                         fieldLabel="Partner ID"
                                         name="./mediaPartnerId"/>
                                     <mediaPlayerId
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                        fieldDescription="Required only for media provider like Kaltura."
+                                        fieldDescription="required for some media providers"
                                         fieldLabel="Player ID"
                                         name="./mediaPlayerId"/>
                                     <mediaProviderUrl
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                        fieldDescription="This is required only for Variant - IFrame."
+                                        fieldDescription="required if accessing media without media id"
                                         fieldLabel="Media Provider URL"
                                         name="./mediaProviderUrl"/>
                                 </items>
