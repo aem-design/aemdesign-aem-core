@@ -7,7 +7,7 @@
 
     <groupId>aemdesign</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>1571706-SNAPSHOT</version>
+    <version>e0ea265</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
