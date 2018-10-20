@@ -7,7 +7,7 @@
 
     <groupId>aemdesign</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>e0ea265</version>
+    <version>7903acf-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -411,34 +411,34 @@
                 </dependencies>
             </plugin>
 
-            <!-- ensure all variables are set -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.0.1</version>
-                <configuration>
-                    <!-- <flattenMode>ossrh</flattenMode> -->
-                    <flattenedPomFilename>.flattened-pom.xml</flattenedPomFilename>
-                    <outputDirectory>${project.build.directory}</outputDirectory>
-                    <updatePomFile>true</updatePomFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>flatten</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>flatten</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>flatten.clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--&lt;!&ndash; ensure all variables are set &ndash;&gt;-->
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>flatten-maven-plugin</artifactId>-->
+                <!--<version>1.0.1</version>-->
+                <!--<configuration>-->
+                    <!--&lt;!&ndash; <flattenMode>ossrh</flattenMode> &ndash;&gt;-->
+                    <!--<flattenedPomFilename>.flattened-pom.xml</flattenedPomFilename>-->
+                    <!--<outputDirectory>${project.build.directory}</outputDirectory>-->
+                    <!--<updatePomFile>true</updatePomFile>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>flatten</id>-->
+                        <!--<phase>process-resources</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>flatten</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                    <!--<execution>-->
+                        <!--<id>flatten.clean</id>-->
+                        <!--<phase>clean</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>clean</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
 
         </plugins>
         <!-- ensure all artifact names are set to updated version -->
