@@ -7,7 +7,7 @@
 
     <groupId>aemdesign</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>fa55b2c</version>
+    <version>1ff7b12</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -292,7 +292,7 @@
                 </executions>
                 <configuration>
                     <skipPoms>false</skipPoms>
-                    <!--<injectAllReactorProjects>true</injectAllReactorProjects>-->
+                    <injectAllReactorProjects>true</injectAllReactorProjects>
                     <dateFormat>yyyy.MM.dd</dateFormat>
                     <gitDescribe>
                         <always>true</always>
@@ -319,7 +319,7 @@
                         <inherited>false</inherited>
                         <configuration>
                             <!-- comes from the git-commit-id-plugin -->
-                            <newVersion>${git.commit.id.describe}</newVersion>
+                            <newVersion>${git.commit.id.abbrev}</newVersion>
                             <generateBackupPoms>false</generateBackupPoms>
                         </configuration>
                     </execution>
@@ -337,7 +337,7 @@
                             <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <source>project.artifact.version='${git.commit.id.describe}';</source>
+                            <source>project.artifact.version='${git.commit.id.abbrev}';</source>
                         </configuration>
                     </execution>
                 </executions>
@@ -360,7 +360,7 @@
                                 <script><![CDATA[
                             import org.apache.maven.artifact.versioning.VersionRange;
 
-                            git_revision = '${git.commit.id.describe}'
+                            git_revision = '${git.commit.id.abbrev}'
                             if (! project.properties['revision']?.trim()) {
                             println 'Change `version` to ' + git_revision
                             System.properties['revision'] = git_revision
@@ -442,7 +442,7 @@
 
         </plugins>
         <!-- ensure all artifact names are set to updated version -->
-        <finalName>${project.artifactId}-${git.commit.id.describe}</finalName>
+        <finalName>${project.artifactId}-${git.commit.id.abbrev}</finalName>
 
         <pluginManagement>
             <plugins>
