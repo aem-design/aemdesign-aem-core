@@ -8,7 +8,7 @@
     <parent>
         <groupId>aemdesign</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>66dd311-SNAPSHOT</version>
+        <version>1571706-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +17,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-common</artifactId>
-    <version>66dd311-SNAPSHOT</version>
+    <version>1571706-SNAPSHOT</version>
     <packaging>content-package</packaging>
     <name>AEM Design - Core - AEM Common</name>
     <description>AEM Design package with all common components</description>
