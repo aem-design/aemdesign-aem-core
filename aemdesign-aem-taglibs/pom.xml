@@ -8,7 +8,7 @@
     <parent>
         <groupId>aemdesign</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>fa55b2c</version>
+        <version>1ff7b12</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +17,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-taglibs</artifactId>
-    <version>fa55b2c</version>
+    <version>1ff7b12</version>
     <packaging>bundle</packaging>
     <name>AEM Design - Core - AEM JSTL Taglibs</name>
     <description>AEM Design package with all taglibs</description>
