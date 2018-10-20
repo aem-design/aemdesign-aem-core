@@ -8,7 +8,7 @@
     <parent>
         <groupId>aemdesign</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>1.0.2</version>
+        <version>519a67e</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +17,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-common</artifactId>
-    <version>1.0.2</version>
+    <version>519a67e</version>
     <packaging>content-package</packaging>
     <name>AEM Design - Core - AEM Common</name>
     <description>AEM Design package with all common components</description>
@@ -247,7 +247,7 @@
 
                     <properties>
                         <description>${project.description}</description>
-                        <created>${buildNumber}</created>
+                        <created>${maven.build.timestamp}</created>
                         <createdBy>${package.createdBy}</createdBy>
                         <acHandling>merge_preserve</acHandling>
                     </properties>
@@ -275,26 +275,6 @@
                 </configuration>
             </plugin>
 
-            <!-- use the buildnumber plugin to generate a ISO8601 timestamp -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>1.1</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <format>{0,date,yyyyMMdd}</format>
-                    <items>
-                        <item>timestamp</item>
-                    </items>
-                </configuration>
-            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

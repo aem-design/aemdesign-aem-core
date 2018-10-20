@@ -1,8 +1,8 @@
 # aemdesign-aem-core
 
-Current development version `1.0.2-SNAPSHOT`
+Current development version `1.0-SNAPSHOT`
 
-Current release version `1.0.2`
+Current release version `1.0`
 
 Minimal core artifacts required for providing overridable AEM components.
  
@@ -60,4 +60,5 @@ Once the testing cycle has been completed and all code fixes have been applied t
 | Version    | Release Date   | Features                                   |
 | :--------- | :------------- | :----------------------------------------- |
 | 1.0.0      | 12/09/2018     | Initial release after refactor             |
-| 1.0.2      | TBC            | Simplified the stacked variant for navlist |
+| 1.0.2      | -              | Simplified the stacked variant for navlist |
+| 519a67e    | 20/10/2018     | Move to git commit id version tracking     |
