@@ -8,7 +8,7 @@
     <parent>
         <groupId>aemdesign</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>e0ea265</version>
+        <version>7903acf-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -20,7 +20,7 @@
     <packaging>content-package</packaging>
     <name>AEM Design - Core - Deployment Package</name>
     <description>AEM package for deploying all packages as one</description>
-    <version>e0ea265</version>
+    <version>7903acf-SNAPSHOT</version>
 
     <developers>
         <developer>
