@@ -7,7 +7,7 @@
 
     <groupId>aemdesign</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>1.0.2</version>
+    <version>519a67e</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -52,7 +52,9 @@
         <package.classNamespace>aemdesign</package.classNamespace>
         <package.uploadProtocol>http</package.uploadProtocol>
         <aem.verison>6.4</aem.verison>
-        <buildNumber>0</buildNumber>
+        <!--<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>-->
+        <project.majorVersion>1</project.majorVersion>
+        <project.minorVersion>1</project.minorVersion>
     </properties>
 
     <scm>
@@ -262,6 +264,82 @@
     </pluginRepositories>
 
     <build>
+        <plugins>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>2.2.5</version>
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                        <!-- *NOTE*: The default phase of revision is initialize, but in case you want to change it, you can do so by adding the phase here -->
+                        <!--<phase>initialize</phase>-->
+                    </execution>
+                    <execution>
+                        <id>validate-the-git-infos</id>
+                        <goals>
+                            <goal>validateRevision</goal>
+                        </goals>
+                        <!-- *NOTE*: The default phase of validateRevision is verify, but in case you want to change it, you can do so by adding the phase here -->
+                        <!--<phase>package</phase>-->
+                    </execution>
+                </executions>
+                <configuration>
+                    <skipPoms>false</skipPoms>
+                    <injectAllReactorProjects>true</injectAllReactorProjects>
+                    <dateFormat>yyyy.MM.dd</dateFormat>
+                    <gitDescribe>
+                        <always>true</always>
+                        <dirty>-SNAPSHOT</dirty>
+                        <match>__null__</match>
+                        <tags>false</tags>
+                    </gitDescribe>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!-- sets the version for each pom including children pom -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>set</goal>
+                        </goals>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <!-- comes from the git-commit-id-plugin -->
+                            <newVersion>${git.commit.id.describe}</newVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- this will change the version for the current build, so the artifacts will be installed and deployed with the correct version -->
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <version>2.0</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>project.artifact.version='${git.commit.id.describe}';</source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+        </plugins>
+
         <pluginManagement>
             <plugins>
                 <!--<plugin>-->
