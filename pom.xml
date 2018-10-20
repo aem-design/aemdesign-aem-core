@@ -7,7 +7,7 @@
 
     <groupId>aemdesign</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>69143a1-SNAPSHOT</version>
+    <version>fa55b2c</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -343,102 +343,102 @@
                 </executions>
             </plugin>
 
-            <!-- ensure all version variables names are set to updated version -->
-            <plugin>
-                <groupId>org.codehaus.gmavenplus</groupId>
-                <artifactId>gmavenplus-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>change-version</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <scripts>
-                                <script><![CDATA[
-                            import org.apache.maven.artifact.versioning.VersionRange;
+            <!--&lt;!&ndash; ensure all version variables names are set to updated version &ndash;&gt;-->
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.gmavenplus</groupId>-->
+                <!--<artifactId>gmavenplus-plugin</artifactId>-->
+                <!--<version>1.6</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>change-version</id>-->
+                        <!--<phase>process-sources</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>execute</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<scripts>-->
+                                <!--<script><![CDATA[-->
+                            <!--import org.apache.maven.artifact.versioning.VersionRange;-->
 
-                            git_revision = '${git.commit.id.describe}'
-                            if (! project.properties['revision']?.trim()) {
-                            println 'Change `version` to ' + git_revision
-                            System.properties['revision'] = git_revision
-                            project.properties['revision'] = git_revision
-                            project.properties['project.version'] = git_revision
-                            project.properties['git.build.version'] = git_revision
-                            project.version = git_revision
-                            project.artifact.version = git_revision
-                            project.artifact.versionRange = VersionRange.createFromVersion(git_revision)
-                            }
-                            ]]></script>
-                            </scripts>
-                        </configuration>
-                    </execution>
+                            <!--git_revision = '${git.commit.id.describe}'-->
+                            <!--if (! project.properties['revision']?.trim()) {-->
+                            <!--println 'Change `version` to ' + git_revision-->
+                            <!--System.properties['revision'] = git_revision-->
+                            <!--project.properties['revision'] = git_revision-->
+                            <!--project.properties['project.version'] = git_revision-->
+                            <!--project.properties['git.build.version'] = git_revision-->
+                            <!--project.version = git_revision-->
+                            <!--project.artifact.version = git_revision-->
+                            <!--project.artifact.versionRange = VersionRange.createFromVersion(git_revision)-->
+                            <!--}-->
+                            <!--]]></script>-->
+                            <!--</scripts>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
 
-                    <!-- for debug: -->
-                    <!--
-                    <execution>
-                    <id>dump-version</id>
-                    <phase>package</phase>
-                    <goals>
-                    <goal>execute</goal>
-                    </goals>
-                    <configuration>
-                    <scripts>
-                    <script><![CDATA[
-                    println System.properties['revision']
-                    println '${revision}'
-                    println '${project.version}'
-                    println '${git.build.version}'
-                    println project.version
-                    println project.artifact
-                    println project.artifact.version
-                    println project.artifact.versionRange
-                    ]]></script>
-                    </scripts>
-                    </configuration>
-                    </execution>
-                    -->
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-all</artifactId>
-                        <version>2.4.14</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                </dependencies>
-            </plugin>
+                    <!--&lt;!&ndash; for debug: &ndash;&gt;-->
+                    <!--&lt;!&ndash;-->
+                    <!--<execution>-->
+                    <!--<id>dump-version</id>-->
+                    <!--<phase>package</phase>-->
+                    <!--<goals>-->
+                    <!--<goal>execute</goal>-->
+                    <!--</goals>-->
+                    <!--<configuration>-->
+                    <!--<scripts>-->
+                    <!--<script><![CDATA[-->
+                    <!--println System.properties['revision']-->
+                    <!--println '${revision}'-->
+                    <!--println '${project.version}'-->
+                    <!--println '${git.build.version}'-->
+                    <!--println project.version-->
+                    <!--println project.artifact-->
+                    <!--println project.artifact.version-->
+                    <!--println project.artifact.versionRange-->
+                    <!--]]></script>-->
+                    <!--</scripts>-->
+                    <!--</configuration>-->
+                    <!--</execution>-->
+                    <!--&ndash;&gt;-->
+                <!--</executions>-->
+                <!--<dependencies>-->
+                    <!--<dependency>-->
+                        <!--<groupId>org.codehaus.groovy</groupId>-->
+                        <!--<artifactId>groovy-all</artifactId>-->
+                        <!--<version>2.4.14</version>-->
+                        <!--<scope>runtime</scope>-->
+                    <!--</dependency>-->
+                <!--</dependencies>-->
+            <!--</plugin>-->
 
-            <!-- ensure all variables are set -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.0.1</version>
-                <configuration>
-                    <!-- <flattenMode>ossrh</flattenMode> -->
-                    <flattenedPomFilename>.flattened-pom.xml</flattenedPomFilename>
-                    <outputDirectory>${project.build.directory}</outputDirectory>
-                    <updatePomFile>true</updatePomFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>flatten</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>flatten</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>flatten.clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--&lt;!&ndash; ensure all variables are set &ndash;&gt;-->
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>flatten-maven-plugin</artifactId>-->
+                <!--<version>1.0.1</version>-->
+                <!--<configuration>-->
+                    <!--&lt;!&ndash; <flattenMode>ossrh</flattenMode> &ndash;&gt;-->
+                    <!--<flattenedPomFilename>.flattened-pom.xml</flattenedPomFilename>-->
+                    <!--<outputDirectory>${project.build.directory}</outputDirectory>-->
+                    <!--<updatePomFile>true</updatePomFile>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>flatten</id>-->
+                        <!--<phase>process-sources</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>flatten</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                    <!--<execution>-->
+                        <!--<id>flatten.clean</id>-->
+                        <!--<phase>clean</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>clean</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
 
         </plugins>
         <!-- ensure all artifact names are set to updated version -->
