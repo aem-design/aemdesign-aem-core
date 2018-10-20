@@ -272,7 +272,7 @@
                 <version>2.2.5</version>
                 <executions>
                     <execution>
-                        <phase>verify</phase>
+                        <phase>validate</phase>
                         <id>get-the-git-infos</id>
                         <goals>
                             <goal>revision</goal>
@@ -281,7 +281,7 @@
                         <!--<phase>initialize</phase>-->
                     </execution>
                     <execution>
-                        <phase>verify</phase>
+                        <phase>validate</phase>
                         <id>validate-the-git-infos</id>
                         <goals>
                             <goal>validateRevision</goal>
@@ -312,7 +312,7 @@
                 <version>2.5</version>
                 <executions>
                     <execution>
-                        <phase>verify</phase>
+                        <phase>validate</phase>
                         <goals>
                             <goal>set</goal>
                         </goals>
@@ -332,7 +332,7 @@
                 <version>2.0</version>
                 <executions>
                     <execution>
-                        <phase>verify</phase>
+                        <phase>validate</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
@@ -351,7 +351,7 @@
                 <executions>
                     <execution>
                         <id>change-version</id>
-                        <phase>verify</phase>
+                        <phase>validate</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
@@ -425,7 +425,7 @@
                 <executions>
                     <execution>
                         <id>flatten</id>
-                        <phase>verify</phase>
+                        <phase>process-resources</phase>
                         <goals>
                             <goal>flatten</goal>
                         </goals>
