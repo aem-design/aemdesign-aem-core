@@ -1,4 +1,4 @@
 <div ${componentProperties.componentAttributes}>
-    <div class="js-video-embed">
+    <div class="contents">
     </div>
 </div>
