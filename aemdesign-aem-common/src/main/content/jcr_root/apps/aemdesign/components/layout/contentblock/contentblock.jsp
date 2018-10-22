@@ -43,6 +43,7 @@
             pageContext,
             componentFields,
             DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ANALYTICS,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
     componentProperties.put("linksRightList",getPageListInfo(pageContext,_pageManager, _resourceResolver, componentProperties.get("linksRight", new String[]{})));
