@@ -74,7 +74,6 @@
     private static final String DETAILS_CARD_SIZE = "cardSize";
     private static final String DETAILS_CARD_ICONSHOW = "cardIconShow";
     private static final String DETAILS_CARD_ICON = "cardIcon";
-    private static final String DETAILS_PAGE_ICON = "pageIcon";
 
     //shared badge config passed from list to all badge elements
     private static final String DETAILS_LINK_TARGET = "badgeLinkTarget";
@@ -296,7 +295,6 @@
             {DETAILS_TITLE_ICON,  new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_OVERLAY_ICONSHOW, false},
             {DETAILS_OVERLAY_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_PAGE_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM},
             {DETAILS_THUMBNAIL_HEIGHT, ""},
             {DETAILS_THUMBNAIL_TYPE, IMAGE_OPTION_RENDITION},
@@ -342,7 +340,6 @@
             {DETAILS_TITLE_ICON,  new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_OVERLAY_ICONSHOW, ""},
             {DETAILS_OVERLAY_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_PAGE_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_THUMBNAIL_WIDTH, ""},
             {DETAILS_THUMBNAIL_HEIGHT, ""},
             {DETAILS_THUMBNAIL_TYPE, ""},
