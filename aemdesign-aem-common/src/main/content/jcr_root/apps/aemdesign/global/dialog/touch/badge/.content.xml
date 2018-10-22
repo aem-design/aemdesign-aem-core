@@ -275,28 +275,6 @@
                                         </items>
                                     </linkConfigGroup>
 
-
-                                    <iconConfigGroup
-                                            jcr:primaryType="nt:unstructured"
-                                            jcr:title="Icon Badge Config"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <note
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                    note="General icon for use in Icon Badge and other components"/>
-                                            <pageIcon
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                                    fieldDescription="Use this icon when icon is required for display"
-                                                    fieldLabel="Page Icon"
-                                                    multiple="{Boolean}true"
-                                                    rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
-                                                    name="./pageIcon"/>
-                                        </items>
-                                    </iconConfigGroup>
-
-
                                     <thumbnailConfig
                                             jcr:primaryType="nt:unstructured"
                                             jcr:title="Thumbnail Config"
