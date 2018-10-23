@@ -57,15 +57,15 @@ AEMDESIGN.events = new Class(/** @lends EventEmitter# */{
      * Trigger an event
      *
      * @param {String} evt        Name of event to trigger
-     * @param {Arguments} args    Additional arguments are passed to the listener functions
      *
      * @returns {EventEmitter}    this, chainable
      */
-    trigger: function(evt, ...args) {
+    trigger: function(evt) {
+        var otherArgs = Array.prototype.slice.call( arguments, 1 );
         var listeners = this._events[evt];
         if (listeners !== undefined) {
             for (var i = 0, n = listeners.length; i < n; i++) {
-                listeners[i].apply(this, Array.prototype.slice.call(args, 1));
+                listeners[i].apply(this, otherArgs);
             }
         }
 
