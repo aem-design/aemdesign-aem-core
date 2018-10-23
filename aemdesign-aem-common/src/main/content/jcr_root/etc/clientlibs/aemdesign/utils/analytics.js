@@ -190,7 +190,7 @@ digitalData.event[n].eventInfo = {
 
         var w = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
 
-        var match = breakpoints.filter(breakpoint => breakpoint.width < w);
+        var match = breakpoints.filter(function(breakpoint) { breakpoint.width < w });
 
         if (match.length === 0) {
             return breakpoints[0];
