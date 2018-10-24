@@ -1,10 +1,19 @@
 # aemdesign-aem-core
 
-Current development version `1.0-SNAPSHOT`
+## Version Convention
+Version numbers should follow semver format:
 
-Current release version `1.0`
+ * MAJOR version when you make incompatible API changes,
+ * MINOR version when you add functionality in a backwards-compatible manner, and
+ * PATCH version when you make backwards-compatible bug fixes.
 
-Minimal core artifacts required for providing overridable AEM components.
+Please use MAJOR and MINOT version in Tags, PATCH version will be automatically added as a commit count since the last tag using the git describe.
+
+## Version Meaning
+Version `1.0.3-SNAPSHOT` means that current checkout has uncommitted changes
+Version `1.0.3` means that current checkout does not have uncommitted changes and is 3 commits ahead of the tag `1.0`
+
+## Minimal core artifacts required for providing overridable AEM components.
  
 `aemdesign-aem-core-deploy` module creates an aem package for deployment which contains:
  * `aemdesign-aem-author`
@@ -37,11 +46,11 @@ In preparation for a release, create a new git release branch from the current m
     * `mvn scm:branch -Dbranch=release/<version> -Dmessage="creating release branch <version>"`
  2. Ensure you are on the new release branch.
     * `git checkout release/<version>`
- 3. Update the maven `version` parameter. 
+ 3. Update the maven `version` parameter.
     * `mvn versions:set -DnewVersion=<version>`
  4. Check the version number was correctly applied and confirm.
     * `mvn versions:commit -Pdeploymentpackage`
- 5. Commit the updated version numbers to the release branch. 
+ 5. Commit the updated version numbers to the release branch.
     * `mvn scm:checkin -Dmessage="updating version numbers"`
 
 #### Release new version
@@ -59,6 +68,7 @@ Once the testing cycle has been completed and all code fixes have been applied t
 ## Release history
 | Version    | Release Date   | Features                                   |
 | :--------- | :------------- | :----------------------------------------- |
-| 1.0.0      | 12/09/2018     | Initial release after refactor             |
-| 1.0.2      | -              | Simplified the stacked variant for navlist |
-| TAG BASED with commit count | 20/10/2018     | Move to git commit id version tracking     |
+| 1.0        | 12/09/2018     | Initial release after refactor             |
+|            |                |                                            |
+|            |                |                                            |
+|            |                |                                            |
