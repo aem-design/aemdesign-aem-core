@@ -61,4 +61,4 @@ Once the testing cycle has been completed and all code fixes have been applied t
 | :--------- | :------------- | :----------------------------------------- |
 | 1.0.0      | 12/09/2018     | Initial release after refactor             |
 | 1.0.2      | -              | Simplified the stacked variant for navlist |
-| 519a67e    | 20/10/2018     | Move to git commit id version tracking     |
+| TAG BASED with commit count | 20/10/2018     | Move to git commit id version tracking     |
