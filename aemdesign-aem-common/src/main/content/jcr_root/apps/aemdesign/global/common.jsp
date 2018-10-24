@@ -117,7 +117,10 @@
                 }
             }
 
-            if (pageUrl.startsWith("/content") && !pageUrl.endsWith(DEFAULT_EXTENTION)) {
+            if (pageUrl.startsWith("/content")
+                    && !pageUrl.endsWith(DEFAULT_EXTENTION)
+                    && !pageUrl.contains(DEFAULT_MARK_HASHBANG)
+                    && !pageUrl.contains(DEFAULT_MARK_QUERYSTRING) ) {
                 pageUrl = pageUrl.concat(DEFAULT_EXTENTION);
             }
 
