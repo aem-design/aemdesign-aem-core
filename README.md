@@ -7,7 +7,7 @@ Version numbers should follow semver format:
  * MINOR version when you add functionality in a backwards-compatible manner, and
  * PATCH version when you make backwards-compatible bug fixes.
 
-Please use MAJOR and MINOT version in Tags, PATCH version will be automatically added as a commit count since the last tag using the git describe.
+Please use MAJOR and MINOR version in Tags, PATCH version will be automatically added as a commit count since the last tag using the git describe.
 
 ## Version Meaning
 Version `1.0.3-SNAPSHOT` means that current checkout has uncommitted changes
