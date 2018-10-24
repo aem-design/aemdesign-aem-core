@@ -17,6 +17,8 @@
      */
 
     public static final String DEFAULT_EXTENTION = ".html";
+    public static final String DEFAULT_MARK_HASHBANG = "#";
+    public static final String DEFAULT_MARK_QUERYSTRING = "?";
 
     public static final String EXTENSION_JSP = "jsp";
 
