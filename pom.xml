@@ -7,7 +7,7 @@
 
     <groupId>aemdesign</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>355a495</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -295,10 +295,10 @@
                     <injectAllReactorProjects>true</injectAllReactorProjects>
                     <dateFormat>yyyy.MM.dd</dateFormat>
                     <gitDescribe>
-                        <always>true</always>
+                        <!--<always>true</always>-->
                         <dirty>-SNAPSHOT</dirty>
-                        <match>__null__</match>
-                        <tags>false</tags>
+                        <!--<match>__null__</match>-->
+                        <!--<tags>true</tags>-->
                     </gitDescribe>
                 </configuration>
             </plugin>
@@ -319,25 +319,8 @@
                         <inherited>false</inherited>
                         <configuration>
                             <!-- comes from the git-commit-id-plugin -->
-                            <newVersion>${git.commit.id.abbrev}</newVersion>
+                            <newVersion>${git.closest.tag.name}.${git.closest.tag.commit.count}</newVersion>
                             <generateBackupPoms>false</generateBackupPoms>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <!-- this will change the version for the current build, so the artifacts will be installed and deployed with the correct version -->
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>groovy-maven-plugin</artifactId>
-                <version>2.0</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <source>project.artifact.version='${git.commit.id.abbrev}';</source>
                         </configuration>
                     </execution>
                 </executions>
@@ -360,7 +343,7 @@
                                 <script><![CDATA[
                             import org.apache.maven.artifact.versioning.VersionRange;
 
-                            git_revision = '${git.commit.id.abbrev}'
+                            git_revision = '${git.closest.tag.name}.${git.closest.tag.commit.count}'
                             if (! project.properties['revision']?.trim()) {
                             println 'Change `version` to ' + git_revision
                             System.properties['revision'] = git_revision
@@ -442,7 +425,7 @@
 
         </plugins>
         <!-- ensure all artifact names are set to updated version -->
-        <finalName>${project.artifactId}-${git.commit.id.abbrev}</finalName>
+        <finalName>${project.artifactId}-${git.closest.tag.name}.${git.closest.tag.commit.count}</finalName>
 
         <pluginManagement>
             <plugins>
