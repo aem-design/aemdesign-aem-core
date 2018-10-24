@@ -29,6 +29,9 @@ Please use MAJOR and MINOR version in Tags, PATCH version will be automatically 
 Version `1.0.3-SNAPSHOT` means that current checkout has uncommitted changes
 Version `1.0.3` means that current checkout does not have uncommitted changes and is 3 commits ahead of the tag `1.0`
 
+## Version Number Commits
+You do not need to commit POM files with venison numbers as they will be generated.
+
 ## Minimal core artifacts required for providing overridable AEM components.
  
 `aemdesign-aem-core-deploy` module creates an aem package for deployment which contains:
