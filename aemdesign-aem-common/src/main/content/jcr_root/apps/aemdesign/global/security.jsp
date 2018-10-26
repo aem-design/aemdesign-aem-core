@@ -25,6 +25,8 @@
         org.apache.sling.api.resource.ResourceResolverFactory resolverFactory = _sling.getService(org.apache.sling.api.resource.ResourceResolverFactory.class);
         try {
             javax.jcr.Session adminResourceSession = _slingRepository.loginAdministrative(null);
+//            Credentials adminCredentials = new SimpleCredentials("admin", new char[0]);
+//            adminResourceSession = _slingRepository.impersonateFromService("workflow", credentials, null);
             Map authInfo = new HashMap();
             authInfo.put(org.apache.sling.jcr.resource.api.JcrResourceConstants.AUTHENTICATION_INFO_SESSION, adminResourceSession);
             _adminResourceResolver = resolverFactory.getResourceResolver(authInfo);
@@ -42,6 +44,8 @@
 
         if (_adminResourceResolver != null && _adminResourceResolver.isLive()) {
 
+            //need to close the sessions before resolver as it will not be closed by resolver.close()
+            //this is a know "pattern"
             javax.jcr.Session adminResourceSession = _adminResourceResolver.adaptTo(Session.class);
             if (adminResourceSession != null && adminResourceSession.isLive()) {
                 adminResourceSession.logout();
