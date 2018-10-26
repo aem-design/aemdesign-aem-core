@@ -14,6 +14,7 @@
 
 <%!
     private final Logger SECLOG = LoggerFactory.getLogger(getClass());
+    javax.jcr.Session adminResourceSession = null;
 
     @SuppressWarnings("unchecked")
     public org.apache.sling.api.resource.ResourceResolver openAdminResourceResolver(org.apache.sling.api.scripting.SlingScriptHelper _sling) {
@@ -22,12 +23,12 @@
 
         org.apache.sling.jcr.api.SlingRepository _slingRepository = _sling.getService(org.apache.sling.jcr.api.SlingRepository.class);
         org.apache.sling.api.resource.ResourceResolverFactory resolverFactory = _sling.getService(org.apache.sling.api.resource.ResourceResolverFactory.class);
-        javax.jcr.Session session = null;
         try {
-            session = _slingRepository.loginAdministrative(null);
+            adminResourceSession = _slingRepository.loginAdministrative(null);
             Map authInfo = new HashMap();
-            authInfo.put(org.apache.sling.jcr.resource.api.JcrResourceConstants.AUTHENTICATION_INFO_SESSION, session);
+            authInfo.put(org.apache.sling.jcr.resource.api.JcrResourceConstants.AUTHENTICATION_INFO_SESSION, adminResourceSession);
             _adminResourceResolver = resolverFactory.getResourceResolver(authInfo);
+
         } catch (Exception ex) {
             // ex.printStackTrace();
         }
@@ -41,6 +42,9 @@
 
         if (_adminResourceResolver != null && _adminResourceResolver.isLive()) {
             _adminResourceResolver.close();
+        }
+        if (adminResourceSession != null && adminResourceSession.isLive()) {
+            adminResourceSession.logout();
         }
 
     }
