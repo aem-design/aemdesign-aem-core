@@ -4,17 +4,17 @@
 <%@ page import="org.apache.jackrabbit.api.security.user.Group" %>
 <%@ page import="org.apache.jackrabbit.api.security.user.User" %>
 <%@ page import="org.apache.jackrabbit.api.security.user.UserManager" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="static org.apache.commons.lang3.StringUtils.isEmpty" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.text.MessageFormat" %>
 <%@ page import="org.slf4j.Logger" %>
 <%@ page import="org.slf4j.LoggerFactory" %>
+<%@ page import="static org.apache.commons.lang3.StringUtils.isEmpty" %>
+<%@ page import="javax.jcr.Session" %>
+<%@ page import="java.text.MessageFormat" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.Map" %>
 
 <%!
     private final Logger SECLOG = LoggerFactory.getLogger(getClass());
-    javax.jcr.Session adminResourceSession = null;
 
     @SuppressWarnings("unchecked")
     public org.apache.sling.api.resource.ResourceResolver openAdminResourceResolver(org.apache.sling.api.scripting.SlingScriptHelper _sling) {
@@ -24,7 +24,7 @@
         org.apache.sling.jcr.api.SlingRepository _slingRepository = _sling.getService(org.apache.sling.jcr.api.SlingRepository.class);
         org.apache.sling.api.resource.ResourceResolverFactory resolverFactory = _sling.getService(org.apache.sling.api.resource.ResourceResolverFactory.class);
         try {
-            adminResourceSession = _slingRepository.loginAdministrative(null);
+            javax.jcr.Session adminResourceSession = _slingRepository.loginAdministrative(null);
             Map authInfo = new HashMap();
             authInfo.put(org.apache.sling.jcr.resource.api.JcrResourceConstants.AUTHENTICATION_INFO_SESSION, adminResourceSession);
             _adminResourceResolver = resolverFactory.getResourceResolver(authInfo);
@@ -41,10 +41,13 @@
     public void closeAdminResourceResolver(org.apache.sling.api.resource.ResourceResolver _adminResourceResolver) {
 
         if (_adminResourceResolver != null && _adminResourceResolver.isLive()) {
+
+            javax.jcr.Session adminResourceSession = _adminResourceResolver.adaptTo(Session.class);
+            if (adminResourceSession != null && adminResourceSession.isLive()) {
+                adminResourceSession.logout();
+            }
+
             _adminResourceResolver.close();
-        }
-        if (adminResourceSession != null && adminResourceSession.isLive()) {
-            adminResourceSession.logout();
         }
 
     }
