@@ -143,10 +143,6 @@
                     editContext.getEditConfig().getToolbar().clear();
                     // disable ordering to get consistent behavior
                     editContext.getEditConfig().setOrderable(false);
-                    // set the content path to a fake one, since this editbar
-                    // is not used for editing and we need to avoid collisions with
-                    // the 'insert' bar with the same content path.
-                    editContext.setContentPath(path + "_fake");
                 }
 
 
