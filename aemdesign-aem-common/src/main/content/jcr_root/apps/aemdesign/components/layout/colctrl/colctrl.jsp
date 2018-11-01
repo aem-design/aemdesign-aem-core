@@ -141,8 +141,6 @@
                 %><%= Placeholder.getDefaultPlaceholder(slingRequest, text, "", "cq-marker-end") %><%
                 if (WCMMode.fromRequest(request) == WCMMode.EDIT) {
                     editContext.getEditConfig().getToolbar().clear();
-                    editContext.getEditConfig().getToolbar().add(
-                            new Toolbar.Label("End of Columns"));
                     // disable ordering to get consistent behavior
                     editContext.getEditConfig().setOrderable(false);
                     // set the content path to a fake one, since this editbar
