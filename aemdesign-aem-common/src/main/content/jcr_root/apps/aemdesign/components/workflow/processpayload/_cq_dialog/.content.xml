@@ -137,7 +137,7 @@
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
                                                         composite="{Boolean}false"
-                                                        fieldLabel="File Attachment Path">
+                                                        fieldLabel="Metadata Fields">
                                                         <field
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="granite/ui/components/coral/foundation/container">
