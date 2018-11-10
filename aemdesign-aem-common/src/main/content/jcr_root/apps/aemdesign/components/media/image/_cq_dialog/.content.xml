@@ -304,6 +304,7 @@
                                                             fieldLabel="Rendition Image Mapping">
                                                         <field
                                                                 jcr:primaryType="nt:unstructured"
+                                                                name="./renditionImageMapping"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
                                                     </responsiveImageMapping>
                                                     <note1
@@ -366,6 +367,7 @@
                                                             fieldLabel="Adaptive Image Mapping">
                                                         <field
                                                                 jcr:primaryType="nt:unstructured"
+                                                                name="./adaptiveImageMapping"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
                                                     </adaptiveImageMapping>
                                                     <note1
