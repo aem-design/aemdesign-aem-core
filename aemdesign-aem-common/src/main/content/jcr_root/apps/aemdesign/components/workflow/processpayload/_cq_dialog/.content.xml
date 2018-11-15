@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Process Payload"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    extraClientlibs="[cq.workflow-util,aem.design.worfklow-processpayload]">
+    <content
+        granite:id="worfklow-processpayload"
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs">
+        <items jcr:primaryType="nt:unstructured">
+            <common
+                cq:hideOnEdit="true"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Common"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"/>
+            <process
+                cq:hideOnEdit="true"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Process"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"/>
+            <processcommon
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Common"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <basic
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <title
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        disabled="false"
+                                        fieldLabel="Title"
+                                        name="./jcr:title"/>
+                                    <description
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                        disabled="false"
+                                        fieldLabel="Description"
+                                        name="./jcr:description"/>
+                                </items>
+                            </basic>
+                            <advanced
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Advanced Settings"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <advance
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                        fieldDescription="Check if your handler will advance to the next step."
+                                        fieldLabel="Handler Advance"
+                                        name="./metaData/PROCESS_AUTO_ADVANCE"
+                                        text="Handler Advance"
+                                        value="true"/>
+                                </items>
+                            </advanced>
+                        </items>
+                    </column>
+                </items>
+            </processcommon>
+            <processargs
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Payload Content"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <arguments
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Process Fields to Content Map"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <info
+                                        granite:class="fieldDescription"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                                        text="When you define a field and its relevant path in payload, it will be collected from playload and saved into the workflow for processing and usage in other steps, such as Email."/>
+                                    <processes
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                        composite="{Boolean}false"
+                                        fieldLabel="Processes">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            name="./metaData/metaDataFields"/>
+                                    </processes>
+                                    <tooltip
+                                        granite:class="fieldDescription"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                                        text="Create a map of Template Fields to Playload Content {Field}={Path}"/>
+                                </items>
+                            </arguments>
+                        </items>
+                    </column>
+                </items>
+            </processargs>
+            <processargsadv
+                cq:hideOnEdit="false"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Payload Content with Actions"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <arguments
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <info
+                                        granite:class="fieldDescription"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                                        text="When you define a field and its relevant path in payload, it will be collected from playload then selected action performed on that field. When sucessfull it will be saved into the workflow for processing and usage in other steps, such as Email."/>
+                                    <fieldconfigcontainer
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <column
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/container">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <fieldconfigmultifield
+                                                        granite:class="workflow-fieldconfigmultifield"
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                        composite="{Boolean}false"
+                                                        fieldLabel="File Attachment Path">
+                                                        <field
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <key
+                                                                    jcr:primaryType="nt:unstructured"
+                                                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                                    fieldLabel="Key"
+                                                                    name="./metaData/fieldconfigKey"
+                                                                    required="{Boolean}true"/>
+                                                                <value
+                                                                    jcr:primaryType="nt:unstructured"
+                                                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                                    fieldLabel="Value"
+                                                                    name="./metaData/fieldconfigValue"
+                                                                    required="{Boolean}true"/>
+                                                                <actions
+                                                                    jcr:primaryType="nt:unstructured"
+                                                                    sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                                    emptyOption="{Boolean}true"
+                                                                    fieldLabel="Action"
+                                                                    name="./metaData/fieldconfigAction"
+                                                                    required="{Boolean}true">
+                                                                    <items jcr:primaryType="nt:unstructured">
+                                                                        <getEmailsFromGroup
+                                                                            jcr:primaryType="nt:unstructured"
+                                                                            text="Get Emails from Group members"
+                                                                            value="getEmailsFromGroup"/>
+                                                                        <getFormattedNamesFromGroup
+                                                                            jcr:primaryType="nt:unstructured"
+                                                                            text="Get Fromatted Names from Group members"
+                                                                            value="getFormattedNamesFromGroup"/>
+                                                                        <getEmailFromUserName
+                                                                            jcr:primaryType="nt:unstructured"
+                                                                            text="Get email from username"
+                                                                            value="getEmailFromUserName"/>
+                                                                        <getNameFromUserName
+                                                                            jcr:primaryType="nt:unstructured"
+                                                                            text="Get name from username"
+                                                                            value="getNameFromUserName"/>
+                                                                    </items>
+                                                                </actions>
+                                                            </items>
+                                                        </field>
+                                                    </fieldconfigmultifield>
+                                                    <fieldconfigDelete
+                                                        granite:hidden="{Boolean}true"
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                        <items jcr:primaryType="nt:unstructured">
+                                                            <key
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                                name="./metaData/fieldconfigKey@Delete"
+                                                                value="{Boolean}true"/>
+                                                            <value
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                                name="./metaData/fieldconfigValue@Delete"
+                                                                value="{Boolean}true"/>
+                                                            <action
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                                name="./metaData/fieldconfigActionDelete"
+                                                                value="{Boolean}true"/>
+                                                        </items>
+                                                    </fieldconfigDelete>
+                                                </items>
+                                            </column>
+                                        </items>
+                                    </fieldconfigcontainer>
+                                </items>
+                            </arguments>
+                        </items>
+                    </column>
+                </items>
+            </processargsadv>
+        </items>
+    </content>
+</jcr:root>

@@ -34,6 +34,19 @@
     </developers>
 
     <dependencies>
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>uber-jar</artifactId>
+            <version>6.4.0</version>
+            <classifier>obfuscated-apis</classifier>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.mickleroy</groupId>
+            <artifactId>aem-sass-compiler</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
         <!--Add aemdesign dependencies to be embedded via content-package-maven-plugin-->
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -396,20 +409,6 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>com.adobe.aem</groupId>
-                    <artifactId>uber-jar</artifactId>
-                    <version>6.3.0</version>
-                    <classifier>obfuscated-apis</classifier>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.github.mickleroy</groupId>
-                    <artifactId>aem-sass-compiler</artifactId>
-                    <version>1.0.1</version>
-                </dependency>
-            </dependencies>
         </profile>
     </profiles>
 </project>
