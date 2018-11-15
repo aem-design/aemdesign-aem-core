@@ -8,7 +8,7 @@
     <parent>
         <groupId>aemdesign</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>1.0.4</version>
+        <version>1.0.13</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +17,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-author</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.13</version>
     <packaging>content-package</packaging>
     <name>AEM Design - Core - AEM Author UI Updates</name>
     <description>Updates to OOTB AEM</description>
