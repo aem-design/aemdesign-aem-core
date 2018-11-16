@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.HashSet;
 import java.util.Iterator;
 
+@SuppressWarnings("unchecked")
 public class HitBasedPageIterator extends AbstractPageIterator {
   private Iterator<Hit> hits;
 
