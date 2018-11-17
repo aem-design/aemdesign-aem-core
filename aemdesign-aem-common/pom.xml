@@ -199,19 +199,6 @@
             <version>2.0.0</version>
         </dependency>
 
-        <!-- https://search.maven.org/artifact/org.apache.sling/org.apache.sling.caconfig.impl -->
-        <dependency>
-            <groupId>org.apache.sling</groupId>
-            <artifactId>org.apache.sling.caconfig.impl</artifactId>
-            <version>1.4.12</version>
-        </dependency>
-        <!-- https://search.maven.org/artifact/org.apache.sling/org.apache.sling.caconfig.spi -->
-        <dependency>
-            <groupId>org.apache.sling</groupId>
-            <artifactId>org.apache.sling.caconfig.spi</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-
         <!-- wcm.io context aware configuration -->
         <dependency>
             <groupId>io.wcm</groupId>
@@ -314,8 +301,6 @@
                             <artifactId>gson</artifactId>
                             <artifactId>jsoup</artifactId>
                             <artifactId>org.apache.sling.installer.hc</artifactId>
-                            <artifactId>org.apache.sling.caconfig.impl</artifactId>
-                            <artifactId>org.apache.sling.caconfig.spi</artifactId>
                             <artifactId>io.wcm.caconfig.editor</artifactId>
                             <artifactId>io.wcm.caconfig.extensions</artifactId>
                         </embedded>
