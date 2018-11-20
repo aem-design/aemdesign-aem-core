@@ -57,7 +57,7 @@ window.AEMDESIGN.components.authoring.pagedetails = AEMDESIGN.components.authori
                         });
                     }
                     else {
-                        $('.pagedetails-pagemetadata')[0].items.add();
+                        //$('.pagedetails-pagemetadata')[0].items.add();
                     }
 
 
