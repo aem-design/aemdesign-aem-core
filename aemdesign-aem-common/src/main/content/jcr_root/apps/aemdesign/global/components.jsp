@@ -99,6 +99,10 @@
     private static final String DETAILS_BADGE_ANALYTICS_LINK_LOCATION = "badgeAnalyticsLinkLocation";
     private static final String DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION = "badgeAnalyticsLinkDescription";
 
+    //page metadata pageMetaProperty
+    private static final String DETAILS_PAGE_METADATA_PROPERTY = "pageMetaProperty";
+    private static final String DETAILS_PAGE_METADATA_PROPERTY_CONTENT = "pageMetaPropertyContent";
+
     //analytics
     private static final String DETAILS_ANALYTICS_EVENT_TYPE = "analyticsEventType";
     private static final String DETAILS_ANALYTICS_LINK_TYPE = "analyticsLinkType";
@@ -306,6 +310,9 @@
             {DETAILS_BADGE_ANALYTICS_LINK_TYPE, StringUtils.EMPTY}, //basic
             {DETAILS_BADGE_ANALYTICS_LINK_LOCATION, StringUtils.EMPTY}, //basic
             {DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION, StringUtils.EMPTY}, //basic
+            {DETAILS_PAGE_METADATA_PROPERTY, new String[]{}},
+            {DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[]{}},
 
     };
 
