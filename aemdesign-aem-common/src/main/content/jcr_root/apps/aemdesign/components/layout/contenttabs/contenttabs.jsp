@@ -64,16 +64,16 @@
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <div ${componentProperties.componentAttributes}>
-    <c:choose>
-        <c:when test="${not empty componentProperties.tabPagesInfo and componentProperties.variant eq 'default'}">
-            <%@ include file="variant.default.jsp" %>
-        </c:when>
-        <c:when test="${not empty componentProperties.tabPagesInfo and componentProperties.variant eq 'render'}">
-            <%@ include file="variant.render.jsp" %>
-        </c:when>
-        <c:otherwise>
-            <%@ include file="variant.empty.jsp" %>
-        </c:otherwise>
-    </c:choose>
+<c:choose>
+    <c:when test="${not empty componentProperties.tabPagesInfo and componentProperties.variant eq 'default'}">
+        <%@ include file="variant.default.jsp" %>
+    </c:when>
+    <c:when test="${not empty componentProperties.tabPagesInfo and componentProperties.variant eq 'render'}">
+        <%@ include file="variant.render.jsp" %>
+    </c:when>
+    <c:otherwise>
+        <%@ include file="variant.empty.jsp" %>
+    </c:otherwise>
+</c:choose>
 </div>
 <%@include file="/apps/aemdesign/global/component-badge.jsp" %>
