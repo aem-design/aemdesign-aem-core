@@ -1154,13 +1154,33 @@
         String pageDescription = page.getDescription();
 
         try {
-            Node filterDetailComponent = findDetailNode(page);
 
-            if (filterDetailComponent != null) {
-                if (filterDetailComponent.hasProperty(DETAILS_DESCRIPTION)) {
-                    return filterDetailComponent.getProperty(DETAILS_DESCRIPTION).getString();
+            Resource pageResource = page.getContentResource();
+
+            if (pageResource != null) {
+                String[] listLookForDetailComponent = DEFAULT_LIST_DETAILS_SUFFIX;
+
+                String detailsPath = findComponentInPage(page, listLookForDetailComponent);
+
+                ResourceResolver resourceResolver = pageResource.getResourceResolver();
+
+                if (resourceResolver != null) {
+                    Resource detailsResource = resourceResolver.resolve(detailsPath);
+                    if (detailsResource != null) {
+                        Node detailsNode = detailsResource.adaptTo(Node.class);
+                        if (detailsNode != null) {
+                            if (detailsNode.hasProperty(DETAILS_DESCRIPTION)) {
+                                return detailsNode.getProperty(DETAILS_DESCRIPTION).getString();
+                            }
+                            getLogger().error("getPageDescription: detailsNode does not have " + DETAILS_DESCRIPTION);
+                        }
+                        getLogger().error("getPageDescription: detailsNode is null");
+                    }
+                    getLogger().error("getPageDescription: detailsResource is null");
                 }
+                getLogger().error("getPageDescription: resourceResolver is null");
             }
+            getLogger().error("getPageDescription: pageResource is null");
 
         } catch (Exception ex) {
             getLogger().error("getPageDescription:" + ex.toString());
