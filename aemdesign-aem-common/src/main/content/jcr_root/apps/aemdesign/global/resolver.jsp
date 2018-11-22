@@ -1,6 +1,7 @@
 <%@ page import="com.day.cq.wcm.foundation.ELEvaluator" %>
 <%@ page import="com.day.cq.commons.Externalizer" %>
 <%@ page import="org.apache.sling.api.SlingHttpServletResponse" %>
+<%@ page import="java.text.MessageFormat"%>
 <%@ page import="org.apache.sling.api.resource.ResourceUtil" %><%!
 
     final String PAGE_PROP_REDIRECT = "redirectTarget";
