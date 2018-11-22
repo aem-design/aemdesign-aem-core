@@ -36,7 +36,7 @@
                                     <note
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                            note="This information is added to the page metadata"/>
+                                            note="This information is added to the page metadata (RDFa)"/>
 
                                     <fieldconfigmultifield
                                             granite:class="pagedetails-pagemetadata"
