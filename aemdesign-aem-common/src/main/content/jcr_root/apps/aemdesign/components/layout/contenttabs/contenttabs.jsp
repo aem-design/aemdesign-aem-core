@@ -15,7 +15,7 @@
     final String DEFAULT_LISTFROM_STATIC = "static";
     final String FIELD_LISTFROM = "listFrom";
     final String FIELD_TABPAGES = "pages";
-    final String FIELD_PATHTOPARENT = "pathToParent";
+    final String FIELD_PATHTOPARENT = "parentPage";
     final String FIELD_TABPOSITION = "tabPosition";
 
     Object[][] componentFields = {
@@ -51,12 +51,13 @@
         }
 
         if (tabsParentPage != null) {
-            tabPagesInfo = getPageListInfo(pageContext,_pageManager, _resourceResolver, tabsParentPage.listChildren(), supportedDetails, supportedRoots);
+            tabPagesInfo = getPageListInfo(pageContext,_pageManager, _resourceResolver, tabsParentPage.listChildren(), supportedDetails, supportedRoots, null, true);
         }
     } else if (componentProperties.get(FIELD_LISTFROM,"").equals(DEFAULT_LISTFROM_STATIC)) {
         String[] tabPages =  componentProperties.get(FIELD_TABPAGES, new String[0]);
+
         if (tabPages.length != 0) {
-            tabPagesInfo = getPageListInfo(pageContext,_pageManager, _resourceResolver, tabPages, supportedDetails, supportedRoots);
+            tabPagesInfo = getPageListInfo(pageContext,_pageManager, _resourceResolver, tabPages, supportedDetails, supportedRoots, null, true);
         }
     }
 
