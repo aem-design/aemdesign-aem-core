@@ -23,10 +23,40 @@
     /**
      * This method maps an absolute path to the canonical URL for HTTP
      *
-     * @param path is the path to map to an actual URL
+     * @resolver resource resolver for verifying path
+     * @slingRequest current sling request
+     * @path path is the path to map to an actual URL
+     * @return path for a local domain
      */
     public String mappedUrl(ResourceResolver resolver, SlingHttpServletRequest slingRequest, String path) {
-        return mappedUrl(resolver, slingRequest, path, false);
+        return mappedUrl(resolver, slingRequest, "local", path, false);
+    }
+
+    /**
+     * This method maps an absolute path to the canonical URL for HTTP
+     *
+     * @resolver resource resolver for verifying path
+     * @slingRequest current sling request
+     * @path path is the path to map to an actual URL
+     * @domain domain to use from Externalizer config
+     * @return path for a specific domain
+     */
+    public String mappedUrl(ResourceResolver resolver, SlingHttpServletRequest slingRequest, String domain, String path) {
+        return mappedUrl(resolver, slingRequest, domain, path, false);
+    }
+
+
+    /**
+     * This method maps an absolute path to the canonical URL in the correct domain.
+     *
+     * @resolver resource resolver for verifying path
+     * @slingRequest current sling request
+     * @path path is the path to map to an actual URL
+     * @secure force secure to be returned
+     * @return path for a local domain
+     */
+    public String mappedUrl(ResourceResolver resolver, SlingHttpServletRequest slingRequest, String path, Boolean secure) {
+        return mappedUrl(resolver, slingRequest, "local", path, secure);
     }
 
     /**
@@ -34,15 +64,16 @@
      *
      * @param path is the path to map to an actual URL
      */
-    public String mappedUrl(ResourceResolver resolver, SlingHttpServletRequest slingRequest, String path, Boolean secure) {
-        if (path == null || resolver == null || slingRequest == null) {
+    public String mappedUrl(ResourceResolver resolver, SlingHttpServletRequest slingRequest, String domain, String path, Boolean secure) {
+        if (path == null || resolver == null || slingRequest == null || domain == null || secure == null) {
+            getLogger().error(MessageFormat.format("mappedUrl not enough parameters: resolver=[{0}],slingRequest=[{1}],domain=[{2}],path=[{3}],secure=[{4}]",resolver,slingRequest,domain,path,secure));
             return null;
         }
         Externalizer externalizer = resolver.adaptTo(Externalizer.class);
         if (secure) {
-            return externalizer.absoluteLink(slingRequest, SECURE_MAP_CONFIG_SCHEMA, resolver.map(path));
+            return externalizer.externalLink(resolver, domain, SECURE_MAP_CONFIG_SCHEMA, resolver.map(path));
         } else {
-            return externalizer.absoluteLink(slingRequest, DEFAULT_MAP_CONFIG_SCHEMA, resolver.map(path));
+            return externalizer.externalLink(resolver, domain, DEFAULT_MAP_CONFIG_SCHEMA, resolver.map(path));
         }
     }
 
