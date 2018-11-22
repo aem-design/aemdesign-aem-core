@@ -224,6 +224,8 @@
         <%@ include file="badge.default.jsp" %>
     </c:when>
 
+    <%-- VARIANTS --%>
+
     <c:when test="${componentProperties.variant eq DEFAULT_VARIANT_HIDDEN}">
         <%@ include file="variant.hidden.jsp" %>
     </c:when>

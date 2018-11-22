@@ -121,6 +121,8 @@
 
 <c:choose>
 
+    <%-- NORMAL BADGES --%>
+
     <c:when test="${COMPONENT_BADGE eq 'badge.cardImageTitleCategoryDescriptionAction'}">
         <%@ include file="badge.cardImageTitleCategoryDescriptionAction.jsp" %>
     </c:when>
@@ -153,9 +155,19 @@
         <%@ include file="badge.image.jsp" %>
     </c:when>
 
+
+    <%-- DEFAULT BADGES --%>
+
+    <c:when test="${COMPONENT_BADGE eq 'badge.metadata'}">
+        <%@ include file="badge.metadata.jsp" %>
+    </c:when>
+
     <c:when test="${COMPONENT_BADGE eq 'badge' or COMPONENT_BADGE eq 'badge.default'}">
         <%@ include file="badge.default.jsp" %>
     </c:when>
+
+
+    <%-- VARIANTS --%>
 
     <c:when test="${componentProperties.variant eq DEFAULT_VARIANT_HIDDEN}">
         <%@include file="variant.hidden.jsp" %>
