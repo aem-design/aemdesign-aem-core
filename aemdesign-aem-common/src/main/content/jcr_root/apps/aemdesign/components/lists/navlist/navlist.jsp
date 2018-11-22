@@ -40,12 +40,12 @@
     if (componentProperties.get("listFrom", DEFAULT_LISTFROM).equals(LISTFROM_CHILDREN)) {
         Page parentPage = _pageManager.getPage(componentProperties.get("parentPage", ""));
         if (parentPage != null) {
-            pagesInfo = getPageListInfo(pageContext,_pageManager, _resourceResolver, parentPage.listChildren(), supportedDetails, supportedRoots, 2);
+            pagesInfo = getPageListInfo(pageContext,_pageManager, _resourceResolver, parentPage.listChildren(), supportedDetails, supportedRoots, 2, true);
         }
     } else {
         String[] paths = componentProperties.get("pages", new String[0]);
         if (paths.length != 0) {
-            pagesInfo = getPageListInfo(pageContext,_pageManager, _resourceResolver, paths, supportedDetails, supportedRoots, 2);
+            pagesInfo = getPageListInfo(pageContext,_pageManager, _resourceResolver, paths, supportedDetails, supportedRoots, 2, true);
         }
     }
 

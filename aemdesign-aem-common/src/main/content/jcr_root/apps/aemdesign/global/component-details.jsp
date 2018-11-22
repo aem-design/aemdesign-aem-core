@@ -2,47 +2,58 @@
 <%@ page import="com.day.cq.wcm.api.PageManager" %>
 <%@ page import="org.apache.sling.api.resource.ResourceResolver" %>
 <%@ page import="java.util.*" %>
-<%@ page import="org.apache.sling.api.resource.ResourceUtil" %><%!
-
-
+<%@ page import="org.apache.sling.api.resource.ResourceUtil" %>
+<%!
 
     protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths) {
-        return getPageListInfo(pageContext,pageManager,resourceResolver,paths,DEFAULT_LIST_DETAILS_SUFFIX,DEFAULT_LIST_PAGE_CONTENT);
-    }
-    protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots) {
-        return getPageListInfo(pageContext,pageManager,resourceResolver,paths,componentNames,pageRoots,null);
+        return getPageListInfo(pageContext, pageManager, resourceResolver, paths, DEFAULT_LIST_DETAILS_SUFFIX, DEFAULT_LIST_PAGE_CONTENT);
     }
 
-    protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot) {
+    protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots) {
+        return getPageListInfo(pageContext, pageManager, resourceResolver, paths, componentNames, pageRoots, null, false);
+    }
+
+    protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot, Boolean ignoreHidden) {
         List<ComponentProperties> pages = new ArrayList<ComponentProperties>();
+
         for (String path : paths) {
             Page child = pageManager.getPage(path);
-            if (child!=null) {
-                pages.add(getPageInfo(pageContext,child,resourceResolver,componentNames,pageRoots,collectChildrenFromRoot));
+
+            if (child != null) {
+                if (ignoreHidden && child.isHideInNav()) {
+                    continue;
+                }
+
+                pages.add(getPageInfo(pageContext, child, resourceResolver, componentNames, pageRoots, collectChildrenFromRoot));
             }
         }
+
         return pages;
     }
 
     protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList) {
-        return getPageListInfo(pageContext,pageManager,resourceResolver,pageList,DEFAULT_LIST_DETAILS_SUFFIX,DEFAULT_LIST_PAGE_CONTENT);
+        return getPageListInfo(pageContext, pageManager, resourceResolver, pageList, DEFAULT_LIST_DETAILS_SUFFIX, DEFAULT_LIST_PAGE_CONTENT);
     }
+
     protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots) {
-        return getPageListInfo(pageContext,pageManager,resourceResolver, pageList, detailsComponentName, pageRoots, null);
+        return getPageListInfo(pageContext, pageManager, resourceResolver, pageList, detailsComponentName, pageRoots, null, false);
     }
 
-
-    protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots, Integer collectChildrenFromRoot) {
+    protected List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots, Integer collectChildrenFromRoot, Boolean ignoreHidden) {
         List<ComponentProperties> pages = new ArrayList<ComponentProperties>();
 
         if (pageList != null) {
-
             while (pageList.hasNext()) {
                 Page child = pageList.next();
 
-                pages.add(getPageInfo(pageContext, child,resourceResolver,detailsComponentName,pageRoots,collectChildrenFromRoot));
+                if (ignoreHidden && child.isHideInNav()) {
+                    continue;
+                }
+
+                pages.add(getPageInfo(pageContext, child, resourceResolver, detailsComponentName, pageRoots, collectChildrenFromRoot));
             }
         }
+
         return pages;
     }
 
