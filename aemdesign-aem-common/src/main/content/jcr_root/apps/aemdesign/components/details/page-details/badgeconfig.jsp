@@ -56,4 +56,25 @@
     <c:set var="badgeClassIconAttr" value="${badgeClassIconAttr} ${fn:join(componentProperties.cardIcon,' ')}"/>
 </c:if>
 
+<%-- BADGE TITLE TRIM CONFIG  --%>
+<c:if test="${componentProperties.badgeTitleTrim}">
+    <c:if test="${empty componentProperties.badgeTitleTrimLengthMax}">
+        <c:set target="${componentProperties}" property="badgeTitleTrimLengthMax" value="20" />
+    </c:if>
+    <c:if test="${fn:length(componentProperties.pageNavTitle) > componentProperties.badgeTitleTrimLengthMax}">
+        <c:set target="${componentProperties}" property="pageNavTitle" value="${fn:substring(componentProperties.pageNavTitle,0,componentProperties.badgeTitleTrimLengthMax)}${componentProperties.badgeTitleTrimLengthMaxSuffix}"/>
+    </c:if>
+</c:if>
+
+
+<%-- BADGE DESCRIPTION TRIM CONFIG  --%>
+<c:if test="${componentProperties.badgeSummaryTrim}">
+    <c:if test="${empty componentProperties.badgeSummaryLengthMax}">
+        <c:set target="${componentProperties}" property="badgeSummaryLengthMaxSuffix" value="50" />
+    </c:if>
+    <c:if test="${fn:length(componentProperties.description) > componentProperties.badgeSummaryLengthMax}">
+        <c:set target="${componentProperties}" property="description" value="${fn:substring(componentProperties.description,0,componentProperties.badgeSummaryLengthMax)}${componentProperties.badgeSummaryLengthMaxSuffix}"/>
+    </c:if>
+</c:if>
+
 
