@@ -214,6 +214,10 @@
 
     <%-- DEFAULT BADGES --%>
 
+    <c:when test="${COMPONENT_BADGE eq 'badge.metadata'}">
+        <%@ include file="badge.metadata.jsp" %>
+    </c:when>
+
     <c:when test="${COMPONENT_BADGE eq 'badge' or COMPONENT_BADGE eq 'badge.default'}">
         <%@ include file="badge.default.jsp" %>
     </c:when>

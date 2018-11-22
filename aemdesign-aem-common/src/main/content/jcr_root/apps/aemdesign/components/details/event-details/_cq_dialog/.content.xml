@@ -317,6 +317,12 @@
                     path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <pageMetadataTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Page Metadata"
+                    path="/apps/aemdesign/global/dialog/touch/pageMetadata/content/items/pageMetadataTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
         </items>
     </content>
 
