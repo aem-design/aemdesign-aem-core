@@ -153,7 +153,7 @@
         <%@ include file="badge.cardTitleDescriptionAction.jsp" %>
     </c:when>
 
-    <c:when test="${COMPONENT_BADGE eq 'badge.cardImageTitleDescriptionAction'}">
+    <c:when test="${COMPONENT_BADGE eq 'badge.cardImageTitleCategoryDescriptionAction'}">
         <%@ include file="badge.cardImageTitleCategoryDescriptionAction.jsp" %>
     </c:when>
 
