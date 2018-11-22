@@ -15,7 +15,7 @@
     final String DEFAULT_LISTFROM_STATIC = "static";
     final String FIELD_LISTFROM = "listFrom";
     final String FIELD_TABPAGES = "pages";
-    final String FIELD_PATHTOPARENT = "pathToParent";
+    final String FIELD_PATHTOPARENT = "parentPage";
     final String FIELD_TABPOSITION = "tabPosition";
 
     Object[][] componentFields = {
