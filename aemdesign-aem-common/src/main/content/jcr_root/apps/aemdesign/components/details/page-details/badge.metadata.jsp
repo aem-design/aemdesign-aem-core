@@ -16,6 +16,7 @@
         }
     }
 
+    //provide defaults for metadata
     if (!metaPropertyFields.containsKey("og:url")) {
         metaPropertyFields.put("og:url", mappedUrl(_resourceResolver, _slingRequest, componentPage.getPath()).concat(DEFAULT_EXTENTION));
     }
@@ -31,6 +32,9 @@
 
     componentProperties.put("metaPropertyFields",metaPropertyFields);
 
+    //set canonical url
+    componentProperties.put("canonicalUrl",mappedUrl(_resourceResolver, _slingRequest, componentPage.getPath()).concat(DEFAULT_EXTENTION));
+
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:forEach items="${componentProperties.metaPropertyFields}" var="field" varStatus="fieldStatus">
@@ -38,3 +42,6 @@
     <meta property="${field.key}" content="${field.value}" />
 </c:if>
 </c:forEach>
+<c:if test="${not empty componentProperties.canonicalUrl}">
+<link rel="canonical" href="${componentProperties.canonicalUrl}" />
+</c:if>
