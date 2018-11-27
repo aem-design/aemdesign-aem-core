@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./deploy -Dcrx.port=4503 -P deploymentpackage,installdeploymentpackage
