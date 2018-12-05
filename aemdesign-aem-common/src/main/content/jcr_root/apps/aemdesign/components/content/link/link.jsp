@@ -14,9 +14,9 @@
     // {
     //   1 required - property name,
     //   2 required - default value,
-    //   3 optional - compile into a {name} attribute
+    //   3 optional - name of component attribute to add value into
+    //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-
     Object[][] componentFields = {
             {"linkTarget", StringUtils.EMPTY, "target"},
             {FIELD_LINKURL, StringUtils.EMPTY},
