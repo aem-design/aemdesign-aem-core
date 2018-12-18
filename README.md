@@ -21,7 +21,7 @@ Version numbers should follow semver format:
 
  * MAJOR version when you make incompatible API changes,
  * MINOR version when you add functionality in a backwards-compatible manner, and
- * PATCH version when you make backwards-compatible bug fixes.
+ * PATCH version is automatically generated based on git commit count
 
 Please use MAJOR and MINOR version in Tags, PATCH version will be automatically added as a commit count since the last tag using the git describe.
 
