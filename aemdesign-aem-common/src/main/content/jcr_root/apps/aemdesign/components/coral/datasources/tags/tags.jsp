@@ -86,14 +86,14 @@
             if (rs != null) {
                 Tag tagPath = rs.adaptTo(Tag.class);
                 if (tagPath != null) {
-                    tags.addIterator(tagPath.listAllSubTags());
+                    tags.addIterator(tagPath.listChildren());
                 }
             }
         } else {
 
             for (Tag ns : tm.getNamespaces()) {
                 if (namespaces.size() == 0 || namespaces.contains(ns.getName())) {
-                    tags.addIterator(ns.listAllSubTags());
+                    tags.addIterator(ns.listChildren());
                 }
             }
         }
