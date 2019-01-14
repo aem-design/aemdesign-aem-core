@@ -8,7 +8,7 @@
     final String DEFAULT_HIDE_SUMMARY = "false";
     final String EVENT_DISPLAY_DATE_FORMAT = "EEE d MMMMM";
     final String EVENT_DISPLAY_DATE_FORMAT_ISO = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-    final String EVENT_DISPLAY_TIME_FORMAT = "ha";
+    final String EVENT_DISPLAY_TIME_FORMAT = "h:mm a";
     final Calendar DEFAULT_EVENT_START_DATE = Calendar.getInstance();
     final Calendar DEFAULT_EVENT_END_DATE = Calendar.getInstance();
     final String DEFAULT_EVENT_LOC = "";
