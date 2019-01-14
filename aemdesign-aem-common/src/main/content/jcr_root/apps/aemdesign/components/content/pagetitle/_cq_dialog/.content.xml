@@ -33,6 +33,27 @@
                                     fieldLabel="Page Title Override"
                                     name="./jcr:title"
                                     required="{Boolean}false"/>
+                            <titleFormat
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Title Format"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <titleType
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="which paragraph tag to use for Title display"
+                                        fieldLabel="Title Type"
+                                        name="./titleType"
+                                        emptyOption="{Boolean}true"
+                                        value="">
+                                        <datasource
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="valuelist"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/heading"/>
+                                    </titleType>
+                                </items>
+                            </titleFormat>
                         </items>
                     </column>
                 </items>
