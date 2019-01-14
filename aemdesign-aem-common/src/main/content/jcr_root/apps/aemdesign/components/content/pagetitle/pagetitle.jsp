@@ -4,10 +4,12 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/i18n.jsp" %>
 <%
+    final String DEFAULT_TAG_TYPE = "span";
 
     Object[][] componentFields = {
             {FIELD_VARIANT, DEFAULT_VARIANT},
-            {JcrConstants.JCR_TITLE, ""}
+            {JcrConstants.JCR_TITLE, ""},
+            {FIELD_TITLE_TAG_TYPE, DEFAULT_TAG_TYPE}
     };
 
     ComponentProperties componentProperties = getComponentProperties(
