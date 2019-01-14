@@ -4,10 +4,12 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%@ include file="/apps/aemdesign/global/i18n.jsp" %>
 <%
+    final String TITLE_TAG_TYPE = "titleType";
 
     Object[][] componentFields = {
             {FIELD_VARIANT, DEFAULT_VARIANT},
-            {JcrConstants.JCR_TITLE, ""}
+            {JcrConstants.JCR_TITLE, ""},
+            {TITLE_TAG_TYPE, StringUtils.EMPTY}
     };
 
     ComponentProperties componentProperties = getComponentProperties(
