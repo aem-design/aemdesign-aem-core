@@ -172,9 +172,9 @@
                     default: //IMAGE_OPTION_RESPONSIVE
                         String[] renditionImageMapping = componentProperties.get(FIELD_RESPONSIVE_MAP, DEFAULT_RENDITION_IMAGE_MAP);
 
-                        // Check if the image suffix is '.svg', if it is skip any rendition checks and simply return
+                        // Check if the image suffix is '.svg' or '.gif', if it is skip any rendition checks and simply return
                         // the path to it as no scaling or modifications should be applied.
-                        if (fileReference.endsWith(".svg")) {
+                        if (fileReference.endsWith(".svg") || fileReference.endsWith(".gif")) {
                             componentProperties.put(FIELD_IMAGEURL, fileReference);
                             componentProperties.put(FIELD_IMAGE_OPTION, "simple");
                         } else {
