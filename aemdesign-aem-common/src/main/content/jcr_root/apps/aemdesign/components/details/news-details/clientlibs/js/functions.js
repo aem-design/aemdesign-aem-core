@@ -1,4 +1,4 @@
-//pagedetails - functions
+//newsdetails - functions
 window.AEMDESIGN = window.AEMDESIGN || {};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.authoring = AEMDESIGN.components.authoring || {};

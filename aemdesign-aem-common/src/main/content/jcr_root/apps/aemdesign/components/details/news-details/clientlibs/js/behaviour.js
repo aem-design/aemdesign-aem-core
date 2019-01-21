@@ -1,4 +1,4 @@
-//pagedetails - behaviour
+//newsdetails - behaviour
 window.AEMDESIGN = window.AEMDESIGN || {};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.authoring = AEMDESIGN.components.authoring || {};
@@ -12,7 +12,7 @@ window.AEMDESIGN.components.authoring.newsdetails = AEMDESIGN.components.authori
     console.log(["dialog-"+componentName+"-behaviour","ready"]);
     $(document).on('dialog-ready', function () {
         console.log(["dialog-"+componentName+"-behaviour","checking"]);
-        if ($('#dialog-newsdetails')[0]) {
+        if ($("#dialog-"+componentName+"")[0]) {
 
             console.log(["dialog-"+componentName+"-behaviour","loading"]);
 
