@@ -10,11 +10,12 @@ Component for adding content metadata to a page and Badge config info which is u
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v1
-* **Compatibility**: AEM 6.3
+* **Compatibility**: AEM 6.4
 * **Status**: production-ready
-* **Showcase**: [/content/aemdesign-showcase/en/component/content/link.html](/content/aemdesign-showcase/en/component/details/page-details.html?wcmmode=disabled)
-* **Local Code**: /crx/de/#/apps/aemdesign/components/details/page-details
+* **Showcase**: [/content/aemdesign-showcase/en/component/details/page-details](/content/aemdesign-showcase/en/component/details/page-details.html?wcmmode=disabled)
+* **Local Code**: [/apps/aemdesign/components/details/page-details](/crx/de/#/apps/aemdesign/components/details/page-details)
 * **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/details/page-details)
+* **Readme**: [/apps/aemdesign/components/details/page-details](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/page-details)
 
 ## Features
 * Provides mechanism to add page details and badge config
