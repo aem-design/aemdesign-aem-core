@@ -9,11 +9,12 @@ Component that outputs analytics content into the page
 ### Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v1
-* **Compatibility**: AEM 6.3
+* **Compatibility**: AEM 6.4
 * **Status**: production-ready
-* **Showcase**: [/content/aemdesign-showcase/en/component/analytics/datalayer.html](/content/aemdesign-showcase/en/analytics/analytics/datalayer.html?wcmmode=disabled)
-* **Local Code**: /crx/de/#/apps/aemdesign/components/content/link
+* **Showcase**: [/content/aemdesign-showcase/en/component/analytics/datalayer.html](/content/aemdesign-showcase/en/analytics/datalayer.html?wcmmode=disabled)
+* **Local Code**: [/apps/aemdesign/components/analytics/datalayer](/crx/de/#/apps/aemdesign/components/analytics/datalayer)
 * **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/analytics/datalayer)
+* **Readme**: [/apps/aemdesign/components/analytics/datalayer](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/analytics/datalayer)
 
 ### Features
 * Gathers analytics content from

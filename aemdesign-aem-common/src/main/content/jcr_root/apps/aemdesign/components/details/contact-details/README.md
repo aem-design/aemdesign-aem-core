@@ -10,10 +10,10 @@ Component for adding Contact metadata to a page and Badge config info which is u
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v1
-* **Compatibility**: AEM 6.3
+* **Compatibility**: AEM 6.4
 * **Status**: production-ready
-* **Showcase**: [/content/aemdesign-showcase/en/component/content/link.html](/content/aemdesign-showcase/en/component/details/contact-details.html?wcmmode=disabled)
-* **Local Code**: /crx/de/#/apps/aemdesign/components/details/contact-details
+* **Showcase**: [/content/aemdesign-showcase/en/component/details/contact-details](/content/aemdesign-showcase/en/component/details/contact-details.html?wcmmode=disabled)
+* **Local Code**: [/apps/aemdesign/components/details/contact-details](/crx/de/#/apps/aemdesign/components/details/contact-details)
 * **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/details/contact-details)
 * **Readme**: [/apps/aemdesign/components/details/contact-details](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/contact-details)
 
