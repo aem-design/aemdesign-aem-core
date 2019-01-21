@@ -1,3 +1,5 @@
+<%@ page import="org.jsoup.Jsoup" %>
+<%@ page import="org.jsoup.nodes.Document" %>
 <%!
 
     final String COMPONENT_DETAILS_NAME = "page-details";
