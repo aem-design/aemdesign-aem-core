@@ -44,15 +44,20 @@
                         listLookForDetailComponent = DEFAULT_LIST_DETAILS_SUFFIX;
                     }
                     String detailsPath = findComponentInPage((Page)request.getAttribute("listItem"),listLookForDetailComponent);
-                    String componentPath = detailsPath+".badge."+request.getAttribute("listItemBadge");
-                    ComponentProperties badgeRequestAttributes = (ComponentProperties)request.getAttribute(BADGE_REQUEST_ATTRIBUTES);
-                %>
-                <%=resourceRenderAsHtml(
-                        componentPath,
-                        _resourceResolver,
-                        _sling,
-                        BADGE_REQUEST_ATTRIBUTES,
-                        badgeRequestAttributes)
+                    if (isNotEmpty(detailsPath)) {
+                        String componentPath = detailsPath + ".badge." + request.getAttribute("listItemBadge");
+                        ComponentProperties badgeRequestAttributes = (ComponentProperties) request.getAttribute(BADGE_REQUEST_ATTRIBUTES);
+                        out.print(
+                            resourceRenderAsHtml(
+                                componentPath,
+                                _resourceResolver,
+                                _sling,
+                                BADGE_REQUEST_ATTRIBUTES,
+                                badgeRequestAttributes)
+                        );
+                    } else {
+                        %><cq:include script="body-missing-details.jsp" /><%
+                    }
                 %>
             </c:catch>
             <c:if test="${not empty badgeException}">
