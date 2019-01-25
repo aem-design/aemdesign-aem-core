@@ -8,7 +8,7 @@
     final String DEFAULT_HIDE_SUMMARY = "false";
     final String EVENT_DISPLAY_DATE_FORMAT = "EEE d MMMMM";
     final String EVENT_DISPLAY_DATE_FORMAT_ISO = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-    final String EVENT_DISPLAY_TIME_FORMAT = "h:mm a";
+    final String EVENT_DISPLAY_TIME_FORMAT = "h.mm a";
     final Calendar DEFAULT_EVENT_START_DATE = Calendar.getInstance();
     final Calendar DEFAULT_EVENT_END_DATE = Calendar.getInstance();
     final String DEFAULT_EVENT_LOC = "";
@@ -59,25 +59,26 @@
 
         newFields.put("isPastEventDate", eventEndDate.before(Calendar.getInstance()));
 
-        //
-
         newFields.put("eventStartDate",eventStartDate);
         newFields.put("eventEndDate",eventEndDate);
 
         SimpleDateFormat dateFormatString = new SimpleDateFormat(EVENT_DISPLAY_DATE_FORMAT_ISO);
 
-        newFields.put("eventStartDateISO",dateFormatString.format(eventStartDate.getTime()));
-        newFields.put("eventEndDateISO",dateFormatString.format(eventEndDate.getTime()));
+        Date startDateTime = eventStartDate.getTime();
+        Date endDateTime = eventEndDate.getTime();
+
+        newFields.put("eventStartDateISO",dateFormatString.format(startDateTime));
+        newFields.put("eventEndDateISO",dateFormatString.format(endDateTime));
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(EVENT_DISPLAY_DATE_FORMAT);
-        String eventStartDateText = dateFormat.format(eventStartDate.getTime());
-        String eventEndDateText = dateFormat.format(eventEndDate.getTime());
+        String eventStartDateText = dateFormat.format(startDateTime);
+        String eventEndDateText = dateFormat.format(endDateTime);
 
-        String eventStartDateUppercase = dateFormat.format(eventStartDate.getTime()).toUpperCase();
-        String eventEndDateUppercase = dateFormat.format(eventEndDate.getTime()).toUpperCase();
+        String eventStartDateUppercase = dateFormat.format(startDateTime).toUpperCase();
+        String eventEndDateUppercase = dateFormat.format(endDateTime).toUpperCase();
 
-        String eventStartDateLowercase = dateFormat.format(eventStartDate.getTime()).toLowerCase();
-        String eventEndDateLowercase = dateFormat.format(eventEndDate.getTime()).toLowerCase();
+        String eventStartDateLowercase = dateFormat.format(startDateTime).toLowerCase();
+        String eventEndDateLowercase = dateFormat.format(endDateTime).toLowerCase();
 
         newFields.put("eventStartDateText",eventStartDateText);
         newFields.put("eventEndDateText",eventEndDateText);
@@ -89,32 +90,50 @@
         newFields.put("eventEndDateLowercase",eventEndDateLowercase);
 
         SimpleDateFormat timeFormat = new SimpleDateFormat(EVENT_DISPLAY_TIME_FORMAT);
-        String eventStartTimeText = timeFormat.format(eventStartDate.getTime());
-        String eventEndTimeText = timeFormat.format(eventEndDate.getTime());
+        SimpleDateFormat minTimeFormat = new SimpleDateFormat("mm");
+        SimpleDateFormat hourTimeFormat = new SimpleDateFormat("h a");
 
-        String eventStartTimeLowercase = timeFormat.format(eventStartDate.getTime()).toLowerCase();
-        String eventEndTimeLowercase = timeFormat.format(eventEndDate.getTime()).toLowerCase();
+        String eventStartTimeText = timeFormat.format(startDateTime);
+        String eventEndTimeText = timeFormat.format(endDateTime);
 
-        String eventStartTimeUppercase = timeFormat.format(eventStartDate.getTime()).toUpperCase();
-        String eventEndTimeUppercase = timeFormat.format(eventEndDate.getTime()).toUpperCase();
+        String startTimeMinutes = minTimeFormat.format(startDateTime);
+        String endTimeMinutes = minTimeFormat.format(endDateTime);
+
+        String eventStartTimeMinFormatted = timeFormat.format(startDateTime).toLowerCase();
+        String eventEndTimeMinFormatted = timeFormat.format(endDateTime).toLowerCase();
+
+        if (startTimeMinutes.equals("00")) {
+            eventStartTimeMinFormatted = hourTimeFormat.format(startDateTime);
+        }
+
+        if (endTimeMinutes.equals("00")) {
+            eventEndTimeMinFormatted = hourTimeFormat.format(endDateTime);
+        }
 
         newFields.put("eventStartTimeText",eventStartTimeText);
         newFields.put("eventEndTimeText",eventEndTimeText);
 
-        newFields.put("eventStartTimeUppercase",eventStartTimeUppercase);
-        newFields.put("eventEndTimeUppercase",eventEndTimeUppercase);
+        newFields.put("eventStartTimeUppercase",eventStartTimeText.toUpperCase());
+        newFields.put("eventEndTimeUppercase",eventEndTimeText.toUpperCase());
 
-        newFields.put("eventStartTimeLowercase",eventStartTimeLowercase);
-        newFields.put("eventEndTimeLowercase",eventEndTimeLowercase);
+        newFields.put("eventStartTimeLowercase",eventStartTimeText.toLowerCase());
+        newFields.put("eventEndTimeLowercase",eventEndTimeText.toLowerCase());
+
+        newFields.put("eventStartTimeMinFormatted",eventStartTimeMinFormatted);
+        newFields.put("eventEndTimeMinFormatted",eventEndTimeMinFormatted);
+
+        newFields.put("eventStartTimeMinLowerFormatted",eventStartTimeMinFormatted.toLowerCase());
+        newFields.put("eventEndTimeMinLowerFormatted",eventEndTimeMinFormatted.toLowerCase());
+
+        newFields.put("eventStartTimeMinUpperFormatted",eventStartTimeMinFormatted.toUpperCase());
+        newFields.put("eventEndTimeMinUpperFormatted",eventEndTimeMinFormatted.toUpperCase());
 
         componentProperties.putAll(newFields);
-
 
         newFields.put("titleFormatted",compileComponentMessage("titleFormat",DEFAULT_FORMAT_TITLE,componentProperties,sling));
         newFields.put("subTitleFormatted",compileComponentMessage("subTitleFormat",DEFAULT_FORMAT_SUBTITLE,componentProperties,sling));
         newFields.put("eventDisplayDateFormatted",compileComponentMessage("eventDisplayDateFormat",DEFAULT_FORMAT_DISPLAYDATE,componentProperties,sling));
         newFields.put("eventDisplayTimeFormatted",compileComponentMessage("eventDisplayTimeFormat",DEFAULT_FORMAT_DISPLAYTIME,componentProperties,sling));
-
 
         return newFields;
     }
