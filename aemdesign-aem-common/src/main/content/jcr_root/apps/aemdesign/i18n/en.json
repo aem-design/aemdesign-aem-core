@@ -1,9 +1,4 @@
 {
-
-  "ERROR_NOTFOUND_BADGE ((general))":
-  "Badge \"{0}\" failed to load from component \"{1}\" (badge source: \"{2}\")",
-
-  "ERROR_BCP47_OVERRIDE ((general))":
-  "BCP47: value attribute for locale [{0}] is not defined for node {1}"
-
+  "ERROR_NOTFOUND_BADGE ((general))": "Badge \"{0}\" failed to load from component \"{1}\" (badge source: \"{2}\")",
+  "ERROR_BCP47_OVERRIDE ((general))": "BCP47: value attribute for locale [{0}] is not defined for node {1}"
 }
