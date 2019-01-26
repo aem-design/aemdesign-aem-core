@@ -30,22 +30,32 @@
     String dateFormatString = _i18n.get("publishDateFormat",DEFAULT_I18N_CATEGORY);
     String dateDisplayFormatString = _i18n.get("publishDateDisplayFormat",DEFAULT_I18N_CATEGORY);
 
-    //format date into formatted date
-    SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString);
-    String publishDateText = dateFormat.format(publishDate.getTime());
+    try {
 
-    //format date into display date
-    dateFormat = new SimpleDateFormat(dateDisplayFormatString);
-    String publishDisplayDateText = dateFormat.format(publishDate.getTime());
+        //format date into formatted date
+        SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString);
+        String publishDateText = dateFormat.format(publishDate.getTime());
 
-    componentProperties.put("publishDateText",publishDateText);
-    componentProperties.put("publishDisplayDateText",publishDisplayDateText);
+        //format date into display date
+        dateFormat = new SimpleDateFormat(dateDisplayFormatString);
+        String publishDisplayDateText = dateFormat.format(publishDate.getTime());
 
-    //update attributes - consider updating to using componentProperties.attr
-    Object[][] componentAttibutes = {
-            {"datetime", publishDateText},
-    };
-    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, componentAttibutes));
+        componentProperties.put("publishDateText", publishDateText);
+        componentProperties.put("publishDisplayDateText", publishDisplayDateText);
+
+        //update attributes - consider updating to using componentProperties.attr
+        Object[][] componentAttibutes = {
+                {"datetime", publishDateText},
+        };
+        componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, componentAttibutes));
+
+    } catch (Exception ex) {
+        LOG.error("dateFormatString: " + dateFormatString);
+        LOG.error("dateDisplayFormatString: " + dateDisplayFormatString);
+        LOG.error("publishDate: " + publishDate);
+        LOG.error("path: " + resource.getPath());
+        LOG.error("pagedate error: " + ex.getMessage(), ex);
+    }
 
 
 %>
