@@ -8,7 +8,9 @@
     final String DEFAULT_HIDE_SUMMARY = "false";
     final String EVENT_DISPLAY_DATE_FORMAT = "EEE d MMMMM";
     final String EVENT_DISPLAY_DATE_FORMAT_ISO = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-    final String EVENT_DISPLAY_TIME_FORMAT = "h.mm a";
+    final String HOURS_TIME_FORMAT = "h a";
+    final String MINUTES_TIME_FORMAT = "mm";
+    final String TIME_ZERO_FORMAT = "00";
     final Calendar DEFAULT_EVENT_START_DATE = Calendar.getInstance();
     final Calendar DEFAULT_EVENT_END_DATE = Calendar.getInstance();
     final String DEFAULT_EVENT_LOC = "";
@@ -41,7 +43,7 @@
      * @return returns map with new values
      */
 
-    public Map processComponentFields(ComponentProperties componentProperties, com.day.cq.i18n.I18n i18n, SlingScriptHelper sling) {
+    public Map processComponentFields(ComponentProperties componentProperties, I18n i18n, SlingScriptHelper sling) {
         Map newFields = new HashMap();
 
         String formattedTitle = compileComponentMessage(FIELD_FORMAT_TITLE, DEFAULT_FORMAT_TITLE, componentProperties, sling);
@@ -56,6 +58,7 @@
         );
         Calendar eventStartDate = componentProperties.get("eventStartDate",Calendar.getInstance());
         Calendar eventEndDate = componentProperties.get("eventEndDate",Calendar.getInstance());
+        String selectedEventTimeFormat = componentProperties.get("eventTimeFormat", StringUtils.EMPTY);
 
         newFields.put("isPastEventDate", eventEndDate.before(Calendar.getInstance()));
 
@@ -89,9 +92,9 @@
         newFields.put("eventStartDateLowercase",eventStartDateLowercase);
         newFields.put("eventEndDateLowercase",eventEndDateLowercase);
 
-        SimpleDateFormat timeFormat = new SimpleDateFormat(EVENT_DISPLAY_TIME_FORMAT);
-        SimpleDateFormat minTimeFormat = new SimpleDateFormat("mm");
-        SimpleDateFormat hourTimeFormat = new SimpleDateFormat("h a");
+        SimpleDateFormat timeFormat = new SimpleDateFormat(selectedEventTimeFormat);
+        SimpleDateFormat minTimeFormat = new SimpleDateFormat(MINUTES_TIME_FORMAT);
+        SimpleDateFormat hourTimeFormat = new SimpleDateFormat(HOURS_TIME_FORMAT);
 
         String eventStartTimeText = timeFormat.format(startDateTime);
         String eventEndTimeText = timeFormat.format(endDateTime);
@@ -102,11 +105,11 @@
         String eventStartTimeMinFormatted = timeFormat.format(startDateTime).toLowerCase();
         String eventEndTimeMinFormatted = timeFormat.format(endDateTime).toLowerCase();
 
-        if (startTimeMinutes.equals("00")) {
+        if (startTimeMinutes.equals(TIME_ZERO_FORMAT)) {
             eventStartTimeMinFormatted = hourTimeFormat.format(startDateTime);
         }
 
-        if (endTimeMinutes.equals("00")) {
+        if (endTimeMinutes.equals(TIME_ZERO_FORMAT)) {
             eventEndTimeMinFormatted = hourTimeFormat.format(endDateTime);
         }
 
