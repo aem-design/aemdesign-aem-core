@@ -245,6 +245,20 @@
                                                 variant="tagidvalue"
                                                 path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/event-details/format/displaydate"/>
                                     </eventDisplayDateFormat>
+                                    <eventTimeFormat
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Time Format of Event Time"
+                                        fieldLabel="Event Time Format"
+                                        name="./eventTimeFormat"
+                                        emptyOption="{Boolean}true"
+                                        value="">
+                                        <datasource
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="tagidvalue"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/event-details/format/time"/>
+                                    </eventTimeFormat>
                                     <eventDisplayTimeFormat
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
