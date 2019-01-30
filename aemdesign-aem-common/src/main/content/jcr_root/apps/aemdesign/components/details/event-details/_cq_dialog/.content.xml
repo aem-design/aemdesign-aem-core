@@ -247,17 +247,14 @@
                                         sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="Time Format of Event Time"
                                         fieldLabel="Event Time Format"
-                                        name="./eventTimeFormat">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <default
-                                                jcr:primaryType="nt:unstructured"
-                                                text="Default - Colon Format"
-                                                value="h:mm a"/>
-                                            <periodFormat
-                                                jcr:primaryType="nt:unstructured"
-                                                text="Period Format"
-                                                value="h.mm a"/>
-                                        </items>
+                                        name="./eventTimeFormat"
+                                        emptyOption="{Boolean}true"
+                                        value="">
+                                        <datasource
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="tagidvalue"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/event-details/format/time"/>
                                     </eventTimeFormat>
                                     <eventDisplayTimeFormat
                                             jcr:primaryType="nt:unstructured"

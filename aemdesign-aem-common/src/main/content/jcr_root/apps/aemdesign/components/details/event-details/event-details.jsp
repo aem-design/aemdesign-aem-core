@@ -13,7 +13,6 @@
     final String DEFAULT_TITLE_TAG_TYPE = "h1";
     final String DEFAULT_I18N_CATEGORY = "event-detail";
     final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
-    final String EVENT_TIME_DEFAULT_FORMAT = "h:mm a";
 
     // default values for the component
     final String DEFAULT_TITLE = getPageTitle(_currentPage);
