@@ -8,6 +8,7 @@
     final String DEFAULT_HIDE_SUMMARY = "false";
     final String EVENT_DISPLAY_DATE_FORMAT = "EEE d MMMMM";
     final String EVENT_DISPLAY_DATE_FORMAT_ISO = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    final String EVENT_TIME_DEFAULT_FORMAT = "h:mm a";
     final String HOURS_TIME_FORMAT = "h a";
     final String MINUTES_TIME_FORMAT = "mm";
     final String TIME_ZERO_FORMAT = "00";
@@ -91,6 +92,10 @@
 
         newFields.put("eventStartDateLowercase",eventStartDateLowercase);
         newFields.put("eventEndDateLowercase",eventEndDateLowercase);
+
+        if(!selectedEventTimeFormat.equals(EVENT_TIME_DEFAULT_FORMAT)){
+           selectedEventTimeFormat = getTagValueAsAdmin(selectedEventTimeFormat,sling);
+        }
 
         SimpleDateFormat timeFormat = new SimpleDateFormat(selectedEventTimeFormat);
         SimpleDateFormat minTimeFormat = new SimpleDateFormat(MINUTES_TIME_FORMAT);
