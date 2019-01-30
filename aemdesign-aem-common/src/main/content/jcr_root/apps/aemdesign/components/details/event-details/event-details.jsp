@@ -49,6 +49,7 @@
             {"subTitleFormat",""},
             {"eventDisplayDateFormat",""},
             {"eventDisplayTimeFormat", ""},
+            {"eventTimeFormat", EVENT_TIME_DEFAULT_FORMAT},
             {"cq:tags", new String[]{}},
             {"menuColor", StringUtils.EMPTY},
             {"showTags", false},
