@@ -41,19 +41,19 @@
     /**
      * Request parameter. If set, the context is forced to be printed.
      */
-    private static final String COMPONENT_FORCE_CONTEXT_PARAMETER = "forceeditcontext";
+    public static final String COMPONENT_FORCE_CONTEXT_PARAMETER = "forceeditcontext";
 
     /**
      * Name of the cookie containing the authoring UI mode
      */
-    private static final String WCM_AUTHORING_MODE_COOKIE = "cq-authoring-mode";
-    private static final String WCM_AUTHORING_MODE_COOKIE_VALUE_CLASSIC = "CLASSIC";
-    private static final String WCM_AUTHORING_MODE_COOKIE_VALUE_TOUCH = "TOUCH";
+    public static final String WCM_AUTHORING_MODE_COOKIE = "cq-authoring-mode";
+    public static final String WCM_AUTHORING_MODE_COOKIE_VALUE_CLASSIC = "CLASSIC";
+    public static final String WCM_AUTHORING_MODE_COOKIE_VALUE_TOUCH = "TOUCH";
 
     /**
      * the css prefix for the column classes
      */
-    private static String defaultLayout = "1;col-md-,12";
+    public static String defaultLayout = "1;col-md-,12";
 
 
     /**
@@ -98,18 +98,18 @@
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_TEXT =
             "<span class=\"cq-text-placeholder-ipe\">&para;</span>";
 
-    private static final String DEFAULT_IMAGE_BLANK = "/apps/settings/wcm/design/aemdesign/blank.png";
+    public static final String DEFAULT_IMAGE_BLANK = "/apps/settings/wcm/design/aemdesign/blank.png";
 
-    private static final int DEFAULT_THUMB_WIDTH_XSM = 140;
-    private static final int DEFAULT_THUMB_WIDTH_SM = 319;
-    private static final int DEFAULT_THUMB_WIDTH_MD = 800;
-    private static final int DEFAULT_THUMB_WIDTH_LG = 1280;
-    private static final int DEFAULT_THUMB_WIDTH_XLG = 1600;
-    private static final int DEFAULT_THUMB_WIDTH_XXLG = 1900;
+    public static final int DEFAULT_THUMB_WIDTH_XSM = 140;
+    public static final int DEFAULT_THUMB_WIDTH_SM = 319;
+    public static final int DEFAULT_THUMB_WIDTH_MD = 800;
+    public static final int DEFAULT_THUMB_WIDTH_LG = 1280;
+    public static final int DEFAULT_THUMB_WIDTH_XLG = 1600;
+    public static final int DEFAULT_THUMB_WIDTH_XXLG = 1900;
 
-    private static final String DEFAULT_TITLE_TAG_TYPE_BADGE = "h3";
-    private static final String DEFAULT_SUMMARY_TRIM_SUFFIX = "...";
-    private static final int DEFAULT_SUMMARY_TRIM_LENGTH = 50;
+    public static final String DEFAULT_TITLE_TAG_TYPE_BADGE = "h3";
+    public static final String DEFAULT_SUMMARY_TRIM_SUFFIX = "...";
+    public static final int DEFAULT_SUMMARY_TRIM_LENGTH = 50;
 
 
     public static final String SITE_INCLUDE = "siteinclude";
@@ -118,7 +118,7 @@
     public static final String FIELD_SOURCE_ATTRIBUTE = "src";
     public static final String FIELD_MEDIA_PROVIDER_URL = "mediaProviderUrl";
 
-    public static final String IMAGE_FILEREFERENCE = "fileReference";
+    public static final String IMAGE_FILEREFERENCE = "fileReference"; //ASSET_FILEREFERENCE
     public static final String COMPONENT_LIST_PROPERTIES = "component.list.properties";
 
     public static final String FIELD_THUMBNAIL_WIDTH = "thumbnailWidth";
@@ -139,6 +139,7 @@
     public static final String FIELD_PAGE_TITLE_NAV = "pageNavTitle";
     public static final String FIELD_PAGE_TITLE_SUBTITLE = "subtitle";
     public static final String FIELD_VIDEO_BACKGROUND = "backgroundVideo";
+    public static final String FIELD_IMAGE_BACKGROUND = "backgroundImage";
 
     public static final String FIELD_MEDIA_PROVIDER = "mediaProvider";
     public static final String FIELD_MEDIA_TITLE = "mediaTitle";
@@ -158,14 +159,16 @@
 
     public static final String ATTRIBUTE_ID = "attrId";
 
-    private final static String IMAGE_OPTION_GENERATED = "generated";
-    private final static String IMAGE_OPTION_RENDITION = "rendition";
-    private final static String IMAGE_OPTION_RESPONSIVE = "responsive";
-    private final static String IMAGE_OPTION_ADAPTIVE = "adaptive";
+    public final static String IMAGE_OPTION_GENERATED = "generated";
+    public final static String IMAGE_OPTION_RENDITION = "rendition";
+    public final static String IMAGE_OPTION_RESPONSIVE = "responsive";
+    public final static String IMAGE_OPTION_ADAPTIVE = "adaptive";
+    public final static String IMAGE_OPTION_MEDIAQUERYRENDITION = "mediaqueryrendition";
 
+    public final static String FIELD_ASSET_RENDITION_PATH_SUFFIX = "/jcr:content/renditions/";
 
-    private final static String BADGE_REQUEST_ATTRIBUTES = "badgeRequestAttributes";
-    private final static String COMPONENT_PROPERTIES = "componentProperties";
+    public final static String BADGE_REQUEST_ATTRIBUTES = "badgeRequestAttributes";
+    public final static String COMPONENT_PROPERTIES = "componentProperties";
 
     /**
      * CQ
