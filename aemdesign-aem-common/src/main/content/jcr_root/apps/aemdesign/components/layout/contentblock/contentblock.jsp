@@ -52,8 +52,6 @@
     componentProperties.put("topLinkLabel",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_LABEL,DEFAULT_I18N_CATEGORY,_i18n));
     componentProperties.put("topLinkTitle",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_TITLE,DEFAULT_I18N_CATEGORY,_i18n));
 
-    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME));
-
     if (componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT).equals("advsection")) {
         String ariaLabelledBy = componentProperties.get(FIELD_ARIA_LABELLEDBY, "");
         if (isEmpty(ariaLabelledBy)) {
@@ -64,29 +62,16 @@
 
     }
 
-    String fileReference = getResourceImagePath(_resource,DEFAULT_BACKGROUND_VIDEO_NODE_NAME);
+    componentProperties.putAll(getBackgroundVideoRenditions(pageContext));
 
-    if (isNotEmpty(fileReference)) {
-
-        AssetManager assetManager = _resourceResolver.adaptTo(AssetManager.class);
-        com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(fileReference);
-
-        if (asset!=null) {
-
-            componentProperties.putAll(getAssetInfo(_resourceResolver,
-                    getResourceImagePath(_resource, DEFAULT_BACKGROUND_VIDEO_NODE_NAME),
-                    FIELD_VIDEO_BACKGROUND), true);
+    componentProperties.putAll(getBackgroundImageRenditions(pageContext));
 
 
-            TreeMap<String, String> renditionsInfo = getAssetRenditionsVideo(asset);
-
-            componentProperties.put(FIELD_RENDITIONS_VIDEO, renditionsInfo);
-        }
-    }
 
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
+<%@ include file="background.jsp" %>
 <c:choose>
     <c:when test="${componentProperties.variant eq 'descriptionlist'}">
         <%@ include file="variant.descriptionlist.jsp" %>
