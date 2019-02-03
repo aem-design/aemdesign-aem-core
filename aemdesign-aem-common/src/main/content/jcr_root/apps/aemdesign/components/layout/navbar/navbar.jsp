@@ -22,14 +22,14 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME));
-
     componentProperties.put(INHERITED_RESOURCE,findInheritedResource(_currentPage,_componentContext));
     componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,getDefaultLabelIfEmpty("",DEFAULT_I18N_INHERIT_CATEGORY,DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,DEFAULT_I18N_INHERIT_CATEGORY,_i18n));
 
+    componentProperties.putAll(getBackgroundImageRenditions(pageContext));
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:set var="inheritedResource" value="${componentProperties.inheritedResource}"/>
+<%@ include file="/apps/aemdesign/global/component-background.jsp" %>
 
 <c:choose>
     <c:when test="${!componentProperties.cancelInheritParent and empty componentProperties.inheritedResource}">

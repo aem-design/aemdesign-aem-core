@@ -134,8 +134,12 @@
 
     componentProperties.putAll(processBadgeRequestConfig(componentProperties,_resourceResolver, request), true);
 
+    componentProperties.putAll(getBackgroundImageRenditions(pageContext));
+
+
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
+<%@ include file="/apps/aemdesign/global/component-background.jsp" %>
 
 <%@ include file="badgeconfig.jsp" %>
 

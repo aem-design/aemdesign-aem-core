@@ -1,6 +1,3 @@
-<c:if test="${not empty componentProperties.pageBackgroundImage}">
-    <c:set var="extraAttr" value="${extraAttr} style=\"background-image: url(${componentProperties.pageBackgroundImage})\""/>
-</c:if>
 <div ${componentProperties.componentAttributes}${extraAttr} itemscope itemtype="http://schema.org/Event">
     <div class="container">
         <header>

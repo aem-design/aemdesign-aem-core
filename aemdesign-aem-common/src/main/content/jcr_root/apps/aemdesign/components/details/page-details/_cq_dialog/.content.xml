@@ -4,7 +4,7 @@
           jcr:title="Page Details"
           helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/page-details"
           sling:resourceType="cq/gui/components/authoring/dialog"
-          extraClientlibs="[aem.design.components.author.pagedetails]">
+          extraClientlibs="[aem.design.components.author.pagedetails,aem.design.components.coral.widgets.form.assetoptions]">
     <content
             granite:id="dialog-pagedetails"
             jcr:primaryType="nt:unstructured"

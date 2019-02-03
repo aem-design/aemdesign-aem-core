@@ -3,7 +3,7 @@
           jcr:primaryType="nt:unstructured"
           jcr:title="Event Details"
           helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/event-details"
-          extraClientlibs="[aem.design.components.author.eventdetails]"
+          extraClientlibs="[aem.design.components.author.eventdetails,aem.design.components.coral.widgets.form.assetoptions]"
           sling:resourceType="cq/gui/components/authoring/dialog">
     <content
             granite:id="dialog-eventdetails"

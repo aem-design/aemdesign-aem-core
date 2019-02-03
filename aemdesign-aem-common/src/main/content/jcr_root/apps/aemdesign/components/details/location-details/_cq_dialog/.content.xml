@@ -4,7 +4,7 @@
           jcr:primaryType="nt:unstructured"
           jcr:title="Location Details"
           helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/news-details"
-          extraClientlibs="[aem.design.components.author.locationdetails]"
+          extraClientlibs="[aem.design.components.author.locationdetails,aem.design.components.coral.widgets.form.assetoptions]"
           sling:resourceType="cq/gui/components/authoring/dialog">
     <content
             granite:id="dialog-locationdetails"
