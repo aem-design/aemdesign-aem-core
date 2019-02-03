@@ -524,10 +524,6 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Image"
                                                     value="image"/>
-                                            <card
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Card with Image"
-                                                    value="card"/>
                                             <cardIcon
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Card with Icon"
