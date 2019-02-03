@@ -71,7 +71,7 @@
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
-<%@ include file="background.jsp" %>
+<%@ include file="/apps/aemdesign/global/component-background.jsp" %>
 <c:choose>
     <c:when test="${componentProperties.variant eq 'descriptionlist'}">
         <%@ include file="variant.descriptionlist.jsp" %>
