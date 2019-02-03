@@ -1,6 +1,3 @@
-<c:if test="${not empty componentProperties.pageBackgroundImage}">
-    <c:set var="extraAttr" value="${extraAttr} style=\"background-image: url(${componentProperties.pageBackgroundImage})\""/>
-</c:if>
 
 <c:set var="imageTitle" value="${componentProperties.titleFormattedText}"/>
 

@@ -24,8 +24,6 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME));
-
     Map<String, String> contentBlockList = new LinkedHashMap<String, String>();
     Resource menuSource = resource.getParent();
 
@@ -45,8 +43,12 @@
     }
 
     componentProperties.put("contentBlockList",contentBlockList);
+
+    componentProperties.putAll(getBackgroundImageRenditions(pageContext));
+
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
+<%@ include file="/apps/aemdesign/global/component-background.jsp" %>
 <c:choose>
     <c:when test="${not empty componentProperties.contentBlockList}">
         <%@ include file="variant.default.jsp" %>

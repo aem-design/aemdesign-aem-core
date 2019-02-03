@@ -6,7 +6,7 @@
           jcr:title="Content Block Lock"
           helpPath=""
           sling:resourceType="cq/gui/components/authoring/dialog"
-          extraClientlibs="[]">
+          extraClientlibs="[aem.design.components.coral.widgets.form.assetoptions]">
     <content
             jcr:primaryType="nt:unstructured"
             sling:resourceType="granite/ui/components/foundation/container">

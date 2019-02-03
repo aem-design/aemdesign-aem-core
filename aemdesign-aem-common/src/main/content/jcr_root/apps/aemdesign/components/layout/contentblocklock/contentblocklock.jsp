@@ -72,8 +72,11 @@
         componentProperties.put(FIELD_LOCKED, false);
     }
 
+    componentProperties.putAll(getBackgroundImageRenditions(pageContext));
+
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
+<%@ include file="/apps/aemdesign/global/component-background.jsp" %>
 <c:choose>
     <c:when test="${CURRENT_WCMMODE eq WCMMODE_DISABLED or ( CURRENT_WCMMODE eq WCMMODE_EDIT and not componentProperties.islocked )}">
         <c:choose>

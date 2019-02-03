@@ -19,14 +19,11 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME));
-
-    componentProperties.putAll(getAssetInfo(_resourceResolver,
-            getResourceImagePath(_resource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
-            FIELD_PAGE_BACKGROUND_IMAGE));
+    componentProperties.putAll(getBackgroundImageRenditions(pageContext));
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
+<%@ include file="/apps/aemdesign/global/component-background.jsp" %>
 <c:choose>
     <c:when test="${componentProperties.variant eq DEFAULT_VARIANT}">
         <%@ include file="variant.default.jsp" %>
