@@ -114,14 +114,22 @@ window.AEMDESIGN.components.authoring.assetoptions = AEMDESIGN.components.author
 
                 $.getJSON(formFieldValuesUrl).done(function (data) {
 
-                    ns.debug(["behaviour","loading existing elements"]);
+                    //get node name from asset config path
+                    //to use for loading data from json object
+                    var pathPrefixArray = pathPrefix.split("/");
+                    var pathPrefixNodeName = "";
+                    if (pathPrefixArray.length > 1 && pathPrefixArray[0] === ".") {
+                        pathPrefixNodeName = pathPrefixArray[1];
+                    }
+
+                    ns.debug(["behaviour","loading existing elements", pathPrefix, pathPrefixNodeName, data]);
 
                     var fieldconfigKey;
                     var fieldconfigValue;
 
-                    if (pathPrefix !== "" && data[pathPrefix]) {
-                        fieldconfigKey = data[pathPrefix][fieldNameKey];
-                        fieldconfigValue = data[pathPrefix][fieldNameValue];
+                    if (pathPrefixNodeName !== "" && data[pathPrefixNodeName]) {
+                        fieldconfigKey = data[pathPrefixNodeName][fieldNameKey];
+                        fieldconfigValue = data[pathPrefixNodeName][fieldNameValue];
                     } else {
                         fieldconfigKey = data[fieldNameKey];
                         fieldconfigValue = data[fieldNameValue];
@@ -147,9 +155,9 @@ window.AEMDESIGN.components.authoring.assetoptions = AEMDESIGN.components.author
                             });
                         });
                     } else {
+                        //add blank option will require input by user
                         //coralMultified.items.add();
                     }
-
 
 
                 });
