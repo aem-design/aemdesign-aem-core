@@ -6,7 +6,7 @@
           jcr:title="Image"
           helpPath=""
           sling:resourceType="cq/gui/components/authoring/dialog"
-          extraClientlibs="[]">
+          extraClientlibs="[aem.design.components.coral.widgets.form.assetoptions]">
     <content
             jcr:primaryType="nt:unstructured"
             sling:resourceType="granite/ui/components/foundation/container">
@@ -106,6 +106,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Adaptive: generate new renditions with quality settings for each breakpoint"
                                                     value="adaptive"/>
+                                            <mediaqueryrendition
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Manual: responsive background with custom renditions per media query"
+                                                    value="mediaqueryrendition"/>
                                         </items>
                                     </imageOption>
                                     <linkURL
@@ -218,7 +222,7 @@
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
                                                             fieldDescription=""
-                                                            fieldLabel="Image Size">
+                                                            fieldLabel="Image Size (w,h)">
                                                         <width
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
@@ -244,7 +248,7 @@
                                                     <min
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
-                                                            fieldLabel="Minimal Size">
+                                                            fieldLabel="Minimal Size (w,h)">
                                                         <width
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
@@ -257,7 +261,7 @@
                                                     <max
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
-                                                            fieldLabel="Maximal Size">
+                                                            fieldLabel="Maximal Size (w,h)">
                                                         <width
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
@@ -389,6 +393,79 @@
                                     </adaptiveConfig>
                                 </items>
                             </adaptiveConfig>
+
+
+                            <mediaQueryRenditionConfig
+                                    jcr:primaryType="nt:unstructured"
+                                    class="hide image-imageoption-showhide-target foundation-layout-util-vmargin"
+                                    showhidetargetvalue="mediaqueryrendition"
+                                    sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <note
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/authoring/dialog/note"
+                                            note="This map is used to construct responsive image presentation"/>
+
+                                    <fieldconfigmultifield
+                                            granite:class="asset-mediaqueryrendition"
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                            composite="{Boolean}false"
+                                            fieldLabel="Metadata Fields">
+                                        <field
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/container">
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <assetMediaQuery
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                        fieldLabel="Media Query"
+                                                        name="./assetMediaQuery"
+                                                        emptyOption="{Boolean}true"
+                                                        required="{Boolean}true">
+                                                    <datasource
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                            variant="tagidvalue"
+                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/css/mediaquery"/>
+                                                </assetMediaQuery>
+
+                                                <assetMediaQueryRendition
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                        fieldLabel="Rendition"
+                                                        name="./assetMediaQueryRendition"
+                                                        emptyOption="{Boolean}true"
+                                                        required="{Boolean}true">
+                                                </assetMediaQueryRendition>
+
+                                            </items>
+                                        </field>
+                                        <granite:data
+                                                jcr:primaryType="nt:unstructured"
+                                                componentAssetNodePath="./"
+                                                componentAssetName="./file"
+                                        />
+                                    </fieldconfigmultifield>
+                                    <fieldconfigDelete
+                                            granite:hidden="{Boolean}true"
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <pageMetaProperty
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                    name="./assetMediaQuery@Delete"
+                                                    value="{Boolean}true"/>
+                                            <pageMetaPropertyContent
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                    name="./assetMediaQueryRendition@Delete"
+                                                    value="{Boolean}true"/>
+                                        </items>
+                                    </fieldconfigDelete>
+                                </items>
+                            </mediaQueryRenditionConfig>
 
                         </items>
                     </column2>
