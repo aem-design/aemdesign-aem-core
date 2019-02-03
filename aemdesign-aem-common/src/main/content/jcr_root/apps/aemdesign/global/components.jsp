@@ -127,6 +127,7 @@
     private static final String COMPONENT_ATTRIBUTE_CLASS = "class";
     private static final String COMPONENT_INPAGEPATH = "componentInPagePath";
     private static final String COMPONENT_ATTRIBUTE_INPAGEPATH = "data-layer-componentpath";
+    private static final String COMPONENT_BACKGROUND_ASSETS = "componentBackgroundAssets";
 
 
     private static final String COMPONENT_CANCEL_INHERIT_PARENT = "cancelInheritParent";
@@ -898,8 +899,9 @@
                                         //if data-attribute not specified return values as map entry
                                         if (isEmpty(fieldDataName)) {
                                             fieldValue = getTagsValues(tagManager, resourceResolver, " ", (String[]) fieldValue);
+                                        } else {
+                                            fieldValueString = getTagsAsValues(tagManager, resourceResolver, " ", (String[]) fieldValue);
                                         }
-                                        fieldValueString = getTagsAsValues(tagManager, resourceResolver, " ", (String[]) fieldValue);
                                     } else {
                                         fieldValueString = StringUtils.join((String[]) fieldValue, ",");
                                     }
@@ -1025,7 +1027,7 @@
         String componentAttributes = componentProperties.get(COMPONENT_ATTRIBUTES, "");
         Resource imageResource = resource.getChild(imageResourceName);
         if (imageResource != null) {
-            Resource fileReference = imageResource.getChild("fileReference");
+            Resource fileReference = imageResource.getChild(IMAGE_FILEREFERENCE);
             if (fileReference != null) {
                 String imageSrc = "";
                 if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE) || imageResource.getResourceType().endsWith(DEFAULT_IMAGE_RESOURCETYPE_SUFFIX)) {
