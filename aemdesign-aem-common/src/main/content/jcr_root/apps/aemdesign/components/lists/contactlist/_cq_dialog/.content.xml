@@ -78,10 +78,6 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Image"
                                                     value="image"/>
-                                            <card
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Card with Image"
-                                                    value="card"/>
                                             <cardIcon
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Card with Icon"
@@ -106,19 +102,6 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Horizontal Card with Icon, Title, Category, Description and Action"
                                                     value="cardHorizontalIconTitleCategoryDescriptionAction"/>
-                                            <!--<categoryTitlePublishDate-->
-                                            <!--jcr:primaryType="nt:unstructured"-->
-                                            <!--text="Category Title Publish Date"-->
-                                            <!--value="categoryTitlePublishDate"/>-->
-                                            <!--<imageTitleDescriptionCategory-->
-                                            <!--jcr:primaryType="nt:unstructured"-->
-                                            <!--text="Image Title Description Category (Masonry)"-->
-                                            <!--value="imageTitleDescriptionCategory"/>-->
-                                            <!--<imageTitleDescriptionCategoryGrid-->
-                                            <!--jcr:primaryType="nt:unstructured"-->
-                                            <!--text="Image Title Description Category"-->
-                                            <!--value="imageTitleDescriptionCategoryGrid"/>-->
-
                                         </items>
                                     </detailsBadge>
                                 </items>
