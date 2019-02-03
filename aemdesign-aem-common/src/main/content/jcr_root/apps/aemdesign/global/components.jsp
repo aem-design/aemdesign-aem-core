@@ -1013,7 +1013,7 @@
 
     /***
      *
-     * @deprecated please use ComponentProperties.attr which is an AttributeBuilder
+     * @deprecated please use responsive getBackgroundImageRenditions or ComponentProperties.attr which is an AttributeBuilder
      *
      * add style tag to component attributes collection
      * @param componentProperties component attributes collection
