@@ -1,8 +1,8 @@
-//contentblock - functions
+//aem.design.components.coral.widgets.form.assetoptions - functions
 window.AEMDESIGN = window.AEMDESIGN || {};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
 window.AEMDESIGN.components.authoring = AEMDESIGN.components.authoring || {};
-window.AEMDESIGN.components.authoring.contentblock = AEMDESIGN.components.authoring.contentblock || {};
+window.AEMDESIGN.components.authoring.assetoptions = AEMDESIGN.components.authoring.assetoptions || {};
 
 (function ($, $document, Coral, ns, window, undefined) { //NOSONAR convention for wrapping all modules
 
@@ -14,9 +14,15 @@ window.AEMDESIGN.components.authoring.contentblock = AEMDESIGN.components.author
         return _version;
     };
 
+    ns.name = "aem.design.components.coral.widgets.form.assetoptions";
 
     ns.authorUrl = '';
     ns.publishUrl = '';
+
+
+    ns.debug = function(itemsArray) {
+        console.log([ns.name].concat(itemsArray));
+    };
 
     ns.getExternalizeUrl = function() {
         $.ajax({
@@ -32,10 +38,10 @@ window.AEMDESIGN.components.authoring.contentblock = AEMDESIGN.components.author
                 ns.publishUrl = data.publishUrl;
             }
 
-            console.log(["dialog-contentblock-functions","getExternalizeUrl",ns.authorUrl,ns.publishUrl]);
+            ns.debug(["functions","getExternalizeUrl",ns.authorUrl,ns.publishUrl]);
 
         }).fail(function (jqXHR, textStatus, errorThrown) {
-            console.log('error');
+            ns.debug(["functions",'error',jqXHR, textStatus, errorThrown]);
         });
     };
 
@@ -65,6 +71,15 @@ window.AEMDESIGN.components.authoring.contentblock = AEMDESIGN.components.author
         }
     };
 
+
+    ns.clearItems =function(coralField) {
+        if (coralField["items"]) {
+            coralField.items.clear();
+        } else {
+            ns.debug(["functions","clearItems","not valid coralField",coralField]);
+        }
+    };
+
     ns.hideMultifieldAddButton = function(element) {
         $(element).find('button[coral-multifield-add]')[0].hide();
     };
@@ -78,7 +93,7 @@ window.AEMDESIGN.components.authoring.contentblock = AEMDESIGN.components.author
             async: false,
             success: function(data) {
 
-                console.log(["loadAssetRenditionNamesIntoSelect",assetPath,renditionListSuffix,coralTemplateSelect, addEmptyItem]);
+                ns.debug(["functions","loadAssetRenditionNamesIntoSelect",assetPath,renditionListSuffix,coralTemplateSelect, addEmptyItem]);
                 coralTemplateSelect.items.clear();
 
                 if (addEmptyItem) {
@@ -94,26 +109,10 @@ window.AEMDESIGN.components.authoring.contentblock = AEMDESIGN.components.author
             }
         });
 
-        // $.getJSON(assetPath + renditionListSuffix).done(function (data) {
-        //     console.log(["loadAssetRenditionNamesIntoSelect",assetPath,renditionListSuffix,coralTemplateSelect, addEmptyItem]);
-        //     coralTemplateSelect.items.clear();
-        //
-        //     if (addEmptyItem) {
-        //         coralTemplateSelect.items.add({value: "", content: {textContent: ""}});
-        //     }
-        //
-        //     for (var a in data) {
-        //         if (typeof data[a] === 'object') {
-        //             coralTemplateSelect.items.add({value: a, content: { textContent: a}});
-        //         }
-        //     }
-        //
-        //
-        // });
     }
 
     ns.getExternalizeUrl();
-    console.log(["dialog-contentblock-functions","loaded"]);
+    ns.debug(["functions","loaded"]);
 
 
-})($, $(document), Coral, AEMDESIGN.components.authoring.contentblock, this); //pass in additional dependencies
+})($, $(document), Coral, AEMDESIGN.components.authoring.assetoptions, this); //pass in additional dependencies
