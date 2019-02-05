@@ -137,25 +137,17 @@
             }
 
             //check if current page is in request page hierarchy
-            Page currentPage = (com.day.cq.wcm.api.Page) pageContext.getAttribute("currentPage");
-            if (currentPage !=null ) {
-                String currentPath = currentPage.getPath();
-                Page chidParent = page.getParent();
+            Page selectedPage = (com.day.cq.wcm.api.Page) pageContext.getAttribute("currentPage");
+            if (selectedPage != null ) {
+                String selectedPagePath = selectedPage.getPath();
+                String thisPagePath = page.getPath();
 
-                if (chidParent != null) {
-                    String childPath = chidParent.getPath();
-
-                    boolean current = false;
-                    if (currentPath.equals(childPath)) {
-                        current = true;
-                    } else if (currentPath.startsWith(childPath + "/")) {
-                        current = true;
-                    } else if (currentPath.indexOf(childPath + "/") > 0) {
-                        current = true;
-                    }
-
-                    componentProperties.put("current", current);
+                boolean current = false;
+                if (thisPagePath != null && selectedPagePath.equals(thisPagePath)) {
+                    current = true;
                 }
+
+                componentProperties.put("current", current);
             }
 
             //get children
