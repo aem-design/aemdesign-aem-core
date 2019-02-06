@@ -94,13 +94,13 @@
 
     }
 
-    componentProperties.put("prevLinkText",_xssAPI.encodeForHTMLAttr(_i18n.get("prevLinkText", "mediagallery")));
-    componentProperties.put("closeText",_xssAPI.encodeForHTMLAttr(_i18n.get("closeText", "mediagallery")));
+    componentProperties.put("prevLinkText",_xssAPI.encodeForHTMLAttr(_i18n.get("prevLinkText", "gallerylist")));
+    componentProperties.put("closeText",_xssAPI.encodeForHTMLAttr(_i18n.get("closeText", "gallerylist")));
 
-    componentProperties.put("imageAltText",_xssAPI.encodeForHTMLAttr(_i18n.get("closeText", "mediagallery")));
+    componentProperties.put("imageAltText",_xssAPI.encodeForHTMLAttr(_i18n.get("closeText", "gallerylist")));
 
     componentProperties.put("titleAltPrefixText",_xssAPI.encodeForHTMLAttr(componentProperties.get("titleAltPrefixText", "")));
-    componentProperties.put("nextLinkText",_xssAPI.encodeForHTMLAttr(_i18n.get("nextLinkText", "mediagallery")));
+    componentProperties.put("nextLinkText",_xssAPI.encodeForHTMLAttr(_i18n.get("nextLinkText", "gallerylist")));
     componentProperties.put("listItems",listItems);
 
 %>
