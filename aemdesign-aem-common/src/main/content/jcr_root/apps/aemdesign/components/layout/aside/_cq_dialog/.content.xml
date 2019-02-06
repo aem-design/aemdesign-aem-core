@@ -17,7 +17,7 @@
             <inheritTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Inherit"
-                    path="/apps/aemdesign/components/common/inherit/cq:dialog/content/items/inheritTab"
+                    path="/apps/aemdesign/global/dialog/touch/inherit/content/items/inheritTab"
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
