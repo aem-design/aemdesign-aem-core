@@ -36,8 +36,8 @@ package:
 #    - yarn --version
 #    - npm --version
     - git lfs install
-    - git checkout master
-    - git reset --hard "origin/master"
+    - git checkout ${CI_COMMIT_REF_NAME}
+    - git reset --hard "origin/${CI_COMMIT_REF_NAME}"
     - git remote set-url origin ${GIT_URL_HTTPS}
 #    - for name in $(git submodule status | awk '{ print $2}'); do git config --file=.gitmodules submodule.$name.url https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/aem.design/$name.git; done
 #    - git submodule sync
