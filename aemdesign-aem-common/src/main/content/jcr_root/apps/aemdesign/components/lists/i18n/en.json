@@ -21,5 +21,6 @@
   "listItemSummaryLengthMax ((list))": "50",
   "listItemSummaryLengthMaxSuffix ((list))": "...",
   "listItemLinkText ((pagelist))": "More on Page",
-  "listItemLinkTitle ((pagelist))": "More on Page"
+  "listItemLinkTitle ((pagelist))": "More on Page",
+  "parentnotfound ((inherit))": "No parent page specifies how to render this component"
 }
