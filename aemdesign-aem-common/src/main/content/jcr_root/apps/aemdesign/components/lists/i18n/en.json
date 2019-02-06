@@ -22,5 +22,9 @@
   "listItemSummaryLengthMaxSuffix ((list))": "...",
   "listItemLinkText ((pagelist))": "More on Page",
   "listItemLinkTitle ((pagelist))": "More on Page",
-  "parentnotfound ((inherit))": "No parent page specifies how to render this component"
+  "parentnotfound ((inherit))": "No parent page specifies how to render this component",
+  "prevLinkText ((gallery))": "Previous",
+  "nextLinkText ((gallery))": "Next",
+  "closeText ((gallery))": "Close",
+  "titleAltPrefixText ((gallery))": "Read more about "
 }
