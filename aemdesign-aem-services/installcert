@@ -1,0 +1,10 @@
+#!/bin/bash
+
+javac InstallCert.java
+java InstallCert checkstyle.org:443
+
+keytool -exportcert -alias checkstyle.org-1 -keystore jssecacerts -storepass changeit -file checkstyle.org.crt
+keytool -importcert -alias checkstyle.org -keystore $JAVA_HOME/jre/lib/security/cacerts -storepass changeit -file checkstyle.org.crt
+
+#openssl s_client -connect checkstyle.org:443 < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > checkstyle.org.crt
+#keytool -import -alias "checkstyle.org" -keystore $JAVA_HOME/jre/lib/security/cacerts -file checkstyle.org.crt

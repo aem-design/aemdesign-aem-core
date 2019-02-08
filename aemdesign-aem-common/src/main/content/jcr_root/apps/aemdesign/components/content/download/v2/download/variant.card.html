@@ -1,0 +1,32 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" download>
+        <img data-sly-test="${componentProperties.thumbnailType != 'icon'}"
+             class="card-img-top" src="${componentProperties.thumbnail}"
+             data-sly-attribute.width="${componentProperties.thumbnailWidth}"
+             data-sly-attribute.height="${componentProperties.thumbnailHeight}"
+             data-sly-attribute.alt="${componentProperties.title}"
+        />
+        <div class="card-block">
+            <span data-sly-test="${componentProperties.thumbnailType == 'icon'}"
+                  class="icon type_${componentProperties.iconType}">
+                <img src="/apps/settings/wcm/design/aemdesign/blank.png" data-sly-attribute.alt="${componentProperties.mimeTypeLabel}"/>
+            </span>
+
+            <title class="card-text title"
+                data-sly-test="${!componentProperties.hideTitle && componentProperties.title}"
+                data-sly-element="${componentProperties.titleType}"
+                data-sly-attribute.id="${componentProperties.ariaLabelledBy}">${componentProperties.title}</title>
+
+            <div class="card-text description"
+                 data-sly-test="${componentProperties.description}">${componentProperties.description}</div>
+            <div class="card-text info"
+                 data-sly-test="${componentProperties.info}">${componentProperties.info}</div>
+
+            <a href="${componentProperties.href}" class="btn btn-primary" download>${componentProperties.label}</a>
+        </div>
+        <div class="card-footer"
+             data-sly-test="${componentProperties.licenseInfo}">
+            <span class="card-text license">${componentProperties.licenseInfo}</span>
+        </div>
+    </div>
+</template>
