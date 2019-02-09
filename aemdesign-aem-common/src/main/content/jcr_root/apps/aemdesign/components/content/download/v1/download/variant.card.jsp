@@ -13,22 +13,24 @@
     </c:if>
     <div class="card-block">
         <c:if test="${componentProperties.thumbnailType eq 'icon'}">
-            <span class="icon type_${componentProperties.iconType}"><img class="icon" src="/apps/settings/wcm/design/aemdesign/blank.png" alt="${componentProperties.mimeTypeLabel}"/></span>
+            <span class="card-icon type_${componentProperties.iconType}">
+                <img class="icon" src="/apps/settings/wcm/design/aemdesign/blank.png" alt="${componentProperties.mimeTypeLabel}"/>
+            </span>
         </c:if>
         <c:if test="${not componentProperties.hideTitle and not empty componentProperties.title}">
         <${componentProperties.titleType} class="card-title" id="${componentProperties.ariaLabelledBy}">${componentProperties.title}</${componentProperties.titleType}>
         </c:if>
         <c:if test="${not empty componentProperties.description}">
-        <div class="card-text">${componentProperties.description}</div>
+        <div class="card-description">${componentProperties.description}</div>
         </c:if>
         <c:if test="${ not empty componentProperties.info}">
-            <div class="card-text info">${componentProperties.info}</div>
+            <div class="card-info">${componentProperties.info}</div>
         </c:if>
         <a href="${componentProperties.href}" class="btn btn-primary" download>${componentProperties.label}</a>
     </div>
     <c:if test="${ not empty componentProperties.licenseInfo}">
     <div class="card-footer">
-        <span class="text-muted license">${componentProperties.licenseInfo}</span>
+        <span class="license">${componentProperties.licenseInfo}</span>
     </div>
     </c:if>
 </div>

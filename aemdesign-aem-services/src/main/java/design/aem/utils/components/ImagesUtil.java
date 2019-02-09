@@ -781,6 +781,8 @@ public class ImagesUtil {
             String assetContributor = getAssetPropertyValueWithDefault(asset, DamConstants.DC_CONTRIBUTOR, "");
             String assetLicense = getAssetPropertyValueWithDefault(asset, DamConstants.DC_RIGHTS, "");
             String assetCopyrightOwner = getAssetPropertyValueWithDefault(asset, DAM_FIELD_LICENSE_COPYRIGHT_OWNER, "");
+            String assetUsageTerms = asset.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
+
             String assetExpiresYear = "";
             String assetExpires = asset.getMetadataValue(DAM_FIELD_LICENSE_EXPIRY);
 
