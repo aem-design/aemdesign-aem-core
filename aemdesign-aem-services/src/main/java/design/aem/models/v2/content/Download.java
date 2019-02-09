@@ -27,6 +27,7 @@ import static design.aem.utils.components.ConstantsUtil.DEFAULT_THUMB_WIDTH_SM;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.ImagesUtil.*;
 import static design.aem.utils.components.ResolverUtil.mappedUrl;
+import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
@@ -76,7 +77,7 @@ public class Download extends WCMUsePojo {
                 DEFAULT_FIELDS_ACCESSIBILITY,
                 DEFAULT_FIELDS_ANALYTICS);
 
-
+        String variant = componentProperties.get(FIELD_VARIANT,DEFAULT_VARIANT);
 
         com.day.cq.wcm.foundation.Download dld = new com.day.cq.wcm.foundation.Download(this.getResource());
         componentProperties.put("hasContent", dld.hasContent());
@@ -201,9 +202,18 @@ public class Download extends WCMUsePojo {
                 componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
 
                 componentProperties.put("info", MessageFormat.format("({0}, {1})", getFormattedDownloadSize(dld), mimeTypeLabel));
+            } else {
+                variant = "empty";
             }
+        } else {
+            variant = "empty";
         }
 
+        //compile variantTemplate param
+        if (isNotEmpty(variant)) {
+            componentProperties.put(FIELD_VARIANT,variant);
+            componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT,variant));
+        }
     }
 
     public ComponentProperties getComponentProperties() {
