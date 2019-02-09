@@ -12,7 +12,7 @@
     //   3 optional - compile into a data-{name} attribute
     // }
     Object[][] componentFields = {
-            {"audioPath",""},
+            {"audioUrl",""},
             {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE},
             {FIELD_ARIA_LABEL,DEFAULT_ARIA_LABEL},
             {FIELD_VARIANT, DEFAULT_VARIANT},
@@ -25,7 +25,7 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    String audioUrl = componentProperties.get("audioPath", "");
+    String audioUrl = componentProperties.get("audioUrl", "");
 
     if (StringUtils.isNotEmpty(audioUrl)) {
         if (audioUrl.startsWith("/content")) {
