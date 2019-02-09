@@ -17,6 +17,7 @@
 <%@ page import="com.day.image.Layer" %>
 <%@ page import="org.apache.commons.lang3.math.NumberUtils" %>
 <%@ page import="java.net.URI" %>
+<%@ page import="static design.aem.utils.components.CommonUtil.DAM_FIELD_LICENSE_USAGETERMS" %>
 
 <%!
 
@@ -753,6 +754,8 @@
             String assetContributor = getAssetPropertyValueWithDefault(asset, DamConstants.DC_CONTRIBUTOR, "");
             String assetLicense = getAssetPropertyValueWithDefault(asset, DamConstants.DC_RIGHTS, "");
             String assetCopyrightOwner = getAssetPropertyValueWithDefault(asset, DAM_FIELD_LICENSE_COPYRIGHT_OWNER, "");
+            String assetUsageTerms = asset.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
+
             String assetExpiresYear = "";
             String assetExpires = asset.getMetadataValue(DAM_FIELD_LICENSE_EXPIRY);
 
