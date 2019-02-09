@@ -2,7 +2,7 @@
     <a data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" download>
         <span data-sly-test="${componentProperties.thumbnailType == 'icon'}"
               class="icon type_${componentProperties.iconType}">
-            <img src="/apps/settings/wcm/design/aemdesign/blank.png" data-sly-attribute.alt="${componentProperties.mimeTypeLabel}"/>
+            <img class="icon" src="/apps/settings/wcm/design/aemdesign/blank.png" data-sly-attribute.alt="${componentProperties.mimeTypeLabel}"/>
         </span>
         <img data-sly-test="${componentProperties.thumbnailType != 'icon'}"
              class="card-img-top" src="${componentProperties.thumbnail}"
