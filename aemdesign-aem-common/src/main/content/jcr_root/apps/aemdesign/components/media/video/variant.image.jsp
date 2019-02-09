@@ -1,4 +1,4 @@
-<div ${componentProperties.componentAttributes}>
+<div ${componentProperties.componentAttributes} itemscope itemtype="http://schema.org/VideoObject">
     <div class="banner video" role="banner">
         <div class="figure">
             <a class="caption lightbox media" href="${componentProperties.href}" title="${componentProperties.msg}" data-group="gallery"

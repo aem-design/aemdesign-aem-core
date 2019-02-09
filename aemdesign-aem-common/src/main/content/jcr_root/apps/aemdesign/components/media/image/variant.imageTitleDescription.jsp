@@ -1,4 +1,4 @@
-<div ${componentProperties.componentAttributes}>
+<div ${componentProperties.componentAttributes} itemscope itemtype="http://schema.org/ImageObject">
     <figure>
         <c:if test="${not empty componentProperties.linkURL}">
         <a href="${componentProperties.linkURL}">${componentProperties['dc:title']}</a>
