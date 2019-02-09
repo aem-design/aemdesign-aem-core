@@ -1,3 +1,6 @@
-<a href="${componentProperties.audioUrl}" ${componentProperties.componentAttributes}>
+<div ${componentProperties.componentAttributes} itemscope itemtype="http://schema.org/AudioObject">
     ${componentProperties.ariaLabel}
-</a>
+    <audio class="embed-audio-item" controls>
+        <source src="${componentProperties.audioUrl}" type="audio/mpeg">
+    </audio>
+</div>
