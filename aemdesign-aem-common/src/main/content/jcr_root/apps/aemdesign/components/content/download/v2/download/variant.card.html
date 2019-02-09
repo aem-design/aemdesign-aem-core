@@ -8,18 +8,18 @@
         />
         <div class="card-block">
             <span data-sly-test="${componentProperties.thumbnailType == 'icon'}"
-                  class="icon type_${componentProperties.iconType}">
+                  class="card-icon type_${componentProperties.iconType}">
                 <img class="icon" src="/apps/settings/wcm/design/aemdesign/blank.png" data-sly-attribute.alt="${componentProperties.mimeTypeLabel}"/>
             </span>
 
-            <title class="card-text title"
+            <title class="card-title"
                 data-sly-test="${!componentProperties.hideTitle && componentProperties.title}"
                 data-sly-element="${componentProperties.titleType}"
                 data-sly-attribute.id="${componentProperties.ariaLabelledBy}">${componentProperties.title}</title>
 
-            <div class="card-text description"
+            <div class="card-description"
                  data-sly-test="${componentProperties.description}">${componentProperties.description}</div>
-            <div class="card-text info"
+            <div class="card-info"
                  data-sly-test="${componentProperties.info}">${componentProperties.info}</div>
 
             <a href="${componentProperties.href}" class="btn btn-primary" download>${componentProperties.label}</a>

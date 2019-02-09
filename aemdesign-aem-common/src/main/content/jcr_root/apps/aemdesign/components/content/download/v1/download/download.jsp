@@ -45,9 +45,6 @@
 
         if( !ResourceUtil.isNonExistingResource(assetRes)) {
 
-            //set title to be asset name first
-            componentProperties.put("title", assetRes.getName());
-
             Asset asset = assetRes.adaptTo(Asset.class);
             Node assetN = asset.adaptTo(Node.class);
 
@@ -56,16 +53,20 @@
             String assetTitle = asset.getMetadataValue(DamConstants.DC_TITLE);
             String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
 
-            String assetUsageTerms = asset.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
             String licenseInfo = getAssetCopyrightInfo(asset, _i18n.get("licenseinfo", DEFAULT_I18N_CATEGORY));
 
             //override title and description if image has rights
             String title = componentProperties.get("title", "");
-            if (isNotEmpty(licenseInfo) || (isEmpty(title) && isNotEmpty(assetTitle))) {
+            if (isNotEmpty(licenseInfo)) {
                 componentProperties.put("title", assetTitle);
+            } else if(isEmpty(title)) {
+                componentProperties.put("title", assetRes.getName());
             }
             String description = componentProperties.get("description", "");
-            if (isNotEmpty(licenseInfo) || (isEmpty(description) && isNotEmpty(assetDescription))) {
+
+            if (isNotEmpty(licenseInfo)) {
+                componentProperties.put("description", assetDescription);
+            } else if(isEmpty(description)) {
                 componentProperties.put("description", assetDescription);
             }
 

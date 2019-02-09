@@ -89,9 +89,6 @@ public class Download extends WCMUsePojo {
 
             if( !ResourceUtil.isNonExistingResource(assetRes)) {
 
-                //set title to be asset name first
-                componentProperties.put("title", assetRes.getName());
-
                 Asset asset = assetRes.adaptTo(Asset.class);
                 Node assetN = asset.adaptTo(Node.class);
 
@@ -105,11 +102,29 @@ public class Download extends WCMUsePojo {
 
                 //override title and description if image has rights
                 String title = componentProperties.get("title", "");
-                if (isNotEmpty(licenseInfo) || (isEmpty(title) && isNotEmpty(assetTitle))) {
-                    componentProperties.put("title", assetTitle);
+                if(isNotEmpty(licenseInfo)) {
+                    componentProperties.put("isLicensed", true);
+                    if (isNotEmpty(assetTitle)) {
+                        componentProperties.put("hasAssetTitle", true);
+                        title = assetTitle;
+                    } else {
+                        componentProperties.put("hasAssetTitle", false);
+                        title = assetRes.getName();
+                    }
+                } else {
+                    componentProperties.put("isLicensed", false);
+                    if (isEmpty(title) && isNotEmpty(assetTitle)) {
+                        componentProperties.put("hasAssetTitleOveride", false);
+                        title = assetTitle;
+                    } else {
+                        componentProperties.put("hasAssetTitleOveride", true);
+                    }
                 }
+                componentProperties.put("title", title);
+
                 String description = componentProperties.get("description", "");
-                if (isNotEmpty(licenseInfo) || (isEmpty(description) && isNotEmpty(assetDescription))) {
+
+                if (isNotEmpty(licenseInfo)|| (isEmpty(description) && isNotEmpty(assetDescription))) {
                     componentProperties.put("description", assetDescription);
                 }
 
