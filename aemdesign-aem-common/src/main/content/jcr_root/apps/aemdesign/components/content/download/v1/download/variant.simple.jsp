@@ -1,7 +1,7 @@
 <a ${componentProperties.componentAttributes} download>
     <c:choose>
         <c:when test="${componentProperties.thumbnailType eq 'icon'}">
-            <span class="icon type_${componentProperties.iconType}"><img src="/apps/settings/wcm/design/aemdesign/blank.png" alt="${componentProperties.mimeTypeLabel}"/></span>
+            <span class="icon type_${componentProperties.iconType}"><img class="icon" src="/apps/settings/wcm/design/aemdesign/blank.png" alt="${componentProperties.mimeTypeLabel}"/></span>
         </c:when>
         <c:otherwise>
             <c:if test="${not empty componentProperties.thumbnailWidth}">
@@ -13,7 +13,7 @@
             <c:if test="${not empty componentProperties.title}">
                 <c:set var="imageAttr" value="${imageAttr} alt=\"${componentProperties.title}\""/>
             </c:if>
-            <img src="${componentProperties.thumbnail}" ${imageAttr}/>
+            <img class="card-img-top" src="${componentProperties.thumbnail}" ${imageAttr}/>
         </c:otherwise>
     </c:choose>
     <c:if test="${ not empty componentProperties.title}">
