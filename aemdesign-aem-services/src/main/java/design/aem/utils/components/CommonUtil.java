@@ -24,6 +24,8 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.apache.sling.api.wrappers.SlingHttpServletResponseWrapper;
+import org.apache.sling.commons.json.JSONException;
+import org.apache.sling.commons.json.io.JSONWriter;
 import org.apache.sling.engine.SlingRequestProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +49,7 @@ import java.util.regex.Pattern;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import com.google.gson.stream.JsonWriter;
 
 public class CommonUtil {
 
@@ -1171,7 +1174,7 @@ public class CommonUtil {
      * @param mode mode to request resource with
      * @return html string of output
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked"})
     public static String resourceIncludeAsHtml(com.day.cq.wcm.api.components.ComponentContext componentContext, String path, SlingHttpServletResponse response, SlingHttpServletRequest request, WCMMode mode) {
         if (componentContext == null || isEmpty(path) || response == null || request == null) {
             String error = format(
@@ -1485,6 +1488,139 @@ public class CommonUtil {
         }
 
         return defaultValue;
+    }
+
+
+    /**
+     * check if string is equals to "on"
+     * @param source
+     * @return
+     */
+    public final static boolean isOn(String source) {
+        return "on".equals(source);
+    }
+
+    /**
+     * check if string is equals to "yes"
+     * @param source
+     * @return
+     */
+    public final static boolean isYes(String source) {
+        return "yes".equals(source);
+    }
+
+    /**
+     * check if string is NOT equals to "on"
+     * @param source
+     * @return
+     */
+    public final static boolean isNotOn(String source) {
+        return !"on".equals(source);
+    }
+
+    /**
+     * check if string is NOT equals to "yes"
+     * @param source
+     * @return
+     */
+    public final static boolean isNotYes(String source) {
+        return !"yes".equals(source);
+    }
+
+    /**
+     * get value from value map
+     * @param source
+     * @param Name
+     * @return
+     */
+    public final static String getValue(ValueMap source, String Name) {
+        if (source == null || isEmpty(Name)) { //quick fail
+            return null;
+        }
+        if (source.containsKey(Name)) {
+            return source.get(Name, "");
+        }
+
+        return null;
+    }
+
+    /**
+     * check if object is null
+     * @param source
+     * @return
+     */
+    public final static Boolean isNull(Object source) {
+        return source == null;
+    }
+
+    /**
+     * check if object is NOT null
+     * @param source
+     * @return
+     */
+    public final static Boolean isNotNull(Object source) {
+        return source != null;
+    }
+
+    /**
+     * converts an object to json string
+     * @param object
+     * @return
+     */
+    public String toJson(Object[][] object) {
+        StringWriter sw = new StringWriter();
+
+        JsonWriter w = new JsonWriter(sw);
+
+        w.setIndent("    ");
+        try {
+            w.beginArray();
+            for (int i = 0; i < object.length; i++) {
+                w.beginObject();
+
+                if (object[i].length > 2) {
+                    Object value = object[i][1];
+                    String valueString;
+
+                    if (value.getClass().isArray()) {
+                        valueString = StringUtils.join((Object[]) value, ",");
+                    } else {
+                        valueString = value.toString();
+                    }
+
+                    w.name(object[i][0].toString()).value(valueString);
+                } else if (object[i].length == 1) {
+                    if (object[i].getClass().isArray()) {
+                        w.beginArray();
+
+                        for (int y = 0; y < object[i].length; y++) {
+                            Object value = object[i][y];
+                            String valueString;
+
+                            if (value.getClass().isArray()) {
+                                valueString = StringUtils.join((Object[]) value, ",");
+                            } else {
+                                valueString = value.toString();
+                            }
+
+                            w.value(valueString);
+                        }
+                        w.endArray();
+                    } else if (object[i].getClass().isEnum()) {
+                        w.beginArray();
+                        for (Object s : object[i]) {
+                            w.value(s.toString());
+                        }
+                        w.endArray();
+                    }
+                }
+                w.endObject();
+            }
+            w.endArray();
+        } catch (IOException jex) {
+
+        }
+        return sw.toString();
     }
 
 }
