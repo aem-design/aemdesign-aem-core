@@ -1,4 +1,4 @@
-<div ${componentProperties.componentAttributes}>
+<div ${componentProperties.componentAttributes} itemscope itemtype="http://schema.org/ImageObject">
     <figure>
         <%@include file="image.select.jsp" %>
         <figcaption>

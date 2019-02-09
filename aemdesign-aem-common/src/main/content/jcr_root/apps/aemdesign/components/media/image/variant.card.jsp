@@ -1,4 +1,4 @@
-<div ${componentProperties.componentAttributes}>
+<div ${componentProperties.componentAttributes} itemscope itemtype="http://schema.org/ImageObject">
     <c:if test="${not empty componentProperties.imageURL}">
         <c:set var="imageAttr" value="class=\"card-img-top\""/>
         <%@include file="image.select.simple.jsp" %>
