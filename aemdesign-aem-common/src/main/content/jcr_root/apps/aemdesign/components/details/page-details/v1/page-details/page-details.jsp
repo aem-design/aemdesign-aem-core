@@ -3,7 +3,7 @@
 <%@ include file="/apps/aemdesign/global/images.jsp" %>
 <%@ include file="/apps/aemdesign/global/component-details.jsp" %>
 <%@ include file="/apps/aemdesign/global/i18n.jsp" %>
-<%@ include file="./common.jsp" %>
+<%@ include file="common.jsp" %>
 <%
     final String DEFAULT_ARIA_ROLE = "banner";
     final String DEFAULT_TITLE_TAG_TYPE = "h1";
