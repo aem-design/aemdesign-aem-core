@@ -1,6 +1,7 @@
 package design.aem.utils.components;
 
 
+import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.xmp.XMPDateTime;
 import com.adobe.xmp.XMPDateTimeFactory;
 import com.day.cq.commons.ImageResource;
@@ -148,11 +149,11 @@ public class ImagesUtil {
 
 
     /***
-     * get attributes from asset
-     * @param pageContext
-     * @param asset
+     * get attributes from asset.
+     * @param pageContext page content
+     * @param asset asset to use
      * @param fieldsLists list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
-     * @return
+     * @return map of attributes
      */
     public static ComponentProperties getAssetProperties(PageContext pageContext, com.adobe.granite.asset.api.Asset asset, Object[][]... fieldsLists) {
         return ComponentsUtil.getComponentProperties(pageContext, asset, fieldsLists);
@@ -357,10 +358,10 @@ public class ImagesUtil {
 
 
     /***
-     * get rendition matching selected width
+     * get rendition matching selected width.
      * @param asset asset to use
      * @param minWidth width to find
-     * @return
+     * @return found rendition
      */
     public static Rendition getThumbnail(Asset asset, int minWidth) {
         if (asset == null) {
@@ -382,13 +383,11 @@ public class ImagesUtil {
     }
 
     /**
-     * Get a thumbnail for an image
-     * if no rendition is matched, return img
-     *
-     * @param img
-     * @param renditionName
-     * @param _resourceResolver
-     * @return
+     * Get a thumbnail for an image if no rendition is matched, return img.
+     * @param img image path
+     * @param renditionName rendition name
+     * @param _resourceResolver resource resolver to use
+     * @return thumbnail path
      * @throws RepositoryException
      */
     public static String getThumbnail(String img, String renditionName, ResourceResolver _resourceResolver) throws RepositoryException {
@@ -517,10 +516,10 @@ public class ImagesUtil {
     }
 
     /***
-     * get image url for a resource if defined
-     * @param resource
-     * @param imageResourceName
-     * @return
+     * get image url for a resource if defined.
+     * @param resource parent resource to use
+     * @param imageResourceName name of child node
+     * @return path to image
      */
     public static String getResourceImageCustomHref(Resource resource, String imageResourceName) {
         String imageSrc = "";
@@ -558,10 +557,10 @@ public class ImagesUtil {
     }
 
     /***
-     * get fileReference from image node of a resource
+     * get fileReference from image node of a resource.
      * @param resource resource to use
      * @param imageResourceName image node name
-     * @return
+     * @return image path
      */
     public static String getResourceImagePath(Resource resource, String imageResourceName) {
         String fileReferencPath = "";
@@ -733,11 +732,11 @@ public class ImagesUtil {
     }
 
     /***
-     * get asset metadata value and return default value if its empty
+     * get asset metadata value and return default value if its empty.
      * @param asset asset to use
      * @param name name of metadata field
      * @param defaultValue default value to return
-     * @return
+     * @return asset property value
      */
     public static String getAssetPropertyValueWithDefault(Asset asset, String name, String defaultValue) {
         String valueReturn = defaultValue;
@@ -762,10 +761,10 @@ public class ImagesUtil {
 
 
     /***
-     * get formatted copyright info text for an asset
+     * get formatted copyright info text for an asset.
      * @param asset asset to use
      * @param format format to use with fields merge
-     * @return
+     * @return copyright text
      */
     public static String getAssetCopyrightInfo(Asset asset, String format) {
         String copyrightInfo = "";
@@ -873,11 +872,11 @@ public class ImagesUtil {
     }
 
     /***
-     * get a best fitting rendition for an asset resolved from asset path
-     * @param assetPath
-     * @param renditionWidth
-     * @param resourceResolver
-     * @return
+     * get a best fitting rendition for an asset resolved from asset path.
+     * @param assetPath asset to use
+     * @param renditionWidth rendition name
+     * @param resourceResolver resource resolver
+     * @return path to rendition
      */
     public static String getBestFitRendition(String assetPath, int renditionWidth, ResourceResolver resourceResolver) {
         String renditionPath = assetPath;
@@ -907,20 +906,20 @@ public class ImagesUtil {
     }
 
     /***
-     * allow picking of best rendition by width based on default prefixes
+     * allow picking of best rendition by width based on default prefixes.
      * @param width min width
-     * @param renditions
-     * @return
+     * @param renditions renditions list
+     * @return matching rendition
      */
     public static com.adobe.granite.asset.api.Rendition getBestFitRendition(int width, List<com.adobe.granite.asset.api.Rendition> renditions) {
         return getBestFitRendition(width, renditions, null);
     }
 
     /***
-     * allow picking of best rendition by width based on default prefixes
+     * allow picking of best rendition by width based on default prefixes.
      * @param width min width
      * @param asset asset with renditions
-     * @return
+     * @return matching rendition
      */
     public static com.adobe.granite.asset.api.Rendition getBestFitRendition(int width, com.adobe.granite.asset.api.Asset asset) {
         List<com.adobe.granite.asset.api.Rendition> renditions = Lists.newArrayList(asset.listRenditions());
@@ -928,11 +927,11 @@ public class ImagesUtil {
     }
 
     /***
-     * allow picking of best rendition by width with optional prefix
+     * allow picking of best rendition by width with optional prefix.
      * @param width min width
      * @param asset asset with renditions
      * @param renditionPrefix rendition prefix
-     * @return
+     * @return matching rendition
      */
     public static com.adobe.granite.asset.api.Rendition getBestFitRendition(int width, com.adobe.granite.asset.api.Asset asset, String renditionPrefix) {
         List<com.adobe.granite.asset.api.Rendition> renditions = Lists.newArrayList(asset.listRenditions());
@@ -941,11 +940,11 @@ public class ImagesUtil {
     }
 
     /***
-     * allow picking of best rendition by width with optional prefix
+     * allow picking of best rendition by width with optional prefix.
      * @param width min width
      * @param renditions list of renditions
      * @param renditionPrefix rendition prefix
-     * @return
+     * @return matching rendition
      */
     public static com.adobe.granite.asset.api.Rendition getBestFitRendition(int width, List<com.adobe.granite.asset.api.Rendition> renditions, String renditionPrefix) {
         com.adobe.granite.asset.api.Rendition bestFitRendition = null;
@@ -1047,11 +1046,12 @@ public class ImagesUtil {
     }
 
     /***
-     * get basic asset info and return default if asset not found
-     * @param resourceResolver
-     * @param assetPath
-     * @param infoPrefix
-     * @return
+     * get basic asset info and return default if asset not found.
+     * @param resourceResolver resource resolver
+     * @param assetPath asset path to use
+     * @param infoPrefix attribute prefix to use
+     * @param defaultPath default path to use
+     * @return map of attributes
      */
     public static Map<String, String> getAssetInfo(ResourceResolver resourceResolver, String assetPath, String infoPrefix, String defaultPath) {
 
@@ -1065,11 +1065,11 @@ public class ImagesUtil {
     }
 
     /***
-     * get basic asset info
-     * @param resourceResolver
-     * @param assetPath
-     * @param infoPrefix
-     * @return
+     * get basic asset info.
+     * @param resourceResolver resource resolver
+     * @param assetPath asset path to use
+     * @param infoPrefix attribute prefix to use
+     * @return map of attributes
      */
     public static Map<String, String> getAssetInfo(ResourceResolver resourceResolver, String assetPath, String infoPrefix) {
         if (isEmpty(infoPrefix)) {
@@ -1103,9 +1103,9 @@ public class ImagesUtil {
     }
 
     /***
-     * get asset video renditions if any
+     * get asset video renditions if any.
      * @param asset to use
-     * @return
+     * @return map of renditions
      */
     public static TreeMap<String, String> getAssetRenditionsVideo(com.adobe.granite.asset.api.Asset asset) {
         TreeMap<String, String> renditionsSet = new TreeMap<String, String>();
@@ -1126,9 +1126,9 @@ public class ImagesUtil {
     }
 
     /***
-     * get background video settings from shared background video tab
-     * @param pageContext
-     * @return
+     * get background video settings from shared background video tab.
+     * @param pageContext page context
+     * @return map of attributes
      */
     public static ComponentProperties getBackgroundVideoRenditions(PageContext pageContext) {
         Resource resource = (org.apache.sling.api.resource.Resource) pageContext.getAttribute("resource");
@@ -1172,10 +1172,18 @@ public class ImagesUtil {
     }
 
     /***
-     * get background image settings from shared background image tab
-     * @param pageContext
-     * @return
+     * get background image settings from shared background image tab.
+     * @param wcmUsePojo component model model
+     * @return returns map of attributes
      */
+    public static ComponentProperties getBackgroundImageRenditions(WCMUsePojo wcmUsePojo) {
+    }
+
+        /***
+         * get background image settings from shared background image tab.
+         * @param pageContext
+         * @return returns map of attributes
+         */
     public static ComponentProperties getBackgroundImageRenditions(PageContext pageContext) {
         Resource resource = (org.apache.sling.api.resource.Resource) pageContext.getAttribute("resource");
         ResourceResolver resourceResolver = (org.apache.sling.api.resource.ResourceResolver) pageContext.getAttribute("resourceResolver");
@@ -1287,11 +1295,10 @@ public class ImagesUtil {
 
 
     /**
-     * Get the allowedDimension for the Image
-     *
-     * @param targetDimension
-     * @param _currentStyle
-     * @return
+     * Get the allowedDimension for the Image.
+     * @param targetDimension desired size of rendition
+     * @param _currentStyle current style
+     * @return integer matching dimention
      */
     public static Integer getDimension(Integer targetDimension, Style _currentStyle) {
         Integer dimension = null;
@@ -1314,22 +1321,22 @@ public class ImagesUtil {
     }
 
     /***
-     * function to filter out the design dialog values which are not matching rendition profile using default rendition prefix names
+     * function to filter out the design dialog values which are not matching rendition profile using default rendition prefix names.
      * @param asset asset to use
      * @param widthRenditionProfileMapping profile widths map
-     * @return
+     * @return map of renditions
      */
     public static Map<Integer, String> getBestFitRenditionSet(com.adobe.granite.asset.api.Asset asset, Map<Integer, String> widthRenditionProfileMapping) {
         return getBestFitRenditionSet(asset, widthRenditionProfileMapping, null);
     }
 
     /**
-     * function to filter out the design dialog values which are not matching rendition profile
+     * function to filter out the design dialog values which are not matching rendition profile.
      *
      * @param asset                        asset to use
      * @param widthRenditionProfileMapping profile widths map
      * @param renditionPrefix              prefix to use
-     * @return Map<Integer   ,       String> return profile with substituted paths
+     * @return profile with substituted paths
      */
     public static Map<Integer, String> getBestFitRenditionSet(com.adobe.granite.asset.api.Asset asset, Map<Integer, String> widthRenditionProfileMapping, String renditionPrefix) {
 
@@ -1368,12 +1375,12 @@ public class ImagesUtil {
     }
 
     /**
-     * function to filter out the design dialog values which are not matching rendition profile
+     * function to filter out the design dialog values which are not matching rendition profile.
      *
      * @param asset                 asset to use
      * @param renditionImageMapping array of minWidth=mediaQuery
      * @param renditionPrefix       prefix to use
-     * @return Map<Integer   ,       String> return profile with substituted paths
+     * @return profile with substituted paths
      */
     public static Map<String, String> getBestFitMediaQueryRenditionSet(com.adobe.granite.asset.api.Asset asset, String[] renditionImageMapping, String renditionPrefix) {
 
@@ -1422,11 +1429,10 @@ public class ImagesUtil {
     }
 
     /**
-     * Get the targetWith which is within the range from the Site
-     *
-     * @param style
-     * @param targetWidth
-     * @return
+     * Get the targetWith which is within the range from the Site.
+     * @param style component style
+     * @param targetWidth width
+     * @return map of matching renditions
      */
     public static Map<Integer, String> getWidthProfileMap(Style style, int targetWidth) {
 

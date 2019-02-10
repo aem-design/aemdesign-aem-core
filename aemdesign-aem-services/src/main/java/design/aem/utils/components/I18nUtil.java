@@ -114,11 +114,10 @@ public class I18nUtil {
     }
 
     /**
-     * Convert String Language such as ru, de-ch to Language Object
-     *
-     * @param tagsMap
-     * @param separator
-     * @return
+     * Convert String Language such as ru, de-ch to Language Object.
+     * @param tagsMap map of tags
+     * @param separator separator
+     * @return map of string
      */
     public static Set<Language> convertLanguageStringToLanguageSet(String tagsMap, final String separator) {
 
@@ -152,16 +151,15 @@ public class I18nUtil {
     }
 
     /**
-     * Get the Language List according the set of Languages and its ordering
-     *
-     * @param languageSet
-     * @param currentPage
-     * @param resourceResolver
-     * @param languageManager
-     * @param isShowRoot
-     * @param pageManager
-     * @param i18n
-     * @return Map<Locale   ,       Map   <   String   ,       String>>
+     * Get the Language List according the set of Languages and its ordering.
+     * @param languageSet language set to use
+     * @param currentPage current page
+     * @param resourceResolver resource resolver
+     * @param languageManager language manager
+     * @param isShowRoot show root
+     * @param pageManager pae manager
+     * @param i18n i18n
+     * @return map of languages
      */
     public static Map<Locale, Map<String, String>> getLanguageList(Set<Language> languageSet, Page currentPage, ResourceResolver resourceResolver, LanguageManager languageManager, boolean isShowRoot, PageManager pageManager, I18n i18n) {
 

@@ -16,11 +16,11 @@ public class MedaiUtil {
     public static final String GALLERIA_THEME = "/etc/clientlibs/aemdesign/vendorlib/galleria/classic/galleria.classic.min.js";
 
     /**
-     * Get an integer property from the JCR, or null when it's not a proper integer value
+     * Get an integer property from the JCR, or null when it's not a proper integer value.
      *
-     * @param properties
-     * @param propertyName
-     * @return
+     * @param properties collection of properties to check
+     * @param propertyName property name
+     * @return return parsed integre
      * @throws RepositoryException
      */
     public static Integer getIntegerProperty(ValueMap properties, String propertyName) throws RepositoryException {

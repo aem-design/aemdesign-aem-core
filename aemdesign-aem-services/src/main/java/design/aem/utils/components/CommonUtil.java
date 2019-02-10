@@ -155,10 +155,9 @@ public class CommonUtil {
     }
 
     /**
-     * get resource last modified attribute
-     *
-     * @param resource
-     * @return
+     * get resource last modified attribute.
+     * @param resource resource to use
+     * @return resource last modified date
      */
 
     public static Long getLastModified(Resource resource) {
@@ -179,8 +178,7 @@ public class CommonUtil {
     }
 
     /**
-     * Get a page's title, nv title navigation title, or name
-     *
+     * Get a page's title, nv title navigation title, or name.
      * @param page is the page to get the title for
      * @return a string with the page title
      */
@@ -376,13 +374,11 @@ public class CommonUtil {
     }
 
     /**
-     * Get a list of maps with the structure {resource: .., script: ..} for all the media paths
-     * that get passed in. This structure can then render the components properly
-     *
+     * Get a list of maps with the structure {resource: .., script: ..} for all the media paths that get passed in. This structure can then render the components properly.
      * @param resolver resolver to get the resources at the paths
      * @param variant  is the badge variation we're displaying
      * @param paths    are the paths
-     * @return
+     * @return array of badges
      */
     public static ArrayList<HashMap> getBadgesForPaths(ResourceResolver resolver, String variant, String[] paths) {
         ArrayList<HashMap> badges = new ArrayList<HashMap>();
@@ -802,10 +798,10 @@ public class CommonUtil {
     }
 
     /***
-     * find a component in a page root that matches required suffix
+     * find a component in a page root that matches required suffix.
      * @param inputPage is the page to look through for the component
      * @param resourceTypeTail
-     * @return
+     * @return path to component
      */
     public static String findComponentInPage(Page inputPage, String[] resourceTypeTail) {
         return findComponentInPage(inputPage, resourceTypeTail, new String[]{PATH_DEFAULT_CONTENT});
@@ -908,11 +904,10 @@ public class CommonUtil {
     }
 
     /**
-     * try parse int
-     *
-     * @param value
-     * @param defaultValue
-     * @return
+     * try parse int.
+     * @param value value to use
+     * @param defaultValue default value
+     * @return parsed value
      */
     public static int tryParseInt(String value, int defaultValue) {
         try {
@@ -1053,10 +1048,10 @@ public class CommonUtil {
 
 
     /***
-     * return a url to the resource
-     * @param _pageManager
-     * @param _resource
-     * @return
+     * return a url to the resource.
+     * @param _pageManager page manager
+     * @param _resource resource to use
+     * @return link to page
      */
     public static String linkToPage(PageManager _pageManager, Resource _resource) {
         return _pageManager.getContainingPage(_resource).getPath().concat(ConstantsUtil.DEFAULT_EXTENTION);
@@ -1126,11 +1121,11 @@ public class CommonUtil {
 
 
     /***
-     * format a message template with Map Values
+     * format a message template with Map Values.
      * http://commons.apache.org/proper/commons-lang/javadocs/api-3.1/org/apache/commons/lang3/text/StrSubstitutor.html
-     * @param template
-     * @param map
-     * @return
+     * @param template template to use
+     * @param map map of attributes to use
+     * @return formatted string
      */
 
     public static String compileMapMessage(String template, Map<String, Object> map) {
@@ -1383,9 +1378,9 @@ public class CommonUtil {
     }
 
     /***
-     * return badge name from selector string
+     * return badge name from selector string.
      * @param selectorString _slingRequest.getRequestPathInfo().getSelectorString()
-     * @return
+     * @return badge name
      */
     public static String getBadgeFromSelectors(String selectorString) {
         String badge = "";
@@ -1469,11 +1464,10 @@ public class CommonUtil {
     }
 
     /**
-     * return published date for a page
-     *
-     * @param page
-     * @param defaultValue
-     * @return
+     * return published date for a page.
+     * @param page page to use
+     * @param defaultValue default value
+     * @return date of page publish
      */
     public static Date getPageLastPublished(Page page, Date defaultValue) {
 
@@ -1492,46 +1486,46 @@ public class CommonUtil {
 
 
     /**
-     * check if string is equals to "on"
-     * @param source
-     * @return
+     * check if string is equals to "on".
+     * @param source string
+     * @return statuc
      */
     public final static boolean isOn(String source) {
         return "on".equals(source);
     }
 
     /**
-     * check if string is equals to "yes"
-     * @param source
-     * @return
+     * check if string is equals to "yes".
+     * @param source string
+     * @return status
      */
     public final static boolean isYes(String source) {
         return "yes".equals(source);
     }
 
     /**
-     * check if string is NOT equals to "on"
-     * @param source
-     * @return
+     * check if string is NOT equals to "on".
+     * @param source string
+     * @return status
      */
     public final static boolean isNotOn(String source) {
         return !"on".equals(source);
     }
 
     /**
-     * check if string is NOT equals to "yes"
-     * @param source
-     * @return
+     * check if string is NOT equals to "yes".
+     * @param source string
+     * @return status
      */
     public final static boolean isNotYes(String source) {
         return !"yes".equals(source);
     }
 
     /**
-     * get value from value map
-     * @param source
-     * @param Name
-     * @return
+     * get value from value map.
+     * @param source map of values
+     * @param Name field name
+     * @return value
      */
     public final static String getValue(ValueMap source, String Name) {
         if (source == null || isEmpty(Name)) { //quick fail
@@ -1545,27 +1539,27 @@ public class CommonUtil {
     }
 
     /**
-     * check if object is null
-     * @param source
-     * @return
+     * check if object is null.
+     * @param source object
+     * @return status
      */
     public final static Boolean isNull(Object source) {
         return source == null;
     }
 
     /**
-     * check if object is NOT null
-     * @param source
-     * @return
+     * check if object is NOT null.
+     * @param source object
+     * @return status
      */
     public final static Boolean isNotNull(Object source) {
         return source != null;
     }
 
     /**
-     * converts an object to json string
-     * @param object
-     * @return
+     * converts an object to json string.
+     * @param object list of object
+     * @return json string
      */
     public String toJson(Object[][] object) {
         StringWriter sw = new StringWriter();

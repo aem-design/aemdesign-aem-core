@@ -83,13 +83,13 @@ public class ComponentDetailsUtil {
     }
 
     /***
-     * return pge info without children
-     * @param pageContext
-     * @param page
-     * @param resourceResolver
-     * @param componentNames
-     * @param pageRoots
-     * @return
+     * return pge info without children.
+     * @param pageContext page context
+     * @param page page to use
+     * @param resourceResolver resource resolver
+     * @param componentNames component names to look for
+     * @param pageRoots page parents to check
+     * @return map of attributes
      */
     public static ComponentProperties getPageInfo(PageContext pageContext, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots) {
         return getPageInfo(pageContext,page,resourceResolver,componentNames,pageRoots,null);
@@ -99,14 +99,14 @@ public class ComponentDetailsUtil {
     /***
      * Get page info from list of page paths
      *
-     * @param page page to get info from
-     * @param pageContext
-     * @param page
-     * @param resourceResolver
-     * @param componentNames
-     * @param pageRoots
+     * @param page page to get info from.
+     * @param pageContext page contenx
+     * @param page page to use
+     * @param resourceResolver resource resolver
+     * @param componentNames component names to look for
+     * @param pageRoots parent to search
      * @param collectChildrenFromRoot how many levels down to collect children
-     * @return
+     * @return map of attributes
      */
     public static ComponentProperties getPageInfo(PageContext pageContext, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot) {
         ComponentProperties componentProperties = getNewComponentProperties(pageContext);
@@ -211,11 +211,11 @@ public class ComponentDetailsUtil {
 
 
     /***
-     * get request fields passed by list and translate to
+     * get request fields passed by list and translate to.
      * @param componentProperties current component properties
-     * @param resourceResolver
-     * @param request
-     * @return
+     * @param resourceResolver resource resolver
+     * @param request http request
+     * @return map of attributes
      */
     public static ComponentProperties processBadgeRequestConfig(ComponentProperties componentProperties, ResourceResolver resourceResolver, HttpServletRequest request) {
 

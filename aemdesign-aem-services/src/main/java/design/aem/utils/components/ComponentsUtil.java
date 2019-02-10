@@ -526,12 +526,11 @@ public class ComponentsUtil {
     }
 
     /**
-     * Read properties for the Component do not use styles
-     *
+     * Read properties for the Component do not use styles.
      * @param pageContext  current page context
      * @param name         name of the property
      * @param defaultValue default value to return if not set
-     * @return
+     * @return found component
      */
     public static Object getComponentProperty(PageContext pageContext, String name, Object defaultValue) {
         if (pageContext == null) {
@@ -542,13 +541,12 @@ public class ComponentsUtil {
 
 
     /**
-     * Read properties for the Component, use component style to override properties if they are not set
-     *
+     * Read properties for the Component, use component style to override properties if they are not set.
      * @param pageContext  current page context
      * @param name         name of the property
      * @param defaultValue default value for the property
      * @param useStyle     use styles properties if property is missing
-     * @return
+     * @return component property
      */
     public static Object getComponentProperty(PageContext pageContext, String name, Object defaultValue, Boolean useStyle) {
         //quick fail
@@ -568,13 +566,12 @@ public class ComponentsUtil {
     }
 
     /**
-     * Read properties for the Component, use component style to override properties if they are not set
-     *
+     * Read properties for the Component, use component style to override properties if they are not set.
      * @param componentResource page to get properties from
      * @param name              name of the property
      * @param defaultValue      default value for the property
      * @param useStyle          use styles properties if property is missing
-     * @return
+     * @return component property
      */
     public static Object getComponentProperty(Resource componentResource, Style pageStyle, String name, Object defaultValue, Boolean useStyle) {
         //quick fail
@@ -590,13 +587,12 @@ public class ComponentsUtil {
     }
 
     /**
-     * Read properties for the Component, use component style to override properties if they are not set
-     *
+     * Read properties for the Component, use component style to override properties if they are not set.
      * @param componentProperties component properties
      * @param name                name of the property
      * @param defaultValue        default value for the property
      * @param useStyle            use styles properties if property is missing
-     * @return
+     * @return component property
      */
     public static Object getComponentProperty(ValueMap componentProperties, Style pageStyle, String name, Object defaultValue, Boolean useStyle) {
         //quick fail
@@ -617,11 +613,10 @@ public class ComponentsUtil {
     }
 
     /**
-     * Return default place holder for the component, use classic UI placeholder is needed
-     *
+     * Return default place holder for the component, use classic UI placeholder is needed.
      * @param slingRequest Current Sling reqsuest
      * @param component    Current component
-     * @return
+     * @return placeholder string
      */
     @SuppressWarnings("unchecked")
     public static String getDefaultPlaceholder(SlingHttpServletRequest slingRequest, Component component) {
@@ -630,13 +625,12 @@ public class ComponentsUtil {
 
 
     /**
-     * returns component values with defaults from target component on a page
-     *
+     * returns component values with defaults from target component on a page.
      * @param pageContext   current page context
      * @param componentPage target page
      * @param componentPath target component path
      * @param fieldLists    list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
-     * @return
+     * @return map of attributes
      */
     public static ComponentProperties getComponentProperties(PageContext pageContext, Page componentPage, String componentPath, Object[][]... fieldLists) {
         try {
@@ -654,9 +648,9 @@ public class ComponentsUtil {
 
 
     /***
-     * helper to create new Component Properties
+     * helper to create new Component Properties.
      * @param pageContext page context
-     * @return
+     * @return map of attributes
      */
     public static ComponentProperties getNewComponentProperties(PageContext pageContext) {
 
@@ -673,9 +667,9 @@ public class ComponentsUtil {
     //TODO: move to class
 
     /***
-     * helper to create new Component Properties
+     * helper to create new Component Properties.
      * @param wcmUsePojoModel component model pojo
-     * @return
+     * @return map of attributes
      */
     public static ComponentProperties getNewComponentProperties(WCMUsePojo wcmUsePojoModel) {
 
@@ -689,9 +683,9 @@ public class ComponentsUtil {
     }
 
     /***
-     * helper to create new Component Properties
+     * helper to create new Component Properties.
      * @param pageContext page content map
-     * @return
+     * @return map of attributes
      */
     public static ComponentProperties getNewComponentProperties(Map<String, Object> pageContext) {
         ComponentProperties componentProperties = new ComponentProperties();
@@ -709,34 +703,31 @@ public class ComponentsUtil {
     }
 
     /**
-     * returns component values with defaults from pageContent Properties
-     *
+     * returns component values with defaults from pageContent Properties.
      * @param pageContext current page context
      * @param fieldLists  list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
-     * @return
+     * @return map of attributes
      */
     public static ComponentProperties getComponentProperties(PageContext pageContext, Object[][]... fieldLists) {
         return getComponentProperties(pageContext, null, true, fieldLists);
     }
 
     /**
-     * returns component values with defaults from pageContent Properties
-     *
+     * returns component values with defaults from pageContent Properties.
      * @param wcmUsePojoModel component model pojo
      * @param fieldLists      list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
-     * @return
+     * @return map of attributes
      */
     public static ComponentProperties getComponentProperties(WCMUsePojo wcmUsePojoModel, Object[][]... fieldLists) {
         return getComponentProperties(wcmUsePojoModel, null, true, fieldLists);
     }
 
     /**
-     * returns component values with defaults from a targetResource, default to pageContext properties
-     *
+     * returns component values with defaults from a targetResource, default to pageContext properties.
      * @param pageContext    current page context
      * @param targetResource resource to use as source
      * @param fieldLists     list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
-     * @return
+     * @return map of attributes
      */
     @SuppressWarnings("unchecked")
     public static ComponentProperties getComponentProperties(PageContext pageContext, Object targetResource, Object[][]... fieldLists) {
@@ -744,13 +735,12 @@ public class ComponentsUtil {
     }
 
     /**
-     * returns component values with defaults from target component on a page
-     *
+     * returns component values with defaults from target component on a page.
      * @param wcmUsePojoModel            component model
      * @param targetResource             resource to use as source
      * @param includeComponentAttributes include additional attibutes associated with component
      * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
-     * @return
+     * @return map of attributes
      */
     public static ComponentProperties getComponentProperties(WCMUsePojo wcmUsePojoModel, Object targetResource, Boolean includeComponentAttributes, Object[][]... fieldLists) {
         try {
@@ -785,13 +775,12 @@ public class ComponentsUtil {
     }
 
     /**
-     * returns component values with defaults from a targetResource, default to pageContext properties
-     *
+     * returns component values with defaults from a targetResource, default to pageContext properties.
      * @param pageContext                current page context
      * @param targetResource             resource to use as source
      * @param includeComponentAttributes include additional attibutes associated with component
      * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
-     * @return
+     * @return map of attributes
      */
     @SuppressWarnings("unchecked")
     public static ComponentProperties getComponentProperties(PageContext pageContext, Object targetResource, Boolean includeComponentAttributes, Object[][]... fieldLists) {
@@ -828,13 +817,12 @@ public class ComponentsUtil {
     }
 
     /**
-     * returns component values with defaults from a targetResource, default to pageContext properties
-     *
+     * returns component values with defaults from a targetResource, default to pageContext properties.
      * @param pageContext                current page context
      * @param targetResource             resource to use as source
      * @param includeComponentAttributes include additional attibutes associated with component
      * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
-     * @return
+     * @return map of attributes
      */
     @SuppressWarnings("unchecked")
     public static ComponentProperties getComponentProperties(Map<String, Object> pageContext, Object targetResource, Boolean includeComponentAttributes, Object[][]... fieldLists) {
@@ -1058,10 +1046,10 @@ public class ComponentsUtil {
     }
 
     /***
-     * build attributes from attributes data without encoding
+     * build attributes from attributes data without encoding.
      * @param data map of data attributes and values
      * @param xssAPI old xssi api
-     * @return
+     * @return attributes string
      * @throws IOException
      */
     public static String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI) throws IOException {
@@ -1069,11 +1057,11 @@ public class ComponentsUtil {
     }
 
     /***
-     * build attributes from attributes data
+     * build attributes from attributes data.
      * @param data map of data attributes and values
      * @param xssAPI old xssi api
      * @param encodings map of encoding per data attribute
-     * @return
+     * @return attributes string
      * @throws IOException
      */
     public static String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI, Map<String, String> encodings) throws IOException {
@@ -1119,13 +1107,12 @@ public class ComponentsUtil {
 
     /***
      *
-     * @deprecated please use responsive getBackgroundImageRenditions or ComponentProperties.attr which is an AttributeBuilder
-     *
+     * @deprecated please use responsive getBackgroundImageRenditions or ComponentProperties.attr which is an AttributeBuilder.
      * add style tag to component attributes collection
      * @param componentProperties component attributes collection
      * @param resource resource to search for image
      * @param imageResourceName image node name
-     * @return
+     * @return style with background image
      *
      */
     @Deprecated
@@ -1149,10 +1136,10 @@ public class ComponentsUtil {
 
 
     /***
-     * add a new attribute to existing component attributes collection
+     * add a new attribute to existing component attributes collection.
      * @param componentProperties existing map of component attirbutes
      * @param keyValue attribute name and value list
-     * @return
+     * @return string of component attributes
      */
     public static String addComponentAttributes(ComponentProperties componentProperties, Object[][] keyValue) {
 
@@ -1171,11 +1158,11 @@ public class ComponentsUtil {
     }
 
     /***
-     * add a new attribute to existing component attributes collection
+     * add a new attribute to existing component attributes collection.
      * @param componentProperties existing map of component attirbutes
      * @param attributeName attribute name
      * @param attrbuteValue attribute value
-     * @return
+     * @return string of component attributes
      */
     public static String addComponentAttributes(ComponentProperties componentProperties, String attributeName, String attrbuteValue) {
 
@@ -1252,10 +1239,9 @@ public class ComponentsUtil {
 
 
     /**
-     * Find the summary field in a 'detail' component or just return the page description
-     *
+     * Find the summary field in a 'detail' component or just return the page description.
      * @param page is the page to investiage
-     * @return
+     * @return page description
      */
     public static String getPageDescription(Page page) {
         String pageDescription = page.getDescription();
@@ -1297,10 +1283,9 @@ public class ComponentsUtil {
 
 
     /**
-     * Find the field in a 'detail' component or just return the page description
-     *
+     * Find the field in a 'detail' component or just return the page description.
      * @param page is the page to investiage
-     * @return
+     * @return page description
      */
     public static String getPageDetailsField(Page page, String field) throws RepositoryException {
         String defaultPageValue = StringUtils.EMPTY;
@@ -1340,10 +1325,9 @@ public class ComponentsUtil {
 
 
     /**
-     * Find a page which has a Detail Node. The pattern under jcr:content is par/*Details
-     *
-     * @param page
-     * @return
+     * Find a page which has a Detail Node. The pattern under jcr:content is par/*Details.
+     * @param page page to search
+     * @return found node
      * @throws RepositoryException
      */
     public static Node findDetailNode(Page page) throws RepositoryException {
@@ -1376,9 +1360,9 @@ public class ComponentsUtil {
      * compile a message from component properties using one of the component format tag fields
      * @param formatFieldName field with format path
      * @param defaultFormat default format template
-     * @param componentProperties
-     * @param sling
-     * @return
+     * @param componentProperties component properties
+     * @param sling sling helper
+     * @return formatted string
      */
     public static String compileComponentMessage(String formatFieldName, String defaultFormat, ComponentProperties componentProperties, SlingScriptHelper sling) {
 
@@ -1403,10 +1387,9 @@ public class ComponentsUtil {
     }
 
     /**
-     * get path of resource in jcr:content
-     *
-     * @param resource
-     * @return
+     * get path of resource in jcr:content.
+     * @param resource resource to use
+     * @return content path to resource
      */
     public static String getResourceContentPath(Resource resource) {
         String returnPath = resource.getPath(); //StringUtils.split(resource.getPath(),JcrConstants.JCR_CONTENT)
@@ -1423,9 +1406,9 @@ public class ComponentsUtil {
 
 
     /***
-     * encode a string using MD5
+     * encode a string using MD5.
      * @param encode string to encode
-     * @return
+     * @return encoded string
      */
     public static String MD5(String encode) {
         try {
@@ -1448,9 +1431,9 @@ public class ComponentsUtil {
 
 
     /***
-     * get or generate component id
+     * get or generate component id.
      * @param componentNode component node
-     * @return
+     * @return component id
      */
     public static String getComponentId(Node componentNode) {
 
@@ -1519,10 +1502,10 @@ public class ComponentsUtil {
 
 
     /***
-     * find an ancestor resource matching current resource
-     * @param currentPage
-     * @param componentContext
-     * @return
+     * find an ancestor resource matching current resource.
+     * @param currentPage page to use
+     * @param componentContext component context
+     * @return found resource
      */
     public static Resource findInheritedResource(Page currentPage, ComponentContext componentContext) {
         final String pageResourcePath = currentPage.getContentResource().getPath(); // assume that page have resource
@@ -1590,9 +1573,9 @@ public class ComponentsUtil {
     }
 
     /***
-     * get attribute from first item list of maps
-     * @param sourceMap
-     * @return
+     * get attribute from first item list of maps.
+     * @param sourceMap map to use
+     * @return value of attribute from first found element
      */
     public static String getFirstAttributeFromList(LinkedHashMap<String, Map> sourceMap, String attributeName) {
         if (sourceMap != null) {
@@ -1607,9 +1590,9 @@ public class ComponentsUtil {
     }
 
     /***
-     * get value attribute from list of maps
-     * @param sourceMap
-     * @return
+     * get value attribute from list of maps.
+     * @param sourceMap map to use
+     * @return value of first element
      */
     public static String getFirstValueFromList(LinkedHashMap<String, Map> sourceMap) {
         return getFirstAttributeFromList(sourceMap, "value");
