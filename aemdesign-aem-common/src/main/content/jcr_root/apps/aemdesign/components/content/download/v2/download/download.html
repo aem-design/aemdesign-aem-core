@@ -1,6 +1,10 @@
 <sly data-sly-use.component="design.aem.models.v2.content.Download"
-     data-sly-use.lib="${component.componentProperties.variantTemplate}">
-    <sly data-sly-call="${lib.variant @ componentProperties=component.componentProperties}"></sly>
+     data-sly-use.variant="${component.componentProperties.variantTemplate}"
+     data-sly-use.info="aemdesign/global/templates/component-info.html">
 
-    <sly data-sly-use.lib="aemdesign/global/templates/component-badge.html" data-sly-call="${lib.variant @ componentProperties=component.componentProperties, component=component}"></sly>
+    <!--/* print component variant */-->
+    <sly data-sly-call="${variant.variant @ componentProperties=component.componentProperties}"></sly>
+
+    <!--/* print component info in edit mode */-->
+    <sly data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></sly>
 </sly>

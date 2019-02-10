@@ -1,5 +1,6 @@
 <template data-sly-template.variant="${@ componentProperties}">
     <div data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" empty>
-        <div class="cq-placeholder cq-dd-image" data-emptytext="Download"></div>
+        <div data-sly-test="${(wcmmode.edit || wcmmode.preview) && isEmpty}"
+             class="cq-placeholder cq-dd-image" data-emptytext="Download"></div>
     </div>
 </template>
