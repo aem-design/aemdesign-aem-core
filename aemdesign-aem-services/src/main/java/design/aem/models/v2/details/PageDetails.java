@@ -31,7 +31,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class PageDetails extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TagUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PageDetails.class);
 
     final String COMPONENT_DETAILS_NAME = "page-details";
     final String componentPath = "./" + PATH_DEFAULT_CONTENT + "/" + COMPONENT_DETAILS_NAME;
