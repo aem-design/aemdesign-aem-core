@@ -25,23 +25,27 @@ package design.aem.models.v2.details;
 import com.adobe.cq.sightly.WCMUsePojo;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.TagUtil;
+import com.day.cq.i18n.I18n;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class PageDetails extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TagUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PageDetails.class);
 
     private ComponentProperties componentProperties = null;
-
-    @Override
-    public void activate() throws Exception {
-
-    }
-
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
+    
+    @Override
+    public void activate() throws Exception {
+        
+        com.day.cq.i18n.I18n _i18n = new I18n(getRequest());
+
+    }
+
+
 
 
 }
