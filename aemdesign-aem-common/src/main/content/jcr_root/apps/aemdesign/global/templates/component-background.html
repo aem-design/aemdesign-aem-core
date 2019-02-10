@@ -1,0 +1,17 @@
+<template data-sly-template.variant="${@ componentId, assets}">
+    <style type="text/css">
+        <sly data-sly-list.asset="${assets}" data-sly-unwrap>
+            <sly data-sly-test="${asset}">
+                @media only screen and ${asset} {
+            </sly>
+
+            #${componentId} {
+                background-image: url('${assets[asset]}');
+            }
+
+            <sly data-sly-test="${asset}">
+                }
+            </sly>
+        </sly>
+    </style>
+</template>
