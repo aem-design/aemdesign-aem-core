@@ -220,10 +220,10 @@ public class ParagraphUtil {
     }
 
     /**
-     * return position of a par in the list
-     * @param parSys
-     * @param par
-     * @return
+     * return position of a par in the list.
+     * @param parSys parent
+     * @param par par to check in parent
+     * @return return index of parsys in parent
      */
     public static int getListPosition(Object parSys, Paragraph par) throws IOException {
 
@@ -239,9 +239,9 @@ public class ParagraphUtil {
     }
 
     /**
-     * return the size of the par list
-     * @param parSys
-     * @return
+     * return the size of the par list.
+     * @param parSys parsys to check
+     * @return size of parsys
      */
     public static int getListSize(Object parSys) throws IOException {
 
@@ -257,10 +257,10 @@ public class ParagraphUtil {
     }
 
     /**
-     * return a par from par list at an index
-     * @param parSys
-     * @param index
-     * @return
+     * return a par from par list at an index.
+     * @param parSys gets item from parsys
+     * @param index index to return
+     * @return result parsys or null
      */
     public static Paragraph getListPar(Object parSys, int index) throws IOException {
 
@@ -386,9 +386,9 @@ public class ParagraphUtil {
     }
 
     /**
-     * return count of child element in iterator
+     * return count of child element in iterator.
      * @param itr children iterator
-     * @return
+     * @return count of children
      */
     public static Integer getChildCount(final Iterator<Resource> itr) {
         Integer count = 0;
@@ -400,9 +400,9 @@ public class ParagraphUtil {
     }
 
     /**
-     * return last element in the iterator
-     * @param itr
-     * @return
+     * return last element in the iterator.
+     * @param itr iterator to check
+     * @return last resource
      */
     public static Resource getLastElement(final Iterator<Resource> itr) {
         Resource lastResource = null;
@@ -418,9 +418,9 @@ public class ParagraphUtil {
     }
 
     /**
-     * return first element in the iterator
-     * @param itr
-     * @return
+     * return first element in the iterator.
+     * @param itr iterator to check
+     * @return first element
      */
     public static Resource getFirstElement(final Iterator<Resource> itr) {
         Resource lastResource = null;
@@ -462,9 +462,9 @@ public class ParagraphUtil {
 
 
     /**
-     * return current paragraph control type
+     * return current paragraph control type.
      * @param resource current paragpraph resource
-     * @return
+     * @return return type of parsys
      */
     public static Paragraph.Type currentControlType(Resource resource) {
         ValueMap resProp = resource.adaptTo(ValueMap.class);

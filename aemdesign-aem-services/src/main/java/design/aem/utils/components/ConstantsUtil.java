@@ -178,10 +178,9 @@ public class ConstantsUtil {
      */
 
     /**
-     * return if the current request has a Force Context Query String parameter specified
-     *
-     * @param slingRequest
-     * @return
+     * return if the current request has a Force Context Query String parameter specified.
+     * @param slingRequest sling request
+     * @return status if edit content is active
      */
     public static Boolean isForceEditContext(SlingHttpServletRequest slingRequest) {
         if (slingRequest.getRequestParameter(COMPONENT_FORCE_CONTEXT_PARAMETER) != null) {
@@ -191,10 +190,9 @@ public class ConstantsUtil {
     }
 
     /**
-     * return current UI Mode, Classic or Touch
-     *
-     * @param slingRequest
-     * @return
+     * return current UI Mode, Classic or Touch.
+     * @param slingRequest sling request
+     * @return string of UI being used
      */
     @SuppressWarnings("unchecked")
     public static String UIMode(SlingHttpServletRequest slingRequest) {

@@ -96,15 +96,14 @@ public class ResolverUtil {
     }
 
     /**
-     * check if page redirect URL has been set
-     *
-     * @param _properties
-     * @param _currentPage
-     * @param _slingRequest
-     * @param response
-     * @param request
-     * @param _pageContext
-     * @return
+     * check if page redirect URL has been set.
+     * @param _properties properties
+     * @param _currentPage page to use
+     * @param _slingRequest sling request
+     * @param response sling response
+     * @param request request
+     * @param _pageContext page content
+     * @return return is the page is being redirected
      * @throws Exception
      */
     @SuppressWarnings("unchecked")
@@ -140,12 +139,11 @@ public class ResolverUtil {
     }
 
     /**
-     * check if provided resource exists
-     *
-     * @param resourceName
-     * @param _resource
-     * @param _resourceResolver
-     * @return
+     * check if provided resource exists.
+     * @param resourceName resource name to look for
+     * @param _resource resource to use
+     * @param _resourceResolver resource resolver
+     * @return flag if node is found
      * @throws Exception
      */
     public static boolean checkResourceHasChildResource(String resourceName, Resource _resource, ResourceResolver _resourceResolver) {

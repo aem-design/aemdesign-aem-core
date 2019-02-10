@@ -10,8 +10,8 @@ public class ThemeUtil {
 
     /**
      * compile css classes.
-     * @param classes
-     * @return
+     * @param classes array of classes to add
+     * @return return string of class
      */
     public static String addClasses(String... classes) {
         //don't return blank space and remove double spaces

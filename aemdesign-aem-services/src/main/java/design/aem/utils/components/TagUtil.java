@@ -33,12 +33,11 @@ public class TagUtil {
     //private final Logger LOG = LoggerFactory.getLogger(getClass());
 
     /**
-     * Create a formatted localized string that contains all tags in the tagProperty
-     *
-     * @param tagManager
-     * @param tagPaths
-     * @param locale
-     * @return
+     * Create a formatted localized string that contains all tags in the tagProperty.
+     * @param tagManager tag manager
+     * @param tagPaths list of tag paths
+     * @param locale locale to apply
+     * @return comma separated list of tag titles
      */
     public static String getTags(TagManager tagManager, String[] tagPaths, Locale locale) {
 
@@ -75,7 +74,7 @@ public class TagUtil {
     }
 
     /**
-     * Create a formatted string that contains all tags in the tagProperty
+     * Create a formatted string that contains all tags in the tagProperty.
      *
      * @param tagPaths is the property that contains all tags
      * @return a formatted string
@@ -85,12 +84,11 @@ public class TagUtil {
     }
 
     /**
-     * Get tag values from a JCR node
-     *
-     * @param tagManager
-     * @param thisNode
-     * @param tagPropertyName
-     * @return List<Tag>
+     * Get tag values from a JCR node.
+     * @param tagManager tag manager
+     * @param thisNode node
+     * @param tagPropertyName property name
+     * @return list of tags
      */
     public static List<Tag> getTags(TagManager tagManager, Node thisNode, String tagPropertyName) throws RepositoryException {
         if (tagManager == null || thisNode == null) {
@@ -128,11 +126,10 @@ public class TagUtil {
 
 
     /**
-     * Get tag values from a JCR node
-     *
-     * @param tagManager
-     * @param valueMap
-     * @param tagPropertyName
+     * Get tag values from a JCR node.
+     * @param tagManager tag manager
+     * @param valueMap inheritance value map
+     * @param tagPropertyName property to use
      * @return List<Tag>
      */
     public static Map<String, Tag> getTagsMap(TagManager tagManager, InheritanceValueMap valueMap, String tagPropertyName, Boolean tryInherit) throws RepositoryException {
@@ -300,10 +297,10 @@ public class TagUtil {
     }
 
     /***
-     * get value of tag path as admin
+     * get value of tag path as admin.
      * @param tagPath path or tagid of tag
-     * @param sling
-     * @return
+     * @param sling sling helper
+     * @return comma separated list of tag values
      */
     public static String getTagValueAsAdmin(String tagPath, SlingScriptHelper sling) {
         String tagValue = "";
@@ -344,12 +341,11 @@ public class TagUtil {
 
 
     /**
-     * Get list of Tags from a list of tag paths
-     *
-     * @param sling
-     * @param tagPaths
-     * @param locale
-     * @return
+     * Get list of Tags from a list of tag paths.
+     * @param sling sling helper
+     * @param tagPaths list of tags
+     * @param locale locale to yse
+     * @return map of tag values
      * @throws RepositoryException
      */
     public static LinkedHashMap<String, Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale) {
@@ -414,11 +410,10 @@ public class TagUtil {
 
 
     /**
-     * Get Tag values
-     *
-     * @param tagManager
-     * @param tagPaths
-     * @return
+     * Get Tag values.
+     * @param tagManager tag manager
+     * @param tagPaths list of tags
+     * @return comma separated list of tag values
      */
 
     public static String getTagsAsValues(TagManager tagManager, ResourceResolver resourceResolver, String separator, String tagPaths[]) {
@@ -455,11 +450,10 @@ public class TagUtil {
     }
 
     /**
-     * Get Tag values
-     *
-     * @param tagManager
-     * @param tagPaths
-     * @return
+     * Get Tag values.
+     * @param tagManager tag manager
+     * @param tagPaths list of tags
+     * @return string array of tag values
      */
 
     public static String[] getTagsValues(TagManager tagManager, ResourceResolver resourceResolver, String separator, String tagPaths[]) {
@@ -490,11 +484,10 @@ public class TagUtil {
     }
 
     /**
-     * Get Tag values
-     *
-     * @param tagManager
-     * @param tagPaths
-     * @return
+     * Get Tag values.
+     * @param tagManager tag manager
+     * @param tagPaths list of tags
+     * @return space separated list of tag titles
      */
 
     public static String getTagsAsKeywords(TagManager tagManager, String separator, String tagPaths[], Locale locale) {
@@ -530,10 +523,9 @@ public class TagUtil {
 
 
     /**
-     * return Tag Names as Class String
-     *
+     * return Tag Names as Class String.
      * @param tag list of tags
-     * @return
+     * @return space separated list of tag names
      */
 
     public static String getTagsAsClasses(String tag[]) {
@@ -632,11 +624,11 @@ public class TagUtil {
     }
 
     /**
-     * manually resolve path to tag as OOTB does not have tennant support
+     * manually resolve path to tag as OOTB does not have tennant support.
      *
      * @param tagID    tagId path  [namespace]:[namespace/path/to/tag]
      * @param tagsRoot root for tags default /content/cq:tags
-     * @return
+     * @return tag id
      */
     public static String getPathFromTagId(String tagID, String tagsRoot) {
 
@@ -665,19 +657,19 @@ public class TagUtil {
 
 
     /***
-     * return page tags and don't error
-     * @param page
-     * @return
+     * return page tags and don't error.
+     * @param page page to use
+     * @return list of tags
      */
     public static com.day.cq.tagging.Tag[] getPageTags(Page page) {
         return getPageTags(page, new Tag[]{});
     }
 
     /***
-     * return page tags and don't error
-     * @param page
-     * @param defaultTags
-     * @return
+     * return page tags and don't error.
+     * @param page page to use
+     * @param defaultTags default tags to return if none found
+     * @return list of tags
      */
 
     public static com.day.cq.tagging.Tag[] getPageTags(Page page, com.day.cq.tagging.Tag[] defaultTags) {
