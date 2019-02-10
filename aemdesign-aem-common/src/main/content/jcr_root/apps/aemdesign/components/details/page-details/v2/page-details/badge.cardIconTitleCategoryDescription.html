@@ -1,0 +1,22 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div class="card ${componentProperties.cardSize} ${componentProperties.badgeClassAttr}">
+        <div class="card-icon" data-sly-test="${componentProperties.cardIconShow}">
+            <i class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
+        </div>
+        <div class="card-body">
+            <title class="card-title"
+                   data-sly-element="${componentProperties.badgeTitleType}">${componentProperties.pageNavTitle}</title>
+            <div class="card-category"
+                 data-sly-test="${componentProperties.category}">
+                <ul class="tags">
+                    <sly data-sly-list.tag="${componentProperties.category}" data-sly-unwrap>
+                        <sly data-sly-test="${componentProperties.category[tag]}">
+                            <li id="${tag}">"${componentProperties.category[tag]}"</li>
+                        </sly>
+                    </sly>
+                </ul>
+            </div>
+            <div class="card-text">${componentProperties.badgeDescription}</div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,15 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <a class="card ${componentProperties.cardSize} ${componentProperties.badgeClassAttr}"
+       href="${componentProperties.pageUrl}"
+       target="${componentProperties.badgeLinkTarget}"
+       title="${componentProperties.badgeLinkTitle}"
+       data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}">
+        <div class="card-icon" data-sly-test="${componentProperties.cardIconShow}">
+            <i class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
+        </div>
+        <div class="card-body">
+            <div class="card-text">${componentProperties.badgeDescription}</div>
+        </div>
+    </a>
+</template>
+
