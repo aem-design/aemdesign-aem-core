@@ -3,6 +3,6 @@
     cq:isContainer="{Boolean}false"
     jcr:description="Page Details is to save additional info for the Page Properties"
     jcr:primaryType="cq:Component"
-    jcr:title="Page Details"
+    jcr:title="Page Details (v1}"
     cq:icon="viewDetail"
-    componentGroup="AEM.Design - Details"/>
+    componentGroup="hidden"/>
