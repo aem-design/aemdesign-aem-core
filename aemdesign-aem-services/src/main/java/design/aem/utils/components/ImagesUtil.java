@@ -12,6 +12,7 @@ import com.day.cq.dam.commons.util.DamUtil;
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.day.cq.wcm.api.components.ComponentContext;
 import com.day.cq.wcm.api.designer.Style;
 import com.day.cq.wcm.foundation.Image;
 import com.day.image.Layer;
@@ -22,6 +23,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.jackrabbit.JcrConstants;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
@@ -42,7 +44,6 @@ import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.ResolverUtil.mappedUrl;
-import static org.apache.commons.lang3.StringUtils.defaultIfEmpty;
 import static org.apache.commons.lang3.StringUtils.*;
 
 
@@ -1173,21 +1174,49 @@ public class ImagesUtil {
 
     /***
      * get background image settings from shared background image tab.
-     * @param wcmUsePojo component model model
+     * @param wcmUsePojoModel component model model
      * @return returns map of attributes
      */
-    public static ComponentProperties getBackgroundImageRenditions(WCMUsePojo wcmUsePojo) {
+    public static ComponentProperties getBackgroundImageRenditions(WCMUsePojo wcmUsePojoModel) {
+
+        try {
+
+            return getBackgroundImageRenditions(getContextObjects(wcmUsePojoModel));
+
+        } catch (Exception ex) {
+            LOGGER.error("getBackgroundImageRenditions(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+        }
+
+        return getNewComponentProperties(wcmUsePojoModel);
     }
 
-        /***
-         * get background image settings from shared background image tab.
-         * @param pageContext
-         * @return returns map of attributes
-         */
+    /***
+     * get background image settings from shared background image tab.
+     * @param pageContext page context
+     * @return returns map of attributes
+     */
+
     public static ComponentProperties getBackgroundImageRenditions(PageContext pageContext) {
-        Resource resource = (org.apache.sling.api.resource.Resource) pageContext.getAttribute("resource");
-        ResourceResolver resourceResolver = (org.apache.sling.api.resource.ResourceResolver) pageContext.getAttribute("resourceResolver");
-        org.apache.sling.api.scripting.SlingScriptHelper sling = (org.apache.sling.api.scripting.SlingScriptHelper) pageContext.getAttribute("sling");
+        try {
+
+            return getBackgroundImageRenditions(getContextObjects(pageContext));
+
+        } catch (Exception ex) {
+            LOGGER.error("getBackgroundImageRenditions(PageContext) could not read required objects", ex.toString());
+        }
+
+        return getNewComponentProperties(pageContext);
+    }
+
+    /***
+     * get background image settings from shared background image tab.
+     * @param pageContext page context
+     * @return returns map of attributes
+     */
+    public static ComponentProperties getBackgroundImageRenditions(Map<String, Object> pageContext) {
+        Resource resource = (org.apache.sling.api.resource.Resource) pageContext.get("resource");
+        ResourceResolver resourceResolver = (org.apache.sling.api.resource.ResourceResolver) pageContext.get("resourceResolver");
+        org.apache.sling.api.scripting.SlingScriptHelper sling = (org.apache.sling.api.scripting.SlingScriptHelper) pageContext.get("sling");
 
 
         Resource backgroundResource = resource.getChild(DEFAULT_BACKGROUND_IMAGE_NODE_NAME);

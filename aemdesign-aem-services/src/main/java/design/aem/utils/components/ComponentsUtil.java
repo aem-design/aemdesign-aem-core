@@ -69,7 +69,7 @@ public class ComponentsUtil {
     public static final String FIELD_VARIANT = "variant";
     public static final String DEFAULT_VARIANT = "default";
     public static final String DEFAULT_VARIANT_HIDDEN = "hidden";
-    public static final String DEFAULT_BADGE = "default";
+    public static final String DEFAULT_BADGE = "badge.default";
     public static final String DEFAULT_ARIA_ROLE_ATTRIBUTE = "role";
 
     public static final String FIELD_REDIRECT_TARGET = "redirectTarget";
@@ -147,6 +147,10 @@ public class ComponentsUtil {
     public static final String COMPONENT_BACKGROUND_ASSETS = "componentBackgroundAssets";
     public static final String COMPONENT_VARIANT_TEMPLATE = "variantTemplate";
     public static final String COMPONENT_VARIANT_TEMPLATE_FORMAT = "variant.{0}.html";
+    public static final String COMPONENT_BADGE = "componentBadge";
+    public static final String COMPONENT_BADGE_TEMPLATE = "componentBadgeTemplate";
+    public static final String COMPONENT_BADGE_TEMPLATE_FORMAT = "{0}.html";
+
 
 
     public static final String COMPONENT_CANCEL_INHERIT_PARENT = "cancelInheritParent";
@@ -354,11 +358,11 @@ public class ComponentsUtil {
             {DETAILS_LINK_TITLE, ""}, //getPageTitle(_currentPage)
             {DETAILS_LINK_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, ""},
-            {DETAILS_TITLE_TRIM_LENGTH_MAX, ""},
-            {DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX, ""},
+            {DETAILS_TITLE_TRIM_LENGTH_MAX, "20"},
+            {DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX, "..."},
             {DETAILS_SUMMARY_TRIM, ""},
-            {DETAILS_SUMMARY_TRIM_LENGTH_MAX, ""},
-            {DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX, ""},
+            {DETAILS_SUMMARY_TRIM_LENGTH_MAX, "20"},
+            {DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX, "..."},
             {DETAILS_TAB_ICONSHOW, ""},
             {DETAILS_TAB_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_ICONSHOW, ""},
@@ -735,6 +739,63 @@ public class ComponentsUtil {
     }
 
     /**
+     * get context objects.
+     * @param wcmUsePojoModel model to use
+     * @return map of objects
+     */
+    public static Map<String, Object> getContextObjects(WCMUsePojo wcmUsePojoModel) {
+        SlingHttpServletRequest slingRequest = wcmUsePojoModel.getRequest();
+        ResourceResolver resourceResolver = wcmUsePojoModel.getResourceResolver();
+        SlingScriptHelper sling = wcmUsePojoModel.getSlingScriptHelper();
+        ComponentContext componentContext = wcmUsePojoModel.getComponentContext();
+        Resource resource = wcmUsePojoModel.getResource();
+        Node currentNode = resource.adaptTo(Node.class);
+        ValueMap properties = wcmUsePojoModel.getProperties();
+        Style currentStyle = wcmUsePojoModel.getCurrentStyle();
+
+        Map<String, Object> pageContextMap = new HashMap<>();
+        pageContextMap.put("slingRequest", slingRequest);
+        pageContextMap.put("resourceResolver", resourceResolver);
+        pageContextMap.put("sling", sling);
+        pageContextMap.put("componentContext", componentContext);
+        pageContextMap.put("resource", resource);
+        pageContextMap.put("currentNode", currentNode);
+        pageContextMap.put("properties", properties);
+        pageContextMap.put("currentStyle", currentStyle);
+
+        return pageContextMap;
+    }
+
+    /**
+     * get context objects.
+     * @param pageContext page context to use
+     * @return map of objects
+     */
+    public static Map<String, Object> getContextObjects(PageContext pageContext) {
+        SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) pageContext.getAttribute("slingRequest");
+        ResourceResolver resourceResolver = (ResourceResolver) pageContext.getAttribute("resourceResolver");
+        SlingScriptHelper sling = (SlingScriptHelper) pageContext.getAttribute("sling");
+        ComponentContext componentContext = (ComponentContext) pageContext.getAttribute("componentContext");
+        Resource resource = (Resource) pageContext.getAttribute("resource");
+        Node currentNode = (Node) pageContext.getAttribute("currentNode");
+        ValueMap properties = (ValueMap) pageContext.getAttribute("properties");
+        Style currentStyle = (Style) pageContext.getAttribute("currentStyle");
+
+
+        Map<String, Object> pageContextMap = new HashMap<>();
+        pageContextMap.put("slingRequest", slingRequest);
+        pageContextMap.put("resourceResolver", resourceResolver);
+        pageContextMap.put("sling", sling);
+        pageContextMap.put("componentContext", componentContext);
+        pageContextMap.put("resource", resource);
+        pageContextMap.put("currentNode", currentNode);
+        pageContextMap.put("properties", properties);
+        pageContextMap.put("currentStyle", currentStyle);
+
+        return pageContextMap;
+    }
+
+    /**
      * returns component values with defaults from target component on a page.
      * @param wcmUsePojoModel            component model
      * @param targetResource             resource to use as source
@@ -745,26 +806,7 @@ public class ComponentsUtil {
     public static ComponentProperties getComponentProperties(WCMUsePojo wcmUsePojoModel, Object targetResource, Boolean includeComponentAttributes, Object[][]... fieldLists) {
         try {
 
-            SlingHttpServletRequest slingRequest = wcmUsePojoModel.getRequest();
-            ResourceResolver resourceResolver = wcmUsePojoModel.getResourceResolver();
-            SlingScriptHelper sling = wcmUsePojoModel.getSlingScriptHelper();
-            ComponentContext componentContext = wcmUsePojoModel.getComponentContext();
-            Resource resource = wcmUsePojoModel.getResource();
-            Node currentNode = resource.adaptTo(Node.class);
-            ValueMap properties = wcmUsePojoModel.getProperties();
-            Style currentStyle = wcmUsePojoModel.getCurrentStyle();
-
-            Map<String, Object> pageContextMap = new HashMap<>();
-            pageContextMap.put("slingRequest", slingRequest);
-            pageContextMap.put("resourceResolver", resourceResolver);
-            pageContextMap.put("sling", sling);
-            pageContextMap.put("componentContext", componentContext);
-            pageContextMap.put("resource", resource);
-            pageContextMap.put("currentNode", currentNode);
-            pageContextMap.put("properties", properties);
-            pageContextMap.put("currentStyle", currentStyle);
-
-            return getComponentProperties(pageContextMap, targetResource, includeComponentAttributes, fieldLists);
+            return getComponentProperties(getContextObjects(wcmUsePojoModel), targetResource, includeComponentAttributes, fieldLists);
 
         } catch (Exception ex) {
             LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
@@ -786,27 +828,7 @@ public class ComponentsUtil {
     public static ComponentProperties getComponentProperties(PageContext pageContext, Object targetResource, Boolean includeComponentAttributes, Object[][]... fieldLists) {
         try {
 
-            SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) pageContext.getAttribute("slingRequest");
-            ResourceResolver resourceResolver = (ResourceResolver) pageContext.getAttribute("resourceResolver");
-            SlingScriptHelper sling = (SlingScriptHelper) pageContext.getAttribute("sling");
-            ComponentContext componentContext = (ComponentContext) pageContext.getAttribute("componentContext");
-            Resource resource = (Resource) pageContext.getAttribute("resource");
-            Node currentNode = (javax.jcr.Node) pageContext.getAttribute("currentNode");
-            ValueMap properties = (ValueMap) pageContext.getAttribute("properties");
-            Style currentStyle = (Style) pageContext.getAttribute("currentStyle");
-
-
-            Map<String, Object> pageContextMap = new HashMap<>();
-            pageContextMap.put("slingRequest", slingRequest);
-            pageContextMap.put("resourceResolver", resourceResolver);
-            pageContextMap.put("sling", sling);
-            pageContextMap.put("componentContext", componentContext);
-            pageContextMap.put("resource", resource);
-            pageContextMap.put("currentNode", currentNode);
-            pageContextMap.put("properties", properties);
-            pageContextMap.put("currentStyle", currentStyle);
-
-            return getComponentProperties(pageContextMap, targetResource, includeComponentAttributes, fieldLists);
+            return getComponentProperties(getContextObjects(pageContext), targetResource, includeComponentAttributes, fieldLists);
 
         } catch (Exception ex) {
             LOGGER.error("getComponentProperties(PageContext) could not read required objects", ex.toString());
