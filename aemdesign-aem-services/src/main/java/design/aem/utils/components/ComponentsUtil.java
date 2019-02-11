@@ -2,6 +2,7 @@ package design.aem.utils.components;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.ui.components.AttrBuilder;
+import com.adobe.granite.xss.XSSAPI;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.dam.api.DamConstants;
@@ -726,6 +727,28 @@ public class ComponentsUtil {
         return getComponentProperties(wcmUsePojoModel, null, true, fieldLists);
     }
 
+
+    /**
+     * returns component values with defaults from target component on a page.
+     * @param wcmUsePojoModel            component model
+     * @param targetResource             resource to use as source
+     * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
+     * @return map of attributes
+     */
+    public static ComponentProperties getComponentProperties(WCMUsePojo wcmUsePojoModel, Object targetResource, Object[][]... fieldLists) {
+        try {
+
+            return getComponentProperties(getContextObjects(wcmUsePojoModel), targetResource, true, fieldLists);
+
+        } catch (Exception ex) {
+            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+        }
+
+
+        return getNewComponentProperties(wcmUsePojoModel);
+    }
+
+
     /**
      * returns component values with defaults from a targetResource, default to pageContext properties.
      * @param pageContext    current page context
@@ -762,6 +785,7 @@ public class ComponentsUtil {
         pageContextMap.put("currentNode", currentNode);
         pageContextMap.put("properties", properties);
         pageContextMap.put("currentStyle", currentStyle);
+        pageContextMap.put("object", wcmUsePojoModel);
 
         return pageContextMap;
     }
@@ -791,6 +815,7 @@ public class ComponentsUtil {
         pageContextMap.put("currentNode", currentNode);
         pageContextMap.put("properties", properties);
         pageContextMap.put("currentStyle", currentStyle);
+        pageContextMap.put("object", pageContext);
 
         return pageContextMap;
     }
@@ -1158,11 +1183,13 @@ public class ComponentsUtil {
 
 
     /***
+     * @deprecated please use responsive {@link #buildAttributesString(Map, XSSAPI)}
      * add a new attribute to existing component attributes collection.
      * @param componentProperties existing map of component attirbutes
      * @param keyValue attribute name and value list
      * @return string of component attributes
      */
+    @Deprecated
     public static String addComponentAttributes(ComponentProperties componentProperties, Object[][] keyValue) {
 
         String componentAttributes = componentProperties.get(COMPONENT_ATTRIBUTES, "");
@@ -1180,12 +1207,14 @@ public class ComponentsUtil {
     }
 
     /***
+     * @deprecated please use responsive {@link #buildAttributesString(Map, XSSAPI)}
      * add a new attribute to existing component attributes collection.
      * @param componentProperties existing map of component attirbutes
      * @param attributeName attribute name
      * @param attrbuteValue attribute value
      * @return string of component attributes
      */
+    @Deprecated
     public static String addComponentAttributes(ComponentProperties componentProperties, String attributeName, String attrbuteValue) {
 
         return addComponentAttributes(componentProperties, new Object[][]{{attributeName, attrbuteValue}});
