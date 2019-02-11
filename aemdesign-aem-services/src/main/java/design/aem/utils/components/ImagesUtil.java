@@ -1128,12 +1128,48 @@ public class ImagesUtil {
 
     /***
      * get background video settings from shared background video tab.
+     * @param wcmUsePojoModel component model model
+     * @return returns map of attributes
+     */
+    public static ComponentProperties getBackgroundVideoRenditions(WCMUsePojo wcmUsePojoModel) {
+
+        try {
+
+            return getBackgroundVideoRenditions(getContextObjects(wcmUsePojoModel));
+
+        } catch (Exception ex) {
+            LOGGER.error("getBackgroundImageRenditions(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+        }
+
+        return getNewComponentProperties(wcmUsePojoModel);
+    }
+
+    /***
+     * get background video settings from shared background video tab.
+     * @param pageContext page context
+     * @return returns map of attributes
+     */
+
+    public static ComponentProperties getBackgroundVideoRenditions(PageContext pageContext) {
+        try {
+
+            return getBackgroundVideoRenditions(getContextObjects(pageContext));
+
+        } catch (Exception ex) {
+            LOGGER.error("getBackgroundImageRenditions(PageContext) could not read required objects", ex.toString());
+        }
+
+        return getNewComponentProperties(pageContext);
+    }
+
+    /***
+     * get background video settings from shared background video tab.
      * @param pageContext page context
      * @return map of attributes
      */
-    public static ComponentProperties getBackgroundVideoRenditions(PageContext pageContext) {
-        Resource resource = (org.apache.sling.api.resource.Resource) pageContext.getAttribute("resource");
-        ResourceResolver resourceResolver = (org.apache.sling.api.resource.ResourceResolver) pageContext.getAttribute("resourceResolver");
+    public static ComponentProperties getBackgroundVideoRenditions(Map<String, Object> pageContext) {
+        Resource resource = (org.apache.sling.api.resource.Resource) pageContext.get("resource");
+        ResourceResolver resourceResolver = (org.apache.sling.api.resource.ResourceResolver) pageContext.get("resourceResolver");
 
         Resource backgroundResource = resource.getChild(DEFAULT_BACKGROUND_VIDEO_NODE_NAME);
 
