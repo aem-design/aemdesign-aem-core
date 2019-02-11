@@ -81,25 +81,25 @@
     <c:when test="${CURRENT_WCMMODE eq WCMMODE_DISABLED or ( CURRENT_WCMMODE eq WCMMODE_EDIT and not componentProperties.islocked )}">
         <c:choose>
             <c:when test="${componentProperties.variant eq 'descriptionlist'}">
-                <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.descriptionlist.jsp" %>
+                <%@ include file="/apps/aemdesign/components/layout/contentblock/v1/contentblock/variant.descriptionlist.jsp" %>
             </c:when>
             <c:when test="${componentProperties.variant eq 'fieldset'}">
-                <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.fieldset.jsp" %>
+                <%@ include file="/apps/aemdesign/components/layout/contentblock/v1/contentblock/variant.fieldset.jsp" %>
             </c:when>
             <c:when test="${componentProperties.variant eq 'advsection'}">
-                <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.advanced.jsp" %>
+                <%@ include file="/apps/aemdesign/components/layout/contentblock/v1/contentblock/variant.advanced.jsp" %>
             </c:when>
             <c:when test="${componentProperties.variant eq 'floating'}">
-                <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.floating.jsp" %>
+                <%@ include file="/apps/aemdesign/components/layout/contentblock/v1/contentblock/variant.floating.jsp" %>
             </c:when>
             <c:when test="${componentProperties.variant eq 'container'}">
-                <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.container.jsp" %>
+                <%@ include file="/apps/aemdesign/components/layout/contentblock/v1/contentblock/variant.container.jsp" %>
             </c:when>
             <c:when test="${componentProperties.variant eq 'containerVideo'}">
-                <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.containerVideo.jsp" %>
+                <%@ include file="/apps/aemdesign/components/layout/contentblock/v1/contentblock/variant.containerVideo.jsp" %>
             </c:when>
             <c:otherwise>
-                <%@ include file="/apps/aemdesign/components/layout/contentblock/variant.default.jsp" %>
+                <%@ include file="/apps/aemdesign/components/layout/contentblock/v1/contentblock/variant.default.jsp" %>
             </c:otherwise>
         </c:choose>
     </c:when>
