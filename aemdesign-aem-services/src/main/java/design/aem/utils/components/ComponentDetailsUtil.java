@@ -1,5 +1,6 @@
 package design.aem.utils.components;
 
+import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import design.aem.components.ComponentProperties;
@@ -29,16 +30,95 @@ public class ComponentDetailsUtil {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(ComponentDetailsUtil.class);
 
+    //A1 -> A2 WCMUsePojo
+    public static List<ComponentProperties> getPageListInfo(WCMUsePojo wcmUsePojoModel, PageManager pageManager, ResourceResolver resourceResolver, String[] paths) {
 
+        try {
+
+            return getPageListInfo(wcmUsePojoModel, pageManager, resourceResolver, paths, DEFAULT_LIST_DETAILS_SUFFIX, DEFAULT_LIST_PAGE_CONTENT);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+        }
+
+        return new ArrayList<>();
+    }
+
+    //A1 -> A2 PageContext
     public static List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths) {
-        return getPageListInfo(pageContext, pageManager, resourceResolver, paths, DEFAULT_LIST_DETAILS_SUFFIX, DEFAULT_LIST_PAGE_CONTENT);
+
+        try {
+
+            return getPageListInfo(pageContext, pageManager, resourceResolver, paths, DEFAULT_LIST_DETAILS_SUFFIX, DEFAULT_LIST_PAGE_CONTENT);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageListInfo(PageContext) could not read required objects", ex.toString());
+        }
+
+        return new ArrayList<>();
+
     }
 
+    //A2 -> A3 WCMUsePojo
+    public static List<ComponentProperties> getPageListInfo(WCMUsePojo wcmUsePojoModel, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots) {
+
+        try {
+
+            return getPageListInfo(wcmUsePojoModel, pageManager, resourceResolver, paths, componentNames, pageRoots, null, false);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+        }
+
+        return new ArrayList<>();
+    }
+
+    //A2 -> A3 PageContext
     public static List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots) {
-        return getPageListInfo(pageContext, pageManager, resourceResolver, paths, componentNames, pageRoots, null, false);
+
+        try {
+
+            return getPageListInfo(pageContext, pageManager, resourceResolver, paths, componentNames, pageRoots, null, false);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageListInfo(PageContext) could not read required objects", ex.toString());
+        }
+
+        return new ArrayList<>();
+
     }
 
+    //A3 WCMUsePojo
+    public static List<ComponentProperties> getPageListInfo(WCMUsePojo wcmUsePojoModel, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot, Boolean ignoreHidden) {
+
+        try {
+
+            return getPageListInfo(getContextObjects(wcmUsePojoModel), pageManager, resourceResolver, paths, componentNames, pageRoots, null, false);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+        }
+
+        return new ArrayList<>();
+    }
+
+    //A3 PageContext
     public static List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot, Boolean ignoreHidden) {
+
+        try {
+
+            return getPageListInfo(getContextObjects(pageContext), pageManager, resourceResolver, paths, componentNames, pageRoots, null, false);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageListInfo(PageContext) could not read required objects", ex.toString());
+        }
+
+        return new ArrayList<>();
+
+    }
+    
+    //A3 MAP
+    public static List<ComponentProperties> getPageListInfo(Map<String, Object> pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot, Boolean ignoreHidden) {
         List<ComponentProperties> pages = new ArrayList<ComponentProperties>();
 
         for (String path : paths) {
@@ -56,15 +136,101 @@ public class ComponentDetailsUtil {
         return pages;
     }
 
+
+    //B1 -> B2 WCMUsePojo
+    public static List<ComponentProperties> getPageListInfo(WCMUsePojo wcmUsePojoModel, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList) {
+
+        try {
+
+            return getPageListInfo(wcmUsePojoModel, pageManager, resourceResolver, pageList, DEFAULT_LIST_DETAILS_SUFFIX, DEFAULT_LIST_PAGE_CONTENT);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+        }
+
+        return new ArrayList<>();
+    }
+
+    //B1 -> B2 PageContext
     public static List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList) {
-        return getPageListInfo(pageContext, pageManager, resourceResolver, pageList, DEFAULT_LIST_DETAILS_SUFFIX, DEFAULT_LIST_PAGE_CONTENT);
+
+        try {
+
+            return getPageListInfo(pageContext, pageManager, resourceResolver, pageList, DEFAULT_LIST_DETAILS_SUFFIX, DEFAULT_LIST_PAGE_CONTENT);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageListInfo(PageContext) could not read required objects", ex.toString());
+        }
+
+        return new ArrayList<>();
+
     }
 
+
+
+
+
+    //B2 -> B3 WCMUsePojo
+    public static List<ComponentProperties> getPageListInfo(WCMUsePojo wcmUsePojoModel, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots) {
+
+        try {
+
+            return getPageListInfo(wcmUsePojoModel, pageManager, resourceResolver, pageList, detailsComponentName, pageRoots, null, false);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+        }
+
+        return new ArrayList<>();
+    }
+
+    //B2 -> B3 PageContext
     public static List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots) {
-        return getPageListInfo(pageContext, pageManager, resourceResolver, pageList, detailsComponentName, pageRoots, null, false);
+
+        try {
+
+            return getPageListInfo(pageContext, pageManager, resourceResolver, pageList, detailsComponentName, pageRoots, null, false);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageListInfo(PageContext) could not read required objects", ex.toString());
+        }
+
+        return new ArrayList<>();
+
     }
 
+
+    //B3 WCMUsePojo
+    public static List<ComponentProperties> getPageListInfo(WCMUsePojo wcmUsePojoModel, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots, Integer collectChildrenFromRoot, Boolean ignoreHidden) {
+
+        try {
+
+            return getPageListInfo(getContextObjects(wcmUsePojoModel), pageManager, resourceResolver, pageList, detailsComponentName, pageRoots, null, false);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+        }
+
+        return new ArrayList<>();
+    }
+
+    //B3 PageContext
     public static List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots, Integer collectChildrenFromRoot, Boolean ignoreHidden) {
+
+        try {
+
+            return getPageListInfo(getContextObjects(pageContext), pageManager, resourceResolver, pageList, detailsComponentName, pageRoots, null, false);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageListInfo(PageContext) could not read required objects", ex.toString());
+        }
+
+        return new ArrayList<>();
+
+    }
+
+    //B3 MAP
+    public static List<ComponentProperties> getPageListInfo(Map<String, Object> pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots, Integer collectChildrenFromRoot, Boolean ignoreHidden) {
         List<ComponentProperties> pages = new ArrayList<ComponentProperties>();
 
         if (pageList != null) {
@@ -82,25 +248,92 @@ public class ComponentDetailsUtil {
         return pages;
     }
 
+
+
+    
+
+
     /***
      * return pge info without children.
-     * @param pageContext page context
+     * @param page page to get info from.
+     * @param wcmUsePojoModel component model
      * @param page page to use
      * @param resourceResolver resource resolver
      * @param componentNames component names to look for
-     * @param pageRoots page parents to check
+     * @param pageRoots parent to search
+     * @return map of attributes
+     */
+    public static ComponentProperties getPageInfo(WCMUsePojo wcmUsePojoModel, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots) {
+
+        try {
+
+            return getPageInfo(wcmUsePojoModel,page,resourceResolver,componentNames,pageRoots,null);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageInfo(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+        }
+
+        return getNewComponentProperties(wcmUsePojoModel);
+
+    }
+    /***
+     * return pge info without children.
+     * @param page page to get info from.
+     * @param pageContext page context map
+     * @param page page to use
+     * @param resourceResolver resource resolver
+     * @param componentNames component names to look for
+     * @param pageRoots parent to search
      * @return map of attributes
      */
     public static ComponentProperties getPageInfo(PageContext pageContext, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots) {
-        return getPageInfo(pageContext,page,resourceResolver,componentNames,pageRoots,null);
+
+        try {
+
+            return getPageInfo(pageContext,page,resourceResolver,componentNames,pageRoots,null);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageInfo(PageContext) could not read required objects", ex.toString());
+        }
+
+        return getNewComponentProperties(pageContext);
 
     }
 
+
+    
+    ///
+
     /***
-     * Get page info from list of page paths
+     * Get page info from list of page paths.
      *
      * @param page page to get info from.
-     * @param pageContext page contenx
+     * @param wcmUsePojoModel page model
+     * @param page page to use
+     * @param resourceResolver resource resolver
+     * @param componentNames component names to look for
+     * @param pageRoots parent to search
+     * @param collectChildrenFromRoot how many levels down to collect children
+     * @return map of attributes
+     */
+    public static ComponentProperties getPageInfo(WCMUsePojo wcmUsePojoModel, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot) {
+
+        try {
+
+            return getPageInfo(getContextObjects(wcmUsePojoModel), page, resourceResolver, componentNames, pageRoots, collectChildrenFromRoot);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+        }
+
+        return getNewComponentProperties(wcmUsePojoModel);
+    }
+
+    /***
+     * Get page info from list of page paths.
+     *
+     * @param page page to get info from.
+     * @param pageContext page content
      * @param page page to use
      * @param resourceResolver resource resolver
      * @param componentNames component names to look for
@@ -109,6 +342,32 @@ public class ComponentDetailsUtil {
      * @return map of attributes
      */
     public static ComponentProperties getPageInfo(PageContext pageContext, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot) {
+
+        try {
+
+            return getPageInfo(getContextObjects(pageContext), page, resourceResolver, componentNames, pageRoots, collectChildrenFromRoot);
+
+        } catch (Exception ex) {
+            LOGGER.error("getPageInfo(PageContext) could not read required objects", ex.toString());
+        }
+
+        return getNewComponentProperties(pageContext);
+
+    }
+    
+    /***
+     * Get page info from list of page paths.
+     *
+     * @param page page to get info from.
+     * @param pageContext page content
+     * @param page page to use
+     * @param resourceResolver resource resolver
+     * @param componentNames component names to look for
+     * @param pageRoots parent to search
+     * @param collectChildrenFromRoot how many levels down to collect children
+     * @return map of attributes
+     */
+    public static ComponentProperties getPageInfo(Map<String, Object> pageContext, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot) {
         ComponentProperties componentProperties = getNewComponentProperties(pageContext);
 
         if (page!=null) {
@@ -121,11 +380,34 @@ public class ComponentDetailsUtil {
 
                 if (!ResourceUtil.isNonExistingResource(detailsNodeResource)) {
 
-                    componentProperties = getComponentProperties(
-                            pageContext,
-                            detailsNodeResource,
-                            DEFAULT_FIELDS_DETAILS_OPTIONS
-                    );
+                    Object source = pageContext.get("source");
+
+                    PageContext pageContext1 = null;
+                    WCMUsePojo wcmUsePojo = null;
+
+                    if (source instanceof PageContext) {
+                        pageContext1 = (PageContext)source;
+                    }
+
+                    if (source instanceof WCMUsePojo) {
+                        wcmUsePojo = (WCMUsePojo)source;
+                    }
+
+                    if (pageContext1 != null) {
+                        componentProperties = getComponentProperties(
+                                pageContext1,
+                                detailsNodeResource,
+                                DEFAULT_FIELDS_DETAILS_OPTIONS
+                        );
+                    }
+
+                    if (wcmUsePojo != null) {
+                        componentProperties = getComponentProperties(
+                                wcmUsePojo,
+                                detailsNodeResource,
+                                DEFAULT_FIELDS_DETAILS_OPTIONS
+                        );
+                    }
 
                     componentProperties.put("detailsPath",detailsNodeResource.getPath());
 
@@ -162,7 +444,7 @@ public class ComponentDetailsUtil {
             }
 
             //check if current page is in request page hierarchy
-            Page selectedPage = (com.day.cq.wcm.api.Page) pageContext.getAttribute("currentPage");
+            Page selectedPage = (com.day.cq.wcm.api.Page) pageContext.get("currentPage");
             if (selectedPage != null ) {
                 String selectedPagePath = selectedPage.getPath();
                 String thisPagePath = page.getPath();
@@ -180,7 +462,7 @@ public class ComponentDetailsUtil {
                 //keep going
                 List<Map> childrenList = new ArrayList<Map>();
 
-                SlingHttpServletRequest req = (SlingHttpServletRequest) pageContext.getAttribute("slingRequest");
+                SlingHttpServletRequest req = (SlingHttpServletRequest) pageContext.get("slingRequest");
 
 
                 if (req != null) {
