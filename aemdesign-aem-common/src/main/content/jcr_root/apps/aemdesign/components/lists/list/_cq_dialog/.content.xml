@@ -312,6 +312,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="cq:template"
                                                     value="cq:template"/>
+                                            <score
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="jcr:score"
+                                                    value="jcr:score"/>
                                         </items>
                                     </orderBy>
                                     <limit
