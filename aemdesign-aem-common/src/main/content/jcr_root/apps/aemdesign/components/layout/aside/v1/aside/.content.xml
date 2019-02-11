@@ -4,7 +4,6 @@
     cq:layout="editbar"
     cq:isContainer="{Boolean}true"
     jcr:primaryType="cq:Component"
-    jcr:title="Aside"
+    jcr:title="Aside (v1)"
     cq:icon="mBox"
-    sling:resourceSuperType="aemdesign/components/layout/aside/v2/aside"
-    componentGroup="AEM.Design - Layout"/>
+    componentGroup="hidden"/>
