@@ -1,4 +1,4 @@
-package design.aem.models.v2.layout;
+package design.aem.models.v2.content;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
@@ -10,7 +10,6 @@ import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static design.aem.utils.components.ComponentsUtil.*;
