@@ -1,22 +1,22 @@
 <%@include file="/libs/granite/ui/global.jsp"%>
-<%@ include file="/apps/aemdesign/global/security.jsp" %>
 <%
 %><%@page session="false"
- import="com.adobe.granite.ui.components.rendercondition.RenderCondition,
+ import="com.adobe.granite.ui.components.Config,
+                  com.adobe.granite.ui.components.rendercondition.RenderCondition,
                   com.adobe.granite.ui.components.rendercondition.SimpleRenderCondition,
-                  com.day.cq.dam.commons.util.UIHelper,
+                  org.apache.jackrabbit.api.security.user.Authorizable,
                   org.apache.sling.api.resource.Resource,
                   org.apache.sling.api.resource.ResourceUtil,
-                  com.adobe.granite.ui.components.Config,
                   org.apache.sling.api.resource.ValueMap"%>
 <%@ page import="javax.jcr.Node" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.List" %>
+<%@ page import="static design.aem.utils.components.SecurityUtil.isUserMemberOf" %>
 <%
     /**
      A condition that evaluates to true, if the node is not locked or if the current user session owns the lock, false otherwise.
      @name locked
-     @location /apps/adam/components/renderconditions/notlocked
+     @location /apps/aemdesign/components/layout/contentblocklock/v2/contentblocklock/renderconditions/notlocked
 
      @example
      + mybutton

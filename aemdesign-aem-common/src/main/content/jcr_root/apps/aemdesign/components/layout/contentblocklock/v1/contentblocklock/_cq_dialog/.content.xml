@@ -39,7 +39,7 @@
                                         sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
                                     <granite:rendercondition
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="/apps/aemdesign/components/layout/contentblocklock/renderconditions/locked"
+                                            sling:resourceType="/apps/aemdesign/components/layout/contentblocklock/v1/contentblocklock/renderconditions/locked"
                                             path="${requestPathInfo.suffix}"/>
                                 </granite:rendercondition>
                                 <items jcr:primaryType="nt:unstructured">
@@ -54,7 +54,7 @@
                                     sling:resourceType="granite/ui/components/foundation/container">
                                 <granite:rendercondition
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="/apps/aemdesign/components/layout/contentblocklock/renderconditions/locked"
+                                        sling:resourceType="/apps/aemdesign/components/layout/contentblocklock/v1/contentblocklock/renderconditions/locked"
                                         path="${requestPathInfo.suffix}"/>
                                 <items jcr:primaryType="nt:unstructured">
                                     <updateNotAllowed
