@@ -5,5 +5,5 @@
     jcr:primaryType="cq:Component"
     jcr:title="Content Block Lockable (v2)"
     cq:icon="usersLock"
-    sling:resourceSuperType="aemdesign/components/layout/contentblocklock/v2/contentblocklock"
+    sling:resourceSuperType="aemdesign/components/layout/contentblock/v2/contentblock"
     componentGroup="hidden"/>
