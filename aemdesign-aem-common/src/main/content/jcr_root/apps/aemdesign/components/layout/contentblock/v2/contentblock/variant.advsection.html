@@ -1,0 +1,50 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <section data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+        <div class="content">
+            <a name="${componentProperties.instanceName}"></a>
+            <div data-sly-test="${!componentProperties.hideTitle}" class="title">
+                <ul class="linksleft float-left"
+                    data-sly-test="${componentProperties.listLinksLeft && !componentProperties.linksLeftTitle}">
+                    <li data-sly-test="${componentProperties.linksLeftTitle}"
+                        class="title">${componentProperties.linksLeftTitle}</li>
+
+                    <sly data-sly-list.linkLeft="${componentProperties.linksLeftList}" data-sly-unwrap>
+                        <li data-sly-test="${componentProperties.linksLeftList[linkLeft].titleIconShow && componentProperties.linksLeftList[linkLeft].titleIcon}"
+                            class="title-icon">
+                            <a href="${componentProperties.linksLeftList[linkLeft].href}">
+                                <i class="icon ${componentProperties.linksLeftList[linkLeft].titleIcon @ join=' '}" title="${componentProperties.linksLeftList[linkLeft].title}"></i>
+                                <span class="title">${componentProperties.linksLeftList[linkLeft].pageNavTitle}</span>
+                            </a>
+                        </li>
+                        <li data-sly-test="${!componentProperties.linksLeftList[linkLeft].titleIconShow}"
+                            class="title-link"><a href="${componentProperties.linksLeftList[linkLeft].href}">${componentProperties.linksLeftList[linkLeft].pageNavTitle}</a></li>
+                    </sly>
+                </ul>
+                <ul class="linksright float-right"
+                    data-sly-test="${componentProperties.listLinksRight && !componentProperties.linksRightTitle}">
+                    <li data-sly-test="${componentProperties.linksRightTitle}"
+                        class="title">${componentProperties.linksRightTitle}</li>
+
+                    <sly data-sly-list.linkRight="${componentProperties.linksRightList}" data-sly-unwrap>
+                        <li data-sly-test="${componentProperties.linksRightList[linkRight].titleIconShow && componentProperties.linksRightList[linkRight].titleIcon}"
+                            class="title-icon">
+                            <a href="${componentProperties.linksRightList[linkRight].href}">
+                                <i class="icon ${componentProperties.linksRightList[linkRight].titleIcon @ join=' '}" title="${componentProperties.linksRightList[linkRight].title}"></i>
+                                <span class="title">${componentProperties.linksRightList[linkRight].pageNavTitle}</span>
+                            </a>
+                        </li>
+                        <li data-sly-test="${!componentProperties.linksRightList[linkRight].titleIconShow}"
+                            class="title-link"><a href="${componentProperties.linksRightList[linkRight].href}">${componentProperties.linksRightList[linkRight].pageNavTitle}</a></li>
+                    </sly>
+                </ul>
+                <title class="card-title" class="heading" id="${componentProperties.ariaLabelledBy}"
+                       data-sly-element="${componentProperties.badgeTitleType}">${componentProperties.pageNavTitle}</title>
+            </div>
+            <div class="contents">
+                <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container', decorationTagName='div'}"></sly>
+            </div>
+        </div>
+        <a data-sly-test="${!componentProperties.hideTopLink}"
+           href="#top" target="_self" title="${componentProperties.topLinkTitle}" class="back-to-top">${componentProperties.topLinkLabel}</a>
+    </section>
+</template>
