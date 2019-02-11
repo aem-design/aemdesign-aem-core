@@ -3,7 +3,6 @@
     cq:isContainer="{Boolean}false"
     jcr:description="Print current page date"
     jcr:primaryType="cq:Component"
-    jcr:title="Page Date"
+    jcr:title="Page Date (v1)"
     cq:icon="viewDetail"
-    sling:resourceSuperType="aemdesign/components/content/pagedate/v2/pagedate"
-    componentGroup="AEM.Design - Content"/>
+    componentGroup="hidden"/>
