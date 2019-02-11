@@ -1,14 +1,17 @@
-<template data-sly-template.variant="${@ componentProperties, component}">
+<template data-sly-template.variant="${@ componentProperties, component, inheritParent}">
     <sly data-sly-test="${wcmmode.edit}">
-        <button type="button" class="component badge badge-pill" data-toggle="modal" data-target="#componentbadge-${componentProperties.componentId}">
-            ${component.component.title}
+        <sly data-sly-set.title="${component.component.title}"></sly>
+        <sly data-sly-test="${inheritParent}" data-sly-set.suffix="${' Inherited'}"></sly>
+        <sly data-sly-test="${inheritParent}" data-sly-set.suffixId="${'Inherited'}"></sly>
+        <button type="button" class="component badge badge-pill" data-toggle="modal" data-target="#componentbadge-${componentProperties.componentId}${suffixId}">
+            ${title}${suffix}
         </button>
-        <div class="modal fade bd-example-modal-lg" id="componentbadge-${componentProperties.componentId}" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade bd-example-modal-lg" id="componentbadge-${componentProperties.componentId}${suffixId}" tabindex="-1" role="dialog"
+             aria-labelledby="componentbadge-${componentProperties.componentId}${suffixId}Label" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">${component.component.title}</h5>
+                        <h5 class="modal-title" id="componentbadge-${componentProperties.componentId}${suffixId}Label">${component.component.title}${suffix}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -39,12 +42,8 @@
                                 <td>${component.resource.path}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Location</th>
-                                <td>${originLocation}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Inherited</th>
-                                <td>${isInherited}</td>
+                                <th scope="row">Inherited Path</th>
+                                <td>${componentProperties.inheritedResource.path}</td>
                             </tr>
 
                             <sly data-sly-list.myitem="${componentProperties}" data-sly-unwrap>
