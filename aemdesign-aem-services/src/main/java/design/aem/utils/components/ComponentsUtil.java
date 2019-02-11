@@ -1065,6 +1065,7 @@ public class ComponentsUtil {
                     }
                 }
 
+                //get current variant value
                 String variant = componentProperties.get(FIELD_VARIANT, "");
 
                 //add variant to the end of class string
@@ -1076,10 +1077,12 @@ public class ComponentsUtil {
                     componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), oldXssAPI));
                 }
 
-                //compile variantTemplate param
-                if (isNotEmpty(variant)) {
-                    componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT,variant));
+                //use default variant if variant value not set
+                if (isEmpty(variant)) {
+                    variant = DEFAULT_VARIANT;
                 }
+                //compile variantTemplate param
+                componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT,variant));
             }
 
         } catch (Exception ex) {
