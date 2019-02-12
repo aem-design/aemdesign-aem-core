@@ -2,7 +2,6 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:description="Rich Text Component"
     jcr:primaryType="cq:Component"
-    jcr:title="Rich Text"
+    jcr:title="Rich Text (v2)"
     cq:icon="textParagraph"
-    sling:resourceSuperType="aemdesign/components/content/text/v2/text"
-    componentGroup="AEM.Design - Content"/>
+    componentGroup="hidden"/>
