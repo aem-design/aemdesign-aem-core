@@ -19,7 +19,7 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
-    componentProperties.putAll(getBackgroundImageRenditions(pageContext));
+    componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME,getBackgroundImageRenditions(pageContext));
 
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>

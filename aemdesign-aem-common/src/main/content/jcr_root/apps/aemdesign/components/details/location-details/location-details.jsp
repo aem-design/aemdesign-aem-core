@@ -134,7 +134,7 @@
 
     componentProperties.putAll(processBadgeRequestConfig(componentProperties,_resourceResolver, request), true);
 
-    componentProperties.putAll(getBackgroundImageRenditions(pageContext));
+    componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME,getBackgroundImageRenditions(pageContext));
 
 
 %>
