@@ -733,7 +733,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/hidden"
                                             name="./bgvideo/sling:resourceType"
-                                            value="aemdesign/components/media/image"/>
+                                            value="aemdesign/components/media/video"/>
 
                                 </items>
                             </attributes>
