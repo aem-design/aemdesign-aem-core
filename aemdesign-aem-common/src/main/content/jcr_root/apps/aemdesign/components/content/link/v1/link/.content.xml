@@ -4,5 +4,4 @@
     jcr:title="Link"
     cq:icon="link"
     allowedParents="[*/parsys]"
-    sling:resourceSuperType="aemdesign/components/content/link/v2/link"
-    componentGroup="AEM.Design - Content"/>
+    componentGroup="hidden"/>
