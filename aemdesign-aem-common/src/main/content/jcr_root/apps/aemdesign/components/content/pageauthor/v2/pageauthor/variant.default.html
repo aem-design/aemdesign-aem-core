@@ -1,0 +1,6 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+         itemscope itemtype="http://schema.org/Person">
+        <a rel="author" href="${componentProperties.authorUrl}">${componentProperties.author}</a>
+    </div>
+</template>
