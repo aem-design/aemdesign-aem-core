@@ -62,9 +62,9 @@
 
     }
 
-    componentProperties.putAll(getBackgroundVideoRenditions(pageContext));
+    componentProperties.put(DEFAULT_BACKGROUND_VIDEO_NODE_NAME,getBackgroundVideoRenditions(pageContext));
 
-    componentProperties.putAll(getBackgroundImageRenditions(pageContext));
+    componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME,getBackgroundImageRenditions(pageContext));
 
 
 
