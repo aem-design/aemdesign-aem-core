@@ -1,4 +1,5 @@
-# Link
+Link
+============
 
 Link component
 
@@ -9,12 +10,12 @@ Call to Acton can be a Link or a Button.
 
 ### Information
 * **Vendor**: [AEM.Design](http://aem.design)
-* **Version**: v1
+* **Version**: v2
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
-* **Showcase**: [/content/aemdesign-showcase/en/component/content/link.html](/content/aemdesign-showcase/en/component/content/link.html?wcmmode=disabled)
+* **Showcase**: [/content/aemdesign-showcase/en/component/content/link](/content/aemdesign-showcase/en/component/content/link.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/content/link](/crx/de/#/apps/aemdesign/components/content/link)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/link)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/content/link)
 * **Readme**: [/apps/aemdesign/components/content/link](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/link)
 
 ### Features
