@@ -2,6 +2,8 @@
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%
     Object[][] componentFields = {
+            {"text",""},
+            {"tableData",""}
     };
 
     ComponentProperties componentProperties = getComponentProperties(
