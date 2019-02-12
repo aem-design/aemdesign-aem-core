@@ -3,7 +3,6 @@
     cq:isContainer="{Boolean}false"
     jcr:description="Print current page title"
     jcr:primaryType="cq:Component"
-    jcr:title="Page Title"
+    jcr:title="Page Title (v2)"
     cq:icon="viewDetail"
-    sling:resourceSuperType="aemdesign/components/content/pagetitle/v2/pagetitle"
-    componentGroup="AEM.Design - Content"/>
+    componentGroup="hidden"/>
