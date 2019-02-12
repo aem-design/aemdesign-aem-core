@@ -7,7 +7,7 @@
 
     <!--/* print component background */-->
     <sly data-sly-test="${component.componentProperties.cancelInheritParent}"
-         data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.componentBackgroundAssets}"></sly>
+         data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.bgimage.componentBackgroundAssets}"></sly>
 
     <!--/* print inherited resource notfound edit message */-->
     <sly data-sly-test="${!component.componentProperties.cancelInheritParent && !component.componentProperties.inheritedResource}"

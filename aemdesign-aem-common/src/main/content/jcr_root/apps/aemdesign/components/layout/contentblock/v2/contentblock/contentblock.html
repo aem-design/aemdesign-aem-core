@@ -4,7 +4,7 @@
      data-sly-use.info="aemdesign/global/templates/component-info.html">
 
     <!--/* print component background */-->
-    <sly data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.componentBackgroundAssets}"></sly>
+    <sly data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.bgimage.componentBackgroundAssets}"></sly>
 
     <!--/* print component variant */-->
     <sly data-sly-call="${variant.variant @ componentProperties=component.componentProperties}"></sly>

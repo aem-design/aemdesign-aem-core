@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
+import static design.aem.utils.components.ImagesUtil.DEFAULT_BACKGROUND_IMAGE_NODE_NAME;
 import static design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions;
 
 public class Article extends WCMUsePojo {
@@ -41,7 +42,7 @@ public class Article extends WCMUsePojo {
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY);
 
-        componentProperties.putAll(getBackgroundImageRenditions(this));
+        componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME,getBackgroundImageRenditions(this));
 
     }
 

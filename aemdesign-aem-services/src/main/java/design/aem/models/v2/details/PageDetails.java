@@ -163,7 +163,7 @@ public class PageDetails extends WCMUsePojo {
 
         componentProperties.putAll(processBadgeRequestConfig(componentProperties,getResourceResolver(), getRequest()), true);
 
-        componentProperties.putAll(getBackgroundImageRenditions(this));
+        componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME,getBackgroundImageRenditions(this));
 
         //get badge action attributes
         Map<String, String> badgeLinkAttr = new HashMap<>();

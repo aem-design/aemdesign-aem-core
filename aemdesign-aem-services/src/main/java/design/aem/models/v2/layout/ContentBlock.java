@@ -13,8 +13,7 @@ import javax.jcr.Node;
 import static design.aem.utils.components.ComponentDetailsUtil.getPageListInfo;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
-import static design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions;
-import static design.aem.utils.components.ImagesUtil.getBackgroundVideoRenditions;
+import static design.aem.utils.components.ImagesUtil.*;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class ContentBlock extends WCMUsePojo {
@@ -83,9 +82,10 @@ public class ContentBlock extends WCMUsePojo {
 
         }
 
-        componentProperties.putAll(getBackgroundVideoRenditions(this));
+        componentProperties.put(DEFAULT_BACKGROUND_VIDEO_NODE_NAME,getBackgroundVideoRenditions(this));
 
-        componentProperties.putAll(getBackgroundImageRenditions(this));
+        componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME,getBackgroundImageRenditions(this));
+
 
 
     }
