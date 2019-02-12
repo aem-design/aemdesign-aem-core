@@ -2,8 +2,7 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Component"
     jcr:description="This is a component which enable HTML editing to allow user to enter HTML code directly or insert small snippets of code for unique functionality."
-    jcr:title="Embed Source"
+    jcr:title="Embed Source (v2)"
     cq:icon="code"
     allowedParents="[*/parsys]"
-    sling:resourceSuperType="aemdesign/components/content/embedsource/v2/embedsource"
-    componentGroup="AEM.Design - Content"/>
+    componentGroup="hidden"/>
