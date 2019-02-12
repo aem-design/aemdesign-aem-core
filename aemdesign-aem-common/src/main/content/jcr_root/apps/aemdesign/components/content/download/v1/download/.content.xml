@@ -3,5 +3,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="File Download Link (v1)"
     cq:icon="download"
-    sling:resourceSuperType="foundation/components/parbase"
     componentGroup="hidden"/>

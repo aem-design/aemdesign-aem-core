@@ -3,6 +3,5 @@
     jcr:mixinTypes="[mix:lockable]"
     jcr:primaryType="cq:Component"
     jcr:title="Twitter Follow Button"
-    sling:resourceSuperType="foundation/components/parbase"
     allowedParents="[*/parsys]"
     componentGroup="AEM.Design - Widgets"/>
