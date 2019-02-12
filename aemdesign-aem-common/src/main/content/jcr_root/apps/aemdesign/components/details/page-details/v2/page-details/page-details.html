@@ -5,19 +5,19 @@
      data-sly-use.info="aemdesign/global/templates/component-info.html">
 
     <!--/* print component background if not badge being requested */-->
-    <sly data-sly-test="${!componentProperties.componentBadge}"
-         data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.componentBackgroundAssets}"></sly>
+    <sly data-sly-test="${!component.componentProperties.componentBadge}"
+         data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.bgimage.componentBackgroundAssets}"></sly>
 
     <!--/* print component variant if not badge being requested */-->
-    <sly data-sly-test="${!componentProperties.componentBadge}"
+    <sly data-sly-test="${!component.componentProperties.componentBadge}"
          data-sly-call="${variant.variant @ componentProperties=component.componentProperties}"></sly>
 
     <!--/* print component info in edit mode if not badge being requested */-->
-    <sly data-sly-test="${!componentProperties.componentBadge}"
+    <sly data-sly-test="${!component.componentProperties.componentBadge}"
          data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></sly>
 
     <!--/* print component badge if badge being requested */-->
-    <sly data-sly-test="${componentProperties.componentBadge}"
+    <sly data-sly-test="${component.componentProperties.componentBadge}"
          data-sly-call="${badge.variant @ componentProperties=component.componentProperties}"></sly>
 
 </sly>
