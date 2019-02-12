@@ -3,7 +3,6 @@
     cq:isContainer="{Boolean}false"
     jcr:description="Display page tags"
     jcr:primaryType="cq:Component"
-    jcr:title="Page Tags"
+    jcr:title="Page Tags (v2)"
     cq:icon="viewDetail"
-    sling:resourceSuperType="aemdesign/components/content/pagetags/v2/pagetags"
     componentGroup="AEM.Design - Content"/>
