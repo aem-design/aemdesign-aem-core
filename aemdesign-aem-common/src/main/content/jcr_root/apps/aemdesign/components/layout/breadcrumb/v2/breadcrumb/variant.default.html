@@ -1,0 +1,18 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <nav data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+         data-sly-test="${componentProperties.values}">
+        <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"
+            data-sly-list.link="${componentProperties.values}">
+            <sly data-sly-test="${componentProperties.delimiter}">${componentProperties.delimiter}</sly>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"
+                class="breadcrumb-item${linkList.last ? ' active' : ''}">
+                <a itemscope itemtype="http://schema.org/WebPage" itemprop="item" href="${link.url}"
+                   data-sly-unwrap="${link.current}">
+                    <span itemprop="name">${link.title}</span>
+                </a>
+                <meta itemprop="position" content="${linkList.count}" />
+            </li>
+            <sly data-sly-test="${componentProperties.trail}">${componentProperties.trail}</sly>
+        </ol>
+    </nav>
+</template>
