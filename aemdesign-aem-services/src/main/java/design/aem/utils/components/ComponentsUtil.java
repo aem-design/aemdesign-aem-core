@@ -43,12 +43,14 @@ import java.io.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Time;
 import java.util.*;
 import java.util.regex.Pattern;
 
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import java.sql.Timestamp;
 
 public class ComponentsUtil {
 
@@ -997,7 +999,7 @@ public class ComponentsUtil {
                             //skip entries that already exist
                             //first Object in fieldLists will set a field value
                             //we expect the additional Objects to not override
-                            LOGGER.debug("getComponentProperties: skipping property [{}] its already defined, {}", fieldName, componentContext.getResource().getPath());
+                            LOGGER.warn("getComponentProperties: skipping property [{}] its already defined, {}", fieldName, componentContext.getResource().getPath());
                             continue;
                         }
 
@@ -1081,8 +1083,10 @@ public class ComponentsUtil {
                 if (isEmpty(variant)) {
                     variant = DEFAULT_VARIANT;
                 }
-                //compile variantTemplate param
-                componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT,variant));
+                if (addMoreAttributes) {
+                    //compile variantTemplate param
+                    componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant));
+                }
             }
 
         } catch (Exception ex) {
@@ -1267,7 +1271,7 @@ public class ComponentsUtil {
             BigInteger bigInt = new BigInteger(1, md5Arr);
             return bigInt.toString(16);
         } catch (UnsupportedEncodingException ueEx) {
-            LOGGER.debug("Unable to get UTF-8 version of pagepath");
+            LOGGER.warn("Unable to get UTF-8 version of pagepath");
             return uniqueBase;
         } catch (NoSuchAlgorithmException nsaEx) { /* they be watchin' */
             LOGGER.warn("No MD5 algorithm found, cannot hash");
