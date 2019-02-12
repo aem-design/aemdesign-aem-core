@@ -1,0 +1,15 @@
+<sly data-sly-use.component="design.aem.models.v2.content.PageTitle"
+     data-sly-use.variant="${component.componentProperties.variantTemplate}"
+     data-sly-use.background="aemdesign/global/templates/component-background.html"
+     data-sly-use.info="aemdesign/global/templates/component-info.html">
+
+    <!--/* print component background */-->
+    <sly data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.componentBackgroundAssets}"></sly>
+
+    <!--/* print component variant */-->
+    <sly data-sly-call="${variant.variant @ componentProperties=component.componentProperties}"></sly>
+
+    <!--/* print component info in edit mode */-->
+    <sly data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></sly>
+
+</sly>

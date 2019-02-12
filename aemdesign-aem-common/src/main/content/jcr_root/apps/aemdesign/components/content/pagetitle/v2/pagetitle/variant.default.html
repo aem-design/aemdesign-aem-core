@@ -1,0 +1,5 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <title class="card-title"
+           data-sly-element="${componentProperties.titleType}"
+           data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">${componentProperties.pagetitle}</title>
+</template>
