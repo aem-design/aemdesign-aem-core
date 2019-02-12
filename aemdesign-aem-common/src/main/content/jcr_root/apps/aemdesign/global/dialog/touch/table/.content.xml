@@ -30,10 +30,10 @@
                             <table
                                     jcr:primaryType="nt:unstructured"
                                     hideLabel="{Boolean}false"
-                                    name="./tableData"
+                                    name="./text"
                                     jcr:title="Table"
                                     useFixedInlineToolbar="{Boolean}true"
-                                    textPropertyName="./tableData"
+                                    textPropertyName="./text"
                                     sling:resourceType="cq/gui/components/authoring/dialog/richtext">
                                 <rtePlugins jcr:primaryType="nt:unstructured">
                                     <findreplace
