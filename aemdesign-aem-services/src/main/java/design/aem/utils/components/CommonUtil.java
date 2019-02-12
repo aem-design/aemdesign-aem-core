@@ -38,6 +38,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspWriter;
 import java.io.*;
 import java.math.BigInteger;
+import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -1617,4 +1619,39 @@ public class CommonUtil {
         return sw.toString();
     }
 
+
+    /**
+     * get content of a specified URL.
+     * @param Url url to load
+     * @return string content
+     */
+    public static String getUrlContent(String Url) {
+
+        if (isNotEmpty(Url)) {
+
+            try {
+                URL url = new URL(Url);
+                URLConnection conn = url.openConnection();
+
+                // open the stream and put it into BufferedReader
+                BufferedReader bufferReader = new BufferedReader(
+                        new InputStreamReader(conn.getInputStream()));
+
+                StringBuilder sb = new StringBuilder();
+
+                String inputLine;
+
+                while ((inputLine = bufferReader.readLine()) != null) {
+                    sb.append(inputLine);
+                }
+                bufferReader.close();
+
+                return sb.toString();
+
+            } catch (Exception ex) {
+
+            }
+        }
+        return "";
+    }
 }
