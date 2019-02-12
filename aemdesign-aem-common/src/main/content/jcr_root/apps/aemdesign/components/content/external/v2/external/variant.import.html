@@ -1,0 +1,8 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" import>
+        ${componentProperties.importHtml @ context = 'unsafe'}
+        <div class="import-error" data-sly-test="${componentProperties.importError}">
+            Import Error<br>${componentProperties.importError}
+        </div>
+    </div>
+</template>
