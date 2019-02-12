@@ -12,6 +12,14 @@
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
+    //backwards compatibility for components that use textData
+    String tableData = componentProperties.get("tableData","");
+    String text = componentProperties.get("text","");
+
+    if (isEmpty(text) && isNotEmpty(tableData)) {
+        componentProperties.put("text",tableData);
+    }
+
 %>
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 <c:choose>
