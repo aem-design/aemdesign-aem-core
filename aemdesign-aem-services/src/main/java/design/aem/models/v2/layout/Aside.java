@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.INHERITED_RESOURCE;
 import static design.aem.utils.components.I18nUtil.*;
+import static design.aem.utils.components.ImagesUtil.DEFAULT_BACKGROUND_IMAGE_NODE_NAME;
 import static design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions;
 
 public class Aside extends WCMUsePojo {
@@ -49,7 +50,7 @@ public class Aside extends WCMUsePojo {
         componentProperties.put(INHERITED_RESOURCE,findInheritedResource(getCurrentPage(),getComponentContext()));
         componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,getDefaultLabelIfEmpty("",DEFAULT_I18N_INHERIT_CATEGORY,DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,DEFAULT_I18N_INHERIT_CATEGORY,_i18n));
 
-        componentProperties.putAll(getBackgroundImageRenditions(this));
+        componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME,getBackgroundImageRenditions(this));
 
     }
 

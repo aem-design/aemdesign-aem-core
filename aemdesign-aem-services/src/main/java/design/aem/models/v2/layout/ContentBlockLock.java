@@ -100,9 +100,9 @@ public class ContentBlockLock extends WCMUsePojo {
             componentProperties.put(FIELD_LOCKED, false);
         }
 
-        componentProperties.putAll(getBackgroundVideoRenditions(this));
+        componentProperties.put(DEFAULT_BACKGROUND_VIDEO_NODE_NAME,getBackgroundVideoRenditions(this));
 
-        componentProperties.putAll(getBackgroundImageRenditions(this));
+        componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME,getBackgroundImageRenditions(this));
 
     }
 

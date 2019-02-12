@@ -4,7 +4,7 @@
      data-sly-use.info="aemdesign/global/templates/component-info.html">
 
     <!--/* print component background if not locker */-->
-    <sly data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.componentBackgroundAssets}"></sly>
+    <sly data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.bgimage.componentBackgroundAssets}"></sly>
 
     <sly data-sly-test="${!component.componentProperties.islocked}">
         <!--/* print component variant if not locker */-->
