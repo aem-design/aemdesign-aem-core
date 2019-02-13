@@ -3,7 +3,6 @@
     cq:isContainer="{Boolean}false"
     jcr:description="Output analytics datalayer functions"
     jcr:primaryType="cq:Component"
-    jcr:title="Analytics Data Layer"
+    jcr:title="Analytics Data Layer (v2)"
     cq:icon="viewDetail"
-    sling:resourceSuperType="aemdesign/components/analytics/datalayer/v2/datalayer"
-    componentGroup="AEM.Design - Analytics"/>
+    componentGroup="hidden"/>
