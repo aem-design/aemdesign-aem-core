@@ -40,7 +40,7 @@
                 </c:choose></h2>
 
                 <c:if test="${not empty(thirdNav)}">
-                    <ul style="${inactiveStyle2}">
+                    <ul style="${inactiveStyle2}" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
                         <c:forEach items="${thirdNav}" var="link3">
                             <c:set var="fourthNav" value=""/>
                             <c:set var="activeCss3" value=""/>
@@ -56,13 +56,13 @@
                                 <c:set var="inactiveStyle3" value="display: none;"/>
                             </c:if>
 
-                            <li class="${activeCss3}">
+                            <li class="${activeCss3}" itemprop="name">
                                 <c:choose>
                                     <c:when test="${CURRENT_WCMMODE == WCMMODE_EDIT}">
-                                        <a href="${link3.authHref}" title="${componentProperties.linkTitlePrefix}${" "}${link3.title}"><span>${link3.title}</span></a>
+                                        <a itemprop="url" href="${link3.authHref}" title="${componentProperties.linkTitlePrefix}${" "}${link3.title}"><span>${link3.title}</span></a>
                                     </c:when>
                                     <c:otherwise>
-                                        <a href="${link3.href}" title="${componentProperties.linkTitlePrefix}${" "}${link3.title}"><span>${link3.title}</span></a>
+                                        <a itemprop="url" href="${link3.href}" title="${componentProperties.linkTitlePrefix}${" "}${link3.title}"><span>${link3.title}</span></a>
                                     </c:otherwise>
                                 </c:choose>
 
