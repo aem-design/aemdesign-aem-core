@@ -1,0 +1,12 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" itemscope itemtype="http://schema.org/VideoObject">
+        <div class="banner video" role="banner">
+            <div class="figure">
+                <a class="caption lightbox media" href="${componentProperties.href}" title="${componentProperties.msg}" data-group="gallery"
+                   data-description="&lt;b&gt;${componentProperties.metaTitle}&lt;/b&gt;&lt;br&gt;&lt;b&gt;${componentProperties.metaDesc}&lt;/b&gt;&lt;br&gt;&lt;p&gt;${componentProperties.metaCreator}&lt;/p&gt;&lt;span&gt;${componentProperties.metaCopyRight}&lt;/span&gt;"
+                   data-width="${componentProperties.width}%" data-height="${componentProperties.height}%"></a>
+                <img src="${componentProperties.thumbnail}"  style="width:${componentProperties.thumbnailWidth}px; height:${componentProperties.thumbnailHeight}px;" />
+            </div>
+        </div>
+    </div>
+</template>
