@@ -6,7 +6,7 @@
             <sly data-sly-test="${componentProperties.delimiter}">${componentProperties.delimiter}</sly>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"
                 class="breadcrumb-item${linkList.last ? ' active' : ''}">
-                <a itemscope itemtype="http://schema.org/WebPage" itemprop="item" href="${link.url}"
+                <a itemprop="item" href="${link.url}"
                    data-sly-unwrap="${link.current}">
                     <span itemprop="name">${link.title}</span>
                 </a>
