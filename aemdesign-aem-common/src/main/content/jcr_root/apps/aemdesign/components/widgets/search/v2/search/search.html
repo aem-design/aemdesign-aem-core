@@ -2,7 +2,7 @@
      data-sly-use.variant="${component.componentProperties.variantTemplate}"
      data-sly-use.info="aemdesign/global/templates/component-info.html">
     <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
-         data-sly-call="${clientlib.css @ categories=['granite.csrf.standalone']}"></sly>
+         data-sly-call="${clientlib.all @ categories=['granite.csrf.standalone']}"></sly>
 
     <!--/* print component variant */-->
     <sly data-sly-call="${variant.variant @ componentProperties=component.componentProperties}"></sly>
