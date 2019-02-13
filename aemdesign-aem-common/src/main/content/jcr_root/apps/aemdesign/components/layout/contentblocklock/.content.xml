@@ -3,7 +3,7 @@
     cq:isContainer="{Boolean}true"
     jcr:primaryType="cq:Component"
     jcr:description="A content section for content that requires permissions"
-    jcr:title="Content Block Lockable (v2)"
+    jcr:title="Content Block Lockable"
     cq:icon="mBox"
     sling:resourceSuperType="aemdesign/components/layout/contentblocklock/v2/contentblocklock"
     componentGroup="AEM.Design - Layout"/>
