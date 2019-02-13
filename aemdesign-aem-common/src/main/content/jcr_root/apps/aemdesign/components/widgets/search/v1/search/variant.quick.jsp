@@ -1,8 +1,9 @@
 <div ${componentProperties.componentAttributes}>
-    <form name="search"
+    <form name="search" itemscope itemtype="https://schema.org/WebSite"
           action="${componentProperties.formAction}"
           method="${componentProperties.formMethod}">
-        <input type="search"
+        <meta itemprop="target" content="${componentProperties.formAction}?q={${componentProperties.formParameterName}}"/>
+        <input type="search" itemprop="query-input"
                name="${componentProperties.formParameterName}"
                placeholder="${componentProperties.placeholderText}">
         <button type="submit">Search</button>
