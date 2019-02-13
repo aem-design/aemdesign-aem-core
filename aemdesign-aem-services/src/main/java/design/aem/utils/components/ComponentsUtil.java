@@ -1057,10 +1057,20 @@ public class ComponentsUtil {
                                 if (fieldValueString.contains(" ")) {
                                     //multiple boolean attributes being added
                                     for (String item : fieldValueString.split(" ")) {
-                                        componentProperties.attr.add(item, "true");
+                                        if (!item.contains("=")) {
+                                            componentProperties.attr.add(item, "true");
+                                        } else {
+                                            String[] items = item.split("=");
+                                            componentProperties.attr.add(items[0],StringUtils.substringBetween(items[1],"\"","\""));
+                                        }
                                     }
                                 } else {
-                                    componentProperties.attr.add(fieldValueString, "true");
+                                    if (!fieldValueString.contains("=")) {
+                                        componentProperties.attr.add(fieldValueString, "true");
+                                    } else {
+                                        String[] items = fieldValueString.split("=");
+                                        componentProperties.attr.add(items[0],StringUtils.substringBetween(items[1],"\"","\""));
+                                    }
 //                                componentProperties.attr.addBoolean(fieldValueString, true);
                                 }
                             }
