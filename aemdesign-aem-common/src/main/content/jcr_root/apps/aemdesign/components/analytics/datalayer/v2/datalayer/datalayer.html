@@ -1,0 +1,14 @@
+<sly data-sly-use.component="design.aem.models.v2.analytics.DataLayer">
+    <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
+         data-sly-call="${clientlib.all @ categories=['aemdesign.components.datalayer']}"></sly>
+
+    <script type="text/javascript" id="datalayer">
+        window.digitalData = ${component.componentProperties.digitalDataJson @ context = 'unsafe'};
+        window.digitalData.page.pageInfo.referringURL = AEMDESIGN.analytics.getReferringUrl();
+        window.digitalData.page.pageInfo.destinationUrl = AEMDESIGN.analytics.getDestinationUrl();
+        $(document).ready(function(){
+            window.digitalData.page.pageInfo.sections = AEMDESIGN.analytics.getSections();
+        });
+        window.digitalData.page.attributes.breakPoint = AEMDESIGN.analytics.getBreakpoint()["label"];
+    </script>
+</sly>
