@@ -250,7 +250,7 @@ public class ComponentsUtil {
             {FIELD_STYLE_COMPONENT_SITETHEMECATEGORY, ""},
             {FIELD_STYLE_COMPONENT_SITETHEMECOLOR, ""},
             {FIELD_STYLE_COMPONENT_SITETITLECOLOR, ""},
-            {FIELD_STYLE_COMPONENT_BOOLEANATTR, new String[]{}, " ", Tag.class.getCanonicalName()}, //do not store content in data attributes
+            {FIELD_STYLE_COMPONENT_BOOLEANATTR, new String[]{}, " ", Tag.class.getCanonicalName()}, //#3" " =do not store content in data attributes
             {FIELD_STYLE_COMPONENT_ANIMATION_ENABLED, false},
             {FIELD_STYLE_COMPONENT_ANIMATION_NAME, StringUtils.EMPTY, "data-aos"},
             {FIELD_STYLE_COMPONENT_ANIMATION_ONCE, StringUtils.EMPTY, "data-aos-once"},
@@ -893,7 +893,7 @@ public class ComponentsUtil {
         componentProperties.attr = new AttrBuilder(request, oldXssAPI);
         if (addMoreAttributes) {
 //            componentProperties.attr.addBoolean("component", true);
-            componentProperties.attr.add("component", true);
+            componentProperties.attr.add("component", "true");
         }
 //        AttrBuilder itemAttr = new AttrBuilder(request, oldXssAPI);
 
@@ -1053,8 +1053,16 @@ public class ComponentsUtil {
                             if (isNotEmpty(fieldValueString) && isNotEmpty(fieldDataName) && !fieldDataName.equals(" ")) {
                                 componentProperties.attr.add(fieldDataName, fieldValueString);
                             } else if (isNotEmpty(fieldValueString) && fieldDataName.equals(" ")) {
-                                componentProperties.attr.add(fieldValueString, true);
+
+                                if (fieldValueString.contains(" ")) {
+                                    //multiple boolean attributes being added
+                                    for (String item : fieldValueString.split(" ")) {
+                                        componentProperties.attr.add(item, "true");
+                                    }
+                                } else {
+                                    componentProperties.attr.add(fieldValueString, "true");
 //                                componentProperties.attr.addBoolean(fieldValueString, true);
+                                }
                             }
 
                         }
