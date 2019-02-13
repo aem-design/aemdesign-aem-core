@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     cq:isContainer="{Boolean}false"
     jcr:description="Menu that displays content block titles"
     jcr:primaryType="cq:Component"
     jcr:title="Content Block Menu"
     cq:icon="menu"
+    sling:resourceSuperType="aemdesign/components/layout/contentblockmenu/v2/contentblockmenu"
     componentGroup="AEM.Design - Layout"/>
