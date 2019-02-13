@@ -27,7 +27,7 @@
 <c:set var="componentProperties" value="<%= componentProperties %>"/>
 
 <c:choose>
-    <c:when test="${componentProperties.resourceExists eq true and componentProperties.variant eq 'iframe'}">
+    <c:when test="${componentProperties.variant eq 'iframe'}">
         <%@ include file="variant.iframe.jsp" %>
     </c:when>
     <c:otherwise>
