@@ -112,7 +112,7 @@ public class DateTimeUtil {
     /**
 
      */
-    public String getFormattedDate(String date, String format) {
+    public static String getFormattedDate(String date, String format) {
 
         // null? return null.
         if (date == null) {
@@ -142,7 +142,7 @@ public class DateTimeUtil {
     /**
 
      */
-    public String getFormattedDateWithDefauls(String date, SimpleDateFormat[] inFormats, SimpleDateFormat outFormat, String defaultDate) {
+    public static String getFormattedDateWithDefauls(String date, SimpleDateFormat[] inFormats, SimpleDateFormat outFormat, String defaultDate) {
         SimpleDateFormat dateFormat = getDateFormat(date, inFormats);
         if (dateFormat != null) {
             try {
@@ -161,7 +161,7 @@ public class DateTimeUtil {
      * @param key The field name for the date to be retrieved.
      * @return The date stored under the provided key.
      */
-    protected Calendar getDateProperty(Node node, String key) {
+    public static Calendar getDateProperty(Node node, String key) {
         try {
             return node.hasProperty(key) ? node.getProperty(key).getDate() : null;
         } catch (RepositoryException e) {
@@ -177,7 +177,7 @@ public class DateTimeUtil {
      * @return The date in string form, formatted with the provided pattern.
      * @throws RuntimeException
      */
-    protected String formatDate(Calendar date, String format) throws RuntimeException {
+    public static String formatDate(Calendar date, String format) throws RuntimeException {
         LOGGER.debug("Formatting date '{}' with format '{}'.", date, format);
 
         if (date == null || StringUtils.isBlank(format)) {
@@ -205,7 +205,7 @@ public class DateTimeUtil {
      * @param formats The formats to attempt while parsing.
      * @return The parsed date as a Calendar instance.
      */
-    protected Calendar parseDate(String dateString, String... formats) {
+    public static Calendar parseDate(String dateString, String... formats) {
         LOGGER.debug("Parsing stored date '{}' with formats {}", dateString, formats);
 
         try {
@@ -225,7 +225,7 @@ public class DateTimeUtil {
      * Method returns a short formated string for the given date object, it returns the date in "dd MMM YYYY" format.
      *
      */
-    public String getShortFormattedDate(Date thedate) {
+    public static String getShortFormattedDate(Date thedate) {
 
         // null? return null.
         if (thedate == null) {
@@ -240,7 +240,7 @@ public class DateTimeUtil {
      * Method returns a full formated string for the given date object, it returns the date in "dd MMM YYYY" format.
      *
      */
-    public String getFullFormattedDate(Date thedate) {
+    public static String getFullFormattedDate(Date thedate) {
 
         // null? return null.
         if (thedate == null) {
