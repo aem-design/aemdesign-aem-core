@@ -1,0 +1,16 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" itemscope itemtype="http://schema.org/ImageObject">
+        <figure>
+            <a data-sly-unwrap="${componentProperties.linkURL == ''}" itemprop="name"
+               href="${componentProperties.linkURL}">${componentProperties['dc:title']}</a>
+            <sly data-sly-use.info="image.select.html"
+                 data-sly-call="${info.variant @ componentProperties=componentProperties}"></sly>
+            <figcaption>
+                ${componentProperties['dc:title']}
+            </figcaption>
+            <div class="description" itemprop="description">${componentProperties['dc:description']}</div>
+            <span class="license"
+            data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo}</span>
+        </figure>
+    </div>
+</template>

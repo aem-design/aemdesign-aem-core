@@ -88,11 +88,11 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Default"
                                                     value=""/>
-                                            <generated
-                                                    jcr:primaryType="nt:unstructured"
-                                                    valuealt="generated"
-                                                    text="Generate: generate new image with current image edits"
-                                                    value="generated"/>
+                                            <!--<generated-->
+                                                    <!--jcr:primaryType="nt:unstructured"-->
+                                                    <!--valuealt="generated"-->
+                                                    <!--text="Generate: generate new image with current image edits"-->
+                                                    <!--value="generated"/>-->
                                             <rendition
                                                     jcr:primaryType="nt:unstructured"
                                                     valuealt="generated"
@@ -102,10 +102,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Responsive: use existing renditions"
                                                     value="responsive"/>
-                                            <adaptive
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Adaptive: generate new renditions with quality settings for each breakpoint"
-                                                    value="adaptive"/>
+                                            <!--<adaptive-->
+                                                    <!--jcr:primaryType="nt:unstructured"-->
+                                                    <!--text="Adaptive: generate new renditions with quality settings for each breakpoint"-->
+                                                    <!--value="adaptive"/>-->
                                             <mediaqueryrendition
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Manual: responsive background with custom renditions per media query"
@@ -213,6 +213,7 @@
                                                     sling:resourceType="granite/ui/components/foundation/heading"
                                                     class="coral-Heading coral-Heading--4"
                                                     level="{Long}4"
+                                                    fieldDescription="This will be used to pick suitable size of rendition."
                                                     text="Image Dimension"/>
                                             <imageDimension
                                                     jcr:primaryType="nt:unstructured"
@@ -240,6 +241,7 @@
                                                     sling:resourceType="granite/ui/components/foundation/heading"
                                                     class="coral-Heading coral-Heading--4"
                                                     level="{Long}4"
+                                                    granite:hidden="{Boolean}true"
                                                     text="Resizing Proportions"/>
                                             <resizingProportions
                                                     jcr:primaryType="nt:unstructured"
