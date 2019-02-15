@@ -8,7 +8,7 @@
     <parent>
         <groupId>aemdesign</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>1.0.162</version>
+        <version>1.0.234</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +17,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-common</artifactId>
-    <version>1.0.162</version>
+    <version>1.0.234</version>
     <packaging>content-package</packaging>
     <name>AEM Design - Core - AEM Common</name>
     <description>AEM Design package with all common components</description>
@@ -51,11 +51,6 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>aemdesign-aem-services</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>aemdesign-aem-taglibs</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -308,10 +303,6 @@
                         <embedded>
                             <groupId>${project.parent.groupId}</groupId>
                             <artifactId>aemdesign-aem-services</artifactId>
-                        </embedded>
-                        <embedded>
-                            <groupId>${project.parent.groupId}</groupId>
-                            <artifactId>aemdesign-aem-taglibs</artifactId>
                         </embedded>
                         <embedded>
                             <groupId>com.github.mickleroy</groupId>
