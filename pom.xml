@@ -7,7 +7,7 @@
 
     <groupId>aemdesign</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>1.0.162</version>
+    <version>1.0.234</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -17,7 +17,6 @@
         <module>aemdesign-aem-author</module>
         <module>aemdesign-aem-common</module>
         <module>aemdesign-aem-services</module>
-        <module>aemdesign-aem-taglibs</module>
         <module>aemdesign-aem-core-deploy</module>
     </modules>
 
