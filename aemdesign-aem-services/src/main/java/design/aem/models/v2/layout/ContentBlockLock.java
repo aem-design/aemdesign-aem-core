@@ -30,6 +30,7 @@ public class ContentBlockLock extends WCMUsePojo {
     }
 
     @Override
+    @SuppressWarnings("Duplicates")
     public void activate() throws Exception {
 
         I18n _i18n = new I18n(getRequest());
@@ -70,14 +71,14 @@ public class ContentBlockLock extends WCMUsePojo {
         componentProperties.put("topLinkLabel",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_LABEL,DEFAULT_I18N_CATEGORY,_i18n));
         componentProperties.put("topLinkTitle",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_TITLE,DEFAULT_I18N_CATEGORY,_i18n));
 
-        componentProperties.put(COMPONENT_ATTRIBUTES, addComponentBackgroundToAttributes(componentProperties,getResource(),DEFAULT_BACKGROUND_IMAGE_NODE_NAME));
-
         if (componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT).equals("advsection")) {
             String ariaLabelledBy = componentProperties.get(FIELD_ARIA_LABELLEDBY, "");
             if (isEmpty(ariaLabelledBy)) {
                 String labelId = "heading-".concat(getResource().adaptTo(Node.class).getName());
                 componentProperties.put(FIELD_ARIA_LABELLEDBY, labelId);
-                componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties,"aria-labelledby",labelId));
+
+                componentProperties.attr.add("aria-labelledby",labelId);
+                componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
             }
 
         }

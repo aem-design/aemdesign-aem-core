@@ -26,6 +26,7 @@ public class ContentBlock extends WCMUsePojo {
     }
 
     @Override
+    @SuppressWarnings("Duplicates")
     public void activate() throws Exception {
 
         I18n _i18n = new I18n(getRequest());
