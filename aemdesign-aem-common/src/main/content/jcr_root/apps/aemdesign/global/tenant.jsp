@@ -8,7 +8,7 @@
             Pattern.compile("/content/([^/]+)")
 //            Pattern.compile("/content/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/content/dam/aemdesign/([^/]+)/*"),
-//            aemdesign/([^/]+)/*"),
+//            Pattern.compile("/content/experience-fragments/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/conf/aemdesign/([^/-]+)/*"), //match all tenant and -default
 //            Pattern.compile("/content/cq:tags/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/etc/clientlibs/aemdesign/([^/]+)/*"),
