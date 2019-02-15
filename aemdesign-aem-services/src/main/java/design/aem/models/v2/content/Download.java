@@ -190,15 +190,9 @@ public class Download extends WCMUsePojo {
                     componentProperties.put("iconType", dld.getIconType());
                 }
 
-//                Object[][] componentAttibutes = {
-//                        {"href", href},
-//                        {"data-tags", assetTags},
-//                };
-
                 componentProperties.attr.add("href", href);
                 componentProperties.attr.add("data-tags", assetTags);
 
-//                componentProperties.put(COMPONENT_ATTRIBUTES, addComponentAttributes(componentProperties, componentAttibutes));
                 componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
 
                 componentProperties.put("info", MessageFormat.format("({0}, {1})", getFormattedDownloadSize(dld), mimeTypeLabel));

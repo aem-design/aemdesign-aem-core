@@ -1,0 +1,103 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+
+        <!--/* first level */-->
+        <sly data-sly-list.link="${componentProperties.menuItems}">
+
+            <sly data-sly-set.secondNav="${''}"></sly>
+            <sly data-sly-set.activeCssM="${''}"></sly>
+            <sly data-sly-set.inactiveStyle="${''}"></sly>
+            <sly data-sly-set.secondNav="${link.children}"
+                data-sly-test="${link.children}"></sly>
+
+            <sly data-sly-set.activeCssM="${' active'}"
+                data-sly-test="${link.current}"></sly>
+
+            <sly data-sly-set.inactiveStyle="${'display: none;'}"
+                data-sly-test="${!link.current}"></sly>
+
+            <h1 style="${activeCssM}">
+                <a href="${link.href}" title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,link.title]}"><span>${link.title}</span></a>
+            </h1>
+
+            <!--/* second level */-->
+            <sly data-sly-test="${secondNav}" data-sly-list.link2="${secondNav}">
+
+                <sly data-sly-set.thirdNav="${''}"></sly>
+                <sly data-sly-set.activeCss2="${''}"></sly>
+                <sly data-sly-set.inactiveStyle2="${''}"></sly>
+
+                <sly data-sly-set.thirdNav="${link2.children}"
+                     data-sly-test="${link2.children}"></sly>
+
+                <sly data-sly-set.activeCss2="${' active'}"
+                     data-sly-test="${link2.current}"></sly>
+
+                <sly data-sly-set.inactiveStyle2="${'display: none;'}"
+                     data-sly-test="${!link2.current}"></sly>
+
+                <sly data-sly-set.linkHref2="${link2.href}"></sly>
+                <sly data-sly-set.linkHref2="${link2.authHref}"
+                     data-sly-test="${wcmmode.edit}"></sly>
+
+                <h2 style="${inactiveStyle2}">
+                    <a href="${linkHref2}" title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,link2.title]}"><span>${link2.title}</span></a>
+                </h2>
+
+                <!--/* third level */-->
+                <ul style="${inactiveStyle2}" data-sly-test="${thirdNav}" data-sly-list.link3="${thirdNav}" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
+                    <sly data-sly-set.fourthNav="${''}"></sly>
+                    <sly data-sly-set.activeCss3="${''}"></sly>
+                    <sly data-sly-set.inactiveStyle3="${''}"></sly>
+
+
+                    <sly data-sly-set.fourthNav="${link3.children}"
+                         data-sly-test="${link3.children}"></sly>
+
+                    <sly data-sly-set.activeCss3="${' active'}"
+                         data-sly-test="${link3.current}"></sly>
+
+                    <sly data-sly-set.inactiveStyle3="${'display: none;'}"
+                         data-sly-test="${!link3.current}"></sly>
+
+                    <sly data-sly-set.linkHref3="${link3.href}"></sly>
+                    <sly data-sly-set.linkHref3="${link3.authHref}"
+                         data-sly-test="${wcmmode.edit}"></sly>
+
+                    <li class="${activeCss3}" itemprop="name">
+                        <a href="${linkHref3}" title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,link3.title]}"><span>${link3.title}</span></a>
+
+                        <!--/* forth level */-->
+                        <ul style="${inactiveStyle3}" data-sly-test="${fourthNav}" data-sly-list.link4="${fourthNav}">
+
+                            <sly data-sly-set.fifthNav="${''}"></sly>
+                            <sly data-sly-set.activeCss4="${''}"></sly>
+                            <sly data-sly-set.inactiveStyle4="${''}"></sly>
+
+
+                            <sly data-sly-set.fifthNav="${link4.children}"
+                                 data-sly-test="${link4.children}"></sly>
+
+                            <sly data-sly-set.activeCss4="${' active'}"
+                                 data-sly-test="${link4.current}"></sly>
+
+                            <sly data-sly-set.inactiveStyle4="${'display: none;'}"
+                                 data-sly-test="${!link4.current}"></sly>
+
+                            <sly data-sly-set.linkHref4="${link4.href}"></sly>
+                            <sly data-sly-set.linkHref4="${link4.authHref}"
+                                 data-sly-test="${wcmmode.edit}"></sly>
+
+                            <li class="${activeCss4}">
+                                <a href="${linkHref4}" title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,link4.title]}"><span>${link4.title}</span></a>
+
+                            </li>
+                        </ul>
+
+                    </li>
+
+                </ul>
+            </sly>
+        </sly>
+    </div>
+</template>

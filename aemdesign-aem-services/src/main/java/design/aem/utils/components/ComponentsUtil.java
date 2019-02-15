@@ -229,6 +229,20 @@ public class ComponentsUtil {
     public static final String DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE = "layoutColumnClassExtraLarge";
     public static final String DETAILS_COLUMNS_LAYOUT_ROW_CLASS = "layoutRowClass";
 
+    public static final String PAGECONTEXTMAP_SOURCE = "object";
+    public static final String PAGECONTEXTMAP_SOURCE_TYPE = "objecttype";
+    public static final String PAGECONTEXTMAP_SOURCE_TYPE_WCMUSEPOJO = "wcmusepojo";
+    public static final String PAGECONTEXTMAP_SOURCE_TYPE_PAGECONTEXT = "pagecontext";
+    public static final String PAGECONTEXTMAP_SOURCE_TYPE_SLINGMODEL = "slingmodel";
+    public static final String PAGECONTEXTMAP_OBJECT_SLINGREQUEST = "slingRequest";
+    public static final String PAGECONTEXTMAP_OBJECT_RESOURCERESOLVER = "resourceResolver";
+    public static final String PAGECONTEXTMAP_OBJECT_SLING = "sling";
+    public static final String PAGECONTEXTMAP_OBJECT_COMPONENTCONTEXT = "componentContext";
+    public static final String PAGECONTEXTMAP_OBJECT_RESOURCE = "resource";
+    public static final String PAGECONTEXTMAP_OBJECT_CURRENTNODE = "currentNode";
+    public static final String PAGECONTEXTMAP_OBJECT_PROPERTIES = "properties";
+    public static final String PAGECONTEXTMAP_OBJECT_CURRENTSTYLE = "currentStyle";
+    public static final String PAGECONTEXTMAP_OBJECT_CURRENTPAGE = "currentPage";
 
     //COMPONENT STYLES
     // {
@@ -826,17 +840,20 @@ public class ComponentsUtil {
         Node currentNode = resource.adaptTo(Node.class);
         ValueMap properties = wcmUsePojoModel.getProperties();
         Style currentStyle = wcmUsePojoModel.getCurrentStyle();
+        Page currentPage = wcmUsePojoModel.getCurrentPage();
 
         Map<String, Object> pageContextMap = new HashMap<>();
-        pageContextMap.put("slingRequest", slingRequest);
-        pageContextMap.put("resourceResolver", resourceResolver);
-        pageContextMap.put("sling", sling);
-        pageContextMap.put("componentContext", componentContext);
-        pageContextMap.put("resource", resource);
-        pageContextMap.put("currentNode", currentNode);
-        pageContextMap.put("properties", properties);
-        pageContextMap.put("currentStyle", currentStyle);
-        pageContextMap.put("object", wcmUsePojoModel);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_SLINGREQUEST, slingRequest);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_RESOURCERESOLVER, resourceResolver);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_SLING, sling);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_COMPONENTCONTEXT, componentContext);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_RESOURCE, resource);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_CURRENTNODE, currentNode);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_PROPERTIES, properties);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_CURRENTSTYLE, currentStyle);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_CURRENTPAGE, currentPage);
+        pageContextMap.put(PAGECONTEXTMAP_SOURCE, wcmUsePojoModel);
+        pageContextMap.put(PAGECONTEXTMAP_SOURCE_TYPE, PAGECONTEXTMAP_SOURCE_TYPE_WCMUSEPOJO);
 
         return pageContextMap;
     }
@@ -848,26 +865,29 @@ public class ComponentsUtil {
      */
     @SuppressWarnings("Duplicates")
     public static Map<String, Object> getContextObjects(PageContext pageContext) {
-        SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) pageContext.getAttribute("slingRequest");
-        ResourceResolver resourceResolver = (ResourceResolver) pageContext.getAttribute("resourceResolver");
-        SlingScriptHelper sling = (SlingScriptHelper) pageContext.getAttribute("sling");
-        ComponentContext componentContext = (ComponentContext) pageContext.getAttribute("componentContext");
-        Resource resource = (Resource) pageContext.getAttribute("resource");
-        Node currentNode = (Node) pageContext.getAttribute("currentNode");
-        ValueMap properties = (ValueMap) pageContext.getAttribute("properties");
-        Style currentStyle = (Style) pageContext.getAttribute("currentStyle");
+        SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) pageContext.getAttribute(PAGECONTEXTMAP_OBJECT_SLINGREQUEST);
+        ResourceResolver resourceResolver = (ResourceResolver) pageContext.getAttribute(PAGECONTEXTMAP_OBJECT_RESOURCERESOLVER);
+        SlingScriptHelper sling = (SlingScriptHelper) pageContext.getAttribute(PAGECONTEXTMAP_OBJECT_SLING);
+        ComponentContext componentContext = (ComponentContext) pageContext.getAttribute(PAGECONTEXTMAP_OBJECT_COMPONENTCONTEXT);
+        Resource resource = (Resource) pageContext.getAttribute(PAGECONTEXTMAP_OBJECT_RESOURCE);
+        Node currentNode = (Node) pageContext.getAttribute(PAGECONTEXTMAP_OBJECT_CURRENTNODE);
+        ValueMap properties = (ValueMap) pageContext.getAttribute(PAGECONTEXTMAP_OBJECT_PROPERTIES);
+        Style currentStyle = (Style) pageContext.getAttribute(PAGECONTEXTMAP_OBJECT_CURRENTSTYLE);
+        Page currentPage = (Page) pageContext.getAttribute(PAGECONTEXTMAP_OBJECT_CURRENTPAGE);
 
 
         Map<String, Object> pageContextMap = new HashMap<>();
-        pageContextMap.put("slingRequest", slingRequest);
-        pageContextMap.put("resourceResolver", resourceResolver);
-        pageContextMap.put("sling", sling);
-        pageContextMap.put("componentContext", componentContext);
-        pageContextMap.put("resource", resource);
-        pageContextMap.put("currentNode", currentNode);
-        pageContextMap.put("properties", properties);
-        pageContextMap.put("currentStyle", currentStyle);
-        pageContextMap.put("object", pageContext);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_SLINGREQUEST, slingRequest);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_RESOURCERESOLVER, resourceResolver);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_SLING, sling);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_COMPONENTCONTEXT, componentContext);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_RESOURCE, resource);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_CURRENTNODE, currentNode);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_PROPERTIES, properties);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_CURRENTSTYLE, currentStyle);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_CURRENTPAGE, currentPage);
+        pageContextMap.put(PAGECONTEXTMAP_SOURCE, pageContext);
+        pageContextMap.put(PAGECONTEXTMAP_SOURCE_TYPE, PAGECONTEXTMAP_SOURCE_TYPE_PAGECONTEXT);
 
         return pageContextMap;
     }
