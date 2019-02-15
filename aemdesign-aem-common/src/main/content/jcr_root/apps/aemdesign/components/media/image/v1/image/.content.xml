@@ -2,7 +2,6 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Component"
     jcr:description="Image Component"
-    jcr:title="Image"
+    jcr:title="Image (v1)"
     cq:icon="image"
-    sling:resourceSuperType="aemdesign/components/media/image/v2/image"
-    componentGroup="AEM.Design - Media"/>
+    componentGroup="hidden"/>
