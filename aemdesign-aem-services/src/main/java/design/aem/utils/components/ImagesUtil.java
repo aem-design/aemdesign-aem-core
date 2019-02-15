@@ -12,7 +12,6 @@ import com.day.cq.dam.commons.util.DamUtil;
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.day.cq.wcm.api.components.ComponentContext;
 import com.day.cq.wcm.api.designer.Style;
 import com.day.cq.wcm.foundation.Image;
 import com.day.image.Layer;
@@ -23,7 +22,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.jackrabbit.JcrConstants;
-import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
@@ -122,7 +120,7 @@ public class ImagesUtil {
     //   3 optional - name of component attribute to add value into
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-    public static final Object[][] DEFAULT_FIELDS_BACKGROUNDIMAGE_OPTIONS = {
+    public static final Object[][] DEFAULT_FIELDS_IMAGE_OPTIONS = {
             {FIELD_IMAGE_OPTION, IMAGE_OPTION_RESPONSIVE},
             {ImageResource.PN_HTML_WIDTH, ""},
             {ImageResource.PN_HTML_HEIGHT, ""},
@@ -1208,6 +1206,7 @@ public class ImagesUtil {
         return null;
     }
 
+
     /***
      * get background image settings from shared background image tab.
      * @param wcmUsePojoModel component model model
@@ -1251,19 +1250,72 @@ public class ImagesUtil {
      */
     public static ComponentProperties getBackgroundImageRenditions(Map<String, Object> pageContext) {
         Resource resource = (org.apache.sling.api.resource.Resource) pageContext.get("resource");
-        ResourceResolver resourceResolver = (org.apache.sling.api.resource.ResourceResolver) pageContext.get("resourceResolver");
-        org.apache.sling.api.scripting.SlingScriptHelper sling = (org.apache.sling.api.scripting.SlingScriptHelper) pageContext.get("sling");
-
 
         Resource backgroundResource = resource.getChild(DEFAULT_BACKGROUND_IMAGE_NODE_NAME);
 
-        if (backgroundResource != null) {
+        return getResourceImageRenditions(pageContext, backgroundResource, COMPONENT_BACKGROUND_ASSETS, FIELD_IMAGE_BACKGROUND);
+    }
+
+
+
+    /***
+     * get resource image settings.
+     * @param wcmUsePojoModel component model model
+     * @return returns map of attributes
+     */
+    public static ComponentProperties getResourceImageRenditions(WCMUsePojo wcmUsePojoModel, Resource resource, String attributeName, String returnLastRenditionName) {
+
+        try {
+
+            return getResourceImageRenditions(getContextObjects(wcmUsePojoModel), resource, attributeName, returnLastRenditionName);
+
+        } catch (Exception ex) {
+            LOGGER.error("getBackgroundImageRenditions(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+        }
+
+        return getNewComponentProperties(wcmUsePojoModel);
+    }
+
+
+    /***
+     * get resource image settings.
+     * @param pageContext page context
+     * @return returns map of attributes
+     */
+    public static ComponentProperties getResourceImageRenditions(PageContext pageContext, Resource resource, String attributeName, String returnLastRenditionName) {
+
+        try {
+
+            return getResourceImageRenditions(getContextObjects(pageContext), resource, attributeName, returnLastRenditionName);
+
+        } catch (Exception ex) {
+            LOGGER.error("getBackgroundImageRenditions(pageContext) could not read required objects", ex.toString());
+        }
+
+        return getNewComponentProperties(pageContext);
+    }
+
+    /***
+     * get resource image settings.
+     * @param pageContext page context map
+     * @return returns map of attributes
+     */
+    @SuppressWarnings("Duplicates")
+    public static ComponentProperties getResourceImageRenditions(Map<String, Object> pageContext, Resource imageResource, String returnRenditionsListName, String returnLastRenditionName) {
+        ResourceResolver resourceResolver = (org.apache.sling.api.resource.ResourceResolver) pageContext.get("resourceResolver");
+        org.apache.sling.api.scripting.SlingScriptHelper sling = (org.apache.sling.api.scripting.SlingScriptHelper) pageContext.get("sling");
+
+        if (isEmpty(returnRenditionsListName)) {
+            returnRenditionsListName = "images";
+        }
+
+        if (imageResource != null) {
 
             ComponentProperties imageProperties = getComponentProperties(
                     pageContext,
-                    backgroundResource,
+                    imageResource,
                     false,
-                    DEFAULT_FIELDS_BACKGROUNDIMAGE_OPTIONS);
+                    DEFAULT_FIELDS_IMAGE_OPTIONS);
 
             String fileReference = imageProperties.get(IMAGE_FILEREFERENCE, "");
 
@@ -1280,13 +1332,24 @@ public class ImagesUtil {
                         String imageOption = imageProperties.get(FIELD_IMAGE_OPTION, "");
                         //imageProperties.put(COMPONENT_BACKGROUND_ASSETS + "Options", imageOption);
 
+                        //disable adaptive image option, as it don't work as expected
+                        if (imageOption.equals("adaptive")) {
+                            imageOption = IMAGE_OPTION_RESPONSIVE;
+                        }
+
+                        //disable generated image option, as it don't work as expected
+                        if (imageOption.equals("generated")) {
+                            imageOption = IMAGE_OPTION_RENDITION;
+                        }
+
+
                         Map<String, String> responsiveImageSet = new LinkedHashMap<String, String>();
 
                         switch (imageOption) {
                             case IMAGE_OPTION_GENERATED:
                                 String imageHref = "";
-                                Long lastModified = getLastModified(resource);
-                                imageHref = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, resource.getPath(), lastModified.toString());
+                                Long lastModified = getLastModified(imageResource);
+                                imageHref = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, imageResource.getPath(), lastModified.toString());
 
                                 //imageProperties.put(COMPONENT_BACKGROUND_ASSETS, imageHref);
                                 responsiveImageSet.put("", imageHref);
@@ -1302,7 +1365,7 @@ public class ImagesUtil {
                             case IMAGE_OPTION_ADAPTIVE:
                                 String[] adaptiveImageMapping = imageProperties.get(FIELD_ADAPTIVE_MAP, new String[]{});
 
-                                responsiveImageSet = getAdaptiveImageSet(adaptiveImageMapping, resourceResolver, resource.getPath(), fileReference, null, false, sling);
+                                responsiveImageSet = getAdaptiveImageSet(adaptiveImageMapping, resourceResolver, imageResource.getPath(), fileReference, null, false, sling);
 
                                 break;
                             case IMAGE_OPTION_MEDIAQUERYRENDITION:
@@ -1326,7 +1389,7 @@ public class ImagesUtil {
                                 // Check if the image suffix is '.svg' or '.gif', if it is skip any rendition checks and simply return
                                 // the path to it as no scaling or modifications should be applied.
                                 if (fileReference.endsWith(".svg") || fileReference.endsWith(".gif")) {
-                                    imageProperties.put(FIELD_IMAGE_BACKGROUND, fileReference);
+                                    imageProperties.put(returnLastRenditionName, fileReference);
                                     imageProperties.put(FIELD_IMAGE_OPTION, "simple");
                                 } else {
                                     //get rendition profile prefix selected
@@ -1338,11 +1401,11 @@ public class ImagesUtil {
                                 }
                         }
 
-                        imageProperties.put(COMPONENT_BACKGROUND_ASSETS, responsiveImageSet);
+                        imageProperties.put(returnRenditionsListName, responsiveImageSet);
 
                         //pick last one from collection
                         if (responsiveImageSet.values().size() > 0) {
-                            imageProperties.put(FIELD_IMAGE_BACKGROUND, responsiveImageSet.values()
+                            imageProperties.put(returnLastRenditionName, responsiveImageSet.values()
                                     .toArray()[responsiveImageSet.values().size() - 1]);
                         }
 

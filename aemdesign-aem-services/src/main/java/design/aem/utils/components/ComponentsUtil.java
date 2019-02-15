@@ -20,6 +20,7 @@ import com.day.cq.wcm.webservicesupport.ConfigurationConstants;
 import com.day.cq.wcm.webservicesupport.ConfigurationManager;
 import com.google.common.base.Throwables;
 import design.aem.components.ComponentProperties;
+import design.aem.models.GenericModel;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -675,6 +676,21 @@ public class ComponentsUtil {
 
     /***
      * helper to create new Component Properties.
+     * @param slingRequest sling request
+     * @return map of attributes
+     */
+    public static ComponentProperties getNewComponentProperties(SlingHttpServletRequest slingRequest) {
+
+        Map<String, Object> pageContextMap = new HashMap<>();
+        pageContextMap.put("slingRequest", slingRequest);
+
+
+        return getNewComponentProperties(pageContextMap);
+    }
+
+
+    /***
+     * helper to create new Component Properties.
      * @param wcmUsePojoModel component model pojo
      * @return map of attributes
      */
@@ -731,6 +747,17 @@ public class ComponentsUtil {
 
 
     /**
+     * returns component values with defaults from pageContent Properties.
+     * @param genericModel generic model
+     * @param fieldLists      list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
+     * @return map of attributes
+     */
+    public static ComponentProperties getComponentProperties(GenericModel genericModel, Object[][]... fieldLists) {
+        return getComponentProperties(genericModel, null, true, fieldLists);
+    }
+
+
+    /**
      * returns component values with defaults from target component on a page.
      * @param wcmUsePojoModel            component model
      * @param targetResource             resource to use as source
@@ -752,6 +779,27 @@ public class ComponentsUtil {
 
 
     /**
+     * returns component values with defaults from target component on a page.
+     * @param genericModel               component model
+     * @param targetResource             resource to use as source
+     * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
+     * @return map of attributes
+     */
+    public static ComponentProperties getComponentProperties(GenericModel genericModel, Object targetResource, Object[][]... fieldLists) {
+        try {
+
+            return getComponentProperties(genericModel.getPageContextMap(), targetResource, true, fieldLists);
+
+        } catch (Exception ex) {
+            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: " + genericModel + ", error: " + ex.toString());
+        }
+
+
+        return getNewComponentProperties(genericModel.getPageContextMap());
+    }
+
+
+    /**
      * returns component values with defaults from a targetResource, default to pageContext properties.
      * @param pageContext    current page context
      * @param targetResource resource to use as source
@@ -768,6 +816,7 @@ public class ComponentsUtil {
      * @param wcmUsePojoModel model to use
      * @return map of objects
      */
+    @SuppressWarnings("Duplicates")
     public static Map<String, Object> getContextObjects(WCMUsePojo wcmUsePojoModel) {
         SlingHttpServletRequest slingRequest = wcmUsePojoModel.getRequest();
         ResourceResolver resourceResolver = wcmUsePojoModel.getResourceResolver();
@@ -797,6 +846,7 @@ public class ComponentsUtil {
      * @param pageContext page context to use
      * @return map of objects
      */
+    @SuppressWarnings("Duplicates")
     public static Map<String, Object> getContextObjects(PageContext pageContext) {
         SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) pageContext.getAttribute("slingRequest");
         ResourceResolver resourceResolver = (ResourceResolver) pageContext.getAttribute("resourceResolver");
@@ -820,6 +870,28 @@ public class ComponentsUtil {
         pageContextMap.put("object", pageContext);
 
         return pageContextMap;
+    }
+
+
+    /**
+     * returns component values with defaults from target component on a page.
+     * @param genericModel            component model
+     * @param targetResource             resource to use as source
+     * @param includeComponentAttributes include additional attibutes associated with component
+     * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
+     * @return map of attributes
+     */
+    public static ComponentProperties getComponentProperties(GenericModel genericModel, Object targetResource, Boolean includeComponentAttributes, Object[][]... fieldLists) {
+        try {
+
+            return getComponentProperties(genericModel.getPageContextMap(), targetResource, includeComponentAttributes, fieldLists);
+
+        } catch (Exception ex) {
+            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: " + genericModel + ", error: " + ex.toString());
+        }
+
+
+        return getNewComponentProperties(genericModel.getPageContextMap());
     }
 
     /**
@@ -1124,7 +1196,7 @@ public class ComponentsUtil {
      * @return attributes string
      * @throws IOException
      */
-    public static String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI) throws IOException {
+    public static String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI) {
         return buildAttributesString(data, xssAPI, null);
     }
 
@@ -1136,7 +1208,7 @@ public class ComponentsUtil {
      * @return attributes string
      * @throws IOException
      */
-    public static String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI, Map<String, String> encodings) throws IOException {
+    public static String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI, Map<String, String> encodings) {
         try {
             StringWriter out = new StringWriter();
             String key;
