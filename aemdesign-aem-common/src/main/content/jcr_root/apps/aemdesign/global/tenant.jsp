@@ -4,6 +4,7 @@
     // http://localhost:4502/system/console/configMgr/org.apache.sling.tenant.internal.TenantProviderImpl
     final List<Pattern> tenantPathPatterns = Arrays.asList(
             Pattern.compile("(?:cq:tags/)([^/]+)"),
+            Pattern.compile("(?:experience-fragments/)([^/]+)"),
             Pattern.compile("/content/([^/]+)")
 //            Pattern.compile("/apps/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/content/aemdesign/([^/]+)/*"),
