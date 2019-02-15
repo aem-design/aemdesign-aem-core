@@ -33,6 +33,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
+import static design.aem.utils.components.ComponentsUtil.*;
+
 @Model(adaptables = SlingHttpServletRequest.class,
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL,
         adapters = {GenericComponent.class, ComponentExporter.class})
@@ -114,15 +116,17 @@ public class GenericModel implements GenericComponent {
     public Map<String, Object> getPageContextMap() {
 
         Map<String, Object> pageContextMap = new HashMap<>();
-        pageContextMap.put("slingRequest", getRequest());
-        pageContextMap.put("resourceResolver", getResourceResolver());
-        pageContextMap.put("sling", getSlingScriptHelper());
-        pageContextMap.put("componentContext", getComponentContext());
-        pageContextMap.put("resource", getResource());
-        pageContextMap.put("currentNode", getCurrentNode());
-        pageContextMap.put("properties", getProperties());
-        pageContextMap.put("currentStyle", getCurrentStyle());
-        pageContextMap.put("object", this);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_SLINGREQUEST, getRequest());
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_RESOURCERESOLVER, getResourceResolver());
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_SLING, getSlingScriptHelper());
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_COMPONENTCONTEXT, getComponentContext());
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_RESOURCE, getResource());
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_CURRENTNODE, getCurrentNode());
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_PROPERTIES, getProperties());
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_CURRENTSTYLE, getCurrentStyle());
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_CURRENTPAGE, getCurrentPage());
+        pageContextMap.put(PAGECONTEXTMAP_SOURCE, this);
+        pageContextMap.put(PAGECONTEXTMAP_SOURCE_TYPE, PAGECONTEXTMAP_SOURCE_TYPE_SLINGMODEL);
 
         return pageContextMap;
     }

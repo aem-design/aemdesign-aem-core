@@ -4,6 +4,8 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import design.aem.components.ComponentProperties;
+import design.aem.models.GenericModel;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -13,13 +15,11 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentsUtil.*;
+import static design.aem.utils.components.ComponentsUtil.getContextObjects;
 import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.ImagesUtil.*;
 import static design.aem.utils.components.TagUtil.getPageTags;
@@ -380,34 +380,32 @@ public class ComponentDetailsUtil {
 
                 if (!ResourceUtil.isNonExistingResource(detailsNodeResource)) {
 
-                    Object source = pageContext.get("source");
+                    Object source = pageContext.get(PAGECONTEXTMAP_SOURCE);
+                    String sourcetype = pageContext.get(PAGECONTEXTMAP_SOURCE_TYPE).toString();
 
-                    PageContext pageContext1 = null;
-                    WCMUsePojo wcmUsePojo = null;
+                    Map<String, Object> pageContextMap = new HashMap<>();
 
-                    if (source instanceof PageContext) {
-                        pageContext1 = (PageContext)source;
+                    switch (sourcetype) {
+                        case PAGECONTEXTMAP_SOURCE_TYPE_PAGECONTEXT:
+                            pageContextMap = getContextObjects((PageContext) source);
+                            break;
+                        case PAGECONTEXTMAP_SOURCE_TYPE_WCMUSEPOJO:
+                            pageContextMap = getContextObjects((WCMUsePojo) source);
+                            break;
+                        case PAGECONTEXTMAP_SOURCE_TYPE_SLINGMODEL:
+                            pageContextMap = ((GenericModel) source).getPageContextMap();
+                            break;
+                        default:
+                            LOGGER.error("getPageInfo: invalid pageContext", pageContext);
+                            return componentProperties;
                     }
 
-                    if (source instanceof WCMUsePojo) {
-                        wcmUsePojo = (WCMUsePojo)source;
-                    }
-
-                    if (pageContext1 != null) {
-                        componentProperties = getComponentProperties(
-                                pageContext1,
-                                detailsNodeResource,
-                                DEFAULT_FIELDS_DETAILS_OPTIONS
-                        );
-                    }
-
-                    if (wcmUsePojo != null) {
-                        componentProperties = getComponentProperties(
-                                wcmUsePojo,
-                                detailsNodeResource,
-                                DEFAULT_FIELDS_DETAILS_OPTIONS
-                        );
-                    }
+                    componentProperties = getComponentProperties(
+                            pageContextMap,
+                            detailsNodeResource,
+                            false,
+                            DEFAULT_FIELDS_DETAILS_OPTIONS
+                    );
 
                     componentProperties.put("detailsPath",detailsNodeResource.getPath());
 
@@ -450,20 +448,20 @@ public class ComponentDetailsUtil {
                 String thisPagePath = page.getPath();
 
                 boolean current = false;
-                if (thisPagePath != null && selectedPagePath.equals(thisPagePath)) {
+                if (selectedPagePath.equals(thisPagePath)) {
                     current = true;
                 }
 
                 componentProperties.put("current", current);
             }
 
+
             //get children
-            if (collectChildrenFromRoot != null && collectChildrenFromRoot > 0 ) {
+            if (collectChildrenFromRoot > 0 ) {
                 //keep going
                 List<Map> childrenList = new ArrayList<Map>();
 
-                SlingHttpServletRequest req = (SlingHttpServletRequest) pageContext.get("slingRequest");
-
+                SlingHttpServletRequest req = (SlingHttpServletRequest) pageContext.get(PAGECONTEXTMAP_OBJECT_SLINGREQUEST);
 
                 if (req != null) {
                     Iterator<Page> children = page.listChildren(new com.day.cq.wcm.api.PageFilter(req));
