@@ -6,6 +6,7 @@
             Pattern.compile("(?:cq:tags/)([^/]+)"),
             Pattern.compile("(?:experience-fragments/)([^/]+)"),
             Pattern.compile("/content/([^/]+)")
+//            Pattern.compile("/apps/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/content/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/content/dam/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/content/experience-fragments/aemdesign/([^/]+)/*"),
