@@ -1,4 +1,4 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <img src="/apps/settings/wcm/design/aemdesign/blank.png" class="cq-list-placeholder" alt=""
-    data-sly-test="${wcmmode.edit}"/>
+    <div data-sly-test="${(wcmmode.edit || wcmmode.preview) && componentProperties.isEmpty}"
+         class="cq-placeholder cq-dd-image" data-emptytext="List"></div>
 </template>
