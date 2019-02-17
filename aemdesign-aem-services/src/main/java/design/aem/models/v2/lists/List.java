@@ -169,7 +169,7 @@ public class List extends WCMUsePojo {
 
         //not using lamda is available so this is the best that can be done
         Object[][] componentFields = {
-                {LIST_TAG, LIST_TAG_ORDERED},
+                {LIST_TAG, LIST_TAG_UNORDERED},
                 {"feedEnabled", false},
                 {"feedType", "rss"},
                 {"listSplit", false, "data-list-split-enabled"},
@@ -658,7 +658,7 @@ public class List extends WCMUsePojo {
         if (orderBy != null) {
             listItems.sort(new ListSort(orderBy, sortOrder));
             componentProperties.put(LIST_ISORDERED, true);
-            componentProperties.put(LIST_TAG, LIST_TAG_ORDERED);
+//            componentProperties.put(LIST_TAG, LIST_TAG_ORDERED);
         }
         componentProperties.put(LIST_TAG, LIST_TAG_UNORDERED);
     }
