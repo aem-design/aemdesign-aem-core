@@ -4,7 +4,7 @@
             <sly data-sly-use.info="image.select.html"
                  data-sly-call="${info.variant @ componentProperties=componentProperties}"></sly>
             <span data-sly-test="${componentProperties.licenseInfo}"
-                  class="license">${componentProperties.licenseInfo}</span>
+                  class="license">${componentProperties.licenseInfo @ context = 'html'}</span>
         </a>
     </div>
 </template>

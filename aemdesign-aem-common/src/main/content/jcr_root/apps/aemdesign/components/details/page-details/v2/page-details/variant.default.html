@@ -6,9 +6,9 @@
                 <title class="title"
                        data-sly-test="${!componentProperties.hideTitle}"
                        data-sly-element="${componentProperties.titleType}"
-                       data-sly-attribute.id="${componentProperties.ariaLabelledBy}">${componentProperties.titleFormatted}</title>
+                       data-sly-attribute.id="${componentProperties.ariaLabelledBy}">${componentProperties.titleFormatted @ context = 'html'}</title>
                 <div class="description"
-                     data-sly-test="${!componentProperties.hideDescription}">${componentProperties.description}</div>
+                     data-sly-test="${!componentProperties.hideDescription}">${componentProperties.description @ context = 'html'}</div>
             </header>
             <sly data-sly-include="page-details.footer.html"></sly>
         </div>
