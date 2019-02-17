@@ -136,6 +136,14 @@ public class Columns extends WCMUsePojo {
 //                    getComponentContext().setDefaultDecorationTagName("");
         }
 
+
+        String columnClassSmall = "";
+        String columnClassMedium = "";
+        String columnClassLarge = "";
+        String columnClassXLarge = "";
+        String aRowClass = "";
+        String aColumnClass = "";
+
         switch (controlType) {
             case START:
 
@@ -159,11 +167,18 @@ public class Columns extends WCMUsePojo {
 
                 placeholderText = getDefaultLabelIfEmpty("placeholderTextStart", DEFAULT_I18N_CATEGORY, "Start of {0} Columns", _i18n,  Integer.toString(numCols));
 
-                columnClass = getColumnClass(currentColumn, componentProperties, columnClass);
-                columnsClass = getColumnsClass(numCols, componentProperties);
-                rowClass = getRowClass(componentProperties, rowClass);
+                columnClassSmall = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, "");
+                columnClassMedium = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, "");
+                columnClassLarge = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, "");
+                columnClassXLarge = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, "");
+                aRowClass = componentProperties.get(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, "");
+                aColumnClass = MessageFormat.format("{0} {1} {2} {3}",columnClassSmall, columnClassMedium, columnClassLarge, columnClassXLarge).trim();
 
-                componentProperties.attr.add("class",columnsClass);
+                columnClass = getColumnClass(currentColumn, componentProperties, aColumnClass);
+                columnsClass = getColumnsClass(numCols, componentProperties);
+                rowClass = getRowClass(componentProperties, aRowClass);
+
+                componentProperties.attr.add("class", columnsClass);
 
                 componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
                 componentProperties.put("rowClass", rowClass);
@@ -212,6 +227,13 @@ public class Columns extends WCMUsePojo {
                     componentProperties = (ComponentProperties) getRequest().getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES));
                     currentColumn = ((Integer) getRequest().getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN)));
 
+
+                    columnClassSmall = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, "");
+                    columnClassMedium = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, "");
+                    columnClassLarge = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, "");
+                    columnClassXLarge = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, "");
+                    aColumnClass = MessageFormat.format("{0} {1} {2} {3}",columnClassSmall, columnClassMedium, columnClassLarge, columnClassXLarge).trim();
+
                     numCols = componentProperties.get("numCols",numCols);
 
 
@@ -219,7 +241,7 @@ public class Columns extends WCMUsePojo {
 
                     placeholderText = getDefaultLabelIfEmpty("placeholderTextBreak", DEFAULT_I18N_CATEGORY, "Columns Break {0} of {1}", _i18n, Integer.toString(currentColumn + 1), Integer.toString(numCols-1));
 
-                    columnClass = getColumnClass(currentColumn, componentProperties, columnClass);
+                    columnClass = getColumnClass(currentColumn, componentProperties, aColumnClass);
 
 
                 }
