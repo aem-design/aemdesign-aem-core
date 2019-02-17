@@ -5,5 +5,5 @@
     jcr:description="Page Details is to save additional info for the Page Properties"
     jcr:title="Page Details"
     cq:icon="viewDetail"
-    sling:resourceSuperType="aemdesign/components/details/page-details/v1/page-details"
+    sling:resourceSuperType="aemdesign/components/details/page-details/v2/page-details"
     componentGroup="AEM.Design - Details"/>
