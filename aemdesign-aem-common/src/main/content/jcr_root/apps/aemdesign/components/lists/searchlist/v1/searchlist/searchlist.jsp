@@ -125,7 +125,7 @@
                         addComponentAttributes(componentProperties, "data-page-offset", String.valueOf(result.getHits().size())));
 
                 componentProperties.put(COMPONENT_ATTRIBUTES,
-                        addComponentAttributes(componentProperties, "data-showing-text", componentProperties.get("statisticsTextFooter", "")));
+                        addComponentAttributes(componentProperties, "data-showing-text", componentProperties.get("statisticsText", "")));
             }
 
             componentProperties.put(COMPONENT_ATTRIBUTES,

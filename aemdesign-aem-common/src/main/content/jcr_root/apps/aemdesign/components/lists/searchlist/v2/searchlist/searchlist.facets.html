@@ -1,0 +1,23 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div class="facets" data-sly-test="${componentProperties.bucketsInfo}">
+        <div class="tags">${componentProperties.facetsTitle}</div>
+        <ul data-sly-list.bucketInfo="${componentProperties.bucketsInfo}">
+            <sly data-sly-set.bucketValue="${bucketInfo.bucket.value}"></sly>
+            <sly data-sly-set.tag="${bucketInfo.tag.value}"></sly>
+            <li>
+                <sly data-sly-test="${bucketInfo.tag}">
+                    <sly data-sly-test="${bucketInfo.filter}">
+                        ${bucketInfo.tag.title} (${bucketInfo.bucket.count}) - <a title="filter results" href="${componentProperties.currentPageUrl}?q=${componentProperties.escapedQueryForHref}">
+                        <span>remove filter</span>
+                    </a>
+                    </sly>
+                    <sly data-sly-test="${!bucketInfo.filter}">
+                        <a title="filter results" href="${componentProperties.currentPageUrl}?q=${componentProperties.escapedQueryForHref}&tag=${bucketInfo.bucket.value}">
+                            ${bucketInfo.tag.title} (${bucketInfo.bucket.count})
+                        </a>
+                    </sly>
+                </sly>
+            </li>
+        </ul>
+    </div>
+</template>

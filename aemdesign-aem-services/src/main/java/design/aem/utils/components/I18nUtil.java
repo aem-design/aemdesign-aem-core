@@ -61,6 +61,16 @@ public class I18nUtil {
         return label;
     }
 
+    public static String getDefaultLabelIfEmpty(String defaultCode, String defaultCategory, String defaultLabel, com.day.cq.i18n.I18n i18n) {
+        String label = i18n.get(defaultCode, defaultCategory);
+
+        if (isEmpty(label)) {
+            label = defaultLabel;
+        }
+
+        return label;
+    }
+
 
     public static String getPageLanguage(SlingScriptHelper sling, Page page) {
         /**

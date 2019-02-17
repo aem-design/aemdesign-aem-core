@@ -1,0 +1,14 @@
+<template data-sly-template.variant="${@ componentProperties}">
+
+    <div class="spellcheck" data-sly-test="${componentProperties.result.spellcheck}">
+        <div class="text">${componentProperties.spellcheckText}</div>
+        <a class="link" href="${componentProperties.currentPageUrl}?q=${componentProperties.result.spellcheck}">
+        <b>${componentProperties.result.spellcheck}</b>
+        </a>
+    </div>
+    <div class="no-results">${componentProperties.noResultsText}</div>
+    <span data-tracking="{event:'noresults', values:{'keyword': '${componentProperties.escapedQuery}', 'results':'zero', 'executionTime':'${componentProperties.result.executionTime}'}, componentPath:'${componentProperties.componentPath}'}"></span>
+    ${componentProperties.result.trackerScript}
+
+
+</template>
