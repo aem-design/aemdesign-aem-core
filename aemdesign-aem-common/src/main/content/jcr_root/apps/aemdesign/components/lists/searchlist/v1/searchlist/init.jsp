@@ -112,8 +112,8 @@
                     searchResults.add(newResult);
                 }
             }
-        } catch (RepositoryException re) {
-            getLogger().warn("Repository exception thrown: " + re.toString());
+        } catch (Exception ex) {
+            getLogger().warn("Repository exception thrown: " + ex.toString());
         }
     }
 
