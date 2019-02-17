@@ -26,6 +26,7 @@ public class Video extends WCMUsePojo {
     private static final Logger LOGGER = LoggerFactory.getLogger(Video.class);
 
     private ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -37,8 +38,8 @@ public class Video extends WCMUsePojo {
 
 
         Object[][] componentFields = {
-                {"lightboxHeight","70"},
-                {"lightboxWidth","70"},
+                {"lightboxHeight", "70"},
+                {"lightboxWidth", "70"},
                 {"thumbnailHeight", "auto"},
                 {"thumbnailWidth", "auto"},
                 {"assetTitlePrefix", StringUtils.EMPTY},
@@ -65,7 +66,7 @@ public class Video extends WCMUsePojo {
 
         componentProperties.put("href", fileReference);
 
-        msgStart = (String)componentProperties.get("assetTitlePrefix");
+        msgStart = (String) componentProperties.get("assetTitlePrefix");
 
         if (isNotEmpty(fileReference)) {
 
@@ -79,7 +80,7 @@ public class Video extends WCMUsePojo {
                 String videoWidth = asset.getMetadataValue("tiff:ImageWidth");
                 String videoHeight = asset.getMetadataValue("tiff:ImageLength");
                 Rendition rd = asset.getRendition(DEFAULT_IMAGE_PATH_SELECTOR);
-                thumbnail = (rd == null)? "" : rd.getPath();
+                thumbnail = (rd == null) ? "" : rd.getPath();
                 componentProperties.put("thumbnail", thumbnail);
 
                 componentProperties.put("videoWidth", videoWidth);
@@ -88,7 +89,7 @@ public class Video extends WCMUsePojo {
                 metaTitle = StringUtils.isBlank(asset.getMetadataValue(DamConstants.DC_TITLE)) ? "" : asset.getMetadataValue(DamConstants.DC_TITLE);
                 metaDesc = StringUtils.isBlank(asset.getMetadataValue(DamConstants.DC_DESCRIPTION)) ? "" : asset.getMetadataValue(DamConstants.DC_DESCRIPTION);
                 metaCreator = StringUtils.isBlank(asset.getMetadataValue(DamConstants.DC_CREATOR)) ? "" : asset.getMetadataValue(DamConstants.DC_CREATOR);
-                metaCopyRight = StringUtils.isBlank(asset.getMetadataValue(DamConstants.DC_RIGHTS)) ? "" : "&amp;copy;"+asset.getMetadataValue(DamConstants.DC_RIGHTS);
+                metaCopyRight = StringUtils.isBlank(asset.getMetadataValue(DamConstants.DC_RIGHTS)) ? "" : "&amp;copy;" + asset.getMetadataValue(DamConstants.DC_RIGHTS);
 
                 componentProperties.put("msg", msgStart + metaTitle);
                 componentProperties.put("metaTitle", metaTitle);
@@ -96,44 +97,43 @@ public class Video extends WCMUsePojo {
                 componentProperties.put("metaCreator", metaCreator);
                 componentProperties.put("metaCopyRight", metaCopyRight);
 
-                Node media = getFirstMediaNode(getCurrentPage());
+                Node media = getFirstMediaNode(getResourcePage());
                 //set display area size to first media node
-                if(media != null && !media.getPath().equals(getResource().adaptTo(Node.class).getPath())){
-                    if(media.hasProperty("lightboxHeight")){
+                if (media != null && !media.getPath().equals(getResource().adaptTo(Node.class).getPath())) {
+                    if (media.hasProperty("lightboxHeight")) {
                         componentProperties.put("lightboxHeight", media.getProperty("lightboxHeight").getValue().toString());
-                    }else{
-                        componentProperties.put("lightboxHeight","");
+                    } else {
+                        componentProperties.put("lightboxHeight", "");
                     }
 
-                    if(media.hasProperty("lightboxWidth")){
+                    if (media.hasProperty("lightboxWidth")) {
                         componentProperties.put("lightboxWidth", media.getProperty("lightboxWidth").getValue().toString());
-                    }else{
-                        componentProperties.put("lightboxWidth","");
+                    } else {
+                        componentProperties.put("lightboxWidth", "");
                     }
                 }
 
-                String lightboxWidth = componentProperties.get("lightboxWidth","");
-                String lightboxHeight = componentProperties.get("lightboxHeight","");
+                String lightboxWidth = componentProperties.get("lightboxWidth", "");
+                String lightboxHeight = componentProperties.get("lightboxHeight", "");
 
-                componentProperties.put("width",videoWidth);
-                componentProperties.put("height",videoHeight);
+                componentProperties.put("width", videoWidth);
+                componentProperties.put("height", videoHeight);
 
                 if (isNotEmpty(lightboxWidth)) {
-                    componentProperties.put("width",lightboxWidth);
+                    componentProperties.put("width", lightboxWidth);
                 }
                 if (isNotEmpty(lightboxWidth)) {
-                    componentProperties.put("height",lightboxHeight);
+                    componentProperties.put("height", lightboxHeight);
                 }
 
             }
 
         }
 
-        componentProperties.put("fileReferenceMissing",fileReferenceMissing);
+        componentProperties.put("fileReferenceMissing", fileReferenceMissing);
 
 
     }
-
 
 
 }
