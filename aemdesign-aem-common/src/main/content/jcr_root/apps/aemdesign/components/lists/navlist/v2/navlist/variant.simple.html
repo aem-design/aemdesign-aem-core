@@ -12,12 +12,8 @@
         <a class="navbar-button" href="#">${componentProperties.menuTitle}</a>
         <div class="collapse navbar-collapse" id="${componentProperties.componentId}Content" data-sly-test="${componentProperties.menuItems}">
             <ul class="menu" itemscope itemtype="http://www.schema.org/SiteNavigationElement" data-sly-list.link="${componentProperties.menuItems}">
-                <sly data-sly-set.href="${link.href}"></sly>
-                <sly data-sly-set.href="${link.authHref}"
-                     data-sly-test="${wcmmode.edit}"></sly>
-
                 <li itemprop="name" class="nav-item${link.current ? ' active' : ''}">
-                    <a itemprop="url" href="${href}"
+                    <a itemprop="url" href="${wcmmode.edit ? link.authHref : link.href}"
                        class="nav-link"
                        accesskey="${link.accesskey}"
                        title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,link.title]}">
