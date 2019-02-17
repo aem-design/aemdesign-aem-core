@@ -1,12 +1,13 @@
-# List Nav
+Nav List
+============
 
-List Nav
+Nav List Component
 
-## Overview
+# Overview
 
 Component to create List navigation on page that is part of a collection of pages in a folder hierarchy. Finds previous and next pages in a folder structure.
 
-### Information
+## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
 * **Compatibility**: AEM 6.4
@@ -16,7 +17,7 @@ Component to create List navigation on page that is part of a collection of page
 * **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/navlist)
 * **Readme**: [/apps/aemdesign/components/lists/navlist](/mnt/overlay/wcm/core/content/sites/components/media.html/apps/aemdesign/components/lists/navlist)
 
-### Features
+## Features
 * Allows creation of Previous and Next page on a Page that is part of a collection of pages.
 
 # Authoring
