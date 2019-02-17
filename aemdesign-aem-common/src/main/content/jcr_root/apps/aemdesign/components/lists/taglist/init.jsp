@@ -1,7 +1,7 @@
 <%@page session="false"%>
 <%@ page import="com.day.cq.wcm.api.PageFilter" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
-<%@ include file="/apps/aemdesign/components/lists/list/listData.jsp" %>
+<%@ include file="/apps/aemdesign/components/lists/list/v1/list/listData.jsp" %>
 <%
     // This is here to stop statically defined pages from not appearing when 'Hide in Navigation' is set.
     String listType = _properties.get("listFrom", (String) null);
