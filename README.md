@@ -40,7 +40,6 @@ You do not need to commit POM files with venison numbers as they will be generat
  
 `aemdesign-aem-common` module embeds bundles:
  * `aemdesign-aem-services` 
- * `aemdesign-aem-taglibs` 
  
 ## To build
 To ensure the project builds correctly locally run:
