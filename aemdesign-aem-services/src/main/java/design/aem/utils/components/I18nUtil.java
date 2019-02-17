@@ -61,8 +61,8 @@ public class I18nUtil {
         return label;
     }
 
-    public static String getDefaultLabelIfEmpty(String defaultCode, String defaultCategory, String defaultLabel, com.day.cq.i18n.I18n i18n) {
-        String label = i18n.get(defaultCode, defaultCategory);
+    public static String getDefaultLabelIfEmpty(String defaultCode, String defaultCategory, String defaultLabel, com.day.cq.i18n.I18n i18n, String... params) {
+        String label = i18n.get(defaultCode, defaultCategory, params);
 
         if (isEmpty(label)) {
             label = defaultLabel;

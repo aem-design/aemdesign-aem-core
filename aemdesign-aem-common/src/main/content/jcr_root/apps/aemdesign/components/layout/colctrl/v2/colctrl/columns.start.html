@@ -1,0 +1,16 @@
+<template data-sly-template.variant="${@ componentProperties, component}">
+    <sly data-sly-use.opencol="${'./columns.opencol.html'}"
+         data-sly-use.opencols="${'./columns.opencols.html'}"
+         data-sly-use.openrow="${'./columns.openrow.html'}">
+
+        <div data-sly-test="${(wcmmode.edit || wcmmode.preview)}" class="cq-placeholder cq-marker-start" data-emptytext="${component.placeholderText}">
+            <!--${component.placeholderText}-->
+        </div>
+
+        <sly data-sly-test="${!(wcmmode.edit || wcmmode.preview)}">
+            <sly data-sly-call="${opencols.variant @ class=component.columnsClass}"></sly>
+            <sly data-sly-call="${openrow.variant @ class=component.rowClass}"></sly>
+            <sly data-sly-call="${opencol.variant @ class=component.columnClass}"></sly>
+        </sly>
+    </sly>
+</template>
