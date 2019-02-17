@@ -89,7 +89,7 @@ public class NavList extends WCMUsePojo {
 //    componentProperties.put("subMenu",_i18n.get("subMenu","navlist"));
 //    componentProperties.put("goToTopOfPage",_i18n.get("goToTopOfPage","navlist"));
 
-        componentProperties.put(INHERITED_RESOURCE,findInheritedResource(getCurrentPage(),getComponentContext()));
+        componentProperties.put(INHERITED_RESOURCE,findInheritedResource(getResourcePage(),getComponentContext()));
         componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,getDefaultLabelIfEmpty("",DEFAULT_I18N_INHERIT_CATEGORY,DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,DEFAULT_I18N_INHERIT_CATEGORY,_i18n));
     }
 

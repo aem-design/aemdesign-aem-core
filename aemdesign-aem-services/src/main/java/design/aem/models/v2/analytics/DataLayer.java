@@ -43,7 +43,7 @@ public class DataLayer extends WCMUsePojo {
         componentProperties.put("digitalDataJson",digitalDataJson);
 
         try {
-            String detailsPath = findComponentInPage(getCurrentPage(), DEFAULT_LIST_DETAILS_SUFFIX);
+            String detailsPath = findComponentInPage(getResourcePage(), DEFAULT_LIST_DETAILS_SUFFIX);
             ValueMap detailsProperties = getProperties();
             Resource details = getResourceResolver().getResource(detailsPath);
             //get details properties if its found
@@ -67,14 +67,14 @@ public class DataLayer extends WCMUsePojo {
 
             digitalDataPagePageInfo.put("pageName", detailsProperties.get("analyticsPageName", ""));
             digitalDataPagePageInfo.put("pageType", detailsProperties.get("analyticsPageType", ""));
-            digitalDataPagePageInfo.put("pagePath", getCurrentPage().getPath());
+            digitalDataPagePageInfo.put("pagePath", getResourcePage().getPath());
             if (isNotEmpty(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, ""))) {
                 digitalDataPagePageInfo.put("effectiveDate", formatDate(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, Calendar.getInstance()), "yyyy-MM-dd"));
             } else {
                 digitalDataPagePageInfo.put("effectiveDate", "");
             }
-            digitalDataPagePageInfo.put("contentCountry", getCurrentPage().getLanguage(false).getDisplayCountry());
-            digitalDataPagePageInfo.put("contentLanguage", getCurrentPage().getLanguage(false).getDisplayLanguage().toLowerCase());
+            digitalDataPagePageInfo.put("contentCountry", getResourcePage().getLanguage(false).getDisplayCountry());
+            digitalDataPagePageInfo.put("contentLanguage", getResourcePage().getLanguage(false).getDisplayLanguage().toLowerCase());
 
             digitalDataPageAttributes.put("platform", detailsProperties.get("analyticsPlatform", "aem"));
             digitalDataPageAttributes.put("abort", detailsProperties.get("analyticsAbort", "false"));

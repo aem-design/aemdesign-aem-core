@@ -52,7 +52,9 @@ public class PageDetails extends WCMUsePojo {
     }
 
 
+
     @Override
+    @SuppressWarnings("Duplicates")
     public void activate() throws Exception {
 
         com.day.cq.i18n.I18n _i18n = new I18n(getRequest());
@@ -63,9 +65,9 @@ public class PageDetails extends WCMUsePojo {
         final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
 
         // default values for the component
-        final String DEFAULT_TITLE = getPageTitle(getCurrentPage());
-        final String DEFAULT_DESCRIPTION = getCurrentPage().getDescription();
-        final String DEFAULT_SUBTITLE = getCurrentPage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE,"");
+        final String DEFAULT_TITLE = getPageTitle(getResourcePage());
+        final String DEFAULT_DESCRIPTION = getResourcePage().getDescription();
+        final String DEFAULT_SUBTITLE = getResourcePage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE,"");
         final Boolean DEFAULT_HIDE_TITLE = false;
         final Boolean DEFAULT_HIDE_DESCRIPTION = false;
         final Boolean DEFAULT_SHOW_BREADCRUMB = true;
@@ -86,16 +88,16 @@ public class PageDetails extends WCMUsePojo {
                 {"showToolbar", DEFAULT_SHOW_TOOLBAR},
                 {"showPageDate", DEFAULT_SHOW_PAGE_DATE},
                 {"showParsys", DEFAULT_SHOW_PARSYS},
-                {"linkTarget", StringUtils.EMPTY, "target"},
-                {FIELD_PAGE_URL, getPageUrl(getCurrentPage())},
-                {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getCurrentPage())},
+                {FIELD_LINK_TARGET, StringUtils.EMPTY, FIELD_TARGET},
+                {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
+                {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
                 {FIELD_PAGE_TITLE_SUBTITLE, DEFAULT_SUBTITLE},
                 {TagConstants.PN_TAGS, new String[]{}},
                 {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
                 {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
-                {DETAILS_LINK_TEXT, getPageNavTitle(getCurrentPage())},
-                {DETAILS_LINK_TITLE, getPageTitle(getCurrentPage())},
+                {DETAILS_LINK_TEXT, getPageNavTitle(getResourcePage())},
+                {DETAILS_LINK_TITLE, getPageTitle(getResourcePage())},
         };
 
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -112,7 +114,7 @@ public class PageDetails extends WCMUsePojo {
 
         //read the image node
         componentProperties.putAll(getAssetInfo(getResourceResolver(),
-                getPageImgReferencePath(getCurrentPage()),
+                getPageImgReferencePath(getResourcePage()),
                 FIELD_PAGE_IMAGE));
 
         //read the secondary image node
@@ -161,84 +163,90 @@ public class PageDetails extends WCMUsePojo {
 
         componentProperties.putAll(processComponentFields(componentProperties,_i18n,getSlingScriptHelper()), false);
 
+
+        //process badge selection
+        String componentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
+        if (isEmpty(componentBadge)) {
+            componentProperties.put(COMPONENT_BADGE_SELECTED,false);
+            componentBadge = DEFAULT_BADGE;
+        } else {
+            componentProperties.put(COMPONENT_BADGE_SELECTED,true);
+        }
+
+        componentProperties.put(COMPONENT_BADGE,componentBadge);
+
+        //compile componentBadgeTemplate param
+        componentProperties.put(COMPONENT_BADGE_TEMPLATE,format(COMPONENT_BADGE_TEMPLATE_FORMAT,componentBadge));
+
+
         componentProperties.putAll(processBadgeRequestConfig(componentProperties,getResourceResolver(), getRequest()), true);
 
         componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME,getBackgroundImageRenditions(this));
 
         //get badge action attributes
         Map<String, String> badgeLinkAttr = new HashMap<>();
-        badgeLinkAttr.put("target",componentProperties.get("linkTarget",""));
-        badgeLinkAttr.put("external","true");
-        badgeLinkAttr.put("data-layer-event",componentProperties.get("badgeAnalyticsEventType",""));
-        badgeLinkAttr.put("data-layer-linktype",componentProperties.get("badgeAnalyticsLinkType",""));
-        badgeLinkAttr.put("data-layer-linklocation",componentProperties.get("badgeAnalyticsLinkLocation",""));
-        badgeLinkAttr.put("data-layer-linkdescription",componentProperties.get("badgeAnalyticsLinkDescription",""));
-        badgeLinkAttr.put(COMPONENT_ATTRIBUTE_INPAGEPATH,componentProperties.get("componentInPagePath",""));
+        badgeLinkAttr.put(FIELD_TARGET,componentProperties.get(FIELD_LINK_TARGET,""));
+        badgeLinkAttr.put(FIELD_EXTERNAL,"true");
+        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_EVENT_TYPE,componentProperties.get(DETAILS_BADGE_ANALYTICS_EVENT_TYPE,""));
+        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LINK_TYPE,componentProperties.get(DETAILS_BADGE_ANALYTICS_LINK_TYPE,""));
+        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LINK_LOCATION,componentProperties.get(DETAILS_BADGE_ANALYTICS_LINK_LOCATION,""));
+        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LINK_DESCRIPTION,componentProperties.get(DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION,""));
+        badgeLinkAttr.put(COMPONENT_ATTRIBUTE_INPAGEPATH,componentProperties.get(COMPONENT_INPAGEPATH,""));
 
-        componentProperties.put("badgeLinkAttr",badgeLinkAttr);
+        componentProperties.put(DETAILS_BADGE_LINK_ATTR,badgeLinkAttr);
 
         //get badge image attributes
         Map<String, String> badgeImageAttr = new HashMap<>();
-        badgeImageAttr.put("data-asset-id-primary",componentProperties.get("pageImageId",""));
-        badgeImageAttr.put("data-asset-license-primary",componentProperties.get("pageImageLicenseInfo",""));
-        badgeImageAttr.put("data-asset-id-secondary",componentProperties.get("pageSecondaryImageId",""));
-        badgeImageAttr.put("data-asset-license-secondary",componentProperties.get("pageSecondaryImageLicenseInfo",""));
-        badgeImageAttr.put("width",componentProperties.get("thumbnailWidth",""));
+        badgeImageAttr.put(FIELD_DATA_ASSET_PRIMARY_ID,componentProperties.get(FIELD_PAGE_IMAGE_ID,""));
+        badgeImageAttr.put(FIELD_DATA_ASSET_PRIMARY_LICENSE,componentProperties.get(FIELD_PAGE_IMAGE_LICENSE_INFO,""));
+        badgeImageAttr.put(FIELD_DATA_ASSET_SECONDARY_ID,componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY_ID,""));
+        badgeImageAttr.put(FIELD_DATA_ASSET_SECONDARY_LICENSE,componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY_LICENSE_INFO,""));
+        badgeImageAttr.put(FIELD_WIDTH,componentProperties.get(FIELD_THUMBNAIL_WIDTH,""));
 
-        badgeImageAttr.put("height",componentProperties.get("thumbnailHeight",""));
+        badgeImageAttr.put(FIELD_HEIGHT,componentProperties.get(FIELD_THUMBNAIL_HEIGHT,""));
 
         String pageSecondaryImageThumbnail = componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL,"");
         if (isNotEmpty(pageSecondaryImageThumbnail)) {
-            badgeImageAttr.put("class", "rollover");
-            badgeImageAttr.put("data-rollover-src", pageSecondaryImageThumbnail);
+            badgeImageAttr.put(FIELD_CLASS, "rollover");
+            badgeImageAttr.put(FIELD_DATA_ASSET_ROLLOVER_SRC, pageSecondaryImageThumbnail);
         }
-        componentProperties.put("badgeImageAttr",badgeImageAttr);
+        componentProperties.put(DETAILS_BADGE_IMAGE_ATTR,badgeImageAttr);
 
         //get badge class attributes
         String badgeClassAttr = "";
-        badgeClassAttr += StringUtils.join(componentProperties.get("cardStyle",new String[0])," ");
-        badgeClassAttr += StringUtils.join(componentProperties.get("titleIcon",new String[0])," ");
+        badgeClassAttr += StringUtils.join(componentProperties.get(DETAILS_CARD_STYLE,new String[0])," ");
+        badgeClassAttr += StringUtils.join(componentProperties.get(DETAILS_TITLE_ICON,new String[0])," ");
 
-        componentProperties.put("badgeClassAttr",badgeClassAttr);
+        componentProperties.put(DETAILS_BADGE_CLASS,badgeClassAttr);
 
         String badgeClassIconAttr = "";
-        badgeClassIconAttr += StringUtils.join(componentProperties.get("cardIcon",new String[0])," ");
+        badgeClassIconAttr += StringUtils.join(componentProperties.get(DETAILS_CARD_ICON,new String[0])," ");
 
-        componentProperties.put("badgeClassIconAttr",badgeClassIconAttr);
+        componentProperties.put(DETAILS_BADGE_CLASS_ICON,badgeClassIconAttr);
 
 
         //check badge title
-        String pageNavTitle = componentProperties.get("pageNavTitle", "");
-        componentProperties.put("badgeTitle",pageNavTitle);
+        String pageNavTitle = componentProperties.get(FIELD_PAGE_TITLE_NAV, "");
+        componentProperties.put(DETAILS_BADGE_TITLE,pageNavTitle);
         //trim pageNavTitle if needed
-        if (Boolean.parseBoolean(componentProperties.get("badgeTitleTrim",""))) {
-            int badgeTitleTrimLengthMax = componentProperties.get("badgeTitleTrimLengthMax",20);
+        if (Boolean.parseBoolean(componentProperties.get(DETAILS_TITLE_TRIM,""))) {
+            int badgeTitleTrimLengthMax = componentProperties.get(DETAILS_TITLE_TRIM_LENGTH_MAX,20);
             if (StringUtils.isNoneEmpty(pageNavTitle)) {
-                componentProperties.put("badgeTitle", pageNavTitle.substring(0, badgeTitleTrimLengthMax));
+                componentProperties.put(DETAILS_BADGE_TITLE, pageNavTitle.substring(0, badgeTitleTrimLengthMax));
             }
         }
 
         //check badge description
-        String badgeDescription = componentProperties.get("description", "");
-        componentProperties.put("badgeDescription",badgeDescription);
+        String badgeDescription = componentProperties.get(DETAILS_DESCRIPTION, "");
+        componentProperties.put(DETAILS_BADGE_DESCRIPTION,badgeDescription);
         //trim page description if needed
-        if (Boolean.parseBoolean(componentProperties.get("badgeSummaryTrim",""))) {
-            int badgeSummaryLengthMaxSuffix = componentProperties.get("badgeSummaryLengthMaxSuffix",20);
+        if (Boolean.parseBoolean(componentProperties.get(DETAILS_SUMMARY_TRIM,""))) {
+            int badgeSummaryLengthMaxSuffix = componentProperties.get(DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX,20);
             if (StringUtils.isNoneEmpty(badgeDescription)) {
-                componentProperties.put("badgeDescription", badgeDescription.substring(0, badgeSummaryLengthMaxSuffix));
+                componentProperties.put(DETAILS_BADGE_DESCRIPTION, badgeDescription.substring(0, badgeSummaryLengthMaxSuffix));
             }
         }
 
-
-        //process badge selection
-        String componentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
-        if (isEmpty(componentBadge)) {
-            componentBadge = DEFAULT_BADGE;
-        }
-
-        componentProperties.put(COMPONENT_BADGE,componentBadge);
-        //compile componentBadgeTemplate param
-        componentProperties.put(COMPONENT_BADGE_TEMPLATE,format(COMPONENT_BADGE_TEMPLATE_FORMAT,componentBadge));
 
 
         //process variant selection
@@ -268,23 +276,23 @@ public class PageDetails extends WCMUsePojo {
         }
 
         //provide defaults for metadata
-        if (!metaPropertyFields.containsKey("og:url")) {
-            metaPropertyFields.put("og:url", mappedUrl(getResourceResolver(), getRequest(), componentPage.getPath()).concat(DEFAULT_EXTENTION));
+        if (!metaPropertyFields.containsKey(FIELD_OG_URL)) {
+            metaPropertyFields.put(FIELD_OG_URL, mappedUrl(getResourceResolver(), getRequest(), componentPage.getPath()).concat(DEFAULT_EXTENTION));
         }
-        if (!metaPropertyFields.containsKey("og:image")) {
-            metaPropertyFields.put("og:image", mappedUrl(getResourceResolver(), getRequest(), getThumbnailUrl(componentPage,getResourceResolver())));
+        if (!metaPropertyFields.containsKey(FIELD_OG_IMAGE)) {
+            metaPropertyFields.put(FIELD_OG_IMAGE, mappedUrl(getResourceResolver(), getRequest(), getThumbnailUrl(componentPage,getResourceResolver())));
         }
-        if (!metaPropertyFields.containsKey("og:title")) {
-            metaPropertyFields.put("og:title", getPageTitle(componentPage));
+        if (!metaPropertyFields.containsKey(FIELD_OG_TITLE)) {
+            metaPropertyFields.put(FIELD_OG_TITLE, getPageTitle(componentPage));
         }
-        if (!metaPropertyFields.containsKey("og:description")) {
-            metaPropertyFields.put("og:description", getPageDescription(componentPage));
+        if (!metaPropertyFields.containsKey(FIELD_OG_DESCRIPTION)) {
+            metaPropertyFields.put(FIELD_OG_DESCRIPTION, getPageDescription(componentPage));
         }
 
         componentProperties.put("metaPropertyFields",metaPropertyFields);
 
         //set canonical url
-        componentProperties.put("canonicalUrl",mappedUrl(getResourceResolver(), getRequest(), componentPage.getPath()).concat(DEFAULT_EXTENTION));
+        componentProperties.put(FIELD_CANONICAL_URL,mappedUrl(getResourceResolver(), getRequest(), componentPage.getPath()).concat(DEFAULT_EXTENTION));
 
     }
 

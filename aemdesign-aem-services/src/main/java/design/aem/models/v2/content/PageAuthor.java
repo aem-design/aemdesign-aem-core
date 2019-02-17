@@ -38,7 +38,7 @@ public class PageAuthor extends WCMUsePojo {
         UserPropertiesManager _userPropertiesManager = _userPropertiesService.createUserPropertiesManager(session, getResourceResolver());
         UserManager _userManager = getResourceResolver().adaptTo(org.apache.jackrabbit.api.security.user.UserManager.class);
 
-        String pageAuthorUser = getCurrentPage().getLastModifiedBy();
+        String pageAuthorUser = getResourcePage().getLastModifiedBy();
         String pageAuthorFullName = "";
         String pageAuthorEmail = "";
 

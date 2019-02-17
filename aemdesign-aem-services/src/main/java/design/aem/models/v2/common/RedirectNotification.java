@@ -2,6 +2,7 @@ package design.aem.models.v2.common;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
+import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.WCMMode;
 import com.day.cq.wcm.foundation.ELEvaluator;
@@ -14,6 +15,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletResponse;
 
+import static com.day.cq.wcm.api.NameConstants.*;
+import static design.aem.utils.components.CommonUtil.PN_REDIRECT_TARGET;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
@@ -45,7 +48,7 @@ public class RedirectNotification extends WCMUsePojo {
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"redirectTitle", ""},
                 {"redirectUrl", "#"},
-                {"redirectTarget", getPageProperties().get("cq:redirectTarget", "")},
+                {"redirectTarget", getPageProperties().get(PN_REDIRECT_TARGET, "")},
         };
 
         componentProperties = ComponentsUtil.getComponentProperties(

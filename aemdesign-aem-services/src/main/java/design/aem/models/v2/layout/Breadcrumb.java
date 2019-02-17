@@ -66,7 +66,7 @@ public class Breadcrumb extends WCMUsePojo {
 
         int startLevel = tryParseInt(componentProperties.get("startLevel",""), DEFAULT_LEVEL_START);
         int endLevel = tryParseInt(componentProperties.get("endLevel",""), DEFAULT_LEVEL_END);
-        int currentLevel = getCurrentPage().getDepth();
+        int currentLevel = getResourcePage().getDepth();
 
         if (isBlank(componentProperties.get("endLevel",""))) {
             endLevel = currentLevel;
@@ -76,7 +76,7 @@ public class Breadcrumb extends WCMUsePojo {
         boolean hideCurrent = componentProperties.get("hideCurrent", DEFAULT_SHOW_HIDDEN);
 
         for (int i = startLevel; i <= endLevel; i++) {
-            Page pagetrail = getCurrentPage().getAbsoluteParent(i);
+            Page pagetrail = getResourcePage().getAbsoluteParent(i);
             if (pagetrail == null) {
                 continue;
             }
@@ -95,7 +95,7 @@ public class Breadcrumb extends WCMUsePojo {
                 pagetrailvalues.put("name",pagetrail.getName());
                 pagetrailvalues.put("title",getPageTitle(pagetrail));
 
-                Boolean currentPage = pagetrail.getPath().equals(getCurrentPage().getPath());
+                Boolean currentPage = pagetrail.getPath().equals(getResourcePage().getPath());
                 pagetrailvalues.put("current", BooleanUtils.toStringTrueFalse(currentPage));
 
                 values.add(pagetrailvalues);
