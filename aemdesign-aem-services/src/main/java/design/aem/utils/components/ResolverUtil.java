@@ -98,7 +98,7 @@ public class ResolverUtil {
     /**
      * check if page redirect URL has been set.
      * @param _properties properties
-     * @param _currentPage page to use
+     * @param page page to use
      * @param _slingRequest sling request
      * @param response sling response
      * @param request request
@@ -107,7 +107,7 @@ public class ResolverUtil {
      * @throws Exception
      */
     @SuppressWarnings("unchecked")
-    public static boolean checkRedirect(ValueMap _properties, Page _currentPage, SlingHttpServletRequest _slingRequest, HttpServletResponse response, HttpServletRequest request, PageContext _pageContext) throws Exception {
+    public static boolean checkRedirect(ValueMap _properties, Page page, SlingHttpServletRequest _slingRequest, HttpServletResponse response, HttpServletRequest request, PageContext _pageContext) throws Exception {
 
         // read the redirect target from the 'page properties' and perform the
         // redirect if WCM is disabled.
@@ -119,7 +119,7 @@ public class ResolverUtil {
 
         if ((location.length() > 0) && ((wcmModeIsDisabled) || (wcmModeIsPreview))) {
             // check for recursion
-            if (_currentPage != null && !location.equals(_currentPage.getPath()) && location.length() > 0) {
+            if (page != null && !location.equals(page.getPath()) && location.length() > 0) {
                 // check for absolute path
                 final int protocolIndex = location.indexOf(":/");
                 final int queryIndex = location.indexOf('?');
