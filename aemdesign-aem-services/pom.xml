@@ -8,7 +8,7 @@
     <parent>
         <groupId>aemdesign</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>1.0.162</version>
+        <version>1.0.240</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +17,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-services</artifactId>
-    <version>1.0.162</version>
+    <version>1.0.240</version>
     <packaging>bundle</packaging>
     <name>AEM Design - Core - AEM Services</name>
     <description>Project for all AEM and OSGI Services</description>
@@ -150,9 +150,7 @@
 
                         <Bundle-SymbolicName>design.aem.aemdesign-aem-services</Bundle-SymbolicName>
                         <Embed-Dependency>gson,javax.inject,jsoup</Embed-Dependency>
-                        <Sling-Model-Packages>
-                            design.aem.models.*
-                        </Sling-Model-Packages>
+
                         <Export-Package>design.aem.*,
                             org.jsoup,
                             org.jsoup.examples,
@@ -242,6 +240,22 @@
         </plugins>
     </build>
 
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.0.0</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>checkstyle</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <profiles>
 
@@ -711,6 +725,13 @@
         <dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.cq</groupId>
+            <artifactId>core.wcm.components.core</artifactId>
+            <version>2.0.2</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
