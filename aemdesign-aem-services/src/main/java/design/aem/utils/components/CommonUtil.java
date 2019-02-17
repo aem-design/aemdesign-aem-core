@@ -62,7 +62,7 @@ public class CommonUtil {
     public static final String PATH_DAM_ROOT = "/content/dam/";
     public static final String PATH_DEFAULT_BADGE_BASE = "/apps/aemdesign/components/details/page-details/";
     public static final String COMPONENT_DETAILS_SUFFIX = "-details";
-    public static final String REQUEST_COMPONENT_DETAILS_SUFFIX = "COMPONENT_DETAILS_SUFFIX";
+    public static final String REQUEST_COMPONENT_DETAILS_SUFFIX = COMPONENT_DETAILS_SUFFIX;
     public static final String PATH_DEFAULT_CONTENT = "article/par";
     public static final String DEFAULT_PAR_NAME = "par";
     public static final String DEFAULT_ARTICLE_NAME = "article";
@@ -101,6 +101,10 @@ public class CommonUtil {
     public static final Pattern ENTITY_PATTERN = Pattern.compile("(&[\\w\\d]+;)");
 
 
+    public static final String REDIRECT_TARGET = "redirectTarget";
+    public static final String PN_REDIRECT_TARGET = "cq:redirectTarget";
+    public static final String SLING_REDIRECT_TARGET = "sling:redirect";
+
     /**
      * sling resource type property name
      */
@@ -122,6 +126,14 @@ public class CommonUtil {
         return StringEscapeUtils.escapeHtml4(body.toString());
     }
 
+    public static String getPageRedirect(Page page) {
+        if (page != null && page.getProperties() != null) {
+            return page.getProperties().get(PN_REDIRECT_TARGET, page.getProperties().get(SLING_REDIRECT_TARGET, ""));
+        } else {
+            return "";
+        }
+    }
+
     /**
      * Get a page's url
      *
@@ -134,14 +146,10 @@ public class CommonUtil {
 
         if (page != null) {
 
-            pageUrl = page.getPath();
+            pageUrl = getPageRedirect(page);
 
-            ValueMap pageProps = page.getProperties();
-            if (pageProps != null) {
-                String redirectTarget = pageProps.get("redirectTarget", pageProps.get("cq:redirectTarget", pageProps.get("sling:redirect", "")));
-                if (isNotEmpty(redirectTarget)) {
-                    pageUrl = redirectTarget;
-                }
+            if (isEmpty(pageUrl)) {
+                pageUrl = page.getPath();
             }
 
             if (pageUrl.startsWith("/content")
@@ -611,13 +619,13 @@ public class CommonUtil {
     /**
      * Determine whether named script exists
      *
-     * @param currentPage is the current page (for a reference to the root node)
+     * @param page is the current page (for a reference to the root node)
      * @param scriptName  is the scriptname to check for
      * @return true if the script exists
      * @throws RepositoryException
      */
-    public static boolean nodeExists(Page currentPage, String scriptName) throws RepositoryException {
-        Node rootNode = currentPage.getContentResource().adaptTo(Node.class).getSession().getRootNode();
+    public static boolean nodeExists(Page page, String scriptName) throws RepositoryException {
+        Node rootNode = page.getContentResource().adaptTo(Node.class).getSession().getRootNode();
         if (scriptName.startsWith("/")) {
             scriptName = scriptName.substring(1);
         }

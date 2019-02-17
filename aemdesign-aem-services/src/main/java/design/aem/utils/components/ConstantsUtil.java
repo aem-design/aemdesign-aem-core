@@ -114,6 +114,9 @@ public class ConstantsUtil {
     public static final String DEFAULT_SUMMARY_TRIM_SUFFIX = "...";
     public static final int DEFAULT_SUMMARY_TRIM_LENGTH = 50;
 
+    public static final String PATH_SEPARATOR = "/";
+    public static final String PATH_UNDERSCORE = "_";
+
 
     public static final String SITE_INCLUDE = "siteinclude";
     public static final String SITE_INCLUDE_PATHS = "includePaths";
@@ -132,6 +135,8 @@ public class ConstantsUtil {
     public static final String FIELD_PAGE_IMAGE_THUMBNAIL = "pageImageThumbnail";
     public static final String FIELD_PAGE_IMAGE_ID = "pageImageId";
     public static final String FIELD_PAGE_IMAGE_LICENSE_INFO = "pageImageLicenseInfo";
+    public static final String FIELD_PAGE_IMAGE_SECONDARY_ID = "pageSecondaryImageId";
+    public static final String FIELD_PAGE_IMAGE_SECONDARY_LICENSE_INFO = "pageSecondaryImageLicenseInfo";
     public static final String FIELD_PAGE_SECONDARY_IMAGE = "pageSecondaryImage";
     public static final String FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL = "pageSecondaryImageThumbnail";
     public static final String FIELD_PAGE_BACKGROUND_IMAGE = "pageBackgroundImage";
