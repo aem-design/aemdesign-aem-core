@@ -12,11 +12,11 @@
                        data-sly-test="${componentProperties['dc:title']}"
                        data-sly-element="${componentProperties.titleType}">${componentProperties['dc:title']}</title>
             </a>
-            <div class="card-text" data-sly-test="${componentProperties['dc:description']}">${componentProperties['dc:description']}</div>
+            <div class="card-text" data-sly-test="${componentProperties['dc:description']}">${componentProperties['dc:description'] @ context = 'html'}</div>
         </div>
         <div class="card-footer"
             data-sly-test="${componentProperties.licenseInfo}">
-            <span class="license">${componentProperties.licenseInfo}</span>
+            <span class="license">${componentProperties.licenseInfo @ context = 'html'}</span>
         </div>
     </div>
 </template>

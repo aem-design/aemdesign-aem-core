@@ -22,7 +22,7 @@
                     </sly>
                 </ul>
             </div>
-            <div class="card-text">${componentProperties.badgeDescription}</div>
+            <div class="card-text">${componentProperties.badgeDescription @ context = 'html'}</div>
         </div>
     </a>
 </template>

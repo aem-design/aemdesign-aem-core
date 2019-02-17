@@ -8,9 +8,9 @@
             <figcaption>
                 ${componentProperties['dc:title']}
             </figcaption>
-            <div class="description" itemprop="description">${componentProperties['dc:description']}</div>
+            <div class="description" itemprop="description">${componentProperties['dc:description'] @ context = 'html'}</div>
             <span class="license"
-            data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo}</span>
+            data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo @ context = 'html'}</span>
         </figure>
     </div>
 </template>

@@ -12,7 +12,7 @@
         <div class="card-body">
             <title class="card-title"
                    data-sly-element="${componentProperties.badgeTitleType}">${componentProperties.pageNavTitle}</title>
-            <div class="card-text">${componentProperties.badgeDescription}</div>
+            <div class="card-text">${componentProperties.badgeDescription @ context = 'html'}</div>
         </div>
     </a>
 </template>

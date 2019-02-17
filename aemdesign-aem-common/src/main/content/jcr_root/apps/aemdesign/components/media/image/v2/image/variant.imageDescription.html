@@ -4,9 +4,9 @@
             <sly data-sly-use.info="image.select.html"
                  data-sly-call="${info.variant @ componentProperties=componentProperties}"></sly>
             <figcaption>
-                <div class="description" itemprop="description">${componentProperties['dc:description']}</div>
+                <div class="description" itemprop="description">${componentProperties['dc:description'] @ context = 'html'}</div>
                 <span class="license"
-                data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo}</span>
+                data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo @ context = 'html'}</span>
             </figcaption>
         </figure>
     </div>

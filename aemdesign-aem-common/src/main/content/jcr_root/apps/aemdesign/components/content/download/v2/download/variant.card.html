@@ -18,7 +18,7 @@
                 data-sly-attribute.id="${componentProperties.ariaLabelledBy}">${componentProperties.title}</title>
 
             <div class="card-description"
-                 data-sly-test="${componentProperties.description}">${componentProperties.description}</div>
+                 data-sly-test="${componentProperties.description}">${componentProperties.description @ context = 'html'}</div>
             <div class="card-info"
                  data-sly-test="${componentProperties.info}">${componentProperties.info}</div>
 
@@ -26,7 +26,7 @@
         </div>
         <div class="card-footer"
              data-sly-test="${componentProperties.licenseInfo}">
-            <span class="card-text license">${componentProperties.licenseInfo}</span>
+            <span class="card-text license">${componentProperties.licenseInfo @ context = 'html'}</span>
         </div>
     </div>
 </template>
