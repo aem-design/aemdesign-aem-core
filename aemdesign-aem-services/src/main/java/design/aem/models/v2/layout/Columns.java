@@ -155,15 +155,15 @@ public class Columns extends WCMUsePojo {
                         DEFAULT_FIELDS_STYLE,
                         DEFAULT_FIELDS_ACCESSIBILITY);
 
-                componentProperties.put("numCols",numCols);
-
                 String currentLayout = componentProperties.get("layout",DEFAULT_LAYOUT);
                 if (currentLayout.contains(";")) {
-                    componentProperties.put("layout",currentLayout.split(";")[1]);
+                    //remove first number which is the number of columns
+                    componentProperties.put("layout",currentLayout.substring(currentLayout.indexOf(";")+1));
                     String numColsString = currentLayout.split(";")[0];
                     numCols = tryParseInt(numColsString, 0);
-                    componentProperties.put("numCols",numCols);
                 }
+
+                componentProperties.put("numCols",numCols);
 
                 placeholderText = getDefaultLabelIfEmpty("placeholderTextStart", DEFAULT_I18N_CATEGORY, "Start of {0} Columns", _i18n,  Integer.toString(numCols));
 
@@ -186,7 +186,7 @@ public class Columns extends WCMUsePojo {
 
 
                 getRequest().setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES), componentProperties);
-                getRequest().setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn++);
+                getRequest().setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn + 1);
 
                 if (!getWcmMode().isDisabled()) {
                     getEditContext().getEditConfig().getToolbar().add(0, new Toolbar.Separator());
@@ -234,14 +234,14 @@ public class Columns extends WCMUsePojo {
                     columnClassXLarge = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, "");
                     aColumnClass = MessageFormat.format("{0} {1} {2} {3}",columnClassSmall, columnClassMedium, columnClassLarge, columnClassXLarge).trim();
 
-                    numCols = componentProperties.get("numCols",numCols);
+                    columnClass = getColumnClass(currentColumn, componentProperties, aColumnClass);
 
+                    numCols = componentProperties.get("numCols",numCols);
 
                     getRequest().setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn + 1);
 
                     placeholderText = getDefaultLabelIfEmpty("placeholderTextBreak", DEFAULT_I18N_CATEGORY, "Columns Break {0} of {1}", _i18n, Integer.toString(currentColumn + 1), Integer.toString(numCols-1));
 
-                    columnClass = getColumnClass(currentColumn, componentProperties, aColumnClass);
 
 
                 }
@@ -256,10 +256,13 @@ public class Columns extends WCMUsePojo {
     @SuppressWarnings("Duplicates")
     final String getColumnClass(Integer colNumber, ComponentProperties componentProperties, String columnClassStyle) {
 
+
         //String[] columnsFormat = new String[0];
         List<String> columnsFormat = new ArrayList<String>();
         String defaultFormat = "1;colctrl-1c"; //alt: col-md-,2,3,2,3,2
         String columnClass = "colctrl";
+
+        LOGGER.error("generating column style for column {}, with style {} and layout []",colNumber,columnClassStyle,componentProperties.get("layout",defaultFormat));
 
         if (componentProperties != null) {
             columnsFormat = Arrays.asList(componentProperties.get("layout",defaultFormat).split(";"));
