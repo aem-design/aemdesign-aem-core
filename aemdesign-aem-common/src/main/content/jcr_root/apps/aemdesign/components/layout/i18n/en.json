@@ -1,5 +1,8 @@
 {
   "backtotoplabel ((contentblock))": "Back to Top",
   "backtotoptitle ((contentblock))": "Back to Top",
-  "parentnotfound ((inherit))": "No parent page specifies how to render this component"
+  "parentnotfound ((inherit))": "No parent page specifies how to render this component",
+  "placeholderTextBreak ((columns))": "Columns Break {0} of {1}",
+  "placeholderTextEnd ((columns))": "End of {0} Columns",
+  "placeholderTextStart ((columns))": "Start of {0} Columns"
 }
