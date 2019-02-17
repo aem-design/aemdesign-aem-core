@@ -98,7 +98,6 @@ public class Columns extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
-        LOGGER.error("columns loading");
 
         I18n _i18n = new I18n(getRequest());
 
@@ -127,11 +126,8 @@ public class Columns extends WCMUsePojo {
 //        String layout = ConstantsUtil.defaultLayout;
         String controlTypeString = getResource().adaptTo(ValueMap.class).get("controlType", "");
 
-        LOGGER.error("columns content controlType: {}",controlTypeString);
 
         controlType = Type.fromString(controlTypeString);
-
-        LOGGER.error("columns controlType: {}",controlType);
 
         //disable component decoration when in disabled mode
         if (!getWcmMode().isEdit()) {
@@ -167,6 +163,7 @@ public class Columns extends WCMUsePojo {
                 columnsClass = getColumnsClass(numCols, componentProperties);
                 rowClass = getRowClass(componentProperties, rowClass);
 
+                componentProperties.attr.add("class",columnsClass);
 
                 componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
                 componentProperties.put("rowClass", rowClass);
@@ -184,8 +181,6 @@ public class Columns extends WCMUsePojo {
 
                 }
 
-
-                LOGGER.error("columns start");
 
                 break;
             case END:
@@ -209,8 +204,6 @@ public class Columns extends WCMUsePojo {
                     getEditContext().setContentPath(getResource().getPath().concat("_fake"));
                 }
 
-                LOGGER.error("columns end");
-
                 break;
             case BREAK:
                 if (getRequest().getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES)) != null &&
@@ -230,14 +223,11 @@ public class Columns extends WCMUsePojo {
 
 
                 }
-                LOGGER.error("break");
                 break;
             case NORMAL:
-                LOGGER.error("normal");
                 break;
         }
 
-        LOGGER.error("columns loaded");
 
     }
 
