@@ -1,40 +1,24 @@
 <template data-sly-template.variant="${@ componentProperties}">
     <ul data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" itemscope itemtype="http://www.schema.org/SiteNavigationElement"
         data-sly-list.linkL1="${componentProperties.menuItems}">
-
-        <sly data-sly-set.itemCSS="${''}"></sly>
-        <sly data-sly-set.itemLinkCSS="${''}"></sly>
-        <sly data-sly-set.itemCSS="${' dropdown'}"
-            data-sly-test="${linkL1.hasChildren}"></sly>
-
-        <sly data-sly-test="${linkL1.current}">
-            <sly data-sly-set.itemCSS="${'{0} current'@ format=[itemCSS]}"></sly>
-            <sly data-sly-set.itemLinkCSS="${'{0} active'@ format=[itemLinkCSS]}"></sly>
-
-        </sly>
-
-        <li class="nav-item${itemCSS}" itemprop="name">
+        <li class="nav-item ${linkL1.hasChildren ? ' dropdown' : ''}${linkL1.current ? ' current' : ''}" itemprop="name">
             <sly data-sly-test="${linkL1.hasChildren}">
-                <a class="${'nav-link dropdown-toggle l-1{0}' @ format=[itemLinkCSS]}" href="#" id="${linkL1.name}" data-toggle="dropdown">${linkL1.title}</a>
+                <a class="nav-link dropdown-toggle l-1 ${linkL1.current ? ' active' : ''}" href="#" id="${linkL1.name}" data-toggle="dropdown"><span>${linkL1.title}</span></a>
                 <div class="dropdown-menu" aria-labelledby="${linkL1.name}" data-sly-list.linkL2="${linkL1.children}">
 
-                    <sly data-sly-set.linkL2Href="${linkL2.href}"></sly>
                     <sly data-sly-set.childCSS="${''}"></sly>
 
-                    <sly data-sly-set.linkL2Href="${linkL2.authHref}"
-                         data-sly-test="${wcmmode.edit}"></sly>
+                    <sly data-sly-test="${linkL2.current}">
+                        <sly data-sly-set.childCSS="${'{0} current' @ format=[childCSS]}"></sly>
+                    </sly>
 
-                    <sly data-sly-set.childCSS="${'{0} current' @ format=[childCSS]}"
-                         data-sly-test="${linkL2.current}"></sly>
-
-                    <a itemprop="url" class="${'parent l-2{0}' @ format=[childCSS]}" href="${linkL2Href}">${linkL2.title}</a>
+                    <a itemprop="url" class="parent l-2${linkL2.current ? ' current' : ''}" href="${wcmmode.edit ? linkL2.authHref : linkL2.href}"><span>${linkL2.title}</span></a>
                 </div>
 
             </sly>
             <sly data-sly-test="${!linkL1.hasChildren}">
-                <a itemprop="url" class="${'nav-link l-1{0}' @ format=[itemLinkCSS]}" href="${linkL1.href}">${linkL1.title}</a>
+                <a itemprop="url" class="nav-link l-1${linkL1.current ? ' active' : ''}" href="${linkL1.href}"><span>${linkL1.title}</span></a>
             </sly>
         </li>
-
     </ul>
 </template>
