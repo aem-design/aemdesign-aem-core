@@ -12,6 +12,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.components.Component;
 import com.day.cq.wcm.api.components.ComponentContext;
 import com.day.cq.wcm.api.components.ComponentManager;
+import com.day.cq.wcm.api.designer.Design;
 import com.day.cq.wcm.api.designer.Designer;
 import com.day.cq.wcm.api.designer.Style;
 import com.day.cq.wcm.foundation.Placeholder;
@@ -44,14 +45,12 @@ import java.io.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Time;
 import java.util.*;
 import java.util.regex.Pattern;
 
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import java.sql.Timestamp;
 
 public class ComponentsUtil {
 
@@ -113,6 +112,14 @@ public class ComponentsUtil {
     public static final String DETAILS_THUMBNAIL_ID = "badgeThumbnailId";
     public static final String DETAILS_THUMBNAIL_LICENSE_INFO = "badgeThumbnailLicenseInfo";
     public static final String DETAILS_THUMBNAIL = "badgeThumbnail";
+
+    public static final String DETAILS_BADGE_DESCRIPTION = "badgeDescription";
+    public static final String DETAILS_BADGE_TITLE = "badgeTitle";
+    public static final String DETAILS_BADGE_CLASS_ICON = "badgeClassIconAttr";
+    public static final String DETAILS_BADGE_CLASS = "badgeClassAttr";
+    public static final String DETAILS_BADGE_IMAGE_ATTR = "badgeImageAttr";
+    public static final String DETAILS_BADGE_LINK_ATTR = "badgeLinkAttr";
+
     //badge analytics
     public static final String DETAILS_BADGE_ANALYTICS_EVENT_TYPE = "badgeAnalyticsEventType";
     public static final String DETAILS_BADGE_ANALYTICS_LINK_TYPE = "badgeAnalyticsLinkType";
@@ -128,6 +135,10 @@ public class ComponentsUtil {
     public static final String DETAILS_ANALYTICS_LINK_TYPE = "analyticsLinkType";
     public static final String DETAILS_ANALYTICS_LINK_LOCATION = "analyticsLinkLocation";
     public static final String DETAILS_ANALYTICS_LINK_DESCRIPTION = "analyticsLinkDescription";
+    public static final String DETAILS_DATA_ANALYTICS_EVENT_TYPE = "data-layer-event";
+    public static final String DETAILS_DATA_ANALYTICS_LINK_TYPE = "data-layer-linktype";
+    public static final String DETAILS_DATA_ANALYTICS_LINK_LOCATION = "data-layer-linklocation";
+    public static final String DETAILS_DATA_ANALYTICS_LINK_DESCRIPTION = "data-layer-linkdescription";
 
 
     public static final String FIELD_HIDEINMENU = "hideInMenu";
@@ -152,6 +163,8 @@ public class ComponentsUtil {
     public static final String COMPONENT_VARIANT_TEMPLATE = "variantTemplate";
     public static final String COMPONENT_VARIANT_TEMPLATE_FORMAT = "variant.{0}.html";
     public static final String COMPONENT_BADGE = "componentBadge";
+    public static final String COMPONENT_BADGE_SELECTED = "componentBadgeSelected";
+    public static final String COMPONENT_BADGE_CONFIG_SET = "badgeConfigSet";
     public static final String COMPONENT_BADGE_TEMPLATE = "componentBadgeTemplate";
     public static final String COMPONENT_BADGE_TEMPLATE_FORMAT = "{0}.html";
 
@@ -210,7 +223,6 @@ public class ComponentsUtil {
     public static final String FIELD_HREF = "href";
     public static final String FIELD_TITLE_TAG_TYPE = "titleType";
 
-    public static final String FIELD_BADGE_TITLE_TAG_TYPE = "badgeTitleType";
     public static final String FIELD_BADGE_PAGE = "badgePage";
 
     public static final String JCR_NAME_SEPARATOR = "_";
@@ -219,6 +231,30 @@ public class ComponentsUtil {
     public static final String FIELD_ASSETID = "asset-id";
     public static final String FIELD_ASSET_LICENSED = "asset-licensed";
     public static final String FIELD_ASSET_TRACKABLE = "asset-trackable";
+    public static final String FIELD_DATA_ASSET_PRIMARY_ID = "data-asset-id-primary";
+    public static final String FIELD_DATA_ASSET_PRIMARY_LICENSE = "data-asset-license-primary";
+    public static final String FIELD_DATA_ASSET_SECONDARY_ID = "data-asset-id-secondary";
+    public static final String FIELD_DATA_ASSET_SECONDARY_LICENSE= "data-asset-license-secondary";
+
+
+    public static final String FIELD_DATA_ASSET_ROLLOVER_SRC= "data-rollover-src";
+
+
+    public static final String FIELD_WIDTH = "width";
+    public static final String FIELD_HEIGHT = "height";
+    public static final String FIELD_CLASS = "class";
+    public static final String FIELD_EXTERNAL = "external";
+    public static final String FIELD_TARGET = "target";
+    public static final String FIELD_LINK_TARGET = "linkTarget";
+    public static final String FIELD_CANONICAL_URL = "canonicalUrl";
+
+
+    public static final String FIELD_OG_URL = "og:url";
+    public static final String FIELD_OG_IMAGE = "og:image";
+    public static final String FIELD_OG_TITLE = "og:title";
+    public static final String FIELD_OG_DESCRIPTION = "og:description";
+
+
 
     public static final String DETAILS_TITLE = "title";
     public static final String DETAILS_DESCRIPTION = "description";
@@ -243,6 +279,12 @@ public class ComponentsUtil {
     public static final String PAGECONTEXTMAP_OBJECT_PROPERTIES = "properties";
     public static final String PAGECONTEXTMAP_OBJECT_CURRENTSTYLE = "currentStyle";
     public static final String PAGECONTEXTMAP_OBJECT_CURRENTPAGE = "currentPage";
+    public static final String PAGECONTEXTMAP_OBJECT_RESOURCEPAGE = "resourcePage";
+    public static final String PAGECONTEXTMAP_OBJECT_RESOURCEDESIGN = "resourceDesign";
+
+
+    public static final String DETAILS_SELECTOR_BADGE = "badge";
+
 
     //COMPONENT STYLES
     // {
@@ -409,10 +451,10 @@ public class ComponentsUtil {
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
     public static final Object[][] DEFAULT_FIELDS_ANALYTICS = {
-            {DETAILS_ANALYTICS_EVENT_TYPE, StringUtils.EMPTY, "data-layer-event"}, //basic
-            {DETAILS_ANALYTICS_LINK_TYPE, StringUtils.EMPTY, "data-layer-linktype"}, //basic
-            {DETAILS_ANALYTICS_LINK_LOCATION, StringUtils.EMPTY, "data-layer-linklocation"}, //basic
-            {DETAILS_ANALYTICS_LINK_DESCRIPTION, StringUtils.EMPTY, "data-layer-linkdescription"}, //basic
+            {DETAILS_ANALYTICS_EVENT_TYPE, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_EVENT_TYPE}, //basic
+            {DETAILS_ANALYTICS_LINK_TYPE, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LINK_TYPE}, //basic
+            {DETAILS_ANALYTICS_LINK_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LINK_LOCATION}, //basic
+            {DETAILS_ANALYTICS_LINK_DESCRIPTION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LINK_DESCRIPTION}, //basic
             {"analyticsEventType", StringUtils.EMPTY, "data-analytics-event"}, //advanced
             {"analyticsHitType", StringUtils.EMPTY, "data-analytics-hit-type"}, //advanced
             {"analyticsEventCategory", StringUtils.EMPTY, "data-analytics-event-category"}, //advanced
@@ -724,6 +766,7 @@ public class ComponentsUtil {
      * @param pageContext page content map
      * @return map of attributes
      */
+    @SuppressWarnings("Depreciated")
     public static ComponentProperties getNewComponentProperties(Map<String, Object> pageContext) {
         ComponentProperties componentProperties = new ComponentProperties();
         componentProperties.attr = new AttrBuilder(null, null);
@@ -841,6 +884,8 @@ public class ComponentsUtil {
         ValueMap properties = wcmUsePojoModel.getProperties();
         Style currentStyle = wcmUsePojoModel.getCurrentStyle();
         Page currentPage = wcmUsePojoModel.getCurrentPage();
+        Page resourcePage = wcmUsePojoModel.getResourcePage();
+        Design resourceDesign = wcmUsePojoModel.getResourceDesign();
 
         Map<String, Object> pageContextMap = new HashMap<>();
         pageContextMap.put(PAGECONTEXTMAP_OBJECT_SLINGREQUEST, slingRequest);
@@ -852,6 +897,8 @@ public class ComponentsUtil {
         pageContextMap.put(PAGECONTEXTMAP_OBJECT_PROPERTIES, properties);
         pageContextMap.put(PAGECONTEXTMAP_OBJECT_CURRENTSTYLE, currentStyle);
         pageContextMap.put(PAGECONTEXTMAP_OBJECT_CURRENTPAGE, currentPage);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_RESOURCEPAGE, resourcePage);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_RESOURCEDESIGN, resourceDesign);
         pageContextMap.put(PAGECONTEXTMAP_SOURCE, wcmUsePojoModel);
         pageContextMap.put(PAGECONTEXTMAP_SOURCE_TYPE, PAGECONTEXTMAP_SOURCE_TYPE_WCMUSEPOJO);
 
@@ -874,6 +921,8 @@ public class ComponentsUtil {
         ValueMap properties = (ValueMap) pageContext.getAttribute(PAGECONTEXTMAP_OBJECT_PROPERTIES);
         Style currentStyle = (Style) pageContext.getAttribute(PAGECONTEXTMAP_OBJECT_CURRENTSTYLE);
         Page currentPage = (Page) pageContext.getAttribute(PAGECONTEXTMAP_OBJECT_CURRENTPAGE);
+        Page resourcePage = (Page) pageContext.getAttribute(PAGECONTEXTMAP_OBJECT_RESOURCEPAGE);
+        Design resourceDesign = (Design) pageContext.getAttribute(PAGECONTEXTMAP_OBJECT_RESOURCEDESIGN);
 
 
         Map<String, Object> pageContextMap = new HashMap<>();
@@ -886,6 +935,8 @@ public class ComponentsUtil {
         pageContextMap.put(PAGECONTEXTMAP_OBJECT_PROPERTIES, properties);
         pageContextMap.put(PAGECONTEXTMAP_OBJECT_CURRENTSTYLE, currentStyle);
         pageContextMap.put(PAGECONTEXTMAP_OBJECT_CURRENTPAGE, currentPage);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_RESOURCEPAGE, resourcePage);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_RESOURCEDESIGN, resourceDesign);
         pageContextMap.put(PAGECONTEXTMAP_SOURCE, pageContext);
         pageContextMap.put(PAGECONTEXTMAP_SOURCE_TYPE, PAGECONTEXTMAP_SOURCE_TYPE_PAGECONTEXT);
 
@@ -965,7 +1016,7 @@ public class ComponentsUtil {
      * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
      * @return map of attributes
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked","Depreciated"})
     public static ComponentProperties getComponentProperties(Map<String, Object> pageContext, Object targetResource, Boolean includeComponentAttributes, Object[][]... fieldLists) {
         ComponentProperties componentProperties = new ComponentProperties();
 
@@ -1216,6 +1267,7 @@ public class ComponentsUtil {
      * @return attributes string
      * @throws IOException
      */
+    @SuppressWarnings("Depreciated")
     public static String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI) {
         return buildAttributesString(data, xssAPI, null);
     }
@@ -1228,6 +1280,7 @@ public class ComponentsUtil {
      * @return attributes string
      * @throws IOException
      */
+    @SuppressWarnings("Depreciated")
     public static String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI, Map<String, String> encodings) {
         try {
             StringWriter out = new StringWriter();
@@ -1432,16 +1485,23 @@ public class ComponentsUtil {
                         if (detailsNode != null) {
                             if (detailsNode.hasProperty(DETAILS_DESCRIPTION)) {
                                 return detailsNode.getProperty(DETAILS_DESCRIPTION).getString();
+                            } else {
+                                LOGGER.error("getPageDescription: detailsNode does not have {} in page [{}]", DETAILS_DESCRIPTION, page.getPath());
                             }
-                            LOGGER.error("getPageDescription: detailsNode does not have " + DETAILS_DESCRIPTION);
+                        } else {
+                            LOGGER.error("getPageDescription: detailsNode is null in page [{}]", page.getPath());
                         }
-                        LOGGER.error("getPageDescription: detailsNode is null");
+                    } else {
+                        LOGGER.error("getPageDescription: detailsResource is null in page [{}]", page.getPath());
                     }
-                    LOGGER.error("getPageDescription: detailsResource is null");
+
+                } else {
+                    LOGGER.error("getPageDescription: resourceResolver is null in page [{}]", page.getPath());
                 }
-                LOGGER.error("getPageDescription: resourceResolver is null");
+
+            } else {
+                LOGGER.error("getPageDescription: pageResource is null in page [{}]", page.getPath());
             }
-            LOGGER.error("getPageDescription: pageResource is null");
 
         } catch (Exception ex) {
             LOGGER.error("getPageDescription:" + ex.toString());
@@ -1671,12 +1731,12 @@ public class ComponentsUtil {
 
     /***
      * find an ancestor resource matching current resource.
-     * @param currentPage page to use
+     * @param page page to use
      * @param componentContext component context
      * @return found resource
      */
-    public static Resource findInheritedResource(Page currentPage, ComponentContext componentContext) {
-        final String pageResourcePath = currentPage.getContentResource().getPath(); // assume that page have resource
+    public static Resource findInheritedResource(Page page, ComponentContext componentContext) {
+        final String pageResourcePath = page.getContentResource().getPath(); // assume that page have resource
         final Resource thisResource = componentContext.getResource();
         final String nodeResourceType = thisResource.getResourceType();
         final String relativePath = thisResource.getPath().replaceFirst(pageResourcePath.concat(FileSystem.SEPARATOR), "");
@@ -1686,7 +1746,7 @@ public class ComponentsUtil {
         // 2. same sling resource type
         // 3. same relative path
 
-        Page curPage = currentPage.getParent();
+        Page curPage = page.getParent();
         Resource curResource = null;
         Boolean curResourceTypeMatch = false;
         Boolean curCancelInheritParent = false;

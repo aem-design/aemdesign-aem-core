@@ -442,7 +442,7 @@ public class ComponentDetailsUtil {
             }
 
             //check if current page is in request page hierarchy
-            Page selectedPage = (com.day.cq.wcm.api.Page) pageContext.get("currentPage");
+            Page selectedPage = (com.day.cq.wcm.api.Page) pageContext.get(PAGECONTEXTMAP_OBJECT_CURRENTPAGE);
             if (selectedPage != null ) {
                 String selectedPagePath = selectedPage.getPath();
                 String thisPagePath = page.getPath();
@@ -503,11 +503,14 @@ public class ComponentDetailsUtil {
 
         //quick fail
         if (badgeConfig == null || resourceResolver == null || request == null || componentProperties == null) {
-            return new ComponentProperties();
+            badgeConfig = new ComponentProperties();
+            badgeConfig.put(COMPONENT_BADGE_CONFIG_SET,false);
+            return badgeConfig;
         }
 
         try {
 
+            badgeConfig.put(COMPONENT_BADGE_CONFIG_SET,true);
 
             int thumbnailWidth = componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM);
 
