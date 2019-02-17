@@ -125,6 +125,8 @@ public class GenericModel implements GenericComponent {
         pageContextMap.put(PAGECONTEXTMAP_OBJECT_PROPERTIES, getProperties());
         pageContextMap.put(PAGECONTEXTMAP_OBJECT_CURRENTSTYLE, getCurrentStyle());
         pageContextMap.put(PAGECONTEXTMAP_OBJECT_CURRENTPAGE, getCurrentPage());
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_RESOURCEPAGE, getResourcePage());
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_RESOURCEDESIGN, getResourceDesign());
         pageContextMap.put(PAGECONTEXTMAP_SOURCE, this);
         pageContextMap.put(PAGECONTEXTMAP_SOURCE_TYPE, PAGECONTEXTMAP_SOURCE_TYPE_SLINGMODEL);
 

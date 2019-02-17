@@ -85,8 +85,8 @@ public class ImageImpl extends GenericModel implements GenericComponent {
         // }
         Object[][] componentFields = {
                 {FIELD_VARIANT, DEFAULT_VARIANT},
-                {FIELD_LINKURL,StringUtils.EMPTY},
-                {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
+                {FIELD_LINKURL, StringUtils.EMPTY},
+                {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
         };
 
@@ -150,7 +150,7 @@ public class ImageImpl extends GenericModel implements GenericComponent {
                 componentProperties.attr.add("data-" + FIELD_ASSETID, assetUID);
                 componentProperties.attr.add("data-" + FIELD_ASSET_TRACKABLE, true);
                 componentProperties.attr.add("data-" + FIELD_ASSET_LICENSED, isNotBlank(licenseInfo));
-                componentProperties.attr.add(FIELD_DATA_ANALYTICS_EVENT_LABEL, componentProperties.get(DAM_TITLE,""));
+                componentProperties.attr.add(FIELD_DATA_ANALYTICS_EVENT_LABEL, componentProperties.get(DAM_TITLE, ""));
                 componentProperties.attr.add(FIELD_DATA_ANALYTICS_METATYPE, assetBasic.getMimeType());
                 componentProperties.attr.add(FIELD_DATA_ANALYTICS_FILENAME, assetBasic.getPath());
 
@@ -170,11 +170,11 @@ public class ImageImpl extends GenericModel implements GenericComponent {
                 componentProperties.put(FIELD_LINKURL, linkURL);
 
                 //get renditions for current resource
-                ComponentProperties imageProps = getResourceImageRenditions(getPageContextMap(), getResource(),"renditions", FIELD_IMAGEURL);
+                ComponentProperties imageProps = getResourceImageRenditions(getPageContextMap(), getResource(), "renditions", FIELD_IMAGEURL);
                 Map<String, String> renditions = imageProps.get("renditions", new LinkedHashMap<String, String>());
 
                 if (imageProps.containsKey(FIELD_IMAGEURL)) {
-                    componentProperties.put(FIELD_IMAGEURL,imageProps.get(FIELD_IMAGEURL,""));
+                    componentProperties.put(FIELD_IMAGEURL, imageProps.get(FIELD_IMAGEURL, ""));
                 }
 
                 componentProperties.put(FIELD_RENDITIONS, renditions);
@@ -184,7 +184,7 @@ public class ImageImpl extends GenericModel implements GenericComponent {
 
         }
 
-        componentProperties.put("fileReferenceMissing",fileReferenceMissing);
+        componentProperties.put("fileReferenceMissing", fileReferenceMissing);
 
         String variant = componentProperties.get(FIELD_VARIANT, "");
 
@@ -193,13 +193,12 @@ public class ImageImpl extends GenericModel implements GenericComponent {
             variant = DEFAULT_VARIANT;
         }
 
-        componentProperties.put(FIELD_VARIANT,variant);
+        componentProperties.put(FIELD_VARIANT, variant);
 
         //compile variantTemplate param
-        componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT,variant));
+        componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant));
 
     }
-
 
 
 }
