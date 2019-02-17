@@ -136,11 +136,11 @@ public class I18nUtil {
         return languageSet;
     }
 
-    public static Map<Locale, Map<String, String>> getLanguageList(SlingScriptHelper sling, Set<Language> languageSet, Page currentPage, LanguageManager languageManager, boolean isShowRoot, PageManager pageManager, I18n i18n) {
+    public static Map<Locale, Map<String, String>> getLanguageList(SlingScriptHelper sling, Set<Language> languageSet, Page page, LanguageManager languageManager, boolean isShowRoot, PageManager pageManager, I18n i18n) {
         Map<Locale, Map<String, String>> languageToggleMap = new LinkedHashMap<Locale, Map<String, String>>();
         ResourceResolver adminResourceResolver = openAdminResourceResolver(sling);
         try {
-            languageToggleMap = getLanguageList(languageSet, currentPage, adminResourceResolver, languageManager, isShowRoot, pageManager, i18n);
+            languageToggleMap = getLanguageList(languageSet, page, adminResourceResolver, languageManager, isShowRoot, pageManager, i18n);
         } catch (Exception ex) {
             LOGGER.error("event-details: " + ex.getMessage(), ex);
             //out.write( Throwables.getStackTraceAsString(ex) );
@@ -153,7 +153,7 @@ public class I18nUtil {
     /**
      * Get the Language List according the set of Languages and its ordering.
      * @param languageSet language set to use
-     * @param currentPage current page
+     * @param page current page
      * @param resourceResolver resource resolver
      * @param languageManager language manager
      * @param isShowRoot show root
@@ -161,13 +161,13 @@ public class I18nUtil {
      * @param i18n i18n
      * @return map of languages
      */
-    public static Map<Locale, Map<String, String>> getLanguageList(Set<Language> languageSet, Page currentPage, ResourceResolver resourceResolver, LanguageManager languageManager, boolean isShowRoot, PageManager pageManager, I18n i18n) {
+    public static Map<Locale, Map<String, String>> getLanguageList(Set<Language> languageSet, Page page, ResourceResolver resourceResolver, LanguageManager languageManager, boolean isShowRoot, PageManager pageManager, I18n i18n) {
 
         Map<Locale, Map<String, String>> languageToggleMap = new LinkedHashMap<Locale, Map<String, String>>();
 
         if (languageSet != null && languageSet.size() > 0) {
 
-            Map<Language, LanguageManager.Info> adjacentLang = languageManager.getAdjacentLanguageInfo(resourceResolver, currentPage.getPath());
+            Map<Language, LanguageManager.Info> adjacentLang = languageManager.getAdjacentLanguageInfo(resourceResolver, page.getPath());
 
 
             for (Language language : languageSet) {
@@ -185,7 +185,7 @@ public class I18nUtil {
 
                     if (!information.exists() || !information.hasContent()) {
 
-                        Page p = findMissingLanguagePath(currentPage, resourceResolver, languageManager, isShowRoot, language, pageManager);
+                        Page p = findMissingLanguagePath(page, resourceResolver, languageManager, isShowRoot, language, pageManager);
 
                         if (p != null) {
                             Map<String, String> aLanguage = new HashMap<String, String>();
@@ -211,7 +211,7 @@ public class I18nUtil {
                         if (p != null && p.isValid() && !p.isHideInNav()) {
                             aLanguage.put("path", ResolverUtil.mappedUrl(resourceResolver, p.getPath()).concat(ConstantsUtil.DEFAULT_EXTENTION));
                         } else {
-                            p = findMissingLanguagePath(currentPage, resourceResolver, languageManager, isShowRoot, language, pageManager);
+                            p = findMissingLanguagePath(page, resourceResolver, languageManager, isShowRoot, language, pageManager);
                             if (p != null) {
                                 aLanguage.put("path", ResolverUtil.mappedUrl(resourceResolver, p.getPath()).concat(ConstantsUtil.DEFAULT_EXTENTION));
                             }
@@ -271,12 +271,12 @@ public class I18nUtil {
         return returnS;
     }
 
-    public static Page findMissingLanguagePath(Page currentPage, ResourceResolver resourceResolver, LanguageManager languageManager, boolean isShowRoot, Language targetLanguage, PageManager pageManager) {
+    public static Page findMissingLanguagePath(Page page, ResourceResolver resourceResolver, LanguageManager languageManager, boolean isShowRoot, Language targetLanguage, PageManager pageManager) {
 
-        Page page = currentPage.getParent();
+        Page pageParent = page.getParent();
 
-        if (page != null) {
-            Map<Language, LanguageManager.Info> adjacentLang = languageManager.getAdjacentLanguageInfo(resourceResolver, page.getPath());
+        if (pageParent != null) {
+            Map<Language, LanguageManager.Info> adjacentLang = languageManager.getAdjacentLanguageInfo(resourceResolver, pageParent.getPath());
 
             if (adjacentLang != null && adjacentLang.size() > 0) {
                 for (Language language : adjacentLang.keySet()) {
@@ -290,17 +290,17 @@ public class I18nUtil {
                     if (language.getLocale().equals(targetLanguage.getLocale())) {
                         if (isShowRoot) {
                             if (p == null || p.isHideInNav() || !p.isValid()) {
-                                page = findMissingLanguagePath(page, resourceResolver, languageManager, isShowRoot, targetLanguage, pageManager);
+                                pageParent = findMissingLanguagePath(pageParent, resourceResolver, languageManager, isShowRoot, targetLanguage, pageManager);
                             } else {
                                 Resource res = pageManager.getPage(info.getPath()).adaptTo(Resource.class);
-                                page = languageManager.getLanguageRoot(res);
+                                pageParent = languageManager.getLanguageRoot(res);
                             }
 
                         } else {
                             if (info.exists() && info.hasContent() && p.isValid() && !p.isHideInNav()) {
-                                page = pageManager.getPage(info.getPath());
+                                pageParent = pageManager.getPage(info.getPath());
                             } else {
-                                page = findMissingLanguagePath(page, resourceResolver, languageManager, isShowRoot, targetLanguage, pageManager);
+                                pageParent = findMissingLanguagePath(pageParent, resourceResolver, languageManager, isShowRoot, targetLanguage, pageManager);
                             }
 
                         }
@@ -310,7 +310,7 @@ public class I18nUtil {
             }
         }
 
-        return page;
+        return pageParent;
     }
 
     /**

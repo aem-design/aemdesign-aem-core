@@ -29,7 +29,7 @@ public class DateTimeUtil {
     /**
      * Parse a date/time using an array of DateFormat objects
      *
-     * @param sDate    the date string
+     * @param sDate the date string
      * @return the parsed date, or null if not parseable
      */
     public static boolean isDate(String sDate) {
@@ -39,8 +39,8 @@ public class DateTimeUtil {
     /**
      * Parse a date/time using an array of DateFormat objects
      *
-     * @param sDate    the date string
-     * @param formats  the array of DateFormat objects to try, one by one
+     * @param sDate   the date string
+     * @param formats the array of DateFormat objects to try, one by one
      * @return the parsed date, or null if not parseable
      */
     public static boolean isDate(String sDate, SimpleDateFormat[] formats) {
@@ -110,7 +110,7 @@ public class DateTimeUtil {
     }
 
     /**
-
+     *
      */
     public static String getFormattedDate(String date, String format) {
 
@@ -140,7 +140,7 @@ public class DateTimeUtil {
     }
 
     /**
-
+     *
      */
     public static String getFormattedDateWithDefauls(String date, SimpleDateFormat[] inFormats, SimpleDateFormat outFormat, String defaultDate) {
         SimpleDateFormat dateFormat = getDateFormat(date, inFormats);
@@ -157,8 +157,9 @@ public class DateTimeUtil {
 
     /**
      * This function provides safe access for date properties, returning null if repository errors occur.
+     *
      * @param node The event details node to get the information from.
-     * @param key The field name for the date to be retrieved.
+     * @param key  The field name for the date to be retrieved.
      * @return The date stored under the provided key.
      */
     public static Calendar getDateProperty(Node node, String key) {
@@ -172,7 +173,8 @@ public class DateTimeUtil {
     /**
      * Proxy method for making date formatting more agreeable to debugging. If an IllegalArgumentException occurs
      * during the format, it's wrapped in a RuntimeException with the full format pattern.
-     * @param date The date to format.
+     *
+     * @param date   The date to format.
      * @param format The pattern to format the date with.
      * @return The date in string form, formatted with the provided pattern.
      * @throws RuntimeException
@@ -201,8 +203,9 @@ public class DateTimeUtil {
     /**
      * Parses a date string into a Calendar using the provided formats, and throws a RuntimeException if something goes
      * wrong, with relevant and useful information to assist debugging.
+     *
      * @param dateString The string-formatted date to parse.
-     * @param formats The formats to attempt while parsing.
+     * @param formats    The formats to attempt while parsing.
      * @return The parsed date as a Calendar instance.
      */
     public static Calendar parseDate(String dateString, String... formats) {
@@ -223,7 +226,6 @@ public class DateTimeUtil {
 
     /**
      * Method returns a short formated string for the given date object, it returns the date in "dd MMM YYYY" format.
-     *
      */
     public static String getShortFormattedDate(Date thedate) {
 
@@ -238,7 +240,6 @@ public class DateTimeUtil {
 
     /**
      * Method returns a full formated string for the given date object, it returns the date in "dd MMM YYYY" format.
-     *
      */
     public static String getFullFormattedDate(Date thedate) {
 
