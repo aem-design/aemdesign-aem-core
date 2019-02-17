@@ -1,4 +1,4 @@
-<template data-sly-template.variant="${@ class}">
+<template data-sly-template.variant="${@ componentProperties}">
     <!--/* columns start */-->
-    ${'<div class="{0}">' @ format=[class], context = 'unsafe'}
+    <div data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
 </template>
