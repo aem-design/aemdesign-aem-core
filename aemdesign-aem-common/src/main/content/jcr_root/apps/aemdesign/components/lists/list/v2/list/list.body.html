@@ -21,10 +21,10 @@
             </li>
 
             <sly data-sly-test="${componentProperties.listSplit && componentProperties.printStructure}">
-                <sly data-sly-test="${itemList.count in componentProperties.listSplitAtItem} ">
+                <sly data-sly-test="${item.split} ">
                     ${"</{0}>" @ format=[componentProperties.listTag], context = 'unsafe' }
                     <!--split-->
-                    ${"<{0}>" @ format=[componentProperties.listTag], context = 'unsafe' }
+                    ${"<{0} class=\"list\">" @ format=[componentProperties.listTag], context = 'unsafe' }
                 </sly>
             </sly>
         </sly>

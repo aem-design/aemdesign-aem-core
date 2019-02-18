@@ -12,9 +12,9 @@ import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.text.Text;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
-import groovy.util.OrderBy;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -29,11 +29,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import javax.swing.*;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.net.URLDecoder;
-import java.text.MessageFormat;
 import java.util.*;
 
 import static design.aem.utils.components.CommonUtil.*;
@@ -81,7 +79,6 @@ public class List extends WCMUsePojo {
     public static final String LIST_ISORDERED = "isOrdered";
     public static final String LIST_ISPAGINATING = "isPaginating";
     public static final String LIST_ISEMPTY = "isEmpty";
-    public static final String LIST_LISTSPLITATITEM = "listSplitAtItem";
 
 //    private static final String PN_SHOW_DESCRIPTION = "showDescription";
 //    private static final String PN_SHOW_MODIFICATION_DATE = "showModificationDate";
@@ -153,8 +150,6 @@ public class List extends WCMUsePojo {
     @Default(booleanValues = false)
     private boolean showInvalid;
 
-
-
     @Override
     public void activate() throws Exception {
         loadConfig();
@@ -213,6 +208,9 @@ public class List extends WCMUsePojo {
         pageMaximum = componentProperties.get(PAGE_MAX_PROPERTY_NAME, 0);
         listSplitEvery = componentProperties.get(LISTSPLITEVERY, LISTSPLITEVERY_DEFAULT);
         detailsBadge = componentProperties.get(DETAILSBADGE, DEFAULT_BADGE);
+        limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
+
+        LOGGER.error("listSplitEvery {}",listSplitEvery);
 
         if (detailsNameSuffix == null) {
             detailsNameSuffix = DEFAULT_LIST_DETAILS_SUFFIX;
@@ -425,6 +423,8 @@ public class List extends WCMUsePojo {
 
         componentProperties.put(LIST_ISEMPTY, listItems.isEmpty());
 
+        componentProperties.put("test", "test1");
+
 
         isPaginating = listItems.size() > 0 && listItems.size() > pageMaximum;
 
@@ -465,16 +465,13 @@ public class List extends WCMUsePojo {
             componentProperties.attr.add("data-has-pages", isPaginating);
         }
 
-        //create an array of list positions at which list should split
-        ArrayList listSplitAtItem = new ArrayList();
 
+        //parse list and set items that should force a split in a list
         for (int i=0; i < listItems.size();i++) {
             if ((i + 1) % listSplitEvery == 0) {
-                listSplitAtItem.add(i);
+                listItems.get(i).put("split",true);
             }
         }
-
-        componentProperties.put("listSplitAtItem",listSplitAtItem);
     }
 
 
@@ -510,6 +507,7 @@ public class List extends WCMUsePojo {
 
     private void collectChildren(int startLevel, Page parent, int childDepth) {
         Iterator<Page> childIterator = parent.listChildren();
+        int count = 0;
         while (childIterator.hasNext()) {
             Page child = childIterator.next();
 
@@ -523,6 +521,13 @@ public class List extends WCMUsePojo {
                     collectChildren(startLevel, child, childDepth);
                 }
             }
+
+            //collect only up to a limit
+            count++;
+            if (limit > 0 && count >= limit) {
+                return;
+            }
+
         }
     }
 
@@ -571,7 +576,9 @@ public class List extends WCMUsePojo {
                 //TODO: add limits and pages
 //                search.setStart(pageStart);
 //                search.addPredicate(new Predicate("p.guessTotal", "true")); //guess amount
-                search.setHitsPerPage(limit);
+                if (limit > 0) {
+                    search.setHitsPerPage(limit);
+                }
                 try {
                     collectSearchResults(search.getResult());
                 } catch (RepositoryException e) {
@@ -600,12 +607,15 @@ public class List extends WCMUsePojo {
                     PredicateGroup predicateGroup = PredicateConverter.createPredicates(props);
                     //TODO: add limits and pages
 //                    predicateGroup.add(new Predicate("p.offset","0"));
-//                    predicateGroup.add(new Predicate("p.limit","20"));
+                    if (limit > 0) {
+                        predicateGroup.add(new Predicate("p.limit", Integer.toString(limit)));
+                    }
 //                    predicateGroup.add(new Predicate("p.guessTotal","true"));
                     boolean allowDuplicates = getProperties().get("allowDuplicates", false);
                     javax.jcr.Session jcrSession = getRequest().getResourceResolver().adaptTo(javax.jcr.Session.class);
                     Query query = queryBuilder.createQuery(predicateGroup, jcrSession);
                     //TODO: add limits and pages
+
 
 //                    query.setStart(0);
 //                    query.setHitsPerPage(20);
