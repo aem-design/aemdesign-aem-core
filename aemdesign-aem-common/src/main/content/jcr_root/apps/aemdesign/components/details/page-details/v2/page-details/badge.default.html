@@ -2,6 +2,6 @@
     <a href="${componentProperties.pageUrl}" title="${componentProperties.title}"
        data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}">
         <i data-sly-test="${componentProperties.titleIconShow && componentProperties.titleIcon}"
-           class="${badgeClassAttr}" title="${componentProperties.pageNavTitle}"></i>
-        <span class="title">${componentProperties.pageNavTitle}</span></a>
+           class="${componentProperties.badgeClassAttr}" title="${componentProperties.badgeTitle}"></i>
+        <span class="title">${componentProperties.badgeTitle}</span></a>
 </template>
