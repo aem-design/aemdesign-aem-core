@@ -231,8 +231,16 @@ public class PageDetails extends WCMUsePojo {
         //trim pageNavTitle if needed
         if (Boolean.parseBoolean(componentProperties.get(DETAILS_TITLE_TRIM,""))) {
             int badgeTitleTrimLengthMax = componentProperties.get(DETAILS_TITLE_TRIM_LENGTH_MAX,20);
-            if (StringUtils.isNoneEmpty(pageNavTitle)) {
-                componentProperties.put(DETAILS_BADGE_TITLE, pageNavTitle.substring(0, badgeTitleTrimLengthMax));
+            if (StringUtils.isNotEmpty(pageNavTitle)) {
+                componentProperties.put(DETAILS_BADGE_TITLE,
+                        pageNavTitle.substring(0, badgeTitleTrimLengthMax)
+                                .concat(
+                                        componentProperties.get(
+                                                DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX,
+                                                DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX_DEFAULT
+                                        )
+                                )
+                );
             }
         }
 
@@ -241,9 +249,17 @@ public class PageDetails extends WCMUsePojo {
         componentProperties.put(DETAILS_BADGE_DESCRIPTION,badgeDescription);
         //trim page description if needed
         if (Boolean.parseBoolean(componentProperties.get(DETAILS_SUMMARY_TRIM,""))) {
-            int badgeSummaryLengthMaxSuffix = componentProperties.get(DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX,20);
-            if (StringUtils.isNoneEmpty(badgeDescription)) {
-                componentProperties.put(DETAILS_BADGE_DESCRIPTION, badgeDescription.substring(0, badgeSummaryLengthMaxSuffix));
+            int badgeSummaryLengthMaxSuffix = componentProperties.get(DETAILS_SUMMARY_TRIM_LENGTH_MAX,20);
+            if (StringUtils.isNotEmpty(badgeDescription)) {
+                componentProperties.put(DETAILS_BADGE_DESCRIPTION,
+                        badgeDescription.substring(0, badgeSummaryLengthMaxSuffix)
+                                .concat(
+                                        componentProperties.get(
+                                                DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX,
+                                                DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX
+                                        )
+                                )
+                );
             }
         }
 
