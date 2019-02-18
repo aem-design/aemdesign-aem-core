@@ -101,10 +101,14 @@ public class ComponentsUtil {
     public static final String DETAILS_LINK_STYLE = "badgeLinkStyle";
     public static final String DETAILS_TITLE_TRIM = "badgeTitleTrim";
     public static final String DETAILS_TITLE_TRIM_LENGTH_MAX = "badgeTitleTrimLengthMax";
+    public static final int DETAILS_TITLE_TRIM_LENGTH_MAX_DEFAULT = 20;
     public static final String DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX = "badgeTitleTrimLengthMaxSuffix";
+    public static final String DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX_DEFAULT = "...";
     public static final String DETAILS_SUMMARY_TRIM = "badgeSummaryTrim";
     public static final String DETAILS_SUMMARY_TRIM_LENGTH_MAX = "badgeSummaryLengthMax";
+    public static final int DETAILS_SUMMARY_TRIM_LENGTH_MAX_DEFAULT = 20;
     public static final String DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX = "badgeSummaryLengthMaxSuffix";
+    public static final String DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX_DEFAULT = "...";
     public static final String DETAILS_THUMBNAIL_WIDTH = "badgeThumbnailWidth";
     public static final String DETAILS_THUMBNAIL_HEIGHT = "badgeThumbnailHeight";
     public static final String DETAILS_THUMBNAIL_TYPE = "badgeThumbnailType";
@@ -418,11 +422,11 @@ public class ComponentsUtil {
             {DETAILS_LINK_TITLE, ""}, //getPageTitle(_currentPage)
             {DETAILS_LINK_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, ""},
-            {DETAILS_TITLE_TRIM_LENGTH_MAX, "20"},
-            {DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX, "..."},
+            {DETAILS_TITLE_TRIM_LENGTH_MAX, DETAILS_TITLE_TRIM_LENGTH_MAX_DEFAULT},
+            {DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX, DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX_DEFAULT},
             {DETAILS_SUMMARY_TRIM, ""},
-            {DETAILS_SUMMARY_TRIM_LENGTH_MAX, "20"},
-            {DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX, "..."},
+            {DETAILS_SUMMARY_TRIM_LENGTH_MAX, DETAILS_SUMMARY_TRIM_LENGTH_MAX_DEFAULT},
+            {DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX, DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX_DEFAULT},
             {DETAILS_TAB_ICONSHOW, ""},
             {DETAILS_TAB_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_ICONSHOW, ""},
