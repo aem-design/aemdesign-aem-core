@@ -1,6 +1,7 @@
 package design.aem.utils.components;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.adobe.cq.wcm.core.components.internal.models.v2.PageImpl;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import design.aem.components.ComponentProperties;
@@ -10,6 +11,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
+import org.apache.sling.api.resource.ValueMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +21,6 @@ import java.util.*;
 
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ComponentsUtil.getContextObjects;
 import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.ImagesUtil.*;
 import static design.aem.utils.components.TagUtil.getPageTags;
@@ -354,7 +355,46 @@ public class ComponentDetailsUtil {
         return getNewComponentProperties(pageContext);
 
     }
-    
+
+    /***
+     * check if page is under same path as current page.
+     * @param page page to check
+     * @param currentPage current page to yse
+     * @param resourceResolver resource resolved
+     * @return is page matching or under current page
+     */
+    public static boolean checkSelected(Page page, Page currentPage, ResourceResolver resourceResolver) {
+        return currentPage.equals(page) ||
+                currentPage.getPath().startsWith(page.getPath() + "/") ||
+                currentPageIsRedirectTarget(page, currentPage, resourceResolver);
+    }
+
+    /***
+     * check if page has redirect target set.
+     * @param page page to check
+     * @param currentPage current page
+     * @param resourceResolver resource resolver
+     * @return is page being redirected
+     */
+    public static boolean currentPageIsRedirectTarget(Page page, Page currentPage, ResourceResolver resourceResolver) {
+        boolean currentPageIsRedirectTarget = false;
+        Resource contentResource = page.getContentResource();
+        if (contentResource != null) {
+            ValueMap valueMap = contentResource.getValueMap();
+            String redirectTarget = valueMap.get(PN_REDIRECT_TARGET, String.class);
+            if(StringUtils.isNotBlank(redirectTarget)) {
+                PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+                if (pageManager != null) {
+                    Page redirectPage = pageManager.getPage(redirectTarget);
+                    if (currentPage.equals(redirectPage)) {
+                        currentPageIsRedirectTarget = true;
+                    }
+                }
+            }
+        }
+        return currentPageIsRedirectTarget;
+    }
+
     /***
      * Get page info from list of page paths.
      *
@@ -444,16 +484,10 @@ public class ComponentDetailsUtil {
             //check if current page is in request page hierarchy
             Page selectedPage = (com.day.cq.wcm.api.Page) pageContext.get(PAGECONTEXTMAP_OBJECT_CURRENTPAGE);
             if (selectedPage != null ) {
-                String selectedPagePath = selectedPage.getPath();
-                String thisPagePath = page.getPath();
-
-                boolean current = false;
-                if (selectedPagePath.equals(thisPagePath)) {
-                    current = true;
-                }
-
-                componentProperties.put("current", current);
+                componentProperties.put("current", checkSelected(page,selectedPage,(ResourceResolver)pageContext.get(PAGECONTEXTMAP_OBJECT_RESOURCERESOLVER)));
             }
+
+
 
 
             //get children
