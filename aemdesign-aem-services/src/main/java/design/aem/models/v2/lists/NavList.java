@@ -1,32 +1,24 @@
 package design.aem.models.v2.lists;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.adobe.cq.wcm.core.components.internal.models.v2.PageImpl;
 import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageFilter;
 import com.day.cq.wcm.api.PageManager;
-import com.day.text.Text;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-import javax.servlet.jsp.PageContext;
-import java.util.*;
-
-import static design.aem.utils.components.CommonUtil.*;
-import static design.aem.utils.components.ComponentDetailsUtil.getPageInfo;
+import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX;
+import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_PAGE_CONTENT;
 import static design.aem.utils.components.ComponentDetailsUtil.getPageListInfo;
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static design.aem.utils.components.ConstantsUtil.INHERITED_RESOURCE;
 import static design.aem.utils.components.I18nUtil.*;
 
@@ -57,6 +49,7 @@ public class NavList extends WCMUsePojo {
                 {"pages", new String[0]},
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"listFrom", DEFAULT_LISTFROM},
+                {"currentPage", getCurrentPage()},
                 {"menuTitle", _i18n.get("menuTitle","navlist")},
                 {"parentPage", getPrimaryPath(getRequest())},
                 {"linkTitlePrefix", _i18n.get("linkTitlePrefix","navlist")},
@@ -92,6 +85,7 @@ public class NavList extends WCMUsePojo {
         componentProperties.put(INHERITED_RESOURCE,findInheritedResource(getResourcePage(),getComponentContext()));
         componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,getDefaultLabelIfEmpty("",DEFAULT_I18N_INHERIT_CATEGORY,DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,DEFAULT_I18N_INHERIT_CATEGORY,_i18n));
     }
+
 
 
 //
