@@ -181,9 +181,9 @@ public class List extends WCMUsePojo {
                 {ANCESTOR_PAGE_PROPERTY_NAME, StringUtils.EMPTY},
                 {PN_PARENT_PAGE, StringUtils.EMPTY},
                 {PN_SOURCE, StringUtils.EMPTY},
-                {PN_PAGES, StringUtils.EMPTY},
+                {PN_PAGES, new String[]{}},
                 {PN_TAGS_PARENT_PAGE, StringUtils.EMPTY},
-                {PN_TAGS, StringUtils.EMPTY},
+                {PN_TAGS, new String[]{}},
                 {PN_TAGS_MATCH, StringUtils.EMPTY},
                 {PN_ORDER_BY, StringUtils.EMPTY},
                 {PN_SORT_ORDER, SortOrder.ASC.value},
@@ -210,7 +210,6 @@ public class List extends WCMUsePojo {
         detailsBadge = componentProperties.get(DETAILSBADGE, DEFAULT_BADGE);
         limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
 
-        LOGGER.error("listSplitEvery {}",listSplitEvery);
 
         if (detailsNameSuffix == null) {
             detailsNameSuffix = DEFAULT_LIST_DETAILS_SUFFIX;
