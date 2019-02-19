@@ -8,8 +8,7 @@
             groups="[media]"
             propertyName="./fileReference">
             <parameters
-                jcr:primaryType="nt:unstructured"
-                sling:resourceType="aemdesign/components/media/video"/>
+                jcr:primaryType="nt:unstructured"/>
         </video>
     </cq:dropTargets>
 </jcr:root>
