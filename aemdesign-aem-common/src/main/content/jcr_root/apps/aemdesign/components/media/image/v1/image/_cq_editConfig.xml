@@ -11,7 +11,6 @@
                 propertyName="./fileReference">
             <parameters
                     jcr:primaryType="nt:unstructured"
-                    sling:resourceType="aemdesign/components/media/image"
                     imageCrop=""
                     imageMap=""
                     imageRotate=""/>
