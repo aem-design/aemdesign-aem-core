@@ -3,7 +3,6 @@
     cq:isContainer="{Boolean}false"
     jcr:description="Tool Tip Component"
     jcr:primaryType="cq:Component"
-    jcr:title="Tool Tip"
+    jcr:title="Tool Tip (v2)"
     cq:icon="lightbulb"
-    sling:resourceSuperType="aemdesign/components/content/tooltip/v2/tooltip"
-    componentGroup="AEM.Design - Content"/>
+    componentGroup="hidden"/>
