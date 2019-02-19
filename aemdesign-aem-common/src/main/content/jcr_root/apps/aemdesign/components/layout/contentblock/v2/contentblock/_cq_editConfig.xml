@@ -4,17 +4,4 @@
     cq:actions="[text:Content Block,edit,-,copymove,-,delete,insert]"
     cq:layout="editbar"
     cq:dialogMode="floating">
-    <cq:dropTargets jcr:primaryType="nt:unstructured">
-        <image
-                jcr:primaryType="cq:DropTargetConfig"
-                accept="[image/.*]"
-                groups="[media]"
-                propertyName="./fileReference">
-            <parameters
-                    jcr:primaryType="nt:unstructured"
-                    imageCrop=""
-                    imageMap=""
-                    imageRotate=""/>
-        </image>
-    </cq:dropTargets>
 </jcr:root>
