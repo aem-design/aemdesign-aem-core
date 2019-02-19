@@ -1,18 +1,11 @@
-<%@ page import="com.google.common.base.Throwables" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%@ include file="/apps/aemdesign/global/components.jsp" %>
 <%
-    final String DEFAULT_TOOLTIP_COORDS_FORMAT = "px";
     final String DEFAULT_ARIA_ROLE = "tooltip";
 
     Object[][] componentFields = {
-        {"cssClass", ""},
-        {"title", ""},
-        {"description", ""},
-        {"positionX", "auto"},
-        {"positionY", "auto"},
-        {"positionFormatX", DEFAULT_TOOLTIP_COORDS_FORMAT},
-        {"positionFormatY", DEFAULT_TOOLTIP_COORDS_FORMAT},
+        {"title", "", "data-title"},
+        {"description", "", "data-description"},
         {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
         {FIELD_VARIANT, DEFAULT_VARIANT},
     };
@@ -21,6 +14,7 @@
             pageContext,
             componentFields,
             DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ANALYTICS,
             DEFAULT_FIELDS_ACCESSIBILITY);
 
 %>

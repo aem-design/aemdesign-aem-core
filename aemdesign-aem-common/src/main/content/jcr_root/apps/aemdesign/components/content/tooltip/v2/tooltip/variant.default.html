@@ -1,0 +1,16 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <sly data-sly-test="${wcmmode.edit}">
+        <style>
+            [component] .tooltip {
+                display: block !important;
+                position: unset;
+                opacity: unset;
+            }
+        </style>
+
+        <div>Tool Tip: ${componentProperties.componentId}</div>
+        <div>Title: ${componentProperties.title}</div>
+        <div>Description: ${componentProperties.description}</div>
+    </sly>
+    <span data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"></span>
+</template>
