@@ -3,7 +3,7 @@
 var global = this;
 
 use([], function () {
-    var rootResource = resource.getChild('article');
+    var rootResource = resource.getChild('root');
     var resourcePath = "";
 
     if (rootResource != null) {
