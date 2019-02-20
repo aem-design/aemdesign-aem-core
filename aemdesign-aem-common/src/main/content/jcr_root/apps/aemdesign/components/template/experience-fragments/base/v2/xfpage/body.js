@@ -3,7 +3,7 @@
 var global = this;
 
 use([], function () {
-    var rootResource = resource.getChild('root');
+    var rootResource = resource.getChild('root'); //hardcoded to allow converting component into xpf on pages
     var resourcePath = "";
 
     if (rootResource != null) {
