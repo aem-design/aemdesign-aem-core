@@ -4,5 +4,5 @@
     jcr:primaryType="cq:Component"
     jcr:title="Article"
     cq:icon="mBox"
-  sling:resourceSuperType="aemdesign/components/layout/article/v1/article"
+  sling:resourceSuperType="aemdesign/components/layout/article/v2/article"
     componentGroup="AEM.Design - Layout"/>
