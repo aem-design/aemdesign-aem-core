@@ -12,8 +12,8 @@ public class MedaiUtil {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MedaiUtil.class);
 
-    public static final String PLAYER_ADDRESS = "/etc/clientlibs/aemdesign/vendorlib/flash/player.swf";
-    public static final String GALLERIA_THEME = "/etc/clientlibs/aemdesign/vendorlib/galleria/classic/galleria.classic.min.js";
+    public static final String PLAYER_ADDRESS = "/etc/clientlibs/aemdesign/core/vendorlib/flash/player.swf";
+    public static final String GALLERIA_THEME = "/etc/clientlibs/aemdesign/core/vendorlib/galleria/classic/galleria.classic.min.js";
 
     /**
      * Get an integer property from the JCR, or null when it's not a proper integer value.
