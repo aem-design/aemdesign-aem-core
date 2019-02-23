@@ -16,6 +16,11 @@
                 sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
 
+            <tabs
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Hide - Core Image v2 Tabs"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
             <imageTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Image"
@@ -88,11 +93,11 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Default"
                                                     value=""/>
-                                            <!--<generated-->
-                                                    <!--jcr:primaryType="nt:unstructured"-->
-                                                    <!--valuealt="generated"-->
-                                                    <!--text="Generate: generate new image with current image edits"-->
-                                                    <!--value="generated"/>-->
+                                            <generated
+                                                    jcr:primaryType="nt:unstructured"
+                                                    valuealt="generated"
+                                                    text="Generate: generate new image with current image edits"
+                                                    value="generated"/>
                                             <rendition
                                                     jcr:primaryType="nt:unstructured"
                                                     valuealt="generated"
@@ -102,10 +107,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Responsive: use existing renditions"
                                                     value="responsive"/>
-                                            <!--<adaptive-->
-                                                    <!--jcr:primaryType="nt:unstructured"-->
-                                                    <!--text="Adaptive: generate new renditions with quality settings for each breakpoint"-->
-                                                    <!--value="adaptive"/>-->
+                                            <adaptive
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Adaptive: generate new renditions with quality settings for each breakpoint"
+                                                    value="adaptive"/>
                                             <mediaqueryrendition
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Manual: responsive background with custom renditions per media query"
@@ -186,7 +191,11 @@
                                                             fieldLabel="Title Type"
                                                             name="./titleType"
                                                             value="">
-                                                        <items jcr:primaryType="nt:unstructured"/>
+                                                        <datasource
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                                variant="valuelist"
+                                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/heading"/>
                                                     </titleType>
                                                 </items>
                                             </cardConfig>
@@ -336,7 +345,11 @@
                                                     fieldLabel="Rendition Prefix"
                                                     name="./renditionPrefix"
                                                     value="">
-                                                <items jcr:primaryType="nt:unstructured"/>
+                                                <datasource
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                        variant="valuelist"
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/asset/rendition/prefix"/>
                                             </renditionPrefix>
                                         </items>
                                     </responsiveConfig>
@@ -379,16 +392,11 @@
                                                     <note1
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                            note="format: [width.quality.format]=[media query]"/>
+                                                            note="format: [size]=[media query]"/>
                                                     <note2
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                            note="- ex 480.medium=(min-width: 1px) and (max-width: 533px), this will show rendition of 48px between 1px and 533px device width"/>
-                                                    <note3
-                                                            jcr:primaryType="nt:unstructured"
-                                                            sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                            note="- ex full=(min-width: 1332px) will create a close to original rendition"/>
-
+                                                            note="- ex 480=(min-width: 1px) and (max-width: 533px), this will show rendition of 48px between 1px and 533px device width"/>
                                                 </items>
                                             </adaptiveRenditionSize>
                                         </items>
