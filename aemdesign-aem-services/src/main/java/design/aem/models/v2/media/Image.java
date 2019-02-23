@@ -130,8 +130,6 @@ public class Image extends WCMUsePojo {
                 componentProperties.attr.add(FIELD_DATA_ANALYTICS_METATYPE, assetBasic.getMimeType());
                 componentProperties.attr.add(FIELD_DATA_ANALYTICS_FILENAME, assetBasic.getPath());
 
-                componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
-
 
                 //get page link
                 String linkURL = componentProperties.get(FIELD_LINKURL, StringUtils.EMPTY);
@@ -176,6 +174,15 @@ public class Image extends WCMUsePojo {
 
         //compile variantTemplate param
         componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT,variant));
+
+        if (getWcmMode().isEdit()) {
+            //add class to allow image dropping
+            componentProperties.attr.add("class", "cq-dd-image");
+        }
+
+        componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
+
+
     }
 
 

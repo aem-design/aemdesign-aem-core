@@ -101,16 +101,19 @@ public class ImagesUtil {
             "1280=(min-width: 478px)"
     };
 
-
+    //core: 128, 256, 512, 1024, 1280, 1440, 1920, 2048
+    //normal: 480, 640, 720, 800, 960, 1024, 1280, 1440, 1920, 2048
     public static final String[] DEFAULT_ADAPTIVE_IMAGE_MAP = new String[]{
-            "480.medium=(min-width: 1px) and (max-width: 533px)",
-            "640.medium=(min-width: 534px) and (max-width: 691px)",
-            "720.medium=(min-width: 692px) and (max-width: 770px)",
-            "800.medium=(min-width: 771px) and (max-width: 848px)",
-            "960.medium=(min-width: 849px) and (max-width: 1008px)",
-            "1024.medium=(min-width: 1009px) and (max-width: 1075px)",
-            "1280.medium=(min-width: 1076px) and (max-width: 1331px)",
-            "full=(min-width: 1332px)"
+            "480=(min-width: 1px) and (max-width: 533px)",
+            "640=(min-width: 534px) and (max-width: 691px)",
+            "720=(min-width: 692px) and (max-width: 770px)",
+            "800=(min-width: 771px) and (max-width: 848px)",
+            "960=(min-width: 849px) and (max-width: 1008px)",
+            "1024=(min-width: 1009px) and (max-width: 1075px)",
+            "1280=(min-width: 1076px) and (max-width: 1331px)",
+            "1440=(min-width: 1332px) and (max-width: 1572px)",
+            "1920=(min-width: 1573px) and (max-width: 1971px)",
+            "2048=(min-width: 1971px)"
     };
 
     //DEFAULT NODE METADATA
@@ -1332,15 +1335,15 @@ public class ImagesUtil {
                         String imageOption = imageProperties.get(FIELD_IMAGE_OPTION, "");
                         //imageProperties.put(COMPONENT_BACKGROUND_ASSETS + "Options", imageOption);
 
-                        //disable adaptive image option, as it don't work as expected
-                        if (imageOption.equals("adaptive")) {
-                            imageOption = IMAGE_OPTION_RESPONSIVE;
-                        }
-
-                        //disable generated image option, as it don't work as expected
-                        if (imageOption.equals("generated")) {
-                            imageOption = IMAGE_OPTION_RENDITION;
-                        }
+//                        //disable adaptive image option, as it don't work as expected
+//                        if (imageOption.equals("adaptive")) {
+//                            imageOption = IMAGE_OPTION_RESPONSIVE;
+//                        }
+//
+//                        //disable generated image option, as it don't work as expected
+//                        if (imageOption.equals("generated")) {
+//                            imageOption = IMAGE_OPTION_RENDITION;
+//                        }
 
 
                         Map<String, String> responsiveImageSet = new LinkedHashMap<String, String>();
@@ -1700,7 +1703,7 @@ public class ImagesUtil {
     @SuppressWarnings("unchecked")
     public static int[] getAdaptiveImageSupportedWidths(org.apache.sling.api.scripting.SlingScriptHelper sling) {
 
-        int[] defaultWidths = {480, 640, 720, 800, 960, 1024, 1280};
+        int[] defaultWidths = {480, 640, 720, 800, 960, 1024, 1280, 1440, 1920, 2048};
         int[] supportedWidths = new int[0];
 
         try {

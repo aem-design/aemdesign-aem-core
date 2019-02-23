@@ -20,7 +20,8 @@ public class TenantUtil {
     final List<Pattern> tenantPathPatterns = Arrays.asList(
             Pattern.compile("(?:cq:tags/)([^/]+)"),
             Pattern.compile("(?:experience-fragments/)([^/]+)"),
-            Pattern.compile("/content/([^/]+)")
+            Pattern.compile("/content/([^/]+)"),
+            Pattern.compile("/conf/([^/]+)/*")
 //            Pattern.compile("/apps/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/content/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/content/dam/aemdesign/([^/]+)/*"),

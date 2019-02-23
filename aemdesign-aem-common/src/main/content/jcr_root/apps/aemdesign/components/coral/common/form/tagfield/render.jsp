@@ -92,21 +92,23 @@ TagField
     if (tenant == null) {
         tenant = _resource.adaptTo(Tenant.class);
 
-//        if (tenant != null) {
-//            expressionCustomizer.setVariable("tenantId", tenant.getId());
-//            expressionCustomizer.setVariable("tenant", tenant);
-//        } else {
-            String finalTenantId;
-            if (isNotEmpty(requestSuffix)) {
-                finalTenantId = resolveTenantIdFromPath(requestSuffix);
-            } else {
-                finalTenantId = resolveTenantIdFromPath(_resource.getPath());
-            }
-            if (isNotEmpty(finalTenantId)) {
-                expressionCustomizer.setVariable("tenantId", finalTenantId);
-            }
+        //if tenant OOTB works
+        if (tenant != null) {
+            expressionCustomizer.setVariable("tenantId", tenant.getId());
+            expressionCustomizer.setVariable("tenant", tenant);
+        }
 
-//        }
+        //try manually resolve tenant from suffix
+        String finalTenantId;
+        if (isNotEmpty(requestSuffix)) {
+            finalTenantId = resolveTenantIdFromPath(requestSuffix);
+        } else {
+            finalTenantId = resolveTenantIdFromPath(_resource.getPath());
+        }
+        if (isNotEmpty(finalTenantId)) {
+            expressionCustomizer.setVariable("tenantId", finalTenantId);
+        }
+
     }
 
     ExpressionHelper ex = cmp.getExpressionHelper();
