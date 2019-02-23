@@ -14,7 +14,7 @@
 
     <filter root="/apps/settings/wcm/design/aemdesign" mode="update"/>
 
-    <filter root="/etc/clientlibs/aemdesign" mode="update"/>
+    <filter root="/etc/clientlibs/aemdesign/core" mode="update"/>
     <filter root="/etc/designs/aemdesign" mode="update"/>
 
 
