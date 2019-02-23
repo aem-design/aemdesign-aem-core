@@ -5,12 +5,12 @@
     final List<Pattern> tenantPathPatterns = Arrays.asList(
             Pattern.compile("(?:cq:tags/)([^/]+)"),
             Pattern.compile("(?:experience-fragments/)([^/]+)"),
-            Pattern.compile("/content/([^/]+)")
+            Pattern.compile("/content/([^/]+)"),
+            Pattern.compile("/conf/([^/]+)/*")
 //            Pattern.compile("/apps/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/content/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/content/dam/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/content/experience-fragments/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/conf/aemdesign/([^/-]+)/*"), //match all tenant and -default
 //            Pattern.compile("/content/cq:tags/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/etc/clientlibs/aemdesign/([^/]+)/*"),
 //            Pattern.compile("/apps/settings/wcm/design/([^/]+)/*"),
