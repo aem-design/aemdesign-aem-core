@@ -1,19 +1,23 @@
 <!-- custom footer libs -->
 <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html">
-    <!-- js: aemdesign.common.components start -->
+    <!-- js: aemdesign.common.components.js start -->
     <sly data-sly-call="${clientlib.js @ categories='aemdesign.common.components'}"/>
-    <!-- js: aemdesign.common.components end -->
+    <!-- js: aemdesign.common.components.js end -->
 
-    <!-- js: aemdesign.common.body start -->
+    <!-- js: aemdesign.common.body.js start -->
     <sly data-sly-call="${clientlib.js @ categories='aemdesign.common.body'}"/>
-    <!-- js: aemdesign.common.body end -->
+    <!-- js: aemdesign.common.body.js end -->
 
-    <!-- js: aemdesign.footer start -->
+    <!-- js: aemdesign.footer.js start -->
     <sly data-sly-call="${clientlib.js @ categories='aemdesign.footer'}"/>
-    <!-- js: aemdesign.footer end -->
+    <!-- js: aemdesign.footer.js end -->
+
+    <!-- js: aemdesign.footer.v1.js start -->
+    <sly data-sly-call="${clientlib.js @ categories='aemdesign.footer.v1'}"/>
+    <!-- js: aemdesign.footer.v1.js end -->
 
     <!--/* Load authoring related client libraries */-->
-    <!-- js: aemdesign.common.coralui start -->
+    <!-- js: aemdesign.common.coralui.js start -->
     <sly data-sly-test="${wcmmode.preview || wcmmode.edit}" data-sly-call="${clientLib.js @ categories='aemdesign.common.coralui'}"/>
-    <!-- js: aemdesign.common.coralui nend -->
+    <!-- js: aemdesign.common.coralui.js end -->
 </sly>
