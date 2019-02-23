@@ -382,16 +382,15 @@
                                                     <note1
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                            note="format: [width.quality.format]=[media query]"/>
+                                                            note="format: [rendition width]=[media query]"/>
                                                     <note2
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                            note="- ex 480.medium=(min-width: 1px) and (max-width: 533px), this will show rendition of 48px between 1px and 533px device width"/>
+                                                            note="- ex 48=(min-width: 1px) and (max-width: 100px), this will show rendition of 48px between 1px and 100px device width"/>
                                                     <note3
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                            note="- ex full=(min-width: 1332px) will create a close to original rendition"/>
-
+                                                            note="- ex 1280=(min-width: 478px) will use rendition 1280 starting from width of 487 and up"/>
                                                 </items>
                                             </adaptiveRenditionSize>
                                         </items>
