@@ -7,7 +7,8 @@
     <meta data-sly-test.description="${properties['jcr:description']}" name="description" content="${description}"/>
     <meta data-sly-test.templateName="${page.templateName}" name="template" content="${templateName}"/>
 
-    <sly data-sly-include="pagedetails.jsp"></sly>
+    <sly data-sly-use.templateInfo="design.aem.models.v2.template.Template"
+         data-sly-resource="${templateInfo.componentProperties.detailsMetadataBadgeUrl}"></sly>
 
     <sly data-sly-include="head.socialmedia.html"></sly>
     <sly data-sly-include="customheaderlibs.html"></sly>

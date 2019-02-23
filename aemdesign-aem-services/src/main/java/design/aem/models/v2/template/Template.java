@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX;
 import static design.aem.utils.components.CommonUtil.findComponentInPage;
+import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 
 public class Template extends WCMUsePojo {
 
@@ -34,6 +35,9 @@ public class Template extends WCMUsePojo {
 
         componentProperties.put("detailsPath",detailsPath);
         componentProperties.put("detailsMetadataBadgePath",componentPath);
+        componentProperties.put("detailsMetadataBadgeUrl",componentPath.concat(DEFAULT_EXTENTION));
+
+
     }
 
 
