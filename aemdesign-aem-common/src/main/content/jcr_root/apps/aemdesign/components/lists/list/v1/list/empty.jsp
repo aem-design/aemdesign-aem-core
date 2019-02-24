@@ -6,5 +6,5 @@
     boolean inEditMode = WCMMode.fromRequest(_slingRequest) == WCMMode.EDIT;
 %>
 <c:if test="<%= inEditMode %>">
-    <img src="/apps/settings/wcm/design/aemdesign/blank.png" class="cq-list-placeholder" alt="" />
+    <img src="http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png" class="cq-list-placeholder" alt="" />
 </c:if>

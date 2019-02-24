@@ -72,33 +72,33 @@
             "<div class=\"cq-dd-video cq-video-placeholder\"></div>";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_CHART =
-            "<img src=\"/apps/settings/wcm/design/aemdesign/blank.png\" class=\"cq-chart-placeholder\">";
+            "<img src=\"http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png\" class=\"cq-chart-placeholder\">";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_TAGCLOUD =
-            "<img src=\"/apps/settings/wcm/design/aemdesign/blank.png\" class=\"cq-tagcloud-placeholder\" alt=\"\">";
+            "<img src=\"http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png\" class=\"cq-tagcloud-placeholder\" alt=\"\">";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_LINK =
-            "<img src=\"/apps/settings/wcm/design/aemdesign/blank.png\" class=\"cq-reference-placeholder cq-dd-paragraph\" alt=\"\">";
+            "<img src=\"http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png\" class=\"cq-reference-placeholder cq-dd-paragraph\" alt=\"\">";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_TABLE =
-            "<img src=\"/apps/settings/wcm/design/aemdesign/blank.png\" class=\"cq-table-placeholder\" alt=\"\">";
+            "<img src=\"http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png\" class=\"cq-table-placeholder\" alt=\"\">";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_LIST =
-            "<img src=\"/apps/settings/wcm/design/aemdesign/blank.png\" class=\"cq-list-placeholder\" alt=\"\">";
+            "<img src=\"http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png\" class=\"cq-list-placeholder\" alt=\"\">";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_IMAGE =
-            "<img title=\"\" alt=\"\" class=\"cq-dd-image cq-image-placeholder\" src=\"/apps/settings/wcm/design/aemdesign/blank.png\">";
+            "<img title=\"\" alt=\"\" class=\"cq-dd-image cq-image-placeholder\" src=\"http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png\">";
 
     public final static String DEFAULT_TOUCH_PLACEHOLDER_IMAGE =
             "<div class=\"cq-placeholder cq-dd-image\" data-emptytext=\"Image\"></div>";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_CAROUSEL =
-            "<img src=\"/apps/settings/wcm/design/aemdesign/blank.png\" class=\"cq-carousel-placeholder\" alt=\"\">";
+            "<img src=\"http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png\" class=\"cq-carousel-placeholder\" alt=\"\">";
 
     public final static String DEFAULT_CLASSIC_PLACEHOLDER_TEXT =
             "<span class=\"cq-text-placeholder-ipe\">&para;</span>";
 
-    public static final String DEFAULT_IMAGE_BLANK = "/apps/settings/wcm/design/aemdesign/blank.png";
+    public static final String DEFAULT_IMAGE_BLANK = "http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png";
 
     public static final int DEFAULT_THUMB_WIDTH_XSM = 140;
     public static final int DEFAULT_THUMB_WIDTH_SM = 319;

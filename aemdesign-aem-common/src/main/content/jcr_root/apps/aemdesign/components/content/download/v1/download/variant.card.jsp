@@ -14,7 +14,7 @@
     <div class="card-block">
         <c:if test="${componentProperties.thumbnailType eq 'icon'}">
             <span class="card-icon type_${componentProperties.iconType}">
-                <img class="icon" src="/apps/settings/wcm/design/aemdesign/blank.png" alt="${componentProperties.mimeTypeLabel}"/>
+                <img class="icon" src="http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png" alt="${componentProperties.mimeTypeLabel}"/>
             </span>
         </c:if>
         <c:if test="${not componentProperties.hideTitle and not empty componentProperties.title}">
