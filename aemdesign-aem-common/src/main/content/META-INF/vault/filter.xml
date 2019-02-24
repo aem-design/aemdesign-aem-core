@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspaceFilter version="1.0">
 
-    <filter root="/apps/aemdesign">
-        <!-- The type of the first pattern defines the default behavior, so that the filter is more natural to write.
-        If the first pattern is include, then the default is exclude and vice versa.  -->
-        <exclude pattern="/apps/aemdesign/config(.*)?"/>
-    </filter>
-
-    <!--<filter root="/conf/global/settings/workflow" mode="update">-->
-        <!--&lt;!&ndash; Exclude the instances to avoid overriding &ndash;&gt;-->
-        <!--<exclude pattern="/conf/global/settings/workflow/instances(/.*)?"/>-->
-    <!--</filter>-->
+    <filter root="/apps/aemdesign/components"/>
+    <filter root="/apps/aemdesign/global"/>
+    <filter root="/apps/aemdesign/i18n"/>
+    <filter root="/apps/aemdesign/install"/>
+    <filter root="/apps/aemdesign/templates"/>
+    <filter root="/apps/aemdesign/clientlibs" mode="update"/>
 
     <filter root="/apps/settings/wcm/design/aemdesign" mode="update"/>
-
-    <filter root="/etc/clientlibs/aemdesign/core" mode="update"/>
-    <filter root="/etc/designs/aemdesign" mode="update"/>
 
 
 </workspaceFilter>
