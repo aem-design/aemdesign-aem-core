@@ -8,7 +8,7 @@
     <filter root="/apps/aemdesign/templates"/>
     <filter root="/apps/aemdesign/clientlibs" mode="update"/>
 
-    <filter root="/apps/settings/wcm/design/aemdesign" mode="update"/>
+    <filter root="/apps/settings/wcm/designs/aemdesign" mode="update"/>
 
 
 </workspaceFilter>
