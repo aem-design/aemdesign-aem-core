@@ -3,6 +3,14 @@
 DEFAULT_POM_FILE="pom.xml"
 POM_FILE="${POM_FILE:-./$DEFAULT_POM_FILE}"
 
+IFCONFIG=$(which ifconfig 2>&1 || echo "")
+
+if [[ ! -z $IFCONFIG ]]; then
+    LOCAL_IP="$($IFCONFIG | grep 'inet ' | grep -v '127.0.0.1' | awk '{print $2}' | head -n 1)"
+else
+    LOCAL_IP="$(hostname -i)"
+fi
+
 function getDefaultFromPom() {
     local PARAM_NAME=${1:-}
     local POM_FILE=${2:-$DEFAULT_POM_FILE}
