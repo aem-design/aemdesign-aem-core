@@ -8,7 +8,7 @@
     <parent>
         <groupId>aemdesign</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>1.0.298</version>
+        <version>1.0.303</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +17,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-common</artifactId>
-    <version>1.0.298</version>
+    <version>1.0.303</version>
     <packaging>content-package</packaging>
     <name>AEM Design - Core - AEM Common</name>
     <description>AEM Design package with all common components</description>
@@ -229,18 +229,15 @@
                     <exclude>**/.DS_Store</exclude>
                     <exclude>**/target/**</exclude>
                     <exclude>**/pom.xml</exclude>
-                    <exclude>**/apps/aemdesign/clientlibs/v1/css/**</exclude>
-                    <exclude>**/apps/aemdesign/clientlibs/v1/js/**</exclude>
-                    <exclude>**/apps/aemdesign/clientlibs/v1/images/**</exclude>
-                    <exclude>**/apps/aemdesign/clientlibs/v1/fonts/**</exclude>
-                    <exclude>**/apps/aemdesign/clientlibs/v2/css/**</exclude>
-                    <exclude>**/apps/aemdesign/clientlibs/v2/js/**</exclude>
-                    <exclude>**/apps/aemdesign/clientlibs/v2/images/**</exclude>
-                    <exclude>**/apps/aemdesign/clientlibs/v2/fonts/**</exclude>
-                    <exclude>**/apps/aemdesign/clientlibs/styleguide/css/**</exclude>
-                    <exclude>**/apps/aemdesign/clientlibs/styleguide/js/**</exclude>
-                    <exclude>**/apps/aemdesign/clientlibs/styleguide/images/**</exclude>
-                    <exclude>**/apps/aemdesign/clientlibs/styleguide/fonts/**</exclude>
+                    <exclude>**/apps/*/clientlibs/v1/css/**</exclude>
+                    <exclude>**/apps/*/clientlibs/v1/js/**</exclude>
+                    <exclude>**/apps/*/clientlibs/v1/resources/**</exclude>
+                    <exclude>**/apps/*/clientlibs/v2/css/**</exclude>
+                    <exclude>**/apps/*/clientlibs/v2/js/**</exclude>
+                    <exclude>**/apps/*/clientlibs/v2/resources/**</exclude>
+                    <exclude>**/apps/*/clientlibs/styleguide/css/**</exclude>
+                    <exclude>**/apps/*/clientlibs/styleguide/js/**</exclude>
+                    <exclude>**/apps/*/clientlibs/styleguide/resources/**</exclude>
                 </excludes>
             </resource>
         </resources>
@@ -415,12 +412,6 @@
 
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>java8</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
         </profile>
     </profiles>
 </project>

@@ -5,9 +5,9 @@ SCRIPT_PARAMS="$@"
 
 source "../scripts/functions.sh"
 
-set_term_title "Deploying Package: mvn -Dvault.useProxy=false -DskipTests clean install -P java8,autoInstallPackage,autoInstallBundle "$@""
+set_term_title "Deploying Package: mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallPackage,autoInstallBundle "$@""
 echo "- Deploy"
-mvn -Dvault.useProxy=false -DskipTests clean install -P java8,autoInstallPackage "$@"
+mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallPackage "$@"
 set_term_title "Deployed"
 echo "- Deployed"
 
