@@ -43,10 +43,24 @@ public class PageDetails extends WCMUsePojo {
         
         com.day.cq.i18n.I18n _i18n = new I18n(getRequest());
 
+        //COMPONENT STYLES
+        // {
+        //   1 required - property name,
+        //   2 required - default value,
+        //   3 optional - name of component attribute to add value into
+        //   4 optional - canonical name of class for handling multivalues, String or Tag
+        // }
+        Object[][] componentFields = {
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+        };
+        componentProperties = ComponentsUtil.getComponentProperties(
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS
+        );
+        
     }
-
-
-
-
 }
 ```
