@@ -15,7 +15,7 @@
                 <ul class="tags">
                     <sly data-sly-list.tag="${componentProperties.category}" data-sly-unwrap>
                         <sly data-sly-test="${componentProperties.category[tag]}">
-                            <li id="${tag}">${componentProperties.category[tag]}</li>
+                            <li id="${componentProperties.category[tag].value}">${componentProperties.category[tag].text}</li>
                         </sly>
                     </sly>
                 </ul>
