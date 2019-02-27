@@ -1,10 +1,10 @@
-<sly test="${componentProperties.showBreadcrumb}">
+<sly data-sly-test="${component.componentProperties.showBreadcrumb}">
     <sly data-sly-resource="${'./breadcrumb' @ resourceType='aemdesign/components/layout/breadcrumb', decorationTagName='div'}"></sly>
 </sly>
-<sly test="${componentProperties.showToolbar}">
+<sly data-sly-test="${component.componentProperties.showToolbar}">
     <sly data-sly-resource="${'./toolbar' @ resourceType='aemdesign/components/layout/navbar', decorationTagName='div'}"></sly>
 </sly>
-<sly test="${componentProperties.showPageDate}">
+<sly data-sly-test="${component.componentProperties.showPageDate}">
     <sly data-sly-resource="${'./pagedate' @ resourceType='aemdesign/components/content/pagedate', decorationTagName='div'}"></sly>
 </sly>
 
