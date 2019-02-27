@@ -8,9 +8,9 @@
             <figcaption>
                 <span data-sly-element="${componentProperties.titleType}">${componentProperties['dc:title']}</span>
             </figcaption>
-            <div class="description" itemprop="description">${componentProperties['dc:description'] @ context = 'html'}</div>
+            <div class="description" itemprop="description">${componentProperties['dc:description'] @ context = 'unsafe'}</div>
             <span class="license"
-            data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo @ context = 'html'}</span>
+            data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo @ context = 'unsafe'}</span>
         </figure>
     </div>
 </template>

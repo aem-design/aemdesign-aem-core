@@ -7,9 +7,9 @@
                 <title class="title"
                        data-sly-test="${!componentProperties.hideTitle}"
                        data-sly-element="${componentProperties.titleType}"
-                       data-sly-attribute.id="${componentProperties.ariaLabelledBy}">${componentProperties.titleFormatted @ context = 'html'}</title>
+                       data-sly-attribute.id="${componentProperties.ariaLabelledBy}">${componentProperties.titleFormatted @ context = 'unsafe'}</title>
                 <div class="description"
-                     data-sly-test="${!componentProperties.hideDescription}">${componentProperties.description @ context = 'html'}</div>
+                     data-sly-test="${!componentProperties.hideDescription}">${componentProperties.description @ context = 'unsafe'}</div>
             </header>
             <sly data-sly-use.footer="./page-details.footer.html"
                  data-sly-call="${footer.variant @ componentProperties=componentProperties}"></sly>

@@ -6,7 +6,7 @@
         <div class="card-body">
             <title class="card-title"
                    data-sly-element="${componentProperties.badgeTitleType}">${componentProperties.badgeTitle}</title>
-            <div class="card-text">${componentProperties.badgeDescription @ context = 'html'}</div>
+            <div class="card-text">${componentProperties.badgeDescription @ context = 'unsafe'}</div>
         </div>
     </div>
 </template>
