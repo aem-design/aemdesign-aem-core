@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspaceFilter version="1.0">
 
-    <filter root="/apps/aemdesign/components"/>
+    <filter root="/apps/aemdesign/components">
+        <!-- apps/aemdesign/global/dialog/touch/text/content/items/textTab/items/column/items/text/rtePlugins -->
+        <exclude pattern="/apps/aemdesign/global/dialog/touch/text/content/items/textTab/items/column/items/text/rtePlugins/misctools/specialCharsConfig/chars(/.*)?"/>
+        <exclude pattern="/apps/aemdesign/global/dialog/touch/text/content/items/textTab/items/column/items/text/rtePlugins/styles/styles(/.*)?"/>
+        <exclude pattern="/apps/aemdesign/global/dialog/touch/text/content/items/textTab/items/column/items/text/rtePlugins/paraformat/formats(/.*)?"/>
+        <exclude pattern="/apps/aemdesign/global/dialog/touch/table/content/items/tableTab/items/column/items/table/rtePlugins/misctools/specialCharsConfig/chars(/.*)?"/>
+        <exclude pattern="/apps/aemdesign/global/dialog/touch/table/content/items/tableTab/items/column/items/table/rtePlugins/styles/styles(/.*)?"/>
+        <exclude pattern="/apps/aemdesign/global/dialog/touch/table/content/items/tableTab/items/column/items/table/rtePlugins/paraformat/formats(/.*)?"/>
+        <exclude pattern="/apps/aemdesign/global/dialog/description/content/items/descriptionTab/items/column/items/description/rtePlugins/misctools/specialCharsConfig/chars(/.*)?"/>
+        <exclude pattern="/apps/aemdesign/global/dialog/description/content/items/descriptionTab/items/column/items/description/rtePlugins/styles/styles(/.*)?"/>
+        <exclude pattern="/apps/aemdesign/global/dialog/description/content/items/descriptionTab/items/column/items/description/rtePlugins/paraformat/formats(/.*)?"/>
+    </filter>
     <filter root="/apps/aemdesign/global"/>
     <filter root="/apps/aemdesign/i18n"/>
     <filter root="/apps/aemdesign/install"/>
