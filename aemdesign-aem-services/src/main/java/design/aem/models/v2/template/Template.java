@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX;
 import static design.aem.utils.components.CommonUtil.findComponentInPage;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Template extends WCMUsePojo {
 
@@ -29,14 +30,14 @@ public class Template extends WCMUsePojo {
         componentProperties = ComponentsUtil.getNewComponentProperties(this);
 
         String[] listLookForDetailComponent = DEFAULT_LIST_DETAILS_SUFFIX;
-        Page componentPage = getPageManager().getContainingPage(getResource().getPath());
         String detailsPath = findComponentInPage(getCurrentPage(),listLookForDetailComponent);
-        String componentPath = detailsPath + ".badge.metadata";
+        if (isNotEmpty(detailsPath)) {
+            String componentPath = detailsPath + ".badge.metadata";
 
-        componentProperties.put("detailsPath",detailsPath);
-        componentProperties.put("detailsMetadataBadgePath",componentPath);
-        componentProperties.put("detailsMetadataBadgeUrl",componentPath.concat(DEFAULT_EXTENTION));
-
+            componentProperties.put("detailsPath", detailsPath);
+            componentProperties.put("detailsMetadataBadgePath", componentPath);
+            componentProperties.put("detailsMetadataBadgeUrl", componentPath.concat(DEFAULT_EXTENTION));
+        }
 
     }
 
