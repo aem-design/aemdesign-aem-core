@@ -13,10 +13,10 @@
         <div class="title"
              data-sly-test="${componentProperties.title}">${componentProperties.title}</div>
         <div class="description"
-             data-sly-test="${componentProperties.description}">${componentProperties.description @ context = 'html'}</div>
+             data-sly-test="${componentProperties.description}">${componentProperties.description @ context = 'unsafe'}</div>
         <div class="info"
              data-sly-test="${componentProperties.info}">${componentProperties.info}</div>
         <div class="license"
-             data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo @ context = 'html'}</div>
+             data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo @ context = 'unsafe'}</div>
     </a>
 </template>
