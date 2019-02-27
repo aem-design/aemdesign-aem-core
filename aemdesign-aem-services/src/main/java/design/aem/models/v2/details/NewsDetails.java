@@ -3,18 +3,18 @@ package design.aem.models.v2.details;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.TagConstants;
-import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,38 +28,33 @@ import static design.aem.utils.components.ResolverUtil.mappedUrl;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class PageDetails extends WCMUsePojo {
+public class NewsDetails extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PageDetails.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NewsDetails.class);
 
-    private static final String COMPONENT_DETAILS_NAME = "page-details";
+    private static final String COMPONENT_DETAILS_NAME = "news-details";
 
     private static final String DEFAULT_FORMAT_TITLE = "${title}";
     private static final String FIELD_FORMAT_TITLE = "titleFormat";
     private static final String FIELD_FORMATTED_TITLE = "titleFormatted";
     private static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
 
-    public static String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
-
 
     private ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
-
-
-
+    
     @Override
     @SuppressWarnings("Duplicates")
     public void activate() throws Exception {
 
-        com.day.cq.i18n.I18n _i18n = new I18n(getRequest());
-        
+        I18n _i18n = new I18n(getRequest());
+
         final String DEFAULT_ARIA_ROLE = "banner";
         final String DEFAULT_TITLE_TAG_TYPE = "h1";
-        final String DEFAULT_I18N_CATEGORY = "page-detail";
+        final String DEFAULT_I18N_CATEGORY = "news-detail";
         final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
 
         // default values for the component
@@ -86,17 +81,17 @@ public class PageDetails extends WCMUsePojo {
                 {"showToolbar", DEFAULT_SHOW_TOOLBAR},
                 {"showPageDate", DEFAULT_SHOW_PAGE_DATE},
                 {"showParsys", DEFAULT_SHOW_PARSYS},
-                {FIELD_LINK_TARGET, StringUtils.EMPTY, FIELD_TARGET},
+                {"linkTarget", StringUtils.EMPTY, "target"},
                 {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
                 {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
                 {FIELD_PAGE_TITLE_SUBTITLE, DEFAULT_SUBTITLE},
                 {TagConstants.PN_TAGS, new String[]{}},
-                {"subCategory", new String[]{}},
                 {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
-                {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
+                {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE, ""},
                 {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
                 {DETAILS_LINK_TEXT, getPageNavTitle(getResourcePage())},
                 {DETAILS_LINK_TITLE, getPageTitle(getResourcePage())},
+                {"author", ""},
         };
 
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -106,13 +101,31 @@ public class PageDetails extends WCMUsePojo {
                 DEFAULT_FIELDS_ACCESSIBILITY,
                 DEFAULT_FIELDS_DETAILS_OPTIONS);
 
-        String variant = componentProperties.get(FIELD_VARIANT,DEFAULT_VARIANT);
+        Calendar publishDate = getProperties().get("publishDate",getResourcePage().getProperties().get(JcrConstants.JCR_CREATED, Calendar.getInstance()));
+
+        componentProperties.put("publishDate",publishDate);
+
+        //get format strings from dictionary
+        String dateFormatString = _i18n.get("publishDateFormat",DEFAULT_I18N_CATEGORY);
+        String dateDisplayFormatString = _i18n.get("publishDateDisplayFormat",DEFAULT_I18N_CATEGORY);
+
+        //format date into formatted date
+        SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString);
+        String publishDateText = dateFormat.format(publishDate.getTime());
+
+        //format date into display date
+        dateFormat = new SimpleDateFormat(dateDisplayFormatString);
+        String publishDisplayDateText = dateFormat.format(publishDate.getTime());
+
+        componentProperties.put("publishDateText",publishDateText);
+        componentProperties.put("publishDisplayDateText",publishDisplayDateText);
+
+        //get full published date display text
+        String newsDateStatusText = _i18n.get("newsDateStatusText", DEFAULT_I18N_CATEGORY, publishDateText, publishDisplayDateText);
+        componentProperties.put("newsDateStatusText",newsDateStatusText);
 
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
         componentProperties.put("category",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
-
-        String[] subCategory = componentProperties.get("subCategory", new String[]{});
-        componentProperties.put("subCategory",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
 
         //read the image node
         componentProperties.putAll(getAssetInfo(getResourceResolver(),
@@ -188,8 +201,9 @@ public class PageDetails extends WCMUsePojo {
         componentProperties.putAll(processBadgeRequestConfig(componentProperties,getResourceResolver(), getRequest()), true);
 
         //process badge condifg
-        componentProperties.putAll(processBadgeConfig(getResourcePage(),componentProperties));
+        componentProperties.putAll(PageDetails.processBadgeConfig(getResourcePage(),componentProperties));
 
+        String variant = componentProperties.get(FIELD_VARIANT,DEFAULT_VARIANT);
         //process variant selection
         if (isEmpty(variant)) {
             variant = DEFAULT_VARIANT;
@@ -199,7 +213,7 @@ public class PageDetails extends WCMUsePojo {
         componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT,variant));
 
         //get page metadata fields
-        componentProperties.put(PAGE_META_PROPERTY_FIELDS,processPageMetaProperties(getResourcePage(),getResourceResolver(),getRequest(),componentProperties));
+        componentProperties.put(PageDetails.PAGE_META_PROPERTY_FIELDS,PageDetails.processPageMetaProperties(getResourcePage(),getResourceResolver(),getRequest(), componentProperties));
 
         //set canonical url
         componentProperties.put(FIELD_CANONICAL_URL,mappedUrl(getResourceResolver(), getRequest(), getResourcePage().getPath()).concat(DEFAULT_EXTENTION));
@@ -208,137 +222,6 @@ public class PageDetails extends WCMUsePojo {
 
     }
 
-    /***
-     * get and format badge config
-     * @param page resource page
-     * @param componentProperties current componentProperties
-     * @return badge config map to be added to componentProperties
-     */
-    @SuppressWarnings("Duplicates")
-    public static Map<String, Object> processBadgeConfig(Page page, ComponentProperties componentProperties) {
-        Map<String, Object> badgeConfig = new HashMap<>();
-
-        //get badge action attributes
-        Map<String, String> badgeLinkAttr = new HashMap<>();
-        badgeLinkAttr.put(FIELD_TARGET,componentProperties.get(FIELD_LINK_TARGET,""));
-        if (isNotEmpty(getPageRedirect(page))) {
-            badgeLinkAttr.put(FIELD_EXTERNAL, "true");
-        }
-        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_EVENT_TYPE,componentProperties.get(DETAILS_BADGE_ANALYTICS_EVENT_TYPE,""));
-        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LINK_TYPE,componentProperties.get(DETAILS_BADGE_ANALYTICS_LINK_TYPE,""));
-        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LINK_LOCATION,componentProperties.get(DETAILS_BADGE_ANALYTICS_LINK_LOCATION,""));
-        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LINK_DESCRIPTION,componentProperties.get(DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION,""));
-        badgeLinkAttr.put(COMPONENT_ATTRIBUTE_INPAGEPATH,componentProperties.get(COMPONENT_INPAGEPATH,""));
-
-        badgeConfig.put(DETAILS_BADGE_LINK_ATTR,badgeLinkAttr);
-
-        //get badge image attributes
-        Map<String, String> badgeImageAttr = new HashMap<>();
-        badgeImageAttr.put(FIELD_DATA_ASSET_PRIMARY_ID,componentProperties.get(FIELD_PAGE_IMAGE_ID,""));
-        badgeImageAttr.put(FIELD_DATA_ASSET_PRIMARY_LICENSE,componentProperties.get(FIELD_PAGE_IMAGE_LICENSE_INFO,""));
-        badgeImageAttr.put(FIELD_DATA_ASSET_SECONDARY_ID,componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY_ID,""));
-        badgeImageAttr.put(FIELD_DATA_ASSET_SECONDARY_LICENSE,componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY_LICENSE_INFO,""));
-        badgeImageAttr.put(FIELD_WIDTH,componentProperties.get(FIELD_THUMBNAIL_WIDTH,""));
-
-        badgeImageAttr.put(FIELD_HEIGHT,componentProperties.get(FIELD_THUMBNAIL_HEIGHT,""));
-
-        String pageSecondaryImageThumbnail = componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL,"");
-        if (isNotEmpty(pageSecondaryImageThumbnail)) {
-            badgeImageAttr.put(FIELD_CLASS, "rollover");
-            badgeImageAttr.put(FIELD_DATA_ASSET_ROLLOVER_SRC, pageSecondaryImageThumbnail);
-        }
-
-        badgeConfig.put(DETAILS_BADGE_IMAGE_ATTR,badgeImageAttr);
-
-        //get badge class attributes
-        String badgeClassAttr = "";
-        badgeClassAttr += StringUtils.join(componentProperties.get(DETAILS_CARD_STYLE,new String[0])," ");
-        badgeClassAttr += StringUtils.join(componentProperties.get(DETAILS_TITLE_ICON,new String[0])," ");
-
-        badgeConfig.put(DETAILS_BADGE_CLASS,badgeClassAttr);
-
-        String badgeClassIconAttr = "";
-        badgeClassIconAttr += StringUtils.join(componentProperties.get(DETAILS_CARD_ICON,new String[0])," ");
-
-        badgeConfig.put(DETAILS_BADGE_CLASS_ICON,badgeClassIconAttr);
-
-
-        //check badge title
-        String pageNavTitle = componentProperties.get(FIELD_PAGE_TITLE_NAV, "");
-        badgeConfig.put(DETAILS_BADGE_TITLE,pageNavTitle);
-        //trim pageNavTitle if needed
-        if (Boolean.parseBoolean(componentProperties.get(DETAILS_TITLE_TRIM,""))) {
-            int badgeTitleTrimLengthMax = componentProperties.get(DETAILS_TITLE_TRIM_LENGTH_MAX,20);
-            if (StringUtils.isNotEmpty(pageNavTitle)) {
-                badgeConfig.put(DETAILS_BADGE_TITLE,
-                        pageNavTitle.substring(0, badgeTitleTrimLengthMax)
-                                .concat(
-                                        componentProperties.get(
-                                                DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX,
-                                                DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX_DEFAULT
-                                        )
-                                )
-                );
-            }
-        }
-
-        //check badge description
-        String badgeDescription = componentProperties.get(DETAILS_DESCRIPTION, "");
-        badgeConfig.put(DETAILS_BADGE_DESCRIPTION,badgeDescription);
-        //trim page description if needed
-        if (Boolean.parseBoolean(componentProperties.get(DETAILS_SUMMARY_TRIM,""))) {
-            int badgeSummaryLengthMaxSuffix = componentProperties.get(DETAILS_SUMMARY_TRIM_LENGTH_MAX,20);
-            if (StringUtils.isNotEmpty(badgeDescription)) {
-                badgeConfig.put(DETAILS_BADGE_DESCRIPTION,
-                        badgeDescription.substring(0, badgeSummaryLengthMaxSuffix)
-                                .concat(
-                                        componentProperties.get(
-                                                DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX,
-                                                DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX
-                                        )
-                                )
-                );
-            }
-        }
-
-        return badgeConfig;
-    }
-
-
-    public static Map<String, String> processPageMetaProperties(Page page, ResourceResolver resourceResolver, SlingHttpServletRequest request,  ComponentProperties componentProperties) {
-        Map<String, String> newFields = new HashMap<>();
-
-
-        String[] pageMetaProperty = componentProperties.get(DETAILS_PAGE_METADATA_PROPERTY, new String[0]);
-        String[] pageMetaPropertyContent = componentProperties.get(DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[0]);
-
-        if (pageMetaProperty.length == pageMetaPropertyContent.length) {
-            for (int i = 0; i < pageMetaProperty.length; i ++) {
-                String key = pageMetaProperty[i];
-                String value = pageMetaPropertyContent[i];
-                if (isNotEmpty(key) || isNotEmpty(value)) {
-                    newFields.put(key, value);
-                }
-            }
-        }
-
-        //provide defaults for metadata
-        if (!newFields.containsKey(FIELD_OG_URL)) {
-            newFields.put(FIELD_OG_URL, mappedUrl(resourceResolver, request, page.getPath()).concat(DEFAULT_EXTENTION));
-        }
-        if (!newFields.containsKey(FIELD_OG_IMAGE)) {
-            newFields.put(FIELD_OG_IMAGE, mappedUrl(resourceResolver, request, getThumbnailUrl(page,resourceResolver)));
-        }
-        if (!newFields.containsKey(FIELD_OG_TITLE)) {
-            newFields.put(FIELD_OG_TITLE, getPageTitle(page));
-        }
-        if (!newFields.containsKey(FIELD_OG_DESCRIPTION)) {
-            newFields.put(FIELD_OG_DESCRIPTION, getPageDescription(page));
-        }
-
-
-        return newFields;
-    }
 
     /***
      * substitute formatted field template with fields from component.
@@ -348,7 +231,7 @@ public class PageDetails extends WCMUsePojo {
      * @return returns map with new values
      */
     @SuppressWarnings("Duplicates")
-    public static Map<String, String> processComponentFields(ComponentProperties componentProperties, com.day.cq.i18n.I18n i18n, SlingScriptHelper sling){
+    public Map<String, String> processComponentFields(ComponentProperties componentProperties, I18n i18n, SlingScriptHelper sling){
         Map<String, String> newFields = new HashMap<>();
 
         try {

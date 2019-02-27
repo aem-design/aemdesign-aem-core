@@ -6,7 +6,7 @@
   "readMoreAboutText ((event-detail))": "Read More About ",
   "readMoreAboutText ((contact-detail))": "Read More About ",
   "newsDateStatusText ((news-detail))": "<time datetime=\"{0}\">{1}<\/time>",
-  "publishDateDisplayFormat ((news-detail))": "dd.MM.yyyy",
+  "publishDateDisplayFormat ((news-detail))": "EEEE dd MMMM YYYY",
   "publishDateFormat ((news-detail))": "yyyy-MM-dd",
   "pastEventText ((event-detail))": "Past Event ",
   "date ((event-detail))": "Date ",

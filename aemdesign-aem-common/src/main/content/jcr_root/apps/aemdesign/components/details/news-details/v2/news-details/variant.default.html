@@ -1,0 +1,29 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+        <div class="container">
+            <sly data-sly-use.header="./news-details.header.html"
+                 data-sly-call="${header.variant @ componentProperties=componentProperties}"></sly>
+            <title class="title"
+                   data-sly-test="${!componentProperties.hideTitle}"
+                   data-sly-element="${componentProperties.titleType}"
+                   data-sly-attribute.id="${componentProperties.ariaLabelledBy}">${componentProperties.titleFormatted @ context = 'unsafe'}</title>
+            <div class="author" data-sly-test="${!componentProperties.author}">${componentProperties.author}</div>
+            <div class="tags" data-sly-test="${componentProperties.category}">
+                <sly data-sly-list.tag="${componentProperties.category}" data-sly-unwrap>
+                    <sly data-sly-test="${componentProperties.category[tag]}">
+                        <span class="tag badge badge-default" data-value="${componentProperties.category[tag].value}">${componentProperties.category[tag].title}</span>
+                    </sly>
+                </sly>
+            </div>
+            <div class="published" data-sly-test="${componentProperties.showPageDate}">${componentProperties.newsDateStatusText @ context='unsafe'}</div>
+            <div class="toolbar">
+                <sly data-sly-use.toolbar="./news-details.toolbar.html"
+                     data-sly-call="${toolbar.variant @ componentProperties=componentProperties}"></sly>
+            </div>
+            <div class="description"
+                 data-sly-test="${!componentProperties.hideDescription}">${componentProperties.description @ context = 'unsafe'}</div>
+            <sly data-sly-use.footer="./news-details.footer.html"
+                 data-sly-call="${footer.variant @ componentProperties=componentProperties}"></sly>
+        </div>
+    </div>
+</template>
