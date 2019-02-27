@@ -1,3 +1,5 @@
-<sly data-sly-test="${component.componentProperties.showParsys}">
-    <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container', decorationTagName='div'}"></sly>
-</sly>
+<template data-sly-template.variant="${@ componentProperties}">
+    <sly data-sly-test="${componentProperties.showParsys}">
+        <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container', decorationTagName='div'}"></sly>
+    </sly>
+</template>
