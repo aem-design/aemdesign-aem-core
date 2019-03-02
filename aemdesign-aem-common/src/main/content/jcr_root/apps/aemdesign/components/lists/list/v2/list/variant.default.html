@@ -7,5 +7,8 @@
             <sly data-sly-use.body="list.body.html"
                  data-sly-call="${body.variant @ componentProperties=component.componentProperties, component=component}"></sly>
         </div>
+
+        <sly data-sly-use.pagination="${componentProperties.paginationTemplate}" data-sly-call="${pagination.variant @ componentProperties=componentProperties}"></sly>
+
     </div>
 </template>
