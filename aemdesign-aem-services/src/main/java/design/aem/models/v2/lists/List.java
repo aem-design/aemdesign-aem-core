@@ -1,26 +1,24 @@
 package design.aem.models.v2.lists;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.commons.RangeIterator;
 import com.day.cq.i18n.I18n;
 import com.day.cq.search.*;
 import com.day.cq.search.result.Hit;
+import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
-import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
-import com.day.cq.wcm.api.NameConstants;
+import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.text.Text;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.JcrConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
@@ -30,15 +28,18 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.io.ByteArrayInputStream;
-import java.io.Serializable;
+import java.io.StringReader;
 import java.net.URLDecoder;
 import java.util.*;
 
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
+import static design.aem.utils.components.I18nUtil.*;
 import static design.aem.utils.components.ImagesUtil.getAssetInfo;
 import static design.aem.utils.components.ImagesUtil.getResourceImagePath;
+import static design.aem.utils.components.TagUtil.getTagValueAsAdmin;
+import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
@@ -61,38 +62,37 @@ public class List extends WCMUsePojo {
     private static final String PN_TAGS_MATCH = "tagsMatch"; //TAGS_MATCH_PROPERTY_NAME
     private static final String LIMIT_PROPERTY_NAME = "limit"; //TAGS_MATCH_PROPERTY_NAME
     private static final String PAGE_MAX_PROPERTY_NAME = "pageMax";
+    private static final String PAGE_START_PROPERTY_NAME = "pageStart";
     private static final String ANCESTOR_PAGE_PROPERTY_NAME = "ancestorPage";
     private static final String SEARCH_IN_PROPERTY_NAME = "searchIn";
     private static final String SAVEDQUERY_PROPERTY_NAME = "savedquery";
     private static final String LISTSPLITEVERY = "listSplitEvery";
     private static final String SHOWHIDDEN = "showHidden";
     private static final String SHOWINVALID = "showInvalid";
-    private static final String CHILDDEPTH = "childDepth";
     private static final String DETAILSBADGE = "detailsBadge";
-    private static final int CHILDDEPTH_DESCENDANTS = 5;
-    private static final int CHILDDEPTH_CHILDREN =1;
+    private static final String PAGINATION_TYPE = "paginationType";
 
-    public static final String LIST_ITEM_BADGE = "listItemBadge";
+    private static final String REQUEST_PARAM_MARKER_START = "start";
+    private static final String REQUEST_PARAM_MARKER_MAX = "max";
+    private static final String REQUEST_PARAM_QUERY = "q";
+    private static final String QUERY_ENCODING = "UTF-8";
+
     public static final String LIST_TAG_ORDERED = "ol";
     public static final String LIST_TAG_UNORDERED = "ul";
     public static final String LIST_TAG = "listTag";
-    public static final String LIST_ISORDERED = "isOrdered";
     public static final String LIST_ISPAGINATING = "isPaginating";
     public static final String LIST_ISEMPTY = "isEmpty";
 
-//    private static final String PN_SHOW_DESCRIPTION = "showDescription";
-//    private static final String PN_SHOW_MODIFICATION_DATE = "showModificationDate";
-//    private static final String PN_LINK_ITEMS = "linkItems";
     private static final String PN_SEARCH_IN = "searchIn";
     private static final String PN_SORT_ORDER = "sortOrder";
     private static final String PN_ORDER_BY = "orderBy";
-//    private static final String PN_DATE_FORMAT = "dateFormat";
 
 
     private static final Boolean DEFAULT_PRINT_STRUCTURE = true;
     private static final String DEFAULT_TITLE_TYPE = "h2";
     private static final String DEFAULT_I18N_CATEGORY = "list";
     private static final String DEFAULT_BADGE = "default";
+    private static final String DEFAULT_PAGINATION = "default";
 
     private ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
@@ -104,19 +104,13 @@ public class List extends WCMUsePojo {
 
 
     private java.util.List<Map<String,Object>> listItems;
-//    protected java.util.List<Page> listItems;
 
     private String startIn;
     private List.SortOrder sortOrder;
-    private List.OrderBy orderBy;
 
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     @Default(intValues = LIMIT_DEFAULT)
     private int limit;
-
-    @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
-    @Default(intValues = PN_DEPTH_DEFAULT)
-    private int childDepth;
 
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     @Default(values = StringUtils.EMPTY)
@@ -125,15 +119,16 @@ public class List extends WCMUsePojo {
     @Default(values = StringUtils.EMPTY)
     private String savedquery;
 
-    @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
-    @Default(intValues = 0)
-    private int maxItems;
-
-    private int pageMaximum;
-    private int pageStart;
-    private int listSplitEvery;
+    private long pageMax;
+    private long totalPages;
+    private long pageStart;
+    private long hitsPerPage;
+    private long totalMatches;
+    private long currentPage;
+    private long listSplitEvery;
     private String id;
     private boolean isPaginating;
+    private java.util.List<ResultPage> resultPages;
 
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     @Default(values = StringUtils.EMPTY)
@@ -159,6 +154,7 @@ public class List extends WCMUsePojo {
     protected void loadConfig() {
 
         I18n _i18n = new I18n(getRequest());
+        String resourcePath = getResource().getPath();
 
         LOGGER.error("List: loading config");
 
@@ -169,28 +165,29 @@ public class List extends WCMUsePojo {
                 {"feedType", "rss"},
                 {"listSplit", false, "data-list-split-enabled"},
                 {LISTSPLITEVERY, LISTSPLITEVERY_DEFAULT, "data-list-split-every"},
-                {"tags", new String[]{},"data-search-tags", Tag.class.getCanonicalName()},
+//                {"tags", new String[]{},"data-search-tags", Tag.class.getCanonicalName()},
                 {PN_ORDER_BY, StringUtils.EMPTY},
                 {DETAILSBADGE, DEFAULT_BADGE, "data-badge"},
                 {"printStructure", DEFAULT_PRINT_STRUCTURE},
                 {SHOWHIDDEN, false},
                 {SHOWINVALID, false},
-                {"paginationType", StringUtils.EMPTY},
+                {PAGINATION_TYPE, DEFAULT_PAGINATION},
                 {LIMIT_PROPERTY_NAME, LIMIT_DEFAULT},
                 {PAGE_MAX_PROPERTY_NAME, PAGEMAX_DEFAULT},
                 {ANCESTOR_PAGE_PROPERTY_NAME, StringUtils.EMPTY},
-                {PN_PARENT_PAGE, StringUtils.EMPTY},
+                {PN_PARENT_PAGE, getCurrentPage().getPath()},
                 {PN_SOURCE, StringUtils.EMPTY},
                 {PN_PAGES, new String[]{}},
-                {PN_TAGS_PARENT_PAGE, StringUtils.EMPTY},
+                {PN_TAGS_PARENT_PAGE, getCurrentPage().getPath()},
                 {PN_TAGS, new String[]{}},
-                {PN_TAGS_MATCH, StringUtils.EMPTY},
+                {PN_TAGS_MATCH, TAGS_MATCH_ANY_VALUE},
                 {PN_ORDER_BY, StringUtils.EMPTY},
                 {PN_SORT_ORDER, SortOrder.ASC.value},
                 {PN_SEARCH_IN, getResourcePage().getPath()},
                 {SAVEDQUERY_PROPERTY_NAME, StringUtils.EMPTY},
                 {SEARCH_IN_PROPERTY_NAME, StringUtils.EMPTY},
-                {CHILDDEPTH, CHILDDEPTH_DESCENDANTS}
+                {LISTITEM_LINK_TEXT, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TEXT,DEFAULT_I18N_CATEGORY,_i18n)},
+                {LISTITEM_LINK_TITLE, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TITLE,DEFAULT_I18N_CATEGORY,_i18n)}
         };
 
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -200,38 +197,47 @@ public class List extends WCMUsePojo {
                 DEFAULT_FIELDS_ACCESSIBILITY,
                 DEFAULT_FIELDS_ANALYTICS);
 
+        //generate id to be used when reading the query string
+        generateId();
+
+        //save tag info
+        String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
+        componentProperties.put("tags",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
+        componentProperties.attr.add("data-search-tags", StringUtils.join(tags,","));
+
+        //collection info for variables
         startIn = componentProperties.get(PN_SEARCH_IN, getResourcePage().getPath());
         sortOrder = SortOrder.fromString(componentProperties.get(PN_SORT_ORDER, SortOrder.ASC.value));
-        orderBy = OrderBy.fromString(componentProperties.get(PN_ORDER_BY, StringUtils.EMPTY));
-        childDepth = componentProperties.get(CHILDDEPTH, CHILDDEPTH_DESCENDANTS);
         savedquery = componentProperties.get(SAVEDQUERY_PROPERTY_NAME, "");
-        pageMaximum = componentProperties.get(PAGE_MAX_PROPERTY_NAME, 0);
+        pageMax = componentProperties.get(PAGE_MAX_PROPERTY_NAME, 0);
         listSplitEvery = componentProperties.get(LISTSPLITEVERY, LISTSPLITEVERY_DEFAULT);
         detailsBadge = componentProperties.get(DETAILSBADGE, DEFAULT_BADGE);
         limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
+        showHidden = componentProperties.get(SHOWHIDDEN, false);
+        showInvalid = componentProperties.get(SHOWINVALID, false);
 
-
+        //check default details suffix
         if (detailsNameSuffix == null) {
             detailsNameSuffix = DEFAULT_LIST_DETAILS_SUFFIX;
         }
 
-        pageStart = tryParseInt(getParameter("start"),0);
-        pageMaximum = tryParseInt(getParameter("max"), pageMaximum);
-        generateId();
+        //check query string for parameters
+        pageStart = tryParseLong(getParameter(REQUEST_PARAM_MARKER_START),0);
+        componentProperties.put(PAGE_START_PROPERTY_NAME, pageStart);
 
-        if (getRequest().getRequestParameter("q") !=null) {
+        pageMax = tryParseLong(getParameter(REQUEST_PARAM_MARKER_MAX), pageMax);
+        componentProperties.put(PAGE_MAX_PROPERTY_NAME, pageStart);
+
+        if (getRequest().getRequestParameter(REQUEST_PARAM_QUERY) !=null) {
             try {
-                query = getRequest().getRequestParameter("q").toString();
+                query = getRequest().getRequestParameter(REQUEST_PARAM_QUERY).toString();
             } catch (Exception ex) {
                 LOGGER.error("could not read query param {}", ex);
             }
         }
 
-        showHidden = componentProperties.get(SHOWHIDDEN, false);
-        showInvalid = componentProperties.get(SHOWINVALID, false);
 
-        String resourcePath = getResource().getPath();
-
+        //setup feed config
         if ((Boolean)componentProperties.get("feedEnabled")) {
             if ("atom".equals(componentProperties.get("feedType"))) {
                 componentProperties.put("feedExt", ".feed");
@@ -260,7 +266,6 @@ public class List extends WCMUsePojo {
         }
 
 
-
         //prepare request parms to pass to badges
         ComponentProperties badgeRequestAttributes = ComponentsUtil.getComponentProperties(
                 this,
@@ -279,12 +284,17 @@ public class List extends WCMUsePojo {
             LOGGER.error("could not set request attributes for use in badges");
         }
 
+        String paginationTemplate = String.format("pagination.%s.html", componentProperties.get(PAGINATION_TYPE, DEFAULT_PAGINATION));
+        componentProperties.put("paginationTemplate",paginationTemplate);
 
         componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
 
         LOGGER.error("list loaded");
     }
 
+    /**
+     * generate component id to use in creating querystring parameters.
+     */
     private void generateId() {
         String path = getResource().getPath();
         String rootMarker = JcrConstants.JCR_CONTENT.concat(PATH_SEPARATOR);
@@ -296,39 +306,55 @@ public class List extends WCMUsePojo {
         id = path.replace(PATH_SEPARATOR, PATH_UNDERSCORE);
     }
 
+    /**
+     * get request parameter with component id prefix.
+     * @param name name of querystring param suffix
+     * @return
+     */
     private String getParameter(String name) {
         return getRequest().getParameter(id + PATH_UNDERSCORE + name);
     }
 
-    public String getNextPageLink() {
-        if (isPaginating && pageMaximum > 0 && pageStart + pageMaximum < listItems.size()) {
-            int start = pageStart + pageMaximum;
+    /**
+     * get next page url.
+     * @return
+     */
+    private String getNextPageLink() {
+        long nextPageStart = pageStart + pageMax;
+        if (isPaginating && pageMax > 0 && resultPages.size() > 0 && nextPageStart < totalMatches) {
             List.PageLink link = new List.PageLink(getRequest());
-            link.setParameter("start", start);
+            link.setParameter(REQUEST_PARAM_MARKER_START, nextPageStart);
             return link.toString();
         } else {
-            return null;
+            return "";
         }
     }
 
-    public String getPreviousPageLink() {
-        if (isPaginating && pageStart > 0) {
-            int start = pageMaximum > 0 && pageStart > pageMaximum ? pageStart - pageMaximum : 0;
+    /**
+     * get previous page url.
+     * @return
+     */
+    private String getPreviousPageLink() {
+        if (isPaginating && pageMax > 0 && resultPages.size() > 0 && pageStart != 0) {
+            long previousPageStart = pageStart > pageMax ? pageStart - pageMax : 0;
             List.PageLink link = new List.PageLink(getRequest());
-            link.setParameter("start", start);
+            link.setParameter(REQUEST_PARAM_MARKER_START, previousPageStart);
             return link.toString();
         } else {
-            return null;
+            return "";
         }
     }
 
+    /**
+     * get page badge info from a page.
+     * @param page
+     * @return
+     */
     private Map<String,Object> getPageBadgeInfo(Page page) {
 
         Map<String,Object> badge = new HashMap<>();
 
         try {
-
-            badge.put("listLookForDetailComponent", detailsNameSuffix);
 
             String componentPath = findComponentInPage(page, detailsNameSuffix);
             if (isNotEmpty(componentPath)) {
@@ -363,11 +389,19 @@ public class List extends WCMUsePojo {
 
     }
 
+    /**
+     * get list options type.
+     * @return
+     */
     protected Source getListType() {
         String listFromValue = componentProperties.get(PN_SOURCE, getCurrentStyle().get(PN_SOURCE, StringUtils.EMPTY));
         return Source.fromString(listFromValue);
     }
 
+    /**
+     * get list items, used by HTL templates.
+     * @return
+     */
     public Collection<Map<String,Object>> getListItems() {
         LOGGER.error("loading items");
         if (listItems == null) {
@@ -376,30 +410,19 @@ public class List extends WCMUsePojo {
         }
 
         return listItems;
-//        //TODO: only collect pages needed
-//        //return pages of results
-//        Collection<Map<String,Object>> alist = new ArrayList<>();
-//        int pageCounter = 0;
-//        for(int i = 0; i < listItems.size(); ++i) {
-//            if (i >= pageStart) {
-//                alist.add(listItems.get(i));
-//                ++pageCounter;
-//                if (pageMaximum > 0 && pageCounter == pageMaximum) {
-//                    break;
-//                }
-//            }
-//        }
-
-//        return alist;
     }
 
+    /**
+     * populate list items.
+     * @param listType list type to execute
+     */
     protected void populateListItems(Source listType) {
         switch (listType) {
             case STATIC: //SOURCE_STATIC
                 populateStaticListItems();
                 break;
             case CHILDREN: //SOURCE_CHILDREN
-                populateChildListItems(CHILDDEPTH_CHILDREN);
+                populateChildListItems();
                 break;
             case TAGS: //SOURCE_TAGS
                 populateTagListItems();
@@ -411,60 +434,53 @@ public class List extends WCMUsePojo {
                 populateQueryListItems();
                 break;
             case DESCENDANTS: //SOURCE_DESCENDANTS
-                populateChildListItems(childDepth);
+                populateDescendantsListItems();
                 break;
             default:
                 listItems = new ArrayList<>();
                 break;
         }
-        sortListItems();
-        setMaxItems();
+        //sortListItems();
 
-        componentProperties.put(LIST_ISEMPTY, listItems.isEmpty());
+        componentProperties.put(LIST_ISEMPTY, totalMatches == 0);
 
-        componentProperties.put("test", "test1");
+        updateIsPaginating();
 
+        updateListSplit();
 
-        isPaginating = listItems.size() > 0 && listItems.size() > pageMaximum;
+        componentProperties.put("nextPageLink",getNextPageLink());
+        componentProperties.put("previousPageLink",getPreviousPageLink());
 
-        componentProperties.put(LIST_ISPAGINATING, isPaginating);
+//        setMaxItems();
+    }
+
+    /**
+     * set pagination helper attributes.
+     */
+    private void updateIsPaginating() {
+
+        //isPaginating = listItems.size() > 0 && listItems.size() > pageMax;
+
+        //componentProperties.put(LIST_ISPAGINATING, isPaginating);
+
+        componentProperties.attr.add("data-has-pages", isPaginating);
+
 
         if (isPaginating) {
-            //copied from com.day.cq.wcm.foundation.List.generateId
-            String path = getResource().getPath();
-            String rootMarker = JcrConstants.JCR_CONTENT.concat("/");
-            int root = path.indexOf(rootMarker);
-            if (root >= 0) {
-                path = path.substring(root + rootMarker.length());
-            }
-            String start_param = path.replace('/', '_').concat("_start");
-
-            componentProperties.attr.add("data-has-pages", isPaginating);
-
-            int totalPages = 0;
-            int itemsPerPage = pageMaximum;
-
-            // When the maximum number of pages is greater than zero, calculate the total number by checking
-            // the modulus of each item compared to the total known number of items that can be shown per page.
-            if (itemsPerPage > 0) {
-                for (int i = 0; i < listItems.size(); i++) {
-                    if (i > 0 && i % itemsPerPage == 0) {
-                        totalPages++;
-                    }
-                }
-            }
 
             componentProperties.attr.add("data-total-pages", String.valueOf(totalPages));
             componentProperties.attr.add("data-content-url", getResource().getPath().concat(DEFAULT_EXTENTION));
-            componentProperties.attr.add("data-content-start", start_param);
+            componentProperties.attr.add("data-content-start", id.concat("_start"));
 
-
-
-        } else {
-            componentProperties.attr.add("data-has-pages", isPaginating);
         }
 
+    }
 
+
+    /**
+     * calculate splits in list items
+     */
+    private void updateListSplit() {
         //parse list and set items that should force a split in a list
         for (int i=0; i < listItems.size();i++) {
             if ((i + 1) % listSplitEvery == 0) {
@@ -473,97 +489,114 @@ public class List extends WCMUsePojo {
         }
     }
 
-
-    public boolean includePageInList(Page page, boolean includeInvalid, boolean includeHidden) {
+    /**
+     * determine if the page should be shown in output.
+     * @param page page to check
+     * @param includeInvalid include if page is invalid
+     * @param includeHidden include in page is hidden
+     * @return
+     */
+    private boolean includePageInList(Page page, boolean includeInvalid, boolean includeHidden) {
         return (includeHidden || !page.isHideInNav()) && (includeInvalid || page.isValid()) && page.getDeleted() == null;
     }
 
+    /**
+     * populates listItems with resources from pages list.
+     * page object is also resolved and returned if available
+     */
     @SuppressWarnings("Duplicates")
     private void populateStaticListItems() {
         listItems = new ArrayList<>();
-        String[] pagesPaths = componentProperties.get(PN_PAGES, new String[0]);
-        for (String path : pagesPaths) {
+        String[] resourcePaths = componentProperties.get(PN_PAGES, new String[0]);
+        ResourceResolver resourceResolver = getResourceResolver();
+        for (String path : resourcePaths) {
+            Map<String,Object> item = new HashMap<>();
+
+            Resource pathResource = resourceResolver.resolve(path);
+
+            if (!ResourceUtil.isNonExistingResource(pathResource)) {
+                item.put("type", pathResource.getResourceType());
+                item.put("resource", pathResource);
+            } else {
+                LOGGER.error("populateStaticListItems: skipping item as it does not exist {}", path);
+                continue;
+            }
+
             Page page = getPageManager().getContainingPage(path);
             if (page != null) {
                 if (includePageInList(page,showInvalid,showHidden)) {
-                    Map<String,Object> item = new HashMap<>();
                     item.put("page", page);
                     item.putAll(getPageBadgeInfo(page));
-                    listItems.add(item);
                 }
             }
+            listItems.add(item);
         }
     }
 
-    private void populateChildListItems(int childDepth) {
-        LOGGER.error("loading child list");
+    /**
+     * populate list items from only children of a root page.
+     */
+    private void populateChildListItems() {
+        populateChildListItems(true);
+    }
+
+    /**
+     * populate list items from descendants of a root page.
+     */
+    private void populateDescendantsListItems() {
+        populateChildListItems(false);
+    }
+
+    /**
+     * populate list items from children of a root page.
+     * @param flat only select children on root page
+     */
+    private void populateChildListItems(Boolean flat) {
         listItems = new ArrayList<>();
-        Page rootPage = getRootPage(PN_PARENT_PAGE);
-        if (rootPage != null) {
-            collectChildren(rootPage.getDepth(), rootPage, childDepth);
+
+        Map<String, String> childMap = new HashMap<>();
+        Page rootPage = getPageManager().getPage(componentProperties.get(PN_PARENT_PAGE,""));
+        childMap.put("path", rootPage.getPath());
+        if (flat) {
+            childMap.put("path.flat", "true");
+        } else {
+            childMap.put("path.flat", "false");
         }
+        childMap.put("type", "cq:Page");
+
+        populateListItemsFromMap(childMap);
     }
 
-    private void collectChildren(int startLevel, Page parent, int childDepth) {
-        Iterator<Page> childIterator = parent.listChildren();
-        int count = 0;
-        while (childIterator.hasNext()) {
-            Page child = childIterator.next();
-
-            if (includePageInList(child,showInvalid,showHidden)) {
-                Map<String,Object> item = new HashMap<>();
-                item.put("page", child);
-                item.putAll(getPageBadgeInfo(child));
-                listItems.add(item);
-
-                if (child.getDepth() - startLevel < childDepth) {
-                    collectChildren(startLevel, child, childDepth);
-                }
-            }
-
-            //collect only up to a limit
-            count++;
-            if (limit > 0 && count >= limit) {
-                return;
-            }
-
-        }
-    }
-
-    @SuppressWarnings("Duplicates")
+    /**
+     * populate listitem from tag list type
+     */
     private void populateTagListItems() {
         listItems = new ArrayList<>();
-        String[] tags = getProperties().get(PN_TAGS, new String[0]);
-        boolean matchAny = getProperties().get(PN_TAGS_MATCH, TAGS_MATCH_ANY_VALUE).equals(TAGS_MATCH_ANY_VALUE);
+        String[] tags = componentProperties.get(PN_TAGS, new String[0]);
+        boolean matchAny = componentProperties.get(PN_TAGS_MATCH, TAGS_MATCH_ANY_VALUE).equals(TAGS_MATCH_ANY_VALUE);
         if (ArrayUtils.isNotEmpty(tags)) {
-            Page rootPage = getRootPage(PN_TAGS_PARENT_PAGE);
+            Page rootPage = getPageManager().getPage(componentProperties.get(PN_TAGS_PARENT_PAGE,""));
             if (rootPage != null) {
 
-                //TODO: to tag query search with paging
-                //tagid=aemdesign-showcase:content-type/asset/image
-                //tagid.property=@jcr:content/cq:tags
-
-                TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
-                if (tagManager != null) {
-                    RangeIterator<Resource> resourceRangeIterator = tagManager.find(rootPage.getPath(), tags, matchAny);
-                    if (resourceRangeIterator != null) {
-                        while (resourceRangeIterator.hasNext()) {
-                            Page containingPage = getPageManager().getContainingPage(resourceRangeIterator.next());
-                            if (containingPage != null) {
-                                if (includePageInList(containingPage,showInvalid,showHidden)) {
-                                    Map<String,Object> item = new HashMap<>();
-                                    item.put("page", containingPage);
-                                    item.putAll(getPageBadgeInfo(containingPage));
-                                    listItems.add(item);
-                                }
-                            }
-                        }
-                    }
+                Map<String, String> childMap = new HashMap<>();
+                childMap.put("path", rootPage.getPath());
+                if (matchAny) {
+                    childMap.put("group.p.or", "true");
+                } else {
+                    childMap.put("group.p.and", "true");
                 }
+                for (int i =0; i < tags.length; i++) {
+                    childMap.put("group."+i+"_group", tags[i]);
+                }
+
+                populateListItemsFromMap(childMap);
             }
         }
     }
 
+    /**
+     * populate listitems form search list type.
+     */
     private void populateSearchListItems() {
         listItems = new ArrayList<>();
         if (!StringUtils.isBlank(query)) {
@@ -571,7 +604,7 @@ public class List extends WCMUsePojo {
             if (search != null) {
                 search.setQuery(query);
                 search.setSearchIn(startIn);
-                search.addPredicate(new Predicate("type", "type").set("type", NameConstants.NT_PAGE));
+//                search.addPredicate(new Predicate("type", "type").set("type", NameConstants.NT_PAGE));
                 //TODO: add limits and pages
 //                search.setStart(pageStart);
 //                search.addPredicate(new Predicate("p.guessTotal", "true")); //guess amount
@@ -587,15 +620,134 @@ public class List extends WCMUsePojo {
         }
     }
 
+
+    /**
+     * get predicate group from query string.
+     * @param request
+     * @return
+     */
+    public static PredicateGroup getPredicateGroupFromRequest(SlingHttpServletRequest request) {
+
+        String queryParam = "";
+
+        try {
+            queryParam = request.getParameter("query");
+
+            // check if we have to convert from the url format to the properties-style format
+            String isURLQuery = request.getParameter("isURL");
+            if (queryParam != null && isURLQuery != null && "on".equals(isURLQuery)) {
+                queryParam = Text.unescape(queryParam.replaceAll("&", "\n"));
+            }
+        } catch (Exception ex) {
+            LOGGER.error("getPredicateGroupFromQuery: could not read query param q=[{}], ex={}", queryParam, ex);
+            return null;
+        }
+
+        return getPredicateGroupFromQuery(queryParam);
+    }
+
+    /**
+     * get predicate group config from querystring param.
+     * @param queryParam query string param, same as querybuilder
+     * @return
+     */
+    public static PredicateGroup getPredicateGroupFromQuery(String queryParam) {
+
+        try {
+
+            Properties props = new Properties();
+            props.load(new StringReader(queryParam));
+            return PredicateConverter.createPredicates(props);
+        } catch (Exception ex) {
+            LOGGER.error("getPredicateGroupFromQuery: could not create PredicateGroupFromQuery from query param q=[{}], ex={}", queryParam, ex);
+        }
+
+        return null;
+    }
+
+    /**
+     * do a search based on querystring params.
+     * @param queryParam querystring param same as querybuilder
+     */
+    private void populateListItemsFromQuery(String queryParam) {
+        try {
+
+            QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
+            Session session = getResourceResolver().adaptTo(Session.class);
+
+            Query query = null;
+
+            PredicateGroup root = getPredicateGroupFromQuery(queryParam);
+            // avoid slow //* queries
+            if (!root.isEmpty()) {
+                query = builder.createQuery(root, session);
+            }
+
+            if (query != null) {
+                collectSearchResults(query.getResult());
+            }
+        } catch (Exception ex) {
+            LOGGER.error("populateListItemsFromQuery: could not execute query q=[{}], ex={}",queryParam,ex);
+        }
+    }
+
+    /**
+     * doa query using a predicate map.
+     * @param map predicate map
+     */
+    private void populateListItemsFromMap(Map<String,String> map) {
+        try {
+
+            QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
+            Session session = getResourceResolver().adaptTo(Session.class);
+
+            Query query = null;
+
+            if (pageMax > 0) {
+                map.put("p.limit", String.valueOf(pageMax));
+            }
+            if (pageStart > 0) {
+                map.put("p.offset", String.valueOf(pageStart));
+            }
+
+            String orderBy = componentProperties.get(PN_ORDER_BY,"path");
+            if (isNotEmpty(orderBy)) {
+                map.put("orderby", orderBy);
+            } else {
+                map.put("orderby", "path");
+            }
+
+            map.put("orderby.sort", sortOrder.value);
+
+            LOGGER.error("populateListItemsFromMap: running query with map=[{}]",map);
+
+            PredicateGroup root = PredicateGroup.create(map);
+            // avoid slow //* queries
+            if (!root.isEmpty()) {
+                query = builder.createQuery(root, session);
+            }
+
+            if (query != null) {
+                collectSearchResults(query.getResult());
+            }
+        } catch (Exception ex) {
+            LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}",map,ex);
+        }
+    }
+
+    /**
+     * allow passing of querybuilder queries.
+     */
     private void populateQueryListItems() {
         listItems = new ArrayList<>();
         if (!StringUtils.isBlank(savedquery)) {
 
 
             try {
-                if (getRequest().getRequestParameter("q") != null) {
-                    String escapedQuery = getRequest().getRequestParameter("q").toString();
-                    String unescapedQuery = URLDecoder.decode(escapedQuery, "UTF-8");
+                if (getRequest().getRequestParameter(REQUEST_PARAM_QUERY) != null) {
+                    //if query passed read and process
+                    String escapedQuery = getRequest().getRequestParameter(REQUEST_PARAM_QUERY).toString();
+                    String unescapedQuery = URLDecoder.decode(escapedQuery, QUERY_ENCODING);
                     QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
                     PageManager pm = getResourceResolver().adaptTo(PageManager.class);
                     //create props for query
@@ -606,12 +758,12 @@ public class List extends WCMUsePojo {
                     PredicateGroup predicateGroup = PredicateConverter.createPredicates(props);
                     //TODO: add limits and pages
 //                    predicateGroup.add(new Predicate("p.offset","0"));
-                    if (limit > 0) {
-                        predicateGroup.add(new Predicate("p.limit", Integer.toString(limit)));
-                    }
+//                    if (limit > 0) {
+//                        predicateGroup.add(new Predicate("p.limit", Integer.toString(limit)));
+//                    }
 //                    predicateGroup.add(new Predicate("p.guessTotal","true"));
-                    boolean allowDuplicates = getProperties().get("allowDuplicates", false);
-                    javax.jcr.Session jcrSession = getRequest().getResourceResolver().adaptTo(javax.jcr.Session.class);
+//                    boolean allowDuplicates = componentProperties.get("allowDuplicates", false);
+                    javax.jcr.Session jcrSession = getResourceResolver().adaptTo(javax.jcr.Session.class);
                     Query query = queryBuilder.createQuery(predicateGroup, jcrSession);
                     //TODO: add limits and pages
 
@@ -625,11 +777,12 @@ public class List extends WCMUsePojo {
                         collectSearchResults(query.getResult());
                     }
                 } else {
+                    //if not passed read saved query
                     Session session = getResourceResolver().adaptTo(Session.class);
                     QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
                     if (session != null && queryBuilder != null) {
                         try {
-                            Query query = queryBuilder.loadQuery(getResource().getPath() + "/" + "savedquery", session);
+                            Query query = queryBuilder.loadQuery(getResource().getPath() + "/" + SAVEDQUERY_PROPERTY_NAME, session);
                             if (query != null) {
                                 collectSearchResults(query.getResult());
                             }
@@ -645,52 +798,59 @@ public class List extends WCMUsePojo {
         }
     }
 
+    /**
+     * process search results.
+      * @param result search results
+     * @throws RepositoryException
+     */
     @SuppressWarnings("Duplicates")
     private void collectSearchResults(SearchResult result) throws RepositoryException {
+        Map<String, Object> resultInfo = new HashMap<>();
+        resultInfo.put("executionTime",result.getExecutionTime());
+        resultInfo.put("startIndex",result.getStartIndex());
+        resultInfo.put("hasMore",result.hasMore());
+        resultInfo.put("result",result);
+
+        totalMatches = result.getTotalMatches();
+        resultPages = result.getResultPages();
+        hitsPerPage = result.getHitsPerPage();
+        totalPages = result.getResultPages().size();
+        pageStart = result.getStartIndex();
+        currentPage = (pageStart / hitsPerPage) + 1;
+
+        resultInfo.put("hitsPerPage",hitsPerPage);
+        resultInfo.put("currentPage",currentPage);
+        resultInfo.put("totalMatches",totalMatches);
+        resultInfo.put("resultPages",resultPages);
+        resultInfo.put(PAGE_START_PROPERTY_NAME,pageStart);
+
+
+        if (result.getResultPages().size() > 0) {
+            isPaginating = true;
+            componentProperties.put(LIST_ISPAGINATING, isPaginating);
+        }
+
+        LOGGER.error("collectSearchResults resultInfo={},isPaginating={}", resultInfo,isPaginating);
+        componentProperties.put("resultInfo",resultInfo);
+
         for (Hit hit : result.getHits()) {
+            Map<String,Object> item = new HashMap<>();
+            item.put("hit", hit);
+            item.put("resource", hit.getResource());
+            item.put("type", hit.getResource().getResourceType());
 
             Page containingPage = getPageManager().getContainingPage(hit.getResource());
             if (containingPage != null) {
                 if (includePageInList(containingPage,showInvalid,showHidden)) {
-//                    listItems.add(containingPage);
-                    Map<String,Object> item = new HashMap<>();
                     item.put("page", containingPage);
-                    item.put("score", hit.getScore());
                     item.putAll(getPageBadgeInfo(containingPage));
-                    listItems.add(item);
                 }
             }
+
+            listItems.add(item);
         }
     }
 
-    private void sortListItems() {
-        if (orderBy != null) {
-            listItems.sort(new ListSort(orderBy, sortOrder));
-            componentProperties.put(LIST_ISORDERED, true);
-//            componentProperties.put(LIST_TAG, LIST_TAG_ORDERED);
-        }
-        componentProperties.put(LIST_TAG, LIST_TAG_UNORDERED);
-    }
-
-    private void setMaxItems() {
-        if (maxItems != 0) {
-            java.util.List<Map<String,Object>> tmpListItems = new ArrayList<>();
-            for (Map<String,Object> item : listItems) {
-                if (tmpListItems.size() < maxItems) {
-                    tmpListItems.add(item);
-                } else {
-                    break;
-                }
-            }
-            listItems = tmpListItems;
-        }
-    }
-
-
-    private Page getRootPage(String fieldName) {
-        String parentPath = getProperties().get(fieldName, getResourcePage().getPath());
-        return getPageManager().getContainingPage(getResourceResolver().getResource(parentPath));
-    }
 
     protected enum Source {
         CHILDREN("children"),
@@ -738,144 +898,9 @@ public class List extends WCMUsePojo {
         }
     }
 
-    private enum OrderBy {
-        TITLE("title"),
-        MODIFIED("modified"),
-        CREATED("created"),
-        SCORE("score"),
-        TEMPLATE("template");
-
-        private String value;
-
-        OrderBy(String value) {
-            this.value = value;
-        }
-
-        public static OrderBy fromString(String value) {
-            for (OrderBy s : values()) {
-                if (StringUtils.equals(value, s.value)) {
-                    return s;
-                }
-            }
-            return null;
-        }
-    }
-
-//    @SuppressWarnings("Duplicates")
-//    private static class ListSort implements Comparator<Page>, Serializable {
-//
-//
-//        private static final long serialVersionUID = 7800223092954898107L;
-//        private List.SortOrder sortOrder;
-//        private List.OrderBy orderBy;
-//
-//        ListSort(OrderBy orderBy, SortOrder sortOrder) {
-//            this.orderBy = orderBy;
-//            this.sortOrder = sortOrder;
-//        }
-//
-//        @Override
-//        public int compare(Page item1, Page item2) {
-//            int i = 0;
-//            if (orderBy == OrderBy.MODIFIED) {
-//                // getLastModified may return null, define null to be after nonnull values
-//                i = ObjectUtils.compare(item1.getLastModified(), item2.getLastModified(), true);
-//            } else if (orderBy == OrderBy.TITLE) {
-//                // getTitle may return null, define null to be greater than nonnull values
-//                i = ObjectUtils.compare(item1.getTitle(), item2.getTitle(), true);
-//            }
-//
-//            if (sortOrder == SortOrder.DESC) {
-//                i = i * -1;
-//            }
-//            return i;
-//        }
-//    }
-
-    private static String getPageTemplate(Page page) {
-        try {
-           return page.getTemplate().getPath();
-        } catch (Exception ex) {
-            LOGGER.error("getPageTemplate: page does not have a template {}",page);
-        }
-        return "";
-    }
-
-    private static String getPageCreatedDate(Page page) {
-        try {
-           return page.getProperties().get(JcrConstants.JCR_CREATED,"");
-        } catch (Exception ex) {
-            LOGGER.error("getPageTemplate: page does not have a template {}",page);
-        }
-        return "";
-    }
-
-    private static double getParseDouble(Object value, double defaultValue) {
-
-        double returnValue = defaultValue;
-
-        if (value == null) {
-            return returnValue;
-        }
-
-        try {
-            returnValue = Double.parseDouble(value.toString());
-        } catch (Exception ex) {
-            LOGGER.error("getParseDouble: could not parse value [{}] to double returning {}",value,defaultValue);
-        }
-
-        return returnValue;
-
-    }
-
-    @SuppressWarnings("Duplicates")
-    private static class ListSort implements Comparator<Map<String,Object>>, Serializable {
-
-
-        private static final long serialVersionUID = 4846499002582007754L;
-        private List.SortOrder sortOrder;
-        private List.OrderBy orderBy;
-
-        ListSort(List.OrderBy orderBy, SortOrder sortOrder) {
-            this.orderBy = orderBy;
-            this.sortOrder = sortOrder;
-        }
-
-        @Override
-        public int compare(Map<String,Object> item1, Map<String,Object> item2) {
-            int i = 0;
-            Page page1 = (Page)item1.get("page");
-            Page page2 = (Page)item2.get("page");
-            if (orderBy == List.OrderBy.MODIFIED) {
-                // getLastModified may return null, define null to be after nonnull values
-                i = ObjectUtils.compare(page1.getLastModified(), page2.getLastModified(), true);
-            } else if (orderBy == List.OrderBy.TITLE) {
-                // getTitle may return null, define null to be greater than nonnull values
-                i = ObjectUtils.compare(page1.getTitle(), page2.getTitle(), true);
-            } else if (orderBy == List.OrderBy.TEMPLATE) {
-                // getTitle may return null, define null to be greater than nonnull values
-                String template1 = getPageTemplate(page1);
-                String template2 = getPageTemplate(page2);
-                i = ObjectUtils.compare(template1, template2, true);
-            } else if (orderBy == List.OrderBy.CREATED) {
-                String created1 = getPageCreatedDate(page1);
-                String created2 = getPageCreatedDate(page2);
-                i = ObjectUtils.compare(created1, created2, true);
-            } else if (orderBy == List.OrderBy.SCORE) {
-                double score1 = getParseDouble(item1.get("score"),1);
-                double score2 = getParseDouble(item2.get("score"),1);
-                i = ObjectUtils.compare(score1, score2, true);
-            }
-
-            if (sortOrder == SortOrder.DESC) {
-                i = i * -1;
-            }
-            return i;
-        }
-    }
-
-
-
+    /**
+     * helper for generating next and previous links for a list.
+     */
     private class PageLink {
         private String path;
         private HashMap<String, Object> params;
