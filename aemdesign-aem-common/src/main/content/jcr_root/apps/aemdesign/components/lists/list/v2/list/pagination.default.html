@@ -1,0 +1,15 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div class="pagination">
+        <div data-sly-test="${componentProperties.nextPageLink}" class="next">
+            <a href="${componentProperties.nextPageLink}">Next</a>
+        </div>
+        <div class="label">
+            <span class="current">${componentProperties.resultInfo.currentPage}</span>
+            <span class="separator"></span>
+            <span class="total">${componentProperties.resultInfo.numberOfPages}</span>
+        </div>
+        <div data-sly-test="${componentProperties.previousPageLink}" class="previous">
+            <a href="${componentProperties.previousPageLink}">Previous</a>
+        </div>
+    </div>
+</template>
