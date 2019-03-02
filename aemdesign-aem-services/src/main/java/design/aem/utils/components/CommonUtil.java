@@ -926,6 +926,19 @@ public class CommonUtil {
             return defaultValue;
         }
     }
+    /**
+     * try parse long.
+     * @param value value to use
+     * @param defaultValue default value
+     * @return parsed value
+     */
+    public static long tryParseLong(String value, long defaultValue) {
+        try {
+            return Long.parseLong(value);
+        } catch (NumberFormatException nfe) {
+            return defaultValue;
+        }
+    }
 
 
     /**
