@@ -1662,4 +1662,16 @@ public class CommonUtil {
         }
         return "";
     }
+
+
+    /**
+     * replace last occurance of text
+     * @param text text to search
+     * @param regex text to replace
+     * @param replacement replacement text
+     * @return
+     */
+    public static String replaceLast(String text, String regex, String replacement) {
+        return text.replaceFirst("(?s)"+regex+"(?!.*?"+regex+")", replacement);
+    }
 }
