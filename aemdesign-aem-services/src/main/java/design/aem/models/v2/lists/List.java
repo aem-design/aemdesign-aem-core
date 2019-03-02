@@ -86,6 +86,7 @@ public class List extends WCMUsePojo {
     private static final String PN_SEARCH_IN = "searchIn";
     private static final String PN_SORT_ORDER = "sortOrder";
     private static final String PN_ORDER_BY = "orderBy";
+    private static final String PN_ORDER_BY_DEFAULT = "path";
 
 
     private static final Boolean DEFAULT_PRINT_STRUCTURE = true;
@@ -165,8 +166,6 @@ public class List extends WCMUsePojo {
                 {"feedType", "rss"},
                 {"listSplit", false, "data-list-split-enabled"},
                 {LISTSPLITEVERY, LISTSPLITEVERY_DEFAULT, "data-list-split-every"},
-//                {"tags", new String[]{},"data-search-tags", Tag.class.getCanonicalName()},
-                {PN_ORDER_BY, StringUtils.EMPTY},
                 {DETAILSBADGE, DEFAULT_BADGE, "data-badge"},
                 {"printStructure", DEFAULT_PRINT_STRUCTURE},
                 {SHOWHIDDEN, false},
@@ -703,18 +702,31 @@ public class List extends WCMUsePojo {
 
             Query query = null;
 
+            //pagination limit is set
             if (pageMax > 0) {
                 map.put("p.limit", String.valueOf(pageMax));
             }
+            //limit is set
+            if (limit > 0) {
+                map.put("p.limit", String.valueOf(limit));
+            }
+
             if (pageStart > 0) {
                 map.put("p.offset", String.valueOf(pageStart));
             }
 
-            String orderBy = componentProperties.get(PN_ORDER_BY,"path");
+            String orderBy = componentProperties.get(PN_ORDER_BY,PN_ORDER_BY_DEFAULT);
             if (isNotEmpty(orderBy)) {
+                //if searching for cq:Page need to ensure @jcr:content is appended to order by.
+                if (map.containsKey("type")) {
+                    String type = map.get("type");
+                    if (type.equals("cq:Page") && !orderBy.startsWith("@jcr:content/")) {
+                        orderBy = "@jcr:content/" + orderBy;
+                    }
+                }
                 map.put("orderby", orderBy);
             } else {
-                map.put("orderby", "path");
+                map.put("orderby", PN_ORDER_BY_DEFAULT);
             }
 
             map.put("orderby.sort", sortOrder.value);
@@ -825,7 +837,7 @@ public class List extends WCMUsePojo {
         resultInfo.put(PAGE_START_PROPERTY_NAME,pageStart);
 
 
-        if (result.getResultPages().size() > 0) {
+        if (pageMax > 0 && result.getResultPages().size() > 0) {
             isPaginating = true;
             componentProperties.put(LIST_ISPAGINATING, isPaginating);
         }
