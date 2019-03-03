@@ -3,7 +3,6 @@
     cq:isContainer="{Boolean}false"
     jcr:description="The Location Details component is used to contain and publish location related structured data and content."
     jcr:primaryType="cq:Component"
-    jcr:title="Location Details"
+    jcr:title="Location Details (v1)"
     cq:icon="viewDetail"
-    sling:resourceSuperType="aemdesign/components/details/location-details/v2/location-details"
-    componentGroup="AEM.Design - Details"/>
+    componentGroup="hidden"/>

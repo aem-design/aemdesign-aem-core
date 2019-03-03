@@ -1,0 +1,15 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    {
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [${componentProperties.longitude}, ${componentProperties.latitude}]
+        },
+        properties: {
+            title: '${componentProperties.title}',
+            <sly data-sly-test="${componentProperties.pageList}">
+            pages: ${componentProperties.pagesJson @ context="unsafe"}
+            </sly>
+        }
+    }
+</template>
