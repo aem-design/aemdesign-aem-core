@@ -29,7 +29,7 @@ import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
-public class NewsDetails extends WCMUsePojo {
+public class NewsDetails extends GenericDetails {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NewsDetails.class);
 
@@ -40,12 +40,6 @@ public class NewsDetails extends WCMUsePojo {
     private static final String FIELD_FORMATTED_TITLE = "titleFormatted";
     private static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
 
-
-    private ComponentProperties componentProperties = null;
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-    
     @Override
     @SuppressWarnings("Duplicates")
     public void activate() throws Exception {
@@ -127,98 +121,11 @@ public class NewsDetails extends WCMUsePojo {
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
         componentProperties.put("category",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
 
-        //read the image node
-        componentProperties.putAll(getAssetInfo(getResourceResolver(),
-                getPageImgReferencePath(getResourcePage()),
-                FIELD_PAGE_IMAGE));
-
-        //read the secondary image node
-        componentProperties.putAll(getAssetInfo(getResourceResolver(),
-                getResourceImagePath(getResource(),DEFAULT_SECONDARY_IMAGE_NODE_NAME),
-                FIELD_PAGE_SECONDARY_IMAGE));
-
-        //read the background image node
-        componentProperties.putAll(getAssetInfo(getResourceResolver(),
-                getResourceImagePath(getResource(),DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
-                FIELD_PAGE_BACKGROUND_IMAGE));
-
-        //read the thumbnail image node
-        componentProperties.putAll(getAssetInfo(getResourceResolver(),
-                getResourceImagePath(getResource(),DEFAULT_THUMBNAIL_IMAGE_NODE_NAME),
-                FIELD_PAGE_THUMBNAIL_IMAGE));
-
-        componentProperties.put(FIELD_REDIRECT_TARGET,getResourcePage().getProperties().get(FIELD_REDIRECT_TARGET,""));
-
-        //set thumbnail path for image node
-        componentProperties.put(FIELD_PAGE_IMAGE_THUMBNAIL,
-                getBestFitRendition(
-                        componentProperties.get(FIELD_PAGE_IMAGE, ""),
-                        componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
-                        getResourceResolver()
-                )
-        );
-
-        //set thumbnail path for secondary image node
-        componentProperties.put(FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL,
-                getBestFitRendition(
-                        componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE, ""),
-                        componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
-                        getResourceResolver()
-                )
-        );
-
-        //set thumbnail path for thumbnail image node
-        componentProperties.put(FIELD_PAGE_THUMBNAIL_IMAGE_THUMBNAIL,
-                getBestFitRendition(
-                        componentProperties.get(FIELD_PAGE_THUMBNAIL_IMAGE, ""),
-                        componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
-                        getResourceResolver()
-                )
-        );
-
         //format fields
         componentProperties.putAll(processComponentFields(componentProperties,_i18n,getSlingScriptHelper()), false);
 
 
-        //process badge selection
-        String componentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
-        if (isEmpty(componentBadge)) {
-            componentProperties.put(COMPONENT_BADGE_SELECTED,false);
-            componentBadge = DEFAULT_BADGE;
-        } else {
-            componentProperties.put(COMPONENT_BADGE_SELECTED,true);
-        }
-
-        componentProperties.put(COMPONENT_BADGE,componentBadge);
-
-        //compile componentBadgeTemplate param
-        componentProperties.put(COMPONENT_BADGE_TEMPLATE,format(COMPONENT_BADGE_TEMPLATE_FORMAT,componentBadge));
-
-        //get background image
-        componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME,getBackgroundImageRenditions(this));
-
-        //update component properties overrides possibly from list component
-        componentProperties.putAll(processBadgeRequestConfig(componentProperties,getResourceResolver(), getRequest()), true);
-
-        //process badge condifg
-        componentProperties.putAll(PageDetails.processBadgeConfig(getResourcePage(),componentProperties));
-
-        String variant = componentProperties.get(FIELD_VARIANT,DEFAULT_VARIANT);
-        //process variant selection
-        if (isEmpty(variant)) {
-            variant = DEFAULT_VARIANT;
-        }
-
-        //compile variantTemplate param
-        componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT,variant));
-
-        //get page metadata fields
-        componentProperties.put(PageDetails.PAGE_META_PROPERTY_FIELDS,PageDetails.processPageMetaProperties(getResourcePage(),getResourceResolver(),getRequest(), componentProperties));
-
-        //set canonical url
-        componentProperties.put(FIELD_CANONICAL_URL,mappedUrl(getResourceResolver(), getRequest(), getResourcePage().getPath()).concat(DEFAULT_EXTENTION));
-
-
+        processCommonFields();
 
     }
 
