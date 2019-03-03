@@ -138,8 +138,8 @@ public class NewsDetails extends GenericDetails {
      * @return returns map with new values
      */
     @SuppressWarnings("Duplicates")
-    public Map<String, String> processComponentFields(ComponentProperties componentProperties, I18n i18n, SlingScriptHelper sling){
-        Map<String, String> newFields = new HashMap<>();
+    public Map<String, Object> processComponentFields(ComponentProperties componentProperties, I18n i18n, SlingScriptHelper sling){
+        Map<String, Object> newFields = new HashMap<>();
 
         try {
 
