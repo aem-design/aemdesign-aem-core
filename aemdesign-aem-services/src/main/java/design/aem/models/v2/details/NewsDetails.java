@@ -121,11 +121,11 @@ public class NewsDetails extends GenericDetails {
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
         componentProperties.put("category",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
 
+        processCommonFields();
+
         //format fields
         componentProperties.putAll(processComponentFields(componentProperties,_i18n,getSlingScriptHelper()), false);
 
-
-        processCommonFields();
 
     }
 
