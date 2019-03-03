@@ -1,6 +1,6 @@
 <template data-sly-template.variant="${@ componentProperties}">
     <sly data-sly-test="${wcmmode.edit}">
-        <div class="component notfound">${componentProperties.variantHiddenLabel}</div>
+        <div class="component" hidden>${componentProperties.variantHiddenLabel}</div>
     </sly>
     <div hidden data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" >
     </div>
