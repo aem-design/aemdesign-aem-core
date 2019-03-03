@@ -102,12 +102,10 @@ public class PageDetails extends GenericDetails {
         String[] subCategory = componentProperties.get("subCategory", new String[]{});
         componentProperties.put("subCategory",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
 
-        //format fields
-        componentProperties.putAll(processComponentFields(componentProperties,_i18n,getSlingScriptHelper()), false);
-
         processCommonFields();
 
-
+        //format fields
+        componentProperties.putAll(processComponentFields(componentProperties,_i18n,getSlingScriptHelper()), false);
 
     }
 
