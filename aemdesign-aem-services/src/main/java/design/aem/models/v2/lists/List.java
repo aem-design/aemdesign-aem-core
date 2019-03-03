@@ -38,7 +38,6 @@ import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.I18nUtil.*;
 import static design.aem.utils.components.ImagesUtil.getAssetInfo;
 import static design.aem.utils.components.ImagesUtil.getResourceImagePath;
-import static design.aem.utils.components.TagUtil.getTagValueAsAdmin;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -208,7 +207,7 @@ public class List extends WCMUsePojo {
         startIn = componentProperties.get(PN_SEARCH_IN, getResourcePage().getPath());
         sortOrder = SortOrder.fromString(componentProperties.get(PN_SORT_ORDER, SortOrder.ASC.value));
         savedquery = componentProperties.get(SAVEDQUERY_PROPERTY_NAME, "");
-        pageMax = componentProperties.get(PAGE_MAX_PROPERTY_NAME, 0);
+        pageMax = componentProperties.get(PAGE_MAX_PROPERTY_NAME, PAGEMAX_DEFAULT);
         listSplitEvery = componentProperties.get(LISTSPLITEVERY, LISTSPLITEVERY_DEFAULT);
         detailsBadge = componentProperties.get(DETAILSBADGE, DEFAULT_BADGE);
         limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
@@ -221,11 +220,17 @@ public class List extends WCMUsePojo {
         }
 
         //check query string for parameters
-        pageStart = tryParseLong(getParameter(REQUEST_PARAM_MARKER_START),0);
-        componentProperties.put(PAGE_START_PROPERTY_NAME, pageStart);
+        String requestPageStart = getParameter(REQUEST_PARAM_MARKER_START);
+        if (isNotEmpty(requestPageStart)) {
+            pageStart = tryParseLong(requestPageStart, 0);
+            componentProperties.put(PAGE_START_PROPERTY_NAME, pageStart);
+        }
 
-        pageMax = tryParseLong(getParameter(REQUEST_PARAM_MARKER_MAX), pageMax);
-        componentProperties.put(PAGE_MAX_PROPERTY_NAME, pageStart);
+        String requestPageMax = getParameter(REQUEST_PARAM_MARKER_MAX);
+        if (isNotEmpty(requestPageMax)) {
+            pageMax = tryParseLong(requestPageMax, pageMax);
+            componentProperties.put(PAGE_MAX_PROPERTY_NAME, pageStart);
+        }
 
         if (getRequest().getRequestParameter(REQUEST_PARAM_QUERY) !=null) {
             try {
@@ -608,7 +613,7 @@ public class List extends WCMUsePojo {
 //                search.setStart(pageStart);
 //                search.addPredicate(new Predicate("p.guessTotal", "true")); //guess amount
                 if (limit > 0) {
-                    search.setHitsPerPage(limit);
+                    search.setHitsPerPage(pageMax);
                 }
                 try {
                     collectSearchResults(search.getResult());
@@ -705,9 +710,8 @@ public class List extends WCMUsePojo {
             //pagination limit is set
             if (pageMax > 0) {
                 map.put("p.limit", String.valueOf(pageMax));
-            }
-            //limit is set
-            if (limit > 0) {
+            } else if (limit > 0) {
+                //limit is set
                 map.put("p.limit", String.valueOf(limit));
             }
 
@@ -834,13 +838,11 @@ public class List extends WCMUsePojo {
         resultInfo.put("currentPage",currentPage);
         resultInfo.put("totalMatches",totalMatches);
         resultInfo.put("resultPages",resultPages);
+        resultInfo.put("totalPages",totalPages);
         resultInfo.put(PAGE_START_PROPERTY_NAME,pageStart);
 
-
-        if (pageMax > 0 && result.getResultPages().size() > 0) {
-            isPaginating = true;
-            componentProperties.put(LIST_ISPAGINATING, isPaginating);
-        }
+        isPaginating = (pageMax > 0 && result.getResultPages().size() > 0);
+        componentProperties.put(LIST_ISPAGINATING, isPaginating);
 
         LOGGER.error("collectSearchResults resultInfo={},isPaginating={}", resultInfo,isPaginating);
         componentProperties.put("resultInfo",resultInfo);
@@ -936,9 +938,7 @@ public class List extends WCMUsePojo {
 
         public void setParameter(String name, Object value) {
             name = this.prefixName(name);
-            if (this.params.containsKey(name)) {
-                this.params.remove(name);
-            }
+            this.params.remove(name);
 
             this.addParameter(name, value);
         }
