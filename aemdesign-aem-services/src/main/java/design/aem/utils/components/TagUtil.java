@@ -160,7 +160,7 @@ public class TagUtil {
     }
 
     /**
-     * Get tag values from a JCR node
+     * Get tag values from a JCR node.
      *
      * @param tagManager
      * @param thisNode
@@ -193,7 +193,7 @@ public class TagUtil {
     }
 
     /**
-     * Get tag values from a JCR node
+     * Get tag values from a JCR node.
      *
      * @param tagManager
      * @param thisNode
@@ -217,7 +217,7 @@ public class TagUtil {
 
 
     /**
-     * Get tag values from a Page - Tags in page property
+     * Get tag values from a Page - Tags in page property.
      *
      * @param tagManager
      * @param thisPage
@@ -241,7 +241,7 @@ public class TagUtil {
 
 
     /**
-     * Get tags from a Page as a string - Tags in page property
+     * Get tags from a Page as a string - Tags in page property.
      *
      * @param thisPage
      * @return String
@@ -302,6 +302,7 @@ public class TagUtil {
      * @param sling sling helper
      * @return comma separated list of tag values
      */
+    @SuppressWarnings("Duplicates")
     public static String getTagValueAsAdmin(String tagPath, SlingScriptHelper sling) {
         String tagValue = "";
 
@@ -408,6 +409,33 @@ public class TagUtil {
         return tags;
     }
 
+    /**
+     * get a string of tags values.
+     * @param sling
+     * @param separator
+     * @param tagPaths
+     * @return
+     */
+    public static String getTagsAsValuesAsAdmin(SlingScriptHelper sling, String separator, String tagPaths[]) {
+        if (tagPaths == null || tagPaths.length == 0) {
+            return null;
+        }
+        StringBuilder builder = new StringBuilder();
+
+        for (String path : tagPaths) {
+
+            String tagValue = getTagValueAsAdmin(path,sling);
+
+            builder.append(tagValue);
+            builder.append(separator);
+        }
+        if (builder.length() > 0) {
+            builder.setLength(builder.length() - 1);
+        }
+
+
+        return builder.toString();
+    }
 
     /**
      * Get Tag values.
@@ -415,7 +443,7 @@ public class TagUtil {
      * @param tagPaths list of tags
      * @return comma separated list of tag values
      */
-
+    @SuppressWarnings("Duplicates")
     public static String getTagsAsValues(TagManager tagManager, ResourceResolver resourceResolver, String separator, String tagPaths[]) {
         if (tagPaths == null || tagPaths.length == 0) {
             return null;
@@ -455,7 +483,7 @@ public class TagUtil {
      * @param tagPaths list of tags
      * @return string array of tag values
      */
-
+    @SuppressWarnings("Duplicates")
     public static String[] getTagsValues(TagManager tagManager, ResourceResolver resourceResolver, String separator, String tagPaths[]) {
         if (tagPaths == null || tagPaths.length == 0) {
             return null;
@@ -489,7 +517,7 @@ public class TagUtil {
      * @param tagPaths list of tags
      * @return space separated list of tag titles
      */
-
+    @SuppressWarnings("Duplicates")
     public static String getTagsAsKeywords(TagManager tagManager, String separator, String tagPaths[], Locale locale) {
         if (tagPaths == null || tagPaths.length == 0) {
             return null;
@@ -527,7 +555,7 @@ public class TagUtil {
      * @param tag list of tags
      * @return space separated list of tag names
      */
-
+    @SuppressWarnings("Duplicates")
     public static String getTagsAsClasses(String tag[]) {
         String cssTagClass = "";
 
@@ -543,7 +571,7 @@ public class TagUtil {
 
 
     /**
-     * Returns the value of the property on the specified node with the specified tag
+     * Returns the value of the property on the specified node with the specified tag.
      *
      * @param node         is the node to inspect
      * @param tagName      is the name of the tag
@@ -570,13 +598,12 @@ public class TagUtil {
     }
 
     /**
-     * Returns the value of the property on the specified node with the specified tag
+     * Returns the value of the property on the specified node with the specified tag.
      *
      * @param node is the node to inspect
      * @param tag  is the tag
      * @return the value of the property as a String Array of the tag titles
      */
-
     public static List<Tag> getChildTags(TagManager tagManager, Node node, Tag tag) {
 
         List<Tag> children = new ArrayList<Tag>();
@@ -591,7 +618,7 @@ public class TagUtil {
 
 
     /**
-     * return tag object from path uses tag manager to resolve and resource resolver as backup
+     * return tag object from path uses tag manager to resolve and resource resolver as backup.
      *
      * @param path             tag from apth path or from tagId path
      * @param resourceResolver
@@ -671,7 +698,6 @@ public class TagUtil {
      * @param defaultTags default tags to return if none found
      * @return list of tags
      */
-
     public static com.day.cq.tagging.Tag[] getPageTags(Page page, com.day.cq.tagging.Tag[] defaultTags) {
 
         if (page == null) {
