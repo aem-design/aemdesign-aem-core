@@ -1,7 +1,7 @@
 package design.aem.utils.components;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.adobe.cq.wcm.core.components.internal.models.v2.PageImpl;
+import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import design.aem.components.ComponentProperties;
@@ -12,6 +12,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +23,9 @@ import java.util.*;
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
+import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.ImagesUtil.*;
-import static design.aem.utils.components.TagUtil.getPageTags;
+import static design.aem.utils.components.TagUtil.*;
 import static org.apache.commons.lang3.StringUtils.defaultIfEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
@@ -440,10 +442,15 @@ public class ComponentDetailsUtil {
                             return componentProperties;
                     }
 
+                    Object[][] componentFields = {
+                            {TagConstants.PN_TAGS, new String[]{}},
+                    };
+
                     componentProperties = getComponentProperties(
                             pageContextMap,
                             detailsNodeResource,
                             false,
+                            componentFields,
                             DEFAULT_FIELDS_DETAILS_OPTIONS
                     );
 
@@ -474,6 +481,9 @@ public class ComponentDetailsUtil {
             componentProperties.putAll(getAssetInfo(resourceResolver,
                     getPageImgReferencePath(page),
                     FIELD_PAGE_IMAGE));
+
+            String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
+            componentProperties.put("category", getTagsAsValuesAsAdmin((SlingScriptHelper)pageContext.get(PAGECONTEXTMAP_OBJECT_SLING),",",tags));
 
             String contentNode = getComponentNodePath(page, pageRoots);
 
