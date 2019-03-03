@@ -76,7 +76,7 @@
                                         </items>
                                     </layout>
 
-                                    <hideSummary
+                                    <includeSend
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/select"
                                             fieldLabel="Include Send button"
@@ -88,7 +88,7 @@
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
                                                 path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </hideSummary>
+                                    </includeSend>
 
                                 </items>
                             </variant>
