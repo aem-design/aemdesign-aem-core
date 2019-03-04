@@ -3,18 +3,33 @@ package design.aem.models.v2.layout;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.Tag;
+import com.day.cq.wcm.api.WCMMode;
+import com.day.cq.wcm.api.components.Component;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.api.scripting.SlingScriptHelper;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Comment;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
+import java.util.HashMap;
+import java.util.Map;
 
+import static design.aem.utils.components.CommonUtil.DEFAULT_PAR_NAME;
+import static design.aem.utils.components.CommonUtil.resourceRenderAsHtml;
 import static design.aem.utils.components.ComponentDetailsUtil.getPageListInfo;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.ImagesUtil.*;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class ContentBlock extends WCMUsePojo {
 
@@ -87,7 +102,22 @@ public class ContentBlock extends WCMUsePojo {
 
         componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME,getBackgroundImageRenditions(this));
 
+        String variant = componentProperties.get(FIELD_VARIANT,DEFAULT_VARIANT);
 
+        if (variant.equals("componentConfig")) {
+            Resource componentresource = getResource().getChild(DEFAULT_PAR_NAME);
+            if (componentresource != null) {
+                //get first component
+                if (componentresource.hasChildren()) {
+                    Resource firstComponent = componentresource.listChildren().next();
+                    if (firstComponent != null) {
+                        componentProperties.put("firstComponentConfig",
+                                getComponentFieldsAndDialogMap(firstComponent,getResourceResolver(),getSlingScriptHelper())
+                        );
+                    }
+                }
+            }
+        }
 
     }
 

@@ -9,6 +9,7 @@ import com.day.cq.dam.api.DamConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.WCMMode;
 import com.day.cq.wcm.api.components.Component;
 import com.day.cq.wcm.api.components.ComponentContext;
 import com.day.cq.wcm.api.components.ComponentManager;
@@ -33,6 +34,9 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.scripting.SlingScriptHelper;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,6 +52,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.regex.Pattern;
 
+import static design.aem.utils.components.CommonUtil.resourceRenderAsHtml;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -195,12 +200,6 @@ public class ComponentsUtil {
     public static final String FIELD_STYLE_COMPONENT_SITETHEMECATEGORY = "siteThemeCategory";
     public static final String FIELD_STYLE_COMPONENT_SITETHEMECOLOR = "siteThemeColor";
     public static final String FIELD_STYLE_COMPONENT_SITETITLECOLOR = "siteTileColor";
-    public static final String FIELD_STYLE_COMPONENT_ANIMATION_ENABLED = "animationEnabled";
-    public static final String FIELD_STYLE_COMPONENT_ANIMATION_NAME = "animationName";
-    public static final String FIELD_STYLE_COMPONENT_ANIMATION_ONCE = "animationOnce";
-    public static final String FIELD_STYLE_COMPONENT_ANIMATION_EASING = "animationEasing";
-    public static final String FIELD_STYLE_COMPONENT_ANIMATION_DELAY = "animationDelay";
-    public static final String FIELD_STYLE_COMPONENT_ANIMATION_DURATION = "animationDuration";
 
     public static final String FIELD_ARIA_ROLE = "ariaRole";
     public static final String FIELD_ARIA_LABEL = "ariaLabel";
@@ -226,6 +225,12 @@ public class ComponentsUtil {
 
     public static final String FIELD_HREF = "href";
     public static final String FIELD_TITLE_TAG_TYPE = "titleType";
+    public static final String FIELD_HIDE_TITLE = "hideTitle";
+    public static final String FIELD_HIDE_DESCRIPTION = "hideDescription";
+    public static final String FIELD_SHOW_BREADCRUMB = "showBreadcrumb";
+    public static final String FIELD_SHOW_TOOLBAR = "showToolbar";
+    public static final String FIELD_SHOW_PAGEDATE = "showPageDate";
+    public static final String FIELD_SHOW_PARSYS = "showParsys";
 
     public static final String FIELD_BADGE_PAGE = "badgePage";
 
@@ -312,12 +317,6 @@ public class ComponentsUtil {
             {FIELD_STYLE_COMPONENT_SITETHEMECOLOR, ""},
             {FIELD_STYLE_COMPONENT_SITETITLECOLOR, ""},
             {FIELD_STYLE_COMPONENT_BOOLEANATTR, new String[]{}, " ", Tag.class.getCanonicalName()}, //#3" " =do not store content in data attributes
-            {FIELD_STYLE_COMPONENT_ANIMATION_ENABLED, false},
-            {FIELD_STYLE_COMPONENT_ANIMATION_NAME, StringUtils.EMPTY, "data-aos"},
-            {FIELD_STYLE_COMPONENT_ANIMATION_ONCE, StringUtils.EMPTY, "data-aos-once"},
-            {FIELD_STYLE_COMPONENT_ANIMATION_EASING, StringUtils.EMPTY, "data-aos-easing"},
-            {FIELD_STYLE_COMPONENT_ANIMATION_DELAY, StringUtils.EMPTY, "data-aos-delay"},
-            {FIELD_STYLE_COMPONENT_ANIMATION_DURATION, StringUtils.EMPTY, "data-aos-duration"},
     };
 
     //COMPONENT ACCESSIBILITY
@@ -528,6 +527,24 @@ public class ComponentsUtil {
             {"favicon", ""},
             {"siteThemeColor", ""},
             {"siteTileColor", ""},
+    };
+
+    //COMMON COMPONENT LAYOUT FIELDS
+    // {
+    //   1 required - property name,
+    //   2 required - default value,
+    //   3 optional - name of component attribute to add value into
+    //   4 optional - canonical name of class for handling multivalues, String or Tag
+    // }
+    public static final Object[][] DEFAULT_COMMON_COMPONENT_LAYOUT_FIELDS = {
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_TITLE_TAG_TYPE, ""},
+            {FIELD_HIDE_TITLE, false},
+            {FIELD_HIDE_DESCRIPTION, false},
+            {FIELD_SHOW_BREADCRUMB, true},
+            {FIELD_SHOW_TOOLBAR, true},
+            {FIELD_SHOW_PAGEDATE, true},
+            {FIELD_SHOW_PARSYS, true},
     };
 
     /**
@@ -1854,4 +1871,106 @@ public class ComponentsUtil {
         return componentInPagePath;
     }
 
+
+    /**
+     * create a map of component fields matched to Dialog Title and Description
+     * @param componentResource
+     * @param resourceResolver
+     * @param slingScriptHelper
+     * @return
+     */
+    public static Map<String, Object> getComponentFieldsAndDialogMap(Resource componentResource , ResourceResolver resourceResolver, SlingScriptHelper slingScriptHelper) {
+        Map<String, Object> firstComponentConfig = new HashMap<>();
+
+        ValueMap firstComponentMap = componentResource.adaptTo(ValueMap.class);
+        if (firstComponentMap != null) {
+
+
+            Resource firstComponentR = resourceResolver.getResource(componentResource.getResourceType());
+
+            if (firstComponentR != null) {
+                Component firstComponentComp = firstComponentR.adaptTo(Component.class);
+                Component firstComponentCompSuper = firstComponentComp.getSuperComponent();
+
+                if (firstComponentComp != null) {
+                    String dialogPath = firstComponentComp.getPath() + "/cq:dialog/content.html/" + componentResource.toString();
+                    if (firstComponentCompSuper != null) {
+                        dialogPath = firstComponentCompSuper.getPath() + "/cq:dialog/content.html/" + componentResource.toString();
+                    }
+
+                    String dialogHTML = resourceRenderAsHtml(
+                            dialogPath,
+                            resourceResolver,
+                            slingScriptHelper,
+                            WCMMode.DISABLED,
+                            null,
+                            null);
+
+                    Document dialogContent = Jsoup.parse(dialogHTML);
+
+                    for (Map.Entry<String, Object> field : firstComponentMap.entrySet()) {
+
+                        String name = field.getKey();
+                        Object value = field.getValue();
+
+                        Map<String, Object> row = new HashMap<>();
+                        row.put("value", value);
+                        row.put("fieldDescription", "");
+                        row.put("fieldLabel", "");
+                        row.put("type", "");
+
+                        if (isNotEmpty(dialogPath)) {
+                            String fieldSelection = "[name='./" + name + "']";
+
+
+
+                            Element htmlSection = dialogContent.selectFirst(".coral-Form-fieldwrapper:has("+fieldSelection+")");
+
+                            Element fieldElement = dialogContent.selectFirst(fieldSelection);
+
+                            if (fieldElement != null) {
+                                Object[] classNames = fieldElement.classNames().toArray();
+                                if (classNames.length > 0 ) {
+                                    row.put("type", classNames[classNames.length - 1]);
+                                } else {
+                                    row.put("type", fieldElement.tagName());
+                                }
+                            }
+
+                            if (htmlSection != null) {
+
+                                Element fieldLabel = htmlSection.selectFirst(".coral-Form-fieldlabel");
+                                Element fieldDescription = htmlSection.selectFirst(".coral-Form-fieldinfo");
+                                Element fieldTooltip = htmlSection.selectFirst("coral-tooltip-content");
+
+                                if (fieldLabel != null) {
+                                    String fieldLabelText = fieldLabel.text();
+                                    row.put("fieldLabel", fieldLabelText);
+                                }
+
+                                String fieldDescriptionString = "";
+
+                                if (fieldDescription != null) {
+                                    fieldDescriptionString = fieldDescription.attr("data-quicktip-content");
+                                }
+                                if (fieldTooltip != null) {
+                                    fieldDescriptionString = fieldTooltip.text();
+                                }
+
+                                row.put("fieldDescription", fieldDescriptionString);
+
+
+                            }
+
+                        }
+
+                        firstComponentConfig.put(name, row);
+                    }
+                }
+            }
+        }
+
+        return firstComponentConfig;
+
+    }
 }
