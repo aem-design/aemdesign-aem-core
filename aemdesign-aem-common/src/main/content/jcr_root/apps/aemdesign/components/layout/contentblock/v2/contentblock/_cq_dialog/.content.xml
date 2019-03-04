@@ -131,44 +131,11 @@
                                             class="cq-dialog-dropdown-showhide"
                                             cq-dialog-dropdown-showhide-target=".variant-config-showhide-target"
                                             value="">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <default
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Default"
-                                                    value=""/>
-                                            <container
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Container"
-                                                    value="container"/>
-                                            <containerVideo
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Container with Video Background"
-                                                    value="containerVideo"/>
-                                            <floating
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Floating Section"
-                                                    value="floating"/>
-                                            <advsection
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Advanced Section"
-                                                    value="advsection"/>
-                                            <fieldset
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Field Set in Form"
-                                                    value="fieldset"/>
-                                            <descriptionlist
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Description List"
-                                                    value="descriptionlist"/>
-                                            <parsys
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Classic Parsys"
-                                                    value="parsys"/>
-                                            <childsection
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Child Section"
-                                                    value="childsection"/>
-                                        </items>
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/layout/contentblock/variant"/>
                                     </variant>
 
                                     <variantConfig
