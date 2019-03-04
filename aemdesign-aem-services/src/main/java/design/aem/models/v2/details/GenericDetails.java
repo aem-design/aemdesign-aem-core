@@ -112,10 +112,22 @@ public class GenericDetails extends WCMUsePojo {
                 componentProperties.put(COMPONENT_BADGE_SELECTED, true);
             }
 
+            String requestedBadgeTemplate = format(COMPONENT_BADGE_TEMPLATE_FORMAT, componentBadge);
+            String defaultBadgeTemplate = format(COMPONENT_BADGE_TEMPLATE_FORMAT, DEFAULT_BADGE);
+
+            //check if component has the badge and reset if it does not
+            if (getComponent().getLocalResource(requestedBadgeTemplate) != null) {
+                LOGGER.error("component has badge {}", componentBadge);
+            } else {
+                LOGGER.error("component does not have badge {}", componentBadge);
+                componentBadge = DEFAULT_BADGE;
+                requestedBadgeTemplate = defaultBadgeTemplate;
+            }
+
             componentProperties.put(COMPONENT_BADGE, componentBadge);
 
             //compile componentBadgeTemplate param
-            componentProperties.put(COMPONENT_BADGE_TEMPLATE, format(COMPONENT_BADGE_TEMPLATE_FORMAT, componentBadge));
+            componentProperties.put(COMPONENT_BADGE_TEMPLATE, requestedBadgeTemplate);
 
             //get background image
             componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME, getBackgroundImageRenditions(this));
