@@ -69,20 +69,20 @@
                                             multiple="{Boolean}true"
                                             name="./linkIcon"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"/>
-                                    <linkIconDirection
+                                    <linkIconPosition
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
                                             emptyOption="{Boolean}true"
-                                            fieldDescription="Which side/direction of the link should the icon appear on?"
-                                            fieldLabel="Link Icon Direction"
-                                            name="./linkIconDirection"
+                                            fieldDescription="Which position (axis/direction) of the link should the icon appear?"
+                                            fieldLabel="Link Icon Position"
+                                            name="./linkIconPosition"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/direction"
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/position"
                                                 variant="valuelist"/>
-                                    </linkIconDirection>
+                                    </linkIconPosition>
 
                                 </items>
                             </basic>

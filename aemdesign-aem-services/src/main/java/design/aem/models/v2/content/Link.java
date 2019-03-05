@@ -35,7 +35,7 @@ public class Link extends WCMUsePojo {
 
         final String FIELD_LINKURL = "linkUrl";
         final String DEFAULT_LINKURL = "#";
-        final String DEFAULT_LINK_ICON_DIRECTION = "left";
+        final String DEFAULT_LINK_ICON_POSITION = "left";
         final String DEFAULT_I18N_CATEGORY = "link";
         final String DEFAULT_I18N_LABEL = "linklabel";
 
@@ -52,7 +52,7 @@ public class Link extends WCMUsePojo {
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"linkId", getResource().getPath()},
                 {"linkIcon", new String[]{}, "", Tag.class.getCanonicalName()},
-                {"linkIconDirection", DEFAULT_LINK_ICON_DIRECTION},
+                {"linkIconPosition", DEFAULT_LINK_ICON_POSITION},
                 {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
                 {COMPONENT_INPAGEPATH, getComponentInPagePath(getResource().adaptTo(Node.class)),"data-layer-componentpath"},
         };

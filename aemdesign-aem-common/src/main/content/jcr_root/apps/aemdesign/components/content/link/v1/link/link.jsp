@@ -7,7 +7,7 @@
 
     final String FIELD_LINKURL = "linkUrl";
     final String DEFAULT_LINKURL = "#";
-    final String DEFAULT_LINK_ICON_DIRECTION = "left";
+    final String DEFAULT_LINK_ICON_POSITION = "left";
     final String DEFAULT_I18N_CATEGORY = "link";
     final String DEFAULT_I18N_LABEL = "linklabel";
 
@@ -24,7 +24,7 @@
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"linkId", _xssAPI.encodeForHTMLAttr(_resource.getPath())},
             {"linkIcon", new String[]{}, "", Tag.class.getCanonicalName()},
-            {"linkIconDirection", DEFAULT_LINK_ICON_DIRECTION},
+            {"linkIconPosition", DEFAULT_LINK_ICON_POSITION},
             {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
             {COMPONENT_INPAGEPATH, getComponentInPagePath(_currentNode),"data-layer-componentpath"},
     };
