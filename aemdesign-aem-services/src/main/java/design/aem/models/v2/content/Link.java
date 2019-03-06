@@ -50,7 +50,6 @@ public class Link extends WCMUsePojo {
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"linkId", getResource().getPath()},
                 {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
-                {COMPONENT_INPAGEPATH, getComponentInPagePath(getResource().adaptTo(Node.class)),"data-layer-componentpath"},
         };
 
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -74,7 +73,6 @@ public class Link extends WCMUsePojo {
             componentProperties.attr.add("href", linkUrl);
 
             componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
-
 
         }
 
