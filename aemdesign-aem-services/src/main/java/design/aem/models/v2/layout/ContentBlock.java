@@ -7,6 +7,7 @@ import com.day.cq.wcm.api.WCMMode;
 import com.day.cq.wcm.api.components.Component;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
@@ -104,7 +105,8 @@ public class ContentBlock extends WCMUsePojo {
 
         String variant = componentProperties.get(FIELD_VARIANT,DEFAULT_VARIANT);
 
-        if (variant.equals("componentConfig")) {
+        //skip output of table if noconfig selector is used, used in testing to speedup page load
+        if (variant.equals("componentConfig") && !StringUtils.contains(getRequest().getRequestPathInfo().getSelectorString(),"noconfig") ) {
             Resource componentresource = getResource().getChild(DEFAULT_PAR_NAME);
             if (componentresource != null) {
                 //get first component
