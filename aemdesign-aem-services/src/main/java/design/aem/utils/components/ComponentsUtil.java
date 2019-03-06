@@ -131,23 +131,25 @@ public class ComponentsUtil {
 
     //badge analytics
     public static final String DETAILS_BADGE_ANALYTICS_EVENT_TYPE = "badgeAnalyticsEventType";
-    public static final String DETAILS_BADGE_ANALYTICS_LINK_TYPE = "badgeAnalyticsLinkType";
-    public static final String DETAILS_BADGE_ANALYTICS_LINK_LOCATION = "badgeAnalyticsLinkLocation";
-    public static final String DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION = "badgeAnalyticsLinkDescription";
+    public static final String DETAILS_BADGE_ANALYTICS_TRACK = "badgeAnalyticsTrack";
+    public static final String DETAILS_BADGE_ANALYTICS_LOCATION = "badgeAnalyticsLocation";
+    public static final String DETAILS_BADGE_ANALYTICS_LABEL = "badgeAnalyticsLabel";
 
     //page metadata pageMetaProperty
     public static final String DETAILS_PAGE_METADATA_PROPERTY = "pageMetaProperty";
     public static final String DETAILS_PAGE_METADATA_PROPERTY_CONTENT = "pageMetaPropertyContent";
 
     //analytics
-    public static final String DETAILS_ANALYTICS_EVENT_TYPE = "analyticsEventType";
-    public static final String DETAILS_ANALYTICS_LINK_TYPE = "analyticsLinkType";
-    public static final String DETAILS_ANALYTICS_LINK_LOCATION = "analyticsLinkLocation";
-    public static final String DETAILS_ANALYTICS_LINK_DESCRIPTION = "analyticsLinkDescription";
-    public static final String DETAILS_DATA_ANALYTICS_EVENT_TYPE = "data-layer-event";
-    public static final String DETAILS_DATA_ANALYTICS_LINK_TYPE = "data-layer-linktype";
-    public static final String DETAILS_DATA_ANALYTICS_LINK_LOCATION = "data-layer-linklocation";
-    public static final String DETAILS_DATA_ANALYTICS_LINK_DESCRIPTION = "data-layer-linkdescription";
+    public static final String DETAILS_ANALYTICS_TRACK = "analyticsTrack";
+    public static final String DETAILS_ANALYTICS_LOCATION = "analyticsLocation";
+    public static final String DETAILS_ANALYTICS_LABEL = "analyticsLabel";
+    public static final String DETAILS_ANALYTICS_PAGENAME = "analyticsPageName";
+    public static final String DETAILS_ANALYTICS_PAGETYPE = "analyticsPageType";
+    public static final String DETAILS_ANALYTICS_PLATFORM = "analyticsPlatform";
+    public static final String DETAILS_ANALYTICS_ABORT = "analyticsAbort";
+    public static final String DETAILS_DATA_ANALYTICS_TRACK = "data-layer-track";
+    public static final String DETAILS_DATA_ANALYTICS_LOCATION = "data-layer-location";
+    public static final String DETAILS_DATA_ANALYTICS_LABEL = "data-layer-label";
 
 
     public static final String FIELD_HIDEINMENU = "hideInMenu";
@@ -391,11 +393,9 @@ public class ComponentsUtil {
             {DETAILS_THUMBNAIL_ID, ""},
             {DETAILS_THUMBNAIL_LICENSE_INFO, ""},
             {DETAILS_THUMBNAIL, ""},
-            {DETAILS_BADGE_ANALYTICS_EVENT_TYPE, StringUtils.EMPTY}, //basic
-            {DETAILS_BADGE_ANALYTICS_LINK_TYPE, StringUtils.EMPTY}, //basic
-            {DETAILS_BADGE_ANALYTICS_LINK_LOCATION, StringUtils.EMPTY}, //basic
-            {DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION, StringUtils.EMPTY}, //basic
-            {DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY}, //basic
             {DETAILS_PAGE_METADATA_PROPERTY, new String[]{}},
             {DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[]{}},
 
@@ -439,10 +439,9 @@ public class ComponentsUtil {
             {DETAILS_THUMBNAIL_ID, ""},
             {DETAILS_THUMBNAIL_LICENSE_INFO, ""},
             {DETAILS_THUMBNAIL, ""},
-            {DETAILS_BADGE_ANALYTICS_EVENT_TYPE, StringUtils.EMPTY}, //basic
-            {DETAILS_BADGE_ANALYTICS_LINK_TYPE, StringUtils.EMPTY}, //basic
-            {DETAILS_BADGE_ANALYTICS_LINK_LOCATION, StringUtils.EMPTY}, //basic
-            {DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY}, //basic
 
     };
 
@@ -454,10 +453,9 @@ public class ComponentsUtil {
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
     public static final Object[][] DEFAULT_FIELDS_ANALYTICS = {
-            {DETAILS_ANALYTICS_EVENT_TYPE, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_EVENT_TYPE}, //basic
-            {DETAILS_ANALYTICS_LINK_TYPE, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LINK_TYPE}, //basic
-            {DETAILS_ANALYTICS_LINK_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LINK_LOCATION}, //basic
-            {DETAILS_ANALYTICS_LINK_DESCRIPTION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LINK_DESCRIPTION}, //basic
+            {DETAILS_ANALYTICS_TRACK, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_TRACK}, //basic
+            {DETAILS_ANALYTICS_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LOCATION}, //basic
+            {DETAILS_ANALYTICS_LABEL, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LABEL}, //basic
             {"analyticsEventType", StringUtils.EMPTY, "data-analytics-event"}, //advanced
             {"analyticsHitType", StringUtils.EMPTY, "data-analytics-hit-type"}, //advanced
             {"analyticsEventCategory", StringUtils.EMPTY, "data-analytics-event-category"}, //advanced

@@ -18,6 +18,7 @@ import java.util.HashMap;
 
 import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX;
 import static design.aem.utils.components.CommonUtil.findComponentInPage;
+import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.DateTimeUtil.formatDate;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -65,8 +66,8 @@ public class DataLayer extends WCMUsePojo {
             ArrayList<String> digitalDataPageError = new ArrayList<String>();
             HashMap<String, Object> digitalDataPageAttributes = new HashMap<String, Object>();
 
-            digitalDataPagePageInfo.put("pageName", detailsProperties.get("analyticsPageName", ""));
-            digitalDataPagePageInfo.put("pageType", detailsProperties.get("analyticsPageType", ""));
+            digitalDataPagePageInfo.put("pageName", detailsProperties.get(DETAILS_ANALYTICS_PAGENAME, ""));
+            digitalDataPagePageInfo.put("pageType", detailsProperties.get(DETAILS_ANALYTICS_PAGETYPE, ""));
             digitalDataPagePageInfo.put("pagePath", getResourcePage().getPath());
             if (isNotEmpty(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, ""))) {
                 digitalDataPagePageInfo.put("effectiveDate", formatDate(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, Calendar.getInstance()), "yyyy-MM-dd"));
@@ -76,8 +77,8 @@ public class DataLayer extends WCMUsePojo {
             digitalDataPagePageInfo.put("contentCountry", getResourcePage().getLanguage(false).getDisplayCountry());
             digitalDataPagePageInfo.put("contentLanguage", getResourcePage().getLanguage(false).getDisplayLanguage().toLowerCase());
 
-            digitalDataPageAttributes.put("platform", detailsProperties.get("analyticsPlatform", "aem"));
-            digitalDataPageAttributes.put("abort", detailsProperties.get("analyticsAbort", "false"));
+            digitalDataPageAttributes.put("platform", detailsProperties.get(DETAILS_ANALYTICS_PLATFORM, "aem"));
+            digitalDataPageAttributes.put("abort", detailsProperties.get(DETAILS_ANALYTICS_ABORT, "false"));
             digitalDataPageAttributes.put("detailsMissing", isEmpty(detailsPath));
 
             digitalDataPage.put("pageInfo", digitalDataPagePageInfo);
