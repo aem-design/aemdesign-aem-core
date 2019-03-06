@@ -1151,6 +1151,10 @@ public class ComponentsUtil {
             }
 
             if (fieldLists != null) {
+                JexlEngine jexl = new JexlBuilder().create();
+                JxltEngine jxlt = jexl.createJxltEngine();
+                JexlContext jc = new MapContext(componentProperties);
+
                 for (Object[][] fieldDefaults : fieldLists) {
                     for (Object[] field : fieldDefaults) {
                         if (field.length < 1) {
@@ -1173,16 +1177,13 @@ public class ComponentsUtil {
                             if (fieldDefaultValue.toString().contains("${")) {
                                 //try to evaluate default value expression
                                 try {
-                                    JexlEngine jexl = new JexlBuilder().create();
-                                    JxltEngine jxlt = jexl.createJxltEngine();
                                     JxltEngine.Expression expr = jxlt.createExpression(fieldDefaultValue.toString());
-                                    JexlContext jc = new MapContext(componentProperties);
                                     String defaultValueExpressionValue = expr.evaluate(jc).toString();
                                     if (isNotEmpty(defaultValueExpressionValue)) {
                                         fieldDefaultValue = defaultValueExpressionValue;
                                     }
-                                } catch (Exception ex) {
-                                    LOGGER.error("could not evaluate default value expression field={}, default value={}, componentProperties={}, error={}",fieldName, fieldDefaultValue.toString(),componentProperties, ex);
+                                } catch (JexlException jex) {
+//                                    LOGGER.error("could not evaluate default value expression field={}, default value={}, error={}",fieldName, fieldDefaultValue.toString(), jex.getInfo());
                                 }
                             }
 
@@ -1526,21 +1527,21 @@ public class ComponentsUtil {
                             if (detailsNode.hasProperty(DETAILS_DESCRIPTION)) {
                                 return detailsNode.getProperty(DETAILS_DESCRIPTION).getString();
                             } else {
-                                LOGGER.error("getPageDescription: detailsNode does not have {} in page [{}]", DETAILS_DESCRIPTION, page.getPath());
+//                                LOGGER.error("getPageDescription: detailsNode does not have {} in page [{}]", DETAILS_DESCRIPTION, page.getPath());
                             }
                         } else {
-                            LOGGER.error("getPageDescription: detailsNode is null in page [{}]", page.getPath());
+//                            LOGGER.error("getPageDescription: detailsNode is null in page [{}]", page.getPath());
                         }
                     } else {
-                        LOGGER.error("getPageDescription: detailsResource is null in page [{}]", page.getPath());
+//                        LOGGER.error("getPageDescription: detailsResource is null in page [{}]", page.getPath());
                     }
 
                 } else {
-                    LOGGER.error("getPageDescription: resourceResolver is null in page [{}]", page.getPath());
+//                    LOGGER.error("getPageDescription: resourceResolver is null in page [{}]", page.getPath());
                 }
 
             } else {
-                LOGGER.error("getPageDescription: pageResource is null in page [{}]", page.getPath());
+//                LOGGER.error("getPageDescription: pageResource is null in page [{}]", page.getPath());
             }
 
         } catch (Exception ex) {
