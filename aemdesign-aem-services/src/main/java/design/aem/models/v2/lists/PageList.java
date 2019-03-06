@@ -15,9 +15,8 @@ public class PageList extends List  {
 
 
     @Override
+    @SuppressWarnings("Duplicates")
     public void activate() throws Exception {
-
-        LOGGER.error("PageList: loaded");
 
         I18n _i18n = new I18n(getRequest());
 
