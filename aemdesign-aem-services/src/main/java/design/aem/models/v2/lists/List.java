@@ -156,8 +156,6 @@ public class List extends WCMUsePojo {
         I18n _i18n = new I18n(getRequest());
         String resourcePath = getResource().getPath();
 
-        LOGGER.error("List: loading config");
-
         //not using lamda is available so this is the best that can be done
         Object[][] componentFields = {
                 {LIST_TAG, LIST_TAG_UNORDERED},
@@ -293,7 +291,6 @@ public class List extends WCMUsePojo {
 
         componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
 
-        LOGGER.error("list loaded");
     }
 
     /**
@@ -407,7 +404,7 @@ public class List extends WCMUsePojo {
      * @return
      */
     public Collection<Map<String,Object>> getListItems() {
-        LOGGER.error("loading items");
+//        LOGGER.error("loading items");
         if (listItems == null) {
             Source listType = getListType();
             populateListItems(listType);
@@ -735,7 +732,7 @@ public class List extends WCMUsePojo {
 
             map.put("orderby.sort", sortOrder.value);
 
-            LOGGER.error("populateListItemsFromMap: running query with map=[{}]",map);
+//            LOGGER.error("populateListItemsFromMap: running query with map=[{}]",map);
 
             PredicateGroup root = PredicateGroup.create(map);
             // avoid slow //* queries
@@ -844,7 +841,7 @@ public class List extends WCMUsePojo {
         isPaginating = (pageMax > 0 && result.getResultPages().size() > 0);
         componentProperties.put(LIST_ISPAGINATING, isPaginating);
 
-        LOGGER.error("collectSearchResults resultInfo={},isPaginating={}", resultInfo,isPaginating);
+//        LOGGER.error("collectSearchResults resultInfo={},isPaginating={}", resultInfo,isPaginating);
         componentProperties.put("resultInfo",resultInfo);
 
         for (Hit hit : result.getHits()) {
