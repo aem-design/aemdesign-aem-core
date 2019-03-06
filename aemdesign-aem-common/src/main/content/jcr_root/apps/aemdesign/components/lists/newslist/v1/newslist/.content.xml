@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Component"
-    jcr:title="News List"
+    jcr:title="News List (v1)"
     cq:icon="viewList"
+    sling:resourceSuperType="aemdesign/components/lists/list"
     allowedParents="[*/parsys]"
-    sling:resourceSuperType="aemdesign/components/lists/newslist/v2/newslist"
-    componentGroup="AEM.Design - Lists"/>
+    componentGroup="hidden"/>
