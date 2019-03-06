@@ -396,7 +396,7 @@ public class ComponentsUtil {
             {DETAILS_THUMBNAIL, ""},
             {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY}, //basic
             {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY}, //basic
-            {DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LABEL, "${badgeLinkText}"}, //basic
             {DETAILS_PAGE_METADATA_PROPERTY, new String[]{}},
             {DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[]{}},
 
