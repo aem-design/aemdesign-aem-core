@@ -24,6 +24,7 @@ import com.google.common.base.Throwables;
 import design.aem.components.ComponentProperties;
 import design.aem.models.GenericModel;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.jexl3.*;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -455,7 +456,7 @@ public class ComponentsUtil {
     public static final Object[][] DEFAULT_FIELDS_ANALYTICS = {
             {DETAILS_ANALYTICS_TRACK, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_TRACK}, //basic
             {DETAILS_ANALYTICS_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LOCATION}, //basic
-            {DETAILS_ANALYTICS_LABEL, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LABEL}, //basic
+            {DETAILS_ANALYTICS_LABEL, "${label}", DETAILS_DATA_ANALYTICS_LABEL}, //basic
             {"analyticsEventType", StringUtils.EMPTY, "data-analytics-event"}, //advanced
             {"analyticsHitType", StringUtils.EMPTY, "data-analytics-hit-type"}, //advanced
             {"analyticsEventCategory", StringUtils.EMPTY, "data-analytics-event-category"}, //advanced
@@ -1166,6 +1167,26 @@ public class ComponentsUtil {
                         }
 
                         Object fieldDefaultValue = field[1];
+
+                        if (fieldDefaultValue instanceof String && StringUtils.isNotEmpty(fieldDefaultValue.toString())) {
+
+                            if (fieldDefaultValue.toString().contains("${")) {
+                                //try to evaluate default value expression
+                                try {
+                                    JexlEngine jexl = new JexlBuilder().create();
+                                    JxltEngine jxlt = jexl.createJxltEngine();
+                                    JxltEngine.Expression expr = jxlt.createExpression(fieldDefaultValue.toString());
+                                    JexlContext jc = new MapContext(componentProperties);
+                                    String defaultValueExpressionValue = expr.evaluate(jc).toString();
+                                    if (isNotEmpty(defaultValueExpressionValue)) {
+                                        fieldDefaultValue = defaultValueExpressionValue;
+                                    }
+                                } catch (Exception ex) {
+                                    LOGGER.error("could not evaluate default value expression field={}, default value={}, componentProperties={}, error={}",fieldName, fieldDefaultValue.toString(),componentProperties, ex);
+                                }
+                            }
+
+                        }
 
                         Object fieldValue = getComponentProperty(properties, currentStyle, fieldName, fieldDefaultValue, true);
 
