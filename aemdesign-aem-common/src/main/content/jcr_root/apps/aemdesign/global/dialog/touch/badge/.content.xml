@@ -426,54 +426,33 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="cq/gui/components/authoring/dialog/note"
                                                     note="This information is used in badges that have an action. These badges will be used in Lists for presentation."/>
-                                            <analyticsEventType
+                                            <badgeAnalyticsTrack
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                                    fieldDescription="Event Type"
-                                                    fieldLabel="Event Type"
-                                                    name="./badgeAnalyticsEventType"
+                                                    fieldDescription="Track"
+                                                    fieldLabel="Track"
+                                                    name="./badgeAnalyticsTrack"
                                                     emptyOption="{Boolean}true"
                                                     value="">
                                                 <datasource
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                         variant="valuelist"
-                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/eventtype"/>
-                                            </analyticsEventType>
-                                            <analyticsLinkType
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                                fieldDescription="Link Type"
-                                                fieldLabel="Link Type"
-                                                name="./badgeAnalyticsLinkType"
-                                                emptyOption="{Boolean}true"
-                                                value="">
-                                                <datasource
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                    variant="valuelist"
-                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/linktype"/>
-                                            </analyticsLinkType>
-                                            <analyticsLinkLocation
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                                    fieldDescription="Link Location"
-                                                    fieldLabel="Link Location"
-                                                    name="./badgeAnalyticsLinkLocation"
-                                                    emptyOption="{Boolean}true"
-                                                    value="">
-                                                <datasource
-                                                        jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                        variant="valuelist"
-                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/linklocation"/>
-                                            </analyticsLinkLocation>
-                                            <analyticsLinkDescription
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            </badgeAnalyticsTrack>
+                                            <badgeAnalyticsLocation
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                    fieldDescription="Link Description"
-                                                    fieldLabel="Link Description"
-                                                    name="./badgeAnalyticsLinkDescription"
+                                                    fieldDescription="Location"
+                                                    fieldLabel="Location"
+                                                    name="./badgeAnalyticsLocation"
+                                                    required="{Boolean}false"/>
+                                            <badgeAnalyticsLabel
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                    fieldDescription="Description"
+                                                    fieldLabel="Description"
+                                                    name="./badgeAnalyticsLabel"
                                                     required="{Boolean}false"/>
                                         </items>
                                     </analyticsConfigGroup>
