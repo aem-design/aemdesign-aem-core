@@ -177,10 +177,9 @@ public class GenericDetails extends WCMUsePojo {
         if (isNotEmpty(getPageRedirect(page))) {
             badgeLinkAttr.put(FIELD_EXTERNAL, "true");
         }
-        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_EVENT_TYPE,componentProperties.get(DETAILS_BADGE_ANALYTICS_EVENT_TYPE,""));
-        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LINK_TYPE,componentProperties.get(DETAILS_BADGE_ANALYTICS_LINK_TYPE,""));
-        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LINK_LOCATION,componentProperties.get(DETAILS_BADGE_ANALYTICS_LINK_LOCATION,""));
-        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LINK_DESCRIPTION,componentProperties.get(DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION,""));
+        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_TRACK,componentProperties.get(DETAILS_BADGE_ANALYTICS_TRACK,""));
+        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LOCATION,componentProperties.get(DETAILS_BADGE_ANALYTICS_LOCATION,""));
+        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LABEL,componentProperties.get(DETAILS_BADGE_ANALYTICS_LABEL,""));
         badgeLinkAttr.put(COMPONENT_ATTRIBUTE_INPAGEPATH,componentProperties.get(COMPONENT_INPAGEPATH,""));
 
         badgeConfig.put(DETAILS_BADGE_LINK_ATTR,badgeLinkAttr);
