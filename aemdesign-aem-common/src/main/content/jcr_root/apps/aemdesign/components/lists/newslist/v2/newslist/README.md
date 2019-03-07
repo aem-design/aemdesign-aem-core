@@ -1,21 +1,24 @@
-Search List
+News List
 ============
 
-Search List Component
+New List component used to create list of new articles. 
 
 # Overview
 
-Allows adding Search Results list to a page.
+User as a super resource type by all other lists
 
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
-* **Version**: v1
+* **Version**: v2
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
-* **Showcase**: [/content/aemdesign-showcase/en/component/lists/searchlist/v1/searchlist](/content/aemdesign-showcase/en/component/lists/searchlist.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/lists/searchlist/v1/searchlist](/crx/de/#/apps/aemdesign/components/lists/searchlist/v1/searchlist)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/searchlist/v1/searchlist)
-* **Readme**: [/apps/aemdesign/components/lists/searchlist/v1/searchlist](/mnt/overlay/wcm/core/content/sites/components/media.html/apps/aemdesign/components/lists/searchlist/v1/searchlist)
+* **Showcase**: [/content/aemdesign-showcase/en/component/lists/newslist/v2/newslist](/content/aemdesign-showcase/en/component/lists/newslist.html?wcmmode=disabled)
+* **Local Code**: [/apps/aemdesign/components/lists/newslist/v2/newslist](/crx/de/#/apps/aemdesign/components/lists/newslist/v2/newslist)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/newslist/v2/newslist)
+* **Readme**: [/apps/aemdesign/components/lists/newslist/v2/newslist](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/newslist/v2/newslist)
+
+## Features
+* Allows creation of Previous and Next page on a Page that is part of a collection of pages.
 
 # Authoring
 
