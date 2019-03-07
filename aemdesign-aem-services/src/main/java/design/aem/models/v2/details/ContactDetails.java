@@ -94,10 +94,13 @@ public class ContactDetails extends GenericDetails {
         );
 
 
-        processCommonFields();
 
         //format fields
         componentProperties.putAll(processComponentFields(componentProperties,_i18n,getSlingScriptHelper()), false);
+
+        componentProperties.put(DETAILS_DESCRIPTION,componentProperties.get(FIELD_FORMATTED_DESCRIPTION,""));
+
+        processCommonFields();
 
         //set something if title formatted is empty
         if (isEmpty(componentProperties.get(FIELD_FORMATTED_TITLE,""))) {
