@@ -396,7 +396,7 @@ public class ComponentsUtil {
             {DETAILS_THUMBNAIL, ""},
             {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY}, //basic
             {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY}, //basic
-            {DETAILS_BADGE_ANALYTICS_LABEL, "${badgeLinkText}"}, //basic
+            {DETAILS_BADGE_ANALYTICS_LABEL, "${" + DETAILS_LINK_TEXT + "}"}, //basic
             {DETAILS_PAGE_METADATA_PROPERTY, new String[]{}},
             {DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[]{}},
 
@@ -1174,9 +1174,10 @@ public class ComponentsUtil {
 
                         if (fieldDefaultValue instanceof String && StringUtils.isNotEmpty(fieldDefaultValue.toString())) {
 
-                            if (fieldDefaultValue.toString().contains("${")) {
+                            if (fieldDefaultValue.toString().matches("(\\$\\{.*\\})")) {
                                 //try to evaluate default value expression
                                 try {
+                                    //expressions reference https://commons.apache.org/proper/commons-jexl/reference/syntax.html
                                     JxltEngine.Expression expr = jxlt.createExpression(fieldDefaultValue.toString());
                                     String defaultValueExpressionValue = expr.evaluate(jc).toString();
                                     if (isNotEmpty(defaultValueExpressionValue)) {
@@ -1184,6 +1185,8 @@ public class ComponentsUtil {
                                     }
                                 } catch (JexlException jex) {
 //                                    LOGGER.error("could not evaluate default value expression field={}, default value={}, error={}",fieldName, fieldDefaultValue.toString(), jex.getInfo());
+                                    //remove expressions from string
+                                    fieldDefaultValue = ((String) fieldDefaultValue).replaceAll("(\\$\\{.*\\})","");
                                 }
                             }
 
