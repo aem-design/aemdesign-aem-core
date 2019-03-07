@@ -12,10 +12,10 @@ Allows adding Search Results list to a page.
 * **Version**: v2
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
-* **Showcase**: [/content/aemdesign-showcase/en/component/lists/searchlist](/content/aemdesign-showcase/en/component/lists/searchlist.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/lists/searchlist](/crx/de/#/apps/aemdesign/components/lists/searchlist)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/searchlist)
-* **Readme**: [/apps/aemdesign/components/lists/searchlist](/mnt/overlay/wcm/core/content/sites/components/media.html/apps/aemdesign/components/lists/searchlist)
+* **Showcase**: [/content/aemdesign-showcase/en/component/lists/searchlist/v2/searchlist](/content/aemdesign-showcase/en/component/lists/searchlist.html?wcmmode=disabled)
+* **Local Code**: [/apps/aemdesign/components/lists/searchlist/v2/searchlist](/crx/de/#/apps/aemdesign/components/lists/searchlist/v2/searchlist)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/searchlist/v2/searchlist)
+* **Readme**: [/apps/aemdesign/components/lists/searchlist/v2/searchlist](/mnt/overlay/wcm/core/content/sites/components/media.html/apps/aemdesign/components/lists/searchlist/v2/searchlist)
 
 # Authoring
 

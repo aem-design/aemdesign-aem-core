@@ -12,10 +12,10 @@ User as a super resource type by all other lists
 * **Version**: v1
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
-* **Showcase**: [/content/aemdesign-showcase/en/component/lists/navlist](/content/aemdesign-showcase/en/component/lists/navlist.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/lists/navlist](/crx/de/#/apps/aemdesign/components/lists/navlist)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/navlist)
-* **Readme**: [/apps/aemdesign/components/lists/navlist](/mnt/overlay/wcm/core/content/sites/components/media.html/apps/aemdesign/components/lists/navlist)
+* **Showcase**: [/content/aemdesign-showcase/en/component/lists/list/v1/list](/content/aemdesign-showcase/en/component/lists/list.html?wcmmode=disabled)
+* **Local Code**: [/apps/aemdesign/components/lists/list/v1/list](/crx/de/#/apps/aemdesign/components/lists/list/v1/list)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/list/v1/list)
+* **Readme**: [/apps/aemdesign/components/lists/list/v1/list](/mnt/overlay/wcm/core/content/sites/components/media.html/apps/aemdesign/components/lists/list/v1/list)
 
 ## Features
 * Allows creation of Previous and Next page on a Page that is part of a collection of pages.
