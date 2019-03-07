@@ -2,9 +2,8 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Component"
     jcr:description="The event list component is used to render the page level structured content from the Event Details component onto a list format to allow public users to choose and navigate to event pages"
-    jcr:title="Event List"
+    jcr:title="Event List (v2)"
     cq:icon="viewList"
-    sling:resourceSuperType="aemdesign/components/lists/eventlist/v2/eventlist"
+    sling:resourceSuperType="aemdesign/components/lists/list"
     allowedParents="[*/parsys]"
-    componentGroup="AEM.Design - Lists"
-/>
+    componentGroup="hidden"/>

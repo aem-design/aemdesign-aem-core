@@ -5,5 +5,5 @@
     jsProcessor="[default:none]"
     cssProcessor="[default:none]"
     categories="[aemdesign.common.components.publish]"
-    embed="[aemdesign.common.components.publish.static,aemdesign.components.eventfilter,aemdesign.components.locationlist,aemdesign.components.publish]"/>
+    embed="[aemdesign.common.components.publish.static,aemdesign.components.eventlist,aemdesign.components.locationlist,aemdesign.components.publish]"/>
 
