@@ -2,6 +2,7 @@ package design.aem.models.v2.content;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
+import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.NameConstants;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
@@ -34,6 +35,7 @@ public class Link extends WCMUsePojo {
 
         final String FIELD_LINKURL = "linkUrl";
         final String DEFAULT_LINKURL = "#";
+        final String DEFAULT_LINK_ICON_POSITION = "left";
         final String DEFAULT_I18N_CATEGORY = "link";
         final String DEFAULT_I18N_LABEL = "linklabel";
 
@@ -49,6 +51,8 @@ public class Link extends WCMUsePojo {
                 {FIELD_LINKURL, StringUtils.EMPTY},
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"linkId", getResource().getPath()},
+                {"linkIcon", new String[]{}, "", Tag.class.getCanonicalName()},
+                {"linkIconPosition", DEFAULT_LINK_ICON_POSITION},
                 {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
         };
 
