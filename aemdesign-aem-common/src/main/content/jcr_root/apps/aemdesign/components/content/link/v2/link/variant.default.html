@@ -1,9 +1,11 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <sly data-sly-set.hasIcon="${componentProperties.linkIcon.length > 0}"></sly>
-
     <a data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <sly data-sly-test="${hasIcon && componentProperties.linkIconPosition == 'left'}" data-sly-use.icon="link.icon.html" data-sly-call="${icon @ linkIcon=componentProperties.linkIcon}"></sly>
+        <sly data-sly-test="${componentProperties.linkIcon && componentProperties.linkIconPosition == 'left'}"
+             data-sly-use.iconLeft="link.icon.html"
+             data-sly-call="${iconLeft.variant @ linkIcon=componentProperties.linkIcon}"></sly>
         <span class="link-text">${componentProperties.label}</span>
-        <sly data-sly-test="${hasIcon && componentProperties.linkIconPosition == 'right'}" data-sly-use.icon="link.icon.html" data-sly-call="${icon @ linkIcon=componentProperties.linkIcon}"></sly>
+        <sly data-sly-test="${componentProperties.linkIcon && componentProperties.linkIconPosition == 'right'}"
+             data-sly-use.iconRight="link.icon.html"
+             data-sly-call="${iconRight.variant @ linkIcon=componentProperties.linkIcon}"></sly>
     </a>
 </template>
