@@ -1,5 +1,6 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <nav data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+    <nav style="${component.componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
         <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container', decorationTagName='div'}"></sly>
     </nav>
 </template>

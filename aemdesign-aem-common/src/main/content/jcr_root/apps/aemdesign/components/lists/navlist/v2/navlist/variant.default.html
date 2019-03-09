@@ -1,5 +1,7 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <ul data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" itemscope itemtype="http://www.schema.org/SiteNavigationElement"
+    <ul style="${component.componentProperties.attr.data.style @ context = 'unsafe'}"
+        data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+        itemscope itemtype="http://www.schema.org/SiteNavigationElement"
         data-sly-list.link="${componentProperties.menuItems}">
         <li itemprop="name" class="nav-item${link.current ? ' active' : ''}">
             <a itemprop="url" href="${link.authHref}"

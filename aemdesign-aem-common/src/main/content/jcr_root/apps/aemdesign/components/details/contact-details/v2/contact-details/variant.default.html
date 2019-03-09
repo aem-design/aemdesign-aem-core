@@ -1,5 +1,7 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"  itemscope itemtype="http://schema.org/Person">
+    <div style="${component.componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+         itemscope itemtype="http://schema.org/Person">
         <div class="container">
             <sly data-sly-use.header="./contact-details.header.html"
                  data-sly-call="${header.variant @ componentProperties=componentProperties}"></sly>

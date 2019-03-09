@@ -1,5 +1,7 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <a data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" download>
+    <a style="${component.componentProperties.attr.data.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+       download>
         <span data-sly-test="${componentProperties.thumbnailType == 'icon'}"
               class="icon type_${componentProperties.iconType}">
             <img class="icon" src="http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png" data-sly-attribute.alt="${componentProperties.mimeTypeLabel}"/>

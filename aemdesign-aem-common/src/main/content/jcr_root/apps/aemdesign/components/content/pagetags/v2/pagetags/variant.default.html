@@ -1,5 +1,7 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <ol class="tags" data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+    <ol class="tags"
+        style="${component.componentProperties.attr.data.style @ context = 'unsafe'}"
+        data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
         <sly data-sly-list.tag="${componentProperties.pagetags}" data-sly-unwrap>
             <sly data-sly-set.taghref="${'#'}"></sly>
             <sly data-sly-test="${tag.value.href}"

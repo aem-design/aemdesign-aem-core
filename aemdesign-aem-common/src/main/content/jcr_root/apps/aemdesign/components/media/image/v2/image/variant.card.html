@@ -1,5 +1,7 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" itemscope itemtype="http://schema.org/ImageObject">
+    <div style="${component.componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+         itemscope itemtype="http://schema.org/ImageObject">
         <sly>
             <sly data-sly-set.imageClass="${'card-img-top'}"></sly>
             <sly data-sly-use.info="image.select.simple.html"

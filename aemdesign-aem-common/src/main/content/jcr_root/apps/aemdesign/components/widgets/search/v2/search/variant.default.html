@@ -1,5 +1,7 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" itemscope itemtype="https://schema.org/WebSite">
+    <div style="${component.componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+         itemscope itemtype="https://schema.org/WebSite">
         <form action="${componentProperties.formAction}" method="${componentProperties.formMethod}" novalidate="" role="form search" itemprop="potentialAction" itemscope itemtype="https://schema.org/SearchAction">
             <meta itemprop="target" content="${componentProperties.formAction}?q={${componentProperties.formParameterName}}"/>
             <fieldset>
