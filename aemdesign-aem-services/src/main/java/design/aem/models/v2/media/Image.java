@@ -70,10 +70,10 @@ public class Image extends WCMUsePojo {
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
                 componentFields,
+                DEFAULT_FIELDS_IMAGE_OPTIONS,
                 DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
                 DEFAULT_FIELDS_ANALYTICS,
-                DEFAULT_FIELDS_IMAGE_OPTIONS);
+                DEFAULT_FIELDS_ACCESSIBILITY);
 
         String fileReference = componentProperties.get(IMAGE_FILEREFERENCE, "");
 
