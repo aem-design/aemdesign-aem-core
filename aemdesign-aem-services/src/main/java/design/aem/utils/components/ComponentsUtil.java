@@ -50,10 +50,10 @@ import java.io.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.MessageFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 
+import static design.aem.utils.components.CommonUtil.isNull;
 import static design.aem.utils.components.CommonUtil.resourceRenderAsHtml;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
@@ -298,6 +298,7 @@ public class ComponentsUtil {
 
     public static final String DETAILS_SELECTOR_BADGE = "badge";
 
+    public static final String STRING_EXPRESSION_CHECK = ".*(\\$\\{.*?\\}).*";
 
     //COMPONENT STYLES
     // {
@@ -315,8 +316,8 @@ public class ComponentsUtil {
             {FIELD_STYLE_COMPONENT_ICON, new String[]{}, "class", Tag.class.getCanonicalName()},
             {FIELD_STYLE_COMPONENT_POSITIONX, "", "x"},
             {FIELD_STYLE_COMPONENT_POSITIONY, "", "y"},
-            {FIELD_STYLE_COMPONENT_WIDTH, "", "width"},
-            {FIELD_STYLE_COMPONENT_HEIGHT, "", "height"},
+            {FIELD_STYLE_COMPONENT_WIDTH, "${value ? 'width:' + value + 'px;' : ''}", "style"},
+            {FIELD_STYLE_COMPONENT_HEIGHT, "${value ? 'height:' + value + 'px;' : ''}", "style"},
             {FIELD_STYLE_COMPONENT_SITETHEMECATEGORY, ""},
             {FIELD_STYLE_COMPONENT_SITETHEMECOLOR, ""},
             {FIELD_STYLE_COMPONENT_SITETITLECOLOR, ""},
@@ -1173,27 +1174,51 @@ public class ComponentsUtil {
 
                         Object fieldDefaultValue = field[1];
 
-                        if (fieldDefaultValue instanceof String && StringUtils.isNotEmpty(fieldDefaultValue.toString())) {
+                        Object fieldValue = null;
 
-                            if (fieldDefaultValue.toString().matches("(\\$\\{.*\\})")) {
-                                //try to evaluate default value expression
-                                try {
-                                    //expressions reference https://commons.apache.org/proper/commons-jexl/reference/syntax.html
-                                    JxltEngine.Expression expr = jxlt.createExpression(fieldDefaultValue.toString());
-                                    String defaultValueExpressionValue = expr.evaluate(jc).toString();
-                                    if (isNotEmpty(defaultValueExpressionValue)) {
-                                        fieldDefaultValue = defaultValueExpressionValue;
-                                    }
-                                } catch (JexlException jex) {
-//                                    LOGGER.error("could not evaluate default value expression field={}, default value={}, error={}",fieldName, fieldDefaultValue.toString(), jex.getInfo());
-                                    //remove expressions from string
-                                    fieldDefaultValue = ((String) fieldDefaultValue).replaceAll("(\\$\\{.*\\})","");
+//                        LOGGER.error("getComponentProperties: processing field {} and default {} and is expression {}", fieldName, fieldDefaultValue, fieldDefaultValue != null ? fieldDefaultValue.toString().matches(STRING_EXPRESSION_CHECK) : "it null");
+
+                        //if no default value has expressions the
+                        if (fieldDefaultValue instanceof String
+                                && StringUtils.isNotEmpty(fieldDefaultValue.toString())
+                                && fieldDefaultValue.toString().matches(STRING_EXPRESSION_CHECK)) {
+                                LOGGER.error("getComponentProperties: processing field {} and default {}", fieldName, fieldDefaultValue);
+
+                            //get the value without default to determine if value exist
+                            fieldValue = getComponentProperty(properties, currentStyle, fieldName, null, true);
+//                            LOGGER.error("getComponentProperties: with value {}, {}, {}", fieldName, fieldValue, fieldDefaultValue);
+                            //try to evaluate default value expression
+                            try {
+                                //expressions reference https://commons.apache.org/proper/commons-jexl/reference/syntax.html
+                                JxltEngine.Expression expr = jxlt.createExpression(fieldDefaultValue.toString());
+
+                                //add current value to the map
+                                if (!jc.has("value")) {
+                                    jc.set("value", isNull(fieldValue) ? "" : fieldValue );
                                 }
+
+                                //evaluate the expression
+                                String defaultValueExpressionValue = expr.evaluate(jc).toString();
+
+                                //assign new value
+                                if (isNotEmpty(defaultValueExpressionValue)) {
+                                    fieldDefaultValue = defaultValueExpressionValue;
+                                }
+                            } catch (JexlException jex) {
+                                LOGGER.warn("could not evaluate default value expression field={}, default value={}, error={}", fieldName, fieldDefaultValue.toString(), jex.getInfo());
                             }
 
-                        }
+                            //remove left over expressions from string
+                            fieldDefaultValue = ((String) fieldDefaultValue).replaceAll("(\\$\\{.*?\\})", "");
 
-                        Object fieldValue = getComponentProperty(properties, currentStyle, fieldName, fieldDefaultValue, true);
+                            fieldValue = fieldDefaultValue;
+
+//                            LOGGER.error("getComponentProperties: final value {}, {}", fieldName, fieldValue);
+
+                        } else {
+                            //get the value with specified default
+                            fieldValue = getComponentProperty(properties, currentStyle, fieldName, fieldDefaultValue, true);
+                        }
 
                         //Empty array with empty string will set the default value
                         if (fieldValue instanceof String && StringUtils.isEmpty(fieldValue.toString())) {
