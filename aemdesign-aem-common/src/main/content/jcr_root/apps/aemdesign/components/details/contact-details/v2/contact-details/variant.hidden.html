@@ -2,6 +2,8 @@
     <sly data-sly-test="${wcmmode.edit}">
         <div class="component" hidden>${componentProperties.variantHiddenLabel}</div>
     </sly>
-    <div hidden data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" >
+    <div hidden
+         style="${component.componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
     </div>
 </template>

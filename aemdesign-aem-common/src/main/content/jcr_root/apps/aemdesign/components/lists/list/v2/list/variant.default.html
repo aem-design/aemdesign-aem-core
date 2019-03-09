@@ -1,5 +1,6 @@
 <template data-sly-template.variant="${@ componentProperties, component}">
-    <div data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+    <div style="${component.componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
         data-sly-unwrap="${!componentProperties.printStructure}">
 
         <sly data-sly-use.feed="list.feed.html" data-sly-call="${feed.variant @ componentProperties=componentProperties}"></sly>

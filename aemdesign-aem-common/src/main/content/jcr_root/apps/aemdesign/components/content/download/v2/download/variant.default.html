@@ -1,5 +1,7 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <a data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" download>
+    <a style="${component.componentProperties.attr.data.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+       download>
         ${componentProperties.title}
         <div class="license"
              data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo @ context = 'unsafe'}</div>

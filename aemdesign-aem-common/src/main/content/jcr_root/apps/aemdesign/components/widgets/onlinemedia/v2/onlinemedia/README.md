@@ -12,10 +12,10 @@ Component for adding Online Media widgets to a page.
 * **Version**: v2
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
-* **Showcase**: [/content/aemdesign-showcase/en/component/content/onlinemedia](/content/aemdesign-showcase/en/component/content/onlinemedia.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/content/onlinemedia](/crx/de/#/apps/aemdesign/components/content/onlinemedia)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/onlinemedia)
-* **Readme**: [/apps/aemdesign/components/content/onlinemedia](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/onlinemedia)
+* **Showcase**: [/content/aemdesign-showcase/en/component/content/onlinemedia/v2/onlinemedia](/content/aemdesign-showcase/en/component/content/onlinemedia.html?wcmmode=disabled)
+* **Local Code**: [/apps/aemdesign/components/content/onlinemedia/v2/onlinemedia](/crx/de/index.jsp#/apps/aemdesign/components/content/onlinemedia/v2/onlinemedia)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/onlinemedia/v2/onlinemedia)
+* **Readme**: [/apps/aemdesign/components/content/onlinemedia/v2/onlinemedia](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/onlinemedia/v2/onlinemedia)
 
 # Authoring
 

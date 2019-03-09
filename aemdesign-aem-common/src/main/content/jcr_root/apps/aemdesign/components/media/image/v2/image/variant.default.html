@@ -1,5 +1,7 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" itemscope itemtype="http://schema.org/ImageObject">
+    <div style="${component.componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+         itemscope itemtype="http://schema.org/ImageObject">
         <a data-sly-unwrap="${componentProperties.linkURL == ''}" href="${componentProperties.linkURL}">
             <sly data-sly-use.info="image.select.html"
                  data-sly-call="${info.variant @ componentProperties=componentProperties}"></sly>
