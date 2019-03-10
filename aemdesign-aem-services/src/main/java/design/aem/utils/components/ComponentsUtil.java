@@ -458,7 +458,7 @@ public class ComponentsUtil {
     public static final Object[][] DEFAULT_FIELDS_ANALYTICS = {
             {DETAILS_ANALYTICS_TRACK, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_TRACK}, //basic
             {DETAILS_ANALYTICS_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LOCATION}, //basic
-            {DETAILS_ANALYTICS_LABEL, "${label}", DETAILS_DATA_ANALYTICS_LABEL}, //basic
+            {DETAILS_ANALYTICS_LABEL, "${empty(value) ? label : value}", DETAILS_DATA_ANALYTICS_LABEL}, //basic
             {"analyticsEventType", StringUtils.EMPTY, "data-analytics-event"}, //advanced
             {"analyticsHitType", StringUtils.EMPTY, "data-analytics-hit-type"}, //advanced
             {"analyticsEventCategory", StringUtils.EMPTY, "data-analytics-event-category"}, //advanced
@@ -1182,23 +1182,26 @@ public class ComponentsUtil {
                         if (fieldDefaultValue instanceof String
                                 && StringUtils.isNotEmpty(fieldDefaultValue.toString())
                                 && fieldDefaultValue.toString().matches(STRING_EXPRESSION_CHECK)) {
-                                LOGGER.error("getComponentProperties: processing field {} and default {}", fieldName, fieldDefaultValue);
+//                                LOGGER.error("getComponentProperties: processing field {} and default {}", fieldName, fieldDefaultValue);
 
                             //get the value without default to determine if value exist
                             fieldValue = getComponentProperty(properties, currentStyle, fieldName, null, true);
 //                            LOGGER.error("getComponentProperties: with value {}, {}, {}", fieldName, fieldValue, fieldDefaultValue);
+
                             //try to evaluate default value expression
                             try {
                                 //expressions reference https://commons.apache.org/proper/commons-jexl/reference/syntax.html
                                 JxltEngine.Expression expr = jxlt.createExpression(fieldDefaultValue.toString());
 
                                 //add current value to the map
-                                if (!jc.has("value")) {
-                                    jc.set("value", isNull(fieldValue) ? "" : fieldValue );
-                                }
+                                jc.set("value", fieldValue);
+
+//                                LOGGER.error("getComponentProperties: context value {}", jc.get("value"));
 
                                 //evaluate the expression
                                 String defaultValueExpressionValue = expr.evaluate(jc).toString();
+
+//                                LOGGER.error("getComponentProperties: expression output {}", defaultValueExpressionValue);
 
                                 //assign new value
                                 if (isNotEmpty(defaultValueExpressionValue)) {
@@ -1208,12 +1211,14 @@ public class ComponentsUtil {
                                 LOGGER.warn("could not evaluate default value expression field={}, default value={}, error={}", fieldName, fieldDefaultValue.toString(), jex.getInfo());
                             }
 
+
                             //remove left over expressions from string
                             fieldDefaultValue = ((String) fieldDefaultValue).replaceAll("(\\$\\{.*?\\})", "");
 
+//                            LOGGER.error("getComponentProperties: cleaning fieldDefaultValue value {}, {}", fieldDefaultValue);
+
                             fieldValue = fieldDefaultValue;
 
-//                            LOGGER.error("getComponentProperties: final value {}, {}", fieldName, fieldValue);
 
                         } else {
                             //get the value with specified default
