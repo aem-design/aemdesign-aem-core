@@ -1,5 +1,5 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <button style="${component.componentProperties.attr.data.style @ context = 'unsafe'}"
+    <button style="${componentProperties.attr.data.style @ context = 'unsafe'}"
             data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
         <sly data-sly-test="${componentProperties.linkIcon && componentProperties.linkIconPosition == 'left'}"
              data-sly-use.iconLeft="link.icon.html"
