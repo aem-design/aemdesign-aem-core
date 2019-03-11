@@ -22,7 +22,7 @@ function populateGuideBridgeWithQueryStringValues(guideBridge,query) {
 $(document).ready(function() {
     //console.log(["loaded","doc"]);
 
-    $('iframe').each(function() {
+    $('iframe[data-form-page-path]').each(function() {
         $(this).on("load",function() {
             //console.log(["frame",this.id,this.contentWindow,this.contentWindow.guideBridge,this.contentWindow.guideBridge.isGuideLoaded()]);
             if (this.contentWindow["guideBridge"]) {
