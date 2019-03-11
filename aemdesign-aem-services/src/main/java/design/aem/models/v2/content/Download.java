@@ -64,10 +64,13 @@ public class Download extends WCMUsePojo {
                 {"title",""},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
                 {"description",""},
-                {"fileName",""},
                 {"fileReference",""},
                 {"thumbnail", DEFAULT_IMAGE_BLANK},
 
+        };
+
+        Object[][] analyticsFields = {
+                {DETAILS_BADGE_ANALYTICS_LABEL, "${(fileReference ? fileReference + '|' : '') + value }"}, //basic
         };
 
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -75,7 +78,8 @@ public class Download extends WCMUsePojo {
                 componentFields,
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_ANALYTICS);
+                DEFAULT_FIELDS_ANALYTICS,
+                analyticsFields);
 
         String variant = componentProperties.get(FIELD_VARIANT,DEFAULT_VARIANT);
 
