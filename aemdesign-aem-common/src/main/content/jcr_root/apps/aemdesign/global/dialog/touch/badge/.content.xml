@@ -450,8 +450,8 @@
                                             <badgeAnalyticsLabel
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                    fieldDescription="Description"
-                                                    fieldLabel="Description"
+                                                    fieldDescription="Label"
+                                                    fieldLabel="Label"
                                                     name="./badgeAnalyticsLabel"
                                                     required="{Boolean}false"/>
                                         </items>
