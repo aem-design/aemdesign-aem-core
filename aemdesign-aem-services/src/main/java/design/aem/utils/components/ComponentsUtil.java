@@ -396,9 +396,9 @@ public class ComponentsUtil {
             {DETAILS_THUMBNAIL_ID, ""},
             {DETAILS_THUMBNAIL_LICENSE_INFO, ""},
             {DETAILS_THUMBNAIL, ""},
-            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY}, //basic
-            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY}, //basic
-            {DETAILS_BADGE_ANALYTICS_LABEL, "${" + DETAILS_LINK_TEXT + "}"}, //basic
+            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK}, //basic
+            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION}, //basic
+            {DETAILS_BADGE_ANALYTICS_LABEL, "${(pageNavTitle ? pageNavTitle + '|' : '') + (value ?: " + DETAILS_LINK_TEXT + ")}",DETAILS_DATA_ANALYTICS_LABEL}, //basic
             {DETAILS_PAGE_METADATA_PROPERTY, new String[]{}},
             {DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[]{}},
 
@@ -442,9 +442,9 @@ public class ComponentsUtil {
             {DETAILS_THUMBNAIL_ID, ""},
             {DETAILS_THUMBNAIL_LICENSE_INFO, ""},
             {DETAILS_THUMBNAIL, ""},
-            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY}, //basic
-            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY}, //basic
-            {DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK}, //basic
+            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION}, //basic
+            {DETAILS_BADGE_ANALYTICS_LABEL, "${(pageNavTitle ? pageNavTitle + '|' : '') + (value ?: " + DETAILS_LINK_TEXT + ")}",DETAILS_DATA_ANALYTICS_LABEL}, //basic
 
     };
 
@@ -458,7 +458,7 @@ public class ComponentsUtil {
     public static final Object[][] DEFAULT_FIELDS_ANALYTICS = {
             {DETAILS_ANALYTICS_TRACK, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_TRACK}, //basic
             {DETAILS_ANALYTICS_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LOCATION}, //basic
-            {DETAILS_ANALYTICS_LABEL, "${empty(value) ? label : value}", DETAILS_DATA_ANALYTICS_LABEL}, //basic
+            {DETAILS_ANALYTICS_LABEL, "${ value ?: label }", DETAILS_DATA_ANALYTICS_LABEL}, //basic
             {"analyticsEventType", StringUtils.EMPTY, "data-analytics-event"}, //advanced
             {"analyticsHitType", StringUtils.EMPTY, "data-analytics-hit-type"}, //advanced
             {"analyticsEventCategory", StringUtils.EMPTY, "data-analytics-event-category"}, //advanced
@@ -1062,6 +1062,8 @@ public class ComponentsUtil {
         }
 //        AttrBuilder itemAttr = new AttrBuilder(request, oldXssAPI);
 
+        Resource contentResource = null;
+
         final String CLASS_TYPE_RESOURCE = Resource.class.getCanonicalName();
         final String CLASS_TYPE_JCRNODERESOURCE = "org.apache.sling.jcr.resource.internal.helper.jcr.JcrNodeResource";
         final String CLASS_TYPE_ASSET = "com.adobe.granite.asset.core.impl.AssetImpl";
@@ -1081,15 +1083,18 @@ public class ComponentsUtil {
             if (targetResource != null && targetResource.getClass().getCanonicalName().equals(CLASS_TYPE_ASSET)) {
 
                 try {
+                    //
                     com.adobe.granite.asset.api.Asset asset = (com.adobe.granite.asset.api.Asset) targetResource;
 
-                    Resource resource = asset.getResourceResolver().getResource(asset, JcrConstants.JCR_CONTENT);
+                    contentResource = asset.getResourceResolver().getResource(asset, JcrConstants.JCR_CONTENT);
 
-                    if (resource != null) {
-                        resource = resource.getChild(DamConstants.METADATA_FOLDER);
+                    if (contentResource != null) {
+                        contentResource = contentResource.getChild(DamConstants.METADATA_FOLDER);
                     }
-                    properties = resource.adaptTo(ValueMap.class);
+                    properties = contentResource.adaptTo(ValueMap.class);
                     addMoreAttributes = false;
+
+                    componentProperties.put(COMPONENT_TARGET_RESOURCE, contentResource.getPath());
 
                 } catch (Exception ex) {
                     LOGGER.error("getComponentProperties: could not evaluate target asset", ex);
@@ -1100,16 +1105,16 @@ public class ComponentsUtil {
                             targetResource.getClass().getCanonicalName().equals(CLASS_TYPE_JCRNODERESOURCE))) {
 
                 try {
-                    Resource resource = (Resource) targetResource;
+                    contentResource = (Resource) targetResource;
 
-                    properties = resource.adaptTo(ValueMap.class);
+                    properties = contentResource.adaptTo(ValueMap.class);
 
-                    Designer designer = resource.getResourceResolver().adaptTo(Designer.class);
+                    Designer designer = contentResource.getResourceResolver().adaptTo(Designer.class);
 
-                    currentStyle = designer.getStyle(resource);
+                    currentStyle = designer.getStyle(contentResource);
 
-                    ComponentManager componentManager = resource.getResourceResolver().adaptTo(ComponentManager.class);
-                    Component resourceComponent = componentManager.getComponentOfResource(resource);
+                    ComponentManager componentManager = contentResource.getResourceResolver().adaptTo(ComponentManager.class);
+                    Component resourceComponent = componentManager.getComponentOfResource(contentResource);
                     //set component to match target resource
                     if (resourceComponent != null) {
                         component = resourceComponent;
@@ -1120,12 +1125,12 @@ public class ComponentsUtil {
                     }
 
                     //set currentnode to match target resource
-                    Node resourceNode = (javax.jcr.Node) resource.adaptTo(Node.class);
+                    Node resourceNode = (javax.jcr.Node) contentResource.adaptTo(Node.class);
                     if (resourceNode != null) {
                         currentNode = resourceNode;
                     }
 
-                    componentProperties.put(COMPONENT_TARGET_RESOURCE, resource.getPath());
+                    componentProperties.put(COMPONENT_TARGET_RESOURCE, contentResource.getPath());
 
                     //getComponentProperty(ValueMap componentProperties, Style pageStyle, String name, Object defaultValue, Boolean useStyle)
                     //fieldValue = getComponentProperty(resourceProperties, resourceStyle, fieldName, fieldDefaultValue, true);
@@ -1187,7 +1192,7 @@ public class ComponentsUtil {
                             //get the value without default to determine if value exist
                             fieldValue = getComponentProperty(properties, currentStyle, fieldName, null, true);
 //                            LOGGER.error("getComponentProperties: with value {}, {}, {}", fieldName, fieldValue, fieldDefaultValue);
-
+                            boolean expressionValid = false;
                             //try to evaluate default value expression
                             try {
                                 //expressions reference https://commons.apache.org/proper/commons-jexl/reference/syntax.html
@@ -1198,22 +1203,40 @@ public class ComponentsUtil {
 
 //                                LOGGER.error("getComponentProperties: context value {}", jc.get("value"));
 
-                                //evaluate the expression
-                                String defaultValueExpressionValue = expr.evaluate(jc).toString();
+                                Object expressonResult = expr.evaluate(jc);
+
+//                                LOGGER.error("getComponentProperties: expressonResult={}, component={}, contentResource={}",
+//                                        expressonResult,
+//                                        (component==null ? component : component.getPath()),
+//                                        (contentResource == null ? contentResource : contentResource.getPath()));
+
+                                if (expressonResult != null) {
+                                    expressionValid = true;
+                                    //evaluate the expression
+                                    fieldDefaultValue = expressonResult.toString();
 
 //                                LOGGER.error("getComponentProperties: expression output {}", defaultValueExpressionValue);
 
-                                //assign new value
-                                if (isNotEmpty(defaultValueExpressionValue)) {
-                                    fieldDefaultValue = defaultValueExpressionValue;
                                 }
+
                             } catch (JexlException jex) {
-                                LOGGER.warn("could not evaluate default value expression field={}, default value={}, error={}", fieldName, fieldDefaultValue.toString(), jex.getInfo());
+                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, field={},  value={}, default value={}, jex.info={}, jex.message={}, jex={}",
+                                        (component==null ? component : component.getPath()),
+                                        (contentResource == null ? contentResource : contentResource.getPath()),
+                                        fieldName, fieldValue, fieldDefaultValue,
+                                        jex.getInfo(), jex.getMessage(), jex);
+                            } catch (Exception ex) {
+                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, field={}, value={}, default value={}, ex.cause={}, ex.message={}, ex={}",
+                                        (component==null ? component : component.getPath()),
+                                        (contentResource == null ? contentResource : contentResource.getPath()),
+                                        fieldName, fieldValue, fieldDefaultValue,
+                                        ex.getCause(), ex.getMessage(), ex);
                             }
 
-
-                            //remove left over expressions from string
-                            fieldDefaultValue = ((String) fieldDefaultValue).replaceAll("(\\$\\{.*?\\})", "");
+                            if (!expressionValid) {
+                                //remove left over expressions from string
+                                fieldDefaultValue = ((String) fieldDefaultValue).replaceAll("(\\$\\{.*?\\})", "");
+                            }
 
 //                            LOGGER.error("getComponentProperties: cleaning fieldDefaultValue value {}, {}", fieldDefaultValue);
 
@@ -1326,7 +1349,7 @@ public class ComponentsUtil {
             }
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties: " + ex.getMessage(), ex);
+            LOGGER.error("getComponentProperties: error processing properties: component={}, ex.message={}, ex={}",component.getPath(), ex.getMessage(), ex);
             //out.write( Throwables.getStackTraceAsString(ex) );
         } finally {
             SecurityUtil.closeAdminResourceResolver(adminResourceResolver);
