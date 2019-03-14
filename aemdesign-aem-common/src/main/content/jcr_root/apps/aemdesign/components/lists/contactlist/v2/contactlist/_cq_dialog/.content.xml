@@ -65,44 +65,11 @@
                                             fieldLabel="Use Badge"
                                             name="./detailsBadge"
                                             value="">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <default
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Default"
-                                                    value="default"/>
-                                            <icon
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Icon"
-                                                    value="icon"/>
-                                            <image
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Image"
-                                                    value="image"/>
-                                            <cardIcon
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Card with Icon"
-                                                    value="cardIcon"/>
-                                            <cardIconTitleCategoryDescriptionAction
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Card with Icon, Title, Category, Description and Action"
-                                                    value="cardIconTitleCategoryDescriptionAction"/>
-                                            <cardImageTitleCategoryDescriptionAction
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Card with Image, Title, Category, Description and Action"
-                                                    value="cardImageTitleCategoryDescriptionAction"/>
-                                            <cardIconTitleCategoryDescription
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Clickable Card with Icon"
-                                                    value="cardIconTitleCategoryDescription"/>
-                                            <cardImageTitleCategoryDescription
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Clickable Card with Image "
-                                                    value="cardImageTitleCategoryDescription"/>
-                                            <cardHorizontalIconTitleCategoryDescriptionAction
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Horizontal Card with Icon, Title, Category, Description and Action"
-                                                    value="cardHorizontalIconTitleCategoryDescriptionAction"/>
-                                        </items>
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/contactlist/badge"/>
                                     </detailsBadge>
                                 </items>
                             </variant>
