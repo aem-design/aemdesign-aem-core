@@ -15,14 +15,14 @@
             <listTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="List"
-                    path="/apps/aemdesign/components/lists/list/cq:dialog/content/items/listTab"
+                    path="/apps/aemdesign/components/lists/list/v2/list/cq:dialog/content/items/listTab"
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
             <listConfigTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="List Config"
-                    path="/apps/aemdesign/components/lists/list/cq:dialog/content/items/listConfigTab"
+                    path="/apps/aemdesign/components/lists/list/v2/list/cq:dialog/content/items/listConfigTab"
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
@@ -71,6 +71,20 @@
                                                 variant="valuelist"
                                                 path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/newslist/badge"/>
                                     </detailsBadge>
+                                    <topic
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldDescription="Subscribers waiting for notification of the filter value is updated"
+                                            fieldLabel="Topic Queue"
+                                            name="./topicQueue"
+                                            emptyOption="{Boolean}true"
+                                            value="">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-topic/topic"/>
+                                    </topic>
                                 </items>
                             </variant>
                         </items>

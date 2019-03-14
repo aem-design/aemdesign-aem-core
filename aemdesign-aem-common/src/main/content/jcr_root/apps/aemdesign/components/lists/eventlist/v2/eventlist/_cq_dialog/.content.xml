@@ -15,14 +15,14 @@
             <listTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="List"
-                    path="/apps/aemdesign/components/lists/list/cq:dialog/content/items/listTab"
+                    path="/apps/aemdesign/components/lists/list/v2/list/cq:dialog/content/items/listTab"
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
             <listConfigTab
                     jcr:primaryType="nt:unstructured"
                     jcr:title="List Config"
-                    path="/apps/aemdesign/components/lists/list/cq:dialog/content/items/listConfigTab"
+                    path="/apps/aemdesign/components/lists/list/v2/list/cq:dialog/content/items/listConfigTab"
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
