@@ -33,6 +33,7 @@ import org.apache.jackrabbit.core.fs.FileSystem;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.jsoup.Jsoup;
@@ -1342,9 +1343,26 @@ public class ComponentsUtil {
                 if (isEmpty(variant)) {
                     variant = DEFAULT_VARIANT;
                 }
+
+                String variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant);
+
+                //ensure that variant exist
+                if (component != null) {
+                    Resource componentResource = null;
+                    if (component != null) {
+                        componentResource = resourceResolver.resolve(component.getPath());
+                        if (!ResourceUtil.isNonExistingResource(componentResource)) {
+                            if (component.getLocalResource(variantTemplate) == null) {
+                                LOGGER.error("getComponentProperties: this component does not have requested variant",component.getPath(), variantTemplate);
+                                variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, DEFAULT_VARIANT);
+                            }
+                        }
+                    }
+
+                }
                 if (addMoreAttributes) {
                     //compile variantTemplate param
-                    componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant));
+                    componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
                 }
             }
 
