@@ -165,6 +165,7 @@ public class List extends WCMUsePojo {
                 {LISTSPLITEVERY, LISTSPLITEVERY_DEFAULT, "data-list-split-every"},
                 {DETAILSBADGE, DEFAULT_BADGE, "data-badge"},
                 {"printStructure", DEFAULT_PRINT_STRUCTURE},
+                {"topicQueue", StringUtils.EMPTY, "topicqueue"},
                 {SHOWHIDDEN, false},
                 {SHOWINVALID, false},
                 {PAGINATION_TYPE, DEFAULT_PAGINATION},
