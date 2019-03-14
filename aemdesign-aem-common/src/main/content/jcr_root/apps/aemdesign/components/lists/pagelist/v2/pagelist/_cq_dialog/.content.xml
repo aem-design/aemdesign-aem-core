@@ -57,6 +57,20 @@
                                                 variant="valuelist"
                                                 path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/pagelist/badge"/>
                                     </detailsBadge>
+                                    <topic
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldDescription="Subscribers waiting for notification of the filter value is updated"
+                                            fieldLabel="Topic Queue"
+                                            name="./topicQueue"
+                                            emptyOption="{Boolean}true"
+                                            value="">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-topic/topic"/>
+                                    </topic>
                                 </items>
                             </variant>
                         </items>
