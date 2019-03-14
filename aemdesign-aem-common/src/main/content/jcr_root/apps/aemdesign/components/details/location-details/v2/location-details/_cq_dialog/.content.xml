@@ -38,14 +38,14 @@
 
                             <latitude
                                     jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                     fieldDescription="The X value of the coordinate of this location"
                                     fieldLabel="Latitude"
                                     name="./latitude"
                                     required="{Boolean}false"/>
                             <longitude
                                     jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                     fieldDescription="The Y value of the coordinate of this location"
                                     fieldLabel="Longitude"
                                     name="./longitude"
@@ -54,8 +54,8 @@
                             <pages
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
-                                    fieldDescription="Click the '+' to add a new page"
-                                    fieldLabel="Pages ">
+                                    fieldDescription="Information"
+                                    fieldLabel="Pages">
                                 <field
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
