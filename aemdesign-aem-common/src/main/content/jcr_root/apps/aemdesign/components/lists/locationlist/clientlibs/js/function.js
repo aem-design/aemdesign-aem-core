@@ -60,7 +60,7 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
 
         var _self = this;
         //_self.grid = gridContainer;
-        var googleApiKey = $($element).data("mapapikey");
+        var googleApiKey = $($element).data("map-apikey");
 
         ns.topicQueue = $($element).data("topicqueue");
 
@@ -149,7 +149,7 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
      */
     ns.initMap = function(targetDiv, mapOptions) {
 
-        log.info("initMap !!! "+targetDiv);
+        log.info("initMap"+targetDiv);
 
         // Create a map.
         var map = new google.maps.Map(targetDiv, {
@@ -171,29 +171,19 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
      */
     ns.initProjectionSystem = function(el,map) {
 
-        log.info("initProjectionSystem !!! ");
-
         var base = $(el);
 
-        var projectionType = base.data("map");
+        var imageSourceUrl = base.data("map-path");
 
-        log.info("initProjectionSystem projectionType = "+projectionType);
+        if (imageSourceUrl !== "") {
 
-        if (projectionType === 'gallPeters'){
+            var RANGE_Y = base.data("map-image-y");
+            var RANGE_X = base.data("map-image-x");
 
-            var imageSourceUrl = base.data("mapimagesrc");
-            log.info("initProjectionSystem imageSourceUrl = "+imageSourceUrl);
-
-            var GALL_PETERS_RANGE_Y = base.data("mapimagey");
-            log.info("initProjectionSystem GALL_PETERS_RANGE_Y = "+GALL_PETERS_RANGE_Y);
-
-            var GALL_PETERS_RANGE_X = base.data("mapimagex");
-            log.info("initProjectionSystem GALL_PETERS_RANGE_X = "+GALL_PETERS_RANGE_X);
-
-            // Fetch Gall-Peters tiles stored locally on our server.
-            var gallPetersMapType = new google.maps.ImageMapType({
+            // get tiles stored locally on our server.
+            var customMapType = new google.maps.ImageMapType({
                 //this case only a single title
-                getTileUrl: function(coord, zoom) {
+                getTileUrl: function (coord, zoom) {
 //              var scale = 1 << zoom;
 //
 //              // Wrap tiles horizontally.
@@ -206,24 +196,24 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
                     //return 'images/gall-peters_' + zoom + '_' + x + '_' + y + '.png';
                     return imageSourceUrl;
                 },
-                tileSize: new google.maps.Size(GALL_PETERS_RANGE_X, GALL_PETERS_RANGE_Y),
+                tileSize: new google.maps.Size(RANGE_X, RANGE_Y),
                 isPng: true,
                 minZoom: 0,
                 maxZoom: 0,
-                name: 'Gall-Peters'
+                name: 'customMap'
             });
 
             // Describe the Gall-Peters projection used by these tiles.
-            gallPetersMapType.projection = {
-                fromLatLngToPoint: function(latLng) {
+            customMapType.projection = {
+                fromLatLngToPoint: function (latLng) {
                     var latRadians = latLng.lat() * Math.PI / 180;
                     return new google.maps.Point(
-                        GALL_PETERS_RANGE_X * (0.5 + latLng.lng() / 360),
-                        GALL_PETERS_RANGE_Y * (0.5 - 0.5 * Math.sin(latRadians)));
+                        RANGE_X * (0.5 + latLng.lng() / 360),
+                        RANGE_Y * (0.5 - 0.5 * Math.sin(latRadians)));
                 },
-                fromPointToLatLng: function(point, noWrap) {
-                    var x = point.x / GALL_PETERS_RANGE_X;
-                    var y = Math.max(0, Math.min(1, point.y / GALL_PETERS_RANGE_Y));
+                fromPointToLatLng: function (point, noWrap) {
+                    var x = point.x / RANGE_X;
+                    var y = Math.max(0, Math.min(1, point.y / RANGE_Y));
 
                     return new google.maps.LatLng(
                         Math.asin(1 - 2 * y) * 180 / Math.PI,
@@ -232,12 +222,9 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
                 }
             };
 
-            map.mapTypes.set(projectionType, gallPetersMapType);
-            map.setMapTypeId(projectionType);
+            map.mapTypes.set("customMap", customMapType);
+            map.setMapTypeId("customMap");
 
-        }else {
-
-            log.info("projectionType is not defined");
         }
 
         return map;
@@ -298,7 +285,7 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
         log.info("updateGeoJson !!! ");
 
         var base = $(el);
-        var locationsJsonString = base.data("maplocationsid");
+        var locationsJsonString = base.attr("componentId");
          //Calls the function below to load up all the map markers.
         var locations = eval(locationsJsonString);
 
@@ -320,28 +307,31 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
         log.info("updateMarkers !!! ");
         // Add some markers to the map.
         map.data.setStyle(function(feature) {
-            var venue = feature.getProperty('venue');
-            var categoryIconColor = feature.getProperty('categoryIconColor');
-            var categoryIconPath = feature.getProperty('categoryIconPath');
-            var markerPointX = feature.getProperty('markerPointX');
-            var markerPointY = feature.getProperty('markerPointY');
+            var title = feature.getProperty('title');
+            var iconColor = feature.getProperty('menuColor');
+            var iconPath = feature.getProperty('menuIcon');
+            var pointX = feature.getProperty('x');
+            var pointY = feature.getProperty('y');
 
+            if (!iconPath.contains("/")) {
+                iconPath.error("please specify meny icon path")
+                iconPath = "";
+            }
             return {
                 icon: {
-                    path: eval(categoryIconPath),
+                    path: iconPath,
                     scale: 0.7,
                     strokeWeight: 0.2,
                     strokeColor: 'black',
                     strokeOpacity: 1,
                     fillColor: categoryIconColor,
                     fillOpacity: 1,
-                    anchor:new google.maps.Point(markerPointX, markerPointY)
+                    anchor:new google.maps.Point(pointX, pointY)
                 },
-                //icon:categoryIconPath,
                 optimized: false,
                 visible: true,
                 clickable: true,
-                title: venue
+                title: title
             };
         });
         return map;
@@ -440,6 +430,30 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
         log.info("googleMapCallback end !!! ");
     };
 
+    ns.initMap = function() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: {lat: 41.850, lng: -87.650},
+            streetViewControl: false,
+            mapTypeId: 'coordinate',
+            mapTypeControlOptions: {
+                mapTypeIds: ['coordinate', 'roadmap'],
+                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+            }
+        });
+
+        map.addListener('maptypeid_changed', function() {
+            var showStreetViewControl = map.getMapTypeId() !== 'coordinate';
+            map.setOptions({
+                streetViewControl: showStreetViewControl
+            });
+        });
+
+        // Now attach the coordinate map type to the map's registry.
+        map.mapTypes.set('coordinate',
+            new CoordMapType(new google.maps.Size(256, 256)));
+    }
+
     /***
      * filter items shown on the map
      * @param map
@@ -467,12 +481,12 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
 
                 if (feature.properties != undefined) {
                     //Unneeded Event
-                    var events = _.filter(feature.properties.events, function (event) {
+                    var pages = _.filter(feature.properties.pages, function (event) {
 
                         var category = event.category.split(',');
 
                         if (_.contains(category, filterLine.filter())) {
-                            // log.info(["feature.properties.events.category ", event.category]);
+                            // log.info(["feature.properties.pages.category ", event.category]);
                             return event;
                         }
 
@@ -480,8 +494,8 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
 
                     //log.info(["feature.properties.events ",events]);
 
-                    if (events != undefined && events.length > 0) {
-                        feature.properties.events = events;
+                    if (pages && pages.length > 0) {
+                        feature.properties.pages = pages;
                         //log.info(["feature ",feature]);
                         return feature;
                     }
@@ -520,7 +534,7 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
         var _self = this;
         //_self.grid = gridContainer;
 
-        //listen for selections in the filters - watch for global events and update local value
+        //listen for selections in the filters - watch for global pages and update local value
         window.AEMDESIGN.components.topicFilter.topicFilterNotify.subscribe(ns.topicMapFilterAction , _self, ns.topicQueue);
 
         log.info(["MapModel","loaded"]);
