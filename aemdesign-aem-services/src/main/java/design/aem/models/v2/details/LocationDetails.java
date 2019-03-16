@@ -1,6 +1,7 @@
 package design.aem.models.v2.details;
 
 import com.day.cq.i18n.I18n;
+import com.day.cq.tagging.TagConstants;
 import com.google.gson.*;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
@@ -17,6 +18,8 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE_NAV;
 import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_URL;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
+import static design.aem.utils.components.TagUtil.getPageTags;
+import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 
 public class LocationDetails extends GenericDetails {
 
@@ -39,7 +42,9 @@ public class LocationDetails extends GenericDetails {
                 {"title", getPageTitle(getResourcePage()), "data-title"},
                 {"latitude", 0.0, "data-latitude"},
                 {"longitude", 0.0, "data-longitude"},
+                {"description", getPageDescription(getResourcePage()),"data-description"},
                 {"pages", new String[0]},
+                {TagConstants.PN_TAGS, getPageTags(getResourcePage())},
                 {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
                 {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
                 {"variantHiddenLabel", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LABEL, DEFAULT_I18N_CATEGORY, _i18n)},
@@ -54,6 +59,10 @@ public class LocationDetails extends GenericDetails {
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY,
                 DEFAULT_FIELDS_DETAILS_OPTIONS);
+
+        String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
+        componentProperties.put("category",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
+
 
         //get additional page list
         String[] supportedDetails = DEFAULT_LIST_DETAILS_SUFFIX;
