@@ -56,20 +56,31 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
     };
 
 
-    ns.loadGoogleMap = function ($element){
+    ns.loadGoogleMap = function ($element) {
+        log.enableLog();
 
-        var _self = this;
         //_self.grid = gridContainer;
         var googleApiKey = $($element).data("map-apikey");
+        var componentId = $($element).attr("id");
+        var callBackName = componentId+"_callback";
+
+        //create a call back function for current element
+        window[callBackName] = new Function("window.AEMDESIGN.components.locationlist.googleMapCallback(\""+componentId+"\")");
 
         ns.topicQueue = $($element).data("topicqueue");
 
-        //monitor initla filter selection before maps have loaded
-        ns.topicMapModelNS();
+        if (ns.topicQueue != "") {
+            //monitor initla filter selection before maps have loaded
+            ns.topicMapModelNS();
+            log.info(["loadGoogleMap","loading topic",googleApiKey]);
+        }
 
-        //log.info(["MapModel","loaded"]);
+        log.info(["loadGoogleMap","started",googleApiKey,componentId]);
+
 
         if(ns.googleMapLoaded == undefined || ns.googleMapLoaded == false) {
+
+            log.info(["loadGoogleMap","loading",googleApiKey]);
 
             if (googleApiKey){
                 googleApiKey = "&key=" + googleApiKey;
@@ -79,7 +90,7 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
 
             var script_tag = document.createElement('script');
             script_tag.setAttribute("type", "text/javascript");
-            script_tag.setAttribute("src", "//maps.googleapis.com/maps/api/js?callback=window.AEMDESIGN.components.locationlist.googleMapCallback"+googleApiKey);
+            script_tag.setAttribute("src", "//maps.googleapis.com/maps/api/js?callback=window."+callBackName+googleApiKey);
             script_tag.setAttribute("async", "false");
             (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script_tag);
             ns.googleMapLoaded = true;
@@ -141,7 +152,7 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
         return area;
     };
 
-     /**
+    /**
      * Initial Google Map
      * @param targetDiv
      * @param mapOptions optional
@@ -149,7 +160,7 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
      */
     ns.initMap = function(targetDiv, mapOptions) {
 
-        log.info("initMap"+targetDiv);
+        log.info(["initMap",targetDiv,mapOptions]);
 
         // Create a map.
         var map = new google.maps.Map(targetDiv, {
@@ -158,7 +169,8 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
             draggable: false,
             mapTypeControl: false,
             sensor: 'false',
-            disableDefaultUI: true
+            disableDefaultUI: true,
+            // draggableCursor: 'default'
         });
 
         return map;
@@ -174,14 +186,14 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
         var base = $(el);
 
         var imageSourceUrl = base.data("map-path");
-
+        log.info(["initProjectionSystem",imageSourceUrl]);
         if (imageSourceUrl !== "") {
 
             var RANGE_Y = base.data("map-image-y");
             var RANGE_X = base.data("map-image-x");
 
-            // get tiles stored locally on our server.
-            var customMapType = new google.maps.ImageMapType({
+            // Fetch Gall-Peters tiles stored locally on our server.
+            var gallPetersMapType = new google.maps.ImageMapType({
                 //this case only a single title
                 getTileUrl: function (coord, zoom) {
 //              var scale = 1 << zoom;
@@ -200,11 +212,11 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
                 isPng: true,
                 minZoom: 0,
                 maxZoom: 0,
-                name: 'customMap'
+                name: 'Gall-Peters'
             });
 
             // Describe the Gall-Peters projection used by these tiles.
-            customMapType.projection = {
+            gallPetersMapType.projection = {
                 fromLatLngToPoint: function (latLng) {
                     var latRadians = latLng.lat() * Math.PI / 180;
                     return new google.maps.Point(
@@ -222,8 +234,8 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
                 }
             };
 
-            map.mapTypes.set("customMap", customMapType);
-            map.setMapTypeId("customMap");
+            map.mapTypes.set("gallPeters", gallPetersMapType);
+            map.setMapTypeId("gallPeters");
 
         }
 
@@ -285,9 +297,11 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
         log.info("updateGeoJson !!! ");
 
         var base = $(el);
-        var locationsJsonString = base.attr("componentId");
-         //Calls the function below to load up all the map markers.
+        var locationsJsonString = base.attr("id");
+        //Calls the function below to load up all the map markers.
         var locations = eval(locationsJsonString);
+
+        log.info(["updateGeoJson !!! ", locations]);
 
         ns.geoFeatureCollections.push(locations);
 
@@ -313,21 +327,26 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
             var pointX = feature.getProperty('x');
             var pointY = feature.getProperty('y');
 
-            if (!iconPath.contains("/")) {
-                iconPath.error("please specify meny icon path")
-                iconPath = "";
-            }
+            var image = 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png';
+
+            // if (iconPath.contains("/")) {
+            //     iconPath.error("please specify meny icon path");
+            // } else if (iconPath !== '') {
+            //     image = iconPath;
+            // }
+
             return {
-                icon: {
-                    path: iconPath,
-                    scale: 0.7,
-                    strokeWeight: 0.2,
+                icon: image ? image : {
+                    path: "M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z",
+                    scale: 1,
+                    strokeWeight: 1,
                     strokeColor: 'black',
                     strokeOpacity: 1,
-                    fillColor: categoryIconColor,
+                    fillColor: iconColor ? iconColor : 'red',
                     fillOpacity: 1,
-                    anchor:new google.maps.Point(pointX, pointY)
+                    // anchor:new google.maps.Point(pointX, pointY)
                 },
+                position: {lat: pointY, lng: pointX},
                 optimized: false,
                 visible: true,
                 clickable: true,
@@ -338,6 +357,8 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
     };
 
 
+
+
     /**
      * Show the lat and lng under the mouse cursor.
      * @param map
@@ -345,26 +366,59 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
      */
     ns.showCoordinationMessage = function (el, map){
 
-        log.info("showCoordinationMessage !!! ");
-
         var base = $(el);
 
-        if (base.data("wcmmode") != 'disabled' && base.data("wcmmode") != undefined ){
+        log.info(["showCoordinationMessage !!! ", base,el,base.attr("wcmmode")]);
+
+        if (base && base.attr("wcmmode") && base.attr("wcmmode") !== 'disabled' ){
+
+            log.info("creating new element for coordinates ");
 
             //create a div for debug message
-            var coordsDiv = document.createElement("div");
+            var coordsDiv = document.createElement("span");
+            coordsDiv.setAttribute("id",base.attr("id") +"_message");
 
             el.parentNode.appendChild(coordsDiv);
 
             // Show the lat and lng under the mouse cursor.
             map.controls[google.maps.ControlPosition.TOP_CENTER].push(coordsDiv);
 
+            var overlay = new google.maps.OverlayView();
+            overlay.draw = function() {};
+            overlay.setMap(map); // 'map' is new google.maps.Map(...)
+
             //EDIT MODE
-            map.addListener('mousemove', function(event) {
+            google.maps.event.addListener(map, 'mousemove', function (event) {
+
+                var lat = event.latLng.lat();
+                lat = lat.toFixed(4);
+                var lng = event.latLng.lng();
+                lng = lng.toFixed(4);
+                //console.log("Latitude: " + lat + "  Longitude: " + lng);
+
+                var projection = overlay.getProjection();
+                var pixel = projection.fromLatLngToContainerPixel(event.latLng);
+
+                //console.log("Y: " + pixel.y + "  X: " + pixel.x);
+
                 coordsDiv.textContent =
-                    'latitude : ' + Math.round(event.latLng.lat()) + ', ' +
-                    'longitude : ' + Math.round(event.latLng.lng());
+                    'Y : ' + Math.round(event.latLng.lat()) + ', ' +
+                    'X : ' + Math.round(event.latLng.lng());
+
+                $(coordsDiv).css({
+                    position: "relative",
+                    top: pixel.y + $(coordsDiv).height(),
+                    left: pixel.x - $(coordsDiv).width() / 2,
+                    color: '#00FF00',
+                    'user-select': 'none',
+                    '-webkit-user-select': 'none',
+                    '-khtml-user-select': 'none',
+                    '-moz-user-select': 'none',
+                    '-ms-user-select': 'none',
+                });
+
             });
+
 
         }
         return map;
@@ -390,69 +444,48 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
         return map;
     };
 
-    ns.googleMapCallback = function () {
+    ns.googleMapCallback = function (componentId) {
 
-        log.info(["googleMapCallback start !!!",ns.currentFilter()]);
-        $("[data-modules='map']").each(function () {
+        log.info(["googleMapCallback start !!!",componentId,$(this).attr("id"),ns.currentFilter()]);
+        $("#"+componentId).each(function () {
+            log.info(["googleMapCallback start !!!",$(this),$(this).get(0)]);
 
+            //
             var map = ns.initMap($(this).get(0));
 
-            map = ns.initProjectionSystem(this, map);
+                map = ns.initProjectionSystem(this, map);
 
-            map = ns.updateMarkers(this, map);
+                map = ns.updateMarkers(this, map);
 
-            map = ns.showCoordinationMessage(this, map);
+                map = ns.showCoordinationMessage(this, map);
 
-            map = ns.updateGeoJson(this, map);
+                map = ns.updateGeoJson(this, map);
 
-            map = ns.updateInfoWindows(map);
+                map = ns.updateInfoWindows(map);
 
-            map = ns.handleResponsiveMap(map);
+                map = ns.handleResponsiveMap(map);
 
-            map = ns.handleIdleMap(map);
+                map = ns.handleIdleMap(map);
 
-            ns.googleMapInstances.push(map);
+               ns.googleMapInstances.push(map);
 
-            ns.topicQueue = $(this).data("topicqueue");
+                ns.topicQueue = $(this).data("topicqueue");
 
-            //log.info(["need to select defauts1",map,ns.currentFilter()]);
-            /**
-             * TODO:handle the default is not all
-             */
-            if (ns.topicQueue != undefined && ns.topicQueue.length > 0){
-                ns.topicMapModel(map);
-            }
+                //log.info(["need to select defauts1",map,ns.currentFilter()]);
+                /**
+                 * TODO:handle the default is not all
+                 */
+                if (ns.topicQueue != undefined && ns.topicQueue.length > 0){
+                    ns.topicMapModel(map);
+                }
 
-            if (ns.currentFilter().length > 0) {
-                ns.filterMap(map,ns.currentFilter()[0]);
-            }
+                if (ns.currentFilter().length > 0) {
+                    ns.filterMap(map,ns.currentFilter()[0]);
+                }
         });
         log.info("googleMapCallback end !!! ");
     };
 
-    ns.initMap = function() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 10,
-            center: {lat: 41.850, lng: -87.650},
-            streetViewControl: false,
-            mapTypeId: 'coordinate',
-            mapTypeControlOptions: {
-                mapTypeIds: ['coordinate', 'roadmap'],
-                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-            }
-        });
-
-        map.addListener('maptypeid_changed', function() {
-            var showStreetViewControl = map.getMapTypeId() !== 'coordinate';
-            map.setOptions({
-                streetViewControl: showStreetViewControl
-            });
-        });
-
-        // Now attach the coordinate map type to the map's registry.
-        map.mapTypes.set('coordinate',
-            new CoordMapType(new google.maps.Size(256, 256)));
-    }
 
     /***
      * filter items shown on the map
