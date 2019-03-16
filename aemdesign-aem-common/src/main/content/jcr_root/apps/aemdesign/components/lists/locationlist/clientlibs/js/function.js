@@ -453,35 +453,39 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
             //
             var map = ns.initMap($(this).get(0));
 
-                map = ns.initProjectionSystem(this, map);
+            map = ns.initProjectionSystem(this, map);
 
-                map = ns.updateMarkers(this, map);
+            map = ns.updateMarkers(this, map);
 
-                map = ns.showCoordinationMessage(this, map);
+            map = ns.showCoordinationMessage(this, map);
 
-                map = ns.updateGeoJson(this, map);
+            map = ns.updateGeoJson(this, map);
 
-                map = ns.updateInfoWindows(map);
+            map = ns.updateInfoWindows(map);
 
-                map = ns.handleResponsiveMap(map);
+            map = ns.handleResponsiveMap(map);
 
-                map = ns.handleIdleMap(map);
+            map = ns.handleIdleMap(map);
 
-               ns.googleMapInstances.push(map);
+            var mapIndex = ns.googleMapInstances.push(map);
 
-                ns.topicQueue = $(this).data("topicqueue");
+            ns.topicQueue = $(this).data("topicqueue");
 
-                //log.info(["need to select defauts1",map,ns.currentFilter()]);
-                /**
-                 * TODO:handle the default is not all
-                 */
-                if (ns.topicQueue != undefined && ns.topicQueue.length > 0){
-                    ns.topicMapModel(map);
-                }
+            //log.info(["need to select defauts1",map,ns.currentFilter()]);
+            /**
+             * TODO:handle the default is not all
+             */
+            if (ns.topicQueue != undefined && ns.topicQueue.length > 0){
+                ns.topicMapModel(map);
+            }
 
-                if (ns.currentFilter().length > 0) {
-                    ns.filterMap(map,ns.currentFilter()[0]);
-                }
+            if (ns.currentFilter().length > 0) {
+                ns.filterMap(map,ns.currentFilter()[0]);
+            }
+
+            //attach map to the element
+            this.setAttribute("data-map-index",mapIndex-1);
+
         });
         log.info("googleMapCallback end !!! ");
     };
