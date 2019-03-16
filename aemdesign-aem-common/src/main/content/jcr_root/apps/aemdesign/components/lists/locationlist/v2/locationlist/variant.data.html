@@ -7,7 +7,8 @@
             type: 'FeatureCollection',
             features: [
             <sly data-sly-list.item="${component.ListItems}">
-                <sly data-sly-resource="${item.componentPath @ selectors=item.componentPathSelectors}"></sly>,
+                <sly data-sly-resource="${item.componentPath @ selectors=item.componentPathSelectors}"></sly>
+                <sly data-sly-test="${wcmmode.edit}">${'*/'}</sly>,
             </sly>
             ]
         };
