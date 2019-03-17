@@ -1039,7 +1039,7 @@ public class ComponentsUtil {
      * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
      * @return map of attributes
      */
-    @SuppressWarnings({"unchecked","Depreciated"})
+    @SuppressWarnings({"unchecked","Depreciated","Duplicates"})
     public static ComponentProperties getComponentProperties(Map<String, Object> pageContext, Object targetResource, Boolean includeComponentAttributes, Object[][]... fieldLists) {
         ComponentProperties componentProperties = new ComponentProperties();
 
