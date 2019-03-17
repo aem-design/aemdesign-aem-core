@@ -76,7 +76,7 @@ public class Breadcrumb extends WCMUsePojo {
         boolean hideCurrent = componentProperties.get("hideCurrent", DEFAULT_SHOW_HIDDEN);
 
         for (int i = startLevel; i <= endLevel; i++) {
-            Page pagetrail = getResourcePage().getAbsoluteParent(i);
+            Page pagetrail = getCurrentPage().getAbsoluteParent(i);
             if (pagetrail == null) {
                 continue;
             }
