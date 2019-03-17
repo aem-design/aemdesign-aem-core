@@ -38,7 +38,7 @@ public class PageTags extends WCMUsePojo {
                 DEFAULT_FIELDS_ACCESSIBILITY,
                 DEFAULT_FIELDS_DETAILS_OPTIONS);
 
-        componentProperties.put("pagetags", getTagsAsAdmin(getSlingScriptHelper(), getResourcePage().getProperties().get(TagConstants.PN_TAGS,new String[]{}), getRequest().getLocale()));
+        componentProperties.put("pagetags", getTagsAsAdmin(getSlingScriptHelper(), getPageProperties().get(TagConstants.PN_TAGS,new String[]{}), getRequest().getLocale()));
 
     }
 
