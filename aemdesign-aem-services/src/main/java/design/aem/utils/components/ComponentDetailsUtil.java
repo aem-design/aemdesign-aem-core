@@ -34,6 +34,7 @@ public class ComponentDetailsUtil {
     public static final Logger LOGGER = LoggerFactory.getLogger(ComponentDetailsUtil.class);
 
     //A1 -> A2 WCMUsePojo
+    @SuppressWarnings("Duplicates")
     public static List<ComponentProperties> getPageListInfo(WCMUsePojo wcmUsePojoModel, PageManager pageManager, ResourceResolver resourceResolver, String[] paths) {
 
         try {
@@ -48,6 +49,7 @@ public class ComponentDetailsUtil {
     }
 
     //A1 -> A2 PageContext
+    @SuppressWarnings("Duplicates")
     public static List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths) {
 
         try {
@@ -63,6 +65,7 @@ public class ComponentDetailsUtil {
     }
 
     //A2 -> A3 WCMUsePojo
+    @SuppressWarnings("Duplicates")
     public static List<ComponentProperties> getPageListInfo(WCMUsePojo wcmUsePojoModel, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots) {
 
         try {
@@ -77,6 +80,7 @@ public class ComponentDetailsUtil {
     }
 
     //A2 -> A3 PageContext
+    @SuppressWarnings("Duplicates")
     public static List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots) {
 
         try {
@@ -92,6 +96,7 @@ public class ComponentDetailsUtil {
     }
 
     //A3 WCMUsePojo
+    @SuppressWarnings("Duplicates")
     public static List<ComponentProperties> getPageListInfo(WCMUsePojo wcmUsePojoModel, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot, Boolean ignoreHidden) {
 
         try {
@@ -99,13 +104,14 @@ public class ComponentDetailsUtil {
             return getPageListInfo(getContextObjects(wcmUsePojoModel), pageManager, resourceResolver, paths, componentNames, pageRoots, null, false);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: {},error={},pageManager={},resourceResolver={},pageList={},detailsComponentName={},pageRoots={}",wcmUsePojoModel, ex, pageManager, resourceResolver, paths, componentNames, pageRoots);
         }
 
         return new ArrayList<>();
     }
 
     //A3 PageContext
+    @SuppressWarnings("Duplicates")
     public static List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot, Boolean ignoreHidden) {
 
         try {
@@ -141,6 +147,7 @@ public class ComponentDetailsUtil {
 
 
     //B1 -> B2 WCMUsePojo
+    @SuppressWarnings("Duplicates")
     public static List<ComponentProperties> getPageListInfo(WCMUsePojo wcmUsePojoModel, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList) {
 
         try {
@@ -155,6 +162,7 @@ public class ComponentDetailsUtil {
     }
 
     //B1 -> B2 PageContext
+    @SuppressWarnings("Duplicates")
     public static List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList) {
 
         try {
@@ -174,6 +182,7 @@ public class ComponentDetailsUtil {
 
 
     //B2 -> B3 WCMUsePojo
+    @SuppressWarnings("Duplicates")
     public static List<ComponentProperties> getPageListInfo(WCMUsePojo wcmUsePojoModel, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots) {
 
         try {
@@ -188,6 +197,7 @@ public class ComponentDetailsUtil {
     }
 
     //B2 -> B3 PageContext
+    @SuppressWarnings("Duplicates")
     public static List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots) {
 
         try {
@@ -204,6 +214,7 @@ public class ComponentDetailsUtil {
 
 
     //B3 WCMUsePojo
+    @SuppressWarnings("Duplicates")
     public static List<ComponentProperties> getPageListInfo(WCMUsePojo wcmUsePojoModel, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots, Integer collectChildrenFromRoot, Boolean ignoreHidden) {
 
         try {
@@ -211,13 +222,14 @@ public class ComponentDetailsUtil {
             return getPageListInfo(getContextObjects(wcmUsePojoModel), pageManager, resourceResolver, pageList, detailsComponentName, pageRoots, null, false);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: {},error={},pageManager={},resourceResolver={},pageList={},detailsComponentName={},pageRoots={}",wcmUsePojoModel, ex, pageManager, resourceResolver, pageList, detailsComponentName, pageRoots);
         }
 
         return new ArrayList<>();
     }
 
     //B3 PageContext
+    @SuppressWarnings("Duplicates")
     public static List<ComponentProperties> getPageListInfo(PageContext pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots, Integer collectChildrenFromRoot, Boolean ignoreHidden) {
 
         try {
@@ -412,123 +424,124 @@ public class ComponentDetailsUtil {
     public static ComponentProperties getPageInfo(Map<String, Object> pageContext, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot) {
         ComponentProperties componentProperties = getNewComponentProperties(pageContext);
 
-        if (page!=null) {
+        try {
+            if (page != null) {
 
-            String detailsNodePath = findComponentInPage(page, componentNames, pageRoots);
+                String detailsNodePath = findComponentInPage(page, componentNames, pageRoots);
 
-            if (isNotEmpty(detailsNodePath)) {
+                if (isNotEmpty(detailsNodePath)) {
 
-                Resource detailsNodeResource = resourceResolver.resolve(detailsNodePath);
+                    Resource detailsNodeResource = resourceResolver.resolve(detailsNodePath);
 
-                if (!ResourceUtil.isNonExistingResource(detailsNodeResource)) {
+                    if (!ResourceUtil.isNonExistingResource(detailsNodeResource)) {
 
-                    Object source = pageContext.get(PAGECONTEXTMAP_SOURCE);
-                    String sourcetype = pageContext.get(PAGECONTEXTMAP_SOURCE_TYPE).toString();
+                        Object source = pageContext.get(PAGECONTEXTMAP_SOURCE);
+                        String sourcetype = pageContext.get(PAGECONTEXTMAP_SOURCE_TYPE).toString();
 
-                    Map<String, Object> pageContextMap = new HashMap<>();
+                        Map<String, Object> pageContextMap = new HashMap<>();
 
-                    switch (sourcetype) {
-                        case PAGECONTEXTMAP_SOURCE_TYPE_PAGECONTEXT:
-                            pageContextMap = getContextObjects((PageContext) source);
-                            break;
-                        case PAGECONTEXTMAP_SOURCE_TYPE_WCMUSEPOJO:
-                            pageContextMap = getContextObjects((WCMUsePojo) source);
-                            break;
-                        case PAGECONTEXTMAP_SOURCE_TYPE_SLINGMODEL:
-                            pageContextMap = ((GenericModel) source).getPageContextMap();
-                            break;
-                        default:
-                            LOGGER.error("getPageInfo: invalid pageContext", pageContext);
-                            return componentProperties;
-                    }
-
-                    Object[][] componentFields = {
-                            {TagConstants.PN_TAGS, new String[]{}},
-                    };
-
-                    componentProperties = getComponentProperties(
-                            pageContextMap,
-                            detailsNodeResource,
-                            false,
-                            componentFields,
-                            DEFAULT_FIELDS_DETAILS_OPTIONS
-                    );
-
-                    componentProperties.put("detailsPath",detailsNodeResource.getPath());
-
-
-                    componentProperties.putAll(getAssetInfo(resourceResolver,
-                            getResourceImagePath(detailsNodeResource,DEFAULT_SECONDARY_IMAGE_NODE_NAME),
-                            FIELD_PAGE_SECONDARY_IMAGE));
-
-                    componentProperties.putAll(getAssetInfo(resourceResolver,
-                            getResourceImagePath(detailsNodeResource,DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
-                            FIELD_PAGE_BACKGROUND_IMAGE));
-                }
-
-            }
-
-            componentProperties.put("title", page.getTitle());
-            componentProperties.put("pageTags", getPageTags(page));
-            componentProperties.put("description", page.getDescription());
-            componentProperties.put("hideInNav", page.isHideInNav());
-            componentProperties.put("pageNavTitle", getPageNavTitle(page));
-            componentProperties.put("name", page.getName());
-            componentProperties.put("href", getPageUrl(page));
-            componentProperties.put("authHref", page.getPath().concat(DEFAULT_EXTENTION));
-            componentProperties.put("path", page.getPath());
-            componentProperties.put("vanityPath", defaultIfEmpty(page.getVanityUrl(), ""));
-            componentProperties.putAll(getAssetInfo(resourceResolver,
-                    getPageImgReferencePath(page),
-                    FIELD_PAGE_IMAGE));
-
-            String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
-            componentProperties.put("category", getTagsAsValuesAsAdmin((SlingScriptHelper)pageContext.get(PAGECONTEXTMAP_OBJECT_SLING),",",tags));
-
-            String contentNode = getComponentNodePath(page, pageRoots);
-
-            if (isNotEmpty(contentNode)) {
-                componentProperties.put("pageContent",contentNode);
-            }
-
-            //check if current page is in request page hierarchy
-            Page selectedPage = (com.day.cq.wcm.api.Page) pageContext.get(PAGECONTEXTMAP_OBJECT_CURRENTPAGE);
-            if (selectedPage != null ) {
-                componentProperties.put("current", checkSelected(page,selectedPage,(ResourceResolver)pageContext.get(PAGECONTEXTMAP_OBJECT_RESOURCERESOLVER)));
-            }
-
-
-
-
-            //get children
-            if (collectChildrenFromRoot > 0 ) {
-                //keep going
-                List<Map> childrenList = new ArrayList<Map>();
-
-                SlingHttpServletRequest req = (SlingHttpServletRequest) pageContext.get(PAGECONTEXTMAP_OBJECT_SLINGREQUEST);
-
-                if (req != null) {
-                    Iterator<Page> children = page.listChildren(new com.day.cq.wcm.api.PageFilter(req));
-
-                    if (children != null) {
-
-                        componentProperties.put("hasChildren", children.hasNext());
-
-                        while (children.hasNext()) {
-                            Page nextchild = children.next();
-
-                            childrenList.add(getPageInfo(pageContext, nextchild, resourceResolver, componentNames, pageRoots, collectChildrenFromRoot-1));
+                        switch (sourcetype) {
+                            case PAGECONTEXTMAP_SOURCE_TYPE_PAGECONTEXT:
+                                pageContextMap = getContextObjects((PageContext) source);
+                                break;
+                            case PAGECONTEXTMAP_SOURCE_TYPE_WCMUSEPOJO:
+                                pageContextMap = getContextObjects((WCMUsePojo) source);
+                                break;
+                            case PAGECONTEXTMAP_SOURCE_TYPE_SLINGMODEL:
+                                pageContextMap = ((GenericModel) source).getPageContextMap();
+                                break;
+                            default:
+                                LOGGER.error("getPageInfo: invalid pageContext", pageContext);
+                                return componentProperties;
                         }
 
-                        componentProperties.put("children", childrenList);
+                        Object[][] componentFields = {
+                                {TagConstants.PN_TAGS, new String[]{}},
+                        };
 
+                        componentProperties = getComponentProperties(
+                                pageContextMap,
+                                detailsNodeResource,
+                                false,
+                                componentFields,
+                                DEFAULT_FIELDS_DETAILS_OPTIONS
+                        );
+
+                        componentProperties.put("detailsPath", detailsNodeResource.getPath());
+
+
+                        componentProperties.putAll(getAssetInfo(resourceResolver,
+                                getResourceImagePath(detailsNodeResource, DEFAULT_SECONDARY_IMAGE_NODE_NAME),
+                                FIELD_PAGE_SECONDARY_IMAGE));
+
+                        componentProperties.putAll(getAssetInfo(resourceResolver,
+                                getResourceImagePath(detailsNodeResource, DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
+                                FIELD_PAGE_BACKGROUND_IMAGE));
                     }
+
+                }
+
+                componentProperties.put("title", page.getTitle());
+                componentProperties.put("pageTags", getPageTags(page));
+                componentProperties.put("description", page.getDescription());
+                componentProperties.put("hideInNav", page.isHideInNav());
+                componentProperties.put("pageNavTitle", getPageNavTitle(page));
+                componentProperties.put("name", page.getName());
+                componentProperties.put("href", getPageUrl(page));
+                componentProperties.put("authHref", page.getPath().concat(DEFAULT_EXTENTION));
+                componentProperties.put("path", page.getPath());
+                componentProperties.put("vanityPath", defaultIfEmpty(page.getVanityUrl(), ""));
+                componentProperties.putAll(getAssetInfo(resourceResolver,
+                        getPageImgReferencePath(page),
+                        FIELD_PAGE_IMAGE));
+
+                String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
+                componentProperties.put("category", getTagsAsValuesAsAdmin((SlingScriptHelper) pageContext.get(PAGECONTEXTMAP_OBJECT_SLING), ",", tags));
+
+                String contentNode = getComponentNodePath(page, pageRoots);
+
+                if (isNotEmpty(contentNode)) {
+                    componentProperties.put("pageContent", contentNode);
+                }
+
+                //check if current page is in request page hierarchy
+                Page selectedPage = (com.day.cq.wcm.api.Page) pageContext.get(PAGECONTEXTMAP_OBJECT_CURRENTPAGE);
+                if (selectedPage != null) {
+                    componentProperties.put("current", checkSelected(page, selectedPage, (ResourceResolver) pageContext.get(PAGECONTEXTMAP_OBJECT_RESOURCERESOLVER)));
+                }
+
+
+                //get children
+                if (collectChildrenFromRoot != null && collectChildrenFromRoot > 0) {
+                    //keep going
+                    List<Map> childrenList = new ArrayList<Map>();
+
+                    SlingHttpServletRequest req = (SlingHttpServletRequest) pageContext.get(PAGECONTEXTMAP_OBJECT_SLINGREQUEST);
+
+                    if (req != null) {
+                        Iterator<Page> children = page.listChildren(new com.day.cq.wcm.api.PageFilter(req));
+
+                        if (children != null) {
+
+                            componentProperties.put("hasChildren", children.hasNext());
+
+                            while (children.hasNext()) {
+                                Page nextchild = children.next();
+
+                                childrenList.add(getPageInfo(pageContext, nextchild, resourceResolver, componentNames, pageRoots, collectChildrenFromRoot - 1));
+                            }
+
+                            componentProperties.put("children", childrenList);
+
+                        }
+                    }
+
                 }
 
             }
-
+        } catch (Exception ex) {
+            LOGGER.error("getPageInfo: error={}",ex);
         }
-
         return componentProperties;
     }
 
