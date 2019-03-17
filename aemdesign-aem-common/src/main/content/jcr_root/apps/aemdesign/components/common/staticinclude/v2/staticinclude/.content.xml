@@ -2,7 +2,6 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:description="Include CSS and JS or Text Component into Page"
     jcr:primaryType="cq:Component"
-    jcr:title="Static Content Include"
+    jcr:title="Static Content Include (v2)"
     cq:icon="code"
-    sling:resourceSuperType="aemdesign/components/common/staticinclude/v2/staticinclude"
-    componentGroup="AEM.Design - Common"/>
+    componentGroup="hidden"/>

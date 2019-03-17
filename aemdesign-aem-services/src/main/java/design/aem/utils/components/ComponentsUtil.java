@@ -562,9 +562,11 @@ public class ComponentsUtil {
 
         for (String path : paths) {
             Resource resource = resourceResolver.getResource(path);
-            returnValue += getResourceContent(resource);
+
+            returnValue = returnValue.concat(getResourceContent(resource));
+
             if (StringUtils.isNotEmpty(separator) && separator != null) {
-                returnValue += separator;
+                returnValue = returnValue.concat(separator);
             }
         }
 
@@ -586,9 +588,17 @@ public class ComponentsUtil {
                 Node resourceNode = resource.adaptTo(Node.class);
 
                 if (resourceNode != null) {
-                    if (resourceNode.hasNode(JcrConstants.JCR_CONTENT)) {
-                        Node contentNode = resourceNode.getNode(JcrConstants.JCR_CONTENT);
+                    Node contentNode = null;
 
+                    if (resourceNode.getPrimaryNodeType().getName().equals("cq:Page") && resourceNode.hasNode(JcrConstants.JCR_CONTENT)) {
+                        contentNode = resourceNode.getNode(JcrConstants.JCR_CONTENT);
+                    }
+
+                    if (resourceNode.getPrimaryNodeType().getName().equals("dam:Asset") && resourceNode.hasNode(JcrConstants.JCR_CONTENT + "/renditions/original/" + JcrConstants.JCR_CONTENT))  {
+                        contentNode = resourceNode.getNode(JcrConstants.JCR_CONTENT + "/renditions/original/" + JcrConstants.JCR_CONTENT);
+                    }
+
+                    if (contentNode != null) {
                         if (contentNode.hasProperty(JcrConstants.JCR_DATA)) {
                             InputStream contentsStream = contentNode.getProperty(JcrConstants.JCR_DATA).getBinary().getStream();
 
@@ -601,12 +611,13 @@ public class ComponentsUtil {
                             if (result != null) {
                                 returnValue = new String(result);
                             }
+
                         }
                     }
                 }
 
             } catch (Exception ex) {
-                LOGGER.warn("Could not load file to be included {}", resource.getPath());
+                LOGGER.error("Could not load file to be included {}", resource.getPath());
             }
         }
         return returnValue;
