@@ -5,4 +5,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Page Tags (v2)"
     cq:icon="viewDetail"
-    componentGroup="AEM.Design - Content"/>
+    componentGroup="hidden"/>
