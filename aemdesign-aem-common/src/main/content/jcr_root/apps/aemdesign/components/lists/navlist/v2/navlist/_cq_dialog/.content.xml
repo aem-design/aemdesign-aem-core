@@ -37,6 +37,14 @@
                                     jcr:title="List"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
+                                    <depthFromRoot
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            fieldDescription="will only collect defined number of items max of 5"
+                                            fieldLabel="Levels of children to collect"
+                                            min="0"
+                                            max="5"
+                                            name="./depthFromRoot"/>
                                     <listFrom
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
@@ -159,23 +167,13 @@
                                             class="cq-dialog-dropdown-showhide"
                                             cq-dialog-dropdown-showhide-target=".list-option-variant-showhide-target"
                                             name="./variant"
+                                            emptyOption="{Boolean}true"
                                             value="">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <default
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Default"
-                                                    value=""/>
-                                            <simple
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Simple"
-                                                    value="simple"/>
-
-                                            <stacked
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Stacked"
-                                                    value="stacked"/>
-
-                                        </items>
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="valuelist"
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/navlist/variant"/>
                                     </variant>
                                     <variantSimple
                                             jcr:primaryType="nt:unstructured"

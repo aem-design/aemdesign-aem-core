@@ -41,6 +41,7 @@ public class NavList extends WCMUsePojo {
         final String LISTFROM_CHILDREN = "children";
         final String DEFAULT_VARIANT = "default";
         final String DEFAULT_MENUT_TITLE = "Menu";
+        final int DEFAULT_DEPTH_FROM_ROOT = 2;
 
         // getDefaultLabelIfEmpty
 
@@ -48,6 +49,7 @@ public class NavList extends WCMUsePojo {
         Object[][] componentFields = {
                 {"pages", new String[0]},
                 {FIELD_VARIANT, DEFAULT_VARIANT},
+                {"depthFromRoot", DEFAULT_DEPTH_FROM_ROOT},
                 {"listFrom", DEFAULT_LISTFROM},
                 {"currentPage", getCurrentPage()},
                 {"menuTitle", _i18n.get("menuTitle","navlist")},
@@ -64,16 +66,24 @@ public class NavList extends WCMUsePojo {
         String[] supportedDetails = DEFAULT_LIST_DETAILS_SUFFIX;
         String[] supportedRoots = DEFAULT_LIST_PAGE_CONTENT;
 
+        //set default level to be 5
+        int depthFromRoot = componentProperties.get("depthFromRoot",DEFAULT_DEPTH_FROM_ROOT);
+        if (depthFromRoot > 5) {
+            depthFromRoot = 5;
+        } else if (depthFromRoot < 0) {
+            depthFromRoot = 0;
+        }
+
         java.util.List<ComponentProperties> pagesInfo = null;
         if (componentProperties.get("listFrom", DEFAULT_LISTFROM).equals(LISTFROM_CHILDREN)) {
             Page parentPage = getPageManager().getPage(componentProperties.get("parentPage", ""));
             if (parentPage != null) {
-                pagesInfo = getPageListInfo(getContextObjects(this),getPageManager(), getResourceResolver(), parentPage.listChildren(), supportedDetails, supportedRoots, 2, true);
+                pagesInfo = getPageListInfo(getContextObjects(this),getPageManager(), getResourceResolver(), parentPage.listChildren(), supportedDetails, supportedRoots, depthFromRoot, true);
             }
         } else {
             String[] paths = componentProperties.get("pages", new String[0]);
             if (paths.length != 0) {
-                pagesInfo = getPageListInfo(getContextObjects(this),getPageManager(), getResourceResolver(), paths, supportedDetails, supportedRoots, 2, true);
+                pagesInfo = getPageListInfo(getContextObjects(this),getPageManager(), getResourceResolver(), paths, supportedDetails, supportedRoots, depthFromRoot, true);
             }
         }
 
