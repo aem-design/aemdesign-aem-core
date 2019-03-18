@@ -1,0 +1,11 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <nav style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto" data-sly-list.link="${componentProperties.menuItems}">
+                <sly data-sly-use.menuitem="${'./menuitem.dropdown.html'}"
+                     data-sly-call="${menuitem.variant @ componentProperties=componentProperties, menuitem=link, isTopLevel=true}"></sly>
+            </ul>
+        </div>
+    </nav>
+</template>
