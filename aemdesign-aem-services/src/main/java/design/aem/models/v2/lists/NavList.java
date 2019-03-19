@@ -61,7 +61,8 @@ public class NavList extends WCMUsePojo {
                 this,
                 componentFields,
                 DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+                DEFAULT_FIELDS_ACCESSIBILITY,
+                DEFAULT_FIELDS_ANALYTICS);
 
         String[] supportedDetails = DEFAULT_LIST_DETAILS_SUFFIX;
         String[] supportedRoots = DEFAULT_LIST_PAGE_CONTENT;
