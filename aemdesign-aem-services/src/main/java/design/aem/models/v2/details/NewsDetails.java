@@ -93,6 +93,7 @@ public class NewsDetails extends GenericDetails {
                 componentFields,
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY,
+                DEFAULT_FIELDS_ANALYTICS,
                 DEFAULT_FIELDS_DETAILS_OPTIONS);
 
         Calendar publishDate = getProperties().get("publishDate",getResourcePage().getProperties().get(JcrConstants.JCR_CREATED, Calendar.getInstance()));

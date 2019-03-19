@@ -129,6 +129,7 @@ public class EventDetails extends GenericDetails {
                 componentFields,
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY,
+                DEFAULT_FIELDS_ANALYTICS,
                 DEFAULT_FIELDS_DETAILS_OPTIONS);
 
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
