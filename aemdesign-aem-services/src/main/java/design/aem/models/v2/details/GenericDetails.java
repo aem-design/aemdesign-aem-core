@@ -31,6 +31,7 @@ public class GenericDetails extends WCMUsePojo {
     public static String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -42,9 +43,7 @@ public class GenericDetails extends WCMUsePojo {
         I18n _i18n = new I18n(getRequest());
 
 
-
         processCommonFields();
-
 
 
     }
@@ -157,7 +156,6 @@ public class GenericDetails extends WCMUsePojo {
     }
 
 
-
     /***
      * get and format badge config
      * @param page resource page
@@ -170,83 +168,87 @@ public class GenericDetails extends WCMUsePojo {
 
         //get badge action attributes
         Map<String, String> badgeLinkAttr = new HashMap<>();
-        badgeLinkAttr.put(FIELD_TARGET,componentProperties.get(FIELD_LINK_TARGET,""));
+        badgeLinkAttr.put(FIELD_TARGET, componentProperties.get(FIELD_LINK_TARGET, ""));
         if (isNotEmpty(getPageRedirect(page))) {
             badgeLinkAttr.put(FIELD_EXTERNAL, "true");
         }
-        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_TRACK,componentProperties.get(DETAILS_BADGE_ANALYTICS_TRACK,""));
-        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LOCATION,componentProperties.get(DETAILS_BADGE_ANALYTICS_LOCATION,""));
-        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LABEL,componentProperties.get(DETAILS_BADGE_ANALYTICS_LABEL,""));
-        badgeLinkAttr.put(COMPONENT_ATTRIBUTE_INPAGEPATH,componentProperties.get(COMPONENT_INPAGEPATH,""));
+        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_TRACK, componentProperties.get(DETAILS_BADGE_ANALYTICS_TRACK, ""));
+        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LOCATION, componentProperties.get(DETAILS_BADGE_ANALYTICS_LOCATION, ""));
+        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LABEL, componentProperties.get(DETAILS_BADGE_ANALYTICS_LABEL, ""));
+        badgeLinkAttr.put(COMPONENT_ATTRIBUTE_INPAGEPATH, componentProperties.get(COMPONENT_INPAGEPATH, ""));
 
-        badgeConfig.put(DETAILS_BADGE_LINK_ATTR,badgeLinkAttr);
+        badgeConfig.put(DETAILS_BADGE_LINK_ATTR, badgeLinkAttr);
 
         //get badge image attributes
         Map<String, String> badgeImageAttr = new HashMap<>();
-        badgeImageAttr.put(FIELD_DATA_ASSET_PRIMARY_ID,componentProperties.get(FIELD_PAGE_IMAGE_ID,""));
-        badgeImageAttr.put(FIELD_DATA_ASSET_PRIMARY_LICENSE,componentProperties.get(FIELD_PAGE_IMAGE_LICENSE_INFO,""));
-        badgeImageAttr.put(FIELD_DATA_ASSET_SECONDARY_ID,componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY_ID,""));
-        badgeImageAttr.put(FIELD_DATA_ASSET_SECONDARY_LICENSE,componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY_LICENSE_INFO,""));
-        badgeImageAttr.put(FIELD_WIDTH,componentProperties.get(FIELD_THUMBNAIL_WIDTH,""));
+        badgeImageAttr.put(FIELD_DATA_ASSET_PRIMARY_ID, componentProperties.get(FIELD_PAGE_IMAGE_ID, ""));
+        badgeImageAttr.put(FIELD_DATA_ASSET_PRIMARY_LICENSE, componentProperties.get(FIELD_PAGE_IMAGE_LICENSE_INFO, ""));
+        badgeImageAttr.put(FIELD_DATA_ASSET_SECONDARY_ID, componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY_ID, ""));
+        badgeImageAttr.put(FIELD_DATA_ASSET_SECONDARY_LICENSE, componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY_LICENSE_INFO, ""));
+        badgeImageAttr.put(FIELD_WIDTH, componentProperties.get(FIELD_THUMBNAIL_WIDTH, ""));
 
-        badgeImageAttr.put(FIELD_HEIGHT,componentProperties.get(FIELD_THUMBNAIL_HEIGHT,""));
+        badgeImageAttr.put(FIELD_HEIGHT, componentProperties.get(FIELD_THUMBNAIL_HEIGHT, ""));
 
-        String pageSecondaryImageThumbnail = componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL,"");
+        String pageSecondaryImageThumbnail = componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL, "");
         if (isNotEmpty(pageSecondaryImageThumbnail)) {
             badgeImageAttr.put(FIELD_CLASS, "rollover");
             badgeImageAttr.put(FIELD_DATA_ASSET_ROLLOVER_SRC, pageSecondaryImageThumbnail);
         }
 
-        badgeConfig.put(DETAILS_BADGE_IMAGE_ATTR,badgeImageAttr);
+        badgeConfig.put(DETAILS_BADGE_IMAGE_ATTR, badgeImageAttr);
 
         //get badge class attributes
         String badgeClassAttr = "";
-        badgeClassAttr += StringUtils.join(componentProperties.get(DETAILS_CARD_STYLE,new String[0])," ");
-        badgeClassAttr += StringUtils.join(componentProperties.get(DETAILS_TITLE_ICON,new String[0])," ");
+        badgeClassAttr += StringUtils.join(componentProperties.get(DETAILS_CARD_STYLE, new String[0]), " ");
+        badgeClassAttr += StringUtils.join(componentProperties.get(DETAILS_TITLE_ICON, new String[0]), " ");
 
-        badgeConfig.put(DETAILS_BADGE_CLASS,badgeClassAttr);
+        badgeConfig.put(DETAILS_BADGE_CLASS, badgeClassAttr);
 
         String badgeClassIconAttr = "";
-        badgeClassIconAttr += StringUtils.join(componentProperties.get(DETAILS_CARD_ICON,new String[0])," ");
+        badgeClassIconAttr += StringUtils.join(componentProperties.get(DETAILS_CARD_ICON, new String[0]), " ");
 
-        badgeConfig.put(DETAILS_BADGE_CLASS_ICON,badgeClassIconAttr);
+        badgeConfig.put(DETAILS_BADGE_CLASS_ICON, badgeClassIconAttr);
 
 
         //check badge title
         String pageNavTitle = componentProperties.get(FIELD_PAGE_TITLE_NAV, "");
-        badgeConfig.put(DETAILS_BADGE_TITLE,pageNavTitle);
+        badgeConfig.put(DETAILS_BADGE_TITLE, pageNavTitle);
         //trim pageNavTitle if needed
-        if (Boolean.parseBoolean(componentProperties.get(DETAILS_TITLE_TRIM,""))) {
-            int badgeTitleTrimLengthMax = componentProperties.get(DETAILS_TITLE_TRIM_LENGTH_MAX,20);
+        if (Boolean.parseBoolean(componentProperties.get(DETAILS_TITLE_TRIM, ""))) {
+            int badgeTitleTrimLengthMax = componentProperties.get(DETAILS_TITLE_TRIM_LENGTH_MAX, 20);
             if (StringUtils.isNotEmpty(pageNavTitle)) {
-                badgeConfig.put(DETAILS_BADGE_TITLE,
-                        pageNavTitle.substring(0, badgeTitleTrimLengthMax)
-                                .concat(
-                                        componentProperties.get(
-                                                DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX,
-                                                DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX_DEFAULT
-                                        )
-                                )
-                );
+                if (pageNavTitle.length() > badgeTitleTrimLengthMax) {
+                    pageNavTitle = pageNavTitle.substring(0, badgeTitleTrimLengthMax)
+                            .concat(
+                                    componentProperties.get(
+                                            DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX,
+                                            DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX_DEFAULT
+                                    )
+                            );
+                }
+
+                badgeConfig.put(DETAILS_BADGE_TITLE, pageNavTitle);
             }
         }
 
         //check badge description
         String badgeDescription = componentProperties.get(DETAILS_DESCRIPTION, "");
-        badgeConfig.put(DETAILS_BADGE_DESCRIPTION,badgeDescription);
+        badgeConfig.put(DETAILS_BADGE_DESCRIPTION, badgeDescription);
         //trim page description if needed
-        if (Boolean.parseBoolean(componentProperties.get(DETAILS_SUMMARY_TRIM,""))) {
-            int badgeSummaryLengthMaxSuffix = componentProperties.get(DETAILS_SUMMARY_TRIM_LENGTH_MAX,20);
+        if (Boolean.parseBoolean(componentProperties.get(DETAILS_SUMMARY_TRIM, ""))) {
+            int badgeSummaryLengthMax = componentProperties.get(DETAILS_SUMMARY_TRIM_LENGTH_MAX, 20);
             if (StringUtils.isNotEmpty(badgeDescription)) {
-                badgeConfig.put(DETAILS_BADGE_DESCRIPTION,
-                        badgeDescription.substring(0, badgeSummaryLengthMaxSuffix)
-                                .concat(
-                                        componentProperties.get(
-                                                DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX,
-                                                DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX
-                                        )
-                                )
-                );
+                if (badgeDescription.length() > badgeSummaryLengthMax) {
+                    badgeDescription = badgeDescription.substring(0, badgeSummaryLengthMax)
+                            .concat(
+                                    componentProperties.get(
+                                            DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX,
+                                            DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX
+                                    )
+                            );
+                }
+
+                badgeConfig.put(DETAILS_BADGE_DESCRIPTION, badgeDescription);
             }
         }
 
@@ -262,7 +264,7 @@ public class GenericDetails extends WCMUsePojo {
         String[] pageMetaPropertyContent = componentProperties.get(DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[0]);
 
         if (pageMetaProperty.length == pageMetaPropertyContent.length) {
-            for (int i = 0; i < pageMetaProperty.length; i ++) {
+            for (int i = 0; i < pageMetaProperty.length; i++) {
                 String key = pageMetaProperty[i];
                 String value = pageMetaPropertyContent[i];
                 if (isNotEmpty(key) || isNotEmpty(value)) {
@@ -276,7 +278,7 @@ public class GenericDetails extends WCMUsePojo {
             newFields.put(FIELD_OG_URL, mappedUrl(resourceResolver, request, page.getPath()).concat(DEFAULT_EXTENTION));
         }
         if (!newFields.containsKey(FIELD_OG_IMAGE)) {
-            newFields.put(FIELD_OG_IMAGE, mappedUrl(resourceResolver, request, getThumbnailUrl(page,resourceResolver)));
+            newFields.put(FIELD_OG_IMAGE, mappedUrl(resourceResolver, request, getThumbnailUrl(page, resourceResolver)));
         }
         if (!newFields.containsKey(FIELD_OG_TITLE)) {
             newFields.put(FIELD_OG_TITLE, getPageTitle(page));
