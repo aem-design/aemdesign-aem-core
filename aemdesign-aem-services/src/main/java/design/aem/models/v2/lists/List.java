@@ -179,7 +179,7 @@ public class List extends WCMUsePojo {
                 {PN_TAGS, new String[]{}},
                 {PN_TAGS_MATCH, TAGS_MATCH_ANY_VALUE},
                 {PN_ORDER_BY, StringUtils.EMPTY},
-                {PN_SORT_ORDER, SortOrder.ASC.value},
+                {PN_SORT_ORDER, SortOrder.ASC.getValue()},
                 {PN_SEARCH_IN, getResourcePage().getPath()},
                 {SAVEDQUERY_PROPERTY_NAME, StringUtils.EMPTY},
                 {SEARCH_IN_PROPERTY_NAME, StringUtils.EMPTY},
@@ -204,7 +204,7 @@ public class List extends WCMUsePojo {
 
         //collection info for variables
         startIn = componentProperties.get(PN_SEARCH_IN, getResourcePage().getPath());
-        sortOrder = SortOrder.fromString(componentProperties.get(PN_SORT_ORDER, SortOrder.ASC.value));
+        sortOrder = SortOrder.fromString(componentProperties.get(PN_SORT_ORDER, SortOrder.ASC.getValue()));
         savedquery = componentProperties.get(SAVEDQUERY_PROPERTY_NAME, "");
         pageMax = componentProperties.get(PAGE_MAX_PROPERTY_NAME, PAGEMAX_DEFAULT);
         listSplitEvery = componentProperties.get(LISTSPLITEVERY, LISTSPLITEVERY_DEFAULT);
@@ -731,7 +731,7 @@ public class List extends WCMUsePojo {
                 map.put("orderby", PN_ORDER_BY_DEFAULT);
             }
 
-            map.put("orderby.sort", sortOrder.value);
+            map.put("orderby.sort", sortOrder.getValue());
 
 //            LOGGER.error("populateListItemsFromMap: running query with map=[{}]",map);
 
@@ -890,11 +890,15 @@ public class List extends WCMUsePojo {
     }
 
 
-    private enum SortOrder {
+    public enum SortOrder {
         ASC("asc"),
         DESC("desc");
 
         private String value;
+
+        public String getValue() {
+            return value;
+        }
 
         SortOrder(String value) {
             this.value = value;
