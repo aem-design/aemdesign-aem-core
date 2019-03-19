@@ -457,7 +457,7 @@ public class ComponentsUtil {
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
     public static final Object[][] DEFAULT_FIELDS_ANALYTICS = {
-            {DETAILS_ANALYTICS_TRACK, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_TRACK}, //basic
+            {DETAILS_ANALYTICS_TRACK, true, DETAILS_DATA_ANALYTICS_TRACK}, //basic
             {DETAILS_ANALYTICS_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LOCATION}, //basic
             {DETAILS_ANALYTICS_LABEL, "${ value ?: label }", DETAILS_DATA_ANALYTICS_LABEL}, //basic
             {"analyticsEventType", StringUtils.EMPTY, "data-analytics-event"}, //advanced
