@@ -409,6 +409,7 @@ public class ComponentDetailsUtil {
         return currentPageIsRedirectTarget;
     }
 
+
     /***
      * Get page info from list of page paths.
      *
@@ -422,6 +423,23 @@ public class ComponentDetailsUtil {
      * @return map of attributes
      */
     public static ComponentProperties getPageInfo(Map<String, Object> pageContext, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot) {
+        return getPageInfo(pageContext,page,resourceResolver,componentNames,pageRoots,collectChildrenFromRoot,1);
+    }
+
+    /***
+     * Get page info from list of page paths.
+     *
+     * @param page page to get info from.
+     * @param pageContext page content
+     * @param page page to use
+     * @param resourceResolver resource resolver
+     * @param componentNames component names to look for
+     * @param pageRoots parent to search
+     * @param collectChildrenFromRoot how many levels down to collect children
+     * @param depth current depth of children
+     * @return map of attributes
+     */
+    public static ComponentProperties getPageInfo(Map<String, Object> pageContext, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot, Integer depth) {
         ComponentProperties componentProperties = getNewComponentProperties(pageContext);
 
         try {
@@ -490,6 +508,7 @@ public class ComponentDetailsUtil {
                 componentProperties.put("href", getPageUrl(page));
                 componentProperties.put("authHref", page.getPath().concat(DEFAULT_EXTENTION));
                 componentProperties.put("path", page.getPath());
+                componentProperties.put("depth", depth);
                 componentProperties.put("vanityPath", defaultIfEmpty(page.getVanityUrl(), ""));
                 componentProperties.putAll(getAssetInfo(resourceResolver,
                         getPageImgReferencePath(page),
@@ -528,7 +547,7 @@ public class ComponentDetailsUtil {
                             while (children.hasNext()) {
                                 Page nextchild = children.next();
 
-                                childrenList.add(getPageInfo(pageContext, nextchild, resourceResolver, componentNames, pageRoots, collectChildrenFromRoot - 1));
+                                childrenList.add(getPageInfo(pageContext, nextchild, resourceResolver, componentNames, pageRoots, collectChildrenFromRoot - 1,depth + 1));
                             }
 
                             componentProperties.put("children", childrenList);
