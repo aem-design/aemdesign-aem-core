@@ -57,6 +57,8 @@ public class List extends WCMUsePojo {
     private static final String PN_SOURCE = "listFrom"; //SOURCE_PROPERTY_NAME
     private static final String PN_PAGES = "pages"; //PAGES_PROPERTY_NAME
     private static final String PN_PARENT_PAGE = "parentPage"; //PARENT_PAGE_PROPERTY_NAME
+    private static final String DESCENDANT_TAG = "ancestorTag";
+    private static final String PN_PARENT_PAGE_DEFAULT = "/content";
     private static final String PN_TAGS_PARENT_PAGE = "tagsSearchRoot";
     private static final String PN_TAGS = "tags"; //TAGS_PROPERTY_NAME
     private static final String PN_TAGS_MATCH = "tagsMatch"; //TAGS_MATCH_PROPERTY_NAME
@@ -545,25 +547,27 @@ public class List extends WCMUsePojo {
      * populate list items from only children of a root page.
      */
     private void populateChildListItems() {
-        populateChildListItems(true);
+        String path = componentProperties.get(PN_PARENT_PAGE,PN_PARENT_PAGE_DEFAULT);
+        populateChildListItems(path,true);
     }
 
     /**
      * populate list items from descendants of a root page.
      */
     private void populateDescendantsListItems() {
-        populateChildListItems(false);
+        String path = componentProperties.get(DESCENDANT_TAG,PN_PARENT_PAGE_DEFAULT);
+        populateChildListItems(path,false);
     }
 
     /**
      * populate list items from children of a root page.
      * @param flat only select children on root page
      */
-    private void populateChildListItems(Boolean flat) {
+    private void populateChildListItems(String path, Boolean flat) {
         listItems = new ArrayList<>();
 
         Map<String, String> childMap = new HashMap<>();
-        Page rootPage = getPageManager().getPage(componentProperties.get(PN_PARENT_PAGE,""));
+        Page rootPage = getPageManager().getPage(path);
         childMap.put("path", rootPage.getPath());
         if (flat) {
             childMap.put("path.flat", "true");
