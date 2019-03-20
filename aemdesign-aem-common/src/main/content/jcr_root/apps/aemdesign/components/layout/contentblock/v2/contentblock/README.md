@@ -17,6 +17,10 @@ Component for adding a Content Block section to a page.
 * **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/contentblock)
 * **Readme**: [/apps/aemdesign/components/layout/contentblock](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/contentblock)
 
+# Selectors
+
+When using Component Config variant add ```showconfig``` selector to url to activate showing config in content block.
+
 # Authoring
 
 Following section covers authoring features
