@@ -56,6 +56,8 @@ import java.util.regex.Pattern;
 
 import static design.aem.utils.components.CommonUtil.isNull;
 import static design.aem.utils.components.CommonUtil.resourceRenderAsHtml;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE_NAV;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -375,8 +377,8 @@ public class ComponentsUtil {
             {DETAILS_CARD_ICONSHOW, false},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_LINK_TARGET, "_blank"},
-            {DETAILS_LINK_TEXT, ""}, //getPageNavTitle(_currentPage)
-            {DETAILS_LINK_TITLE, ""}, //getPageTitle(_currentPage)
+            {DETAILS_LINK_TEXT, "${" + FIELD_PAGE_TITLE_NAV + "}"}, //getPageNavTitle(_currentPage)
+            {DETAILS_LINK_TITLE, "${" + FIELD_PAGE_TITLE + "}"}, //getPageTitle(_currentPage)
             {DETAILS_LINK_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, false},
             {DETAILS_TITLE_TRIM_LENGTH_MAX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_LENGTH},
@@ -399,7 +401,7 @@ public class ComponentsUtil {
             {DETAILS_THUMBNAIL, ""},
             {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK}, //basic
             {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION}, //basic
-            {DETAILS_BADGE_ANALYTICS_LABEL, "${(pageNavTitle ? pageNavTitle + '|' : '') + (value ?: " + DETAILS_LINK_TEXT + ")}",DETAILS_DATA_ANALYTICS_LABEL}, //basic
+            {DETAILS_BADGE_ANALYTICS_LABEL, "${(" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " + '|' : '') + (value ?: " + DETAILS_LINK_TEXT + ")}",DETAILS_DATA_ANALYTICS_LABEL}, //basic
             {DETAILS_PAGE_METADATA_PROPERTY, new String[]{}},
             {DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[]{}},
 
@@ -421,8 +423,8 @@ public class ComponentsUtil {
             {DETAILS_CARD_ICONSHOW, ""},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_LINK_TARGET, ""},
-            {DETAILS_LINK_TEXT, ""}, //getPageNavTitle(_currentPage)
-            {DETAILS_LINK_TITLE, ""}, //getPageTitle(_currentPage)
+            {DETAILS_LINK_TEXT, "${" + FIELD_PAGE_TITLE_NAV + "}"}, //getPageNavTitle(_currentPage)
+            {DETAILS_LINK_TITLE, "${" + FIELD_PAGE_TITLE + "}"}, //getPageTitle(_currentPage)
             {DETAILS_LINK_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, ""},
             {DETAILS_TITLE_TRIM_LENGTH_MAX, DETAILS_TITLE_TRIM_LENGTH_MAX_DEFAULT},
@@ -445,7 +447,7 @@ public class ComponentsUtil {
             {DETAILS_THUMBNAIL, ""},
             {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK}, //basic
             {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION}, //basic
-            {DETAILS_BADGE_ANALYTICS_LABEL, "${(pageNavTitle ? pageNavTitle + '|' : '') + (value ?: " + DETAILS_LINK_TEXT + ")}",DETAILS_DATA_ANALYTICS_LABEL}, //basic
+            {DETAILS_BADGE_ANALYTICS_LABEL, "${(" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " + '|' : '') + (value ?: " + DETAILS_LINK_TEXT + ")}",DETAILS_DATA_ANALYTICS_LABEL}, //basic
 
     };
 
@@ -1232,16 +1234,18 @@ public class ComponentsUtil {
                                 }
 
                             } catch (JexlException jex) {
-                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, field={},  value={}, default value={}, jex.info={}, jex.message={}, jex={}",
+                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, field={},  value={}, default value={}, componentProperties.kesy={}, jex.info={}",
                                         (component==null ? component : component.getPath()),
                                         (contentResource == null ? contentResource : contentResource.getPath()),
                                         fieldName, fieldValue, fieldDefaultValue,
-                                        jex.getInfo(), jex.getMessage(), jex);
+                                        componentProperties.keySet(),
+                                        jex.getInfo());
                             } catch (Exception ex) {
-                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, field={}, value={}, default value={}, ex.cause={}, ex.message={}, ex={}",
+                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, field={}, value={}, default value={}, componentProperties.kesy={}, ex.cause={}, ex.message={}, ex={}",
                                         (component==null ? component : component.getPath()),
                                         (contentResource == null ? contentResource : contentResource.getPath()),
                                         fieldName, fieldValue, fieldDefaultValue,
+                                        componentProperties.keySet(),
                                         ex.getCause(), ex.getMessage(), ex);
                             }
 
@@ -1451,7 +1455,7 @@ public class ComponentsUtil {
 
     /***
      *
-     * @deprecated please use responsive getBackgroundImageRenditions or ComponentProperties.attr which is an AttributeBuilder.
+     * @deprecated please use responsive {@link design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions(WCMUsePojo)} or ComponentProperties.attr which is an AttributeBuilder.
      * add style tag to component attributes collection
      * @param componentProperties component attributes collection
      * @param resource resource to search for image
