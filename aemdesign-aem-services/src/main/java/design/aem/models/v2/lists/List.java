@@ -6,6 +6,7 @@ import com.day.cq.search.*;
 import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
+import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
@@ -268,10 +269,15 @@ public class List extends WCMUsePojo {
             limit = Integer.MAX_VALUE;
         }
 
+        Object[][] badgeComponentFields = {
+                {FIELD_PAGE_TITLE, ""},
+                {FIELD_PAGE_TITLE_NAV, ""},
+        };
 
         //prepare request parms to pass to badges
         ComponentProperties badgeRequestAttributes = ComponentsUtil.getComponentProperties(
                 this,
+                badgeComponentFields,
                 DEFAULT_FIELDS_DETAILS_OPTIONS_OVERRIDE);
 
         badgeRequestAttributes.putAll(getAssetInfo(getResourceResolver(),
