@@ -475,6 +475,9 @@ public class ComponentDetailsUtil {
 
                         Object[][] componentFields = {
                                 {TagConstants.PN_TAGS, new String[]{}},
+                                {FIELD_PAGE_TITLE, getPageTitle(page, detailsNodeResource)},
+                                {FIELD_PAGE_TITLE_NAV, getPageNavTitle(page)},
+
                         };
 
                         componentProperties = getComponentProperties(
