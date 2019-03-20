@@ -106,7 +106,7 @@ public class ContentBlock extends WCMUsePojo {
         String variant = componentProperties.get(FIELD_VARIANT,DEFAULT_VARIANT);
 
         //skip output of table if noconfig selector is used, used in testing to speedup page load
-        if (variant.equals("componentConfig") && !StringUtils.contains(getRequest().getRequestPathInfo().getSelectorString(),"noconfig") ) {
+        if (variant.equals("componentConfig") && StringUtils.contains(getRequest().getRequestPathInfo().getSelectorString(),"showconfig") ) {
             Resource componentresource = getResource().getChild(DEFAULT_PAR_NAME);
             if (componentresource != null) {
                 //get first component
