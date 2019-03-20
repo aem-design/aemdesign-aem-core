@@ -377,8 +377,8 @@ public class ComponentsUtil {
             {DETAILS_CARD_ICONSHOW, false},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_LINK_TARGET, "_blank"},
-            {DETAILS_LINK_TEXT, "${" + FIELD_PAGE_TITLE_NAV + "}"}, //getPageNavTitle(_currentPage)
-            {DETAILS_LINK_TITLE, "${" + FIELD_PAGE_TITLE + "}"}, //getPageTitle(_currentPage)
+            {DETAILS_LINK_TEXT, "${" + FIELD_PAGE_TITLE_NAV + " ?: ''}"}, //getPageNavTitle(_currentPage)
+            {DETAILS_LINK_TITLE, "${" + FIELD_PAGE_TITLE + " ?: ''}"}, //getPageTitle(_currentPage)
             {DETAILS_LINK_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, false},
             {DETAILS_TITLE_TRIM_LENGTH_MAX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_LENGTH},
@@ -423,8 +423,8 @@ public class ComponentsUtil {
             {DETAILS_CARD_ICONSHOW, ""},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_LINK_TARGET, ""},
-            {DETAILS_LINK_TEXT, "${" + FIELD_PAGE_TITLE_NAV + "}"}, //getPageNavTitle(_currentPage)
-            {DETAILS_LINK_TITLE, "${" + FIELD_PAGE_TITLE + "}"}, //getPageTitle(_currentPage)
+            {DETAILS_LINK_TEXT, "${" + FIELD_PAGE_TITLE_NAV + " ?: ''}"}, //getPageNavTitle(_currentPage)
+            {DETAILS_LINK_TITLE, "${" + FIELD_PAGE_TITLE + "} ?: ''"}, //getPageTitle(_currentPage)
             {DETAILS_LINK_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, ""},
             {DETAILS_TITLE_TRIM_LENGTH_MAX, DETAILS_TITLE_TRIM_LENGTH_MAX_DEFAULT},
@@ -1198,7 +1198,8 @@ public class ComponentsUtil {
 //                        LOGGER.error("getComponentProperties: processing field {} and default {} and is expression {}", fieldName, fieldDefaultValue, fieldDefaultValue != null ? fieldDefaultValue.toString().matches(STRING_EXPRESSION_CHECK) : "it null");
 
                         //if no default value has expressions the
-                        if (fieldDefaultValue instanceof String
+                        if (
+                                fieldDefaultValue instanceof String
                                 && StringUtils.isNotEmpty(fieldDefaultValue.toString())
                                 && fieldDefaultValue.toString().matches(STRING_EXPRESSION_CHECK)) {
 //                                LOGGER.error("getComponentProperties: processing field {} and default {}", fieldName, fieldDefaultValue);
@@ -1234,16 +1235,20 @@ public class ComponentsUtil {
                                 }
 
                             } catch (JexlException jex) {
-                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, field={},  value={}, default value={}, componentProperties.kesy={}, jex.info={}",
+                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, currentNode={}, fieldLists={}, field={}, value={}, default value={}, componentProperties.keys={}, jex.info={}",
                                         (component==null ? component : component.getPath()),
                                         (contentResource == null ? contentResource : contentResource.getPath()),
+                                        (currentNode == null ? currentNode : currentNode.getPath()),
+                                        fieldLists,
                                         fieldName, fieldValue, fieldDefaultValue,
                                         componentProperties.keySet(),
                                         jex.getInfo());
                             } catch (Exception ex) {
-                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, field={}, value={}, default value={}, componentProperties.kesy={}, ex.cause={}, ex.message={}, ex={}",
+                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, currentNode={}, fieldLists={}, field={}, value={}, default value={}, componentProperties.keys={}, ex.cause={}, ex.message={}, ex={}",
                                         (component==null ? component : component.getPath()),
                                         (contentResource == null ? contentResource : contentResource.getPath()),
+                                        (currentNode == null ? currentNode : currentNode.getPath()),
+                                        fieldLists,
                                         fieldName, fieldValue, fieldDefaultValue,
                                         componentProperties.keySet(),
                                         ex.getCause(), ex.getMessage(), ex);
