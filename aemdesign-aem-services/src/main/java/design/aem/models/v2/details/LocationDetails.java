@@ -38,7 +38,7 @@ public class LocationDetails extends GenericDetails {
 
         Object[][] componentFields = {
                 {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"title", getPageTitle(getResourcePage()), "data-title"},
+                {"title", DEFAULT_TITLE, "data-title"},
                 {"latitude", 0.0, "data-latitude"},
                 {"longitude", 0.0, "data-longitude"},
                 {"description", getPageDescription(getResourcePage()),"data-description"},
