@@ -21,6 +21,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.apache.sling.api.wrappers.SlingHttpServletResponseWrapper;
@@ -188,10 +189,60 @@ public class CommonUtil {
     }
 
     /**
+     * Get a page's title from page properties.
+     * @param page is the page to get the title for
+     * @param resourceResolver resource resolver to use for getting details node
+     * @return a string with the page title
+     */
+    public static String getPageTitle(Page page, ResourceResolver resourceResolver) {
+        return getPageTitle(page,resourceResolver,DEFAULT_LIST_DETAILS_SUFFIX);
+    }
+
+    /**
+     * Get a page's title from Details component on the page with failover to page properties.
+     * @param page is the page to get the title for
+     * @param resourceResolver resource resolver to use for getting details node
+     * @param componentNames array of details node name suffixes to look for
+     * @return a string with the page title
+     */
+    @SuppressWarnings("Duplicates")
+    public static String getPageTitle(Page page, ResourceResolver resourceResolver, String[] componentNames) {
+        // get page title
+        String pageTitle = "";
+
+        if (resourceResolver != null) {
+            String detailsPath = findComponentInPage(page,componentNames);
+            Resource detailsComponent = resourceResolver.resolve(detailsPath);
+
+            if (!ResourceUtil.isNonExistingResource(detailsComponent)) {
+                ValueMap dcvm = detailsComponent.adaptTo(ValueMap.class);
+                pageTitle = dcvm.get("title", "");
+            }
+        }
+
+        if (isEmpty(pageTitle)) {
+            pageTitle = page.getPageTitle();
+        }
+        if (isEmpty(pageTitle)) {
+            pageTitle = page.getTitle();
+        }
+        if (isEmpty(pageTitle)) {
+            pageTitle = page.getName();
+        }
+        return pageTitle;
+
+    }
+
+
+    /**
      * Get a page's title, nv title navigation title, or name.
      * @param page is the page to get the title for
      * @return a string with the page title
+     *
+     * @deprecated Please use {@link #getPageTitle(Page, ResourceResolver)}
      */
+    @SuppressWarnings("Duplicates")
+    @Deprecated
     public static String getPageTitle(Page page) {
         // get page title
         String pageTitle = page.getPageTitle();
@@ -205,6 +256,12 @@ public class CommonUtil {
 
     }
 
+    /**
+     * get page title with default value of not found.
+     * @param page
+     * @param defaultTitle
+     * @return
+     */
     public static String getPageTitle(Page page, String defaultTitle) {
 
         String pageTitle = getPageTitle(page);
