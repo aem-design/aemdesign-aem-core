@@ -5,7 +5,7 @@ Tag List component used to create list of tags.
 
 # Overview
 
-User as a super resource type by all other lists
+Allow ability to create lists made of tags, for display or filtering of lists and other components.
 
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
