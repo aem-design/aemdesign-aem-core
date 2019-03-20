@@ -5,19 +5,22 @@
     <sly data-sly-test="${menuItemId}">
         <sly data-sly-set.menuId="${'{0}_{1}' @ format=[menuItemId,menuItem.name]}"></sly>
     </sly>
-    <li data-sly-unwrap="${!isTopLevel}" class="nav-item ${menuItem.current ? ' active' : ''}${menuItem.children ? ' dropdown' : ''}">
+    <sly data-sly-test="${menuItem.depth}">
+        <sly data-sly-set.levelClass="${' l{0}' @ format=[menuItem.depth]}"></sly>
+    </sly>
+    <li data-sly-unwrap="${!isTopLevel}" class="nav-item${menuItem.current ? ' active' : ''}${menuItem.children ? ' dropdown' : ''}${levelClass}">
         <!--/*no children print link only*/-->
         <a data-sly-test="${!menuItem.children}"
-           class="nav-link" href="${menuItem.href}"
-           title="${'{0}{1}{2}' @ format=[componentProperties.linkTitlePrefix,componentProperties.linkTitlePrefix? ' ' : '' ,menuItem.title]}">${menuItem.title}<span data-sly-test="${menuItem.current}" class="sr-only">(current)</span></a>
+           class="nav-link${menuItem.current ? ' active' : ''}${levelClass}" href="${menuItem.href}"
+           title="${'{0}{1}{2}' @ format=[componentProperties.linkTitlePrefix,componentProperties.linkTitlePrefix? ' ' : '' ,menuItem.title]}">${menuItem.pageNavTitle}<span data-sly-test="${menuItem.current}" class="sr-only">(current)</span></a>
         <!--/*yes children print menu toggle*/-->
         <a data-sly-test="${menuItem.children}"
-           class="nav-link dropdown-toggle" id="${menuId}" href="${menuItem.href}"
+           class="nav-link dropdown-toggle${menuItem.current ? ' active' : ''}${levelClass}" id="${menuId}" href="${menuItem.href}"
            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-           title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,menuItem.title]}">${menuItem.title}<span data-sly-test="${menuItem.current}" class="sr-only">(current)</span></a>
+           title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,menuItem.title]}">${menuItem.pageNavTitle}<span data-sly-test="${menuItem.current}" class="sr-only">(current)</span></a>
         <!--/*if has children print menu*/-->
-        <div data-sly-test="${menuItem.children}" class="dropdown-menu" aria-labelledby="${menuId}">
-            <div class="title">${menuItem.title}</div>
+        <div data-sly-test="${menuItem.children}" class="dropdown-menu${menuItem.current ? ' active' : ''}${levelClass}" aria-labelledby="${menuId}">
+            <div class="title">${menuItem.pageNavTitle}</div>
             <div class="description" data-sly-test="${menuItem.description}">${menuItem.description}</div>
             <!--/*if has children print children*/-->
             <sly data-sly-list.childItem="${menuItem.children}">

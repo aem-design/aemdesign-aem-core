@@ -5,7 +5,7 @@
         data-sly-list.linkL1="${componentProperties.menuItems}">
         <li class="nav-item ${linkL1.hasChildren ? ' dropdown' : ''}${linkL1.current ? ' current' : ''}" itemprop="name">
             <sly data-sly-test="${linkL1.hasChildren}">
-                <a class="nav-link dropdown-toggle l-1 ${linkL1.current ? ' active' : ''}" href="#" id="${linkL1.name}" data-toggle="dropdown"><span>${linkL1.title}</span></a>
+                <a class="nav-link dropdown-toggle l-1 ${linkL1.current ? ' active' : ''}" href="#" id="${linkL1.name}" data-toggle="dropdown"><span>${linkL1.pageNavTitle}</span></a>
                 <div class="dropdown-menu" aria-labelledby="${linkL1.name}" data-sly-list.linkL2="${linkL1.children}">
 
                     <sly data-sly-set.childCSS="${''}"></sly>
@@ -14,12 +14,12 @@
                         <sly data-sly-set.childCSS="${'{0} current' @ format=[childCSS]}"></sly>
                     </sly>
 
-                    <a itemprop="url" class="parent l-2${linkL2.current ? ' current' : ''}" href="${wcmmode.edit ? linkL2.authHref : linkL2.href}"><span>${linkL2.title}</span></a>
+                    <a itemprop="url" class="parent l-2${linkL2.current ? ' current' : ''}" href="${wcmmode.edit ? linkL2.authHref : linkL2.href}"><span>${linkL2.pageNavTitle}</span></a>
                 </div>
 
             </sly>
             <sly data-sly-test="${!linkL1.hasChildren}">
-                <a itemprop="url" class="nav-link l-1${linkL1.current ? ' active' : ''}" href="${linkL1.href}"><span>${linkL1.title}</span></a>
+                <a itemprop="url" class="nav-link l-1${linkL1.current ? ' active' : ''}" href="${linkL1.href}"><span>${linkL1.pageNavTitle}</span></a>
             </sly>
         </li>
     </ul>

@@ -7,7 +7,7 @@
 
             <h1 style="${link.current ? ' active' : ''}">
                 <a href="${link.href}" title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,link.title]}">
-                    <span>${link.title}</span>
+                    <span>${link.pageNavTitle}</span>
                 </a>
             </h1>
 
@@ -15,14 +15,14 @@
             <sly  data-sly-list.link2="${link.children}">
 
                 <h2 style="${!link2.current ? 'display: none;' : ''}">
-                    <a href="${wcmmode.edit ? link2.authHref : link2.href}" title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,link2.title]}"><span>${link2.title}</span></a>
+                    <a href="${wcmmode.edit ? link2.authHref : link2.href}" title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,link2.title]}"><span>${link2.pageNavTitle}</span></a>
                 </h2>
 
                 <!--/* third level */-->
                 <ul style="${!link2.current ? 'display: none;' : ''}" data-sly-list.link3="${link2.children}" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
 
                     <li class="${link3.current ? ' active' : ''}" itemprop="name">
-                        <a href="${wcmmode.edit ? link3.authHref : link3.href}" title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,link3.title]}"><span>${link3.title}</span></a>
+                        <a href="${wcmmode.edit ? link3.authHref : link3.href}" title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,link3.title]}"><span>${link3.pageNavTitle}</span></a>
 
                         <!--/* forth level */-->
                         <ul style="${!link3.current ? 'display: none;' : ''}" data-sly-list.link4="${link3.children}">
@@ -30,7 +30,7 @@
                             <li class="${link4.current ? ' active' : ''}">
                                 <a href="${wcmmode.edit ? link4.authHref : link4.href}"
                                    title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,link4.title]}">
-                                    <span>${link4.title}</span>
+                                    <span>${link4.pageNavTitle}</span>
                                 </a>
 
                             </li>
