@@ -13,9 +13,9 @@ Component to create List navigation on page that is part of a collection of page
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/navlist](/content/aemdesign-showcase/en/component/lists/navlist.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/lists/navlist](/crx/de/#/apps/aemdesign/components/lists/navlist)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/navlist)
-* **Readme**: [/apps/aemdesign/components/lists/navlist](/mnt/overlay/wcm/core/content/sites/components/media.html/apps/aemdesign/components/lists/navlist)
+* **Local Code**: [/apps/aemdesign/components/lists/navlist/v2/navlist](/crx/de/#/apps/aemdesign/components/lists/navlist/v2/navlist)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/navlist/v2/navlist)
+* **Readme**: [/apps/aemdesign/components/lists/navlist/v2/navlist](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/navlist/v2/navlist)
 
 ## Features
 * Allows creation of Previous and Next page on a Page that is part of a collection of pages.

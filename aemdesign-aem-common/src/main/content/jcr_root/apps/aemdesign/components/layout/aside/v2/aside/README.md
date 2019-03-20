@@ -13,9 +13,9 @@ Component for adding a Aside to a page.
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/aside](/content/aemdesign-showcase/en/component/layout/aside.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/layout/aside](/crx/de/#/apps/aemdesign/components/layout/aside)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/aside)
-* **Readme**: [/apps/aemdesign/components/layout/aside](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/aside)
+* **Local Code**: [/apps/aemdesign/components/layout/aside/v2/aside](/crx/de/#/apps/aemdesign/components/layout/aside/v2/aside)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/aside/v2/aside)
+* **Readme**: [/apps/aemdesign/components/layout/aside/v2/aside](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/aside/v2/aside)
 
 # Authoring
 

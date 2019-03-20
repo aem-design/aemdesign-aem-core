@@ -13,9 +13,9 @@ Component for adding ad-hoc HTML to pages
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/embedsource](/content/aemdesign-showcase/en/component/content/embedsource.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/content/embedsource](/crx/de/#/apps/aemdesign/components/content/embedsource)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/embedsource)
-* **Readme**: [/apps/aemdesign/components/content/embedsource](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/embedsource)
+* **Local Code**: [/apps/aemdesign/components/content/embedsource/v2/embedsource](/crx/de/#/apps/aemdesign/components/content/embedsource/v2/embedsource)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/embedsource/v2/embedsource)
+* **Readme**: [/apps/aemdesign/components/content/embedsource/v2/embedsource](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/embedsource/v2/embedsource)
 
 # Authoring
 

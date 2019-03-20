@@ -13,9 +13,9 @@ Component for adding a Content Block Menu section to a page.
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/contentblockmenu](/content/aemdesign-showcase/en/component/layout/contentblockmenu.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/layout/contentblockmenu](/crx/de/#/apps/aemdesign/components/layout/contentblockmenu)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/contentblockmenu)
-* **Readme**: [/apps/aemdesign/components/layout/contentblockmenu](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/contentblockmenu)
+* **Local Code**: [/apps/aemdesign/components/layout/contentblockmenu/v2/contentblockmenu](/crx/de/#/apps/aemdesign/components/layout/contentblockmenu/v2/contentblockmenu)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/contentblockmenu/v2/contentblockmenu)
+* **Readme**: [/apps/aemdesign/components/layout/contentblockmenu/v2/contentblockmenu](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/contentblockmenu/v2/contentblockmenu)
 
 # Authoring
 

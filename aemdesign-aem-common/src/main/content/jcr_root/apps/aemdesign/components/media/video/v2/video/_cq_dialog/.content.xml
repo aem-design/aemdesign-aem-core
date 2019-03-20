@@ -4,7 +4,7 @@
           xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Video"
-          helpPath=""
+          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/media/video"
           sling:resourceType="cq/gui/components/authoring/dialog"
           extraClientlibs="[]">
     <content

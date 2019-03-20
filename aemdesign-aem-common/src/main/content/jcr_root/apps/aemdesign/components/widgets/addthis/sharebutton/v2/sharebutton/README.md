@@ -12,10 +12,10 @@ Component for adding Online Media widgets to a page.
 * **Version**: v2
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
-* **Showcase**: [/content/aemdesign-showcase/en/component/content/onlinemedia/v2/onlinemedia](/content/aemdesign-showcase/en/component/content/onlinemedia.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/content/onlinemedia/v2/onlinemedia](/crx/de/index.jsp#/apps/aemdesign/components/content/onlinemedia/v2/onlinemedia)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/onlinemedia/v2/onlinemedia)
-* **Readme**: [/apps/aemdesign/components/content/onlinemedia/v2/onlinemedia](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/onlinemedia/v2/onlinemedia)
+* **Showcase**: [/content/aemdesign-showcase/en/component/widgets/sharebutton/v2/sharebutton](/content/aemdesign-showcase/en/component/widgets/sharebutton.html?wcmmode=disabled)
+* **Local Code**: [/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton](/crx/de/index.jsp#/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton)
+* **Readme**: [/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton)
 
 # Authoring
 

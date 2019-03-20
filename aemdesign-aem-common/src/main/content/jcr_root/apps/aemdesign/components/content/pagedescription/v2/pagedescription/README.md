@@ -13,9 +13,9 @@ Component for displaying the jcr:description property of the page
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/pagedescription](/content/aemdesign-showcase/en/component/content/pagedescription.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/content/pagedescription](/crx/de/#/apps/aemdesign/components/content/pagedescription)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/pagedescription)
-* **Readme**: [/apps/aemdesign/components/content/pagedescription](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/pagedescription)
+* **Local Code**: [/apps/aemdesign/components/content/pagedescription/v2/pagedescription](/crx/de/#/apps/aemdesign/components/content/pagedescription/v2/pagedescription)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/pagedescription/v2/pagedescription)
+* **Readme**: [/apps/aemdesign/components/content/pagedescription/v2/pagedescription](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/pagedescription/v2/pagedescription)
 
 # Authoring
 

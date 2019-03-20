@@ -13,9 +13,9 @@ Component for adding a Columns to a page.
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/colctrl](/content/aemdesign-showcase/en/component/layout/colctrl.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/layout/colctrl](/crx/de/#/apps/aemdesign/components/layout/colctrl)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/colctrl)
-* **Readme**: [/apps/aemdesign/components/layout/colctrl](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/colctrl)
+* **Local Code**: [/apps/aemdesign/components/layout/colctrl/v2/colctrl](/crx/de/#/apps/aemdesign/components/layout/colctrl/v2/colctrl)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/colctrl/v2/colctrl)
+* **Readme**: [/apps/aemdesign/components/layout/colctrl/v2/colctrl](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/colctrl/v2/colctrl)
 
 # Authoring
 

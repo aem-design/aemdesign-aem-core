@@ -5,7 +5,7 @@ Event List component used to create list of event articles.
 
 # Overview
 
-User as a super resource type by all other lists
+Used to create list of events
 
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
