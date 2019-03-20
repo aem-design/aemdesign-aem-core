@@ -211,14 +211,14 @@ public class GenericDetails extends WCMUsePojo {
 
 
         //check badge title
-        String pageNavTitle = componentProperties.get(FIELD_PAGE_TITLE_NAV, "");
-        badgeConfig.put(DETAILS_BADGE_TITLE, pageNavTitle);
+        String pageTitle = componentProperties.get(FIELD_PAGE_TITLE, "");
+        badgeConfig.put(DETAILS_BADGE_TITLE, pageTitle);
         //trim pageNavTitle if needed
         if (Boolean.parseBoolean(componentProperties.get(DETAILS_TITLE_TRIM, ""))) {
             int badgeTitleTrimLengthMax = componentProperties.get(DETAILS_TITLE_TRIM_LENGTH_MAX, 20);
-            if (StringUtils.isNotEmpty(pageNavTitle)) {
-                if (pageNavTitle.length() > badgeTitleTrimLengthMax) {
-                    pageNavTitle = pageNavTitle.substring(0, badgeTitleTrimLengthMax)
+            if (StringUtils.isNotEmpty(pageTitle)) {
+                if (pageTitle.length() > badgeTitleTrimLengthMax) {
+                    pageTitle = pageTitle.substring(0, badgeTitleTrimLengthMax)
                             .concat(
                                     componentProperties.get(
                                             DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX,
@@ -227,7 +227,7 @@ public class GenericDetails extends WCMUsePojo {
                             );
                 }
 
-                badgeConfig.put(DETAILS_BADGE_TITLE, pageNavTitle);
+                badgeConfig.put(DETAILS_BADGE_TITLE, pageTitle);
             }
         }
 
