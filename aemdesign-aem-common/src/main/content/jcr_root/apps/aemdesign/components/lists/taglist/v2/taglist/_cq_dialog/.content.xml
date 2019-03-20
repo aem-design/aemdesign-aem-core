@@ -279,7 +279,7 @@
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
-                            <variant
+                            <filtering
                                     jcr:primaryType="nt:unstructured"
                                     jcr:title="Filtering"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
@@ -325,7 +325,7 @@
                                             name="./filterDefaults"/>
 
                                 </items>
-                            </variant>
+                            </filtering>
                         </items>
                     </column>
                 </items>

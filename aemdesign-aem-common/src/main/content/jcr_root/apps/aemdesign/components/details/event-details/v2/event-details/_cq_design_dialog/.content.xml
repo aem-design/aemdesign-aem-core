@@ -32,7 +32,7 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     jcr:title="Details"
                                                     granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/details/event-details/cq:dialog/content/items/detailsTab"
+                                                    path="/apps/aemdesign/components/details/event-details/v2/event-details/cq:dialog/content/items/detailsTab"
                                                     resourceType="granite/ui/components/coral/foundation/container"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
@@ -62,7 +62,7 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     jcr:title="Layout"
                                                     granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/details/event-details/cq:dialog/content/items/layoutTab"
+                                                    path="/apps/aemdesign/components/details/event-details/v2/event-details/cq:dialog/content/items/layoutTab"
                                                     resourceType="granite/ui/components/coral/foundation/container"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
@@ -134,6 +134,12 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     jcr:title="Tab Configuration"
                                                     path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/tabConfigGroup"
+                                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                                            <analyticsConfigGroup
+                                                    jcr:primaryType="nt:unstructured"
+                                                    jcr:title="Analytics Configuration"
+                                                    path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/analyticsConfigGroup"
                                                     resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
