@@ -81,7 +81,7 @@ public class EventDetails extends GenericDetails {
         final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
 
         // default values for the component
-        final String DEFAULT_TITLE = getPageTitle(getResourcePage());
+        final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResourceResolver());
         final String DEFAULT_DESCRIPTION = getResourcePage().getDescription();
         final String DEFAULT_SUBTITLE = getResourcePage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE,"");
         final Boolean DEFAULT_HIDE_TITLE = false;
@@ -117,11 +117,10 @@ public class EventDetails extends GenericDetails {
                 {"showTags", false},
                 {"subCategory", StringUtils.EMPTY},
                 {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
+                {FIELD_PAGE_TITLE, DEFAULT_TITLE},
                 {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
                 {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
-                {DETAILS_LINK_TEXT, getPageNavTitle(getResourcePage())},
-                {DETAILS_LINK_TITLE, getPageTitle(getResourcePage())},
         };
 
         componentProperties = ComponentsUtil.getComponentProperties(
