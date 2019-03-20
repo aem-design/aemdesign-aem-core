@@ -32,7 +32,7 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     jcr:title="Lock"
                                                     granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/layout/contentblocklock/cq:dialog/content/items/lockTab"
+                                                    path="/apps/aemdesign/components/layout/contentblocklock/v2/contentblocklock/cq:dialog/content/items/lockTab"
                                                     resourceType="granite/ui/components/coral/foundation/container"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
@@ -62,7 +62,7 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     jcr:title="Basic"
                                                     granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/layout/contentblock/cq:dialog/content/items/basicTab"
+                                                    path="/apps/aemdesign/components/layout/contentblocklock/v2/contentblocklock/cq:dialog/content/items/basicTab"
                                                     resourceType="granite/ui/components/coral/foundation/container"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
@@ -93,7 +93,7 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     jcr:title="Layout"
                                                     granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/layout/contentblock/cq:dialog/content/items/layoutTab"
+                                                    path="/apps/aemdesign/components/layout/contentblocklock/v2/contentblocklock/cq:dialog/content/items/layoutTab"
                                                     resourceType="granite/ui/components/coral/foundation/container"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
@@ -124,7 +124,7 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     jcr:title="Left Links"
                                                     granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/layout/contentblock/cq:dialog/content/items/linkLeftTab"
+                                                    path="/apps/aemdesign/components/layout/contentblocklock/v2/contentblocklock/cq:dialog/content/items/linkLeftTab"
                                                     resourceType="granite/ui/components/coral/foundation/container"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
@@ -154,7 +154,7 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     jcr:title="Right Links"
                                                     granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/layout/contentblock/cq:dialog/content/items/linkRightTab"
+                                                    path="/apps/aemdesign/components/layout/contentblocklock/v2/contentblocklock/cq:dialog/content/items/linkRightTab"
                                                     resourceType="granite/ui/components/coral/foundation/container"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>

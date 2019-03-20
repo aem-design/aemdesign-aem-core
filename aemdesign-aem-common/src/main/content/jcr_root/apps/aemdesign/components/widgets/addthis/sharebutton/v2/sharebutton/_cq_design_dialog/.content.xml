@@ -31,7 +31,7 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     jcr:title="Layout"
                                                     granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/widgets/addthis/sharebutton/cq:dialog/content/items/layoutTab"
+                                                    path="/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton/cq:dialog/content/items/layoutTab"
                                                     resourceType="granite/ui/components/coral/foundation/container"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>

@@ -32,7 +32,7 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     jcr:title="List"
                                                     granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/lists/locationlist/cq:dialog/content/items/listTab"
+                                                    path="/apps/aemdesign/components/lists/locationlist/v2/locationlist/cq:dialog/content/items/listTab"
                                                     resourceType="granite/ui/components/coral/foundation/container"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>

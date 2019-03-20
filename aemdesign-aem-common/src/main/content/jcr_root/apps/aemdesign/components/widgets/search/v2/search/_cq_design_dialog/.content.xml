@@ -31,7 +31,7 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     jcr:title="Search"
                                                     granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/widgets/search/cq:dialog/content/items/searchTab"
+                                                    path="/apps/aemdesign/components/widgets/search/v2/search/cq:dialog/content/items/searchTab"
                                                     resourceType="granite/ui/components/coral/foundation/container"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
@@ -61,7 +61,7 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     jcr:title="Layout"
                                                     granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/widgets/search/cq:dialog/content/items/layoutTab"
+                                                    path="/apps/aemdesign/components/widgets/search/v2/search/cq:dialog/content/items/layoutTab"
                                                     resourceType="granite/ui/components/coral/foundation/container"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
@@ -91,7 +91,7 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     jcr:title="Feed"
                                                     granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/widgets/search/cq:dialog/content/items/feedTab"
+                                                    path="/apps/aemdesign/components/widgets/search/v2/search/cq:dialog/content/items/feedTab"
                                                     resourceType="granite/ui/components/coral/foundation/container"
                                                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
