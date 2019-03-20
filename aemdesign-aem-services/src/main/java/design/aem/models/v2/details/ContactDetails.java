@@ -17,8 +17,7 @@ import java.util.Map;
 
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE_NAV;
-import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_URL;
+import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.TagUtil.getTagValueAsAdmin;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
@@ -54,6 +53,8 @@ public class ContactDetails extends GenericDetails {
         final String DEFAULT_I18N_CATEGORY = "contact-detail";
         final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
 
+        final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResourceResolver());
+
         Object[][] componentFields = {
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
@@ -71,10 +72,9 @@ public class ContactDetails extends GenericDetails {
                 {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
                 {"showToolbar", DEFAULT_SHOW_TOOLBAR},
                 {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
+                {FIELD_PAGE_TITLE, DEFAULT_TITLE},
                 {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
                 {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
-                {DETAILS_LINK_TEXT, getPageNavTitle(getResourcePage())},
-                {DETAILS_LINK_TITLE, getPageTitle(getResourcePage())},
         };
 
         componentProperties = ComponentsUtil.getComponentProperties(

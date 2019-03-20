@@ -15,8 +15,7 @@ import java.util.stream.Collectors;
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentDetailsUtil.getPageListInfo;
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE_NAV;
-import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_URL;
+import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.TagUtil.getPageTags;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
@@ -35,7 +34,7 @@ public class LocationDetails extends GenericDetails {
 
         final String DEFAULT_I18N_CATEGORY = "location-detail";
         final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
-
+        final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResourceResolver());
 
         Object[][] componentFields = {
                 {FIELD_VARIANT, DEFAULT_VARIANT},
@@ -46,10 +45,9 @@ public class LocationDetails extends GenericDetails {
                 {"pages", new String[0]},
                 {TagConstants.PN_TAGS, getPageTags(getResourcePage())},
                 {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
+                {FIELD_PAGE_TITLE, DEFAULT_TITLE},
                 {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
                 {"variantHiddenLabel", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LABEL, DEFAULT_I18N_CATEGORY, _i18n)},
-                {DETAILS_LINK_TEXT, getPageNavTitle(getResourcePage())},
-                {DETAILS_LINK_TITLE, getPageTitle(getResourcePage())},
         };
 
 
