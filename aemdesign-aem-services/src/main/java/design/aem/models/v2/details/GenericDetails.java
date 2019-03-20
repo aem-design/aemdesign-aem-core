@@ -281,7 +281,7 @@ public class GenericDetails extends WCMUsePojo {
             newFields.put(FIELD_OG_IMAGE, mappedUrl(resourceResolver, request, getThumbnailUrl(page, resourceResolver)));
         }
         if (!newFields.containsKey(FIELD_OG_TITLE)) {
-            newFields.put(FIELD_OG_TITLE, getPageTitle(page, resourceResolver));
+            newFields.put(FIELD_OG_TITLE, componentProperties.get(FIELD_PAGE_TITLE, page.getTitle()));
         }
         if (!newFields.containsKey(FIELD_OG_DESCRIPTION)) {
             newFields.put(FIELD_OG_DESCRIPTION, getPageDescription(page));
