@@ -13,9 +13,9 @@ Component for rendering or including content from other pages
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/reference](/content/aemdesign-showcase/en/component/content/reference.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/content/reference](/crx/de/#/apps/aemdesign/components/content/reference)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/reference)
-* **Readme**: [/apps/aemdesign/components/content/reference](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/reference)
+* **Local Code**: [/apps/aemdesign/components/content/reference/v2/reference](/crx/de/#/apps/aemdesign/components/content/reference/v2/reference)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/reference/v2/reference)
+* **Readme**: [/apps/aemdesign/components/content/reference/v2/reference](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/reference/v2/reference)
 
 # Authoring
 

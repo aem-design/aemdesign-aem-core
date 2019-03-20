@@ -16,7 +16,7 @@ Call to Acton can be a Link or a Button.
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/link/v1/link](/content/aemdesign-showcase/en/component/content/link.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/content/link/v1/link](/crx/de/index.jsp#/apps/aemdesign/components/content/link/v1/link)
 * **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/content/link/v1/link)
-* **Readme**: [/apps/aemdesign/components/content/link/v1/link](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/link/v1/link)
+* **Readme**: [/apps/aemdesign/components/content/link/v2/link](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/link/v2/link)
 
 ### Features
 * Provides support for anchor and button elements

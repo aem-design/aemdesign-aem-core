@@ -13,9 +13,9 @@ Component for adding a Content Block that is locked to admin to a page.
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/contentblocklock](/content/aemdesign-showcase/en/component/layout/contentblocklock.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/layout/contentblocklock](/crx/de/#/apps/aemdesign/components/layout/contentblocklock)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/contentblocklock)
-* **Readme**: [/apps/aemdesign/components/layout/contentblocklock](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/contentblocklock)
+* **Local Code**: [/apps/aemdesign/components/layout/contentblocklock/v2/contentblocklock](/crx/de/#/apps/aemdesign/components/layout/contentblocklock/v2/contentblocklock)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/contentblocklock/v2/contentblocklock)
+* **Readme**: [/apps/aemdesign/components/layout/contentblocklock/v2/contentblocklock](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/contentblocklock/v2/contentblocklock)
 
 # Authoring
 

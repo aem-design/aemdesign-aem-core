@@ -5,7 +5,7 @@ Page List component used to create list of pages.
 
 # Overview
 
-User as a super resource type by all other lists
+Used for creating list of Pages.
 
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)

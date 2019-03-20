@@ -13,9 +13,9 @@ Component for displaying the date on the page
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/pagedate](/content/aemdesign-showcase/en/component/content/pagedate.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/content/pagedate](/crx/de/#/apps/aemdesign/components/content/pagedate)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/pagedate)
-* **Readme**: [/apps/aemdesign/components/content/pagedate](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/pagedate)
+* **Local Code**: [/apps/aemdesign/components/content/pagedate/v2/pagedate](/crx/de/#/apps/aemdesign/components/content/pagedate/v2/pagedate)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/pagedate/v2/pagedate)
+* **Readme**: [/apps/aemdesign/components/content/pagedate/v2/pagedate](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/pagedate/v2/pagedate)
 
 # Authoring
 

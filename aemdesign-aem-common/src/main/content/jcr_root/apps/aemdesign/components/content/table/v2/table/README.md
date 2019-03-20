@@ -13,9 +13,9 @@ Component for adding tables to pages
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/table](/content/aemdesign-showcase/en/component/content/table.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/content/table](/crx/de/#/apps/aemdesign/components/content/table)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/table)
-* **Readme**: [/apps/aemdesign/components/content/table](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/table)
+* **Local Code**: [/apps/aemdesign/components/content/table/v2/table](/crx/de/#/apps/aemdesign/components/content/table/v2/table)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/table/v2/table)
+* **Readme**: [/apps/aemdesign/components/content/table/v2/table](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/table/v2/table)
 
 # Authoring
 

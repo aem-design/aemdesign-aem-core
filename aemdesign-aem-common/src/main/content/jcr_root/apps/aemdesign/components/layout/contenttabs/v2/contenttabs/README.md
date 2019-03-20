@@ -9,13 +9,13 @@ Component for adding a Content Tabs section to a page.
 
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
-* **Version**: v1
+* **Version**: v2
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/contenttabs](/content/aemdesign-showcase/en/component/layout/contenttabs.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/layout/contenttabs](/crx/de/#/apps/aemdesign/components/layout/contenttabs)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/contenttabs)
-* **Readme**: [/apps/aemdesign/components/layout/contenttabs](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/contenttabs)
+* **Local Code**: [/apps/aemdesign/components/layout/contenttabs/v2/contenttabs](/crx/de/#/apps/aemdesign/components/layout/contenttabs/v2/contenttabs)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/contenttabs/v2/contenttabs)
+* **Readme**: [/apps/aemdesign/components/layout/contenttabs/v2/contenttabs](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/contenttabs/v2/contenttabs)
 
 # Authoring
 

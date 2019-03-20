@@ -15,7 +15,7 @@ User as a super resource type by all other lists
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/list/v2/list](/content/aemdesign-showcase/en/component/lists/list.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/list/v2/list](/crx/de/#/apps/aemdesign/components/lists/list/v2/list)
 * **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/list/v2/list)
-* **Readme**: [/apps/aemdesign/components/lists/list/v2/list](/mnt/overlay/wcm/core/content/sites/components/media.html/apps/aemdesign/components/lists/list/v2/list)
+* **Readme**: [/apps/aemdesign/components/lists/list/v2/list](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/list/v2/list)
 
 ## Features
 * Allows creation of Previous and Next page on a Page that is part of a collection of pages.

@@ -13,9 +13,9 @@ Component for adding a Navbar section to a page.
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/navbar](/content/aemdesign-showcase/en/component/layout/navbar.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/layout/navbar](/crx/de/#/apps/aemdesign/components/layout/navbar)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/navbar)
-* **Readme**: [/apps/aemdesign/components/layout/navbar](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/navbar)
+* **Local Code**: [/apps/aemdesign/components/layout/navbar/v2/navbar](/crx/de/#/apps/aemdesign/components/layout/navbar/v2/navbar)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/navbar/v2/navbar)
+* **Readme**: [/apps/aemdesign/components/layout/navbar/v2/navbar](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/navbar/v2/navbar)
 
 # Authoring
 

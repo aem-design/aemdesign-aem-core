@@ -13,9 +13,9 @@ Component for adding a footer section to a page.
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/footer](/content/aemdesign-showcase/en/component/layout/footer.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/layout/footer](/crx/de/#/apps/aemdesign/components/layout/footer)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/footer)
-* **Readme**: [/apps/aemdesign/components/layout/footer](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/footer)
+* **Local Code**: [/apps/aemdesign/components/layout/footer/v2/footer](/crx/de/#/apps/aemdesign/components/layout/footer/v2/footer)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/footer/v2/footer)
+* **Readme**: [/apps/aemdesign/components/layout/footer/v2/footer](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/footer/v2/footer)
 
 # Authoring
 

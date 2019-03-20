@@ -13,9 +13,9 @@ Component for adding content metadata to a event and Badge config info which is 
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/details/event-details.html](/content/aemdesign-showcase/en/component/details/event-details.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/details/event-details](/crx/de/#/apps/aemdesign/components/details/event-details)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/details/event-details)
-* **Readme**: [/apps/aemdesign/components/details/event-details](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/event-details)
+* **Local Code**: [/apps/aemdesign/components/details/event-details/v2/event-details](/crx/de/#/apps/aemdesign/components/details/event-details/v2/event-details)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/details/event-details/v2/event-details)
+* **Readme**: [/apps/aemdesign/components/details/event-details/v2/event-details](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/event-details/v2/event-details)
 
 ## Features
 * Provides mechanism to add event details and badge config

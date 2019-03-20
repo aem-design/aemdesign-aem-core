@@ -12,9 +12,9 @@ Component that outputs analytics content into the page
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/analytics/datalayer.html](/content/aemdesign-showcase/en/analytics/datalayer.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/analytics/datalayer](/crx/de/#/apps/aemdesign/components/analytics/datalayer)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/analytics/datalayer)
-* **Readme**: [/apps/aemdesign/components/analytics/datalayer](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/analytics/datalayer)
+* **Local Code**: [/apps/aemdesign/components/analytics/datalayer/v2/datalayer](/crx/de/#/apps/aemdesign/components/analytics/datalayer/v2/datalayer)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/analytics/datalayer/v2/datalayer)
+* **Readme**: [/apps/aemdesign/components/analytics/datalayer/v2/datalayer](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/analytics/datalayer/v2/datalayer)
 
 ### Features
 * Gathers analytics content from

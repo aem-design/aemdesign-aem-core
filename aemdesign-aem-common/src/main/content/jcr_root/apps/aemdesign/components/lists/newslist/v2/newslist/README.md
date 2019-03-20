@@ -5,7 +5,7 @@ New List component used to create list of new articles.
 
 # Overview
 
-User as a super resource type by all other lists
+Used for creating list of News Articles.
 
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)

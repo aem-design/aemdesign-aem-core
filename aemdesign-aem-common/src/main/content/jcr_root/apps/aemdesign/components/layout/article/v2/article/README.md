@@ -1,21 +1,21 @@
-Audio
+Article
 ============
 
-Audio component
+Article component
 
 # Overview
 
-Component for Audio controls to a page to play Audio or Video audio.
+Component for adding a article section to a page.
 
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
-* **Version**: v1
+* **Version**: v2
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
-* **Showcase**: [/content/aemdesign-showcase/en/component/media/audio](/content/aemdesign-showcase/en/component/media/audio.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/media/audio](/crx/de/#/apps/aemdesign/components/media/audio)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/media/audio)
-* **Readme**: [/apps/aemdesign/components/media/audio](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/media/audio)
+* **Showcase**: [/content/aemdesign-showcase/en/component/layout/article](/content/aemdesign-showcase/en/component/layout/article.html?wcmmode=disabled)
+* **Local Code**: [/apps/aemdesign/components/layout/article/v2/article](/crx/de/#/apps/aemdesign/components/layout/article/v2/article)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/article/v2/article)
+* **Readme**: [/apps/aemdesign/components/layout/article/v2/article](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/article/v2/article)
 
 # Authoring
 
