@@ -377,8 +377,8 @@ public class ComponentsUtil {
             {DETAILS_CARD_ICONSHOW, false},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_LINK_TARGET, "_blank"},
-            {DETAILS_LINK_TEXT, "${" + FIELD_PAGE_TITLE_NAV + " ?: ''}"}, //getPageNavTitle(_currentPage)
-            {DETAILS_LINK_TITLE, "${" + FIELD_PAGE_TITLE + " ?: ''}"}, //getPageTitle(_currentPage)
+            {DETAILS_LINK_TEXT, "${" + FIELD_PAGE_TITLE_NAV + " ? " + FIELD_PAGE_TITLE_NAV + " : ''}"},
+            {DETAILS_LINK_TITLE, "${" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " : ''}"},
             {DETAILS_LINK_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, false},
             {DETAILS_TITLE_TRIM_LENGTH_MAX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_LENGTH},
@@ -423,8 +423,8 @@ public class ComponentsUtil {
             {DETAILS_CARD_ICONSHOW, ""},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_LINK_TARGET, ""},
-            {DETAILS_LINK_TEXT, "${" + FIELD_PAGE_TITLE_NAV + " ?: ''}"}, //getPageNavTitle(_currentPage)
-            {DETAILS_LINK_TITLE, "${" + FIELD_PAGE_TITLE + "} ?: ''"}, //getPageTitle(_currentPage)
+            {DETAILS_LINK_TEXT, "${" + FIELD_PAGE_TITLE_NAV + " ? " + FIELD_PAGE_TITLE_NAV + " : ''}"},
+            {DETAILS_LINK_TITLE, "${" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " : ''}"},
             {DETAILS_LINK_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, ""},
             {DETAILS_TITLE_TRIM_LENGTH_MAX, DETAILS_TITLE_TRIM_LENGTH_MAX_DEFAULT},
