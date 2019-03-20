@@ -15,8 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static design.aem.utils.components.CommonUtil.getPageTitle;
-import static design.aem.utils.components.CommonUtil.tryParseInt;
+import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -26,6 +25,7 @@ public class Breadcrumb extends WCMUsePojo {
     private static final Logger LOGGER = LoggerFactory.getLogger(Breadcrumb.class);
 
     private ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -51,8 +51,8 @@ public class Breadcrumb extends WCMUsePojo {
                 {"endLevel", ""},
                 {"showHidden", DEFAULT_SHOW_HIDDEN},
                 {"hideCurrent", DEFAULT_HIDE_CURRENT},
-                {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE},
-                {FIELD_ARIA_LABEL,DEFAULT_ARIA_LABEL},
+                {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE},
+                {FIELD_ARIA_LABEL, DEFAULT_ARIA_LABEL},
                 {FIELD_VARIANT, DEFAULT_VARIANT},
         };
 
@@ -64,11 +64,11 @@ public class Breadcrumb extends WCMUsePojo {
 
         List<Map> values = new ArrayList<Map>();
 
-        int startLevel = tryParseInt(componentProperties.get("startLevel",""), DEFAULT_LEVEL_START);
-        int endLevel = tryParseInt(componentProperties.get("endLevel",""), DEFAULT_LEVEL_END);
+        int startLevel = tryParseInt(componentProperties.get("startLevel", ""), DEFAULT_LEVEL_START);
+        int endLevel = tryParseInt(componentProperties.get("endLevel", ""), DEFAULT_LEVEL_END);
         int currentLevel = getResourcePage().getDepth();
 
-        if (isBlank(componentProperties.get("endLevel",""))) {
+        if (isBlank(componentProperties.get("endLevel", ""))) {
             endLevel = currentLevel;
         }
 
@@ -81,7 +81,7 @@ public class Breadcrumb extends WCMUsePojo {
                 continue;
             }
             if (hideCurrent) {
-                if (i==currentLevel-1) {
+                if (i == currentLevel - 1) {
                     continue;
                 }
             }
@@ -90,10 +90,10 @@ public class Breadcrumb extends WCMUsePojo {
 
                 HashMap<String, String> pagetrailvalues = new HashMap<String, String>();
 
-                pagetrailvalues.put("path",pagetrail.getPath());
-                pagetrailvalues.put("url",pagetrail.getPath().concat(DEFAULT_EXTENTION));
-                pagetrailvalues.put("name",pagetrail.getName());
-                pagetrailvalues.put("title",getPageTitle(pagetrail,getResourceResolver()));
+                pagetrailvalues.put("path", pagetrail.getPath());
+                pagetrailvalues.put("url", pagetrail.getPath().concat(DEFAULT_EXTENTION));
+                pagetrailvalues.put("name", pagetrail.getName());
+                pagetrailvalues.put("title", getPageNavTitle(pagetrail));
 
                 Boolean currentPage = pagetrail.getPath().equals(getResourcePage().getPath());
                 pagetrailvalues.put("current", BooleanUtils.toStringTrueFalse(currentPage));
@@ -105,7 +105,6 @@ public class Breadcrumb extends WCMUsePojo {
         componentProperties.put("values", values);
 
     }
-
 
 
 }
