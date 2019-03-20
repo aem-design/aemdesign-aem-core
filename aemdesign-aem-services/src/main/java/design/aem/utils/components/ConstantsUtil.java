@@ -144,6 +144,7 @@ public class ConstantsUtil {
     public static final String FIELD_PAGE_THUMBNAIL_IMAGE_THUMBNAIL = "pageThumbnailImageThumbnail";
     public static final String FIELD_PAGE_THUMBNAIL = "pageThumbnail";
     public static final String FIELD_PAGE_URL = "pageUrl";
+    public static final String FIELD_PAGE_TITLE = "pageTitle";
     public static final String FIELD_PAGE_TITLE_NAV = "pageNavTitle";
     public static final String FIELD_PAGE_TITLE_SUBTITLE = "subtitle";
     public static final String FIELD_VIDEO_BACKGROUND = "backgroundVideo";
