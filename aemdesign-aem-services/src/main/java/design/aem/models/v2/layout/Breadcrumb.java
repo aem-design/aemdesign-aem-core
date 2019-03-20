@@ -93,7 +93,7 @@ public class Breadcrumb extends WCMUsePojo {
                 pagetrailvalues.put("path",pagetrail.getPath());
                 pagetrailvalues.put("url",pagetrail.getPath().concat(DEFAULT_EXTENTION));
                 pagetrailvalues.put("name",pagetrail.getName());
-                pagetrailvalues.put("title",getPageTitle(pagetrail));
+                pagetrailvalues.put("title",getPageTitle(pagetrail,getResourceResolver()));
 
                 Boolean currentPage = pagetrail.getPath().equals(getResourcePage().getPath());
                 pagetrailvalues.put("current", BooleanUtils.toStringTrueFalse(currentPage));
