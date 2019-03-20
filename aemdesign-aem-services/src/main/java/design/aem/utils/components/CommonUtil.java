@@ -49,6 +49,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static design.aem.utils.components.ComponentsUtil.DETAILS_TITLE;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -207,28 +208,40 @@ public class CommonUtil {
      */
     @SuppressWarnings("Duplicates")
     public static String getPageTitle(Page page, ResourceResolver resourceResolver, String[] componentNames) {
-        // get page title
-        String pageTitle = "";
 
         if (resourceResolver != null) {
             String detailsPath = findComponentInPage(page,componentNames);
             Resource detailsComponent = resourceResolver.resolve(detailsPath);
+            return getPageTitle(page,detailsComponent);
+        } else {
+            return getPageTitle(page);
+        }
+
+    }
+
+    /**
+     * Get a page's title from Details component on the page with failover to page properties.
+     * @param page is the page to get the title for
+     * @param detailsComponent details component resource
+     * @return a string with the page title
+     */
+    @SuppressWarnings("Duplicates")
+    public static String getPageTitle(Page page, Resource detailsComponent) {
+
+        String pageTitle = "";
+
+        if (detailsComponent != null) {
 
             if (!ResourceUtil.isNonExistingResource(detailsComponent)) {
                 ValueMap dcvm = detailsComponent.adaptTo(ValueMap.class);
-                pageTitle = dcvm.get("title", "");
+                pageTitle = dcvm.get(DETAILS_TITLE, "");
             }
         }
 
         if (isEmpty(pageTitle)) {
-            pageTitle = page.getPageTitle();
+            return getPageTitle(page);
         }
-        if (isEmpty(pageTitle)) {
-            pageTitle = page.getTitle();
-        }
-        if (isEmpty(pageTitle)) {
-            pageTitle = page.getName();
-        }
+
         return pageTitle;
 
     }
@@ -238,11 +251,8 @@ public class CommonUtil {
      * Get a page's title, nv title navigation title, or name.
      * @param page is the page to get the title for
      * @return a string with the page title
-     *
-     * @deprecated Please use {@link #getPageTitle(Page, ResourceResolver)}
      */
     @SuppressWarnings("Duplicates")
-    @Deprecated
     public static String getPageTitle(Page page) {
         // get page title
         String pageTitle = page.getPageTitle();
