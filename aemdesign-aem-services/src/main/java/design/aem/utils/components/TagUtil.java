@@ -26,7 +26,7 @@ public class TagUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TagUtil.class);
 
-    final static String TAG_VALUE = "value";
+    public final static String TAG_VALUE = "value";
     final static String TAG_ISDEFAULT = "isdefault";
     final static String TAG_ISDEFAULT_VALUE = "false";
 
@@ -322,8 +322,8 @@ public class TagUtil {
                 ValueMap tagVM = jcrTag.adaptTo(Resource.class).getValueMap();
 
                 if (tagVM != null) {
-                    if (tagVM.containsKey("value")) {
-                        tagValue = tagVM.get("value", jcrTag.getName());
+                    if (tagVM.containsKey(TAG_VALUE)) {
+                        tagValue = tagVM.get(TAG_VALUE, jcrTag.getName());
                     }
                 }
             } else {
@@ -395,7 +395,7 @@ public class TagUtil {
                         }
                     }
 
-                    tagValues.put("value", tagValue);
+                    tagValues.put(TAG_VALUE, tagValue);
 
                 }
                 tags.put(tag.getTagID(), tagValues);
@@ -460,8 +460,8 @@ public class TagUtil {
                 ValueMap tagVM = jcrTag.adaptTo(Resource.class).getValueMap();
 
                 if (tagVM != null) {
-                    if (tagVM.containsKey("value")) {
-                        value = tagVM.get("value", jcrTag.getName());
+                    if (tagVM.containsKey(TAG_VALUE)) {
+                        value = tagVM.get(TAG_VALUE, jcrTag.getName());
                     }
                 }
 
@@ -500,8 +500,8 @@ public class TagUtil {
                 ValueMap tagVM = jcrTag.adaptTo(Resource.class).getValueMap();
 
                 if (tagVM != null) {
-                    if (tagVM.containsKey("value")) {
-                        value = tagVM.get("value", jcrTag.getName());
+                    if (tagVM.containsKey(TAG_VALUE)) {
+                        value = tagVM.get(TAG_VALUE, jcrTag.getName());
                     }
                 }
                 tagValues.add(value);
