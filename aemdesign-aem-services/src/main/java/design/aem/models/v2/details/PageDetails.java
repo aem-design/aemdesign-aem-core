@@ -53,7 +53,7 @@ public class PageDetails extends GenericDetails {
         final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
 
         // default values for the component
-        final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResourceResolver());
+        final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
         final String DEFAULT_DESCRIPTION = getResourcePage().getDescription();
         final String DEFAULT_SUBTITLE = getResourcePage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE,"");
         final Boolean DEFAULT_HIDE_TITLE = false;

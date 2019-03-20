@@ -34,7 +34,7 @@ public class LocationDetails extends GenericDetails {
 
         final String DEFAULT_I18N_CATEGORY = "location-detail";
         final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
-        final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResourceResolver());
+        final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
 
         Object[][] componentFields = {
                 {FIELD_VARIANT, DEFAULT_VARIANT},
