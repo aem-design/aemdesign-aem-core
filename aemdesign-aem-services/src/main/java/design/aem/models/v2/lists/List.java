@@ -707,6 +707,7 @@ public class List extends WCMUsePojo {
      * doa query using a predicate map.
      * @param map predicate map
      */
+    @SuppressWarnings("Duplicates")
     private void populateListItemsFromMap(Map<String,String> map) {
         try {
 
@@ -729,13 +730,6 @@ public class List extends WCMUsePojo {
 
             String orderBy = componentProperties.get(PN_ORDER_BY,PN_ORDER_BY_DEFAULT);
             if (isNotEmpty(orderBy)) {
-                //if searching for cq:Page need to ensure @jcr:content is appended to order by.
-                if (map.containsKey("type")) {
-                    String type = map.get("type");
-                    if (type.equals("cq:Page") && !orderBy.startsWith("@jcr:content/")) {
-                        orderBy = "@jcr:content/" + orderBy;
-                    }
-                }
                 map.put("orderby", orderBy);
             } else {
                 map.put("orderby", PN_ORDER_BY_DEFAULT);
