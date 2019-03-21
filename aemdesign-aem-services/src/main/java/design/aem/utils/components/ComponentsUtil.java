@@ -378,8 +378,8 @@ public class ComponentsUtil {
             {DETAILS_CARD_ICONSHOW, false},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_LINK_TARGET, "_blank"},
-            {DETAILS_LINK_TEXT, "${value ? value : (" + FIELD_PAGE_TITLE_NAV + " ? ''+" + FIELD_PAGE_TITLE_NAV + " : '')}"},
-            {DETAILS_LINK_TITLE, "${value ? value : (" + FIELD_PAGE_TITLE + " ? ''+" + FIELD_PAGE_TITLE + " : '')}"},
+            {DETAILS_LINK_TEXT, "${value ? value : (" + FIELD_PAGE_TITLE_NAV + " ? " + FIELD_PAGE_TITLE_NAV + " : '')}"},
+            {DETAILS_LINK_TITLE, "${value ? value : (" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " : '')}"},
             {DETAILS_LINK_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, false},
             {DETAILS_TITLE_TRIM_LENGTH_MAX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_LENGTH},
@@ -402,7 +402,7 @@ public class ComponentsUtil {
             {DETAILS_THUMBNAIL, ""},
             {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK},
             {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION},
-            {DETAILS_BADGE_ANALYTICS_LABEL, "${value ? value : (" + FIELD_PAGE_TITLE + " + '|' + " + DETAILS_LINK_TEXT + ")}",DETAILS_DATA_ANALYTICS_LABEL},
+            {DETAILS_BADGE_ANALYTICS_LABEL, "${value ?  value : " + DETAILS_LINK_TEXT + "}",DETAILS_DATA_ANALYTICS_LABEL},
             {DETAILS_PAGE_METADATA_PROPERTY, new String[]{}},
             {DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[]{}},
 
@@ -1238,20 +1238,18 @@ public class ComponentsUtil {
                                 }
 
                             } catch (JexlException jex) {
-                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, currentNode={}, fieldLists={}, field={}, value={}, default value={}, componentProperties.keys={}, jex.info={}",
+                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, currentNode={}, field={}, value={}, default value={}, componentProperties.keys={}, jex.info={}",
                                         (component==null ? component : component.getPath()),
                                         (contentResource == null ? contentResource : contentResource.getPath()),
                                         (currentNode == null ? currentNode : currentNode.getPath()),
-                                        fieldLists,
                                         fieldName, fieldValue, fieldDefaultValue,
                                         componentProperties.keySet(),
                                         jex.getInfo());
                             } catch (Exception ex) {
-                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, currentNode={}, fieldLists={}, field={}, value={}, default value={}, componentProperties.keys={}, ex.cause={}, ex.message={}, ex={}",
+                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, currentNode={}, field={}, value={}, default value={}, componentProperties.keys={}, ex.cause={}, ex.message={}, ex={}",
                                         (component==null ? component : component.getPath()),
                                         (contentResource == null ? contentResource : contentResource.getPath()),
                                         (currentNode == null ? currentNode : currentNode.getPath()),
-                                        fieldLists,
                                         fieldName, fieldValue, fieldDefaultValue,
                                         componentProperties.keySet(),
                                         ex.getCause(), ex.getMessage(), ex);
