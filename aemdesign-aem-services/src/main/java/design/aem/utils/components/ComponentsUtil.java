@@ -21,6 +21,7 @@ import com.day.cq.wcm.webservicesupport.Configuration;
 import com.day.cq.wcm.webservicesupport.ConfigurationConstants;
 import com.day.cq.wcm.webservicesupport.ConfigurationManager;
 import com.google.common.base.Throwables;
+import design.aem.components.ComponentField;
 import design.aem.components.ComponentProperties;
 import design.aem.models.GenericModel;
 import org.apache.commons.io.IOUtils;
@@ -377,8 +378,8 @@ public class ComponentsUtil {
             {DETAILS_CARD_ICONSHOW, false},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_LINK_TARGET, "_blank"},
-            {DETAILS_LINK_TEXT, "${" + FIELD_PAGE_TITLE_NAV + " ? " + FIELD_PAGE_TITLE_NAV + " : ''}"},
-            {DETAILS_LINK_TITLE, "${" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " : ''}"},
+            {DETAILS_LINK_TEXT, "${value ? value : (" + FIELD_PAGE_TITLE_NAV + " ? ''+" + FIELD_PAGE_TITLE_NAV + " : '')}"},
+            {DETAILS_LINK_TITLE, "${value ? value : (" + FIELD_PAGE_TITLE + " ? ''+" + FIELD_PAGE_TITLE + " : '')}"},
             {DETAILS_LINK_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, false},
             {DETAILS_TITLE_TRIM_LENGTH_MAX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_LENGTH},
@@ -399,9 +400,9 @@ public class ComponentsUtil {
             {DETAILS_THUMBNAIL_ID, ""},
             {DETAILS_THUMBNAIL_LICENSE_INFO, ""},
             {DETAILS_THUMBNAIL, ""},
-            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK}, //basic
-            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION}, //basic
-            {DETAILS_BADGE_ANALYTICS_LABEL, "${(" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " + '|' : '') + (value ?: " + DETAILS_LINK_TEXT + ")}",DETAILS_DATA_ANALYTICS_LABEL}, //basic
+            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK},
+            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION},
+            {DETAILS_BADGE_ANALYTICS_LABEL, "${value ? value : (" + FIELD_PAGE_TITLE + " + '|' + " + DETAILS_LINK_TEXT + ")}",DETAILS_DATA_ANALYTICS_LABEL},
             {DETAILS_PAGE_METADATA_PROPERTY, new String[]{}},
             {DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[]{}},
 
@@ -414,40 +415,40 @@ public class ComponentsUtil {
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
     public static final Object[][] DEFAULT_FIELDS_DETAILS_OPTIONS_OVERRIDE = {
-            {DETAILS_MENU_COLOR, ""},
-            {DETAILS_MENU_ICONSHOW, ""},
-            {DETAILS_MENU_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_MENU_ACCESS_KEY, ""},
-            {DETAILS_CARD_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_CARD_SIZE, ""},
-            {DETAILS_CARD_ICONSHOW, ""},
-            {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_LINK_TARGET, ""},
-            {DETAILS_LINK_TEXT, "${" + FIELD_PAGE_TITLE_NAV + " ? " + FIELD_PAGE_TITLE_NAV + " : ''}"},
-            {DETAILS_LINK_TITLE, "${" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " : ''}"},
-            {DETAILS_LINK_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_TITLE_TRIM, ""},
+            {DETAILS_MENU_COLOR, StringUtils.EMPTY},
+            {DETAILS_MENU_ICONSHOW, StringUtils.EMPTY},
+            {DETAILS_MENU_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+            {DETAILS_MENU_ACCESS_KEY, StringUtils.EMPTY},
+            {DETAILS_CARD_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+            {DETAILS_CARD_SIZE, StringUtils.EMPTY},
+            {DETAILS_CARD_ICONSHOW, StringUtils.EMPTY},
+            {DETAILS_CARD_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+            {DETAILS_LINK_TARGET, StringUtils.EMPTY},
+            {DETAILS_LINK_TEXT, StringUtils.EMPTY},
+            {DETAILS_LINK_TITLE, StringUtils.EMPTY},
+            {DETAILS_LINK_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+            {DETAILS_TITLE_TRIM, StringUtils.EMPTY},
             {DETAILS_TITLE_TRIM_LENGTH_MAX, DETAILS_TITLE_TRIM_LENGTH_MAX_DEFAULT},
             {DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX, DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX_DEFAULT},
-            {DETAILS_SUMMARY_TRIM, ""},
+            {DETAILS_SUMMARY_TRIM, StringUtils.EMPTY},
             {DETAILS_SUMMARY_TRIM_LENGTH_MAX, DETAILS_SUMMARY_TRIM_LENGTH_MAX_DEFAULT},
             {DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX, DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX_DEFAULT},
-            {DETAILS_TAB_ICONSHOW, ""},
-            {DETAILS_TAB_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_TITLE_ICONSHOW, ""},
-            {DETAILS_TITLE_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_OVERLAY_ICONSHOW, ""},
-            {DETAILS_OVERLAY_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_THUMBNAIL_WIDTH, ""},
-            {DETAILS_THUMBNAIL_HEIGHT, ""},
-            {DETAILS_THUMBNAIL_TYPE, ""},
-            {DETAILS_TITLE_TAG_TYPE, ""},
-            {DETAILS_THUMBNAIL_ID, ""},
-            {DETAILS_THUMBNAIL_LICENSE_INFO, ""},
-            {DETAILS_THUMBNAIL, ""},
+            {DETAILS_TAB_ICONSHOW, StringUtils.EMPTY},
+            {DETAILS_TAB_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+            {DETAILS_TITLE_ICONSHOW, StringUtils.EMPTY},
+            {DETAILS_TITLE_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+            {DETAILS_OVERLAY_ICONSHOW, StringUtils.EMPTY},
+            {DETAILS_OVERLAY_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+            {DETAILS_THUMBNAIL_WIDTH, StringUtils.EMPTY},
+            {DETAILS_THUMBNAIL_HEIGHT, StringUtils.EMPTY},
+            {DETAILS_THUMBNAIL_TYPE, StringUtils.EMPTY},
+            {DETAILS_TITLE_TAG_TYPE, StringUtils.EMPTY},
+            {DETAILS_THUMBNAIL_ID, StringUtils.EMPTY},
+            {DETAILS_THUMBNAIL_LICENSE_INFO, StringUtils.EMPTY},
+            {DETAILS_THUMBNAIL, StringUtils.EMPTY},
             {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK}, //basic
             {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION}, //basic
-            {DETAILS_BADGE_ANALYTICS_LABEL, "${(" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " + '|' : '') + (value ?: " + DETAILS_LINK_TEXT + ")}",DETAILS_DATA_ANALYTICS_LABEL}, //basic
+            {DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LABEL}, //basic
 
     };
 
@@ -461,7 +462,7 @@ public class ComponentsUtil {
     public static final Object[][] DEFAULT_FIELDS_ANALYTICS = {
             {DETAILS_ANALYTICS_TRACK, true, DETAILS_DATA_ANALYTICS_TRACK}, //basic
             {DETAILS_ANALYTICS_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LOCATION}, //basic
-            {DETAILS_ANALYTICS_LABEL, "${ value ?: label }", DETAILS_DATA_ANALYTICS_LABEL}, //basic
+            {DETAILS_ANALYTICS_LABEL, "${ value ? value : label }", DETAILS_DATA_ANALYTICS_LABEL}, //basic
             {"analyticsEventType", StringUtils.EMPTY, "data-analytics-event"}, //advanced
             {"analyticsHitType", StringUtils.EMPTY, "data-analytics-hit-type"}, //advanced
             {"analyticsEventCategory", StringUtils.EMPTY, "data-analytics-event-category"}, //advanced
@@ -1076,6 +1077,8 @@ public class ComponentsUtil {
         }
 //        AttrBuilder itemAttr = new AttrBuilder(request, oldXssAPI);
 
+        componentProperties.expressionFields = new ArrayList();
+
         Resource contentResource = null;
 
         final String CLASS_TYPE_RESOURCE = Resource.class.getCanonicalName();
@@ -1228,9 +1231,9 @@ public class ComponentsUtil {
                                 if (expressonResult != null) {
                                     expressionValid = true;
                                     //evaluate the expression
-                                    fieldDefaultValue = expressonResult.toString();
+                                    fieldDefaultValue = expressonResult;
 
-//                                LOGGER.error("getComponentProperties: expression output {}", defaultValueExpressionValue);
+//                                    LOGGER.error("getComponentProperties: expression output {}", expressonResult);
 
                                 }
 
@@ -1262,6 +1265,11 @@ public class ComponentsUtil {
 //                            LOGGER.error("getComponentProperties: cleaning fieldDefaultValue value {}, {}", fieldDefaultValue);
 
                             fieldValue = fieldDefaultValue;
+
+                            //store expression field into array for processing
+                            ComponentField expField = new ComponentField(field);
+                            expField.setValue(fieldValue);
+                            componentProperties.expressionFields.add(expField);
 
 
                         } else {
