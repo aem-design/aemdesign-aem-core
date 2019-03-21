@@ -131,8 +131,12 @@ public class GenericDetails extends WCMUsePojo {
             //update component properties overrides possibly from list component
             componentProperties.putAll(processBadgeRequestConfig(componentProperties, getResourceResolver(), getRequest()), true);
 
-            //process badge condifg
+            //evaluate fields after badge overrides have been applied
+            componentProperties.evaluateExpressionFields();
+
+            //process badge config
             componentProperties.putAll(processBadgeConfig(getResourcePage(), componentProperties));
+
 
             String variant = componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
             //process variant selection
@@ -281,7 +285,7 @@ public class GenericDetails extends WCMUsePojo {
             newFields.put(FIELD_OG_IMAGE, mappedUrl(resourceResolver, request, getThumbnailUrl(page, resourceResolver)));
         }
         if (!newFields.containsKey(FIELD_OG_TITLE)) {
-            newFields.put(FIELD_OG_TITLE, componentProperties.get(FIELD_PAGE_TITLE, page.getTitle()));
+            newFields.put(FIELD_OG_TITLE, componentProperties.get(FIELD_PAGE_TITLE, StringUtils.EMPTY));
         }
         if (!newFields.containsKey(FIELD_OG_DESCRIPTION)) {
             newFields.put(FIELD_OG_DESCRIPTION, getPageDescription(page));
