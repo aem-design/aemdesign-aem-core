@@ -52,7 +52,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Label"
-                                            fieldLabel="Location"
+                                            fieldLabel="Label"
                                             name="./analyticsLabel"
                                             required="{Boolean}false"/>
                                     <analyticsLocation
