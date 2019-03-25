@@ -397,8 +397,8 @@ public class TagUtil {
 
                     tagValues.put(TAG_VALUE, tagValue);
 
+                    tags.put(tag.getTagID(), tagValues);
                 }
-                tags.put(tag.getTagID(), tagValues);
             }
 
         } catch (Exception ex) {
