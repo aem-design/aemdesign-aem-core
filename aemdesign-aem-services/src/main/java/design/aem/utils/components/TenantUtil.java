@@ -17,7 +17,7 @@ public class TenantUtil {
 
     // System config located
     // http://localhost:4502/system/console/configMgr/org.apache.sling.tenant.internal.TenantProviderImpl
-    final List<Pattern> tenantPathPatterns = Arrays.asList(
+    public final static List<Pattern> tenantPathPatterns = Arrays.asList(
             Pattern.compile("(?:cq:tags/)([^/]+)"),
             Pattern.compile("(?:experience-fragments/)([^/]+)"),
             Pattern.compile("/content/([^/]+)"),
@@ -43,7 +43,7 @@ public class TenantUtil {
 //            Pattern.compile("/content/campaigns/aemdesign/([^/]+)/*")
     );
 
-    protected String resolveTenantIdFromPath(String path) {
+    public static String resolveTenantIdFromPath(String path) {
         if (isEmpty(path)) {
             return null;
         }
