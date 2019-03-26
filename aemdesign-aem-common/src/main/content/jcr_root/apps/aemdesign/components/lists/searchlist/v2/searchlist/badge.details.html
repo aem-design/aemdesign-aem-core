@@ -1,9 +1,0 @@
-<template data-sly-template.variant="${@ componentProperties, resultItem}">
-    <div class="card">
-        <div class="card-body">
-            <title data-sly-element="${componentProperties.badgeTitleType}" class="card-title">Details: ${resultItem.title}</title>
-
-            <div class="card-text" data-sly-test="${resultItem.excerpt}">${resultItem.excerpt @ context = 'unsafe'}</div>
-        </div>
-    </div>
-</template>
