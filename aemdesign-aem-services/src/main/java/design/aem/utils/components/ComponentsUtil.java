@@ -16,6 +16,8 @@ import com.day.cq.wcm.api.components.ComponentManager;
 import com.day.cq.wcm.api.designer.Design;
 import com.day.cq.wcm.api.designer.Designer;
 import com.day.cq.wcm.api.designer.Style;
+import com.day.cq.wcm.api.policies.ContentPolicy;
+import com.day.cq.wcm.api.policies.ContentPolicyManager;
 import com.day.cq.wcm.foundation.Placeholder;
 import com.day.cq.wcm.webservicesupport.Configuration;
 import com.day.cq.wcm.webservicesupport.ConfigurationConstants;
@@ -37,6 +39,7 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.scripting.SlingScriptHelper;
+import org.apache.sling.api.wrappers.ValueMapDecorator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -690,11 +693,41 @@ public class ComponentsUtil {
     /**
      * Read properties for the Component, use component style to override properties if they are not set.
      * @param componentProperties component properties
+     * @param contentPolicy       value map of content policy
      * @param name                name of the property
      * @param defaultValue        default value for the property
      * @param useStyle            use styles properties if property is missing
      * @return component property
      */
+    @SuppressWarnings("Duplicates")
+    public static Object getComponentProperty(ValueMap componentProperties, ValueMap contentPolicy, String name, Object defaultValue, Boolean useStyle) {
+        //quick fail
+        if (componentProperties == null) {
+            LOGGER.warn("getComponentProperty, componentProperties is ({0})", componentProperties);
+            return "";
+        }
+        if (useStyle && contentPolicy == null) {
+            LOGGER.warn("getComponentProperty, useStyle is ({0}) but pageStyle is {1}", useStyle, contentPolicy);
+            return "";
+        }
+
+        if (useStyle) {
+            return componentProperties.get(name, contentPolicy.get(name, defaultValue));
+        } else {
+            return componentProperties.get(name, defaultValue);
+        }
+    }
+
+    /**
+     * Read properties for the Component, use component style to override properties if they are not set.
+     * @param componentProperties component properties
+     * @param pageStyle           page style to use as default
+     * @param name                name of the property
+     * @param defaultValue        default value for the property
+     * @param useStyle            use styles properties if property is missing
+     * @return component property
+     */
+    @SuppressWarnings("Duplicates")
     public static Object getComponentProperty(ValueMap componentProperties, Style pageStyle, String name, Object defaultValue, Boolean useStyle) {
         //quick fail
         if (componentProperties == null) {
@@ -1096,6 +1129,8 @@ public class ComponentsUtil {
             ValueMap properties = (ValueMap) pageContext.get("properties");
             Style currentStyle = (Style) pageContext.get("currentStyle");
 
+            ValueMap currentPolicy = getContentPolicyProperties(componentContext.getResource(), resourceResolver);
+
             //if targetResource != null get the appropriate objects
             if (targetResource != null && targetResource.getClass().getCanonicalName().equals(CLASS_TYPE_ASSET)) {
 
@@ -1129,6 +1164,8 @@ public class ComponentsUtil {
                     Designer designer = contentResource.getResourceResolver().adaptTo(Designer.class);
 
                     currentStyle = designer.getStyle(contentResource);
+
+                    currentPolicy = getContentPolicyProperties(contentResource, resourceResolver);
 
                     ComponentManager componentManager = contentResource.getResourceResolver().adaptTo(ComponentManager.class);
                     Component resourceComponent = componentManager.getComponentOfResource(contentResource);
@@ -1209,6 +1246,8 @@ public class ComponentsUtil {
 
                             //get the value without default to determine if value exist
                             fieldValue = getComponentProperty(properties, currentStyle, fieldName, null, true);
+//                            fieldValue = getComponentProperty(properties, currentPolicy, fieldName, null, true);
+
 //                            LOGGER.error("getComponentProperties: with value {}, {}, {}", fieldName, fieldValue, fieldDefaultValue);
                             boolean expressionValid = false;
                             //try to evaluate default value expression
@@ -1273,6 +1312,7 @@ public class ComponentsUtil {
                         } else {
                             //get the value with specified default
                             fieldValue = getComponentProperty(properties, currentStyle, fieldName, fieldDefaultValue, true);
+//                            fieldValue = getComponentProperty(properties, currentPolicy, fieldName, fieldDefaultValue, true);
                         }
 
                         //Empty array with empty string will set the default value
@@ -2094,4 +2134,23 @@ public class ComponentsUtil {
         return firstComponentConfig;
 
     }
+
+    /**
+     * return current content policy settings for a component
+     * @param componentResource component resource to use
+     * @param resourceResolver resource resolver to use
+     * @return ValueMap of policy settings
+     */
+    public static ValueMap getContentPolicyProperties(Resource componentResource, ResourceResolver resourceResolver) {
+        ValueMap contentPolicyProperties = new ValueMapDecorator(new HashMap<>());
+        ContentPolicyManager contentPolicyManager = resourceResolver.adaptTo(ContentPolicyManager.class);
+        if (contentPolicyManager != null) {
+            ContentPolicy policy = contentPolicyManager.getPolicy(componentResource);
+            if (policy != null) {
+                contentPolicyProperties = policy.getProperties();
+            }
+        }
+        return contentPolicyProperties;
+    }
+
 }
