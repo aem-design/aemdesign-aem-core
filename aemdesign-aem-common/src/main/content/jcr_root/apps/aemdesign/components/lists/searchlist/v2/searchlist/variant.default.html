@@ -14,15 +14,15 @@
 
                     <li data-sly-unwrap="${!componentProperties.printStructure}">
 
-                        <sly data-sly-test="${result.damAsset}">
+                        <sly data-sly-test="${result.isAsset}">
                             <sly data-sly-use.asset="${'./badge.asset.html'}"
                                  data-sly-call="${asset.variant @ componentProperties=component.componentProperties, resultItem=result}"></sly>
                         </sly>
-                        <sly data-sly-test="${result.pageDetails}">
-                            <sly data-sly-use.page="${'./badge.details.html'}"
+                        <sly data-sly-test="${result.isPage}">
+                            <sly data-sly-use.page="${'./badge.page.html'}"
                                  data-sly-call="${page.variant @ componentProperties=component.componentProperties, resultItem=result}"></sly>
                         </sly>
-                        <sly data-sly-test="${!result.pageDetails && !result.damAsset}">
+                        <sly data-sly-test="${!result.isPage && !result.isAsset}">
                             <sly data-sly-use.default="${'./badge.default.html'}"
                                  data-sly-call="${default.variant @ componentProperties=component.componentProperties, resultItem=result}"></sly>
                         </sly>

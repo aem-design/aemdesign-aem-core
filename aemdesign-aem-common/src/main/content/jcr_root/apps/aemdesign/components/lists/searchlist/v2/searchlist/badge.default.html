@@ -1,8 +1,11 @@
 <template data-sly-template.variant="${@ componentProperties, resultItem}">
     <div class="card">
+        <div class="card-img-top" data-sly-test="${resultItem.thumbnailUrl}">
+            <img src="${resultItem.thumbnailUrl}"
+                 alt="${resultItem.title}">
+        </div>
         <div class="card-body">
-            <title data-sly-element="${componentProperties.badgeTitleType}" class="card-title">${resultItem.title}</title>
-
+            <title data-sly-element="${componentProperties.badgeTitleType}" class="card-title"><a href="${resultItem.pathUrl}">${resultItem.title}</a></title>
             <div class="card-text" data-sly-test="${resultItem.excerpt}">${resultItem.excerpt @ context = 'unsafe'}</div>
         </div>
     </div>
