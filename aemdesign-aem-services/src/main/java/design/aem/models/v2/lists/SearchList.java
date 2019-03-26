@@ -1,12 +1,17 @@
 package design.aem.models.v2.lists;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.adobe.granite.asset.api.AssetManager;
+import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.DamConstants;
 import com.day.cq.i18n.I18n;
 import com.day.cq.search.*;
 import com.day.cq.search.facets.Bucket;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
+import com.day.cq.wcm.api.Page;
 import design.aem.CustomSearchResult;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
@@ -24,6 +29,7 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import java.io.ByteArrayInputStream;
 import java.net.URLDecoder;
@@ -32,12 +38,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX;
+import static design.aem.utils.components.CommonUtil.findComponentInPage;
 import static design.aem.utils.components.ComponentDetailsUtil.processBadgeRequestConfig;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.I18nUtil.*;
 import static design.aem.utils.components.ImagesUtil.*;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class SearchList extends WCMUsePojo {
 
@@ -52,6 +61,8 @@ public class SearchList extends WCMUsePojo {
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     @Default(intValues = 0)
     protected int listSplitEvery;
+
+    private final static String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
 
     @Override
     public void activate() throws Exception {
@@ -303,51 +314,102 @@ public class SearchList extends WCMUsePojo {
                     CustomSearchResult newResult = new CustomSearchResult(h.getPath());
                     String jcrPrimaryType = h.getProperties().get("jcr:primaryType").toString();
 
-                    if (jcrPrimaryType.equals("cq:PageContent")) {
-                        newResult.setExtension(DEFAULT_EXTENTION.substring(1));
+//                    LOGGER.error("normaliseContentTree: jcrPrimaryType={},getExcerpt={},h.getExcerpts()={}",jcrPrimaryType,h.getExcerpt(),h.getExcerpts());
 
-                        Resource hitResource = h.getResource();
-
-                        if (hitResource != null) {
-                            ResourceResolver resourceResolver = slingRequest.getResourceResolver();
-                            String resourcePath = hitResource.getPath();
-
-                            // Check if the resource has a 'Page Details' component within it
-                            String pageDetailsPath = resourcePath + "/jcr:content/article/par/page_details";
-
-                            if (resourceResolver != null && resourceResolver.resolve(pageDetailsPath) != null) {
-                                newResult.setPageDetails(true);
-
-                                String thumbnailImagePath = getPathFromImageResource(resourceResolver, pageDetailsPath + "/thumbnail");
-                                String backgroundImagePath = getPathFromImageResource(resourceResolver, pageDetailsPath + "/bgimage");
-
-                                if (thumbnailImagePath != null) {
-                                    newResult.setImgResource(thumbnailImagePath);
-                                } else if (backgroundImagePath != null) {
-                                    newResult.setImgResource(backgroundImagePath);
-                                } else {
-                                    newResult.setImgResource(DEFAULT_IMAGE_BLANK);
-                                }
-                            }
-                        }
-                    }
-
-                    if (jcrPrimaryType.equals("dam:AssetContent")) {
-                        String relativePath = h.getProperties().get("dam:relativePath").toString();
-                        String extension = relativePath.substring(relativePath.lastIndexOf(".") + 1); //exclude the .
-
-                        newResult.setExtension(extension);
-                        newResult.setDamAsset(true);
-                    }
+                    newResult.setTitle(h.getTitle());
 
                     if (h.getProperties().get("subtitle") != null) {
                         newResult.setSubTitle(h.getProperties().get("subtitle").toString());
                     }
 
-                    // Get description from page else get the excerpt from search hit
-                    newResult.setExcerpt(h.getProperties().get(JcrConstants.JCR_DESCRIPTION, h.getExcerpt()));
-                    newResult.setTitle(h.getTitle());
-                    newResult.setPathUrl(h.getPath());
+
+                    if (jcrPrimaryType.equals("cq:PageContent")) {
+                        newResult.setPathUrl(h.getPath().concat(DEFAULT_EXTENTION));
+
+                        newResult.setExcerpt(h.getExcerpt());
+
+                        Resource hitResource = h.getResource();
+
+                        if (hitResource != null) {
+                            ResourceResolver resourceResolver = slingRequest.getResourceResolver();
+
+                            if (hitResource != null && !ResourceUtil.isNonExistingResource(hitResource)) {
+
+                                Page hitPage = hitResource.adaptTo(Page.class);
+
+                                String detailsNodePath = findComponentInPage(hitPage, DEFAULT_LIST_DETAILS_SUFFIX);
+
+                                Resource detailsResource  = getResourceResolver().resolve(detailsNodePath);
+
+                                if (!ResourceUtil.isNonExistingResource(detailsResource)) {
+
+                                    String detailsPath = detailsResource.getPath();
+
+                                    newResult.setDetailsPath(detailsPath);
+                                    newResult.setIsPage(true);
+
+                                    String thumbnailImagePath = getResourceImagePath(detailsResource, DEFAULT_THUMBNAIL_IMAGE_NODE_NAME);
+                                    String backgroundImagePath = getResourceImagePath(detailsResource, DEFAULT_BACKGROUND_IMAGE_NODE_NAME);
+
+//                                    LOGGER.error("normaliseContentTree: detailsPath={},thumbnailImagePath={},backgroundImagePath={}", detailsPath,thumbnailImagePath,backgroundImagePath);
+
+                                    if (thumbnailImagePath != null) {
+                                        newResult.setThumbnailUrl(thumbnailImagePath);
+                                    } else if (backgroundImagePath != null) {
+                                        newResult.setThumbnailUrl(backgroundImagePath);
+                                    } else {
+                                        newResult.setThumbnailUrl(DEFAULT_IMAGE_BLANK);
+                                    }
+                                }
+                            }
+
+                            // Get description from page else get the excerpt from search hit
+                            newResult.setExcerpt(h.getProperties().get(JcrConstants.JCR_DESCRIPTION, h.getExcerpt()));
+
+                        }
+                    }
+
+                    if (jcrPrimaryType.equals("dam:AssetContent")) {
+                        String relativePath = h.getProperties().get("dam:relativePath").toString();
+
+                        newResult.setExcerpt(h.getExcerpt());
+                        newResult.setPathUrl(h.getPath());
+                        newResult.setIsAsset(true);
+
+                        Resource assetResource = h.getResource();
+                        Node assetN = assetResource.adaptTo(Node.class);
+
+                        AssetManager assetManager = getResourceResolver().adaptTo(AssetManager.class);
+                        com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(h.getPath());
+
+                        Asset assetBasic = assetResource.adaptTo(Asset.class);
+
+                        newResult.setThumbnailUrl(assetBasic.getPath());
+
+//                        String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
+
+                        String licenseInfo = getAssetCopyrightInfo(assetBasic, ASSET_LICENSEINFO);
+
+                        if (isNotEmpty(licenseInfo)) {
+                            newResult.setSubTitle(licenseInfo);
+                        }
+
+                        if (assetBasic != null) {
+                            newResult.setTitle(assetBasic.getMetadataValue(DamConstants.DC_TITLE));
+                        }
+
+                        String excerpt = h.getExcerpt();
+
+//                        LOGGER.error("normaliseContentTree: DC_TITLE={},DC_DESCRIPTION={}",assetBasic.getMetadataValue(DamConstants.DC_TITLE),assetBasic.getMetadataValue(DamConstants.DC_DESCRIPTION));
+//                        LOGGER.error("normaliseContentTree: h.getPath()={},excerpt is path={},getThumbnailUrl={}",h.getPath(),excerpt.equals(h.getPath()),newResult.getThumbnailUrl());
+
+                        if (excerpt.equals(h.getPath()) && assetBasic != null) {
+                            newResult.setExcerpt(assetBasic.getMetadataValue(DamConstants.DC_DESCRIPTION));
+                        }
+
+
+
+                    }
 
                     searchResults.add(newResult);
                 }
