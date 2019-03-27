@@ -67,7 +67,7 @@ public class SearchList extends WCMUsePojo {
     @Override
     public void activate() throws Exception {
 
-        LOGGER.error("searchlist loading");
+//        LOGGER.error("searchlist loading");
 
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
@@ -251,7 +251,7 @@ public class SearchList extends WCMUsePojo {
         componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
 
 
-        LOGGER.error("searchlist loaded");
+//        LOGGER.error("searchlist loaded");
 
 
     }
