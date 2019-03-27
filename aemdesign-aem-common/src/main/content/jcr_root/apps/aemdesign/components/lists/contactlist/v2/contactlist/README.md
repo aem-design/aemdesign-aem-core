@@ -12,10 +12,10 @@ User for creating list of contacts
 * **Version**: v2
 * **Compatibility**: AEM 6.4
 * **Status**: production-ready
-* **Showcase**: [/content/aemdesign-showcase/en/component/lists/eventlist/v2/eventlist](/content/aemdesign-showcase/en/component/lists/newslist.html?wcmmode=disabled)
-* **Local Code**: [/apps/aemdesign/components/lists/eventlist/v2/eventlist](/crx/de/#/apps/aemdesign/components/lists/eventlist/v2/eventlist)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/eventlist/v2/eventlist)
-* **Readme**: [/apps/aemdesign/components/lists/eventlist/v2/eventlist](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/eventlist/v2/eventlist)
+* **Showcase**: [/content/aemdesign-showcase/en/component/lists/contactlist/v2/contactlist](/content/aemdesign-showcase/en/component/lists/contactlist.html?wcmmode=disabled)
+* **Local Code**: [/apps/aemdesign/components/lists/contactlist/v2/contactlist](/crx/de/#/apps/aemdesign/components/lists/contactlist/v2/contactlist)
+* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/contactlist/v2/contactlist)
+* **Readme**: [/apps/aemdesign/components/lists/contactlist/v2/contactlist](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/contactlist/v2/contactlist)
 
 ## Features
 * Allows creation of Previous and Next page on a Page that is part of a collection of pages.
