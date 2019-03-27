@@ -1277,7 +1277,7 @@ public class ComponentsUtil {
                                 }
 
                             } catch (JexlException jex) {
-                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, currentNode={}, field={}, value={}, default value={}, componentProperties.keys={}, jex.info={}",
+                                LOGGER.warn("could not evaluate default value expression component={}, contentResource={}, currentNode={}, field={}, value={}, default value={}, componentProperties.keys={}, jex.info={}",
                                         (component==null ? component : component.getPath()),
                                         (contentResource == null ? contentResource : contentResource.getPath()),
                                         (currentNode == null ? currentNode : currentNode.getPath()),
