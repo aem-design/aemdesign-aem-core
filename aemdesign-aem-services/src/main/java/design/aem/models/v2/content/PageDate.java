@@ -72,11 +72,7 @@ public class PageDate extends WCMUsePojo {
             componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
 
         } catch (Exception ex) {
-            LOGGER.error("dateFormatString: {}", dateFormatString);
-            LOGGER.error("dateDisplayFormatString: {}", dateDisplayFormatString);
-            LOGGER.error("publishDate: {}", publishDate);
-            LOGGER.error("path: {}", getResource().getPath());
-            LOGGER.error("pagedate error: {}, {}", ex.getMessage(), ex);
+            LOGGER.error("PageDate: dateFormatString={},dateDisplayFormatString={},publishDate={},path={},ex.message={},ex={}", dateFormatString,dateDisplayFormatString,publishDate,getResource().getPath(),ex.getMessage(), ex);
         }
     }
 
