@@ -706,9 +706,9 @@ public class ComponentsUtil {
             LOGGER.warn("getComponentProperty, componentProperties is ({0})", componentProperties);
             return "";
         }
-        if (useStyle && contentPolicy == null) {
-            LOGGER.warn("getComponentProperty, useStyle is ({0}) but pageStyle is {1}", useStyle, contentPolicy);
-            return "";
+        if (useStyle && (contentPolicy == null || contentPolicy.isEmpty())) {
+//            LOGGER.warn("getComponentProperty, useStyle is ({0}) but pageStyle is {1}", useStyle, contentPolicy);
+            useStyle = false;
         }
 
         if (useStyle) {
@@ -1127,7 +1127,7 @@ public class ComponentsUtil {
 
             // if targetResource == null get defaults
             ValueMap properties = (ValueMap) pageContext.get("properties");
-            Style currentStyle = (Style) pageContext.get("currentStyle");
+//            Style currentStyle = (Style) pageContext.get("currentStyle");
 
             ValueMap currentPolicy = getContentPolicyProperties(componentContext.getResource(), resourceResolver);
 
@@ -1163,7 +1163,7 @@ public class ComponentsUtil {
 
                     Designer designer = contentResource.getResourceResolver().adaptTo(Designer.class);
 
-                    currentStyle = designer.getStyle(contentResource);
+//                    currentStyle = designer.getStyle(contentResource);
 
                     currentPolicy = getContentPolicyProperties(contentResource, resourceResolver);
 
@@ -1245,8 +1245,8 @@ public class ComponentsUtil {
 //                                LOGGER.error("getComponentProperties: processing field {} and default {}", fieldName, fieldDefaultValue);
 
                             //get the value without default to determine if value exist
-                            fieldValue = getComponentProperty(properties, currentStyle, fieldName, null, true);
-//                            fieldValue = getComponentProperty(properties, currentPolicy, fieldName, null, true);
+//                            fieldValue = getComponentProperty(properties, currentStyle, fieldName, null, true);
+                            fieldValue = getComponentProperty(properties, currentPolicy, fieldName, null, true);
 
 //                            LOGGER.error("getComponentProperties: with value {}, {}, {}", fieldName, fieldValue, fieldDefaultValue);
                             boolean expressionValid = false;
@@ -1311,8 +1311,8 @@ public class ComponentsUtil {
 
                         } else {
                             //get the value with specified default
-                            fieldValue = getComponentProperty(properties, currentStyle, fieldName, fieldDefaultValue, true);
-//                            fieldValue = getComponentProperty(properties, currentPolicy, fieldName, fieldDefaultValue, true);
+//                            fieldValue = getComponentProperty(properties, currentStyle, fieldName, fieldDefaultValue, true);
+                            fieldValue = getComponentProperty(properties, currentPolicy, fieldName, fieldDefaultValue, true);
                         }
 
                         //Empty array with empty string will set the default value
