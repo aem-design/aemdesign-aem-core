@@ -1419,7 +1419,7 @@ public class ComponentsUtil {
                         componentResource = resourceResolver.resolve(component.getPath());
                         if (!ResourceUtil.isNonExistingResource(componentResource)) {
                             if (component.getLocalResource(variantTemplate) == null) {
-                                LOGGER.error("getComponentProperties: this component does not have requested variant={}, template={},component={}",component.getPath(), variantTemplate,component.getPath());
+                                LOGGER.warn("getComponentProperties: this component does not have requested variant={}, template={},component={}",component.getPath(), variantTemplate,component.getPath());
                                 variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, DEFAULT_VARIANT);
                             }
                         }
