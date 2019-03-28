@@ -488,6 +488,29 @@ public class ComponentsUtil {
             {"dataToggle", "", "data-toggle"},
     };
 
+    //ASSET METADATA
+    // {
+    //   1 required - property name,
+    //   2 required - default value,
+    //   3 optional - name of component attribute to add value into
+    //   4 optional - canonical name of class for handling multivalues, String or Tag
+    // }
+    public static final Object[][] DEFAULT_FIELDS_ASSET = {
+            {CommonUtil.DAM_TITLE, "${ value ? value : name }", "data-title"},
+            {CommonUtil.DAM_DESCRIPTION, StringUtils.EMPTY, "data-description"},
+            {CommonUtil.DAM_CREDIT, StringUtils.EMPTY, "data-credit"},
+            {CommonUtil.DAM_HEADLINE, StringUtils.EMPTY, "data-headline"},
+            {CommonUtil.DAM_SOURCE, StringUtils.EMPTY, "data-source"},
+            {CommonUtil.DAM_SOURCE_URL, StringUtils.EMPTY, "data-sourceurl"},
+            {CommonUtil.DAM_VIDEO_URL, StringUtils.EMPTY, "data-videourl"},
+            {DamConstants.TIFF_IMAGEWIDTH, StringUtils.EMPTY, "data-width"},
+            {DamConstants.TIFF_IMAGELENGTH, StringUtils.EMPTY, "data-height"},
+            {DamConstants.DC_RIGHTS, StringUtils.EMPTY, "data-rights"},
+            {DamConstants.DC_CREATOR, StringUtils.EMPTY, "data-creator"},
+            {DamConstants.DC_FORMAT, StringUtils.EMPTY},
+    };
+
+
     //ASSET IMAGE METADATA
     // {
     //   1 required - property name,
