@@ -2,6 +2,6 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Component"
     jcr:title="Asset List"
-    sling:resourceSuperType="aemdesign/components/lists/assetlist/v2/assetlist"
+    sling:resourceSuperType="aemdesign/components/lists/list/v1/list"
     allowedParents="[*/parsys]"
-    componentGroup="AEM.Design - Lists"/>
+    componentGroup="hidden"/>

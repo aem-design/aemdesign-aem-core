@@ -1,0 +1,8 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <figure itemscope itemtype="http://schema.org/ImageObject">
+        <sly data-sly-use.info="image.select.html"
+             data-sly-call="${info.variant @ componentProperties=componentProperties}"></sly>
+        <sly data-sly-use.figcaption="asset.figcaption.html"
+             data-sly-call="${figcaption.variant @ componentProperties=componentProperties}"></sly>
+    </figure>
+</template>
