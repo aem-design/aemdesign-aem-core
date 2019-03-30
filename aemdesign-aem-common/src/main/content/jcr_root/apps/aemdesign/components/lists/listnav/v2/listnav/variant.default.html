@@ -1,0 +1,15 @@
+<template data-sly-template.variant="${@ componentProperties, component}">
+    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+         itemscope itemtype="http://schema.org/WebPageElement">
+        <ul class="list" data-sly-list.item="${component.ListItems}">
+            <li class="${item.navType}">
+                <sly data-sly-test="${!item.componentMissing}"
+                     data-sly-resource="${item.componentPath @ selectors=item.componentPathSelectors}"></sly>
+
+                <sly data-sly-test="${item.componentMissing}"
+                     data-sly-use.missing="list.badge.missing.html" data-sly-call="${missing.variant @ componentProperties=componentProperties}"></sly>
+            </li>
+        </ul>
+    </div>
+</template>
