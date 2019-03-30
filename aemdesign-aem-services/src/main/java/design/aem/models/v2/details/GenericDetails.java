@@ -26,7 +26,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class GenericDetails extends WCMUsePojo {
 
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ContactDetails.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GenericDetails.class);
 
     public static String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
 
@@ -112,7 +112,8 @@ public class GenericDetails extends WCMUsePojo {
             }
 
             String requestedBadgeTemplate = format(COMPONENT_BADGE_TEMPLATE_FORMAT, componentBadge);
-            String defaultBadgeTemplate = format(COMPONENT_BADGE_TEMPLATE_FORMAT, DEFAULT_BADGE);
+            String defaultBadgeTemplate = format(COMPONENT_BADGE_DEFAULT_TEMPLATE_FORMAT, DEFAULT_BADGE);
+
 
             //check if component has the badge and reset if it does not
             if (getComponent().getLocalResource(requestedBadgeTemplate) == null) {
