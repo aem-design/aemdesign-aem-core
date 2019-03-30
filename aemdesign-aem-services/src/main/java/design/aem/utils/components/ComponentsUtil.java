@@ -86,7 +86,9 @@ public class ComponentsUtil {
     public static final String FIELD_VARIANT = "variant";
     public static final String DEFAULT_VARIANT = "default";
     public static final String DEFAULT_VARIANT_HIDDEN = "hidden";
-    public static final String DEFAULT_BADGE = "badge.default";
+    public static final String DEFAULT_BADGE = "default";
+    public static final String DEFAULT_BADGE_TEMPLATE_FORMAT = "badge.{0}";
+
     public static final String DEFAULT_ARIA_ROLE_ATTRIBUTE = "role";
 
     public static final String FIELD_REDIRECT_TARGET = "redirectTarget";
@@ -187,6 +189,7 @@ public class ComponentsUtil {
     public static final String COMPONENT_BADGE_CONFIG_SET = "badgeConfigSet";
     public static final String COMPONENT_BADGE_TEMPLATE = "componentBadgeTemplate";
     public static final String COMPONENT_BADGE_TEMPLATE_FORMAT = "{0}.html";
+    public static final String COMPONENT_BADGE_DEFAULT_TEMPLATE_FORMAT = "badge.{0}.html";
 
 
 
@@ -1763,27 +1766,31 @@ public class ComponentsUtil {
      * @return found node
      * @throws RepositoryException
      */
-    public static Node findDetailNode(Page page) throws RepositoryException {
+    public static Node findDetailNode(Page page) {
 
         Node node = null;
 
-        Resource pageRes = page.getContentResource(NODE_PAR);
+        try {
+            Resource pageRes = page.getContentResource(NODE_PAR);
 
-        if (pageRes != null) {
+            if (pageRes != null) {
 
-            Node parNode = pageRes.adaptTo(Node.class);
+                Node parNode = pageRes.adaptTo(Node.class);
 
-            NodeIterator detailNodes = parNode.getNodes(NODE_DETAILS);
+                NodeIterator detailNodes = parNode.getNodes(NODE_DETAILS);
 
-            while (detailNodes.hasNext()) {
+                while (detailNodes.hasNext()) {
 
-                node = detailNodes.nextNode();
-                break;
+                    node = detailNodes.nextNode();
+                    break;
+                }
+
+
+            } else {
+                //  LOGGER.error("Node ["+NODE_PAR+"] not find in " + page.getPath());
             }
-
-
-        } else {
-            //  LOGGER.error("Node ["+NODE_PAR+"] not find in " + page.getPath());
+        } catch (Exception ex) {
+            LOGGER.error("findDetailNode: could not find details node in page={},ex={}",page,ex);
         }
         return node;
     }
