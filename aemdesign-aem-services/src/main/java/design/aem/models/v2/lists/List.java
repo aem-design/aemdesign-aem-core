@@ -94,7 +94,6 @@ public class List extends WCMUsePojo {
     private static final Boolean DEFAULT_PRINT_STRUCTURE = true;
     private static final String DEFAULT_TITLE_TYPE = "h2";
     private static final String DEFAULT_I18N_CATEGORY = "list";
-    private static final String DEFAULT_BADGE = "default";
     private static final String DEFAULT_PAGINATION = "default";
 
     private ComponentProperties componentProperties = null;
@@ -361,6 +360,18 @@ public class List extends WCMUsePojo {
      * @return
      */
     private Map<String,Object> getPageBadgeInfo(Page page) {
+        return getPageBadgeInfo(page,detailsNameSuffix,getResourceResolver(),detailsBadge);
+    }
+
+    /**
+     * return page badge info.
+     * @param page page to use for collection
+     * @param detailsNameSuffix details siffix to look for
+     * @param resourceResolver resource resolver to use
+     * @param detailsBadge badge selectors to add
+     * @return
+     */
+    static Map<String,Object> getPageBadgeInfo(Page page,String[] detailsNameSuffix, ResourceResolver resourceResolver, String detailsBadge) {
 
         Map<String,Object> badge = new HashMap<>();
 
@@ -368,7 +379,7 @@ public class List extends WCMUsePojo {
 
             String componentPath = findComponentInPage(page, detailsNameSuffix);
             if (isNotEmpty(componentPath)) {
-                Resource componentResource = getResourceResolver().getResource(componentPath);
+                Resource componentResource = resourceResolver.getResource(componentPath);
                 String componentResourceType = componentResource.getResourceType();
                 if (isNull(componentResourceType)) {
                     componentResourceType = "";
@@ -506,7 +517,7 @@ public class List extends WCMUsePojo {
      * @param includeHidden include in page is hidden
      * @return
      */
-    private boolean includePageInList(Page page, boolean includeInvalid, boolean includeHidden) {
+    static boolean includePageInList(Page page, boolean includeInvalid, boolean includeHidden) {
         return (includeHidden || !page.isHideInNav()) && (includeInvalid || page.isValid()) && page.getDeleted() == null;
     }
 
