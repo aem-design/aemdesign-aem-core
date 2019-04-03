@@ -22,6 +22,8 @@ public class PageDate extends WCMUsePojo {
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
+    private static String PUBLISH_DATE_FORMAT = "yyyy-MM-dd";
+    private static String PUBLISH_DATE_DISPLAY_FORMAT = "EEEE dd MMMM YYYY";
 
     @Override
     public void activate() throws Exception {
@@ -54,6 +56,16 @@ public class PageDate extends WCMUsePojo {
         String dateFormatString = _i18n.get("publishDateFormat",DEFAULT_I18N_CATEGORY);
         String dateDisplayFormatString = _i18n.get("publishDateDisplayFormat",DEFAULT_I18N_CATEGORY);
 
+        //could not read dictionary
+        if (dateFormatString.equals("publishDateFormat")) {
+            dateFormatString = PUBLISH_DATE_FORMAT;
+        }
+
+        //could not read dictionary
+        if (dateDisplayFormatString.equals("publishDateDisplayFormat")) {
+            dateDisplayFormatString = PUBLISH_DATE_DISPLAY_FORMAT;
+        }
+
         try {
 
             //format date into formatted date
@@ -69,11 +81,13 @@ public class PageDate extends WCMUsePojo {
 
             componentProperties.attr.add("datetime", publishDateText);
 
-            componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
-
         } catch (Exception ex) {
             LOGGER.error("PageDate: dateFormatString={},dateDisplayFormatString={},publishDate={},path={},ex.message={},ex={}", dateFormatString,dateDisplayFormatString,publishDate,getResource().getPath(),ex.getMessage(), ex);
         }
+
+        componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
+
+
     }
 
 
