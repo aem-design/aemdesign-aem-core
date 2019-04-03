@@ -7,6 +7,7 @@ import org.apache.jackrabbit.api.security.user.Group;
 import org.apache.jackrabbit.api.security.user.User;
 import org.apache.jackrabbit.api.security.user.UserManager;
 
+import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,18 +29,19 @@ public class SecurityUtil {
 
         org.apache.sling.api.resource.ResourceResolver _adminResourceResolver = null;
 
-        org.apache.sling.jcr.api.SlingRepository _slingRepository = _sling.getService(org.apache.sling.jcr.api.SlingRepository.class);
         org.apache.sling.api.resource.ResourceResolverFactory resolverFactory = _sling.getService(org.apache.sling.api.resource.ResourceResolverFactory.class);
         try {
-            javax.jcr.Session adminResourceSession = _slingRepository.loginAdministrative(null);
-//            Credentials adminCredentials = new SimpleCredentials("admin", new char[0]);
-//            adminResourceSession = _slingRepository.impersonateFromService("workflow", credentials, null);
-            Map authInfo = new HashMap();
-            authInfo.put(org.apache.sling.jcr.resource.api.JcrResourceConstants.AUTHENTICATION_INFO_SESSION, adminResourceSession);
-            _adminResourceResolver = resolverFactory.getResourceResolver(authInfo);
+
+            //can be used as extra param for getServiceResourceResolver
+//            Map<String, Object> param = new HashMap<String, Object>();
+//            param.put(ResourceResolverFactory.SUBSERVICE, "readAsAdminService");
+
+            //get service resource resolver using user mapping creds
+            _adminResourceResolver = resolverFactory.getServiceResourceResolver(null);
 
         } catch (Exception ex) {
-            // ex.printStackTrace();
+            LOGGER.error("openAdminResourceResolver: could not get elevated resource resolver, returning non elevated resource resolver. ex={0}",ex);
+            _adminResourceResolver = _sling.getRequest().getResourceResolver();
         }
 
         return _adminResourceResolver;
@@ -49,16 +51,20 @@ public class SecurityUtil {
 
     public static void closeAdminResourceResolver(org.apache.sling.api.resource.ResourceResolver _adminResourceResolver) {
 
-        if (_adminResourceResolver != null && _adminResourceResolver.isLive()) {
+        try {
+            if (_adminResourceResolver != null && _adminResourceResolver.isLive()) {
 
-            //need to close the sessions before resolver as it will not be closed by resolver.close()
-            //this is a know "pattern"
-            javax.jcr.Session adminResourceSession = _adminResourceResolver.adaptTo(Session.class);
-            if (adminResourceSession != null && adminResourceSession.isLive()) {
-                adminResourceSession.logout();
+                //need to close the sessions before resolver as it will not be closed by resolver.close()
+                //this is a know "pattern"
+                javax.jcr.Session adminResourceSession = _adminResourceResolver.adaptTo(Session.class);
+                if (adminResourceSession != null && adminResourceSession.isLive()) {
+                    adminResourceSession.logout();
+                }
+
+                _adminResourceResolver.close();
             }
-
-            _adminResourceResolver.close();
+        } catch (Exception ex) {
+            LOGGER.error("closeAdminResourceResolver: could not close admin resource resolver ex={0}",ex);
         }
 
     }
