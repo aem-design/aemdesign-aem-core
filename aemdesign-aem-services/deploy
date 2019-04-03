@@ -1,6 +1,6 @@
 #!/bin/bash
 
-POM_FILE="../pom.xml"
+PARENT_PROJECT_PATH="$(realpath ..)"
 SCRIPT_PARAMS="$@"
 
 source "../scripts/functions.sh"
