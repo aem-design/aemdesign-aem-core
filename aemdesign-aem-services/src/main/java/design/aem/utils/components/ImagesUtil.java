@@ -1139,7 +1139,7 @@ public class ImagesUtil {
             return getBackgroundVideoRenditions(getContextObjects(wcmUsePojoModel));
 
         } catch (Exception ex) {
-            LOGGER.error("getBackgroundImageRenditions(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+            LOGGER.error("getBackgroundImageRenditions(WCMUsePojo) could not read required objects={}, error={}",wcmUsePojoModel,ex);
         }
 
         return getNewComponentProperties(wcmUsePojoModel);
@@ -1222,7 +1222,7 @@ public class ImagesUtil {
             return getBackgroundImageRenditions(getContextObjects(wcmUsePojoModel));
 
         } catch (Exception ex) {
-            LOGGER.error("getBackgroundImageRenditions(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+            LOGGER.error("getBackgroundImageRenditions(WCMUsePojo) could not read required objects={}, error={}",wcmUsePojoModel,ex);
         }
 
         return getNewComponentProperties(wcmUsePojoModel);
@@ -1273,7 +1273,7 @@ public class ImagesUtil {
             return getResourceImageRenditions(getContextObjects(wcmUsePojoModel), resource, attributeName, returnLastRenditionName);
 
         } catch (Exception ex) {
-            LOGGER.error("getBackgroundImageRenditions(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+            LOGGER.error("getBackgroundImageRenditions(WCMUsePojo) could not read required objects={}, error={}",wcmUsePojoModel,ex);
         }
 
         return getNewComponentProperties(wcmUsePojoModel);
