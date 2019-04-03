@@ -12,7 +12,7 @@ function doPost() {
 #    echo $CURL -L -u "$LOGIN" --header Referer:${ADDRESS} -H User-Agent:curl -X POST --connect-timeout 1 --max-time 1 --silent -N "${FIELDS}" "${ADDRESS}${SERVICE}"
 
     local RESULT=$($CURL -L -u "$LOGIN" --header Referer:${ADDRESS} -H User-Agent:curl -X POST --connect-timeout 1 --max-time 1 --silent -N "${FIELDS}" "${ADDRESS}${SERVICE}" | $GREP -q "OK" && echo true || echo false)
-    echo " -> URL:    ${ADDRESS}${SERVICE}"
+    echo " -- URL:    ${ADDRESS}${SERVICE}"
     echo "    POST:   ${FIELDS}"
     echo "    RESULT: ${RESULT}"
 }
