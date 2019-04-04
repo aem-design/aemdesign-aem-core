@@ -3,11 +3,7 @@ package design.aem.models.v2.lists;
 import com.adobe.granite.asset.api.AssetManager;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.i18n.I18n;
-import com.day.cq.wcm.webservicesupport.Configuration;
-import com.day.cq.wcm.webservicesupport.ConfigurationManager;
 import design.aem.components.ComponentProperties;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,8 +11,6 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.I18nUtil.*;
 import static design.aem.utils.components.ImagesUtil.getMetadataStringForKey;
 import static design.aem.utils.components.ImagesUtil.getResourceImagePath;
-import static design.aem.utils.components.SecurityUtil.closeAdminResourceResolver;
-import static design.aem.utils.components.SecurityUtil.openAdminResourceResolver;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class LocationList extends List  {
