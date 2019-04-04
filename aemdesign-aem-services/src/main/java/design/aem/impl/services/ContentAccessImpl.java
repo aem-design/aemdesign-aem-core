@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Service
 @Component(
-        name = "AEM.Design - Security Util",
+        name = "AEM.Design - Content Access Helper",
         immediate=true)
 public class ContentAccessImpl implements ContentAccess {
 
@@ -53,15 +53,14 @@ public class ContentAccessImpl implements ContentAccess {
 
     @Override
     public ResourceResolver getAdminResourceResolver() {
-        LOGGER.error("getAdminResourceResolver: resourceResolverFactory={}",resourceResolverFactory);
-        LOGGER.error("getAdminResourceResolver: AUTH_INFO={}",AUTH_INFO);
+
         try {
             return resourceResolverFactory.getServiceResourceResolver(AUTH_INFO);
         }  catch (LoginException ex) {
             LOGGER.error("openAdminResourceResolver: Login Exception when getting admin resource resolver, ex={0}", ex);
         } catch (Exception ex) {
             LOGGER.error("openAdminResourceResolver: could not get elevated resource resolver, returning non elevated resource resolver. ex={0}",ex);
-    //            _adminResourceResolver = resourceResolverFactory.getResourceResolver(null);
+
         }
         return null;
     }
@@ -72,7 +71,7 @@ public class ContentAccessImpl implements ContentAccess {
      */
     @Override
     public String getSubServiceUser() {
-        LOGGER.error("getSubServiceUser: resourceResolverFactory={}",resourceResolverFactory);
+
         // Create the Map to pass in the Service Account Identifier
         // Remember, "SERVICE_ACCOUNT_IDENTIFIER" is mapped  to the CRX User via a SEPARATE ServiceUserMapper Factory OSGi Config
         final Map<String, Object> authInfo = Collections.singletonMap(
@@ -85,11 +84,12 @@ public class ContentAccessImpl implements ContentAccess {
                 // Do some work w your service resource resolver
                 return serviceResolver.getUserID();
             } else {
-                return "Could not obtain a User for the Service: " + SERVICE_NAME;
+                LOGGER.error("getSubServiceUser: Could not obtain a User for the Service: {}", SERVICE_NAME);
             }
-        } catch (LoginException e) {
-            return "Login Exception when obtaining a User for the Bundle Service - " + e.getMessage();
+        } catch (LoginException ex) {
+            LOGGER.error("getSubServiceUser: Login Exception when obtaining a User for the Bundle Service: {}, ex={}", SERVICE_NAME, ex);
         }
+        return "";
     }
 
 
@@ -99,17 +99,18 @@ public class ContentAccessImpl implements ContentAccess {
      */
     @Override
     public  String getBundleServiceUser() {
-        LOGGER.error("getBundleServiceUser: resourceResolverFactory={}",resourceResolverFactory);
+
         // Get the auto-closing Service resource resolver
         try (ResourceResolver serviceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
             if (serviceResolver != null) {
                 // Do some work w your service resource resolver
                 return serviceResolver.getUserID();
             } else {
-                return "Could not obtain a User for Bundle Service";
+                LOGGER.error("getSubServiceUser: Could not obtain a User for Bundle Service");
             }
-        } catch (LoginException e) {
-            return "Login Exception when obtaining a User for the Bundle Service - " + e.getMessage();
+        } catch (LoginException ex) {
+            LOGGER.error("getSubServiceUser: Login Exception when obtaining a User for the Bundle Service ex={0}", ex);
         }
+        return "";
     }
 }
