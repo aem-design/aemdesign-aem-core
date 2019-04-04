@@ -24,51 +24,6 @@ public class SecurityUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityUtil.class);
 
-    @SuppressWarnings("unchecked")
-    public static org.apache.sling.api.resource.ResourceResolver openAdminResourceResolver(org.apache.sling.api.scripting.SlingScriptHelper _sling) {
-
-        org.apache.sling.api.resource.ResourceResolver _adminResourceResolver = null;
-
-        org.apache.sling.api.resource.ResourceResolverFactory resolverFactory = _sling.getService(org.apache.sling.api.resource.ResourceResolverFactory.class);
-        try {
-
-            //can be used as extra param for getServiceResourceResolver
-//            Map<String, Object> param = new HashMap<String, Object>();
-//            param.put(ResourceResolverFactory.SUBSERVICE, "readAsAdminService");
-
-            //get service resource resolver using user mapping creds
-            _adminResourceResolver = resolverFactory.getServiceResourceResolver(null);
-
-        } catch (Exception ex) {
-            LOGGER.error("openAdminResourceResolver: could not get elevated resource resolver, returning non elevated resource resolver. ex={0}",ex);
-            _adminResourceResolver = _sling.getRequest().getResourceResolver();
-        }
-
-        return _adminResourceResolver;
-
-    }
-
-
-    public static void closeAdminResourceResolver(org.apache.sling.api.resource.ResourceResolver _adminResourceResolver) {
-
-        try {
-            if (_adminResourceResolver != null && _adminResourceResolver.isLive()) {
-
-                //need to close the sessions before resolver as it will not be closed by resolver.close()
-                //this is a know "pattern"
-                javax.jcr.Session adminResourceSession = _adminResourceResolver.adaptTo(Session.class);
-                if (adminResourceSession != null && adminResourceSession.isLive()) {
-                    adminResourceSession.logout();
-                }
-
-                _adminResourceResolver.close();
-            }
-        } catch (Exception ex) {
-            LOGGER.error("closeAdminResourceResolver: could not close admin resource resolver ex={0}",ex);
-        }
-
-    }
-
     public static boolean isUserMemberOf(Authorizable authorizable, List<String> groups) {
         if (authorizable instanceof User) {
             User authUser = (User) authorizable;
