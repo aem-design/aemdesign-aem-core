@@ -6,6 +6,7 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.LanguageManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import design.aem.services.ContentAccess;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -17,8 +18,6 @@ import org.apache.sling.xss.XSSAPI;
 import javax.jcr.Node;
 import java.util.*;
 
-import static design.aem.utils.components.SecurityUtil.closeAdminResourceResolver;
-import static design.aem.utils.components.SecurityUtil.openAdminResourceResolver;
 import static design.aem.utils.components.TagUtil.TAG_VALUE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
@@ -79,9 +78,8 @@ public class I18nUtil {
          */
         String bcp47Lang = page.getLanguage(true).getLanguage();
 
-        ResourceResolver adminResourceResolver = openAdminResourceResolver(sling);
-
-        try {
+        ContentAccess contentAccess = sling.getService(ContentAccess.class);
+        try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
 
             //try to get an override value for language as per BCP47 spec
             Resource rootLanguage = adminResourceResolver.getResource(LANGUAGE_TAG_PATH);
@@ -117,8 +115,6 @@ public class I18nUtil {
 
         } catch (Exception ex) {
             LOGGER.error("getPageLanguage: error {}", ex.toString());
-        } finally {
-            closeAdminResourceResolver(adminResourceResolver);
         }
         return bcp47Lang;
     }
@@ -148,14 +144,12 @@ public class I18nUtil {
 
     public static Map<Locale, Map<String, String>> getLanguageList(SlingScriptHelper sling, Set<Language> languageSet, Page page, LanguageManager languageManager, boolean isShowRoot, PageManager pageManager, I18n i18n) {
         Map<Locale, Map<String, String>> languageToggleMap = new LinkedHashMap<Locale, Map<String, String>>();
-        ResourceResolver adminResourceResolver = openAdminResourceResolver(sling);
-        try {
+        ContentAccess contentAccess = sling.getService(ContentAccess.class);
+        try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
             languageToggleMap = getLanguageList(languageSet, page, adminResourceResolver, languageManager, isShowRoot, pageManager, i18n);
         } catch (Exception ex) {
             LOGGER.error("event-details: " + ex.getMessage(), ex);
             //out.write( Throwables.getStackTraceAsString(ex) );
-        } finally {
-            closeAdminResourceResolver(adminResourceResolver);
         }
         return languageToggleMap;
     }
@@ -267,17 +261,14 @@ public class I18nUtil {
     }
 
     public static String ConvertLocaleToLanguageBcp47(SlingScriptHelper sling, Language language) {
-        ResourceResolver adminResourceResolver = openAdminResourceResolver(sling);
         String returnS = "";
-        try {
+        ContentAccess contentAccess = sling.getService(ContentAccess.class);
+        try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
             returnS = ConvertLocaleToLanguageBcp47(adminResourceResolver, language);
         } catch (Exception ex) {
             LOGGER.error("event-details: " + ex.getMessage(), ex);
             //out.write( Throwables.getStackTraceAsString(ex) );
-        } finally {
-            closeAdminResourceResolver(adminResourceResolver);
         }
-
         return returnS;
     }
 

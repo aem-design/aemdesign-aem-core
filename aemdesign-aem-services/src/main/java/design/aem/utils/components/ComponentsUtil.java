@@ -26,6 +26,7 @@ import com.google.common.base.Throwables;
 import design.aem.components.ComponentField;
 import design.aem.components.ComponentProperties;
 import design.aem.models.GenericModel;
+import design.aem.services.ContentAccess;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.jexl3.*;
 import org.apache.commons.lang3.ArrayUtils;
@@ -1144,8 +1145,8 @@ public class ComponentsUtil {
         final String CLASS_TYPE_JCRNODERESOURCE = "org.apache.sling.jcr.resource.internal.helper.jcr.JcrNodeResource";
         final String CLASS_TYPE_ASSET = "com.adobe.granite.asset.core.impl.AssetImpl";
 
-        ResourceResolver adminResourceResolver = SecurityUtil.openAdminResourceResolver(sling);
-        try {
+        ContentAccess contentAccess = sling.getService(ContentAccess.class);
+        try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
 
             Node currentNode = (javax.jcr.Node) pageContext.get("currentNode");
 
@@ -1461,8 +1462,6 @@ public class ComponentsUtil {
         } catch (Exception ex) {
             LOGGER.error("getComponentProperties: error processing properties: component={}, ex.message={}, ex={}",component.getPath(), ex.getMessage(), ex);
             //out.write( Throwables.getStackTraceAsString(ex) );
-        } finally {
-            SecurityUtil.closeAdminResourceResolver(adminResourceResolver);
         }
 
         return componentProperties;
@@ -1914,10 +1913,8 @@ public class ComponentsUtil {
     public static String getCloudConfigProperty(InheritanceValueMap pageProperties, String configurationName, String propertyName, SlingScriptHelper sling) {
         String returnValue = "";
 
-        //TODO: move this admin session usage into function
-        ResourceResolver adminResourceResolver = SecurityUtil.openAdminResourceResolver(sling);
-
-        try {
+        ContentAccess contentAccess = sling.getService(ContentAccess.class);
+        try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
 
             // Getting attached facebook cloud service config in order to fetch appID
             ConfigurationManager cfgMgr = adminResourceResolver.adaptTo(ConfigurationManager.class);
@@ -1933,8 +1930,6 @@ public class ComponentsUtil {
 
         } catch (Exception ex) {
             LOGGER.error(Throwables.getStackTraceAsString(ex));
-        } finally {
-            SecurityUtil.closeAdminResourceResolver(adminResourceResolver);
         }
 
         return returnValue;

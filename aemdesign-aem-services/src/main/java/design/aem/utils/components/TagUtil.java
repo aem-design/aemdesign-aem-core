@@ -6,6 +6,7 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import design.aem.services.ContentAccess;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
@@ -310,8 +311,9 @@ public class TagUtil {
             return tagValue;
         }
 
-        ResourceResolver adminResourceResolver = SecurityUtil.openAdminResourceResolver(sling);
-        try {
+        ContentAccess contentAccess = sling.getService(ContentAccess.class);
+        try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+
             TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
 
             Tag jcrTag = getTag(tagPath, adminResourceResolver, _adminTagManager);
@@ -333,8 +335,6 @@ public class TagUtil {
         } catch (Exception ex) {
             LOGGER.error("getTagValueAsAdmin: " + ex.getMessage(), ex);
             //out.write( Throwables.getStackTraceAsString(ex) );
-        } finally {
-            SecurityUtil.closeAdminResourceResolver(adminResourceResolver);
         }
 
         return tagValue;
@@ -357,8 +357,9 @@ public class TagUtil {
         }
 
 
-        ResourceResolver adminResourceResolver = SecurityUtil.openAdminResourceResolver(sling);
-        try {
+        ContentAccess contentAccess = sling.getService(ContentAccess.class);
+        try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+
             TagManager tagManager = adminResourceResolver.adaptTo(TagManager.class);
 
             for (String path : tagPaths) {
@@ -403,9 +404,8 @@ public class TagUtil {
 
         } catch (Exception ex) {
             LOGGER.error("getTagValueAsAdmin: " + ex.getMessage(), ex);
-        } finally {
-            SecurityUtil.closeAdminResourceResolver(adminResourceResolver);
         }
+
         return tags;
     }
 
