@@ -108,15 +108,16 @@ public class GenericDetails extends WCMUsePojo {
             //process badge selection
             String componentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
 
+            String requestedBadgeTemplate = format(COMPONENT_BADGE_TEMPLATE_FORMAT, componentBadge);
             if (isEmpty(componentBadge)) {
                 componentProperties.put(COMPONENT_BADGE_SELECTED, false);
                 componentBadge = DEFAULT_BADGE;
+                requestedBadgeTemplate = format(COMPONENT_BADGE_DEFAULT_TEMPLATE_FORMAT, componentBadge);
             } else {
                 componentProperties.put(COMPONENT_BADGE_SELECTED, true);
             }
 
 
-            String requestedBadgeTemplate = format(COMPONENT_BADGE_TEMPLATE_FORMAT, componentBadge);
             String defaultBadgeTemplate = format(COMPONENT_BADGE_DEFAULT_TEMPLATE_FORMAT, DEFAULT_BADGE);
 
 
@@ -158,9 +159,10 @@ public class GenericDetails extends WCMUsePojo {
             if (isEmpty(variant)) {
                 variant = DEFAULT_VARIANT;
             }
+            String variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant);
 
             //compile variantTemplate param
-            componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant));
+            componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
 
             //get page metadata fields
             componentProperties.put(PAGE_META_PROPERTY_FIELDS, processPageMetaProperties(getResourcePage(), getResourceResolver(), getRequest(), componentProperties));

@@ -1445,12 +1445,20 @@ public class ComponentsUtil {
                     if (component != null) {
                         componentResource = adminResourceResolver.resolve(component.getPath());
                         if (!ResourceUtil.isNonExistingResource(componentResource)) {
-                            String variantPath = component.getSuperComponent().getPath().concat("/").concat(variantTemplate);
-                            Resource getBadgeAdminResource = adminResourceResolver.resolve(variantPath);
-                            if (!ResourceUtil.isNonExistingResource(getBadgeAdminResource)) {
-                                LOGGER.error("getComponentProperties: this component does not have requested variant, variantPath={}",
-                                        variantPath);
+
+                            Resource getVariantAdminResource = null;
+                            String variantPath= "";
+                            if (component.getSuperComponent() != null) {
+                                variantPath = component.getSuperComponent().getPath().concat("/").concat(variantTemplate);
+                                getVariantAdminResource = adminResourceResolver.resolve(variantPath);
+                            } else {
+                                variantPath = component.getPath().concat("/").concat(variantTemplate);
+                                getVariantAdminResource = adminResourceResolver.resolve(variantPath);
+                            }
+                            if (!ResourceUtil.isNonExistingResource(getVariantAdminResource)) {
                                 variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, DEFAULT_VARIANT);
+                                LOGGER.error("getComponentProperties: this component does not have requested variant, variantPath={},getVariantAdminResource={},variantTemplate={}",
+                                        variantPath,getVariantAdminResource,variantTemplate);
                             }
                         }
                     }
