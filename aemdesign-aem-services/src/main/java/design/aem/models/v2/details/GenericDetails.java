@@ -4,9 +4,12 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
+import design.aem.services.ContentAccess;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -104,6 +107,7 @@ public class GenericDetails extends WCMUsePojo {
 
             //process badge selection
             String componentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
+
             if (isEmpty(componentBadge)) {
                 componentProperties.put(COMPONENT_BADGE_SELECTED, false);
                 componentBadge = DEFAULT_BADGE;
@@ -111,14 +115,24 @@ public class GenericDetails extends WCMUsePojo {
                 componentProperties.put(COMPONENT_BADGE_SELECTED, true);
             }
 
+
             String requestedBadgeTemplate = format(COMPONENT_BADGE_TEMPLATE_FORMAT, componentBadge);
             String defaultBadgeTemplate = format(COMPONENT_BADGE_DEFAULT_TEMPLATE_FORMAT, DEFAULT_BADGE);
 
 
+            //get admin resolver
+            ContentAccess contentAccess = getSlingScriptHelper().getService(ContentAccess.class);
+            ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver();
+
+            //get badge resource
+            String badgePath = getComponent().getSuperComponent().getPath().concat("/").concat(requestedBadgeTemplate);
+            Resource getBadgeAdminResource = adminResourceResolver.resolve(badgePath);
+
             //check if component has the badge and reset if it does not
-            if (getComponent().getLocalResource(requestedBadgeTemplate) == null) {
+            if (!ResourceUtil.isNonExistingResource(getBadgeAdminResource)) {
                 componentBadge = DEFAULT_BADGE;
                 requestedBadgeTemplate = defaultBadgeTemplate;
+                LOGGER.error("BADGE NOT FOUND badgePath={}",badgePath);
             }
 
             componentProperties.put(COMPONENT_BADGE, componentBadge);
