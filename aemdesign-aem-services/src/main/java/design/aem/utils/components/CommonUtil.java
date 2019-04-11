@@ -1421,10 +1421,29 @@ public class CommonUtil {
      * @param resourceResolver resource resolver for request
      * @param sling sling helper
      * @param mode mode to request resource with
+     * @param requestAttributeName attribute name to set requestAttributes into
+     * @param requestAttributes requestAttributes to set into requestAttributeName
      * @return html string of output
      */
     @SuppressWarnings("unchecked")
     public static String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling, WCMMode mode, String requestAttributeName, ComponentProperties requestAttributes) {
+        return resourceRenderAsHtml(path,resourceResolver,sling,mode,requestAttributeName,requestAttributes,true);
+    }
+
+
+    /***
+     * render a resource path as HTML to include in components that reuse content in other resources
+     * @param path path to resources
+     * @param resourceResolver resource resolver for request
+     * @param sling sling helper
+     * @param mode mode to request resource with
+     * @param requestAttributeName attribute name to set requestAttributes into
+     * @param requestAttributes requestAttributes to set into requestAttributeName
+     * @param appendHTMLExtention append .html to end of path
+     * @return html string of output
+     */
+    @SuppressWarnings("unchecked")
+    public static String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling, WCMMode mode, String requestAttributeName, ComponentProperties requestAttributes, boolean appendHTMLExtention) {
         if (isEmpty(path) || resourceResolver == null || sling == null) {
             String error = format(
                     "resourceRenderAsHtml5: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
@@ -1436,7 +1455,10 @@ public class CommonUtil {
             final RequestResponseFactory _requestResponseFactory = sling.getService(RequestResponseFactory.class);
             final SlingRequestProcessor _requestProcessor = sling.getService(SlingRequestProcessor.class);
 
-            String requestUrl = path.concat(".html");
+            String requestUrl = path;
+            if (appendHTMLExtention) {
+                requestUrl = path.concat(".html");
+            }
 
             final HttpServletRequest _req = _requestResponseFactory.createRequest("GET", requestUrl);
 
