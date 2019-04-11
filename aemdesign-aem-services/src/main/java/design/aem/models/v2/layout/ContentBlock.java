@@ -6,6 +6,7 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.WCMMode;
 import com.day.cq.wcm.api.components.Component;
 import design.aem.components.ComponentProperties;
+import design.aem.services.ContentAccess;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -113,9 +114,15 @@ public class ContentBlock extends WCMUsePojo {
                 if (componentresource.hasChildren()) {
                     Resource firstComponent = componentresource.listChildren().next();
                     if (firstComponent != null) {
-                        componentProperties.put("firstComponentConfig",
-                                getComponentFieldsAndDialogMap(firstComponent,getResourceResolver(),getSlingScriptHelper())
-                        );
+                        ContentAccess contentAccess = getSlingScriptHelper().getService(ContentAccess.class);
+                        try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+                            componentProperties.put("firstComponentConfig",
+                                    getComponentFieldsAndDialogMap(firstComponent,adminResourceResolver,getSlingScriptHelper())
+                            );
+                        } catch (Exception ex) {
+                            LOGGER.error("ContentBlock: error accessing component dialog component.path={}, ex={}", firstComponent.getPath(), ex);
+                        }
+
                     }
                 }
             }
