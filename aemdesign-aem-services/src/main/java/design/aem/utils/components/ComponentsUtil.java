@@ -1437,7 +1437,7 @@ public class ComponentsUtil {
                     variant = DEFAULT_VARIANT;
                 }
 
-                String variantTemplate = getComponentVariantTemplate(component, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant));
+                String variantTemplate = getComponentVariantTemplate(component, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant), sling);
 
 //                LOGGER.error("getComponentProperties: variantTemplate={}",variantTemplate);
 
@@ -1461,7 +1461,7 @@ public class ComponentsUtil {
      * @param variantTemplate variant template
      * @return variant template path
      */
-    public static String getComponentVariantTemplate(Component component, String variantTemplate) {
+    public static String getComponentVariantTemplate(Component component, String variantTemplate, SlingScriptHelper sling) {
         String variantTemplateDefault = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, DEFAULT_VARIANT);
 
 //        LOGGER.error("getComponentVariantTemplate: component={},variantTemplate={},variantTemplateDefault={}",component, variantTemplate,variantTemplateDefault);
@@ -1469,7 +1469,7 @@ public class ComponentsUtil {
         //ensure that variant exist
         if (component != null && isNotEmpty(variantTemplate)) {
 
-            String variantTemplatePath = findLocalResourceInSuperComponent(component, variantTemplate);
+            String variantTemplatePath = findLocalResourceInSuperComponent(component, variantTemplate, sling);
 
             if (isNotBlank(variantTemplatePath)) {
 
@@ -2082,43 +2082,59 @@ public class ComponentsUtil {
      * @param resourceName local resource name
      * @return local resource path found
      */
-    public static String findLocalResourceInSuperComponent(Component component, String resourceName) {
-        String returnLocalResourcePath = "";
-        Component superComponent = component;
+    public static String findLocalResourceInSuperComponent(Component component, String resourceName, SlingScriptHelper sling) {
+
+        Component superComponent = null;
         int count = 0;
         if (component != null) {
 
-            Resource localresource = superComponent.getLocalResource(resourceName);
+            ContentAccess contentAccess = sling.getService(ContentAccess.class);
+            try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
 
-            if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
+                //get component with admin resource resolver
+                String componentPath = component.getPath();
+                Resource comoinentAdminResource =  adminResourceResolver.resolve(componentPath);
+                superComponent = comoinentAdminResource.adaptTo(Component.class);
+
+                Resource localresource = superComponent.getLocalResource(resourceName);
+
+                if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
 //                LOGGER.error("getComponentSuperComponent: [{}] superComponent={}, path={}, localresource={}", count, superComponent, superComponent.getPath(), localresource);
-                return localresource.getPath();
-            }
+                    return localresource.getPath();
+                }
 
-            while (superComponent.getSuperComponent() != null) {
+                while (superComponent.getSuperComponent() != null) {
 
-                superComponent = superComponent.getSuperComponent();
+                    superComponent = superComponent.getSuperComponent();
 
 //                LOGGER.error("getComponentSuperComponent: [{}] superComponent={}", count, superComponent);
 
-                if (superComponent == null) {
-                    return "";
-                }
+                    if (superComponent == null) {
+                        return "";
+                    }
 
-                localresource = superComponent.getLocalResource(resourceName);
+                    localresource = superComponent.getLocalResource(resourceName);
 
 //                LOGGER.error("getComponentSuperComponent: [{}] localresource={}", count, localresource);
 
-                if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
+                    if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
 //                    LOGGER.error("getComponentSuperComponent: [{}] superComponent={}, path={}, localresource={}", count, superComponent, superComponent.getPath(), localresource);
-                    return localresource.getPath();
+                        return localresource.getPath();
+                    }
+                    count++;
                 }
-                count++;
+
+
+            } catch (Exception ex) {
+                LOGGER.error(Throwables.getStackTraceAsString(ex));
             }
+
+
 
         }
         return "";
     }
+
 
 
     /**
@@ -2153,7 +2169,7 @@ public class ComponentsUtil {
 //                        );
 
                         //walk up the tree of resourceSuperType and get base component
-                        String componentDialogPath = findLocalResourceInSuperComponent(componentOfResource,"cq:dialog");
+                        String componentDialogPath = findLocalResourceInSuperComponent(componentOfResource,"cq:dialog", slingScriptHelper);
 
                         String dialogPath = "";
                         Document dialogContent = null;

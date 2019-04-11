@@ -122,7 +122,7 @@ public class GenericDetails extends WCMUsePojo {
             String defaultBadgeTemplate = format(COMPONENT_BADGE_DEFAULT_TEMPLATE_FORMAT, DEFAULT_BADGE);
 
             //get super component if exists
-            String badgePath = findLocalResourceInSuperComponent(getComponent(),requestedBadgeTemplate);
+            String badgePath = findLocalResourceInSuperComponent(getComponent(), requestedBadgeTemplate, getSlingScriptHelper());
 
             //check if component has the badge and reset if it does not
             if (isEmpty(badgePath)) {
