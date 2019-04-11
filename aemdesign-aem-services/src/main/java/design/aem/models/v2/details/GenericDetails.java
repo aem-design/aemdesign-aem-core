@@ -3,6 +3,7 @@ package design.aem.models.v2.details;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.components.Component;
 import design.aem.components.ComponentProperties;
 import design.aem.services.ContentAccess;
 import org.apache.commons.lang3.StringUtils;
@@ -125,12 +126,15 @@ public class GenericDetails extends WCMUsePojo {
             ContentAccess contentAccess = getSlingScriptHelper().getService(ContentAccess.class);
             ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver();
 
+            //get super component if exists
+            Component componentSuperComponent = getComponentSuperComponent(getComponent(),false);
+
             //get badge resource
-            String badgePath = getComponent().getSuperComponent().getPath().concat("/").concat(requestedBadgeTemplate);
+            String badgePath = componentSuperComponent.getPath().concat("/").concat(requestedBadgeTemplate);
             Resource getBadgeAdminResource = adminResourceResolver.resolve(badgePath);
 
             //check if component has the badge and reset if it does not
-            if (!ResourceUtil.isNonExistingResource(getBadgeAdminResource)) {
+            if (ResourceUtil.isNonExistingResource(getBadgeAdminResource)) {
                 componentBadge = DEFAULT_BADGE;
                 requestedBadgeTemplate = defaultBadgeTemplate;
                 LOGGER.error("BADGE NOT FOUND badgePath={}",badgePath);
