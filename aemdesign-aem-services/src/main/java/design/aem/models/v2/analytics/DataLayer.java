@@ -3,23 +3,25 @@ package design.aem.models.v2.analytics;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.replication.ReplicationStatus;
-import com.google.gson.Gson;
+import com.day.cq.wcm.api.components.Component;
+import com.day.cq.wcm.api.components.ComponentManager;
 import design.aem.components.ComponentProperties;
+import design.aem.services.ContentAccess;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 
 import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX;
 import static design.aem.utils.components.CommonUtil.findComponentInPage;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.DateTimeUtil.formatDate;
+import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
@@ -37,62 +39,58 @@ public class DataLayer extends WCMUsePojo {
 
         I18n _i18n = new I18n(getRequest());
 
-        String digitalDataJson = "{\"error\":\"could not load data layer\"}";
-
         componentProperties = ComponentsUtil.getNewComponentProperties(this);
 
-        componentProperties.put("digitalDataJson",digitalDataJson);
+        Component detailsComponent = null;
 
         try {
             String detailsPath = findComponentInPage(getResourcePage(), DEFAULT_LIST_DETAILS_SUFFIX);
             ValueMap detailsProperties = getProperties();
             Resource details = getResourceResolver().getResource(detailsPath);
+
             //get details properties if its found
-            if (details != null && !ResourceUtil.isNonExistingResource(details)) {
+            if (!ResourceUtil.isNonExistingResource(details)) {
                 detailsProperties = details.adaptTo(ValueMap.class);
-                if (detailsProperties == null) {
-                    detailsProperties = getProperties();
-                }
             }
 
-//        String pageName = _currentPage.getPath().substring(1).replace('/', ':');
-//        pageName = pageName.replace("content:", "");
-
-
-            HashMap<String, Object> digitalData = new HashMap<String, Object>();
-            HashMap<String, Object> digitalDataPage = new HashMap<String, Object>();
-            HashMap<String, Object> digitalDataPagePageInfo = new HashMap<String, Object>();
-            ArrayList<String> digitalDataPageEvent = new ArrayList<String>();
-            ArrayList<String> digitalDataPageError = new ArrayList<String>();
-            HashMap<String, Object> digitalDataPageAttributes = new HashMap<String, Object>();
-
-            digitalDataPagePageInfo.put("pageName", detailsProperties.get(DETAILS_ANALYTICS_PAGENAME, ""));
-            digitalDataPagePageInfo.put("pageType", detailsProperties.get(DETAILS_ANALYTICS_PAGETYPE, ""));
-            digitalDataPagePageInfo.put("pagePath", getResourcePage().getPath());
+            componentProperties.put("pageName", detailsProperties.get(DETAILS_ANALYTICS_PAGENAME, ""));
+            componentProperties.put("pageType", detailsProperties.get(DETAILS_ANALYTICS_PAGETYPE, ""));
+            componentProperties.put("pagePath", getResourcePage().getPath());
             if (isNotEmpty(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, ""))) {
-                digitalDataPagePageInfo.put("effectiveDate", formatDate(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, Calendar.getInstance()), "yyyy-MM-dd"));
+                componentProperties.put("effectiveDate", formatDate(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, Calendar.getInstance()), "yyyy-MM-dd"));
             } else {
-                digitalDataPagePageInfo.put("effectiveDate", "");
+                componentProperties.put("effectiveDate", "");
             }
-            digitalDataPagePageInfo.put("contentCountry", getResourcePage().getLanguage(false).getDisplayCountry());
-            digitalDataPagePageInfo.put("contentLanguage", getResourcePage().getLanguage(false).getDisplayLanguage().toLowerCase());
+            componentProperties.put("contentCountry", getResourcePage().getLanguage(false).getDisplayCountry());
+            componentProperties.put("contentLanguage", getResourcePage().getLanguage(false).getDisplayLanguage().toLowerCase());
 
-            digitalDataPageAttributes.put("platform", detailsProperties.get(DETAILS_ANALYTICS_PLATFORM, "aem"));
-            digitalDataPageAttributes.put("abort", detailsProperties.get(DETAILS_ANALYTICS_ABORT, "false"));
-            digitalDataPageAttributes.put("detailsMissing", isEmpty(detailsPath));
+            componentProperties.put("platform", detailsProperties.get(DETAILS_ANALYTICS_PLATFORM, "aem"));
+            componentProperties.put("abort", detailsProperties.get(DETAILS_ANALYTICS_ABORT, "false"));
+            componentProperties.put("detailsMissing", isEmpty(detailsPath));
 
-            digitalDataPage.put("pageInfo", digitalDataPagePageInfo);
-            digitalDataPage.put("attributes", digitalDataPageAttributes);
+            componentProperties.put("pageName", detailsProperties.get(DETAILS_ANALYTICS_PAGENAME, ""));
 
-            digitalData.put("page", digitalDataPage);
-            digitalData.put("event", digitalDataPageEvent);
-            digitalData.put("error", digitalDataPageError);
+            String variant = detailsProperties.get(DETAILS_ANALYTICS_VARIANT, DEFAULT_VARIANT);
+            String variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant);
 
-            Gson gson = new Gson();
+            if (!ResourceUtil.isNonExistingResource(details)) {
 
-            digitalDataJson = gson.toJson(digitalData);
+                ContentAccess contentAccess = getSlingScriptHelper().getService(ContentAccess.class);
+                try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
 
-            componentProperties.put("digitalDataJson",digitalDataJson);
+                    ComponentManager componentManager = getResourceResolver().adaptTo(ComponentManager.class);
+                    Component resourceComponent = componentManager.getComponentOfResource(details);
+
+                    variantTemplate = getComponentVariantTemplate(resourceComponent, variant, adminResourceResolver);
+
+                } catch (Exception ex) {
+                    LOGGER.error("getComponentProperties: error processing properties: component={}, ex.message={}, ex={}", detailsComponent.getPath(), ex.getMessage(), ex);
+                }
+
+            }
+
+            //compile variantTemplate param
+            componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
 
         } catch (Exception ex) {
             LOGGER.error("datalayer: {}", ex);
