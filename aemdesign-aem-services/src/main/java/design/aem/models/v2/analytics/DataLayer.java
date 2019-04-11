@@ -79,7 +79,7 @@ public class DataLayer extends WCMUsePojo {
             componentProperties.put("pageName", detailsProperties.get(DETAILS_ANALYTICS_PAGENAME, ""));
 
             String variant = detailsProperties.get(DETAILS_ANALYTICS_VARIANT, DEFAULT_VARIANT);
-            String variantTemplate = getComponentVariantTemplate(getComponent(), format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant));
+            String variantTemplate = getComponentVariantTemplate(getComponent(), format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant), getSlingScriptHelper());
 
             //compile variantTemplate param
             componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
