@@ -15,8 +15,10 @@ import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.designer.Style;
 import com.day.cq.wcm.foundation.Image;
 import com.day.image.Layer;
+import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
 import design.aem.components.ComponentProperties;
+import design.aem.services.ContentAccess;
 import design.aem.utils.WidthBasedRenditionComparator;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -1170,42 +1172,50 @@ public class ImagesUtil {
      */
     public static ComponentProperties getBackgroundVideoRenditions(Map<String, Object> pageContext) {
         Resource resource = (org.apache.sling.api.resource.Resource) pageContext.get("resource");
-        ResourceResolver resourceResolver = (org.apache.sling.api.resource.ResourceResolver) pageContext.get("resourceResolver");
 
-        Resource backgroundResource = resource.getChild(DEFAULT_BACKGROUND_VIDEO_NODE_NAME);
+        SlingScriptHelper sling = (SlingScriptHelper) pageContext.get("sling");
+        ContentAccess contentAccess = sling.getService(ContentAccess.class);
+        try (ResourceResolver resourceResolver = contentAccess.getAdminResourceResolver()) {
 
-        if (backgroundResource != null) {
+            Resource backgroundResource = resourceResolver.getResource(resource,DEFAULT_BACKGROUND_VIDEO_NODE_NAME);
 
-            ComponentProperties imageProperties = getComponentProperties(
-                    pageContext,
-                    backgroundResource,
-                    false,
-                    DEFAULT_FIELDS_BACKGROUNDVIDEO_OPTIONS);
+            if (backgroundResource != null) {
 
-            String fileReference = imageProperties.get(IMAGE_FILEREFERENCE, "");
+                ComponentProperties imageProperties = getComponentProperties(
+                        pageContext,
+                        backgroundResource,
+                        false,
+                        DEFAULT_FIELDS_BACKGROUNDVIDEO_OPTIONS);
 
-            Resource assetR = resourceResolver.resolve(fileReference);
-            if (!ResourceUtil.isNonExistingResource(assetR)) {
+                String fileReference = imageProperties.get(IMAGE_FILEREFERENCE, "");
 
-                com.adobe.granite.asset.api.AssetManager assetManager = resourceResolver.adaptTo(com.adobe.granite.asset.api.AssetManager.class);
-                com.adobe.granite.asset.api.Asset videoAsset = assetManager.getAsset(fileReference);
+                Resource assetR = resourceResolver.resolve(fileReference);
+                if (!ResourceUtil.isNonExistingResource(assetR)) {
 
-                if (videoAsset != null) {
+                    com.adobe.granite.asset.api.AssetManager assetManager = resourceResolver.adaptTo(com.adobe.granite.asset.api.AssetManager.class);
+                    com.adobe.granite.asset.api.Asset videoAsset = assetManager.getAsset(fileReference);
 
-                    imageProperties.putAll(
-                            getAssetInfo(
-                                    resourceResolver,
-                                    fileReference,
-                                    FIELD_VIDEO_BACKGROUND
-                            )
-                    );
+                    if (videoAsset != null) {
 
-                    imageProperties.put(FIELD_RENDITIONS_VIDEO, getAssetRenditionsVideo(videoAsset));
+                        imageProperties.putAll(
+                                getAssetInfo(
+                                        resourceResolver,
+                                        fileReference,
+                                        FIELD_VIDEO_BACKGROUND
+                                )
+                        );
+
+                        imageProperties.put(FIELD_RENDITIONS_VIDEO, getAssetRenditionsVideo(videoAsset));
+                    }
                 }
-            }
 
-            return imageProperties;
+                return imageProperties;
+            }
+        } catch (Exception ex) {
+            LOGGER.error(Throwables.getStackTraceAsString(ex));
         }
+
+
         return null;
     }
 
@@ -1305,121 +1315,127 @@ public class ImagesUtil {
      */
     @SuppressWarnings("Duplicates")
     public static ComponentProperties getResourceImageRenditions(Map<String, Object> pageContext, Resource imageResource, String returnRenditionsListName, String returnLastRenditionName) {
-        ResourceResolver resourceResolver = (org.apache.sling.api.resource.ResourceResolver) pageContext.get("resourceResolver");
-        org.apache.sling.api.scripting.SlingScriptHelper sling = (org.apache.sling.api.scripting.SlingScriptHelper) pageContext.get("sling");
 
-        if (isEmpty(returnRenditionsListName)) {
-            returnRenditionsListName = "images";
-        }
+        SlingScriptHelper sling = (SlingScriptHelper) pageContext.get("sling");
+        ContentAccess contentAccess = sling.getService(ContentAccess.class);
+        try (ResourceResolver resourceResolver = contentAccess.getAdminResourceResolver()) {
 
-        if (imageResource != null) {
-
-            ComponentProperties imageProperties = getComponentProperties(
-                    pageContext,
-                    imageResource,
-                    false,
-                    DEFAULT_FIELDS_IMAGE_OPTIONS);
-
-            String fileReference = imageProperties.get(IMAGE_FILEREFERENCE, "");
-
-            Resource assetR = resourceResolver.resolve(fileReference);
-            if (!ResourceUtil.isNonExistingResource(assetR)) {
-
-                com.adobe.granite.asset.api.AssetManager assetManager = resourceResolver.adaptTo(com.adobe.granite.asset.api.AssetManager.class);
-                com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(fileReference);
-
-                if (asset != null) {
-
-                    try {
-
-                        String imageOption = imageProperties.get(FIELD_IMAGE_OPTION, "");
-                        //imageProperties.put(COMPONENT_BACKGROUND_ASSETS + "Options", imageOption);
-
-//                        //disable adaptive image option, as it don't work as expected
-//                        if (imageOption.equals("adaptive")) {
-//                            imageOption = IMAGE_OPTION_RESPONSIVE;
-//                        }
-//
-//                        //disable generated image option, as it don't work as expected
-//                        if (imageOption.equals("generated")) {
-//                            imageOption = IMAGE_OPTION_RENDITION;
-//                        }
-
-
-                        Map<String, String> responsiveImageSet = new LinkedHashMap<String, String>();
-
-                        switch (imageOption) {
-                            case IMAGE_OPTION_GENERATED:
-                                String imageHref = "";
-                                Long lastModified = getLastModified(imageResource);
-                                imageHref = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, imageResource.getPath(), lastModified.toString());
-
-                                //imageProperties.put(COMPONENT_BACKGROUND_ASSETS, imageHref);
-                                responsiveImageSet.put("", imageHref);
-                                break;
-                            case IMAGE_OPTION_RENDITION:
-                                int targetWidth = imageProperties.get(ImageResource.PN_WIDTH, 0);
-                                com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(targetWidth, asset);
-                                if (bestRendition != null) {
-                                    //imageProperties.put(COMPONENT_BACKGROUND_ASSETS, bestRendition.getPath());
-                                    responsiveImageSet.put("", bestRendition.getPath());
-                                }
-                                break;
-                            case IMAGE_OPTION_ADAPTIVE:
-                                String[] adaptiveImageMapping = imageProperties.get(FIELD_ADAPTIVE_MAP, new String[]{});
-
-                                responsiveImageSet = getAdaptiveImageSet(adaptiveImageMapping, resourceResolver, imageResource.getPath(), fileReference, null, false, sling);
-
-                                break;
-                            case IMAGE_OPTION_MEDIAQUERYRENDITION:
-                                //map of media queries to renditions
-                                String[] mediaQueryList = imageProperties.get(FIELD_MEDIAQUERYRENDITION_KEY, new String[]{});
-                                String[] renditionList = imageProperties.get(FIELD_MEDIAQUERYRENDITION_VALUE, new String[]{});
-
-                                if (mediaQueryList.length != renditionList.length) {
-                                    LOGGER.error(MessageFormat.format("fields {0} and {1} need to be equal length", FIELD_MEDIAQUERYRENDITION_KEY, FIELD_MEDIAQUERYRENDITION_VALUE));
-                                    break;
-                                }
-
-                                for (int i = 0; i < mediaQueryList.length; i++) {
-                                    responsiveImageSet.put(mediaQueryList[i], fileReference + FIELD_ASSET_RENDITION_PATH_SUFFIX + renditionList[i]);
-                                }
-
-                                break;
-                            default: //IMAGE_OPTION_RESPONSIVE
-                                String[] renditionImageMapping = imageProperties.get(FIELD_RESPONSIVE_MAP, new String[]{});
-
-                                // Check if the image suffix is '.svg' or '.gif', if it is skip any rendition checks and simply return
-                                // the path to it as no scaling or modifications should be applied.
-                                if (fileReference.endsWith(".svg") || fileReference.endsWith(".gif")) {
-                                    imageProperties.put(returnLastRenditionName, fileReference);
-                                    imageProperties.put(FIELD_IMAGE_OPTION, "simple");
-                                } else {
-                                    //get rendition profile prefix selected
-                                    String renditionPrefix = imageProperties.get(FIELD_RENDITION_PREFIX, "");
-
-                                    //get best fit renditions set
-                                    responsiveImageSet = getBestFitMediaQueryRenditionSet(asset, renditionImageMapping, renditionPrefix);
-
-                                }
-                        }
-
-                        imageProperties.put(returnRenditionsListName, responsiveImageSet);
-
-                        //pick last one from collection
-                        if (responsiveImageSet.values().size() > 0) {
-                            imageProperties.put(returnLastRenditionName, responsiveImageSet.values()
-                                    .toArray()[responsiveImageSet.values().size() - 1]);
-                        }
-
-                    } catch (Exception ex) {
-                        LOGGER.error("failed to create Width and Image Mapping : " + ex.getMessage(), ex);
-                    }
-
-                }
+            if (isEmpty(returnRenditionsListName)) {
+                returnRenditionsListName = "images";
             }
 
-            return imageProperties;
+            if (imageResource != null) {
+
+                ComponentProperties imageProperties = getComponentProperties(
+                        pageContext,
+                        imageResource,
+                        false,
+                        DEFAULT_FIELDS_IMAGE_OPTIONS);
+
+                String fileReference = imageProperties.get(IMAGE_FILEREFERENCE, "");
+
+                Resource assetR = resourceResolver.resolve(fileReference);
+                if (!ResourceUtil.isNonExistingResource(assetR)) {
+
+                    com.adobe.granite.asset.api.AssetManager assetManager = resourceResolver.adaptTo(com.adobe.granite.asset.api.AssetManager.class);
+                    com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(fileReference);
+
+                    if (asset != null) {
+
+                        try {
+
+                            String imageOption = imageProperties.get(FIELD_IMAGE_OPTION, "");
+                            //imageProperties.put(COMPONENT_BACKGROUND_ASSETS + "Options", imageOption);
+
+    //                        //disable adaptive image option, as it don't work as expected
+    //                        if (imageOption.equals("adaptive")) {
+    //                            imageOption = IMAGE_OPTION_RESPONSIVE;
+    //                        }
+    //
+    //                        //disable generated image option, as it don't work as expected
+    //                        if (imageOption.equals("generated")) {
+    //                            imageOption = IMAGE_OPTION_RENDITION;
+    //                        }
+
+
+                            Map<String, String> responsiveImageSet = new LinkedHashMap<String, String>();
+
+                            switch (imageOption) {
+                                case IMAGE_OPTION_GENERATED:
+                                    String imageHref = "";
+                                    Long lastModified = getLastModified(imageResource);
+                                    imageHref = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, imageResource.getPath(), lastModified.toString());
+
+                                    //imageProperties.put(COMPONENT_BACKGROUND_ASSETS, imageHref);
+                                    responsiveImageSet.put("", imageHref);
+                                    break;
+                                case IMAGE_OPTION_RENDITION:
+                                    int targetWidth = imageProperties.get(ImageResource.PN_WIDTH, 0);
+                                    com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(targetWidth, asset);
+                                    if (bestRendition != null) {
+                                        //imageProperties.put(COMPONENT_BACKGROUND_ASSETS, bestRendition.getPath());
+                                        responsiveImageSet.put("", bestRendition.getPath());
+                                    }
+                                    break;
+                                case IMAGE_OPTION_ADAPTIVE:
+                                    String[] adaptiveImageMapping = imageProperties.get(FIELD_ADAPTIVE_MAP, new String[]{});
+
+                                    responsiveImageSet = getAdaptiveImageSet(adaptiveImageMapping, resourceResolver, imageResource.getPath(), fileReference, null, false, sling);
+
+                                    break;
+                                case IMAGE_OPTION_MEDIAQUERYRENDITION:
+                                    //map of media queries to renditions
+                                    String[] mediaQueryList = imageProperties.get(FIELD_MEDIAQUERYRENDITION_KEY, new String[]{});
+                                    String[] renditionList = imageProperties.get(FIELD_MEDIAQUERYRENDITION_VALUE, new String[]{});
+
+                                    if (mediaQueryList.length != renditionList.length) {
+                                        LOGGER.error(MessageFormat.format("fields {0} and {1} need to be equal length", FIELD_MEDIAQUERYRENDITION_KEY, FIELD_MEDIAQUERYRENDITION_VALUE));
+                                        break;
+                                    }
+
+                                    for (int i = 0; i < mediaQueryList.length; i++) {
+                                        responsiveImageSet.put(mediaQueryList[i], fileReference + FIELD_ASSET_RENDITION_PATH_SUFFIX + renditionList[i]);
+                                    }
+
+                                    break;
+                                default: //IMAGE_OPTION_RESPONSIVE
+                                    String[] renditionImageMapping = imageProperties.get(FIELD_RESPONSIVE_MAP, new String[]{});
+
+                                    // Check if the image suffix is '.svg' or '.gif', if it is skip any rendition checks and simply return
+                                    // the path to it as no scaling or modifications should be applied.
+                                    if (fileReference.endsWith(".svg") || fileReference.endsWith(".gif")) {
+                                        imageProperties.put(returnLastRenditionName, fileReference);
+                                        imageProperties.put(FIELD_IMAGE_OPTION, "simple");
+                                    } else {
+                                        //get rendition profile prefix selected
+                                        String renditionPrefix = imageProperties.get(FIELD_RENDITION_PREFIX, "");
+
+                                        //get best fit renditions set
+                                        responsiveImageSet = getBestFitMediaQueryRenditionSet(asset, renditionImageMapping, renditionPrefix);
+
+                                    }
+                            }
+
+                            imageProperties.put(returnRenditionsListName, responsiveImageSet);
+
+                            //pick last one from collection
+                            if (responsiveImageSet.values().size() > 0) {
+                                imageProperties.put(returnLastRenditionName, responsiveImageSet.values()
+                                        .toArray()[responsiveImageSet.values().size() - 1]);
+                            }
+
+                        } catch (Exception ex) {
+                            LOGGER.error("failed to create Width and Image Mapping : " + ex.getMessage(), ex);
+                        }
+
+                    }
+                }
+
+                return imageProperties;
+            }
+
+        } catch (Exception ex) {
+            LOGGER.error(Throwables.getStackTraceAsString(ex));
         }
         return null;
     }
