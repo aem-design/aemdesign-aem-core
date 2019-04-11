@@ -23,6 +23,7 @@ import com.day.cq.wcm.webservicesupport.Configuration;
 import com.day.cq.wcm.webservicesupport.ConfigurationConstants;
 import com.day.cq.wcm.webservicesupport.ConfigurationManager;
 import com.google.common.base.Throwables;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import design.aem.components.ComponentField;
 import design.aem.components.ComponentProperties;
 import design.aem.models.GenericModel;
@@ -159,6 +160,7 @@ public class ComponentsUtil {
     public static final String DETAILS_ANALYTICS_PAGETYPE = "analyticsPageType";
     public static final String DETAILS_ANALYTICS_PLATFORM = "analyticsPlatform";
     public static final String DETAILS_ANALYTICS_ABORT = "analyticsAbort";
+    public static final String DETAILS_ANALYTICS_VARIANT = "analyticsVariant";
     public static final String DETAILS_DATA_ANALYTICS_TRACK = "data-layer-track";
     public static final String DETAILS_DATA_ANALYTICS_LOCATION = "data-layer-location";
     public static final String DETAILS_DATA_ANALYTICS_LABEL = "data-layer-label";
@@ -467,7 +469,7 @@ public class ComponentsUtil {
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
     public static final Object[][] DEFAULT_FIELDS_ANALYTICS = {
-            {DETAILS_ANALYTICS_TRACK, true, DETAILS_DATA_ANALYTICS_TRACK}, //basic
+            {DETAILS_ANALYTICS_TRACK, false, DETAILS_DATA_ANALYTICS_TRACK}, //basic
             {DETAILS_ANALYTICS_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LOCATION}, //basic
             {DETAILS_ANALYTICS_LABEL, "${ value ? value : label }", DETAILS_DATA_ANALYTICS_LABEL}, //basic
             {"analyticsEventType", StringUtils.EMPTY, "data-analytics-event"}, //advanced
@@ -1437,33 +1439,8 @@ public class ComponentsUtil {
                     variant = DEFAULT_VARIANT;
                 }
 
-                String variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant);
+                String variantTemplate = getComponentVariantTemplate(component, variant, adminResourceResolver);
 
-                //ensure that variant exist
-                if (component != null) {
-                    Resource componentResource = null;
-                    if (component != null) {
-                        componentResource = adminResourceResolver.resolve(component.getPath());
-                        if (!ResourceUtil.isNonExistingResource(componentResource)) {
-
-                            Resource getVariantAdminResource = null;
-                            String variantPath= "";
-                            if (component.getSuperComponent() != null) {
-                                variantPath = component.getSuperComponent().getPath().concat("/").concat(variantTemplate);
-                                getVariantAdminResource = adminResourceResolver.resolve(variantPath);
-                            } else {
-                                variantPath = component.getPath().concat("/").concat(variantTemplate);
-                                getVariantAdminResource = adminResourceResolver.resolve(variantPath);
-                            }
-                            if (!ResourceUtil.isNonExistingResource(getVariantAdminResource)) {
-                                variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, DEFAULT_VARIANT);
-                                LOGGER.error("getComponentProperties: this component does not have requested variant, variantPath={},getVariantAdminResource={},variantTemplate={}",
-                                        variantPath,getVariantAdminResource,variantTemplate);
-                            }
-                        }
-                    }
-
-                }
                 if (addMoreAttributes) {
                     //compile variantTemplate param
                     componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
@@ -1476,6 +1453,40 @@ public class ComponentsUtil {
         }
 
         return componentProperties;
+    }
+
+    /**
+     * return variant template name from component or return default
+     * @param component component to check for variant template
+     * @param adminResourceResolver resource resolver with admin permissions
+     * @return variant template path
+     */
+    public static String getComponentVariantTemplate(Component component, String variantName, ResourceResolver adminResourceResolver) {
+        String variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variantName);
+
+        //ensure that variant exist
+        if (component != null) {
+            Resource componentResource = adminResourceResolver.resolve(component.getPath());
+            if (!ResourceUtil.isNonExistingResource(componentResource)) {
+
+                Resource getVariantAdminResource = null;
+                String variantPath= "";
+                if (component.getSuperComponent() != null) {
+                    variantPath = component.getSuperComponent().getPath().concat("/").concat(variantTemplate);
+                    getVariantAdminResource = adminResourceResolver.resolve(variantPath);
+                } else {
+                    variantPath = component.getPath().concat("/").concat(variantTemplate);
+                    getVariantAdminResource = adminResourceResolver.resolve(variantPath);
+                }
+                if (!ResourceUtil.isNonExistingResource(getVariantAdminResource)) {
+                    variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, DEFAULT_VARIANT);
+                    LOGGER.error("getComponentVariantTemplate: this component does not have requested variant, variantPath={},getVariantAdminResource={},variantTemplate={}",
+                            variantPath,getVariantAdminResource,variantTemplate);
+                }
+            }
+        }
+
+        return variantTemplate;
     }
 
     /***
@@ -2068,103 +2079,191 @@ public class ComponentsUtil {
         return componentInPagePath;
     }
 
+    /**
+     * find base component by walking up to base resource super type
+     * @param component component to check
+     * @param returnFirst return first found
+     * @return base component
+     */
+    public static Component getComponentSuperComponent(Component component, boolean returnFirst) {
+        Component superComponent = null;
+        if (component!= null) {
+
+            superComponent = component.getSuperComponent();
+
+            if (returnFirst) {
+                LOGGER.error("getComponentSuperComponent: superComponent={}, path={}, dialog={}", superComponent, superComponent.getPath(), superComponent.getDialogPath());
+                return superComponent;
+            }
+
+            while (superComponent.getSuperComponent() != null) {
+
+                superComponent = superComponent.getSuperComponent();
+
+                LOGGER.error("getComponentSuperComponent: superComponent={}, path={}, dialog={}", superComponent, superComponent.getPath(), superComponent.getDialogPath());
+
+            }
+
+        }
+        return superComponent;
+    }
+
+    /**
+     * find base component by walking up to base resource super type
+     * @param component component to check
+     * @param returnFirst return first found
+     * @return base component
+     */
+    public static Component getComponentSuperComponentWithDialog(Component component, boolean returnFirst) {
+        Component superComponent = null;
+        if (component!= null) {
+
+            superComponent = component.getSuperComponent();
+
+            if (returnFirst && isNotEmpty(superComponent.getDialogPath())) {
+                LOGGER.error("getComponentSuperComponent: superComponent={}, path={}, dialog={}", superComponent, superComponent.getPath(), superComponent.getDialogPath());
+                return superComponent;
+            }
+
+            while (superComponent.getSuperComponent() != null && isNotEmpty(superComponent.getDialogPath())) {
+
+                superComponent = superComponent.getSuperComponent();
+
+                LOGGER.error("getComponentSuperComponent: superComponent={}, path={}, dialog={}", superComponent, superComponent.getPath(), superComponent.getDialogPath());
+
+            }
+
+        }
+        return superComponent;
+    }
+
 
     /**
      * create a map of component fields matched to Dialog Title and Description
      * @param componentResource
-     * @param resourceResolver
+     * @param adminResourceResolver
      * @param slingScriptHelper
      * @return
      */
-    public static Map<String, Object> getComponentFieldsAndDialogMap(Resource componentResource , ResourceResolver resourceResolver, SlingScriptHelper slingScriptHelper) {
+    public static Map<String, Object> getComponentFieldsAndDialogMap(Resource componentResource , ResourceResolver adminResourceResolver, SlingScriptHelper slingScriptHelper) {
         Map<String, Object> firstComponentConfig = new HashMap<>();
 
-        ValueMap firstComponentMap = componentResource.adaptTo(ValueMap.class);
-        if (firstComponentMap != null) {
+        if (!ResourceUtil.isNonExistingResource(componentResource)) {
+
+            ValueMap firstComponentMap = componentResource.adaptTo(ValueMap.class);
+            if (firstComponentMap != null) {
+
+                try {
+                    ComponentManager componentManager = adminResourceResolver.adaptTo(ComponentManager.class);
+                    Component componentOfResource = componentManager.getComponentOfResource(componentResource);
+
+                    if (componentOfResource != null) {
+                        ValueMap componentOfResourceValueMap = componentOfResource.getProperties();
+                        String componentPath = componentOfResource.getPath();
+                        Resource componentOfResourceRS = adminResourceResolver.resolve(componentPath);
+
+//                        LOGGER.error("getComponentFieldsAndDialogMap: componentOfResource={}, componentPath={}, super1={}, super2={}, super3={}, super4={}", componentOfResource, componentPath, componentOfResourceValueMap.get("sling:resourceSuperType"),adminResourceResolver.getParentResourceType(componentOfResource.getPath()),ResourceUtil.findResourceSuperType(componentResource),componentOfResourceRS);
 
 
-            Resource firstComponentR = resourceResolver.getResource(componentResource.getResourceType());
+                        //get dialog with value from resource: /<app component path>/cq:dialog/content.html/<resource path to pull values>
+                        String dialogPath = componentOfResource.getPath() + "/cq:dialog/content.html" + componentResource.getPath();
 
-            if (firstComponentR != null) {
-                Component firstComponentComp = firstComponentR.adaptTo(Component.class);
-                Component firstComponentCompSuper = firstComponentComp.getSuperComponent();
+//                        LOGGER.error("getComponentFieldsAndDialogMap: dialogPath={}", dialogPath);
 
-                if (firstComponentComp != null) {
-                    String dialogPath = firstComponentComp.getPath() + "/cq:dialog/content.html/" + componentResource.toString();
-                    if (firstComponentCompSuper != null) {
-                        dialogPath = firstComponentCompSuper.getPath() + "/cq:dialog/content.html/" + componentResource.toString();
-                    }
+                        //test if component has super component
+                        Component componentOfResourceSuper = getComponentSuperComponent(componentOfResource,false);
 
-                    String dialogHTML = resourceRenderAsHtml(
-                            dialogPath,
-                            resourceResolver,
-                            slingScriptHelper,
-                            WCMMode.DISABLED,
-                            null,
-                            null);
-
-                    Document dialogContent = Jsoup.parse(dialogHTML);
-
-                    for (Map.Entry<String, Object> field : firstComponentMap.entrySet()) {
-
-                        String name = field.getKey();
-                        Object value = field.getValue();
-
-                        Map<String, Object> row = new HashMap<>();
-                        row.put("value", value);
-                        row.put("fieldDescription", "");
-                        row.put("fieldLabel", "");
-                        row.put("type", "");
-
-                        if (isNotEmpty(dialogPath)) {
-                            String fieldSelection = "[name='./" + name + "']";
-
-
-
-                            Element htmlSection = dialogContent.selectFirst(".coral-Form-fieldwrapper:has("+fieldSelection+")");
-
-                            Element fieldElement = dialogContent.selectFirst(fieldSelection);
-
-                            if (fieldElement != null) {
-                                Object[] classNames = fieldElement.classNames().toArray();
-                                if (classNames.length > 0 ) {
-                                    row.put("type", classNames[classNames.length - 1]);
-                                } else {
-                                    row.put("type", fieldElement.tagName());
-                                }
-                            }
-
-                            if (htmlSection != null) {
-
-                                Element fieldLabel = htmlSection.selectFirst(".coral-Form-fieldlabel");
-                                Element fieldDescription = htmlSection.selectFirst(".coral-Form-fieldinfo");
-                                Element fieldTooltip = htmlSection.selectFirst("coral-tooltip-content");
-
-                                if (fieldLabel != null) {
-                                    String fieldLabelText = fieldLabel.text();
-                                    row.put("fieldLabel", fieldLabelText);
-                                }
-
-                                String fieldDescriptionString = "";
-
-                                if (fieldDescription != null) {
-                                    fieldDescriptionString = fieldDescription.attr("data-quicktip-content");
-                                }
-                                if (fieldTooltip != null) {
-                                    fieldDescriptionString = fieldTooltip.text();
-                                }
-
-                                row.put("fieldDescription", fieldDescriptionString);
-
-
-                            }
-
+//                        LOGGER.error("getComponentFieldsAndDialogMap: firstComponentCompSuper={}, path={}", componentOfResourceSuper, componentOfResourceSuper.getPath());
+                        if (componentOfResourceSuper != null) {
+                            //get dialog with value from resource: /<app component path>/cq:dialog/content.html/<resource path to pull values>
+                            dialogPath = componentOfResourceSuper.getPath() + "/cq:dialog/content.html" + componentResource.getPath();
                         }
 
-                        firstComponentConfig.put(name, row);
+//                        LOGGER.error("getComponentFieldsAndDialogMap: dialogPath={}", dialogPath);
+
+                        String dialogHTML = resourceRenderAsHtml(
+                                dialogPath,
+                                adminResourceResolver,
+                                slingScriptHelper,
+                                WCMMode.DISABLED,
+                                null,
+                                null,
+                                false);
+
+                        Document dialogContent = Jsoup.parse(dialogHTML);
+
+//                        LOGGER.error("getComponentFieldsAndDialogMap: dialogHTML={},dialogContent={}", dialogHTML, dialogContent);
+
+
+                        for (Map.Entry<String, Object> field : firstComponentMap.entrySet()) {
+
+                            String name = field.getKey();
+                            Object value = field.getValue();
+
+                            Map<String, Object> row = new HashMap<>();
+                            row.put("value", value);
+                            row.put("fieldDescription", "");
+                            row.put("fieldLabel", "");
+                            row.put("type", "");
+
+                            if (isNotEmpty(dialogPath)) {
+                                String fieldSelection = "[name='./" + name + "']";
+
+
+                                Element htmlSection = dialogContent.selectFirst(".coral-Form-fieldwrapper:has(" + fieldSelection + ")");
+
+                                Element fieldElement = dialogContent.selectFirst(fieldSelection);
+
+                                if (fieldElement != null) {
+                                    Object[] classNames = fieldElement.classNames().toArray();
+                                    if (classNames.length > 0) {
+                                        row.put("type", classNames[classNames.length - 1]);
+                                    } else {
+                                        row.put("type", fieldElement.tagName());
+                                    }
+                                }
+
+                                if (htmlSection != null) {
+
+                                    Element fieldLabel = htmlSection.selectFirst(".coral-Form-fieldlabel");
+                                    Element fieldDescription = htmlSection.selectFirst(".coral-Form-fieldinfo");
+                                    Element fieldTooltip = htmlSection.selectFirst("coral-tooltip-content");
+
+                                    if (fieldLabel != null) {
+                                        String fieldLabelText = fieldLabel.text();
+                                        row.put("fieldLabel", fieldLabelText);
+                                    }
+
+                                    String fieldDescriptionString = "";
+
+                                    if (fieldDescription != null) {
+                                        fieldDescriptionString = fieldDescription.attr("data-quicktip-content");
+                                    }
+                                    if (fieldTooltip != null) {
+                                        fieldDescriptionString = fieldTooltip.text();
+                                    }
+
+                                    row.put("fieldDescription", fieldDescriptionString);
+
+
+                                }
+
+                            }
+
+                            firstComponentConfig.put(name, row);
+                        }
+
+                    } else {
+                        LOGGER.error("getComponentFieldsAndDialogMap: could not get component from resource - path={}",componentResource.getPath());
                     }
+                } catch (Exception ex) {
+                    LOGGER.error("getComponentFieldsAndDialogMap: ex={}",ex);
                 }
+            } else {
+                LOGGER.error("getComponentFieldsAndDialogMap: could not get component values - path={}",componentResource.getPath());
             }
+        } else {
+            LOGGER.error("getComponentFieldsAndDialogMap: could not find component for resource - path={}",componentResource.getPath());
         }
 
         return firstComponentConfig;
