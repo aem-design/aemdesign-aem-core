@@ -62,11 +62,9 @@ import java.util.regex.Pattern;
 
 import static design.aem.utils.components.CommonUtil.isNull;
 import static design.aem.utils.components.CommonUtil.resourceRenderAsHtml;
-import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE;
-import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE_NAV;
+import static design.aem.utils.components.ConstantsUtil.*;
 import static java.text.MessageFormat.format;
-import static org.apache.commons.lang3.StringUtils.isEmpty;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static org.apache.commons.lang3.StringUtils.*;
 
 public class ComponentsUtil {
 
@@ -1439,7 +1437,9 @@ public class ComponentsUtil {
                     variant = DEFAULT_VARIANT;
                 }
 
-                String variantTemplate = getComponentVariantTemplate(component, variant, adminResourceResolver);
+                String variantTemplate = getComponentVariantTemplate(component, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant));
+
+//                LOGGER.error("getComponentProperties: variantTemplate={}",variantTemplate);
 
                 if (addMoreAttributes) {
                     //compile variantTemplate param
@@ -1458,36 +1458,33 @@ public class ComponentsUtil {
     /**
      * return variant template name from component or return default
      * @param component component to check for variant template
-     * @param adminResourceResolver resource resolver with admin permissions
+     * @param variantTemplate variant template
      * @return variant template path
      */
-    public static String getComponentVariantTemplate(Component component, String variantName, ResourceResolver adminResourceResolver) {
-        String variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variantName);
+    public static String getComponentVariantTemplate(Component component, String variantTemplate) {
+        String variantTemplateDefault = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, DEFAULT_VARIANT);
+
+//        LOGGER.error("getComponentVariantTemplate: component={},variantTemplate={},variantTemplateDefault={}",component, variantTemplate,variantTemplateDefault);
 
         //ensure that variant exist
-        if (component != null) {
-            Resource componentResource = adminResourceResolver.resolve(component.getPath());
-            if (!ResourceUtil.isNonExistingResource(componentResource)) {
+        if (component != null && isNotEmpty(variantTemplate)) {
 
-                Resource getVariantAdminResource = null;
-                String variantPath= "";
-                if (component.getSuperComponent() != null) {
-                    variantPath = component.getSuperComponent().getPath().concat("/").concat(variantTemplate);
-                    getVariantAdminResource = adminResourceResolver.resolve(variantPath);
-                } else {
-                    variantPath = component.getPath().concat("/").concat(variantTemplate);
-                    getVariantAdminResource = adminResourceResolver.resolve(variantPath);
-                }
-                if (!ResourceUtil.isNonExistingResource(getVariantAdminResource)) {
-                    variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, DEFAULT_VARIANT);
-                    LOGGER.error("getComponentVariantTemplate: this component does not have requested variant, variantPath={},getVariantAdminResource={},variantTemplate={}",
-                            variantPath,getVariantAdminResource,variantTemplate);
-                }
+            String variantTemplatePath = findLocalResourceInSuperComponent(component, variantTemplate);
+
+            if (isNotBlank(variantTemplatePath)) {
+
+//                LOGGER.error("getComponentVariantTemplate: returning found variantTemplatePath={}",variantTemplatePath);
+
+                return variantTemplatePath;
             }
+
         }
 
-        return variantTemplate;
+//        LOGGER.error("getComponentVariantTemplate: returning default variantTemplateDefault={}",variantTemplateDefault);
+
+        return variantTemplateDefault;
     }
+
 
     /***
      * build attributes from attributes data without encoding.
@@ -2080,61 +2077,47 @@ public class ComponentsUtil {
     }
 
     /**
-     * find base component by walking up to base resource super type
+     * find local resource in component and its super components
      * @param component component to check
-     * @param returnFirst return first found
-     * @return base component
+     * @param resourceName local resource name
+     * @return local resource path found
      */
-    public static Component getComponentSuperComponent(Component component, boolean returnFirst) {
-        Component superComponent = null;
-        if (component!= null) {
+    public static String findLocalResourceInSuperComponent(Component component, String resourceName) {
+        String returnLocalResourcePath = "";
+        Component superComponent = component;
+        int count = 0;
+        if (component != null) {
 
-            superComponent = component.getSuperComponent();
+            Resource localresource = superComponent.getLocalResource(resourceName);
 
-            if (returnFirst) {
-                LOGGER.error("getComponentSuperComponent: superComponent={}, path={}, dialog={}", superComponent, superComponent.getPath(), superComponent.getDialogPath());
-                return superComponent;
+            if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
+//                LOGGER.error("getComponentSuperComponent: [{}] superComponent={}, path={}, localresource={}", count, superComponent, superComponent.getPath(), localresource);
+                return localresource.getPath();
             }
 
             while (superComponent.getSuperComponent() != null) {
 
                 superComponent = superComponent.getSuperComponent();
 
-                LOGGER.error("getComponentSuperComponent: superComponent={}, path={}, dialog={}", superComponent, superComponent.getPath(), superComponent.getDialogPath());
+//                LOGGER.error("getComponentSuperComponent: [{}] superComponent={}", count, superComponent);
 
+                if (superComponent == null) {
+                    return "";
+                }
+
+                localresource = superComponent.getLocalResource(resourceName);
+
+//                LOGGER.error("getComponentSuperComponent: [{}] localresource={}", count, localresource);
+
+                if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
+//                    LOGGER.error("getComponentSuperComponent: [{}] superComponent={}, path={}, localresource={}", count, superComponent, superComponent.getPath(), localresource);
+                    return localresource.getPath();
+                }
+                count++;
             }
 
         }
-        return superComponent;
-    }
-
-    /**
-     * find base component by walking up to base resource super type
-     * @param component component to check
-     * @param returnFirst return first found
-     * @return base component
-     */
-    public static Component getComponentSuperComponentWithDialog(Component component, boolean returnFirst) {
-        Component superComponent = null;
-        if (component!= null) {
-
-            superComponent = component.getSuperComponent();
-
-            if (returnFirst && isNotEmpty(superComponent.getDialogPath())) {
-                LOGGER.error("getComponentSuperComponent: superComponent={}, path={}, dialog={}", superComponent, superComponent.getPath(), superComponent.getDialogPath());
-                return superComponent;
-            }
-
-            while (superComponent.getSuperComponent() != null && isNotEmpty(superComponent.getDialogPath())) {
-
-                superComponent = superComponent.getSuperComponent();
-
-                LOGGER.error("getComponentSuperComponent: superComponent={}, path={}, dialog={}", superComponent, superComponent.getPath(), superComponent.getDialogPath());
-
-            }
-
-        }
-        return superComponent;
+        return "";
     }
 
 
@@ -2150,8 +2133,8 @@ public class ComponentsUtil {
 
         if (!ResourceUtil.isNonExistingResource(componentResource)) {
 
-            ValueMap firstComponentMap = componentResource.adaptTo(ValueMap.class);
-            if (firstComponentMap != null) {
+            ValueMap componentResourceMap = componentResource.adaptTo(ValueMap.class);
+            if (componentResourceMap != null) {
 
                 try {
                     ComponentManager componentManager = adminResourceResolver.adaptTo(ComponentManager.class);
@@ -2162,40 +2145,41 @@ public class ComponentsUtil {
                         String componentPath = componentOfResource.getPath();
                         Resource componentOfResourceRS = adminResourceResolver.resolve(componentPath);
 
-//                        LOGGER.error("getComponentFieldsAndDialogMap: componentOfResource={}, componentPath={}, super1={}, super2={}, super3={}, super4={}", componentOfResource, componentPath, componentOfResourceValueMap.get("sling:resourceSuperType"),adminResourceResolver.getParentResourceType(componentOfResource.getPath()),ResourceUtil.findResourceSuperType(componentResource),componentOfResourceRS);
+//                        LOGGER.error("getComponentFieldsAndDialogMap: componentOfResource={}, componentPath={}, super1={}, super2={}, super3={}",
+//                                componentOfResource,
+//                                componentPath,
+//                                componentOfResourceValueMap.get("sling:resourceSuperType"),
+//                                adminResourceResolver.getParentResourceType(componentOfResource.getPath())
+//                        );
 
+                        //walk up the tree of resourceSuperType and get base component
+                        String componentDialogPath = findLocalResourceInSuperComponent(componentOfResource,"cq:dialog");
 
-                        //get dialog with value from resource: /<app component path>/cq:dialog/content.html/<resource path to pull values>
-                        String dialogPath = componentOfResource.getPath() + "/cq:dialog/content.html" + componentResource.getPath();
+                        String dialogPath = "";
+                        Document dialogContent = null;
 
-//                        LOGGER.error("getComponentFieldsAndDialogMap: dialogPath={}", dialogPath);
+                        if (isNotEmpty(componentDialogPath)) {
 
-                        //test if component has super component
-                        Component componentOfResourceSuper = getComponentSuperComponent(componentOfResource,false);
-
-//                        LOGGER.error("getComponentFieldsAndDialogMap: firstComponentCompSuper={}, path={}", componentOfResourceSuper, componentOfResourceSuper.getPath());
-                        if (componentOfResourceSuper != null) {
                             //get dialog with value from resource: /<app component path>/cq:dialog/content.html/<resource path to pull values>
-                            dialogPath = componentOfResourceSuper.getPath() + "/cq:dialog/content.html" + componentResource.getPath();
-                        }
+                            dialogPath = componentDialogPath.concat(DEFAULT_EXTENTION).concat(componentResource.getPath());
 
 //                        LOGGER.error("getComponentFieldsAndDialogMap: dialogPath={}", dialogPath);
 
-                        String dialogHTML = resourceRenderAsHtml(
-                                dialogPath,
-                                adminResourceResolver,
-                                slingScriptHelper,
-                                WCMMode.DISABLED,
-                                null,
-                                null,
-                                false);
+                            String dialogHTML = resourceRenderAsHtml(
+                                    dialogPath,
+                                    adminResourceResolver,
+                                    slingScriptHelper,
+                                    WCMMode.DISABLED,
+                                    null,
+                                    null,
+                                    false);
 
-                        Document dialogContent = Jsoup.parse(dialogHTML);
+                            dialogContent = Jsoup.parse(dialogHTML);
 
-//                        LOGGER.error("getComponentFieldsAndDialogMap: dialogHTML={},dialogContent={}", dialogHTML, dialogContent);
-
-
-                        for (Map.Entry<String, Object> field : firstComponentMap.entrySet()) {
+//                        LOGGER.error("getComponentFieldsAndDialogMap: dialogContent={}", dialogContent);
+//
+                        }
+                        for (Map.Entry<String, Object> field : componentResourceMap.entrySet()) {
 
                             String name = field.getKey();
                             Object value = field.getValue();
@@ -2206,7 +2190,7 @@ public class ComponentsUtil {
                             row.put("fieldLabel", "");
                             row.put("type", "");
 
-                            if (isNotEmpty(dialogPath)) {
+                            if (isNotEmpty(dialogPath) && dialogContent != null) {
                                 String fieldSelection = "[name='./" + name + "']";
 
 
