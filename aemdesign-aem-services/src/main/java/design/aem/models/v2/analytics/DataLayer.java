@@ -3,6 +3,7 @@ package design.aem.models.v2.analytics;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.replication.ReplicationStatus;
+import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.components.Component;
 import com.day.cq.wcm.api.components.ComponentManager;
 import design.aem.components.ComponentProperties;
@@ -17,10 +18,13 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Calendar;
 
-import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX;
-import static design.aem.utils.components.CommonUtil.findComponentInPage;
+import static design.aem.utils.components.CommonUtil.*;
+import static design.aem.utils.components.CommonUtil.getPageNavTitle;
 import static design.aem.utils.components.ComponentsUtil.*;
+import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.DateTimeUtil.formatDate;
+import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
+import static design.aem.utils.components.TagUtil.getPageTags;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -38,6 +42,10 @@ public class DataLayer extends WCMUsePojo {
     public void activate() throws Exception {
 
         I18n _i18n = new I18n(getRequest());
+
+        Object[][] componentFields = {
+                {FIELD_VARIANT, DEFAULT_VARIANT},
+        };
 
         componentProperties = ComponentsUtil.getNewComponentProperties(this);
 
@@ -71,23 +79,7 @@ public class DataLayer extends WCMUsePojo {
             componentProperties.put("pageName", detailsProperties.get(DETAILS_ANALYTICS_PAGENAME, ""));
 
             String variant = detailsProperties.get(DETAILS_ANALYTICS_VARIANT, DEFAULT_VARIANT);
-            String variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant);
-
-            if (!ResourceUtil.isNonExistingResource(details)) {
-
-                ContentAccess contentAccess = getSlingScriptHelper().getService(ContentAccess.class);
-                try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
-
-                    ComponentManager componentManager = getResourceResolver().adaptTo(ComponentManager.class);
-                    Component resourceComponent = componentManager.getComponentOfResource(details);
-
-                    variantTemplate = getComponentVariantTemplate(resourceComponent, variant, adminResourceResolver);
-
-                } catch (Exception ex) {
-                    LOGGER.error("getComponentProperties: error processing properties: component={}, ex.message={}, ex={}", detailsComponent.getPath(), ex.getMessage(), ex);
-                }
-
-            }
+            String variantTemplate = getComponentVariantTemplate(getComponent(), format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant));
 
             //compile variantTemplate param
             componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);

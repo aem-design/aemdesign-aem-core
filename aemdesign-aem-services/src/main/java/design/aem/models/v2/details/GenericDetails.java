@@ -121,20 +121,11 @@ public class GenericDetails extends WCMUsePojo {
 
             String defaultBadgeTemplate = format(COMPONENT_BADGE_DEFAULT_TEMPLATE_FORMAT, DEFAULT_BADGE);
 
-
-            //get admin resolver
-            ContentAccess contentAccess = getSlingScriptHelper().getService(ContentAccess.class);
-            ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver();
-
             //get super component if exists
-            Component componentSuperComponent = getComponentSuperComponent(getComponent(),false);
-
-            //get badge resource
-            String badgePath = componentSuperComponent.getPath().concat("/").concat(requestedBadgeTemplate);
-            Resource getBadgeAdminResource = adminResourceResolver.resolve(badgePath);
+            String badgePath = findLocalResourceInSuperComponent(getComponent(),requestedBadgeTemplate);
 
             //check if component has the badge and reset if it does not
-            if (ResourceUtil.isNonExistingResource(getBadgeAdminResource)) {
+            if (isEmpty(badgePath)) {
                 componentBadge = DEFAULT_BADGE;
                 requestedBadgeTemplate = defaultBadgeTemplate;
                 LOGGER.error("BADGE NOT FOUND badgePath={}",badgePath);
