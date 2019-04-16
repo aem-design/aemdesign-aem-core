@@ -1,0 +1,19 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <a class="card ${componentProperties.cardSize} ${componentProperties.badgeClassAttr}"
+       href="${componentProperties.pageUrl}"
+       target="${componentProperties.badgeLinkTarget}"
+       title="${componentProperties.badgeLinkTitle}"
+       data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}">
+        <div class="card-img-top">
+            <img src="${componentProperties.pageThumbnail}"
+                 data-sly-attribute="${componentProperties.badgeImageAttr @ context = 'unsafe'}"
+                 alt="${componentProperties.title}">
+        </div>
+        <div class="card-body">
+            <title class="card-title"
+                   data-sly-element="${componentProperties.badgeTitleType}">${componentProperties.badgeTitle}</title>
+            <div class="card-text">${componentProperties.badgeDescription @ context = 'unsafe'}</div>
+        </div>
+    </a>
+</template>
+

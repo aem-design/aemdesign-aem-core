@@ -4,4 +4,5 @@
     jcr:primaryType="cq:Component"
     jcr:title="Header"
     cq:icon="mBox"
+    sling:resourceSuperType="aemdesign/components/layout/header/v2/header"
     componentGroup="AEM.Design - Layout"/>

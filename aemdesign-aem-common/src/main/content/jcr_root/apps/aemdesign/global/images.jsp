@@ -13,6 +13,12 @@
 <%@ page import="javax.jcr.Node" %>
 <%@ page import="javax.jcr.RepositoryException" %>
 <%@ page import="com.adobe.xmp.XMPDateTimeFactory" %>
+<%@ page import="com.day.cq.commons.*" %>
+<%@ page import="com.day.image.Layer" %>
+<%@ page import="org.apache.commons.lang3.math.NumberUtils" %>
+<%@ page import="java.net.URI" %>
+<%@ page import="static design.aem.utils.components.CommonUtil.DAM_FIELD_LICENSE_USAGETERMS" %>
+
 <%!
 
     final String DEFAULT_IMAGE_THUMB_SELECTOR = ".thumb.319.319.png";
@@ -42,6 +48,77 @@
     final String DEFAULT_IMAGE_NODE_NAME = "image";
 
     final String FIELD_RENDITIONS_VIDEO = "renditionsVideo";
+
+
+    final static String RENDITION_PROFILE_CUSTOM = "cq5dam.custom.";
+
+    final static String RENDITION_REGEX_PATTERN = "^(\\w*)\\.(\\w*)\\.(\\d*)\\.(\\d*)\\.(\\S{3,4})$";
+
+    //this is used to store admin config for image component
+    final static String OSGI_CONFIG_MEDIA_IMAGE = "aemdesign.components.media.image";
+
+
+    final String FIELD_RENDITION_PREFIX = "renditionPrefix";
+    final String FIELD_RESPONSIVE_MAP = "renditionImageMapping";
+    final String FIELD_ADAPTIVE_MAP = "adaptiveImageMapping";
+    final String FIELD_MEDIAQUERYRENDITION_KEY = "assetMediaQuery";
+    final String FIELD_MEDIAQUERYRENDITION_VALUE = "assetMediaQueryRendition";
+    final String FIELD_IMAGE_OPTION = "imageOption";
+
+
+    final String[] DEFAULT_RENDITION_IMAGE_MAP = new String[]{
+            "48=(min-width: 1px) and (max-width: 72px)",
+            "140=(min-width: 73px) and (max-width: 210px)",
+            "319=(min-width: 211px) and (max-width: 478px)",
+            "1280=(min-width: 478px)"
+    };
+
+
+    final String[] DEFAULT_ADAPTIVE_IMAGE_MAP = new String[]{
+            "480.medium=(min-width: 1px) and (max-width: 533px)",
+            "640.medium=(min-width: 534px) and (max-width: 691px)",
+            "720.medium=(min-width: 692px) and (max-width: 770px)",
+            "800.medium=(min-width: 771px) and (max-width: 848px)",
+            "960.medium=(min-width: 849px) and (max-width: 1008px)",
+            "1024.medium=(min-width: 1009px) and (max-width: 1075px)",
+            "1280.medium=(min-width: 1076px) and (max-width: 1331px)",
+            "full=(min-width: 1332px)"
+    };
+
+    //DEFAULT NODE METADATA
+    // {
+    //   1 required - property name,
+    //   2 required - default value,
+    //   3 optional - name of component attribute to add value into
+    //   4 optional - canonical name of class for handling multivalues, String or Tag
+    // }
+    public final Object[][] DEFAULT_FIELDS_BACKGROUNDIMAGE_OPTIONS = {
+            {FIELD_IMAGE_OPTION, IMAGE_OPTION_RESPONSIVE},
+            {ImageResource.PN_HTML_WIDTH, ""},
+            {ImageResource.PN_HTML_HEIGHT, ""},
+            {ImageResource.PN_WIDTH, 0},
+            {ImageResource.PN_HEIGHT, 0},
+            {IMAGE_FILEREFERENCE, ""},
+            {FIELD_ADAPTIVE_MAP, DEFAULT_ADAPTIVE_IMAGE_MAP},
+            {FIELD_RESPONSIVE_MAP, DEFAULT_RENDITION_IMAGE_MAP},
+            {FIELD_RENDITION_PREFIX,StringUtils.EMPTY},
+            {FIELD_MEDIAQUERYRENDITION_KEY,new String[]{}, "", Tag.class.getCanonicalName()},
+            {FIELD_MEDIAQUERYRENDITION_VALUE,new String[0]},
+    };
+
+
+    //DEFAULT NODE METADATA
+    // {
+    //   1 required - property name,
+    //   2 required - default value,
+    //   3 optional - name of component attribute to add value into
+    //   4 optional - canonical name of class for handling multivalues, String or Tag
+    // }
+    final Object[][] DEFAULT_FIELDS_BACKGROUNDVIDEO_OPTIONS = {
+            {IMAGE_FILEREFERENCE, ""},
+    };
+
+
 
 
     /***
@@ -677,6 +754,8 @@
             String assetContributor = getAssetPropertyValueWithDefault(asset, DamConstants.DC_CONTRIBUTOR, "");
             String assetLicense = getAssetPropertyValueWithDefault(asset, DamConstants.DC_RIGHTS, "");
             String assetCopyrightOwner = getAssetPropertyValueWithDefault(asset, DAM_FIELD_LICENSE_COPYRIGHT_OWNER, "");
+            String assetUsageTerms = asset.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
+
             String assetExpiresYear = "";
             String assetExpires = asset.getMetadataValue(DAM_FIELD_LICENSE_EXPIRY);
 
@@ -1062,4 +1141,501 @@
 
         return renditionsSet;
     }
+
+    /***
+     * get background video settings from shared background video tab
+     * @param pageContext
+     * @return
+     */
+    public ComponentProperties getBackgroundVideoRenditions(PageContext pageContext) {
+        Resource resource = (org.apache.sling.api.resource.Resource) pageContext.getAttribute("resource");
+        ResourceResolver resourceResolver = (org.apache.sling.api.resource.ResourceResolver) pageContext.getAttribute("resourceResolver");
+
+        Resource backgroundResource = resource.getChild(DEFAULT_BACKGROUND_VIDEO_NODE_NAME);
+
+        if (backgroundResource != null) {
+
+            ComponentProperties imageProperties = getComponentProperties(
+                    pageContext,
+                    backgroundResource,
+                    false,
+                    DEFAULT_FIELDS_BACKGROUNDVIDEO_OPTIONS);
+
+            String fileReference = imageProperties.get(IMAGE_FILEREFERENCE,"");
+
+            Resource assetR = resourceResolver.resolve(fileReference);
+            if (!ResourceUtil.isNonExistingResource(assetR)) {
+
+                com.adobe.granite.asset.api.AssetManager assetManager = resourceResolver.adaptTo(com.adobe.granite.asset.api.AssetManager.class);
+                com.adobe.granite.asset.api.Asset videoAsset = assetManager.getAsset(fileReference);
+
+                if (videoAsset != null) {
+
+                    imageProperties.putAll(
+                            getAssetInfo(
+                                    resourceResolver,
+                                    fileReference,
+                                    FIELD_VIDEO_BACKGROUND
+                            )
+                    );
+
+                    imageProperties.put(FIELD_RENDITIONS_VIDEO, getAssetRenditionsVideo(videoAsset));
+                }
+            }
+
+            return imageProperties;
+        }
+        return null;
+    }
+
+    /***
+     * get background image settings from shared background image tab
+     * @param pageContext
+     * @return
+     */
+    public ComponentProperties getBackgroundImageRenditions(PageContext pageContext) {
+        Resource resource = (org.apache.sling.api.resource.Resource) pageContext.getAttribute("resource");
+        ResourceResolver resourceResolver = (org.apache.sling.api.resource.ResourceResolver) pageContext.getAttribute("resourceResolver");
+        org.apache.sling.api.scripting.SlingScriptHelper sling = (org.apache.sling.api.scripting.SlingScriptHelper) pageContext.getAttribute("sling");
+
+
+        Resource backgroundResource = resource.getChild(DEFAULT_BACKGROUND_IMAGE_NODE_NAME);
+
+        if (backgroundResource != null) {
+
+            ComponentProperties imageProperties = getComponentProperties(
+                    pageContext,
+                    backgroundResource,
+                    false,
+                    DEFAULT_FIELDS_BACKGROUNDIMAGE_OPTIONS);
+
+            String fileReference = imageProperties.get(IMAGE_FILEREFERENCE,"");
+
+            Resource assetR = resourceResolver.resolve(fileReference);
+            if (!ResourceUtil.isNonExistingResource(assetR)) {
+
+                com.adobe.granite.asset.api.AssetManager assetManager = resourceResolver.adaptTo(com.adobe.granite.asset.api.AssetManager.class);
+                com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(fileReference);
+
+                if (asset != null) {
+
+                    try {
+
+                        String imageOption = imageProperties.get(FIELD_IMAGE_OPTION, "");
+                        //imageProperties.put(COMPONENT_BACKGROUND_ASSETS + "Options", imageOption);
+
+                        Map<String, String> responsiveImageSet = new LinkedHashMap<String, String>();
+
+                        switch (imageOption) {
+                            case IMAGE_OPTION_GENERATED:
+                                String imageHref = "";
+                                Long lastModified = getLastModified(resource);
+                                imageHref = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, resource.getPath(), lastModified.toString());
+
+                                //imageProperties.put(COMPONENT_BACKGROUND_ASSETS, imageHref);
+                                responsiveImageSet.put("",imageHref);
+                                break;
+                            case IMAGE_OPTION_RENDITION:
+                                int targetWidth = imageProperties.get(ImageResource.PN_WIDTH, 0);
+                                com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(targetWidth, asset);
+                                if (bestRendition != null) {
+                                    //imageProperties.put(COMPONENT_BACKGROUND_ASSETS, bestRendition.getPath());
+                                    responsiveImageSet.put("",bestRendition.getPath());
+                                }
+                                break;
+                            case IMAGE_OPTION_ADAPTIVE:
+                                String[] adaptiveImageMapping = imageProperties.get(FIELD_ADAPTIVE_MAP, new String[]{});
+
+                                responsiveImageSet = getAdaptiveImageSet(adaptiveImageMapping, resourceResolver, resource.getPath(), fileReference, null, false, sling);
+
+                                break;
+                            case IMAGE_OPTION_MEDIAQUERYRENDITION:
+                                //map of media queries to renditions
+                                String[] mediaQueryList = imageProperties.get(FIELD_MEDIAQUERYRENDITION_KEY, new String[]{});
+                                String[] renditionList = imageProperties.get(FIELD_MEDIAQUERYRENDITION_VALUE, new String[]{});
+
+                                if (mediaQueryList.length != renditionList.length ) {
+                                    LOG.error(MessageFormat.format("fields {0} and {1} need to be equal length",FIELD_MEDIAQUERYRENDITION_KEY,FIELD_MEDIAQUERYRENDITION_VALUE));
+                                    break;
+                                }
+
+                                for (int i = 0; i < mediaQueryList.length; i++) {
+                                    responsiveImageSet.put(mediaQueryList[i],fileReference+FIELD_ASSET_RENDITION_PATH_SUFFIX+renditionList[i]);
+                                }
+
+                                break;
+                            default: //IMAGE_OPTION_RESPONSIVE
+                                String[] renditionImageMapping = imageProperties.get(FIELD_RESPONSIVE_MAP, new String[]{});
+
+                                // Check if the image suffix is '.svg' or '.gif', if it is skip any rendition checks and simply return
+                                // the path to it as no scaling or modifications should be applied.
+                                if (fileReference.endsWith(".svg") || fileReference.endsWith(".gif")) {
+                                    imageProperties.put(FIELD_IMAGE_BACKGROUND, fileReference);
+                                    imageProperties.put(FIELD_IMAGE_OPTION, "simple");
+                                } else {
+                                    //get rendition profile prefix selected
+                                    String renditionPrefix = imageProperties.get(FIELD_RENDITION_PREFIX,"");
+
+                                    //get best fit renditions set
+                                    responsiveImageSet = getBestFitMediaQueryRenditionSet(asset, renditionImageMapping, renditionPrefix);
+
+                                }
+                        }
+
+                        imageProperties.put(COMPONENT_BACKGROUND_ASSETS, responsiveImageSet);
+
+                        //pick last one from collection
+                        if (responsiveImageSet.values().size() > 0) {
+                            imageProperties.put(FIELD_IMAGE_BACKGROUND, responsiveImageSet.values()
+                                    .toArray()[responsiveImageSet.values().size() - 1]);
+                        }
+
+                    } catch (Exception ex) {
+                        LOG.error("failed to create Width and Image Mapping : " + ex.getMessage(), ex);
+                    }
+
+                }
+            }
+
+            return imageProperties;
+        }
+        return null;
+    }
+
+
+    /**
+     * Get the allowedDimension for the Image
+     * @param targetDimension
+     * @param _currentStyle
+     * @return
+     */
+    public Integer getDimension(Integer targetDimension, Style _currentStyle){
+        Integer dimension = null;
+        if (targetDimension != null && targetDimension.intValue() > 0) {
+            int max = _currentStyle.get(Image.PN_MAX_WIDTH,Integer.class);
+            int min = _currentStyle.get(Image.PN_MIN_WIDTH,Integer.class);
+            if (min <= targetDimension && targetDimension <= max){
+                dimension = targetDimension;
+
+            }else if (min > targetDimension){
+//                image.set(Image.PN_HTML_WIDTH, String.valueOf(min));
+
+                dimension = min;
+            }else if (max < targetDimension){
+//                image.set(Image.PN_HTML_WIDTH, String.valueOf(max));
+                dimension = max;
+            }
+        }
+        return dimension;
+    }
+
+    /***
+     * function to filter out the design dialog values which are not matching rendition profile using default rendition prefix names
+     * @param asset asset to use
+     * @param widthRenditionProfileMapping profile widths map
+     * @return
+     */
+    public Map<Integer, String> getBestFitRenditionSet(com.adobe.granite.asset.api.Asset asset,  Map<Integer, String> widthRenditionProfileMapping) {
+        return getBestFitRenditionSet(asset,widthRenditionProfileMapping,null);
+    }
+
+    /**
+     * function to filter out the design dialog values which are not matching rendition profile
+     * @param asset asset to use
+     * @param widthRenditionProfileMapping profile widths map
+     * @param renditionPrefix prefix to use
+     * @return Map<Integer, String> return profile with substituted paths
+     */
+    public Map<Integer, String> getBestFitRenditionSet(com.adobe.granite.asset.api.Asset asset,  Map<Integer, String> widthRenditionProfileMapping, String renditionPrefix){
+
+        Map<Integer, String> profileRendtiions = new TreeMap<Integer, String>();
+
+        if (isEmpty(renditionPrefix))
+
+            if (asset != null && widthRenditionProfileMapping != null) {
+
+                for (Integer minWidth : widthRenditionProfileMapping.keySet()) {
+                    String profileWidth = widthRenditionProfileMapping.get(minWidth);
+                    com.adobe.granite.asset.api.Rendition rendition = getBestFitRendition( tryParseInt(profileWidth,0), asset, defaultIfEmpty(renditionPrefix,null));
+
+//                LOG.warn("Best Rendition: [" + tryParseInt(profileWidth,0) + "] found rendition : [" + rendition.getPath() + "] profile name : " + profileWidth );
+
+                    String renditionPath = rendition.getPath();
+
+                    //don't return paths to original rendition return path to asset instead
+                    if (renditionPath.endsWith("/original")) {
+                        String assetPath = renditionPath.substring(0,renditionPath.indexOf(JcrConstants.JCR_CONTENT)-1);
+                        ResourceResolver resourceResolver = asset.getResourceResolver();
+                        if (resourceResolver != null) {
+                            Resource assetPathResource = resourceResolver.resolve(assetPath);
+                            if (!ResourceUtil.isNonExistingResource(assetPathResource)) {
+                                renditionPath = assetPath;
+                            }
+                        }
+                    }
+
+                    profileRendtiions.put(minWidth,renditionPath);
+                }
+
+            }
+        return profileRendtiions;
+
+    }
+    /**
+     * function to filter out the design dialog values which are not matching rendition profile
+     * @param asset asset to use
+     * @param renditionImageMapping array of minWidth=mediaQuery
+     * @param renditionPrefix prefix to use
+     * @return Map<Integer, String> return profile with substituted paths
+     */
+    public Map<String, String> getBestFitMediaQueryRenditionSet(com.adobe.granite.asset.api.Asset asset,  String[] renditionImageMapping, String renditionPrefix){
+
+        Map<String, String> profileRendtiions = new LinkedHashMap<String, String>();
+
+        if (isEmpty(renditionPrefix))
+
+            if (asset != null && renditionImageMapping != null) {
+
+                for (String entry : renditionImageMapping){
+                    String [] entryArray = StringUtils.split(entry, "=");
+                    if (entryArray == null || entryArray.length != 2){
+                        LOG.error("getBestFitMediaQueryRenditionSet ["+entry+"] is invalid");
+                        continue;
+                    }
+                    String minWidth = entryArray[0];
+                    if (StringUtils.isEmpty(minWidth)  || (NumberUtils.isDigits(minWidth) == false)){
+                        LOG.error("getBestFitMediaQueryRenditionSet ["+entry+"] is invalid, incorrect width ["+minWidth+"]");
+                        continue;
+                    }
+
+                    String mediaQuery = entryArray[1];
+
+                    com.adobe.granite.asset.api.Rendition rendition = getBestFitRendition( tryParseInt(minWidth,0), asset, defaultIfEmpty(renditionPrefix,null));
+
+                    String renditionPath = rendition.getPath();
+
+                    //don't return paths to original rendition return path to asset instead
+                    if (renditionPath.endsWith("/original")) {
+                        String assetPath = renditionPath.substring(0,renditionPath.indexOf(JcrConstants.JCR_CONTENT)-1);
+                        ResourceResolver resourceResolver = asset.getResourceResolver();
+                        if (resourceResolver != null) {
+                            Resource assetPathResource = resourceResolver.resolve(assetPath);
+                            if (!ResourceUtil.isNonExistingResource(assetPathResource)) {
+                                renditionPath = assetPath;
+                            }
+                        }
+                    }
+
+                    profileRendtiions.put(mediaQuery,renditionPath);
+                }
+
+            }
+        return profileRendtiions;
+
+    }
+
+    /**
+     * Get the targetWith which is within the range from the Site
+     * @param style
+     * @param targetWidth
+     * @return
+     */
+    public Map<Integer, String> getWidthProfileMap(Style style, int targetWidth){
+
+        Map<Integer, String> widthRenditionProfileMap = new LinkedHashMap<Integer, String>();
+
+        Integer maxWidth = style.get(ImageResource.PN_MAX_WIDTH, Integer.class);
+        Integer minWidth = style.get(ImageResource.PN_MIN_WIDTH, Integer.class);
+
+        targetWidth = Math.min(targetWidth, maxWidth);
+        targetWidth = Math.max(targetWidth, minWidth);
+        widthRenditionProfileMap.put(targetWidth, String.valueOf(targetWidth));
+
+        return widthRenditionProfileMap;
+    }
+
+
+    /**
+     * Validate the List of the widthImageMapping from Design dialog and convert it into Map<Integer, String>
+     * @param widthImageMapping
+     * @return Map<Integer, String>
+     * @throws IllegalAccessException
+     */
+    public Map<Integer, String> getWidthProfileMap(String [] widthImageMapping) throws IllegalAccessException{
+
+        Map<Integer, String> widthRenditionProfileMap = new LinkedHashMap<Integer, String>();
+
+
+        if (widthImageMapping != null && widthImageMapping.length > 0){
+
+            for (String entry : widthImageMapping){
+                String [] entryArray = StringUtils.split(entry, "=");
+                if (entryArray == null || entryArray.length != 2){
+                    LOG.error("design widthImageMapping ["+entry+"] is invalid");
+                    new IllegalAccessException("design widthImageMapping ["+entry+"] is invalid");
+                }
+                String imageWidth = entryArray[0];
+                if (StringUtils.isEmpty(imageWidth)){
+                    LOG.error("profile ["+imageWidth+"] is invalid");
+                    new IllegalAccessException("imageWidth ["+imageWidth+"] is invalid");
+                }
+                String minWidth = entryArray[1];
+                if (StringUtils.isEmpty(minWidth)  || (NumberUtils.isDigits(minWidth) == false)){
+                    LOG.error("minWidth ["+minWidth+"] is invalid");
+                    new IllegalAccessException("minWidth ["+minWidth+"] is invalid");
+                }
+
+                widthRenditionProfileMap.put(Integer.valueOf(minWidth), imageWidth);
+
+            }
+        }
+
+        return widthRenditionProfileMap;
+    }
+
+
+    /**
+     * function to filter out the design dialog values which are not matching adaptive profile
+     * @param adaptiveImageMapping
+     * @param resolver
+     * @param componentPath path to component doing the render
+     * @param fileReference path to asset to use for render
+     * @param outputFormat specify which output format to use
+     * @param useFileReferencePathAsRender create paths using fileReference instead of using Component Path
+     * @param sling
+     * @return Map<Integer, String>
+     */
+    public Map<String, String> getAdaptiveImageSet (String[] adaptiveImageMapping, ResourceResolver resolver, String componentPath, String fileReference, String outputFormat, Boolean useFileReferencePathAsRender, org.apache.sling.api.scripting.SlingScriptHelper sling){
+
+        Map<String, String> responsiveImageSet = new LinkedHashMap<String, String>();
+
+        URI fileReferenceURI  = URI.create(fileReference);
+        if (isBlank(outputFormat)) {
+            String extension = fileReferenceURI.getPath();
+            outputFormat = extension.substring(extension.lastIndexOf("."));
+        }
+        String suffix = defaultString(fileReferenceURI.getQuery(), "");
+
+        String renderPath = componentPath;
+
+        if (useFileReferencePathAsRender) {
+            renderPath = fileReference;
+        }
+
+        int[] allowedSizes = getAdaptiveImageSupportedWidths(sling);
+
+        for (String entry : adaptiveImageMapping){
+
+            String [] entryArray = StringUtils.split(entry, "="); //320.medium=(min-width: 1px) and (max-width: 425px)
+            if (entryArray == null || entryArray.length != 2){
+                LOG.error("getAdaptiveImageSet ["+entry+"] is invalid");
+                continue;
+            }
+            String adaptiveProfile = entryArray[0];
+            if (StringUtils.isEmpty(adaptiveProfile) && (!adaptiveProfile.contains(".")) ){
+                LOG.error("getAdaptiveImageSet ["+entry+"] is invalid, incorrect profile format ["+adaptiveProfile+"] expecting {width}.{quality}.{format}");
+                continue;
+            }
+
+            String mediaQuery = entryArray[1];
+
+            String [] adaptiveProfileArray = StringUtils.split(adaptiveProfile, ".");
+
+            Integer profileWidth = tryParseInt(adaptiveProfileArray[0],0);
+
+            String profileOutputFormat = outputFormat;
+            if (adaptiveProfileArray.length == 3) {
+                profileOutputFormat = "";
+            }
+
+            if (adaptiveProfile.equals("full") || ArrayUtils.contains(allowedSizes,profileWidth) ) {
+                responsiveImageSet.put(mediaQuery,
+                        MessageFormat.format("{0}.img.{1}{2}{3}",
+                                renderPath,
+                                adaptiveProfile,
+                                profileOutputFormat,
+                                suffix
+                        )
+                );
+            } else {
+                LOG.error("getAdaptiveImageSet rendition selected size is not allowed ["+profileWidth+"], ["+entry+"]");
+                continue;
+            }
+
+        }
+
+        return responsiveImageSet;
+    }
+
+    /**
+     * return list of configured widths in com.day.cq.wcm.foundation.impl.AdaptiveImageComponentServlet
+     * @param sling
+     * @return int []
+     */
+    public int []  getAdaptiveImageSupportedWidths(org.apache.sling.api.scripting.SlingScriptHelper sling) {
+
+        int [] defaultWidths  = {480,640,720,800,960,1024,1280};
+        int [] supportedWidths = new int[0];
+
+        try{
+            org.osgi.service.cm.ConfigurationAdmin configAdmin = sling.getService(org.osgi.service.cm.ConfigurationAdmin.class);
+
+            org.osgi.service.cm.Configuration config = configAdmin.getConfiguration(OSGI_CONFIG_MEDIA_IMAGE);
+
+            Object obj = org.apache.sling.commons.osgi.PropertiesUtil.toStringArray(config.getProperties().get("adapt.supported.widths"));
+
+            if (obj instanceof String []){
+
+                String[] strings = (String [])obj;
+                supportedWidths = new int[strings.length];
+                for (int i=0; i < strings.length; i++) {
+                    supportedWidths[i] = Integer.parseInt(strings[i]);
+                }
+            }
+
+            if (obj instanceof long []){
+
+                long [] longs = (long [])obj;
+                supportedWidths = new int[longs.length];
+                for (int i=0; i < longs.length; i++) {
+                    supportedWidths[i] = (int)longs[i];
+                }
+            }
+
+        } catch(Exception ex){
+            LOG.warn("using default adapt.supported.widths=[{}] as config is missing OSGI configuration: {}", defaultWidths, OSGI_CONFIG_MEDIA_IMAGE);
+            return defaultWidths;
+        }
+        return supportedWidths;
+
+    }
+
+
+
+/* TESTS
+    out.println("responsiveRenditionOverride : "+widthRenditionProfileMapping);
+    out.println("responsiveRenditionOverride1 : "+responsiveImageSet);
+    out.println("filterRenditionImageSet(asset, widthRenditionProfileMapping, RENDITION_PROFILE_CUSTOM) : \n"+filterRenditionImageSet(asset, widthRenditionProfileMapping, RENDITION_PROFILE_CUSTOM));
+    out.println("filterRenditionImageSet(asset, widthRenditionProfileMapping, \"cq5dam.custom.\") : \n"+filterRenditionImageSet(asset, widthRenditionProfileMapping, "cq5dam.custom."));
+    out.println("getBestFitRendition(48, asset) : \n" + getBestFitRendition(48, asset) );
+    out.println("getBestFitRendition(48, asset, RENDITION_PROFILE_CUSTOM) : \n" + getBestFitRendition(48, asset, RENDITION_PROFILE_CUSTOM) );
+    out.println("getBestFitRendition(48, asset, \"cq5dam.custom.\") : \n" + getBestFitRendition(48, asset, "cq5dam.custom.") );
+    out.println("getBestFitRendition(319, asset, \"cq5dam.custom.\") : \n" + getBestFitRendition(319, asset, "cq5dam.custom.") );
+    out.println("getBestFitRendition(1900, asset, \"cq5dam.custom.\") : \n" + getBestFitRendition(1900, asset, "cq5dam.custom.") );
+    out.println("getBestFitRendition(1280, asset, RENDITION_PROFILE_CUSTOM) : \n" + getBestFitRendition(1280, asset, RENDITION_PROFILE_CUSTOM) );
+    out.println("getBestFitRendition(47, asset, RENDITION_PROFILE_CUSTOM) : \n" + getBestFitRendition(47, asset, RENDITION_PROFILE_CUSTOM) );
+    out.println("getBestFitRendition(49, asset, \"cq5dam.custom.\") : \n" + getBestFitRendition(49, asset, "cq5dam.custom.") );
+    out.println("getBestFitRendition(47, asset) : \n" + getBestFitRendition(47, asset) );
+    out.println("getBestFitRendition(48, asset) : \n" + getBestFitRendition(48, asset) );
+    out.println("getBestFitRendition(49, asset) : \n" + getBestFitRendition(49, asset) );
+    out.println("getBestFitRendition(139, asset) : \n" + getBestFitRendition(139, asset) );
+    out.println("getBestFitRendition(140, asset) : \n" + getBestFitRendition(140, asset) );
+    out.println("getBestFitRendition(141, asset) : \n" + getBestFitRendition(141, asset) );
+    out.println("getBestFitRendition(318, asset) : \n" + getBestFitRendition(318, asset) );
+    out.println("getBestFitRendition(319, asset) : \n" + getBestFitRendition(319, asset) );
+    out.println("getBestFitRendition(320, asset) : \n" + getBestFitRendition(320, asset) );
+    out.println("getBestFitRendition(1279, asset) : \n" + getBestFitRendition(1279, asset) );
+    out.println("getBestFitRendition(1280, asset) : \n" + getBestFitRendition(1280, asset) );
+    out.println("getBestFitRendition(1281, asset) : \n" + getBestFitRendition(1281, asset) );
+*/
 %>

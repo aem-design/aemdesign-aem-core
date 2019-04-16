@@ -32,8 +32,11 @@
      @location /libs/cq/gui/components/common/datasources/tags
 
      @path {String[]} [namespaces] The namespaces of the tags to return. Only the tag which namespace equals to one of this values is returned. If this property is not specified, all tags are returned.
-     @variant {String[]} [namespaces] variant name, pathvalue returns tag path, tagidvalue return tag tagid, valuelist return tag value
-
+     @variant {String[]} [namespaces] variant name with following values:
+            tagname returns tag name, no reference to Tags
+            pathvalue returns tag path, output full path to tag, central to update, will need content migration when path to Tag storage change
+            tagidvalue return tag tagid, safest to use with Tag Manager and central to update
+            valuelist return tag value, NOTE only use this for drop-downs that value values that don't use Expression Language
      */
     Config dsCfg = new Config(_resource.getChild("datasource"));
     List<String> namespaces = Arrays.asList(dsCfg.get("namespaces", new String[0]));
@@ -50,21 +53,23 @@
     if (tenant == null) {
         tenant = _resource.adaptTo(Tenant.class);
 
-//        if (tenant != null) {
-//            expressionCustomizer.setVariable("tenantId", tenant.getId());
-//            expressionCustomizer.setVariable("tenant", tenant);
-//        } else {
-            String finalTenantId;
-            if (isNotEmpty(requestSuffix)) {
-                finalTenantId = resolveTenantIdFromPath(requestSuffix);
-            } else {
-                finalTenantId = resolveTenantIdFromPath(_resource.getPath());
-            }
-            if (isNotEmpty(finalTenantId)) {
-                expressionCustomizer.setVariable("tenantId", finalTenantId);
-            }
+        //if tenant OOTB works
+        if (tenant != null) {
+            expressionCustomizer.setVariable("tenantId", tenant.getId());
+            expressionCustomizer.setVariable("tenant", tenant);
+        }
 
-//        }
+        //try manually resolve tenant from suffix
+        String finalTenantId;
+        if (isNotEmpty(requestSuffix)) {
+            finalTenantId = resolveTenantIdFromPath(requestSuffix);
+        } else {
+            finalTenantId = resolveTenantIdFromPath(_resource.getPath());
+        }
+        if (isNotEmpty(finalTenantId)) {
+            expressionCustomizer.setVariable("tenantId", finalTenantId);
+        }
+
     }
 
     ExpressionHelper ex = cmp.getExpressionHelper();
@@ -83,14 +88,14 @@
             if (rs != null) {
                 Tag tagPath = rs.adaptTo(Tag.class);
                 if (tagPath != null) {
-                    tags.addIterator(tagPath.listAllSubTags());
+                    tags.addIterator(tagPath.listChildren());
                 }
             }
         } else {
 
             for (Tag ns : tm.getNamespaces()) {
                 if (namespaces.size() == 0 || namespaces.contains(ns.getName())) {
-                    tags.addIterator(ns.listAllSubTags());
+                    tags.addIterator(ns.listChildren());
                 }
             }
         }

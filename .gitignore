@@ -1,7 +1,6 @@
 # Ignore VLT files
 .vlt
-.vlt-sync.log
-.vlt-sync-config.properties
+.vlt-*
 
 # Ignore Quickstart launches in the source tree
 license.properties

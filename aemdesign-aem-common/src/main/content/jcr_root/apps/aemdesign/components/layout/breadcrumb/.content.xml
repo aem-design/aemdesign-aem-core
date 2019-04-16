@@ -4,4 +4,5 @@
     jcr:primaryType="cq:Component"
     jcr:title="Breadcrumb"
     cq:icon="menu"
+    sling:resourceSuperType="aemdesign/components/layout/breadcrumb/v2/breadcrumb"
     componentGroup="AEM.Design - Layout"/>

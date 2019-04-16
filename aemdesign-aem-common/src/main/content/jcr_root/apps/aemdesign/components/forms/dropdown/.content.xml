@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    sling:resourceSuperType="foundation/components/form/dropdown"
-    jcr:primaryType="cq:Component"
-    jcr:description="Dropdown List Component"
-    jcr:title="Dropdown List"
-    allowedParents="[*/parsys]"
-    componentGroup="AEM.Design - Forms"/>

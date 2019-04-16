@@ -1,8 +1,4 @@
 {
-  "prevLinkText ((gallery))": "Previous",
-  "nextLinkText ((gallery))": "Next",
-  "closeText ((gallery))": "Close",
-  "titleAltPrefixText ((gallery))": "Read more about ",
   "titleAltReadMore ((assetviewer))": "Read more",
   "textField ((assetviewer))": "Text Field",
   "dateRangeField ((assetviewer))": "Date Range Field",

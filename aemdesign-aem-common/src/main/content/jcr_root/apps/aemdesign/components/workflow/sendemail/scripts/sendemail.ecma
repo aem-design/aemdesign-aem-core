@@ -36,10 +36,11 @@ var FIELDS = {
 
 
 
+    //used for advanced field config
     PROCESS_FIELDCONFIG: "fieldconfig",
-    PROCESS_FIELDCONFIG_KEY: "key",
-    PROCESS_FIELDCONFIG_VALUE: "value",
-    PROCESS_FIELDCONFIG_ACTION: "action",
+    PROCESS_FIELDCONFIG_KEY: "fieldconfigKey",
+    PROCESS_FIELDCONFIG_VALUE: "fieldconfigValue",
+    PROCESS_FIELDCONFIG_ACTION: "fieldconfigAction",
 
     PROCESS_ATTACH: "attach",
     PROCESS_ATTACHURL: "attachurl",
@@ -137,6 +138,11 @@ if (TYPE_JCR_PATH == workflowData.getPayloadType()) {
 
                 // GET INFO
                 var fieldMap = getArgsMap(metaData, node, workItem, workflowData, workflowSession, log);
+
+
+                var nodeFieldsAdv = getArgsMapConfigWithActions(metaData, node, resource, workItem, workflowData, workflowSession, log);
+
+                fieldMap = merge_objects(fieldMap,nodeFieldsAdv);
 
                 //dont send emails if cant read metadata, save error code
                 if (fieldMap[FIELDS.PROCESS_ERROR]) {
@@ -492,41 +498,6 @@ function getArgsMap(_metaData,payloadNode,_workItem,_workflowData,_workflowSessi
         } catch (ex) {
             _log.error("could not process metadata info. {}", ex);
             argsInfo[FIELDS.PROCESS_ERROR] = "ERR-SENDEMAIL-003: not able to evaluate legacy args";
-        }
-
-
-        //var blankArray = new Packages.org.apache.commons.lang3.StringUtils.split(" ");
-        var fieldConfig = _workItem.getNode().getMetaDataMap().get(FIELDS.PROCESS_FIELDCONFIG,blankArray);
-
-        try {
-            for (var i = 0; i < fieldConfig.length; i++) {
-                var metaItem = JSON.parse(fieldConfig[i]);
-                var fieldName = metaItem[FIELDS.PROCESS_FIELDCONFIG_KEY];
-                var fieldPath = metaItem[FIELDS.PROCESS_FIELDCONFIG_VALUE];
-                var fieldAction = metaItem[FIELDS.PROCESS_FIELDCONFIG_ACTION] || "";
-
-                _log.info(">> payload item: field name {}",fieldName);
-                _log.info(">> payload item: field path {}",fieldPath);
-                _log.info(">> payload item: field action [{}]",fieldAction);
-
-                if (fieldName && fieldPath) {
-                    var fieldValue = getNodePropertyAsString(payloadNode, fieldPath, "");
-                    if (_isNotEmpty(fieldAction)) {
-                        var fieldValuePostAction="";
-                        fieldValuePostAction = performAction(fieldValue,fieldAction);
-                        _log.info(">> form info item: action {}={}",fieldValue,fieldValuePostAction);
-                        fieldValue = fieldValuePostAction;
-                    }
-                    argsInfo[fieldName] = fieldValue;
-                    _log.info(">> form info item: output {}={}",fieldName,fieldValue);
-                } else {
-                    argsInfo[FIELDS.PROCESS_ERROR]="ERR-SENDEMAIL-004: field in not complete";
-                }
-
-            }
-        } catch (ex) {
-            _log.error("could not process xml response. {}",ex);
-            argsInfo[FIELDS.PROCESS_ERROR]="ERR-SENDEMAIL-005: could not field config";
         }
 
     }
@@ -969,4 +940,79 @@ function getAuthorLinksFromPaths(paths) {
         }
     }
     return "<ul>"+pathLinks+"</ul>";
+}
+
+/* FROM PROCESSPAYLOAD */
+
+function getArgsMapConfigWithActions(_metaData,payloadNode,_resource,_workItem,_workflowData,_workflowSession,_log){
+
+    _log.error(">> getArgsMapConfigWithActions: metaData={}", _metaData);
+    _log.error(">> getArgsMapConfigWithActions: payloadNode={}", payloadNode);
+
+    var argsInfo = {};
+
+    _log.error(">> using metaData with Actions");
+
+    //ONLY READING THE FIELDS THAT HAVE BEEN SELECTED IN WORKFLOW STEP
+    var blankArray = _blankArray();
+
+    //var blankArray = new Packages.org.apache.commons.lang3.StringUtils.split(" ");
+
+    _log.error(">> has config: {}",  _workItem.getNode().getMetaDataMap().containsKey(FIELDS.PROCESS_FIELDCONFIG));
+
+    // var fieldConfig = _workItem.getNode().getMetaDataMap().get(FIELDS.PROCESS_FIELDCONFIG,blankArray);
+
+    var fieldConfigKey = _workItem.getNode().getMetaDataMap().get(FIELDS.PROCESS_FIELDCONFIG_KEY,blankArray);
+    var fieldConfigValue = _workItem.getNode().getMetaDataMap().get(FIELDS.PROCESS_FIELDCONFIG_VALUE,blankArray);
+    var fieldConfigAction = _workItem.getNode().getMetaDataMap().get(FIELDS.PROCESS_FIELDCONFIG_ACTION,blankArray);
+
+    _log.error(">> using metaData with Actions: fieldConfigKey=[{}],fieldConfigValue=[{}],fieldConfigAction=[{}]",fieldConfigKey, fieldConfigValue, fieldConfigAction);
+
+    try {
+        if ( fieldConfigKey.length == fieldConfigValue.length && fieldConfigKey.length == fieldConfigAction.length) {
+            for (var i = 0; i < fieldConfigKey.length; i++) {
+                //var metaItem = JSON.parse(fieldConfig[i]);
+                var fieldName = fieldConfigKey[i];
+                var fieldPath = fieldConfigValue[i];
+                var fieldAction = fieldConfigAction[i];
+
+                _log.error(">> payload item: field name [{}]", fieldName);
+                _log.error(">> payload item: field path [{}]", fieldPath);
+                _log.error(">> payload item: field action [{}]", fieldAction);
+
+                if (fieldName && fieldPath) {
+                    var fieldValue = getNodePropertyAsString(payloadNode, fieldPath, "");
+                    if (_isNotEmpty(fieldAction)) {
+                        var fieldValuePostAction = "";
+                        fieldValuePostAction = performMetadataAction(fieldValue, fieldAction,_log);
+                        _log.error(">> form info item: action {}={}", fieldValue, fieldValuePostAction);
+                        fieldValue = fieldValuePostAction;
+                    }
+                    argsInfo[fieldName] = fieldValue;
+                    _log.error(">> form info item: output {}={}", fieldName, fieldValue);
+                } else {
+                    argsInfo[FIELDS.PROCESS_ERROR] = "ERR-SENDEMAIL-004: field in not complete";
+                }
+
+            }
+        }
+    } catch (ex) {
+        _log.error("could not perform action {}",ex);
+        argsInfo[FIELDS.PROCESS_ERROR]="ERR-SENDEMAIL-005: could not field config";
+    }
+    return argsInfo;
+}
+
+
+/**
+ * Overwrites obj1's values with obj2's and adds obj2's if non existent in obj1
+ * @param obj1
+ * @param obj2
+ * @returns obj3 a new object based on obj1 and obj2
+ */
+function merge_objects(obj1,obj2){
+    var obj3 = {};
+    for (var obj1item in obj1) { obj3[obj1item] = obj1[obj1item]; }
+    for (var obj2item in obj2) { obj3[obj2item] = obj2[obj2item]; }
+    return obj3;
 }

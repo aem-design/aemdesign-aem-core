@@ -5,5 +5,5 @@
     jcr:primaryType="cq:Component"
     jcr:title="Tool Tip"
     cq:icon="lightbulb"
-    sling:resourceSuperType="foundation/components/text"
+    sling:resourceSuperType="aemdesign/components/content/tooltip/v2/tooltip"
     componentGroup="AEM.Design - Content"/>

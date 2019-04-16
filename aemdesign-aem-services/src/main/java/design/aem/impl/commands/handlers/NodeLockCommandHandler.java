@@ -29,6 +29,7 @@ import java.util.Iterator;
 
 @Component
 @Service
+@SuppressWarnings("deprecation")
 public class NodeLockCommandHandler implements CommandHandler {
 
     private static final Logger log = LoggerFactory.getLogger(NodeLockCommandHandler.class);

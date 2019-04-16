@@ -1,90 +1,92 @@
 package design.aem;
 
 public class CustomSearchResult {
-    private String extension;
     private String title;
     private String subTitle;
     private String pathUrl;
     private String path;
-    private String imgResource;
+    private String thumbnailUrl;
     private String excerpt;
 
-    private Boolean damAsset;
-    private Boolean pageDetails;
+    private Boolean isAsset;
+    private Boolean isPage;
+    private String detailsPath;
 
     public CustomSearchResult(String path) {
         this.path = path;
     }
 
-    public Boolean getPageDetails() {
-        return pageDetails;
+    public Boolean getIsPage() {
+        return this.isPage;
     }
 
-    public void setPageDetails(Boolean newPageDetails) {
-        pageDetails = newPageDetails;
+    public void setIsPage(Boolean isPage) {
+        this.isPage = isPage;
     }
 
-    public Boolean getDamAsset() {
-        return damAsset;
+    public Boolean getIsAsset() {
+        return this.isAsset;
     }
 
-    public void setDamAsset(Boolean newDamAsset) {
-        damAsset = newDamAsset;
+    public void setIsAsset(Boolean isAsset) {
+        this.isAsset = isAsset;
     }
 
     public String getExcerpt() {
-        return excerpt;
+        return this.excerpt;
     }
 
     public void setExcerpt(String newExcerpt) {
-        excerpt = newExcerpt;
+        this.excerpt = newExcerpt;
     }
 
-    public String getExtension() {
-        return extension;
-    }
-
-    public void setExtension(String extensionType) {
-        extension = extensionType;
-    }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public void setTitle(String newTitle) {
-        title = newTitle;
+        this.title = newTitle;
     }
 
     public String getSubTitle() {
-        return subTitle;
+        return this.subTitle;
     }
 
     public void setSubTitle(String newSubTitle) {
-        subTitle = newSubTitle;
+        this.subTitle = newSubTitle;
     }
 
     public String getPathUrl() {
-        return pathUrl;
+        return this.pathUrl;
     }
 
     public void setPathUrl(String newPathUrl) {
-        pathUrl = newPathUrl;
+        this.pathUrl = newPathUrl;
     }
 
     public String getPath() {
-        return path;
+        return this.path;
     }
 
     public void setPath(String newPath) {
-        path = newPath;
+        this.path = newPath;
     }
 
-    public String getImgResource() {
-        return imgResource;
+
+    public String getDetailsPath() {
+        return this.detailsPath;
     }
 
-    public void setImgResource(String newImgResource) {
-        imgResource = newImgResource;
+    public void setDetailsPath(String detailsPath) {
+        this.detailsPath = detailsPath;
+    }
+
+    public String getThumbnailUrl() {
+        return this.thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 }

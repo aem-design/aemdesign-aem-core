@@ -4,4 +4,5 @@
     jcr:primaryType="cq:Component"
     jcr:title="Nav List"
     cq:icon="viewList"
+    sling:resourceSuperType="aemdesign/components/lists/navlist/v2/navlist"
     componentGroup="AEM.Design - Lists"/>

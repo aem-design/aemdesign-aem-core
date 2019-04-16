@@ -1,0 +1,16 @@
+/* Fix for flickering RTE*/
+div[data-type='inline'] coral-popover[data-id='styles'] {
+    height: 200px !important;
+    max-height: 200px !important;
+    overflow-y: scroll !important;
+}
+div[data-type='fullscreen'] coral-popover[data-id='styles'] {
+    height: 400px !important;
+    max-height: 400px !important;
+    overflow-y: scroll !important;
+}
+div[data-type='dialogFullScreen'] coral-popover[data-id='styles'] {
+    height: 400px !important;
+    max-height: 400px !important;
+    overflow-y: scroll !important;
+}

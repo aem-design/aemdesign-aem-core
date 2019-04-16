@@ -1,0 +1,24 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <a style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+       download>
+        <span data-sly-test="${componentProperties.thumbnailType == 'icon'}"
+              class="icon type_${componentProperties.iconType}">
+            <img class="icon" src="http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png" data-sly-attribute.alt="${componentProperties.mimeTypeLabel}"/>
+        </span>
+        <img data-sly-test="${componentProperties.thumbnailType != 'icon'}"
+             class="card-img-top" src="${componentProperties.thumbnail}"
+             data-sly-attribute.width="${componentProperties.thumbnailWidth}"
+             data-sly-attribute.height="${componentProperties.thumbnailHeight}"
+             data-sly-attribute.alt="${componentProperties.title}"
+        />
+        <div class="title"
+             data-sly-test="${componentProperties.title}">${componentProperties.title}</div>
+        <div class="description"
+             data-sly-test="${componentProperties.description}">${componentProperties.description @ context = 'unsafe'}</div>
+        <div class="info"
+             data-sly-test="${componentProperties.info}">${componentProperties.info}</div>
+        <div class="license"
+             data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo @ context = 'unsafe'}</div>
+    </a>
+</template>

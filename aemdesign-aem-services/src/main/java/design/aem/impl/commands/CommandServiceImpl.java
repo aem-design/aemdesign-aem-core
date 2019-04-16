@@ -2,11 +2,10 @@ package design.aem.impl.commands;
 
 import design.aem.CommandHandler;
 import design.aem.CommandService;
-import org.apache.felix.scr.annotations.ReferenceCardinality;
-import org.apache.felix.scr.annotations.ReferencePolicy;
-import org.apache.felix.scr.annotations.Service;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
+import org.apache.felix.scr.annotations.ReferenceCardinality;
+import org.apache.felix.scr.annotations.ReferencePolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +14,7 @@ import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 @Component
-@Service(value = CommandService.class)
+//@Service(value = CommandService.class)
 public class CommandServiceImpl implements CommandService {
 
     @Reference(

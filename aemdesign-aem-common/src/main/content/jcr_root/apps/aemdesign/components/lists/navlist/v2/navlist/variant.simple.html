@@ -1,0 +1,28 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <nav style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+        <button class="navbar-toggler navbar-toggler-right"
+                type="button"
+                data-toggle="collapse"
+                data-target="#${componentProperties.componentId}Content"
+                aria-controls="${componentProperties.componentId}Content"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-button" href="#">${componentProperties.menuTitle}</a>
+        <div class="collapse navbar-collapse" id="${componentProperties.componentId}Content" data-sly-test="${componentProperties.menuItems}">
+            <ul class="menu" itemscope itemtype="http://www.schema.org/SiteNavigationElement" data-sly-list.link="${componentProperties.menuItems}">
+                <li itemprop="name" class="nav-item${link.current ? ' active' : ''}">
+                    <a itemprop="url" href="${wcmmode.edit ? link.authHref : link.href}"
+                       class="nav-link"
+                       accesskey="${link.accesskey}"
+                       title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,link.title]}">
+                        ${link.pageNavTitle}
+                        <span data-sly-test="${link.current}" class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</template>

@@ -4,4 +4,5 @@
     jcr:primaryType="cq:Component"
     jcr:title="Static Content Include"
     cq:icon="code"
+    sling:resourceSuperType="aemdesign/components/common/staticinclude/v2/staticinclude"
     componentGroup="AEM.Design - Common"/>

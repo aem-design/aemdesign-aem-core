@@ -3,5 +3,6 @@
     jcr:primaryType="cq:Component"
     jcr:title="List Nav"
     cq:icon="viewList"
+    sling:resourceSuperType="aemdesign/components/lists/listnav/v2/listnav"
     jcr:description="used as Pagination in a page"
     componentGroup="AEM.Design - Lists"/>

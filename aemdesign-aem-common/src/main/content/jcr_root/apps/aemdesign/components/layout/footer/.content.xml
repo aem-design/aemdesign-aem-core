@@ -4,4 +4,5 @@
     jcr:primaryType="cq:Component"
     jcr:title="Footer"
     cq:icon="mBox"
+    sling:resourceSuperType="aemdesign/components/layout/footer/v2/footer"
     componentGroup="AEM.Design - Layout"/>

@@ -3,4 +3,5 @@
     jcr:primaryType="cq:Component"
     jcr:description="Video component"
     jcr:title="Video"
+    sling:resourceSuperType="aemdesign/components/media/video/v2/video"
     componentGroup="AEM.Design - Media"/>

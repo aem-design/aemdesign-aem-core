@@ -1,0 +1,27 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+         itemscope itemtype="http://schema.org/Person">
+        <div class="container">
+            <sly data-sly-use.header="./contact-details.header.html"
+                 data-sly-call="${header.variant @ componentProperties=componentProperties}"></sly>
+            <header>
+                <img class="image" src="${componentProperties.pageImageThumbnail}" itemprop="image"
+                     alt="${componentProperties.pageImageTitle ? componentProperties.pageImageTitle : componentProperties.titleFormattedText}"/>
+                <title class="title"
+                       data-sly-test="${!componentProperties.hideTitle}"
+                       data-sly-element="${componentProperties.titleType}"
+                       data-sly-attribute.id="${componentProperties.ariaLabelledBy}">${componentProperties.titleFormatted @ context = 'unsafe'}</title>
+                <div class="description"
+                     data-sly-test="${!componentProperties.hideDescription}">${componentProperties.descriptionFormatted @ context = 'unsafe'}</div>
+                <div class="tags" itemprop="keywords"
+                     data-sly-test="${componentProperties.category}"
+                     data-sly-list.tag="${componentProperties.category}">
+                    <div class="text" id="${componentProperties.category[tag].value}">${componentProperties.category[tag].title}</div>
+                </div>
+            </header>
+            <sly data-sly-use.footer="./contact-details.footer.html"
+                 data-sly-call="${footer.variant @ componentProperties=componentProperties}"></sly>
+        </div>
+    </div>
+</template>

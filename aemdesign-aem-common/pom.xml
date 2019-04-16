@@ -8,7 +8,7 @@
     <parent>
         <groupId>aemdesign</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>1.0.13</version>
+        <version>1.0.540</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +17,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-common</artifactId>
-    <version>1.0.13</version>
+    <version>1.0.540</version>
     <packaging>content-package</packaging>
     <name>AEM Design - Core - AEM Common</name>
     <description>AEM Design package with all common components</description>
@@ -51,11 +51,6 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>aemdesign-aem-services</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>aemdesign-aem-taglibs</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -176,12 +171,41 @@
             <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Common API -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.11.2</version>
+            <version>1.11.3</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <!-- health check around the OSGi installer, http://sling.apache.org/documentation/bundles/osgi-installer.html#health-check -->
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.installer.hc</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
+        <!-- wcm.io context aware configuration -->
+        <dependency>
+            <groupId>io.wcm</groupId>
+            <artifactId>io.wcm.caconfig.editor</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.wcm</groupId>
+            <artifactId>io.wcm.caconfig.extensions</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+
     </dependencies>
 
     <!-- ====================================================================== -->
@@ -205,10 +229,15 @@
                     <exclude>**/.DS_Store</exclude>
                     <exclude>**/target/**</exclude>
                     <exclude>**/pom.xml</exclude>
-                    <exclude>**/etc/clientlibs/aemdesign/css/**</exclude>
-                    <exclude>**/etc/clientlibs/aemdesign/fonts/**</exclude>
-                    <exclude>**/etc/clientlibs/aemdesign/js/**</exclude>
-                    <exclude>**/etc/clientlibs/aemdesign/images/**</exclude>
+                    <exclude>**/apps/*/clientlibs/v1/css/**</exclude>
+                    <exclude>**/apps/*/clientlibs/v1/js/**</exclude>
+                    <exclude>**/apps/*/clientlibs/v1/resources/**</exclude>
+                    <exclude>**/apps/*/clientlibs/v2/css/**</exclude>
+                    <exclude>**/apps/*/clientlibs/v2/js/**</exclude>
+                    <exclude>**/apps/*/clientlibs/v2/resources/**</exclude>
+                    <exclude>**/apps/*/clientlibs/styleguide/css/**</exclude>
+                    <exclude>**/apps/*/clientlibs/styleguide/js/**</exclude>
+                    <exclude>**/apps/*/clientlibs/styleguide/resources/**</exclude>
                 </excludes>
             </resource>
         </resources>
@@ -257,30 +286,32 @@
                     <group>${package.group}</group>
                     <filterSource>src/main/content/META-INF/vault/filter.xml</filterSource>
                     <targetURL>${package.uploadProtocol}://${crx.host}:${crx.port}/crx/packmgr/service.jsp</targetURL>
-
                     <properties>
                         <description>${project.description}</description>
                         <created>${maven.build.timestamp}</created>
                         <createdBy>${package.createdBy}</createdBy>
-                        <acHandling>merge_preserve</acHandling>
+                        <acHandling>ignore</acHandling>
+                        <overrideAclInstallation>true</overrideAclInstallation>
                     </properties>
 
+                    <embeddedTarget>/apps/${package.appFolder}/install</embeddedTarget>
                     <!-- embedded dependencies in the content package -->
                     <embeddeds>
                         <embedded>
-                            <groupId>${project.parent.groupId}</groupId>
-                            <artifactId>aemdesign-aem-services</artifactId>
-                            <target>/apps/${package.appFolder}/install</target>
+                            <artifactId>gson</artifactId>
+                            <artifactId>jsoup</artifactId>
+                            <artifactId>org.apache.sling.installer.hc</artifactId>
+                            <artifactId>io.wcm.caconfig.editor</artifactId>
+                            <artifactId>io.wcm.caconfig.extensions</artifactId>
                         </embedded>
+
                         <embedded>
                             <groupId>${project.parent.groupId}</groupId>
-                            <artifactId>aemdesign-aem-taglibs</artifactId>
-                            <target>/apps/${package.appFolder}/install</target>
+                            <artifactId>aemdesign-aem-services</artifactId>
                         </embedded>
                         <embedded>
                             <groupId>com.github.mickleroy</groupId>
                             <artifactId>aem-sass-compiler</artifactId>
-                            <target>/apps/${package.appFolder}/install</target>
                         </embedded>
                     </embeddeds>
 
@@ -381,34 +412,6 @@
 
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>autoInstallBundle</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.sling</groupId>
-                        <artifactId>maven-sling-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>install-bundle</id>
-                                <goals>
-                                    <goal>install</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>java8</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
         </profile>
     </profiles>
 </project>
