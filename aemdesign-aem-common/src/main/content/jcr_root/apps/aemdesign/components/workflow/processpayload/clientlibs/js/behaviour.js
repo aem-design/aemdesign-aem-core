@@ -67,7 +67,7 @@ window.AEMDESIGN.components.workflow.processpayload = AEMDESIGN.components.workf
                         });
                     }
                     else {
-                        $('.workflow-fieldconfigmultifield')[0].items.add();
+                        //$('.workflow-fieldconfigmultifield')[0].items.add();
                     }
 
 

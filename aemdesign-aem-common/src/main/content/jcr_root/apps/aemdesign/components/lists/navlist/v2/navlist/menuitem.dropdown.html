@@ -1,0 +1,43 @@
+<template data-sly-template.variant="${@ componentProperties, menuItem, isTopLevel, menuItemId}">
+    <sly data-sly-test="${!menuItemId}">
+        <sly data-sly-set.menuId="${'{0}_{1}' @ format=[componentProperties.componentId,menuItem.name]}"></sly>
+    </sly>
+    <sly data-sly-test="${menuItemId}">
+        <sly data-sly-set.menuId="${'{0}_{1}' @ format=[menuItemId,menuItem.name]}"></sly>
+    </sly>
+    <sly data-sly-test="${menuItem.depth}">
+        <sly data-sly-set.levelClass="${' l-{0}' @ format=[menuItem.depth]}"></sly>
+    </sly>
+    <sly data-sly-test="${isTopLevel}">
+        <sly data-sly-set.dropdownClass=" dropdown"></sly>
+    </sly>
+    <sly data-sly-test="${!isTopLevel}">
+        <sly data-sly-set.dropdownClass=" dropdown-submenu"></sly>
+    </sly>
+    <item class="nav-item${menuItem.current ? ' active' : ''}${menuItem.children ? dropdownClass : ''}${levelClass}"
+          data-sly-element="${isTopLevel ? 'li' : 'div'}">
+        <!--/*no children print link only*/-->
+        <a data-sly-test="${!menuItem.children}"
+           class="nav-link${menuItem.current ? ' active' : ''}${levelClass}" href="${menuItem.href}"
+           title="${'{0}{1}{2}' @ format=[componentProperties.linkTitlePrefix,componentProperties.linkTitlePrefix? ' ' : '' ,menuItem.title]}">${menuItem.pageNavTitle}<span data-sly-test="${menuItem.current}" class="sr-only">(current)</span></a>
+        <!--/*yes children print menu toggle*/-->
+        <a data-sly-test="${menuItem.children}"
+           class="nav-link dropdown-toggle${menuItem.current ? ' active' : ''}${levelClass}" id="${menuId}" href="#"
+           role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+           title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,menuItem.title]}">${menuItem.pageNavTitle}<span data-sly-test="${menuItem.current}" class="sr-only">(current)</span></a>
+        <!--/*if has children print menu*/-->
+        <div data-sly-test="${menuItem.children}"
+             class="dropdown-menu${menuItem.current ? ' active' : ''}"
+             aria-labelledby="${menuId}" x-placement="bottom-start">
+            <div class="meta">
+                <h4 class="title">${menuItem.pageNavTitle}</h4>
+                <p class="description" data-sly-test="${menuItem.description}">${menuItem.description}</p>
+            </div>
+            <!--/*if has children print children*/-->
+            <sly data-sly-list.childItem="${menuItem.children}">
+                <sly data-sly-use.render="${'./menuitem.dropdown.html'}"
+                     data-sly-call="${render.variant @ componentProperties=componentProperties, menuitem=childItem, isTopLevel=false, menuItemId=menuId}"></sly>
+            </sly>
+        </div>
+    </item>
+</template>

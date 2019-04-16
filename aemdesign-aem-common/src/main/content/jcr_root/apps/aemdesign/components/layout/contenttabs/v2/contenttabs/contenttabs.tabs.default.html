@@ -1,0 +1,9 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <ul class="nav nav-tabs" role="tablist" data-sly-list.link="${componentProperties.tabPagesInfo}">
+        <li class="nav-item">
+            <a class="nav-link ${linkList.first ? 'active' : ''}" href="#${componentProperties.componentId}_${link.name}" data-toggle="tab" role="tab">
+                <i data-sly-test="${link.tabIconShow}" class="icon ${link.tabIcon @ join=' '}"></i>
+                <span class="title">${link.title}</span></a>
+        </li>
+    </ul>
+</template>

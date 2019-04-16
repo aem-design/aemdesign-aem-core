@@ -7,7 +7,7 @@
 
     <groupId>aemdesign</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>1.0.13</version>
+    <version>1.0.540</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -17,7 +17,6 @@
         <module>aemdesign-aem-author</module>
         <module>aemdesign-aem-common</module>
         <module>aemdesign-aem-services</module>
-        <module>aemdesign-aem-taglibs</module>
         <module>aemdesign-aem-core-deploy</module>
     </modules>
 
@@ -55,6 +54,12 @@
         <!--<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>-->
         <project.majorVersion>1</project.majorVersion>
         <project.minorVersion>1</project.minorVersion>
+        <slf4j.version>1.7.6</slf4j.version>
+        <jacoco.version>0.7.9</jacoco.version>
+        <aem.java.version>8</aem.java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.site.plugin.version>3.7.1</maven.site.plugin.version>
     </properties>
 
     <scm>
@@ -76,8 +81,241 @@
     </distributionManagement>
 
 
+    <!-- ====================================================================== -->
+    <!-- D E P E N D E N C I E S                                                -->
+    <!-- ====================================================================== -->
     <dependencyManagement>
         <dependencies>
+            <!-- OSGi annotations for DS and metatype -->
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>osgi.annotation</artifactId>
+                <version>6.0.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>osgi.core</artifactId>
+                <version>6.0.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>osgi.cmpn</artifactId>
+                <version>6.0.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- Logging Dependencies -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- Apache Sling Dependencies -->
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.commons.osgi</artifactId>
+                <version>2.4.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.commons.johnzon</artifactId>
+                <version>1.0.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- javax.inject 1 -->
+            <dependency>
+                <artifactId>geronimo-atinject_1.0_spec</artifactId>
+                <version>1.0</version>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- Jackson -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.8.4</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.8.4</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.8.4</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- Servlet API -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>3.1.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet.jsp</groupId>
+                <artifactId>jsp-api</artifactId>
+                <version>2.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- JCR -->
+            <dependency>
+                <groupId>javax.jcr</groupId>
+                <artifactId>jcr</artifactId>
+                <version>2.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.jackrabbit</groupId>
+                <artifactId>jackrabbit-jcr-commons</artifactId>
+                <version>2.12.1</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- Commons -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.5</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.5</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2.2</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>2.0.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!--
+                AEM APIs; make sure to not move this bundle upper in the list so that newer APIs available in AEM but not in the Uber
+                Jar can be used as dependencies.
+             -->
+            <dependency>
+                <groupId>com.adobe.aem</groupId>
+                <artifactId>uber-jar</artifactId>
+                <version>6.3.2</version>
+                <classifier>apis</classifier>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- Testing -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>1.10.19</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-api-mockito</artifactId>
+                <version>1.6.4</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-module-junit4</artifactId>
+                <version>1.6.4</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-core</artifactId>
+                <version>1.6.4</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.wcm</groupId>
+                <artifactId>io.wcm.testing.aem-mock.junit4</artifactId>
+                <version>2.3.2</version>
+                <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.commons</groupId>
+                        <artifactId>commons-imaging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.testing.sling-mock.junit4</artifactId>
+                <version>2.3.4</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.servlet-helpers</artifactId>
+                <version>1.1.8</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.i18n</artifactId>
+                <version>2.4.4</version>
+                <scope>test</scope>
+            </dependency>
+
+
+            <!--other-->
+
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.core</artifactId>
+                <version>6.0.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.bnd.models</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.3</version>
+            </dependency>
+
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
@@ -103,18 +341,6 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.core</artifactId>
-                <version>4.2.0</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>javax.jcr</groupId>
-                <artifactId>jcr</artifactId>
-                <version>2.0</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>org.apache.felix.scr.annotations</artifactId>
                 <version>1.9.12</version>
@@ -124,12 +350,6 @@
                 <groupId>biz.aQute</groupId>
                 <artifactId>bndlib</artifactId>
                 <version>1.43.0</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>1.7.6</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -146,17 +366,6 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>2.5</version>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
                 <groupId>junit-addons</groupId>
                 <artifactId>junit-addons</artifactId>
                 <version>1.4</version>
@@ -171,12 +380,6 @@
                         <groupId>xerces</groupId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-simple</artifactId>
-                <version>1.7.6</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jmockit</groupId>
@@ -197,14 +400,9 @@
                 <version>2.1.0</version>
                 <scope>provided</scope>
             </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>3.0.1</version>
-                <scope>provided</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
+
 
     <!--
         Inclusion of repositories in POMs is controversial, to say the least.
@@ -423,6 +621,14 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${maven.site.plugin.version}</version>
+                <configuration>
+                    <locales>en</locales>
+                </configuration>
+            </plugin>
         </plugins>
         <!-- ensure all artifact names are set to updated version -->
         <finalName>${project.artifactId}-${git.closest.tag.name}.${git.closest.tag.commit.count}</finalName>
@@ -537,36 +743,36 @@
                 </plugin>
                 <!--This plugin's configuration is used to store Eclipse
                     m2e settings only. It has no influence on the Maven build itself. -->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>
-                                            org.apache.felix
-                                        </groupId>
-                                        <artifactId>
-                                            maven-scr-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.0.0,)
-                                        </versionRange>
-                                        <goals>
-                                            <goal>scr</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore/>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
+                <!--<plugin>-->
+                    <!--<groupId>org.eclipse.m2e</groupId>-->
+                    <!--<artifactId>lifecycle-mapping</artifactId>-->
+                    <!--<version>1.0.0</version>-->
+                    <!--<configuration>-->
+                        <!--<lifecycleMappingMetadata>-->
+                            <!--<pluginExecutions>-->
+                                <!--<pluginExecution>-->
+                                    <!--<pluginExecutionFilter>-->
+                                        <!--<groupId>-->
+                                            <!--org.apache.felix-->
+                                        <!--</groupId>-->
+                                        <!--<artifactId>-->
+                                            <!--maven-scr-plugin-->
+                                        <!--</artifactId>-->
+                                        <!--<versionRange>-->
+                                            <!--[1.0.0,)-->
+                                        <!--</versionRange>-->
+                                        <!--<goals>-->
+                                            <!--<goal>scr</goal>-->
+                                        <!--</goals>-->
+                                    <!--</pluginExecutionFilter>-->
+                                    <!--<action>-->
+                                        <!--<ignore/>-->
+                                    <!--</action>-->
+                                <!--</pluginExecution>-->
+                            <!--</pluginExecutions>-->
+                        <!--</lifecycleMappingMetadata>-->
+                    <!--</configuration>-->
+                <!--</plugin>-->
                 <!-- This plugin's configuration is to
                  access the parsed components of a project version. -->
                 <plugin>

@@ -1,0 +1,24 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+         itemscope itemtype="http://schema.org/ImageObject">
+        <sly>
+            <sly data-sly-set.imageClass="${'card-img-top'}"></sly>
+            <sly data-sly-use.info="image.select.simple.html"
+                 data-sly-call="${info.variant @ componentProperties=componentProperties, imageClass=imageClass}"></sly>
+        </sly>
+        <div class="card-block">
+            <a href="${componentProperties.linkURL}" data-sly-unwrap="${componentProperties.linkURL == ''}">
+                <title class="card-title"
+                       id="${componentProperties.ariaLabelledBy}"
+                       data-sly-test="${componentProperties['dc:title']}"
+                       data-sly-element="${componentProperties.titleType}">${componentProperties['dc:title']}</title>
+            </a>
+            <div class="card-text" data-sly-test="${componentProperties['dc:description']}">${componentProperties['dc:description'] @ context = 'unsafe'}</div>
+        </div>
+        <div class="card-footer"
+            data-sly-test="${componentProperties.licenseInfo}">
+            <span class="license">${componentProperties.licenseInfo @ context = 'unsafe'}</span>
+        </div>
+    </div>
+</template>

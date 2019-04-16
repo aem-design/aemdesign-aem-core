@@ -67,7 +67,6 @@
     private static final String DETAILS_TAB_ICON = "tabIcon";
     private static final String DETAILS_TITLE_ICONSHOW = "titleIconShow";
     private static final String DETAILS_TITLE_ICON = "titleIcon";
-    private static final String DETAILS_TITLE_TYPE = "titleType";
     private static final String DETAILS_OVERLAY_ICONSHOW = "badgeOverlayIconShow";
     private static final String DETAILS_OVERLAY_ICON = "badgeOverlayIcon";
     private static final String DETAILS_CARD_STYLE = "cardStyle";
@@ -99,6 +98,10 @@
     private static final String DETAILS_BADGE_ANALYTICS_LINK_LOCATION = "badgeAnalyticsLinkLocation";
     private static final String DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION = "badgeAnalyticsLinkDescription";
 
+    //page metadata pageMetaProperty
+    private static final String DETAILS_PAGE_METADATA_PROPERTY = "pageMetaProperty";
+    private static final String DETAILS_PAGE_METADATA_PROPERTY_CONTENT = "pageMetaPropertyContent";
+
     //analytics
     private static final String DETAILS_ANALYTICS_EVENT_TYPE = "analyticsEventType";
     private static final String DETAILS_ANALYTICS_LINK_TYPE = "analyticsLinkType";
@@ -124,6 +127,7 @@
     private static final String COMPONENT_ATTRIBUTE_CLASS = "class";
     private static final String COMPONENT_INPAGEPATH = "componentInPagePath";
     private static final String COMPONENT_ATTRIBUTE_INPAGEPATH = "data-layer-componentpath";
+    private static final String COMPONENT_BACKGROUND_ASSETS = "componentBackgroundAssets";
 
 
     private static final String COMPONENT_CANCEL_INHERIT_PARENT = "cancelInheritParent";
@@ -306,6 +310,9 @@
             {DETAILS_BADGE_ANALYTICS_LINK_TYPE, StringUtils.EMPTY}, //basic
             {DETAILS_BADGE_ANALYTICS_LINK_LOCATION, StringUtils.EMPTY}, //basic
             {DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LINK_DESCRIPTION, StringUtils.EMPTY}, //basic
+            {DETAILS_PAGE_METADATA_PROPERTY, new String[]{}},
+            {DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[]{}},
 
     };
 
@@ -892,8 +899,9 @@
                                         //if data-attribute not specified return values as map entry
                                         if (isEmpty(fieldDataName)) {
                                             fieldValue = getTagsValues(tagManager, resourceResolver, " ", (String[]) fieldValue);
+                                        } else {
+                                            fieldValueString = getTagsAsValues(tagManager, resourceResolver, " ", (String[]) fieldValue);
                                         }
-                                        fieldValueString = getTagsAsValues(tagManager, resourceResolver, " ", (String[]) fieldValue);
                                     } else {
                                         fieldValueString = StringUtils.join((String[]) fieldValue, ",");
                                     }
@@ -1005,7 +1013,7 @@
 
     /***
      *
-     * @deprecated please use ComponentProperties.attr which is an AttributeBuilder
+     * @deprecated please use responsive getBackgroundImageRenditions or ComponentProperties.attr which is an AttributeBuilder
      *
      * add style tag to component attributes collection
      * @param componentProperties component attributes collection
@@ -1019,7 +1027,7 @@
         String componentAttributes = componentProperties.get(COMPONENT_ATTRIBUTES, "");
         Resource imageResource = resource.getChild(imageResourceName);
         if (imageResource != null) {
-            Resource fileReference = imageResource.getChild("fileReference");
+            Resource fileReference = imageResource.getChild(IMAGE_FILEREFERENCE);
             if (fileReference != null) {
                 String imageSrc = "";
                 if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE) || imageResource.getResourceType().endsWith(DEFAULT_IMAGE_RESOURCETYPE_SUFFIX)) {
@@ -1147,13 +1155,33 @@
         String pageDescription = page.getDescription();
 
         try {
-            Node filterDetailComponent = findDetailNode(page);
 
-            if (filterDetailComponent != null) {
-                if (filterDetailComponent.hasProperty(DETAILS_DESCRIPTION)) {
-                    return filterDetailComponent.getProperty(DETAILS_DESCRIPTION).getString();
+            Resource pageResource = page.getContentResource();
+
+            if (pageResource != null) {
+                String[] listLookForDetailComponent = DEFAULT_LIST_DETAILS_SUFFIX;
+
+                String detailsPath = findComponentInPage(page, listLookForDetailComponent);
+
+                ResourceResolver resourceResolver = pageResource.getResourceResolver();
+
+                if (resourceResolver != null) {
+                    Resource detailsResource = resourceResolver.resolve(detailsPath);
+                    if (detailsResource != null) {
+                        Node detailsNode = detailsResource.adaptTo(Node.class);
+                        if (detailsNode != null) {
+                            if (detailsNode.hasProperty(DETAILS_DESCRIPTION)) {
+                                return detailsNode.getProperty(DETAILS_DESCRIPTION).getString();
+                            }
+                            getLogger().error("getPageDescription: detailsNode does not have " + DETAILS_DESCRIPTION);
+                        }
+                        getLogger().error("getPageDescription: detailsNode is null");
+                    }
+                    getLogger().error("getPageDescription: detailsResource is null");
                 }
+                getLogger().error("getPageDescription: resourceResolver is null");
             }
+            getLogger().error("getPageDescription: pageResource is null");
 
         } catch (Exception ex) {
             getLogger().error("getPageDescription:" + ex.toString());

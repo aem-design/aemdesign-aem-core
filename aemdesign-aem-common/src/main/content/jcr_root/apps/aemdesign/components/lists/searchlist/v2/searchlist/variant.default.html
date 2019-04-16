@@ -1,0 +1,56 @@
+<template data-sly-template.variant="${@ componentProperties, component}">
+    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+        <div class="content">
+            <div class="results">
+
+                <sly data-sly-set.tag="${componentProperties.listTag}"></sly>
+
+                <sly data-sly-test="${componentProperties.printStructure}">
+                    ${"<{0} class=\"list\">" @ format=[tag], context = 'unsafe' }
+                </sly>
+
+                <sly data-sly-list.result="${componentProperties.results}" >
+
+                    <li data-sly-unwrap="${!componentProperties.printStructure}">
+
+                        <sly data-sly-test="${result.isAsset}">
+                            <sly data-sly-use.asset="${'./badge.asset.html'}"
+                                 data-sly-call="${asset.variant @ componentProperties=component.componentProperties, resultItem=result}"></sly>
+                        </sly>
+                        <sly data-sly-test="${result.isPage}">
+                            <sly data-sly-use.page="${'./badge.page.html'}"
+                                 data-sly-call="${page.variant @ componentProperties=component.componentProperties, resultItem=result}"></sly>
+                        </sly>
+                        <sly data-sly-test="${!result.isPage && !result.isAsset}">
+                            <sly data-sly-use.default="${'./badge.default.html'}"
+                                 data-sly-call="${default.variant @ componentProperties=component.componentProperties, resultItem=result}"></sly>
+                        </sly>
+
+                    </li>
+
+
+                    <sly data-sly-test="${componentProperties.listSplit && componentProperties.printStructure}">
+                        <sly data-sly-test="${resultList.count in componentProperties.listSplitAtItem} ">
+                            ${"</{0}>" @ format=[tag], context = 'unsafe' }
+                            <!--split-->
+                            ${"<{0}>" @ format=[tag], context = 'unsafe' }
+                        </sly>
+                    </sly>
+
+                </sly>
+
+
+                <sly data-sly-test="${componentProperties.printStructure}">
+                    ${"</{0}>" @ format=[tag], context = 'unsafe' }
+                </sly>
+            </div>
+
+            <sly data-sly-test="${componentProperties.includePagination}">
+                <sly data-sly-use.pagination="${'./searchlist.pagination..html'}"
+                     data-sly-call="${pagination.variant @ componentProperties=component.componentProperties}"></sly>
+                </sly>
+            </sly>
+        </div>
+    </div>
+</template>

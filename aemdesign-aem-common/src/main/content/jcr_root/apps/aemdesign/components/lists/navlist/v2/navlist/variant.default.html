@@ -1,0 +1,14 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <ul style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+        data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+        itemscope itemtype="http://www.schema.org/SiteNavigationElement"
+        data-sly-list.link="${componentProperties.menuItems}">
+        <li itemprop="name" class="nav-item${link.current ? ' active' : ''}">
+            <a itemprop="url" href="${link.authHref}"
+               class="nav-link${link.current ? ' active' : ''}"
+               accesskey="${link.accesskey}"
+               title="${'{0} {1}' @ format=[componentProperties.linkTitlePrefix,link.title]}">${link.pageNavTitle}<span data-sly-test="${link.current}" class="sr-only">(current)</span>
+            </a>
+        </li>
+    </ul>
+</template>

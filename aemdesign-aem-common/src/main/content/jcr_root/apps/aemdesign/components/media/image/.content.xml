@@ -4,5 +4,5 @@
     jcr:description="Image Component"
     jcr:title="Image"
     cq:icon="image"
-    sling:resourceSuperType="foundation/components/parbase"
+    sling:resourceSuperType="aemdesign/components/media/image/v2/image"
     componentGroup="AEM.Design - Media"/>

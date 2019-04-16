@@ -1,0 +1,16 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+         data-sly-use.tabs="contenttabs.tabs.default.html">
+        <sly data-sly-test="${componentProperties.tabPosition == 'top'}"
+             data-sly-call="${tabs.variant @ componentProperties=componentProperties}"></sly>
+        <div class="tab-content" data-sly-list.tab="${componentProperties.tabPagesInfo}">
+            <div class="tab-pane ${tabList.first ? 'active' : ''}" id="${componentProperties.componentId}_${tab.name}" role="tabpanel">
+                <sly data-sly-resource="${tab.pageContent}"></sly>
+
+            </div>
+        </div>
+        <sly data-sly-test="${componentProperties.tabPosition == 'bottom'}"
+             data-sly-call="${tabs.variant @ componentProperties=componentProperties}"></sly>
+    </div>
+</template>

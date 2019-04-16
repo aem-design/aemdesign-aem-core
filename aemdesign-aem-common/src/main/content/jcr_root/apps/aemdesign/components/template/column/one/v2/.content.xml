@@ -4,5 +4,5 @@
     jcr:title="AEM.Design Base Page"
     jcr:description="Base template"
     cq:icon="columnSettings"
-    sling:resourceSuperType="aemdesign/components/template/base/v2"
+    sling:resourceSuperType="aemdesign/components/template/base"
     componentGroup=".hidden"/>

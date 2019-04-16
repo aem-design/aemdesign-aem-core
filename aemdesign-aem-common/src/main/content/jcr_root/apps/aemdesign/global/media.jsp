@@ -1,8 +1,8 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Map" %>
 <%!
-    protected static final String PLAYER_ADDRESS = "/etc/clientlibs/aemdesign/vendorlib/flash/player.swf";
-    protected static final String GALLERIA_THEME = "/etc/clientlibs/aemdesign/vendorlib/galleria/classic/galleria.classic.min.js";
+    protected static final String PLAYER_ADDRESS = "/etc/clientlibs/core/aemdesign/vendorlib/flash/player.swf";
+    protected static final String GALLERIA_THEME = "/etc/clientlibs/core/aemdesign/vendorlib/galleria/classic/galleria.classic.min.js";
 
     /**
      * Get an integer property from the JCR, or null when it's not a proper integer value

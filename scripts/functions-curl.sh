@@ -22,6 +22,7 @@ function doPostFields() {
     local SERVICE=${1?Need service}
     local FIELDS=${2?Need fields}
 
+#    echo "${AEM_USER}:${AEM_PASS}" "${AEM_SCHEMA}://${AEM_HOST}:${AEM_PORT}" "${SERVICE}" "${FIELDS}"
     doPost "${AEM_USER}:${AEM_PASS}" "${AEM_SCHEMA}://${AEM_HOST}:${AEM_PORT}" "${SERVICE}" "${FIELDS}"
 
 }

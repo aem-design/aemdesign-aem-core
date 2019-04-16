@@ -4,4 +4,5 @@
     jcr:title="Lang Nav"
     cq:icon="viewList"
     jcr:description="used as Language Navigation in a site"
+    sling:resourceSuperType="aemdesign/components/lists/langnav/v2/langnav"
     componentGroup="AEM.Design - Lists"/>

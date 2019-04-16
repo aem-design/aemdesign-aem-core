@@ -5,4 +5,5 @@
     jcr:title="External"
     cq:icon="linkGlobe"
     allowedParents="[*/parsys]"
+    sling:resourceSuperType="aemdesign/components/content/external/v2/external"
     componentGroup="AEM.Design - Content"/>

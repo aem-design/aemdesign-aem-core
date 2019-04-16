@@ -1,0 +1,24 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+         itemscope itemtype="https://schema.org/WebSite">
+        <form name="search" itemprop="potentialAction" itemscope itemtype="https://schema.org/SearchAction"
+              action="${componentProperties.formAction}"
+              method="${componentProperties.formMethod}">
+            <meta itemprop="target" content="${componentProperties.formAction}?q={${componentProperties.formParameterName}}"/>
+            <input type="search" itemprop="query-input"
+                   name="${componentProperties.formParameterName}"
+                   placeholder="${componentProperties.placeholderText}">
+            <button type="submit">Search</button>
+
+            <script type="text/template" class="suggestion-tpl">
+                <a href='<@- link @>'>
+              <span class='title'>
+                <strong><@- title @></strong>
+              </span>
+                </a>
+
+            </script>
+        </form>
+    </div>
+</template>

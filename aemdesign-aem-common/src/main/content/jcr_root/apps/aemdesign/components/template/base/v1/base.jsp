@@ -30,7 +30,7 @@
                 DEFAULT_FIELDS_METADATA,
                 DEFAULT_FIELDS_PAGE_THEME);
 
-    //templateProperties.put("faviconsPath", "/etc/clientlibs/aemdesign/icons/favicon");
+    //templateProperties.put("faviconsPath", "/etc.clientlibs/aemdesign/clientlibs/core/clientlibs-favicon/resources/icons");
 
     //TODO: Add theme support or use OOTB theme
     //TODO: move Favicon config toto cloud config

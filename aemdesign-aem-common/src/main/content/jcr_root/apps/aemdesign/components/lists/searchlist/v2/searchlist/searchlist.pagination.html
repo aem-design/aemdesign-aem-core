@@ -1,0 +1,21 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div class="pagination" data-sly-test="${componentProperties.result.resultPages > 1}">
+        <div class="pagination-title">${componentProperties.resultPagesText}</div>
+        <div class="pages">
+            <ul>
+                <li class="previous" data-sly-test="${componentProperties.result.previousPage}">
+                    <a href="${componentProperties.result.previousPage.URL}">${componentProperties.previousText}</a>
+                </li>
+                <sly data-sly-list.page="${componentProperties.result.resultPages}">
+                    <li class="${page.currentPage ? 'current' : ''}">
+                        <a href="${page.URL}" data-sly-unwrap="${page.currentPage}">${pageList.count}</a>
+                    </li>
+                </sly>
+                <li class="next" data-sly-test="${componentProperties.result.nextPage}">
+                    <a href="${componentProperties.result.nextPage.URL}">${componentProperties.nextText}</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</template>

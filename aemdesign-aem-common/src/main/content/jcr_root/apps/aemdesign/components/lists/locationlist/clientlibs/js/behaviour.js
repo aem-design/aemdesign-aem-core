@@ -8,18 +8,18 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
     $(document).ready(function () {
 
 
-        // $("[data-modules='map']").each(function () {
-        //
-        //     log.info("Start to process Google Map");
-        //
-        //     //var mapKey = $("[data-modules='map']").data("mapapikey");
-        //
-        //     ns.loadGoogleMap(this);
-        //
-        //     log.info("Finished to process Google Map");
-        //
-        //
-        // });
+        $(".locationlist[data-modules='map']").each(function () {
+
+            log.info("Start to process Google Map");
+
+            //var mapKey = $("[data-modules='map']").data("mapapikey");
+
+            ns.loadGoogleMap(this);
+
+            log.info("Finished to process Google Map");
+
+
+        });
 
 
     });

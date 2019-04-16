@@ -1,7 +1,7 @@
 //eventfilter - functions
 window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
 window.AEMDESIGN.components = AEMDESIGN.components || {};
-window.AEMDESIGN.components.eventfilter = AEMDESIGN.components.eventfilter || {};
+window.AEMDESIGN.components.eventlist = AEMDESIGN.components.eventlist || {};
 
 (function ($, _, ko, ns, log, window, undefined) { //add additional dependencies
 
@@ -141,4 +141,4 @@ window.AEMDESIGN.components.eventfilter = AEMDESIGN.components.eventfilter || {}
 
     };
 
-})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.eventfilter, AEMDESIGN.log, this); //pass in additional dependencies
+})(AEMDESIGN.jQuery,_,ko, AEMDESIGN.components.eventlist, AEMDESIGN.log, this); //pass in additional dependencies

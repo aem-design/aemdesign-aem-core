@@ -5,4 +5,5 @@
     jcr:primaryType="cq:Component"
     jcr:title="Analytics Data Layer"
     cq:icon="viewDetail"
+    sling:resourceSuperType="aemdesign/components/analytics/datalayer/v2/datalayer"
     componentGroup="AEM.Design - Analytics"/>

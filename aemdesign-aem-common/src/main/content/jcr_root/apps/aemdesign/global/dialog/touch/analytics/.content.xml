@@ -34,54 +34,33 @@
                                     granite:id="analytics-basic"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <analyticsEventType
+                                    <analyticsTrack
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                            fieldDescription="Event Type"
-                                            fieldLabel="Event Type"
-                                            name="./analyticsEventType"
+                                            fieldDescription="Track"
+                                            fieldLabel="Track"
+                                            name="./analyticsTrack"
                                             emptyOption="{Boolean}true"
                                             value="">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                 variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/eventtype"/>
-                                    </analyticsEventType>
-                                    <analyticsLinkType
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                    </analyticsTrack>
+                                    <analyticsLabel
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                            fieldDescription="Link Type"
-                                            fieldLabel="Link Type"
-                                            name="./analyticsLinkType"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/linktype"/>
-                                    </analyticsLinkType>
-                                    <analyticsLinkLocation
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                            fieldDescription="Link Location"
-                                            fieldLabel="Link Location"
-                                            name="./analyticsLinkLocation"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/linklocation"/>
-                                    </analyticsLinkLocation>
-                                    <analyticsLinkDescription
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Label"
+                                            fieldLabel="Label"
+                                            name="./analyticsLabel"
+                                            required="{Boolean}false"/>
+                                    <analyticsLocation
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Link Description"
-                                            fieldLabel="Link Description"
-                                            name="./analyticsLinkDescription"
+                                            fieldLabel="Location"
+                                            name="./analyticsLocation"
                                             required="{Boolean}false"/>
                                 </items>
                             </basic>

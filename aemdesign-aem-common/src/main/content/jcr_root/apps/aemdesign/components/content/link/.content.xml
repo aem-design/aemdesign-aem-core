@@ -3,6 +3,6 @@
     jcr:primaryType="cq:Component"
     jcr:title="Link"
     cq:icon="link"
-    sling:resourceSuperType="foundation/components/parbase"
     allowedParents="[*/parsys]"
+    sling:resourceSuperType="aemdesign/components/content/link/v2/link"
     componentGroup="AEM.Design - Content"/>

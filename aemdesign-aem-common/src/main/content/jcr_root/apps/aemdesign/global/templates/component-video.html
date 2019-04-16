@@ -1,0 +1,9 @@
+<template data-sly-template.variant="${@ componentId, assets, videoBooleanAttrs}">
+    <div class="video" id="video-${componentId}">
+        <video ${videoBooleanAttrs @ join=' '}>
+        <sly data-sly-list.asset="${assets}" data-sly-unwrap>
+            <source src="${asset}" type="${assets[asset]}"/>
+        </sly>
+        </video>
+    </div>
+</template>

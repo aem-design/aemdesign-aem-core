@@ -1,0 +1,8 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <ul style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+        data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+        data-sly-list.link="${componentProperties.menuItems}">
+        <sly data-sly-use.menuitem="${'./menuitem.dropdown.html'}"
+             data-sly-call="${menuitem.variant @ componentProperties=componentProperties, menuitem=link, isTopLevel=true}"></sly>
+    </ul>
+</template>

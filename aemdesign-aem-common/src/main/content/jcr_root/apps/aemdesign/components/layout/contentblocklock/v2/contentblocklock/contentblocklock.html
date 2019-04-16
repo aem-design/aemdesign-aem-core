@@ -1,0 +1,21 @@
+<sly data-sly-use.component="design.aem.models.v2.layout.ContentBlockLock"
+     data-sly-use.variant="${component.componentProperties.variantTemplate}"
+     data-sly-use.background="aemdesign/global/templates/component-background.html"
+     data-sly-use.info="aemdesign/global/templates/component-info.html">
+
+    <!--/* print component background if not locker */-->
+    <sly data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.bgimage.componentBackgroundAssets}"></sly>
+
+    <sly data-sly-test="${!component.componentProperties.islocked}">
+        <!--/* print component variant if not locker */-->
+        <sly data-sly-call="${variant.variant @ componentProperties=component.componentProperties}"></sly>
+
+        <!--/* print component info in edit mode if not locker */-->
+        <sly data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></sly>
+    </sly>
+    <!--/* render content without ability to edit */-->
+    <sly data-sly-test="${component.componentProperties.islocked}">
+        <sly data-sly-include="locked.html"></sly>
+    </sly>
+
+</sly>

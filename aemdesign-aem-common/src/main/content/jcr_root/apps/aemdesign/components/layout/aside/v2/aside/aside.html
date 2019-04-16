@@ -1,0 +1,27 @@
+<sly data-sly-use.component="design.aem.models.v2.layout.Aside"
+     data-sly-use.variant="${component.componentProperties.variantTemplate}"
+     data-sly-use.notfound="${'./parent.notfound.html'}"
+     data-sly-use.render="${'./parent.render.html'}"
+     data-sly-use.background="aemdesign/global/templates/component-background.html"
+     data-sly-use.info="aemdesign/global/templates/component-info.html">
+
+    <!--/* print component background */-->
+    <sly data-sly-test="${component.componentProperties.cancelInheritParent}"
+         data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.bgimage.componentBackgroundAssets}"></sly>
+
+    <!--/* print inherited resource notfound edit message */-->
+    <sly data-sly-test="${!component.componentProperties.cancelInheritParent && !component.componentProperties.inheritedResource}"
+         data-sly-call="${notfound.variant @ componentProperties=component.componentProperties}"></sly>
+
+    <!--/* print inherited resource */-->
+    <sly data-sly-test="${!component.componentProperties.cancelInheritParent && component.componentProperties.inheritedResource}"
+         data-sly-call="${render.variant @ resource=component.componentProperties.inheritedResource}"></sly>
+
+    <!--/* print component variant */-->
+    <sly data-sly-test="${component.componentProperties.cancelInheritParent}"
+         data-sly-call="${variant.variant @ componentProperties=component.componentProperties}"></sly>
+
+    <!--/* print component info in edit mode */-->
+    <sly data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component, inheritParent=(!component.componentProperties.cancelInheritParent && component.componentProperties.inheritedResource.path)}"></sly>
+
+</sly>

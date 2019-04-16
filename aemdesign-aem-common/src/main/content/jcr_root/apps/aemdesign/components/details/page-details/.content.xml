@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Component"
     cq:isContainer="{Boolean}false"
     jcr:description="Page Details is to save additional info for the Page Properties"
-    jcr:primaryType="cq:Component"
     jcr:title="Page Details"
     cq:icon="viewDetail"
+    sling:resourceSuperType="aemdesign/components/details/page-details/v2/page-details"
     componentGroup="AEM.Design - Details"/>
