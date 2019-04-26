@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 
 import static design.aem.utils.components.CommonUtil.DEFAULT_PAR_NAME;
+import static design.aem.utils.components.ComponentDetailsUtil.getPageListInfo;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.ImagesUtil.*;
