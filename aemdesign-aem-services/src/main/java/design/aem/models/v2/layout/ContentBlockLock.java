@@ -12,6 +12,7 @@ import javax.jcr.Node;
 import java.util.Arrays;
 import java.util.List;
 
+import static design.aem.utils.components.ComponentDetailsUtil.getPageListInfo;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.ImagesUtil.*;
