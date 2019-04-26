@@ -234,7 +234,9 @@ public class CommonUtil {
 
             if (!ResourceUtil.isNonExistingResource(detailsComponent)) {
                 ValueMap dcvm = detailsComponent.adaptTo(ValueMap.class);
-                pageTitle = dcvm.get(DETAILS_TITLE, "");
+                if (dcvm != null) {
+                    pageTitle = dcvm.get(DETAILS_TITLE, "");
+                }
             }
         }
 
@@ -638,7 +640,13 @@ public class CommonUtil {
             return null;
         }
 
-        NodeIterator nodeIterator = parSys.adaptTo(Node.class).getNodes();
+        Node parsysNode = parSys.adaptTo(Node.class);
+
+        if (parsysNode == null) {
+            return null;
+        }
+
+        NodeIterator nodeIterator = parsysNode.getNodes();
         if (nodeIterator == null) {
             return null;
         }
