@@ -699,12 +699,28 @@ public class CommonUtil {
      * @return true if the script exists
      * @throws RepositoryException
      */
-    public static boolean nodeExists(Page page, String scriptName) throws RepositoryException {
-        Node rootNode = page.getContentResource().adaptTo(Node.class).getSession().getRootNode();
-        if (scriptName.startsWith("/")) {
-            scriptName = scriptName.substring(1);
+    public static boolean nodeExists(Page page, String scriptName) {
+        if (page == null || isEmpty(scriptName)) {
+            return false;
         }
-        return rootNode.hasNode(scriptName);
+
+        try {
+
+            Resource pageContent = page.getContentResource();
+
+            Node pageContentNode = pageContent.adaptTo(Node.class);
+
+            Session session = pageContentNode.getSession();
+
+            Node rootNode = session.getRootNode();
+            if (scriptName.startsWith("/")) {
+                scriptName = scriptName.substring(1);
+            }
+            return rootNode.hasNode(scriptName);
+
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
 
