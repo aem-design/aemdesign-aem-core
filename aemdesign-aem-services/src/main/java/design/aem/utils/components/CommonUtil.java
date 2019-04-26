@@ -706,11 +706,28 @@ public class CommonUtil {
 
             Resource pageContent = page.getContentResource();
 
+            if (pageContent == null) {
+                return false;
+            }
+
             Node pageContentNode = pageContent.adaptTo(Node.class);
+
+            if (pageContentNode == null) {
+                return false;
+            }
 
             Session session = pageContentNode.getSession();
 
+            if (session == null) {
+                return false;
+            }
+
             Node rootNode = session.getRootNode();
+
+            if (rootNode == null) {
+                return false;
+            }
+
             if (scriptName.startsWith("/")) {
                 scriptName = scriptName.substring(1);
             }
