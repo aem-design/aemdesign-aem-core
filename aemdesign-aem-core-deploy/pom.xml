@@ -30,14 +30,6 @@
     </developers>
 
     <dependencies>
-        <!-- TODO: Add a dependency for every module which should be deployed by the build pipeline -->
-        <!--<dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>${project.parent.artifactId}.[YOUR-MODULE-NAME]</artifactId>
-            <type>zip</type>
-            <version>${project.version}</version>
-        </dependency>
-        -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>aemdesign-aem-author</artifactId>
@@ -128,7 +120,6 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <!-- <id>copy-testsupport</id> -->
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
