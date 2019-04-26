@@ -2,20 +2,13 @@ package design.aem.models.v2.common;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
-import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.WCMMode;
-import com.day.cq.wcm.foundation.ELEvaluator;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.settings.SlingSettingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpServletResponse;
-
-import static com.day.cq.wcm.api.NameConstants.*;
 import static design.aem.utils.components.CommonUtil.PN_REDIRECT_TARGET;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;

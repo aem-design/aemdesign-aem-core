@@ -14,7 +14,6 @@ import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.TagConstants;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
-import java.time.Duration;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.JcrConstants;
 import org.apache.sling.api.resource.Resource;
@@ -29,16 +28,15 @@ import org.slf4j.LoggerFactory;
 
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.text.MessageFormat;
-import java.time.temporal.TemporalAmount;
+import java.time.Duration;
 import java.util.List;
 import java.util.*;
 
 import static design.aem.models.v2.lists.List.SortOrder;
 import static design.aem.utils.components.CommonUtil.DAM_FIELD_LICENSE_USAGETERMS;
-import static design.aem.utils.components.CommonUtil.getLastModified;
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.*;
+import static design.aem.utils.components.ConstantsUtil.IMAGE_OPTION_ADAPTIVE;
+import static design.aem.utils.components.ConstantsUtil.IMAGE_OPTION_RENDITION;
 import static design.aem.utils.components.ImagesUtil.*;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;

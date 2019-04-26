@@ -23,9 +23,9 @@ import java.util.*;
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
-import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.ImagesUtil.*;
-import static design.aem.utils.components.TagUtil.*;
+import static design.aem.utils.components.TagUtil.getPageTags;
+import static design.aem.utils.components.TagUtil.getTagsAsValuesAsAdmin;
 import static org.apache.commons.lang3.StringUtils.defaultIfEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 

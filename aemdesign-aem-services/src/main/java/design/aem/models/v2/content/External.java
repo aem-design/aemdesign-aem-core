@@ -4,20 +4,12 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 
 import static design.aem.utils.components.CommonUtil.getUrlContent;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static java.text.MessageFormat.format;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class External extends WCMUsePojo {
 

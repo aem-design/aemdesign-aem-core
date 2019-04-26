@@ -11,9 +11,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.scripting.SlingScriptHelper;
+import org.apache.sling.xss.XSSAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.sling.xss.XSSAPI;
 
 import javax.jcr.Node;
 import java.util.*;

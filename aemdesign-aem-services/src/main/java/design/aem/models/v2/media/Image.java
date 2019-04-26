@@ -2,7 +2,6 @@ package design.aem.models.v2.media;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.asset.api.AssetManager;
-import com.day.cq.commons.ImageResource;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.TagConstants;
@@ -16,14 +15,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
-import java.text.MessageFormat;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.*;
+import static design.aem.utils.components.ConstantsUtil.IMAGE_FILEREFERENCE;
 import static design.aem.utils.components.ImagesUtil.*;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.*;

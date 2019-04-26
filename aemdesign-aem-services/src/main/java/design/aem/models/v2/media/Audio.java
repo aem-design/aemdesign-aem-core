@@ -1,27 +1,16 @@
 package design.aem.models.v2.media;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.api.DamConstants;
-import com.day.cq.dam.api.Rendition;
 import com.day.cq.i18n.I18n;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
-
-import static design.aem.utils.components.CommonUtil.getFirstMediaNode;
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.IMAGE_FILEREFERENCE;
-import static design.aem.utils.components.ImagesUtil.DEFAULT_IMAGE_PATH_SELECTOR;
 import static design.aem.utils.components.MedaiUtil.PLAYER_ADDRESS;
 import static design.aem.utils.components.ResolverUtil.mappedUrl;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Audio extends WCMUsePojo {
 

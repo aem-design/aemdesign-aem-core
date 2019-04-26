@@ -1,13 +1,9 @@
 package design.aem.models.v2.common;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.i18n.I18n;
-import com.day.cq.wcm.api.Page;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.request.RequestProgressTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +18,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-import static design.aem.utils.components.CommonUtil.PN_REDIRECT_TARGET;
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
-import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 
 public class Timing extends WCMUsePojo {
 

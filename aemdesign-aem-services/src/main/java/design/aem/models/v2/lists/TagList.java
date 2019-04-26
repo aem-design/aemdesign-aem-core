@@ -1,7 +1,6 @@
 package design.aem.models.v2.lists;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.i18n.I18n;
 import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
@@ -10,13 +9,11 @@ import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
-import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
@@ -24,17 +21,16 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-import java.util.*;
-import java.util.List;
-
-import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.models.v2.lists.List.SortOrder;
+import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.TagUtil.TAG_VALUE;
-import static design.aem.utils.components.TagUtil.getTags;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class TagList extends WCMUsePojo {
