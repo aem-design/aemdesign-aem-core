@@ -12,6 +12,7 @@ import com.day.cq.wcm.api.WCMMode;
 import com.day.cq.wcm.api.components.ComponentContext;
 import com.day.cq.wcm.api.components.IncludeOptions;
 import com.day.cq.wcm.foundation.Image;
+import com.google.gson.stream.JsonWriter;
 import design.aem.components.ComponentProperties;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -25,8 +26,6 @@ import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.apache.sling.api.wrappers.SlingHttpServletResponseWrapper;
-import org.apache.sling.commons.json.JSONException;
-import org.apache.sling.commons.json.io.JSONWriter;
 import org.apache.sling.engine.SlingRequestProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +52,6 @@ import static design.aem.utils.components.ComponentsUtil.DETAILS_TITLE;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import com.google.gson.stream.JsonWriter;
 
 public class CommonUtil {
 
@@ -852,6 +850,7 @@ public class CommonUtil {
      * @return the path to the page badget
      * @throws RepositoryException
      */
+    @SuppressWarnings("Duplicates")
     public static String getPageBadgeBase(Page inputPage, String resourceName) throws RepositoryException {
         if (inputPage == null) {
             return null;
@@ -863,7 +862,13 @@ public class CommonUtil {
             return null;
         }
 
-        NodeIterator nodeIterator = parSys.adaptTo(Node.class).getNodes();
+        Node parSysNode = parSys.adaptTo(Node.class);
+
+        if (parSysNode == null) {
+            return null;
+        }
+
+        NodeIterator nodeIterator = parSysNode.getNodes();
         if (nodeIterator == null) {
             return null;
         }
