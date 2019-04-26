@@ -9,7 +9,6 @@ import com.day.cq.search.*;
 import com.day.cq.search.facets.Bucket;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import design.aem.CustomSearchResult;
@@ -30,7 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
-import javax.jcr.RepositoryException;
 import java.io.ByteArrayInputStream;
 import java.net.URLDecoder;
 import java.text.MessageFormat;

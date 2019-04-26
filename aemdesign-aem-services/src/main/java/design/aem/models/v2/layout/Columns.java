@@ -1,10 +1,8 @@
 package design.aem.models.v2.layout;
 
-import com.adobe.cq.sightly.SightlyWCMMode;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.Tag;
-import com.day.cq.wcm.api.WCMMode;
 import com.day.cq.wcm.api.components.Toolbar;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;

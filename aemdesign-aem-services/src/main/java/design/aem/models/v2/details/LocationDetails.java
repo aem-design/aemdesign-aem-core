@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static design.aem.utils.components.CommonUtil.*;
-import static design.aem.utils.components.ComponentDetailsUtil.getPageListInfo;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;

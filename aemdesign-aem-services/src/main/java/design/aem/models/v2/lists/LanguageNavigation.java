@@ -1,9 +1,7 @@
 package design.aem.models.v2.lists;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.commons.Language;
 import com.day.cq.commons.LanguageUtil;
-import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
@@ -16,13 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.I18nUtil.*;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
-import static design.aem.utils.components.TenantUtil.resolveTenantIdFromPath;
-import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class LanguageNavigation extends WCMUsePojo {

@@ -1,7 +1,6 @@
 package design.aem.models.v2.lists;
 
 import com.day.cq.i18n.I18n;
-import design.aem.components.ComponentProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

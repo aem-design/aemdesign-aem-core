@@ -2,7 +2,6 @@ package design.aem.models.v2.template;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
-import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.slf4j.Logger;

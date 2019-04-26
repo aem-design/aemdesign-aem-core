@@ -6,7 +6,6 @@ import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static design.aem.utils.components.CommonUtil.*;
+import static design.aem.utils.components.CommonUtil.getPageNavTitle;
+import static design.aem.utils.components.CommonUtil.tryParseInt;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static org.apache.commons.lang3.StringUtils.isBlank;

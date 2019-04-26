@@ -23,7 +23,6 @@ import com.day.cq.wcm.webservicesupport.Configuration;
 import com.day.cq.wcm.webservicesupport.ConfigurationConstants;
 import com.day.cq.wcm.webservicesupport.ConfigurationManager;
 import com.google.common.base.Throwables;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import design.aem.components.ComponentField;
 import design.aem.components.ComponentProperties;
 import design.aem.models.GenericModel;
@@ -60,7 +59,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import static design.aem.utils.components.CommonUtil.isNull;
 import static design.aem.utils.components.CommonUtil.resourceRenderAsHtml;
 import static design.aem.utils.components.ConstantsUtil.*;
 import static java.text.MessageFormat.format;
