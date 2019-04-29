@@ -121,8 +121,6 @@ public class CommonUtil {
         if (body == null) {
             return null;
         }
-        //final XSSAPI xssAPI = sling.getService(XSSAPI.class).getRequestSpecificAPI(slingRequest);
-        //return xssAPI.encodeForHTML(body.toString());
         return StringEscapeUtils.escapeHtml4(body.toString());
     }
 
@@ -623,7 +621,7 @@ public class CommonUtil {
     /**
      * Get the page badge base path for this page
      *
-     * @param inputPage is the page to look through for event details
+     * @param inputPage is the page to look through for details component
      * @return the path to the page badget
      * @throws RepositoryException
      */
@@ -693,12 +691,13 @@ public class CommonUtil {
      * Determine whether named script exists
      *
      * @param page is the current page (for a reference to the root node)
-     * @param scriptName  is the scriptname to check for
+     * @param nodeName  is the node name to check for
      * @return true if the script exists
      * @throws RepositoryException
      */
-    public static boolean nodeExists(Page page, String scriptName) {
-        if (page == null || isEmpty(scriptName)) {
+    public static boolean nodeExists(Page page, String nodeName) {
+        if (page == null || isEmpty(nodeName)) {
+            LOGGER.error("nodeExists: page={},nodeName={}",page,nodeName);
             return false;
         }
 
@@ -707,33 +706,31 @@ public class CommonUtil {
             Resource pageContent = page.getContentResource();
 
             if (pageContent == null) {
+                LOGGER.error("nodeExists: pageContent={}",pageContent);
                 return false;
             }
 
             Node pageContentNode = pageContent.adaptTo(Node.class);
 
             if (pageContentNode == null) {
+                LOGGER.error("nodeExists: pageContentNode={}",pageContentNode);
                 return false;
             }
 
             Session session = pageContentNode.getSession();
 
             if (session == null) {
+                LOGGER.error("nodeExists: session={}",session);
                 return false;
             }
 
-            Node rootNode = session.getRootNode();
-
-            if (rootNode == null) {
-                return false;
+            if (nodeName.startsWith("/")) {
+                nodeName = nodeName.substring(1);
             }
-
-            if (scriptName.startsWith("/")) {
-                scriptName = scriptName.substring(1);
-            }
-            return rootNode.hasNode(scriptName);
+            return pageContentNode.hasNode(nodeName);
 
         } catch (Exception ex) {
+            LOGGER.error("nodeExists: ex={}",ex);
             return false;
         }
     }
@@ -778,24 +775,28 @@ public class CommonUtil {
      * @param node The node to get the property value from.
      * @param key  The property key to get the value for.
      * @return The value of the property, or null.
-     * @throws RepositoryException
      */
-    public static Value getSingularProperty(Node node, String key) throws RepositoryException {
-        if (node == null || !node.hasProperty(key)) {
+    public static Value getSingularProperty(Node node, String key) {
+        try {
+            if (node == null || !node.hasProperty(key)) {
+                return null;
+            }
+
+            Property property = node.getProperty(key);
+            if (!property.isMultiple()) {
+                return property.getValue();
+            }
+
+            Value[] values = property.getValues();
+            if (values.length < 1) {
+                return null;
+            }
+
+            return values[0];
+        } catch (Exception ex) {
+            LOGGER.error("getSingularProperty: ex={0}", ex);
             return null;
         }
-
-        Property property = node.getProperty(key);
-        if (!property.isMultiple()) {
-            return property.getValue();
-        }
-
-        Value[] values = property.getValues();
-        if (values.length < 1) {
-            return null;
-        }
-
-        return values[0];
     }
 
     /**
