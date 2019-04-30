@@ -6,7 +6,7 @@
         <div class="card-body">
             <title class="card-title"
                    data-sly-element="${componentProperties.badgeTitleType}" itemprop="name">${componentProperties.badgeTitle}</title>
-            <div class="card-date" itemprop="startDate" content="${componentProperties.eventStartDateISO}">${componentProperties.eventDisplayTimeFormatted}</div>
+            <div class="card-date" itemprop="startDate" content="${componentProperties.eventStartDateISO}">${componentProperties.eventDisplayTimeFormatted @ context = 'unsafe'}</div>
         </div>
     </div>
 </template>
