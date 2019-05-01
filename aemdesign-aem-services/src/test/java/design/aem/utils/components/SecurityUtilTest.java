@@ -42,35 +42,35 @@ public class SecurityUtilTest {
         // Verify the results
         assertNotNull(test);
     }
-
-    @Test
-    public void testIsUserMemberOf() throws Exception {
-        // Setup
-        String userPath = "/home/users/a/admin";
-        final List<String> groups = new ArrayList<String>();
-        groups.add("administrators");
-
-        final List<Group> memberOf = new ArrayList<Group>();
-
-
-        Authorizable adminUserAuth = mock(Authorizable.class);
-        User adminUser = mock(User.class);
-        Group administrators = mock(Group.class);
-
-        when(adminUser.isAdmin()).thenReturn(true);
-
-        memberOf.add(administrators);
-
-        when(adminUserAuth.memberOf()).thenReturn(memberOf.iterator());
-
-        // Run the test
-        final boolean result = SecurityUtil.isUserMemberOf(adminUserAuth, groups);
-
-        LOGGER.error("result={}", result);
-
-        // Verify the results
-        assertTrue(result);
-    }
+//
+//    @Test
+//    public void testIsUserMemberOf() throws Exception {
+//        // Setup
+//        String userPath = "/home/users/a/admin";
+//        final List<String> groups = new ArrayList<String>();
+//        groups.add("administrators");
+//
+//        final List<Group> memberOf = new ArrayList<Group>();
+//
+//
+//        Authorizable adminUserAuth = mock(Authorizable.class);
+//        User adminUser = mock(User.class);
+//        Group administrators = mock(Group.class);
+//
+//        when(adminUser.isAdmin()).thenReturn(true);
+//
+//        memberOf.add(administrators);
+//
+//        when(adminUserAuth.memberOf()).thenReturn(memberOf.iterator());
+//
+//        // Run the test
+//        final boolean result = SecurityUtil.isUserMemberOf(adminUserAuth, groups);
+//
+//        LOGGER.error("result={}", result);
+//
+//        // Verify the results
+//        assertTrue(result);
+//    }
 
 
 //
