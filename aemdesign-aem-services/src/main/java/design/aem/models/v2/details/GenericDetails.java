@@ -123,9 +123,9 @@ public class GenericDetails extends WCMUsePojo {
 
             //check if component has the badge and reset if it does not
             if (isEmpty(badgePath)) {
+                LOGGER.error("BADGE NOT FOUND badgePath={},requestedBadgeTemplate={}",badgePath,requestedBadgeTemplate);
                 componentBadge = DEFAULT_BADGE;
                 requestedBadgeTemplate = defaultBadgeTemplate;
-                LOGGER.error("BADGE NOT FOUND badgePath={}",badgePath);
             }
 
             componentProperties.put(COMPONENT_BADGE, componentBadge);
