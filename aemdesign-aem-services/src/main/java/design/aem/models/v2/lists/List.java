@@ -200,7 +200,6 @@ public class List extends WCMUsePojo {
 
         //save tag info
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
-        componentProperties.put("tags",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
         componentProperties.attr.add("data-search-tags", StringUtils.join(tags,","));
 
         //collection info for variables
@@ -604,11 +603,16 @@ public class List extends WCMUsePojo {
                 childMap.put("path", rootPage.getPath());
                 if (matchAny) {
                     childMap.put("group.p.or", "true");
+                    childMap.put("group.0_group.p.or", "true");
                 } else {
                     childMap.put("group.p.and", "true");
+                    childMap.put("group.0_group.p.and", "true");
                 }
                 for (int i =0; i < tags.length; i++) {
-                    childMap.put("group."+i+"_group", tags[i]);
+                    childMap.put("group."+i+"_group.0_group.tagid", tags[i]);
+                    childMap.put("group."+i+"_group.0_group.tagid.property", "jcr:content/cq:tags");
+                    childMap.put("group."+i+"_group.1_group.tagid", tags[i]);
+                    childMap.put("group."+i+"_group.1_group.tagid.property", "jcr:content/article/par/page-details/cq:tags");
                 }
 
                 populateListItemsFromMap(childMap);
@@ -747,7 +751,7 @@ public class List extends WCMUsePojo {
 
             map.put("orderby.sort", sortOrder.getValue());
 
-//            LOGGER.error("populateListItemsFromMap: running query with map=[{}]",map);
+            LOGGER.error("populateListItemsFromMap: running query with map=[{}]",map);
 
             PredicateGroup root = PredicateGroup.create(map);
             // avoid slow //* queries
