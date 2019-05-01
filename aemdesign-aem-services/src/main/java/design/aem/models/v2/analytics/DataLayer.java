@@ -6,6 +6,7 @@ import com.day.cq.replication.ReplicationStatus;
 import com.day.cq.wcm.api.components.Component;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
@@ -17,7 +18,6 @@ import java.util.Calendar;
 import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX;
 import static design.aem.utils.components.CommonUtil.findComponentInPage;
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.DateTimeUtil.formatDate;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -58,7 +58,7 @@ public class DataLayer extends WCMUsePojo {
             componentProperties.put("pageType", detailsProperties.get(DETAILS_ANALYTICS_PAGETYPE, ""));
             componentProperties.put("pagePath", getResourcePage().getPath());
             if (isNotEmpty(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, ""))) {
-                componentProperties.put("effectiveDate", formatDate(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, Calendar.getInstance()), "yyyy-MM-dd"));
+                componentProperties.put("effectiveDate", DateFormatUtils.format(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, Calendar.getInstance()), "yyyy-MM-dd"));
             } else {
                 componentProperties.put("effectiveDate", "");
             }
