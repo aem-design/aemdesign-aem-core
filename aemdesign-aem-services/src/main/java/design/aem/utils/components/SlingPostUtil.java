@@ -18,23 +18,6 @@ import java.util.Locale;
 
 public class SlingPostUtil {
 
-    public static String getAdminUrl(Page page) {
-        String url = page.getVanityUrl();
-
-        if (url == null) {
-            ValueMap vm = page.getProperties();
-            if (vm.containsKey("sling:vanityPath")) {
-                url = page.getProperties().get("sling:vanityPath", String.class);
-            }
-        }
-
-        if (url == null) {
-            url = Text.escapePath(page.getPath());
-        }
-
-        return url + ".html";
-    }
-
     /**
      * Copied from Sling. Later on Sling POST Servlet will be refactored to provide a generic service for this.
      */

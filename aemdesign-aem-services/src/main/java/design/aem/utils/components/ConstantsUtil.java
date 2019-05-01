@@ -25,12 +25,6 @@ public class ConstantsUtil {
 
     public static final String EXTENSION_JSP = "jsp";
 
-    //Do not update unless you have verified all components work
-    public static Boolean REMOVEDECORATION = true; //change this if you want component decoration removed
-
-    //Decide to print Component Badges
-    public static Boolean PRINT_COMPONENT_BADGE = true;
-
     /**
      * name of the layout property
      */
@@ -42,21 +36,10 @@ public class ConstantsUtil {
     public static final String COL_CTL_TYPE = "controlType";
 
     /**
-     * Request parameter. If set, the context is forced to be printed.
-     */
-    public static final String COMPONENT_FORCE_CONTEXT_PARAMETER = "forceeditcontext";
-
-    /**
      * Name of the cookie containing the authoring UI mode
      */
     public static final String WCM_AUTHORING_MODE_COOKIE = "cq-authoring-mode";
-    public static final String WCM_AUTHORING_MODE_COOKIE_VALUE_CLASSIC = "CLASSIC";
     public static final String WCM_AUTHORING_MODE_COOKIE_VALUE_TOUCH = "TOUCH";
-
-    /**
-     * the css prefix for the column classes
-     */
-    public static String defaultLayout = "1;col-md-,12";
 
 
     /**
@@ -67,39 +50,6 @@ public class ConstantsUtil {
     /**
      * Default component placeholder to be used in places of empty text components
      */
-
-    public final static String DEFAULT_CLASSIC_PLACEHOLDER =
-            "<span class=\"cq-text-placeholder-ipe\">&para;</span>";
-
-    public final static String DEFAULT_CLASSIC_PLACEHOLDER_VIDEO =
-            "<div class=\"cq-dd-video cq-video-placeholder\"></div>";
-
-    public final static String DEFAULT_CLASSIC_PLACEHOLDER_CHART =
-            "<img src=\"http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png\" class=\"cq-chart-placeholder\">";
-
-    public final static String DEFAULT_CLASSIC_PLACEHOLDER_TAGCLOUD =
-            "<img src=\"http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png\" class=\"cq-tagcloud-placeholder\" alt=\"\">";
-
-    public final static String DEFAULT_CLASSIC_PLACEHOLDER_LINK =
-            "<img src=\"http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png\" class=\"cq-reference-placeholder cq-dd-paragraph\" alt=\"\">";
-
-    public final static String DEFAULT_CLASSIC_PLACEHOLDER_TABLE =
-            "<img src=\"http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png\" class=\"cq-table-placeholder\" alt=\"\">";
-
-    public final static String DEFAULT_CLASSIC_PLACEHOLDER_LIST =
-            "<img src=\"http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png\" class=\"cq-list-placeholder\" alt=\"\">";
-
-    public final static String DEFAULT_CLASSIC_PLACEHOLDER_IMAGE =
-            "<img title=\"\" alt=\"\" class=\"cq-dd-image cq-image-placeholder\" src=\"http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png\">";
-
-    public final static String DEFAULT_TOUCH_PLACEHOLDER_IMAGE =
-            "<div class=\"cq-placeholder cq-dd-image\" data-emptytext=\"Image\"></div>";
-
-    public final static String DEFAULT_CLASSIC_PLACEHOLDER_CAROUSEL =
-            "<img src=\"http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png\" class=\"cq-carousel-placeholder\" alt=\"\">";
-
-    public final static String DEFAULT_CLASSIC_PLACEHOLDER_TEXT =
-            "<span class=\"cq-text-placeholder-ipe\">&para;</span>";
 
     public static final String DEFAULT_IMAGE_BLANK = "http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png";
 
@@ -164,10 +114,6 @@ public class ConstantsUtil {
 
     public static final String INHERITED_RESOURCE = "inheritedResource";
 
-    public static final String DEFAULT_VALUE_STRING_NOT_FOUND = "";
-
-    public static final String ATTRIBUTE_ID = "attrId";
-
     public final static String IMAGE_OPTION_GENERATED = "generated";
     public final static String IMAGE_OPTION_RENDITION = "rendition";
     public final static String IMAGE_OPTION_RESPONSIVE = "responsive";
@@ -178,35 +124,5 @@ public class ConstantsUtil {
 
     public final static String BADGE_REQUEST_ATTRIBUTES = "badgeRequestAttributes";
     public final static String COMPONENT_PROPERTIES = "componentProperties";
-
-    /**
-     * CQ
-     */
-
-    /**
-     * return if the current request has a Force Context Query String parameter specified.
-     * @param slingRequest sling request
-     * @return status if edit content is active
-     */
-    public static Boolean isForceEditContext(SlingHttpServletRequest slingRequest) {
-        if (slingRequest.getRequestParameter(COMPONENT_FORCE_CONTEXT_PARAMETER) != null) {
-            return Boolean.parseBoolean(slingRequest.getRequestParameter(COMPONENT_FORCE_CONTEXT_PARAMETER).getString());
-        }
-        return false;
-    }
-
-    /**
-     * return current UI Mode, Classic or Touch.
-     * @param slingRequest sling request
-     * @return string of UI being used
-     */
-    @SuppressWarnings("unchecked")
-    public static String UIMode(SlingHttpServletRequest slingRequest) {
-        if (slingRequest.getCookie(WCM_AUTHORING_MODE_COOKIE) != null) {
-            return slingRequest.getCookie(WCM_AUTHORING_MODE_COOKIE).getValue();
-        }
-        return "";
-
-    }
 
 }

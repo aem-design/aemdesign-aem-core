@@ -11,10 +11,7 @@ import com.day.cq.dam.api.Rendition;
 import com.day.cq.dam.commons.util.DamUtil;
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
-import com.day.cq.wcm.api.designer.Style;
 import com.day.cq.wcm.foundation.Image;
-import com.day.image.Layer;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
 import design.aem.components.ComponentProperties;
@@ -151,51 +148,6 @@ public class ImagesUtil {
             {IMAGE_FILEREFERENCE, ""},
     };
 
-
-    /***
-     * get attributes from asset.
-     * @param pageContext page content
-     * @param asset asset to use
-     * @param fieldsLists list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
-     * @return map of attributes
-     */
-    public static ComponentProperties getAssetProperties(PageContext pageContext, com.adobe.granite.asset.api.Asset asset, Object[][]... fieldsLists) {
-        return ComponentsUtil.getComponentProperties(pageContext, asset, fieldsLists);
-    }
-
-    /**
-     * Read properties for the Asset, use page properties to override asset metadata if page properties are set
-     *
-     * @param pageContext
-     * @param asset
-     * @param name
-     * @param usePage
-     * @return Object
-     */
-    public static Object getAssetProperty(PageContext pageContext, com.adobe.granite.asset.api.Asset asset, String name, Boolean usePage) {
-
-        if (pageContext == null || asset == null) {
-            return "";
-        }
-
-        if (usePage) {
-
-            ValueMap properties = (ValueMap) pageContext.getAttribute("properties");
-
-
-            String metadataValue = properties.get(name, String.class);
-            if (isEmpty(metadataValue)) {
-                metadataValue = getMetadataStringForKey(asset, name);
-            }
-
-            return metadataValue;
-        } else {
-
-            return getMetadataStringForKey(asset, name);
-        }
-    }
-
-
     /**
      * Necessary to make sure some of the weird behavior CQ exhibits gets worked around. In
      * some cases (don't know when exactly), the asset dc:title and dc:description keys are
@@ -304,63 +256,6 @@ public class ImagesUtil {
         return metadataObj.toString();
     }
 
-    /**
-     * Try to find an image thumbnail associated to this audio badge
-     *
-     * @param asset is the asset to look through
-     * @return the thumbnail path
-     */
-    public static Resource getThumbnailPathName(Asset asset) throws RepositoryException {
-        List<Rendition> renditions = asset.getRenditions();
-
-        if (renditions == null || renditions.size() == 0) {
-            return null;
-        }
-
-        // cycle through renditions to find the first thumbnail
-        for (Rendition rendition : renditions) {
-            Node rNode = rendition.adaptTo(Node.class);
-            if (DamUtil.isThumbnail(rNode)) {
-                return rendition.adaptTo(Resource.class);
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Try to find an image thumbnail associated to this audio badge
-     *
-     * @param asset         is the asset to look through
-     * @param renditionName is the specific redition of interest
-     * @return the thumbnail path
-     */
-    public static Resource getThumbnail(Asset asset, String renditionName) {
-        if (asset == null) {
-            return null;
-        }
-
-        try {
-
-            List<Rendition> renditions = asset.getRenditions();
-
-            if (renditions == null || renditions.size() == 0) {
-                return null;
-            }
-
-            // cycle through renditions to find the specific rendition
-            for (Rendition rendition : renditions) {
-                if (rendition.getName().equals(renditionName))
-                    return rendition.adaptTo(Resource.class);
-            }
-
-        } catch (Exception ex) {
-            LOGGER.error("Exception occurred: " + ex.getMessage(), ex);
-        }
-        return null;
-    }
-
-
     /***
      * get rendition matching selected width.
      * @param asset asset to use
@@ -386,33 +281,6 @@ public class ImagesUtil {
         return _resourceResolver.map(page.getPath().concat(DEFAULT_THUMB_SELECTOR_MD));
     }
 
-    /**
-     * Get a thumbnail for an image if no rendition is matched, return img.
-     * @param img image path
-     * @param renditionName rendition name
-     * @param _resourceResolver resource resolver to use
-     * @return thumbnail path
-     * @throws RepositoryException
-     */
-    public static String getThumbnail(String img, String renditionName, ResourceResolver _resourceResolver) throws RepositoryException {
-
-        String imageURL = img;
-
-        if (isNotEmpty(img)) {
-            Resource rs = _resourceResolver.getResource(img);
-            if (rs != null) {
-                Asset asset = rs.adaptTo(Asset.class);
-                Resource renditionRes = getThumbnail(asset, renditionName);
-
-                if (renditionRes != null) {
-                    imageURL = _resourceResolver.map(renditionRes.getPath());
-                }
-
-            }
-        }
-
-        return imageURL;
-    }
 
     /**
      * Get width of the asset
@@ -437,28 +305,6 @@ public class ImagesUtil {
     }
 
     /**
-     * Get height of the asset
-     *
-     * @return height of asset
-     * @throws javax.jcr.RepositoryException
-     */
-    public static int getHeight(Node assetNode) throws RepositoryException {
-        int height = 0;
-        final String PROPERTY_METADATA = "jcr:content/metadata";
-        if (assetNode.hasNode(PROPERTY_METADATA)) {
-            Node metadataNode = assetNode.getNode(PROPERTY_METADATA);
-            try {
-                height = Integer.valueOf(
-                        DamUtil.getValue(metadataNode, "tiff:ImageLength",
-                                DamUtil.getValue(metadataNode, "exif:PixelYDimension", "")));
-            } catch (Exception e) {
-                // If this fails it's ok, we return 0 as fallback
-            }
-        }
-        return height;
-    }
-
-    /**
      * Get the processed version of an image; it will have cropping etc applied to it
      *
      * @param resource     is the resource to read from
@@ -475,25 +321,6 @@ public class ImagesUtil {
 
         // make it a servlet call so it processes the cropping etc.
         image.setSelector(".img");
-
-        return image;
-    }
-
-
-    /**
-     * Get a scaled down, cropped out version of the image at `relativePath` with a
-     * maximum width of `width`.
-     *
-     * @param resource     is the resource the image is a part of
-     * @param relativePath is the relative path
-     * @param maxWidth     is the maximum width
-     * @return is the image object that we will render.
-     */
-    public static Image getScaledProcessedImage(Resource resource, String relativePath, int maxWidth, int maxHeight) {
-        Image image = getProcessedImage(resource, relativePath);
-
-        // set the selector to be the thumbnail selector
-        image.setSelector(".scale.thumbnail." + Integer.toString(maxWidth) + "." + Integer.toString(maxHeight));
 
         return image;
     }
@@ -587,154 +414,6 @@ public class ImagesUtil {
         return fileReferencPath;
     }
 
-    public static String getPageContentImagePath(Page thisPage, String componentPath) {
-        String imagePath = "";
-        try {
-            Node secondaryImage = null;
-            if (thisPage != null && componentPath != null) {
-                Resource componentResource = thisPage.getContentResource(componentPath);
-                if (componentResource != null) {
-                    secondaryImage = componentResource.adaptTo(Node.class);
-                    if (secondaryImage.hasProperty(IMAGE_FILEREFERENCE)) {
-                        imagePath = secondaryImage.getProperty(IMAGE_FILEREFERENCE).getString();
-                    }
-                }
-            }
-        } catch (Exception ex) {
-            LOGGER.error("Exception occurred: " + ex.getMessage(), ex);
-        }
-        return imagePath;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static ComponentProperties getPageNamedImage(SlingScriptHelper _sling, Page page, String width) throws RepositoryException {
-        ComponentProperties componentProperties = new ComponentProperties();
-        ;
-        String imgReference = getPageImgReferencePath(page);
-
-
-        if (isNotEmpty(imgReference)) {
-
-            componentProperties.put("imgUrl", imgReference);
-
-            Resource imgResource = page.getContentResource("image");
-
-            LOGGER.info("imgResource 1 : " + imgResource + " size " + width);
-            Image image1 = new Image(imgResource);
-
-            if (image1.hasContent()) {
-                LOGGER.info("imgResource 1 : hasContent");
-            }
-            imgResource = page.getContentResource().getResourceResolver().getResource(page.getPath() + "/jcr:content/image");
-
-            Image image2 = new Image(imgResource);
-
-            if (image2.hasContent()) {
-                LOGGER.info("imgResource 2 : hasContent");
-            }
-            LOGGER.info("imgResource 2 : " + imgResource + " size " + width);
-            int originalHeight = 0;
-            int originalWidth = 0;
-
-            int profileHeight = 0;
-            int profileWidth = 0;
-            try {
-
-                Image image = new Image(imgResource);
-
-                if (image.hasContent()) {
-
-                    Layer layer = image.getLayer(false, false, false);//imageHelper.scaleThisImage(image, 460, 0, null);
-                    LOGGER.info("imgResource 3 : hasContent");
-                    originalHeight = layer.getHeight();
-                    originalWidth = layer.getWidth();
-                    LOGGER.info("imgResource 3 : originalHeight " + originalHeight);
-                    LOGGER.info("imgResource 3 : originalWidth " + originalWidth);
-
-
-                    org.osgi.service.cm.ConfigurationAdmin configAdmin = _sling.getService(org.osgi.service.cm.ConfigurationAdmin.class);
-
-                    //Configuration instances[] = cm.listConfigurations("(service.factoryPid=com.adobe.acs.commons.images.impl.NamedImageTransformerImpl)");
-                    org.osgi.service.cm.Configuration[] instances = configAdmin.listConfigurations("(service.factoryPid=com.adobe.acs.commons.images.impl.NamedImageTransformerImpl)");
-
-                    if (instances == null || instances.length == 0) {
-                        LOGGER.error("Failed to find OSGI Configuration [service.factoryPid=com.adobe.acs.commons.images.impl.NamedImageTransformerImpl]");
-                    }
-
-                    for (org.osgi.service.cm.Configuration c : instances) {
-
-
-                        String profileName = c.getProperties().get("name").toString();
-
-
-                        LOGGER.debug("profileName : " + profileName + " size " + width);
-                        if (profileName.equals("masonry-" + width)) {
-                            String[] formats = (String[]) c.getProperties().get("transforms");
-                            if (formats.length > 0) {
-                                String[] params = formats[0].split("&");
-                                Map<String, String> map = new HashMap<String, String>();
-                                for (String param : params) {
-                                    String name = param.split("=")[0];
-                                    String value = param.split("=")[1];
-                                    map.put(name, value);
-                                }
-                                //out.println("width : "+ map );
-                                String widthConfig = map.get("resize:width");
-                                String upscaleString = map.get("upscale");
-                                //out.println("width : "+ width );
-
-
-                                profileWidth = Integer.valueOf(widthConfig);
-
-                                LOGGER.debug("map : " + map + " width " + width);
-                            }
-
-
-                        }
-                    }
-
-                    if (profileWidth == 0) {
-                        LOGGER.error("Failed to find the NamedImageServlet Profile masonry-[" + width + "]");
-                    }
-                }
-            } catch (Exception e) {
-                LOGGER.error("Failed to get OSGI Configuration " + e.getMessage(), e);
-            }
-
-
-            if (profileWidth > 0) {
-
-                LOGGER.error("imgResource 3 : Configuration.getProperties ..............." + profileWidth);
-                imgReference = imgReference + ".transform/masonry-" + width + "/image.jpg";
-
-                componentProperties.put("imgUrl", imgReference);
-
-                float aspect = (float) originalHeight / (float) originalWidth;
-                profileHeight = Math.round(profileWidth * aspect);
-
-                componentProperties.put("profileHeight", profileHeight);
-                componentProperties.put("profileWidth", profileWidth);
-            }
-
-
-        } else {
-
-            componentProperties.put("emptyImagePlaceHolder", " placeholder lilac");
-        }
-
-
-        return componentProperties;
-    }
-
-    public static String getPageImgReferencePath(PageManager pageManager, String pagePath) throws RepositoryException {
-        String imgPath = "";
-        if (pagePath != null && !pagePath.equals("")) {
-            Page page = pageManager.getPage(pagePath);
-            imgPath = getPageImgReferencePath(page);
-        }
-        return imgPath;
-    }
-
     /***
      * get asset metadata value and return default value if its empty.
      * @param asset asset to use
@@ -809,10 +488,6 @@ public class ImagesUtil {
 
     public static int getWidth(com.adobe.granite.asset.api.Rendition r) {
         return getDimension(r, "tiff:ImageWidth");
-    }
-
-    public static int getHeight(com.adobe.granite.asset.api.Rendition r) {
-        return getDimension(r, "tiff:ImageLength");
     }
 
     public static int getDimension(com.adobe.granite.asset.api.Rendition r, String dimensionProperty) {
@@ -912,16 +587,6 @@ public class ImagesUtil {
     /***
      * allow picking of best rendition by width based on default prefixes.
      * @param width min width
-     * @param renditions renditions list
-     * @return matching rendition
-     */
-    public static com.adobe.granite.asset.api.Rendition getBestFitRendition(int width, List<com.adobe.granite.asset.api.Rendition> renditions) {
-        return getBestFitRendition(width, renditions, null);
-    }
-
-    /***
-     * allow picking of best rendition by width based on default prefixes.
-     * @param width min width
      * @param asset asset with renditions
      * @return matching rendition
      */
@@ -1016,16 +681,6 @@ public class ImagesUtil {
 
     public static boolean canRenderOnWeb(String mimeType) {
         return (mimeType != null) && ((mimeType.toLowerCase().contains("jpeg")) || (mimeType.toLowerCase().contains("jpg")) || (mimeType.toLowerCase().contains("gif")) || (mimeType.toLowerCase().contains("png")));
-    }
-
-    public static com.adobe.granite.asset.api.Rendition getRenditionByPrefix(com.adobe.granite.asset.api.Asset asset, String prefix, boolean returnOriginal) {
-        Iterator renditions = asset.listRenditions();
-        return getRenditionByPrefix(renditions, prefix, returnOriginal);
-    }
-
-    public static com.adobe.granite.asset.api.Rendition getRenditionByPrefix(com.adobe.granite.asset.api.Asset asset, String prefix) {
-        Iterator renditions = asset.listRenditions();
-        return getRenditionByPrefix(renditions, prefix, false);
     }
 
     public static com.adobe.granite.asset.api.Rendition getRenditionByPrefix(Iterator<com.adobe.granite.asset.api.Rendition> renditions, String prefix) {
@@ -1345,18 +1000,6 @@ public class ImagesUtil {
                         try {
 
                             String imageOption = imageProperties.get(FIELD_IMAGE_OPTION, "");
-                            //imageProperties.put(COMPONENT_BACKGROUND_ASSETS + "Options", imageOption);
-
-    //                        //disable adaptive image option, as it don't work as expected
-    //                        if (imageOption.equals("adaptive")) {
-    //                            imageOption = IMAGE_OPTION_RESPONSIVE;
-    //                        }
-    //
-    //                        //disable generated image option, as it don't work as expected
-    //                        if (imageOption.equals("generated")) {
-    //                            imageOption = IMAGE_OPTION_RENDITION;
-    //                        }
-
 
                             Map<String, String> responsiveImageSet = new LinkedHashMap<String, String>();
 
@@ -1440,87 +1083,6 @@ public class ImagesUtil {
         return null;
     }
 
-
-    /**
-     * Get the allowedDimension for the Image.
-     * @param targetDimension desired size of rendition
-     * @param _currentStyle current style
-     * @return integer matching dimention
-     */
-    public static Integer getDimension(Integer targetDimension, Style _currentStyle) {
-        Integer dimension = null;
-        if (targetDimension != null && targetDimension.intValue() > 0) {
-            int max = _currentStyle.get(Image.PN_MAX_WIDTH, Integer.class);
-            int min = _currentStyle.get(Image.PN_MIN_WIDTH, Integer.class);
-            if (min <= targetDimension && targetDimension <= max) {
-                dimension = targetDimension;
-
-            } else if (min > targetDimension) {
-//                image.set(Image.PN_HTML_WIDTH, String.valueOf(min));
-
-                dimension = min;
-            } else if (max < targetDimension) {
-//                image.set(Image.PN_HTML_WIDTH, String.valueOf(max));
-                dimension = max;
-            }
-        }
-        return dimension;
-    }
-
-    /***
-     * function to filter out the design dialog values which are not matching rendition profile using default rendition prefix names.
-     * @param asset asset to use
-     * @param widthRenditionProfileMapping profile widths map
-     * @return map of renditions
-     */
-    public static Map<Integer, String> getBestFitRenditionSet(com.adobe.granite.asset.api.Asset asset, Map<Integer, String> widthRenditionProfileMapping) {
-        return getBestFitRenditionSet(asset, widthRenditionProfileMapping, null);
-    }
-
-    /**
-     * function to filter out the design dialog values which are not matching rendition profile.
-     *
-     * @param asset                        asset to use
-     * @param widthRenditionProfileMapping profile widths map
-     * @param renditionPrefix              prefix to use
-     * @return profile with substituted paths
-     */
-    public static Map<Integer, String> getBestFitRenditionSet(com.adobe.granite.asset.api.Asset asset, Map<Integer, String> widthRenditionProfileMapping, String renditionPrefix) {
-
-        Map<Integer, String> profileRendtiions = new TreeMap<Integer, String>();
-
-        if (isEmpty(renditionPrefix))
-
-            if (asset != null && widthRenditionProfileMapping != null) {
-
-                for (Integer minWidth : widthRenditionProfileMapping.keySet()) {
-                    String profileWidth = widthRenditionProfileMapping.get(minWidth);
-                    com.adobe.granite.asset.api.Rendition rendition = getBestFitRendition(tryParseInt(profileWidth, 0), asset, defaultIfEmpty(renditionPrefix, null));
-
-//                LOGGER.warn("Best Rendition: [" + tryParseInt(profileWidth,0) + "] found rendition : [" + rendition.getPath() + "] profile name : " + profileWidth );
-
-                    String renditionPath = rendition.getPath();
-
-                    //don't return paths to original rendition return path to asset instead
-                    if (renditionPath.endsWith("/original")) {
-                        String assetPath = renditionPath.substring(0, renditionPath.indexOf(JcrConstants.JCR_CONTENT) - 1);
-                        ResourceResolver resourceResolver = asset.getResourceResolver();
-                        if (resourceResolver != null) {
-                            Resource assetPathResource = resourceResolver.resolve(assetPath);
-                            if (!ResourceUtil.isNonExistingResource(assetPathResource)) {
-                                renditionPath = assetPath;
-                            }
-                        }
-                    }
-
-                    profileRendtiions.put(minWidth, renditionPath);
-                }
-
-            }
-        return profileRendtiions;
-
-    }
-
     /**
      * function to filter out the design dialog values which are not matching rendition profile.
      *
@@ -1574,67 +1136,6 @@ public class ImagesUtil {
         return profileRendtiions;
 
     }
-
-    /**
-     * Get the targetWith which is within the range from the Site.
-     * @param style component style
-     * @param targetWidth width
-     * @return map of matching renditions
-     */
-    public static Map<Integer, String> getWidthProfileMap(Style style, int targetWidth) {
-
-        Map<Integer, String> widthRenditionProfileMap = new LinkedHashMap<Integer, String>();
-
-        Integer maxWidth = style.get(ImageResource.PN_MAX_WIDTH, Integer.class);
-        Integer minWidth = style.get(ImageResource.PN_MIN_WIDTH, Integer.class);
-
-        targetWidth = Math.min(targetWidth, maxWidth);
-        targetWidth = Math.max(targetWidth, minWidth);
-        widthRenditionProfileMap.put(targetWidth, String.valueOf(targetWidth));
-
-        return widthRenditionProfileMap;
-    }
-
-
-    /**
-     * Validate the List of the widthImageMapping from Design dialog and convert it into Map<Integer, String>
-     *
-     * @param widthImageMapping
-     * @return Map<Integer   ,       String>
-     * @throws IllegalAccessException
-     */
-    public static Map<Integer, String> getWidthProfileMap(String[] widthImageMapping) throws IllegalAccessException {
-
-        Map<Integer, String> widthRenditionProfileMap = new LinkedHashMap<Integer, String>();
-
-
-        if (widthImageMapping != null && widthImageMapping.length > 0) {
-
-            for (String entry : widthImageMapping) {
-                String[] entryArray = StringUtils.split(entry, "=");
-                if (entryArray == null || entryArray.length != 2) {
-                    LOGGER.error("design widthImageMapping [" + entry + "] is invalid");
-                    new IllegalAccessException("design widthImageMapping [" + entry + "] is invalid");
-                }
-                String imageWidth = entryArray[0];
-                if (isEmpty(imageWidth)) {
-                    LOGGER.error("profile [" + imageWidth + "] is invalid");
-                    new IllegalAccessException("imageWidth [" + imageWidth + "] is invalid");
-                }
-                String minWidth = entryArray[1];
-                if (isEmpty(minWidth) || (NumberUtils.isDigits(minWidth) == false)) {
-                    LOGGER.error("minWidth [" + minWidth + "] is invalid");
-                    new IllegalAccessException("minWidth [" + minWidth + "] is invalid");
-                }
-
-                widthRenditionProfileMap.put(Integer.valueOf(minWidth), imageWidth);
-
-            }
-        }
-
-        return widthRenditionProfileMap;
-    }
-
 
     /**
      * function to filter out the design dialog values which are not matching adaptive profile
