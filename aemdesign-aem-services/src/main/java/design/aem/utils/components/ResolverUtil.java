@@ -96,49 +96,6 @@ public class ResolverUtil {
     }
 
     /**
-     * check if page redirect URL has been set.
-     * @param _properties properties
-     * @param page page to use
-     * @param _slingRequest sling request
-     * @param response sling response
-     * @param request request
-     * @param _pageContext page content
-     * @return return is the page is being redirected
-     * @throws Exception
-     */
-    @SuppressWarnings("unchecked")
-    public static boolean checkRedirect(ValueMap _properties, Page page, SlingHttpServletRequest _slingRequest, HttpServletResponse response, HttpServletRequest request, PageContext _pageContext) throws Exception {
-
-        // read the redirect target from the 'page properties' and perform the
-        // redirect if WCM is disabled.
-        String location = _properties.get(PAGE_PROP_REDIRECT, "");
-        // resolve variables in path
-        location = ELEvaluator.evaluate(location, _slingRequest, _pageContext);
-        boolean wcmModeIsDisabled = WCMMode.fromRequest(request) == WCMMode.DISABLED;
-        boolean wcmModeIsPreview = WCMMode.fromRequest(request) == WCMMode.PREVIEW;
-
-        if ((location.length() > 0) && ((wcmModeIsDisabled) || (wcmModeIsPreview))) {
-            // check for recursion
-            if (page != null && !location.equals(page.getPath()) && location.length() > 0) {
-                // check for absolute path
-                final int protocolIndex = location.indexOf(":/");
-                final int queryIndex = location.indexOf('?');
-                final String redirectPath;
-                if (protocolIndex > -1 && (queryIndex == -1 || queryIndex > protocolIndex)) {
-                    redirectPath = location;
-                } else {
-                    redirectPath = _slingRequest.getResourceResolver().map(request, location).concat(ConstantsUtil.DEFAULT_EXTENTION);
-                }
-                response.sendRedirect(redirectPath);
-            } else {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * check if provided resource exists.
      * @param resourceName resource name to look for
      * @param _resource resource to use
