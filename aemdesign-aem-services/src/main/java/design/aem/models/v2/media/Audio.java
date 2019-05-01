@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.MedaiUtil.PLAYER_ADDRESS;
 import static design.aem.utils.components.ResolverUtil.mappedUrl;
 
 public class Audio extends WCMUsePojo {
@@ -40,7 +39,6 @@ public class Audio extends WCMUsePojo {
                 {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE},
                 {FIELD_ARIA_LABEL,DEFAULT_ARIA_LABEL},
                 {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"playerAddress", PLAYER_ADDRESS, "player-address"},
         };
 
         componentProperties = ComponentsUtil.getComponentProperties(
