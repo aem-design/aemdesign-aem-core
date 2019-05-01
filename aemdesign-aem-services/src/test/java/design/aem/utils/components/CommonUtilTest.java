@@ -36,7 +36,7 @@ public class CommonUtilTest {
     private Node testResourceNode = null;
 
 
-    protected static String getTestBase() {
+    public static String getTestBase() {
         return TEST_BASE;
     }
 
