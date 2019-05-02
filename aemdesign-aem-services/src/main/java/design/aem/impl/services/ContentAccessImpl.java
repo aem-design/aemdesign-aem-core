@@ -77,12 +77,8 @@ public class ContentAccessImpl implements ContentAccess {
 
         // Get the auto-closing Service resource resolver
         try (ResourceResolver serviceResolver = resourceResolverFactory.getServiceResourceResolver(authInfo)) {
-            if (serviceResolver != null) {
-                // Do some work w your service resource resolver
-                return serviceResolver.getUserID();
-            } else {
-                LOGGER.error("getSubServiceUser: Could not obtain a User for the Service: {}", SERVICE_NAME);
-            }
+            // Do some work w your service resource resolver
+            return serviceResolver.getUserID();
         } catch (LoginException ex) {
             LOGGER.error("getSubServiceUser: Login Exception when obtaining a User for the Bundle Service: {}, ex={}", SERVICE_NAME, ex);
         }
