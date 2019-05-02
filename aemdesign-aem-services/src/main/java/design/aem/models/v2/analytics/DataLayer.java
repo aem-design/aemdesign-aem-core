@@ -46,16 +46,31 @@ public class DataLayer extends WCMUsePojo {
 
         try {
             String detailsPath = findComponentInPage(getResourcePage(), DEFAULT_LIST_DETAILS_SUFFIX);
-            ValueMap detailsProperties = getProperties();
             Resource details = getResourceResolver().getResource(detailsPath);
 
-            //get details properties if its found
-            if (!ResourceUtil.isNonExistingResource(details)) {
-                detailsProperties = details.adaptTo(ValueMap.class);
+            if (details != null) {
+                ValueMap detailsProperties = getProperties();
+
+                //get details properties if its found
+                if (!ResourceUtil.isNonExistingResource(details)) {
+                    detailsProperties = details.adaptTo(ValueMap.class);
+                }
+
+                if (detailsProperties != null) {
+
+                    componentProperties.put("pageName", detailsProperties.get(DETAILS_ANALYTICS_PAGENAME, ""));
+                    componentProperties.put("pageType", detailsProperties.get(DETAILS_ANALYTICS_PAGETYPE, ""));
+                    componentProperties.put("platform", detailsProperties.get(DETAILS_ANALYTICS_PLATFORM, "aem"));
+                    componentProperties.put("abort", detailsProperties.get(DETAILS_ANALYTICS_ABORT, "false"));
+
+                    String variant = detailsProperties.get(DETAILS_ANALYTICS_VARIANT, DEFAULT_VARIANT);
+                    String variantTemplate = getComponentVariantTemplate(getComponent(), format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant), getSlingScriptHelper());
+
+                    //compile variantTemplate param
+                    componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
+                }
             }
 
-            componentProperties.put("pageName", detailsProperties.get(DETAILS_ANALYTICS_PAGENAME, ""));
-            componentProperties.put("pageType", detailsProperties.get(DETAILS_ANALYTICS_PAGETYPE, ""));
             componentProperties.put("pagePath", getResourcePage().getPath());
             if (isNotEmpty(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, ""))) {
                 componentProperties.put("effectiveDate", DateFormatUtils.format(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, Calendar.getInstance()), "yyyy-MM-dd"));
@@ -65,17 +80,10 @@ public class DataLayer extends WCMUsePojo {
             componentProperties.put("contentCountry", getResourcePage().getLanguage(false).getDisplayCountry());
             componentProperties.put("contentLanguage", getResourcePage().getLanguage(false).getDisplayLanguage().toLowerCase());
 
-            componentProperties.put("platform", detailsProperties.get(DETAILS_ANALYTICS_PLATFORM, "aem"));
-            componentProperties.put("abort", detailsProperties.get(DETAILS_ANALYTICS_ABORT, "false"));
             componentProperties.put("detailsMissing", isEmpty(detailsPath));
 
-            componentProperties.put("pageName", detailsProperties.get(DETAILS_ANALYTICS_PAGENAME, ""));
 
-            String variant = detailsProperties.get(DETAILS_ANALYTICS_VARIANT, DEFAULT_VARIANT);
-            String variantTemplate = getComponentVariantTemplate(getComponent(), format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant), getSlingScriptHelper());
 
-            //compile variantTemplate param
-            componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
 
         } catch (Exception ex) {
             LOGGER.error("datalayer: {}", ex);
