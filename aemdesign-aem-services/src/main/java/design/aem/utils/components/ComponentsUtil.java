@@ -1197,9 +1197,9 @@ public class ComponentsUtil {
                                     if (fieldValueType.equals(Tag.class.getCanonicalName())) {
                                         //if data-attribute not specified return values as map entry
                                         if (isEmpty(fieldDataName)) {
-                                            fieldValue = TagUtil.getTagsValues(tagManager, resourceResolver, " ", (String[]) fieldValue);
+                                            fieldValue = TagUtil.getTagsValues(tagManager, adminResourceResolver, " ", (String[]) fieldValue);
                                         } else {
-                                            fieldValueString = TagUtil.getTagsAsValues(tagManager, resourceResolver, " ", (String[]) fieldValue);
+                                            fieldValueString = TagUtil.getTagsAsValues(tagManager, adminResourceResolver, " ", (String[]) fieldValue);
                                         }
                                     } else {
                                         fieldValueString = StringUtils.join((String[]) fieldValue, ",");
