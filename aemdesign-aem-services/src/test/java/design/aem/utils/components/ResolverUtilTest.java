@@ -168,6 +168,32 @@ public class ResolverUtilTest {
 
 
     @Test
+    public void testMappedUrlExternalizerSecure() {
+        // Setup
+        final String path = "/content/externalize-me.html";
+        final String domain = "local";
+        final String expectedResult = "https://192.168.27.2:4502/content/externalize-me.html";
+
+        request.setResource(testResource);
+
+
+        when(externalizer.externalLink(resourceResolver, domain, SECURE_MAP_CONFIG_SCHEMA,
+                path)).thenReturn(expectedResult);
+
+        when(resourceResolver.adaptTo(Externalizer.class)).thenReturn(externalizer);
+        when(resourceResolver.map(path)).thenReturn(path);
+        when(resourceResolver.map(null, path)).thenReturn(path);
+
+
+        // Run the test
+        final String result =  ResolverUtil.mappedUrl(resourceResolver, request, path, true);
+
+        // Verify the results
+        assertEquals(expectedResult, result);
+    }
+
+
+    @Test
     public void testMappedUrlExternalizerHTTPS() {
         // Setup
         final String path = "/content/externalize-me.html";
@@ -206,10 +232,31 @@ public class ResolverUtilTest {
     public void testMappedUrlAllSomeNulls() {
 
         // Run the test
-        assertEquals(null, ResolverUtil.mappedUrl(null, null,null,"path",null));
         assertEquals(null, ResolverUtil.mappedUrl(null, null,null,"path",false));
         assertEquals(null, ResolverUtil.mappedUrl(null, null,"local","path",false));
         assertEquals(null, ResolverUtil.mappedUrl(null, request,"local","path",false));
+
+
+        assertEquals(null, ResolverUtil.mappedUrl(resourceResolver, request,"local","path",null));
+        assertEquals(null, ResolverUtil.mappedUrl(resourceResolver, request,"local",null,null));
+        assertEquals(null, ResolverUtil.mappedUrl(resourceResolver, request,null,null,null));
+
+        assertEquals(null, ResolverUtil.mappedUrl(resourceResolver, null, null, null, false));
+        assertEquals(null, ResolverUtil.mappedUrl(resourceResolver, null,"local","path",false));
+        assertEquals(null, ResolverUtil.mappedUrl(resourceResolver, null,null,"path",false));
+
+
+        assertEquals(null, ResolverUtil.mappedUrl(resourceResolver, null, null, null, null));
+        assertEquals(null, ResolverUtil.mappedUrl(null, request,null, null, null));
+        assertEquals(null, ResolverUtil.mappedUrl(null, null,"local",null, null));
+        assertEquals(null, ResolverUtil.mappedUrl(null, null,null,"path",null));
+        assertEquals(null, ResolverUtil.mappedUrl(null, null, null, null,false));
+
+        assertEquals(null, ResolverUtil.mappedUrl(resourceResolver, null,"local","path",false));
+        assertEquals(null, ResolverUtil.mappedUrl(resourceResolver, request,null,"path",false));
+        assertEquals(null, ResolverUtil.mappedUrl(resourceResolver, request,"local",null,false));
+
+
     }
 
     @Test
