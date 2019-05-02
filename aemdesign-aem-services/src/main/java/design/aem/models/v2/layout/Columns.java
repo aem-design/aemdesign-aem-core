@@ -111,11 +111,11 @@ public class Columns extends WCMUsePojo {
         Object[][] componentFields = {
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"layout", DEFAULT_LAYOUT},
-                {DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, new String[]{}, " ", Tag.class.getCanonicalName()},
-                {DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, new String[]{}," ", Tag.class.getCanonicalName()},
-                {DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, new String[]{}," ", Tag.class.getCanonicalName()},
-                {DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, new String[]{}," ", Tag.class.getCanonicalName()},
-                {DETAILS_COLUMNS_LAYOUT_ROW_CLASS, new String[]{}," ", Tag.class.getCanonicalName()},
+                {DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, new String[]{}, "", Tag.class.getCanonicalName()},
+                {DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, new String[]{},"", Tag.class.getCanonicalName()},
+                {DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, new String[]{},"", Tag.class.getCanonicalName()},
+                {DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, new String[]{},"", Tag.class.getCanonicalName()},
+                {DETAILS_COLUMNS_LAYOUT_ROW_CLASS, new String[]{},"", Tag.class.getCanonicalName()},
         };
 
 
