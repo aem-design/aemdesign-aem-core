@@ -1,0 +1,771 @@
+{
+    "jcr:primaryType": "cq:Page",
+    "jcr:createdBy": "admin",
+    "jcr:created": "Wed Mar 13 2019 21:52:54 GMT+1100",
+    "audio": {
+        "jcr:primaryType": "cq:Page",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Wed Mar 13 2019 21:52:54 GMT+1100",
+        "jcr:content": {
+            "jcr:primaryType": "cq:PageContent",
+            "jcr:createdBy": "admin",
+            "jcr:title": "Audio",
+            "cq:template": "/conf/aemdesign-showcase/settings/wcm/templates/onecolumn",
+            "jcr:created": "Wed Mar 13 2019 21:52:54 GMT+1100",
+            "cq:tags": ["aemdesign-showcase:content-type/page"],
+            "sling:resourceType": "aemdesign/components/template/base",
+            "article": {
+                "jcr:primaryType": "nt:unstructured",
+                "componentId": "article_3KDNV5OPO",
+                "sling:resourceType": "aemdesign/components/layout/article",
+                "par": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "sling:resourceType": "aemdesign/components/layout/container",
+                    "page-details": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "page-details_2WCRXOK4V",
+                        "sling:resourceType": "aemdesign/components/details/page-details"
+                    },
+                    "contentblockmenu1": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblockmenu1",
+                        "sling:resourceType": "aemdesign/components/layout/contentblockmenu"
+                    },
+                    "contentblock1": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock1",
+                        "hideTitleSeparator": "true",
+                        "title": "Video: Default with Audio Source",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "audio": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "componentId": "audio1",
+                                "audioUrl": "/content/dam/aemdesign-showcase/en/multimedia/audio/recit.mp3",
+                                "sling:resourceType": "aemdesign/components/media/audio"
+                            }
+                        }
+                    },
+                    "contentblock2": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock2",
+                        "hideTitleSeparator": "true",
+                        "title": "Video: Default with Video Source",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "audio": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "componentId": "audio2",
+                                "audioUrl": "/content/dam/aemdesign-showcase/en/components/media/video/FishTank.mp4",
+                                "sling:resourceType": "aemdesign/components/media/audio"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "video": {
+        "jcr:primaryType": "cq:Page",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Wed Mar 13 2019 21:52:54 GMT+1100",
+        "jcr:content": {
+            "jcr:primaryType": "cq:PageContent",
+            "jcr:createdBy": "admin",
+            "jcr:title": "Video",
+            "cq:template": "/conf/aemdesign-showcase/settings/wcm/templates/onecolumn",
+            "jcr:created": "Wed Mar 13 2019 21:52:54 GMT+1100",
+            "cq:tags": ["aemdesign-showcase:content-type/page"],
+            "sling:resourceType": "aemdesign/components/template/base",
+            "article": {
+                "jcr:primaryType": "nt:unstructured",
+                "componentId": "article_SVGB8UYKW",
+                "sling:resourceType": "aemdesign/components/layout/article",
+                "par": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "sling:resourceType": "aemdesign/components/layout/container",
+                    "page-details": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "page-details_1ADNE9TG1",
+                        "sling:resourceType": "aemdesign/components/details/page-details"
+                    },
+                    "contentblockmenu1": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblockmenu1",
+                        "sling:resourceType": "aemdesign/components/layout/contentblockmenu"
+                    },
+                    "contentblock1": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock1",
+                        "hideTitleSeparator": "true",
+                        "title": "Video: Default",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "video": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/video/FishTank.mp4",
+                                "componentId": "video1",
+                                "sling:resourceType": "aemdesign/components/media/video",
+                                "componentModifiers": ["aemdesign-showcase:component-style-modifier/embed/embed-responsive-4by3"]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "jcr:content": {
+        "jcr:primaryType": "cq:PageContent",
+        "jcr:createdBy": "admin",
+        "jcr:title": "Media",
+        "cq:template": "/conf/aemdesign-showcase/settings/wcm/templates/twocolumn",
+        "jcr:created": "Wed Mar 13 2019 21:52:54 GMT+1100",
+        "cq:tags": ["aemdesign-showcase:content-type/page"],
+        "sling:resourceType": "aemdesign/components/template/base",
+        "article": {
+            "jcr:primaryType": "nt:unstructured",
+            "sling:resourceType": "aemdesign/components/layout/article",
+            "par": {
+                "jcr:primaryType": "nt:unstructured",
+                "sling:resourceType": "aemdesign/components/layout/container",
+                "page-details": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "menuColor": "green",
+                    "sling:resourceType": "aemdesign/components/details/page-details"
+                },
+                "text": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "text": "<p>Media components are used to place Assets on pages.<\/p>\n",
+                    "sling:resourceType": "aemdesign/components/content/text",
+                    "textIsRich": "true"
+                },
+                "list": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "tagsMatch": "any",
+                    "listItemShowLink": "false",
+                    "parentPage": "/content/aemdesign-showcase/au/en/component/media",
+                    "sling:resourceType": "aemdesign/components/lists/list",
+                    "listFrom": "children",
+                    "listType": "list",
+                    "listLinkTitle": "More Items",
+                    "imageRotate": "0"
+                }
+            }
+        }
+    },
+    "image": {
+        "jcr:primaryType": "cq:Page",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Wed Mar 13 2019 21:52:54 GMT+1100",
+        "jcr:content": {
+            "jcr:primaryType": "cq:PageContent",
+            "jcr:createdBy": "admin",
+            "jcr:title": "Image",
+            "cq:template": "/conf/aemdesign-showcase/settings/wcm/templates/twocolumn",
+            "jcr:created": "Wed Mar 13 2019 21:52:54 GMT+1100",
+            "cq:tags": ["aemdesign-showcase:content-type/page"],
+            "sling:resourceType": "aemdesign/components/template/base",
+            "article": {
+                "jcr:primaryType": "nt:unstructured",
+                "componentId": "article_7RQ2RDZ2J",
+                "sling:resourceType": "aemdesign/components/layout/article",
+                "par": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "sling:resourceType": "aemdesign/components/layout/container",
+                    "page-details": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "page-details_5JGMABGLL",
+                        "sling:resourceType": "aemdesign/components/details/page-details"
+                    },
+                    "contentblockmenu1": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblockmenu1",
+                        "sling:resourceType": "aemdesign/components/layout/contentblockmenu"
+                    },
+                    "contentblock1": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock1",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Default",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city3.jpg",
+                                "componentId": "image1",
+                                "sling:resourceType": "aemdesign/components/media/image"
+                            }
+                        }
+                    },
+                    "contentblock2": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock2",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Image Only",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city3.jpg",
+                                "componentId": "image2",
+                                "variant": "imageOnly",
+                                "sling:resourceType": "aemdesign/components/media/image"
+                            }
+                        }
+                    },
+                    "contentblock3": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock3",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Card",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city3.jpg",
+                                "componentId": "image3",
+                                "variant": "card",
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "componentTheme": ["aemdesign-showcase:component-style-modifier/card"],
+                                "componentModifiers": ["aemdesign-showcase:component-style-modifier/size/w-25"]
+                            }
+                        }
+                    },
+                    "contentblock4": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock4",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Image Title and Description",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city3.jpg",
+                                "componentId": "image4",
+                                "variant": "imageTitleDescription",
+                                "sling:resourceType": "aemdesign/components/media/image"
+                            }
+                        }
+                    },
+                    "contentblock5": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock5",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Default with Licensed Image",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city1.jpg",
+                                "componentId": "image5",
+                                "dc:description": "Can't override Licensed Image Description",
+                                "photoshop:Credit": "Can't override Licensed Image Credit Line",
+                                "photoshop:Source": "Can't override Licensed Image Source",
+                                "sourceAsset": "Can't override Licensed Image Asset URL",
+                                "photoshop:Headline": "Can't override Licensed Image Headline",
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "dc:title": "Can't override Licensed Image Title"
+                            }
+                        }
+                    },
+                    "contentblock6": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock6",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Image Only with Licensed Image",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city1.jpg",
+                                "componentId": "image6",
+                                "dc:description": "Can't override Licensed Image Description",
+                                "photoshop:Credit": "Can't override Licensed Image Credit Line",
+                                "photoshop:Source": "Can't override Licensed Image Source",
+                                "sourceAsset": "Can't override Licensed Image Asset URL",
+                                "variant": "imageOnly",
+                                "photoshop:Headline": "Can't override Licensed Image Headline",
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "dc:title": "Can't override Licensed Image Title"
+                            }
+                        }
+                    },
+                    "contentblock7": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock7",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Card with Licensed Image",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city1.jpg",
+                                "componentId": "image7",
+                                "dc:description": "Can't override Licensed Image Description",
+                                "photoshop:Credit": "Can't override Licensed Image Credit Line",
+                                "photoshop:Source": "Can't override Licensed Image Source",
+                                "sourceAsset": "Can't override Licensed Image Asset URL",
+                                "variant": "card",
+                                "photoshop:Headline": "Can't override Licensed Image Headline",
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "componentTheme": ["aemdesign-showcase:component-style-modifier/card"],
+                                "dc:title": "Can't override Licensed Image Title",
+                                "componentModifiers": ["aemdesign-showcase:component-style-modifier/size/w-25"]
+                            }
+                        }
+                    },
+                    "contentblock8": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock8",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Image Title and Description with Licensed Image",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city1.jpg",
+                                "componentId": "image8",
+                                "dc:description": "Can't override Licensed Image Description",
+                                "photoshop:Credit": "Can't override Licensed Image Credit Line",
+                                "photoshop:Source": "Can't override Licensed Image Source",
+                                "sourceAsset": "Can't override Licensed Image Asset URL",
+                                "variant": "imageTitleDescription",
+                                "photoshop:Headline": "Can't override Licensed Image Headline",
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "dc:title": "Can't override Licensed Image Title"
+                            }
+                        }
+                    },
+                    "contentblock9": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock9",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Empty",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "componentId": "image9",
+                                "sling:resourceType": "aemdesign/components/media/image"
+                            }
+                        }
+                    },
+                    "contentblock10": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock10",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Default with Overrides",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city2.jpg",
+                                "componentId": "image10",
+                                "dc:description": "Can override Image Description",
+                                "photoshop:Credit": "Can override Image Credit Line",
+                                "photoshop:Source": "Can override Image Source",
+                                "sourceAsset": "/content/dam/aemdesign-showcase/en/components/media/image/city1.jpg",
+                                "photoshop:Headline": "Can override Image Headline",
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "dc:title": "Can override Image Title"
+                            }
+                        }
+                    },
+                    "contentblock11": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock11",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Image Only with Overrides",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city2.jpg",
+                                "componentId": "image11",
+                                "dc:description": "Can override Image Description",
+                                "photoshop:Credit": "Can override Image Credit Line",
+                                "photoshop:Source": "Can override Image Source",
+                                "sourceAsset": "/content/dam/aemdesign-showcase/en/components/media/image/city1.jpg",
+                                "variant": "imageOnly",
+                                "photoshop:Headline": "Can override Image Headline",
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "dc:title": "Can override Image Title"
+                            }
+                        }
+                    },
+                    "contentblock12": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock12",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Card with Overrides",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city2.jpg",
+                                "componentId": "image12",
+                                "dc:description": "Can override Image Description",
+                                "photoshop:Credit": "Can override Image Credit Line",
+                                "photoshop:Source": "Can override Image Source",
+                                "sourceAsset": "/content/dam/aemdesign-showcase/en/components/media/image/city1.jpg",
+                                "variant": "card",
+                                "photoshop:Headline": "Can override Image Headline",
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "componentTheme": ["aemdesign-showcase:component-style-modifier/card"],
+                                "dc:title": "Can override Image Title",
+                                "componentModifiers": ["aemdesign-showcase:component-style-modifier/size/w-25"]
+                            }
+                        }
+                    },
+                    "contentblock13": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock13",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Image Title and Description with Overrides",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city2.jpg",
+                                "componentId": "image13",
+                                "dc:description": "Can override Image Description",
+                                "photoshop:Credit": "Can override Image Credit Line",
+                                "photoshop:Source": "Can override Image Source",
+                                "sourceAsset": "/content/dam/aemdesign-showcase/en/components/media/image/city1.jpg",
+                                "variant": "imageTitleDescription",
+                                "photoshop:Headline": "Can override Image Headline",
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "dc:title": "Can override Image Title"
+                            }
+                        }
+                    },
+                    "contentblock14": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock14",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Image Only Empty",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "componentId": "image14",
+                                "variant": "imageOnly",
+                                "sling:resourceType": "aemdesign/components/media/image"
+                            }
+                        }
+                    },
+                    "contentblock15": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock15",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Card Empty",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "componentId": "image15",
+                                "variant": "card",
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "componentTheme": ["aemdesign-showcase:component-style-modifier/card"],
+                                "componentModifiers": ["aemdesign-showcase:component-style-modifier/size/w-25"]
+                            }
+                        }
+                    },
+                    "contentblock16": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock16",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Image Title and Description Empty",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "componentId": "image16",
+                                "variant": "imageTitleDescription",
+                                "sling:resourceType": "aemdesign/components/media/image"
+                            }
+                        }
+                    },
+                    "contentblock17": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock17",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Default with Image Option set to Rendition",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city3.jpg",
+                                "componentId": "image17",
+                                "width": "319",
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "imageOption": "rendition"
+                            }
+                        }
+                    },
+                    "contentblock18": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock18",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Image Title and Description with Asset Metadata",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city2.jpg",
+                                "componentId": "image18",
+                                "variant": "imageTitleDescription",
+                                "sling:resourceType": "aemdesign/components/media/image"
+                            }
+                        }
+                    },
+                    "contentblock19": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock19",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Image Title and Description with Asset Metadata and Adaptive Image",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city2.jpg",
+                                "componentId": "image19",
+                                "variant": "imageTitleDescription",
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "imageOption": "adaptive"
+                            }
+                        }
+                    },
+                    "contentblock20": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock20",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Default with Generated Image",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city3.jpg",
+                                "componentId": "image20",
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "imageOption": "generated",
+                                "imageRotate": "90"
+                            }
+                        }
+                    },
+                    "contentblock21": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock21",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Image and Description",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city3.jpg",
+                                "componentId": "image21",
+                                "variant": "imageDescription",
+                                "sling:resourceType": "aemdesign/components/media/image"
+                            }
+                        }
+                    },
+                    "contentblock22": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock22",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Image and Description floating on left",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city3.jpg",
+                                "componentId": "image22",
+                                "variant": "imageDescription",
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "componentTheme": [
+                                    "aemdesign-showcase:component-style-theme/media/image/floating/left",
+                                    "aemdesign-showcase:component-style-theme/media/image/caption",
+                                    "aemdesign-showcase:component-style-modifier/background/bg-c3",
+                                    "aemdesign-showcase:component-style-modifier/margin/mb-15",
+                                    "aemdesign-showcase:component-style-modifier/margin/mr-15"
+                                ]
+                            },
+                            "text": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "componentId": "text_DP8S4I7CX",
+                                "text": "<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam nesciunt unde non cupiditate earum, sed neque. Nobis necessitatibus cumque sapiente nesciunt facilis modi, hic asperiores neque non, rerum, qui rem!<\/p>\r\n<p>Libero quam sequi error itaque illo dicta dolor ad dolores unde nulla facere tempore voluptatum, ex architecto ab nesciunt voluptatibus est id reiciendis repellendus. Temporibus, reiciendis. Iste maxime sed iusto?<\/p>\r\n<p>Minima voluptatibus expedita eaque iste sit, reiciendis vel rerum suscipit ratione veniam qui mollitia omnis quam ullam reprehenderit sint laudantium harum adipisci necessitatibus quos! Neque quos accusantium aliquam excepturi iure!<\/p>\r\n<p>Molestias neque quisquam libero vero voluptate dolor nostrum error molestiae itaque cupiditate repudiandae corporis illo eligendi beatae esse modi harum eaque a, iste ullam exercitationem maxime! Commodi sequi harum in!<\/p>\r\n<p>Architecto corporis blanditiis dicta soluta officiis aperiam, aliquid a, adipisci numquam aut natus unde reiciendis sit quam voluptate maxime. Nihil accusamus molestias voluptatem temporibus labore tenetur nemo optio consequatur debitis?<\/p>",
+                                "variant": "simple",
+                                "sling:resourceType": "aemdesign/components/content/text",
+                                "textIsRich": "true"
+                            }
+                        }
+                    },
+                    "contentblock23": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock23",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Image and Description floating on right",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/components/media/image/city3.jpg",
+                                "componentId": "image23",
+                                "variant": "imageDescription",
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "componentTheme": [
+                                    "aemdesign-showcase:component-style-theme/media/image/floating/right",
+                                    "aemdesign-showcase:component-style-theme/media/image/caption",
+                                    "aemdesign-showcase:component-style-modifier/background/bg-c3",
+                                    "aemdesign-showcase:component-style-modifier/margin/mb-15",
+                                    "aemdesign-showcase:component-style-modifier/margin/ml-15",
+                                    "aemdesign-showcase:component-style-modifier/margin/mt-15"
+                                ]
+                            },
+                            "text": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "componentId": "text_ULV7EO7KK",
+                                "text": "<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam nesciunt unde non cupiditate earum, sed neque. Nobis necessitatibus cumque sapiente nesciunt facilis modi, hic asperiores neque non, rerum, qui rem!<\/p>\r\n<p>Libero quam sequi error itaque illo dicta dolor ad dolores unde nulla facere tempore voluptatum, ex architecto ab nesciunt voluptatibus est id reiciendis repellendus. Temporibus, reiciendis. Iste maxime sed iusto?<\/p>\r\n<p>Minima voluptatibus expedita eaque iste sit, reiciendis vel rerum suscipit ratione veniam qui mollitia omnis quam ullam reprehenderit sint laudantium harum adipisci necessitatibus quos! Neque quos accusantium aliquam excepturi iure!<\/p>\r\n<p>Molestias neque quisquam libero vero voluptate dolor nostrum error molestiae itaque cupiditate repudiandae corporis illo eligendi beatae esse modi harum eaque a, iste ullam exercitationem maxime! Commodi sequi harum in!<\/p>\r\n<p>Architecto corporis blanditiis dicta soluta officiis aperiam, aliquid a, adipisci numquam aut natus unde reiciendis sit quam voluptate maxime. Nihil accusamus molestias voluptatem temporibus labore tenetur nemo optio consequatur debitis?<\/p>",
+                                "variant": "simple",
+                                "sling:resourceType": "aemdesign/components/content/text",
+                                "textIsRich": "true"
+                            }
+                        }
+                    },
+                    "contentblock24": {
+                        "jcr:primaryType": "nt:unstructured",
+                        "componentId": "contentblock24",
+                        "hideTitleSeparator": "true",
+                        "title": "Image: Default with Image Option - Manual MediaQuery with Rendition",
+                        "variant": "advsection",
+                        "hideTitle": "false",
+                        "sling:resourceType": "aemdesign/components/layout/contentblock",
+                        "par": {
+                            "jcr:primaryType": "nt:unstructured",
+                            "sling:resourceType": "aemdesign/components/layout/container",
+                            "image": {
+                                "jcr:primaryType": "nt:unstructured",
+                                "fileReference": "/content/dam/aemdesign-showcase/en/common/aem-design.png",
+                                "componentId": "image24",
+                                "assetMediaQueryRendition": [
+                                    "aem-design-logo.png",
+                                    "cq5dam.web.1280.1280.png"
+                                ],
+                                "assetMediaQuery": [
+                                    "aemdesign-showcase:component-dialog/css/mediaquery/medium",
+                                    "aemdesign-showcase:component-dialog/css/mediaquery/landscape-large"
+                                ],
+                                "sling:resourceType": "aemdesign/components/media/image",
+                                "imageOption": "mediaqueryrendition"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
