@@ -4,17 +4,12 @@ import com.day.cq.commons.Externalizer;
 import design.aem.context.CoreComponentTestContext;
 import io.wcm.testing.mock.aem.junit.AemContext;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
-import org.apache.sling.testing.mock.sling.ResourceResolverType;
-import org.apache.sling.testing.mock.sling.junit.SlingContext;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletRequest;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletResponse;
 import org.apache.sling.testing.resourceresolver.MockResourceResolver;
-import org.apache.sling.testing.resourceresolver.MockResourceResolverFactory;
 import org.junit.Before;
 import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -26,21 +21,19 @@ import static design.aem.utils.components.CommonUtilTest.getTestBase;
 import static design.aem.utils.components.ResolverUtil.DEFAULT_MAP_CONFIG_SCHEMA;
 import static design.aem.utils.components.ResolverUtil.SECURE_MAP_CONFIG_SCHEMA;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ResolverUtilTest {
 
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ResolverUtil.class);
-
     protected static final String ROOT = "/content";
+    @ClassRule
+    public static final AemContext CONTEXT = CoreComponentTestContext.createContext(getTestBase(), ROOT);
     protected static final String PAGE = ROOT + "/page";
+    private static final Logger LOGGER = LoggerFactory.getLogger(ResolverUtil.class);
     MockSlingHttpServletRequest request;
     MockSlingHttpServletResponse response;
-    private Resource testResource;
-
     @Mock
     MockResourceResolver resourceResolver;
 
@@ -49,19 +42,14 @@ public class ResolverUtilTest {
 
     @Mock
     Externalizer externalizer;
-
-    @Rule
-    public final SlingContext MOCK_CONTEXT = new SlingContext(ResourceResolverType.JCR_MOCK);
-
-    @ClassRule
-    public static final AemContext CONTEXT = CoreComponentTestContext.createContext(getTestBase(), ROOT);
+    private Resource testResource;
 
     @Before
     public void setUp() throws Exception {
-        request = new MockSlingHttpServletRequest(MOCK_CONTEXT.resourceResolver(), MOCK_CONTEXT.bundleContext());
+        request = new MockSlingHttpServletRequest(CONTEXT.resourceResolver(), CONTEXT.bundleContext());
         response = new MockSlingHttpServletResponse();
 
-        MOCK_CONTEXT.registerService(Externalizer.class, externalizer,
+        CONTEXT.registerService(Externalizer.class, externalizer,
                 "jcr:primaryType", "sling:OsgiConfig",
                 "externalizer.domains", "[local http://192.168.27.2:4502,author http://192.168.27.2:4502,publish http://192.168.27.2:4503]",
                 "externalizer.contextpath", "",
