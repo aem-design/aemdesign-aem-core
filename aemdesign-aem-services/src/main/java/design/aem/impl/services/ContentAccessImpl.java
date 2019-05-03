@@ -96,7 +96,7 @@ public class ContentAccessImpl implements ContentAccess {
             // Do some work w your service resource resolver
             return serviceResolver.getUserID();
         } catch (LoginException ex) {
-            LOGGER.error("getSubServiceUser: Login Exception when obtaining a User for the Bundle Service ex={0}", ex);
+            LOGGER.error("getBundleServiceUser: Login Exception when obtaining a User for the Bundle Service ex={0}", ex);
         }
         return "";
     }
