@@ -229,7 +229,7 @@ public class ResolverUtilTest {
     }
 
     @Test
-    public void testMappedUrlAllSomeNulls() {
+    public void testIfPassingNullParamsToFunctionReturnNull() {
 
         // Run the test
         assertEquals(null, ResolverUtil.mappedUrl(null, null,null,"path",false));
@@ -277,7 +277,7 @@ public class ResolverUtilTest {
                 .resource(resourceName, "jcr:primaryType", "nt:file");
 
 
-        when(resourceUtil.findResourceSuperType(testResource)).thenReturn(resourceSuperType);
+        when(resourceUtil.findResourceSuperType(CONTEXT.resourceResolver().getResource(resourceComponent))).thenReturn(resourceSuperType);
         when(resourceResolver.getResource(resourceSuperType + "/" + resourceName)).thenReturn(CONTEXT.resourceResolver().getResource(resourceSuperType + "/" + resourceName));
 
         // Run the test
