@@ -2,7 +2,7 @@ stages:
 #  - prep
 #  - pre-package
   - package
-  #- test
+  - test
   #- release
   #- deploy
 
@@ -50,6 +50,13 @@ package:
       - "*/target/*.zip"
       - "*/target/*.jar"
     expire_in: 1 week
+
+#
+sonarqube_master_job:
+  stage: test
+  image: maven:3.3.9-jdk-8-alpine
+  script:
+    - mvn --batch-mode verify sonar:sonar -Dsonar.branch.name=${CI_COMMIT_REF_NAME} -Dsonar.branch.target=master -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
 
 #Release Maven:
 #  stage: release
