@@ -35,12 +35,12 @@ public class ContentAccessImpl implements ContentAccess {
 
     @Activate
     protected void activate() {
-        LOGGER.error("activate: resourceResolverFactory={}", resourceResolverFactory);
+        LOGGER.info("activate: resourceResolverFactory={}", resourceResolverFactory);
     }
 
     @Deactivate
     protected void deactivate() {
-        LOGGER.error("deactivate: resourceResolverFactory={}", resourceResolverFactory);
+        LOGGER.info("deactivate: resourceResolverFactory={}", resourceResolverFactory);
     }
 
 
