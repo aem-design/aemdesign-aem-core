@@ -51,20 +51,21 @@ package:
 #    - ls -latr
 #    - cd aemdesign-aem-prototype && ls -latr && yarn install && ls -latr && cd ..
     - mvn clean package -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+    - mvn sonar:sonar -Dsonar.branch.name=${CI_COMMIT_REF_NAME} -Dsonar.branch.target=master -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_TOKEN} -Dsonar.organization=aemdesign-github
   artifacts:
     paths:
       - "*/target/*.zip"
       - "*/target/*.jar"
     expire_in: 1 week
 
-#
-sonar-check:
-  stage: analyze
-  image: aemdesign/centos-java-buildpack:latest
-  script:
-    - export PATH=/apps/maven/bin:${PATH}
-    - export PATH=/usr/lib/node_modules/yarn/bin:${PATH}
-    - mvn sonar:sonar -Dsonar.branch.name=${CI_COMMIT_REF_NAME} -Dsonar.branch.target=master -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_TOKEN} -Dsonar.organization=aemdesign-github
+##
+#sonar-check:
+#  stage: analyze
+#  image: aemdesign/centos-java-buildpack:latest
+#  script:
+#    - export PATH=/apps/maven/bin:${PATH}
+#    - export PATH=/usr/lib/node_modules/yarn/bin:${PATH}
+#    - mvn sonar:sonar -Dsonar.branch.name=${CI_COMMIT_REF_NAME} -Dsonar.branch.target=master -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_TOKEN} -Dsonar.organization=aemdesign-github
 
 #Release Maven:
 #  stage: release
