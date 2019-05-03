@@ -2,15 +2,21 @@ stages:
 #  - prep
 #  - pre-package
   - package
-  - test
+  - analyze
   #- release
   #- deploy
 
+cache:
+  paths:
+    - .m2/repository
+
 variables:
   GIT_URL_HTTPS: https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/aem.design/aemdesign-aem-core.git
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
 
 
-before_script:
+#before_script:
 
 
 ## Cache modules in between jobs
@@ -45,6 +51,7 @@ package:
 #    - ls -latr
 #    - cd aemdesign-aem-prototype && ls -latr && yarn install && ls -latr && cd ..
     - mvn clean package -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+    - mvn --batch-mode verify sonar:sonar -Dsonar.branch.name=${CI_COMMIT_REF_NAME} -Dsonar.branch.target=master -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
   artifacts:
     paths:
       - "*/target/*.zip"
@@ -52,10 +59,12 @@ package:
     expire_in: 1 week
 
 #
-sonarqube_master_job:
-  stage: test
-  image: maven:3.3.9-jdk-8-alpine
+sonar-check:
+  stage: analyze
+  image: aemdesign/centos-java-buildpack:latest
   script:
+    - export PATH=/apps/maven/bin:${PATH}
+    - export PATH=/usr/lib/node_modules/yarn/bin:${PATH}
     - mvn --batch-mode verify sonar:sonar -Dsonar.branch.name=${CI_COMMIT_REF_NAME} -Dsonar.branch.target=master -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
 
 #Release Maven:
