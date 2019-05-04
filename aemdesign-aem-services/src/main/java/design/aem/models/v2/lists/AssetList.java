@@ -224,32 +224,36 @@ public class AssetList extends WCMUsePojo {
 //            LOGGER.error("populateListItemsFromMap: map={}",map);
 
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
-            Session session = getResourceResolver().adaptTo(Session.class);
+            if (builder != null) {
+                Session session = getResourceResolver().adaptTo(Session.class);
 
-            Query query = null;
+                Query query = null;
 
-            //limit is set
-            map.put("p.limit", String.valueOf(limit));
+                //limit is set
+                map.put("p.limit", String.valueOf(limit));
 
-            String orderBy = componentProperties.get(PN_ORDER_BY,PN_ORDER_BY_DEFAULT);
-            if (isNotEmpty(orderBy)) {
-                map.put("orderby", orderBy);
-            } else {
-                map.put("orderby", PN_ORDER_BY_DEFAULT);
-            }
+                String orderBy = componentProperties.get(PN_ORDER_BY, PN_ORDER_BY_DEFAULT);
+                if (isNotEmpty(orderBy)) {
+                    map.put("orderby", orderBy);
+                } else {
+                    map.put("orderby", PN_ORDER_BY_DEFAULT);
+                }
 
-            map.put("orderby.sort", sortOrder.getValue());
+                map.put("orderby.sort", sortOrder.getValue());
 
 //            LOGGER.error("populateListItemsFromMap: running query with map=[{}]",map);
 
-            PredicateGroup root = PredicateGroup.create(map);
-            // avoid slow //* queries
-            if (!root.isEmpty()) {
-                query = builder.createQuery(root, session);
-            }
+                PredicateGroup root = PredicateGroup.create(map);
+                // avoid slow //* queries
+                if (!root.isEmpty()) {
+                    query = builder.createQuery(root, session);
+                }
 
-            if (query != null) {
-                collectSearchResults(query.getResult());
+                if (query != null) {
+                    collectSearchResults(query.getResult());
+                }
+            } else {
+                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]",map);
             }
         } catch (Exception ex) {
             LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}",map,ex);
@@ -294,6 +298,8 @@ public class AssetList extends WCMUsePojo {
                 }
 
             }
+        } else {
+            LOGGER.error("ImageImpl: could not get AssetManager object");
         }
     }
 
@@ -528,28 +534,32 @@ public class AssetList extends WCMUsePojo {
 
         AssetManager assetManager = getResourceResolver().adaptTo(AssetManager.class);
 
-        for (Hit hit : result.getHits()) {
-            Map<String,Object> item = new HashMap<>();
-            item.put("hit", hit);
+        if (assetManager != null) {
+            for (Hit hit : result.getHits()) {
+                Map<String, Object> item = new HashMap<>();
+                item.put("hit", hit);
 
-            Resource itemResource = hit.getResource();
+                Resource itemResource = hit.getResource();
 
-            com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(itemResource.getPath());
+                com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(itemResource.getPath());
 
-            if (asset != null) {
+                if (asset != null) {
 
-                ComponentProperties assetInfo = getAssetInfo(asset, itemResource, componentProperties, getSlingScriptHelper());
+                    ComponentProperties assetInfo = getAssetInfo(asset, itemResource, componentProperties, getSlingScriptHelper());
 
-                if (assetInfo != null) {
-                    listItems.add(assetInfo);
+                    if (assetInfo != null) {
+                        listItems.add(assetInfo);
+                    }
+
+                } else {
+                    LOGGER.error("populateStaticListItems: could not find asset {}", item);
+                    continue;
                 }
 
-            } else {
-                LOGGER.error("populateStaticListItems: could not find asset {}", item);
-                continue;
+
             }
-
-
+        } else {
+            LOGGER.error("ImageImpl: could not get AssetManager object");
         }
     }
 

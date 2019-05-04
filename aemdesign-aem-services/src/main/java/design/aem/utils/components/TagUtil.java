@@ -47,29 +47,39 @@ public class TagUtil {
         }
 
         ContentAccess contentAccess = sling.getService(ContentAccess.class);
-        try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+        if (contentAccess != null) {
+            try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
 
-            TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
+                TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
 
-            Tag jcrTag = getTag(tagPath, adminResourceResolver, _adminTagManager);
+                Tag jcrTag = getTag(tagPath, adminResourceResolver, _adminTagManager);
 
-            if (jcrTag != null) {
-                tagValue = jcrTag.getName();
+                if (jcrTag != null) {
+                    tagValue = jcrTag.getName();
 
-                ValueMap tagVM = jcrTag.adaptTo(Resource.class).getValueMap();
+                    Resource jcrTagResource = jcrTag.adaptTo(Resource.class);
 
-                if (tagVM != null) {
-                    if (tagVM.containsKey(TAG_VALUE)) {
-                        tagValue = tagVM.get(TAG_VALUE, jcrTag.getName());
+                    if (jcrTagResource != null) {
+                        ValueMap tagVM = jcrTagResource.getValueMap();
+
+                        if (tagVM != null) {
+                            if (tagVM.containsKey(TAG_VALUE)) {
+                                tagValue = tagVM.get(TAG_VALUE, jcrTag.getName());
+                            }
+                        }
+                    } else {
+                        LOGGER.error("getTagValueAsAdmin: could not convert tag to Resource, jcrTag={}", jcrTag);
                     }
+                } else {
+                    LOGGER.error("getTagValueAsAdmin: Could not find tag path: {}", tagPath);
                 }
-            } else {
-                LOGGER.error("Could not find tag path: {}", tagPath);
-            }
 
-        } catch (Exception ex) {
-            LOGGER.error("getTagValueAsAdmin: " + ex.getMessage(), ex);
-            //out.write( Throwables.getStackTraceAsString(ex) );
+            } catch (Exception ex) {
+                LOGGER.error("getTagValueAsAdmin: " + ex.getMessage(), ex);
+                //out.write( Throwables.getStackTraceAsString(ex) );
+            }
+        } else {
+            LOGGER.error("getTagValueAsAdmin: could not get ContentAccess service.");
         }
 
         return tagValue;
@@ -93,52 +103,61 @@ public class TagUtil {
 
 
         ContentAccess contentAccess = sling.getService(ContentAccess.class);
-        try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+        if (contentAccess != null) {
+            try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
 
-            TagManager tagManager = adminResourceResolver.adaptTo(TagManager.class);
+                TagManager tagManager = adminResourceResolver.adaptTo(TagManager.class);
 
-            for (String path : tagPaths) {
-                Map<String, String> tagValues = new HashMap<String, String>();
+                for (String path : tagPaths) {
+                    Map<String, String> tagValues = new HashMap<String, String>();
 
-                Tag tag = getTag(path, adminResourceResolver, tagManager);
+                    Tag tag = getTag(path, adminResourceResolver, tagManager);
 
-                if (tag != null) {
-                    tagValues.put("title", tag.getTitle());
-                    tagValues.put("description", tag.getDescription());
-                    tagValues.put("path", tag.getPath());
+                    if (tag != null) {
+                        tagValues.put("title", tag.getTitle());
+                        tagValues.put("description", tag.getDescription());
+                        tagValues.put("path", tag.getPath());
 
-                    ValueMap tagVM = tag.adaptTo(Resource.class).getValueMap();
-                    String tagValue = tag.getName();
+                        Resource tagResource = tag.adaptTo(Resource.class);
+                        if (tagResource != null) {
+                            ValueMap tagVM = tagResource.getValueMap();
+                            String tagValue = tag.getName();
 
-                    if (tagVM.containsKey(TAG_VALUE)) {
-                        tagValue = tagVM.get(TAG_VALUE, tag.getName());
-                    }
+                            if (tagVM.containsKey(TAG_VALUE)) {
+                                tagValue = tagVM.get(TAG_VALUE, tag.getName());
+                            }
 
-                    if (tagVM.containsKey(TAG_ISDEFAULT)) {
-                        tagValue = tagVM.get(TAG_ISDEFAULT, TAG_ISDEFAULT_VALUE);
-                    }
+                            if (tagVM.containsKey(TAG_ISDEFAULT)) {
+                                tagValue = tagVM.get(TAG_ISDEFAULT, TAG_ISDEFAULT_VALUE);
+                            }
 
-                    if (locale != null) {
-                        String titleLocal = JcrConstants.JCR_TITLE.concat(".").concat(org.apache.jackrabbit.util.Text.escapeIllegalJcrChars(locale.toString().toLowerCase()));
-                        if (tagVM.containsKey(titleLocal)) {
-                            tagValues.put("title", tagVM.get(titleLocal, tag.getName()));
+                            if (locale != null) {
+                                String titleLocal = JcrConstants.JCR_TITLE.concat(".").concat(org.apache.jackrabbit.util.Text.escapeIllegalJcrChars(locale.toString().toLowerCase()));
+                                if (tagVM.containsKey(titleLocal)) {
+                                    tagValues.put("title", tagVM.get(titleLocal, tag.getName()));
+                                }
+                                tagValues.put("tagid", tag.getLocalTagID());
+
+                                String valueLocal = TAG_VALUE.concat(".").concat(org.apache.jackrabbit.util.Text.escapeIllegalJcrChars(locale.toString().toLowerCase()));
+                                if (tagVM.containsKey(valueLocal)) {
+                                    tagValue = tagVM.get(valueLocal, tag.getName());
+                                }
+                            }
+
+                            tagValues.put(TAG_VALUE, tagValue);
+                        } else {
+                            LOGGER.error("getTagsAsAdmin: could not get convert tag to Resource, tag={}", tag);
                         }
-                        tagValues.put("tagid", tag.getLocalTagID());
 
-                        String valueLocal = TAG_VALUE.concat(".").concat(org.apache.jackrabbit.util.Text.escapeIllegalJcrChars(locale.toString().toLowerCase()));
-                        if (tagVM.containsKey(valueLocal)) {
-                            tagValue = tagVM.get(valueLocal, tag.getName());
-                        }
+                        tags.put(tag.getTagID(), tagValues);
                     }
-
-                    tagValues.put(TAG_VALUE, tagValue);
-
-                    tags.put(tag.getTagID(), tagValues);
                 }
-            }
 
-        } catch (Exception ex) {
-            LOGGER.error("getTagValueAsAdmin: " + ex.getMessage(), ex);
+            } catch (Exception ex) {
+                LOGGER.error("getTagsAsAdmin: " + ex.getMessage(), ex);
+            }
+        } else {
+            LOGGER.error("getTagsAsAdmin: could not get ContentAccess service.");
         }
 
         return tags;
@@ -192,16 +211,22 @@ public class TagUtil {
             if (jcrTag != null) {
                 String value = jcrTag.getName();
 
-                ValueMap tagVM = jcrTag.adaptTo(Resource.class).getValueMap();
+                Resource jcrTagResource = jcrTag.adaptTo(Resource.class);
 
-                if (tagVM != null) {
-                    if (tagVM.containsKey(TAG_VALUE)) {
-                        value = tagVM.get(TAG_VALUE, jcrTag.getName());
+                if (jcrTagResource != null) {
+                    ValueMap tagVM = jcrTagResource.getValueMap();
+
+                    if (tagVM != null) {
+                        if (tagVM.containsKey(TAG_VALUE)) {
+                            value = tagVM.get(TAG_VALUE, jcrTag.getName());
+                        }
                     }
-                }
 
-                builder.append(value);
-                builder.append(separator);
+                    builder.append(value);
+                    builder.append(separator);
+                } else {
+                    LOGGER.error("getTagsAsValues: could not convert tag to Resource, jcrTag={}", jcrTag);
+                }
             }
         }
         if (builder.length() > 0) {
@@ -232,14 +257,20 @@ public class TagUtil {
             if (jcrTag != null) {
                 String value = jcrTag.getName();
 
-                ValueMap tagVM = jcrTag.adaptTo(Resource.class).getValueMap();
+                Resource jcrTagResource = jcrTag.adaptTo(Resource.class);
 
-                if (tagVM != null) {
-                    if (tagVM.containsKey(TAG_VALUE)) {
-                        value = tagVM.get(TAG_VALUE, jcrTag.getName());
+                if (jcrTagResource != null) {
+                    ValueMap tagVM = jcrTagResource.getValueMap();
+
+                    if (tagVM != null) {
+                        if (tagVM.containsKey(TAG_VALUE)) {
+                            value = tagVM.get(TAG_VALUE, jcrTag.getName());
+                        }
                     }
+                    tagValues.add(value);
+                } else {
+                    LOGGER.error("getTagsAsValues: could not convert tag to Resource, jcrTag={}", jcrTag);
                 }
-                tagValues.add(value);
             }
         }
         // return buffer

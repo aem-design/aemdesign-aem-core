@@ -11,21 +11,21 @@ public class I18nUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(I18nUtil.class);
 
-    public static String LANGUAGE_TAG_PATH = "/content/cq:tags/language";
-    public static String LANGUAGE_DEFAULT = Locale.ENGLISH.getLanguage();
-    public static String LANGUAGE_DEFAULT_LABEL = "Missing Label";
+    public static final String LANGUAGE_TAG_PATH = "/content/cq:tags/language";
+    public static final String LANGUAGE_DEFAULT = Locale.ENGLISH.getLanguage();
+    public static final String LANGUAGE_DEFAULT_LABEL = "Missing Label";
 
-    public static String DEFAULT_I18N_LIST_LINK_TITLE = "listLinkTitle";
-    public static String DEFAULT_I18N_LIST_LINK_TEXT = "listLinkText";
+    public static final String DEFAULT_I18N_LIST_LINK_TITLE = "listLinkTitle";
+    public static final String DEFAULT_I18N_LIST_LINK_TEXT = "listLinkText";
 
-    public static String DEFAULT_I18N_LIST_ITEM_LINK_TITLE = "listItemLinkTitle";
-    public static String DEFAULT_I18N_LIST_ITEM_LINK_TEXT = "listItemLinkText";
+    public static final String DEFAULT_I18N_LIST_ITEM_LINK_TITLE = "listItemLinkTitle";
+    public static final String DEFAULT_I18N_LIST_ITEM_LINK_TEXT = "listItemLinkText";
 
-    public static String DEFAULT_I18N_LIST_ITEM_TITLE_LENGTH_MAX = "listItemTitleLengthMax";
-    public static String DEFAULT_I18N_LIST_ITEM_TITLE_LENGTH_MAX_SUFFIX = "listItemTitleLengthMaxSuffix";
+    public static final String DEFAULT_I18N_LIST_ITEM_TITLE_LENGTH_MAX = "listItemTitleLengthMax";
+    public static final String DEFAULT_I18N_LIST_ITEM_TITLE_LENGTH_MAX_SUFFIX = "listItemTitleLengthMaxSuffix";
 
-    public static String DEFAULT_I18N_LIST_ITEM_SUMMARY_LENGTH_MAX = "listItemSummaryLengthMax";
-    public static String DEFAULT_I18N_LIST_ITEM_SUMMARY_LENGTH_MAX_SUFFIX = "listItemSummaryLengthMaxSuffix";
+    public static final String DEFAULT_I18N_LIST_ITEM_SUMMARY_LENGTH_MAX = "listItemSummaryLengthMax";
+    public static final String DEFAULT_I18N_LIST_ITEM_SUMMARY_LENGTH_MAX_SUFFIX = "listItemSummaryLengthMaxSuffix";
 
     public static final String DEFAULT_I18N_INHERIT_CATEGORY = "inherit";
     public static final String DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND = "parentnotfound";

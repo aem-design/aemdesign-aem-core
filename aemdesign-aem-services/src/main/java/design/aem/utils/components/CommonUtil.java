@@ -60,8 +60,8 @@ public class CommonUtil {
     public static final String PATH_DEFAULT_CONTENT = "article/par";
     public static final String DEFAULT_PAR_NAME = "par";
 
-    public static final String[] DEFAULT_LIST_DETAILS_SUFFIX = new String[]{COMPONENT_DETAILS_SUFFIX};
-    public static final String[] DEFAULT_LIST_PAGE_CONTENT = new String[]{DEFAULT_PAR_NAME, PATH_DEFAULT_CONTENT};
+    public static final String[] DEFAULT_LIST_DETAILS_SUFFIX = new String[]{COMPONENT_DETAILS_SUFFIX}; //NOSONAR used by models
+    public static final String[] DEFAULT_LIST_PAGE_CONTENT = new String[]{DEFAULT_PAR_NAME, PATH_DEFAULT_CONTENT}; //NOSONAR used by models
 
 
     public static final String DAM_LICENSE_FORMAT = "© {4} {0} {1} {2} {3}";
@@ -541,7 +541,9 @@ public class CommonUtil {
 
         try {
             Node detailsNode = getComponentNode(thisPage, nodePaths);
-            return detailsNode.getPath();
+            if (detailsNode != null) {
+                return detailsNode.getPath();
+            }
         } catch (Exception ex) {
             LOGGER.error("getComponentNodePath: " + thisPage + ", " + StringUtils.join(nodePaths));
         }
@@ -598,15 +600,17 @@ public class CommonUtil {
     public static Node getFirstMediaNode(Page thisPage) throws RepositoryException {
         Node media = null;
         Node par = getComponentNode(thisPage, "article/par");
-        NodeIterator ite = par.getNodes();
-        while (ite.hasNext()) {
-            Node node = (Node) ite.next();
-            String type = node.getProperty(RESOURCE_TYPE).getValue().toString();
-            if ((type.indexOf("mediagallery") != -1) || (type.indexOf("video") != -1)) {
-                media = node;
-                break;
-            }
+        if (par != null) {
+            NodeIterator ite = par.getNodes();
+            while (ite.hasNext()) {
+                Node node = (Node) ite.next();
+                String type = node.getProperty(RESOURCE_TYPE).getValue().toString();
+                if ((type.indexOf("mediagallery") != -1) || (type.indexOf("video") != -1)) {
+                    media = node;
+                    break;
+                }
 
+            }
         }
         return media;
 
@@ -672,34 +676,38 @@ public class CommonUtil {
             final RequestResponseFactory _requestResponseFactory = sling.getService(RequestResponseFactory.class);
             final SlingRequestProcessor _requestProcessor = sling.getService(SlingRequestProcessor.class);
 
-            String requestUrl = path;
-            if (appendHTMLExtention) {
-                requestUrl = path.concat(".html");
-            }
+            if (_requestResponseFactory != null && _requestProcessor != null) {
+                String requestUrl = path;
+                if (appendHTMLExtention) {
+                    requestUrl = path.concat(".html");
+                }
 
-            final HttpServletRequest _req = _requestResponseFactory.createRequest("GET", requestUrl);
+                final HttpServletRequest _req = _requestResponseFactory.createRequest("GET", requestUrl);
 
-            WCMMode currMode = WCMMode.fromRequest(_req);
+                WCMMode currMode = WCMMode.fromRequest(_req);
 
-            if (mode != null) {
-                mode.toRequest(_req);
+                if (mode != null) {
+                    mode.toRequest(_req);
+                } else {
+                    WCMMode.DISABLED.toRequest(_req);
+                }
+
+                if (requestAttributes != null && isNotEmpty(requestAttributeName)) {
+                    _req.setAttribute(requestAttributeName, requestAttributes);
+                }
+
+                final ByteArrayOutputStream _out = new ByteArrayOutputStream();
+                final HttpServletResponse _resp = _requestResponseFactory.createResponse(_out);
+
+                _requestProcessor.processRequest(_req, _resp, resourceResolver);
+
+                currMode.toRequest(_req);
+
+                return _out.toString();
             } else {
-                WCMMode.DISABLED.toRequest(_req);
+                LOGGER.error("resourceRenderAsHtml: could not get objects, _requestResponseFactory={},_requestProcessor={}",_requestResponseFactory,_requestProcessor);
             }
-
-            if (requestAttributes != null && isNotEmpty(requestAttributeName)) {
-                _req.setAttribute(requestAttributeName, requestAttributes);
-            }
-
-            final ByteArrayOutputStream _out = new ByteArrayOutputStream();
-            final HttpServletResponse _resp = _requestResponseFactory.createResponse(_out);
-
-            _requestProcessor.processRequest(_req, _resp, resourceResolver);
-
-            currMode.toRequest(_req);
-
-            return _out.toString();
-
+            return "<![CDATA[could not get objects]]>";
         } catch (Exception e) {
             LOGGER.error("Exception occurred: " + e.getMessage(), e);
             return "<![CDATA[" + e.getMessage() + "]]>";

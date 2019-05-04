@@ -29,7 +29,7 @@ public class GenericDetails extends WCMUsePojo {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GenericDetails.class);
 
-    public static String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
+    private static final String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
 
     protected ComponentProperties componentProperties = null;
 

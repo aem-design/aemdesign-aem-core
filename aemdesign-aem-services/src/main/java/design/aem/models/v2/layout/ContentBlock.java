@@ -76,13 +76,18 @@ public class ContentBlock extends WCMUsePojo {
         componentProperties.put("topLinkLabel",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_LABEL,DEFAULT_I18N_CATEGORY,_i18n));
         componentProperties.put("topLinkTitle",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_TITLE,DEFAULT_I18N_CATEGORY,_i18n));
 
+        Node resourceNode = getResource().adaptTo(Node.class);
+
         if (componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT).equals("advsection")) {
             String ariaLabelledBy = componentProperties.get(FIELD_ARIA_LABELLEDBY, "");
             if (isEmpty(ariaLabelledBy)) {
-                String labelId = "heading-".concat(getResource().adaptTo(Node.class).getName());
-                componentProperties.put(FIELD_ARIA_LABELLEDBY, labelId);
+                String labelId = getComponentId(null);
+                if (resourceNode != null) {
+                    labelId = "heading-".concat(resourceNode.getName());
+                }
 
-                componentProperties.attr.add("aria-labelledby",labelId);
+                componentProperties.put(FIELD_ARIA_LABELLEDBY, labelId);
+                componentProperties.attr.add("aria-labelledby", labelId);
                 componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
             }
 
@@ -103,14 +108,13 @@ public class ContentBlock extends WCMUsePojo {
                     Resource firstComponent = componentresource.listChildren().next();
                     if (firstComponent != null) {
                         ContentAccess contentAccess = getSlingScriptHelper().getService(ContentAccess.class);
-                        try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
-                            componentProperties.put("firstComponentConfig",
-                                    getComponentFieldsAndDialogMap(firstComponent,adminResourceResolver,getSlingScriptHelper())
-                            );
-                        } catch (Exception ex) {
-                            LOGGER.error("ContentBlock: error accessing component dialog component.path={}, ex={}", firstComponent.getPath(), ex);
+                        if (contentAccess != null) {
+                            try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+                                componentProperties.put("firstComponentConfig", getComponentFieldsAndDialogMap(firstComponent, adminResourceResolver, getSlingScriptHelper()));
+                            } catch (Exception ex) {
+                                LOGGER.error("ContentBlock: error accessing component dialog component.path={}, ex={}", firstComponent.getPath(), ex);
+                            }
                         }
-
                     }
                 }
             }

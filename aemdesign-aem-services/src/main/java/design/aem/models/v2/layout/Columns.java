@@ -122,8 +122,11 @@ public class Columns extends WCMUsePojo {
         placeholderText = "";
 
 //        String layout = ConstantsUtil.defaultLayout;
-        String controlTypeString = getResource().adaptTo(ValueMap.class).get("controlType", "");
-
+        ValueMap resourceProperties = getResource().adaptTo(ValueMap.class);
+        String controlTypeString = "";
+        if (resourceProperties != null) {
+            controlTypeString = resourceProperties.get("controlType", "");
+        }
 
         controlType = Type.fromString(controlTypeString);
 

@@ -263,8 +263,10 @@ public class Download extends WCMUsePojo {
             Resource resource = resolver.resolve(filePath);
             if (!ResourceUtil.isNonExistingResource(resource)) {
                 Asset asset = resource.adaptTo(Asset.class);
-                String mimeType = asset.getMimeType();
-                mimeTypeReturn = mimeType.split("/")[1].toUpperCase();
+                if (asset != null) {
+                    String mimeType = asset.getMimeType();
+                    mimeTypeReturn = mimeType.split("/")[1].toUpperCase();
+                }
             }
         } catch (Exception ex) {
             LOGGER.error("Exception occurred: " + ex.getMessage(), ex);
