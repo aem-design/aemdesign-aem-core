@@ -7,11 +7,13 @@
                     com.day.cq.wcm.foundation.ParagraphSystem,
                     java.util.HashSet" %>
 <%@ page import="java.util.Set" %>
+<%@ page import="static design.aem.utils.components.ParagraphUtil.*" %>
+<%@ page import="static design.aem.utils.components.ComponentsUtil.getComponentProperties" %>
+<%@ page import="static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_STYLE" %>
+<%@ page import="static design.aem.utils.components.ComponentsUtil.*" %>
 <%
 %><%@include file="/apps/aemdesign/global/global.jsp"%>
-<%@include file="/apps/aemdesign/global/components.jsp" %>
-<%@include file="/apps/aemdesign/global/utils.jsp" %>
-<%@include file="/apps/aemdesign/global/paragraph.jsp"%><%
+<%
 
     ParagraphSystem parSys = ParagraphSystem.create(resource, slingRequest);
     String newType = resource.getResourceType() + "/new";

@@ -6,7 +6,8 @@
                   com.adobe.granite.ui.components.ExpressionHelper,
                   com.adobe.granite.ui.components.ExpressionCustomizer,
                   com.adobe.granite.ui.components.Field,
-                  com.day.cq.tagging.TagManager"%><%--###
+                  com.day.cq.tagging.TagManager"%>
+<%@ page import="static design.aem.utils.components.TenantUtil.resolveTenantIdFromPath" %><%--###
 TagField
 ========
 

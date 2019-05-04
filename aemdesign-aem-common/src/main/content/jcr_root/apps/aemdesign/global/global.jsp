@@ -46,6 +46,7 @@
                                 java.util.Arrays,
                                 java.util.List,
                                 com.day.cq.wcm.api.components.IncludeOptions" %>
+<%@ page import="static design.aem.utils.components.CommonUtil.getBadgeFromSelectors" %>
 <%@taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling/1.0" %>
 <%@taglib prefix="cq" uri="http://www.day.com/taglibs/cq/1.0" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -54,12 +55,8 @@
 <cq:defineObjects/>
 
 <%@include file="/apps/aemdesign/global/context-objects.jsp"%>
-<%@include file="/apps/aemdesign/global/tenant.jsp"%>
-<%@include file="/apps/aemdesign/global/constants.jsp"%>
 <%@include file="/apps/aemdesign/global/errors.jsp"%>
-<%@include file="/apps/aemdesign/global/common.jsp"%>
 <%@include file="/apps/aemdesign/global/logging.jsp"%>
-<%@include file="/apps/aemdesign/global/resolver.jsp"%>
 <%
 
     // add initialization code here
@@ -73,6 +70,11 @@
     final boolean INCLUDE_PAGE_CLIENTCONTEXT = false;   //used in Classic UI
     final boolean INCLUDE_BADGE_VARIANT_CODE = false; //show component variant template in component BADGE
     final boolean INCLUDE_USE_GRID = true; //for a parsys use aemdesign/components/layout/container
+    //Do not update unless you have verified all components work
+    final Boolean REMOVEDECORATION = true; //change this if you want component decoration removed
+    //Decide to print Component Badges
+    final Boolean PRINT_COMPONENT_BADGE = true;
+
 
     //remove decoration for all components
     if (CURRENT_WCMMODE != WCMMode.EDIT && CURRENT_WCMMODE != WCMMode.DESIGN) {

@@ -23,6 +23,7 @@
 
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Locale" %>
+<%@ page import="static design.aem.utils.components.TenantUtil.resolveTenantIdFromPath" %>
 <%
     /**
      A datasource returning tag key-value pairs that is suitable to be used for select or autocomplete (or compatible) components.
