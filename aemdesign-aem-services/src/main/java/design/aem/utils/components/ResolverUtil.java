@@ -88,11 +88,16 @@ public class ResolverUtil {
             return null;
         }
         Externalizer externalizer = resolver.adaptTo(Externalizer.class);
-        if (secure) {
-            return externalizer.externalLink(resolver, domain, SECURE_MAP_CONFIG_SCHEMA, resolver.map(path));
+        if (externalizer != null) {
+            if (secure) {
+                return externalizer.externalLink(resolver, domain, SECURE_MAP_CONFIG_SCHEMA, resolver.map(path));
+            } else {
+                return externalizer.externalLink(resolver, domain, DEFAULT_MAP_CONFIG_SCHEMA, resolver.map(path));
+            }
         } else {
-            return externalizer.externalLink(resolver, domain, DEFAULT_MAP_CONFIG_SCHEMA, resolver.map(path));
+            LOGGER.error("mappedUrl: could not get Externalizer object");
         }
+        return null;
     }
 
     /**

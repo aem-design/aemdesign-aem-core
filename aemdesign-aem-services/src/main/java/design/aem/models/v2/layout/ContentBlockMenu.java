@@ -126,41 +126,43 @@ public class ContentBlockMenu extends WCMUsePojo {
         if (parSys != null) {
 
             Node contentResourceNode = parSys.adaptTo(Node.class);
-            NodeIterator nodeIterator = contentResourceNode.getNodes();
+            if (contentResourceNode != null) {
+                NodeIterator nodeIterator = contentResourceNode.getNodes();
 
-            // iterate over children
-            if (nodeIterator != null) {
+                // iterate over children
+                if (nodeIterator != null) {
 
-                while (nodeIterator.hasNext()) {
+                    while (nodeIterator.hasNext()) {
 
-                    Node childNode = nodeIterator.nextNode();
-                    if (childNode == null) {
-                        continue;
-                    }
-
-                    if (isContentBlockComponent(childNode) && isVisibleInMenu(childNode)) {
-                        String childTitle = childNode.getName();
-                        String childName = childNode.getName();
-
-                        if (childNode.hasProperty(FIELD_STYLE_COMPONENT_ID)) {
-                            String componentId = childNode.getProperty(FIELD_STYLE_COMPONENT_ID).getString();
-                            if (isNotEmpty(componentId)) {
-                                childName = componentId;
-                            }
+                        Node childNode = nodeIterator.nextNode();
+                        if (childNode == null) {
+                            continue;
                         }
 
-                        if (childNode.hasProperty("title")) {
-                            childTitle = childNode.getProperty("title").getString();
-                            if (isEmpty(childTitle)) {
-                                childTitle = childName;
-                            }
-                        }
-                        contentMenu.put( childName, childTitle );
+                        if (isContentBlockComponent(childNode) && isVisibleInMenu(childNode)) {
+                            String childTitle = childNode.getName();
+                            String childName = childNode.getName();
 
+                            if (childNode.hasProperty(FIELD_STYLE_COMPONENT_ID)) {
+                                String componentId = childNode.getProperty(FIELD_STYLE_COMPONENT_ID).getString();
+                                if (isNotEmpty(componentId)) {
+                                    childName = componentId;
+                                }
+                            }
+
+                            if (childNode.hasProperty("title")) {
+                                childTitle = childNode.getProperty("title").getString();
+                                if (isEmpty(childTitle)) {
+                                    childTitle = childName;
+                                }
+                            }
+                            contentMenu.put(childName, childTitle);
+
+                        }
                     }
+
+                    return contentMenu;
                 }
-
-                return contentMenu;
             }
         }
 

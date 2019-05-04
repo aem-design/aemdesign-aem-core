@@ -243,32 +243,36 @@ public class ListNav extends WCMUsePojo {
 //            LOGGER.error("populateListItemsFromMap: map={}",map);
 
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
-            Session session = getResourceResolver().adaptTo(Session.class);
+            if (builder != null) {
+                Session session = getResourceResolver().adaptTo(Session.class);
 
-            Query query = null;
+                Query query = null;
 
-            //limit is set
-            map.put("p.limit", String.valueOf(limit));
+                //limit is set
+                map.put("p.limit", String.valueOf(limit));
 
-            String orderBy = componentProperties.get(PN_ORDER_BY,PN_ORDER_BY_DEFAULT);
-            if (isNotEmpty(orderBy)) {
-                map.put("orderby", orderBy);
+                String orderBy = componentProperties.get(PN_ORDER_BY, PN_ORDER_BY_DEFAULT);
+                if (isNotEmpty(orderBy)) {
+                    map.put("orderby", orderBy);
+                } else {
+                    map.put("orderby", PN_ORDER_BY_DEFAULT);
+                }
+
+                map.put("orderby.sort", sortOrder.getValue());
+
+                LOGGER.error("populateListItemsFromMap: running query with map=[{}]", map);
+
+                PredicateGroup root = PredicateGroup.create(map);
+                // avoid slow //* queries
+                if (!root.isEmpty()) {
+                    query = builder.createQuery(root, session);
+                }
+
+                if (query != null) {
+                    collectSearchResults(query.getResult());
+                }
             } else {
-                map.put("orderby", PN_ORDER_BY_DEFAULT);
-            }
-
-            map.put("orderby.sort", sortOrder.getValue());
-
-            LOGGER.error("populateListItemsFromMap: running query with map=[{}]",map);
-
-            PredicateGroup root = PredicateGroup.create(map);
-            // avoid slow //* queries
-            if (!root.isEmpty()) {
-                query = builder.createQuery(root, session);
-            }
-
-            if (query != null) {
-                collectSearchResults(query.getResult());
+                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]",map);
             }
         } catch (Exception ex) {
             LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}",map,ex.toString());
