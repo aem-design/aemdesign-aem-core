@@ -24,6 +24,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Locale" %>
 <%@ page import="static design.aem.utils.components.TenantUtil.resolveTenantIdFromPath" %>
+<%@ page import="static org.apache.commons.lang3.StringUtils.isNotEmpty" %>
 <%
     /**
      A datasource returning tag key-value pairs that is suitable to be used for select or autocomplete (or compatible) components.
@@ -84,7 +85,7 @@
 
     if (tm != null) {
 
-        if (StringUtils.isNotEmpty(path)) {
+        if (isNotEmpty(path)) {
             Resource rs = _resourceResolver.resolve(path);
             if (rs != null) {
                 Tag tagPath = rs.adaptTo(Tag.class);
