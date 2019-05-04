@@ -260,7 +260,7 @@ public class ListNav extends WCMUsePojo {
 
                 map.put("orderby.sort", sortOrder.getValue());
 
-                LOGGER.error("populateListItemsFromMap: running query with map=[{}]", map);
+                //LOGGER.error("populateListItemsFromMap: running query with map=[{}]", map);
 
                 PredicateGroup root = PredicateGroup.create(map);
                 // avoid slow //* queries
