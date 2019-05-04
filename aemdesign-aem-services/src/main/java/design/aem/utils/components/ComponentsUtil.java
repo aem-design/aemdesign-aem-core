@@ -695,6 +695,28 @@ public class ComponentsUtil {
         }
     }
 
+    /**
+     * returns component values with defaults from target component on a page.
+     * @param pageContext current page context
+     * @param componentPage target page
+     * @param componentPath target component path
+     * @param fieldLists list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
+     * @return map of component attributes
+     */
+    public static ComponentProperties getComponentProperties(PageContext pageContext, Page componentPage, String componentPath, Object[][]... fieldLists) {
+        try {
+            Resource componentResource = componentPage.getContentResource(componentPath);
+
+            return getComponentProperties(pageContext, componentResource, fieldLists);
+
+        } catch (Exception ex) {
+            LOGGER.error("getComponentProperties: " + componentPath + ", error: " + ex.toString());
+        }
+
+
+        return getNewComponentProperties(pageContext);
+    }
+
     /***
      * helper to create new Component Properties.
      * @param pageContext page context
