@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"  xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    cq:isContainer="{Boolean}true"
-    jcr:description="A content section for content that requires permissions"
-    jcr:primaryType="cq:Component"
-    jcr:title="Content Block Lockable (v1)"
-    cq:icon="usersLock"
-    sling:resourceSuperType="aemdesign/components/layout/contentblock/v1/contentblocklock"
-    componentGroup="hidden"/>

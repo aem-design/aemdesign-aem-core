@@ -5,5 +5,5 @@
     jcr:title="Content Reference"
     cq:icon="linkPage"
     allowedParents="[*/parsys]"
-    sling:resourceSuperType="aemdesign/components/content/reference/v1/reference"
+    sling:resourceSuperType="aemdesign/components/content/reference/v2/reference"
     componentGroup="AEM.Design - Content"/>
