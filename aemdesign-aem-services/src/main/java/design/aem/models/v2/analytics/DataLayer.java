@@ -6,6 +6,7 @@ import com.day.cq.replication.ReplicationStatus;
 import com.day.cq.wcm.api.components.Component;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
@@ -34,21 +35,26 @@ public class DataLayer extends WCMUsePojo {
     @Override
     public void activate() throws Exception {
 
-        I18n _i18n = new I18n(getRequest());
-
-        Object[][] componentFields = {
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-        };
-
         componentProperties = ComponentsUtil.getNewComponentProperties(this);
 
-        Component detailsComponent = null;
+        //set defaults variant template before potentially overriding
+        componentProperties.put(COMPONENT_VARIANT_TEMPLATE, DEFAULT_VARIANT_TEMPLATE);
+
+        componentProperties.put("pagePath", getResourcePage().getPath());
+        if (isNotEmpty(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, ""))) {
+            componentProperties.put("effectiveDate", DateFormatUtils.format(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, Calendar.getInstance()), "yyyy-MM-dd"));
+        } else {
+            componentProperties.put("effectiveDate", "");
+        }
+        componentProperties.put("contentCountry", getResourcePage().getLanguage(false).getDisplayCountry());
+        componentProperties.put("contentLanguage", getResourcePage().getLanguage(false).getDisplayLanguage().toLowerCase());
 
         try {
             String detailsPath = findComponentInPage(getResourcePage(), DEFAULT_LIST_DETAILS_SUFFIX);
-            Resource details = getResourceResolver().getResource(detailsPath);
 
-            if (details != null) {
+            if (detailsPath != null && detailsPath != StringUtils.EMPTY) {
+
+                Resource details = getResourceResolver().getResource(detailsPath);
                 ValueMap detailsProperties = getProperties();
 
                 //get details properties if its found
@@ -57,7 +63,6 @@ public class DataLayer extends WCMUsePojo {
                 }
 
                 if (detailsProperties != null) {
-
                     componentProperties.put("pageName", detailsProperties.get(DETAILS_ANALYTICS_PAGENAME, ""));
                     componentProperties.put("pageType", detailsProperties.get(DETAILS_ANALYTICS_PAGETYPE, ""));
                     componentProperties.put("platform", detailsProperties.get(DETAILS_ANALYTICS_PLATFORM, "aem"));
@@ -65,25 +70,12 @@ public class DataLayer extends WCMUsePojo {
 
                     String variant = detailsProperties.get(DETAILS_ANALYTICS_VARIANT, DEFAULT_VARIANT);
                     String variantTemplate = getComponentVariantTemplate(getComponent(), format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant), getSlingScriptHelper());
-
-                    //compile variantTemplate param
                     componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
                 }
-            }
-
-            componentProperties.put("pagePath", getResourcePage().getPath());
-            if (isNotEmpty(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, ""))) {
-                componentProperties.put("effectiveDate", DateFormatUtils.format(getProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, Calendar.getInstance()), "yyyy-MM-dd"));
             } else {
-                componentProperties.put("effectiveDate", "");
+                componentProperties.put("detailsMissing", isEmpty(detailsPath));
+                LOGGER.error("Data layer detailsPath missing under " + getResourcePage().getPath());
             }
-            componentProperties.put("contentCountry", getResourcePage().getLanguage(false).getDisplayCountry());
-            componentProperties.put("contentLanguage", getResourcePage().getLanguage(false).getDisplayLanguage().toLowerCase());
-
-            componentProperties.put("detailsMissing", isEmpty(detailsPath));
-
-
-
 
         } catch (Exception ex) {
             LOGGER.error("datalayer: {}", ex);
