@@ -129,6 +129,7 @@
                     <exportScr>true</exportScr>
                     <instructions>
                         <!-- Enable registration of Sling Models classes via bnd plugin -->
+                        <!-- The below ModelScannerPlugin include currently causes the following bug to surface https://youtrack.jetbrains.com/issue/IDEA-141732 -->
                         <_plugin>org.apache.sling.bnd.models.ModelsScannerPlugin</_plugin>
                         <!-- Enable processing of OSGI DS component annotations -->
                         <_dsannotations>*</_dsannotations>
