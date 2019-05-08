@@ -8,7 +8,7 @@
     <parent>
         <groupId>aemdesign</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>1.0.607</version>
+        <version>1.0.618</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +17,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-services</artifactId>
-    <version>1.0.607</version>
+    <version>1.0.618</version>
     <packaging>bundle</packaging>
     <name>AEM Design - Core - AEM Services</name>
     <description>Project for all AEM and OSGI Services</description>
@@ -130,7 +130,7 @@
                     <instructions>
                         <!-- Enable registration of Sling Models classes via bnd plugin -->
                         <!-- The below ModelScannerPlugin include currently causes the following bug to surface https://youtrack.jetbrains.com/issue/IDEA-141732 -->
-                        <_plugin>org.apache.sling.bnd.models.ModelsScannerPlugin</_plugin>
+                        <!--<_plugin>org.apache.sling.bnd.models.ModelsScannerPlugin</_plugin>-->
                         <!-- Enable processing of OSGI DS component annotations -->
                         <_dsannotations>*</_dsannotations>
                         <!-- Enable processing of OSGI metatype annotations -->

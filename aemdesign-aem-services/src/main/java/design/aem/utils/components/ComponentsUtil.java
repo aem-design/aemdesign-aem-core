@@ -77,6 +77,7 @@ public class ComponentsUtil {
 
     public static final String FIELD_VARIANT = "variant";
     public static final String DEFAULT_VARIANT = "default";
+    public static final String DEFAULT_VARIANT_TEMPLATE = "variant.default.html";
     public static final String DEFAULT_BADGE = "default";
 
     public static final String DEFAULT_ARIA_ROLE_ATTRIBUTE = "role";
