@@ -214,10 +214,8 @@ public class Columns extends WCMUsePojo {
 
                 if (!getWcmMode().isDisabled()) {
                     getEditContext().getEditConfig().getToolbar().clear();
-                    getEditContext().getEditConfig().getToolbar().add(0, new Toolbar.Label(placeholderText));
                     // disable ordering to get consistent behavior
                     getEditContext().getEditConfig().setOrderable(false);
-                    getEditContext().setContentPath(getResource().getPath().concat("_fake"));
                 }
 
                 break;
