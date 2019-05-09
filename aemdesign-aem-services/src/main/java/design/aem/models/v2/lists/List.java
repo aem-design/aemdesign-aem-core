@@ -602,24 +602,26 @@ public class List extends WCMUsePojo {
         listItems = new ArrayList<>();
         String[] tags = componentProperties.get(PN_TAGS, new String[0]);
         boolean matchAny = componentProperties.get(PN_TAGS_MATCH, TAGS_MATCH_ANY_VALUE).equals(TAGS_MATCH_ANY_VALUE);
+
         if (ArrayUtils.isNotEmpty(tags)) {
             Page rootPage = getPageManager().getPage(componentProperties.get(PN_TAGS_PARENT_PAGE,""));
-            if (rootPage != null) {
 
+            if (rootPage != null) {
                 Map<String, String> childMap = new HashMap<>();
                 childMap.put("path", rootPage.getPath());
-                if (matchAny) {
-                    childMap.put("group.p.or", "true");
-                    childMap.put("group.0_group.p.or", "true");
-                } else {
-                    childMap.put("group.p.and", "true");
-                    childMap.put("group.0_group.p.and", "true");
-                }
-                for (int i =0; i < tags.length; i++) {
-                    childMap.put("group."+i+"_group.0_group.tagid", tags[i]);
-                    childMap.put("group."+i+"_group.0_group.tagid.property", "jcr:content/cq:tags");
-                    childMap.put("group."+i+"_group.1_group.tagid", tags[i]);
-                    childMap.put("group."+i+"_group.1_group.tagid.property", "jcr:content/article/par/page-details/cq:tags");
+
+                String operator = matchAny ? "or" : "and";
+
+                childMap.put("group.p." + operator, "true");
+                childMap.put("group.0_group.p." + operator, "true");
+
+                int offset = 0;
+
+                for (String tag : tags) {
+                    childMap.put("group.0_group." + offset + "_group.tagid", tag);
+                    childMap.put("group.0_group." + offset + "_group.tagid.property", "jcr:content/cq:tags");
+                    childMap.put("group.0_group." + (offset++) + "_group.tagid", tag);
+                    childMap.put("group.0_group." + offset + "_group.tagid.property", "jcr:content/article/par/page-details/cq:tags");
                 }
 
                 populateListItemsFromMap(childMap);
