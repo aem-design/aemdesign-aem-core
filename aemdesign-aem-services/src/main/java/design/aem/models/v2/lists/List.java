@@ -613,8 +613,12 @@ public class List extends WCMUsePojo {
                 for (String tag : tags) {
                     childMap.put("group.0_group." + offset + "_group.tagid", tag);
                     childMap.put("group.0_group." + offset + "_group.tagid.property", "jcr:content/cq:tags");
-                    childMap.put("group.0_group." + (offset++) + "_group.tagid", tag);
-                    childMap.put("group.0_group." + offset + "_group.tagid.property", "jcr:content/article/par/page-details/cq:tags");
+
+                    // Offset the Page Details group by one so we don't conflict with the page properties query
+                    offset++;
+
+                    childMap.put("group.0_group." + offset + "_group.tagid", tag);
+                    childMap.put("group.0_group." + offset + "_group.tagid.property", "jcr:content/article/par/page_details/cq:tags");
                 }
 
                 populateListItemsFromMap(childMap);
