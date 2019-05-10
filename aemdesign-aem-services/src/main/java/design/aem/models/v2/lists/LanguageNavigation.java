@@ -1,9 +1,7 @@
 package design.aem.models.v2.lists;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.commons.Language;
 import com.day.cq.commons.LanguageUtil;
-import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
@@ -16,13 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.I18nUtil.*;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
-import static design.aem.utils.components.TenantUtil.resolveTenantIdFromPath;
-import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class LanguageNavigation extends WCMUsePojo {
@@ -141,40 +138,45 @@ public class LanguageNavigation extends WCMUsePojo {
                 if (langPage != null && langPageRoot !=null) {
 
 
-                    Page langPageRootPage = langPageRoot.adaptTo(Page.class);
-                    String hrefLang = langPageRootPage.getLanguage().toLanguageTag();
-                    String language = langPageRootPage.getLanguage().toString();
-
                     Map<String, String> pageInfo = new HashMap<>();
                     pageInfo.put("path", ResolverUtil.mappedUrl(getResourceResolver(), langPage.getPath()).concat(ConstantsUtil.DEFAULT_EXTENTION));
                     pageInfo.put("description", tagDescription);
                     pageInfo.put("displayTitle", tagTitle);
-                    pageInfo.put("hreflang", hrefLang);
-                    pageInfo.put("language", language);
 
                     if (langPagePath.startsWith(languageRoot)) {
                         pageInfo.put("current", "true");
                     }
 
-                    languageToggleMap.put(tagValue,pageInfo);
+                    Page langPageRootPage = langPageRoot.adaptTo(Page.class);
+                    if (langPageRootPage != null) {
+                        String hrefLang = langPageRootPage.getLanguage().toLanguageTag();
+                        String language = langPageRootPage.getLanguage().toString();
+                        pageInfo.put("hreflang", hrefLang);
+                        pageInfo.put("language", language);
+                    }
+
+                    languageToggleMap.put(tagValue, pageInfo);
+
                 } else if (isShowRoot && langPageRoot != null) {
                     //if page is not found and root is found and showroot is set
                     Page langPageRootPage = langPageRoot.adaptTo(Page.class);
-                    String hrefLang = langPageRootPage.getLanguage().toLanguageTag();
-                    String language = langPageRootPage.getLanguage().toString();
+                    if (langPageRootPage != null) {
+                        String hrefLang = langPageRootPage.getLanguage().toLanguageTag();
+                        String language = langPageRootPage.getLanguage().toString();
 
-                    Map<String, String> pageInfo = new HashMap<>();
-                    pageInfo.put("path", ResolverUtil.mappedUrl(getResourceResolver(), langPageRootPage.getPath()).concat(ConstantsUtil.DEFAULT_EXTENTION));
-                    pageInfo.put("description", langPageRootPage.getDescription());
-                    pageInfo.put("displayTitle", langPageRootPage.getTitle());
-                    pageInfo.put("hreflang", hrefLang);
-                    pageInfo.put("language", language);
+                        Map<String, String> pageInfo = new HashMap<>();
+                        pageInfo.put("path", ResolverUtil.mappedUrl(getResourceResolver(), langPageRootPage.getPath()).concat(ConstantsUtil.DEFAULT_EXTENTION));
+                        pageInfo.put("description", langPageRootPage.getDescription());
+                        pageInfo.put("displayTitle", langPageRootPage.getTitle());
+                        pageInfo.put("hreflang", hrefLang);
+                        pageInfo.put("language", language);
 
-                    if (langPagePath.startsWith(languageRoot)) {
-                        pageInfo.put("current", "true");
+                        if (langPagePath.startsWith(languageRoot)) {
+                            pageInfo.put("current", "true");
+                        }
+
+                        languageToggleMap.put(langPageRootPage.getName(),pageInfo);
                     }
-
-                    languageToggleMap.put(langPageRootPage.getName(),pageInfo);
                 }
 
 

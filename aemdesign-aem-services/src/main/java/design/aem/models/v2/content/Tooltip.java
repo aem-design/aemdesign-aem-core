@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
-import static java.text.MessageFormat.format;
 
 public class Tooltip extends WCMUsePojo {
 

@@ -5,8 +5,6 @@ import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,12 +16,7 @@ import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX
 import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_PAGE_CONTENT;
 import static design.aem.utils.components.ComponentDetailsUtil.getPageListInfo;
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.INHERITED_RESOURCE;
-import static design.aem.utils.components.I18nUtil.*;
-import static design.aem.utils.components.ImagesUtil.DEFAULT_BACKGROUND_IMAGE_NODE_NAME;
-import static design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions;
 import static java.text.MessageFormat.format;
-import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class ContentTabs extends WCMUsePojo {

@@ -4,5 +4,5 @@
     jcr:title="AEM.Design styleguide page"
     jcr:description="AEM.Design styleguide template"
     cq:icon="columnTwoA"
-    sling:resourceSuperType="aemdesign/components/template/base/v1/base"
+    sling:resourceSuperType="aemdesign/components/template/base/v3/base"
     componentGroup=".hidden"/>

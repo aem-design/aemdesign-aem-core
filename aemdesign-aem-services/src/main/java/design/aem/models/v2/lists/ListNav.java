@@ -1,21 +1,16 @@
 package design.aem.models.v2.lists;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.search.PredicateConverter;
 import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
-import com.day.cq.tagging.TagConstants;
-import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
@@ -25,15 +20,14 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.*;
 
 import static design.aem.models.v2.lists.List.SortOrder;
-import static design.aem.utils.components.CommonUtil.*;
+import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX;
+import static design.aem.utils.components.CommonUtil.getBadgeFromSelectors;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ImagesUtil.FIELD_IMAGE_OPTION;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -249,32 +243,36 @@ public class ListNav extends WCMUsePojo {
 //            LOGGER.error("populateListItemsFromMap: map={}",map);
 
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
-            Session session = getResourceResolver().adaptTo(Session.class);
+            if (builder != null) {
+                Session session = getResourceResolver().adaptTo(Session.class);
 
-            Query query = null;
+                Query query = null;
 
-            //limit is set
-            map.put("p.limit", String.valueOf(limit));
+                //limit is set
+                map.put("p.limit", String.valueOf(limit));
 
-            String orderBy = componentProperties.get(PN_ORDER_BY,PN_ORDER_BY_DEFAULT);
-            if (isNotEmpty(orderBy)) {
-                map.put("orderby", orderBy);
+                String orderBy = componentProperties.get(PN_ORDER_BY, PN_ORDER_BY_DEFAULT);
+                if (isNotEmpty(orderBy)) {
+                    map.put("orderby", orderBy);
+                } else {
+                    map.put("orderby", PN_ORDER_BY_DEFAULT);
+                }
+
+                map.put("orderby.sort", sortOrder.getValue());
+
+                //LOGGER.error("populateListItemsFromMap: running query with map=[{}]", map);
+
+                PredicateGroup root = PredicateGroup.create(map);
+                // avoid slow //* queries
+                if (!root.isEmpty()) {
+                    query = builder.createQuery(root, session);
+                }
+
+                if (query != null) {
+                    collectSearchResults(query.getResult());
+                }
             } else {
-                map.put("orderby", PN_ORDER_BY_DEFAULT);
-            }
-
-            map.put("orderby.sort", sortOrder.getValue());
-
-            LOGGER.error("populateListItemsFromMap: running query with map=[{}]",map);
-
-            PredicateGroup root = PredicateGroup.create(map);
-            // avoid slow //* queries
-            if (!root.isEmpty()) {
-                query = builder.createQuery(root, session);
-            }
-
-            if (query != null) {
-                collectSearchResults(query.getResult());
+                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]",map);
             }
         } catch (Exception ex) {
             LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}",map,ex.toString());

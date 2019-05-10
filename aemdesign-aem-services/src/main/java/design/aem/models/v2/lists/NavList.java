@@ -1,17 +1,12 @@
 package design.aem.models.v2.lists;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.adobe.cq.wcm.core.components.internal.models.v2.PageImpl;
 import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ValueMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

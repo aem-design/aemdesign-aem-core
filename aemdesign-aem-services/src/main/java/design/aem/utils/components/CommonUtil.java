@@ -11,7 +11,7 @@ import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMMode;
 import com.day.cq.wcm.api.components.ComponentContext;
 import com.day.cq.wcm.api.components.IncludeOptions;
-import com.day.cq.wcm.foundation.Image;
+import com.google.gson.stream.JsonWriter;
 import design.aem.components.ComponentProperties;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -25,8 +25,6 @@ import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.apache.sling.api.wrappers.SlingHttpServletResponseWrapper;
-import org.apache.sling.commons.json.JSONException;
-import org.apache.sling.commons.json.io.JSONWriter;
 import org.apache.sling.engine.SlingRequestProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,24 +51,17 @@ import static design.aem.utils.components.ComponentsUtil.DETAILS_TITLE;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import com.google.gson.stream.JsonWriter;
 
 public class CommonUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonUtil.class);
 
-    public static final String PATH_MEDIA_ROOT = "/apps/aemdesign/components/media/";
-    public static final String PATH_CONTENT_ROOT = "/apps/aemdesign/components/content/";
-    public static final String PATH_DAM_ROOT = "/content/dam/";
-    public static final String PATH_DEFAULT_BADGE_BASE = "/apps/aemdesign/components/details/page-details/";
     public static final String COMPONENT_DETAILS_SUFFIX = "-details";
-    public static final String REQUEST_COMPONENT_DETAILS_SUFFIX = COMPONENT_DETAILS_SUFFIX;
     public static final String PATH_DEFAULT_CONTENT = "article/par";
     public static final String DEFAULT_PAR_NAME = "par";
-    public static final String DEFAULT_ARTICLE_NAME = "article";
 
-    public static final String[] DEFAULT_LIST_DETAILS_SUFFIX = new String[]{COMPONENT_DETAILS_SUFFIX};
-    public static final String[] DEFAULT_LIST_PAGE_CONTENT = new String[]{DEFAULT_PAR_NAME, PATH_DEFAULT_CONTENT};
+    public static final String[] DEFAULT_LIST_DETAILS_SUFFIX = new String[]{COMPONENT_DETAILS_SUFFIX}; //NOSONAR used by models
+    public static final String[] DEFAULT_LIST_PAGE_CONTENT = new String[]{DEFAULT_PAR_NAME, PATH_DEFAULT_CONTENT}; //NOSONAR used by models
 
 
     public static final String DAM_LICENSE_FORMAT = "© {4} {0} {1} {2} {3}";
@@ -80,9 +71,6 @@ public class CommonUtil {
     public static final String DAM_DESCRIPTION = com.day.cq.dam.api.DamConstants.DC_DESCRIPTION;
     public static final String DAM_HEADLINE = "photoshop:Headline";
     public static final String DAM_CREDIT = "photoshop:Credit";
-    public static final String DAM_CATEGORY = "category";
-    public static final String DAM_DIRECTOR = "director";
-    public static final String DAM_ARTISTSTATEMENT = "artistStatement";
     public static final String DAM_SOURCE = "photoshop:Source";
     public static final String DAM_SOURCE_ORIGIN = "dc:source";
     public static final String DAM_SOURCE_RELATION = "dc:relation";
@@ -93,17 +81,8 @@ public class CommonUtil {
     public static final String DAM_FIELD_LICENSE_USAGETERMS = "xmpRights:UsageTerms";
     public static final String DAM_FIELD_LICENSE_EXPIRY = "prism:expirationDate";
 
-    public static final String[] MONTH_NAMES = new String[]{
-            "Jan", "Feb", "Mar", "Apr",
-            "May", "Jun", "Jul", "Aug",
-            "Sep", "Oct", "Nov", "Dec"
-    };
-
-
     public static final Pattern ENTITY_PATTERN = Pattern.compile("(&[\\w\\d]+;)");
 
-
-    public static final String REDIRECT_TARGET = "redirectTarget";
     public static final String PN_REDIRECT_TARGET = "cq:redirectTarget";
     public static final String SLING_REDIRECT_TARGET = "sling:redirect";
 
@@ -123,8 +102,6 @@ public class CommonUtil {
         if (body == null) {
             return null;
         }
-        //final XSSAPI xssAPI = sling.getService(XSSAPI.class).getRequestSpecificAPI(slingRequest);
-        //return xssAPI.encodeForHTML(body.toString());
         return StringEscapeUtils.escapeHtml4(body.toString());
     }
 
@@ -190,36 +167,6 @@ public class CommonUtil {
     }
 
     /**
-     * Get a page's title from page properties.
-     * @param page is the page to get the title for
-     * @param resourceResolver resource resolver to use for getting details node
-     * @return a string with the page title
-     */
-    public static String getPageTitle(Page page, ResourceResolver resourceResolver) {
-        return getPageTitle(page,resourceResolver,DEFAULT_LIST_DETAILS_SUFFIX);
-    }
-
-    /**
-     * Get a page's title from Details component on the page with failover to page properties.
-     * @param page is the page to get the title for
-     * @param resourceResolver resource resolver to use for getting details node
-     * @param componentNames array of details node name suffixes to look for
-     * @return a string with the page title
-     */
-    @SuppressWarnings("Duplicates")
-    public static String getPageTitle(Page page, ResourceResolver resourceResolver, String[] componentNames) {
-
-        if (resourceResolver != null) {
-            String detailsPath = findComponentInPage(page,componentNames);
-            Resource detailsComponent = resourceResolver.resolve(detailsPath);
-            return getPageTitle(page,detailsComponent);
-        } else {
-            return getPageTitle(page);
-        }
-
-    }
-
-    /**
      * Get a page's title from Details component on the page with failover to page properties.
      * @param page is the page to get the title for
      * @param detailsComponent details component resource
@@ -234,7 +181,9 @@ public class CommonUtil {
 
             if (!ResourceUtil.isNonExistingResource(detailsComponent)) {
                 ValueMap dcvm = detailsComponent.adaptTo(ValueMap.class);
-                pageTitle = dcvm.get(DETAILS_TITLE, "");
+                if (dcvm != null) {
+                    pageTitle = dcvm.get(DETAILS_TITLE, "");
+                }
             }
         }
 
@@ -266,21 +215,6 @@ public class CommonUtil {
 
     }
 
-    /**
-     * get page title with default value of not found.
-     * @param page
-     * @param defaultTitle
-     * @return
-     */
-    public static String getPageTitle(Page page, String defaultTitle) {
-
-        String pageTitle = getPageTitle(page);
-
-        if (isEmpty(pageTitle)) {
-            pageTitle = defaultTitle;
-        }
-        return pageTitle;
-    }
 
     /**
      * Get a page's navigation title, or normal title
@@ -322,22 +256,6 @@ public class CommonUtil {
     }
 
     /**
-     * Retrieve the location of an image that was dragged onto the page properties image tab
-     *
-     * @param page is the page to look for the image
-     * @return is the relative path to the image
-     */
-    public static Image getPageImage(Page page) {
-        if (page == null) {
-            return null;
-        }
-        if (page.getProperties() == null) {
-            return null;
-        }
-        return new Image(page.getContentResource(), "image");
-    }
-
-    /**
      * Get a JCR value or, if it's not available, return null
      *
      * @param node     is the jcr node to find
@@ -362,321 +280,6 @@ public class CommonUtil {
         return StringUtils.defaultString(getSingularPropertyString(node, property), defaultValue);
     }
 
-    public static String getMultiResultPropertyWithDefault(Node node, String property, String defaultValue) throws RepositoryException {
-        String[] result = getMultiplePropertyString(node, property);
-        return result == null ? defaultValue : StringUtils.defaultString(StringUtils.join(result, ", "), defaultValue);
-    }
-
-    /**
-     * This function will URL-encode the provided string.
-     *
-     * @param unencoded The unencoded string.
-     * @return A properly encoded string.
-     * @see URLEncoder#encode(String, String)
-     */
-    public static String escapeUrl(String unencoded) {
-        try {
-            return URLEncoder.encode(unencoded, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            return unencoded; // hope for the best.
-        }
-    }
-
-//    /**
-//     * This function will URL-encode the provided string.
-//     *
-//     * @param unencoded
-//     *            The unencoded string.
-//     * @return A properly 'ISO-8859-1' encoded string.
-//     * @see URLEncoder#encode(String, String)
-//     */
-//    public static String escapeUrlIso(String unencoded) {
-//        try {
-//            return URLEncoder.encode(unencoded, "ISO-8859-1");
-//        } catch (UnsupportedEncodingException e) {
-//            return unencoded; // hope for the best.
-//        }
-//    }
-
-    /**
-     * This function will encode a SQL parameter by replacing the '
-     * and % with their correct encoded counter parts
-     *
-     * @param jcrSql is the variable to encode
-     * @return is the encoded variable
-     */
-    public static String escapeJcrSql(String jcrSql) {
-        if (jcrSql == null) {
-            return null;
-        }
-        return jcrSql.replace("'", "''").replace("%", "%%");
-    }
-
-    /**
-     * Convenience method for grabbing the last item in an array.
-     *
-     * @param array The array to get the item from.
-     * @param <T>   The type of data stored in the array.
-     * @return The last item in the array, or null if the array is null or empty.
-     */
-    public static <T> T getLastItem(T[] array) {
-        if (array == null || array.length < 1) {
-            return null;
-        }
-
-        return array[array.length - 1];
-    }
-
-
-    /**
-     * Determine the badge base, it is able to make a distinction between pages and assets
-     *
-     * @param pageManager      is the page manager
-     * @param resourceResolver is the resource resolver
-     * @param resourcePath     is the resource path to fetch
-     * @return the base of the badge to render
-     * @throws RepositoryException
-     */
-    public static String getBadgeBase(PageManager pageManager, ResourceResolver resourceResolver, String resourcePath)
-            throws RepositoryException {
-        if (resourcePath == null) {
-            return null;
-        } else if (resourcePath.startsWith(PATH_DAM_ROOT)) {
-            Resource resource = resourceResolver.getResource(resourcePath);
-            return getAssetBadgeBase(resource);
-        } else {
-            Page pageInstance = pageManager.getPage(resourcePath);
-            return getPageBadgeBase(pageInstance, true);
-        }
-    }
-
-    /**
-     * Get a list of maps with the structure {resource: .., script: ..} for all the media paths that get passed in. This structure can then render the components properly.
-     * @param resolver resolver to get the resources at the paths
-     * @param variant  is the badge variation we're displaying
-     * @param paths    are the paths
-     * @return array of badges
-     */
-    public static ArrayList<HashMap> getBadgesForPaths(ResourceResolver resolver, String variant, String[] paths) {
-        ArrayList<HashMap> badges = new ArrayList<HashMap>();
-        for (String path : paths) {
-            Resource resource = resolver.getResource(path);
-
-            String badgeBase = getAssetBadgeBase(resource);
-            if (badgeBase == null) {
-                continue;
-            }
-
-            // setup badge location
-            String badgeLocation = badgeBase + String.format("badge.%s.jsp", variant);
-
-            HashMap badgeStruct = new HashMap();
-            badgeStruct.put("resource", resource);
-            badgeStruct.put("script", badgeLocation);
-
-            badges.add(badgeStruct);
-        }
-        return badges;
-    }
-
-    /**
-     * Get the asset badge base location depending on the type of asset.
-     *
-     * @param resource is the resource to analyze
-     * @return the badge base folder
-     */
-    public static String getAssetBadgeBase(Resource resource) {
-        if (resource == null) {
-            return null;
-        }
-
-
-        // transform to asset
-        Asset asset = resource.adaptTo(Asset.class);
-        if (asset == null) {
-            if (resource.getResourceType().endsWith("Folder")) {
-                return PATH_MEDIA_ROOT + "gallery/";
-            }
-            return null;
-        }
-
-        String mimeType = asset.getMimeType();
-        if (mimeType.startsWith("video")) {
-            return PATH_MEDIA_ROOT + "video/";
-        } else if (mimeType.startsWith("audio")) {
-            return PATH_MEDIA_ROOT + "audio/";
-        } else if (mimeType.startsWith("image")) {
-            return PATH_MEDIA_ROOT + "image/";
-        } else if (mimeType.endsWith("flash")) {
-            return PATH_MEDIA_ROOT + "flash/";
-        } else if (mimeType.equals("application/pdf")) {
-            return PATH_MEDIA_ROOT + "document/";
-        } else if (mimeType.equals("application/reference")) {
-            return PATH_MEDIA_ROOT + "reference/";
-        }
-
-        return null;
-    }
-
-    /**
-     * Scans through a provided page for detail components and stores the resulting information in the provided request.
-     *
-     * @param inputPage The page to scan through.
-     * @param request   The request to store the information in.
-     * @return true if details were found, otherwise false.
-     * @throws RepositoryException
-     */
-    public static boolean scanPageForDetails(TagManager tagManager, Page inputPage, HttpServletRequest request) throws RepositoryException {
-        setDetailRequestParams(request, null, null);
-
-        if (inputPage == null || request == null) {
-            return false;
-        }
-
-        // get parsys
-        Resource parSys = inputPage.getContentResource(PATH_DEFAULT_CONTENT);
-        if (parSys == null) {
-            return false;
-        }
-
-        NodeIterator nodeIterator = parSys.adaptTo(Node.class).getNodes();
-        if (nodeIterator == null) {
-            return false;
-        }
-
-        // Set up the outputs.
-        String detailsType = null;
-        String[] shareTags = null;
-
-        while (nodeIterator.hasNext()) {
-            Node node = nodeIterator.nextNode();
-
-            // has a resource type?
-            if (!node.hasProperty(RESOURCE_TYPE)) {
-                continue;
-            }
-
-            String resourceType = getSingularPropertyString(node, "sling:resourceType");
-
-            // get the resource type and sanitize the path
-            if (StringUtils.isBlank(resourceType) || !resourceType.endsWith(COMPONENT_DETAILS_SUFFIX)) {
-                continue;
-            }
-
-            if (!resourceType.startsWith("/")) {
-                resourceType = "/apps/" + resourceType;
-            }
-
-            if (!resourceType.endsWith("/")) {
-                resourceType += "/";
-            }
-
-            // looking for a share details component
-            if (!resourceType.contains("shareDetails")) {
-                if (detailsType == null) {
-                    detailsType = resourceType;
-                }
-                continue;
-            }
-
-
-            String shareType = getSingularPropertyString(node, "share-type");
-            if (shareType == null) {
-                shareType = "page";
-            }
-
-            detailsType = resourceType.replace("shareDetails", shareType + COMPONENT_DETAILS_SUFFIX);
-            String[] rawShareTags = getMultiplePropertyString(node, "share-with");
-
-            if (rawShareTags != null) {
-                // resolve the raw tag values and get its proper ID
-                shareTags = new String[rawShareTags.length];
-                for (int idx = 0; idx < rawShareTags.length; ++idx) {
-                    Tag tag = tagManager.resolve(rawShareTags[idx]);
-                    if (tag != null) {
-                        shareTags[idx] = tag.getTitle();
-                    }
-                }
-            }
-
-            break;
-        }
-
-        return setDetailRequestParams(request, detailsType, shareTags);
-    }
-
-    /**
-     * A convenience method used by {@link #scanPageForDetails} to set the properties present in the request. Will
-     * report on whether anything has been set.
-     *
-     * @param request      The request to add the attributes to.
-     * @param resourceType The resource type of the detail component found.
-     * @param shareTags    The sharing tags for the sharing component found.
-     * @return true if either of the inputs are not null, otherwise false.
-     */
-    public static boolean setDetailRequestParams(HttpServletRequest request, String resourceType, String[] shareTags) {
-        request.setAttribute("detailResourceType", resourceType);
-        request.setAttribute("detailShareTags", shareTags);
-        return resourceType != null || shareTags != null;
-    }
-
-    /**
-     * Get the page badge base path for this page
-     *
-     * @param inputPage is the page to look through for event details
-     * @return the path to the page badget
-     * @throws RepositoryException
-     */
-    public static String getPageBadgeBase(Page inputPage, boolean useDefault) throws RepositoryException {
-        if (inputPage == null) {
-            return null;
-        }
-
-        // get parsys
-        Resource parSys = inputPage.getContentResource(PATH_DEFAULT_CONTENT);
-        if (parSys == null) {
-            return null;
-        }
-
-        NodeIterator nodeIterator = parSys.adaptTo(Node.class).getNodes();
-        if (nodeIterator == null) {
-            return null;
-        }
-
-        while (nodeIterator.hasNext()) {
-            Node node = nodeIterator.nextNode();
-
-            // has a resource type?
-            if (node.hasProperty(RESOURCE_TYPE)) {
-
-                // get it.
-                String resourceType = node.getProperty("sling:resourceType").getString();
-
-                // get the resource type and sanitize the path
-                if (validDetailComponent(resourceType)) {
-
-                    if (!resourceType.startsWith("/")) {
-                        resourceType = "/apps/" + resourceType;
-                    }
-
-                    if (!resourceType.endsWith("/")) {
-                        resourceType += "/";
-                    }
-
-                    return resourceType;
-                }
-            }
-
-        }
-
-        if (useDefault) {
-            return PATH_DEFAULT_BADGE_BASE;
-        }
-
-        // apparently, nothing found
-        return null;
-    }
-
     public static boolean validDetailComponent(String resourceType) {
         return
                 !StringUtils.isBlank(resourceType) &&
@@ -687,16 +290,48 @@ public class CommonUtil {
      * Determine whether named script exists
      *
      * @param page is the current page (for a reference to the root node)
-     * @param scriptName  is the scriptname to check for
+     * @param nodeName  is the node name to check for
      * @return true if the script exists
      * @throws RepositoryException
      */
-    public static boolean nodeExists(Page page, String scriptName) throws RepositoryException {
-        Node rootNode = page.getContentResource().adaptTo(Node.class).getSession().getRootNode();
-        if (scriptName.startsWith("/")) {
-            scriptName = scriptName.substring(1);
+    public static boolean nodeExists(Page page, String nodeName) {
+        if (page == null || isEmpty(nodeName)) {
+            LOGGER.error("nodeExists: page={},nodeName={}",page,nodeName);
+            return false;
         }
-        return rootNode.hasNode(scriptName);
+
+        try {
+
+            Resource pageContent = page.getContentResource();
+
+            if (pageContent == null) {
+                LOGGER.error("nodeExists: pageContent={}",pageContent);
+                return false;
+            }
+
+            Node pageContentNode = pageContent.adaptTo(Node.class);
+
+            if (pageContentNode == null) {
+                LOGGER.error("nodeExists: pageContentNode={}",pageContentNode);
+                return false;
+            }
+
+            Session session = pageContentNode.getSession();
+
+            if (session == null) {
+                LOGGER.error("nodeExists: session={}",session);
+                return false;
+            }
+
+            if (nodeName.startsWith("/")) {
+                nodeName = nodeName.substring(1);
+            }
+            return pageContentNode.hasNode(nodeName);
+
+        } catch (Exception ex) {
+            LOGGER.error("nodeExists: ex={}",ex);
+            return false;
+        }
     }
 
 
@@ -739,24 +374,28 @@ public class CommonUtil {
      * @param node The node to get the property value from.
      * @param key  The property key to get the value for.
      * @return The value of the property, or null.
-     * @throws RepositoryException
      */
-    public static Value getSingularProperty(Node node, String key) throws RepositoryException {
-        if (node == null || !node.hasProperty(key)) {
+    public static Value getSingularProperty(Node node, String key) {
+        try {
+            if (node == null || !node.hasProperty(key)) {
+                return null;
+            }
+
+            Property property = node.getProperty(key);
+            if (!property.isMultiple()) {
+                return property.getValue();
+            }
+
+            Value[] values = property.getValues();
+            if (values.length < 1) {
+                return null;
+            }
+
+            return values[0];
+        } catch (Exception ex) {
+            LOGGER.error("getSingularProperty: ex={0}", ex);
             return null;
         }
-
-        Property property = node.getProperty(key);
-        if (!property.isMultiple()) {
-            return property.getValue();
-        }
-
-        Value[] values = property.getValues();
-        if (values.length < 1) {
-            return null;
-        }
-
-        return values[0];
     }
 
     /**
@@ -772,107 +411,6 @@ public class CommonUtil {
         return value == null ? null : value.getString();
     }
 
-    /**
-     * The polar opposite of {@link #getSingularProperty}, this function makes sure the property being retrieved is
-     * presented as an array of values.
-     *
-     * @param node The node to get the property values from.
-     * @param key  The property key to get the values for.
-     * @return The values of the property or null.
-     * @throws RepositoryException
-     */
-    public static Value[] getMultipleProperty(Node node, String key) throws RepositoryException {
-        if (node == null || !node.hasProperty(key)) {
-            return null;
-        }
-
-        Property property = node.getProperty(key);
-        if (property.isMultiple()) {
-            return property.getValues();
-        }
-
-        return new Value[]{property.getValue()};
-    }
-
-    /**
-     * Convenience method that converts all the property values returned by {@link #getMultipleProperty} to strings.
-     *
-     * @param node The node to get the property strings from.
-     * @param key  The property key to get the strings for.
-     * @return The strings of the property, or null.
-     * @throws RepositoryException
-     */
-    public static String[] getMultiplePropertyString(Node node, String key) throws RepositoryException {
-        Value[] values = getMultipleProperty(node, key);
-        if (values == null) {
-            return null;
-        }
-
-        String[] strings = new String[values.length];
-        for (int index = 0; index < strings.length; index++) {
-            strings[index] = values[index].getString();
-        }
-
-        return strings;
-    }
-
-    public static String getPageBadgeBase(Page inputPage) throws RepositoryException {
-        return getPageBadgeBase(inputPage, StringUtils.EMPTY);
-    }
-
-    /**
-     * Get the page badge base path for this page
-     *
-     * @param inputPage    is the page to look through for details
-     * @param resourceName which details component to search for, if blank will return first component with suffix Details
-     * @return the path to the page badget
-     * @throws RepositoryException
-     */
-    public static String getPageBadgeBase(Page inputPage, String resourceName) throws RepositoryException {
-        if (inputPage == null) {
-            return null;
-        }
-
-        // get parsys
-        Resource parSys = inputPage.getContentResource(PATH_DEFAULT_CONTENT);
-        if (parSys == null) {
-            return null;
-        }
-
-        NodeIterator nodeIterator = parSys.adaptTo(Node.class).getNodes();
-        if (nodeIterator == null) {
-            return null;
-        }
-
-        while (nodeIterator.hasNext()) {
-            Node node = nodeIterator.nextNode();
-
-            // has a resource type?
-            if (node.hasProperty(RESOURCE_TYPE)) {
-
-                // get it.
-                String resourceType = node.getProperty("sling:resourceType").getString();
-
-                if (isEmpty(resourceName)) {
-                    resourceName = COMPONENT_DETAILS_SUFFIX;
-                }
-                // get the resource type and sanitize the path
-                if (!StringUtils.isBlank(resourceType) && resourceType.endsWith(resourceName)) {
-                    if (!resourceType.startsWith("/")) {
-                        resourceType = "/apps/" + resourceType;
-                    }
-                    if (!resourceType.endsWith("/")) {
-                        resourceType += "/";
-                    }
-                    return resourceType;
-                }
-            }
-
-        }
-
-        // apparently, nothing found
-        return null;
-    }
 
     /***
      * find a component in a page root that matches required suffix.
@@ -963,24 +501,6 @@ public class CommonUtil {
 
 
     /**
-     * Get String value of a node property if the value of the node property is
-     * null, it will get the value from design mode
-     *
-     * @param _properties   is the node properties
-     * @param _currentStyle is the design properties
-     * @param propertyName  is the property to be retrieved
-     * @param defaultValue  is the default value
-     */
-    public static String getPropertyValue(ValueMap _properties,
-                                          ValueMap _currentStyle, String propertyName, String defaultValue) {
-        String propertyValue = _properties.get(propertyName, null);
-        if (propertyValue == null) {
-            return _currentStyle.get(propertyName, defaultValue);
-        }
-        return propertyValue;
-    }
-
-    /**
      * try parse int.
      * @param value value to use
      * @param defaultValue default value
@@ -1021,7 +541,9 @@ public class CommonUtil {
 
         try {
             Node detailsNode = getComponentNode(thisPage, nodePaths);
-            return detailsNode.getPath();
+            if (detailsNode != null) {
+                return detailsNode.getPath();
+            }
         } catch (Exception ex) {
             LOGGER.error("getComponentNodePath: " + thisPage + ", " + StringUtils.join(nodePaths));
         }
@@ -1051,27 +573,6 @@ public class CommonUtil {
         return null;
     }
 
-
-    /**
-     * Return a JCR node for a first found matching path
-     *
-     * @param thisPage is the page to inspect for newsdetails
-     * @return a JCR node or null when not found
-     */
-    public static String getComponentNodePath(Page thisPage, String nodePath) {
-        if (thisPage == null) {
-            return "";
-        }
-
-        try {
-            Node detailsNode = getComponentNode(thisPage, nodePath);
-            return detailsNode.getPath();
-        } catch (Exception ex) {
-            LOGGER.error("getComponentNodePath: " + thisPage + ", " + nodePath);
-        }
-        return "";
-    }
-
     /**
      * Return a JCR node for the component in <code>thisPage</code>
      *
@@ -1099,114 +600,20 @@ public class CommonUtil {
     public static Node getFirstMediaNode(Page thisPage) throws RepositoryException {
         Node media = null;
         Node par = getComponentNode(thisPage, "article/par");
-        NodeIterator ite = par.getNodes();
-        while (ite.hasNext()) {
-            Node node = (Node) ite.next();
-            String type = node.getProperty(RESOURCE_TYPE).getValue().toString();
-            if ((type.indexOf("mediagallery") != -1) || (type.indexOf("video") != -1)) {
-                media = node;
-                break;
-            }
+        if (par != null) {
+            NodeIterator ite = par.getNodes();
+            while (ite.hasNext()) {
+                Node node = (Node) ite.next();
+                String type = node.getProperty(RESOURCE_TYPE).getValue().toString();
+                if ((type.indexOf("mediagallery") != -1) || (type.indexOf("video") != -1)) {
+                    media = node;
+                    break;
+                }
 
+            }
         }
         return media;
 
-    }
-
-    /**
-     * Return a the property for the given pagepath, componentpath, propertyname
-     *
-     * @param pageManager  is pagemanager
-     * @param pagePath     is path of page to inspect for component
-     * @param nodePath     is the path of the component eg par/venuedetails
-     * @param propertyName is name of the property
-     * @param defaultValue is default value returned if the property is not found
-     * @return a string of the property value if found, otherwise it will return
-     * the specified default value
-     */
-    public static String getProperty(PageManager pageManager, String pagePath, String nodePath, String propertyName, String defaultValue)
-            throws RepositoryException {
-        String propertyValue = defaultValue;
-        if (pagePath != null && !pagePath.equals("")) {
-            Page page = pageManager.getPage(pagePath);
-            Node node = getComponentNode(page, nodePath);
-            propertyValue = getPropertyWithDefault(node, propertyName,
-                    defaultValue);
-        }
-        return propertyValue;
-    }
-
-
-    /***
-     * return a url to the resource.
-     * @param _pageManager page manager
-     * @param _resource resource to use
-     * @return link to page
-     */
-    public static String linkToPage(PageManager _pageManager, Resource _resource) {
-        return _pageManager.getContainingPage(_resource).getPath().concat(ConstantsUtil.DEFAULT_EXTENTION);
-    }
-
-
-    /**
-     * function to convert htmlentities into xml entities. Used in the RSS feed.
-     *
-     * @param html to be converted html
-     */
-    public static String htmlToXmlEntities(String html) {
-        return convertAsciiToXml(StringEscapeUtils.unescapeHtml4(html));
-    }
-
-    /**
-     * Converts the specified string which is in ASCII format to legal XML
-     * format. Inspired by XMLWriter by http://www.megginson.com/Software/
-     */
-    public static String convertAsciiToXml(String string) {
-        if (isEmpty(string)) {
-            return string;
-        }
-
-        StringBuffer strBuf = new StringBuffer();
-        char[] ch = string.toCharArray();
-        for (int i = 0; i < ch.length; i++) {
-            switch (ch[i]) {
-                case '&':
-                    strBuf.append("&amp;");
-                    break;
-                case '<':
-                    strBuf.append("&lt;");
-                    break;
-                case '>':
-                    strBuf.append("&gt;");
-                    break;
-                case '\"':
-                    strBuf.append("&quot;");
-                    break;
-                default:
-                    if (ch[i] > '\u007f') {
-                        strBuf.append("&#");
-                        strBuf.append(ch[i]);
-                        strBuf.append(';');
-                    } else if (ch[i] == '\t') {
-                        strBuf.append(' ');
-                        strBuf.append(' ');
-                        strBuf.append(' ');
-                        strBuf.append(' ');
-                    } else if ((int) ch[i] >= 32 || (ch[i] == '\n' || ch[i] == '\r')) {
-                        strBuf.append(ch[i]);
-                    }
-            }
-        }
-        return strBuf.toString();
-    }
-
-
-    public static void doDebug(String text, JspWriter out) throws IOException {
-        //out.write("<!-- "+text+" -->");
-    }
-
-    public static void doDebug(String text, String code, JspWriter out) throws IOException {
-        //out.write("<!--"+code+":"+text+" -->");
     }
 
 
@@ -1228,192 +635,6 @@ public class CommonUtil {
         return sub.replace(template);
     }
 
-
-    /***
-     * request a resource similar to sling:include
-     * @param path resource to include
-     * @param response current response
-     * @param request current request
-     * @return html string of output
-     */
-    public static String resourceIncludeAsHtml(com.day.cq.wcm.api.components.ComponentContext componentContext, String path, SlingHttpServletResponse response, SlingHttpServletRequest request) {
-        if (componentContext == null || isEmpty(path) || response == null || request == null) {
-            String error = format(
-                    "resourceIncludeAsHtml1: params not specified componentContext=\"{0}\",path=\"{1}\",response=\"{2}\",request=\"{3}\"",
-                    componentContext, path, response, request);
-            LOGGER.error(error);
-            return "<!--".concat(error).concat("-->");
-        }
-        try {
-            return resourceIncludeAsHtml(componentContext, path, response, request, null);
-        } catch (SlingException ex) {
-            return "<!--resourceIncludeAsHtml:".concat(ex.getMessage()).concat("-->");
-        }
-    }
-
-    /***
-     * request a resource similar to sling:include
-     * @param path resource to include
-     * @param response current response
-     * @param request current request
-     * @param mode mode to request resource with
-     * @return html string of output
-     */
-    @SuppressWarnings({"unchecked"})
-    public static String resourceIncludeAsHtml(com.day.cq.wcm.api.components.ComponentContext componentContext, String path, SlingHttpServletResponse response, SlingHttpServletRequest request, WCMMode mode) {
-        if (componentContext == null || isEmpty(path) || response == null || request == null) {
-            String error = format(
-                    "resourceIncludeAsHtml2: params not specified componentContext=\"{0}\",path=\"{1}\",response=\"{2}\",request=\"{3}\",mode=\"{4}\"",
-                    componentContext, path, response, request, mode);
-            LOGGER.error(error);
-            return "<!--".concat(error).concat("-->");
-        }
-
-        WCMMode currMode = WCMMode.fromRequest(request);
-
-        String defDecor = componentContext.getDefaultDecorationTagName();
-
-        IncludeOptions includeOptions = IncludeOptions.getOptions(request, true);
-
-        final Writer buffer = new StringWriter();
-
-        try {
-
-
-            final ServletOutputStream stream = new ServletOutputStream() {
-                @Override
-                public void write(int b)
-                        throws IOException {
-                    buffer.append((char) b);
-                }
-
-                @Override
-                public boolean isReady() {
-                    return false;
-                }
-
-                @Override
-                public void setWriteListener(javax.servlet.WriteListener writeListener) {
-
-                }
-            };
-
-            SlingHttpServletResponseWrapper wrapper = new SlingHttpServletResponseWrapper(response) {
-                public ServletOutputStream getOutputStream() {
-                    return stream;
-                }
-
-                public PrintWriter getWriter() throws IOException {
-                    return new PrintWriter(buffer);
-                }
-
-                public SlingHttpServletResponse getSlingResponse() {
-                    return super.getSlingResponse();
-                }
-            };
-
-
-            disableEditMode(componentContext, includeOptions, request);
-
-            String key = "apps.aemdesign.components.content.reference:" + path;
-
-            if (request.getAttribute(key) == null || Boolean.FALSE.equals(request.getAttribute(key))) {
-                request.setAttribute(key, Boolean.TRUE);
-            } else {
-                //throw new IllegalStateException("Reference loop: " + path);
-                LOGGER.error("Reference loop: " + path);
-                buffer.append("<!--Reference loop: ".concat(path).concat("-->"));
-            }
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher(path + ".html");
-
-            dispatcher.include(request, wrapper);
-
-            request.removeAttribute(key);
-
-        } catch (Exception e) {
-            LOGGER.error("Exception occured: " + e.getMessage(), e);
-        } finally {
-
-            enableEditMode(currMode, componentContext, defDecor, includeOptions, request);
-
-            currMode.toRequest(request);
-
-        }
-
-        return buffer.toString();
-
-    }
-
-    //TODO: convert this to JSTL TAG
-
-    /***
-     * render a resource path as HTML to include in components that reuse content in other resources
-     * @param path path to resources
-     * @param resourceResolver resource resolver for request
-     * @param sling sling helper
-     * @return html string of output
-     */
-    public static String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling) {
-        if (isEmpty(path) || resourceResolver == null || sling == null) {
-            String error = format(
-                    "resourceRenderAsHtml3: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
-                    , path, resourceResolver, sling);
-            LOGGER.error(error);
-            return "<!--".concat(error).concat("-->");
-        }
-        try {
-            return resourceRenderAsHtml(path, resourceResolver, sling, null, null);
-        } catch (SlingException ex) {
-            return "<!--resourceRenderAsHtml:".concat(ex.getMessage()).concat("-->");
-        }
-    }
-
-    //TODO: convert this to JSTL TAG
-
-    /***
-     * render a resource path as HTML to include in components that reuse content in other resources
-     * @param resource path to resources
-     * @param resourceResolver resource resolver for request
-     * @param sling sling helper
-     * @return html string of output
-     */
-    public static String resourceRenderAsHtml(Resource resource, ResourceResolver resourceResolver, SlingScriptHelper sling) {
-        if (resource == null || resourceResolver == null || sling == null) {
-            String error = format(
-                    "resourceRenderAsHtml4: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
-                    , resource, resourceResolver, sling);
-            LOGGER.error(error);
-            return "<!--".concat(error).concat("-->");
-        }
-        try {
-            return resourceRenderAsHtml(resource.getPath(), resourceResolver, sling, null, null);
-        } catch (SlingException ex) {
-            return "<!--resourceRenderAsHtml:".concat(ex.getMessage()).concat("-->");
-        }
-    }
-
-    /***
-     * render a resource path as HTML to include in components that reuse content in other resources
-     * @param path path to resources
-     * @param resourceResolver resource resolver for request
-     * @param sling sling helper
-     * @return html string of output
-     */
-    public static String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling, String requestAttributeName, ComponentProperties requestAttributes) {
-        if (isEmpty(path) || resourceResolver == null || sling == null) {
-            String error = format(
-                    "resourceRenderAsHtml4: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
-                    , path, resourceResolver, sling);
-            LOGGER.error(error);
-            return "<!--".concat(error).concat("-->");
-        }
-        try {
-            return resourceRenderAsHtml(path, resourceResolver, sling, null, requestAttributeName, requestAttributes);
-        } catch (SlingException ex) {
-            return "<!--resourceRenderAsHtml:".concat(ex.getMessage()).concat("-->");
-        }
-    }
 
     /***
      * render a resource path as HTML to include in components that reuse content in other resources
@@ -1455,34 +676,38 @@ public class CommonUtil {
             final RequestResponseFactory _requestResponseFactory = sling.getService(RequestResponseFactory.class);
             final SlingRequestProcessor _requestProcessor = sling.getService(SlingRequestProcessor.class);
 
-            String requestUrl = path;
-            if (appendHTMLExtention) {
-                requestUrl = path.concat(".html");
-            }
+            if (_requestResponseFactory != null && _requestProcessor != null) {
+                String requestUrl = path;
+                if (appendHTMLExtention) {
+                    requestUrl = path.concat(".html");
+                }
 
-            final HttpServletRequest _req = _requestResponseFactory.createRequest("GET", requestUrl);
+                final HttpServletRequest _req = _requestResponseFactory.createRequest("GET", requestUrl);
 
-            WCMMode currMode = WCMMode.fromRequest(_req);
+                WCMMode currMode = WCMMode.fromRequest(_req);
 
-            if (mode != null) {
-                mode.toRequest(_req);
+                if (mode != null) {
+                    mode.toRequest(_req);
+                } else {
+                    WCMMode.DISABLED.toRequest(_req);
+                }
+
+                if (requestAttributes != null && isNotEmpty(requestAttributeName)) {
+                    _req.setAttribute(requestAttributeName, requestAttributes);
+                }
+
+                final ByteArrayOutputStream _out = new ByteArrayOutputStream();
+                final HttpServletResponse _resp = _requestResponseFactory.createResponse(_out);
+
+                _requestProcessor.processRequest(_req, _resp, resourceResolver);
+
+                currMode.toRequest(_req);
+
+                return _out.toString();
             } else {
-                WCMMode.DISABLED.toRequest(_req);
+                LOGGER.error("resourceRenderAsHtml: could not get objects, _requestResponseFactory={},_requestProcessor={}",_requestResponseFactory,_requestProcessor);
             }
-
-            if (requestAttributes != null && isNotEmpty(requestAttributeName)) {
-                _req.setAttribute(requestAttributeName, requestAttributes);
-            }
-
-            final ByteArrayOutputStream _out = new ByteArrayOutputStream();
-            final HttpServletResponse _resp = _requestResponseFactory.createResponse(_out);
-
-            _requestProcessor.processRequest(_req, _resp, resourceResolver);
-
-            currMode.toRequest(_req);
-
-            return _out.toString();
-
+            return "<![CDATA[could not get objects]]>";
         } catch (Exception e) {
             LOGGER.error("Exception occurred: " + e.getMessage(), e);
             return "<![CDATA[" + e.getMessage() + "]]>";
@@ -1576,81 +801,6 @@ public class CommonUtil {
     }
 
     /**
-     * return published date for a page.
-     * @param page page to use
-     * @param defaultValue default value
-     * @return date of page publish
-     */
-    public static Date getPageLastPublished(Page page, Date defaultValue) {
-
-        if (page == null) {
-            return defaultValue;
-        }
-
-        ValueMap pageProps = page.getProperties();
-
-        if (pageProps != null) {
-            return pageProps.get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, defaultValue);
-        }
-
-        return defaultValue;
-    }
-
-
-    /**
-     * check if string is equals to "on".
-     * @param source string
-     * @return statuc
-     */
-    public final static boolean isOn(String source) {
-        return "on".equals(source);
-    }
-
-    /**
-     * check if string is equals to "yes".
-     * @param source string
-     * @return status
-     */
-    public final static boolean isYes(String source) {
-        return "yes".equals(source);
-    }
-
-    /**
-     * check if string is NOT equals to "on".
-     * @param source string
-     * @return status
-     */
-    public final static boolean isNotOn(String source) {
-        return !"on".equals(source);
-    }
-
-    /**
-     * check if string is NOT equals to "yes".
-     * @param source string
-     * @return status
-     */
-    public final static boolean isNotYes(String source) {
-        return !"yes".equals(source);
-    }
-
-    /**
-     * get value from value map.
-     * @param source map of values
-     * @param Name field name
-     * @return value
-     */
-    public final static String getValue(ValueMap source, String Name) {
-        if (source == null || isEmpty(Name)) { //quick fail
-            return null;
-        }
-        if (source.containsKey(Name)) {
-            return source.get(Name, "");
-        }
-
-        return null;
-    }
-
-    /**
      * check if object is null.
      * @param source object
      * @return status
@@ -1659,75 +809,6 @@ public class CommonUtil {
         return source == null;
     }
 
-    /**
-     * check if object is NOT null.
-     * @param source object
-     * @return status
-     */
-    public final static Boolean isNotNull(Object source) {
-        return source != null;
-    }
-
-    /**
-     * converts an object to json string.
-     * @param object list of object
-     * @return json string
-     */
-    public String toJson(Object[][] object) {
-        StringWriter sw = new StringWriter();
-
-        JsonWriter w = new JsonWriter(sw);
-
-        w.setIndent("    ");
-        try {
-            w.beginArray();
-            for (int i = 0; i < object.length; i++) {
-                w.beginObject();
-
-                if (object[i].length > 2) {
-                    Object value = object[i][1];
-                    String valueString;
-
-                    if (value.getClass().isArray()) {
-                        valueString = StringUtils.join((Object[]) value, ",");
-                    } else {
-                        valueString = value.toString();
-                    }
-
-                    w.name(object[i][0].toString()).value(valueString);
-                } else if (object[i].length == 1) {
-                    if (object[i].getClass().isArray()) {
-                        w.beginArray();
-
-                        for (int y = 0; y < object[i].length; y++) {
-                            Object value = object[i][y];
-                            String valueString;
-
-                            if (value.getClass().isArray()) {
-                                valueString = StringUtils.join((Object[]) value, ",");
-                            } else {
-                                valueString = value.toString();
-                            }
-
-                            w.value(valueString);
-                        }
-                        w.endArray();
-                    } else if (object[i].getClass().isEnum()) {
-                        w.beginArray();
-                        for (Object s : object[i]) {
-                            w.value(s.toString());
-                        }
-                        w.endArray();
-                    }
-                }
-                w.endObject();
-            }
-            w.endArray();
-        } catch (IOException jex) {
-
-        }
-        return sw.toString();
-    }
 
 
     /**
@@ -1765,15 +846,4 @@ public class CommonUtil {
         return "";
     }
 
-
-    /**
-     * replace last occurance of text
-     * @param text text to search
-     * @param regex text to replace
-     * @param replacement replacement text
-     * @return
-     */
-    public static String replaceLast(String text, String regex, String replacement) {
-        return text.replaceFirst("(?s)"+regex+"(?!.*?"+regex+")", replacement);
-    }
 }

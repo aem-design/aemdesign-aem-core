@@ -1,10 +1,8 @@
 package design.aem.models.v2.layout;
 
-import com.adobe.cq.sightly.SightlyWCMMode;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.Tag;
-import com.day.cq.wcm.api.WCMMode;
 import com.day.cq.wcm.api.components.Toolbar;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
@@ -113,19 +111,22 @@ public class Columns extends WCMUsePojo {
         Object[][] componentFields = {
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"layout", DEFAULT_LAYOUT},
-                {DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, new String[]{}, " ", Tag.class.getCanonicalName()},
-                {DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, new String[]{}," ", Tag.class.getCanonicalName()},
-                {DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, new String[]{}," ", Tag.class.getCanonicalName()},
-                {DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, new String[]{}," ", Tag.class.getCanonicalName()},
-                {DETAILS_COLUMNS_LAYOUT_ROW_CLASS, new String[]{}," ", Tag.class.getCanonicalName()},
+                {DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, new String[]{}, "", Tag.class.getCanonicalName()},
+                {DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, new String[]{},"", Tag.class.getCanonicalName()},
+                {DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, new String[]{},"", Tag.class.getCanonicalName()},
+                {DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, new String[]{},"", Tag.class.getCanonicalName()},
+                {DETAILS_COLUMNS_LAYOUT_ROW_CLASS, new String[]{},"", Tag.class.getCanonicalName()},
         };
 
 
         placeholderText = "";
 
 //        String layout = ConstantsUtil.defaultLayout;
-        String controlTypeString = getResource().adaptTo(ValueMap.class).get("controlType", "");
-
+        ValueMap resourceProperties = getResource().adaptTo(ValueMap.class);
+        String controlTypeString = "";
+        if (resourceProperties != null) {
+            controlTypeString = resourceProperties.get("controlType", "");
+        }
 
         controlType = Type.fromString(controlTypeString);
 
@@ -213,10 +214,8 @@ public class Columns extends WCMUsePojo {
 
                 if (!getWcmMode().isDisabled()) {
                     getEditContext().getEditConfig().getToolbar().clear();
-                    getEditContext().getEditConfig().getToolbar().add(0, new Toolbar.Label(placeholderText));
                     // disable ordering to get consistent behavior
                     getEditContext().getEditConfig().setOrderable(false);
-                    getEditContext().setContentPath(getResource().getPath().concat("_fake"));
                 }
 
                 break;

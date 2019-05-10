@@ -6,16 +6,11 @@ import org.apache.jackrabbit.api.security.user.Authorizable;
 import org.apache.jackrabbit.api.security.user.Group;
 import org.apache.jackrabbit.api.security.user.User;
 import org.apache.jackrabbit.api.security.user.UserManager;
-
-import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Session;
 import java.text.MessageFormat;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;

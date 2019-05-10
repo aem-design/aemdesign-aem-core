@@ -9,6 +9,8 @@
                   org.apache.sling.api.resource.ResourceMetadata,
                   org.apache.sling.api.wrappers.ValueMapDecorator"%>
 <%@ page import="java.util.*" %>
+<%@ page import="java.util.regex.Matcher" %>
+<%@ page import="java.util.regex.Pattern" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     /**

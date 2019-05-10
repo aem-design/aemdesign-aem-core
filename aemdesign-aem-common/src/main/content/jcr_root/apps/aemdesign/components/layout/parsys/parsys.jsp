@@ -7,14 +7,16 @@
                     com.day.cq.wcm.foundation.ParagraphSystem,
                     java.util.HashSet" %>
 <%@ page import="java.util.Set" %>
+<%@ page import="static design.aem.utils.components.ParagraphUtil.*" %>
+<%@ page import="static design.aem.utils.components.ComponentsUtil.*" %>
+<%@ page import="static design.aem.utils.components.CommonUtil.forceNoDecoration" %>
+<%@ page import="static design.aem.utils.components.CommonUtil.*" %>
 <%
 %><%@include file="/apps/aemdesign/global/global.jsp"%>
-<%@include file="/apps/aemdesign/global/components.jsp" %>
-<%@include file="/apps/aemdesign/global/utils.jsp" %>
-<%@include file="/apps/aemdesign/global/paragraph.jsp"%><%
+<%
 
-    ParagraphSystem parSys = ParagraphSystem.create(resource, slingRequest);
-    String newType = resource.getResourceType() + "/new";
+    ParagraphSystem parSys = ParagraphSystem.create(_resource, _slingRequest);
+    String newType = _resource.getResourceType() + "/new";
 
     ComponentProperties componentProperties = new ComponentProperties();
 
@@ -25,8 +27,8 @@
 
     boolean hasColumns = false;
     for (Paragraph par: parSys.paragraphs()) {
-        if (editContext != null) {
-            editContext.setAttribute("currentResource", par);
+        if (_editContext != null) {
+            _editContext.setAttribute("currentResource", par);
         }
         switch (par.getType()) {
             case START:
@@ -36,7 +38,7 @@
                     closeRow(par,out,false);
                     componentProperties = new ComponentProperties();
                 }
-                if (editContext != null) {
+                if (_editContext != null) {
                     // draw 'edit' bar
                     Set<String> addedClasses = new HashSet<String>();
                     addedClasses.add("section");
@@ -59,7 +61,7 @@
                 hasColumns = true;
                 break;
             case BREAK:
-                if (editContext != null) {
+                if (_editContext != null) {
                     // draw 'new' bar
                     IncludeOptions.getOptions(request, true).getCssClassNames().add("section");
                     %><sling:include resource="<%= par %>" resourceType="<%= newType %>"/><%
@@ -71,7 +73,7 @@
 
                 break;
             case END:
-                if (editContext != null) {
+                if (_editContext != null) {
                     // draw new bar
                     IncludeOptions.getOptions(request, true).getCssClassNames().add("section");
                     %><sling:include resource="<%= par %>" resourceType="<%= newType %>"/><%
@@ -83,7 +85,7 @@
                     hasColumns = false;
                     componentProperties = new ComponentProperties();
                 }
-                if (editContext != null && WCMMode.fromRequest(request) == WCMMode.EDIT) {
+                if (_editContext != null && WCMMode.fromRequest(request) == WCMMode.EDIT) {
                     // draw 'end' bar
                     IncludeOptions.getOptions(request, true).getCssClassNames().add("section");
                     %><sling:include resource="<%= par %>"/><%
@@ -94,7 +96,7 @@
                 IncludeOptions.getOptions(request, true).getCssClassNames().add("section");
 
                 // draw anchor if needed
-                if (currentStyle.get("drawAnchors", false)) {
+                if (_currentStyle.get("drawAnchors", false)) {
                     String path = par.getPath();
                     path = path.substring(path.indexOf(JcrConstants.JCR_CONTENT)
                             + JcrConstants.JCR_CONTENT.length() + 1);
@@ -122,8 +124,8 @@
         closeCol(null,out);
         closeRow(out,false);
     }
-    if (editContext != null) {
-        editContext.setAttribute("currentResource", null);
+    if (_editContext != null) {
+        _editContext.setAttribute("currentResource", null);
         // draw 'new' bar
         IncludeOptions.getOptions(request, true).getCssClassNames().add("section");
         %><cq:include path="*" resourceType="<%= newType %>"/><%

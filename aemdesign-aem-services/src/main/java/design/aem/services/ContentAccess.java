@@ -4,8 +4,8 @@ import org.apache.sling.api.resource.ResourceResolver;
 
 public interface ContentAccess {
 
-    ResourceResolver getAdminResourceResolver();
-    String getSubServiceUser();
-    String getBundleServiceUser();
+    default ResourceResolver getAdminResourceResolver() { throw new UnsupportedOperationException(); }
+    default String getSubServiceUser() { throw new UnsupportedOperationException(); }
+    default String getBundleServiceUser() { throw new UnsupportedOperationException(); }
 
 }

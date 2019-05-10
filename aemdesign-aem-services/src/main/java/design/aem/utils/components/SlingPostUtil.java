@@ -4,6 +4,7 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import org.apache.jackrabbit.util.Text;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.servlets.post.SlingPostConstants;
 
@@ -14,26 +15,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
-import org.apache.jackrabbit.util.Text;
 
 public class SlingPostUtil {
-
-    public static String getAdminUrl(Page page) {
-        String url = page.getVanityUrl();
-
-        if (url == null) {
-            ValueMap vm = page.getProperties();
-            if (vm.containsKey("sling:vanityPath")) {
-                url = page.getProperties().get("sling:vanityPath", String.class);
-            }
-        }
-
-        if (url == null) {
-            url = Text.escapePath(page.getPath());
-        }
-
-        return url + ".html";
-    }
 
     /**
      * Copied from Sling. Later on Sling POST Servlet will be refactored to provide a generic service for this.

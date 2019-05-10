@@ -23,10 +23,10 @@ import com.day.cq.wcm.webservicesupport.Configuration;
 import com.day.cq.wcm.webservicesupport.ConfigurationConstants;
 import com.day.cq.wcm.webservicesupport.ConfigurationManager;
 import com.google.common.base.Throwables;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import design.aem.components.ComponentField;
 import design.aem.components.ComponentProperties;
 import design.aem.models.GenericModel;
+import design.aem.models.v2.layout.Columns;
 import design.aem.services.ContentAccess;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.jexl3.*;
@@ -60,7 +60,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import static design.aem.utils.components.CommonUtil.isNull;
 import static design.aem.utils.components.CommonUtil.resourceRenderAsHtml;
 import static design.aem.utils.components.ConstantsUtil.*;
 import static java.text.MessageFormat.format;
@@ -73,27 +72,17 @@ public class ComponentsUtil {
     public static final int COUNT_CONTENT_NODE = 1;
     public static final int DEPTH_ROOTNODE = 1;
     public static final int DEPTH_HOMEPAGE = 2;
-    public static final String COMPONENTS_RENDER_MOBILE = "aemdesign.component.render.mobile";
-
-    public static final String NODE_PAR = "./article/par";
 
     public static final String DEFAULT_PATH_TAGS = "/content/cq:tags";
 
-    public static final String NODE_DETAILS = "*-details";
-
-    public static final String FIELD_REFERENCE_PATH = "path";
-
     public static final String FIELD_VARIANT = "variant";
     public static final String DEFAULT_VARIANT = "default";
-    public static final String DEFAULT_VARIANT_HIDDEN = "hidden";
+    public static final String DEFAULT_VARIANT_TEMPLATE = "variant.default.html";
     public static final String DEFAULT_BADGE = "default";
-    public static final String DEFAULT_BADGE_TEMPLATE_FORMAT = "badge.{0}";
 
     public static final String DEFAULT_ARIA_ROLE_ATTRIBUTE = "role";
 
     public static final String FIELD_REDIRECT_TARGET = "redirectTarget";
-
-    public static final String DEFAULT_RSS_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss";
 
     public static final String DETAILS_MENU_COLOR = "menuColor";
     public static final String DETAILS_MENU_ICONSHOW = "menuIconShow";
@@ -195,11 +184,6 @@ public class ComponentsUtil {
 
 
     public static final String COMPONENT_CANCEL_INHERIT_PARENT = "cancelInheritParent";
-
-
-    public static final String PAR_PAGEDETAILS = "par/page-details";
-    public static final String ARTICLE_PAR_PAGEDETAILS = "article/par/page-details";
-    public static final String ARTICLE_CONTENTS = "article/par";
 
     public static final String FIELD_STYLE_COMPONENT_ID = "componentId";
     public static final String FIELD_STYLE_COMPONENT_THEME = "componentTheme";
@@ -318,7 +302,7 @@ public class ComponentsUtil {
     //   3 optional - name of component attribute to add value into
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-    public static final Object[][] DEFAULT_FIELDS_STYLE = {
+    public static final Object[][] DEFAULT_FIELDS_STYLE = { //NOSONAR used by classes
             {FIELD_STYLE_COMPONENT_ID, "", "id"},
             {FIELD_STYLE_COMPONENT_THEME, new String[]{}, "class", Tag.class.getCanonicalName()},
             {FIELD_STYLE_COMPONENT_MODIFIERS, new String[]{}, "class", Tag.class.getCanonicalName()},
@@ -342,7 +326,7 @@ public class ComponentsUtil {
     //   3 optional - name of component attribute to add value into
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-    public static final Object[][] DEFAULT_FIELDS_ACCESSIBILITY = {
+    public static final Object[][] DEFAULT_FIELDS_ACCESSIBILITY = { //NOSONAR used by classes
             {FIELD_ARIA_ROLE, "", DEFAULT_ARIA_ROLE_ATTRIBUTE},
             {FIELD_ARIA_LABEL, "", "aria-label"},
             {FIELD_ARIA_DESCRIBEDBY, "", "aria-describedby"},
@@ -361,7 +345,7 @@ public class ComponentsUtil {
     //   3 optional - name of component attribute to add value into
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-    public static final Object[][] DEFAULT_FIELDS_METADATA = {
+    public static final Object[][] DEFAULT_FIELDS_METADATA = { //NOSONAR used by classes
             {"metadataContentType", ""},
             {"cq:lastModified", ""},
             {"jcr:lastModified", ""},
@@ -375,7 +359,7 @@ public class ComponentsUtil {
     //   3 optional - name of component attribute to add value into, specifying "" will return values process as per canonical name
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-    public static final Object[][] DEFAULT_FIELDS_DETAILS_OPTIONS = {
+    public static final Object[][] DEFAULT_FIELDS_DETAILS_OPTIONS = { //NOSONAR used by classes
             {DETAILS_MENU_COLOR, ""},
             {DETAILS_MENU_ICONSHOW, false},
             {DETAILS_MENU_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
@@ -421,7 +405,7 @@ public class ComponentsUtil {
     //   3 optional - name of component attribute to add value into, specifying "" will return values process as per canonical name
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-    public static final Object[][] DEFAULT_FIELDS_DETAILS_OPTIONS_OVERRIDE = {
+    public static final Object[][] DEFAULT_FIELDS_DETAILS_OPTIONS_OVERRIDE = { //NOSONAR used by classes
             {DETAILS_MENU_COLOR, StringUtils.EMPTY},
             {DETAILS_MENU_ICONSHOW, StringUtils.EMPTY},
             {DETAILS_MENU_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
@@ -466,7 +450,7 @@ public class ComponentsUtil {
     //   3 optional - name of component attribute to add value into
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-    public static final Object[][] DEFAULT_FIELDS_ANALYTICS = {
+    public static final Object[][] DEFAULT_FIELDS_ANALYTICS = { //NOSONAR used by classes
             {DETAILS_ANALYTICS_TRACK, false, DETAILS_DATA_ANALYTICS_TRACK}, //basic
             {DETAILS_ANALYTICS_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LOCATION}, //basic
             {DETAILS_ANALYTICS_LABEL, "${ value ? value : label }", DETAILS_DATA_ANALYTICS_LABEL}, //basic
@@ -486,7 +470,7 @@ public class ComponentsUtil {
     //   3 optional - name of component attribute to add value into
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-    public static final Object[][] DEFAULT_FIELDS_ATTRIBUTES = {
+    public static final Object[][] DEFAULT_FIELDS_ATTRIBUTES = { //NOSONAR used by classes
             {"dataType", "", "type"},
             {"dataTarget", "", "data-target"},
             {"dataToggle", "", "data-toggle"},
@@ -499,7 +483,7 @@ public class ComponentsUtil {
     //   3 optional - name of component attribute to add value into
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-    public static final Object[][] DEFAULT_FIELDS_ASSET = {
+    public static final Object[][] DEFAULT_FIELDS_ASSET = { //NOSONAR used by classes
             {CommonUtil.DAM_TITLE, "${ value ? value : name }", "data-title"},
             {CommonUtil.DAM_DESCRIPTION, StringUtils.EMPTY, "data-description"},
             {CommonUtil.DAM_CREDIT, StringUtils.EMPTY, "data-credit"},
@@ -522,7 +506,7 @@ public class ComponentsUtil {
     //   3 optional - name of component attribute to add value into
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-    public static final Object[][] DEFAULT_FIELDS_ASSET_IMAGE = {
+    public static final Object[][] DEFAULT_FIELDS_ASSET_IMAGE = { //NOSONAR used by classes
             {CommonUtil.DAM_TITLE, StringUtils.EMPTY},
             {CommonUtil.DAM_DESCRIPTION, StringUtils.EMPTY},
             {CommonUtil.DAM_CREDIT, StringUtils.EMPTY},
@@ -538,7 +522,7 @@ public class ComponentsUtil {
     //   3 optional - name of component attribute to add value into
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-    public static final Object[][] DEFAULT_FIELDS_ASSET_VIDEO = {
+    public static final Object[][] DEFAULT_FIELDS_ASSET_VIDEO = { //NOSONAR used by classes
             {CommonUtil.DAM_TITLE, StringUtils.EMPTY},
             {CommonUtil.DAM_DESCRIPTION, StringUtils.EMPTY},
             {CommonUtil.DAM_HEADLINE, StringUtils.EMPTY},
@@ -556,7 +540,7 @@ public class ComponentsUtil {
     //   3 optional - name of component attribute to add value into
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-    public static final Object[][] DEFAULT_FIELDS_PAGE_THEME = {
+    public static final Object[][] DEFAULT_FIELDS_PAGE_THEME = { //NOSONAR used by classes
             {"themeStyle", ""},
             {"faviconsPath", ""},
             {"favicon", ""},
@@ -571,7 +555,7 @@ public class ComponentsUtil {
     //   3 optional - name of component attribute to add value into
     //   4 optional - canonical name of class for handling multivalues, String or Tag
     // }
-    public static final Object[][] DEFAULT_COMMON_COMPONENT_LAYOUT_FIELDS = {
+    public static final Object[][] DEFAULT_COMMON_COMPONENT_LAYOUT_FIELDS = { //NOSONAR used by classes
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {FIELD_TITLE_TAG_TYPE, ""},
             {FIELD_HIDE_TITLE, false},
@@ -657,67 +641,6 @@ public class ComponentsUtil {
     }
 
     /**
-     * Read properties for the Component do not use styles.
-     * @param pageContext  current page context
-     * @param name         name of the property
-     * @param defaultValue default value to return if not set
-     * @return found component
-     */
-    public static Object getComponentProperty(PageContext pageContext, String name, Object defaultValue) {
-        if (pageContext == null) {
-            return "";
-        }
-        return getComponentProperty(pageContext, name, defaultValue, false);
-    }
-
-
-    /**
-     * Read properties for the Component, use component style to override properties if they are not set.
-     * @param pageContext  current page context
-     * @param name         name of the property
-     * @param defaultValue default value for the property
-     * @param useStyle     use styles properties if property is missing
-     * @return component property
-     */
-    public static Object getComponentProperty(PageContext pageContext, String name, Object defaultValue, Boolean useStyle) {
-        //quick fail
-        if (pageContext == null) {
-            LOGGER.warn("getComponentProperty, pageContext is ({0})", pageContext);
-            return "";
-        }
-
-        ValueMap properties = (ValueMap) pageContext.getAttribute("properties");
-
-        if (useStyle) {
-            Style currentStyle = (Style) pageContext.getAttribute("currentStyle");
-            return getComponentProperty(properties, currentStyle, name, defaultValue, useStyle);
-        } else {
-            return getComponentProperty(properties, null, name, defaultValue, useStyle);
-        }
-    }
-
-    /**
-     * Read properties for the Component, use component style to override properties if they are not set.
-     * @param componentResource page to get properties from
-     * @param name              name of the property
-     * @param defaultValue      default value for the property
-     * @param useStyle          use styles properties if property is missing
-     * @return component property
-     */
-    public static Object getComponentProperty(Resource componentResource, Style pageStyle, String name, Object defaultValue, Boolean useStyle) {
-        //quick fail
-        if (componentResource == null) {
-            LOGGER.warn("getComponentProperty, componentResource is ({0})", componentResource);
-            return "";
-        }
-
-        ValueMap properties = componentResource.adaptTo(ValueMap.class);
-
-        return getComponentProperty(properties, pageStyle, name, defaultValue, useStyle);
-
-    }
-
-    /**
      * Read properties for the Component, use component style to override properties if they are not set.
      * @param componentProperties component properties
      * @param contentPolicy       value map of content policy
@@ -774,24 +697,12 @@ public class ComponentsUtil {
     }
 
     /**
-     * Return default place holder for the component, use classic UI placeholder is needed.
-     * @param slingRequest Current Sling reqsuest
-     * @param component    Current component
-     * @return placeholder string
-     */
-    @SuppressWarnings("unchecked")
-    public static String getDefaultPlaceholder(SlingHttpServletRequest slingRequest, Component component) {
-        return Placeholder.getDefaultPlaceholder(slingRequest, component, ConstantsUtil.DEFAULT_CLASSIC_PLACEHOLDER);
-    }
-
-
-    /**
      * returns component values with defaults from target component on a page.
-     * @param pageContext   current page context
+     * @param pageContext current page context
      * @param componentPage target page
      * @param componentPath target component path
-     * @param fieldLists    list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
-     * @return map of attributes
+     * @param fieldLists list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
+     * @return map of component attributes
      */
     public static ComponentProperties getComponentProperties(PageContext pageContext, Page componentPage, String componentPath, Object[][]... fieldLists) {
         try {
@@ -806,7 +717,6 @@ public class ComponentsUtil {
 
         return getNewComponentProperties(pageContext);
     }
-
 
     /***
      * helper to create new Component Properties.
@@ -824,23 +734,6 @@ public class ComponentsUtil {
         return getNewComponentProperties(pageContextMap);
 
     }
-
-    //TODO: move to class
-
-    /***
-     * helper to create new Component Properties.
-     * @param slingRequest sling request
-     * @return map of attributes
-     */
-    public static ComponentProperties getNewComponentProperties(SlingHttpServletRequest slingRequest) {
-
-        Map<String, Object> pageContextMap = new HashMap<>();
-        pageContextMap.put("slingRequest", slingRequest);
-
-
-        return getNewComponentProperties(pageContextMap);
-    }
-
 
     /***
      * helper to create new Component Properties.
@@ -879,15 +772,6 @@ public class ComponentsUtil {
         return componentProperties;
     }
 
-    /**
-     * returns component values with defaults from pageContent Properties.
-     * @param pageContext current page context
-     * @param fieldLists  list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
-     * @return map of attributes
-     */
-    public static ComponentProperties getComponentProperties(PageContext pageContext, Object[][]... fieldLists) {
-        return getComponentProperties(pageContext, null, true, fieldLists);
-    }
 
     /**
      * returns component values with defaults from pageContent Properties.
@@ -939,7 +823,7 @@ public class ComponentsUtil {
      * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
      * @return map of attributes
      */
-    public static ComponentProperties getComponentProperties(GenericModel genericModel, Object targetResource, Object[][]... fieldLists) {
+    public static ComponentProperties getComponentProperties(GenericModel genericModel, Resource targetResource, Object[][]... fieldLists) {
         try {
 
             return getComponentProperties(genericModel.getPageContextMap(), targetResource, true, fieldLists);
@@ -1132,10 +1016,8 @@ public class ComponentsUtil {
 
         componentProperties.attr = new AttrBuilder(request, oldXssAPI);
         if (addMoreAttributes) {
-//            componentProperties.attr.addBoolean("component", true);
             componentProperties.attr.add("component", "true");
         }
-//        AttrBuilder itemAttr = new AttrBuilder(request, oldXssAPI);
 
         componentProperties.expressionFields = new ArrayList();
 
@@ -1146,310 +1028,263 @@ public class ComponentsUtil {
         final String CLASS_TYPE_ASSET = "com.adobe.granite.asset.core.impl.AssetImpl";
 
         ContentAccess contentAccess = sling.getService(ContentAccess.class);
-        try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+        if (contentAccess != null) {
+            try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
 
-            Node currentNode = (javax.jcr.Node) pageContext.get("currentNode");
+                Node currentNode = (javax.jcr.Node) pageContext.get("currentNode");
 
-            TagManager tagManager = adminResourceResolver.adaptTo(TagManager.class);
+                TagManager tagManager = adminResourceResolver.adaptTo(TagManager.class);
 
-            // if targetResource == null get defaults
-            ValueMap properties = (ValueMap) pageContext.get("properties");
-//            Style currentStyle = (Style) pageContext.get("currentStyle");
+                // if targetResource == null get defaults
+                ValueMap properties = (ValueMap) pageContext.get("properties");
 
-            ValueMap currentPolicy = getContentPolicyProperties(componentContext.getResource(), resourceResolver);
+                ValueMap currentPolicy = getContentPolicyProperties(componentContext.getResource(), resourceResolver);
 
-            //if targetResource != null get the appropriate objects
-            if (targetResource != null && targetResource.getClass().getCanonicalName().equals(CLASS_TYPE_ASSET)) {
+                //if targetResource != null get the appropriate objects
+                if (targetResource != null && targetResource.getClass().getCanonicalName().equals(CLASS_TYPE_ASSET)) {
 
-                try {
-                    //
-                    com.adobe.granite.asset.api.Asset asset = (com.adobe.granite.asset.api.Asset) targetResource;
+                    try {
+                        //
+                        com.adobe.granite.asset.api.Asset asset = (com.adobe.granite.asset.api.Asset) targetResource;
 
-                    contentResource = asset.getResourceResolver().getResource(asset, JcrConstants.JCR_CONTENT);
+                        contentResource = asset.getResourceResolver().getResource(asset, JcrConstants.JCR_CONTENT);
 
-                    if (contentResource != null) {
-                        contentResource = contentResource.getChild(DamConstants.METADATA_FOLDER);
-                    }
-                    properties = contentResource.adaptTo(ValueMap.class);
-                    addMoreAttributes = false;
-
-                    componentProperties.put(COMPONENT_TARGET_RESOURCE, contentResource.getPath());
-
-                } catch (Exception ex) {
-                    LOGGER.error("getComponentProperties: could not evaluate target asset", ex);
-                    return componentProperties;
-                }
-            } else if (targetResource != null &&
-                    (targetResource.getClass().getCanonicalName().equals(CLASS_TYPE_RESOURCE) ||
-                            targetResource.getClass().getCanonicalName().equals(CLASS_TYPE_JCRNODERESOURCE))) {
-
-                try {
-                    contentResource = (Resource) targetResource;
-
-                    properties = contentResource.adaptTo(ValueMap.class);
-
-                    Designer designer = contentResource.getResourceResolver().adaptTo(Designer.class);
-
-//                    currentStyle = designer.getStyle(contentResource);
-
-                    currentPolicy = getContentPolicyProperties(contentResource, resourceResolver);
-
-                    ComponentManager componentManager = contentResource.getResourceResolver().adaptTo(ComponentManager.class);
-                    Component resourceComponent = componentManager.getComponentOfResource(contentResource);
-                    //set component to match target resource
-                    if (resourceComponent != null) {
-                        component = resourceComponent;
-//                        componentProperties.put("resourceComponentCell", resourceComponent.getCellName());
-//                        componentProperties.put("resourceComponentPath", resourceComponent.getPath());
-//                        componentProperties.put("resourceComponentName", resourceComponent.getName());
-//                        componentProperties.put("resourceComponentResourceType", resourceComponent.getResourceType());
-                    }
-
-                    //set currentnode to match target resource
-                    Node resourceNode = (javax.jcr.Node) contentResource.adaptTo(Node.class);
-                    if (resourceNode != null) {
-                        currentNode = resourceNode;
-                    }
-
-                    componentProperties.put(COMPONENT_TARGET_RESOURCE, contentResource.getPath());
-
-                    //getComponentProperty(ValueMap componentProperties, Style pageStyle, String name, Object defaultValue, Boolean useStyle)
-                    //fieldValue = getComponentProperty(resourceProperties, resourceStyle, fieldName, fieldDefaultValue, true);
-                } catch (Exception ex) {
-                    LOGGER.error("getComponentProperties: could not evaluate target resource", ex);
-                    return componentProperties;
-                }
-            } else if (targetResource != null) {
-                LOGGER.warn("getComponentProperties: processing is unsupported of target resource of type: " + targetResource.getClass().getCanonicalName());
-            } else if (targetResource == null) {
-                LOGGER.warn("getComponentProperties: processing of NULL target resource of type return design defaults");
-            }
-
-            if (currentNode != null && addMoreAttributes) {
-                componentProperties.put(COMPONENT_INSTANCE_NAME, currentNode.getName());
-                //get/generate component id
-                String componentId = getComponentId(currentNode);
-                String componentInPagePath = getComponentInPagePath(currentNode);
-                componentProperties.put(COMPONENT_INPAGEPATH, componentInPagePath);
-                componentProperties.attr.add(COMPONENT_ATTRIBUTE_INPAGEPATH, componentInPagePath);
-            }
-
-            if (component != null && addMoreAttributes) {
-                componentProperties.attr.add(COMPONENT_ATTRIBUTE_CLASS, component.getName().trim());
-            }
-
-            if (fieldLists != null) {
-                JexlEngine jexl = new JexlBuilder().create();
-                JxltEngine jxlt = jexl.createJxltEngine();
-                JexlContext jc = new MapContext(componentProperties);
-
-                for (Object[][] fieldDefaults : fieldLists) {
-                    for (Object[] field : fieldDefaults) {
-                        if (field.length < 1) {
-                            throw new IllegalArgumentException(format("Key, Value, ..., Value-n expected, instead got {0} fields.", field.length));
+                        if (contentResource != null) {
+                            contentResource = contentResource.getChild(DamConstants.METADATA_FOLDER);
                         }
-                        String fieldName = field[0].toString();
+                        properties = contentResource.adaptTo(ValueMap.class);
+                        addMoreAttributes = false;
 
-                        if (componentProperties.containsKey(fieldName)) {
-                            //skip entries that already exist
-                            //first Object in fieldLists will set a field value
-                            //we expect the additional Objects to not override
-                            LOGGER.warn("getComponentProperties: skipping property [{}] its already defined, {}", fieldName, componentContext.getResource().getPath());
-                            continue;
+                        componentProperties.put(COMPONENT_TARGET_RESOURCE, contentResource.getPath());
+
+                    } catch (Exception ex) {
+                        LOGGER.error("getComponentProperties: could not evaluate target asset", ex);
+                        return componentProperties;
+                    }
+                } else if (targetResource != null && (targetResource.getClass().getCanonicalName().equals(CLASS_TYPE_RESOURCE) || targetResource.getClass().getCanonicalName().equals(CLASS_TYPE_JCRNODERESOURCE))) {
+
+                    try {
+                        contentResource = (Resource) targetResource;
+
+                        properties = contentResource.adaptTo(ValueMap.class);
+
+                        currentPolicy = getContentPolicyProperties(contentResource, resourceResolver);
+
+                        ComponentManager componentManager = contentResource.getResourceResolver().adaptTo(ComponentManager.class);
+                        Component resourceComponent = componentManager.getComponentOfResource(contentResource);
+                        //set component to match target resource
+                        if (resourceComponent != null) {
+                            component = resourceComponent;
                         }
 
-                        Object fieldDefaultValue = field[1];
+                        //set currentnode to match target resource
+                        Node resourceNode = (javax.jcr.Node) contentResource.adaptTo(Node.class);
+                        if (resourceNode != null) {
+                            currentNode = resourceNode;
+                        }
 
-                        Object fieldValue = null;
+                        componentProperties.put(COMPONENT_TARGET_RESOURCE, contentResource.getPath());
 
-//                        LOGGER.error("getComponentProperties: processing field {} and default {} and is expression {}", fieldName, fieldDefaultValue, fieldDefaultValue != null ? fieldDefaultValue.toString().matches(STRING_EXPRESSION_CHECK) : "it null");
+                        //getComponentProperty(ValueMap componentProperties, Style pageStyle, String name, Object defaultValue, Boolean useStyle)
+                        //fieldValue = getComponentProperty(resourceProperties, resourceStyle, fieldName, fieldDefaultValue, true);
+                    } catch (Exception ex) {
+                        LOGGER.error("getComponentProperties: could not evaluate target resource", ex);
+                        return componentProperties;
+                    }
+                } else if (targetResource != null) {
+                    LOGGER.warn("getComponentProperties: processing is unsupported of target resource of type: " + targetResource.getClass().getCanonicalName());
+                } else if (targetResource == null) {
+                    LOGGER.warn("getComponentProperties: processing of NULL target resource of type return design defaults");
+                }
 
-                        //if no default value has expressions the
-                        if (
-                                fieldDefaultValue instanceof String
-                                && StringUtils.isNotEmpty(fieldDefaultValue.toString())
-                                && fieldDefaultValue.toString().matches(STRING_EXPRESSION_CHECK)) {
-//                                LOGGER.error("getComponentProperties: processing field {} and default {}", fieldName, fieldDefaultValue);
+                if (currentNode != null && addMoreAttributes) {
+                    componentProperties.put(COMPONENT_INSTANCE_NAME, currentNode.getName());
+                    //get/generate component id
+                    String componentId = getComponentId(currentNode);
+                    String componentInPagePath = getComponentInPagePath(currentNode);
+                    componentProperties.put(COMPONENT_INPAGEPATH, componentInPagePath);
+                    componentProperties.attr.add(COMPONENT_ATTRIBUTE_INPAGEPATH, componentInPagePath);
+                }
 
-                            //get the value without default to determine if value exist
-//                            fieldValue = getComponentProperty(properties, currentStyle, fieldName, null, true);
-                            fieldValue = getComponentProperty(properties, currentPolicy, fieldName, null, true);
+                if (component != null && addMoreAttributes) {
+                    componentProperties.attr.add(COMPONENT_ATTRIBUTE_CLASS, component.getName().trim());
+                }
 
-//                            LOGGER.error("getComponentProperties: with value {}, {}, {}", fieldName, fieldValue, fieldDefaultValue);
-                            boolean expressionValid = false;
-                            //try to evaluate default value expression
-                            try {
-                                //expressions reference https://commons.apache.org/proper/commons-jexl/reference/syntax.html
-                                JxltEngine.Expression expr = jxlt.createExpression(fieldDefaultValue.toString());
+                if (fieldLists != null) {
+                    JexlEngine jexl = new JexlBuilder().create();
+                    JxltEngine jxlt = jexl.createJxltEngine();
+                    JexlContext jc = new MapContext(componentProperties);
 
-                                //add current value to the map
-                                jc.set("value", fieldValue);
+                    for (Object[][] fieldDefaults : fieldLists) {
+                        for (Object[] field : fieldDefaults) {
+                            if (field.length < 1) {
+                                throw new IllegalArgumentException(format("Key, Value, ..., Value-n expected, instead got {0} fields.", field.length));
+                            }
+                            String fieldName = field[0].toString();
 
-//                                LOGGER.error("getComponentProperties: context value {}", jc.get("value"));
+                            if (componentProperties.containsKey(fieldName)) {
+                                //skip entries that already exist
+                                //first Object in fieldLists will set a field value
+                                //we expect the additional Objects to not override
+                                LOGGER.warn("getComponentProperties: skipping property [{}] its already defined, {}", fieldName, componentContext.getResource().getPath());
+                                continue;
+                            }
 
-                                Object expressonResult = expr.evaluate(jc);
+                            Object fieldDefaultValue = field[1];
 
-//                                LOGGER.error("getComponentProperties: expressonResult={}, component={}, contentResource={}",
-//                                        expressonResult,
-//                                        (component==null ? component : component.getPath()),
-//                                        (contentResource == null ? contentResource : contentResource.getPath()));
+                            Object fieldValue = null;
 
-                                if (expressonResult != null) {
-                                    expressionValid = true;
-                                    //evaluate the expression
-                                    fieldDefaultValue = expressonResult;
+                            //if no default value has expressions the
+                            if (fieldDefaultValue instanceof String && StringUtils.isNotEmpty(fieldDefaultValue.toString()) && fieldDefaultValue.toString().matches(STRING_EXPRESSION_CHECK)) {
 
-//                                    LOGGER.error("getComponentProperties: expression output {}", expressonResult);
+                                //get the value without default to determine if value exist
+                                fieldValue = getComponentProperty(properties, currentPolicy, fieldName, null, true);
 
+                                boolean expressionValid = false;
+                                //try to evaluate default value expression
+                                try {
+                                    //expressions reference https://commons.apache.org/proper/commons-jexl/reference/syntax.html
+                                    JxltEngine.Expression expr = jxlt.createExpression(fieldDefaultValue.toString());
+
+                                    //add current value to the map
+                                    jc.set("value", fieldValue);
+
+                                    Object expressonResult = expr.evaluate(jc);
+
+                                    if (expressonResult != null) {
+                                        expressionValid = true;
+                                        //evaluate the expression
+                                        fieldDefaultValue = expressonResult;
+
+                                    }
+
+                                } catch (JexlException jex) {
+                                    LOGGER.warn("could not evaluate default value expression component={}, contentResource={}, currentNode={}, field={}, value={}, default value={}, componentProperties.keys={}, jex.info={}", (component == null ? component : component.getPath()), (contentResource == null ? contentResource : contentResource.getPath()), (currentNode == null ? currentNode : currentNode.getPath()), fieldName, fieldValue, fieldDefaultValue, componentProperties.keySet(), jex.getInfo());
+                                } catch (Exception ex) {
+                                    LOGGER.error("could not evaluate default value expression component={}, contentResource={}, currentNode={}, field={}, value={}, default value={}, componentProperties.keys={}, ex.cause={}, ex.message={}, ex={}", (component == null ? component : component.getPath()), (contentResource == null ? contentResource : contentResource.getPath()), (currentNode == null ? currentNode : currentNode.getPath()), fieldName, fieldValue, fieldDefaultValue, componentProperties.keySet(), ex.getCause(), ex.getMessage(), ex);
                                 }
 
-                            } catch (JexlException jex) {
-                                LOGGER.warn("could not evaluate default value expression component={}, contentResource={}, currentNode={}, field={}, value={}, default value={}, componentProperties.keys={}, jex.info={}",
-                                        (component==null ? component : component.getPath()),
-                                        (contentResource == null ? contentResource : contentResource.getPath()),
-                                        (currentNode == null ? currentNode : currentNode.getPath()),
-                                        fieldName, fieldValue, fieldDefaultValue,
-                                        componentProperties.keySet(),
-                                        jex.getInfo());
-                            } catch (Exception ex) {
-                                LOGGER.error("could not evaluate default value expression component={}, contentResource={}, currentNode={}, field={}, value={}, default value={}, componentProperties.keys={}, ex.cause={}, ex.message={}, ex={}",
-                                        (component==null ? component : component.getPath()),
-                                        (contentResource == null ? contentResource : contentResource.getPath()),
-                                        (currentNode == null ? currentNode : currentNode.getPath()),
-                                        fieldName, fieldValue, fieldDefaultValue,
-                                        componentProperties.keySet(),
-                                        ex.getCause(), ex.getMessage(), ex);
-                            }
+                                if (!expressionValid) {
+                                    //remove left over expressions from string
+                                    fieldDefaultValue = ((String) fieldDefaultValue).replaceAll("(\\$\\{.*?\\})", "");
+                                }
 
-                            if (!expressionValid) {
-                                //remove left over expressions from string
-                                fieldDefaultValue = ((String) fieldDefaultValue).replaceAll("(\\$\\{.*?\\})", "");
-                            }
+                                fieldValue = fieldDefaultValue;
 
-//                            LOGGER.error("getComponentProperties: cleaning fieldDefaultValue value {}, {}", fieldDefaultValue);
-
-                            fieldValue = fieldDefaultValue;
-
-                            //store expression field into array for processing
-                            ComponentField expField = new ComponentField(field);
-                            expField.setValue(fieldValue);
-                            componentProperties.expressionFields.add(expField);
+                                //store expression field into array for processing
+                                ComponentField expField = new ComponentField(field);
+                                expField.setValue(fieldValue);
+                                componentProperties.expressionFields.add(expField);
 
 
-                        } else {
-                            //get the value with specified default
-//                            fieldValue = getComponentProperty(properties, currentStyle, fieldName, fieldDefaultValue, true);
-                            fieldValue = getComponentProperty(properties, currentPolicy, fieldName, fieldDefaultValue, true);
-                        }
-
-                        //Empty array with empty string will set the default value
-                        if (fieldValue instanceof String && StringUtils.isEmpty(fieldValue.toString())) {
-                            fieldValue = fieldDefaultValue;
-                        } else if (fieldValue instanceof String[] && fieldValue != null && (StringUtils.isEmpty(StringUtils.join((String[]) fieldValue, "")))) {
-                            fieldValue = fieldDefaultValue;
-                        }
-
-                        if (field.length > 2) {
-                            //if (fieldValue != fieldDefaultValue) {
-                            String fieldDataName = field[2].toString();
-//                            if (StringUtils.isEmpty(fieldDataName)) {
-//                                fieldDataName = "other";
-//                            }
-                            String fieldValueString = "";
-                            String fieldValueType;
-                            if (field.length > 3) {
-                                fieldValueType = (String) field[3];
                             } else {
-                                fieldValueType = String.class.getCanonicalName();
+                                //get the value with specified default
+                                fieldValue = getComponentProperty(properties, currentPolicy, fieldName, fieldDefaultValue, true);
                             }
 
-                            if (fieldValue.getClass().isArray()) {
-                                if (ArrayUtils.isNotEmpty((String[]) fieldValue)) {
-                                    if (fieldValueType.equals(Tag.class.getCanonicalName())) {
-                                        //if data-attribute not specified return values as map entry
+                            //Empty array with empty string will set the default value
+                            if (fieldValue instanceof String && StringUtils.isEmpty(fieldValue.toString())) {
+                                fieldValue = fieldDefaultValue;
+                            } else if (fieldValue instanceof String[] && fieldValue != null && (StringUtils.isEmpty(StringUtils.join((String[]) fieldValue, "")))) {
+                                fieldValue = fieldDefaultValue;
+                            }
+
+                            if (field.length > 2) {
+                                String fieldDataName = field[2].toString();
+                                String fieldValueString = "";
+                                String fieldValueType;
+                                if (field.length > 3) {
+                                    fieldValueType = (String) field[3];
+                                } else {
+                                    fieldValueType = String.class.getCanonicalName();
+                                }
+
+                                if (fieldValue.getClass().isArray()) {
+                                    if (ArrayUtils.isNotEmpty((String[]) fieldValue)) {
+                                        if (fieldValueType.equals(Tag.class.getCanonicalName())) {
+                                            //if data-attribute not specified return values as map entry
+                                            if (isEmpty(fieldDataName)) {
+                                                fieldValue = TagUtil.getTagsValues(tagManager, adminResourceResolver, " ", (String[]) fieldValue);
+                                            } else {
+                                                fieldValueString = TagUtil.getTagsAsValues(tagManager, adminResourceResolver, " ", (String[]) fieldValue);
+                                            }
+                                        } else {
+                                            fieldValueString = StringUtils.join((String[]) fieldValue, ",");
+                                        }
+                                    } else {
+                                        //if data-attribute not specified return empty if values array is empty
                                         if (isEmpty(fieldDataName)) {
-                                            fieldValue = TagUtil.getTagsValues(tagManager, resourceResolver, " ", (String[]) fieldValue);
-                                        } else {
-                                            fieldValueString = TagUtil.getTagsAsValues(tagManager, resourceResolver, " ", (String[]) fieldValue);
-                                        }
-                                    } else {
-                                        fieldValueString = StringUtils.join((String[]) fieldValue, ",");
-                                    }
-                                } else {
-                                    //if data-attribute not specified return empty if values array is empty
-                                    if (isEmpty(fieldDataName)) {
-                                        fieldValue = "";
-                                    }
-                                }
-                            } else {
-                                fieldValueString = fieldValue.toString();
-                            }
-
-                            if (isNotEmpty(fieldValueString) && isNotEmpty(fieldDataName) && !fieldDataName.equals(" ")) {
-                                componentProperties.attr.add(fieldDataName, fieldValueString);
-                            } else if (isNotEmpty(fieldValueString) && fieldDataName.equals(" ")) {
-
-                                if (fieldValueString.contains(" ")) {
-                                    //multiple boolean attributes being added
-                                    for (String item : fieldValueString.split(" ")) {
-                                        if (!item.contains("=")) {
-                                            componentProperties.attr.add(item, "true");
-                                        } else {
-                                            String[] items = item.split("=");
-                                            componentProperties.attr.add(items[0],StringUtils.substringBetween(items[1],"\"","\""));
+                                            fieldValue = "";
                                         }
                                     }
                                 } else {
-                                    if (!fieldValueString.contains("=")) {
-                                        componentProperties.attr.add(fieldValueString, "true");
-                                    } else {
-                                        String[] items = fieldValueString.split("=");
-                                        componentProperties.attr.add(items[0],StringUtils.substringBetween(items[1],"\"","\""));
-                                    }
-//                                componentProperties.attr.addBoolean(fieldValueString, true);
+                                    fieldValueString = fieldValue.toString();
                                 }
+
+                                if (isNotEmpty(fieldValueString) && isNotEmpty(fieldDataName) && !fieldDataName.equals(" ")) {
+                                    componentProperties.attr.add(fieldDataName, fieldValueString);
+                                } else if (isNotEmpty(fieldValueString) && fieldDataName.equals(" ")) {
+
+                                    if (fieldValueString.contains(" ")) {
+                                        //multiple boolean attributes being added
+                                        for (String item : fieldValueString.split(" ")) {
+                                            if (!item.contains("=")) {
+                                                componentProperties.attr.add(item, "true");
+                                            } else {
+                                                String[] items = item.split("=");
+                                                componentProperties.attr.add(items[0], StringUtils.substringBetween(items[1], "\"", "\""));
+                                            }
+                                        }
+                                    } else {
+                                        if (!fieldValueString.contains("=")) {
+                                            componentProperties.attr.add(fieldValueString, "true");
+                                        } else {
+                                            String[] items = fieldValueString.split("=");
+                                            componentProperties.attr.add(items[0], StringUtils.substringBetween(items[1], "\"", "\""));
+                                        }
+                                    }
+                                }
+
                             }
 
+                            try {
+                                componentProperties.put(fieldName, fieldValue);
+                            } catch (Exception ex) {
+                                LOGGER.error("error adding value. " + ex);
+                            }
                         }
+                    }
 
-                        try {
-                            componentProperties.put(fieldName, fieldValue);
-                        } catch (Exception ex) {
-                            LOGGER.error("error adding value. " + ex);
+                    //get current variant value
+                    String variant = componentProperties.get(FIELD_VARIANT, "");
+
+                    //add variant to the end of class string
+                    if (!componentProperties.attr.isEmpty() && addMoreAttributes) {
+                        //check if component variant exist and add to class chain if not default
+                        if (isNotEmpty(variant) && !variant.equals(DEFAULT_VARIANT)) {
+                            componentProperties.attr.add(COMPONENT_ATTRIBUTE_CLASS, variant);
                         }
+                        componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), oldXssAPI));
+                    }
+
+                    //use default variant if variant value not set
+                    if (isEmpty(variant)) {
+                        variant = DEFAULT_VARIANT;
+                    }
+
+                    String variantTemplate = getComponentVariantTemplate(component, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant), sling);
+
+                    if (addMoreAttributes) {
+                        //compile variantTemplate param
+                        componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
                     }
                 }
 
-                //get current variant value
-                String variant = componentProperties.get(FIELD_VARIANT, "");
-
-                //add variant to the end of class string
-                if (!componentProperties.attr.isEmpty() && addMoreAttributes) {
-                    //check if component variant exist and add to class chain if not default
-                    if (isNotEmpty(variant) && !variant.equals(DEFAULT_VARIANT)) {
-                        componentProperties.attr.add(COMPONENT_ATTRIBUTE_CLASS, variant);
-                    }
-                    componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), oldXssAPI));
-                }
-
-                //use default variant if variant value not set
-                if (isEmpty(variant)) {
-                    variant = DEFAULT_VARIANT;
-                }
-
-                String variantTemplate = getComponentVariantTemplate(component, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant), sling);
-
-//                LOGGER.error("getComponentProperties: variantTemplate={}",variantTemplate);
-
-                if (addMoreAttributes) {
-                    //compile variantTemplate param
-                    componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
-                }
+            } catch (Exception ex) {
+                LOGGER.error("getComponentProperties: error processing properties: component={}, ex.message={}, ex={}", component.getPath(), ex.getMessage(), ex);
             }
-
-        } catch (Exception ex) {
-            LOGGER.error("getComponentProperties: error processing properties: component={}, ex.message={}, ex={}",component.getPath(), ex.getMessage(), ex);
-            //out.write( Throwables.getStackTraceAsString(ex) );
+        } else {
+            LOGGER.error("getComponentProperties: could not get ContentAccess service.");
         }
 
         return componentProperties;
@@ -1464,8 +1299,6 @@ public class ComponentsUtil {
     public static String getComponentVariantTemplate(Component component, String variantTemplate, SlingScriptHelper sling) {
         String variantTemplateDefault = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, DEFAULT_VARIANT);
 
-//        LOGGER.error("getComponentVariantTemplate: component={},variantTemplate={},variantTemplateDefault={}",component, variantTemplate,variantTemplateDefault);
-
         //ensure that variant exist
         if (component != null && isNotEmpty(variantTemplate)) {
 
@@ -1473,14 +1306,10 @@ public class ComponentsUtil {
 
             if (isNotBlank(variantTemplatePath)) {
 
-//                LOGGER.error("getComponentVariantTemplate: returning found variantTemplatePath={}",variantTemplatePath);
-
                 return variantTemplatePath;
             }
 
         }
-
-//        LOGGER.error("getComponentVariantTemplate: returning default variantTemplateDefault={}",variantTemplateDefault);
 
         return variantTemplateDefault;
     }
@@ -1519,26 +1348,30 @@ public class ComponentsUtil {
                 key = (String) e.getKey();
                 value = (String) e.getValue();
 
-                //encode values if encoding is specified
-                if (encodings != null) {
-                    String encoding = encodings.get(e.getKey());
-                    if (encoding != null && value != null && value.length() > 0) {
-                        switch (encoding) {
-                            case "HREF":
-                                value = xssAPI.getValidHref(value);
-                                break;
-                            case "HTML_ATTR":
-                                value = xssAPI.encodeForHTMLAttr(value);
-                                break;
+                if (value != null) {
+
+                    //encode values if encoding is specified
+                    if (encodings != null) {
+                        String encoding = encodings.get(e.getKey());
+                        if (encoding != null && value != null && value.length() > 0) {
+                            switch (encoding) {
+                                case "HREF":
+                                    value = xssAPI.getValidHref(value);
+                                    break;
+                                case "HTML_ATTR":
+                                    value = xssAPI.encodeForHTMLAttr(value);
+                                    break;
+                            }
                         }
                     }
-                }
 
-                out.append(" ");
-                if (value.length() > 0) {
-                    out.append(key).append("=\"").append(value).append("\"");
-                } else {
-                    out.append(key);
+                    out.append(" ");
+                    if (value.length() > 0) {
+                        out.append(key).append("=\"").append(value).append("\"");
+                    } else {
+                        out.append(key);
+                    }
+
                 }
             }
             //return string without invalid characters
@@ -1618,74 +1451,6 @@ public class ComponentsUtil {
     }
 
     /**
-     * Depending on whether we're looking at the homepage get the page title from navigation title first
-     * otherwise just get the page title
-     *
-     * @param page is the page to inspect
-     * @return the page title
-     */
-    public static String getPageTitleBasedOnDepth(Page page) {
-
-        // if we're looking at the root node try to find the "site-title" property
-        if (page.getDepth() == DEPTH_ROOTNODE + COUNT_CONTENT_NODE) {
-            String alternativeTitle =
-                    page.getProperties().get(
-                            JcrConstants.JCR_TITLE,
-                            CommonUtil.getPageTitle(page)     // if not set, just use the root nodes page title
-                    );
-
-            return alternativeTitle;
-        }
-        // if we're on the homepage, show the navigation title (which is the site name)
-        else if (page.getDepth() == DEPTH_HOMEPAGE + COUNT_CONTENT_NODE) {
-            return CommonUtil.getPageNavTitle(page);
-        } else {
-            return CommonUtil.getPageTitle(page);
-        }
-
-    }
-
-
-    /**
-     * Get the unique identifier for this paqe
-     *
-     * @param listPage is the page to uniqify
-     * @return the md5 hash of the page's content path
-     */
-    public static String getUniquePageIdentifier(Page listPage) {
-        String uniqueBase = listPage.getPath().substring(1).replace(FileSystem.SEPARATOR, "-");
-        try {
-            MessageDigest digest = MessageDigest.getInstance("MD5");
-            byte[] md5Arr = digest.digest(uniqueBase.getBytes("UTF-8"));
-            BigInteger bigInt = new BigInteger(1, md5Arr);
-            return bigInt.toString(16);
-        } catch (UnsupportedEncodingException ueEx) {
-            LOGGER.warn("Unable to get UTF-8 version of pagepath");
-            return uniqueBase;
-        } catch (NoSuchAlgorithmException nsaEx) { /* they be watchin' */
-            LOGGER.warn("No MD5 algorithm found, cannot hash");
-            return uniqueBase;
-        }
-    }
-
-    /**
-     * Get the description of the feed from the page properties, otherwise retrieve
-     * the jcr's description value. Null is returned when no description was found
-     *
-     * @param page       the page to interrogage
-     * @param properties the properties to fall back on
-     * @return the description or null when none was found.
-     */
-    public static String getFeedDescription(Page page, ValueMap properties) {
-        if (StringUtils.isEmpty(page.getDescription())) {
-            return properties.get("jcr:description", (String) null);
-        } else {
-            return page.getDescription();
-        }
-    }
-
-
-    /**
      * Find the summary field in a 'detail' component or just return the page description.
      * @param page is the page to investiage
      * @return page description
@@ -1704,26 +1469,22 @@ public class ComponentsUtil {
 
                 ResourceResolver resourceResolver = pageResource.getResourceResolver();
 
-                if (resourceResolver != null) {
-                    Resource detailsResource = resourceResolver.resolve(detailsPath);
-                    if (detailsResource != null) {
-                        Node detailsNode = detailsResource.adaptTo(Node.class);
-                        if (detailsNode != null) {
-                            if (detailsNode.hasProperty(DETAILS_DESCRIPTION)) {
-                                return detailsNode.getProperty(DETAILS_DESCRIPTION).getString();
-                            } else {
-//                                LOGGER.error("getPageDescription: detailsNode does not have {} in page [{}]", DETAILS_DESCRIPTION, page.getPath());
-                            }
+                Resource detailsResource = resourceResolver.resolve(detailsPath);
+                if (!ResourceUtil.isNonExistingResource(detailsResource)) {
+                    Node detailsNode = detailsResource.adaptTo(Node.class);
+                    if (detailsNode != null) {
+                        if (detailsNode.hasProperty(DETAILS_DESCRIPTION)) {
+                            return detailsNode.getProperty(DETAILS_DESCRIPTION).getString();
                         } else {
-//                            LOGGER.error("getPageDescription: detailsNode is null in page [{}]", page.getPath());
+//                                LOGGER.error("getPageDescription: detailsNode does not have {} in page [{}]", DETAILS_DESCRIPTION, page.getPath());
                         }
                     } else {
-//                        LOGGER.error("getPageDescription: detailsResource is null in page [{}]", page.getPath());
+//                            LOGGER.error("getPageDescription: detailsNode is null in page [{}]", page.getPath());
                     }
-
                 } else {
-//                    LOGGER.error("getPageDescription: resourceResolver is null in page [{}]", page.getPath());
+//                        LOGGER.error("getPageDescription: detailsResource is null in page [{}]", page.getPath());
                 }
+
 
             } else {
 //                LOGGER.error("getPageDescription: pageResource is null in page [{}]", page.getPath());
@@ -1734,85 +1495,6 @@ public class ComponentsUtil {
         }
         return pageDescription;
     }
-
-
-    /**
-     * Find the field in a 'detail' component or just return the page description.
-     * @param page is the page to investiage
-     * @return page description
-     */
-    public static String getPageDetailsField(Page page, String field) throws RepositoryException {
-        String defaultPageValue = StringUtils.EMPTY;
-        if (DETAILS_TITLE.equals(field)) {
-            defaultPageValue = page.getTitle();
-        } else if (DETAILS_DESCRIPTION.equals(field)) {
-            defaultPageValue = page.getDescription();
-        }
-
-        Resource parsysR = page.getContentResource("./article/par");
-        if (parsysR != null) {
-            Node parsysN = parsysR.adaptTo(Node.class);
-            NodeIterator nodeIt = parsysN.getNodes();
-            while (nodeIt.hasNext()) {
-                Node child = nodeIt.nextNode();
-                String childName = child.getName().toLowerCase();
-                if (childName.endsWith(CommonUtil.COMPONENT_DETAILS_SUFFIX)) {
-                    return CommonUtil.getPropertyWithDefault(child, field, defaultPageValue);
-                }
-            }
-        }
-        return defaultPageValue;
-    }
-
-    /**
-     * Transform calendar into a publication date.
-     *
-     * @param cal is the calendar to transform
-     * @return is the formatted RSS date.
-     */
-    public static String formattedRssDate(Calendar cal) {
-        if (cal == null) {
-            return null;
-        }
-        return DateFormatUtils.format(cal, DEFAULT_RSS_DATE_FORMAT);
-    }
-
-
-    /**
-     * Find a page which has a Detail Node. The pattern under jcr:content is par/*Details.
-     * @param page page to search
-     * @return found node
-     * @throws RepositoryException
-     */
-    public static Node findDetailNode(Page page) {
-
-        Node node = null;
-
-        try {
-            Resource pageRes = page.getContentResource(NODE_PAR);
-
-            if (pageRes != null) {
-
-                Node parNode = pageRes.adaptTo(Node.class);
-
-                NodeIterator detailNodes = parNode.getNodes(NODE_DETAILS);
-
-                while (detailNodes.hasNext()) {
-
-                    node = detailNodes.nextNode();
-                    break;
-                }
-
-
-            } else {
-                //  LOGGER.error("Node ["+NODE_PAR+"] not find in " + page.getPath());
-            }
-        } catch (Exception ex) {
-            LOGGER.error("findDetailNode: could not find details node in page={},ex={}",page,ex);
-        }
-        return node;
-    }
-
 
     /***
      * compile a message from component properties using one of the component format tag fields
@@ -1838,55 +1520,9 @@ public class ComponentsUtil {
             fieldFormatValue = TagUtil.getTagValueAsAdmin(formatFieldTagPath, sling);
         }
 
-        //LOGGER.error("compileComponentMessage {}",fieldFormatValue);
-
         return CommonUtil.compileMapMessage(fieldFormatValue, componentProperties);
 
     }
-
-    /**
-     * get path of resource in jcr:content.
-     * @param resource resource to use
-     * @return content path to resource
-     */
-    public static String getResourceContentPath(Resource resource) {
-        String returnPath = resource.getPath(); //StringUtils.split(resource.getPath(),JcrConstants.JCR_CONTENT)
-
-        if (StringUtils.contains(returnPath, org.apache.jackrabbit.JcrConstants.JCR_CONTENT)) {
-            String[] pathParts = StringUtils.splitByWholeSeparator(returnPath, org.apache.jackrabbit.JcrConstants.JCR_CONTENT);
-            if (pathParts.length > 1) {
-                returnPath = pathParts[1];
-            }
-        }
-
-        return returnPath;
-    }
-
-
-    /***
-     * encode a string using MD5.
-     * @param encode string to encode
-     * @return encoded string
-     */
-    public static String MD5(String encode) {
-        try {
-
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] digest = md.digest(encode.getBytes());
-
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < digest.length; ++i) {
-                sb.append(Integer.toHexString((digest[i] & 0xFF) | 0x100).substring(1, 3));
-            }
-            return sb.toString();
-
-        } catch (Exception ex) {
-            LOGGER.error("MD5 could not encode string ({0})", ex.toString());
-        }
-
-        return encode;
-    }
-
 
     /***
      * get or generate component id.
@@ -1933,22 +1569,26 @@ public class ComponentsUtil {
         String returnValue = "";
 
         ContentAccess contentAccess = sling.getService(ContentAccess.class);
-        try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+        if (contentAccess != null) {
+            try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
 
-            // Getting attached facebook cloud service config in order to fetch appID
-            ConfigurationManager cfgMgr = adminResourceResolver.adaptTo(ConfigurationManager.class);
-            Configuration addthisConfiguration = null;
-            String[] services = pageProperties.getInherited(ConfigurationConstants.PN_CONFIGURATIONS, new String[]{});
-            if (cfgMgr != null) {
-                addthisConfiguration = cfgMgr.getConfiguration(configurationName, services);
-                if (addthisConfiguration != null) {
-                    returnValue = addthisConfiguration.get(propertyName, "");
+                // Getting attached facebook cloud service config in order to fetch appID
+                ConfigurationManager cfgMgr = adminResourceResolver.adaptTo(ConfigurationManager.class);
+                Configuration addthisConfiguration = null;
+                String[] services = pageProperties.getInherited(ConfigurationConstants.PN_CONFIGURATIONS, new String[]{});
+                if (cfgMgr != null) {
+                    addthisConfiguration = cfgMgr.getConfiguration(configurationName, services);
+                    if (addthisConfiguration != null) {
+                        returnValue = addthisConfiguration.get(propertyName, "");
+                    }
                 }
+
+
+            } catch (Exception ex) {
+                LOGGER.error(Throwables.getStackTraceAsString(ex));
             }
-
-
-        } catch (Exception ex) {
-            LOGGER.error(Throwables.getStackTraceAsString(ex));
+        } else {
+            LOGGER.error("getCloudConfigProperty: could not get ContentAccess service.");
         }
 
         return returnValue;
@@ -1998,22 +1638,22 @@ public class ComponentsUtil {
                     //Boolean cancelInheritParent = properties.get(COMPONENT_CANCEL_INHERIT_PARENT","").contentEquals("true");
 
                     curProperties = curResource.adaptTo(ValueMap.class);
-                    curResourceTypeMatch = curResource.isResourceType(nodeResourceType);
-                    curCancelInheritParent = curProperties.get(COMPONENT_CANCEL_INHERIT_PARENT, "").contentEquals("true");
+                    if (curProperties != null) {
+                        curResourceTypeMatch = curResource.isResourceType(nodeResourceType);
+                        curCancelInheritParent = curProperties.get(COMPONENT_CANCEL_INHERIT_PARENT, "").contentEquals("true");
 
-                    if (curResourceTypeMatch && curCancelInheritParent) {
-                        String found = format(
-                                "findInheritedResource: FOUND looking for inherited resource for path=\"{0}\" by relative path=\"{1}\" in parent=\"{2}\""
-                                , pageResourcePath, relativePath, curPage.getPath());
-                        LOGGER.info(found);
+                        if (curResourceTypeMatch && curCancelInheritParent) {
+                            String found = format("findInheritedResource: FOUND looking for inherited resource for path=\"{0}\" by relative path=\"{1}\" in parent=\"{2}\"", pageResourcePath, relativePath, curPage.getPath());
+                            LOGGER.info(found);
 
-                        break;
+                            break;
+                        } else {
+                            String notfound = format("findInheritedResource: NOT FOUND looking for inherited resource for path=\"{0}\" by relative path=\"{1}\" in parent=\"{2}\"", pageResourcePath, relativePath, curPage.getPath());
+                            LOGGER.info(notfound);
+
+                        }
                     } else {
-                        String notfound = format(
-                                "findInheritedResource: NOT FOUND looking for inherited resource for path=\"{0}\" by relative path=\"{1}\" in parent=\"{2}\""
-                                , pageResourcePath, relativePath, curPage.getPath());
-                        LOGGER.info(notfound);
-
+                        LOGGER.error("findInheritedResource: could not convert resource to value map, curResource={}", curResource);
                     }
                 }
 
@@ -2042,16 +1682,6 @@ public class ComponentsUtil {
         }
         return "";
     }
-
-    /***
-     * get value attribute from list of maps.
-     * @param sourceMap map to use
-     * @return value of first element
-     */
-    public static String getFirstValueFromList(LinkedHashMap<String, Map> sourceMap) {
-        return getFirstAttributeFromList(sourceMap, "value");
-    }
-
 
     public static String getComponentInPagePath(Node componentNode) {
         String componentInPagePath = "";
@@ -2089,46 +1719,52 @@ public class ComponentsUtil {
         if (component != null) {
 
             ContentAccess contentAccess = sling.getService(ContentAccess.class);
-            try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+            if (contentAccess != null) {
+                try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
 
-                //get component with admin resource resolver
-                String componentPath = component.getPath();
-                Resource comoinentAdminResource =  adminResourceResolver.resolve(componentPath);
-                superComponent = comoinentAdminResource.adaptTo(Component.class);
+                    //get component with admin resource resolver
+                    String componentPath = component.getPath();
+                    Resource componentAdminResource = adminResourceResolver.resolve(componentPath);
+                    if (componentAdminResource != null && !ResourceUtil.isNonExistingResource(componentAdminResource)) {
+                        superComponent = componentAdminResource.adaptTo(Component.class);
 
-                Resource localresource = superComponent.getLocalResource(resourceName);
+                        if (superComponent != null) {
+                            Resource localresource = superComponent.getLocalResource(resourceName);
 
-                if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
-//                LOGGER.error("getComponentSuperComponent: [{}] superComponent={}, path={}, localresource={}", count, superComponent, superComponent.getPath(), localresource);
-                    return localresource.getPath();
-                }
+                            if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
+                                return localresource.getPath();
+                            }
 
-                while (superComponent.getSuperComponent() != null) {
+                            while (superComponent.getSuperComponent() != null) {
 
-                    superComponent = superComponent.getSuperComponent();
+                                superComponent = superComponent.getSuperComponent();
 
-//                LOGGER.error("getComponentSuperComponent: [{}] superComponent={}", count, superComponent);
+                                if (superComponent == null) {
+                                    return "";
+                                }
 
-                    if (superComponent == null) {
-                        return "";
-                    }
+                                localresource = superComponent.getLocalResource(resourceName);
 
-                    localresource = superComponent.getLocalResource(resourceName);
-
-//                LOGGER.error("getComponentSuperComponent: [{}] localresource={}", count, localresource);
-
-                    if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
+                                if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
 //                    LOGGER.error("getComponentSuperComponent: [{}] superComponent={}, path={}, localresource={}", count, superComponent, superComponent.getPath(), localresource);
-                        return localresource.getPath();
+                                    return localresource.getPath();
+                                }
+                                count++;
+                            }
+                        } else {
+                            LOGGER.error("findLocalResourceInSuperComponent: could not convert resource to component, componentAdminResource={}", componentAdminResource);
+                        }
+                    } else {
+                        LOGGER.error("findLocalResourceInSuperComponent: could not resolve component path to resource, componentPath={}", componentPath);
                     }
-                    count++;
+
+                } catch (Exception ex) {
+                    LOGGER.error(Throwables.getStackTraceAsString(ex));
                 }
 
-
-            } catch (Exception ex) {
-                LOGGER.error(Throwables.getStackTraceAsString(ex));
+            } else {
+                LOGGER.error("findLocalResourceInSuperComponent: could not get ContentAccess service.");
             }
-
 
 
         }
@@ -2161,13 +1797,6 @@ public class ComponentsUtil {
                         String componentPath = componentOfResource.getPath();
                         Resource componentOfResourceRS = adminResourceResolver.resolve(componentPath);
 
-//                        LOGGER.error("getComponentFieldsAndDialogMap: componentOfResource={}, componentPath={}, super1={}, super2={}, super3={}",
-//                                componentOfResource,
-//                                componentPath,
-//                                componentOfResourceValueMap.get("sling:resourceSuperType"),
-//                                adminResourceResolver.getParentResourceType(componentOfResource.getPath())
-//                        );
-
                         //walk up the tree of resourceSuperType and get base component
                         String componentDialogPath = findLocalResourceInSuperComponent(componentOfResource,"cq:dialog", slingScriptHelper);
 
@@ -2178,8 +1807,6 @@ public class ComponentsUtil {
 
                             //get dialog with value from resource: /<app component path>/cq:dialog/content.html/<resource path to pull values>
                             dialogPath = componentDialogPath.concat(DEFAULT_EXTENTION).concat(componentResource.getPath());
-
-//                        LOGGER.error("getComponentFieldsAndDialogMap: dialogPath={}", dialogPath);
 
                             String dialogHTML = resourceRenderAsHtml(
                                     dialogPath,
@@ -2192,8 +1819,6 @@ public class ComponentsUtil {
 
                             dialogContent = Jsoup.parse(dialogHTML);
 
-//                        LOGGER.error("getComponentFieldsAndDialogMap: dialogContent={}", dialogContent);
-//
                         }
                         for (Map.Entry<String, Object> field : componentResourceMap.entrySet()) {
 
