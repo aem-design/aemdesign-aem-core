@@ -3,7 +3,6 @@ package design.aem.models.v2.common;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.i18n.I18n;
-import com.day.cq.wcm.api.WCMMode;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -14,8 +13,6 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.INHERITED_RESOURCE;
 import static design.aem.utils.components.ConstantsUtil.SITE_INCLUDE_PATHS;
 import static design.aem.utils.components.I18nUtil.*;
-import static design.aem.utils.components.ImagesUtil.DEFAULT_BACKGROUND_IMAGE_NODE_NAME;
-import static design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions;
 
 public class StaticInclude extends WCMUsePojo {
 

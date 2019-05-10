@@ -1,7 +1,6 @@
 package design.aem.models.v2.lists;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.i18n.I18n;
 import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
@@ -10,13 +9,11 @@ import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
-import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
@@ -24,17 +21,16 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-import java.util.*;
-import java.util.List;
-
-import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.models.v2.lists.List.SortOrder;
+import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.TagUtil.TAG_VALUE;
-import static design.aem.utils.components.TagUtil.getTags;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class TagList extends WCMUsePojo {
@@ -215,32 +211,36 @@ public class TagList extends WCMUsePojo {
 //            LOGGER.error("populateListItemsFromMap: map={}",map);
 
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
-            Session session = getResourceResolver().adaptTo(Session.class);
+            if (builder != null) {
+                Session session = getResourceResolver().adaptTo(Session.class);
 
-            Query query = null;
+                Query query = null;
 
-            //limit is set
-            map.put("p.limit", String.valueOf(limit));
+                //limit is set
+                map.put("p.limit", String.valueOf(limit));
 
-            String orderBy = componentProperties.get(PN_ORDER_BY,PN_ORDER_BY_DEFAULT);
-            if (isNotEmpty(orderBy)) {
-                map.put("orderby", orderBy);
-            } else {
-                map.put("orderby", PN_ORDER_BY_DEFAULT);
-            }
+                String orderBy = componentProperties.get(PN_ORDER_BY, PN_ORDER_BY_DEFAULT);
+                if (isNotEmpty(orderBy)) {
+                    map.put("orderby", orderBy);
+                } else {
+                    map.put("orderby", PN_ORDER_BY_DEFAULT);
+                }
 
-            map.put("orderby.sort", sortOrder.getValue());
+                map.put("orderby.sort", sortOrder.getValue());
 
 //            LOGGER.error("populateListItemsFromMap: running query with map=[{}]",map);
 
-            PredicateGroup root = PredicateGroup.create(map);
-            // avoid slow //* queries
-            if (!root.isEmpty()) {
-                query = builder.createQuery(root, session);
-            }
+                PredicateGroup root = PredicateGroup.create(map);
+                // avoid slow //* queries
+                if (!root.isEmpty()) {
+                    query = builder.createQuery(root, session);
+                }
 
-            if (query != null) {
-                collectSearchResults(query.getResult());
+                if (query != null) {
+                    collectSearchResults(query.getResult());
+                }
+            } else {
+                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]",map);
             }
         } catch (Exception ex) {
             LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}",map,ex);
@@ -257,27 +257,31 @@ public class TagList extends WCMUsePojo {
         String[] tags = componentProperties.get(STATIC_TAGS, new String[0]);
         ResourceResolver resourceResolver = getResourceResolver();
         TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
-        for (String tagId : tags) {
-            Map<String,Object> item = new HashMap<>();
+        if (tagManager != null) {
+            for (String tagId : tags) {
+                Map<String, Object> item = new HashMap<>();
 
-            Tag tag = tagManager.resolve(tagId);
+                Tag tag = tagManager.resolve(tagId);
 
-            if (tag != null) {
-                item.put("tag", tag);
-                Resource tagResource = resourceResolver.resolve(tag.getPath());
-                if (tagResource != null) {
-                    ValueMap tagValues = tagResource.getValueMap();
-                    if (tagValues != null) {
-                        item.put(TAG_VALUE, tagValues.get(TAG_VALUE));
+                if (tag != null) {
+                    item.put("tag", tag);
+                    Resource tagResource = resourceResolver.resolve(tag.getPath());
+                    if (tagResource != null) {
+                        ValueMap tagValues = tagResource.getValueMap();
+                        if (tagValues != null) {
+                            item.put(TAG_VALUE, tagValues.get(TAG_VALUE));
+                        }
                     }
+
+                } else {
+                    LOGGER.error("populateStaticListItems: could not find tagId {}", tagId);
+                    continue;
                 }
 
-            } else {
-                LOGGER.error("populateStaticListItems: could not find tagId {}", tagId);
-                continue;
+                listItems.add(item);
             }
-
-            listItems.add(item);
+        } else {
+            LOGGER.error("populateStaticListItems: could not get TagManager object");
         }
     }
 

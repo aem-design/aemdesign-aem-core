@@ -8,10 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.INHERITED_RESOURCE;
-import static design.aem.utils.components.I18nUtil.*;
-import static design.aem.utils.components.ImagesUtil.DEFAULT_BACKGROUND_IMAGE_NODE_NAME;
-import static design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions;
+import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 
 public class Search extends WCMUsePojo {
 

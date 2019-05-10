@@ -1,14 +1,10 @@
 package design.aem.models.v2.details;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.TagConstants;
-import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,16 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static design.aem.utils.components.CommonUtil.*;
-import static design.aem.utils.components.ComponentDetailsUtil.processBadgeRequestConfig;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
-import static design.aem.utils.components.ImagesUtil.*;
-import static design.aem.utils.components.ResolverUtil.mappedUrl;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
-import static java.text.MessageFormat.format;
-import static org.apache.commons.lang3.StringUtils.isEmpty;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class PageDetails extends GenericDetails {
 

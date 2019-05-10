@@ -473,4 +473,17 @@ public class ParagraphUtil {
         }
         return Paragraph.Type.NORMAL;
     }
+
+    /**
+     * return current UI Mode, Classic or Touch
+     * @param slingRequest
+     * @return
+     */
+    public static String UIMode(SlingHttpServletRequest slingRequest) {
+        if (slingRequest.getCookie(WCM_AUTHORING_MODE_COOKIE) != null) {
+            return slingRequest.getCookie(WCM_AUTHORING_MODE_COOKIE).getValue();
+        }
+        return "";
+
+    }
 }

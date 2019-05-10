@@ -6,7 +6,6 @@ import com.day.cq.search.*;
 import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
-import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
@@ -17,6 +16,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.JcrConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.request.RequestParameter;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
@@ -201,7 +201,6 @@ public class List extends WCMUsePojo {
 
         //save tag info
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
-        componentProperties.put("tags",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
         componentProperties.attr.add("data-search-tags", StringUtils.join(tags,","));
 
         //collection info for variables
@@ -235,7 +234,10 @@ public class List extends WCMUsePojo {
 
         if (getRequest().getRequestParameter(REQUEST_PARAM_QUERY) !=null) {
             try {
-                query = getRequest().getRequestParameter(REQUEST_PARAM_QUERY).toString();
+                RequestParameter requestParameter = getRequest().getRequestParameter(REQUEST_PARAM_QUERY);
+                if (requestParameter != null) {
+                    query = requestParameter.toString();
+                }
             } catch (Exception ex) {
                 LOGGER.error("could not read query param {}", ex);
             }
@@ -380,12 +382,15 @@ public class List extends WCMUsePojo {
             String componentPath = findComponentInPage(page, detailsNameSuffix);
             if (isNotEmpty(componentPath)) {
                 Resource componentResource = resourceResolver.getResource(componentPath);
-                String componentResourceType = componentResource.getResourceType();
-                if (isNull(componentResourceType)) {
-                    componentResourceType = "";
+                if (componentResource != null) {
+                    String componentResourceType = componentResource.getResourceType();
+                    if (isNull(componentResourceType)) {
+                        componentResourceType = "";
+                    }
+                    badge.put("componentResourceType", componentResourceType);
                 }
+
                 badge.put("componentPath", componentPath);
-                badge.put("componentResourceType", componentResourceType);
 
                 badge.put("componentPathSelectors", new String[]{DETAILS_SELECTOR_BADGE, detailsBadge});
 
@@ -597,19 +602,30 @@ public class List extends WCMUsePojo {
         listItems = new ArrayList<>();
         String[] tags = componentProperties.get(PN_TAGS, new String[0]);
         boolean matchAny = componentProperties.get(PN_TAGS_MATCH, TAGS_MATCH_ANY_VALUE).equals(TAGS_MATCH_ANY_VALUE);
+
         if (ArrayUtils.isNotEmpty(tags)) {
             Page rootPage = getPageManager().getPage(componentProperties.get(PN_TAGS_PARENT_PAGE,""));
-            if (rootPage != null) {
 
+            if (rootPage != null) {
                 Map<String, String> childMap = new HashMap<>();
                 childMap.put("path", rootPage.getPath());
-                if (matchAny) {
-                    childMap.put("group.p.or", "true");
-                } else {
-                    childMap.put("group.p.and", "true");
-                }
-                for (int i =0; i < tags.length; i++) {
-                    childMap.put("group."+i+"_group", tags[i]);
+
+                String operator = matchAny ? "or" : "and";
+
+                childMap.put("group.p." + operator, "true");
+                childMap.put("group.0_group.p." + operator, "true");
+
+                int offset = 0;
+
+                for (String tag : tags) {
+                    childMap.put("group.0_group." + offset + "_group.tagid", tag);
+                    childMap.put("group.0_group." + offset + "_group.tagid.property", "jcr:content/cq:tags");
+
+                    // Offset the Page Details group by one so we don't conflict with the page properties query
+                    offset++;
+
+                    childMap.put("group.0_group." + offset + "_group.tagid", tag);
+                    childMap.put("group.0_group." + offset + "_group.tagid.property", "jcr:content/article/par/page_details/cq:tags");
                 }
 
                 populateListItemsFromMap(childMap);
@@ -696,18 +712,22 @@ public class List extends WCMUsePojo {
         try {
 
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
-            Session session = getResourceResolver().adaptTo(Session.class);
+            if (builder != null) {
+                Session session = getResourceResolver().adaptTo(Session.class);
 
-            Query query = null;
+                Query query = null;
 
-            PredicateGroup root = getPredicateGroupFromQuery(queryParam);
-            // avoid slow //* queries
-            if (!root.isEmpty()) {
-                query = builder.createQuery(root, session);
-            }
+                PredicateGroup root = getPredicateGroupFromQuery(queryParam);
+                // avoid slow //* queries
+                if (root != null && !root.isEmpty()) {
+                    query = builder.createQuery(root, session);
+                }
 
-            if (query != null) {
-                collectSearchResults(query.getResult());
+                if (query != null) {
+                    collectSearchResults(query.getResult());
+                }
+            } else {
+                LOGGER.error("populateListItemsFromMap: could not get query builder object, q={}",queryParam);
             }
         } catch (Exception ex) {
             LOGGER.error("populateListItemsFromQuery: could not execute query q=[{}], ex={}",queryParam,ex);
@@ -723,41 +743,45 @@ public class List extends WCMUsePojo {
         try {
 
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
-            Session session = getResourceResolver().adaptTo(Session.class);
+            if (builder != null) {
+                Session session = getResourceResolver().adaptTo(Session.class);
 
-            Query query = null;
+                Query query = null;
 
-            //pagination limit is set
-            if (pageMax > 0) {
-                map.put("p.limit", String.valueOf(pageMax));
-            } else if (limit > 0) {
-                //limit is set
-                map.put("p.limit", String.valueOf(limit));
-            }
+                //pagination limit is set
+                if (pageMax > 0) {
+                    map.put("p.limit", String.valueOf(pageMax));
+                } else if (limit > 0) {
+                    //limit is set
+                    map.put("p.limit", String.valueOf(limit));
+                }
 
-            if (pageStart > 0) {
-                map.put("p.offset", String.valueOf(pageStart));
-            }
+                if (pageStart > 0) {
+                    map.put("p.offset", String.valueOf(pageStart));
+                }
 
-            String orderBy = componentProperties.get(PN_ORDER_BY,PN_ORDER_BY_DEFAULT);
-            if (isNotEmpty(orderBy)) {
-                map.put("orderby", orderBy);
+                String orderBy = componentProperties.get(PN_ORDER_BY, PN_ORDER_BY_DEFAULT);
+                if (isNotEmpty(orderBy)) {
+                    map.put("orderby", orderBy);
+                } else {
+                    map.put("orderby", PN_ORDER_BY_DEFAULT);
+                }
+
+                map.put("orderby.sort", sortOrder.getValue());
+
+                //LOGGER.error("populateListItemsFromMap: running query with map=[{}]", map);
+
+                PredicateGroup root = PredicateGroup.create(map);
+                // avoid slow //* queries
+                if (!root.isEmpty()) {
+                    query = builder.createQuery(root, session);
+                }
+
+                if (query != null) {
+                    collectSearchResults(query.getResult());
+                }
             } else {
-                map.put("orderby", PN_ORDER_BY_DEFAULT);
-            }
-
-            map.put("orderby.sort", sortOrder.getValue());
-
-//            LOGGER.error("populateListItemsFromMap: running query with map=[{}]",map);
-
-            PredicateGroup root = PredicateGroup.create(map);
-            // avoid slow //* queries
-            if (!root.isEmpty()) {
-                query = builder.createQuery(root, session);
-            }
-
-            if (query != null) {
-                collectSearchResults(query.getResult());
+                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]",map);
             }
         } catch (Exception ex) {
             LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}",map,ex);
@@ -775,35 +799,47 @@ public class List extends WCMUsePojo {
             try {
                 if (getRequest().getRequestParameter(REQUEST_PARAM_QUERY) != null) {
                     //if query passed read and process
-                    String escapedQuery = getRequest().getRequestParameter(REQUEST_PARAM_QUERY).toString();
+                    String escapedQuery = "";
+                    RequestParameter requestParameter = getRequest().getRequestParameter(REQUEST_PARAM_QUERY);
+                    if (requestParameter != null) {
+                        escapedQuery = requestParameter.toString();
+                    }
                     String unescapedQuery = URLDecoder.decode(escapedQuery, QUERY_ENCODING);
                     QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
-                    PageManager pm = getResourceResolver().adaptTo(PageManager.class);
-                    //create props for query
-                    java.util.Properties props = new java.util.Properties();
-                    //load query candidate
-                    props.load(new ByteArrayInputStream(unescapedQuery.getBytes()));
-                    //create predicate from query candidate
-                    PredicateGroup predicateGroup = PredicateConverter.createPredicates(props);
-                    //TODO: add limits and pages
+                    if (queryBuilder != null) {
+                        PageManager pm = getResourceResolver().adaptTo(PageManager.class);
+                        //create props for query
+                        java.util.Properties props = new java.util.Properties();
+                        //load query candidate
+                        props.load(new ByteArrayInputStream(unescapedQuery.getBytes()));
+                        //create predicate from query candidate
+                        PredicateGroup predicateGroup = PredicateConverter.createPredicates(props);
+                        //TODO: add limits and pages
 //                    predicateGroup.add(new Predicate("p.offset","0"));
 //                    if (limit > 0) {
 //                        predicateGroup.add(new Predicate("p.limit", Integer.toString(limit)));
 //                    }
 //                    predicateGroup.add(new Predicate("p.guessTotal","true"));
 //                    boolean allowDuplicates = componentProperties.get("allowDuplicates", false);
-                    javax.jcr.Session jcrSession = getResourceResolver().adaptTo(javax.jcr.Session.class);
-                    Query query = queryBuilder.createQuery(predicateGroup, jcrSession);
-                    //TODO: add limits and pages
+                        javax.jcr.Session jcrSession = getResourceResolver().adaptTo(javax.jcr.Session.class);
+                        if (jcrSession != null) {
+                            Query query = queryBuilder.createQuery(predicateGroup, jcrSession);
+                            //TODO: add limits and pages
 
 
 //                    query.setStart(0);
 //                    query.setHitsPerPage(20);
-                    if (query != null) {
+                            if (query != null) {
 //                        SearchResult result = query.getResult();
 //                        HitBasedPageIterator newList = new HitBasedPageIterator(pm, result.getHits().iterator(), !allowDuplicates, new PageFilter(false, showHidden));
 
-                        collectSearchResults(query.getResult());
+                                collectSearchResults(query.getResult());
+                            }
+                        } else {
+                            LOGGER.error("populateQueryListItems: could not get sessions object");
+                        }
+                    } else {
+                        LOGGER.error("populateQueryListItems: could not get query builder object");
                     }
                 } else {
                     //if not passed read saved query
@@ -939,12 +975,15 @@ public class List extends WCMUsePojo {
         public PageLink(SlingHttpServletRequest request) {
             this.path = request.getPathInfo();
             PageManager pm = request.getResourceResolver().adaptTo(PageManager.class);
-            Page page = pm.getContainingPage(this.path);
-            if (page != null) {
+            if (pm != null) {
+                Page page = pm.getContainingPage(this.path);
+                if (page != null) {
 
-                this.path = page.getPath() + ".html";
+                    this.path = page.getPath() + ".html";
+                }
+            } else {
+                LOGGER.error("PageLink: could not get PageManager object");
             }
-
             this.initParams(request.getQueryString());
         }
 

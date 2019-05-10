@@ -3,21 +3,18 @@ package design.aem.models.v2.details;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.components.Component;
 import design.aem.components.ComponentProperties;
-import design.aem.services.ContentAccess;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static design.aem.utils.components.CommonUtil.*;
+import static design.aem.utils.components.CommonUtil.getBadgeFromSelectors;
+import static design.aem.utils.components.CommonUtil.getPageRedirect;
 import static design.aem.utils.components.ComponentDetailsUtil.processBadgeRequestConfig;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
@@ -32,7 +29,7 @@ public class GenericDetails extends WCMUsePojo {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GenericDetails.class);
 
-    public static String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
+    private static final String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
 
     protected ComponentProperties componentProperties = null;
 
@@ -126,9 +123,9 @@ public class GenericDetails extends WCMUsePojo {
 
             //check if component has the badge and reset if it does not
             if (isEmpty(badgePath)) {
+                LOGGER.error("BADGE NOT FOUND badgePath={},requestedBadgeTemplate={}",badgePath,requestedBadgeTemplate);
                 componentBadge = DEFAULT_BADGE;
                 requestedBadgeTemplate = defaultBadgeTemplate;
-                LOGGER.error("BADGE NOT FOUND badgePath={}",badgePath);
             }
 
             componentProperties.put(COMPONENT_BADGE, componentBadge);

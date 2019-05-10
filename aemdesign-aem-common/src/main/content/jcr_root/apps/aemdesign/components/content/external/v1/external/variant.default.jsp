@@ -1,1 +1,0 @@
-<iframe ${componentProperties.componentAttributes}></iframe>

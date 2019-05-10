@@ -7,7 +7,7 @@
             <title class="card-title"
                    data-sly-element="${componentProperties.badgeTitleType}" itemprop="name">${componentProperties.badgeTitle}</title>
             <div class="card-subtitle">${componentProperties.subTitleFormatted}</div>
-            <div class="card-date" itemprop="startDate" content="${componentProperties.eventStartDateISO}">${componentProperties.eventDisplayTimeFormatted}</div>
+            <div class="card-date" itemprop="startDate" content="${componentProperties.eventStartDateISO}">${componentProperties.eventDisplayTimeFormatted @ context = 'unsafe'}</div>
             <div class="card-text" itemprop="description">${componentProperties.badgeDescription @ context = 'unsafe'}</div>
             <div class="card-action">
                 <a class="card-link ${componentProperties.badgeLinkStyle @ join=' '}"

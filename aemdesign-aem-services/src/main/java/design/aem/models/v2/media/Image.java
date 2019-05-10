@@ -2,7 +2,6 @@ package design.aem.models.v2.media;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.asset.api.AssetManager;
-import com.day.cq.commons.ImageResource;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.TagConstants;
@@ -16,14 +15,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
-import java.text.MessageFormat;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.*;
+import static design.aem.utils.components.ConstantsUtil.IMAGE_FILEREFERENCE;
 import static design.aem.utils.components.ImagesUtil.*;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.*;
@@ -88,48 +85,51 @@ public class Image extends WCMUsePojo {
                 fileReferenceMissing = false;
 
                 AssetManager assetManager = getResourceResolver().adaptTo(AssetManager.class);
-                com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(fileReference);
+                if (assetManager != null) {
+                    com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(fileReference);
 
-                Asset assetBasic = assetR.adaptTo(Asset.class);
-                Node assetN = assetR.adaptTo(Node.class);
+                    Asset assetBasic = assetR.adaptTo(Asset.class);
+                    Node assetN = assetR.adaptTo(Node.class);
 
-                //get asset metadata
-                String assetUID = asset.getIdentifier();
-                String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
-                String assetUsageTerms = assetBasic.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
-                String licenseInfo = getAssetCopyrightInfo(assetBasic, _i18n.get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
-                componentProperties.put(FIELD_LICENSE_INFO, licenseInfo);
-                componentProperties.put(FIELD_ASSETID, assetUID);
+                    //get asset metadata
+                    String assetUID = asset.getIdentifier();
+                    String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
+                    String assetUsageTerms = assetBasic.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
+                    String licenseInfo = getAssetCopyrightInfo(assetBasic, _i18n.get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
+                    componentProperties.put(FIELD_LICENSE_INFO, licenseInfo);
+                    componentProperties.put(FIELD_ASSETID, assetUID);
 
 
-                //get asset properties
-                ComponentProperties assetProperties = ComponentsUtil.getComponentProperties(this, asset, DEFAULT_FIELDS_ASSET_IMAGE);
-                //add asset properties to component properties and ensure licensed image meta does not get overwritten
-                componentProperties.putAll(assetProperties, isEmpty(licenseInfo));
+                    //get asset properties
+                    ComponentProperties assetProperties = ComponentsUtil.getComponentProperties(this, asset, DEFAULT_FIELDS_ASSET_IMAGE);
+                    //add asset properties to component properties and ensure licensed image meta does not get overwritten
+                    componentProperties.putAll(assetProperties, isEmpty(licenseInfo));
 
-                //if asset is not licensed
-                if (isEmpty(licenseInfo)) {
-                    //get asset properties override from component
-                    ComponentProperties assetPropertiesOverride = ComponentsUtil.getComponentProperties(this, null, false, DEFAULT_FIELDS_ASSET_IMAGE);
+                    //if asset is not licensed
+                    if (isEmpty(licenseInfo)) {
+                        //get asset properties override from component
+                        ComponentProperties assetPropertiesOverride = ComponentsUtil.getComponentProperties(this, null, false, DEFAULT_FIELDS_ASSET_IMAGE);
 
-                    //add asset properties override to component properties and ensure licensed image meta does not get overwritten
-                    componentProperties.putAll(assetPropertiesOverride, isEmpty(licenseInfo));
+                        //add asset properties override to component properties and ensure licensed image meta does not get overwritten
+                        componentProperties.putAll(assetPropertiesOverride, isEmpty(licenseInfo));
 
+                    }
+
+                    //ensure something is added as title
+                    String title = componentProperties.get(DAM_TITLE, "");
+                    if (isEmpty(title)) {
+                        componentProperties.put(DAM_TITLE, assetBasic.getName());
+                    }
+
+                    componentProperties.attr.add("data-" + FIELD_ASSETID, assetUID);
+                    componentProperties.attr.add("data-" + FIELD_ASSET_TRACKABLE, true);
+                    componentProperties.attr.add("data-" + FIELD_ASSET_LICENSED, isNotBlank(licenseInfo));
+                    componentProperties.attr.add(FIELD_DATA_ANALYTICS_EVENT_LABEL, componentProperties.get(DAM_TITLE, ""));
+                    componentProperties.attr.add(FIELD_DATA_ANALYTICS_METATYPE, assetBasic.getMimeType());
+                    componentProperties.attr.add(FIELD_DATA_ANALYTICS_FILENAME, assetBasic.getPath());
+                } else {
+                    LOGGER.error("ImageImpl: could not get AssetManager object");
                 }
-
-                //ensure something is added as title
-                String title = componentProperties.get(DAM_TITLE, "");
-                if (isEmpty(title)) {
-                    componentProperties.put(DAM_TITLE, assetBasic.getName());
-                }
-
-                componentProperties.attr.add("data-" + FIELD_ASSETID, assetUID);
-                componentProperties.attr.add("data-" + FIELD_ASSET_TRACKABLE, true);
-                componentProperties.attr.add("data-" + FIELD_ASSET_LICENSED, isNotBlank(licenseInfo));
-                componentProperties.attr.add(FIELD_DATA_ANALYTICS_EVENT_LABEL, componentProperties.get(DAM_TITLE,""));
-                componentProperties.attr.add(FIELD_DATA_ANALYTICS_METATYPE, assetBasic.getMimeType());
-                componentProperties.attr.add(FIELD_DATA_ANALYTICS_FILENAME, assetBasic.getPath());
-
 
                 //get page link
                 String linkURL = componentProperties.get(FIELD_LINKURL, StringUtils.EMPTY);

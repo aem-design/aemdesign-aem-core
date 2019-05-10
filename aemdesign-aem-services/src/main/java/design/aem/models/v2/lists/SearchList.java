@@ -1,7 +1,6 @@
 package design.aem.models.v2.lists;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.adobe.granite.asset.api.AssetManager;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.i18n.I18n;
@@ -9,7 +8,6 @@ import com.day.cq.search.*;
 import com.day.cq.search.facets.Bucket;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import design.aem.CustomSearchResult;
@@ -18,6 +16,7 @@ import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.request.RequestParameter;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
@@ -30,7 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
-import javax.jcr.RepositoryException;
 import java.io.ByteArrayInputStream;
 import java.net.URLDecoder;
 import java.text.MessageFormat;
@@ -77,7 +75,7 @@ public class SearchList extends WCMUsePojo {
         final java.util.List<CustomSearchResult> results = new ArrayList<>();
 
         // Perform the search
-        final Query query = composeQueryBulilder(getRequest(), getResourceResolver());
+        final Query query = composeQueryBuilder(getRequest(), getResourceResolver());
 
         SearchResult result = null;
         String queryText = StringUtils.EMPTY;
@@ -188,28 +186,32 @@ public class SearchList extends WCMUsePojo {
                     if (result.getFacets().get("tags").getContainsHit()) {
 
                         TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
-                        ArrayList<Map<String, Object>> bucketsInfo = new ArrayList<>();
+                        if (tagManager != null) {
+                            ArrayList<Map<String, Object>> bucketsInfo = new ArrayList<>();
 
-                        for (Bucket bucket : result.getFacets().get("tags").getBuckets()) {
+                            for (Bucket bucket : result.getFacets().get("tags").getBuckets()) {
 
-                            Map<String, Object> bucketInfo = new HashMap<>();
+                                Map<String, Object> bucketInfo = new HashMap<>();
 
-                            bucketInfo.put("bucket", bucketInfo);
+                                bucketInfo.put("bucket", bucketInfo);
 
-                            Tag tag = tagManager.resolve(bucket.getValue());
-                            if (tag != null) {
-                                bucketInfo.put("tag", bucketInfo);
+                                Tag tag = tagManager.resolve(bucket.getValue());
+                                if (tag != null) {
+                                    bucketInfo.put("tag", bucketInfo);
 
+                                }
+
+                                if (java.util.Arrays.asList(getRequest().getParameterValues("tag")).contains(bucket.getValue())) {
+                                    bucketInfo.put("filter", true);
+                                }
+
+                                bucketsInfo.add(bucketInfo);
                             }
 
-                            if (java.util.Arrays.asList(getRequest().getParameterValues("tag")).contains(bucket.getValue())) {
-                                bucketInfo.put("filter", true);
-                            }
-
-                            bucketsInfo.add(bucketInfo);
+                            componentProperties.put("bucketsInfo", bucketsInfo);
+                        } else {
+                            LOGGER.error("SearchList: could not get TagManager object");
                         }
-
-                        componentProperties.put("bucketsInfo", bucketsInfo);
                     }
                 }
 
@@ -263,32 +265,43 @@ public class SearchList extends WCMUsePojo {
      * @param slingRequest     `SlingHttpServletRequest` instance
      * @param resourceResolver `ResourceResolver` instance
      */
-    public Query composeQueryBulilder(
+    public Query composeQueryBuilder(
             SlingHttpServletRequest slingRequest,
             ResourceResolver resourceResolver
     ) {
         Query query = null;
 
         if (slingRequest.getRequestParameter("q") != null) {
-            String escapedQuery = slingRequest.getRequestParameter("q").toString();
 
-            try {
-                String unescapedQuery = URLDecoder.decode(escapedQuery, "UTF-8");
-                QueryBuilder queryBuilder = resourceResolver.adaptTo(QueryBuilder.class);
+            RequestParameter queryParam = slingRequest.getRequestParameter("q");
 
-                // Create props for query
-                java.util.Properties props = new java.util.Properties();
+            if (queryParam != null) {
+                String escapedQuery = queryParam.toString();
 
-                // Load query candidate
-                props.load(new ByteArrayInputStream(unescapedQuery.getBytes()));
+                try {
+                    String unescapedQuery = URLDecoder.decode(escapedQuery, "UTF-8");
+                    QueryBuilder queryBuilder = resourceResolver.adaptTo(QueryBuilder.class);
 
-                // Create predicate from query candidate
-                PredicateGroup predicateGroup = PredicateConverter.createPredicates(props);
-                javax.jcr.Session jcrSession = slingRequest.getResourceResolver().adaptTo(javax.jcr.Session.class);
+                    if (queryBuilder != null) {
+                        // Create props for query
+                        java.util.Properties props = new java.util.Properties();
 
-                query = queryBuilder.createQuery(predicateGroup, jcrSession);
-            } catch (Exception ex) {
-                LOGGER.error("Error using QueryBuilder with query [{}]. {}", escapedQuery, ex);
+                        // Load query candidate
+                        props.load(new ByteArrayInputStream(unescapedQuery.getBytes()));
+
+                        // Create predicate from query candidate
+                        PredicateGroup predicateGroup = PredicateConverter.createPredicates(props);
+                        javax.jcr.Session jcrSession = slingRequest.getResourceResolver().adaptTo(javax.jcr.Session.class);
+
+                        query = queryBuilder.createQuery(predicateGroup, jcrSession);
+                    } else {
+                        LOGGER.error("composeQueryBuilder: could not get QueryBuilder object");
+                    }
+                } catch (Exception ex) {
+                    LOGGER.error("Error using QueryBuilder with query [{}]. {}", escapedQuery, ex);
+                }
+            } else {
+                LOGGER.error("composeQueryBuilder: param q is not passed");
             }
         }
 
@@ -379,35 +392,36 @@ public class SearchList extends WCMUsePojo {
                         Resource assetResource = h.getResource();
                         Node assetN = assetResource.adaptTo(Node.class);
 
-                        AssetManager assetManager = getResourceResolver().adaptTo(AssetManager.class);
-                        com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(h.getPath());
-
                         Asset assetBasic = assetResource.adaptTo(Asset.class);
 
-                        newResult.setThumbnailUrl(assetBasic.getPath());
+                        if (assetBasic != null) {
+
+                            newResult.setThumbnailUrl(assetBasic.getPath());
 
 //                        String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
 
-                        String licenseInfo = getAssetCopyrightInfo(assetBasic, ASSET_LICENSEINFO);
+                            String licenseInfo = getAssetCopyrightInfo(assetBasic, ASSET_LICENSEINFO);
 
-                        if (isNotEmpty(licenseInfo)) {
-                            newResult.setSubTitle(licenseInfo);
-                        }
+                            if (isNotEmpty(licenseInfo)) {
+                                newResult.setSubTitle(licenseInfo);
+                            }
 
-                        if (assetBasic != null) {
-                            newResult.setTitle(assetBasic.getMetadataValue(DamConstants.DC_TITLE));
-                        }
+                            if (assetBasic != null) {
+                                newResult.setTitle(assetBasic.getMetadataValue(DamConstants.DC_TITLE));
+                            }
 
-                        String excerpt = h.getExcerpt();
+                            String excerpt = h.getExcerpt();
 
 //                        LOGGER.error("normaliseContentTree: DC_TITLE={},DC_DESCRIPTION={}",assetBasic.getMetadataValue(DamConstants.DC_TITLE),assetBasic.getMetadataValue(DamConstants.DC_DESCRIPTION));
 //                        LOGGER.error("normaliseContentTree: h.getPath()={},excerpt is path={},getThumbnailUrl={}",h.getPath(),excerpt.equals(h.getPath()),newResult.getThumbnailUrl());
 
-                        if (excerpt.equals(h.getPath()) && assetBasic != null) {
-                            newResult.setExcerpt(assetBasic.getMetadataValue(DamConstants.DC_DESCRIPTION));
+                            if (excerpt.equals(h.getPath()) && assetBasic != null) {
+                                newResult.setExcerpt(assetBasic.getMetadataValue(DamConstants.DC_DESCRIPTION));
+                            }
+
+                        } else {
+                            LOGGER.error("normaliseContentTree: could not get asset from assetResource={}",assetResource);
                         }
-
-
 
                     }
 
@@ -415,7 +429,7 @@ public class SearchList extends WCMUsePojo {
                 }
             }
         } catch (Exception ex) {
-            LOGGER.warn("Repository exception thrown: " + ex.toString());
+            LOGGER.warn("Repository exception thrown: ex={}",ex);
         }
     }
 

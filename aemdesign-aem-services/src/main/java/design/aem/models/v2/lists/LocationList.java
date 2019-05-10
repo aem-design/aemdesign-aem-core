@@ -58,6 +58,8 @@ public class LocationList extends List  {
 
                     componentProperties.attr.add("style", "height:" + imageLength + "px;");
                     componentProperties.attr.add("style", "width:" + imageWidth + "px;");
+                } else {
+                    LOGGER.error("ImageImpl: could not get AssetManager object");
                 }
 
             }

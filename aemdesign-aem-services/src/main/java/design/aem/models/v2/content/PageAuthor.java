@@ -33,26 +33,31 @@ public class PageAuthor extends WCMUsePojo {
         com.day.cq.i18n.I18n _i18n = new I18n(getRequest());
 
         com.adobe.granite.security.user.UserPropertiesService _userPropertiesService = getSlingScriptHelper().getService(com.adobe.granite.security.user.UserPropertiesService.class);
-        Node currentNode = getResource().adaptTo(Node.class);
-        Session session = currentNode.getSession();
-        UserPropertiesManager _userPropertiesManager = _userPropertiesService.createUserPropertiesManager(session, getResourceResolver());
-        UserManager _userManager = getResourceResolver().adaptTo(org.apache.jackrabbit.api.security.user.UserManager.class);
 
-        String pageAuthorUser = getResourcePage().getLastModifiedBy();
         String pageAuthorFullName = "";
         String pageAuthorEmail = "";
 
-        if (isNotBlank(pageAuthorUser)) {
-            pageAuthorFullName = getUserFullName(_userManager, _userPropertiesManager, pageAuthorUser, "");
-            pageAuthorEmail = getUserEmail(_userManager, _userPropertiesManager, pageAuthorUser, "");
+        Node currentNode = getResource().adaptTo(Node.class);
+        if (currentNode != null && _userPropertiesService != null) {
 
-            if (isNotBlank(pageAuthorEmail)) {
-                pageAuthorEmail = MessageFormat.format("mailto:{}",pageAuthorEmail);
+            Session session = currentNode.getSession();
+            UserPropertiesManager _userPropertiesManager = _userPropertiesService.createUserPropertiesManager(session, getResourceResolver());
+            UserManager _userManager = getResourceResolver().adaptTo(org.apache.jackrabbit.api.security.user.UserManager.class);
+
+            String pageAuthorUser = getResourcePage().getLastModifiedBy();
+
+            if (isNotBlank(pageAuthorUser)) {
+                pageAuthorFullName = getUserFullName(_userManager, _userPropertiesManager, pageAuthorUser, "");
+                pageAuthorEmail = getUserEmail(_userManager, _userPropertiesManager, pageAuthorUser, "");
+
+                if (isNotBlank(pageAuthorEmail)) {
+                    pageAuthorEmail = MessageFormat.format("mailto:{}",pageAuthorEmail);
+                } else {
+                    pageAuthorEmail = "#";
+                }
             } else {
-                pageAuthorEmail = "#";
+                pageAuthorFullName = session.getUserID();
             }
-        } else {
-            pageAuthorFullName = session.getUserID();
         }
 
         Object[][] componentFields = {
