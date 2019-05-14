@@ -1,3 +1,7 @@
+<%--
+  Mostly a copy of /libs/cq/gui/components/coral/common/form/tagfield/render.jsp with additional support for tenant tags.
+--%>
+
     <%@include file="/libs/granite/ui/global.jsp"%><%
         %><%@page import="org.apache.commons.lang3.StringUtils,
                   org.apache.jackrabbit.util.Text,
