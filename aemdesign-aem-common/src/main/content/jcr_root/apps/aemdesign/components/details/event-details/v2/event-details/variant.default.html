@@ -10,7 +10,7 @@
                        data-sly-attribute.id="${componentProperties.ariaLabelledBy}" itemprop="name">${componentProperties.titleFormatted @ context = 'unsafe'}</title>
                 <div class="description"
                      data-sly-test="${!componentProperties.hideDescription}" itemprop="description">${componentProperties.description @ context = 'unsafe'}</div>
-                <div class="card-subtitle">${componentProperties.subTitleFormatted}</div>
+                <div class="card-subtitle">${componentProperties.subTitleFormatted @ context = 'unsafe'}</div>
                 <div class="card-date" content="${componentProperties.eventStartDateISO}">${componentProperties.eventDisplayTimeFormatted @ context = 'unsafe'}</div>
             </header>
         </div>
