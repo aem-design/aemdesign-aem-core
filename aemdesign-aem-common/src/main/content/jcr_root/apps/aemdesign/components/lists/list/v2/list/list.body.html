@@ -14,7 +14,7 @@
             <li class="${itemList.first ? 'first' : ''} ${(itemList.last && !itemList.first) ? 'last' : ''} ${(!itemList.last && !itemList.first) ? 'item' : ''} ${item.redirectLink ? 'redirectLink' : ''}"  data-sly-unwrap="${!componentProperties.printStructure}">
 
                 <sly data-sly-test="${!item.componentMissing}"
-                     data-sly-resource="${item.componentPath @ selectors=item.componentPathSelectors}"></sly>
+                     data-sly-resource="${item.componentPath @ selectors=item.componentPathSelectors,wcmmode='disabled'}"></sly>
 
                 <sly data-sly-test="${item.componentMissing}"
                      data-sly-use.missing="list.badge.missing.html" data-sly-call="${missing.variant @ componentProperties=componentProperties}"></sly>
