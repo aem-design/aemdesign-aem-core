@@ -89,6 +89,6 @@ Once the testing cycle has been completed and all code fixes have been applied t
 | Version    | Release Date   | Features                                   |
 | :--------- | :------------- | :----------------------------------------- |
 | 1.0        | 12/09/2018     | Initial release after refactor             |
-|            |                |                                            |
+| 2.0        | 10/05/2019     | HTL Migration and complete code refactor   |
 |            |                |                                            |
 |            |                |                                            |
