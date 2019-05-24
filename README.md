@@ -92,3 +92,15 @@ Once the testing cycle has been completed and all code fixes have been applied t
 | 2.0        | 10/05/2019     | HTL Migration and complete code refactor   |
 |            |                |                                            |
 |            |                |                                            |
+
+
+## Package Dependencies
+
+Following packages are dependencies and should be installed on your AEM instance before installing AEM.Design:
+
+- [ACS Twitter 1.0.0](https://github.com/Adobe-Consulting-Services/com.adobe.acs.bundles.twitter4j/releases/download/com.adobe.acs.bundles.twitter4j-1.0.0/com.adobe.acs.bundles.twitter4j-content-1.0.0.zip)
+- [ACS Commons 4.0.0](https://github.com/Adobe-Consulting-Services/acs-aem-commons/releases/download/acs-aem-commons-4.0.0/acs-aem-commons-content-4.0.0.zip)
+- [Core Components 2.3.2](https://github.com/adobe/aem-core-wcm-components/releases/download/core.wcm.components.reactor-2.3.2/core.wcm.components.all-2.3.2.zip)
+- [Core Components Extension 1.0.12](https://github.com/adobe/aem-core-wcm-components/releases/download/core.wcm.components.reactor-2.3.2/core.wcm.components.extension-1.0.12.zip)
+- [Netcentric Access Control Tool 2.3.2](http://repo1.maven.org/maven2/biz/netcentric/cq/tools/accesscontroltool/accesscontroltool-package/2.3.2/accesscontroltool-package-2.3.2.zip)
+- [Adobe Vanity URL 1.0.2](https://www.adobeaemcloud.com/content/companies/public/adobe/packages/cq600/component/vanityurls-components/jcr%3acontent/package/file.res/vanityurls-components-1.0.2.zip)
