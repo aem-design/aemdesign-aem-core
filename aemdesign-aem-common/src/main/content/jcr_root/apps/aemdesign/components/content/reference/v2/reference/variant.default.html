@@ -1,3 +1,6 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <sly data-sly-resource="${componentProperties.path}"></sly>
+    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+        <sly data-sly-resource="${componentProperties.path}"></sly>
+    </div>
 </template>
