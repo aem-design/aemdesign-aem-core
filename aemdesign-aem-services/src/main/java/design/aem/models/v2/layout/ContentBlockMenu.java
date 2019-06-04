@@ -23,9 +23,9 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class ContentBlockMenu extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ContentBlockMenu.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ContentBlockMenu.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

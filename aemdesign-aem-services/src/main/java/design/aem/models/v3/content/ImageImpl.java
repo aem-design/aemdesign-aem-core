@@ -42,7 +42,7 @@ import static org.apache.commons.lang3.StringUtils.*;
 public class ImageImpl extends GenericModel implements GenericComponent {
     protected static final String RESOURCE_TYPE_V3 = "aemdesign/components/media/image/v3/image";
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ImageImpl.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ImageImpl.class);
 
     /**
      * Component property name that indicates which Image Component will perform the image rendering for composed components. When

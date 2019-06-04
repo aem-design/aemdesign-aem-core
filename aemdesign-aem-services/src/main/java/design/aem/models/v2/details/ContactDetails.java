@@ -25,7 +25,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class ContactDetails extends GenericDetails {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ContactDetails.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ContactDetails.class);
 
     final String COMPONENT_DETAILS_NAME = "contact-details";
     final String componentPath = "./" + PATH_DEFAULT_CONTENT + "/" + COMPONENT_DETAILS_NAME;

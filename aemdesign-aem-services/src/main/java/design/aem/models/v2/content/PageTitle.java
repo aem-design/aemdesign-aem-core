@@ -13,9 +13,9 @@ import static design.aem.utils.components.ComponentsUtil.*;
 
 public class PageTitle extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PageTitle.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(PageTitle.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

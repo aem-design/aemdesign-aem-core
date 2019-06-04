@@ -22,7 +22,7 @@ import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 
 public class PageDetails extends GenericDetails {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PageDetails.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(PageDetails.class);
 
     private static final String COMPONENT_DETAILS_NAME = "page-details";
 

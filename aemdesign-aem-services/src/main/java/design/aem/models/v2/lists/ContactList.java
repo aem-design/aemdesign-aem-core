@@ -8,7 +8,7 @@ import static design.aem.utils.components.I18nUtil.*;
 
 public class ContactList extends List  {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ContactList.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ContactList.class);
 
     private final String DEFAULT_I18N_CATEGORY = "contactlist";
 

@@ -8,7 +8,7 @@ import static design.aem.utils.components.I18nUtil.*;
 
 public class EventList extends List  {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventList.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(EventList.class);
 
     private final String DEFAULT_I18N_CATEGORY = "eventlist";
 

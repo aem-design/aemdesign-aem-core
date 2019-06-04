@@ -20,9 +20,9 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 public class PageAuthor extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PageAuthor.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(PageAuthor.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

@@ -15,7 +15,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class LocationList extends List  {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LocationList.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(LocationList.class);
 
     private final String DEFAULT_I18N_CATEGORY = "newslist";
 

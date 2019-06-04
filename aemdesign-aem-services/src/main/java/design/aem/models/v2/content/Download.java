@@ -33,7 +33,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Download extends WCMUsePojo {
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
 
     private final String DEFAULT_I18N_CATEGORY = "download";
     private final String DEFAULT_I18N_LABEL = "downloadlabel";
@@ -46,7 +46,7 @@ public class Download extends WCMUsePojo {
     //drop target css class = dd prefix + name of the drop target in the edit config
     private static final String  ddClassName = DropTarget.CSS_CLASS_PREFIX + "file";
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TagUtil.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(TagUtil.class);
 
     @Override
     @SuppressWarnings("uncheked")

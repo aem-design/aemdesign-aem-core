@@ -25,9 +25,9 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class DataLayer extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DataLayer.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(DataLayer.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

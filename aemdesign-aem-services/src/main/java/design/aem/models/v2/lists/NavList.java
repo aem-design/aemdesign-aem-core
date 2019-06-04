@@ -19,10 +19,10 @@ import static design.aem.utils.components.I18nUtil.*;
 
 public class NavList extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NavList.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(NavList.class);
     private static final String DETAILS_MENU_COLOR_DEFAULT = "default";
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

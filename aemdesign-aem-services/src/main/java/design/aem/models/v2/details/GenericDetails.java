@@ -27,7 +27,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class GenericDetails extends WCMUsePojo {
 
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GenericDetails.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(GenericDetails.class);
 
     private static final String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
 

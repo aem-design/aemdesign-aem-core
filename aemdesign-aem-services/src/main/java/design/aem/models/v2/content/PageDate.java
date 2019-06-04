@@ -16,9 +16,9 @@ import static design.aem.utils.components.ComponentsUtil.*;
 
 public class PageDate extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PageDate.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(PageDate.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

@@ -22,9 +22,9 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class Breadcrumb extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Breadcrumb.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Breadcrumb.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
 
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;

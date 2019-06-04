@@ -13,9 +13,9 @@ import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 
 public class PageTags extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PageTags.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(PageTags.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

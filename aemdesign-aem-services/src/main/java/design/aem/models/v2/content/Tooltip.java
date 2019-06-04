@@ -11,9 +11,9 @@ import static design.aem.utils.components.ComponentsUtil.*;
 
 public class Tooltip extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Tooltip.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Tooltip.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
