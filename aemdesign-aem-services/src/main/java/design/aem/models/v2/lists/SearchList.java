@@ -48,9 +48,9 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class SearchList extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SearchList.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(SearchList.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
 
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;

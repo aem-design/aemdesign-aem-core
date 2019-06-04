@@ -15,9 +15,9 @@ import static design.aem.utils.components.ImagesUtil.getBackgroundImageRendition
 
 public class Footer extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Footer.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Footer.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

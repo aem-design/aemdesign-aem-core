@@ -14,9 +14,9 @@ import static design.aem.utils.components.ResolverUtil.checkResourceHasChildReso
 
 public class OnlineMedia extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OnlineMedia.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(OnlineMedia.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

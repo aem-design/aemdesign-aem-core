@@ -25,7 +25,7 @@ import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 
 public class NewsDetails extends GenericDetails {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NewsDetails.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(NewsDetails.class);
 
     private static final String COMPONENT_DETAILS_NAME = "news-details";
 

@@ -27,9 +27,9 @@ import static org.apache.commons.lang3.StringUtils.*;
 
 public class Image extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Image.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Image.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

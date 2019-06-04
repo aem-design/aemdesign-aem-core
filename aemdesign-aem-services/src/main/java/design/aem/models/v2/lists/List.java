@@ -45,7 +45,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class List extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(List.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(List.class);
 
     private static final int LIMIT_DEFAULT = 100;
     private static final int PAGEMAX_DEFAULT = -1;
@@ -96,7 +96,7 @@ public class List extends WCMUsePojo {
     private static final String DEFAULT_I18N_CATEGORY = "list";
     private static final String DEFAULT_PAGINATION = "default";
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

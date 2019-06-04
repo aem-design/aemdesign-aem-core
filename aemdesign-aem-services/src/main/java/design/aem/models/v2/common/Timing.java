@@ -22,9 +22,9 @@ import static design.aem.utils.components.ComponentsUtil.*;
 
 public class Timing extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Timing.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Timing.class);
     private static final String TIMER_END = "TIMER_END";
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
 
     private static String basename(String path) {
         String result = path;

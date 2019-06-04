@@ -14,9 +14,9 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Reference extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Reference.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Reference.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

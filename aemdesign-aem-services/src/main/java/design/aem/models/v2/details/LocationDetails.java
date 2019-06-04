@@ -22,7 +22,7 @@ import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 
 public class LocationDetails extends GenericDetails {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LocationDetails.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(LocationDetails.class);
 
 
     @Override

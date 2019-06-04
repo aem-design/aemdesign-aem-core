@@ -16,9 +16,9 @@ import static design.aem.utils.components.I18nUtil.*;
 
 public class StaticInclude extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StaticInclude.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(StaticInclude.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

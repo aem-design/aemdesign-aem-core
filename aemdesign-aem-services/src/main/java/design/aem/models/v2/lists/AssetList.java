@@ -43,9 +43,9 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class AssetList extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AssetList.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(AssetList.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

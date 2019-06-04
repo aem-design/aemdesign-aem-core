@@ -28,7 +28,7 @@ import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 
 public class EventDetails extends GenericDetails {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventDetails.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(EventDetails.class);
 
 
     // default values for the component

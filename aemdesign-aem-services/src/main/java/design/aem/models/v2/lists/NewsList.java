@@ -8,7 +8,7 @@ import static design.aem.utils.components.I18nUtil.*;
 
 public class NewsList extends List  {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NewsList.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(NewsList.class);
 
     private final String DEFAULT_I18N_CATEGORY = "newslist";
 

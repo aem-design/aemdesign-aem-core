@@ -24,10 +24,10 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class LanguageNavigation extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LanguageNavigation.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(LanguageNavigation.class);
 
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

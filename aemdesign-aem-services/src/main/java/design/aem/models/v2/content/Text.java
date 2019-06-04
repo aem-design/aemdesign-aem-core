@@ -12,9 +12,9 @@ import static java.text.MessageFormat.format;
 
 public class Text extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Text.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Text.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

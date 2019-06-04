@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class ComponentProperties extends ValueMapDecorator {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ComponentProperties.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ComponentProperties.class);
 
     public AttrBuilder attr; //NOSONAR use simpler patter as a util
     public ArrayList<ComponentField> expressionFields; //NOSONAR used by components to evaluate values

@@ -25,7 +25,7 @@ import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 
 public class Columns extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Columns.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Columns.class);
 
     private final String COLUMN_CLASS = "col-sm"; //gets added to cols
     private final String ROW_CLASS = "row"; //gets added to rows
@@ -33,7 +33,7 @@ public class Columns extends WCMUsePojo {
 
 
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

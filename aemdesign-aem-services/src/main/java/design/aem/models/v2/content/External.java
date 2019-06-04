@@ -13,9 +13,9 @@ import static java.text.MessageFormat.format;
 
 public class External extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(External.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(External.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
