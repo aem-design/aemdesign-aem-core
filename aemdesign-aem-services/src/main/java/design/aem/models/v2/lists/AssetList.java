@@ -1,6 +1,5 @@
 package design.aem.models.v2.lists;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.asset.api.AssetManager;
 import com.day.cq.commons.ImageResource;
 import com.day.cq.dam.api.Asset;
@@ -13,6 +12,7 @@ import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.TagConstants;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.JcrConstants;
@@ -41,8 +41,7 @@ import static design.aem.utils.components.ImagesUtil.*;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class AssetList extends WCMUsePojo {
-
+public class AssetList extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(AssetList.class);
 
     protected ComponentProperties componentProperties = null;
@@ -85,10 +84,8 @@ public class AssetList extends WCMUsePojo {
     private List<ResultPage> resultPages;
     private SortOrder sortOrder;
 
-
-    @Override
-    public void activate() throws Exception {
-
+    @SuppressWarnings("Duplicates")
+    protected void ready() {
         //COMPONENT STYLES
         // {
         //   1 required - property name,
@@ -96,7 +93,7 @@ public class AssetList extends WCMUsePojo {
         //   3 optional - name of component attribute to add value into
         //   4 optional - canonical name of class for handling multivalues, String or Tag
         // }
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {STATIC_ITEMS, new String[0]},
                 {DESCENDANT_PATH, PARENT_PATH_DEFAULT},
@@ -107,7 +104,7 @@ public class AssetList extends WCMUsePojo {
                 {PN_SORT_ORDER, SortOrder.ASC.getValue()},
                 {FIELD_IMAGE_OPTION, FIELD_IMAGE_OPTION_DEFAULT},
                 {FIELD_TITLE_TAG_TYPE, FIELD_TITLE_TAG_TYPE_DEFAULT},
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
@@ -120,8 +117,6 @@ public class AssetList extends WCMUsePojo {
 
         sortOrder = SortOrder.fromString(componentProperties.get(PN_SORT_ORDER, SortOrder.ASC.getValue()));
         limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
-
-
     }
 
 

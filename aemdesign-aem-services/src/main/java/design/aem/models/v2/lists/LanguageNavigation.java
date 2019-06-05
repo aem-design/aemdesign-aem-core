@@ -1,9 +1,9 @@
 package design.aem.models.v2.lists;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.LanguageUtil;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import design.aem.utils.components.ConstantsUtil;
 import design.aem.utils.components.ResolverUtil;
@@ -22,10 +22,8 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
-public class LanguageNavigation extends WCMUsePojo {
-
+public class LanguageNavigation extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(LanguageNavigation.class);
-
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
@@ -35,10 +33,8 @@ public class LanguageNavigation extends WCMUsePojo {
     private static final String SEARCH_LOGIC = "searchlogic";
     private static final String SEARCH_LOGIC_DEFAULT = "";
 
-    @Override
     @SuppressWarnings("Duplicates")
-    public void activate() throws Exception {
-
+    protected void ready() {
         //COMPONENT STYLES
         // {
         //   1 required - property name,
@@ -46,20 +42,17 @@ public class LanguageNavigation extends WCMUsePojo {
         //   3 optional - name of component attribute to add value into
         //   4 optional - canonical name of class for handling multivalues, String or Tag
         // }
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"languageSet", new String[]{}},
                 {SEARCH_LOGIC, SEARCH_LOGIC_DEFAULT}
-        };
-
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
                 componentFields,
                 DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY
-        );
-
+                DEFAULT_FIELDS_ACCESSIBILITY);
 
         Map<String, Map<String, String>> languageToggleMap = new LinkedHashMap<String, Map<String, String>>();
 
