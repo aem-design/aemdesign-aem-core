@@ -200,6 +200,7 @@ public class GenericDetails extends ModelProxy {
         String badgeClassAttr = "";
         badgeClassAttr += StringUtils.join(componentProperties.get(DETAILS_CARD_STYLE, new String[0]), " ");
         badgeClassAttr += StringUtils.join(componentProperties.get(DETAILS_TITLE_ICON, new String[0]), " ");
+        badgeClassAttr += StringUtils.join(componentProperties.get(DETAILS_CARD_ADDITIONAL, new String[0]), " ");
 
         badgeConfig.put(DETAILS_BADGE_CLASS, badgeClassAttr);
 
