@@ -40,7 +40,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class GenericModel implements GenericComponent {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GenericModel.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(GenericModel.class);
     @ScriptVariable
     protected Resource resource;
     @ScriptVariable

@@ -1,9 +1,9 @@
 package design.aem.models.v2.layout;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.BooleanUtils;
 import org.slf4j.Logger;
@@ -20,19 +20,15 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-public class Breadcrumb extends WCMUsePojo {
+public class Breadcrumb extends ModelProxy {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Breadcrumb.class);
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Breadcrumb.class);
-
-    private ComponentProperties componentProperties = null;
-
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
 
         final String DEFAULT_DELIMITER = "";
@@ -44,7 +40,7 @@ public class Breadcrumb extends WCMUsePojo {
         final int DEFAULT_LEVEL_START = 1;
         final int DEFAULT_LEVEL_END = 1;
 
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {"delimiter", DEFAULT_DELIMITER},
                 {"trail", DEFAULT_TRAIL},
                 {"startLevel", ""},
@@ -54,7 +50,7 @@ public class Breadcrumb extends WCMUsePojo {
                 {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE},
                 {FIELD_ARIA_LABEL, DEFAULT_ARIA_LABEL},
                 {FIELD_VARIANT, DEFAULT_VARIANT},
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
@@ -103,8 +99,5 @@ public class Breadcrumb extends WCMUsePojo {
         }
 
         componentProperties.put("values", values);
-
     }
-
-
 }

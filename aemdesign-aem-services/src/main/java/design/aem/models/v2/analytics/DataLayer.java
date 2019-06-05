@@ -1,10 +1,8 @@
 package design.aem.models.v2.analytics;
 
-import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.i18n.I18n;
 import com.day.cq.replication.ReplicationStatus;
-import com.day.cq.wcm.api.components.Component;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -23,18 +21,15 @@ import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class DataLayer extends WCMUsePojo {
+public class DataLayer extends ModelProxy {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(DataLayer.class);
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DataLayer.class);
-
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() {
         componentProperties = ComponentsUtil.getNewComponentProperties(this);
 
         //set defaults variant template before potentially overriding
@@ -81,8 +76,4 @@ public class DataLayer extends WCMUsePojo {
             LOGGER.error("datalayer: {}", ex);
         }
     }
-
-
-
-
 }

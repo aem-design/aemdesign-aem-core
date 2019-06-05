@@ -21,22 +21,18 @@ import static design.aem.utils.components.TagUtil.getPageTags;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 
 public class LocationDetails extends GenericDetails {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(LocationDetails.class);
-
+    protected static final Logger LOGGER = LoggerFactory.getLogger(LocationDetails.class);
 
     @Override
     @SuppressWarnings("Duplicates")
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
-
 
         final String DEFAULT_I18N_CATEGORY = "location-detail";
         final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
         final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
 
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"title", DEFAULT_TITLE, "data-title"},
                 {"latitude", 0.0, "data-latitude"},
@@ -48,8 +44,7 @@ public class LocationDetails extends GenericDetails {
                 {FIELD_PAGE_TITLE, DEFAULT_TITLE},
                 {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
                 {"variantHiddenLabel", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LABEL, DEFAULT_I18N_CATEGORY, _i18n)},
-        };
-
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,

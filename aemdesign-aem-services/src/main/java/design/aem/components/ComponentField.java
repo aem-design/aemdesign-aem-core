@@ -8,7 +8,7 @@ public class ComponentField {
 
     private static final long serialVersionUID = -2404935286690975616L;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ComponentField.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ComponentField.class);
 
     private String fieldName;
     private Object defaultValue;

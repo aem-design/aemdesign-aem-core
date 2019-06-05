@@ -27,9 +27,7 @@ import static design.aem.utils.components.TagUtil.getTagValueAsAdmin;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 
 public class EventDetails extends GenericDetails {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventDetails.class);
-
+    protected static final Logger LOGGER = LoggerFactory.getLogger(EventDetails.class);
 
     // default values for the component
     final String DEFAULT_TITLE = "Event Title";
@@ -70,10 +68,8 @@ public class EventDetails extends GenericDetails {
 
     @Override
     @SuppressWarnings("Duplicates")
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
-
 
         final String DEFAULT_ARIA_ROLE = "banner";
         final String DEFAULT_TITLE_TAG_TYPE = "h1";
@@ -91,9 +87,8 @@ public class EventDetails extends GenericDetails {
         final Boolean DEFAULT_SHOW_PAGE_DATE = true;
         final Boolean DEFAULT_SHOW_PARSYS = true;
 
-
         //not using lamda is available so this is the best that can be done
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"title", DEFAULT_TITLE},
                 {"description", DEFAULT_DESCRIPTION},
@@ -121,7 +116,7 @@ public class EventDetails extends GenericDetails {
                 {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
                 {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,

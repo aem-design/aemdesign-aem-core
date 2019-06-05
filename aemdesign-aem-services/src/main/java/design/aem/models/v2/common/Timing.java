@@ -1,8 +1,8 @@
 package design.aem.models.v2.common;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.google.gson.Gson;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.sling.api.request.RequestProgressTracker;
 import org.slf4j.Logger;
@@ -20,11 +20,11 @@ import java.util.zip.GZIPOutputStream;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 
-public class Timing extends WCMUsePojo {
+public class Timing extends ModelProxy {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Timing.class);
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Timing.class);
     private static final String TIMER_END = "TIMER_END";
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
 
     private static String basename(String path) {
         String result = path;
@@ -88,18 +88,15 @@ public class Timing extends WCMUsePojo {
         return this.componentProperties;
     }
 
-    @Override
-    public void activate() throws Exception {
-
-        Object[][] componentFields = {
+    protected void ready() {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
                 componentFields,
                 DEFAULT_FIELDS_STYLE);
-
 
         // Convert RequestProgressTracker TIMER_END messages to timings and operation names
         RequestProgressTracker t = getRequest().getRequestProgressTracker();

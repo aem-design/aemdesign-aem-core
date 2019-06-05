@@ -24,8 +24,7 @@ import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class ContactDetails extends GenericDetails {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ContactDetails.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ContactDetails.class);
 
     final String COMPONENT_DETAILS_NAME = "contact-details";
     final String componentPath = "./" + PATH_DEFAULT_CONTENT + "/" + COMPONENT_DETAILS_NAME;
@@ -42,8 +41,7 @@ public class ContactDetails extends GenericDetails {
 
     @Override
     @SuppressWarnings("Duplicates")
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
 
         final String DEFAULT_TITLE_TAG_TYPE = "div";
@@ -55,7 +53,7 @@ public class ContactDetails extends GenericDetails {
 
         final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
 
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
                 {"title", getResourcePage().getProperties().get(JcrConstants.JCR_TITLE, getResourcePage().getName())},
@@ -75,7 +73,7 @@ public class ContactDetails extends GenericDetails {
                 {FIELD_PAGE_TITLE, DEFAULT_TITLE},
                 {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
                 {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
@@ -94,8 +92,6 @@ public class ContactDetails extends GenericDetails {
                 getTagValueAsAdmin(componentProperties.get("honorificPrefix", ""),getSlingScriptHelper())
         );
 
-
-
         //format fields
         componentProperties.putAll(processComponentFields(componentProperties,_i18n,getSlingScriptHelper()), false);
 
@@ -108,8 +104,6 @@ public class ContactDetails extends GenericDetails {
             componentProperties.put(FIELD_FORMATTED_TITLE,componentProperties.get("title",""));
             componentProperties.put(FIELD_FORMATTED_TITLE_TEXT,componentProperties.get("title",""));
         }
-
-
     }
 
     /***

@@ -1,10 +1,10 @@
 package design.aem.models.v2.layout;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.components.Toolbar;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.ValueMap;
@@ -23,17 +23,14 @@ import static design.aem.utils.components.CommonUtil.tryParseInt;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 
-public class Columns extends WCMUsePojo {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Columns.class);
+public class Columns extends ModelProxy {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Columns.class);
 
     private final String COLUMN_CLASS = "col-sm"; //gets added to cols
     private final String ROW_CLASS = "row"; //gets added to rows
     private final String COLUMNS_CLASS = "parsys_column"; //gets added to rows and columns
 
-
-
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -94,9 +91,7 @@ public class Columns extends WCMUsePojo {
         return numCols;
     }
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "columns";
@@ -108,7 +103,7 @@ public class Columns extends WCMUsePojo {
         // {
         //   { name, defaultValue, attributeName, valueTypeClass }
         // }
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"layout", DEFAULT_LAYOUT},
                 {DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, new String[]{}, "", Tag.class.getCanonicalName()},
@@ -116,7 +111,7 @@ public class Columns extends WCMUsePojo {
                 {DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, new String[]{},"", Tag.class.getCanonicalName()},
                 {DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, new String[]{},"", Tag.class.getCanonicalName()},
                 {DETAILS_COLUMNS_LAYOUT_ROW_CLASS, new String[]{},"", Tag.class.getCanonicalName()},
-        };
+        });
 
 
         placeholderText = "";

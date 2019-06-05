@@ -1,8 +1,8 @@
 package design.aem.models.v2.content;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,18 +11,15 @@ import static design.aem.utils.components.CommonUtil.getUrlContent;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static java.text.MessageFormat.format;
 
-public class External extends WCMUsePojo {
+public class External extends ModelProxy {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(External.class);
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(External.class);
-
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
 
         // {
@@ -30,14 +27,13 @@ public class External extends WCMUsePojo {
         //   2 required - default value,
         //   3 optional - compile into a data-{name} attribute
         // }
-
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {"target", "", "src"},
                 {"height", "", "height"},
                 {"width", "", "width"},
                 {"showScrollbar", "yes", "scrolling"},
                 {FIELD_VARIANT, "iframe"}
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
@@ -63,10 +59,5 @@ public class External extends WCMUsePojo {
 
         componentProperties.put(FIELD_VARIANT,variant);
         componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT,variant));
-
-
     }
-
-
-
 }

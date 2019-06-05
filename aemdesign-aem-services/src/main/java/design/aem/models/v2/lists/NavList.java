@@ -1,9 +1,9 @@
 package design.aem.models.v2.lists;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -17,19 +17,16 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.INHERITED_RESOURCE;
 import static design.aem.utils.components.I18nUtil.*;
 
-public class NavList extends WCMUsePojo {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(NavList.class);
+public class NavList extends ModelProxy {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(NavList.class);
     private static final String DETAILS_MENU_COLOR_DEFAULT = "default";
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
 
         final String DEFAULT_LISTFROM = "children";
@@ -38,10 +35,7 @@ public class NavList extends WCMUsePojo {
         final String DEFAULT_MENUT_TITLE = "Menu";
         final int DEFAULT_DEPTH_FROM_ROOT = 2;
 
-        // getDefaultLabelIfEmpty
-
-        //not using lamda is available so this is the best that can be done
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {"pages", new String[0]},
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"depthFromRoot", DEFAULT_DEPTH_FROM_ROOT},
@@ -51,13 +45,16 @@ public class NavList extends WCMUsePojo {
                 {"parentPage", getPrimaryPath(getRequest())},
                 {"linkTitlePrefix", _i18n.get("linkTitlePrefix","navlist")},
                 {COMPONENT_CANCEL_INHERIT_PARENT, false},
-        };
+        });
+
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
                 componentFields,
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY,
                 DEFAULT_FIELDS_ANALYTICS);
+
+        LOGGER.error("Running NavList model with componentProperties: {}", componentProperties);
 
         String[] supportedDetails = DEFAULT_LIST_DETAILS_SUFFIX;
         String[] supportedRoots = DEFAULT_LIST_PAGE_CONTENT;

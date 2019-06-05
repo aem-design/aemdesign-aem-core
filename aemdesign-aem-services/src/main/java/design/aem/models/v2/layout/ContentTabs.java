@@ -1,9 +1,9 @@
 package design.aem.models.v2.layout;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,18 +19,15 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class ContentTabs extends WCMUsePojo {
+public class ContentTabs extends ModelProxy {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ContentTabs.class);
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ContentTabs.class);
-
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
 
         final String DEFAULT_LISTFROM_CHILDREN = "children";
@@ -46,14 +43,13 @@ public class ContentTabs extends WCMUsePojo {
         //   3 optional - name of component attribute to add value into
         //   4 optional - canonical name of class for handling multivalues, String or Tag
         // }
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {FIELD_LISTFROM, ""},
                 {FIELD_TABPAGES, new String[0]},
                 {FIELD_PATHTOPARENT, ""},
                 {FIELD_TABPOSITION, "top"},
-        };
-
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,

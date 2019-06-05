@@ -6,17 +6,15 @@ import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.I18nUtil.*;
 
-public class NewsList extends List  {
+public class NewsList extends List {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NewsList.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(NewsList.class);
 
     private final String DEFAULT_I18N_CATEGORY = "newslist";
 
-
     @Override
     @SuppressWarnings("Duplicates")
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
 
         detailsNameSuffix = new String[]{"news-details"};
@@ -26,8 +24,5 @@ public class NewsList extends List  {
         //override properties
         getComponentProperties().put(LISTITEM_LINK_TEXT, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TEXT,DEFAULT_I18N_CATEGORY,_i18n));
         getComponentProperties().put(LISTITEM_LINK_TITLE, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TITLE,DEFAULT_I18N_CATEGORY,_i18n));
-
     }
-
-
 }
