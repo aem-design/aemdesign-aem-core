@@ -31,9 +31,9 @@ import org.slf4j.LoggerFactory;
 
 public class PageDetails extends WCMUsePojo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PageDetails.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(PageDetails.class);
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

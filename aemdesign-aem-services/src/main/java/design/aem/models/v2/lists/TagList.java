@@ -1,6 +1,5 @@
 package design.aem.models.v2.lists;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
@@ -10,6 +9,7 @@ import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -33,11 +33,10 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.TagUtil.TAG_VALUE;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class TagList extends WCMUsePojo {
+public class TagList extends ModelProxy {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(TagList.class);
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TagList.class);
-
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -61,7 +60,6 @@ public class TagList extends WCMUsePojo {
     private static final String PN_ORDER_BY_DEFAULT = "path";
     private static final String LIST_ISEMPTY = "isEmpty";
 
-
     private long totalMatches;
     private long hitsPerPage;
     private long totalPages;
@@ -70,10 +68,7 @@ public class TagList extends WCMUsePojo {
     private java.util.List<ResultPage> resultPages;
     private SortOrder sortOrder;
 
-
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() {
         //COMPONENT STYLES
         // {
         //   1 required - property name,
@@ -81,7 +76,7 @@ public class TagList extends WCMUsePojo {
         //   3 optional - name of component attribute to add value into
         //   4 optional - canonical name of class for handling multivalues, String or Tag
         // }
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"displayType", StringUtils.EMPTY},
                 {"emptyOption", true},
@@ -96,20 +91,17 @@ public class TagList extends WCMUsePojo {
                 {PN_ORDER_BY, StringUtils.EMPTY},
                 {LIMIT_PROPERTY_NAME, LIMIT_DEFAULT},
                 {PN_SORT_ORDER, SortOrder.ASC.getValue()},
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
                 componentFields,
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_ANALYTICS
-        );
+                DEFAULT_FIELDS_ANALYTICS);
 
         sortOrder = SortOrder.fromString(componentProperties.get(PN_SORT_ORDER, SortOrder.ASC.getValue()));
         limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
-
-
     }
 
 

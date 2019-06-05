@@ -6,17 +6,14 @@ import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.I18nUtil.*;
 
-public class PageList extends List  {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(PageList.class);
+public class PageList extends List {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(PageList.class);
 
     private final String DEFAULT_I18N_CATEGORY = "pagelist";
 
-
     @Override
     @SuppressWarnings("Duplicates")
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
 
         detailsNameSuffix = new String[]{"page-details"};
@@ -26,8 +23,5 @@ public class PageList extends List  {
         //override properties
         getComponentProperties().put(LISTITEM_LINK_TEXT, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TEXT,DEFAULT_I18N_CATEGORY,_i18n));
         getComponentProperties().put(LISTITEM_LINK_TITLE, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TITLE,DEFAULT_I18N_CATEGORY,_i18n));
-
     }
-
-
 }

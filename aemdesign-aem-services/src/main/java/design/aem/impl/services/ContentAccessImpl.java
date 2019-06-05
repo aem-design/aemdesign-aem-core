@@ -21,7 +21,7 @@ import java.util.Map;
         immediate = true)
 public class ContentAccessImpl implements ContentAccess {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ContentAccessImpl.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ContentAccessImpl.class);
 
     private static final String SERVICE_NAME = "content-services";
     private static final Map<String, Object> AUTH_INFO;

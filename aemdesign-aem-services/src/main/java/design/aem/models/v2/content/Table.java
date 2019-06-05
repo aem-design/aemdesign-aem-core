@@ -1,8 +1,8 @@
 package design.aem.models.v2.content;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,18 +12,15 @@ import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_STYLE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class Table extends WCMUsePojo {
+public class Table extends ModelProxy {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Table.class);
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Table.class);
-
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
 
         // {
@@ -32,10 +29,10 @@ public class Table extends WCMUsePojo {
         //   3 optional - name of component attribute to add value into
         //   4 optional - canonical name of class for handling multivalues, String or Tag
         // }
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {"text",""},
                 {"tableData",""}
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
@@ -50,9 +47,5 @@ public class Table extends WCMUsePojo {
         if (isEmpty(text) && isNotEmpty(tableData)) {
             componentProperties.put("text",tableData);
         }
-
     }
-
-
-
 }

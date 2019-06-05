@@ -1,9 +1,9 @@
 package design.aem.models.v2.common;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -14,18 +14,15 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 
-public class RedirectNotification extends WCMUsePojo {
+public class RedirectNotification extends ModelProxy {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(RedirectNotification.class);
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RedirectNotification.class);
-
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "redirectnotification";
@@ -37,12 +34,12 @@ public class RedirectNotification extends WCMUsePojo {
         //   2 required - default value,
         //   3 optional - compile into a data-{name} attribute
         // }
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"redirectTitle", ""},
                 {"redirectUrl", "#"},
                 {"redirectTarget", getPageProperties().get(PN_REDIRECT_TARGET, "")},
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
@@ -74,7 +71,5 @@ public class RedirectNotification extends WCMUsePojo {
 
         componentProperties.put(DEFAULT_I18N_LABEL_REDIRECT_IS_SET,getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL_REDIRECT_IS_SET,DEFAULT_I18N_CATEGORY,_i18n));
         componentProperties.put(DEFAULT_I18N_LABEL_REDIRECT_IS_NOT_SET,getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL_REDIRECT_IS_NOT_SET,DEFAULT_I18N_CATEGORY,_i18n));
-
     }
-
 }

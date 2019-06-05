@@ -1,6 +1,5 @@
 package design.aem.models.v2.lists;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.search.*;
 import com.day.cq.search.result.Hit;
@@ -11,6 +10,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.text.Text;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -39,13 +39,11 @@ import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.I18nUtil.*;
 import static design.aem.utils.components.ImagesUtil.getAssetInfo;
 import static design.aem.utils.components.ImagesUtil.getResourceImagePath;
-import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class List extends WCMUsePojo {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(List.class);
+public class List extends ModelProxy {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(List.class);
 
     private static final int LIMIT_DEFAULT = 100;
     private static final int PAGEMAX_DEFAULT = -1;
@@ -96,7 +94,7 @@ public class List extends WCMUsePojo {
     private static final String DEFAULT_I18N_CATEGORY = "list";
     private static final String DEFAULT_PAGINATION = "default";
 
-    private ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -147,19 +145,16 @@ public class List extends WCMUsePojo {
     @Default(booleanValues = false)
     private boolean showInvalid;
 
-    @Override
-    public void activate() throws Exception {
+    protected void ready() {
         loadConfig();
-
     }
 
     protected void loadConfig() {
-
         I18n _i18n = new I18n(getRequest());
         String resourcePath = getResource().getPath();
 
         //not using lamda is available so this is the best that can be done
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {LIST_TAG, LIST_TAG_UNORDERED},
                 {"feedEnabled", false},
                 {"feedType", "rss"},
@@ -187,7 +182,7 @@ public class List extends WCMUsePojo {
                 {SEARCH_IN_PROPERTY_NAME, StringUtils.EMPTY},
                 {LISTITEM_LINK_TEXT, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TEXT,DEFAULT_I18N_CATEGORY,_i18n)},
                 {LISTITEM_LINK_TITLE, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TITLE,DEFAULT_I18N_CATEGORY,_i18n)}
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,

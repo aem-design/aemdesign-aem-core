@@ -13,20 +13,17 @@ import static design.aem.utils.components.ImagesUtil.getMetadataStringForKey;
 import static design.aem.utils.components.ImagesUtil.getResourceImagePath;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class LocationList extends List  {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(LocationList.class);
+public class LocationList extends List {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(LocationList.class);
 
     private final String DEFAULT_I18N_CATEGORY = "newslist";
 
     final String DEFAULT_CLOUDCONFIG_GOOGLEMAP = "googlemap";
     final String DEFAULT_CLOUDCONFIG_GOOGLEMAP_API_KEY = "googleApiKey";
 
-
     @Override
     @SuppressWarnings("Duplicates")
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
 
         detailsNameSuffix = new String[]{"location-details"};
@@ -73,8 +70,5 @@ public class LocationList extends List  {
 
             componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
         }
-
     }
-
-
 }

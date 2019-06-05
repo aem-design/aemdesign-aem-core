@@ -1,11 +1,11 @@
 package design.aem.models.v2.media;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.Rendition;
 import com.day.cq.i18n.I18n;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -21,23 +21,18 @@ import static design.aem.utils.components.ConstantsUtil.IMAGE_FILEREFERENCE;
 import static design.aem.utils.components.ImagesUtil.DEFAULT_IMAGE_PATH_SELECTOR;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class Video extends WCMUsePojo {
+public class Video extends ModelProxy {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Video.class);
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Video.class);
-
-    private ComponentProperties componentProperties = null;
-
+    protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() throws Exception {
         I18n _i18n = new I18n(getRequest());
 
-
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {"lightboxHeight", "70"},
                 {"lightboxWidth", "70"},
                 {"thumbnailHeight", "auto"},
@@ -45,8 +40,8 @@ public class Video extends WCMUsePojo {
                 {"assetTitlePrefix", StringUtils.EMPTY},
                 {"fileReference", StringUtils.EMPTY},
                 {FIELD_VARIANT, DEFAULT_VARIANT}
+        });
 
-        };
         String msgStart = "";
         String thumbnail = "";
         String metaTitle = "";
@@ -130,15 +125,9 @@ public class Video extends WCMUsePojo {
                         }
                     }
                 }
-
             }
-
         }
 
         componentProperties.put("fileReferenceMissing", fileReferenceMissing);
-
-
     }
-
-
 }
