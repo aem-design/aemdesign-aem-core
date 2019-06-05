@@ -98,6 +98,7 @@ public class ComponentsUtil {
     public static final String DETAILS_CARD_SIZE = "cardSize";
     public static final String DETAILS_CARD_ICONSHOW = "cardIconShow";
     public static final String DETAILS_CARD_ICON = "cardIcon";
+    public static final String DETAILS_CARD_ADDITIONAL = "cardAdditional";
 
     //shared badge config passed from list to all badge elements
     public static final String DETAILS_LINK_TARGET = "badgeLinkTarget";
