@@ -1,9 +1,9 @@
 package design.aem.models.v2.common;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.i18n.I18n;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -14,8 +14,7 @@ import static design.aem.utils.components.ConstantsUtil.INHERITED_RESOURCE;
 import static design.aem.utils.components.ConstantsUtil.SITE_INCLUDE_PATHS;
 import static design.aem.utils.components.I18nUtil.*;
 
-public class StaticInclude extends WCMUsePojo {
-
+public class StaticInclude extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(StaticInclude.class);
 
     protected ComponentProperties componentProperties = null;
@@ -23,9 +22,7 @@ public class StaticInclude extends WCMUsePojo {
         return this.componentProperties;
     }
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
 
         // {
@@ -34,10 +31,10 @@ public class StaticInclude extends WCMUsePojo {
         //   3 optional - name of component attribute to add value into
         //   4 optional - canonical name of class for handling multivalues, String or Tag
         // }
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {COMPONENT_CANCEL_INHERIT_PARENT, false},
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
@@ -47,7 +44,6 @@ public class StaticInclude extends WCMUsePojo {
 
         componentProperties.put(INHERITED_RESOURCE,findInheritedResource(getResourcePage(),getComponentContext()));
         componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,getDefaultLabelIfEmpty("",DEFAULT_I18N_INHERIT_CATEGORY,DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,DEFAULT_I18N_INHERIT_CATEGORY,_i18n));
-
 
         componentProperties.put("componentName", getComponent().getProperties().get(JcrConstants.JCR_TITLE,""));
 
@@ -74,11 +70,5 @@ public class StaticInclude extends WCMUsePojo {
         if (getWcmMode().isEdit()) {
             componentProperties.put("showContent", showContentPreview);
         }
-
-
     }
-
-
-
-
 }

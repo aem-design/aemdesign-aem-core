@@ -21,7 +21,6 @@ import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 
 public class PageDetails extends GenericDetails {
-
     protected static final Logger LOGGER = LoggerFactory.getLogger(PageDetails.class);
 
     private static final String COMPONENT_DETAILS_NAME = "page-details";
@@ -33,8 +32,7 @@ public class PageDetails extends GenericDetails {
 
     @Override
     @SuppressWarnings("Duplicates")
-    public void activate() throws Exception {
-
+    protected void ready() {
         com.day.cq.i18n.I18n _i18n = new I18n(getRequest());
         
         final String DEFAULT_ARIA_ROLE = "banner";
@@ -53,9 +51,8 @@ public class PageDetails extends GenericDetails {
         final Boolean DEFAULT_SHOW_PAGE_DATE = true;
         final Boolean DEFAULT_SHOW_PARSYS = true;
 
-
         //not using lamda is available so this is the best that can be done
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"title", DEFAULT_TITLE},
                 {"titleFormat",""}, //tag path, will be resolved to value in processComponentFields
@@ -76,7 +73,7 @@ public class PageDetails extends GenericDetails {
                 {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
                 {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,

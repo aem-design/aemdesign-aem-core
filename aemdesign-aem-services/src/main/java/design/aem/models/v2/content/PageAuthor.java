@@ -1,9 +1,9 @@
 package design.aem.models.v2.content;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.security.user.UserPropertiesManager;
 import com.day.cq.i18n.I18n;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.jackrabbit.api.security.user.UserManager;
 import org.slf4j.Logger;
@@ -18,8 +18,7 @@ import static design.aem.utils.components.SecurityUtil.getUserEmail;
 import static design.aem.utils.components.SecurityUtil.getUserFullName;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-public class PageAuthor extends WCMUsePojo {
-
+public class PageAuthor extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(PageAuthor.class);
 
     protected ComponentProperties componentProperties = null;
@@ -27,9 +26,7 @@ public class PageAuthor extends WCMUsePojo {
         return this.componentProperties;
     }
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() throws Exception {
         com.day.cq.i18n.I18n _i18n = new I18n(getRequest());
 
         com.adobe.granite.security.user.UserPropertiesService _userPropertiesService = getSlingScriptHelper().getService(com.adobe.granite.security.user.UserPropertiesService.class);
@@ -60,11 +57,11 @@ public class PageAuthor extends WCMUsePojo {
             }
         }
 
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {"author", pageAuthorFullName},
                 {"authorUrl", pageAuthorEmail},
                 {FIELD_VARIANT, DEFAULT_VARIANT}
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
@@ -72,7 +69,4 @@ public class PageAuthor extends WCMUsePojo {
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY);
     }
-
-
-
 }

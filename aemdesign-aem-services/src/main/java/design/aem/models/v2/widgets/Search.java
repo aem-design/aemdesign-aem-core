@@ -1,8 +1,8 @@
 package design.aem.models.v2.widgets;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +10,7 @@ import org.slf4j.LoggerFactory;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 
-public class Search extends WCMUsePojo {
-
+public class Search extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(Search.class);
 
     protected ComponentProperties componentProperties = null;
@@ -19,9 +18,7 @@ public class Search extends WCMUsePojo {
         return this.componentProperties;
     }
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "search";
@@ -31,7 +28,7 @@ public class Search extends WCMUsePojo {
         final String DEFAULT_I18N_CODE_SEARCH = "searchButtonText";
 
         //not using lamda is available so this is the best that can be done
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"formAction", "/en/search"},
                 {"formMethod", "get"},
@@ -41,14 +38,13 @@ public class Search extends WCMUsePojo {
                 {DEFAULT_I18N_CODE_LEGEND, ""},
                 {DEFAULT_I18N_CODE_LEBEL, ""},
                 {DEFAULT_I18N_CODE_SEARCH, ""},
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
                 componentFields,
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY);
-
 
         String placeholderText = componentProperties.get(DEFAULT_I18N_CODE_PLACEHOLDER,"");
         String legendText = componentProperties.get(DEFAULT_I18N_CODE_LEGEND,"");
@@ -59,10 +55,5 @@ public class Search extends WCMUsePojo {
         componentProperties.put("legendText", getDefaultLabelIfEmpty(legendText,DEFAULT_I18N_CATEGORY,DEFAULT_I18N_CODE_LEGEND,DEFAULT_I18N_CATEGORY,_i18n));
         componentProperties.put("labelText", getDefaultLabelIfEmpty(labelText,DEFAULT_I18N_CATEGORY,DEFAULT_I18N_CODE_LEBEL,DEFAULT_I18N_CATEGORY,_i18n));
         componentProperties.put("searchButtonText", getDefaultLabelIfEmpty(searchButtonText,DEFAULT_I18N_CATEGORY,DEFAULT_I18N_CODE_SEARCH,DEFAULT_I18N_CATEGORY,_i18n));
-
     }
-
-
-
-
 }

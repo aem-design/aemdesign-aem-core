@@ -175,40 +175,45 @@ public class SearchList extends ModelProxy {
             componentProperties.put("facetsTitle", i18n.get("Tags"));
 
             //process facets
-            if (result.getFacets() != null) {
-                if (result.getFacets().get("tags") != null) {
-                    if (result.getFacets().get("tags").getContainsHit()) {
+            try {
+                if (result.getFacets() != null) {
+                    if (result.getFacets().get("tags") != null) {
+                        if (result.getFacets().get("tags").getContainsHit()) {
 
-                        TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
-                        if (tagManager != null) {
-                            ArrayList<Map<String, Object>> bucketsInfo = new ArrayList<>();
+                            TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
+                            if (tagManager != null) {
+                                ArrayList<Map<String, Object>> bucketsInfo = new ArrayList<>();
 
-                            for (Bucket bucket : result.getFacets().get("tags").getBuckets()) {
+                                for (Bucket bucket : result.getFacets().get("tags").getBuckets()) {
 
-                                Map<String, Object> bucketInfo = new HashMap<>();
+                                    Map<String, Object> bucketInfo = new HashMap<>();
 
-                                bucketInfo.put("bucket", bucketInfo);
+                                    bucketInfo.put("bucket", bucketInfo);
 
-                                Tag tag = tagManager.resolve(bucket.getValue());
-                                if (tag != null) {
-                                    bucketInfo.put("tag", bucketInfo);
+                                    Tag tag = tagManager.resolve(bucket.getValue());
+                                    if (tag != null) {
+                                        bucketInfo.put("tag", bucketInfo);
 
+                                    }
+
+                                    if (java.util.Arrays.asList(getRequest().getParameterValues("tag")).contains(bucket.getValue())) {
+                                        bucketInfo.put("filter", true);
+                                    }
+
+                                    bucketsInfo.add(bucketInfo);
                                 }
 
-                                if (java.util.Arrays.asList(getRequest().getParameterValues("tag")).contains(bucket.getValue())) {
-                                    bucketInfo.put("filter", true);
-                                }
-
-                                bucketsInfo.add(bucketInfo);
+                                componentProperties.put("bucketsInfo", bucketsInfo);
+                            } else {
+                                LOGGER.error("SearchList: could not get TagManager object");
                             }
-
-                            componentProperties.put("bucketsInfo", bucketsInfo);
-                        } else {
-                            LOGGER.error("SearchList: could not get TagManager object");
                         }
                     }
-                }
 
+                }
+            } catch (Exception ex) {
+                LOGGER.error("SearchList: error as a result of trying to access result set!");
+                LOGGER.error(ex.getMessage());
             }
 
 

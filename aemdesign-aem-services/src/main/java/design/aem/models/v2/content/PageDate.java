@@ -1,9 +1,9 @@
 package design.aem.models.v2.content;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.replication.ReplicationStatus;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.jackrabbit.vault.util.JcrConstants;
@@ -14,8 +14,7 @@ import java.util.Calendar;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 
-public class PageDate extends WCMUsePojo {
-
+public class PageDate extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(PageDate.class);
 
     protected ComponentProperties componentProperties = null;
@@ -25,21 +24,17 @@ public class PageDate extends WCMUsePojo {
     private static String PUBLISH_DATE_FORMAT = "yyyy-MM-dd";
     private static String PUBLISH_DATE_DISPLAY_FORMAT = "EEEE dd MMMM YYYY";
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() {
         com.day.cq.i18n.I18n _i18n = new I18n(getRequest());
-
 
         final String DEFAULT_I18N_CATEGORY = "pagedate";
 
-
         //not using lamda is available so this is the best that can be done
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"publishDate", getPageProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED,getPageProperties().get(JcrConstants.JCR_CREATED, Calendar.getInstance()))},
                 {"jcr:created", ""}
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
@@ -86,10 +81,5 @@ public class PageDate extends WCMUsePojo {
         }
 
         componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
-
-
     }
-
-
-
 }

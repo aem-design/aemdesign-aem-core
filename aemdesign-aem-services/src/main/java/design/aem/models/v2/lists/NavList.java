@@ -35,9 +35,6 @@ public class NavList extends ModelProxy {
         final String DEFAULT_MENUT_TITLE = "Menu";
         final int DEFAULT_DEPTH_FROM_ROOT = 2;
 
-        // getDefaultLabelIfEmpty
-
-        //not using lamda is available so this is the best that can be done
         setComponentFields(new Object[][]{
                 {"pages", new String[0]},
                 {FIELD_VARIANT, DEFAULT_VARIANT},
@@ -56,6 +53,8 @@ public class NavList extends ModelProxy {
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY,
                 DEFAULT_FIELDS_ANALYTICS);
+
+        LOGGER.error("Running NavList model with componentProperties: {}", componentProperties);
 
         String[] supportedDetails = DEFAULT_LIST_DETAILS_SUFFIX;
         String[] supportedRoots = DEFAULT_LIST_PAGE_CONTENT;
