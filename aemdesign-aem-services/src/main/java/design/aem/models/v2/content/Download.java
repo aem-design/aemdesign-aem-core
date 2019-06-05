@@ -1,6 +1,5 @@
 package design.aem.models.v2.content;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.Rendition;
@@ -8,6 +7,7 @@ import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.components.DropTarget;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import design.aem.utils.components.TagUtil;
 import org.apache.sling.api.resource.Resource;
@@ -31,7 +31,8 @@ import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class Download extends WCMUsePojo {
+public class Download extends ModelProxy {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(TagUtil.class);
 
     protected ComponentProperties componentProperties = null;
 
@@ -44,18 +45,13 @@ public class Download extends WCMUsePojo {
     private static final String DESCRIPTION = "description";
 
     //drop target css class = dd prefix + name of the drop target in the edit config
-    private static final String  ddClassName = DropTarget.CSS_CLASS_PREFIX + "file";
+    private static final String ddClassName = DropTarget.CSS_CLASS_PREFIX + "file";
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(TagUtil.class);
-
-    @Override
     @SuppressWarnings("uncheked")
-    public void activate() throws Exception {
-
+    protected void ready() {
         com.day.cq.i18n.I18n _i18n = new I18n(getRequest());
 
-
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"thumbnailType", "icon"},
                 {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
@@ -66,12 +62,11 @@ public class Download extends WCMUsePojo {
                 {"description",""},
                 {"fileReference",""},
                 {"thumbnail", DEFAULT_IMAGE_BLANK},
+        });
 
-        };
-
-        Object[][] analyticsFields = {
+        setAnalyticsFields(new Object[][]{
                 {DETAILS_BADGE_ANALYTICS_LABEL, "${(fileReference ? fileReference + '|' : '') + value }"}, //basic
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,

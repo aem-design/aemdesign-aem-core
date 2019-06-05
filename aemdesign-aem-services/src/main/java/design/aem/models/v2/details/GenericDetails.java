@@ -1,9 +1,9 @@
 package design.aem.models.v2.details;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -24,36 +24,24 @@ import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class GenericDetails extends WCMUsePojo {
-
-
+public class GenericDetails extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(GenericDetails.class);
 
     private static final String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
 
     protected ComponentProperties componentProperties = null;
-
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
-    @Override
     @SuppressWarnings("Duplicates")
-    public void activate() throws Exception {
-
-        I18n _i18n = new I18n(getRequest());
-
-
+    protected void ready() {
         processCommonFields();
-
-
     }
 
     @SuppressWarnings("Duplicates")
     protected void processCommonFields() {
-
         try {
-
             //read the image node
             componentProperties.putAll(getAssetInfo(getResourceResolver(),
                     getPageImgReferencePath(getResourcePage()),
@@ -165,9 +153,7 @@ public class GenericDetails extends WCMUsePojo {
         } catch (Exception ex) {
             LOGGER.error("processCommonFields: could not process fields componentProperties={}, ex={}", componentProperties, ex);
         }
-
     }
-
 
     /***
      * get and format badge config

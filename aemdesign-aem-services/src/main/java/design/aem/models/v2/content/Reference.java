@@ -1,8 +1,8 @@
 package design.aem.models.v2.content;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -12,8 +12,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class Reference extends WCMUsePojo {
-
+public class Reference extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(Reference.class);
 
     protected ComponentProperties componentProperties = null;
@@ -21,17 +20,14 @@ public class Reference extends WCMUsePojo {
         return this.componentProperties;
     }
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
 
-
         //not using lamda is available so this is the best that can be done
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {"path", StringUtils.EMPTY},
                 {FIELD_VARIANT, DEFAULT_VARIANT}
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
@@ -57,7 +53,4 @@ public class Reference extends WCMUsePojo {
         //compile variantTemplate param
         componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT,variant));
     }
-
-
-
 }

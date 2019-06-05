@@ -1,12 +1,12 @@
 package design.aem.models.v2.media;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.asset.api.AssetManager;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -25,8 +25,7 @@ import static design.aem.utils.components.ImagesUtil.*;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.*;
 
-public class Image extends WCMUsePojo {
-
+public class Image extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(Image.class);
 
     protected ComponentProperties componentProperties = null;
@@ -34,12 +33,9 @@ public class Image extends WCMUsePojo {
         return this.componentProperties;
     }
 
-    @Override
     @SuppressWarnings("Duplicates")
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
-
 
         final String DEFAULT_I18N_CATEGORY = "image";
         final String DEFAULT_I18N_LABEL_LICENSEINFO = "licenseinfo";
@@ -56,13 +52,12 @@ public class Image extends WCMUsePojo {
         //   3 optional - name of component attribute to add value into [attributeName]
         //   4 optional - canonical name of class for handling multivalues, String or Tag [stringValueTypeClass]
         // }
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {FIELD_LINKURL,StringUtils.EMPTY},
                 {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
-        };
-
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
@@ -181,10 +176,5 @@ public class Image extends WCMUsePojo {
         }
 
         componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
-
-
     }
-
-
-
 }

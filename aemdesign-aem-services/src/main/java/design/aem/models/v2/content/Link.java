@@ -1,10 +1,10 @@
 package design.aem.models.v2.content;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.NameConstants;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -17,8 +17,7 @@ import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class Link extends WCMUsePojo {
-
+public class Link extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(Link.class);
 
     protected ComponentProperties componentProperties = null;
@@ -26,9 +25,7 @@ public class Link extends WCMUsePojo {
         return this.componentProperties;
     }
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() {
         I18n _i18n = new I18n(getRequest());
 
         final String FIELD_LINKURL = "linkUrl";
@@ -37,14 +34,13 @@ public class Link extends WCMUsePojo {
         final String DEFAULT_I18N_CATEGORY = "link";
         final String DEFAULT_I18N_LABEL = "linklabel";
 
-
         // {
         //   1 required - property name,
         //   2 required - default value,
         //   3 optional - name of component attribute to add value into
         //   4 optional - canonical name of class for handling multivalues, String or Tag
         // }
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {"linkTarget", StringUtils.EMPTY, "target"},
                 {FIELD_LINKURL, StringUtils.EMPTY},
                 {FIELD_VARIANT, DEFAULT_VARIANT},
@@ -52,7 +48,7 @@ public class Link extends WCMUsePojo {
                 {"linkIcon", new String[]{}, "", Tag.class.getCanonicalName()},
                 {"linkIconPosition", DEFAULT_LINK_ICON_POSITION},
                 {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
@@ -75,12 +71,6 @@ public class Link extends WCMUsePojo {
             componentProperties.attr.add("href", linkUrl);
 
             componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
-
         }
-
-
     }
-
-
-
 }
