@@ -1194,7 +1194,6 @@ public class ComponentsUtil {
                                 String fieldValueString = "";
                                 String fieldValueType;
                                 if (field.length > 3) {
-                                    LOGGER.error("Checking field: {}", field);
                                     fieldValueType = (String) field[3];
                                 } else {
                                     fieldValueType = String.class.getCanonicalName();

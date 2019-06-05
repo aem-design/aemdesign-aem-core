@@ -1,6 +1,7 @@
 package design.aem.models;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import org.apache.commons.lang3.ArrayUtils;
 
 public abstract class ModelProxy extends WCMUsePojo {
     protected Object[][] componentFields = {};
@@ -12,13 +13,12 @@ public abstract class ModelProxy extends WCMUsePojo {
         ready();
     }
 
-    protected void setComponentFields(Object[][]... fields) {
+    protected void setComponentFields(Object[][] fields) {
         if (fields != null && fields.length > 0) {
             if (componentFields.length > 0) {
-                componentFields = new Object[][]{
-                        componentFields,
-                        fields,
-                };
+                for (Object[] field : fields) {
+                    componentFields = ArrayUtils.add(componentFields, field);
+                }
             } else {
                 componentFields = fields;
             }
