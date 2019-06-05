@@ -15,12 +15,8 @@ public abstract class ModelProxy extends WCMUsePojo {
 
     protected void setComponentFields(Object[][] fields) {
         if (fields != null && fields.length > 0) {
-            if (componentFields.length > 0) {
-                for (Object[] field : fields) {
-                    componentFields = ArrayUtils.add(componentFields, field);
-                }
-            } else {
-                componentFields = fields;
+            for (Object[] field : fields) {
+                componentFields = ArrayUtils.add(componentFields, field);
             }
         }
     }

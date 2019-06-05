@@ -1,6 +1,5 @@
 package design.aem.models.v2.lists;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.i18n.I18n;
@@ -12,6 +11,7 @@ import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import design.aem.CustomSearchResult;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.vault.util.JcrConstants;
@@ -46,12 +46,10 @@ import static design.aem.utils.components.ImagesUtil.*;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class SearchList extends WCMUsePojo {
-
+public class SearchList extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(SearchList.class);
 
     protected ComponentProperties componentProperties = null;
-
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -62,11 +60,8 @@ public class SearchList extends WCMUsePojo {
 
     private final static String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
 
-    @Override
-    public void activate() throws Exception {
-
-//        LOGGER.error("searchlist loading");
-
+    @SuppressWarnings("Duplicates")
+    protected void ready() {
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "searchlist";
@@ -94,11 +89,10 @@ public class SearchList extends WCMUsePojo {
         final String escapedQueryForAttr = getXSSAPI().encodeForHTMLAttr(queryText);
         final String escapedQueryForHref = getXSSAPI().getValidHref(queryText);
 
-
         // {
         //   { name, defaultValue, attributeName, valueTypeClass }
         // }
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"emptyQueryText", getDefaultLabelIfEmpty("emptyQueryText", DEFAULT_I18N_CATEGORY, "Invalid query given!", i18n)},
                 {"searchButtonText", getDefaultLabelIfEmpty("searchButtonText", DEFAULT_I18N_CATEGORY, "Search", i18n)},
@@ -122,7 +116,7 @@ public class SearchList extends WCMUsePojo {
                 {"printStructure", true},
                 {"listTag", "ul"},
                 {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, DEFAULT_ARIA_ROLE_ATTRIBUTE},
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,

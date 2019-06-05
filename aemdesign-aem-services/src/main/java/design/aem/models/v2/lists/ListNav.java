@@ -1,6 +1,5 @@
 package design.aem.models.v2.lists;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
@@ -9,6 +8,7 @@ import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -32,8 +32,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ImagesUtil.FIELD_IMAGE_OPTION;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class ListNav extends WCMUsePojo {
-
+public class ListNav extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ListNav.class);
 
     protected ComponentProperties componentProperties = null;
@@ -87,9 +86,7 @@ public class ListNav extends WCMUsePojo {
     @Default(values = StringUtils.EMPTY)
     private String detailsBadge;
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() {
         PARENT_PATH_DEFAULT = getCurrentPage().getPath();
 
         //COMPONENT STYLES
@@ -99,7 +96,7 @@ public class ListNav extends WCMUsePojo {
         //   3 optional - name of component attribute to add value into
         //   4 optional - canonical name of class for handling multivalues, String or Tag
         // }
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {STATIC_ITEMS, new String[0]},
                 {DESCENDANT_PATH, PARENT_PATH_DEFAULT},
@@ -112,14 +109,13 @@ public class ListNav extends WCMUsePojo {
                 {LIST_LOOP, LIST_LOOP_DEFAULT},
                 {"filterPage", ""},
                 {DETAILSBADGE, DEFAULT_BADGE, "data-badge"},
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
                 componentFields,
                 DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY
-        );
+                DEFAULT_FIELDS_ACCESSIBILITY);
 
         sortOrder = SortOrder.fromString(componentProperties.get(PN_SORT_ORDER, SortOrder.ASC.getValue()));
         limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
@@ -140,7 +136,6 @@ public class ListNav extends WCMUsePojo {
         String componentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
 
         LOGGER.error("processCommonFields: componentBadge={}",componentBadge);
-
     }
 
 
