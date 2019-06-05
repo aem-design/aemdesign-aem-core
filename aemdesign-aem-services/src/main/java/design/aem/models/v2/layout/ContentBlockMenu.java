@@ -1,8 +1,8 @@
 package design.aem.models.v2.layout;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.jcr.resource.api.JcrResourceConstants;
@@ -21,8 +21,7 @@ import static design.aem.utils.components.ImagesUtil.getBackgroundImageRendition
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class ContentBlockMenu extends WCMUsePojo {
-
+public class ContentBlockMenu extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContentBlockMenu.class);
 
     protected ComponentProperties componentProperties = null;
@@ -30,22 +29,19 @@ public class ContentBlockMenu extends WCMUsePojo {
         return this.componentProperties;
     }
 
-    @Override
-    public void activate() throws Exception {
-
+    protected void ready() throws Exception {
         I18n _i18n = new I18n(getRequest());
-
 
         final String DEFAULT_MENUSOURCE_PARENT = "parent";
         final String DEFAULT_MENUSOURCE_PAGEPATH = "pagepath";
         final String FIELD_MENUSOURCE = "menuSource";
         final String FIELD_MENUSOURCEPAGEPATH = "menuSourcePagePath";
 
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {FIELD_MENUSOURCE, DEFAULT_MENUSOURCE_PARENT},
                 {FIELD_MENUSOURCEPAGEPATH, ""},
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,

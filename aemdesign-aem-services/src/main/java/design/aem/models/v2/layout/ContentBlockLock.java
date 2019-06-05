@@ -1,8 +1,8 @@
 package design.aem.models.v2.layout;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.i18n.I18n;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.services.ContentAccess;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang.StringUtils;
@@ -25,8 +25,7 @@ import static design.aem.utils.components.SecurityUtil.isUserMemberOf;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class ContentBlockLock extends WCMUsePojo {
-
+public class ContentBlockLock extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContentBlockLock.class);
 
     protected ComponentProperties componentProperties = null;
@@ -34,12 +33,9 @@ public class ContentBlockLock extends WCMUsePojo {
         return this.componentProperties;
     }
 
-    @Override
     @SuppressWarnings("Duplicates")
-    public void activate() throws Exception {
-
+    protected void ready() throws Exception {
         I18n _i18n = new I18n(getRequest());
-
 
         final String DEFAULT_I18N_CATEGORY = "contentblock";
         final String DEFAULT_I18N_BACKTOTOP_LABEL = "backtotoplabel";
@@ -47,9 +43,7 @@ public class ContentBlockLock extends WCMUsePojo {
         final String DEFAULT_TITLE_TAG_TYPE = "h2";
         final String FIELD_LOCKED = "islocked";
 
-
-
-        Object[][] componentFields = {
+        setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"hideTitle", false},
                 {"hideTopLink", false},
@@ -62,7 +56,7 @@ public class ContentBlockLock extends WCMUsePojo {
                 {"linksLeft", new String[]{}},
                 {"titleType", DEFAULT_TITLE_TAG_TYPE},
                 {"title", ""},
-        };
+        });
 
         componentProperties = ComponentsUtil.getComponentProperties(
                 this,
