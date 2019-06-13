@@ -28,7 +28,6 @@ public class OnlineMedia extends WCMUsePojo {
 
 
         final String DEFAULT_VARIANT = "default";
-        final String RESOURCE_EXISTS = "resourceExists";
 
         Object[][] componentFields = {
                 {FIELD_VARIANT, DEFAULT_VARIANT},
@@ -45,10 +44,6 @@ public class OnlineMedia extends WCMUsePojo {
                 componentFields,
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY);
-
-        String field_variant = componentProperties.get(FIELD_VARIANT,StringUtils.EMPTY);
-        String resourceName = String.format("%s.%s.%s", FIELD_VARIANT, field_variant, EXTENSION_JSP);
-        componentProperties.put(RESOURCE_EXISTS, checkResourceHasChildResource(resourceName, getResource(), getResourceResolver()));
 
     }
 
