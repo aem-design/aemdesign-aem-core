@@ -35,6 +35,7 @@ public class Template extends WCMUsePojo {
 
             componentProperties.put("detailsPath", detailsPath);
             componentProperties.put("detailsMetadataBadgePath", componentPath);
+            componentProperties.put("detailsMetadataBadgeSelectors", "badge.metadata");
             componentProperties.put("detailsMetadataBadgeUrl", componentPath.concat(DEFAULT_EXTENTION));
         }
 
