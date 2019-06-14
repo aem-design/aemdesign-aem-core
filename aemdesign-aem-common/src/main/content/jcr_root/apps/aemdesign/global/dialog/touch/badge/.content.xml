@@ -132,20 +132,6 @@
                                                     multiple="{Boolean}true"
                                                     rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
                                                     name="./cardStyle"/>
-                                            <cardSize
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/form/select"
-                                                    fieldDescription="this will be used as card size in grids"
-                                                    fieldLabel="Card Size"
-                                                    name="./cardSize"
-                                                    emptyOption="{Boolean}true"
-                                                    value="">
-                                                <datasource
-                                                        jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                        variant="valuelist"
-                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/common/card/size"/>
-                                            </cardSize>
                                         </items>
                                     </cardConfigGroup>
 

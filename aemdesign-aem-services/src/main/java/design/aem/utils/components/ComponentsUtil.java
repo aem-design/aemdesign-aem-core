@@ -95,7 +95,6 @@ public class ComponentsUtil {
     public static final String DETAILS_OVERLAY_ICONSHOW = "badgeOverlayIconShow";
     public static final String DETAILS_OVERLAY_ICON = "badgeOverlayIcon";
     public static final String DETAILS_CARD_STYLE = "cardStyle";
-    public static final String DETAILS_CARD_SIZE = "cardSize";
     public static final String DETAILS_CARD_ICONSHOW = "cardIconShow";
     public static final String DETAILS_CARD_ICON = "cardIcon";
 
@@ -365,7 +364,6 @@ public class ComponentsUtil {
             {DETAILS_MENU_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_MENU_ACCESS_KEY, ""},
             {DETAILS_CARD_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_CARD_SIZE, "small"},
             {DETAILS_CARD_ICONSHOW, false},
             {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
             {DETAILS_LINK_TARGET, "_blank"},
@@ -411,7 +409,6 @@ public class ComponentsUtil {
             {DETAILS_MENU_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_MENU_ACCESS_KEY, StringUtils.EMPTY},
             {DETAILS_CARD_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_CARD_SIZE, StringUtils.EMPTY},
             {DETAILS_CARD_ICONSHOW, StringUtils.EMPTY},
             {DETAILS_CARD_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_LINK_TARGET, StringUtils.EMPTY},
