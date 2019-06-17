@@ -66,6 +66,7 @@ public class ContactDetails extends GenericDetails {
                 {"jobTitle",""},
                 {"employee",""},
                 {"email",""},
+                {"contactNumber",""},
                 {"descriptionFormat", ""}, //tag path, will be resolved to value in processComponentFields
                 {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
                 {TagConstants.PN_TAGS, new String[]{},"data-tags", Tag.class.getCanonicalName()},

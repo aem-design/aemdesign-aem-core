@@ -111,6 +111,13 @@
                                             name="./jobTitle"
                                             required="{Boolean}false"/>
 
+                                    <contactNumber
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Contact Number"
+                                            name="./contactNumber"
+                                            required="{Boolean}false"/>
+
                                     <email
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
