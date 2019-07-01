@@ -16,9 +16,21 @@
                     "platform": "${componentProperties.platform}"
                 }
             },
-            "form": [],
-            "event": [],
-            "error": []
+            "form": {
+                "name": "",
+                "stepName": "",
+                "fieldName": "",
+                "referenceId": "",
+                "status": ""
+            },
+            "event": [{
+                "eventAction": "",
+                "timeStamp": ""
+            }],
+            "error": [{
+                "code": "",
+                "message": ""
+            }]
         };
         window.digitalData.page.pageInfo.referringURL = AEMDESIGN.analytics.getReferringUrl();
         window.digitalData.page.pageInfo.destinationUrl = AEMDESIGN.analytics.getDestinationUrl();
@@ -28,3 +40,23 @@
         window.digitalData.page.pageInfo.breakPoint = AEMDESIGN.analytics.getBreakpoint()["label"];
     ${'</script>' @ context = "unsafe"}
 </template>
+
+<script>
+test = {
+    "form": {
+        "name": "",
+        "stepName": "",
+        "fieldName": "",
+        "referenceId": "",
+        "status": ""
+    },
+    "event": [{
+        "eventAction": "",
+        "timeStamp": ""
+    }],
+    "error": [{
+        "code": "",
+        "message": ""
+    }],
+}
+</script>
