@@ -1333,15 +1333,15 @@ public class ComponentsUtil {
             Iterator items = data.entrySet().iterator();
             while (items.hasNext()) {
                 Map.Entry<String, String> e = (Map.Entry) items.next();
-                key = (String) e.getKey();
-                value = (String) e.getValue();
+                key = e.getKey();
+                value = e.getValue();
 
                 if (value != null) {
 
                     //encode values if encoding is specified
                     if (encodings != null) {
                         String encoding = encodings.get(e.getKey());
-                        if (encoding != null && value != null && value.length() > 0) {
+                        if (encoding != null && value.length() > 0) {
                             switch (encoding) {
                                 case "HREF":
                                     value = xssAPI.getValidHref(value);
