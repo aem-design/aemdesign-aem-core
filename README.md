@@ -1,6 +1,9 @@
 # aemdesign-aem-core
 
-[![pipeline status](https://gitlab.com/aem.design/aemdesign-aem-core/badges/develop/pipeline.svg)](https://gitlab.com/aem.design/aemdesign-aem-core/commits/develop) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=aemdesign%3Aaemdesign-aem-core&metric=alert_status)](https://sonarcloud.io/dashboard?id=aemdesign%3Aaemdesign-aem-core)
+[![pipeline status](https://gitlab.com/aem.design/aemdesign-aem-core/badges/develop/pipeline.svg)](https://gitlab.com/aem.design/aemdesign-aem-core/commits/develop)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=aemdesign%3Aaemdesign-aem-core&metric=alert_status)](https://sonarcloud.io/dashboard?id=aemdesign%3Aaemdesign-aem-core)
+[![build_status](https://travis-ci.org/aem-design/aemdesign-aem-core.svg?branch=master)](https://travis-ci.org/aem-design/aemdesign-aem-core)
+
 
 ## Git Describe
 
