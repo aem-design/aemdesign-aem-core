@@ -63,6 +63,13 @@
         <aem.uberjar.version>6.5.0</aem.uberjar.version>
     </properties>
 
+    <developers>
+        <developer>
+            <email>max@aem.design</email>
+            <name>Max Barrass</name>
+        </developer>
+    </developers>
+
     <scm>
         <connection>scm:git:https://github.com/aem-design/aemdesign-aem-core.git</connection>
         <url>https://github.com/aem-design/aemdesign-aem-core</url>
