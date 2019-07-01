@@ -756,7 +756,6 @@ public class ComponentsUtil {
     @SuppressWarnings("Depreciated")
     public static ComponentProperties getNewComponentProperties(Map<String, Object> pageContext) {
         ComponentProperties componentProperties = new ComponentProperties();
-        componentProperties.attr = new AttrBuilder(null, null);
         try {
             SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) pageContext.get("slingRequest");
             HttpServletRequest request = (HttpServletRequest) slingRequest;
