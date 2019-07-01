@@ -1,9 +1,7 @@
 package design.aem.models.v2.analytics;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.i18n.I18n;
 import com.day.cq.replication.ReplicationStatus;
-import com.day.cq.wcm.api.components.Component;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -74,7 +72,7 @@ public class DataLayer extends WCMUsePojo {
                 }
             } else {
                 componentProperties.put("detailsMissing", isEmpty(detailsPath));
-                LOGGER.error("Data layer detailsPath missing under " + getResourcePage().getPath());
+                LOGGER.error("Data layer detailsPath missing under {}", getResourcePage().getPath());
             }
 
         } catch (Exception ex) {
