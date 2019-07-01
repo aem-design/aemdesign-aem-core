@@ -1024,7 +1024,7 @@ public class ComponentsUtil {
                 TagManager tagManager = adminResourceResolver.adaptTo(TagManager.class);
 
                 // if targetResource == null get defaults
-                ValueMap properties = (ValueMap) pageContext.get("properties");
+                ValueMap properties = (ValueMap) pageContext.get("properties"); //NOSONAR getting properties from pagecontext
 
                 ValueMap currentPolicy = getContentPolicyProperties(componentContext.getResource(), resourceResolver);
 
@@ -1323,7 +1323,7 @@ public class ComponentsUtil {
      * @return attributes string
      * @throws IOException
      */
-    @SuppressWarnings("Depreciated")
+    @SuppressWarnings({"Depreciated", "squid:S3776"})
     public static String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI, Map<String, String> encodings) {
         try {
             StringWriter out = new StringWriter();
@@ -1362,6 +1362,7 @@ public class ComponentsUtil {
 
                 }
             }
+
             //return string without invalid characters
             return out.toString().replaceAll("&#x20;", " ");
         } catch (Exception ex) {
@@ -1589,6 +1590,7 @@ public class ComponentsUtil {
      * @param componentContext component context
      * @return found resource
      */
+    @SuppressWarnings("squid:S3776")
     public static Resource findInheritedResource(Page page, ComponentContext componentContext) {
         final String pageResourcePath = page.getContentResource().getPath(); // assume that page have resource
         final Resource thisResource = componentContext.getResource();
@@ -1700,6 +1702,7 @@ public class ComponentsUtil {
      * @param resourceName local resource name
      * @return local resource path found
      */
+    @SuppressWarnings("squid:S3776")
     public static String findLocalResourceInSuperComponent(Component component, String resourceName, SlingScriptHelper sling) {
 
         Component superComponent = null;
@@ -1921,8 +1924,8 @@ public class ComponentsUtil {
         try {
             Pattern valueIsRegexPattern = Pattern.compile(patternToUse);
             return valueIsRegexPattern.matcher(value).matches();
-        } catch (PatternSyntaxException e) {
-
+        } catch (PatternSyntaxException ex) {
+            LOGGER.error("isStringRegex: could not check if string is a regex, ex={}", ex.toString());
         }
         return false;
     }
