@@ -50,6 +50,7 @@ import javax.servlet.jsp.PageContext;
 import java.io.*;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import static design.aem.utils.components.CommonUtil.resourceRenderAsHtml;
 import static design.aem.utils.components.ConstantsUtil.*;
@@ -283,7 +284,7 @@ public class ComponentsUtil {
 
     public static final String DETAILS_SELECTOR_BADGE = "badge";
 
-    public static final String STRING_EXPRESSION_CHECK = ".*(\\$\\{.*?\\}).*";
+    private static final String STRING_EXPRESSION_CHECK = ".*(\\$\\{.*?\\}).*";
 
     //COMPONENT STYLES
     // {
@@ -1122,7 +1123,7 @@ public class ComponentsUtil {
                             Object fieldValue = null;
 
                             //if no default value has expressions the
-                            if (fieldDefaultValue instanceof String && StringUtils.isNotEmpty(fieldDefaultValue.toString()) && fieldDefaultValue.toString().matches(STRING_EXPRESSION_CHECK)) {
+                            if (fieldDefaultValue instanceof String && StringUtils.isNotEmpty(fieldDefaultValue.toString()) && isStringRegex(fieldDefaultValue.toString())) {
 
                                 //get the value without default to determine if value exist
                                 fieldValue = getComponentProperty(properties, currentPolicy, fieldName, null, true);
@@ -1900,4 +1901,29 @@ public class ComponentsUtil {
         return contentPolicyProperties;
     }
 
+
+    /**
+     * check if string value a regex
+     * @param value string to check if its a regex
+     * @return does string match regex check
+     */
+    public static boolean isStringRegex(String value) {
+        return isStringRegex(value, STRING_EXPRESSION_CHECK);
+    }
+
+    /**
+     * check if string value a regex
+     * @param value string to check if its a regex
+     * @param patternToUse regex to use to check string
+     * @return does string match regex check
+     */
+    public static boolean isStringRegex(String value, String patternToUse) {
+        try {
+            Pattern valueIsRegexPattern = Pattern.compile(patternToUse);
+            return valueIsRegexPattern.matcher(value).matches();
+        } catch (PatternSyntaxException e) {
+
+        }
+        return false;
+    }
 }
