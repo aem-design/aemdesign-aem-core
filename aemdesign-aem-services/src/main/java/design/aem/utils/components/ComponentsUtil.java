@@ -1925,7 +1925,7 @@ public class ComponentsUtil {
             Pattern valueIsRegexPattern = Pattern.compile(patternToUse);
             return valueIsRegexPattern.matcher(value).matches();
         } catch (PatternSyntaxException ex) {
-            LOGGER.error("isStringRegex: could not check if string is a regex, ex={}", ex.toString());
+            LOGGER.error("isStringRegex: could not check if string is a regex, ex={}", ex);
         }
         return false;
     }
