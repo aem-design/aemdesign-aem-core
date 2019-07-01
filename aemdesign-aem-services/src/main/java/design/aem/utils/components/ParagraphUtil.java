@@ -293,7 +293,7 @@ public class ParagraphUtil {
         WCMMode currentMode = WCMMode.fromRequest(slingRequest);
 
         //SHOW EDIT BAR IN EDIT MODE AND IN TOUCH-PREVIEW MODE
-        if (editContext != null && (currentMode.equals(WCMMode.EDIT) || (currentMode.equals(WCMMode.PREVIEW) && uiMode(slingRequest).toUpperCase().equals(WCM_AUTHORING_MODE_COOKIE_VALUE_TOUCH)))) {
+        if (editContext != null && (currentMode.equals(WCMMode.EDIT) || (currentMode.equals(WCMMode.PREVIEW) && uiMode(slingRequest).equalsIgnoreCase(WCM_AUTHORING_MODE_COOKIE_VALUE_TOUCH)))) {
             // force draw 'edit' bar
             out.write("<div class=\"section\">");
 
@@ -335,7 +335,7 @@ public class ParagraphUtil {
         WCMMode currentMode = WCMMode.fromRequest(slingRequest);
 
         //SHOW EDIT BAR IN EDIT MODE AND IN TOUCH-PREVIEW MODE
-        if (editContext != null && (currentMode.equals(WCMMode.EDIT) || (currentMode.equals(WCMMode.PREVIEW) && uiMode(slingRequest).toUpperCase().equals(WCM_AUTHORING_MODE_COOKIE_VALUE_TOUCH)))) {
+        if (editContext != null && (currentMode.equals(WCMMode.EDIT) || (currentMode.equals(WCMMode.PREVIEW) && uiMode(slingRequest).equalsIgnoreCase(WCM_AUTHORING_MODE_COOKIE_VALUE_TOUCH)))) {
             // force draw 'edit' bar
 
             out.write("<div class=\"section\">");
