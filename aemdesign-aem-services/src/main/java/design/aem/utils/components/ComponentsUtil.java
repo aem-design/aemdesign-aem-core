@@ -1712,7 +1712,7 @@ public class ComponentsUtil {
                     //get component with admin resource resolver
                     String componentPath = component.getPath();
                     Resource componentAdminResource = adminResourceResolver.resolve(componentPath);
-                    if (componentAdminResource != null && !ResourceUtil.isNonExistingResource(componentAdminResource)) {
+                    if (!ResourceUtil.isNonExistingResource(componentAdminResource)) {
                         superComponent = componentAdminResource.adaptTo(Component.class);
 
                         if (superComponent != null) {
