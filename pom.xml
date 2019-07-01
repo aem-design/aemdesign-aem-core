@@ -76,7 +76,7 @@
     <distributionManagement>
         <site>
             <id>api.wiki</id>
-            <url>https://github.com/aem-design/aemdesign-aem-core/wiki</url>
+            <url>https://gitlab.com/aem.design/aemdesign-aem-core/wikis/home</url>
         </site>
         <snapshotRepository>
             <id>ossrh</id>
