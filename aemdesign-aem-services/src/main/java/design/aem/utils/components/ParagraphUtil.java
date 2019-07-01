@@ -199,12 +199,13 @@ public class ParagraphUtil {
             lookAheadIndex = i;
             Paragraph lpar = getListPar(parSys, i);
 
-            //check if the component is a column, if it is stop
-            Resource rpar = lpar.getResource();
-            if (rpar.getResourceType().endsWith("/colctrl")) {
-                break;
+            if (lpar != null) {
+                //check if the component is a column, if it is stop
+                Resource rpar = lpar.getResource();
+                if (rpar.getResourceType().endsWith("/colctrl")) {
+                    break;
+                }
             }
-
         }
 
         //found end, lets get item before this one
