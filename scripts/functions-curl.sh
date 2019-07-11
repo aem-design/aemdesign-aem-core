@@ -22,7 +22,6 @@ function doDelete() {
     local PATH=${3?Need path}
 
     local RESULT=$($CURL -L -u "$LOGIN" --header Referer:${ADDRESS} -H User-Agent:curl -X DELETE --connect-timeout 1 --max-time 1 -w "%{http_code}" -o /dev/null --silent -N "${ADDRESS}${PATH}" | $GREP -q "204" && echo true || echo false)
-    echo " -> URL:    $CURL -L -u "$LOGIN" --header Referer:${ADDRESS} -H User-Agent:curl -X DELETE --connect-timeout 1 --max-time 1 --silent -N "${ADDRESS}${PATH}""
     echo " -> URL:    ${ADDRESS}${PATH}"
     echo "    RESULT: ${RESULT}"
 }
