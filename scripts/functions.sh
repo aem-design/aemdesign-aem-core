@@ -21,6 +21,7 @@ source "$SCRIPTS_PARENT/functions-maven.sh"
 source "$SCRIPTS_PARENT/functions-curl.sh"
 source "$SCRIPTS_PARENT/functions-aem.sh"
 source "$SCRIPTS_PARENT/functions-git.sh"
+source "$SCRIPTS_PARENT/functions-docker.sh"
 
 
 
