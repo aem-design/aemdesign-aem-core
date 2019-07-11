@@ -1,11 +1,45 @@
 #!/bin/bash
 
+POM_FILE="../pom.xml"
 PARENT_PROJECT_PATH="$(realpath ..)"
 SCRIPT_PARAMS="$@"
 
 source "../scripts/functions.sh"
 
+set_term_title "Get Project Version"
+
+PROJECT_VERSION=$(getParamOrDefault "$SCRIPT_PARAMS" "version")
+PROJECT_ARTIFACTID=$(getParamOrDefault "$SCRIPT_PARAMS" "artifactId")
+GIT_VERSION=$(getCurrentProjectVersion)
+
+
+echo "Current Project Version: $PROJECT_VERSION"
+echo "Current Git Version: $GIT_VERSION"
+
+#PROJECT_JAR="/apps/aemdesign/install/${PROJECT_ARTIFACTID}-${GIT_VERSION}.jar"
+
+#echo "Delete Current Jar: ${PROJECT_JAR}"
+
+#doDeletePath "${PROJECT_JAR}"
+
 set_term_title "Services Deploy"
+
+
+
 echo "- Deploy"
 mvn -Dvault.useProxy=false -DskipTests clean deploy -P autoInstallBundle -Dmaven.deploy.skip=true -DskipNexusStagingDeployMojo=true "$@"
 echo "- Deployed"
+
+echo "Restarting AEM"
+#doPostFields "/system/console/vmstat" "-F shutdown_type=Restart"
+
+set_term_title "Wait for AEM Ready"
+
+echo "Waiting for AEM to be ready"
+doWaitForStartup
+doWaitForPackageManagerStartup
+doWaitForBundlesToInstall
+
+echo "AEM is ready!"
+
+set_term_title "Deploy Done"
