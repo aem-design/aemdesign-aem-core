@@ -9,19 +9,18 @@ source "../scripts/functions.sh"
 set_term_title "Get Project Version"
 
 PROJECT_VERSION=$(getParamOrDefault "$SCRIPT_PARAMS" "version")
-PROJECT_ARTIFACTID=$(getParamOrDefault "$SCRIPT_PARAMS" "artifactId")
+PROJECT_ARTIFACTID=$(cat "./pom.xml" | grep artifactId | head -n 2 | tail -n 1 | sed -e 's/.*>\(.*\)<.*/\1/')
 GIT_VERSION=$(getCurrentProjectVersion)
 
 
 echo "Current Project Version: $PROJECT_VERSION"
 echo "Current Git Version: $GIT_VERSION"
+echo "Project Artifact Id Version: $PROJECT_ARTIFACTID"
 
-#PROJECT_JAR="/apps/aemdesign/install/${PROJECT_ARTIFACTID}-${GIT_VERSION}.jar"
+PROJECT_JAR="/apps/aemdesign/install/${PROJECT_ARTIFACTID}-${GIT_VERSION}.jar"
 
-#echo "Delete Current Jar: ${PROJECT_JAR}"
-
-#doDeletePath "${PROJECT_JAR}"
-
+echo "Delete Current Jar: ${PROJECT_JAR}"
+doDeletePath "${PROJECT_JAR}"
 set_term_title "Services Deploy"
 
 
@@ -31,6 +30,8 @@ mvn -Dvault.useProxy=false -DskipTests clean deploy -P autoInstallBundle -Dmaven
 echo "- Deployed"
 
 echo "Restarting AEM"
+
+doRestartContainerUsingPort "$AEM_PORT"
 #doPostFields "/system/console/vmstat" "-F shutdown_type=Restart"
 
 set_term_title "Wait for AEM Ready"
