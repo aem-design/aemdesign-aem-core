@@ -7,7 +7,7 @@ POM_FILE="${POM_FILE:-./$DEFAULT_POM_FILE}"
 function getDefaultFromPom() {
     local PARAM_NAME=${1:-}
     local POM_FILE=${2:-$DEFAULT_POM_FILE}
-    echo $(cat $POM_FILE | grep "<${PARAM_NAME}>" | sed -e 's/.*>\(.*\)<.*/\1/')
+    echo $(cat $POM_FILE | grep "<${PARAM_NAME}>" | head -n 1 | sed -e 's/.*>\(.*\)<.*/\1/')
 
 }
 
