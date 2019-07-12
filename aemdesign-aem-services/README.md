@@ -83,6 +83,9 @@ Additionally number of common field maps exist to provide collection of content 
 
 ### Field description and usage
 
+All fields that are specified in Component Fields Helper block will be collected into a Key Value Map with Field Name being the Key in the map.
+This then used by your templates for presentation.
+This approach saves on needless creation of attributes and provides a simple mechanism to avoid duplicate logic repeated across all components.  
 
 | Name                	| Description                                                                   |
 |---------------------	|-------------------------------------------------------------------------------|
@@ -92,4 +95,18 @@ Additionally number of common field maps exist to provide collection of content 
 |                       | - expressions statement will be re-evaluated after all fields have been collected |
 |                       | - individual array items will also be evaluated after all fields have been collected 	|
 | Data Attribute Name 	| - attribute to be used when outputting value of field into component HTML attributes typically ```data-<data attribute name>```  |
+|                      	| - multiple fields can be added to same attribute, example using multiple field ```class``` will result with all values combined into that data attribute |
 | Handling Type       	| - special handling for field when interpreting field values current example is ```Tag.class.getCanonicalName()``` which forces resolution of tags to their value attribute  |
+
+
+### Field Usage Examples
+
+Following are examples of Component Field Helper map. 
+
+| Example                                                                                                               	| Description                                                                                                                                                    	|
+|-----------------------------------------------------------------------------------------------------------------------	|----------------------------------------------------------------------------------------------------------------------------------------------------------------	|
+| ```{FIELD_VARIANT, DEFAULT_VARIANT},```                                                                               	| this will read your field and use default value if field does not exist                                                                                        	|
+| ```{FIELD_STYLE_COMPONENT_MODIFIERS, new String[]{}, "class", Tag.class.getCanonicalName()},```                       	| this will read your field, resolve all tags to values and store it into specified data attribute                                                               	|
+| ```{FIELD_STYLE_COMPONENT_BOOLEANATTR, new String[]{}, FIELD_VALUES_ARE_ATTRIBUTES,,Tag.class.getCanonicalName()},``` 	| this will collect your fields as an array and will add it as boolean attribute to component, if values are Key-Value it will be added as key="value" attribute 	|
+| ```{FIELD_STYLE_COMPONENT_POSITIONX, "", "x"},```                                                                     	| this will read value from node and add store it into attribute x, if value is not empty                                                                        	|
+| ```{FIELD_STYLE_COMPONENT_WIDTH, "${value ? 'width:' + value + 'px;' : ''}", "style"},```                            	| this will field and evaluate an expression and store it into an attribute if value is not empty                                                                	|
