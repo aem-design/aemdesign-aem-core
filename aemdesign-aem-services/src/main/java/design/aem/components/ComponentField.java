@@ -10,6 +10,8 @@ public class ComponentField {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ComponentField.class);
 
+    public static String FIELD_VALUES_ARE_ATTRIBUTES = " ";
+
     private String fieldName;
     private Object defaultValue;
     private String dataAttributeName;
