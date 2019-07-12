@@ -66,6 +66,11 @@
                                             multiple="{Boolean}true"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}"
                                             name="./cq:tags"/>
+                                    <categoryHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./category@TypeHint"
+                                            value="String[]"/>
 
                                     <subCategory
                                             jcr:primaryType="nt:unstructured"
@@ -75,6 +80,12 @@
                                             multiple="{Boolean}true"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}"
                                             name="./subCategory"/>
+                                    <subCategoryHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./subCategory@TypeHint"
+                                            value="String[]"/>
+
 
                                     <mixinTypes
                                             jcr:primaryType="nt:unstructured"
