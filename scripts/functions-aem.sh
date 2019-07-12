@@ -104,3 +104,20 @@ function doWaitForBundlesToInstall {
     printSectionLine "Bundles are installed"
 
 }
+
+
+function doGetCheck() {
+    local LOGIN=${1?Need login}
+    local ADDRESS=${2?Need address}
+    local PATH=${3?Need path}
+
+    local RESULT=$($CURL -L -u "$LOGIN" --header Referer:${ADDRESS} -H User-Agent:curl -X GET --connect-timeout 1 --max-time 1 -w "%{http_code}" -o /dev/null --silent -N "${ADDRESS}${PATH}" | $GREP -q "200" && echo true || echo false)
+    echo ${RESULT}
+}
+
+function doCheckPathExist() {
+    local PATH=${1?Need path}
+
+    doGetCheck "${AEM_USER}:${AEM_PASS}" "${AEM_SCHEMA}://${AEM_HOST}:${AEM_PORT}" "${PATH}"
+
+}
