@@ -51,7 +51,7 @@ public class ConstantsUtil {
      * Default component placeholder to be used in places of empty text components
      */
 
-    public static final String DEFAULT_IMAGE_BLANK = "http://localhost:4502/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png";
+    public static final String DEFAULT_IMAGE_BLANK = "/etc.clientlibs/settings/wcm/designs/aemdesign/clientlibs-theme/resources/blank.png";
 
     public static final int DEFAULT_THUMB_WIDTH_XSM = 140;
     public static final int DEFAULT_THUMB_WIDTH_SM = 319;
