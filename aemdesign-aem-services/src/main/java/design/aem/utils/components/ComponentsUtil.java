@@ -54,6 +54,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import static design.aem.components.ComponentField.FIELD_VALUES_ARE_ATTRIBUTES;
+import static design.aem.utils.components.CommonUtil.isNull;
 import static design.aem.utils.components.CommonUtil.resourceRenderAsHtml;
 import static design.aem.utils.components.ConstantsUtil.*;
 import static java.text.MessageFormat.format;
@@ -1121,6 +1122,10 @@ public class ComponentsUtil {
 
                             //read second field - get default value or default expression
                             Object fieldDefaultValue = field[1];
+                            //set default value to empty string if default value is null
+                            if (isNull(fieldDefaultValue)) {
+                                fieldDefaultValue = "";
+                            }
 
                             //read third field - get data attribute name
                             String fieldDataName= "";
