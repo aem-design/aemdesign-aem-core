@@ -4,5 +4,6 @@
     allowProxy="{Boolean}true"
     jsProcessor="[default:none]"
     cssProcessor="[default:none]"
-    categories="[aemdesign.common.head]"/>
+    categories="[aemdesign.common.head]"
+    embed="[aemdesign.core.vendorlib.tether,aemdesign.core.vendorlib.jquery,aemdesign.core.vendorlib.knockout,aemdesign.core.vendorlib.underscore,aemdesign.core.vendorlib.stacktrace,aemdesign.core.vendorlib.cookie,aemdesign.core.vendorlib.isotope,aemdesign.core.vendorlib.scrollclass,aemdesign.core.vendorlib.jqueryui,aemdesign.core.vendorlib.jsonpath,aemdesign.core.vendorlib.masonry,aemdesign.core.vendorlib.picturefill,aemdesign.core.vendorlib.typeahead,aemdesign.core.vendorlib.xml2json,aemdesign.core.vendorlib.xml2json]"/>
 
