@@ -4,6 +4,5 @@
     allowProxy="{Boolean}true"
     jsProcessor="[default:none]"
     cssProcessor="[default:none]"
-    categories="[aemdesign.core.header]"
-    embed="[aemdesign.prototype.header]"/>
+    categories="[aemdesign.core.header]"/>
 
