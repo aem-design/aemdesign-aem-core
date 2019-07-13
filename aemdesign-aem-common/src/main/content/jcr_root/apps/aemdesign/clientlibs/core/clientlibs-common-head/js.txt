@@ -6,8 +6,7 @@
 #../vendorlib/bootstrap/js/bootstrap.js
 ../vendorlib/knockout/knockout.js
 ../vendorlib/underscore/underscore.js
-../vendorlib/stacktrace/js/stacktrace-gps.js
-../vendorlib/stacktrace/js/stacktrace.js
+../vendorlib/stacktrace/stacktrace.js
 
 ../vendorlib/jquery/cookie/js.cookie.js
 ../vendorlib/jquery/isotope/isotope.js
