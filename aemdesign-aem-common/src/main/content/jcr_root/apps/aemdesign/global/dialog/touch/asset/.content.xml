@@ -49,7 +49,7 @@
                                             allowUpload="{Boolean}false"
                                             cropParameter="./imageCrop"
                                             mapParameter="./imageMap"
-                                            requestSuffix=".img.png"
+                                            requestSuffix=".img.jpeg"
                                             rotateParameter="./imageRotate"
                                             useHTML5="{Boolean}true"/>
 
@@ -141,7 +141,7 @@
                                             allowUpload="{Boolean}false"
                                             cropParameter="./imageCrop"
                                             mapParameter="./imageMap"
-                                            requestSuffix=".img.png"
+                                            requestSuffix=".img.jpeg"
                                             rotateParameter="./imageRotate"
                                             useHTML5="{Boolean}true"/>
                                 </items>
@@ -217,7 +217,7 @@
                                             allowUpload="{Boolean}false"
                                             cropParameter="./thumbnail/imageCrop"
                                             mapParameter="./thumbnail/imageMap"
-                                            requestSuffix=".img.png"
+                                            requestSuffix=".img.jpeg"
                                             rotateParameter="./thumbnail/imageRotate"
                                             useHTML5="{Boolean}true"/>
 
@@ -365,7 +365,7 @@
                                             allowUpload="{Boolean}false"
                                             cropParameter="./bgimage/imageCrop"
                                             mapParameter="./bgimage/imageMap"
-                                            requestSuffix=".img.png"
+                                            requestSuffix=".img.jpeg"
                                             rotateParameter="./bgimage/imageRotate"
                                             useHTML5="{Boolean}true"/>
 
@@ -730,7 +730,7 @@
                                             allowUpload="{Boolean}false"
                                             cropParameter="./bgvideo/imageCrop"
                                             mapParameter="./bgvideo/imageMap"
-                                            requestSuffix=".img.png"
+                                            requestSuffix=".img.jpeg"
                                             rotateParameter="./bgvideo/imageRotate"
                                             useHTML5="{Boolean}true"/>
 
@@ -779,7 +779,7 @@
                                             allowUpload="{Boolean}false"
                                             cropParameter="./badgeThumbnail/imageCrop"
                                             mapParameter="./badgeThumbnail/imageMap"
-                                            requestSuffix=".img.png"
+                                            requestSuffix=".img.jpeg"
                                             rotateParameter="./badgeThumbnail/imageRotate"
                                             useHTML5="{Boolean}true"/>
 
@@ -827,7 +827,7 @@
                                             allowUpload="{Boolean}false"
                                             cropParameter="./secondaryImage/imageCrop"
                                             mapParameter="./secondaryImage/imageMap"
-                                            requestSuffix=".img.png"
+                                            requestSuffix=".img.jpeg"
                                             rotateParameter="./secondaryImage/imageRotate"
                                             useHTML5="{Boolean}true"/>
 
