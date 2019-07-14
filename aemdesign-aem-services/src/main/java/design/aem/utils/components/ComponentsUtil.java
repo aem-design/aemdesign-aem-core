@@ -155,7 +155,7 @@ public class ComponentsUtil {
     public static final String DEFAULT_ASSET_RENDITION_PREFIX1 = "cq5dam.thumbnail.";
     public static final String DEFAULT_ASSET_RENDITION_PREFIX2 = "cq5dam.web.";
 
-    public static final String DEFAULT_IMAGE_GENERATED_FORMAT = "{0}.img.png/{1}.png";
+    public static final String DEFAULT_IMAGE_GENERATED_FORMAT = "{0}.img.jpeg/{1}.jpeg";
 
     public static final String DEFAULT_IMAGE_RESOURCETYPE = "aemdesign/components/media/image";
     public static final String DEFAULT_IMAGE_RESOURCETYPE_SUFFIX = "/components/media/image";

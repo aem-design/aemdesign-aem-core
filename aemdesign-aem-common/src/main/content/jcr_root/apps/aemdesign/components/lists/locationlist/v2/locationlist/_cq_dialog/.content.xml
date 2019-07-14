@@ -111,7 +111,7 @@
                                             allowUpload="{Boolean}false"
                                             cropParameter="./map/imageCrop"
                                             mapParameter="./map/imageMap"
-                                            requestSuffix=".img.png"
+                                            requestSuffix=".img.jpeg"
                                             rotateParameter="./map/imageRotate"
                                             useHTML5="{Boolean}true"/>
 
