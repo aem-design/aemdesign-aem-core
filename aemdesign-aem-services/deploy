@@ -26,9 +26,9 @@ echo "Check if Jar exists: $JAR_EXIST"
 
 SKIP_RESTART="false"
 
-if [[ "false" == "$JAR_EXIST" ]]; then
-    SKIP_RESTART="true"
-fi
+#if [[ "false" == "$JAR_EXIST" ]]; then
+#    SKIP_RESTART="true"
+#fi
 
 echo "Skip restart: $SKIP_RESTART"
 
@@ -44,7 +44,8 @@ mvn -Dvault.useProxy=false -DskipTests clean deploy -P autoInstallBundle -Dmaven
 echo "- Deployed"
 
 if [[ "false" == "$SKIP_RESTART" ]]; then
-    echo "Restarting AEM"
+    AEM_CONTAINER_NAME=$(getContainerNameByPort "$AEM_PORT")
+    echo "Restarting AEM Docker Container: ${AEM_CONTAINER_NAME}"
     doRestartContainerUsingPort "$AEM_PORT"
     #doPostFields "/system/console/vmstat" "-F shutdown_type=Restart"
 fi
