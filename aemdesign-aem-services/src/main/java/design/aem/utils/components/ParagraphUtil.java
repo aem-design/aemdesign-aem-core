@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.jcr.RepositoryException;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -199,12 +200,13 @@ public class ParagraphUtil {
             lookAheadIndex = i;
             Paragraph lpar = getListPar(parSys, i);
 
-            //check if the component is a column, if it is stop
-            Resource rpar = lpar.getResource();
-            if (rpar.getResourceType().endsWith("/colctrl")) {
-                break;
+            if (lpar != null) {
+                //check if the component is a column, if it is stop
+                Resource rpar = lpar.getResource();
+                if (rpar.getResourceType().endsWith("/colctrl")) {
+                    break;
+                }
             }
-
         }
 
         //found end, lets get item before this one
@@ -292,7 +294,7 @@ public class ParagraphUtil {
         WCMMode currentMode = WCMMode.fromRequest(slingRequest);
 
         //SHOW EDIT BAR IN EDIT MODE AND IN TOUCH-PREVIEW MODE
-        if (editContext != null && (currentMode.equals(WCMMode.EDIT) || (currentMode.equals(WCMMode.PREVIEW) && UIMode(slingRequest).toUpperCase().equals(WCM_AUTHORING_MODE_COOKIE_VALUE_TOUCH)))) {
+        if (editContext != null && (currentMode.equals(WCMMode.EDIT) || (currentMode.equals(WCMMode.PREVIEW) && uiMode(slingRequest).equalsIgnoreCase(WCM_AUTHORING_MODE_COOKIE_VALUE_TOUCH)))) {
             // force draw 'edit' bar
             out.write("<div class=\"section\">");
 
@@ -334,7 +336,7 @@ public class ParagraphUtil {
         WCMMode currentMode = WCMMode.fromRequest(slingRequest);
 
         //SHOW EDIT BAR IN EDIT MODE AND IN TOUCH-PREVIEW MODE
-        if (editContext != null && (currentMode.equals(WCMMode.EDIT) || (currentMode.equals(WCMMode.PREVIEW) && UIMode(slingRequest).toUpperCase().equals(WCM_AUTHORING_MODE_COOKIE_VALUE_TOUCH)))) {
+        if (editContext != null && (currentMode.equals(WCMMode.EDIT) || (currentMode.equals(WCMMode.PREVIEW) && uiMode(slingRequest).equalsIgnoreCase(WCM_AUTHORING_MODE_COOKIE_VALUE_TOUCH)))) {
             // force draw 'edit' bar
 
             out.write("<div class=\"section\">");
@@ -479,9 +481,10 @@ public class ParagraphUtil {
      * @param slingRequest
      * @return
      */
-    public static String UIMode(SlingHttpServletRequest slingRequest) {
-        if (slingRequest.getCookie(WCM_AUTHORING_MODE_COOKIE) != null) {
-            return slingRequest.getCookie(WCM_AUTHORING_MODE_COOKIE).getValue();
+    public static String uiMode(SlingHttpServletRequest slingRequest) {
+        Cookie cookie = slingRequest.getCookie(WCM_AUTHORING_MODE_COOKIE);
+        if (cookie != null) {
+            return cookie.getValue();
         }
         return "";
 

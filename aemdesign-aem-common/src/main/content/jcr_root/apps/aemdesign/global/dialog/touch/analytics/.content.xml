@@ -113,6 +113,12 @@
                                             multiple="{Boolean}true"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/event-category"
                                             name="./analyticsEventCategory"/>
+                                    <analyticsEventCategoryHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./analyticsEventCategory@TypeHint"
+                                            value="String[]"/>
+
                                     <analyticsEventAction
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/common/form/tagfield"

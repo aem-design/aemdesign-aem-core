@@ -57,6 +57,7 @@ public class ContactDetails extends GenericDetails {
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
                 {"title", getResourcePage().getProperties().get(JcrConstants.JCR_TITLE, getResourcePage().getName())},
+                {FIELD_FORMAT_TITLE,""},
                 {"honorificPrefix", ""}, //tag path
                 {"givenName",""},
                 {"familyName",""},
@@ -64,6 +65,7 @@ public class ContactDetails extends GenericDetails {
                 {"jobTitle",""},
                 {"employee",""},
                 {"email",""},
+                {"contactNumber",""},
                 {"descriptionFormat", ""}, //tag path, will be resolved to value in processComponentFields
                 {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
                 {TagConstants.PN_TAGS, new String[]{},"data-tags", Tag.class.getCanonicalName()},

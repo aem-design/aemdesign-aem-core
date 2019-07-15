@@ -1,8 +1,8 @@
 #!/bin/bash
 
-function set_term_title() {
-   echo -en "\033]0;$1\a"
-}
+POM_FILE="../pom.xml"
+PARENT_PROJECT_PATH="$(realpath ..)"
+SCRIPT_PARAMS="$@"
 
 source "../scripts/functions.sh"
 

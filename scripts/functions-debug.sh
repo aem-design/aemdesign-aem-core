@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #DEBUG
+FOLD=$(/usr/bin/which fold)
 
 function debugOn {
 #    export FLAG_DEBUG=true
@@ -100,4 +101,44 @@ function debugStatus {
 
 function set_term_title() {
    echo -en "\033]0;$1\a"
+}
+
+
+
+#printSectionLine(text)
+function printSectionLine {
+    DEFAULT_PREFIX=" - "
+    LINE_TEXT="${1:-}"
+
+    LINE_PREFIX=""
+
+    if [ $# -ne 2 ]; then
+        LINE_PREFIX="$DEFAULT_PREFIX"
+    else
+        LINE_PREFIX="$2"
+    fi
+
+    LINE_TEXT="$LINE_PREFIX$LINE_TEXT"
+    printf "%s\n" "$LINE_TEXT" | $FOLD -sw 98
+}
+
+#printSectionInLine(text)
+function printSectionInLine {
+    DEFAULT_PREFIX="  > "
+    LINE_TEXT="${1:-}"
+
+    LINE_PREFIX=""
+
+    if [ $# -ne 2 ]; then
+        LINE_PREFIX="$DEFAULT_PREFIX"
+    else
+        LINE_PREFIX="$2"
+    fi
+
+    echo -n "$LINE_PREFIX$LINE_TEXT"
+}
+
+#printSectionInLineReset
+function printSectionInLineReset {
+    printSectionLine "" ""
 }

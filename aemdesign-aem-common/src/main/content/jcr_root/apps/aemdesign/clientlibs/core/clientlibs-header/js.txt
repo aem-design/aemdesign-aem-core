@@ -1,3 +1,4 @@
+#use embed
 
-../vendorlib/bootstrap/js/bootstrap.js
-#../vendorlib/bootstrap/js/bootstrap.bundle.js
+#../vendorlib/bootstrap/js/bootstrap.js
+##../vendorlib/bootstrap/js/bootstrap.bundle.js

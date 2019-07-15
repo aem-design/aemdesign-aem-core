@@ -78,7 +78,6 @@
     org.apache.sling.api.scripting.SlingScriptHelper _sling = (org.apache.sling.api.scripting.SlingScriptHelper) pageContext.getAttribute("sling");
     org.apache.sling.api.SlingHttpServletRequest _slingRequest = (org.apache.sling.api.SlingHttpServletRequest) pageContext.getAttribute("slingRequest");
     org.apache.sling.api.SlingHttpServletResponse _slingResponse = (org.apache.sling.api.SlingHttpServletResponse) pageContext.getAttribute("slingResponse");
-    org.apache.sling.xss.XSSAPI _xssAPI = _sling.getService(XSSAPI.class).getRequestSpecificAPI(_slingRequest);
     com.day.cq.tagging.TagManager _tagManager = _resourceResolver.adaptTo(com.day.cq.tagging.TagManager.class);
     com.day.cq.commons.Externalizer _externalizer = _sling.getService(com.day.cq.commons.Externalizer.class);
     com.day.cq.i18n.I18n _i18n = new I18n(_slingRequest);

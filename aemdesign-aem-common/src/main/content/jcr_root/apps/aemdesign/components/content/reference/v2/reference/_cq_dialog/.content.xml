@@ -67,10 +67,6 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Render"
                                                     value=""/>
-                                            <include
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Include"
-                                                    value="include"/>
                                         </items>
                                     </variant>
                                 </items>

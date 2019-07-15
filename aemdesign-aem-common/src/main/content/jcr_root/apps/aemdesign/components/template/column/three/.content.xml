@@ -4,5 +4,5 @@
     jcr:title="AEM.Design Three Column Page"
     jcr:description="Three Column template"
     cq:icon="viewColumn"
-    sling:resourceSuperType="aemdesign/components/template/column/three/v2"
+    sling:resourceSuperType="aemdesign/components/template/column/three/v2/three"
     componentGroup=".hidden"/>

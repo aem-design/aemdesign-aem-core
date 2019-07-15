@@ -73,38 +73,6 @@
         </profile>
 
         <profile>
-            <id>cqblueprints</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>cqblueprints.releases</id>
-                    <name>CQ Blueprints Release Repository</name>
-                    <url>http://dev.cqblueprints.com/nexus/content/repositories/releases/</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>cqblueprints.plugins.releases</id>
-                    <name>CQ Blueprints Plugin Release Repository</name>
-                    <url>http://dev.cqblueprints.com/nexus/content/repositories/releases/</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
-        <profile>
             <id>privateregistry</id>
             <activation>
                 <activeByDefault>false</activeByDefault>

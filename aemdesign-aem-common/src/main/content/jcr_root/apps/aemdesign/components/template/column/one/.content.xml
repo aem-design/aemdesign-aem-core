@@ -3,5 +3,5 @@
     jcr:primaryType="cq:Component"
     jcr:title="AEM.Design One Column Page"
     jcr:description="One Column template"
-    sling:resourceSuperType="aemdesign/components/template/column/one/v2"
+    sling:resourceSuperType="aemdesign/components/template/column/one/v2/one"
     componentGroup=".hidden"/>

@@ -72,6 +72,11 @@
                                                     multiple="{Boolean}true"
                                                     rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
                                                     name="./titleIcon"/>
+                                            <titleIconHint
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                    name="./titleIcon@TypeHint"
+                                                    value="String[]"/>
 
 
                                             <badgeTitleType
@@ -124,6 +129,12 @@
                                                     multiple="{Boolean}true"
                                                     rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
                                                     name="./cardIcon"/>
+                                            <cardIconHint
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                    name="./cardIcon@TypeHint"
+                                                    value="String[]"/>
+
                                             <cardStyle
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="aemdesign/components/coral/common/form/tagfield"
@@ -132,20 +143,11 @@
                                                     multiple="{Boolean}true"
                                                     rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
                                                     name="./cardStyle"/>
-                                            <cardSize
+                                            <cardStyleHint
                                                     jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/form/select"
-                                                    fieldDescription="this will be used as card size in grids"
-                                                    fieldLabel="Card Size"
-                                                    name="./cardSize"
-                                                    emptyOption="{Boolean}true"
-                                                    value="">
-                                                <datasource
-                                                        jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                        variant="valuelist"
-                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/common/card/size"/>
-                                            </cardSize>
+                                                    sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                    name="./cardStyle@TypeHint"
+                                                    value="String[]"/>
                                         </items>
                                     </cardConfigGroup>
 
@@ -259,6 +261,27 @@
                                                     multiple="{Boolean}true"
                                                     rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
                                                     name="./badgeLinkStyle"/>
+                                            <badgeLinkStyleHint
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                    name="./badgeLinkStyle@TypeHint"
+                                                    value="String[]"/>
+
+                                            <badgeLinkFormat
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                                    fieldDescription="Format for Action Link"
+                                                    fieldLabel="Action Format"
+                                                    name="./badgeLinkFormatted"
+                                                    emptyOption="{Boolean}true"
+                                                    value="">
+                                                <datasource
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                        variant="tagidvalue"
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/contact-details/format/action"/>
+                                            </badgeLinkFormat>
+
                                         </items>
                                     </linkConfigGroup>
 
@@ -321,6 +344,12 @@
                                                     multiple="{Boolean}true"
                                                     rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
                                                     name="./badgeOverlayIcon"/>
+                                            <badgeOverlayIconHint
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                    name="./badgeOverlayIcon@TypeHint"
+                                                    value="String[]"/>
+
                                         </items>
                                     </thumbnailConfig>
 
@@ -372,6 +401,12 @@
                                                     multiple="{Boolean}true"
                                                     rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
                                                     name="./menuIcon"/>
+                                            <menuIconHint
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                    name="./menuIcon@TypeHint"
+                                                    value="String[]"/>
+
                                             <menuAccesskey
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -414,6 +449,12 @@
                                                     multiple="{Boolean}true"
                                                     rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
                                                     name="./tabIcon"/>
+                                            <tabIconHint
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                    name="./tabIcon@TypeHint"
+                                                    value="String[]"/>
+
                                         </items>
                                     </tabConfigGroup>
 

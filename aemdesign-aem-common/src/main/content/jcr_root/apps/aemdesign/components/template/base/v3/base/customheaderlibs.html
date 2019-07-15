@@ -58,11 +58,15 @@
      data-sly-call="${clientlib.css @ categories='aemdesign.header'}"/>
 <!-- all: aemdesign.header.css end -->
 
-<!-- all: aemdesign.header.v1.all start -->
+<!-- all: aemdesign.core.header.all start -->
 <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-     data-sly-call="${clientlib.all @ categories='aemdesign.header.v1'}"/>
-<!-- all: aemdesign.header.v1.all end -->
+     data-sly-call="${clientlib.all @ categories='aemdesign.core.header'}"/>
+<!-- all: aemdesign.ore.header.all end -->
 
 <!-- aemdesign/components/analytics/datalayer start -->
 <sly data-sly-resource="${ @ resourceType='aemdesign/components/analytics/datalayer'}"/>
 <!-- aemdesign/components/analytics/datalayer end -->
+
+<!--/* Include Context Hub */-->
+<sly data-sly-resource="${'contexthub' @ resourceType='granite/contexthub/components/contexthub'}"/>
+<sly data-sly-test="${!wcmmode.disabled}" data-sly-call="${clientlib.all @ categories='cq.widgets'}"></sly>

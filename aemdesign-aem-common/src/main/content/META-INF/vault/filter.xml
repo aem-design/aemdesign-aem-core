@@ -17,7 +17,7 @@
     <filter root="/apps/aemdesign/i18n"/>
     <filter root="/apps/aemdesign/install"/>
     <filter root="/apps/aemdesign/templates"/>
-    <filter root="/apps/aemdesign/clientlibs" mode="update"/>
+    <filter root="/apps/aemdesign/clientlibs"/>
 
     <filter root="/apps/settings/wcm/designs/aemdesign" mode="update"/>
 

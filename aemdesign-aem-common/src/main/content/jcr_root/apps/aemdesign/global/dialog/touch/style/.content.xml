@@ -46,6 +46,11 @@
                                             multiple="{Boolean}true"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme"
                                             name="./componentTheme"/>
+                                    <componentThemeHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./componentTheme@TypeHint"
+                                            value="String[]"/>
                                     <componentModifiers
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/common/form/tagfield"
@@ -54,6 +59,11 @@
                                             multiple="{Boolean}true"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
                                             name="./componentModifiers"/>
+                                    <componentModifiersHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./componentModifiers@TypeHint"
+                                            value="String[]"/>
                                     <componentModules
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/common/form/tagfield"
@@ -62,6 +72,11 @@
                                             multiple="{Boolean}true"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-module"
                                             name="./componentModules"/>
+                                    <componentModulesHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./componentModules@TypeHint"
+                                            value="String[]"/>
                                     <componentChevron
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/common/form/tagfield"
@@ -70,6 +85,11 @@
                                             multiple="{Boolean}true"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-chevron"
                                             name="./componentChevron"/>
+                                    <componentChevronHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./componentChevron@TypeHint"
+                                            value="String[]"/>
                                     <componentIcon
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/common/form/tagfield"
@@ -78,6 +98,11 @@
                                             multiple="{Boolean}true"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
                                             name="./componentIcon"/>
+                                    <componentIconHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./componentIcon@TypeHint"
+                                            value="String[]"/>
                                     <componentBooleanAttrs
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/common/form/tagfield"
@@ -86,6 +111,11 @@
                                             multiple="{Boolean}true"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
                                             name="./componentBooleanAttrs"/>
+                                    <componentBooleanAttrsHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./componentBooleanAttrs@TypeHint"
+                                            value="String[]"/>
                                 </items>
                             </style>
                         </items>

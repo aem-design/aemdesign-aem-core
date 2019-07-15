@@ -1,3 +1,0 @@
-../js/vendorlib/jquery.js
-
-../../core/clientlibs-common-forms-adaptive/js/guideBridgeUtils.js
