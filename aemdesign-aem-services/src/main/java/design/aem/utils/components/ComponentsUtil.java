@@ -152,7 +152,7 @@ public class ComponentsUtil {
     public static final String FIELD_HIDEINMENU = "hideInMenu";
 
 
-    public static final Pattern DEFAULT_RENDTION_PATTERN_OOTB = Pattern.compile("cq5dam\\.(.*)?\\.(\\d+)\\.(\\d+)\\.(.*)");
+    public static final Pattern DEFAULT_RENDTION_PATTERN_OOTB = Pattern.compile("cq5dam\\.(.*)?\\.(\\d+)\\.(\\d+)\\.(.*)"); //NOSONAR its safe
     public static final String DEFAULT_ASSET_RENDITION_PREFIX1 = "cq5dam.thumbnail.";
     public static final String DEFAULT_ASSET_RENDITION_PREFIX2 = "cq5dam.web.";
 

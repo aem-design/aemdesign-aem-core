@@ -355,6 +355,7 @@ public class CommonUtil {
      * @param content The string to perform the hash on.
      * @return The hash if successful, or the original string if not.
      */
+    @SuppressWarnings({"squid:S4790"})
     public static String hashMd5(String content) {
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
@@ -719,6 +720,7 @@ public class CommonUtil {
      * @param selectorString _slingRequest.getRequestPathInfo().getSelectorString()
      * @return badge name
      */
+    @SuppressWarnings({"squid:S4784"})
     public static String getBadgeFromSelectors(String selectorString) {
         String badge = "";
 

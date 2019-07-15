@@ -17,6 +17,7 @@ public class TenantUtil {
 
     // System config located
     // http://localhost:4502/system/console/configMgr/org.apache.sling.tenant.internal.TenantProviderImpl
+    @SuppressWarnings({"squid:S4784"})
     private final static List<Pattern> tenantPathPatterns = Arrays.asList(
             Pattern.compile("(?:cq:tags/)([^/]+)"),
             Pattern.compile("(?:experience-fragments/)([^/]+)"),
