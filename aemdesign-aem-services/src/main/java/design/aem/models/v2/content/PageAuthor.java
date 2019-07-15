@@ -28,16 +28,16 @@ public class PageAuthor extends ModelProxy {
 
     protected void ready() throws Exception {
 
-        com.adobe.granite.security.user.UserPropertiesService _userPropertiesService = getSlingScriptHelper().getService(com.adobe.granite.security.user.UserPropertiesService.class);
+        com.adobe.granite.security.user.UserPropertiesService userPropertiesService = getSlingScriptHelper().getService(com.adobe.granite.security.user.UserPropertiesService.class);
 
         String pageAuthorFullName = "";
         String pageAuthorEmail = "";
 
         Node currentNode = getResource().adaptTo(Node.class);
-        if (currentNode != null && _userPropertiesService != null) {
+        if (currentNode != null && userPropertiesService != null) {
 
             Session session = currentNode.getSession();
-            UserPropertiesManager _userPropertiesManager = _userPropertiesService.createUserPropertiesManager(session, getResourceResolver());
+            UserPropertiesManager _userPropertiesManager = userPropertiesService.createUserPropertiesManager(session, getResourceResolver());
             UserManager _userManager = getResourceResolver().adaptTo(org.apache.jackrabbit.api.security.user.UserManager.class);
 
             String pageAuthorUser = getResourcePage().getLastModifiedBy();
