@@ -1109,8 +1109,6 @@ public class ComponentsUtil {
 
                         componentProperties.put(COMPONENT_TARGET_RESOURCE, contentResource.getPath());
 
-                        //getComponentProperty(ValueMap componentProperties, Style pageStyle, String name, Object defaultValue, Boolean useStyle)
-                        //fieldValue = getComponentProperty(resourceProperties, resourceStyle, fieldName, fieldDefaultValue, true);
                     } catch (Exception ex) {
                         LOGGER.error("getComponentProperties: could not evaluate target resource", ex);
                         return componentProperties;
@@ -1689,7 +1687,6 @@ public class ComponentsUtil {
 
                 if (null != curResource) {
                     //check for inherit flag + sling resource type
-                    //Boolean cancelInheritParent = properties.get(COMPONENT_CANCEL_INHERIT_PARENT","").contentEquals("true");
 
                     curProperties = curResource.adaptTo(ValueMap.class);
                     if (curProperties != null) {
