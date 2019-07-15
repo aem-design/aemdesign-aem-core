@@ -1440,7 +1440,7 @@ public class ComponentsUtil {
 
     /***
      *
-     * @deprecated please use responsive {@link design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions(WCMUsePojo)} or ComponentProperties.attr which is an AttributeBuilder.
+     * @deprecated please use responsive {@link design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions} or ComponentProperties.attr which is an AttributeBuilder.
      * add style tag to component attributes collection
      * @param componentProperties component attributes collection
      * @param resource resource to search for image
