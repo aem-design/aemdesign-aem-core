@@ -186,7 +186,7 @@ public class Timing extends ModelProxy {
             componentProperties.put("jsonString", jsonString);
 
         } catch (Exception ex) {
-            LOGGER.error(ex);
+            LOGGER.error("ready {}",ex);
         }
 
 
