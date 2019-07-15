@@ -1,6 +1,5 @@
 package design.aem.models.v2.content;
 
-import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.TagConstants;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;

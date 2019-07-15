@@ -1,7 +1,6 @@
 package design.aem.models.v2.content;
 
 import com.adobe.granite.security.user.UserPropertiesManager;
-import com.day.cq.i18n.I18n;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;

@@ -1,6 +1,5 @@
 package design.aem.models.v2.layout;
 
-import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
