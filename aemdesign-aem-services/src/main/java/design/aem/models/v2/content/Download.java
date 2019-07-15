@@ -206,12 +206,12 @@ public class Download extends ModelProxy {
 
 
 
-    private String getDownloadTitle(ValueMap _properties, String defaultTitle) {
-        return _properties.get(FIELD_TITLE, defaultTitle);
+    private String getDownloadTitle(ValueMap properties, String defaultTitle) {
+        return properties.get(FIELD_TITLE, defaultTitle);
     }
 
-    private String getDownloadDescription(ValueMap _properties, String defaultDescription) {
-        return _properties.get(FIELD_DESCRIPTION, defaultDescription);
+    private String getDownloadDescription(ValueMap properties, String defaultDescription) {
+        return properties.get(FIELD_DESCRIPTION, defaultDescription);
     }
 
     /**
@@ -229,7 +229,7 @@ public class Download extends ModelProxy {
                 size = getFileSize(dld.getData().getLength());
             }
         } catch (Exception ex) {
-            LOGGER.error("Exception occurred: {}", ex);
+            LOGGER.error("getFormattedDownloadSize {}", ex);
         }
         return size;
     }
@@ -255,7 +255,7 @@ public class Download extends ModelProxy {
                 }
             }
         } catch (Exception ex) {
-            LOGGER.error("Exception occurred: {}", ex);
+            LOGGER.error("getDownloadMimeType: {}", ex);
         }
         return mimeTypeReturn;
     }
@@ -281,7 +281,7 @@ public class Download extends ModelProxy {
             fileSizeReturn = String.format("%.0f %S", decSize, measures[measurementIndex.intValue()]);
 
         } catch (Exception ex) {
-            LOGGER.error("Exception occurred: {}", ex);
+            LOGGER.error("getFileSize: {}", ex);
         }
         return fileSizeReturn;
 

@@ -36,14 +36,14 @@ public class PageAuthor extends ModelProxy {
         if (currentNode != null && userPropertiesService != null) {
 
             Session session = currentNode.getSession();
-            UserPropertiesManager _userPropertiesManager = userPropertiesService.createUserPropertiesManager(session, getResourceResolver());
+            UserPropertiesManager userPropertiesManager = userPropertiesService.createUserPropertiesManager(session, getResourceResolver());
             UserManager _userManager = getResourceResolver().adaptTo(org.apache.jackrabbit.api.security.user.UserManager.class);
 
             String pageAuthorUser = getResourcePage().getLastModifiedBy();
 
             if (isNotBlank(pageAuthorUser)) {
-                pageAuthorFullName = getUserFullName(_userManager, _userPropertiesManager, pageAuthorUser, "");
-                pageAuthorEmail = getUserEmail(_userManager, _userPropertiesManager, pageAuthorUser, "");
+                pageAuthorFullName = getUserFullName(_userManager, userPropertiesManager, pageAuthorUser, "");
+                pageAuthorEmail = getUserEmail(_userManager, userPropertiesManager, pageAuthorUser, "");
 
                 if (isNotBlank(pageAuthorEmail)) {
                     pageAuthorEmail = MessageFormat.format("mailto:{}",pageAuthorEmail);

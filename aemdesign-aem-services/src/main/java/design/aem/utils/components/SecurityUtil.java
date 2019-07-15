@@ -42,16 +42,16 @@ public class SecurityUtil {
         return false;
     }
 
-    public static String getUserEmail(UserManager _userManager, UserPropertiesManager _userPropertiesManager, String userId, String defaultValue) {
+    public static String getUserEmail(UserManager userManager, UserPropertiesManager userPropertiesManager, String userId, String defaultValue) {
         if (isEmpty(defaultValue)) {
             defaultValue = "";
         }
         String email = defaultValue;
         try {
 
-            Authorizable userAuth = _userManager.getAuthorizable(userId);
+            Authorizable userAuth = userManager.getAuthorizable(userId);
             if (userAuth != null) {
-                UserProperties userProps = _userPropertiesManager.getUserProperties(userAuth, "profile");
+                UserProperties userProps = userPropertiesManager.getUserProperties(userAuth, "profile");
                 if (userProps != null) {
                     email = userProps.getProperty("email");
 
@@ -73,7 +73,7 @@ public class SecurityUtil {
         return email;
     }
 
-    public static String getUserFullName(UserManager _userManager, UserPropertiesManager _userPropertiesManager, String userId, String defaultValue) {
+    public static String getUserFullName(UserManager userManager, UserPropertiesManager userPropertiesManager, String userId, String defaultValue) {
         if (isEmpty(defaultValue)) {
             defaultValue = "";
         }
@@ -82,11 +82,11 @@ public class SecurityUtil {
         String familyName = "";
         try {
 
-            Authorizable userAuth = _userManager.getAuthorizable(userId);
+            Authorizable userAuth = userManager.getAuthorizable(userId);
             if (userAuth != null) {
                 fullName = userAuth.getPrincipal().getName();
 
-                UserProperties userProps = _userPropertiesManager.getUserProperties(userAuth, "profile");
+                UserProperties userProps = userPropertiesManager.getUserProperties(userAuth, "profile");
                 if (userProps != null) {
 
                     givenName = userProps.getProperty("givenName");
