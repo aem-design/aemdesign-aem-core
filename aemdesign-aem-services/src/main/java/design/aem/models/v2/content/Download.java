@@ -43,11 +43,9 @@ public class Download extends ModelProxy {
     private static final String EMPTY_FILE = "empty file";
     private static final String ALT_TITLE = "title";
     private static final String DESCRIPTION = "description";
+    private static final String FIELD_THUMBNAIL = DEFAULT_THUMBNAIL_IMAGE_NODE_NAME;
 
-    //drop target css class = dd prefix + name of the drop target in the edit config
-    private static final String ddClassName = DropTarget.CSS_CLASS_PREFIX + "file";
-
-    @SuppressWarnings("uncheked")
+    @SuppressWarnings({"uncheked","squid:S3776"})
     protected void ready() {
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
@@ -61,7 +59,7 @@ public class Download extends ModelProxy {
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
                 {"description",""},
                 {"fileReference",""},
-                {"thumbnail", DEFAULT_IMAGE_BLANK},
+                {FIELD_THUMBNAIL, DEFAULT_IMAGE_BLANK},
         });
 
         setAnalyticsFields(new Object[][]{
@@ -139,11 +137,11 @@ public class Download extends ModelProxy {
                 String thumbnailType = componentProperties.get("thumbnailType", "");
 
                 String assetAsThumbnail = assetRes.getPath();
-                String thumbnailImagePath = getResourceImagePath(getResource(), "thumbnail");
+                String thumbnailImagePath = getResourceImagePath(getResource(), FIELD_THUMBNAIL);
                 if (isNotEmpty(thumbnailImagePath)) {
-                    componentProperties.put("thumbnail", thumbnailImagePath);
+                    componentProperties.put(FIELD_THUMBNAIL, thumbnailImagePath);
                 } else {
-                    componentProperties.put("thumbnail", assetAsThumbnail);
+                    componentProperties.put(FIELD_THUMBNAIL, assetAsThumbnail);
                 }
 
 //            componentProperties.put("_resource_path", _resource.getPath());
@@ -155,13 +153,13 @@ public class Download extends ModelProxy {
                     Rendition assetRendition = getThumbnail(asset, DEFAULT_THUMB_WIDTH_SM);
 
                     if (assetRendition == null) {
-                        componentProperties.put("thumbnail", DEFAULT_DOWNLOAD_THUMB_ICON);
+                        componentProperties.put(FIELD_THUMBNAIL, DEFAULT_DOWNLOAD_THUMB_ICON);
                     } else {
-                        componentProperties.put("thumbnail", assetRendition.getPath());
+                        componentProperties.put(FIELD_THUMBNAIL, assetRendition.getPath());
                     }
                 } else if (thumbnailType.equals("customdam")) {
 
-//                String thumbnailImagePath = getResourceImagePath(_resource, "thumbnail");
+//                String thumbnailImagePath = getResourceImagePath(_resource, FIELD_THUMBNAIL);
 
                     Resource thumbnailImage = getResourceResolver().resolve(thumbnailImagePath);
 
@@ -173,16 +171,16 @@ public class Download extends ModelProxy {
                         thumbnailImagePath = assetRendition.getPath();
                     }
 
-                    componentProperties.put("thumbnail", thumbnailImagePath);
+                    componentProperties.put(FIELD_THUMBNAIL, thumbnailImagePath);
 
                 } else if (thumbnailType.equals("custom")) {
 
-                    String thumbnailImage = getResourceImageCustomHref(getResource(), "thumbnail");
+                    String thumbnailImage = getResourceImageCustomHref(getResource(), FIELD_THUMBNAIL);
 
                     if (isEmpty(thumbnailImage)) {
-                        componentProperties.put("thumbnail", DEFAULT_DOWNLOAD_THUMB_ICON);
+                        componentProperties.put(FIELD_THUMBNAIL, DEFAULT_DOWNLOAD_THUMB_ICON);
                     } else {
-                        componentProperties.put("thumbnail", thumbnailImage);
+                        componentProperties.put(FIELD_THUMBNAIL, thumbnailImage);
                     }
 
                 } else if (thumbnailType.equals("icon") || isEmpty(thumbnailType)) {
