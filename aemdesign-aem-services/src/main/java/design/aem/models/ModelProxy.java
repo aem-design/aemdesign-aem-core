@@ -10,8 +10,8 @@ import java.lang.reflect.Field;
 public abstract class ModelProxy extends WCMUsePojo {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ModelProxy.class);
 
-    public Object[][] analyticsFields = {};
-    public Object[][] componentFields = {};
+    public Object[][] analyticsFields = {}; //NOSONAR this needs to be accessible directly
+    public Object[][] componentFields = {}; //NOSONAR this needs to be accessible directly
 
     private static final String ANALYTICS_FIELDS = "analyticsFields";
     private static final String COMPONENT_FIELDS = "componentFields";
@@ -29,11 +29,10 @@ public abstract class ModelProxy extends WCMUsePojo {
                 Field classField = this.getClass().getField(target);
 
                 for (Object[] field : fields) {
-                    classField.set(this, ArrayUtils.add((Object[][]) classField.get(this), field));
+                    classField.set(this, ArrayUtils.add((Object[][]) classField.get(this), field)); //NOSONAR adding array fields into a field in this class
                 }
             } catch (Exception ex) {
-                LOGGER.error("ModelProxy: something went wrong while parsing the field!");
-                ex.printStackTrace();
+                LOGGER.error("ModelProxy: something went wrong while parsing the field! {}", ex);
             }
         }
     }

@@ -31,6 +31,7 @@ public class DataLayer extends WCMUsePojo {
     }
 
     @Override
+    @SuppressWarnings({"squid:S2637","squid:S2259"})
     public void activate() throws Exception {
 
         componentProperties = ComponentsUtil.getNewComponentProperties(this);
