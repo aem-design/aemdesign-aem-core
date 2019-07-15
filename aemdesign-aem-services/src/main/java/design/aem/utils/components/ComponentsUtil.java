@@ -1997,6 +1997,12 @@ public class ComponentsUtil {
     }
 
     public static String removeRegexFromString(String value) {
-        return value.replaceAll("(\\$\\{.*?\\})", "");
+        try {
+            Pattern valueIsRegexPattern = Pattern.compile("(\\$\\{.*?\\})");
+            return value.replaceAll(valueIsRegexPattern.pattern(), "");
+        } catch (PatternSyntaxException ex) {
+            LOGGER.error("removeRegexFromString: could not remove patterns from string, ex={}", ex);
+        }
+        return value;
     }
 }
