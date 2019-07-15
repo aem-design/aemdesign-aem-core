@@ -4,5 +4,5 @@
     jcr:title="AEM.Design Two Column Page"
     jcr:description="Two Column template"
     cq:icon="columnTwoA"
-    sling:resourceSuperType="aemdesign/components/template/column/two/v2"
+    sling:resourceSuperType="aemdesign/components/template/column/two/v2/two"
     componentGroup=".hidden"/>
