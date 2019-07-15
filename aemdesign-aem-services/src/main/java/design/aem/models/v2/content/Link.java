@@ -34,12 +34,15 @@ public class Link extends ModelProxy {
         final String DEFAULT_I18N_CATEGORY = "link";
         final String DEFAULT_I18N_LABEL = "linklabel";
 
-        // {
-        //   1 required - property name,
-        //   2 required - default value,
-        //   3 optional - name of component attribute to add value into
-        //   4 optional - canonical name of class for handling multivalues, String or Tag
-        // }
+        /**
+         * Component Fields Helper
+         *
+         * Structure:
+         * 1 required - property name,
+         * 2 required - default value,
+         * 3 optional - name of component attribute to add value into
+         * 4 optional - canonical name of class for handling multivalues, String or Tag
+         */
         setComponentFields(new Object[][]{
                 {"linkTarget", StringUtils.EMPTY, "target"},
                 {FIELD_LINKURL, StringUtils.EMPTY},

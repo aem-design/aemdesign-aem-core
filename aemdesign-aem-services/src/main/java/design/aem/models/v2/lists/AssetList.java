@@ -86,13 +86,15 @@ public class AssetList extends ModelProxy {
 
     @SuppressWarnings("Duplicates")
     protected void ready() {
-        //COMPONENT STYLES
-        // {
-        //   1 required - property name,
-        //   2 required - default value,
-        //   3 optional - name of component attribute to add value into
-        //   4 optional - canonical name of class for handling multivalues, String or Tag
-        // }
+        /**
+         * Component Fields Helper
+         *
+         * Structure:
+         * 1 required - property name,
+         * 2 required - default value,
+         * 3 optional - name of component attribute to add value into
+         * 4 optional - canonical name of class for handling multivalues, String or Tag
+         */
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {STATIC_ITEMS, new String[0]},
@@ -153,7 +155,7 @@ public class AssetList extends ModelProxy {
      */
     @SuppressWarnings("Duplicates")
     protected void populateListItems(Source listType) {
-//        LOGGER.error("populateListItems: listType={}",listType);
+
         switch (listType) {
             case STATIC: //SOURCE_STATIC
                 populateStaticListItems();
@@ -216,7 +218,6 @@ public class AssetList extends ModelProxy {
     @SuppressWarnings("Duplicates")
     private void populateListItemsFromMap(Map<String,String> map) {
         try {
-//            LOGGER.error("populateListItemsFromMap: map={}",map);
 
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
             if (builder != null) {
@@ -235,8 +236,6 @@ public class AssetList extends ModelProxy {
                 }
 
                 map.put("orderby.sort", sortOrder.getValue());
-
-//            LOGGER.error("populateListItemsFromMap: running query with map=[{}]",map);
 
                 PredicateGroup root = PredicateGroup.create(map);
                 // avoid slow //* queries
@@ -265,8 +264,6 @@ public class AssetList extends ModelProxy {
         String[] items = componentProperties.get(STATIC_ITEMS, new String[0]);
         AssetManager assetManager = getResourceResolver().adaptTo(AssetManager.class);
 
-//        LOGGER.error("populateStaticListItems: items={},assetManager={}",items, assetManager);
-
         if (assetManager != null) {
             for (String item : items) {
 
@@ -274,21 +271,15 @@ public class AssetList extends ModelProxy {
 
                 com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(item);
 
-//                LOGGER.error("populateStaticListItems: item={},asset={},assetResource={}",item, asset, assetResource);
-
-
                 if (asset != null) {
 
                     ComponentProperties assetInfo = getAssetInfo(asset, assetResource, componentProperties, getSlingScriptHelper());
-
-//                    LOGGER.error("populateStaticListItems: assetInfo={}",assetInfo);
 
                     if (assetInfo != null) {
                         listItems.add(assetInfo);
                     }
 
                 } else {
-//                    LOGGER.error("populateStaticListItems: could not find asset {}", item);
                     continue;
                 }
 
@@ -299,31 +290,29 @@ public class AssetList extends ModelProxy {
     }
 
     private ComponentProperties getAssetInfo(com.adobe.granite.asset.api.Asset asset, Resource assetResource, ComponentProperties componentProperties, SlingScriptHelper sling) {
-//        LOGGER.error("getAssetInfo: asset={},sling={}", asset, sling);
 
         final String PROPERTY_METADATA = JcrConstants.JCR_CONTENT + "/metadata";
         final String PROPERTY_METADATA_DURATION = JcrConstants.JCR_CONTENT + "/metadata/xmpDM:duration";
         try {
             if (asset != null && sling != null) {
 
-//                LOGGER.error("getAssetInfo: isNonExistingResource={}", ResourceUtil.isNonExistingResource(assetResource));
                 if (!ResourceUtil.isNonExistingResource(assetResource)) {
                     Asset assetBasic = assetResource.adaptTo(Asset.class);
-
-//                    LOGGER.error("getAssetInfo: assetBasic={}", assetBasic);
 
                     String assetPath = assetResource.getPath();
 
                     String imageOption = componentProperties.get(FIELD_IMAGE_OPTION, FIELD_IMAGE_OPTION_DEFAULT);
                     String titleType = componentProperties.get(FIELD_TITLE_TAG_TYPE, FIELD_TITLE_TAG_TYPE_DEFAULT);
 
-                    //COMPONENT STYLES
-                    // {
-                    //   1 required - property name,
-                    //   2 required - default value,
-                    //   3 optional - name of component attribute to add value into
-                    //   4 optional - canonical name of class for handling multivalues, String or Tag
-                    // }
+                    /**
+                     * Component Fields Helper
+                     *
+                     * Structure:
+                     * 1 required - property name,
+                     * 2 required - default value,
+                     * 3 optional - name of component attribute to add value into
+                     * 4 optional - canonical name of class for handling multivalues, String or Tag
+                     */
                     Object[][] assetField = {
                             {"name", assetBasic.getName()},
                             {"id", assetBasic.getID(),FIELD_ASSETID},
@@ -392,7 +381,6 @@ public class AssetList extends ModelProxy {
                                     Double doubleDivided = Double.parseDouble(stringDivided);
 
                                     scale = doubleOne / doubleDivided;
-//                                    LOGGER.error("getAssetInfo: doubleOne={},doubleDivided={},scale={},value={}",doubleOne,doubleDivided,scale,value);
                                 }
 
                                 Double duration = scale * value;
@@ -401,7 +389,6 @@ public class AssetList extends ModelProxy {
 
                                 assetProperties.put("duration",durationObject.toString());
 
-//                                LOGGER.error("getAssetInfo: durationObject={},duration={}",durationObject,duration);
 
                             } catch (Exception ex) {
                                 LOGGER.error("getAssetInfo: could not extract duration assetMetadataDurationValueMap={}",assetMetadataDurationValueMap);
@@ -409,8 +396,6 @@ public class AssetList extends ModelProxy {
                         }
                     }
 
-
-//                    LOGGER.error("getAssetInfo: assetProperties={},assetType={}", assetProperties,assetType);
 
                     if (assetBasic != null) {
                         Resource assetMetadataResource = assetResource.getChild(PROPERTY_METADATA);
@@ -435,7 +420,6 @@ public class AssetList extends ModelProxy {
 
                     Map<String, String> responsiveImageSet = new LinkedHashMap<String, String>();
 
-//                    LOGGER.error("getAssetInfo: getRenditions={}", getRenditions);
                     if (getRenditions) {
                         try {
                             switch (imageOption) {
@@ -443,7 +427,7 @@ public class AssetList extends ModelProxy {
                                     int targetWidth = componentProperties.get(ImageResource.PN_WIDTH, 0);
                                     com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(targetWidth, asset);
                                     if (bestRendition != null) {
-                                        //imageProperties.put(COMPONENT_BACKGROUND_ASSETS, bestRendition.getPath());
+
                                         responsiveImageSet.put("", bestRendition.getPath());
                                     }
                                     break;
@@ -486,8 +470,6 @@ public class AssetList extends ModelProxy {
 
                     assetProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(assetProperties.attr.getData(), null));
 
-//                    LOGGER.error("getAssetInfo: assetProperties={}", assetProperties);
-
                     return assetProperties;
 
                 }
@@ -524,7 +506,6 @@ public class AssetList extends ModelProxy {
         resultInfo.put("resultPages",resultPages);
         resultInfo.put("totalPages",totalPages);
 
-//        LOGGER.error("collectSearchResults resultInfo={}", resultInfo);
         componentProperties.put("resultInfo",resultInfo);
 
         AssetManager assetManager = getResourceResolver().adaptTo(AssetManager.class);
