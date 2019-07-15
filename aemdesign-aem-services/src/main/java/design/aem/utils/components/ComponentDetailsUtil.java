@@ -57,7 +57,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(pageContext, pageManager, resourceResolver, paths, DEFAULT_LIST_DETAILS_SUFFIX, DEFAULT_LIST_PAGE_CONTENT);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(PageContext) could not read required objects", ex);
+            LOGGER.error("getPageListInfo(PageContext) A1 -> A2 PageContext could not read required objects {}", ex);
         }
 
         return new ArrayList<>();
@@ -88,7 +88,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(pageContext, pageManager, resourceResolver, paths, componentNames, pageRoots, null, false);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(PageContext) could not read required objects", ex);
+            LOGGER.error("getPageListInfo(PageContext) A2 -> A3 PageContext could not read required objects {}", ex);
         }
 
         return new ArrayList<>();
@@ -119,7 +119,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(getContextObjects(pageContext), pageManager, resourceResolver, paths, componentNames, pageRoots, null, false);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(PageContext) could not read required objects", ex);
+            LOGGER.error("getPageListInfo(PageContext) A3 PageContext could not read required objects {}", ex);
         }
 
         return new ArrayList<>();
@@ -170,7 +170,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(pageContext, pageManager, resourceResolver, pageList, DEFAULT_LIST_DETAILS_SUFFIX, DEFAULT_LIST_PAGE_CONTENT);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(PageContext) could not read required objects", ex);
+            LOGGER.error("getPageListInfo(PageContext) B1 -> B2 PageContext could not read required objects {}", ex);
         }
 
         return new ArrayList<>();
