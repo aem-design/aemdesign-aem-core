@@ -65,6 +65,9 @@ public class EventDetails extends GenericDetails {
     final String COMPONENT_DETAILS_NAME = "event-details";
     final String componentPath = "./"+PATH_DEFAULT_CONTENT+"/" + COMPONENT_DETAILS_NAME;
 
+    final String FIELD_EVENT_START_DATE = "eventStartDate";
+    final String FIELD_EVENT_END_DATE = "eventEndDate";
+
 
     @Override
     @SuppressWarnings("Duplicates")
@@ -92,8 +95,8 @@ public class EventDetails extends GenericDetails {
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"title", DEFAULT_TITLE},
                 {"description", DEFAULT_DESCRIPTION},
-                {"eventStartDate", getResourcePage().getProperties().get(NameConstants.PN_ON_TIME, getResourcePage().getProperties().get(JcrConstants.JCR_CREATED,Calendar.getInstance()))},
-                {"eventEndDate", getResourcePage().getProperties().get(NameConstants.PN_OFF_TIME, getResourcePage().getProperties().get(JcrConstants.JCR_CREATED,Calendar.getInstance()))},
+                {FIELD_EVENT_START_DATE, getResourcePage().getProperties().get(NameConstants.PN_ON_TIME, getResourcePage().getProperties().get(JcrConstants.JCR_CREATED,Calendar.getInstance()))},
+                {FIELD_EVENT_END_DATE, getResourcePage().getProperties().get(NameConstants.PN_OFF_TIME, getResourcePage().getProperties().get(JcrConstants.JCR_CREATED,Calendar.getInstance()))},
                 {"eventLoc", ""},
                 {"eventRefLabel", ""},
                 {"eventRefLink", ""},
@@ -102,7 +105,7 @@ public class EventDetails extends GenericDetails {
                 {"useParentPageTitle", false},
                 {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
                 {"showToolbar", DEFAULT_SHOW_TOOLBAR},
-                {"titleFormat",""},
+                {FIELD_FORMAT_TITLE,""},
                 {"subTitleFormat",""},
                 {"eventDisplayDateFormat",""},
                 {"eventDisplayTimeFormat", ""},
@@ -160,14 +163,14 @@ public class EventDetails extends GenericDetails {
                 formattedTitleText.trim()
         );
 
-        Calendar eventStartDate = componentProperties.get("eventStartDate",Calendar.getInstance());
-        Calendar eventEndDate = componentProperties.get("eventEndDate",Calendar.getInstance());
+        Calendar eventStartDate = componentProperties.get(FIELD_EVENT_START_DATE,Calendar.getInstance());
+        Calendar eventEndDate = componentProperties.get(FIELD_EVENT_END_DATE,Calendar.getInstance());
         String selectedEventTimeFormat = componentProperties.get("eventTimeFormat", StringUtils.EMPTY);
 
         newFields.put("isPastEventDate", eventEndDate.before(Calendar.getInstance()));
 
-        newFields.put("eventStartDate",eventStartDate);
-        newFields.put("eventEndDate",eventEndDate);
+        newFields.put(FIELD_EVENT_START_DATE,eventStartDate);
+        newFields.put(FIELD_EVENT_END_DATE,eventEndDate);
 
         FastDateFormat dateFormatString = FastDateFormat.getInstance(EVENT_DISPLAY_DATE_FORMAT_ISO);
 
@@ -241,7 +244,7 @@ public class EventDetails extends GenericDetails {
 
         componentProperties.putAll(newFields);
 
-        newFields.put("titleFormatted",compileComponentMessage("titleFormat",DEFAULT_FORMAT_TITLE,componentProperties,sling));
+        newFields.put("titleFormatted",compileComponentMessage(FIELD_FORMAT_TITLE,DEFAULT_FORMAT_TITLE,componentProperties,sling));
         newFields.put("subTitleFormatted",compileComponentMessage("subTitleFormat",DEFAULT_FORMAT_SUBTITLE,componentProperties,sling));
         newFields.put("eventDisplayDateFormatted",compileComponentMessage("eventDisplayDateFormat",DEFAULT_FORMAT_DISPLAYDATE,componentProperties,sling));
         newFields.put("eventDisplayTimeFormatted",compileComponentMessage("eventDisplayTimeFormat",DEFAULT_FORMAT_DISPLAYTIME,componentProperties,sling));

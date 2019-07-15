@@ -51,6 +51,7 @@ public class ContactDetails extends GenericDetails {
         final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
 
         final String FIELD_HONOTIFIC_PREFIX = "honorificPrefix";
+        final String FIELD_TITLE = "title";
 
         final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
 
@@ -66,7 +67,7 @@ public class ContactDetails extends GenericDetails {
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
-                {"title", getResourcePage().getProperties().get(JcrConstants.JCR_TITLE, getResourcePage().getName())},
+                {FIELD_TITLE, getResourcePage().getProperties().get(JcrConstants.JCR_TITLE, getResourcePage().getName())},
                 {FIELD_FORMAT_TITLE,""},
                 {FIELD_HONOTIFIC_PREFIX, ""}, //tag path
                 {"givenName",""},
@@ -113,8 +114,8 @@ public class ContactDetails extends GenericDetails {
 
         //set something if title formatted is empty
         if (isEmpty(componentProperties.get(FIELD_FORMATTED_TITLE,""))) {
-            componentProperties.put(FIELD_FORMATTED_TITLE,componentProperties.get("title",""));
-            componentProperties.put(FIELD_FORMATTED_TITLE_TEXT,componentProperties.get("title",""));
+            componentProperties.put(FIELD_FORMATTED_TITLE,componentProperties.get(FIELD_TITLE,""));
+            componentProperties.put(FIELD_FORMATTED_TITLE_TEXT,componentProperties.get(FIELD_TITLE,""));
         }
     }
 

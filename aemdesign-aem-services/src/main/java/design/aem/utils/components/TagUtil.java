@@ -92,7 +92,7 @@ public class TagUtil {
      * @param tagPaths list of tags
      * @param locale locale to yse
      * @return map of tag values
-     * @throws RepositoryException
+     * @throws RepositoryException when can't read content
      */
     public static LinkedHashMap<String, Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale) {
         LinkedHashMap<String, Map> tags = new LinkedHashMap<String, Map>();

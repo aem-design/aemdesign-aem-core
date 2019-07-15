@@ -280,7 +280,7 @@ public class TagList extends ModelProxy {
     /**
      * process search results.
      * @param result search results
-     * @throws RepositoryException
+     * @throws RepositoryException when can't read content
      */
     @SuppressWarnings("Duplicates")
     private void collectSearchResults(SearchResult result) throws RepositoryException {

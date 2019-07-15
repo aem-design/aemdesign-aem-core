@@ -32,6 +32,7 @@ public class LanguageNavigation extends ModelProxy {
 
     private static final String SEARCH_LOGIC = "searchlogic";
     private static final String SEARCH_LOGIC_DEFAULT = "";
+    private static final String FIELD_DESCRIPTION = "description";
 
     @SuppressWarnings("Duplicates")
     protected void ready() {
@@ -58,7 +59,7 @@ public class LanguageNavigation extends ModelProxy {
 
         Map<String, Map<String, String>> languageToggleMap = new LinkedHashMap<String, Map<String, String>>();
 
-        String appearanceOption = componentProperties.get("searchlogic", String.class);
+        String appearanceOption = componentProperties.get(SEARCH_LOGIC, String.class);
 
         boolean isShowRoot =  ("showRoot").equals(appearanceOption);
 
@@ -93,7 +94,7 @@ public class LanguageNavigation extends ModelProxy {
                 Map<String, String> langTag = languageMap.get(key);
                 String tagValue = langTag.get("value");
                 String tagTitle = langTag.get("title");
-                String tagDescription = langTag.get("description");
+                String tagDescription = langTag.get(FIELD_DESCRIPTION);
 
                 if (isEmpty(languageSiteParentPath)) {
                     //remove country and language from end
@@ -132,7 +133,7 @@ public class LanguageNavigation extends ModelProxy {
 
                     Map<String, String> pageInfo = new HashMap<>();
                     pageInfo.put("path", ResolverUtil.mappedUrl(getResourceResolver(), langPage.getPath()).concat(ConstantsUtil.DEFAULT_EXTENTION));
-                    pageInfo.put("description", tagDescription);
+                    pageInfo.put(FIELD_DESCRIPTION, tagDescription);
                     pageInfo.put("displayTitle", tagTitle);
 
                     if (langPagePath.startsWith(languageRoot)) {
@@ -158,7 +159,7 @@ public class LanguageNavigation extends ModelProxy {
 
                         Map<String, String> pageInfo = new HashMap<>();
                         pageInfo.put("path", ResolverUtil.mappedUrl(getResourceResolver(), langPageRootPage.getPath()).concat(ConstantsUtil.DEFAULT_EXTENTION));
-                        pageInfo.put("description", langPageRootPage.getDescription());
+                        pageInfo.put(FIELD_DESCRIPTION, langPageRootPage.getDescription());
                         pageInfo.put("displayTitle", langPageRootPage.getTitle());
                         pageInfo.put("hreflang", hrefLang);
                         pageInfo.put("language", language);

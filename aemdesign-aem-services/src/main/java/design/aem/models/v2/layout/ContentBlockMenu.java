@@ -77,7 +77,7 @@ public class ContentBlockMenu extends ModelProxy {
      *
      * @param childNode is the childnode
      * @return true if this is a content block component
-     * @throws RepositoryException
+     * @throws RepositoryException when can't read content
      */
     private static boolean isContentBlockComponent(Node childNode) throws RepositoryException {
 
@@ -112,7 +112,7 @@ public class ContentBlockMenu extends ModelProxy {
      *
      * @param parSys is the Resource to
      * @return a sequenced map of the content block anchor names and their titles
-     * @throws RepositoryException
+     * @throws RepositoryException when can't read content
      */
     private static Map<String, String> getContentBlockMenu(Resource parSys) throws RepositoryException {
         Map<String, String> contentMenu = new LinkedHashMap<String, String>();
