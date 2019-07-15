@@ -48,7 +48,7 @@ public class List extends ModelProxy {
     private static final int LIMIT_DEFAULT = 100;
     private static final int PAGEMAX_DEFAULT = -1;
     private static final int PN_DEPTH_DEFAULT = 1;
-    private static final int LISTSPLITEVERY_DEFAULT = 5;
+    private static final int LIST_SPLIT_EVERY_DEFAULT = 5;
     private static final String TAGS_MATCH_ANY_VALUE = "any";
     private static final String PN_DATE_FORMAT_DEFAULT = "yyyy-MM-dd";
 
@@ -66,10 +66,10 @@ public class List extends ModelProxy {
     private static final String ANCESTOR_PAGE_PROPERTY_NAME = "ancestorPage";
     private static final String SEARCH_IN_PROPERTY_NAME = "searchIn";
     private static final String SAVEDQUERY_PROPERTY_NAME = "savedquery";
-    private static final String LISTSPLITEVERY = "listSplitEvery";
-    private static final String SHOWHIDDEN = "showHidden";
-    private static final String SHOWINVALID = "showInvalid";
-    private static final String DETAILSBADGE = "detailsBadge";
+    private static final String LIST_SPLIT_EVERY = "listSplitEvery";
+    private static final String SHOW_HIDDEN = "showHidden";
+    private static final String SHOW_INVALID = "showInvalid";
+    private static final String DETAILS_BADGE = "detailsBadge";
     private static final String PAGINATION_TYPE = "paginationType";
 
     private static final String REQUEST_PARAM_MARKER_START = "start";
@@ -159,12 +159,12 @@ public class List extends ModelProxy {
                 {"feedEnabled", false},
                 {"feedType", "rss"},
                 {"listSplit", false, "data-list-split-enabled"},
-                {LISTSPLITEVERY, LISTSPLITEVERY_DEFAULT, "data-list-split-every"},
-                {DETAILSBADGE, DEFAULT_BADGE, "data-badge"},
+                {LIST_SPLIT_EVERY, LIST_SPLIT_EVERY_DEFAULT, "data-list-split-every"},
+                {DETAILS_BADGE, DEFAULT_BADGE, "data-badge"},
                 {"printStructure", DEFAULT_PRINT_STRUCTURE},
                 {"topicQueue", StringUtils.EMPTY, "topicqueue"},
-                {SHOWHIDDEN, false},
-                {SHOWINVALID, false},
+                {SHOW_HIDDEN, false},
+                {SHOW_INVALID, false},
                 {PAGINATION_TYPE, DEFAULT_PAGINATION},
                 {LIMIT_PROPERTY_NAME, LIMIT_DEFAULT},
                 {PAGE_MAX_PROPERTY_NAME, PAGEMAX_DEFAULT},
@@ -203,11 +203,11 @@ public class List extends ModelProxy {
         sortOrder = SortOrder.fromString(componentProperties.get(PN_SORT_ORDER, SortOrder.ASC.getValue()));
         savedquery = componentProperties.get(SAVEDQUERY_PROPERTY_NAME, "");
         pageMax = componentProperties.get(PAGE_MAX_PROPERTY_NAME, PAGEMAX_DEFAULT);
-        listSplitEvery = componentProperties.get(LISTSPLITEVERY, LISTSPLITEVERY_DEFAULT);
-        detailsBadge = componentProperties.get(DETAILSBADGE, DEFAULT_BADGE);
+        listSplitEvery = componentProperties.get(LIST_SPLIT_EVERY, LIST_SPLIT_EVERY_DEFAULT);
+        detailsBadge = componentProperties.get(DETAILS_BADGE, DEFAULT_BADGE);
         limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
-        showHidden = componentProperties.get(SHOWHIDDEN, false);
-        showInvalid = componentProperties.get(SHOWINVALID, false);
+        showHidden = componentProperties.get(SHOW_HIDDEN, false);
+        showInvalid = componentProperties.get(SHOW_INVALID, false);
 
         //check default details suffix
         if (detailsNameSuffix == null) {
