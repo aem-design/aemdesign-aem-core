@@ -212,7 +212,7 @@ public class Timing extends ModelProxy {
                 fullname = cutBeforeLast(scan('}'), '#');
                 name = shortForm(fullname);
             } catch (NumberFormatException ex) {
-                name = fullname = ex;
+                name = fullname = ex.toString();
             }
         }
 
