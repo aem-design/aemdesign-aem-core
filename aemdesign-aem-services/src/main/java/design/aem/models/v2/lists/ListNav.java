@@ -67,7 +67,7 @@ public class ListNav extends ModelProxy {
     private static final String LIST_LOOP = "listloop";
     private static final boolean LIST_LOOP_DEFAULT = false;
 
-    private static final String DETAILSBADGE = "detailsBadge";
+    private static final String DETAILS_BADGE = "detailsBadge";
 
 
     private long totalMatches;
@@ -110,7 +110,7 @@ public class ListNav extends ModelProxy {
                 {FIELD_IMAGE_OPTION, FIELD_IMAGE_OPTION_DEFAULT},
                 {LIST_LOOP, LIST_LOOP_DEFAULT},
                 {"filterPage", ""},
-                {DETAILSBADGE, DEFAULT_BADGE, "data-badge"},
+                {DETAILS_BADGE, DEFAULT_BADGE, "data-badge"},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -122,7 +122,7 @@ public class ListNav extends ModelProxy {
         sortOrder = SortOrder.fromString(componentProperties.get(PN_SORT_ORDER, SortOrder.ASC.getValue()));
         limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
         listLoop = componentProperties.get(LIST_LOOP, LIST_LOOP_DEFAULT);
-        detailsBadge = componentProperties.get(DETAILSBADGE, DEFAULT_BADGE);
+        detailsBadge = componentProperties.get(DETAILS_BADGE, DEFAULT_BADGE);
 
         String filterPagePage = componentProperties.get("filterPage", "");
 
