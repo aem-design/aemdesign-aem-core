@@ -736,7 +736,7 @@ public class ComponentsUtil {
             return getComponentProperties(pageContext, componentResource, fieldLists);
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties: " + componentPath + ", error: " + ex.toString());
+            LOGGER.error("getComponentProperties: {}, error: {}", componentPath, ex.toString());
         }
 
 
@@ -832,7 +832,7 @@ public class ComponentsUtil {
             return getComponentProperties(getContextObjects(wcmUsePojoModel), targetResource, true, fieldLists);
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex.toString());
         }
 
 
@@ -853,7 +853,7 @@ public class ComponentsUtil {
             return getComponentProperties(genericModel.getPageContextMap(), targetResource, true, fieldLists);
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: " + genericModel + ", error: " + ex.toString());
+            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", genericModel, ex.toString());
         }
 
 
@@ -963,7 +963,7 @@ public class ComponentsUtil {
             return getComponentProperties(genericModel.getPageContextMap(), targetResource, includeComponentAttributes, fieldLists);
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: " + genericModel + ", error: " + ex.toString());
+            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", genericModel, ex.toString());
         }
 
 
@@ -984,7 +984,7 @@ public class ComponentsUtil {
             return getComponentProperties(getContextObjects(wcmUsePojoModel), targetResource, includeComponentAttributes, fieldLists);
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex.toString());
         }
 
 
@@ -1114,7 +1114,7 @@ public class ComponentsUtil {
                         return componentProperties;
                     }
                 } else if (targetResource != null) {
-                    LOGGER.warn("getComponentProperties: processing is unsupported of target resource of type: " + targetResource.getClass().getCanonicalName());
+                    LOGGER.warn("getComponentProperties: processing is unsupported of target resource of type: {}", targetResource.getClass().getCanonicalName());
                 } else if (targetResource == null) {
                     LOGGER.warn("getComponentProperties: processing of NULL target resource of type return design defaults");
                 }
@@ -1308,7 +1308,7 @@ public class ComponentsUtil {
                             try {
                                 componentProperties.put(fieldName, fieldValue);
                             } catch (Exception ex) {
-                                LOGGER.error("error adding value. " + ex);
+                                LOGGER.error("error adding value. {}", ex);
                             }
                         }
                     }
@@ -1542,7 +1542,7 @@ public class ComponentsUtil {
             }
 
         } catch (Exception ex) {
-            LOGGER.error("getPageDescription:" + ex.toString());
+            LOGGER.error("getPageDescription: {}", ex.toString());
         }
         return pageDescription;
     }
@@ -1682,7 +1682,7 @@ public class ComponentsUtil {
                 try {
                     curResource = curPage.getContentResource(relativePath);
                 } catch (Exception e) {
-                    LOGGER.info("Failed to get  " + relativePath + " from " + curPage.getContentResource().getPath());
+                    LOGGER.info("Failed to get {} from {}", relativePath, curPage.getContentResource().getPath());
                 }
 
                 if (null != curResource) {

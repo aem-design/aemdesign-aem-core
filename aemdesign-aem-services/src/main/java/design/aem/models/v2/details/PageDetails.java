@@ -121,7 +121,7 @@ public class PageDetails extends GenericDetails {
             );
 
         } catch (Exception ex) {
-            LOGGER.error("Could not process component fields in " + COMPONENT_DETAILS_NAME);
+            LOGGER.error("Could not process component fields in {}", COMPONENT_DETAILS_NAME);
         }
         return newFields;
     }

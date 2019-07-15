@@ -492,7 +492,7 @@ public class CommonUtil {
                 }
             }
         } catch (Exception ex) {
-            LOGGER.error("findComponentInPage: " + ex.toString());
+            LOGGER.error("findComponentInPage: {}", ex.toString());
             return StringUtils.EMPTY;
         }
 
@@ -546,7 +546,7 @@ public class CommonUtil {
                 return detailsNode.getPath();
             }
         } catch (Exception ex) {
-            LOGGER.error("getComponentNodePath: " + thisPage + ", " + StringUtils.join(nodePaths));
+            LOGGER.error("getComponentNodePath: {}, {}", thisPage, StringUtils.join(nodePaths));
         }
         return "";
     }
@@ -710,7 +710,7 @@ public class CommonUtil {
             }
             return "<![CDATA[could not get objects]]>";
         } catch (Exception e) {
-            LOGGER.error("Exception occurred: " + e.getMessage(), e);
+            LOGGER.error("Exception occurred: {}", e);
             return "<![CDATA[" + e.getMessage() + "]]>";
         }
     }
