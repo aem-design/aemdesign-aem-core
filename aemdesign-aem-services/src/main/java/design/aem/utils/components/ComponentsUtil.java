@@ -1141,7 +1141,6 @@ public class ComponentsUtil {
                             }
 
                             boolean fieldValueHasExpressions = false;
-                            boolean fieldValueIsNull = false;
 
                             if (componentProperties.containsKey(fieldName)) {
                                 //skip entries that already exist
@@ -1201,17 +1200,13 @@ public class ComponentsUtil {
                             }
 
                             //fix values that should be arrays but are not
-                            if (fieldValueType.equals(Tag.class.getCanonicalName())) {
-                              if (!fieldValue.getClass().isArray()) {
-                                  fieldValue = new String[]{(String)fieldValue};
-                              }
-                            } else if (fieldValueType.getClass().isArray() || fieldDefaultValue.getClass().isArray()) {
-                                if (!fieldValue.getClass().isArray()) {
-                                    Class<?> arrayType = fieldValue.getClass().getComponentType();
-                                    Object newArray = Array.newInstance(arrayType,1);
-                                    Array.set(newArray,1, fieldValue);
-                                    fieldValue = newArray;
-                                }
+                            if (fieldValueType.equals(Tag.class.getCanonicalName()) && !fieldValue.getClass().isArray()) {
+                                fieldValue = new String[]{(String)fieldValue};
+                            } else if ((fieldValueType.getClass().isArray() || fieldDefaultValue.getClass().isArray()) && !fieldValue.getClass().isArray()) {
+                                Class<?> arrayType = fieldValue.getClass().getComponentType();
+                                Object newArray = Array.newInstance(arrayType,1);
+                                Array.set(newArray,1, fieldValue);
+                                fieldValue = newArray;
                             }
 
                             if (field.length > 2) {
@@ -1992,7 +1987,7 @@ public class ComponentsUtil {
      * @throws Exception thows other errors
      *
      */
-    public static Object evaluateExpressionWithValue(JxltEngine jxlt, JexlContext jc, String expression, Object value) throws JexlException, Exception {
+    public static Object evaluateExpressionWithValue(JxltEngine jxlt, JexlContext jc, String expression, Object value) throws JexlException {
         JxltEngine.Expression expr = jxlt.createExpression(expression);
 
         //add current value to the map
