@@ -140,8 +140,8 @@ public class Image extends ModelProxy {
                 componentProperties.put(FIELD_LINKURL, linkURL);
 
                 //get renditions for current resource
-                ComponentProperties imageProps = getResourceImageRenditions(this, getResource(),"renditions", FIELD_IMAGEURL);
-                Map<String, String> renditions = imageProps.get("renditions", new LinkedHashMap<String, String>());
+                ComponentProperties imageProps = getResourceImageRenditions(this, getResource(),FIELD_RENDITIONS, FIELD_IMAGEURL);
+                Map<String, String> renditions = imageProps.get(FIELD_RENDITIONS, new LinkedHashMap<String, String>());
 
                 if (imageProps.containsKey(FIELD_IMAGEURL)) {
                     componentProperties.put(FIELD_IMAGEURL,imageProps.get(FIELD_IMAGEURL,""));

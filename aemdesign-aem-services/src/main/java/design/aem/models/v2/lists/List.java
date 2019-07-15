@@ -102,6 +102,10 @@ public class List extends ModelProxy {
     public final String LISTITEM_LINK_TEXT = "listItemLinkText";
     public final String LISTITEM_LINK_TITLE = "listItemLinkTitle";
 
+    private final String FIELD_FEED_TYPE = "feedType";
+    private final String FIELD_FEED_EXT = "feedExt";
+    private final String FIELD_FEED_TITLE = "feedTitle";
+    private final String FIELD_FEED_URL = "feedUrl";
 
     private java.util.List<Map<String,Object>> listItems;
 
@@ -157,7 +161,7 @@ public class List extends ModelProxy {
         setComponentFields(new Object[][]{
                 {LIST_TAG, LIST_TAG_UNORDERED},
                 {"feedEnabled", false},
-                {"feedType", "rss"},
+                {FIELD_FEED_TYPE, "rss"},
                 {"listSplit", false, "data-list-split-enabled"},
                 {LIST_SPLIT_EVERY, LIST_SPLIT_EVERY_DEFAULT, "data-list-split-every"},
                 {DETAILS_BADGE, DEFAULT_BADGE, "data-badge"},
@@ -241,19 +245,19 @@ public class List extends ModelProxy {
 
         //setup feed config
         if ((Boolean)componentProperties.get("feedEnabled")) {
-            if ("atom".equals(componentProperties.get("feedType"))) {
-                componentProperties.put("feedExt", ".feed");
-                componentProperties.put("feedTitle", "Atom 1.0 (List)");
-                componentProperties.put("feedType", "application/atom+xml");
+            if ("atom".equals(componentProperties.get(FIELD_FEED_TYPE))) {
+                componentProperties.put(FIELD_FEED_EXT, ".feed");
+                componentProperties.put(FIELD_FEED_TITLE, "Atom 1.0 (List)");
+                componentProperties.put(FIELD_FEED_TYPE, "application/atom+xml");
             } else {
-                componentProperties.put("feedExt", ".rss");
-                componentProperties.put("feedTitle", "RSS Feed");
-                componentProperties.put("feedType", "application/rss+xml");
+                componentProperties.put(FIELD_FEED_EXT, ".rss");
+                componentProperties.put(FIELD_FEED_TITLE, "RSS Feed");
+                componentProperties.put(FIELD_FEED_TYPE, "application/rss+xml");
             }
-            if (isNotEmpty(componentProperties.get("feedExt",""))) {
-                componentProperties.put("feedUrl", resourcePath.concat(componentProperties.get("feedExt","")));
+            if (isNotEmpty(componentProperties.get(FIELD_FEED_EXT,""))) {
+                componentProperties.put(FIELD_FEED_URL, resourcePath.concat(componentProperties.get(FIELD_FEED_EXT,"")));
             } else {
-                componentProperties.put("feedUrl",resourcePath);
+                componentProperties.put(FIELD_FEED_URL,resourcePath);
             }
         }
 
@@ -859,7 +863,7 @@ public class List extends ModelProxy {
     /**
      * process search results.
       * @param result search results
-     * @throws RepositoryException
+     * @throws RepositoryException when can't read content
      */
     @SuppressWarnings("Duplicates")
     private void collectSearchResults(SearchResult result) throws RepositoryException {

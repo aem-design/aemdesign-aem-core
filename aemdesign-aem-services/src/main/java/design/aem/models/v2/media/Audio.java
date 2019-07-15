@@ -22,6 +22,7 @@ public class Audio extends ModelProxy {
 
         final String DEFAULT_ARIA_ROLE = "button";
         final String DEFAULT_ARIA_LABEL = "Audio Fragment";
+        final String FIELD_AUDIO_URL = "audioUrl";
 
         /*
           Component Fields Helper
@@ -33,7 +34,7 @@ public class Audio extends ModelProxy {
           4 optional - canonical name of class for handling multivalues, String or Tag
          */
         setComponentFields(new Object[][]{
-                {"audioUrl",""},
+                {FIELD_AUDIO_URL,""},
                 {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE},
                 {FIELD_ARIA_LABEL,DEFAULT_ARIA_LABEL},
                 {FIELD_VARIANT, DEFAULT_VARIANT},
@@ -45,7 +46,7 @@ public class Audio extends ModelProxy {
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY);
 
-        String audioUrl = componentProperties.get("audioUrl", "");
+        String audioUrl = componentProperties.get(FIELD_AUDIO_URL, "");
 
         if (StringUtils.isNotEmpty(audioUrl)) {
             if (audioUrl.startsWith("/content")) {
@@ -53,6 +54,6 @@ public class Audio extends ModelProxy {
             }
         }
 
-        componentProperties.put("audioUrl", audioUrl);
+        componentProperties.put(FIELD_AUDIO_URL, audioUrl);
     }
 }

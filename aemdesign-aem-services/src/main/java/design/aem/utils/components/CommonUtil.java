@@ -292,7 +292,7 @@ public class CommonUtil {
      * @param page is the current page (for a reference to the root node)
      * @param nodeName  is the node name to check for
      * @return true if the script exists
-     * @throws RepositoryException
+     * @throws RepositoryException when can't read content
      */
     public static boolean nodeExists(Page page, String nodeName) {
         if (page == null || isEmpty(nodeName)) {
@@ -405,7 +405,7 @@ public class CommonUtil {
      * @param node The node to get the property string from.
      * @param key  The property key to get the string for.
      * @return The string value of the property, or null.
-     * @throws RepositoryException
+     * @throws RepositoryException when can't read content
      */
     public static String getSingularPropertyString(Node node, String key) throws RepositoryException {
         Value value = getSingularProperty(node, key);
@@ -430,7 +430,7 @@ public class CommonUtil {
      * @param resourceTypeTail array for suffixes to check as endsWith with sling:resourceType or node name (as failover)
      * @param pageRoots        use matching page root as a staring point for search
      * @return the path to component
-     * @throws RepositoryException
+     * @throws RepositoryException when can't read content
      */
     public static String findComponentInPage(Page inputPage, String[] resourceTypeTail, String[] pageRoots) {
 

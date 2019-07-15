@@ -379,7 +379,7 @@ public class ImagesUtil {
      * get asset reference for image node from a page
      * @param page to use as source
      * @return path to image or return default reference to page thumbnail selector
-     * @throws RepositoryException
+     * @throws RepositoryException when can't read content
      */
     public static String getPageImgReferencePath(Page page) {
         String imagePath = getResourceImagePath(page.getContentResource(), DEFAULT_IMAGE_NODE_NAME);

@@ -321,7 +321,7 @@ public class AssetList extends ModelProxy {
                             {"mimeType", assetBasic.getMimeType(), "data-mimetype"},
                             {"lastModified", assetBasic.getLastModified()},
                             {"isSubAsset", assetBasic.isSubAsset()},
-                            {"renditions", assetBasic.listRenditions()},
+                            {FIELD_RENDITIONS, assetBasic.listRenditions()},
                             {"linkURL", ""},
                             {"imageOption", imageOption},
                             {"titleType", titleType},

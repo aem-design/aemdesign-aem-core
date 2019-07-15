@@ -55,7 +55,7 @@ public class PageDetails extends GenericDetails {
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"title", DEFAULT_TITLE},
-                {"titleFormat",""}, //tag path, will be resolved to value in processComponentFields
+                {FIELD_FORMAT_TITLE,""}, //tag path, will be resolved to value in processComponentFields
                 {"description", DEFAULT_DESCRIPTION},
                 {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
                 {"hideTitle", DEFAULT_HIDE_TITLE},
