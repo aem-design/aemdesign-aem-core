@@ -424,7 +424,7 @@ public class List extends ModelProxy {
      * @return
      */
     public Collection<Map<String,Object>> getListItems() {
-//        LOGGER.error("loading items");
+
         if (listItems == null) {
             Source listType = getListType();
             populateListItems(listType);
@@ -764,8 +764,6 @@ public class List extends ModelProxy {
 
                 map.put("orderby.sort", sortOrder.getValue());
 
-                //LOGGER.error("populateListItemsFromMap: running query with map=[{}]", map);
-
                 PredicateGroup root = PredicateGroup.create(map);
                 // avoid slow //* queries
                 if (!root.isEmpty()) {
@@ -888,7 +886,6 @@ public class List extends ModelProxy {
         isPaginating = (pageMax > 0 && result.getResultPages().size() > 0);
         componentProperties.put(LIST_ISPAGINATING, isPaginating);
 
-//        LOGGER.error("collectSearchResults resultInfo={},isPaginating={}", resultInfo,isPaginating);
         componentProperties.put("resultInfo",resultInfo);
 
         for (Hit hit : result.getHits()) {

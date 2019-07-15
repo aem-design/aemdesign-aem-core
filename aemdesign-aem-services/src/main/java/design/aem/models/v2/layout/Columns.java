@@ -256,7 +256,6 @@ public class Columns extends ModelProxy {
         String defaultFormat = "1;colctrl-1c"; //alt: col-md-,2,3,2,3,2
         String columnClass = "colctrl";
 
-//        LOGGER.error("generating column style for column {}, with style {} and layout []",colNumber,columnClassStyle,componentProperties.get("layout",defaultFormat));
 
         if (componentProperties != null) {
             columnsFormat = Arrays.asList(componentProperties.get("layout",defaultFormat).split(";"));
