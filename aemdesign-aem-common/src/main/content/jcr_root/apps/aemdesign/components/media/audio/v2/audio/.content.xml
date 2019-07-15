@@ -3,5 +3,5 @@
     cq:isContainer="{Boolean}false"
     jcr:description="Media audio component"
     jcr:primaryType="cq:Component"
-    jcr:title="'Audio"
+    jcr:title="Audio"
     componentGroup="hidden"/>
