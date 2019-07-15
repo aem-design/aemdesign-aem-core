@@ -4,8 +4,6 @@ import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +17,6 @@ import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class ContentTabs extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(ContentTabs.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {

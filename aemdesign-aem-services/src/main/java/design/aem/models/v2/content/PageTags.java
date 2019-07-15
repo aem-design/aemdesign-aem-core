@@ -4,14 +4,11 @@ import com.day.cq.tagging.TagConstants;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 
 public class PageTags extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(PageTags.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {

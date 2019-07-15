@@ -5,8 +5,6 @@ import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.jackrabbit.api.security.user.UserManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import javax.jcr.Session;
@@ -18,7 +16,6 @@ import static design.aem.utils.components.SecurityUtil.getUserFullName;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 public class PageAuthor extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(PageAuthor.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {

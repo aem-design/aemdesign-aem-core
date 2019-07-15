@@ -4,8 +4,6 @@ import com.day.cq.i18n.I18n;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.INHERITED_RESOURCE;
@@ -14,7 +12,6 @@ import static design.aem.utils.components.ImagesUtil.DEFAULT_BACKGROUND_IMAGE_NO
 import static design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions;
 
 public class Header extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(Header.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {

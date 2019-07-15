@@ -3,15 +3,12 @@ package design.aem.models.v2.layout;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ImagesUtil.DEFAULT_BACKGROUND_IMAGE_NODE_NAME;
 import static design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions;
 
 public class Article extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(Article.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {

@@ -9,8 +9,6 @@ import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
@@ -18,7 +16,6 @@ import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Link extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(Link.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {

@@ -1,7 +1,5 @@
 package design.aem.utils.components;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -12,8 +10,6 @@ import java.util.regex.Pattern;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class TenantUtil {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TenantUtil.class);
 
     // System config located
     // http://localhost:4502/system/console/configMgr/org.apache.sling.tenant.internal.TenantProviderImpl

@@ -23,8 +23,6 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
@@ -40,7 +38,6 @@ import static design.aem.utils.components.ComponentsUtil.*;
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class GenericModel implements GenericComponent {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(GenericModel.class);
     @ScriptVariable
     protected Resource resource;
     @ScriptVariable

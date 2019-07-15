@@ -170,7 +170,7 @@ public class TagUtil {
      * @param tagPaths
      * @return
      */
-    public static String getTagsAsValuesAsAdmin(SlingScriptHelper sling, String separator, String tagPaths[]) {
+    public static String getTagsAsValuesAsAdmin(SlingScriptHelper sling, String separator, String[] tagPaths) {
         if (tagPaths == null || tagPaths.length == 0) {
             return null;
         }
@@ -198,7 +198,7 @@ public class TagUtil {
      * @return comma separated list of tag values
      */
     @SuppressWarnings("Duplicates")
-    public static String getTagsAsValues(TagManager tagManager, ResourceResolver resourceResolver, String separator, String tagPaths[]) {
+    public static String getTagsAsValues(TagManager tagManager, ResourceResolver resourceResolver, String separator, String[] tagPaths) {
         if (tagPaths == null || tagPaths.length == 0) {
             return null;
         }
@@ -244,7 +244,7 @@ public class TagUtil {
      * @return string array of tag values
      */
     @SuppressWarnings("Duplicates")
-    public static String[] getTagsValues(TagManager tagManager, ResourceResolver resourceResolver, String separator, String tagPaths[]) {
+    public static String[] getTagsValues(TagManager tagManager, ResourceResolver resourceResolver, String separator, String[] tagPaths) {
         if (tagPaths == null || tagPaths.length == 0) {
             return null;
         }

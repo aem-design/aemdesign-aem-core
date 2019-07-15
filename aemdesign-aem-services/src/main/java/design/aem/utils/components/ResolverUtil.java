@@ -21,8 +21,6 @@ public class ResolverUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResolverUtil.class);
 
-    public final static String PAGE_PROP_REDIRECT = "redirectTarget";
-
     public final static String DEFAULT_MAP_CONFIG_SCHEMA = "http";
     public final static String SECURE_MAP_CONFIG_SCHEMA = "https";
 

@@ -11,8 +11,6 @@ import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -24,7 +22,6 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 
 public class Columns extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(Columns.class);
 
     private final String COLUMN_CLASS = "col-sm"; //gets added to cols
     private final String ROW_CLASS = "row"; //gets added to rows

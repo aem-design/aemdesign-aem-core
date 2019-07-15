@@ -72,16 +72,11 @@ public class CommonUtil {
     public static final String DAM_HEADLINE = "photoshop:Headline";
     public static final String DAM_CREDIT = "photoshop:Credit";
     public static final String DAM_SOURCE = "photoshop:Source";
-    public static final String DAM_SOURCE_ORIGIN = "dc:source";
-    public static final String DAM_SOURCE_RELATION = "dc:relation";
     public static final String DAM_SOURCE_URL = "sourceAsset";
     public static final String DAM_VIDEO_URL = "sourceVideo";
-    public static final String DAM_DISCLAIMER = "dc:disclaimer";
     public static final String DAM_FIELD_LICENSE_COPYRIGHT_OWNER = "xmpRights:Owner";
     public static final String DAM_FIELD_LICENSE_USAGETERMS = "xmpRights:UsageTerms";
     public static final String DAM_FIELD_LICENSE_EXPIRY = "prism:expirationDate";
-
-    public static final Pattern ENTITY_PATTERN = Pattern.compile("(&[\\w\\d]+;)");
 
     public static final String PN_REDIRECT_TARGET = "cq:redirectTarget";
     public static final String SLING_REDIRECT_TARGET = "sling:redirect";
@@ -645,22 +640,6 @@ public class CommonUtil {
      * @param mode mode to request resource with
      * @param requestAttributeName attribute name to set requestAttributes into
      * @param requestAttributes requestAttributes to set into requestAttributeName
-     * @return html string of output
-     */
-    @SuppressWarnings("unchecked")
-    public static String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling, WCMMode mode, String requestAttributeName, ComponentProperties requestAttributes) {
-        return resourceRenderAsHtml(path,resourceResolver,sling,mode,requestAttributeName,requestAttributes,true);
-    }
-
-
-    /***
-     * render a resource path as HTML to include in components that reuse content in other resources
-     * @param path path to resources
-     * @param resourceResolver resource resolver for request
-     * @param sling sling helper
-     * @param mode mode to request resource with
-     * @param requestAttributeName attribute name to set requestAttributes into
-     * @param requestAttributes requestAttributes to set into requestAttributeName
      * @param appendHTMLExtention append .html to end of path
      * @return html string of output
      */
@@ -770,36 +749,6 @@ public class CommonUtil {
 
         includeOptions.forceSameContext(Boolean.FALSE).setDecorationTagName(defDecoration);
 
-    }
-
-    /**
-     * disables edit mode for the request
-     *
-     * @param request
-     */
-    @SuppressWarnings("unchecked")
-    public static void disableEditMode(ComponentContext componentContext, IncludeOptions includeOptions, SlingHttpServletRequest request) {
-        forceNoDecoration(componentContext, includeOptions);
-
-        WCMMode.DISABLED.toRequest(request);
-    }
-
-    /**
-     * enables edit mode and resets component decoration
-     *
-     * @param toWCMMode        current WCM mode
-     * @param componentContext
-     * @param defDecoration    default decoration
-     * @param componentContext component context
-     * @param includeOptions
-     * @param request
-     */
-
-    @SuppressWarnings("unchecked")
-    public static void enableEditMode(WCMMode toWCMMode, ComponentContext componentContext, String defDecoration, IncludeOptions includeOptions, SlingHttpServletRequest request) {
-        setDecoration(componentContext, includeOptions, defDecoration);
-
-        toWCMMode.toRequest(request);
     }
 
     /**

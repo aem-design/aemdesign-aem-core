@@ -5,13 +5,10 @@ import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.vault.util.JcrConstants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 
 public class PageTitle extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(PageTitle.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {

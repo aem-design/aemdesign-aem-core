@@ -9,8 +9,6 @@ import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 
@@ -22,7 +20,6 @@ import static design.aem.utils.components.ImagesUtil.DEFAULT_THUMBNAIL_IMAGE_NOD
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Video extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(Video.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {

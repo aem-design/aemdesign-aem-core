@@ -5,13 +5,10 @@ import com.day.cq.tagging.Tag;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 
 public class ShareButton extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(ShareButton.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
@@ -23,7 +20,6 @@ public class ShareButton extends ModelProxy {
         final String DEFAULT_CLOUDCONFIG_ADDTHIS = "addthisconnect";
         final String DEFAULT_CLOUDCONFIG_ADDTHIS_ID = "pubId";
         final String DEFAULT_TOOLID = "toolId";
-        final String DEFAULT_THEME_TAG = "aemdesign:component-style-theme/widgets/sharebutton/inlineshare";
         final String DEFAULT_MODULE_TAG = "aemdesign:component-style-theme/widgets/sharebutton";
 
         setComponentFields(new Object[][]{

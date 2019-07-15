@@ -5,8 +5,6 @@ import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.jcr.resource.api.JcrResourceConstants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
@@ -21,7 +19,6 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class ContentBlockMenu extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(ContentBlockMenu.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {

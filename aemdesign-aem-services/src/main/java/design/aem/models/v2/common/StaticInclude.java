@@ -6,8 +6,6 @@ import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.INHERITED_RESOURCE;
@@ -15,7 +13,6 @@ import static design.aem.utils.components.ConstantsUtil.SITE_INCLUDE_PATHS;
 import static design.aem.utils.components.I18nUtil.*;
 
 public class StaticInclude extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(StaticInclude.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {

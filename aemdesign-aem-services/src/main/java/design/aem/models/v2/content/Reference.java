@@ -4,15 +4,12 @@ import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Reference extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(Reference.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {

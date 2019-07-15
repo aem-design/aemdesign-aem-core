@@ -5,8 +5,6 @@ import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.BooleanUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +18,6 @@ import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class Breadcrumb extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(Breadcrumb.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
