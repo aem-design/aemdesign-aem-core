@@ -1,1 +1,5 @@
+#use embed
+
+#../js/vendor.js
+#../js/app.js
 

@@ -54,6 +54,12 @@
                                             multiple="{Boolean}true"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/langnav/languageSet"
                                             name="./languageSet"/>
+                                    <languageSetHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./languageSet@TypeHint"
+                                            value="String[]"/>
+
                                     <searchlogic
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"

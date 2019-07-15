@@ -61,6 +61,12 @@
                                             multiple="{Boolean}true"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/column/small"
                                             name="./layoutColumnClassSmall"/>
+                                    <layoutColumnClassSmallHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./layoutColumnClassSmall@TypeHint"
+                                            value="String[]"/>
+
                                     <layoutColumnClassMedium
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/common/form/tagfield"
@@ -69,6 +75,12 @@
                                             multiple="{Boolean}true"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/column/medium"
                                             name="./layoutColumnClassMedium"/>
+                                    <layoutColumnClassMediumHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./layoutColumnClassMedium@TypeHint"
+                                            value="String[]"/>
+
                                     <layoutColumnClassLarge
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/common/form/tagfield"
@@ -77,6 +89,12 @@
                                             multiple="{Boolean}true"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/column/large"
                                             name="./layoutColumnClassLarge"/>
+                                    <layoutColumnClassLargeHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./layoutColumnClassLarge@TypeHint"
+                                            value="String[]"/>
+
                                     <layoutColumnClassExtraLarge
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/common/form/tagfield"
@@ -85,6 +103,12 @@
                                             multiple="{Boolean}true"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/column/xlarge"
                                             name="./layoutColumnClassExtraLarge"/>
+                                    <layoutColumnClassExtraLargeHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./layoutColumnClassExtraLarge@TypeHint"
+                                            value="String[]"/>
+
                                     <layoutRowClass
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/common/form/tagfield"
@@ -93,6 +117,12 @@
                                             multiple="{Boolean}true"
                                             rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/row"
                                             name="./layoutRowClass"/>
+                                    <layoutRowClassHint
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                            name="./layoutRowClass@TypeHint"
+                                            value="String[]"/>
+
                                 </items>
                             </attributes>
 
