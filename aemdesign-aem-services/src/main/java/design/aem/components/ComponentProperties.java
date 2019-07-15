@@ -115,8 +115,6 @@ public class ComponentProperties extends ValueMapDecorator {
                     defaultValueExpression = fieldDefaultValue.toString();
                 }
 
-                boolean isDefaultValueExpression = isStringRegex(defaultValueExpression);
-
                 try {
                     //process non-multi value elements
                     if (field.getValue() != null) {
