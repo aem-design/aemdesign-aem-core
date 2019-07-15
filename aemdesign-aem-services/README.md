@@ -22,14 +22,14 @@ Use following template when creating new WCMUsePojo models
 ```java
 package design.aem.models.v2.details;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.TagUtil;
 import com.day.cq.i18n.I18n;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PageDetails extends WCMUsePojo {
+public class PageDetails extends ModelProxy {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(PageDetails.class);
 
@@ -38,21 +38,23 @@ public class PageDetails extends WCMUsePojo {
         return this.componentProperties;
     }
     
-    @Override
-    public void activate() throws Exception {
+    protected void ready() {
         
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
-        //COMPONENT FIELDS
-        // {
-        //   1 required - property name,
-        //   2 required - default value,
-        //   3 optional - name of component attribute to add value into
-        //   4 optional - canonical name of class for handling multivalues, String or Tag
-        // }
-        Object[][] componentFields = {
+        /**
+         * Component Fields Helper
+         *
+         * Structure:
+         * 1 required - property name,
+         * 2 required - default value,
+         * 3 optional - name of component attribute to add value into
+         * 4 optional - canonical name of class for handling multivalues, String or Tag
+         */
+        setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
-        };
+        });
+        
         componentProperties = ComponentsUtil.getComponentProperties(
             this,
             componentFields,
