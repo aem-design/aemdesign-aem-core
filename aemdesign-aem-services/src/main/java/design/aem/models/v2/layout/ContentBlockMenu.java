@@ -30,7 +30,6 @@ public class ContentBlockMenu extends ModelProxy {
     }
 
     protected void ready() throws Exception {
-        I18n _i18n = new I18n(getRequest());
 
         final String DEFAULT_MENUSOURCE_PARENT = "parent";
         final String DEFAULT_MENUSOURCE_PAGEPATH = "pagepath";

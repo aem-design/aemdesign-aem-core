@@ -19,7 +19,7 @@ public class Search extends ModelProxy {
     }
 
     protected void ready() {
-        I18n _i18n = new I18n(getRequest());
+        I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "search";
         final String DEFAULT_I18N_CODE_PLACEHOLDER = "placeholderText";
@@ -51,9 +51,9 @@ public class Search extends ModelProxy {
         String labelText = componentProperties.get(DEFAULT_I18N_CODE_LEBEL,"");
         String searchButtonText = componentProperties.get(DEFAULT_I18N_CODE_SEARCH,"");
 
-        componentProperties.put("placeholderText", getDefaultLabelIfEmpty(placeholderText,DEFAULT_I18N_CATEGORY,DEFAULT_I18N_CODE_PLACEHOLDER,DEFAULT_I18N_CATEGORY,_i18n));
-        componentProperties.put("legendText", getDefaultLabelIfEmpty(legendText,DEFAULT_I18N_CATEGORY,DEFAULT_I18N_CODE_LEGEND,DEFAULT_I18N_CATEGORY,_i18n));
-        componentProperties.put("labelText", getDefaultLabelIfEmpty(labelText,DEFAULT_I18N_CATEGORY,DEFAULT_I18N_CODE_LEBEL,DEFAULT_I18N_CATEGORY,_i18n));
-        componentProperties.put("searchButtonText", getDefaultLabelIfEmpty(searchButtonText,DEFAULT_I18N_CATEGORY,DEFAULT_I18N_CODE_SEARCH,DEFAULT_I18N_CATEGORY,_i18n));
+        componentProperties.put("placeholderText", getDefaultLabelIfEmpty(placeholderText,DEFAULT_I18N_CATEGORY,DEFAULT_I18N_CODE_PLACEHOLDER,DEFAULT_I18N_CATEGORY,i18n));
+        componentProperties.put("legendText", getDefaultLabelIfEmpty(legendText,DEFAULT_I18N_CATEGORY,DEFAULT_I18N_CODE_LEGEND,DEFAULT_I18N_CATEGORY,i18n));
+        componentProperties.put("labelText", getDefaultLabelIfEmpty(labelText,DEFAULT_I18N_CATEGORY,DEFAULT_I18N_CODE_LEBEL,DEFAULT_I18N_CATEGORY,i18n));
+        componentProperties.put("searchButtonText", getDefaultLabelIfEmpty(searchButtonText,DEFAULT_I18N_CATEGORY,DEFAULT_I18N_CODE_SEARCH,DEFAULT_I18N_CATEGORY,i18n));
     }
 }

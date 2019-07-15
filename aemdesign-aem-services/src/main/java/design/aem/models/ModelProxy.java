@@ -16,7 +16,7 @@ public abstract class ModelProxy extends WCMUsePojo {
     private static final String ANALYTICS_FIELDS = "analyticsFields";
     private static final String COMPONENT_FIELDS = "componentFields";
 
-    protected abstract void ready() throws Exception;
+    protected abstract void ready() throws Exception; //NOSONAR generic exception is fine
 
     @Override
     public void activate() throws Exception {

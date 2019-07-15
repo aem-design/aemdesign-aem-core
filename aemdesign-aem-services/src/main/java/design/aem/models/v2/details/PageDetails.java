@@ -33,7 +33,7 @@ public class PageDetails extends GenericDetails {
     @Override
     @SuppressWarnings("Duplicates")
     protected void ready() {
-        com.day.cq.i18n.I18n _i18n = new I18n(getRequest());
+        com.day.cq.i18n.I18n i18n = new I18n(getRequest());
         
         final String DEFAULT_ARIA_ROLE = "banner";
         final String DEFAULT_TITLE_TAG_TYPE = "h1";
@@ -72,7 +72,7 @@ public class PageDetails extends GenericDetails {
                 {"subCategory", new String[]{}},
                 {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
-                {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
+                {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -92,7 +92,7 @@ public class PageDetails extends GenericDetails {
         processCommonFields();
 
         //format fields
-        componentProperties.putAll(processComponentFields(componentProperties,_i18n,getSlingScriptHelper()), false);
+        componentProperties.putAll(processComponentFields(componentProperties,i18n,getSlingScriptHelper()), false);
 
     }
 

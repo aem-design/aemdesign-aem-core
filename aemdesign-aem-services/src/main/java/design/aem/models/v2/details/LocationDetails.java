@@ -26,7 +26,7 @@ public class LocationDetails extends GenericDetails {
     @Override
     @SuppressWarnings("Duplicates")
     protected void ready() {
-        I18n _i18n = new I18n(getRequest());
+        I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "location-detail";
         final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
@@ -43,7 +43,7 @@ public class LocationDetails extends GenericDetails {
                 {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
                 {FIELD_PAGE_TITLE, DEFAULT_TITLE},
                 {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
-                {"variantHiddenLabel", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LABEL, DEFAULT_I18N_CATEGORY, _i18n)},
+                {"variantHiddenLabel", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LABEL, DEFAULT_I18N_CATEGORY, i18n)},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(

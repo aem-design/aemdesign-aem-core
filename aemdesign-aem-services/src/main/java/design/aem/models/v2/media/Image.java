@@ -35,7 +35,7 @@ public class Image extends ModelProxy {
 
     @SuppressWarnings("Duplicates")
     protected void ready() {
-        I18n _i18n = new I18n(getRequest());
+        I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "image";
         final String DEFAULT_I18N_LABEL_LICENSEINFO = "licenseinfo";
@@ -90,7 +90,7 @@ public class Image extends ModelProxy {
                     String assetUID = asset.getIdentifier();
                     String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
                     String assetUsageTerms = assetBasic.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
-                    String licenseInfo = getAssetCopyrightInfo(assetBasic, _i18n.get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
+                    String licenseInfo = getAssetCopyrightInfo(assetBasic, i18n.get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
                     componentProperties.put(FIELD_LICENSE_INFO, licenseInfo);
                     componentProperties.put(FIELD_ASSETID, assetUID);
 

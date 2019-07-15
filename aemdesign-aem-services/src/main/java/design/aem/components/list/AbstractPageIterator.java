@@ -34,6 +34,7 @@ public abstract class AbstractPageIterator implements Iterator<Page> {
 
   protected abstract Page seek();
 
+  @Override
   public void remove() {
     throw new UnsupportedOperationException();
   }

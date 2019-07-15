@@ -30,7 +30,6 @@ public class Video extends ModelProxy {
     }
 
     protected void ready() throws Exception {
-        I18n _i18n = new I18n(getRequest());
 
         setComponentFields(new Object[][]{
                 {"lightboxHeight", "70"},

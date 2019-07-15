@@ -49,12 +49,12 @@ public class Download extends ModelProxy {
 
     @SuppressWarnings("uncheked")
     protected void ready() {
-        com.day.cq.i18n.I18n _i18n = new I18n(getRequest());
+        com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"thumbnailType", "icon"},
-                {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
+                {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
                 {"thumbnailWidth","", "thumbnailWidth"},
                 {"thumbnailHeight","","thumbnailHeight"},
                 {"title",""},
@@ -83,7 +83,7 @@ public class Download extends ModelProxy {
         if (dld.hasContent()) {
 
             String mimeType = getDownloadMimeType(this.getResourceResolver(), dld);
-            String mimeTypeLabel = _i18n.get(mimeType, DEFAULT_I18N_CATEGORY);
+            String mimeTypeLabel = i18n.get(mimeType, DEFAULT_I18N_CATEGORY);
 
             Resource assetRes = dld.getResourceResolver().resolve(dld.getHref());
 
@@ -98,7 +98,7 @@ public class Download extends ModelProxy {
                 String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
 
                 String assetUsageTerms = asset.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
-                String licenseInfo = getAssetCopyrightInfo(asset, _i18n.get("licenseinfo", DEFAULT_I18N_CATEGORY));
+                String licenseInfo = getAssetCopyrightInfo(asset, i18n.get("licenseinfo", DEFAULT_I18N_CATEGORY));
 
                 //override title and description if image has rights
                 String title = componentProperties.get("title", "");

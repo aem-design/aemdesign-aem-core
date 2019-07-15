@@ -92,7 +92,7 @@ public class Columns extends ModelProxy {
     }
 
     protected void ready() {
-        I18n _i18n = new I18n(getRequest());
+        I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "columns";
         final String DEFAULT_LAYOUT = "1;colctrl-1c";
@@ -161,7 +161,7 @@ public class Columns extends ModelProxy {
 
                 componentProperties.put("numCols",numCols);
 
-                placeholderText = getDefaultLabelIfEmpty("placeholderTextStart", DEFAULT_I18N_CATEGORY, "Start of {0} Columns", _i18n,  Integer.toString(numCols));
+                placeholderText = getDefaultLabelIfEmpty("placeholderTextStart", DEFAULT_I18N_CATEGORY, "Start of {0} Columns", i18n,  Integer.toString(numCols));
 
                 columnClassSmall = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, "");
                 columnClassMedium = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, "");
@@ -202,7 +202,7 @@ public class Columns extends ModelProxy {
 
                 numCols = componentProperties.get("numCols",numCols);
 
-                placeholderText = getDefaultLabelIfEmpty("placeholderTextEnd", DEFAULT_I18N_CATEGORY, "End of {0} Columns", _i18n, Integer.toString(numCols));
+                placeholderText = getDefaultLabelIfEmpty("placeholderTextEnd", DEFAULT_I18N_CATEGORY, "End of {0} Columns", i18n, Integer.toString(numCols));
 
                 getRequest().removeAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_PROPERTIES));
                 getRequest().removeAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN));
@@ -234,7 +234,7 @@ public class Columns extends ModelProxy {
 
                     getRequest().setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn + 1);
 
-                    placeholderText = getDefaultLabelIfEmpty("placeholderTextBreak", DEFAULT_I18N_CATEGORY, "Columns Break {0} of {1}", _i18n, Integer.toString(currentColumn + 1), Integer.toString(numCols-1));
+                    placeholderText = getDefaultLabelIfEmpty("placeholderTextBreak", DEFAULT_I18N_CATEGORY, "Columns Break {0} of {1}", i18n, Integer.toString(currentColumn + 1), Integer.toString(numCols-1));
 
 
 

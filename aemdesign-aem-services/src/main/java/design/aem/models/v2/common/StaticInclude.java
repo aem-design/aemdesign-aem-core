@@ -23,7 +23,7 @@ public class StaticInclude extends ModelProxy {
     }
 
     protected void ready() {
-        I18n _i18n = new I18n(getRequest());
+        I18n i18n = new I18n(getRequest());
 
         // {
         //   1 required - property name,
@@ -43,7 +43,7 @@ public class StaticInclude extends ModelProxy {
                 DEFAULT_FIELDS_ACCESSIBILITY);
 
         componentProperties.put(INHERITED_RESOURCE,findInheritedResource(getResourcePage(),getComponentContext()));
-        componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,getDefaultLabelIfEmpty("",DEFAULT_I18N_INHERIT_CATEGORY,DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,DEFAULT_I18N_INHERIT_CATEGORY,_i18n));
+        componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,getDefaultLabelIfEmpty("",DEFAULT_I18N_INHERIT_CATEGORY,DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,DEFAULT_I18N_INHERIT_CATEGORY,i18n));
 
         componentProperties.put("componentName", getComponent().getProperties().get(JcrConstants.JCR_TITLE,""));
 

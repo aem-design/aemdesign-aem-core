@@ -27,7 +27,6 @@ public class PageAuthor extends ModelProxy {
     }
 
     protected void ready() throws Exception {
-        com.day.cq.i18n.I18n _i18n = new I18n(getRequest());
 
         com.adobe.granite.security.user.UserPropertiesService _userPropertiesService = getSlingScriptHelper().getService(com.adobe.granite.security.user.UserPropertiesService.class);
 

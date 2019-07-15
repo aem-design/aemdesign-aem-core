@@ -15,7 +15,7 @@ import java.util.Iterator;
 public class HitBasedPageIterator extends AbstractPageIterator {
   private Iterator<Hit> hits;
 
-  private static final Logger LOG = LoggerFactory.getLogger(ComponentProperties.class);
+  private static final Logger LOG = LoggerFactory.getLogger(HitBasedPageIterator.class);
 
   public HitBasedPageIterator(PageManager pm, Iterator<Hit> hits, boolean avoidDuplicates, PageFilter pageFilter) {
     super();

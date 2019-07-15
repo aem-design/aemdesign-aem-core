@@ -21,7 +21,6 @@ public class Table extends ModelProxy {
     }
 
     protected void ready() {
-        I18n _i18n = new I18n(getRequest());
 
         // {
         //   1 required - property name,

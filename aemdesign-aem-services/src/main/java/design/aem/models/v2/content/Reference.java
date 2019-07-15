@@ -21,7 +21,6 @@ public class Reference extends ModelProxy {
     }
 
     protected void ready() {
-        I18n _i18n = new I18n(getRequest());
 
         //not using lamda is available so this is the best that can be done
         setComponentFields(new Object[][]{

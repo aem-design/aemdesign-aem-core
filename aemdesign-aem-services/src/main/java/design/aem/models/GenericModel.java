@@ -132,8 +132,11 @@ public class GenericModel implements GenericComponent {
         return pageContextMap;
     }
 
+    /**
+     *
+     */
     @PostConstruct
     protected void initModel() {
-
+        throw new UnsupportedOperationException();
     }
 }

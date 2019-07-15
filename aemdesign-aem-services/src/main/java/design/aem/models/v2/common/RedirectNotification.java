@@ -23,7 +23,7 @@ public class RedirectNotification extends ModelProxy {
     }
 
     protected void ready() {
-        I18n _i18n = new I18n(getRequest());
+        I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "redirectnotification";
         final String DEFAULT_I18N_LABEL_REDIRECT_IS_SET = "redirectIsSet";
@@ -69,7 +69,7 @@ public class RedirectNotification extends ModelProxy {
             componentProperties.put("redirectTitle",currentTitle);
         }
 
-        componentProperties.put(DEFAULT_I18N_LABEL_REDIRECT_IS_SET,getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL_REDIRECT_IS_SET,DEFAULT_I18N_CATEGORY,_i18n));
-        componentProperties.put(DEFAULT_I18N_LABEL_REDIRECT_IS_NOT_SET,getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL_REDIRECT_IS_NOT_SET,DEFAULT_I18N_CATEGORY,_i18n));
+        componentProperties.put(DEFAULT_I18N_LABEL_REDIRECT_IS_SET,getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL_REDIRECT_IS_SET,DEFAULT_I18N_CATEGORY,i18n));
+        componentProperties.put(DEFAULT_I18N_LABEL_REDIRECT_IS_NOT_SET,getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL_REDIRECT_IS_NOT_SET,DEFAULT_I18N_CATEGORY,i18n));
     }
 }

@@ -20,7 +20,6 @@ public class PageTitle extends ModelProxy {
     }
 
     protected void ready() {
-        I18n _i18n = new I18n(getRequest());
 
         final String DEFAULT_TAG_TYPE = "span";
 

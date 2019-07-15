@@ -24,7 +24,7 @@ public class LocationList extends List {
     @Override
     @SuppressWarnings("Duplicates")
     protected void ready() {
-        I18n _i18n = new I18n(getRequest());
+        I18n i18n = new I18n(getRequest());
 
         detailsNameSuffix = new String[]{"location-details"};
 
@@ -34,8 +34,8 @@ public class LocationList extends List {
 
         if (componentProperties != null) {
             //override properties
-            componentProperties.put(LISTITEM_LINK_TEXT, getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LIST_ITEM_LINK_TEXT, DEFAULT_I18N_CATEGORY, _i18n));
-            componentProperties.put(LISTITEM_LINK_TITLE, getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LIST_ITEM_LINK_TITLE, DEFAULT_I18N_CATEGORY, _i18n));
+            componentProperties.put(LISTITEM_LINK_TEXT, getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LIST_ITEM_LINK_TEXT, DEFAULT_I18N_CATEGORY, i18n));
+            componentProperties.put(LISTITEM_LINK_TITLE, getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LIST_ITEM_LINK_TITLE, DEFAULT_I18N_CATEGORY, i18n));
 
             String thumbnailType = getProperties().get("mapRenderingOption", "");
 

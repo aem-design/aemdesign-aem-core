@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static design.aem.components.ComponentField.FIELD_VALUES_ARE_ATTRIBUTES;
 import static design.aem.utils.components.ComponentsUtil.*;
@@ -40,8 +41,18 @@ public class ComponentProperties extends ValueMapDecorator {
         super(base);
     }
 
-    public Object get(String name) {
-        return super.get(name);
+    /**
+     * override default equals
+     * @param obj source componentProperties
+     * @return true of same as self
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        return Objects.deepEquals(this, obj);
     }
 
     @Override
@@ -56,6 +67,7 @@ public class ComponentProperties extends ValueMapDecorator {
      * @param map new entries
      * @param update update entries, skip if non blank value exist
      */
+    @SuppressWarnings({"squid:S135"})
     public void putAll(Map<? extends String, ?> map, Boolean update) { //NOSONAR some things need to
         // be complicated
         if (map != null) {
@@ -78,7 +90,7 @@ public class ComponentProperties extends ValueMapDecorator {
                                 //test if currentValue is not empty
                                 if (currentValue.getClass().isArray() && ArrayUtils.getLength(currentValue) != 0) {
                                     //if its an empty array
-                                    LOGGER.warn("skip: " + entry.getKey() + " current value it not empty array");
+                                    LOGGER.warn("skip: {} current value it not empty array", entry.getKey());
                                     continue;
                                 }
                             }

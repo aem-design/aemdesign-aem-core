@@ -24,8 +24,6 @@ public class OnlineMedia extends WCMUsePojo {
     @Override
     public void activate() throws Exception {
 
-        I18n _i18n = new I18n(getRequest());
-
 
         final String DEFAULT_VARIANT = "default";
 
