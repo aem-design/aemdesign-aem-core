@@ -68,7 +68,7 @@ public class LanguageNavigation extends ModelProxy {
 
         LinkedHashMap<String, Map> languageMap = getTagsAsAdmin(getSlingScriptHelper(), tagsFilterList, getRequest().getLocale());
 
-        if (isShowNothing == false && languageMap != null || !languageMap.isEmpty()){
+        if (!isShowNothing && languageMap != null || !languageMap.isEmpty()){
 
             //get info on current page
             Page currentPage = getResourcePage();

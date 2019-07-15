@@ -13,6 +13,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
@@ -75,7 +76,7 @@ public class Timing extends ModelProxy {
         }
 
         GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(bytes));
-        BufferedReader bf = new BufferedReader(new InputStreamReader(gis, "UTF-8"));
+        BufferedReader bf = new BufferedReader(new InputStreamReader(gis, StandardCharsets.UTF_8));
         String outStr = "";
         String line;
         while ((line = bf.readLine()) != null) {
@@ -185,7 +186,7 @@ public class Timing extends ModelProxy {
             componentProperties.put("jsonString", jsonString);
 
         } catch (Exception ex) {
-            LOGGER.error(ex.toString());
+            LOGGER.error(ex);
         }
 
 
@@ -210,8 +211,8 @@ public class Timing extends ModelProxy {
                 start = end - elapsed;
                 fullname = cutBeforeLast(scan('}'), '#');
                 name = shortForm(fullname);
-            } catch (NumberFormatException ignored) {
-                name = fullname = ignored.toString();
+            } catch (NumberFormatException ex) {
+                name = fullname = ex;
             }
         }
 

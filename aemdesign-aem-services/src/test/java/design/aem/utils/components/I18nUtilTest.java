@@ -128,7 +128,6 @@ public class I18nUtilTest {
         final String defaultCategory = "defaultCategory";
 
         final String params = "params";
-        final String expectedResult = defaultLabel;
 
 
         when(i18n.get(defaultCode, defaultCategory, params)).thenReturn("");
@@ -138,6 +137,6 @@ public class I18nUtilTest {
 
 
         // Verify the results
-        assertEquals(expectedResult, result);
+        assertEquals(defaultLabel, result);
     }
 }

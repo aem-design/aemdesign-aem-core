@@ -269,7 +269,7 @@ public class ListNav extends ModelProxy {
                 LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]",map);
             }
         } catch (Exception ex) {
-            LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}",map,ex.toString());
+            LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}",map,ex);
         }
     }
 

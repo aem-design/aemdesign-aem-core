@@ -40,7 +40,7 @@ public class ParagraphUtil {
      * @param componentProperties component properties
      * @throws IOException
      */
-    public static final void openRow(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties, String rowClass) throws IOException {
+    public static void openRow(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties, String rowClass) throws IOException {
 
         openRow(par.getNumCols(),out,componentProperties, rowClass);
 
@@ -54,7 +54,7 @@ public class ParagraphUtil {
      * @param componentProperties component properties
      * @throws IOException
      */
-    public static final void openRow(Integer numCols, JspWriter out, ComponentProperties componentProperties, String rowClass) throws IOException {
+    public static void openRow(Integer numCols, JspWriter out, ComponentProperties componentProperties, String rowClass) throws IOException {
 
         final String numColsCSS = MessageFormat.format("colctrl-{0}c",numCols);
 
@@ -83,7 +83,7 @@ public class ParagraphUtil {
      * @param clearFix
      * @throws IOException
      */
-    public static final void closeRow(Paragraph par, JspWriter out, boolean clearFix) throws IOException {
+    public static void closeRow(Paragraph par, JspWriter out, boolean clearFix) throws IOException {
         closeRow(out, clearFix);
     }
 
@@ -93,7 +93,7 @@ public class ParagraphUtil {
      * @param clearFix
      * @throws IOException
      */
-    public static final void closeRow(JspWriter out, boolean clearFix) throws IOException {
+    public static void closeRow(JspWriter out, boolean clearFix) throws IOException {
 
         //row end
         out.write("</div>");
@@ -113,7 +113,7 @@ public class ParagraphUtil {
      * @param out html output
      * @throws IOException
      */
-    public static final void openCol(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
+    public static void openCol(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
 
         openCol(Arrays.asList(par.getBaseCssClass().split(",")),par.getColNr(),par.getCssClass(),out,componentProperties, columnClassStyle);
 
@@ -128,7 +128,7 @@ public class ParagraphUtil {
      * @param componentProperties columns componentProperties
      * @throws IOException
      */
-    public static final void openCol(List<String> columnsFormat, Integer colNumber, String columnClass, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
+    public static void openCol(List<String> columnsFormat, Integer colNumber, String columnClass, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
 
         //print column start
         if (columnsFormat.size() >= 1 && columnsFormat.get(0).contains(",")) {
@@ -153,7 +153,7 @@ public class ParagraphUtil {
      * @param out html output
      * @throws IOException
      */
-    public static final void openCol(Integer colNumber, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
+    public static void openCol(Integer colNumber, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
 
         //String[] columnsFormat = new String[0];
         List<String> columnsFormat = new ArrayList<String>();
@@ -174,7 +174,7 @@ public class ParagraphUtil {
      * @param out html output
      * @throws IOException
      */
-    public static final void closeCol(Paragraph par, JspWriter out) throws IOException {
+    public static void closeCol(Paragraph par, JspWriter out) throws IOException {
         //col end
         out.write("</div>");
     }
@@ -188,7 +188,7 @@ public class ParagraphUtil {
      * @return last item in the column
      * @throws IOException
      */
-    public static final Paragraph getLastItemInColumn(Object parSys, Paragraph par, JspWriter out) throws IOException {
+    public static Paragraph getLastItemInColumn(Object parSys, Paragraph par, JspWriter out) throws IOException {
         Paragraph lastItemPar = null;
 
         int parPosition = getListPosition(parSys, par);
@@ -289,7 +289,7 @@ public class ParagraphUtil {
      * @throws IOException
      * @throws ServletException
      */
-    public static final void includeEditRowStart(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException, ServletException {
+    public static void includeEditRowStart(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException, ServletException {
         //draw edit start placeholder
         WCMMode currentMode = WCMMode.fromRequest(slingRequest);
 
@@ -331,7 +331,7 @@ public class ParagraphUtil {
      * @throws IOException
      * @throws ServletException
      */
-    public static final void includeEditRowEnd(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException, ServletException {
+    public static void includeEditRowEnd(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException, ServletException {
         //draw edit start placeholder
         WCMMode currentMode = WCMMode.fromRequest(slingRequest);
 
@@ -379,7 +379,7 @@ public class ParagraphUtil {
      * @throws IOException
      * @throws ServletException
      */
-    public static final void includeEditContext(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException, ServletException {
+    public static void includeEditContext(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException, ServletException {
 
         out.flush();
 
@@ -444,7 +444,7 @@ public class ParagraphUtil {
      * @param currColNumber current column number
      * @throws IOException
      */
-    public static final void openCol(Resource resContainer, Resource resCol, JspWriter out, HashMap<String, Object> componentStyle, Integer currColNumber) throws IOException, RepositoryException {
+    public static void openCol(Resource resContainer, Resource resCol, JspWriter out, HashMap<String, Object> componentStyle, Integer currColNumber) throws IOException, RepositoryException {
         String layout = (String) componentStyle.get(COL_CTL_LAYOUT);
 
         //expected width format: col-md-,4,4,4
