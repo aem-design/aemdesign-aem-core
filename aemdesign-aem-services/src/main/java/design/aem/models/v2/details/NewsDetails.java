@@ -36,7 +36,7 @@ public class NewsDetails extends GenericDetails {
     @Override
     @SuppressWarnings("Duplicates")
     protected void ready() {
-        I18n _i18n = new I18n(getRequest());
+        I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_ARIA_ROLE = "banner";
         final String DEFAULT_TITLE_TAG_TYPE = "h1";
@@ -74,7 +74,7 @@ public class NewsDetails extends GenericDetails {
                 {TagConstants.PN_TAGS, new String[]{}},
                 {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE, ""},
-                {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
+                {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
                 {"author", ""},
         });
 
@@ -91,8 +91,8 @@ public class NewsDetails extends GenericDetails {
         componentProperties.put("publishDate",publishDate);
 
         //get format strings from dictionary
-        String dateFormatString = _i18n.get("publishDateFormat",DEFAULT_I18N_CATEGORY);
-        String dateDisplayFormatString = _i18n.get("publishDateDisplayFormat",DEFAULT_I18N_CATEGORY);
+        String dateFormatString = i18n.get("publishDateFormat",DEFAULT_I18N_CATEGORY);
+        String dateDisplayFormatString = i18n.get("publishDateDisplayFormat",DEFAULT_I18N_CATEGORY);
 
         //format date into formatted date
         SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString);
@@ -106,7 +106,7 @@ public class NewsDetails extends GenericDetails {
         componentProperties.put("publishDisplayDateText",publishDisplayDateText);
 
         //get full published date display text
-        String newsDateStatusText = _i18n.get("newsDateStatusText", DEFAULT_I18N_CATEGORY, publishDateText, publishDisplayDateText);
+        String newsDateStatusText = i18n.get("newsDateStatusText", DEFAULT_I18N_CATEGORY, publishDateText, publishDisplayDateText);
         componentProperties.put("newsDateStatusText",newsDateStatusText);
 
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
@@ -115,7 +115,7 @@ public class NewsDetails extends GenericDetails {
         processCommonFields();
 
         //format fields
-        componentProperties.putAll(processComponentFields(componentProperties,_i18n,getSlingScriptHelper()), false);
+        componentProperties.putAll(processComponentFields(componentProperties,i18n,getSlingScriptHelper()), false);
 
 
     }

@@ -150,7 +150,7 @@ public class List extends ModelProxy {
     }
 
     protected void loadConfig() {
-        I18n _i18n = new I18n(getRequest());
+        I18n i18n = new I18n(getRequest());
         String resourcePath = getResource().getPath();
 
         //not using lamda is available so this is the best that can be done
@@ -180,8 +180,8 @@ public class List extends ModelProxy {
                 {PN_SEARCH_IN, getResourcePage().getPath()},
                 {SAVEDQUERY_PROPERTY_NAME, StringUtils.EMPTY},
                 {SEARCH_IN_PROPERTY_NAME, StringUtils.EMPTY},
-                {LISTITEM_LINK_TEXT, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TEXT,DEFAULT_I18N_CATEGORY,_i18n)},
-                {LISTITEM_LINK_TITLE, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TITLE,DEFAULT_I18N_CATEGORY,_i18n)}
+                {LISTITEM_LINK_TEXT, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TEXT,DEFAULT_I18N_CATEGORY,i18n)},
+                {LISTITEM_LINK_TITLE, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TITLE,DEFAULT_I18N_CATEGORY,i18n)}
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(

@@ -41,7 +41,7 @@ public class PageDetails extends WCMUsePojo {
     @Override
     public void activate() throws Exception {
         
-        com.day.cq.i18n.I18n _i18n = new I18n(getRequest());
+        com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
         //COMPONENT FIELDS
         // {

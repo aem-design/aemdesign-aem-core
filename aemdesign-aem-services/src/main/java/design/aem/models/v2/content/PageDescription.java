@@ -20,7 +20,6 @@ public class PageDescription extends ModelProxy {
     }
 
     protected void ready() {
-        com.day.cq.i18n.I18n _i18n = new I18n(getRequest());
 
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},

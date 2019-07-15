@@ -69,7 +69,7 @@ public class EventDetails extends GenericDetails {
     @Override
     @SuppressWarnings("Duplicates")
     protected void ready() {
-        I18n _i18n = new I18n(getRequest());
+        I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_ARIA_ROLE = "banner";
         final String DEFAULT_TITLE_TAG_TYPE = "h1";
@@ -115,7 +115,7 @@ public class EventDetails extends GenericDetails {
                 {FIELD_PAGE_TITLE, DEFAULT_TITLE},
                 {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
-                {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
+                {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -129,7 +129,7 @@ public class EventDetails extends GenericDetails {
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
         componentProperties.put("category",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
 
-        componentProperties.putAll(processComponentFields(componentProperties,_i18n,getSlingScriptHelper()), false);
+        componentProperties.putAll(processComponentFields(componentProperties,i18n,getSlingScriptHelper()), false);
 
         if (componentProperties.get("isPastEventDate", false)) {
             componentProperties.put(DETAILS_CARD_ADDITIONAL, "finished");

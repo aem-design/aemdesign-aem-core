@@ -20,7 +20,6 @@ public class Audio extends ModelProxy {
     }
 
     protected void ready() {
-        I18n _i18n = new I18n(getRequest());
 
         final String DEFAULT_ARIA_ROLE = "button";
         final String DEFAULT_ARIA_LABEL = "Audio Fragment";

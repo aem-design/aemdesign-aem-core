@@ -25,7 +25,7 @@ public class PageDate extends ModelProxy {
     private static String PUBLISH_DATE_DISPLAY_FORMAT = "EEEE dd MMMM YYYY";
 
     protected void ready() {
-        com.day.cq.i18n.I18n _i18n = new I18n(getRequest());
+        com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "pagedate";
 
@@ -48,8 +48,8 @@ public class PageDate extends ModelProxy {
 //    componentProperties.put("publishDate",publishDate);
 
         //get format strings from dictionary
-        String dateFormatString = _i18n.get("publishDateFormat",DEFAULT_I18N_CATEGORY);
-        String dateDisplayFormatString = _i18n.get("publishDateDisplayFormat",DEFAULT_I18N_CATEGORY);
+        String dateFormatString = i18n.get("publishDateFormat",DEFAULT_I18N_CATEGORY);
+        String dateDisplayFormatString = i18n.get("publishDateDisplayFormat",DEFAULT_I18N_CATEGORY);
 
         //could not read dictionary
         if (dateFormatString.equals("publishDateFormat")) {

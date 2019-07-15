@@ -31,7 +31,7 @@ public class ContentBlock extends ModelProxy {
 
     @SuppressWarnings("Duplicates")
     protected void ready() throws Exception {
-        I18n _i18n = new I18n(getRequest());
+        I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "contentblock";
         final String DEFAULT_I18N_BACKTOTOP_LABEL = "backtotoplabel";
@@ -71,8 +71,8 @@ public class ContentBlock extends ModelProxy {
         componentProperties.put("linksRightList", getPageListInfo(this, getPageManager(), getResourceResolver(), componentProperties.get("linksRight", new String[]{})));
         componentProperties.put("linksLeftList", getPageListInfo(this, getPageManager(), getResourceResolver(), componentProperties.get("linksLeft", new String[]{})));
 
-        componentProperties.put("topLinkLabel", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_BACKTOTOP_LABEL, DEFAULT_I18N_CATEGORY, _i18n));
-        componentProperties.put("topLinkTitle", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_BACKTOTOP_TITLE, DEFAULT_I18N_CATEGORY, _i18n));
+        componentProperties.put("topLinkLabel", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_BACKTOTOP_LABEL, DEFAULT_I18N_CATEGORY, i18n));
+        componentProperties.put("topLinkTitle", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_BACKTOTOP_TITLE, DEFAULT_I18N_CATEGORY, i18n));
 
         Node resourceNode = getResource().adaptTo(Node.class);
 

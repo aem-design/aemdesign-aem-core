@@ -26,7 +26,7 @@ public class Link extends ModelProxy {
     }
 
     protected void ready() {
-        I18n _i18n = new I18n(getRequest());
+        I18n i18n = new I18n(getRequest());
 
         final String FIELD_LINKURL = "linkUrl";
         final String DEFAULT_LINKURL = "#";
@@ -47,7 +47,7 @@ public class Link extends ModelProxy {
                 {"linkId", getResource().getPath()},
                 {"linkIcon", new String[]{}, "", Tag.class.getCanonicalName()},
                 {"linkIconPosition", DEFAULT_LINK_ICON_POSITION},
-                {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,_i18n)},
+                {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
