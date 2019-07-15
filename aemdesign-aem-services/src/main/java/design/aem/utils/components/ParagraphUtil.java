@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.jcr.RepositoryException;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -481,8 +482,9 @@ public class ParagraphUtil {
      * @return
      */
     public static String uiMode(SlingHttpServletRequest slingRequest) {
-        if (slingRequest.getCookie(WCM_AUTHORING_MODE_COOKIE) != null) {
-            return slingRequest.getCookie(WCM_AUTHORING_MODE_COOKIE).getValue();
+        Cookie cookie = slingRequest.getCookie(WCM_AUTHORING_MODE_COOKIE);
+        if (cookie != null) {
+            return cookie.getValue();
         }
         return "";
 
