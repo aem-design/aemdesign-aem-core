@@ -682,7 +682,7 @@ public class ComponentsUtil {
             return "";
         }
         if (useStyle && (contentPolicy == null || contentPolicy.isEmpty())) {
-//            LOGGER.warn("getComponentProperty, useStyle is ({0}) but pageStyle is {1}", useStyle, contentPolicy);
+
             useStyle = false;
         }
 
@@ -1801,7 +1801,7 @@ public class ComponentsUtil {
                                 localresource = superComponent.getLocalResource(resourceName);
 
                                 if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
-//                    LOGGER.error("getComponentSuperComponent: [{}] superComponent={}, path={}, localresource={}", count, superComponent, superComponent.getPath(), localresource);
+
                                     return localresource.getPath();
                                 }
                                 count++;

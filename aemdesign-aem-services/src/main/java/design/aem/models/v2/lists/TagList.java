@@ -139,7 +139,6 @@ public class TagList extends ModelProxy {
      * @param listType list type to execute
      */
     protected void populateListItems(Source listType) {
-//        LOGGER.error("populateListItemsL: listType={}",listType);
         switch (listType) {
             case STATIC: //SOURCE_STATIC
                 populateStaticListItems();
@@ -202,7 +201,6 @@ public class TagList extends ModelProxy {
     @SuppressWarnings("Duplicates")
     private void populateListItemsFromMap(Map<String,String> map) {
         try {
-//            LOGGER.error("populateListItemsFromMap: map={}",map);
 
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
             if (builder != null) {
@@ -222,7 +220,6 @@ public class TagList extends ModelProxy {
 
                 map.put("orderby.sort", sortOrder.getValue());
 
-//            LOGGER.error("populateListItemsFromMap: running query with map=[{}]",map);
 
                 PredicateGroup root = PredicateGroup.create(map);
                 // avoid slow //* queries
@@ -304,7 +301,6 @@ public class TagList extends ModelProxy {
         resultInfo.put("resultPages",resultPages);
         resultInfo.put("totalPages",totalPages);
 
-//        LOGGER.error("collectSearchResults resultInfo={}", resultInfo);
         componentProperties.put("resultInfo",resultInfo);
 
         for (Hit hit : result.getHits()) {

@@ -252,8 +252,6 @@ public class SearchList extends ModelProxy {
         componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
 
 
-//        LOGGER.error("searchlist loaded");
-
 
     }
 
@@ -327,8 +325,6 @@ public class SearchList extends ModelProxy {
                     CustomSearchResult newResult = new CustomSearchResult(h.getPath());
                     String jcrPrimaryType = h.getProperties().get("jcr:primaryType").toString();
 
-//                    LOGGER.error("normaliseContentTree: jcrPrimaryType={},getExcerpt={},h.getExcerpts()={}",jcrPrimaryType,h.getExcerpt(),h.getExcerpts());
-
                     newResult.setTitle(h.getTitle());
 
                     if (h.getProperties().get("subtitle") != null) {
@@ -363,8 +359,6 @@ public class SearchList extends ModelProxy {
 
                                     String thumbnailImagePath = getResourceImagePath(detailsResource, DEFAULT_THUMBNAIL_IMAGE_NODE_NAME);
                                     String backgroundImagePath = getResourceImagePath(detailsResource, DEFAULT_BACKGROUND_IMAGE_NODE_NAME);
-
-//                                    LOGGER.error("normaliseContentTree: detailsPath={},thumbnailImagePath={},backgroundImagePath={}", detailsPath,thumbnailImagePath,backgroundImagePath);
 
                                     if (thumbnailImagePath != null) {
                                         newResult.setThumbnailUrl(thumbnailImagePath);
@@ -412,8 +406,6 @@ public class SearchList extends ModelProxy {
 
                             String excerpt = h.getExcerpt();
 
-//                        LOGGER.error("normaliseContentTree: DC_TITLE={},DC_DESCRIPTION={}",assetBasic.getMetadataValue(DamConstants.DC_TITLE),assetBasic.getMetadataValue(DamConstants.DC_DESCRIPTION));
-//                        LOGGER.error("normaliseContentTree: h.getPath()={},excerpt is path={},getThumbnailUrl={}",h.getPath(),excerpt.equals(h.getPath()),newResult.getThumbnailUrl());
 
                             if (excerpt.equals(h.getPath()) && assetBasic != null) {
                                 newResult.setExcerpt(assetBasic.getMetadataValue(DamConstants.DC_DESCRIPTION));

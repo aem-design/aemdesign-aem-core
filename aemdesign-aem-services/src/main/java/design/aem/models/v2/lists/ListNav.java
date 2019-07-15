@@ -132,8 +132,6 @@ public class ListNav extends ModelProxy {
             filterPage = getCurrentPage();
         }
 
-//        LOGGER.error("activate: parentPath={},parentPath2={},resourcePath={},filterPage={},ancestorPath={}",componentProperties.get(PARENT_PATH,""),getProperties().get("parentPath"),getResource().getPath(),filterPage.getPath(),componentProperties.get(DESCENDANT_PATH,""));
-
         //process badge selection
         String componentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
 
@@ -174,7 +172,7 @@ public class ListNav extends ModelProxy {
      */
     @SuppressWarnings("Duplicates")
     protected void populateListItems(Source listType) {
-//        LOGGER.error("populateListItems: listType={}",listType);
+
         switch (listType) {
             case STATIC: //SOURCE_STATIC
                 populateStaticListItems();
@@ -237,7 +235,7 @@ public class ListNav extends ModelProxy {
     @SuppressWarnings("Duplicates")
     private void populateListItemsFromMap(Map<String,String> map) {
         try {
-//            LOGGER.error("populateListItemsFromMap: map={}",map);
+
 
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
             if (builder != null) {
@@ -257,7 +255,6 @@ public class ListNav extends ModelProxy {
 
                 map.put("orderby.sort", sortOrder.getValue());
 
-                //LOGGER.error("populateListItemsFromMap: running query with map=[{}]", map);
 
                 PredicateGroup root = PredicateGroup.create(map);
                 // avoid slow //* queries
@@ -296,9 +293,6 @@ public class ListNav extends ModelProxy {
             Resource pathResource = resourceResolver.resolve(path);
 
             if (!ResourceUtil.isNonExistingResource(pathResource)) {
-
-//            LOGGER.error("collectSearchResults: previousResource={},currentResource={},nextResource={},firstResource={}",previousResource,currentResource,nextResource,firstResource);
-//            LOGGER.error("collectSearchResults: hit={}",hit.getPath());
 
                 if (firstResource == null) {
                     firstResource = pathResource;
@@ -339,7 +333,6 @@ public class ListNav extends ModelProxy {
      */
     private void addNavItems(Resource previousResource,Resource currentResource,Resource nextResource,Resource firstResource) {
 
-//        LOGGER.error("addNavItems: previousResource={},currentResource={},nextResource={},firstResource={}", previousResource,currentResource,nextResource,firstResource);
 
         if (listItems != null) {
             if (currentResource != null) {
@@ -353,7 +346,6 @@ public class ListNav extends ModelProxy {
                     item.put("page", previousPage);
                     item.putAll(design.aem.models.v2.lists.List.getPageBadgeInfo(previousPage, DEFAULT_LIST_DETAILS_SUFFIX, getResourceResolver(), detailsBadge));
 
-//                    LOGGER.error("addNavItems: previous item={}", item);
 
                     listItems.add(item);
                 }
@@ -369,7 +361,6 @@ public class ListNav extends ModelProxy {
                     item.put("page", nextPage);
                     item.putAll(design.aem.models.v2.lists.List.getPageBadgeInfo(nextPage, DEFAULT_LIST_DETAILS_SUFFIX, getResourceResolver(), detailsBadge));
 
-//                    LOGGER.error("addNavItems: item={}", item);
 
                     listItems.add(item);
                 }
@@ -386,7 +377,6 @@ public class ListNav extends ModelProxy {
                     item.put("page", firstPage);
                     item.putAll(design.aem.models.v2.lists.List.getPageBadgeInfo(firstPage, DEFAULT_LIST_DETAILS_SUFFIX, getResourceResolver(), detailsBadge));
 
-//                    LOGGER.error("addNavItems: item={}", item);
 
                     listItems.add(item);
                 }
@@ -418,7 +408,7 @@ public class ListNav extends ModelProxy {
         resultInfo.put("resultPages",resultPages);
         resultInfo.put("totalPages",totalPages);
 
-//        LOGGER.error("collectSearchResults resultInfo={}", resultInfo);
+
         componentProperties.put("resultInfo",resultInfo);
 
         Resource previousResource = null;
@@ -427,8 +417,6 @@ public class ListNav extends ModelProxy {
         Resource firstResource = null;
         for (Hit hit : result.getHits()) {
 
-//            LOGGER.error("collectSearchResults: previousResource={},currentResource={},nextResource={},firstResource={}",previousResource,currentResource,nextResource,firstResource);
-//            LOGGER.error("collectSearchResults: hit={}",hit.getPath());
 
             if (firstResource == null) {
                 firstResource = hit.getResource();
