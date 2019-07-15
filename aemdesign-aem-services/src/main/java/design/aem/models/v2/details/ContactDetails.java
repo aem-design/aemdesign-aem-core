@@ -26,17 +26,17 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 public class ContactDetails extends GenericDetails {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContactDetails.class);
 
-    final String COMPONENT_DETAILS_NAME = "contact-details";
-    final String componentPath = "./" + PATH_DEFAULT_CONTENT + "/" + COMPONENT_DETAILS_NAME;
+    final static String COMPONENT_DETAILS_NAME = "contact-details";
+    final static String componentPath = "./" + PATH_DEFAULT_CONTENT + "/" + COMPONENT_DETAILS_NAME;
 
-    final String DEFAULT_FORMAT_TITLE = "${honorificPrefix} ${givenName} ${familyName}";
-    final String DEFAULT_FORMAT_DESCRIPTION = "${jobTitle}";
-    final String FIELD_FORMAT_TITLE = "titleFormat";
-    final String FIELD_FORMAT_DESCRIPTION = "descriptionFormat";
-    final String FIELD_FORMATTED_TITLE = "titleFormatted";
-    final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
-    final String FIELD_FORMATTED_DESCRIPTION = "descriptionFormatted";
-    final String I18N_CATEGORY = "contact-detail";
+    final static String DEFAULT_FORMAT_TITLE = "${honorificPrefix} ${givenName} ${familyName}";
+    final static String DEFAULT_FORMAT_DESCRIPTION = "${jobTitle}";
+    final static String FIELD_FORMAT_TITLE = "titleFormat";
+    final static String FIELD_FORMAT_DESCRIPTION = "descriptionFormat";
+    final static String FIELD_FORMATTED_TITLE = "titleFormatted";
+    final static String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
+    final static String FIELD_FORMATTED_DESCRIPTION = "descriptionFormatted";
+    final static String I18N_CATEGORY = "contact-detail";
 
 
     @Override
@@ -145,7 +145,7 @@ public class ContactDetails extends GenericDetails {
             );
 
         } catch (Exception ex) {
-            LOGGER.error("Could not process component fields in " + COMPONENT_DETAILS_NAME);
+            LOGGER.error("Could not process component fields in {}", COMPONENT_DETAILS_NAME);
         }
         return newFields;
     }

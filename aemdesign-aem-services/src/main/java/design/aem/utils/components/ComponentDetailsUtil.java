@@ -42,7 +42,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(wcmUsePojoModel, pageManager, resourceResolver, paths, DEFAULT_LIST_DETAILS_SUFFIX, DEFAULT_LIST_PAGE_CONTENT);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex.toString());
         }
 
         return new ArrayList<>();
@@ -73,7 +73,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(wcmUsePojoModel, pageManager, resourceResolver, paths, componentNames, pageRoots, null, false);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex.toString());
         }
 
         return new ArrayList<>();
@@ -155,7 +155,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(wcmUsePojoModel, pageManager, resourceResolver, pageList, DEFAULT_LIST_DETAILS_SUFFIX, DEFAULT_LIST_PAGE_CONTENT);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex.toString());
         }
 
         return new ArrayList<>();
@@ -190,7 +190,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(wcmUsePojoModel, pageManager, resourceResolver, pageList, detailsComponentName, pageRoots, null, false);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: " + wcmUsePojoModel + ", error: " + ex.toString());
+            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex.toString());
         }
 
         return new ArrayList<>();

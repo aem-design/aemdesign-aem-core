@@ -219,7 +219,7 @@ public class ImagesUtil {
             }
 
         } catch (Exception ex) {
-            LOGGER.error("Exception : " + ex.getMessage(), ex);
+            LOGGER.error("getMetadataStringForKey: {}", ex);
         }
 
 
@@ -276,7 +276,7 @@ public class ImagesUtil {
             return DamUtil.getBestFitRendition(minWidth, asset.getRenditions());
 
         } catch (Exception ex) {
-            LOGGER.error("Exception occurred: " + ex.getMessage(), ex);
+            LOGGER.error("getThumbnail: {}", ex);
         }
         return null;
     }
@@ -413,7 +413,7 @@ public class ImagesUtil {
                 }
             }
         } catch (Exception ex) {
-            LOGGER.error("Exception occurred: " + ex.getMessage(), ex);
+            LOGGER.error("Exception occurred: {}", ex);
         }
         return fileReferencPath;
     }
@@ -440,7 +440,7 @@ public class ImagesUtil {
             }
 
         } catch (Exception ex) {
-            LOGGER.error("Exception occurred: " + ex.getMessage(), ex);
+            LOGGER.error("Exception occurred: {}", ex);
         }
 
         return valueReturn;
@@ -482,7 +482,7 @@ public class ImagesUtil {
                 copyrightInfo = MessageFormat.format(format, assetCreator, assetContributor, assetLicense, assetCopyrightOwner, assetExpiresYear);
             }
         } catch (Exception ex) {
-            LOGGER.error("Exception occurred: " + ex.getMessage(), ex);
+            LOGGER.error("Exception occurred: {}", ex);
         }
 
         return copyrightInfo;
@@ -500,7 +500,7 @@ public class ImagesUtil {
             return 0;
         }
         if ((dimensionProperty == null) || ((!dimensionProperty.equals("tiff:ImageLength")) && (!dimensionProperty.equals("tiff:ImageWidth")))) {
-            LOGGER.warn("Incorrect dimension property for {}", r.getPath(), new Exception("Invalid property name " + dimensionProperty));
+            LOGGER.warn("Incorrect dimension property for {}, Invalid property name {}", r.getPath(), dimensionProperty);
             return 0;
         }
         String name = r.getName();
@@ -549,7 +549,7 @@ public class ImagesUtil {
             LOGGER.debug("Unknown naming format for name {} at {}", name, r.getPath());
             return 0;
         } catch (Exception e) {
-            LOGGER.warn("Unexpected exception finding dimension for asset at {} " + r.getPath(), e);
+            LOGGER.warn("Unexpected exception finding dimension for asset at {}, {}", r.getPath(), e);
         }
         return 0;
     }
@@ -1071,7 +1071,7 @@ public class ImagesUtil {
                                     }
 
                                 } catch (Exception ex) {
-                                    LOGGER.error("failed to create Width and Image Mapping : " + ex.getMessage(), ex);
+                                    LOGGER.error("failed to create Width and Image Mapping: {}", ex);
                                 }
 
                             }
@@ -1111,12 +1111,12 @@ public class ImagesUtil {
                 for (String entry : renditionImageMapping) {
                     String[] entryArray = StringUtils.split(entry, "=");
                     if (entryArray == null || entryArray.length != 2) {
-                        LOGGER.error("getBestFitMediaQueryRenditionSet [" + entry + "] is invalid");
+                        LOGGER.error("getBestFitMediaQueryRenditionSet [{}] is invalid", entry);
                         continue;
                     }
                     String minWidth = entryArray[0];
                     if (isEmpty(minWidth) || (NumberUtils.isDigits(minWidth) == false)) {
-                        LOGGER.error("getBestFitMediaQueryRenditionSet [" + entry + "] is invalid, incorrect width [" + minWidth + "]");
+                        LOGGER.error("getBestFitMediaQueryRenditionSet [{}] is invalid, incorrect width [{}]", entry, minWidth);
                         continue;
                     }
 
@@ -1181,12 +1181,12 @@ public class ImagesUtil {
 
             String[] entryArray = StringUtils.split(entry, "="); //320.medium=(min-width: 1px) and (max-width: 425px)
             if (entryArray == null || entryArray.length != 2) {
-                LOGGER.error("getAdaptiveImageSet [" + entry + "] is invalid");
+                LOGGER.error("getAdaptiveImageSet [{}] is invalid",entry);
                 continue;
             }
             String adaptiveProfile = entryArray[0];
             if (isEmpty(adaptiveProfile) && (!adaptiveProfile.contains("."))) {
-                LOGGER.error("getAdaptiveImageSet [" + entry + "] is invalid, incorrect profile format [" + adaptiveProfile + "] expecting {width}.{quality}.{format}");
+                LOGGER.error("getAdaptiveImageSet [{}] is invalid, incorrect profile format [{}] expecting {width}.{quality}.{format}", entry, adaptiveProfile);
                 continue;
             }
 
@@ -1211,7 +1211,7 @@ public class ImagesUtil {
                         )
                 );
             } else {
-                LOGGER.error("getAdaptiveImageSet rendition selected size is not allowed [" + profileWidth + "], [" + entry + "]");
+                LOGGER.error("getAdaptiveImageSet rendition selected size is not allowed [{}], [{}]", profileWidth, entry);
                 continue;
             }
 
