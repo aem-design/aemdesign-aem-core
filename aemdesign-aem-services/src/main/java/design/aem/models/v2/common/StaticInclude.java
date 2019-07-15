@@ -25,12 +25,15 @@ public class StaticInclude extends ModelProxy {
     protected void ready() {
         I18n i18n = new I18n(getRequest());
 
-        // {
-        //   1 required - property name,
-        //   2 required - default value,
-        //   3 optional - name of component attribute to add value into
-        //   4 optional - canonical name of class for handling multivalues, String or Tag
-        // }
+        /**
+         * Component Fields Helper
+         *
+         * Structure:
+         * 1 required - property name,
+         * 2 required - default value,
+         * 3 optional - name of component attribute to add value into
+         * 4 optional - canonical name of class for handling multivalues, String or Tag
+         */
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {COMPONENT_CANCEL_INHERIT_PARENT, false},

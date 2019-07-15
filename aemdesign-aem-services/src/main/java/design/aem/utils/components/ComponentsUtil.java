@@ -294,13 +294,15 @@ public class ComponentsUtil {
 
     private static final String STRING_EXPRESSION_CHECK = ".*(\\$\\{.*?\\}).*";
 
-    //COMPONENT STYLES
-    // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - name of component attribute to add value into
-    //   4 optional - canonical name of class for handling multivalues, String or Tag
-    // }
+    /**
+     * Component Style
+     *
+     * Structure:
+     * 1 required - property name,
+     * 2 required - default value,
+     * 3 optional - name of component attribute to add value into
+     * 4 optional - canonical name of class for handling multivalues, String or Tag
+     */
     public static final Object[][] DEFAULT_FIELDS_STYLE = { //NOSONAR used by classes
             {FIELD_STYLE_COMPONENT_ID, "", "id"},
             {FIELD_STYLE_COMPONENT_THEME, new String[]{}, "class", Tag.class.getCanonicalName()},
@@ -318,13 +320,15 @@ public class ComponentsUtil {
             {FIELD_STYLE_COMPONENT_BOOLEANATTR, new String[]{}, FIELD_VALUES_ARE_ATTRIBUTES, Tag.class.getCanonicalName()},
     };
 
-    //COMPONENT ACCESSIBILITY
-    // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - name of component attribute to add value into
-    //   4 optional - canonical name of class for handling multivalues, String or Tag
-    // }
+    /**
+     * Component Accessibility
+     *
+     * Structure:
+     * 1 required - property name,
+     * 2 required - default value,
+     * 3 optional - name of component attribute to add value into
+     * 4 optional - canonical name of class for handling multivalues, String or Tag
+     */
     public static final Object[][] DEFAULT_FIELDS_ACCESSIBILITY = { //NOSONAR used by classes
             {FIELD_ARIA_ROLE, "", DEFAULT_ARIA_ROLE_ATTRIBUTE},
             {FIELD_ARIA_LABEL, "", "aria-label"},
@@ -337,13 +341,15 @@ public class ComponentsUtil {
             {FIELD_ARIA_ACCESSKEY, "", "accesskey"},
     };
 
-    //DEFAULT NODE METADATA
-    // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - name of component attribute to add value into
-    //   4 optional - canonical name of class for handling multivalues, String or Tag
-    // }
+    /**
+     * Default Node Metadata
+     *
+     * Structure:
+     * 1 required - property name,
+     * 2 required - default value,
+     * 3 optional - name of component attribute to add value into
+     * 4 optional - canonical name of class for handling multivalues, String or Tag
+     */
     public static final Object[][] DEFAULT_FIELDS_METADATA = { //NOSONAR used by classes
             {"metadataContentType", ""},
             {"cq:lastModified", ""},
@@ -352,12 +358,15 @@ public class ComponentsUtil {
             {"cq:lastReplicated", ""},
     };
 
-    // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - name of component attribute to add value into, specifying "" will return values process as per canonical name
-    //   4 optional - canonical name of class for handling multivalues, String or Tag
-    // }
+    /**
+     * Badge Metadata used by Details Components
+     *
+     * Structure:
+     * 1 required - property name,
+     * 2 required - default value,
+     * 3 optional - name of component attribute to add value into
+     * 4 optional - canonical name of class for handling multivalues, String or Tag
+     */
     public static final Object[][] DEFAULT_FIELDS_DETAILS_OPTIONS = { //NOSONAR used by classes
             {DETAILS_MENU_COLOR, ""},
             {DETAILS_MENU_ICONSHOW, false},
@@ -398,12 +407,15 @@ public class ComponentsUtil {
 
     };
 
-    // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - name of component attribute to add value into, specifying "" will return values process as per canonical name
-    //   4 optional - canonical name of class for handling multivalues, String or Tag
-    // }
+    /**
+     * Badge Metadata used in Lists
+     *
+     * Structure:
+     * 1 required - property name,
+     * 2 required - default value,
+     * 3 optional - name of component attribute to add value into
+     * 4 optional - canonical name of class for handling multivalues, String or Tag
+     */
     public static final Object[][] DEFAULT_FIELDS_DETAILS_OPTIONS_OVERRIDE = { //NOSONAR used by classes
             {DETAILS_MENU_COLOR, StringUtils.EMPTY},
             {DETAILS_MENU_ICONSHOW, StringUtils.EMPTY},
@@ -442,13 +454,15 @@ public class ComponentsUtil {
 
     };
 
-    //COMPONENT ANALYTICS
-    // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - name of component attribute to add value into
-    //   4 optional - canonical name of class for handling multivalues, String or Tag
-    // }
+    /**
+     * Component Analytics
+     *
+     * Structure:
+     * 1 required - property name,
+     * 2 required - default value,
+     * 3 optional - name of component attribute to add value into
+     * 4 optional - canonical name of class for handling multivalues, String or Tag
+     */
     public static final Object[][] DEFAULT_FIELDS_ANALYTICS = { //NOSONAR used by classes
             {DETAILS_ANALYTICS_TRACK, false, DETAILS_DATA_ANALYTICS_TRACK}, //basic
             {DETAILS_ANALYTICS_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LOCATION}, //basic
@@ -462,26 +476,30 @@ public class ComponentsUtil {
             {"analyticsNonInteraction", StringUtils.EMPTY, "data-analytics-noninteraction"}, //advanced
     };
 
-    //LINK ATTRIBUTES
-    // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - name of component attribute to add value into
-    //   4 optional - canonical name of class for handling multivalues, String or Tag
-    // }
+    /**
+     * Link Attributes
+     *
+     * Structure:
+     * 1 required - property name,
+     * 2 required - default value,
+     * 3 optional - name of component attribute to add value into
+     * 4 optional - canonical name of class for handling multivalues, String or Tag
+     */
     public static final Object[][] DEFAULT_FIELDS_ATTRIBUTES = { //NOSONAR used by classes
             {"dataType", "", "type"},
             {"dataTarget", "", "data-target"},
             {"dataToggle", "", "data-toggle"},
     };
 
-    //ASSET METADATA
-    // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - name of component attribute to add value into
-    //   4 optional - canonical name of class for handling multivalues, String or Tag
-    // }
+    /**
+     * Asset Metadata
+     *
+     * Structure:
+     * 1 required - property name,
+     * 2 required - default value,
+     * 3 optional - name of component attribute to add value into
+     * 4 optional - canonical name of class for handling multivalues, String or Tag
+     */
     public static final Object[][] DEFAULT_FIELDS_ASSET = { //NOSONAR used by classes
             {CommonUtil.DAM_TITLE, "${ value ? value : name }", "data-title"},
             {CommonUtil.DAM_DESCRIPTION, StringUtils.EMPTY, "data-description"},
@@ -498,13 +516,15 @@ public class ComponentsUtil {
     };
 
 
-    //ASSET IMAGE METADATA
-    // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - name of component attribute to add value into
-    //   4 optional - canonical name of class for handling multivalues, String or Tag
-    // }
+    /**
+     * Asset Image Metadata
+     *
+     * Structure:
+     * 1 required - property name,
+     * 2 required - default value,
+     * 3 optional - name of component attribute to add value into
+     * 4 optional - canonical name of class for handling multivalues, String or Tag
+     */
     public static final Object[][] DEFAULT_FIELDS_ASSET_IMAGE = { //NOSONAR used by classes
             {CommonUtil.DAM_TITLE, StringUtils.EMPTY},
             {CommonUtil.DAM_DESCRIPTION, StringUtils.EMPTY},
@@ -514,13 +534,15 @@ public class ComponentsUtil {
             {CommonUtil.DAM_SOURCE_URL, StringUtils.EMPTY},
     };
 
-    //ASSET VIDEO METADATA
-    // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - name of component attribute to add value into
-    //   4 optional - canonical name of class for handling multivalues, String or Tag
-    // }
+    /**
+     * Asset Video Metadata
+     *
+     * Structure:
+     * 1 required - property name,
+     * 2 required - default value,
+     * 3 optional - name of component attribute to add value into
+     * 4 optional - canonical name of class for handling multivalues, String or Tag
+     */
     public static final Object[][] DEFAULT_FIELDS_ASSET_VIDEO = { //NOSONAR used by classes
             {CommonUtil.DAM_TITLE, StringUtils.EMPTY},
             {CommonUtil.DAM_DESCRIPTION, StringUtils.EMPTY},
@@ -532,13 +554,15 @@ public class ComponentsUtil {
     };
 
 
-    //DEFAULT NODE METADATA
-    // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - name of component attribute to add value into
-    //   4 optional - canonical name of class for handling multivalues, String or Tag
-    // }
+    /**
+     * Page Theme Metadata
+     *
+     * Structure:
+     * 1 required - property name,
+     * 2 required - default value,
+     * 3 optional - name of component attribute to add value into
+     * 4 optional - canonical name of class for handling multivalues, String or Tag
+     */
     public static final Object[][] DEFAULT_FIELDS_PAGE_THEME = { //NOSONAR used by classes
             {"themeStyle", ""},
             {"faviconsPath", ""},
@@ -547,13 +571,15 @@ public class ComponentsUtil {
             {"siteTileColor", ""},
     };
 
-    //COMMON COMPONENT LAYOUT FIELDS
-    // {
-    //   1 required - property name,
-    //   2 required - default value,
-    //   3 optional - name of component attribute to add value into
-    //   4 optional - canonical name of class for handling multivalues, String or Tag
-    // }
+    /**
+     * Common Component Layout Fields
+     *
+     * Structure:
+     * 1 required - property name,
+     * 2 required - default value,
+     * 3 optional - name of component attribute to add value into
+     * 4 optional - canonical name of class for handling multivalues, String or Tag
+     */
     public static final Object[][] DEFAULT_COMMON_COMPONENT_LAYOUT_FIELDS = { //NOSONAR used by classes
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {FIELD_TITLE_TAG_TYPE, ""},
