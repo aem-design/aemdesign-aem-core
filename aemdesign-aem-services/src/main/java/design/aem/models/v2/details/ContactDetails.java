@@ -27,7 +27,6 @@ public class ContactDetails extends GenericDetails {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContactDetails.class);
 
     final static String COMPONENT_DETAILS_NAME = "contact-details";
-    final static String componentPath = "./" + PATH_DEFAULT_CONTENT + "/" + COMPONENT_DETAILS_NAME;
 
     final static String DEFAULT_FORMAT_TITLE = "${honorificPrefix} ${givenName} ${familyName}";
     final static String DEFAULT_FORMAT_DESCRIPTION = "${jobTitle}";
@@ -48,8 +47,10 @@ public class ContactDetails extends GenericDetails {
         final Boolean DEFAULT_HIDE_DESCRIPTION = false;
         final Boolean DEFAULT_SHOW_BREADCRUMB = true;
         final Boolean DEFAULT_SHOW_TOOLBAR = true;
-        final String DEFAULT_I18N_CATEGORY = "contact-detail";
+        final String DEFAULT_I18N_CATEGORY = I18N_CATEGORY;
         final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
+
+        final String FIELD_HONOTIFIC_PREFIX = "honorificPrefix";
 
         final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
 
@@ -67,15 +68,15 @@ public class ContactDetails extends GenericDetails {
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
                 {"title", getResourcePage().getProperties().get(JcrConstants.JCR_TITLE, getResourcePage().getName())},
                 {FIELD_FORMAT_TITLE,""},
-                {"honorificPrefix", ""}, //tag path
+                {FIELD_HONOTIFIC_PREFIX, ""}, //tag path
                 {"givenName",""},
                 {"familyName",""},
-                {"titleFormat", ""}, //tag path, will be resolved to value in processComponentFields
+                {FIELD_FORMAT_TITLE, ""}, //tag path, will be resolved to value in processComponentFields
                 {"jobTitle",""},
                 {"employee",""},
                 {"email",""},
                 {"contactNumber",""},
-                {"descriptionFormat", ""}, //tag path, will be resolved to value in processComponentFields
+                {FIELD_FORMAT_DESCRIPTION, ""}, //tag path, will be resolved to value in processComponentFields
                 {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
                 {TagConstants.PN_TAGS, new String[]{},"data-tags", Tag.class.getCanonicalName()},
                 {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
@@ -99,8 +100,8 @@ public class ContactDetails extends GenericDetails {
         componentProperties.put("category",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
 
         //grab value for prefix
-        componentProperties.put("honorificPrefix",
-                getTagValueAsAdmin(componentProperties.get("honorificPrefix", ""),getSlingScriptHelper())
+        componentProperties.put(FIELD_HONOTIFIC_PREFIX,
+                getTagValueAsAdmin(componentProperties.get(FIELD_HONOTIFIC_PREFIX, ""),getSlingScriptHelper())
         );
 
         //format fields

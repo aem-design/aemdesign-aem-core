@@ -37,12 +37,14 @@ public class Breadcrumb extends ModelProxy {
         final boolean DEFAULT_HIDE_CURRENT = false;
         final int DEFAULT_LEVEL_START = 1;
         final int DEFAULT_LEVEL_END = 1;
+        final String FIELD_END_LEVEL = "endLevel";
+        final String FIELD_START_LEVEL = "startLevel";
 
         setComponentFields(new Object[][]{
                 {"delimiter", DEFAULT_DELIMITER},
                 {"trail", DEFAULT_TRAIL},
-                {"startLevel", ""},
-                {"endLevel", ""},
+                {FIELD_START_LEVEL, ""},
+                {FIELD_END_LEVEL, ""},
                 {"showHidden", DEFAULT_SHOW_HIDDEN},
                 {"hideCurrent", DEFAULT_HIDE_CURRENT},
                 {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE},
@@ -58,11 +60,11 @@ public class Breadcrumb extends ModelProxy {
 
         List<Map> values = new ArrayList<Map>();
 
-        int startLevel = tryParseInt(componentProperties.get("startLevel", ""), DEFAULT_LEVEL_START);
-        int endLevel = tryParseInt(componentProperties.get("endLevel", ""), DEFAULT_LEVEL_END);
+        int startLevel = tryParseInt(componentProperties.get(FIELD_START_LEVEL, ""), DEFAULT_LEVEL_START);
+        int endLevel = tryParseInt(componentProperties.get(FIELD_END_LEVEL, ""), DEFAULT_LEVEL_END);
         int currentLevel = getResourcePage().getDepth();
 
-        if (isBlank(componentProperties.get("endLevel", ""))) {
+        if (isBlank(componentProperties.get(FIELD_END_LEVEL, ""))) {
             endLevel = currentLevel;
         }
 
