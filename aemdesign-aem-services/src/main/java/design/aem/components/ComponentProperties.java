@@ -48,10 +48,6 @@ public class ComponentProperties extends ValueMapDecorator {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-
         return Objects.deepEquals(this, obj);
     }
 
