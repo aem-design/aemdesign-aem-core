@@ -25,6 +25,9 @@ public class StaticInclude extends ModelProxy {
     protected void ready() {
         I18n i18n = new I18n(getRequest());
 
+        final String FIELD_SHOW_CONTENT = "showContent";
+        final String FIELD_SHOW_CONTENT_PREVIEW = "showContentPreview";
+
         /**
          * Component Fields Helper
          *
@@ -54,10 +57,10 @@ public class StaticInclude extends ModelProxy {
 
         componentProperties.put("includePaths", StringUtils.join(includePaths,","));
 
-        Boolean showContentPreview = Boolean.parseBoolean(getProperties().get("showContentPreview", "false"));
-        Boolean showContent = Boolean.parseBoolean(getProperties().get("showContent", "false"));
-        componentProperties.put("showContentPreview", showContentPreview);
-        componentProperties.put("showContent", showContent);
+        Boolean showContentPreview = Boolean.parseBoolean(getProperties().get(FIELD_SHOW_CONTENT_PREVIEW, "false"));
+        Boolean showContent = Boolean.parseBoolean(getProperties().get(FIELD_SHOW_CONTENT, "false"));
+        componentProperties.put(FIELD_SHOW_CONTENT_PREVIEW, showContentPreview);
+        componentProperties.put(FIELD_SHOW_CONTENT, showContent);
         componentProperties.put("showContentSet", showContent);
 
         String includeContents = "";
@@ -69,7 +72,7 @@ public class StaticInclude extends ModelProxy {
 
         //only allow hiding when in edit mode
         if (getWcmMode().isEdit()) {
-            componentProperties.put("showContent", showContentPreview);
+            componentProperties.put(FIELD_SHOW_CONTENT, showContentPreview);
         }
     }
 }

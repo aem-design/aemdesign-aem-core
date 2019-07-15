@@ -269,6 +269,7 @@ public class SearchList extends ModelProxy {
             ResourceResolver resourceResolver
     ) {
         Query query = null;
+        final String queryFormat = "UTF-8";
 
         if (slingRequest.getRequestParameter("q") != null) {
 
@@ -278,7 +279,7 @@ public class SearchList extends ModelProxy {
                 String escapedQuery = queryParam.toString();
 
                 try {
-                    String unescapedQuery = URLDecoder.decode(escapedQuery, "UTF-8");
+                    String unescapedQuery = URLDecoder.decode(escapedQuery, queryFormat);
                     QueryBuilder queryBuilder = resourceResolver.adaptTo(QueryBuilder.class);
 
                     if (queryBuilder != null) {

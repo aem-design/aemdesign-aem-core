@@ -59,11 +59,12 @@ public class Timing extends ModelProxy {
             return null;
         }
 
+        final String charsetName = "UTF-8";
         ByteArrayOutputStream obj = new ByteArrayOutputStream();
         GZIPOutputStream gzip = new GZIPOutputStream(obj);
-        gzip.write(str.getBytes("UTF-8"));
+        gzip.write(str.getBytes(charsetName));
         gzip.close();
-        String outStr = obj.toString("UTF-8");
+        String outStr = obj.toString(charsetName);
 
         return obj.toByteArray();
     }

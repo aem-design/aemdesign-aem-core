@@ -18,6 +18,7 @@ import static design.aem.utils.components.CommonUtil.getFirstMediaNode;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.IMAGE_FILEREFERENCE;
 import static design.aem.utils.components.ImagesUtil.DEFAULT_IMAGE_PATH_SELECTOR;
+import static design.aem.utils.components.ImagesUtil.DEFAULT_THUMBNAIL_IMAGE_NODE_NAME;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Video extends ModelProxy {
@@ -77,7 +78,7 @@ public class Video extends ModelProxy {
                         String videoHeight = asset.getMetadataValue("tiff:ImageLength");
                         Rendition rd = asset.getRendition(DEFAULT_IMAGE_PATH_SELECTOR);
                         thumbnail = (rd == null) ? "" : rd.getPath();
-                        componentProperties.put("thumbnail", thumbnail);
+                        componentProperties.put(DEFAULT_THUMBNAIL_IMAGE_NODE_NAME, thumbnail);
 
                         componentProperties.put("videoWidth", videoWidth);
                         componentProperties.put("videoHeight", videoHeight);
