@@ -83,7 +83,6 @@ public class ResolverUtilTest {
         // Run the test
         final String result = ResolverUtil.mappedUrl(CONTEXT.resourceResolver(), path);
 
-//        LOGGER.error("result={}",result);
 
         // Verify the results
         assertEquals(expectedResult, result);
@@ -271,7 +270,6 @@ public class ResolverUtilTest {
         // Run the test
         final boolean result = ResolverUtil.checkResourceHasChildResource(resourceName, CONTEXT.resourceResolver().getResource(resourceComponent), resourceResolver);
 
-//        LOGGER.error("result={}",result);
 
         // Verify the results
         assertTrue(result);

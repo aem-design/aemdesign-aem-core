@@ -47,7 +47,6 @@ public class I18nUtilTest {
         // Run the test
         final String result = I18nUtil.getDefaultLabelIfEmpty(currentLabel,currentCategory, defaultCode, defaultCategory, i18n, params);
 
-//        LOGGER.error("result={}",result);
 
         // Verify the results
         assertEquals(expectedResult, result);
@@ -71,7 +70,6 @@ public class I18nUtilTest {
         // Run the test
         final String result = I18nUtil.getDefaultLabelIfEmpty(currentLabel,currentCategory, defaultCode, defaultCategory, i18n, params);
 
-//        LOGGER.error("result={}",result);
 
         // Verify the results
         assertEquals(expectedResult, result);
@@ -95,7 +93,6 @@ public class I18nUtilTest {
         // Run the test
         final String result = I18nUtil.getDefaultLabelIfEmpty(currentLabel,currentCategory, defaultCode, defaultCategory, i18n, params);
 
-//        LOGGER.error("result={}",result);
 
         // Verify the results
         assertEquals(expectedResult, result);
@@ -118,7 +115,6 @@ public class I18nUtilTest {
         // Run the test
         final String result = I18nUtil.getDefaultLabelIfEmpty(defaultCode, defaultCategory, defaultLabel,  i18n, params);
 
-//        LOGGER.error("result={}",result);
 
         // Verify the results
         assertEquals(expectedResult, result);
@@ -140,7 +136,6 @@ public class I18nUtilTest {
         // Run the test
         final String result = I18nUtil.getDefaultLabelIfEmpty(defaultCode, defaultCategory, defaultLabel,  i18n, params);
 
-//        LOGGER.error("result={}",result);
 
         // Verify the results
         assertEquals(expectedResult, result);
