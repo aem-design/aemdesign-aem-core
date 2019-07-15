@@ -4,7 +4,7 @@ import com.day.cq.search.result.Hit;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageFilter;
 import com.day.cq.wcm.api.PageManager;
-import design.aem.components.ComponentProperties;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
