@@ -1987,7 +1987,7 @@ public class ComponentsUtil {
      * @throws Exception thows other errors
      *
      */
-    public static Object evaluateExpressionWithValue(JxltEngine jxlt, JexlContext jc, String expression, Object value) throws JexlException {
+    public static Object evaluateExpressionWithValue(JxltEngine jxlt, JexlContext jc, String expression, Object value) {
         JxltEngine.Expression expr = jxlt.createExpression(expression);
 
         //add current value to the map
@@ -1996,6 +1996,12 @@ public class ComponentsUtil {
         return expr.evaluate(jc);
     }
 
+    /**
+     * replace regex chars in a string
+     * @param value regex expression
+     * @return updated string or original string
+     */
+    @SuppressWarnings({"squid:S4784"})
     public static String removeRegexFromString(String value) {
         try {
             Pattern valueIsRegexPattern = Pattern.compile("(\\$\\{.*?\\})");
