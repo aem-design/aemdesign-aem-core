@@ -669,7 +669,7 @@ public class List extends ModelProxy {
 
             // check if we have to convert from the url format to the properties-style format
             String isURLQuery = request.getParameter("isURL");
-            if (queryParam != null && isURLQuery != null && "on".equals(isURLQuery)) {
+            if (queryParam != null && "on".equals(isURLQuery)) {
                 queryParam = Text.unescape(queryParam.replaceAll("&", "\n"));
             }
         } catch (Exception ex) {

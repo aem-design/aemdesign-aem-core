@@ -736,7 +736,7 @@ public class ComponentsUtil {
             return getComponentProperties(pageContext, componentResource, fieldLists);
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties: {}, error: {}", componentPath, ex.toString());
+            LOGGER.error("getComponentProperties: {}, error: {}", componentPath, ex);
         }
 
 
@@ -786,9 +786,8 @@ public class ComponentsUtil {
         ComponentProperties componentProperties = new ComponentProperties();
         try {
             SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) pageContext.get("slingRequest");
-            HttpServletRequest request = (HttpServletRequest) slingRequest;
             com.adobe.granite.xss.XSSAPI oldXssAPI = slingRequest.adaptTo(com.adobe.granite.xss.XSSAPI.class);
-            componentProperties.attr = new AttrBuilder(request, oldXssAPI);
+            componentProperties.attr = new AttrBuilder((HttpServletRequest) slingRequest, oldXssAPI);
 
         } catch (Exception ex) {
             LOGGER.error("getNewComponentProperties: could not configure componentProperties with attributeBuilder");
@@ -832,7 +831,7 @@ public class ComponentsUtil {
             return getComponentProperties(getContextObjects(wcmUsePojoModel), targetResource, true, fieldLists);
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex.toString());
+            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex);
         }
 
 
@@ -853,7 +852,7 @@ public class ComponentsUtil {
             return getComponentProperties(genericModel.getPageContextMap(), targetResource, true, fieldLists);
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", genericModel, ex.toString());
+            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", genericModel, ex);
         }
 
 
@@ -963,7 +962,7 @@ public class ComponentsUtil {
             return getComponentProperties(genericModel.getPageContextMap(), targetResource, includeComponentAttributes, fieldLists);
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", genericModel, ex.toString());
+            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", genericModel, ex);
         }
 
 
@@ -984,7 +983,7 @@ public class ComponentsUtil {
             return getComponentProperties(getContextObjects(wcmUsePojoModel), targetResource, includeComponentAttributes, fieldLists);
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex.toString());
+            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex);
         }
 
 
@@ -1006,7 +1005,7 @@ public class ComponentsUtil {
             return getComponentProperties(getContextObjects(pageContext), targetResource, includeComponentAttributes, fieldLists);
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties(PageContext) could not read required objects", ex.toString());
+            LOGGER.error("getComponentProperties(PageContext) could not read required objects", ex);
         }
 
 
@@ -1031,14 +1030,13 @@ public class ComponentsUtil {
         ResourceResolver resourceResolver = (ResourceResolver) pageContext.get("resourceResolver");
 
         SlingScriptHelper sling = (SlingScriptHelper) pageContext.get("sling");
-        HttpServletRequest request = (HttpServletRequest) slingRequest;
 
         com.adobe.granite.xss.XSSAPI oldXssAPI = slingRequest.adaptTo(com.adobe.granite.xss.XSSAPI.class);
 
         ComponentContext componentContext = (ComponentContext) pageContext.get("componentContext");
         Component component = componentContext.getComponent();
 
-        componentProperties.attr = new AttrBuilder(request, oldXssAPI);
+        componentProperties.attr = new AttrBuilder((HttpServletRequest) slingRequest, oldXssAPI);
         if (addMoreAttributes) {
             componentProperties.attr.add("component", "true");
         }
@@ -1542,7 +1540,7 @@ public class ComponentsUtil {
             }
 
         } catch (Exception ex) {
-            LOGGER.error("getPageDescription: {}", ex.toString());
+            LOGGER.error("getPageDescription: {}", ex);
         }
         return pageDescription;
     }
@@ -1609,7 +1607,7 @@ public class ComponentsUtil {
             componentId = CommonUtil.getProperty(componentNode, FIELD_STYLE_COMPONENT_ID);
 
         } catch (Exception ex) {
-            LOGGER.error("Could not get id for component path={},id={},error {}", path, componentId, ex.toString());
+            LOGGER.error("Could not get id for component path={},id={},error {}", path, componentId, ex);
         }
 
         return componentId;
@@ -1751,7 +1749,7 @@ public class ComponentsUtil {
                     }
                 }
             }
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
 
         }
         return componentInPagePath;

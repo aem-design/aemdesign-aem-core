@@ -131,9 +131,7 @@ public final class UserManagementUtil {
         if (userNode.hasProperty(NODE_PROPERTY_LAST_REPLICATION_ACTION)) {
             String lastReplicationActionValue = userNode.getProperty(NODE_PROPERTY_LAST_REPLICATION_ACTION).getString();
             if (lastReplicationActionValue != null) {
-                if (ReplicationActionType.DEACTIVATE.getName().equals(lastReplicationActionValue)) {
-                    return false;
-                }
+                return !ReplicationActionType.DEACTIVATE.getName().equals(lastReplicationActionValue);
             }
         }
 

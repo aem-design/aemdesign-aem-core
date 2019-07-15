@@ -36,7 +36,7 @@ public class SecurityUtil {
                     return true;
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
         return false;

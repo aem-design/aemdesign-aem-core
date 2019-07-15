@@ -119,9 +119,7 @@ public class GenericModelTest {
 
         when(genericModel.getComponentProperties()).thenReturn(componentProperties);
 
-        GenericComponent genericComponent = (GenericComponent) genericModel;
-
-        ComponentProperties output = genericComponent.getComponentProperties();
+        ComponentProperties output = ((GenericComponent) genericModel).getComponentProperties();
 
         // Verify the results
         assertEquals(componentProperties, output);

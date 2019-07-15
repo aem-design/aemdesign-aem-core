@@ -51,7 +51,7 @@ public class DataLayer extends WCMUsePojo {
         try {
             String detailsPath = findComponentInPage(getResourcePage(), DEFAULT_LIST_DETAILS_SUFFIX);
 
-            if (detailsPath != null && StringUtils.isNotEmpty(detailsPath)) {
+            if (StringUtils.isNotEmpty(detailsPath)) {
 
                 Resource details = getResourceResolver().getResource(detailsPath);
                 ValueMap detailsProperties = getProperties();

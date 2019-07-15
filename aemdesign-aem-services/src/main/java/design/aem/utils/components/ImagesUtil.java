@@ -345,7 +345,7 @@ public class ImagesUtil {
         Image image = getProcessedImage(resource, relativePath);
 
         // set the selector to be the thumbnail selector
-        image.setSelector(".scale.thumbnail." + Integer.toString(maxWidth));
+        image.setSelector(".scale.thumbnail." + maxWidth);
 
         return image;
     }
@@ -426,9 +426,8 @@ public class ImagesUtil {
      * @return asset property value
      */
     public static String getAssetPropertyValueWithDefault(Asset asset, String name, String defaultValue) {
-        String valueReturn = defaultValue;
         if (asset == null) {
-            return valueReturn;
+            return defaultValue;
         }
 
         try {
@@ -443,7 +442,7 @@ public class ImagesUtil {
             LOGGER.error("Exception occurred: {}", ex);
         }
 
-        return valueReturn;
+        return defaultValue;
     }
 
 
@@ -761,7 +760,7 @@ public class ImagesUtil {
                             assetInfo.put(infoPrefix + "Id", pageImageResourceNode.getProperty("jcr:uuid").getString());
                         }
                     } catch (Exception ex) {
-                        LOGGER.error("getAssetInfo: could not get assetID {}", ex.toString());
+                        LOGGER.error("getAssetInfo: could not get assetID {}", ex);
                     }
 
                 }
@@ -823,7 +822,7 @@ public class ImagesUtil {
             return getBackgroundVideoRenditions(getContextObjects(pageContext));
 
         } catch (Exception ex) {
-            LOGGER.error("getBackgroundImageRenditions(PageContext) could not read required objects", ex.toString());
+            LOGGER.error("getBackgroundImageRenditions(PageContext) could not read required objects", ex);
         }
 
         return getNewComponentProperties(pageContext);
@@ -911,7 +910,7 @@ public class ImagesUtil {
             return getBackgroundImageRenditions(getContextObjects(pageContext));
 
         } catch (Exception ex) {
-            LOGGER.error("getBackgroundImageRenditions(PageContext) could not read required objects", ex.toString());
+            LOGGER.error("getBackgroundImageRenditions(PageContext) could not read required objects", ex);
         }
 
         return getNewComponentProperties(pageContext);
@@ -963,7 +962,7 @@ public class ImagesUtil {
             return getResourceImageRenditions(getContextObjects(pageContext), resource, attributeName, returnLastRenditionName);
 
         } catch (Exception ex) {
-            LOGGER.error("getBackgroundImageRenditions(pageContext) could not read required objects", ex.toString());
+            LOGGER.error("getBackgroundImageRenditions(pageContext) could not read required objects", ex);
         }
 
         return getNewComponentProperties(pageContext);
@@ -1115,7 +1114,7 @@ public class ImagesUtil {
                         continue;
                     }
                     String minWidth = entryArray[0];
-                    if (isEmpty(minWidth) || (NumberUtils.isDigits(minWidth) == false)) {
+                    if (isEmpty(minWidth) || (!NumberUtils.isDigits(minWidth))) {
                         LOGGER.error("getBestFitMediaQueryRenditionSet [{}] is invalid, incorrect width [{}]", entry, minWidth);
                         continue;
                     }

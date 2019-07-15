@@ -492,7 +492,7 @@ public class CommonUtil {
                 }
             }
         } catch (Exception ex) {
-            LOGGER.error("findComponentInPage: {}", ex.toString());
+            LOGGER.error("findComponentInPage: {}", ex);
             return StringUtils.EMPTY;
         }
 
@@ -807,7 +807,7 @@ public class CommonUtil {
      * @param source object
      * @return status
      */
-    public final static Boolean isNull(Object source) {
+    public static Boolean isNull(Object source) {
         return source == null;
     }
 
@@ -841,7 +841,7 @@ public class CommonUtil {
 
                 return sb.toString();
 
-            } catch (Exception ex) {
+            } catch (Exception ignored) {
 
             }
         }
