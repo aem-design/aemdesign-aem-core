@@ -20,14 +20,14 @@ public class External extends ModelProxy {
 
     protected void ready() {
 
-        /**
-         * Component Fields Helper
-         *
-         * Structure:
-         * 1 required - property name,
-         * 2 required - default value,
-         * 3 optional - name of component attribute to add value into
-         * 4 optional - canonical name of class for handling multivalues, String or Tag
+        /*
+          Component Fields Helper
+
+          Structure:
+          1 required - property name,
+          2 required - default value,
+          3 optional - name of component attribute to add value into
+          4 optional - canonical name of class for handling multivalues, String or Tag
          */
         setComponentFields(new Object[][]{
                 {"target", "", "src"},

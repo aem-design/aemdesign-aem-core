@@ -41,8 +41,8 @@ public class ConstantsUtil {
     public static final String WCM_AUTHORING_MODE_COOKIE_VALUE_TOUCH = "TOUCH";
 
 
-    /**
-     * component field defaults
+    /*
+      component field defaults
      */
 
 

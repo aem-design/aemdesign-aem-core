@@ -32,14 +32,14 @@ public class RedirectNotification extends ModelProxy {
         final String FIELD_REDIRECT_URL = "redirectUrl";
         final String FIELD_REDIRECT_TARGET = "redirectTarget";
 
-        /**
-         * Component Fields Helper
-         *
-         * Structure:
-         * 1 required - property name,
-         * 2 required - default value,
-         * 3 optional - name of component attribute to add value into
-         * 4 optional - canonical name of class for handling multivalues, String or Tag
+        /*
+          Component Fields Helper
+
+          Structure:
+          1 required - property name,
+          2 required - default value,
+          3 optional - name of component attribute to add value into
+          4 optional - canonical name of class for handling multivalues, String or Tag
          */
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},

@@ -86,14 +86,14 @@ public class AssetList extends ModelProxy {
 
     @SuppressWarnings("Duplicates")
     protected void ready() {
-        /**
-         * Component Fields Helper
-         *
-         * Structure:
-         * 1 required - property name,
-         * 2 required - default value,
-         * 3 optional - name of component attribute to add value into
-         * 4 optional - canonical name of class for handling multivalues, String or Tag
+        /*
+          Component Fields Helper
+
+          Structure:
+          1 required - property name,
+          2 required - default value,
+          3 optional - name of component attribute to add value into
+          4 optional - canonical name of class for handling multivalues, String or Tag
          */
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
@@ -304,14 +304,14 @@ public class AssetList extends ModelProxy {
                     String imageOption = componentProperties.get(FIELD_IMAGE_OPTION, FIELD_IMAGE_OPTION_DEFAULT);
                     String titleType = componentProperties.get(FIELD_TITLE_TAG_TYPE, FIELD_TITLE_TAG_TYPE_DEFAULT);
 
-                    /**
-                     * Component Fields Helper
-                     *
-                     * Structure:
-                     * 1 required - property name,
-                     * 2 required - default value,
-                     * 3 optional - name of component attribute to add value into
-                     * 4 optional - canonical name of class for handling multivalues, String or Tag
+                    /*
+                      Component Fields Helper
+
+                      Structure:
+                      1 required - property name,
+                      2 required - default value,
+                      3 optional - name of component attribute to add value into
+                      4 optional - canonical name of class for handling multivalues, String or Tag
                      */
                     Object[][] assetField = {
                             {"name", assetBasic.getName()},
@@ -485,7 +485,7 @@ public class AssetList extends ModelProxy {
     /**
      * process search results.
      * @param result search results
-     * @throws RepositoryException
+     * @throws RepositoryException when can't access content in repository
      */
     @SuppressWarnings("Duplicates")
     private void collectSearchResults(SearchResult result) throws RepositoryException {
