@@ -21,8 +21,12 @@ public class PageDate extends ModelProxy {
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
-    private static String PUBLISH_DATE_FORMAT = "yyyy-MM-dd"; //NOSONAR squid:S3008 its fine
-    private static String PUBLISH_DATE_DISPLAY_FORMAT = "EEEE dd MMMM YYYY"; //NOSONAR squid:S3008 its fine
+
+    @SuppressWarnings({"squid:S3008"})
+    private static String PUBLISH_DATE_FORMAT = "yyyy-MM-dd";
+
+    @SuppressWarnings({"squid:S3008"})
+    private static String PUBLISH_DATE_DISPLAY_FORMAT = "EEEE dd MMMM YYYY";
 
     protected void ready() {
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
@@ -43,7 +47,7 @@ public class PageDate extends ModelProxy {
                 DEFAULT_FIELDS_ACCESSIBILITY,
                 DEFAULT_FIELDS_DETAILS_OPTIONS);
 
-        Calendar publishDate = componentProperties.get("publishDate", Calendar.getInstance()); //_pageProperties.get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED,_pageProperties.get(JcrConstants.JCR_CREATED, Calendar.getInstance()));
+        Calendar publishDate = componentProperties.get("publishDate", Calendar.getInstance());
 
         //get format strings from dictionary
         String dateFormatString = i18n.get("publishDateFormat",DEFAULT_I18N_CATEGORY);
