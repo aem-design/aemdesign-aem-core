@@ -48,7 +48,28 @@ public class ComponentProperties extends ValueMapDecorator {
      */
     @Override
     public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+
         return Objects.deepEquals(this, obj);
+    }
+
+    /**
+     * generate object hashcode with seed
+     * @return hashcode
+     */
+    @Override
+    public int hashCode() {
+        int result = 31 * this.expressionFields.hashCode();
+        result = 31 * result + this.attr.hashCode();
+        return result;
     }
 
     @Override
