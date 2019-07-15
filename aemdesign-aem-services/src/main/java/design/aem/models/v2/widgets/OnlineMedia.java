@@ -4,15 +4,11 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
 
 public class OnlineMedia extends WCMUsePojo {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(OnlineMedia.class);
 
     private ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {

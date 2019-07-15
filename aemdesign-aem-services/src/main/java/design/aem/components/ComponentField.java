@@ -1,14 +1,9 @@
 package design.aem.components;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 
 public class ComponentField {
 
     private static final long serialVersionUID = -2404935286690975616L;
-
-    protected static final Logger LOGGER = LoggerFactory.getLogger(ComponentField.class);
 
     public static final String FIELD_VALUES_ARE_ATTRIBUTES = " "; //NOSONAR underscores are fine
 

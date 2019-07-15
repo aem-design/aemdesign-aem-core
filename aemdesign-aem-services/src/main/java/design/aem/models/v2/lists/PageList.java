@@ -1,13 +1,10 @@
 package design.aem.models.v2.lists;
 
 import com.day.cq.i18n.I18n;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.I18nUtil.*;
 
 public class PageList extends List {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(PageList.class);
 
     private final String DEFAULT_I18N_CATEGORY = "pagelist";
 

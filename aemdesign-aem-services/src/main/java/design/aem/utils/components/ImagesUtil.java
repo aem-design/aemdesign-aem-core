@@ -509,14 +509,14 @@ public class ImagesUtil {
         }
         try {
             if (name.equals("original")) {
-                com.adobe.granite.asset.api.Asset asset = (com.adobe.granite.asset.api.Asset) r.adaptTo(com.adobe.granite.asset.api.Asset.class);
+                com.adobe.granite.asset.api.Asset asset = r.adaptTo(com.adobe.granite.asset.api.Asset.class);
                 if (asset == null) {
                     LOGGER.debug("Rendition at {} is not adaptable to an asset.", r.getPath());
                     return 0;
                 }
 
                 String val = null;
-                Node assetNode = (Node) asset.adaptTo(Node.class);
+                Node assetNode = asset.adaptTo(Node.class);
                 if (assetNode != null && !assetNode.hasNode("jcr:content/metadata")) {
                     Node assetMetadata = assetNode.getNode("jcr:content/metadata");
                     if (assetMetadata.hasProperty(dimensionProperty)) {
@@ -531,7 +531,7 @@ public class ImagesUtil {
                 try {
                     return Integer.parseInt(val);
                 } catch (NumberFormatException nfe) {
-                    LOGGER.warn("Metadata property {} was {} and not a number at {}", new Object[]{dimensionProperty, val, asset.getPath()});
+                    LOGGER.warn("Metadata property {} was {} and not a number at {}", dimensionProperty, val, asset.getPath());
                     return 0;
                 }
             }

@@ -4,14 +4,11 @@ import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ResolverUtil.mappedUrl;
 
 public class Audio extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(Audio.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {

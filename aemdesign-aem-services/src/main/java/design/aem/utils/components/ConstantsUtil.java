@@ -1,11 +1,6 @@
 package design.aem.utils.components;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class ConstantsUtil {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConstantsUtil.class);
 
     /**
      * OOTB Paragraph Helpers Constants

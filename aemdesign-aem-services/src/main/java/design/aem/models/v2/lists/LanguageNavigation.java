@@ -10,8 +10,6 @@ import design.aem.utils.components.ResolverUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -23,7 +21,6 @@ import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class LanguageNavigation extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(LanguageNavigation.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {

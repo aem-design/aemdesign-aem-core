@@ -787,7 +787,7 @@ public class ComponentsUtil {
         try {
             SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) pageContext.get("slingRequest");
             com.adobe.granite.xss.XSSAPI oldXssAPI = slingRequest.adaptTo(com.adobe.granite.xss.XSSAPI.class);
-            componentProperties.attr = new AttrBuilder((HttpServletRequest) slingRequest, oldXssAPI);
+            componentProperties.attr = new AttrBuilder(slingRequest, oldXssAPI);
 
         } catch (Exception ex) {
             LOGGER.error("getNewComponentProperties: could not configure componentProperties with attributeBuilder");
@@ -1036,7 +1036,7 @@ public class ComponentsUtil {
         ComponentContext componentContext = (ComponentContext) pageContext.get("componentContext");
         Component component = componentContext.getComponent();
 
-        componentProperties.attr = new AttrBuilder((HttpServletRequest) slingRequest, oldXssAPI);
+        componentProperties.attr = new AttrBuilder(slingRequest, oldXssAPI);
         if (addMoreAttributes) {
             componentProperties.attr.add("component", "true");
         }
@@ -1100,7 +1100,7 @@ public class ComponentsUtil {
                         }
 
                         //set currentnode to match target resource
-                        Node resourceNode = (javax.jcr.Node) contentResource.adaptTo(Node.class);
+                        Node resourceNode = contentResource.adaptTo(Node.class);
                         if (resourceNode != null) {
                             currentNode = resourceNode;
                         }

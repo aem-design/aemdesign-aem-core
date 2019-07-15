@@ -11,8 +11,6 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.jcr.RepositoryException;
 import javax.servlet.ServletException;
@@ -25,8 +23,6 @@ import java.util.*;
 import static design.aem.utils.components.ConstantsUtil.*;
 
 public class ParagraphUtil {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ParagraphUtil.class);
 
     public static final String COLUMN_CLASS = "col-sm"; //gets added to cols
     public static final String ROW_CLASS = "row"; //gets added to rows

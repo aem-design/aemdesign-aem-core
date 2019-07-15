@@ -3,8 +3,6 @@ package design.aem.models.v2.content;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_ACCESSIBILITY;
 import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_STYLE;
@@ -12,7 +10,6 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Table extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(Table.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {

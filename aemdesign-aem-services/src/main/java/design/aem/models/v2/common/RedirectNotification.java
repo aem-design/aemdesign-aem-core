@@ -6,8 +6,6 @@ import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.CommonUtil.PN_REDIRECT_TARGET;
 import static design.aem.utils.components.ComponentsUtil.*;
@@ -15,7 +13,6 @@ import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 
 public class RedirectNotification extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(RedirectNotification.class);
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
@@ -30,7 +27,6 @@ public class RedirectNotification extends ModelProxy {
         final String DEFAULT_I18N_LABEL_REDIRECT_IS_NOT_SET = "redirectIsNotSet";
         final String FIELD_REDIRECT_TITLE = "redirectTitle";
         final String FIELD_REDIRECT_URL = "redirectUrl";
-        final String FIELD_REDIRECT_TARGET = "redirectTarget";
 
         /*
           Component Fields Helper

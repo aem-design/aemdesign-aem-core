@@ -11,8 +11,6 @@ import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -27,7 +25,6 @@ import static design.aem.utils.components.TagUtil.getTagValueAsAdmin;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 
 public class EventDetails extends GenericDetails {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(EventDetails.class);
 
     // default values for the component
     final String DEFAULT_TITLE = "Event Title";

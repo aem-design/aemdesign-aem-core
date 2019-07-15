@@ -1,15 +1,10 @@
 package design.aem.utils.components;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Locale;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class I18nUtil {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(I18nUtil.class);
 
     public static final String LANGUAGE_TAG_PATH = "/content/cq:tags/language";
     public static final String LANGUAGE_DEFAULT = Locale.ENGLISH.getLanguage();
