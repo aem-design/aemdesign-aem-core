@@ -19,7 +19,6 @@ import static design.aem.utils.components.I18nUtil.*;
 
 public class NavList extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(NavList.class);
-    private static final String DETAILS_MENU_COLOR_DEFAULT = "default";
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
@@ -32,7 +31,7 @@ public class NavList extends ModelProxy {
         final String DEFAULT_LISTFROM = "children";
         final String LISTFROM_CHILDREN = "children";
         final String DEFAULT_VARIANT = "default";
-        final String DEFAULT_MENUT_TITLE = "Menu";
+
         final int DEFAULT_DEPTH_FROM_ROOT = 2;
 
         setComponentFields(new Object[][]{
