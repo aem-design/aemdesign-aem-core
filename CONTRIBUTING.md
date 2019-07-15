@@ -15,7 +15,6 @@ The following are a set of guidelines for contributing to the project.
   * [Reviewing Code](#reviewing-code-) 👀
   * [Documenting](#documenting-) 📜
 * [Issue Report Guidelines](#issue-report-guidelines)
-* [Contributor License Agreement](#contributor-license-agreement)
 
 ## Code of Conduct
 
