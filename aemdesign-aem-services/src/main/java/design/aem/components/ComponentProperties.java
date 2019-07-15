@@ -98,17 +98,15 @@ public class ComponentProperties extends ValueMapDecorator {
     /**
      * evaluate expression fields in component properties that have default value as expression
      */
+    @SuppressWarnings({"squid:S3776"})
     public void evaluateExpressionFields() {
 
         JexlEngine jexl = new JexlBuilder().create();
         JxltEngine jxlt = jexl.createJxltEngine();
         JexlContext jc = new MapContext(this);
 
-//        LOGGER.error("evaluateExpressionFields expressionFields={}", expressionFields);
-
         if (expressionFields != null) {
             for (ComponentField field : expressionFields) {
-//                LOGGER.error("evaluateExpressionFields input: field={}, prev value={}, name={}, current value={}, default value={}",field, field.getValue(), field.getFieldName(), this.get(field.getFieldName()), field.getDefaultValue());
 
                 //remember field default value expression
                 String defaultValueExpression = "";
@@ -123,7 +121,6 @@ public class ComponentProperties extends ValueMapDecorator {
                     //process non-multi value elements
                     if (field.getValue() != null) {
                         if (!field.getValue().getClass().isArray()) {
-//                            LOGGER.error("evaluateExpressionFields: name={}, is not array", field.getFieldName());
 
                             //get current field value
                             Object fieldValue = this.get(field.getFieldName(), null);
@@ -138,14 +135,13 @@ public class ComponentProperties extends ValueMapDecorator {
                             Object expressonResult = evaluateExpressionWithValue(jxlt, jc, valueExpression, fieldValue);
 
                             if (expressonResult != null) {
-//                                LOGGER.error("evaluateExpressionFields: name={}, new value={}", field.getFieldName(), expressonResult);
+
                                 //update field value
                                 this.put(field.getFieldName(), expressonResult);
                                 //save field value into data attribute
                                 this.attr.set(field.getDataAttributeName(), (String) expressonResult);
                             }
                         } else {
-//                            LOGGER.error("evaluateExpressionFields: name={}, is array", field.getFieldName());
 
                             //get current field value
                             String[] values = (String[])field.getValue();
@@ -164,8 +160,6 @@ public class ComponentProperties extends ValueMapDecorator {
                             } else {
                                 values = ArrayUtils.add(values,(String) evaluateExpressionWithValue(jxlt, jc, defaultValueExpression, null));
                             }
-
-//                            LOGGER.error("evaluateExpressionFields: name={}, new value={}", field.getFieldName(), values);
 
                             //update evaluated values
                             this.put(field.getFieldName(), values);
@@ -196,8 +190,6 @@ public class ComponentProperties extends ValueMapDecorator {
                 } catch (Exception ex) {
                     LOGGER.error("evaluateExpressionFields: field={},Exception={}", field, ex);
                 }
-
-//                LOGGER.error("evaluateExpressionFields output: field={}, prev value={}, name={}, current value={}, default value={}, updated attributes={}",field, field.getValue(), field.getFieldName(), this.get(field.getFieldName()), field.getDefaultValue(), this.attr);
 
             }
         }

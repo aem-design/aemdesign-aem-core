@@ -10,7 +10,7 @@ public class ComponentField {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ComponentField.class);
 
-    public static String FIELD_VALUES_ARE_ATTRIBUTES = " ";
+    public static final String FIELD_VALUES_ARE_ATTRIBUTES = " "; //NOSONAR underscores are fine
 
     private String fieldName;
     private Object defaultValue;
