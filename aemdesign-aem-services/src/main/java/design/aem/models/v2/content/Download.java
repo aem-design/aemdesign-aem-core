@@ -5,7 +5,6 @@ import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.Rendition;
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.TagConstants;
-import com.day.cq.wcm.api.components.DropTarget;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
@@ -41,8 +40,8 @@ public class Download extends ModelProxy {
     private final String DEFAULT_TITLE_TAG_TYPE = "h4";
 
     private static final String EMPTY_FILE = "empty file";
-    private static final String ALT_TITLE = "title";
-    private static final String DESCRIPTION = "description";
+    private static final String FIELD_TITLE = "title";
+    private static final String FIELD_DESCRIPTION = "description";
     private static final String FIELD_THUMBNAIL = DEFAULT_THUMBNAIL_IMAGE_NODE_NAME;
 
     @SuppressWarnings({"uncheked","squid:S3776"})
@@ -55,9 +54,9 @@ public class Download extends ModelProxy {
                 {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
                 {"thumbnailWidth","", "thumbnailWidth"},
                 {"thumbnailHeight","","thumbnailHeight"},
-                {"title",""},
+                {FIELD_TITLE,""},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
-                {"description",""},
+                {FIELD_DESCRIPTION,""},
                 {"fileReference",""},
                 {FIELD_THUMBNAIL, DEFAULT_IMAGE_BLANK},
         });
@@ -99,7 +98,7 @@ public class Download extends ModelProxy {
                 String licenseInfo = getAssetCopyrightInfo(asset, i18n.get("licenseinfo", DEFAULT_I18N_CATEGORY));
 
                 //override title and description if image has rights
-                String title = componentProperties.get("title", "");
+                String title = componentProperties.get(FIELD_TITLE, "");
                 if(isNotEmpty(licenseInfo)) {
                     componentProperties.put("isLicensed", true);
                     if (isNotEmpty(assetTitle)) {
@@ -118,12 +117,12 @@ public class Download extends ModelProxy {
                         componentProperties.put("hasAssetTitleOveride", true);
                     }
                 }
-                componentProperties.put("title", title);
+                componentProperties.put(FIELD_TITLE, title);
 
-                String description = componentProperties.get("description", "");
+                String description = componentProperties.get(FIELD_DESCRIPTION, "");
 
                 if (isNotEmpty(licenseInfo)|| (isEmpty(description) && isNotEmpty(assetDescription))) {
-                    componentProperties.put("description", assetDescription);
+                    componentProperties.put(FIELD_DESCRIPTION, assetDescription);
                 }
 
                 componentProperties.put("licenseInfo", licenseInfo);
@@ -144,10 +143,6 @@ public class Download extends ModelProxy {
                     componentProperties.put(FIELD_THUMBNAIL, assetAsThumbnail);
                 }
 
-//            componentProperties.put("_resource_path", _resource.getPath());
-//            componentProperties.put("assetAsThumbnail", assetAsThumbnail);
-//            componentProperties.put("thumbnailImagePath", thumbnailImagePath);
-
                 if (thumbnailType.equals("dam")) {
 
                     Rendition assetRendition = getThumbnail(asset, DEFAULT_THUMB_WIDTH_SM);
@@ -158,8 +153,6 @@ public class Download extends ModelProxy {
                         componentProperties.put(FIELD_THUMBNAIL, assetRendition.getPath());
                     }
                 } else if (thumbnailType.equals("customdam")) {
-
-//                String thumbnailImagePath = getResourceImagePath(_resource, FIELD_THUMBNAIL);
 
                     Resource thumbnailImage = getResourceResolver().resolve(thumbnailImagePath);
 
@@ -214,11 +207,11 @@ public class Download extends ModelProxy {
 
 
     private String getDownloadTitle(ValueMap _properties, String defaultTitle) {
-        return _properties.get(ALT_TITLE, defaultTitle);
+        return _properties.get(FIELD_TITLE, defaultTitle);
     }
 
     private String getDownloadDescription(ValueMap _properties, String defaultDescription) {
-        return _properties.get(DESCRIPTION, defaultDescription);
+        return _properties.get(FIELD_DESCRIPTION, defaultDescription);
     }
 
     /**
@@ -236,7 +229,7 @@ public class Download extends ModelProxy {
                 size = getFileSize(dld.getData().getLength());
             }
         } catch (Exception ex) {
-            LOGGER.error("Exception occurred: " + ex.getMessage(), ex);
+            LOGGER.error("Exception occurred: {}", ex);
         }
         return size;
     }
@@ -262,7 +255,7 @@ public class Download extends ModelProxy {
                 }
             }
         } catch (Exception ex) {
-            LOGGER.error("Exception occurred: " + ex.getMessage(), ex);
+            LOGGER.error("Exception occurred: {}", ex);
         }
         return mimeTypeReturn;
     }
@@ -288,7 +281,7 @@ public class Download extends ModelProxy {
             fileSizeReturn = String.format("%.0f %S", decSize, measures[measurementIndex.intValue()]);
 
         } catch (Exception ex) {
-            LOGGER.error("Exception occurred: " + ex.getMessage(), ex);
+            LOGGER.error("Exception occurred: {}", ex);
         }
         return fileSizeReturn;
 
