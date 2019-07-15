@@ -20,12 +20,19 @@ public class ComponentPropertiesTest {
     Map<String, String> sampleContent = new HashMap<String, String>();
 
     sampleContent.put("atest","123");
+    assert sampleContent.get("atest").equals("123");
+
     sampleContent.put("btest","456");
+    assert sampleContent.get("btest").equals("456");
 
     Map<String, String> sampleContentUpdate = new HashMap<String, String>();
 
     sampleContentUpdate.put("atest","234");
+    assert sampleContent.get("atest").equals("234");
+
     sampleContentUpdate.put("btest","567");
+    assert sampleContent.get("btest").equals("567");
+
 
     componentProperties = mock(ComponentProperties.class);
     componentProperties.put("test","test1");
