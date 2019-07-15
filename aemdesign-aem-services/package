@@ -1,0 +1,14 @@
+#!/bin/bash
+
+POM_FILE="../pom.xml"
+PARENT_PROJECT_PATH="$(realpath ..)"
+SCRIPT_PARAMS="$@"
+
+source "../scripts/functions.sh"
+
+set_term_title "Core Services"
+
+set_term_title "Packaging: mvn -DskipTests -e -U clean package"
+echo "- Package"
+mvn -DskipTests -e -U clean package "$@"
+set_term_title "Packaged"
