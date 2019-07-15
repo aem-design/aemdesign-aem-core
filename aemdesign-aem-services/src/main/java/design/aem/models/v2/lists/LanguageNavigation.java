@@ -83,7 +83,6 @@ public class LanguageNavigation extends ModelProxy {
 
             }
 
-//            LOGGER.error("LanguageNavigation: languageRoot={},pagePath={},languageMap={}",languageRoot,pagePath,languageMap);
 
             String languageSiteParentPath = StringUtils.EMPTY;
             Resource languageSiteRootPage = null;
@@ -109,7 +108,6 @@ public class LanguageNavigation extends ModelProxy {
                     }
                 }
 
-//                LOGGER.error("LanguageNavigation: languageSiteParentPath={},tagValue={},pagePath={}",languageSiteParentPath,tagValue,pagePath);
 
                 String langPageRootPath = MessageFormat.format("{0}/{1}", languageSiteParentPath, tagValue);
                 String langPagePath = MessageFormat.format("{0}/{1}{2}", languageSiteParentPath, tagValue,pagePath);
@@ -127,7 +125,6 @@ public class LanguageNavigation extends ModelProxy {
                     langPage = null;
                 }
 
-//                LOGGER.error("LanguageNavigation: langPage={},langPageRoot={},isShowRoot={}",langPage,langPageRoot,isShowRoot);
 
                 //if page and root is found
                 if (langPage != null && langPageRoot !=null) {

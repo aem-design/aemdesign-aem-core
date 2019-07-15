@@ -1536,19 +1536,11 @@ public class ComponentsUtil {
                     if (detailsNode != null) {
                         if (detailsNode.hasProperty(DETAILS_DESCRIPTION)) {
                             return detailsNode.getProperty(DETAILS_DESCRIPTION).getString();
-                        } else {
-//                                LOGGER.error("getPageDescription: detailsNode does not have {} in page [{}]", DETAILS_DESCRIPTION, page.getPath());
                         }
-                    } else {
-//                            LOGGER.error("getPageDescription: detailsNode is null in page [{}]", page.getPath());
                     }
-                } else {
-//                        LOGGER.error("getPageDescription: detailsResource is null in page [{}]", page.getPath());
                 }
 
 
-            } else {
-//                LOGGER.error("getPageDescription: pageResource is null in page [{}]", page.getPath());
             }
 
         } catch (Exception ex) {
