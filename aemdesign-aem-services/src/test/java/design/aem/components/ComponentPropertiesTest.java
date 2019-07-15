@@ -14,6 +14,7 @@ public class ComponentPropertiesTest {
 
   private ComponentProperties componentProperties;
 
+  @SuppressWarnings({"squid:S2699"})
   @Test
   public void ComponentPropertiesTest() {
 
