@@ -23,52 +23,82 @@ Contributions are welcome! Read the [Contributing Guide](CONTRIBUTING.md) for mo
 
 Detailed table of component can be found here [Component List](https://github.com/aem-design/aemdesign-aem-core/wiki/Component-List)
 
-| Category  	| Component                                                                                                                           	|
-|-----------	|-------------------------------------------------------------------------------------------------------------------------------------	|
-| Lists     	| [Asset List](src/main/content/jcr_root/apps/aemdesign/components/lists/assetlist/v2/assetlist)                                      	|
-| Lists     	| [List Nav](src/main/content/jcr_root/apps/aemdesign/components/lists/listnav/v2/listnav)                                            	|
-| Lists     	| [Search Results List](src/main/content/jcr_root/apps/aemdesign/components/lists/searchlist/v2/searchlist)                           	|
-| Lists     	| [Tag List](src/main/content/jcr_root/apps/aemdesign/components/lists/taglist/v2/taglist)                                            	|
-| Lists     	| [List](src/main/content/jcr_root/apps/aemdesign/components/lists/list/v2/list)                                                      	|
-| Lists     	| [Lang Nav](src/main/content/jcr_root/apps/aemdesign/components/lists/langnav/v2/langnav)                                            	|
-| Lists     	| [Nav List](src/main/content/jcr_root/apps/aemdesign/components/lists/navlist/v2/navlist)                                            	|
-| Layout    	| [Content Block Menu](src/main/content/jcr_root/apps/aemdesign/components/layout/contentblockmenu/v2/contentblockmenu)               	|
-| Layout    	| [Nav Bar](src/main/content/jcr_root/apps/aemdesign/components/layout/navbar/v2/navbar)                                              	|
-| Layout    	| [Content Block](src/main/content/jcr_root/apps/aemdesign/components/layout/contentblock/v2/contentblock)                            	|
-| Layout    	| [Footer](src/main/content/jcr_root/apps/aemdesign/components/layout/footer/v2/footer)                                               	|
-| Layout    	| [Content Tabs](src/main/content/jcr_root/apps/aemdesign/components/layout/contenttabs/v2/contenttabs)                               	|
-| Layout    	| [Article](src/main/content/jcr_root/apps/aemdesign/components/layout/article/v2/article)                                            	|
-| Layout    	| [Breadcrumb](src/main/content/jcr_root/apps/aemdesign/components/layout/breadcrumb/v2/breadcrumb)                                   	|
-| Layout    	| [Aside](src/main/content/jcr_root/apps/aemdesign/components/layout/aside/v2/aside)                                                  	|
-| Layout    	| [Header](src/main/content/jcr_root/apps/aemdesign/components/layout/header/v2/header)                                               	|
-| Details   	| [Location Details](src/main/content/jcr_root/apps/aemdesign/components/details/location-details/v2/location-details)                	|
-| Details   	| [Event Details](src/main/content/jcr_root/apps/aemdesign/components/details/event-details/v2/event-details)                         	|
-| Details   	| [Contact Details](src/main/content/jcr_root/apps/aemdesign/components/details/contact-details/v2/contact-details)                   	|
-| Details   	| [News Details](src/main/content/jcr_root/apps/aemdesign/components/details/news-details/v2/news-details)                            	|
-| Details   	| [Page Details](src/main/content/jcr_root/apps/aemdesign/components/details/page-details/v2/page-details)                            	|
-| Content   	| [Page Tags](src/main/content/jcr_root/apps/aemdesign/components/content/pagetags/v2/pagetags)                                       	|
-| Content   	| [Tool Tip](src/main/content/jcr_root/apps/aemdesign/components/content/tooltip/v2/tooltip)                                          	|
-| Content   	| [Page Title](src/main/content/jcr_root/apps/aemdesign/components/content/pagetitle/v2/pagetitle)                                    	|
-| Content   	| [Embed Source](src/main/content/jcr_root/apps/aemdesign/components/content/embedsource/v2/embedsource)                              	|
-| Content   	| [Link](src/main/content/jcr_root/apps/aemdesign/components/content/link/v2/link)                                                    	|
-| Content   	| [File Download Link](src/main/content/jcr_root/apps/aemdesign/components/content/download/v2/download)                              	|
-| Content   	| [Table](src/main/content/jcr_root/apps/aemdesign/components/content/table/v2/table)                                                 	|
-| Content   	| [Page Date](src/main/content/jcr_root/apps/aemdesign/components/content/pagedate/v2/pagedate)                                       	|
-| Content   	| [Rich Text](src/main/content/jcr_root/apps/aemdesign/components/content/text/v2/text)                                               	|
-| Content   	| [External](src/main/content/jcr_root/apps/aemdesign/components/content/external/v2/external)                                        	|
-| Content   	| [Page Author](src/main/content/jcr_root/apps/aemdesign/components/content/pageauthor/v2/pageauthor)                                 	|
-| Content   	| [Page Description](src/main/content/jcr_root/apps/aemdesign/components/content/pagedescription/v2/pagedescription)                  	|
-| Content   	| [Content Reference](src/main/content/jcr_root/apps/aemdesign/components/content/reference/v2/reference)                             	|
-| Common    	| [Static Content Include](src/main/content/jcr_root/apps/aemdesign/components/common/staticinclude/v2/staticinclude)                 	|
-| Common    	| [Redirection Notification](src/main/content/jcr_root/apps/aemdesign/components/common/redirectnotification/v2/redirectnotification) 	|
-| Common        | [Timing Component](src/main/content/jcr_root/apps/aemdesign/components/common/timing/v2/timing)                                     	|
-| Widgets   	| [Online Media](src/main/content/jcr_root/apps/aemdesign/components/widgets/onlinemedia/v2/onlinemedia)                              	|
-| Widgets   	| [Search Box](src/main/content/jcr_root/apps/aemdesign/components/widgets/search/v2/search)                                          	|
-| Widgets   	| [Addthis Button](src/main/content/jcr_root/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton)                    	|
-| Analytics 	| [Analytics Data Layer](src/main/content/jcr_root/apps/aemdesign/components/analytics/datalayer/v2/datalayer)                        	|
-| Media     	| [Video](src/main/content/jcr_root/apps/aemdesign/components/media/video/v2/video)                                                   	|
-| Media     	| [Image](src/main/content/jcr_root/apps/aemdesign/components/media/image/v2/image)                                                   	|
-| Media     	| [Audio](src/main/content/jcr_root/apps/aemdesign/components/media/audio/v2/audio)                                                   	|
+| Component Category                                              	| Link                                                                                                                                   	|
+|-----------------------------------------------------------------	|----------------------------------------------------------------------------------------------------------------------------------------	|
+| Cloud Services / Rest                                           	| [Rest](../src/main/content/jcr_root/apps/aemdesign/components/workflow/rest)                                                           	|
+| Cloud Services / Salesforce API                                 	| [Salesforce API](../src/main/content/jcr_root/apps/aemdesign/components/workflow/salesforceapi)                                        	|
+| Common / Redirection Notification                               	| [Redirection Notification](../src/main/content/jcr_root/apps/aemdesign/components/common/redirectnotification/v2/redirectnotification) 	|
+| Common / Static Content Include                                 	| [Static Content Include](../src/main/content/jcr_root/apps/aemdesign/components/common/staticinclude/v2/staticinclude)                 	|
+| Common / Timing Component                                       	| [Timing Component](../src/main/content/jcr_root/apps/aemdesign/components/common/timing/v2/timing)                                     	|
+| Content / File Download Link                                    	| [File Download Link](../src/main/content/jcr_root/apps/aemdesign/components/content/download/v2/download)                              	|
+| Content / Embed Source                                          	| [Embed Source](../src/main/content/jcr_root/apps/aemdesign/components/content/embedsource/v2/embedsource)                              	|
+| Content / External                                              	| [External](../src/main/content/jcr_root/apps/aemdesign/components/content/external/v2/external)                                        	|
+| Content / Link                                                  	| [Link](../src/main/content/jcr_root/apps/aemdesign/components/content/link/v2/link)                                                    	|
+| Content / Content Reference                                     	| [Content Reference](../src/main/content/jcr_root/apps/aemdesign/components/content/reference/v2/reference)                             	|
+| Content / Table                                                 	| [Table](../src/main/content/jcr_root/apps/aemdesign/components/content/table/v2/table)                                                 	|
+| Content / Rich Text                                             	| [Rich Text](../src/main/content/jcr_root/apps/aemdesign/components/content/text/v2/text)                                               	|
+| Content / Tool Tip                                              	| [Tool Tip](../src/main/content/jcr_root/apps/aemdesign/components/content/tooltip/v2/tooltip)                                          	|
+| Content / Page Author                                           	| [Page Author](../src/main/content/jcr_root/apps/aemdesign/components/content/pageauthor/v2/pageauthor)                                 	|
+| Content / Page Date                                             	| [Page Date](../src/main/content/jcr_root/apps/aemdesign/components/content/pagedate/v2/pagedate)                                       	|
+| Content / Page Description                                      	| [Page Description](../src/main/content/jcr_root/apps/aemdesign/components/content/pagedescription/v2/pagedescription)                  	|
+| Content / Page Tags                                             	| [Page Tags](../src/main/content/jcr_root/apps/aemdesign/components/content/pagetags/v2/pagetags)                                       	|
+| Content / Page Title                                            	| [Page Title](../src/main/content/jcr_root/apps/aemdesign/components/content/pagetitle/v2/pagetitle)                                    	|
+| Details / Contact Details                                       	| [Contact Details](../src/main/content/jcr_root/apps/aemdesign/components/details/contact-details/v2/contact-details)                   	|
+| Details / Event Details                                         	| [Event Details](../src/main/content/jcr_root/apps/aemdesign/components/details/event-details/v2/event-details)                         	|
+| Details / Location Details                                      	| [Location Details](../src/main/content/jcr_root/apps/aemdesign/components/details/location-details/v2/location-details)                	|
+| Details / News Details                                          	| [News Details](../src/main/content/jcr_root/apps/aemdesign/components/details/news-details/v2/news-details)                            	|
+| Details / Page Details                                          	| [Page Details](../src/main/content/jcr_root/apps/aemdesign/components/details/page-details/v2/page-details)                            	|
+| Layout / Article                                                	| [Article](../src/main/content/jcr_root/apps/aemdesign/components/layout/article/v2/article)                                            	|
+| Layout / Aside                                                  	| [Aside](../src/main/content/jcr_root/apps/aemdesign/components/layout/aside/v2/aside)                                                  	|
+| Layout / Breadcrumb                                             	| [Breadcrumb](../src/main/content/jcr_root/apps/aemdesign/components/layout/breadcrumb/v2/breadcrumb)                                   	|
+| Layout / Columns                                                	| [Columns](../src/main/content/jcr_root/apps/aemdesign/components/layout/colctrl/v2/colctrl)                                            	|
+| Layout / Content Block                                          	| [Content Block](../src/main/content/jcr_root/apps/aemdesign/components/layout/contentblock/v2/contentblock)                            	|
+| Layout / Content Block Lock                                     	| [Content Block Lock](../src/main/content/jcr_root/apps/aemdesign/components/layout/contentblocklock)                                   	|
+| Layout / Content Block Menu                                     	| [Content Block Menu](../src/main/content/jcr_root/apps/aemdesign/components/layout/contentblocklock/v2/contentblocklock)               	|
+| Layout / Content Tabs                                           	| [Content Tabs](../src/main/content/jcr_root/apps/aemdesign/components/layout/contenttabs/v2/contenttabs)                               	|
+| Layout / Footer                                                 	| [Footer](../src/main/content/jcr_root/apps/aemdesign/components/layout/footer/v2/footer)                                               	|
+| Layout / Header                                                 	| [Header](../src/main/content/jcr_root/apps/aemdesign/components/layout/header/v2/header)                                               	|
+| Layout / Nav Bar                                                	| [Nav Bar](../src/main/content/jcr_root/apps/aemdesign/components/layout/navbar/v2/navbar)                                              	|
+| Layout / Container                                              	| [Container](../src/main/content/jcr_root/apps/aemdesign/components/layout/container)                                                   	|
+| Lists / Asset List                                              	| [Asset List](../src/main/content/jcr_root/apps/aemdesign/components/lists/assetlist/v2/assetlist)                                      	|
+| Lists / Contact List                                            	| [Contact List](../src/main/content/jcr_root/apps/aemdesign/components/lists/contactlist/v2/contactlist)                                	|
+| Lists / Event List                                              	| [Event List](../src/main/content/jcr_root/apps/aemdesign/components/lists/eventlist/v2/eventlist)                                      	|
+| Lists / Lang Nav                                                	| [Lang Nav](../src/main/content/jcr_root/apps/aemdesign/components/lists/langnav/v2/langnav)                                            	|
+| Lists / List                                                    	| [List](../src/main/content/jcr_root/apps/aemdesign/components/lists/list/v2/list)                                                      	|
+| Lists / List Nav                                                	| [List Nav](../src/main/content/jcr_root/apps/aemdesign/components/lists/listnav/v2/listnav)                                            	|
+| Lists / Location List                                           	| [Location List](../src/main/content/jcr_root/apps/aemdesign/components/lists/locationlist/v2/locationlist)                             	|
+| Lists / News List                                               	| [News List](../src/main/content/jcr_root/apps/aemdesign/components/lists/newslist/v2/newslist)                                         	|
+| Lists / Page List                                               	| [Page List](../src/main/content/jcr_root/apps/aemdesign/components/lists/pagelist/v2/pagelist)                                         	|
+| Lists / Search Results List                                     	| [Search Results List](../src/main/content/jcr_root/apps/aemdesign/components/lists/searchlist/v2/searchlist)                           	|
+| Lists / Tag List                                                	| [Tag List](../src/main/content/jcr_root/apps/aemdesign/components/lists/taglist/v2/taglist)                                            	|
+| Lists / Nav List                                                	| [Nav List](../src/main/content/jcr_root/apps/aemdesign/components/lists/navlist/v2/navlist)                                            	|
+| Media / Audio                                                   	| [Audio](../src/main/content/jcr_root/apps/aemdesign/components/media/audio/v2/audio)                                                   	|
+| Media / Image                                                   	| [Image](../src/main/content/jcr_root/apps/aemdesign/components/media/image/v2/image)                                                   	|
+| Media / Video                                                   	| [Video](../src/main/content/jcr_root/apps/aemdesign/components/media/video/v2/video)                                                   	|
+| Analytics / Analytics Data Layer                                	| [Analytics Data Layer](../src/main/content/jcr_root/apps/aemdesign/components/analytics/datalayer/v2/datalayer)                        	|
+| Template / AEM.Design Base Page                                 	| [AEM.Design Base Page](../src/main/content/jcr_root/apps/aemdesign/components/template/base/v3/base)                                   	|
+| Template / Cloud Config / AddThis                               	| [AddThis](../src/main/content/jcr_root/apps/aemdesign/components/template/cloudconfig/addthisconnect/config)                           	|
+| Template / Cloud Config / Google Analytics                      	| [Google Analytics](../src/main/content/jcr_root/apps/aemdesign/components/template/cloudconfig/googleanalytics/config)                 	|
+| Template / Cloud Config / Google Map                            	| [Google Map](../src/main/content/jcr_root/apps/aemdesign/components/template/cloudconfig/googlemap/config)                             	|
+| Template / Column / AEM.Design One Column Page                  	| [AEM.Design One Column Page](../src/main/content/jcr_root/apps/aemdesign/components/template/column/one/v2/one)                        	|
+| Template / Column / AEM.Design Three Column Page                	| [AEM.Design Three Column Page](../src/main/content/jcr_root/apps/aemdesign/components/template/column/three/v2/three)                  	|
+| Template / Column / AEM.Design Two Column Page                  	| [AEM.Design Two Column Page](../src/main/content/jcr_root/apps/aemdesign/components/template/column/two/v2/two)                        	|
+| Template / Common / Design Importer                             	| [Design Importer](../src/main/content/jcr_root/apps/aemdesign/components/template/common/design-importer)                              	|
+| Template / Experience Fragment / AEM.Design Experience Fragment 	| [AEM.Design Experience Fragment](../src/main/content/jcr_root/apps/aemdesign/components/template/experience-fragments/base/v2/xfpage)  	|
+| Widgets / AddThis / Addthis Button                              	| [Addthis Button](../src/main/content/jcr_root/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton)                    	|
+| Widgets / Online Media                                          	| [Online Media](../src/main/content/jcr_root/apps/aemdesign/components/widgets/onlinemedia/v2/onlinemedia)                              	|
+| Widgets / Search Box                                            	| [Search Box](../src/main/content/jcr_root/apps/aemdesign/components/widgets/search/v2/search)                                          	|
+| Workflow / Process Payload                                      	| [Process Payload](../src/main/content/jcr_root/apps/aemdesign/components/workflow/processpayload)                                      	|
+| Workflow / Project Task Manager                                 	| [Project Task Manager](../src/main/content/jcr_root/apps/aemdesign/components/workflow/projecttaskmanager)                             	|
+| Workflow / Project Update                                       	| [Project Update](../src/main/content/jcr_root/apps/aemdesign/components/workflow/projectupdate)                                        	|
+| Workflow / Rest                                                 	| [Rest](../src/main/content/jcr_root/apps/aemdesign/components/workflow/rest)                                                           	|
+| Workflow / Salesforce API                                       	| [Salesforce API](../src/main/content/jcr_root/apps/aemdesign/components/workflow/salesforceapi)                                        	|
+| Workflow / Send Email                                           	| [Send Email](../src/main/content/jcr_root/apps/aemdesign/components/workflow/sendemail)                                                	|
+| Coral / Common/Form / Tag Field                                 	| [Tag Field](../src/main/content/jcr_root/apps/aemdesign/components/coral/common/form/tagfield)                                         	|
+| Coral / Datasources / Forms                                     	| [Forms](../src/main/content/jcr_root/apps/aemdesign/components/coral/datasources/forms)                                                	|
+| Coral / Datasources / Tags                                      	| [Tags](../src/main/content/jcr_root/apps/aemdesign/components/coral/datasources/tags)                                                  	|
+| Coral / Foundation / Accordion                                  	| [Accordion](../src/main/content/jcr_root/apps/aemdesign/components/coral/foundation/accordion)                                         	|
+| Coral / Widgets/Form / Asset Options                            	| [Asset Options](../src/main/content/jcr_root/apps/aemdesign/components/coral/widgets/form/assetoptions)                                	|
 
 ## Component Versioning
 
