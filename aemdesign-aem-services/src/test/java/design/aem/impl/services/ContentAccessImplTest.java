@@ -82,7 +82,7 @@ public class ContentAccessImplTest {
     @Test
     public void testGetAdminResourceResolver() throws Exception {
         String SERVICE_NAME = "content-services";
-        Map<String, Object> AUTH_INFO = Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, (Object) SERVICE_NAME);
+        Map<String, Object> AUTH_INFO = Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, SERVICE_NAME);
 
         when(resourceResolverFactory.getServiceResourceResolver(AUTH_INFO)).thenReturn(adminResourceResolver);
 
@@ -120,7 +120,7 @@ public class ContentAccessImplTest {
     @Test
     public void testGetAdminResourceResolverThrowingUnknownError() throws Exception {
         String SERVICE_NAME = "content-services";
-        Map<String, Object> AUTH_INFO = Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, (Object) SERVICE_NAME);
+        Map<String, Object> AUTH_INFO = Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, SERVICE_NAME);
 
         when(resourceResolverFactory.getServiceResourceResolver(AUTH_INFO)).thenThrow(new ResourceNotFoundException(""));
 
@@ -152,7 +152,7 @@ public class ContentAccessImplTest {
     @Test
     public void testGetSubServiceUser() throws Exception {
         String SERVICE_NAME = "content-services";
-        Map<String, Object> AUTH_INFO = Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, (Object) SERVICE_NAME);
+        Map<String, Object> AUTH_INFO = Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, SERVICE_NAME);
 
         when(resourceResolverFactory.getServiceResourceResolver(AUTH_INFO)).thenReturn(adminResourceResolver);
         when(adminResourceResolver.getUserID()).thenReturn("admin");
