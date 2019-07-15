@@ -651,20 +651,18 @@ public class ImagesUtil {
             com.adobe.granite.asset.api.Rendition rend = itr.next();
             if (canRenderOnWeb(rend.getMimeType())) {
                 int w = getWidth(rend);
-//                LOGGER.error("Comparing widths {} >= {}: {}", w, width, rend.getName());
+
                 if (w >= width) {
                     bestFit = rend;
                     if (renditionPrefix != null) {
                         //if matches width and type continue
                         if (rend.getName().startsWith(renditionPrefix)) {
-//                            LOGGER.error("Bingo! {}", rend.getName());
-//                            return bestFit;
+
                             break;
                         }
                     } else {
                         if (rend.getName().startsWith(DEFAULT_ASSET_RENDITION_PREFIX1) || rend.getName().startsWith(DEFAULT_ASSET_RENDITION_PREFIX2)) {
-//                            LOGGER.error("Width Match Default Rendition! {}", rend.getName());
-//                            return bestFit;
+
                             break;
                         }
                     }
