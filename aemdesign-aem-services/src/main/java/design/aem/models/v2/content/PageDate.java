@@ -45,8 +45,6 @@ public class PageDate extends ModelProxy {
 
         Calendar publishDate = componentProperties.get("publishDate", Calendar.getInstance()); //_pageProperties.get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED,_pageProperties.get(JcrConstants.JCR_CREATED, Calendar.getInstance()));
 
-//    componentProperties.put("publishDate",publishDate);
-
         //get format strings from dictionary
         String dateFormatString = i18n.get("publishDateFormat",DEFAULT_I18N_CATEGORY);
         String dateDisplayFormatString = i18n.get("publishDateDisplayFormat",DEFAULT_I18N_CATEGORY);

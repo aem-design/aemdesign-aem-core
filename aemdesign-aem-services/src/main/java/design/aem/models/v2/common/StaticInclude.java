@@ -51,7 +51,7 @@ public class StaticInclude extends ModelProxy {
         componentProperties.put("componentName", getComponent().getProperties().get(JcrConstants.JCR_TITLE,""));
 
         String[] includePaths = getProperties().get(SITE_INCLUDE_PATHS, new String[0]);
-//        boolean isIncludePathsEmpty = includePaths.length == 0;
+
         componentProperties.put("includePaths", StringUtils.join(includePaths,","));
 
         Boolean showContentPreview = Boolean.parseBoolean(getProperties().get("showContentPreview", "false"));
@@ -62,12 +62,10 @@ public class StaticInclude extends ModelProxy {
 
         String includeContents = "";
 
-//        if(!isIncludePathsEmpty) {
-            //Resource contentResource = _resourceResolver.getResource(_resourceResolver,includePaths,null);
+        //Resource contentResource = _resourceResolver.getResource(_resourceResolver,includePaths,null);
         includeContents = getResourceContent(getResourceResolver(),includePaths,"");
         componentProperties.put("includeContents", includeContents);
         componentProperties.put("hasContent", StringUtils.isNotEmpty(includeContents));
-//        }
 
         //only allow hiding when in edit mode
         if (getWcmMode().isEdit()) {
