@@ -53,8 +53,6 @@ public class NavList extends ModelProxy {
                 DEFAULT_FIELDS_ACCESSIBILITY,
                 DEFAULT_FIELDS_ANALYTICS);
 
-        LOGGER.error("Running NavList model with componentProperties: {}", componentProperties);
-
         String[] supportedDetails = DEFAULT_LIST_DETAILS_SUFFIX;
         String[] supportedRoots = DEFAULT_LIST_PAGE_CONTENT;
 
