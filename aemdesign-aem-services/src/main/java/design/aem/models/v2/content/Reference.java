@@ -18,7 +18,6 @@ public class Reference extends ModelProxy {
 
     protected void ready() {
 
-        //not using lamda is available so this is the best that can be done
         setComponentFields(new Object[][]{
                 {"path", StringUtils.EMPTY},
                 {FIELD_VARIANT, DEFAULT_VARIANT}

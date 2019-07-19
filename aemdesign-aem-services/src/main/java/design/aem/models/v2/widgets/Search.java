@@ -24,7 +24,6 @@ public class Search extends ModelProxy {
         final String DEFAULT_I18N_CODE_LEBEL = "labelText";
         final String DEFAULT_I18N_CODE_SEARCH = "searchButtonText";
 
-        //not using lamda is available so this is the best that can be done
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"formAction", "/en/search"},

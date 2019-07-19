@@ -33,7 +33,6 @@ public class PageDate extends ModelProxy {
 
         final String DEFAULT_I18N_CATEGORY = "pagedate";
 
-        //not using lamda is available so this is the best that can be done
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"publishDate", getPageProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED,getPageProperties().get(JcrConstants.JCR_CREATED, Calendar.getInstance()))},
