@@ -157,7 +157,6 @@ public class List extends ModelProxy {
         I18n i18n = new I18n(getRequest());
         String resourcePath = getResource().getPath();
 
-        //not using lamda is available so this is the best that can be done
         setComponentFields(new Object[][]{
                 {LIST_TAG, LIST_TAG_UNORDERED},
                 {"feedEnabled", false},

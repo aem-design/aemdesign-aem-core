@@ -87,7 +87,6 @@ public class EventDetails extends GenericDetails {
         final Boolean DEFAULT_SHOW_PAGE_DATE = true;
         final Boolean DEFAULT_SHOW_PARSYS = true;
 
-        //not using lamda is available so this is the best that can be done
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"title", DEFAULT_TITLE},
