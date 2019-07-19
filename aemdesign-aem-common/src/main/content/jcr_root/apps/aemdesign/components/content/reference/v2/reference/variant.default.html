@@ -1,7 +1,6 @@
 <template data-sly-template.variant="${@ componentProperties}">
     <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
          data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        ${wcmmode.edit}
         <sly data-sly-resource="${componentProperties.path @ wcmmode=componentProperties.wcmmode, selectors=componentProperties.selectors}"></sly>
     </div>
 </template>
