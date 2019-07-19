@@ -1,5 +1,6 @@
 package design.aem.models.v2.content;
 
+import com.day.cq.wcm.api.WCMMode;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
@@ -20,6 +21,8 @@ public class Reference extends ModelProxy {
 
         setComponentFields(new Object[][]{
                 {"path", StringUtils.EMPTY},
+                {"selectors", StringUtils.EMPTY},
+                {"wcmmodeName", "DISABLED"},
                 {FIELD_VARIANT, DEFAULT_VARIANT}
         });
 
@@ -30,9 +33,15 @@ public class Reference extends ModelProxy {
                 DEFAULT_FIELDS_ACCESSIBILITY);
 
 
+        String wcmmodeName = componentProperties.get("wcmmodeName","DISABLED");
+        WCMMode wcmMode = WCMMode.valueOf(wcmmodeName);
+        componentProperties.put("wcmmode", wcmMode);
+
         String path = componentProperties.get("path","");
         if (isNotEmpty(path)) {
             componentProperties.put("pathUrl",path.concat(".html"));
+        } else {
+            componentProperties.put("isEmpty", true);
         }
 
         String variant = componentProperties.get(FIELD_VARIANT,DEFAULT_VARIANT);
