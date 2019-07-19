@@ -33,6 +33,7 @@
                                     name="./path"
                                     predicate="nosystem"
                                     rootPath="/content"/>
+
                         </items>
                     </column>
                 </items>
@@ -69,6 +70,43 @@
                                                     value=""/>
                                         </items>
                                     </variant>
+
+                                    <selectors
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Use following selectors when rendering content"
+                                            fieldLabel="Selectors"
+                                            name="./selectors"
+                                            required="{Boolean}false"/>
+
+                                    <variant
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            emptyOption="{Boolean}true"
+                                            fieldDescription="Use following rendering mode"
+                                            fieldLabel="WCM Mode"
+                                            name="./wcmmodeName"
+                                            value="">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <default
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Disabled"
+                                                    value=""/>
+                                            <edit
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Edit"
+                                                    value="EDIT"/>
+                                            <preview
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Preview"
+                                                    value="PREVIEW"/>
+                                            <design
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Design"
+                                                    value="DESIGN"/>
+                                        </items>
+                                    </variant>
+
                                 </items>
                             </variant>
                         </items>
