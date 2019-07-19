@@ -30,6 +30,8 @@ import org.apache.commons.jexl3.*;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.jackrabbit.core.fs.FileSystem;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -49,13 +51,16 @@ import javax.jcr.Node;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
 import java.io.*;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import static design.aem.components.ComponentField.FIELD_VALUES_ARE_ATTRIBUTES;
-import static design.aem.utils.components.CommonUtil.isNull;
-import static design.aem.utils.components.CommonUtil.resourceRenderAsHtml;
+import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.*;
@@ -2024,5 +2029,37 @@ public class ComponentsUtil {
             LOGGER.error("removeRegexFromString: could not remove patterns from string, ex={}", ex);
         }
         return value;
+    }
+
+
+    /**
+     * Transform calendar into a publication date.
+     *
+     * @param cal is the calendar to transform
+     * @return is the formatted RSS date.
+     */
+    public static String formattedRssDate(Calendar cal) {
+        if (cal == null) {
+            return null;
+        }
+
+        FastDateFormat dateFormat = FastDateFormat.getInstance(DEFAULT_RSS_DATE_FORMAT);
+        return dateFormat.format(cal);
+    }
+
+
+    /**
+     * Get the unique identifier for this paqe
+     *
+     * @param listPage is the page to uniqify
+     * @return the md5 hash of the page's content path
+     */
+    public static String getUniquePageIdentifier(Page listPage) {
+        if (listPage!= null) {
+            String uniqueBase = listPage.getPath().substring(1).replace(FileSystem.SEPARATOR, "-");
+
+            return hashMd5(uniqueBase);
+        }
+        return "";
     }
 }

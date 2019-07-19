@@ -47,6 +47,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static design.aem.utils.components.ComponentsUtil.DETAILS_DESCRIPTION;
 import static design.aem.utils.components.ComponentsUtil.DETAILS_TITLE;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
@@ -159,6 +160,26 @@ public class CommonUtil {
         }
 
         return lastMod;
+    }
+
+    /**
+     * Get a page's description from Details component on the page with failover to page properties.
+     * @param page is the page to get the title for
+     * @param detailsComponentProperties details component properties
+     * @return a string with title from details component or from page
+     */
+    public static String getPageDescription(Page page, ValueMap detailsComponentProperties) {
+        String pageDescription = "";
+
+        if (detailsComponentProperties != null) {
+            pageDescription = detailsComponentProperties.get(DETAILS_DESCRIPTION, "");
+        }
+
+        if (isEmpty(pageDescription)) {
+            pageDescription = page.getDescription();
+        }
+
+        return pageDescription;
     }
 
     /**

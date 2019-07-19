@@ -119,4 +119,5 @@ public class ConstantsUtil {
     public final static String BADGE_REQUEST_ATTRIBUTES = "badgeRequestAttributes";
     public final static String COMPONENT_PROPERTIES = "componentProperties";
 
+    public static final String DEFAULT_RSS_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss";
 }

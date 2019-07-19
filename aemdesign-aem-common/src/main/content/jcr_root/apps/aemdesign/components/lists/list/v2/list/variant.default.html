@@ -3,7 +3,7 @@
          data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
         data-sly-unwrap="${!componentProperties.printStructure}">
 
-        <sly data-sly-use.feed="list.feed.html" data-sly-call="${feed.variant @ componentProperties=componentProperties}"></sly>
+        <sly data-sly-use.feed="list.feedurl.html" data-sly-call="${feed.variant @ componentProperties=componentProperties}"></sly>
         <div class="content" data-sly-unwrap="${!componentProperties.printStructure}">
             <sly data-sly-use.body="list.body.html"
                  data-sly-call="${body.variant @ componentProperties=component.componentProperties, component=component}"></sly>
