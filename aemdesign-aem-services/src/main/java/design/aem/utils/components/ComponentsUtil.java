@@ -2049,6 +2049,22 @@ public class ComponentsUtil {
 
 
     /**
+     * Transform calendar into a publication date.
+     *
+     * @param cal is the calendar to transform
+     * @return is the formatted RSS date.
+     */
+    public static String formatDate(Calendar cal, String format) {
+        if (cal == null || format == null) {
+            return null;
+        }
+
+        FastDateFormat dateFormat = FastDateFormat.getInstance(format);
+        return dateFormat.format(cal);
+    }
+
+
+    /**
      * Get the unique identifier for this paqe
      *
      * @param listPage is the page to uniqify
