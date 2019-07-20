@@ -62,7 +62,7 @@ sonar-check-develop:
   stage: analyze
   image: aemdesign/centos-java-buildpack:latest
   only:
-    - master
+    - develop
   script:
     - export PATH=/apps/maven/bin:${PATH}
     - export PATH=/usr/lib/node_modules/yarn/bin:${PATH}
