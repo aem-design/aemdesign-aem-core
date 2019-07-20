@@ -24,6 +24,10 @@
 <%@ page import="com.day.cq.wcm.foundation.Image" %>
 <%
 
+    if (!_properties.get("feedEnabled",false)) {
+        response.sendError(404);
+    }
+
     boolean showHidden = _properties.get("showHidden", false);
 
     com.day.cq.wcm.foundation.List list = new com.day.cq.wcm.foundation.List(_slingRequest, new PageFilter(false, showHidden));

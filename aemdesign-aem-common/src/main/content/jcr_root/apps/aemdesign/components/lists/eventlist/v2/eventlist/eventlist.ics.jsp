@@ -35,6 +35,9 @@
 <%@ page import="org.apache.commons.lang.WordUtils" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %><%
 
+    if (!_properties.get("feedEnabled",false)) {
+        response.sendError(404);
+    }
 
     boolean showHidden = _properties.get("showHidden", false);
 
