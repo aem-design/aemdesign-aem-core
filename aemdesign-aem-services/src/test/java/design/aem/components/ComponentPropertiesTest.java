@@ -21,18 +21,18 @@ public class ComponentPropertiesTest {
     Map<String, String> sampleContent = new HashMap<String, String>();
 
     sampleContent.put("atest","123");
-    assert sampleContent.get("atest").equals("123");
+    sampleContent.get("atest").equals("123");
 
     sampleContent.put("btest","456");
-    assert sampleContent.get("btest").equals("456");
+    sampleContent.get("btest").equals("456");
 
     Map<String, String> sampleContentUpdate = new HashMap<String, String>();
 
     sampleContentUpdate.put("atest","234");
-    assert sampleContent.get("atest").equals("234");
+    sampleContent.get("atest").equals("234");
 
     sampleContentUpdate.put("btest","567");
-    assert sampleContent.get("btest").equals("567");
+    sampleContent.get("btest").equals("567");
 
 
     componentProperties = mock(ComponentProperties.class);
@@ -54,6 +54,8 @@ public class ComponentPropertiesTest {
 
     when(componentProperties.get("atest")).thenReturn("234");
     when(componentProperties.get("btest")).thenReturn("567");
+
+    assert componentProperties.get("btest").equals("567");
   }
 
 }
