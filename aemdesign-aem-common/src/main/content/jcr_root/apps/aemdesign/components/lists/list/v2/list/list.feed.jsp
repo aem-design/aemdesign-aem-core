@@ -27,6 +27,9 @@
 <%@ taglib prefix="atom" uri="http://sling.apache.org/taglibs/atom/1.0" %>
 <%@ include file="/apps/aemdesign/global/global.jsp" %>
 <%
+    if (!_properties.get("feedEnabled",false)) {
+        response.sendError(404);
+    }
 
     boolean showHidden = _properties.get("showHidden", false);
 
