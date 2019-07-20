@@ -3,7 +3,7 @@ stages:
 #  - pre-package
   - package
   - analyze
-#  - release
+  - release
   #- deploy
 
 cache:
