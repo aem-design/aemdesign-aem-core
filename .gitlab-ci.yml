@@ -86,6 +86,7 @@ push-github:
   script:
     - git remote add github https://aemdesign:${GITHUB_TOKEN}@github.com/aem-design/aemdesign-aem-core.git
     - git remote set-url github https://aemdesign:${GITHUB_TOKEN}@github.com/aem-design/aemdesign-aem-core.git
+    - git config lfs.allowincompletepush true
     - git push -u github HEAD:master --force
 
 #Release Maven:
