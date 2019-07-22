@@ -161,7 +161,7 @@ public class List extends ModelProxy {
         setComponentFields(new Object[][]{
                 {LIST_TAG, LIST_TAG_UNORDERED},
                 {FIELD_FEED_ENABLED, false},
-                {FIELD_FEED_TYPE, "rss", "${feedEnabled ? value : ''}"},
+                {FIELD_FEED_TYPE, "rss"},
                 {"listSplit", false, "data-list-split-enabled"},
                 {LIST_SPLIT_EVERY, LIST_SPLIT_EVERY_DEFAULT, "data-list-split-every"},
                 {DETAILS_BADGE, DEFAULT_BADGE, "data-badge"},
