@@ -102,6 +102,7 @@ public class List extends ModelProxy {
     public final String LISTITEM_LINK_TEXT = "listItemLinkText";
     public final String LISTITEM_LINK_TITLE = "listItemLinkTitle";
 
+    private final String FIELD_FEED_ENABLED = "feedEnabled";
     private final String FIELD_FEED_TYPE = "feedType";
     private final String FIELD_FEED_EXT = "feedExt";
     private final String FIELD_FEED_TITLE = "feedTitle";
@@ -159,8 +160,8 @@ public class List extends ModelProxy {
 
         setComponentFields(new Object[][]{
                 {LIST_TAG, LIST_TAG_UNORDERED},
-                {"feedEnabled", false},
-                {FIELD_FEED_TYPE, "rss"},
+                {FIELD_FEED_ENABLED, false},
+                {FIELD_FEED_TYPE, "rss", "${feedEnabled ? value : ''}"},
                 {"listSplit", false, "data-list-split-enabled"},
                 {LIST_SPLIT_EVERY, LIST_SPLIT_EVERY_DEFAULT, "data-list-split-every"},
                 {DETAILS_BADGE, DEFAULT_BADGE, "data-badge"},
@@ -243,7 +244,7 @@ public class List extends ModelProxy {
 
 
         //setup feed config
-        if ((Boolean)componentProperties.get("feedEnabled")) {
+        if ((Boolean)componentProperties.get(FIELD_FEED_ENABLED)) {
             if ("atom".equals(componentProperties.get(FIELD_FEED_TYPE))) {
                 componentProperties.put(FIELD_FEED_EXT, ".feed");
                 componentProperties.put(FIELD_FEED_TITLE, "Atom 1.0 (List)");
