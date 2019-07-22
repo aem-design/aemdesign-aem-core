@@ -249,7 +249,8 @@ public class ComponentsUtil {
     public static final String FIELD_DATA_ASSET_SECONDARY_LICENSE= "data-asset-license-secondary";
 
 
-    public static final String FIELD_DATA_ASSET_ROLLOVER_SRC= "data-rollover-src";
+    public static final String FIELD_DATA_ASSET_SECONDARY_SRC = "data-secondary-src";
+    public static final String FIELD_DATA_ASSET_SECONDARY_CLASS = "secondary";
 
 
     public static final String FIELD_WIDTH = "width";
