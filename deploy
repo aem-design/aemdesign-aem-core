@@ -7,6 +7,16 @@ source "./scripts/functions.sh"
 
 set_term_title "Core Deploy"
 
-echo "Deploying Monolith Package: mvn -Dvault.useProxy=false -DskipTests -e -U -P installdeploymentpackage,deploymentpackage clean install"
+#try to delete existing jar
+delete_current_jar
+
+echo " - Deploying Monolith Package: mvn -Dvault.useProxy=false -DskipTests -e -U -P installdeploymentpackage,deploymentpackage clean install"
 mvn -Dvault.useProxy=false -DskipTests -e -U -P deploymentpackage,installdeploymentpackage clean install "$@"
-echo "Deployed"
+echo " - Deployed"
+
+#restart aem container
+restart_aem_docker
+
+
+set_term_title "Deploy Done"
+
