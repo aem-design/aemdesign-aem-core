@@ -243,13 +243,13 @@ public class ComponentsUtil {
     public static final String FIELD_ASSETID = "asset-id";
     public static final String FIELD_ASSET_LICENSED = "asset-licensed";
     public static final String FIELD_ASSET_TRACKABLE = "asset-trackable";
-    public static final String FIELD_DATA_ASSET_PRIMARY_ID = "data-asset-id-primary";
-    public static final String FIELD_DATA_ASSET_PRIMARY_LICENSE = "data-asset-license-primary";
-    public static final String FIELD_DATA_ASSET_SECONDARY_ID = "data-asset-id-secondary";
-    public static final String FIELD_DATA_ASSET_SECONDARY_LICENSE= "data-asset-license-secondary";
+    public static final String FIELD_DATA_ASSET_PRIMARY_ID = "data-asset-primary-id";
+    public static final String FIELD_DATA_ASSET_PRIMARY_LICENSE = "data-asset-primary-license";
+    public static final String FIELD_DATA_ASSET_SECONDARY_ID = "data-asset-secondary-id";
+    public static final String FIELD_DATA_ASSET_SECONDARY_LICENSE= "data-asset-secondary-license";
 
 
-    public static final String FIELD_DATA_ASSET_SECONDARY_SRC = "data-secondary-src";
+    public static final String FIELD_DATA_ASSET_SECONDARY_SRC = "data-asset-secondary-src";
     public static final String FIELD_DATA_ASSET_SECONDARY_CLASS = "secondary";
 
 
