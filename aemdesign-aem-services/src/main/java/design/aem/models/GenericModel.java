@@ -11,7 +11,6 @@ import com.day.cq.wcm.api.components.EditContext;
 import com.day.cq.wcm.api.designer.Design;
 import com.day.cq.wcm.api.designer.Designer;
 import com.day.cq.wcm.api.designer.Style;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import design.aem.components.ComponentProperties;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
@@ -45,7 +44,6 @@ public class GenericModel implements GenericComponent {
     @ScriptVariable
     protected Page currentPage;
     @ScriptVariable(injectionStrategy = InjectionStrategy.OPTIONAL)
-    @JsonIgnore
     protected Style currentStyle;
     @ScriptVariable
     protected Page resourcePage;
