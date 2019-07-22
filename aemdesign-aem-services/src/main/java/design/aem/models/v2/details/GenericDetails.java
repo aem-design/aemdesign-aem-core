@@ -1,6 +1,5 @@
 package design.aem.models.v2.details;
 
-import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
@@ -190,8 +189,8 @@ public class GenericDetails extends ModelProxy {
 
         String pageSecondaryImageThumbnail = componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL, "");
         if (isNotEmpty(pageSecondaryImageThumbnail)) {
-            badgeImageAttr.put(FIELD_CLASS, "rollover");
-            badgeImageAttr.put(FIELD_DATA_ASSET_ROLLOVER_SRC, pageSecondaryImageThumbnail);
+            badgeImageAttr.put(FIELD_CLASS, FIELD_DATA_ASSET_SECONDARY_CLASS);
+            badgeImageAttr.put(FIELD_DATA_ASSET_SECONDARY_SRC, pageSecondaryImageThumbnail);
         }
 
         badgeConfig.put(DETAILS_BADGE_IMAGE_ATTR, badgeImageAttr);
