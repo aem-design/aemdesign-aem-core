@@ -106,10 +106,10 @@
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
-            <secondaryImageTab
+            <imageBackgroundTab
                     jcr:primaryType="nt:unstructured"
-                    jcr:title="Secondary Image"
-                    path="/apps/aemdesign/global/dialog/touch/asset/content/items/secondaryImageTab"
+                    jcr:title="Background Image"
+                    path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageBackgroundTab"
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
@@ -120,12 +120,13 @@
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
-            <imageBackgroundTab
+            <secondaryImageTab
                     jcr:primaryType="nt:unstructured"
-                    jcr:title="Background Image"
-                    path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageBackgroundTab"
+                    jcr:title="Secondary Thumbnail"
+                    path="/apps/aemdesign/global/dialog/touch/asset/content/items/secondaryImageTab"
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
 
             <styleTab
                     jcr:primaryType="nt:unstructured"

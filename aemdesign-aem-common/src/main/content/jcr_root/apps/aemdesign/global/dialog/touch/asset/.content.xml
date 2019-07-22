@@ -797,7 +797,7 @@
 
             <secondaryImageTab
                     jcr:primaryType="nt:unstructured"
-                    jcr:title="Secondary Image"
+                    jcr:title="Secondary Thumbnail"
                     sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
@@ -810,7 +810,7 @@
                         <items jcr:primaryType="nt:unstructured">
                             <attributes
                                     jcr:primaryType="nt:unstructured"
-                                    jcr:title="Asset"
+                                    jcr:title="Thumbnail"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <imageThumbnail
