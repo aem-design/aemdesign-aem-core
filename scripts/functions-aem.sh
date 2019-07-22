@@ -127,14 +127,11 @@ function doCheckPathExist() {
 }
 
 function restart_aem_docker() {
-    if [[ "false" == "$SKIP_RESTART" ]]; then
-        AEM_CONTAINER_NAME=$(getContainerNameByPort "$AEM_PORT")
-        echo "Restarting AEM Docker Container: ${AEM_CONTAINER_NAME}"
-        doRestartContainerUsingPort "$AEM_PORT"
-        #doPostFields "/system/console/vmstat" "-F shutdown_type=Restart"
-    fi
-
-
+    echo "Finding AEM Docker Container on port: ${AEM_PORT}"
+    AEM_CONTAINER_NAME=$(getContainerNameByPort "${AEM_PORT}")
+    echo "Restarting AEM Docker Container: ${AEM_CONTAINER_NAME}"
+    doRestartContainerUsingPort "${AEM_PORT}"
+    #doPostFields "/system/console/vmstat" "-F shutdown_type=Restart"
 
     set_term_title "Wait for AEM Ready"
     echo "Waiting for AEM to be ready"
@@ -152,7 +149,7 @@ function delete_current_jar() {
     set_term_title "Get Project Version"
 
     PROJECT_VERSION=$(getParamOrDefault "" "version")
-    PROJECT_ARTIFACTID=$($CAT "./pom.xml" | $GREP artifactId | $HEAD -n 2 | $TAIL -n 1 | $SED -e 's/.*>\(.*\)<.*/\1/')
+    PROJECT_ARTIFACTID=$($CAT "$POM_FILE" | $GREP artifactId | $HEAD -n 2 | $TAIL -n 1 | $SED -e 's/.*>\(.*\)<.*/\1/')
     GIT_VERSION=$(getCurrentProjectVersion)
 
     echo "Current Project Version: $PROJECT_VERSION"
