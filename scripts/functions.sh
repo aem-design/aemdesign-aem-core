@@ -14,14 +14,15 @@ FIND=$(/usr/bin/which find)
 CURL=$(/usr/bin/which curl)
 SLEEP=$(/usr/bin/which sleep)
 SH=$(/usr/bin/which sh)
+SED=$(/usr/bin/which sed)
 
 source "$SCRIPTS_PARENT/functions-common.sh"
 source "$SCRIPTS_PARENT/functions-debug.sh"
 source "$SCRIPTS_PARENT/functions-maven.sh"
 source "$SCRIPTS_PARENT/functions-curl.sh"
-source "$SCRIPTS_PARENT/functions-aem.sh"
 source "$SCRIPTS_PARENT/functions-git.sh"
 source "$SCRIPTS_PARENT/functions-docker.sh"
+source "$SCRIPTS_PARENT/functions-aem.sh"
 
 
 
