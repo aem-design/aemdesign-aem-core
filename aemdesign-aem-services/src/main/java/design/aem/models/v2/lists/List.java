@@ -248,6 +248,10 @@ public class List extends ModelProxy {
                 componentProperties.put(FIELD_FEED_EXT, ".feed");
                 componentProperties.put(FIELD_FEED_TITLE, "Atom 1.0 (List)");
                 componentProperties.put(FIELD_FEED_TYPE, "application/atom+xml");
+            } else if("ics".equals(componentProperties.get(FIELD_FEED_TYPE))) {
+                componentProperties.put(FIELD_FEED_EXT, ".ics");
+                componentProperties.put(FIELD_FEED_TITLE, "iCalendar Subscription List");
+                componentProperties.put(FIELD_FEED_TYPE, "text/calendar");
             } else {
                 componentProperties.put(FIELD_FEED_EXT, ".rss");
                 componentProperties.put(FIELD_FEED_TITLE, "RSS Feed");
