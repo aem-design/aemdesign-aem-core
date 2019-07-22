@@ -6,58 +6,16 @@ SCRIPT_PARAMS="$@"
 
 source "../scripts/functions.sh"
 
-set_term_title "Get Project Version"
-
-PROJECT_VERSION=$(getParamOrDefault "$SCRIPT_PARAMS" "version")
-PROJECT_ARTIFACTID=$(cat "./pom.xml" | grep artifactId | head -n 2 | tail -n 1 | sed -e 's/.*>\(.*\)<.*/\1/')
-GIT_VERSION=$(getCurrentProjectVersion)
-
-
-echo "Current Project Version: $PROJECT_VERSION"
-echo "Current Git Version: $GIT_VERSION"
-echo "Project Artifact Id Version: $PROJECT_ARTIFACTID"
-
-PROJECT_JAR="/apps/aemdesign/install/${PROJECT_ARTIFACTID}-${GIT_VERSION}.jar"
-echo "Project Jar: $PROJECT_JAR"
-
-JAR_EXIST=$(doCheckPathExist "$PROJECT_JAR")
-
-echo "Check if Jar exists: $JAR_EXIST"
-
-SKIP_RESTART="false"
-
-#if [[ "false" == "$JAR_EXIST" ]]; then
-#    SKIP_RESTART="true"
-#fi
-
-echo "Skip restart: $SKIP_RESTART"
-
-if [[ "false" == "$SKIP_RESTART" ]]; then
-    echo "Delete Current Jar: ${PROJECT_JAR}"
-    doDeletePath "${PROJECT_JAR}"
-    set_term_title "Services Deploy"
-fi
-
+#try to delete existing jar
+delete_current_jar
 
 echo "- Deploy"
 mvn -Dvault.useProxy=false -DskipTests clean deploy -P autoInstallBundle -Dmaven.deploy.skip=true -DskipNexusStagingDeployMojo=true "$@"
 echo "- Deployed"
 
-if [[ "false" == "$SKIP_RESTART" ]]; then
-    AEM_CONTAINER_NAME=$(getContainerNameByPort "$AEM_PORT")
-    echo "Restarting AEM Docker Container: ${AEM_CONTAINER_NAME}"
-    doRestartContainerUsingPort "$AEM_PORT"
-    #doPostFields "/system/console/vmstat" "-F shutdown_type=Restart"
-fi
+#restart aem container
+restart_aem_docker
 
-
-
-set_term_title "Wait for AEM Ready"
-echo "Waiting for AEM to be ready"
-doWaitForStartup
-doWaitForPackageManagerStartup
-doWaitForBundlesToInstall
-
-echo "AEM is ready!"
 
 set_term_title "Deploy Done"
+
