@@ -32,6 +32,8 @@ deploy:
     - aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-$project_version.zip
     - aemdesign-aem-services/target/aemdesign-aem-services-$project_version.jar
   skip_cleanup: true
+  on:
+    tags: true
   name: $project_version
 
 
