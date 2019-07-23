@@ -8,9 +8,9 @@ git:
   depth: false
 
 ## export GPG details
-#before_install:
-#  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
-#  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+before_install:
+  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 
 #package:
 #  mvn --settings default.xml package -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
@@ -19,8 +19,8 @@ install:
   mvn --settings default.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
 
 ## Build and release to maven central
-#script:
-#  mvn clean deploy --settings default.xml -DskipTests=true -B -U -Prelease
+script:
+  mvn clean deploy --settings default.xml -DskipTests=true -B -U -Prelease
 
 ## Get the project version
 before_deploy:
@@ -35,8 +35,6 @@ deploy:
     - aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-$project_version.zip
     - aemdesign-aem-services/target/aemdesign-aem-services-$project_version.jar
   skip_cleanup: true
-  on:
-    tags: true
   name: $project_version
 
 
