@@ -66,4 +66,11 @@
     <activeProfiles>
         <activeProfile>adobe-public</activeProfile>
     </activeProfiles>
+    <mirrors>
+        <mirror>
+            <id>central-mirror</id>
+            <url>http://repo.maven.apache.org/maven2</url>
+            <mirrorOf>external:*,!adobe-public-releases</mirrorOf>
+        </mirror>
+    </mirrors>
 </settings>
