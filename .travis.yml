@@ -4,6 +4,9 @@ cache:
   directories:
     - ~/.m2/repository
 
+git:
+  depth: false
+
 ## export GPG details
 #before_install:
 #  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
