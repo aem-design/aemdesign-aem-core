@@ -20,7 +20,7 @@ install:
 
 ## Build and release to maven central
 script:
-  mvn clean deploy --settings default.xml -DskipTests=true -B -U -Prelease
+  $TRAVIS_BRANCH == "master" && mvn clean deploy --settings default.xml -DskipTests=true -B -U -Prelease
 
 ## Get the project version
 before_deploy:
@@ -35,6 +35,8 @@ deploy:
     - aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-$project_version.zip
     - aemdesign-aem-services/target/aemdesign-aem-services-$project_version.jar
   skip_cleanup: true
+  on:
+    branch: master
   name: $project_version
 
 
