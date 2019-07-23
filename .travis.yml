@@ -16,7 +16,7 @@ before_install:
 #  mvn --settings default.xml package -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
 
 install:
-  mvn --settings default.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+  mvn --settings default.xml package install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
 
 ## Build and release to maven central
 script:
