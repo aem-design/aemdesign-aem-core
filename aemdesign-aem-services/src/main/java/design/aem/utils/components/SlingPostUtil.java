@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import javax.jcr.PropertyType;
+import javax.jcr.RepositoryException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -47,9 +48,9 @@ public class SlingPostUtil {
      * Copied from Sling. Later on Sling POST Servlet will be refactored to provide a generic service for this.
      * @param parentNode node to write into
      * @param req sling request
-     * @throws Exception when can't read content
+     * @throws RepositoryException when can't read content
      */
-    public static void writeContent(final Node parentNode, final HttpServletRequest req) throws Exception {
+    public static void writeContent(final Node parentNode, final HttpServletRequest req) throws RepositoryException {
         for (Enumeration en = req.getParameterNames(); en.hasMoreElements();) {
             String name = en.nextElement().toString();
 

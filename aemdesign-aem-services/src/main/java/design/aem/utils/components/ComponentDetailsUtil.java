@@ -42,7 +42,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(wcmUsePojoModel, pageManager, resourceResolver, paths, DEFAULT_LIST_DETAILS_SUFFIX, DEFAULT_LIST_PAGE_CONTENT);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex);
+            LOGGER.error("getPageListInfo(WCMUsePojo) /A1 -> A2 could not read required objects: {}, error: {}", wcmUsePojoModel, ex);
         }
 
         return new ArrayList<>();
@@ -73,7 +73,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(wcmUsePojoModel, pageManager, resourceResolver, paths, componentNames, pageRoots, null, false);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex);
+            LOGGER.error("getPageListInfo(WCMUsePojo) A2 -> A3 could not read required objects: {}, error: {}", wcmUsePojoModel, ex);
         }
 
         return new ArrayList<>();
@@ -104,7 +104,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(getContextObjects(wcmUsePojoModel), pageManager, resourceResolver, paths, componentNames, pageRoots, null, false);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: {},error={},pageManager={},resourceResolver={},pageList={},detailsComponentName={},pageRoots={}",wcmUsePojoModel, ex, pageManager, resourceResolver, paths, componentNames, pageRoots);
+            LOGGER.error("getPageListInfo(WCMUsePojo) A3 could not read required objects: {},error={},pageManager={},resourceResolver={},pageList={},detailsComponentName={},pageRoots={}",wcmUsePojoModel, ex, pageManager, resourceResolver, paths, componentNames, pageRoots);
         }
 
         return new ArrayList<>();
@@ -155,7 +155,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(wcmUsePojoModel, pageManager, resourceResolver, pageList, DEFAULT_LIST_DETAILS_SUFFIX, DEFAULT_LIST_PAGE_CONTENT);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex);
+            LOGGER.error("getPageListInfo(WCMUsePojo) B1 -> B2 could not read required objects: {}, error: {}", wcmUsePojoModel, ex);
         }
 
         return new ArrayList<>();
@@ -190,7 +190,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(wcmUsePojoModel, pageManager, resourceResolver, pageList, detailsComponentName, pageRoots, null, false);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex);
+            LOGGER.error("getPageListInfo(WCMUsePojo) B2 -> B3 could not read required objects: {}, error: {}", wcmUsePojoModel, ex);
         }
 
         return new ArrayList<>();
@@ -205,7 +205,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(pageContext, pageManager, resourceResolver, pageList, detailsComponentName, pageRoots, null, false);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(PageContext) could not read required objects", ex);
+            LOGGER.error("getPageListInfo(PageContext) B2 -> B3 could not read required objects", ex);
         }
 
         return new ArrayList<>();
@@ -222,7 +222,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(getContextObjects(wcmUsePojoModel), pageManager, resourceResolver, pageList, detailsComponentName, pageRoots, null, false);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(WCMUsePojo) could not read required objects: {},error={},pageManager={},resourceResolver={},pageList={},detailsComponentName={},pageRoots={}",wcmUsePojoModel, ex, pageManager, resourceResolver, pageList, detailsComponentName, pageRoots);
+            LOGGER.error("getPageListInfo(WCMUsePojo) B3 could not read required objects: {},error={},pageManager={},resourceResolver={},pageList={},detailsComponentName={},pageRoots={}",wcmUsePojoModel, ex, pageManager, resourceResolver, pageList, detailsComponentName, pageRoots);
         }
 
         return new ArrayList<>();
@@ -237,7 +237,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(getContextObjects(pageContext), pageManager, resourceResolver, pageList, detailsComponentName, pageRoots, null, false);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(PageContext) could not read required objects", ex);
+            LOGGER.error("getPageListInfo(PageContext) B3 could not read required objects", ex);
         }
 
         return new ArrayList<>();

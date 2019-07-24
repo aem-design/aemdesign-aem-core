@@ -99,14 +99,14 @@ public class List extends ModelProxy {
         return this.componentProperties;
     }
 
-    public final String LISTITEM_LINK_TEXT = "listItemLinkText";
-    public final String LISTITEM_LINK_TITLE = "listItemLinkTitle";
+    public static final String LISTITEM_LINK_TEXT = "listItemLinkText";
+    public static final String LISTITEM_LINK_TITLE = "listItemLinkTitle";
 
-    private final String FIELD_FEED_ENABLED = "feedEnabled";
-    private final String FIELD_FEED_TYPE = "feedType";
-    private final String FIELD_FEED_EXT = "feedExt";
-    private final String FIELD_FEED_TITLE = "feedTitle";
-    private final String FIELD_FEED_URL = "feedUrl";
+    private static final String FIELD_FEED_ENABLED = "feedEnabled";
+    private static final String FIELD_FEED_TYPE = "feedType";
+    private static final String FIELD_FEED_EXT = "feedExt";
+    private static final String FIELD_FEED_TITLE = "feedTitle";
+    private static final String FIELD_FEED_URL = "feedUrl";
 
     private java.util.List<Map<String,Object>> listItems;
 

@@ -168,8 +168,8 @@ public class Columns extends ModelProxy {
                 aColumnClass = MessageFormat.format("{0} {1} {2} {3}",columnClassSmall, columnClassMedium, columnClassLarge, columnClassXLarge).trim();
 
                 columnClass = getColumnClass(currentColumn, componentProperties, aColumnClass);
-                columnsClass = getColumnsClass(numCols, componentProperties);
-                rowClass = getRowClass(componentProperties, aRowClass);
+                columnsClass = getColumnsClass(numCols);
+                rowClass = getRowClass(aRowClass);
 
                 componentProperties.attr.add("class", columnsClass);
 
@@ -274,13 +274,13 @@ public class Columns extends ModelProxy {
         }
     }
 
-    final String getColumnsClass(Integer numCols, ComponentProperties componentProperties) {
+    final String getColumnsClass(Integer numCols) {
 
         return MessageFormat.format("colctrl-{0}c",numCols);
 
     }
 
-    final String getRowClass(ComponentProperties componentProperties, String rowClass) {
+    final String getRowClass(String rowClass) {
 
         return MessageFormat.format("{0} {1} {2}",COLUMNS_CLASS, ROW_CLASS, rowClass);
     }

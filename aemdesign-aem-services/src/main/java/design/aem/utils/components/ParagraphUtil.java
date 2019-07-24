@@ -186,10 +186,9 @@ public class ParagraphUtil {
      * look ahead try find the end/break of col and return component before it if there is one
      * @param parSys list of pars being processed
      * @param par current par child of parSys being processed
-     * @param out html output
      * @return last item in the column
      */
-    public static Paragraph getLastItemInColumn(Object parSys, Paragraph par, JspWriter out) {
+    public static Paragraph getLastItemInColumn(Object parSys, Paragraph par) {
         Paragraph lastItemPar = null;
 
         int parPosition = getListPosition(parSys, par);
@@ -204,10 +203,8 @@ public class ParagraphUtil {
             if (lpar != null) {
                 //check if the component is a column, if it is stop
                 Resource rpar = lpar.getResource();
-                if (rpar != null) {
-                    if (rpar.getResourceType().endsWith("/colctrl")) {
-                        break;
-                    }
+                if (rpar != null && rpar.getResourceType().endsWith("/colctrl")) {
+                    break;
                 }
             }
         }
@@ -445,7 +442,7 @@ public class ParagraphUtil {
      * @param currColNumber current column number
      * @throws IOException when can't write to jsp output
      */
-    public static void openCol(JspWriter out, HashMap<String, Object> componentStyle, Integer currColNumber) throws IOException {
+    public static void openCol(JspWriter out, Map componentStyle, Integer currColNumber) throws IOException {
         String layout = (String) componentStyle.get(COL_CTL_LAYOUT);
 
         //expected width format: col-md-,4,4,4
