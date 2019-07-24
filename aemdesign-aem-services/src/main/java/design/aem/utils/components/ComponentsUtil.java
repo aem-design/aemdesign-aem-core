@@ -827,7 +827,7 @@ public class ComponentsUtil {
             return getComponentProperties(getContextObjects(wcmUsePojoModel), targetResource, true, fieldLists);
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex);
+            LOGGER.error("getComponentProperties(wcmUsePojoModel,targetResource,fieldLists) could not read required objects: {}, error: {}", wcmUsePojoModel, ex);
         }
 
 
@@ -848,7 +848,7 @@ public class ComponentsUtil {
             return getComponentProperties(genericModel.getPageContextMap(), targetResource, true, fieldLists);
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", genericModel, ex);
+            LOGGER.error("getComponentProperties(genericModel,targetResource,fieldLists) could not read required objects: {}, error: {}", genericModel, ex);
         }
 
 
@@ -958,7 +958,7 @@ public class ComponentsUtil {
             return getComponentProperties(genericModel.getPageContextMap(), targetResource, includeComponentAttributes, fieldLists);
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", genericModel, ex);
+            LOGGER.error("getComponentProperties(genericModel,targetResource,includeComponentAttributes,fieldLists) could not read required objects: {}, error: {}", genericModel, ex);
         }
 
 
@@ -979,7 +979,7 @@ public class ComponentsUtil {
             return getComponentProperties(getContextObjects(wcmUsePojoModel), targetResource, includeComponentAttributes, fieldLists);
 
         } catch (Exception ex) {
-            LOGGER.error("getComponentProperties(WCMUsePojo) could not read required objects: {}, error: {}", wcmUsePojoModel, ex);
+            LOGGER.error("getComponentProperties(wcmUsePojoModel,targetResource,includeComponentAttributes,fieldLists) could not read required objects: {}, error: {}", wcmUsePojoModel, ex);
         }
 
 
