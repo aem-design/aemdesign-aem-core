@@ -65,7 +65,6 @@ public class Timing extends ModelProxy {
         GZIPOutputStream gzip = new GZIPOutputStream(obj);
         gzip.write(str.getBytes(charsetName));
         gzip.close();
-        String outStr = obj.toString(charsetName);
 
         return obj.toByteArray();
     }

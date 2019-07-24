@@ -74,7 +74,7 @@ public class AssetList extends ModelProxy {
     private static final String FIELD_IMAGE_OPTION_DEFAULT = "responsive";
 
 
-    private final static String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
+    private static final String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
 
     private long totalMatches;
     private long hitsPerPage;

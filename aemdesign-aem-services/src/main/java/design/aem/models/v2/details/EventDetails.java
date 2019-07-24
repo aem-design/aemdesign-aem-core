@@ -27,22 +27,22 @@ import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 public class EventDetails extends GenericDetails {
 
     // default values for the component
-    final static String EVENT_DISPLAY_DATE_FORMAT = "EEE d MMMMM";
-    final static String EVENT_DISPLAY_DATE_FORMAT_ISO = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-    final static String EVENT_TIME_DEFAULT_FORMAT = "h:mm a";
-    final static String HOURS_TIME_FORMAT = "h a";
-    final static String MINUTES_TIME_FORMAT = "mm";
-    final static String TIME_ZERO_FORMAT = "00";
-    final static String DEFAULT_FORMAT_TITLE = "${title}";
-    final static String FIELD_FORMAT_TITLE = "titleFormat";
-    final static String FIELD_FORMATTED_TITLE = "titleFormatted";
-    final static String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
-    final static String DEFAULT_FORMAT_SUBTITLE = "${eventStartDateText} to ${eventEndDateText}";
-    final static String DEFAULT_FORMAT_DISPLAYDATE = "${eventStartDateText} to ${eventEndDateText}";
-    final static String DEFAULT_FORMAT_DISPLAYTIME = "${eventStartTimeText} to ${eventEndTimeText}";
+    static final String EVENT_DISPLAY_DATE_FORMAT = "EEE d MMMMM";
+    static final String EVENT_DISPLAY_DATE_FORMAT_ISO = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    static final String EVENT_TIME_DEFAULT_FORMAT = "h:mm a";
+    static final String HOURS_TIME_FORMAT = "h a";
+    static final String MINUTES_TIME_FORMAT = "mm";
+    static final String TIME_ZERO_FORMAT = "00";
+    static final String DEFAULT_FORMAT_TITLE = "${title}";
+    static final String FIELD_FORMAT_TITLE = "titleFormat";
+    static final String FIELD_FORMATTED_TITLE = "titleFormatted";
+    static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
+    static final String DEFAULT_FORMAT_SUBTITLE = "${eventStartDateText} to ${eventEndDateText}";
+    static final String DEFAULT_FORMAT_DISPLAYDATE = "${eventStartDateText} to ${eventEndDateText}";
+    static final String DEFAULT_FORMAT_DISPLAYTIME = "${eventStartTimeText} to ${eventEndTimeText}";
 
-    final static String FIELD_EVENT_START_DATE = "eventStartDate";
-    final static String FIELD_EVENT_END_DATE = "eventEndDate";
+    static final String FIELD_EVENT_START_DATE = "eventStartDate";
+    static final String FIELD_EVENT_END_DATE = "eventEndDate";
 
 
     @Override

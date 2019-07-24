@@ -27,9 +27,9 @@ public class TagUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TagUtil.class);
 
-    public final static String TAG_VALUE = "value";
-    final static String TAG_ISDEFAULT = "isdefault";
-    final static String TAG_ISDEFAULT_VALUE = "false";
+    public static final String TAG_VALUE = "value";
+    static final String TAG_ISDEFAULT = "isdefault";
+    static final String TAG_ISDEFAULT_VALUE = "false";
 
 
     /***
