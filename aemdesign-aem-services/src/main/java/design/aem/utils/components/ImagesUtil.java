@@ -160,6 +160,7 @@ public class ImagesUtil {
      *
      * @param assetNode is the asset to interogate
      * @param key       is the key to get the metadata for
+     * @param defaultValue default value to return on null
      * @return the value or null when nothing is found
      */
     public static String getMetadataStringForKey(Node assetNode, String key, String defaultValue) {
@@ -281,16 +282,23 @@ public class ImagesUtil {
         return null;
     }
 
-    public static String getThumbnailUrl(Page page, ResourceResolver _resourceResolver) {
-        return _resourceResolver.map(page.getPath().concat(DEFAULT_THUMB_SELECTOR_MD));
+    /**
+     * get thumbnail url for a page.
+     * @param page page object
+     * @param resourceResolver resource resolver instance
+     * @return page thumbnail url
+     */
+    public static String getThumbnailUrl(Page page, ResourceResolver resourceResolver) {
+        return resourceResolver.map(page.getPath().concat(DEFAULT_THUMB_SELECTOR_MD));
     }
 
 
     /**
      * Get width of the asset
      *
+     * @param assetNode asset node to check metadata in
      * @return width of asset
-     * @throws javax.jcr.RepositoryException
+     * @throws javax.jcr.RepositoryException when can't access asset
      */
     public static int getWidth(Node assetNode) throws RepositoryException {
         int width = 0;
@@ -379,7 +387,6 @@ public class ImagesUtil {
      * get asset reference for image node from a page
      * @param page to use as source
      * @return path to image or return default reference to page thumbnail selector
-     * @throws RepositoryException when can't read content
      */
     public static String getPageImgReferencePath(Page page) {
         String imagePath = getResourceImagePath(page.getContentResource(), DEFAULT_IMAGE_NODE_NAME);
@@ -934,6 +941,9 @@ public class ImagesUtil {
     /***
      * get resource image settings.
      * @param wcmUsePojoModel component model model
+     * @param resource resource to use
+     * @param attributeName attribute name to use
+     * @param returnLastRenditionName  rendition to stop search on
      * @return returns map of attributes
      */
     public static ComponentProperties getResourceImageRenditions(WCMUsePojo wcmUsePojoModel, Resource resource, String attributeName, String returnLastRenditionName) {
@@ -953,6 +963,9 @@ public class ImagesUtil {
     /***
      * get resource image settings.
      * @param pageContext page context
+     * @param resource resource to use
+     * @param attributeName attribute name to use
+     * @param returnLastRenditionName last rendition to return if not found
      * @return returns map of attributes
      */
     public static ComponentProperties getResourceImageRenditions(PageContext pageContext, Resource resource, String attributeName, String returnLastRenditionName) {
@@ -971,6 +984,9 @@ public class ImagesUtil {
     /***
      * get resource image settings.
      * @param pageContext page context map
+     * @param imageResource resource to use
+     * @param returnRenditionsListName  name of the attribute to create for rendition list
+     * @param returnLastRenditionName last rendition to return if not found
      * @return returns map of attributes
      */
     @SuppressWarnings("Duplicates")
@@ -1148,14 +1164,14 @@ public class ImagesUtil {
     /**
      * function to filter out the design dialog values which are not matching adaptive profile
      *
-     * @param adaptiveImageMapping
-     * @param resolver
+     * @param adaptiveImageMapping image mapping config
+     * @param resolver resolver instance
      * @param componentPath                path to component doing the render
      * @param fileReference                path to asset to use for render
      * @param outputFormat                 specify which output format to use
      * @param useFileReferencePathAsRender create paths using fileReference instead of using Component Path
-     * @param sling
-     * @return Map<Integer   ,       String>
+     * @param sling sling instance
+     * @return map of urls
      */
     public static Map<String, String> getAdaptiveImageSet(String[] adaptiveImageMapping, ResourceResolver resolver, String componentPath, String fileReference, String outputFormat, Boolean useFileReferencePathAsRender, org.apache.sling.api.scripting.SlingScriptHelper sling) {
 
@@ -1222,8 +1238,8 @@ public class ImagesUtil {
     /**
      * return list of configured widths in com.day.cq.wcm.foundation.impl.AdaptiveImageComponentServlet
      *
-     * @param sling
-     * @return int []
+     * @param sling sling instance
+     * @return list of ints allowed
      */
     @SuppressWarnings("unchecked")
     public static int[] getAdaptiveImageSupportedWidths(org.apache.sling.api.scripting.SlingScriptHelper sling) {

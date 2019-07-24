@@ -420,7 +420,7 @@ public class List extends ModelProxy {
 
     /**
      * get list options type.
-     * @return
+     * @return selected list type
      */
     protected Source getListType() {
         String listFromValue = componentProperties.get(PN_SOURCE, getCurrentStyle().get(PN_SOURCE, StringUtils.EMPTY));
@@ -429,7 +429,7 @@ public class List extends ModelProxy {
 
     /**
      * get list items, used by HTL templates.
-     * @return
+     * @return collection of list types
      */
     public Collection<Map<String,Object>> getListItems() {
 
@@ -665,8 +665,8 @@ public class List extends ModelProxy {
 
     /**
      * get predicate group from query string.
-     * @param request
-     * @return
+     * @param request reques instance
+     * @return predicates converted from query string
      */
     public static PredicateGroup getPredicateGroupFromRequest(SlingHttpServletRequest request) {
 
@@ -691,7 +691,7 @@ public class List extends ModelProxy {
     /**
      * get predicate group config from querystring param.
      * @param queryParam query string param, same as querybuilder
-     * @return
+     * @return predicates converted from query string
      */
     public static PredicateGroup getPredicateGroupFromQuery(String queryParam) {
 

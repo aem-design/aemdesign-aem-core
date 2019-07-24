@@ -34,7 +34,8 @@ public class ParagraphUtil {
      * @param par current par child of parSys being processed
      * @param out html output
      * @param componentProperties component properties
-     * @throws IOException
+     * @param rowClass css class to use for row
+     * @throws IOException when can't write to jsp output
      */
     public static void openRow(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties, String rowClass) throws IOException {
 
@@ -48,7 +49,8 @@ public class ParagraphUtil {
      * @param numCols number of los
      * @param out html output
      * @param componentProperties component properties
-     * @throws IOException
+     * @param rowClass row class name
+     * @throws IOException when can't write to jsp output
      */
     public static void openRow(Integer numCols, JspWriter out, ComponentProperties componentProperties, String rowClass) throws IOException {
 
@@ -76,8 +78,8 @@ public class ParagraphUtil {
      * print close of row
      * @param par current par child of parSys being processed
      * @param out html output
-     * @param clearFix
-     * @throws IOException
+     * @param clearFix add extra div at the end
+     * @throws IOException when can't write to jsp output
      */
     public static void closeRow(Paragraph par, JspWriter out, boolean clearFix) throws IOException {
         closeRow(out, clearFix);
@@ -86,8 +88,8 @@ public class ParagraphUtil {
     /**
      * print close of row
      * @param out html output
-     * @param clearFix
-     * @throws IOException
+     * @param clearFix add extra div at the end
+     * @throws IOException when can't write to jsp output
      */
     public static void closeRow(JspWriter out, boolean clearFix) throws IOException {
 
@@ -107,7 +109,9 @@ public class ParagraphUtil {
      * @param parSys list of pars being processed
      * @param par current par child of parSys being processed
      * @param out html output
-     * @throws IOException
+     * @param componentProperties component properties to use for attributes
+     * @param columnClassStyle column class to use
+     * @throws IOException when can't write to jsp output
      */
     public static void openCol(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
 
@@ -121,8 +125,9 @@ public class ParagraphUtil {
      * @param colNumber current column
      * @param columnClass column class
      * @param out html output
-     * @param componentProperties columns componentProperties
-     * @throws IOException
+     * @param componentProperties columns componentProperties for attributes
+     * @param columnClassStyle column class to use
+     * @throws IOException when can't write to jsp output
      */
     public static void openCol(List<String> columnsFormat, Integer colNumber, String columnClass, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
 
@@ -147,7 +152,9 @@ public class ParagraphUtil {
      * used by classic column component, write opening tags for the column for Paragraph System, also check if base alignment is required based
      * @param colNumber current column number
      * @param out html output
-     * @throws IOException
+     * @param componentProperties component properties to use
+     * @param columnClassStyle column css
+     * @throws IOException when can't write to jsp output
      */
     public static void openCol(Integer colNumber, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
 
@@ -168,7 +175,7 @@ public class ParagraphUtil {
      * print end of column
      * @param par current par child of parSys being processed
      * @param out html output
-     * @throws IOException
+     * @throws IOException when can't write to jsp output
      */
     public static void closeCol(Paragraph par, JspWriter out) throws IOException {
         //col end
@@ -182,7 +189,7 @@ public class ParagraphUtil {
      * @param par current par child of parSys being processed
      * @param out html output
      * @return last item in the column
-     * @throws IOException
+     * @throws IOException when can't write to jsp output
      */
     public static Paragraph getLastItemInColumn(Object parSys, Paragraph par, JspWriter out) throws IOException {
         Paragraph lastItemPar = null;
@@ -223,7 +230,7 @@ public class ParagraphUtil {
      * @param par par to check in parent
      * @return return index of parsys in parent
      */
-    public static int getListPosition(Object parSys, Paragraph par) throws IOException {
+    public static int getListPosition(Object parSys, Paragraph par) {
 
         if (parSys instanceof ParagraphSystem) {
             return ((ParagraphSystem) parSys).paragraphs().indexOf(par);
@@ -241,7 +248,7 @@ public class ParagraphUtil {
      * @param parSys parsys to check
      * @return size of parsys
      */
-    public static int getListSize(Object parSys) throws IOException {
+    public static int getListSize(Object parSys) {
 
         if (parSys instanceof ParagraphSystem) {
             return ((ParagraphSystem) parSys).paragraphs().size();
@@ -260,7 +267,7 @@ public class ParagraphUtil {
      * @param index index to return
      * @return result parsys or null
      */
-    public static Paragraph getListPar(Object parSys, int index) throws IOException {
+    public static Paragraph getListPar(Object parSys, int index) {
 
         if (parSys instanceof ParagraphSystem) {
             return ((ParagraphSystem) parSys).paragraphs().get(index);
@@ -282,10 +289,9 @@ public class ParagraphUtil {
      * @param out current jsp output
      * @param componentStyle component style
      * @param title title to use for the toolbar and placeholder
-     * @throws IOException
-     * @throws ServletException
+     * @throws IOException when can't write to jsp output
      */
-    public static void includeEditRowStart(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException, ServletException {
+    public static void includeEditRowStart(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException {
         //draw edit start placeholder
         WCMMode currentMode = WCMMode.fromRequest(slingRequest);
 
@@ -324,10 +330,9 @@ public class ParagraphUtil {
      * @param out current jsp output
      * @param componentStyle component style
      * @param title title to use for the toolbar and placeholder
-     * @throws IOException
-     * @throws ServletException
+     * @throws IOException when can't write to jsp output
      */
-    public static void includeEditRowEnd(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException, ServletException {
+    public static void includeEditRowEnd(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException {
         //draw edit start placeholder
         WCMMode currentMode = WCMMode.fromRequest(slingRequest);
 
@@ -365,17 +370,16 @@ public class ParagraphUtil {
 
     /**
      * Print CQ edit controls
-     * @param resource
-     * @param slingRequest
-     * @param slingResponse
-     * @param editContext
-     * @param out
-     * @param componentStyle
-     * @param title
-     * @throws IOException
-     * @throws ServletException
+     * @param resource resource to use
+     * @param slingRequest sling request
+     * @param slingResponse sling response
+     * @param editContext edit content
+     * @param out jsp output
+     * @param componentStyle component styles map
+     * @param title title
+     * @throws IOException when can't write to jsp output
      */
-    public static void includeEditContext(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException, ServletException {
+    public static void includeEditContext(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException {
 
         out.flush();
 
@@ -438,9 +442,9 @@ public class ParagraphUtil {
      * @param out html output
      * @param componentStyle style of container resource
      * @param currColNumber current column number
-     * @throws IOException
+     * @throws IOException when can't write to jsp output
      */
-    public static void openCol(Resource resContainer, Resource resCol, JspWriter out, HashMap<String, Object> componentStyle, Integer currColNumber) throws IOException, RepositoryException {
+    public static void openCol(Resource resContainer, Resource resCol, JspWriter out, HashMap<String, Object> componentStyle, Integer currColNumber) throws IOException {
         String layout = (String) componentStyle.get(COL_CTL_LAYOUT);
 
         //expected width format: col-md-,4,4,4
@@ -474,8 +478,8 @@ public class ParagraphUtil {
 
     /**
      * return current UI Mode, Classic or Touch
-     * @param slingRequest
-     * @return
+     * @param slingRequest sling request
+     * @return string value of ui mode cookie
      */
     public static String uiMode(SlingHttpServletRequest slingRequest) {
         Cookie cookie = slingRequest.getCookie(WCM_AUTHORING_MODE_COOKIE);

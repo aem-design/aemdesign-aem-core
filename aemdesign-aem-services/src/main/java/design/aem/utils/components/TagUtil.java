@@ -92,7 +92,6 @@ public class TagUtil {
      * @param tagPaths list of tags
      * @param locale locale to yse
      * @return map of tag values
-     * @throws RepositoryException when can't read content
      */
     public static LinkedHashMap<String, Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale) {
         LinkedHashMap<String, Map> tags = new LinkedHashMap<String, Map>();
@@ -165,10 +164,10 @@ public class TagUtil {
 
     /**
      * get a string of tags values.
-     * @param sling
-     * @param separator
-     * @param tagPaths
-     * @return
+     * @param sling sling instance
+     * @param separator string for separating tags
+     * @param tagPaths tag paths to look up
+     * @return string of tag values
      */
     public static String getTagsAsValuesAsAdmin(SlingScriptHelper sling, String separator, String[] tagPaths) {
         if (tagPaths == null || tagPaths.length == 0) {
@@ -194,6 +193,8 @@ public class TagUtil {
     /**
      * Get Tag values.
      * @param tagManager tag manager
+     * @param resourceResolver resolver instance
+     * @param separator separator to use between tags
      * @param tagPaths list of tags
      * @return comma separated list of tag values
      */
@@ -239,7 +240,9 @@ public class TagUtil {
 
     /**
      * Get Tag values.
-     * @param tagManager tag manager
+     * @param tagManager tag manage
+     * @param resourceResolver resolver instance
+     * @param separator separator to use between tags
      * @param tagPaths list of tags
      * @return string array of tag values
      */
@@ -281,9 +284,9 @@ public class TagUtil {
     /**
      * return tag object from path uses tag manager to resolve and resource resolver as backup.
      *
-     * @param path             tag from apth path or from tagId path
-     * @param resourceResolver
-     * @param tagManager
+     * @param path             tag path or tagId path
+     * @param resourceResolver resolver instance
+     * @param tagManager tag manager instance
      * @return return null or Tag
      */
     public static Tag getTag(String path, ResourceResolver resourceResolver, TagManager tagManager) {

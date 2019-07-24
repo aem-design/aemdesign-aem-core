@@ -601,8 +601,8 @@ public class ComponentsUtil {
      * Get a include file contents
      *
      * @param resourceResolver is the resource
-     * @param paths
-     * @param separator
+     * @param paths paths to check
+     * @param separator separator to use
      * @return a string with the file contents
      */
     public static String getResourceContent(ResourceResolver resourceResolver, String[] paths, String separator) {
@@ -1356,6 +1356,7 @@ public class ComponentsUtil {
      * return variant template name from component or return default
      * @param component component to check for variant template
      * @param variantTemplate variant template
+     * @param sling sling instance
      * @return variant template path
      */
     public static String getComponentVariantTemplate(Component component, String variantTemplate, SlingScriptHelper sling) {
@@ -1382,7 +1383,6 @@ public class ComponentsUtil {
      * @param data map of data attributes and values
      * @param xssAPI old xssi api
      * @return attributes string
-     * @throws IOException
      */
     @SuppressWarnings("Depreciated")
     public static String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI) {
@@ -1395,7 +1395,6 @@ public class ComponentsUtil {
      * @param xssAPI old xssi api
      * @param encodings map of encoding per data attribute
      * @return attributes string
-     * @throws IOException
      */
     @SuppressWarnings({"Depreciated", "squid:S3776"})
     public static String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI, Map<String, String> encodings) {
@@ -1446,7 +1445,7 @@ public class ComponentsUtil {
 
     /***
      *
-     * @deprecated please use responsive {@link design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions} or ComponentProperties.attr which is an AttributeBuilder.
+     * @deprecated please use responsive {@link design.aem.utils.components.ImagesUtil#getBackgroundImageRenditions} or ComponentProperties.attr which is an AttributeBuilder.
      * add style tag to component attributes collection
      * @param componentProperties component attributes collection
      * @param resource resource to search for image
@@ -1724,6 +1723,7 @@ public class ComponentsUtil {
     /***
      * get attribute from first item list of maps.
      * @param sourceMap map to use
+     * @param attributeName attribute name
      * @return value of attribute from first found element
      */
     public static String getFirstAttributeFromList(LinkedHashMap<String, Map> sourceMap, String attributeName) {
@@ -1765,6 +1765,7 @@ public class ComponentsUtil {
      * find local resource in component and its super components
      * @param component component to check
      * @param resourceName local resource name
+     * @param sling sing instance
      * @return local resource path found
      */
     @SuppressWarnings("squid:S3776")
@@ -1831,10 +1832,10 @@ public class ComponentsUtil {
 
     /**
      * create a map of component fields matched to Dialog Title and Description
-     * @param componentResource
-     * @param adminResourceResolver
-     * @param slingScriptHelper
-     * @return
+     * @param componentResource component resource
+     * @param adminResourceResolver admin resolver
+     * @param slingScriptHelper sling script helper
+     * @return map of component dialog fields and their attributes
      */
     public static Map<String, Object> getComponentFieldsAndDialogMap(Resource componentResource , ResourceResolver adminResourceResolver, SlingScriptHelper slingScriptHelper) {
         Map<String, Object> firstComponentConfig = new HashMap<>();
@@ -2004,7 +2005,6 @@ public class ComponentsUtil {
      * @param value value to add into JXTL context
      * @return returns evaluated value
      * @throws JexlException throes Jexl errors with regex expression
-     * @throws Exception thows other errors
      *
      */
     public static Object evaluateExpressionWithValue(JxltEngine jxlt, JexlContext jc, String expression, Object value) {
@@ -2053,6 +2053,7 @@ public class ComponentsUtil {
      * Transform calendar into a publication date.
      *
      * @param cal is the calendar to transform
+     * @param format format to use
      * @return is the formatted RSS date.
      */
     public static String formatDate(Calendar cal, String format) {
