@@ -78,15 +78,15 @@ sonar-check-master:
     - export PATH=/usr/lib/node_modules/yarn/bin:${PATH}
     - mvn sonar:sonar "-Dsonar.branch.name=${CI_COMMIT_REF_NAME}" "-Dsonar.host.url=https://sonarcloud.io" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=aemdesign-github"
 
-push-github:
-  stage: release
-  image: aemdesign/centos-java-buildpack:latest
-  only:
-    - master
-  script:
-    - git remote add github https://aemdesign:${GITHUB_TOKEN}@github.com/aem-design/aemdesign-aem-core.git
-    - git remote set-url github https://aemdesign:${GITHUB_TOKEN}@github.com/aem-design/aemdesign-aem-core.git
-    - git push -u github master
+#push-github:
+#  stage: release
+#  image: aemdesign/centos-java-buildpack:latest
+#  only:
+#    - master
+#  script:
+#    - git remote add github https://aemdesign:${GITHUB_TOKEN}@github.com/aem-design/aemdesign-aem-core.git
+#    - git remote set-url github https://aemdesign:${GITHUB_TOKEN}@github.com/aem-design/aemdesign-aem-core.git
+#    - git push -u github master
 
 #Release Maven:
 #  stage: release
