@@ -16,9 +16,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @Service
-@Component(
-        name = "AEM.Design - Content Access Helper",
-        immediate = true)
+@Component(immediate = true)
 public class ContentAccessImpl implements ContentAccess {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContentAccessImpl.class);
