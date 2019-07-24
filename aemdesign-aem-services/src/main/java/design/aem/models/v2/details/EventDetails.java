@@ -27,43 +27,22 @@ import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 public class EventDetails extends GenericDetails {
 
     // default values for the component
-    final String DEFAULT_TITLE = "Event Title";
-    final String DEFAULT_DESCRIPTION = "";
-    final String DEFAULT_HIDE_SITE_TITLE = "false";
-    final String DEFAULT_HIDE_SEPARATOR = "false";
-    final String DEFAULT_HIDE_SUMMARY = "false";
-    final String EVENT_DISPLAY_DATE_FORMAT = "EEE d MMMMM";
-    final String EVENT_DISPLAY_DATE_FORMAT_ISO = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-    final String EVENT_TIME_DEFAULT_FORMAT = "h:mm a";
-    final String HOURS_TIME_FORMAT = "h a";
-    final String MINUTES_TIME_FORMAT = "mm";
-    final String TIME_ZERO_FORMAT = "00";
-    final Calendar DEFAULT_EVENT_START_DATE = Calendar.getInstance();
-    final Calendar DEFAULT_EVENT_END_DATE = Calendar.getInstance();
-    final String DEFAULT_EVENT_LOC = "";
-    final String DEFAULT_EVENT_REF_LABEL = "";
-    final String DEFAULT_EVENT_REF_LINK = "";
-    final String DEFAULT_META_DATA_SEP = "";
-    final Boolean DEFAULT_SHOW_BREADCRUMB = true;
-    final Boolean DEFAULT_SHOW_TOOLBAR = true;
-    final String DEFAULT_FORMAT_TITLE = "${title}";
-    final String FIELD_FORMAT_TITLE = "titleFormat";
-    final String FIELD_FORMATTED_TITLE = "titleFormatted";
-    final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
-    final String DEFAULT_FORMAT_SUBTITLE = "${eventStartDateText} to ${eventEndDateText}";
-    final String DEFAULT_FORMAT_DISPLAYDATE = "${eventStartDateText} to ${eventEndDateText}";
-    final String DEFAULT_FORMAT_DISPLAYTIME = "${eventStartTimeText} to ${eventEndTimeText}";
-    final String I18N_CATEGORY = "event-detail";
+    final static String EVENT_DISPLAY_DATE_FORMAT = "EEE d MMMMM";
+    final static String EVENT_DISPLAY_DATE_FORMAT_ISO = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    final static String EVENT_TIME_DEFAULT_FORMAT = "h:mm a";
+    final static String HOURS_TIME_FORMAT = "h a";
+    final static String MINUTES_TIME_FORMAT = "mm";
+    final static String TIME_ZERO_FORMAT = "00";
+    final static String DEFAULT_FORMAT_TITLE = "${title}";
+    final static String FIELD_FORMAT_TITLE = "titleFormat";
+    final static String FIELD_FORMATTED_TITLE = "titleFormatted";
+    final static String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
+    final static String DEFAULT_FORMAT_SUBTITLE = "${eventStartDateText} to ${eventEndDateText}";
+    final static String DEFAULT_FORMAT_DISPLAYDATE = "${eventStartDateText} to ${eventEndDateText}";
+    final static String DEFAULT_FORMAT_DISPLAYTIME = "${eventStartTimeText} to ${eventEndTimeText}";
 
-    final String I18N_READMORE = "readMoreAboutText";
-    final String I18N_FILTERBYTEXT = "filterByText";
-    final String SECONDARY_IMAGE_PATH = "article/par/event-details/secondaryImage";
-
-    final String COMPONENT_DETAILS_NAME = "event-details";
-    final String componentPath = "./"+PATH_DEFAULT_CONTENT+"/" + COMPONENT_DETAILS_NAME;
-
-    final String FIELD_EVENT_START_DATE = "eventStartDate";
-    final String FIELD_EVENT_END_DATE = "eventEndDate";
+    final static String FIELD_EVENT_START_DATE = "eventStartDate";
+    final static String FIELD_EVENT_END_DATE = "eventEndDate";
 
 
     @Override
@@ -71,7 +50,6 @@ public class EventDetails extends GenericDetails {
     protected void ready() {
         I18n i18n = new I18n(getRequest());
 
-        final String DEFAULT_ARIA_ROLE = "banner";
         final String DEFAULT_TITLE_TAG_TYPE = "h1";
         final String DEFAULT_I18N_CATEGORY = "event-detail";
         final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
@@ -79,13 +57,8 @@ public class EventDetails extends GenericDetails {
         // default values for the component
         final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
         final String DEFAULT_DESCRIPTION = getResourcePage().getDescription();
-        final String DEFAULT_SUBTITLE = getResourcePage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE,"");
-        final Boolean DEFAULT_HIDE_TITLE = false;
-        final Boolean DEFAULT_HIDE_DESCRIPTION = false;
         final Boolean DEFAULT_SHOW_BREADCRUMB = true;
         final Boolean DEFAULT_SHOW_TOOLBAR = true;
-        final Boolean DEFAULT_SHOW_PAGE_DATE = true;
-        final Boolean DEFAULT_SHOW_PARSYS = true;
 
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
