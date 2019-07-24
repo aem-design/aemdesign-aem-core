@@ -290,8 +290,9 @@ public class ParagraphUtil {
      * @param componentStyle component style
      * @param title title to use for the toolbar and placeholder
      * @throws IOException when can't write to jsp output
+     * @throws ServletException when can't include epilog
      */
-    public static void includeEditRowStart(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException {
+    public static void includeEditRowStart(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException, ServletException {
         //draw edit start placeholder
         WCMMode currentMode = WCMMode.fromRequest(slingRequest);
 
@@ -331,8 +332,9 @@ public class ParagraphUtil {
      * @param componentStyle component style
      * @param title title to use for the toolbar and placeholder
      * @throws IOException when can't write to jsp output
+     * @throws ServletException when can't include epilog
      */
-    public static void includeEditRowEnd(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException {
+    public static void includeEditRowEnd(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException, ServletException {
         //draw edit start placeholder
         WCMMode currentMode = WCMMode.fromRequest(slingRequest);
 
@@ -378,8 +380,9 @@ public class ParagraphUtil {
      * @param componentStyle component styles map
      * @param title title
      * @throws IOException when can't write to jsp output
+     * @throws ServletException when can't include epilog
      */
-    public static void includeEditContext(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException {
+    public static void includeEditContext(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException, ServletException {
 
         out.flush();
 
