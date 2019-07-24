@@ -20,7 +20,7 @@ install:
 
 ## Build and release to maven central
 script:
-  - if [ $TRAVIS_BRANCH == "master" ]; then mvn clean deploy --settings default.xml -DskipTests=true -B -U -X -Prelease; fi
+  - if [ $TRAVIS_BRANCH == "master" ]; then mvn clean deploy --settings default.xml -DskipTests=true -B -U -Prelease; fi
 
 ## Get the project version
 before_deploy:
