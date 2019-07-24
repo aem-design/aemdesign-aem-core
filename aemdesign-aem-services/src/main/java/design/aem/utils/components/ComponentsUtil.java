@@ -30,7 +30,6 @@ import org.apache.commons.jexl3.*;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.jackrabbit.core.fs.FileSystem;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -48,13 +47,8 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Array;
 
 import javax.jcr.Node;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
 import java.io.*;
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -68,10 +62,6 @@ import static org.apache.commons.lang3.StringUtils.*;
 public class ComponentsUtil {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(ComponentsUtil.class);
-
-    public static final int COUNT_CONTENT_NODE = 1;
-    public static final int DEPTH_ROOTNODE = 1;
-    public static final int DEPTH_HOMEPAGE = 2;
 
     public static final String DEFAULT_PATH_TAGS = "/content/cq:tags";
 
@@ -131,7 +121,7 @@ public class ComponentsUtil {
     public static final String DETAILS_BADGE_LINK_ATTR = "badgeLinkAttr";
 
     //badge analytics
-    public static final String DETAILS_BADGE_ANALYTICS_EVENT_TYPE = "badgeAnalyticsEventType";
+    public static final String DETAILS_BADGE_ANALYTICS_EVENT_TYPE = "badgeAnalyticsEventType"; //NOSONAR
     public static final String DETAILS_BADGE_ANALYTICS_TRACK = "badgeAnalyticsTrack";
     public static final String DETAILS_BADGE_ANALYTICS_LOCATION = "badgeAnalyticsLocation";
     public static final String DETAILS_BADGE_ANALYTICS_LABEL = "badgeAnalyticsLabel";
@@ -213,20 +203,20 @@ public class ComponentsUtil {
 
     public static final String FIELD_ARIA_DATA_ATTRIBUTE_ROLE = "role";
 
-    public static final String FIELD_DATA_ANALYTICS_TYPE = "data-analytics-type";
+    public static final String FIELD_DATA_ANALYTICS_TYPE = "data-analytics-type"; //NOSONAR
     public static final String FIELD_DATA_ANALYTICS_HIT_TYPE = "data-analytics-hit-type";
     public static final String FIELD_DATA_ANALYTICS_METATYPE = "data-analytics-metatype";
     public static final String FIELD_DATA_ANALYTICS_FILENAME = "data-analytics-filename";
-    public static final String FIELD_DATA_ANALYTICS_EVENT_CATEGORY = "data-analytics-event-category";
-    public static final String FIELD_DATA_ANALYTICS_EVENT_ACTION = "data-analytics-event-action";
+    public static final String FIELD_DATA_ANALYTICS_EVENT_CATEGORY = "data-analytics-event-category"; //NOSONAR
+    public static final String FIELD_DATA_ANALYTICS_EVENT_ACTION = "data-analytics-event-action"; //NOSONAR
     public static final String FIELD_DATA_ANALYTICS_EVENT_LABEL = "data-analytics-event-label";
-    public static final String FIELD_DATA_ANALYTICS_TRANSPORT = "data-analytics-transport";
-    public static final String FIELD_DATA_ANALYTICS_NONINTERACTIVE = "data-analytics-noninteraction";
+    public static final String FIELD_DATA_ANALYTICS_TRANSPORT = "data-analytics-transport"; //NOSONAR
+    public static final String FIELD_DATA_ANALYTICS_NONINTERACTIVE = "data-analytics-noninteraction"; //NOSONAR
 
     public static final String FIELD_DATA_ARRAY_SEPARATOR = ",";
     public static final String FIELD_DATA_TAG_SEPARATOR = " ";
 
-    public static final String FIELD_HREF = "href";
+    public static final String FIELD_HREF = "href"; //NOSONAR
     public static final String FIELD_TITLE_TAG_TYPE = "titleType";
     public static final String FIELD_HIDE_TITLE = "hideTitle";
     public static final String FIELD_HIDE_DESCRIPTION = "hideDescription";
@@ -235,9 +225,9 @@ public class ComponentsUtil {
     public static final String FIELD_SHOW_PAGEDATE = "showPageDate";
     public static final String FIELD_SHOW_PARSYS = "showParsys";
 
-    public static final String FIELD_BADGE_PAGE = "badgePage";
+    public static final String FIELD_BADGE_PAGE = "badgePage"; //NOSONAR
 
-    public static final String JCR_NAME_SEPARATOR = "_";
+    public static final String JCR_NAME_SEPARATOR = "_"; //NOSONAR
 
     public static final String FIELD_LICENSE_INFO = "licenseInfo";
     public static final String FIELD_ASSETID = "asset-id";
