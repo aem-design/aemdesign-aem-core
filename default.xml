@@ -16,7 +16,7 @@
         <profile>
             <id>adobe-public</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <releaseRepository-Id>adobe-public-releases</releaseRepository-Id>
@@ -63,9 +63,6 @@
             </properties>
         </profile>
     </profiles>
-    <activeProfiles>
-        <activeProfile>adobe-public</activeProfile>
-    </activeProfiles>
     <mirrors>
         <mirror>
             <id>central-mirror</id>
