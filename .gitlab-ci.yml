@@ -58,25 +58,25 @@ package:
     expire_in: 1 week
 
 ##
-sonar-check-develop:
-  stage: analyze
-  image: aemdesign/centos-java-buildpack:latest
-  only:
-    - develop
-  script:
-    - export PATH=/apps/maven/bin:${PATH}
-    - export PATH=/usr/lib/node_modules/yarn/bin:${PATH}
-    - mvn sonar:sonar "-Dsonar.branch.name=${CI_COMMIT_REF_NAME}" "-Dsonar.branch.target=master" "-Dsonar.host.url=https://sonarcloud.io" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=aemdesign-github"
-
-sonar-check-master:
-  stage: analyze
-  image: aemdesign/centos-java-buildpack:latest
-  only:
-    - master
-  script:
-    - export PATH=/apps/maven/bin:${PATH}
-    - export PATH=/usr/lib/node_modules/yarn/bin:${PATH}
-    - mvn sonar:sonar "-Dsonar.branch.name=${CI_COMMIT_REF_NAME}" "-Dsonar.host.url=https://sonarcloud.io" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=aemdesign-github"
+#sonar-check-develop:
+#  stage: analyze
+#  image: aemdesign/centos-java-buildpack:latest
+#  only:
+#    - develop
+#  script:
+#    - export PATH=/apps/maven/bin:${PATH}
+#    - export PATH=/usr/lib/node_modules/yarn/bin:${PATH}
+#    - mvn sonar:sonar "-Dsonar.branch.name=${CI_COMMIT_REF_NAME}" "-Dsonar.branch.target=master" "-Dsonar.host.url=https://sonarcloud.io" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=aemdesign-github"
+#
+#sonar-check-master:
+#  stage: analyze
+#  image: aemdesign/centos-java-buildpack:latest
+#  only:
+#    - master
+#  script:
+#    - export PATH=/apps/maven/bin:${PATH}
+#    - export PATH=/usr/lib/node_modules/yarn/bin:${PATH}
+#    - mvn sonar:sonar "-Dsonar.branch.name=${CI_COMMIT_REF_NAME}" "-Dsonar.host.url=https://sonarcloud.io" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=aemdesign-github"
 
 #push-github:
 #  stage: release
