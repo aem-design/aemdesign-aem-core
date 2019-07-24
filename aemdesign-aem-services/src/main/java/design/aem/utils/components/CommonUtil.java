@@ -308,7 +308,6 @@ public class CommonUtil {
      * @param page is the current page (for a reference to the root node)
      * @param nodeName  is the node name to check for
      * @return true if the script exists
-     * @throws RepositoryException when can't read content
      */
     public static boolean nodeExists(Page page, String nodeName) {
         if (page == null || isEmpty(nodeName)) {
@@ -432,7 +431,7 @@ public class CommonUtil {
     /***
      * find a component in a page root that matches required suffix.
      * @param inputPage is the page to look through for the component
-     * @param resourceTypeTail
+     * @param resourceTypeTail string to use for matching resource type
      * @return path to component
      */
     public static String findComponentInPage(Page inputPage, String[] resourceTypeTail) {
@@ -446,7 +445,6 @@ public class CommonUtil {
      * @param resourceTypeTail array for suffixes to check as endsWith with sling:resourceType or node name (as failover)
      * @param pageRoots        use matching page root as a staring point for search
      * @return the path to component
-     * @throws RepositoryException when can't read content
      */
     public static String findComponentInPage(Page inputPage, String[] resourceTypeTail, String[] pageRoots) {
 
@@ -549,6 +547,7 @@ public class CommonUtil {
      * Return a JCR node for a first found matching path
      *
      * @param thisPage is the page to inspect for newsdetails
+     * @param nodePaths paths to look for
      * @return a JCR node or null when not found
      */
     public static String getComponentNodePath(Page thisPage, String[] nodePaths) {
@@ -571,6 +570,7 @@ public class CommonUtil {
      * Return a JCR node for a first found matching path
      *
      * @param thisPage is the page to inspect for newsdetails
+     * @param nodePaths paths to look for
      * @return a JCR node or null when not found
      */
     public static Node getComponentNode(Page thisPage, String[] nodePaths) {
@@ -614,20 +614,24 @@ public class CommonUtil {
      * @param thisPage is the page to inspect for component
      * @return a JCR node or null when not found
      */
-    public static Node getFirstMediaNode(Page thisPage) throws RepositoryException {
+    public static Node getFirstMediaNode(Page thisPage) {
         Node media = null;
-        Node par = getComponentNode(thisPage, "article/par");
-        if (par != null) {
-            NodeIterator ite = par.getNodes();
-            while (ite.hasNext()) {
-                Node node = (Node) ite.next();
-                String type = node.getProperty(RESOURCE_TYPE).getValue().toString();
-                if ((type.indexOf("mediagallery") != -1) || (type.indexOf("video") != -1)) {
-                    media = node;
-                    break;
-                }
+        try {
+            Node par = getComponentNode(thisPage, "article/par");
+            if (par != null) {
+                NodeIterator ite = par.getNodes();
+                while (ite.hasNext()) {
+                    Node node = (Node) ite.next();
+                    String type = node.getProperty(RESOURCE_TYPE).getValue().toString();
+                    if ((type.indexOf("mediagallery") != -1) || (type.indexOf("video") != -1)) {
+                        media = node;
+                        break;
+                    }
 
+                }
             }
+        } catch (Exception ex) {
+            LOGGER.error("getFirstMediaNode: Could not get media node in page {}, err: {}",thisPage,ex);
         }
         return media;
 

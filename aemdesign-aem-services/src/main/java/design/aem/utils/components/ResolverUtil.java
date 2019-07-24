@@ -26,8 +26,9 @@ public class ResolverUtil {
 
     /**
      * map path using resolver
-     *
+     * @param resolver resolver instance
      * @param path is the path to map to an actual URL
+     * @return path for a local domain
      */
     public static String mappedUrl(ResourceResolver resolver, String path) {
         if (path == null) {
@@ -39,10 +40,10 @@ public class ResolverUtil {
     /**
      * This method maps an absolute path to the canonical URL for HTTP
      *
+     * @param resolver resource resolver for verifying path
+     * @param slingRequest current sling request
+     * @param path path is the path to map to an actual URL
      * @return path for a local domain
-     * @resolver resource resolver for verifying path
-     * @slingRequest current sling request
-     * @path path is the path to map to an actual URL
      */
     public static String mappedUrl(ResourceResolver resolver, SlingHttpServletRequest slingRequest, String path) {
         return mappedUrl(resolver, slingRequest, "local", path, false);
@@ -51,11 +52,11 @@ public class ResolverUtil {
     /**
      * This method maps an absolute path to the canonical URL for HTTP
      *
+     * @param resolver resource resolver for verifying path
+     * @param slingRequest current sling request
+     * @param domain domain to use from Externalizer config
+     * @param path path is the path to map to an actual URL
      * @return path for a specific domain
-     * @resolver resource resolver for verifying path
-     * @slingRequest current sling request
-     * @path path is the path to map to an actual URL
-     * @domain domain to use from Externalizer config
      */
     public static String mappedUrl(ResourceResolver resolver, SlingHttpServletRequest slingRequest, String domain, String path) {
         return mappedUrl(resolver, slingRequest, domain, path, false);
@@ -65,11 +66,11 @@ public class ResolverUtil {
     /**
      * This method maps an absolute path to the canonical URL in the correct domain.
      *
-     * @return path for a local domain
-     * @resolver resource resolver for verifying path
-     * @slingRequest current sling request
-     * @path path is the path to map to an actual URL
-     * @secure force secure to be returned
+     * @param resolver resource resolver for verifying path
+     * @param slingRequest current sling request
+     * @param path path is the path to map to an actual URL
+     * @param secure force secure to be returned
+     * @return mapped url string
      */
     public static String mappedUrl(ResourceResolver resolver, SlingHttpServletRequest slingRequest, String path, Boolean secure) {
         return mappedUrl(resolver, slingRequest, "local", path, secure);
@@ -77,8 +78,12 @@ public class ResolverUtil {
 
     /**
      * This method maps an absolute path to the canonical URL in the correct domain.
-     *
+     * @param resolver resolver instance
+     * @param slingRequest sling request
+     * @param domain domain name
      * @param path is the path to map to an actual URL
+     * @param secure use https
+     * @return mapped url string
      */
     public static String mappedUrl(ResourceResolver resolver, SlingHttpServletRequest slingRequest, String domain, String path, Boolean secure) {
         if (path == null || resolver == null || slingRequest == null || domain == null || secure == null) {
@@ -104,7 +109,6 @@ public class ResolverUtil {
      * @param _resource resource to use
      * @param _resourceResolver resource resolver
      * @return flag if node is found
-     * @throws Exception
      */
     public static boolean checkResourceHasChildResource(String resourceName, Resource _resource, ResourceResolver _resourceResolver) {
         boolean resourceExist = false;

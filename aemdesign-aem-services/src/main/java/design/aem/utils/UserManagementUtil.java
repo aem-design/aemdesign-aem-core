@@ -162,8 +162,10 @@ public final class UserManagementUtil {
 
     /**
      * <p>Returns mailing target in format: "NAME" [E-MAIL].</p>
-     * @param authorizable user
+     * @param resourceResolver resolver instance
+     * @param authorizable user to check
      * @return Mailing target or null in case of non-specified email
+     * @throws RepositoryException if cant read content
      */
     public static String getNameAndEmail(ResourceResolver resourceResolver, Authorizable authorizable) throws RepositoryException {
         String email = getEmail(authorizable);

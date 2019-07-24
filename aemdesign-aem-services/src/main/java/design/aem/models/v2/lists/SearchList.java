@@ -261,6 +261,7 @@ public class SearchList extends ModelProxy {
      *
      * @param slingRequest     `SlingHttpServletRequest` instance
      * @param resourceResolver `ResourceResolver` instance
+     * @return formed query object
      */
     public Query composeQueryBuilder(
             SlingHttpServletRequest slingRequest,
@@ -312,6 +313,7 @@ public class SearchList extends ModelProxy {
      * @param searchResults Array to store the normalised dataset in
      * @param sling         `SlingScriptHelper` instance
      * @param slingRequest  `SlingHttpServletRequest` instance
+     * @param result search result instance
      */
     public void normaliseContentTree(
             java.util.List<CustomSearchResult> searchResults,

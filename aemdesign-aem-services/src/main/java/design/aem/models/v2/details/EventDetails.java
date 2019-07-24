@@ -140,8 +140,8 @@ public class EventDetails extends GenericDetails {
     /***
      * substitute formatted field template with fields from component.
      * @param componentProperties source map with fields
-     * @param i18n
-     * @param sling
+     * @param i18n i18n instance
+     * @param sling sling instance
      * @return returns map with new values
      */
     @SuppressWarnings("Duplicates")
