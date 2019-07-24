@@ -58,7 +58,7 @@ public class SearchList extends ModelProxy {
     @Default(intValues = 0)
     protected int listSplitEvery;
 
-    private final static String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
+    private static final String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
 
     @SuppressWarnings("Duplicates")
     protected void ready() {

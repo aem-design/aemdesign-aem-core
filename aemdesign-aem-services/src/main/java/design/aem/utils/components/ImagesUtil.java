@@ -420,7 +420,7 @@ public class ImagesUtil {
                 }
             }
         } catch (Exception ex) {
-            LOGGER.error("Exception occurred: {}", ex);
+            LOGGER.error("getResourceImagePath: Exception occurred: {}", ex);
         }
         return fileReferencPath;
     }
@@ -446,7 +446,7 @@ public class ImagesUtil {
             }
 
         } catch (Exception ex) {
-            LOGGER.error("Exception occurred: {}", ex);
+            LOGGER.error("getAssetPropertyValueWithDefault: Exception occurred: {}", ex);
         }
 
         return defaultValue;
@@ -488,7 +488,7 @@ public class ImagesUtil {
                 copyrightInfo = MessageFormat.format(format, assetCreator, assetContributor, assetLicense, assetCopyrightOwner, assetExpiresYear);
             }
         } catch (Exception ex) {
-            LOGGER.error("Exception occurred: {}", ex);
+            LOGGER.error("getAssetCopyrightInfo: Exception occurred: {}", ex);
         }
 
         return copyrightInfo;

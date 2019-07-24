@@ -21,8 +21,8 @@ public class ResolverUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResolverUtil.class);
 
-    public final static String DEFAULT_MAP_CONFIG_SCHEMA = "http";
-    public final static String SECURE_MAP_CONFIG_SCHEMA = "https";
+    public static final String DEFAULT_MAP_CONFIG_SCHEMA = "http";
+    public static final String SECURE_MAP_CONFIG_SCHEMA = "https";
 
     /**
      * map path using resolver

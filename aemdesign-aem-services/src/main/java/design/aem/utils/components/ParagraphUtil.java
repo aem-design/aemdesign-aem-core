@@ -12,7 +12,6 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 
-import javax.jcr.RepositoryException;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.jsp.JspWriter;
@@ -189,9 +188,8 @@ public class ParagraphUtil {
      * @param par current par child of parSys being processed
      * @param out html output
      * @return last item in the column
-     * @throws IOException when can't write to jsp output
      */
-    public static Paragraph getLastItemInColumn(Object parSys, Paragraph par, JspWriter out) throws IOException {
+    public static Paragraph getLastItemInColumn(Object parSys, Paragraph par, JspWriter out) {
         Paragraph lastItemPar = null;
 
         int parPosition = getListPosition(parSys, par);
@@ -206,8 +204,10 @@ public class ParagraphUtil {
             if (lpar != null) {
                 //check if the component is a column, if it is stop
                 Resource rpar = lpar.getResource();
-                if (rpar.getResourceType().endsWith("/colctrl")) {
-                    break;
+                if (rpar != null) {
+                    if (rpar.getResourceType().endsWith("/colctrl")) {
+                        break;
+                    }
                 }
             }
         }
@@ -440,14 +440,12 @@ public class ParagraphUtil {
 
     /**
      * write opening tags for the column for Resource component, also check if base alignment is required based
-     * @param resContainer container for the current col
-     * @param resCol current resource
      * @param out html output
      * @param componentStyle style of container resource
      * @param currColNumber current column number
      * @throws IOException when can't write to jsp output
      */
-    public static void openCol(Resource resContainer, Resource resCol, JspWriter out, HashMap<String, Object> componentStyle, Integer currColNumber) throws IOException {
+    public static void openCol(JspWriter out, HashMap<String, Object> componentStyle, Integer currColNumber) throws IOException {
         String layout = (String) componentStyle.get(COL_CTL_LAYOUT);
 
         //expected width format: col-md-,4,4,4

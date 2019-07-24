@@ -26,16 +26,16 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 public class ContactDetails extends GenericDetails {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContactDetails.class);
 
-    final static String COMPONENT_DETAILS_NAME = "contact-details";
+    static final String COMPONENT_DETAILS_NAME = "contact-details";
 
-    final static String DEFAULT_FORMAT_TITLE = "${honorificPrefix} ${givenName} ${familyName}";
-    final static String DEFAULT_FORMAT_DESCRIPTION = "${jobTitle}";
-    final static String FIELD_FORMAT_TITLE = "titleFormat";
-    final static String FIELD_FORMAT_DESCRIPTION = "descriptionFormat";
-    final static String FIELD_FORMATTED_TITLE = "titleFormatted";
-    final static String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
-    final static String FIELD_FORMATTED_DESCRIPTION = "descriptionFormatted";
-    final static String I18N_CATEGORY = "contact-detail";
+    static final String DEFAULT_FORMAT_TITLE = "${honorificPrefix} ${givenName} ${familyName}";
+    static final String DEFAULT_FORMAT_DESCRIPTION = "${jobTitle}";
+    static final String FIELD_FORMAT_TITLE = "titleFormat";
+    static final String FIELD_FORMAT_DESCRIPTION = "descriptionFormat";
+    static final String FIELD_FORMATTED_TITLE = "titleFormatted";
+    static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
+    static final String FIELD_FORMATTED_DESCRIPTION = "descriptionFormatted";
+    static final String I18N_CATEGORY = "contact-detail";
 
 
     @Override

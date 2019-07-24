@@ -108,16 +108,16 @@ public class ConstantsUtil {
 
     public static final String INHERITED_RESOURCE = "inheritedResource";
 
-    public final static String IMAGE_OPTION_GENERATED = "generated";
-    public final static String IMAGE_OPTION_RENDITION = "rendition";
-    public final static String IMAGE_OPTION_RESPONSIVE = "responsive";
-    public final static String IMAGE_OPTION_ADAPTIVE = "adaptive";
-    public final static String IMAGE_OPTION_MEDIAQUERYRENDITION = "mediaqueryrendition";
+    public static final String IMAGE_OPTION_GENERATED = "generated";
+    public static final String IMAGE_OPTION_RENDITION = "rendition";
+    public static final String IMAGE_OPTION_RESPONSIVE = "responsive";
+    public static final String IMAGE_OPTION_ADAPTIVE = "adaptive";
+    public static final String IMAGE_OPTION_MEDIAQUERYRENDITION = "mediaqueryrendition";
 
-    public final static String FIELD_ASSET_RENDITION_PATH_SUFFIX = "/jcr:content/renditions/";
+    public static final String FIELD_ASSET_RENDITION_PATH_SUFFIX = "/jcr:content/renditions/";
 
-    public final static String BADGE_REQUEST_ATTRIBUTES = "badgeRequestAttributes";
-    public final static String COMPONENT_PROPERTIES = "componentProperties";
+    public static final String BADGE_REQUEST_ATTRIBUTES = "badgeRequestAttributes";
+    public static final String COMPONENT_PROPERTIES = "componentProperties";
 
     public static final String DEFAULT_RSS_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss";
     public static final String DEFAULT_ICS_DATE_FORMAT = "yyyyMMdd'T'HHmmss";
