@@ -211,7 +211,7 @@ public class ImagesUtil {
 
             if (node != null) {
 
-                Resource metadataRes = asset.getResourceResolver().getResource(MessageFormat.format("{}/{}",node.getPath(),ASSET_METADATA_FOLDER));
+                Resource metadataRes = asset.getResourceResolver().getResource(node.getPath().concat("/").concat(ASSET_METADATA_FOLDER));
 
                 if (metadataRes != null) {
                     ValueMap map = metadataRes.adaptTo(ValueMap.class);
