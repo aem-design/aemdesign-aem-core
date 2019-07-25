@@ -136,7 +136,6 @@ public class ListNav extends ModelProxy {
         //process badge selection
         String componentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
 
-        LOGGER.error("processCommonFields: componentBadge={}",componentBadge);
     }
 
 
