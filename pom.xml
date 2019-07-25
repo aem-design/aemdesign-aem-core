@@ -7,7 +7,7 @@
 
     <groupId>design.aem</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>2.0.222</version>
+    <version>2.0.254</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -848,6 +848,7 @@
                             <serverid>ossrh</serverid>
                             <nexusurl>https://oss.sonatype.org/</nexusurl>
                             <autoreleaseafterclose>true</autoreleaseafterclose>
+                            <stagingRepositoryId>designaem-1000</stagingRepositoryId>
                         </configuration>
                     </plugin>
                     <!-- To generate javadoc -->
