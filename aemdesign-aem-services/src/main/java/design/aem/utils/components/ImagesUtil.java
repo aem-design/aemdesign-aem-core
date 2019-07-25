@@ -94,7 +94,7 @@ public class ImagesUtil {
     public static final String FIELD_MEDIAQUERYRENDITION_VALUE = "assetMediaQueryRendition";
     public static final String FIELD_IMAGE_OPTION = "imageOption";
 
-    public static final String ASSET_METADATA_FOLDER = MessageFormat.format("{}/{}", JCR_CONTENT, METADATA_FOLDER);
+    public static final String ASSET_METADATA_FOLDER = JCR_CONTENT.concat("/").concat(METADATA_FOLDER);
 
     public static final String[] DEFAULT_RENDITION_IMAGE_MAP = new String[]{ //NOSONAR used by classes
             "48=(min-width: 1px) and (max-width: 72px)",
