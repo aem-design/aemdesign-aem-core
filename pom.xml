@@ -848,7 +848,6 @@
                             <serverid>ossrh</serverid>
                             <nexusurl>https://oss.sonatype.org/</nexusurl>
                             <autoreleaseafterclose>true</autoreleaseafterclose>
-                            <stagingRepositoryId>designaem-1000</stagingRepositoryId>
                         </configuration>
                     </plugin>
                     <!-- To generate javadoc -->
