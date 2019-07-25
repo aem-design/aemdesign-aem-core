@@ -62,7 +62,6 @@ public class StaticInclude extends ModelProxy {
 
         String includeContents = "";
 
-        //Resource contentResource = _resourceResolver.getResource(_resourceResolver,includePaths,null);
         includeContents = getResourceContent(getResourceResolver(),includePaths,"");
         componentProperties.put("includeContents", includeContents);
         componentProperties.put("hasContent", StringUtils.isNotEmpty(includeContents));
