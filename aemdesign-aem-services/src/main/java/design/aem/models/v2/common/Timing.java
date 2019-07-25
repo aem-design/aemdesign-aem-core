@@ -8,11 +8,7 @@ import org.apache.sling.api.request.RequestProgressTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStreamReader;
-import java.net.URLEncoder;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -36,17 +32,6 @@ public class Timing extends ModelProxy {
         return result;
     }
 
-    private static String stringList(List<ChartBar> data, String separator, Getter g) {
-        StringBuilder result = new StringBuilder();
-        for (ChartBar t : data) {
-            if (result.length() > 0) {
-                result.append(separator);
-            }
-            result.append(URLEncoder.encode(g.get(t)));
-        }
-        return result.toString();
-    }
-
     private static boolean accept(String line) {
         boolean result = line.contains(TIMER_END);
         result &= !line.contains(",resolveServlet(");
@@ -55,9 +40,9 @@ public class Timing extends ModelProxy {
         return result;
     }
 
-    public static byte[] compress(String str) throws Exception {
+    public static byte[] compress(String str) throws IOException {
         if (str == null || str.length() == 0) {
-            return null;
+            return new byte[]{};
         }
 
         final String charsetName = "UTF-8";
@@ -69,26 +54,28 @@ public class Timing extends ModelProxy {
         return obj.toByteArray();
     }
 
-    public static String decompress(byte[] bytes) throws Exception {
+    public static String decompress(byte[] bytes) throws IOException {
         if (bytes == null || bytes.length == 0) {
             return null;
         }
 
         GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(bytes));
         BufferedReader bf = new BufferedReader(new InputStreamReader(gis, StandardCharsets.UTF_8));
-        String outStr = "";
+
         String line;
+        StringBuilder output = new StringBuilder();
         while ((line = bf.readLine()) != null) {
-            outStr += line;
+            output.append(line);
         }
 
-        return outStr;
+        return output.toString();
     }
 
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
+    @SuppressWarnings("squid:S1604")
     protected void ready() {
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
@@ -101,7 +88,7 @@ public class Timing extends ModelProxy {
 
         // Convert RequestProgressTracker TIMER_END messages to timings and operation names
         RequestProgressTracker t = getRequest().getRequestProgressTracker();
-        ArrayList<ChartBar> chartData = new ArrayList<ChartBar>();
+        ArrayList<ChartBar> chartData = new ArrayList<>();
         int maxTime = 0;
         Iterator<String> messages = t.getMessages();
         if (messages != null) {
@@ -147,9 +134,9 @@ public class Timing extends ModelProxy {
 
             dataObject.put("title", title);
 
-            ArrayList<Object> data = new ArrayList<Object>();
+            ArrayList<Object> data = new ArrayList<>();
 
-            ArrayList<Object> dataInfo = new ArrayList<Object>();
+            ArrayList<Object> dataInfo = new ArrayList<>();
 
             dataInfo.add("name");
             Map<String, String> roleTooltip = new HashMap<>();
@@ -162,7 +149,7 @@ public class Timing extends ModelProxy {
 
 
             for (ChartBar d : chartData) {
-                ArrayList<Object> bar = new ArrayList<Object>();
+                ArrayList<Object> bar = new ArrayList<>();
                 bar.add(d.name);
                 bar.add(d.fullname);
                 bar.add(d.start);
@@ -248,7 +235,7 @@ public class Timing extends ModelProxy {
         }
     }
 
-    static abstract class Getter {
-        abstract String get(ChartBar t);
+    public interface Getter {
+        String get(ChartBar t);
     }
 }
