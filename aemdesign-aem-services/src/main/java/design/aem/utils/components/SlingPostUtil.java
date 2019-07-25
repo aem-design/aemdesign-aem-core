@@ -2,10 +2,9 @@ package design.aem.utils.components;
 
 import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
-import com.day.cq.wcm.api.Page;
-import org.apache.jackrabbit.util.Text;
-import org.apache.sling.api.resource.ValueMap;
+import org.apache.jackrabbit.JcrConstants;
 import org.apache.sling.servlets.post.SlingPostConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,15 +49,16 @@ public class SlingPostUtil {
      * @param req sling request
      * @throws RepositoryException when can't read content
      */
+    @SuppressWarnings("squid:S3776")
     public static void writeContent(final Node parentNode, final HttpServletRequest req) throws RepositoryException {
         for (Enumeration en = req.getParameterNames(); en.hasMoreElements();) {
             String name = en.nextElement().toString();
 
             if (!name.startsWith("./")) continue;
             // ignore all tags, they are handled separately
-            if (name.indexOf("cq:tags") > 0) continue;
-            if (name.startsWith("jcr:primaryType")) continue;
-            if (name.startsWith("jcr:mixinTypes")) continue;
+            if (name.indexOf(TagConstants.PN_TAGS) > 0) continue;
+            if (name.startsWith(JcrConstants.JCR_PRIMARYTYPE)) continue;
+            if (name.startsWith(JcrConstants.JCR_MIXINTYPES)) continue;
             if (name.endsWith(SlingPostConstants.TYPE_HINT_SUFFIX)) continue;
 
             String[] values = req.getParameterValues(name);
@@ -137,7 +137,7 @@ public class SlingPostUtil {
         List<String> tagsParameters = new ArrayList<String>();
         for (Enumeration en = req.getParameterNames(); en.hasMoreElements();) {
             String name = en.nextElement().toString();
-            if (name.endsWith("cq:tags")) {
+            if (name.endsWith(TagConstants.PN_TAGS)) {
                 tagsParameters.add(name);
             }
         }
