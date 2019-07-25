@@ -79,7 +79,7 @@ public class EventDetails extends GenericDetails {
                 {"eventDisplayDateFormat",""},
                 {"eventDisplayTimeFormat", ""},
                 {"eventTimeFormat", EVENT_TIME_DEFAULT_FORMAT},
-                {"cq:tags", new String[]{}},
+                {TagConstants.PN_TAGS, new String[]{}},
                 {"menuColor", StringUtils.EMPTY},
                 {"showTags", false},
                 {"subCategory", StringUtils.EMPTY},

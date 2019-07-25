@@ -7,6 +7,7 @@ import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
@@ -189,7 +190,7 @@ public class TagList extends ModelProxy {
         } else {
             childMap.put("path.flat", "false");
         }
-        childMap.put("type", "cq:Tag");
+        childMap.put("type", TagConstants.NT_TAG);
 
         populateListItemsFromMap(childMap);
     }

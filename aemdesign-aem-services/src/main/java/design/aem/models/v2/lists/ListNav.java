@@ -6,6 +6,7 @@ import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
+import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
@@ -62,7 +63,7 @@ public class ListNav extends ModelProxy {
     private static final String FIELD_IMAGE_OPTION_DEFAULT = "responsive";
 
     private static final String LIST_SEARCH_TYPE = "type";
-    private static final String LIST_SEARCH_TYPE_DEFAULT = "cq:Page";
+    private static final String LIST_SEARCH_TYPE_DEFAULT = NameConstants.NT_PAGE;
 
     private static final String LIST_LOOP = "listloop";
     private static final boolean LIST_LOOP_DEFAULT = false;

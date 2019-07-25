@@ -1,10 +1,13 @@
 package design.aem.utils.components;
 
 import com.day.cq.commons.Externalizer;
+import com.day.cq.wcm.api.NameConstants;
 import design.aem.context.CoreComponentTestContext;
 import io.wcm.testing.mock.aem.junit.AemContext;
+import org.apache.jackrabbit.JcrConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
+import org.apache.sling.jcr.resource.JcrResourceConstants;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletRequest;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletResponse;
 import org.apache.sling.testing.resourceresolver.MockResourceResolver;
@@ -50,7 +53,7 @@ public class ResolverUtilTest {
         response = new MockSlingHttpServletResponse();
 
         CONTEXT.registerService(Externalizer.class, externalizer,
-                "jcr:primaryType", "sling:OsgiConfig",
+                JcrConstants.JCR_PRIMARYTYPE, "sling:OsgiConfig",
                 "externalizer.domains", "[local http://192.168.27.2:4502,author http://192.168.27.2:4502,publish http://192.168.27.2:4503]",
                 "externalizer.contextpath", "",
                 "externalizer.host", "192.168.27.2",
@@ -258,10 +261,10 @@ public class ResolverUtilTest {
         //create component structure
         CONTEXT.build()
                 .hierarchyMode()
-                .resource(resourceComponent, "sling:resourceSuperType", resourceSuperType)
-                .resource(resourceComponentVersion, "jcr:primaryType", "nt:folder")
-                .resource(resourceComponentName, "jcr:primaryType", "cq:Component")
-                .resource(resourceName, "jcr:primaryType", "nt:file");
+                .resource(resourceComponent, JcrResourceConstants.SLING_RESOURCE_SUPER_TYPE_PROPERTY, resourceSuperType)
+                .resource(resourceComponentVersion, JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_FOLDER)
+                .resource(resourceComponentName, JcrConstants.JCR_PRIMARYTYPE, NameConstants.NT_COMPONENT)
+                .resource(resourceName, JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_FOLDER);
 
 
         when(resourceUtil.findResourceSuperType(CONTEXT.resourceResolver().getResource(resourceComponent))).thenReturn(resourceSuperType);

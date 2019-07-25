@@ -10,6 +10,7 @@ import design.aem.components.ComponentProperties;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
+import org.apache.jackrabbit.JcrConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
@@ -138,9 +139,9 @@ public class CommonUtil {
         long lastMod = 0L;
         ValueMap values = resource.adaptTo(ValueMap.class);
         if (values != null) {
-            Long value = values.get("jcr:lastModified", Long.class);
+            Long value = values.get(JcrConstants.JCR_LASTMODIFIED, Long.class);
             if (value == null) {
-                value = values.get("jcr:created", Long.class);
+                value = values.get(JcrConstants.JCR_CREATED, Long.class);
             }
 
             if (value != null) {
