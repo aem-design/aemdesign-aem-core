@@ -5,5 +5,5 @@
     jsProcessor="[default:none]"
     cssProcessor="[default:none]"
     categories="[aemdesign.common.head.dependencies.publish]"
-    embed="[jquery]"/>
+    embed="[jquery,granite.utils,granite.jquery]"/>
 
