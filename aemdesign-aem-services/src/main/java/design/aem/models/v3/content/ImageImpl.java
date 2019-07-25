@@ -3,7 +3,7 @@ package design.aem.models.v3.content;
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.granite.asset.api.AssetManager;
-import com.day.cq.commons.jcr.JcrConstants;
+import org.apache.jackrabbit.vault.util.JcrConstants;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.Page;

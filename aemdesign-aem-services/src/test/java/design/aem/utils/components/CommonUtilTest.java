@@ -4,7 +4,7 @@ import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import design.aem.context.CoreComponentTestContext;
 import io.wcm.testing.mock.aem.junit.AemContext;
-import org.apache.jackrabbit.JcrConstants;
+import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.api.resource.Resource;
 import org.junit.Before;
 import org.junit.ClassRule;
