@@ -1,7 +1,6 @@
 package design.aem.utils.components;
 
-import com.day.cq.commons.inherit.InheritanceValueMap;
-import com.day.cq.commons.jcr.JcrConstants;
+import org.apache.jackrabbit.vault.util.JcrConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
@@ -14,10 +13,6 @@ import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
-import javax.jcr.Property;
-import javax.jcr.RepositoryException;
-import javax.jcr.Value;
 import java.util.*;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;

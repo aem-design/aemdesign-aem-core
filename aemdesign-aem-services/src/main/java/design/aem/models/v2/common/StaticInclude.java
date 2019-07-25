@@ -1,6 +1,6 @@
 package design.aem.models.v2.common;
 
-import com.day.cq.commons.jcr.JcrConstants;
+import org.apache.jackrabbit.vault.util.JcrConstants;
 import com.day.cq.i18n.I18n;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;

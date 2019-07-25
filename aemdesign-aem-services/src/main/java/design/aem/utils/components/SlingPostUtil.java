@@ -4,7 +4,7 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
-import org.apache.jackrabbit.JcrConstants;
+import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.servlets.post.SlingPostConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

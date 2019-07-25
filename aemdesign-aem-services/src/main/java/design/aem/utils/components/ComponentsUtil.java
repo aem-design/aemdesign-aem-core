@@ -4,7 +4,7 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.ui.components.AttrBuilder;
 import com.adobe.granite.xss.XSSAPI;
 import com.day.cq.commons.inherit.InheritanceValueMap;
-import com.day.cq.commons.jcr.JcrConstants;
+import org.apache.jackrabbit.vault.util.JcrConstants;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;

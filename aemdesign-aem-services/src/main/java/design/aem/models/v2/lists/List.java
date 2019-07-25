@@ -15,7 +15,7 @@ import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.jackrabbit.JcrConstants;
+import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.request.RequestParameter;
 import org.apache.sling.api.resource.Resource;

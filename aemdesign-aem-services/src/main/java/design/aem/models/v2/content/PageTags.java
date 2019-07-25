@@ -4,7 +4,7 @@ import com.day.cq.tagging.TagConstants;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
-import org.apache.jackrabbit.JcrConstants;
+import org.apache.jackrabbit.vault.util.JcrConstants;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
