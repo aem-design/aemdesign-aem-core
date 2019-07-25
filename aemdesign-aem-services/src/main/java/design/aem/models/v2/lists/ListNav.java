@@ -133,9 +133,6 @@ public class ListNav extends ModelProxy {
             filterPage = getCurrentPage();
         }
 
-        //process badge selection
-        String componentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
-
     }
 
 
