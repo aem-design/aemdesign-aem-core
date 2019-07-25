@@ -1524,10 +1524,8 @@ public class ComponentsUtil {
                 Resource detailsResource = resourceResolver.resolve(detailsPath);
                 if (!ResourceUtil.isNonExistingResource(detailsResource)) {
                     Node detailsNode = detailsResource.adaptTo(Node.class);
-                    if (detailsNode != null) {
-                        if (detailsNode.hasProperty(DETAILS_DESCRIPTION)) {
-                            return detailsNode.getProperty(DETAILS_DESCRIPTION).getString();
-                        }
+                    if (detailsNode != null && detailsNode.hasProperty(DETAILS_DESCRIPTION)) {
+                        return detailsNode.getProperty(DETAILS_DESCRIPTION).getString();
                     }
                 }
 
@@ -1728,6 +1726,11 @@ public class ComponentsUtil {
         return "";
     }
 
+    /***
+     * get component path relative to {@link JcrConstants#JCR_CONTENT}
+     * @param componentNode component node to use for path evaluation
+     * @return component path relative to {@link JcrConstants#JCR_CONTENT}
+     */
     public static String getComponentInPagePath(Node componentNode) {
         String componentInPagePath = "";
         if (componentNode == null) {
@@ -1745,8 +1748,8 @@ public class ComponentsUtil {
                     }
                 }
             }
-        } catch (Exception ignored) {
-
+        } catch (Exception ex) {
+            LOGGER.warn("getComponentInPagePath: could not get component in path {}, ex: {}", componentNode, ex);
         }
         return componentInPagePath;
     }
