@@ -1,8 +1,10 @@
 package design.aem.utils.components;
 
+import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import design.aem.context.CoreComponentTestContext;
 import io.wcm.testing.mock.aem.junit.AemContext;
+import org.apache.jackrabbit.JcrConstants;
 import org.apache.sling.api.resource.Resource;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -28,8 +30,8 @@ public class CommonUtilTest {
     protected static final String PAGE = ROOT + "/page";
 
 
-    private final String PRIMARY_TYPE = "jcr:primaryType";
-    private final String CQ_PAGE = "cq:Page";
+    private final String PRIMARY_TYPE = JcrConstants.JCR_PRIMARYTYPE;
+    private final String CQ_PAGE = NameConstants.NT_PAGE;
 
     private Resource testResource = null;
     private Page testResourcePage = null;

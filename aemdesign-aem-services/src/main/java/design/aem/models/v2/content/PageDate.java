@@ -36,7 +36,7 @@ public class PageDate extends ModelProxy {
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"publishDate", getPageProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED,getPageProperties().get(JcrConstants.JCR_CREATED, Calendar.getInstance()))},
-                {"jcr:created", ""}
+                {JcrConstants.JCR_CREATED, ""}
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(

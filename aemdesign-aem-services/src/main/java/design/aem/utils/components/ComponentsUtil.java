@@ -8,6 +8,7 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
+import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.WCMMode;
 import com.day.cq.wcm.api.components.Component;
@@ -348,10 +349,10 @@ public class ComponentsUtil {
      */
     public static final Object[][] DEFAULT_FIELDS_METADATA = { //NOSONAR used by classes
             {"metadataContentType", ""},
-            {"cq:lastModified", ""},
-            {"jcr:lastModified", ""},
-            {"jcr:created", ""},
-            {"cq:lastReplicated", ""},
+            {NameConstants.PN_PAGE_LAST_MOD, ""},
+            {JcrConstants.JCR_LASTMODIFIED, ""},
+            {JcrConstants.JCR_CREATED, ""},
+            {NameConstants.PN_PAGE_LAST_REPLICATED, ""},
     };
 
     /**
@@ -628,12 +629,13 @@ public class ComponentsUtil {
                 if (resourceNode != null) {
                     Node contentNode = null;
 
-                    if (resourceNode.getPrimaryNodeType().getName().equals("cq:Page") && resourceNode.hasNode(JcrConstants.JCR_CONTENT)) {
+                    if (resourceNode.getPrimaryNodeType().getName().equals(NameConstants.NT_PAGE) && resourceNode.hasNode(JcrConstants.JCR_CONTENT)) {
                         contentNode = resourceNode.getNode(JcrConstants.JCR_CONTENT);
                     }
 
-                    if (resourceNode.getPrimaryNodeType().getName().equals("dam:Asset") && resourceNode.hasNode(JcrConstants.JCR_CONTENT + "/renditions/original/" + JcrConstants.JCR_CONTENT))  {
-                        contentNode = resourceNode.getNode(JcrConstants.JCR_CONTENT + "/renditions/original/" + JcrConstants.JCR_CONTENT);
+                    String originalPath = JcrConstants.JCR_CONTENT.concat("/").concat(DamConstants.RENDITIONS_FOLDER).concat("/original/").concat(JcrConstants.JCR_CONTENT);
+                    if (resourceNode.getPrimaryNodeType().getName().equals(DamConstants.NT_DAM_ASSET) && resourceNode.hasNode(originalPath))  {
+                        contentNode = resourceNode.getNode(originalPath);
                     }
 
                     if (contentNode != null) {

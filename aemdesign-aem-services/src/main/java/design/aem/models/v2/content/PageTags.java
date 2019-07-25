@@ -4,6 +4,7 @@ import com.day.cq.tagging.TagConstants;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
+import org.apache.jackrabbit.JcrConstants;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
@@ -19,7 +20,7 @@ public class PageTags extends ModelProxy {
 
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"jcr:created", ""}
+                {JcrConstants.JCR_CREATED, ""}
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(

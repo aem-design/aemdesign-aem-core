@@ -325,7 +325,7 @@ public class SearchList extends ModelProxy {
             if (!result.getHits().isEmpty()) {
                 for (com.day.cq.search.result.Hit h : result.getHits()) {
                     CustomSearchResult newResult = new CustomSearchResult(h.getPath());
-                    String jcrPrimaryType = h.getProperties().get("jcr:primaryType").toString();
+                    String jcrPrimaryType = h.getProperties().get(org.apache.jackrabbit.JcrConstants.JCR_PRIMARYTYPE).toString();
 
                     newResult.setTitle(h.getTitle());
 
@@ -378,8 +378,8 @@ public class SearchList extends ModelProxy {
                         }
                     }
 
-                    if (jcrPrimaryType.equals("dam:AssetContent")) {
-                        String relativePath = h.getProperties().get("dam:relativePath").toString();
+                    if (jcrPrimaryType.equals(DamConstants.NT_DAM_ASSETCONTENT)) {
+                        String relativePath = h.getProperties().get(DamConstants.DAM_ASSET_RELATIVE_PATH).toString();
 
                         newResult.setExcerpt(h.getExcerpt());
                         newResult.setPathUrl(h.getPath());

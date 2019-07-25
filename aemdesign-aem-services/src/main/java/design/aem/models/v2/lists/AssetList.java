@@ -206,7 +206,7 @@ public class AssetList extends ModelProxy {
         } else {
             childMap.put("path.flat", "false");
         }
-        childMap.put("type", "dam:Asset");
+        childMap.put("type", DamConstants.NT_DAM_ASSET);
 
         populateListItemsFromMap(childMap);
     }

@@ -6,6 +6,7 @@ import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.TagConstants;
+import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.text.Text;
@@ -593,7 +594,7 @@ public class List extends ModelProxy {
         } else {
             childMap.put("path.flat", "false");
         }
-        childMap.put("type", "cq:Page");
+        childMap.put("type", NameConstants.NT_PAGE);
 
         populateListItemsFromMap(childMap);
     }
@@ -622,13 +623,13 @@ public class List extends ModelProxy {
 
                 for (String tag : tags) {
                     childMap.put("group.0_group." + offset + "_group.tagid", tag);
-                    childMap.put("group.0_group." + offset + "_group.tagid.property", "jcr:content/cq:tags");
+                    childMap.put("group.0_group." + offset + "_group.tagid.property", JcrConstants.JCR_CONTENT.concat("/cq:tags"));
 
                     // Offset the Page Details group by one so we don't conflict with the page properties query
                     offset++;
 
                     childMap.put("group.0_group." + offset + "_group.tagid", tag);
-                    childMap.put("group.0_group." + offset + "_group.tagid.property", "jcr:content/article/par/page_details/cq:tags");
+                    childMap.put("group.0_group." + offset + "_group.tagid.property", JcrConstants.JCR_CONTENT.concat("/article/par/page_details/cq:tags"));
                 }
 
                 populateListItemsFromMap(childMap);

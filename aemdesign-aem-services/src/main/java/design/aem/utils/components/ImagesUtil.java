@@ -37,11 +37,13 @@ import java.text.MessageFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 
+import static com.day.cq.dam.api.DamConstants.METADATA_FOLDER;
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.ResolverUtil.mappedUrl;
 import static org.apache.commons.lang3.StringUtils.*;
+import static org.apache.jackrabbit.JcrConstants.JCR_CONTENT;
 
 
 public class ImagesUtil {
@@ -92,6 +94,7 @@ public class ImagesUtil {
     public static final String FIELD_MEDIAQUERYRENDITION_VALUE = "assetMediaQueryRendition";
     public static final String FIELD_IMAGE_OPTION = "imageOption";
 
+    public static final String ASSET_METADATA_FOLDER = MessageFormat.format("{}/{}", JCR_CONTENT, METADATA_FOLDER);
 
     public static final String[] DEFAULT_RENDITION_IMAGE_MAP = new String[]{ //NOSONAR used by classes
             "48=(min-width: 1px) and (max-width: 72px)",
@@ -173,11 +176,10 @@ public class ImagesUtil {
 
         String returnVal = "";
 
-        final String PROPERTY_METADATA = JcrConstants.JCR_CONTENT + "/metadata";
         try {
 
-            if (assetNode.hasNode(PROPERTY_METADATA)) {
-                Node metadataNode = assetNode.getNode(PROPERTY_METADATA);
+            if (assetNode.hasNode(ASSET_METADATA_FOLDER)) {
+                Node metadataNode = assetNode.getNode(ASSET_METADATA_FOLDER);
                 returnVal = DamUtil.getValue(metadataNode, key, defaultValue);
             }
         } catch (RepositoryException rex) {
@@ -209,7 +211,7 @@ public class ImagesUtil {
 
             if (node != null) {
 
-                Resource metadataRes = asset.getResourceResolver().getResource(node.getPath() + "/jcr:content/metadata");
+                Resource metadataRes = asset.getResourceResolver().getResource(MessageFormat.format("{}/{}",node.getPath(),ASSET_METADATA_FOLDER));
 
                 if (metadataRes != null) {
                     ValueMap map = metadataRes.adaptTo(ValueMap.class);
@@ -302,9 +304,8 @@ public class ImagesUtil {
      */
     public static int getWidth(Node assetNode) throws RepositoryException {
         int width = 0;
-        final String PROPERTY_METADATA = "jcr:content/metadata";
-        if (assetNode.hasNode(PROPERTY_METADATA)) {
-            Node metadataNode = assetNode.getNode(PROPERTY_METADATA);
+        if (assetNode.hasNode(ASSET_METADATA_FOLDER)) {
+            Node metadataNode = assetNode.getNode(ASSET_METADATA_FOLDER);
             try {
                 width = Integer.valueOf(
                         DamUtil.getValue(metadataNode, "tiff:ImageWidth",
@@ -524,8 +525,8 @@ public class ImagesUtil {
 
                 String val = null;
                 Node assetNode = asset.adaptTo(Node.class);
-                if (assetNode != null && !assetNode.hasNode("jcr:content/metadata")) {
-                    Node assetMetadata = assetNode.getNode("jcr:content/metadata");
+                if (assetNode != null && !assetNode.hasNode(JCR_CONTENT.concat("/").concat(METADATA_FOLDER))) {
+                    Node assetMetadata = assetNode.getNode(JCR_CONTENT.concat("/").concat(METADATA_FOLDER));
                     if (assetMetadata.hasProperty(dimensionProperty)) {
                         val = assetMetadata.getProperty(dimensionProperty).getString();
                     }
@@ -763,8 +764,8 @@ public class ImagesUtil {
 
                     try {
                         Node pageImageResourceNode = pageImageResource.adaptTo(Node.class);
-                        if (pageImageResourceNode != null && pageImageResourceNode.hasProperty("jcr:uuid")) {
-                            assetInfo.put(infoPrefix + "Id", pageImageResourceNode.getProperty("jcr:uuid").getString());
+                        if (pageImageResourceNode != null && pageImageResourceNode.hasProperty(JcrConstants.JCR_UUID)) {
+                            assetInfo.put(infoPrefix + "Id", pageImageResourceNode.getProperty(JcrConstants.JCR_UUID).getString());
                         }
                     } catch (Exception ex) {
                         LOGGER.error("getAssetInfo: could not get assetID {}", ex);
@@ -1143,7 +1144,7 @@ public class ImagesUtil {
 
                     //don't return paths to original rendition return path to asset instead
                     if (renditionPath.endsWith("/original")) {
-                        String assetPath = renditionPath.substring(0, renditionPath.indexOf(JcrConstants.JCR_CONTENT) - 1);
+                        String assetPath = renditionPath.substring(0, renditionPath.indexOf(JCR_CONTENT) - 1);
                         ResourceResolver resourceResolver = asset.getResourceResolver();
                         if (resourceResolver != null) {
                             Resource assetPathResource = resourceResolver.resolve(assetPath);
