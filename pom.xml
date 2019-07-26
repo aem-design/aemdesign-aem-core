@@ -7,7 +7,7 @@
 
     <groupId>design.aem</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>2.0.263</version>
+    <version>2.0.265</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -838,6 +838,14 @@
 
             <build>
                 <plugins>
+                    <!-- Skip maven-deploy-plugin use nexus-staging-maven-plugin instead -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
                     <!-- To release to Maven central -->
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
