@@ -23,7 +23,7 @@ public class ModelsCommonsTest extends AbstractModelTest {
     @Test
     public void testDefaultBehaviour() throws Exception {
         testDefaultBehaviour(new String[] {
-                "design.aem"
+                "design.aem.models.v3.content.ImageImplTest"
        });
     }
 }
