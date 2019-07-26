@@ -848,6 +848,10 @@
                             <serverid>ossrh</serverid>
                             <nexusurl>https://oss.sonatype.org/</nexusurl>
                             <autoreleaseafterclose>true</autoreleaseafterclose>
+                            <description>travis release</description>
+                            <skipLocalStaging>true</skipLocalStaging>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                            <autoDropAfterRelease>true</autoDropAfterRelease>
                         </configuration>
                     </plugin>
                     <!-- To generate javadoc -->
