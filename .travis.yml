@@ -38,7 +38,9 @@ deploy:
     - aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-$project_version.zip
     - aemdesign-aem-services/target/aemdesign-aem-services-$project_version.jar
   skip_cleanup: true
-  name: $CURRENT_VERSION
+  on:
+    branch: master
+  name: $project_version
 
 
 #notifications:
