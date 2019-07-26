@@ -27,7 +27,7 @@ script:
 before_deploy:
   - export CURRENT_VERSION=$(mvn help:evaluate -N -Dexpression=project.version|grep -v '\[')
   - echo CURRENT_VERSION=$CURRENT_VERSION
-  - export TRAVIS_TAG=$project_version
+  - export TRAVIS_TAG=$CURRENT_VERSION
   - if [[ $TRAVIS_BRANCH != "master" ]]; then git tag $TRAVIS_TAG; fi
 
 ## Create release in GitHub
@@ -35,12 +35,12 @@ deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
   file:
-    - aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-$project_version.zip
-    - aemdesign-aem-services/target/aemdesign-aem-services-$project_version.jar
+    - aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-$CURRENT_VERSION.zip
+    - aemdesign-aem-services/target/aemdesign-aem-services-$CURRENT_VERSION.jar
   skip_cleanup: true
   on:
     branch: master
-  name: $project_version
+  name: $CURRENT_VERSION
 
 
 #notifications:
