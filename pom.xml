@@ -860,6 +860,8 @@
                             <skipLocalStaging>true</skipLocalStaging>
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                             <autoDropAfterRelease>true</autoDropAfterRelease>
+                            <!-- explicit matching using the staging profile id -->
+                            <stagingProfileId>c4011210992a35</stagingProfileId>
                         </configuration>
                     </plugin>
                     <!-- To generate javadoc -->
