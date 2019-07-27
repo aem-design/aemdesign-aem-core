@@ -855,11 +855,11 @@
                         <configuration>
                             <serverid>ossrh</serverid>
                             <nexusurl>https://oss.sonatype.org/</nexusurl>
-                            <autoreleaseafterclose>true</autoreleaseafterclose>
-                            <description>travis release</description>
-                            <skipLocalStaging>true</skipLocalStaging>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                            <autoDropAfterRelease>true</autoDropAfterRelease>
+<!--                            <autoreleaseafterclose>true</autoreleaseafterclose>-->
+<!--                            <description>travis release</description>-->
+<!--                            <skipLocalStaging>true</skipLocalStaging>-->
+<!--                            <autoReleaseAfterClose>true</autoReleaseAfterClose>-->
+<!--                            <autoDropAfterRelease>true</autoDropAfterRelease>-->
                             <!-- explicit matching using the staging profile id -->
                             <stagingProfileId>c4011210992a35</stagingProfileId>
                         </configuration>
