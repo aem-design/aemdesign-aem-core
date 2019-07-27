@@ -7,7 +7,7 @@
 
     <groupId>design.aem</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>2.0.275</version>
+    <version>2.0.278</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -618,6 +618,7 @@
                     <flattenedPomFilename>.flattened-pom.xml</flattenedPomFilename>
                     <outputDirectory>${project.build.directory}</outputDirectory>
                     <updatePomFile>true</updatePomFile>
+                    <flattenMode>ossrh</flattenMode>
                 </configuration>
                 <executions>
                     <execution>
