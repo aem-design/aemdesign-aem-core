@@ -14,7 +14,7 @@ Component to create List navigation on page that is part of a collection of page
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/navlist](/content/aemdesign-showcase/en/component/lists/navlist.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/navlist/v2/navlist](/crx/de/#/apps/aemdesign/components/lists/navlist/v2/navlist)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/navlist/v2/navlist)
+* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/navlist/v2/navlist)
 * **Readme**: [/apps/aemdesign/components/lists/navlist/v2/navlist](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/navlist/v2/navlist)
 
 ## Features

@@ -11,7 +11,7 @@ cache:
     - .m2/repository
 
 variables:
-  GIT_URL_HTTPS: https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/aem.design/aemdesign-aem-core.git
+  GIT_URL_HTTPS: https://gitlab-ci-token:${CI_JOB_TOKEN}@github.com/aem-design/aemdesign-aem-core.git
   MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
 
@@ -45,7 +45,7 @@ package:
     - git checkout ${CI_COMMIT_REF_NAME}
     - git reset --hard "origin/${CI_COMMIT_REF_NAME}"
     - git remote set-url origin ${GIT_URL_HTTPS}
-#    - for name in $(git submodule status | awk '{ print $2}'); do git config --file=.gitmodules submodule.$name.url https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/aem.design/$name.git; done
+#    - for name in $(git submodule status | awk '{ print $2}'); do git config --file=.gitmodules submodule.$name.url https://gitlab-ci-token:${CI_JOB_TOKEN}@github.com/aem-design/$name.git; done
 #    - git submodule sync
 #    - git submodule --quiet update --remote --init
 #    - ls -latr
@@ -107,7 +107,7 @@ package:
 #    # Gitlab clones as HTTPS and there's no plan to support SSH
 #    # The SSH key needed is built into the custom Maven image
 #    - git remote set-url origin ${GIT_URL_HTTPS}
-#    - for name in $(git submodule status | awk '{ print $2}'); do git config --file=.gitmodules submodule.$name.url https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/aem.design/$name.git; done
+#    - for name in $(git submodule status | awk '{ print $2}'); do git config --file=.gitmodules submodule.$name.url https://gitlab-ci-token:${CI_JOB_TOKEN}@github.com/aem-design/$name.git; done
 #    - git submodule sync
 #    - git submodule update --remote --init
 #    - mvn --batch-mode clean release:prepare release:perform -Dresume=false -DautoVersionSubmodules=true -DdryRun=false -Dmaven.test.skip=true -DskipITs -DscmCommentPrefix="[ci skip]"

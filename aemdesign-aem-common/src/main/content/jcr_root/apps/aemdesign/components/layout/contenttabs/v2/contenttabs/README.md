@@ -14,7 +14,7 @@ Component for adding a Content Tabs section to a page.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/contenttabs](/content/aemdesign-showcase/en/component/layout/contenttabs.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/layout/contenttabs/v2/contenttabs](/crx/de/#/apps/aemdesign/components/layout/contenttabs/v2/contenttabs)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/contenttabs/v2/contenttabs)
+* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/contenttabs/v2/contenttabs)
 * **Readme**: [/apps/aemdesign/components/layout/contenttabs/v2/contenttabs](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/contenttabs/v2/contenttabs)
 
 # Authoring

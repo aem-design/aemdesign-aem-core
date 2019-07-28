@@ -14,7 +14,7 @@ Component for adding content metadata to a News and Badge config info which is u
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/details/news-details](/content/aemdesign-showcase/en/component/details/news-details.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/details/news-details/v2/news-details](/crx/de/#/apps/aemdesign/components/details/news-details/v2/news-details)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/details/news-details/v2/news-details)
+* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/details/news-details/v2/news-details)
 * **Readme**: [/apps/aemdesign/components/details/news-details/v2/news-details](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/news-details/v2/news-details)
 
 ## Features
