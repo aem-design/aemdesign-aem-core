@@ -854,8 +854,8 @@
                         <version>1.6.8</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverid>ossrh</serverid>
-                            <nexusurl>https://oss.sonatype.org/</nexusurl>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
 <!--                            <autoreleaseafterclose>true</autoreleaseafterclose>-->
 <!--                            <description>travis release</description>-->
 <!--                            <skipLocalStaging>true</skipLocalStaging>-->
