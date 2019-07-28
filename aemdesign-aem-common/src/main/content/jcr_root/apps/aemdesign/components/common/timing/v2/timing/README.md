@@ -14,7 +14,7 @@ Component for adding a timing information to a page.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/timings/timing/v2/timing](/content/aemdesign-showcase/en/component/timings/timing.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/timings/timing/v2/timing](/crx/de/#/apps/aemdesign/components/timings/timing/v2/timing)
-* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/timings/timing/v2/timing)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/timings/timing/v2/timing)
 * **Readme**: [/apps/aemdesign/components/timings/timing/v2/timing](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/timings/timing/v2/timing)
 
 # Authoring

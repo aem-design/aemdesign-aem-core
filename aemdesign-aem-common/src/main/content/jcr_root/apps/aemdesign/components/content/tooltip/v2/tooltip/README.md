@@ -14,7 +14,7 @@ Component for adding tooltips to pages to use with other content or images
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/tooltip](/content/aemdesign-showcase/en/component/content/tooltip.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/content/tooltip/v2/tooltip](/crx/de/#/apps/aemdesign/components/content/tooltip/v2/tooltip)
-* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/tooltip/v2/tooltip)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/tooltip/v2/tooltip)
 * **Readme**: [/apps/aemdesign/components/content/tooltip/v2/tooltip](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/tooltip/v2/tooltip)
 
 # Authoring

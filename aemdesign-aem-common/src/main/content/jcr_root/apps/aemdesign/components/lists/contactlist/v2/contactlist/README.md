@@ -14,7 +14,7 @@ User for creating list of contacts
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/contactlist/v2/contactlist](/content/aemdesign-showcase/en/component/lists/contactlist.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/contactlist/v2/contactlist](/crx/de/#/apps/aemdesign/components/lists/contactlist/v2/contactlist)
-* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/contactlist/v2/contactlist)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/contactlist/v2/contactlist)
 * **Readme**: [/apps/aemdesign/components/lists/contactlist/v2/contactlist](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/contactlist/v2/contactlist)
 
 ## Features

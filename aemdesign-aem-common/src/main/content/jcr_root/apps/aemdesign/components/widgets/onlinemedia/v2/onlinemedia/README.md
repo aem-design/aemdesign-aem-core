@@ -14,7 +14,7 @@ Component for adding Online Media widgets to a page.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/widgets/onlinemedia/v2/onlinemedia](/content/aemdesign-showcase/en/component/widgets/onlinemedia.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/widgets/onlinemedia/v2/onlinemedia](/crx/de/index.jsp#/apps/aemdesign/components/widgets/onlinemedia/v2/onlinemedia)
-* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/widgets/onlinemedia/v2/onlinemedia)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/widgets/onlinemedia/v2/onlinemedia)
 * **Readme**: [/apps/aemdesign/components/widgets/onlinemedia/v2/onlinemedia](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/widgets/onlinemedia/v2/onlinemedia)
 
 # Authoring

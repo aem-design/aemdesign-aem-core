@@ -14,7 +14,7 @@ Component for adding a Redirect Notification to a template to show author in a E
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/common/redirectnotification](/content/aemdesign-showcase/en/component/common/redirectnotification.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/common/redirectnotification/v2/redirectnotification](/crx/de/#/apps/aemdesign/components/common/redirectnotification/v2/redirectnotification)
-* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/common/redirectnotification/v2/redirectnotification)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/common/redirectnotification/v2/redirectnotification)
 * **Readme**: [/apps/aemdesign/components/common/redirectnotification/v2/redirectnotification](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/common/redirectnotification/v2/redirectnotification)
 
 # Authoring

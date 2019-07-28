@@ -14,7 +14,7 @@ Component for adding a Breadcrumb to a page.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/breadcrumb](/content/aemdesign-showcase/en/component/layout/breadcrumb.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/layout/breadcrumb/v2/breadcrumb](/crx/de/#/apps/aemdesign/components/layout/breadcrumb/v2/breadcrumb)
-* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/breadcrumb/v2/breadcrumb)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/breadcrumb/v2/breadcrumb)
 * **Readme**: [/apps/aemdesign/components/layout/breadcrumb/v2/breadcrumb](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/breadcrumb/v2/breadcrumb)
 
 # Authoring

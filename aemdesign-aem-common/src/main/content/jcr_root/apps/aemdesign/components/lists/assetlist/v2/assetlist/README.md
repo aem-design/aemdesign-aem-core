@@ -14,7 +14,7 @@ User for creating list of assets
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/assetlist/v2/assetlist](/content/aemdesign-showcase/en/component/lists/assetlist.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/assetlist/v2/assetlist](/crx/de/#/apps/aemdesign/components/lists/assetlist/v2/assetlist)
-* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/assetlist/v2/assetlist)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/assetlist/v2/assetlist)
 * **Readme**: [/apps/aemdesign/components/lists/assetlist/v2/assetlist](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/assetlist/v2/assetlist)
 
 ## Features
