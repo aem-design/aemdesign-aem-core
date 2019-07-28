@@ -5,6 +5,9 @@ import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceUtil;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static java.text.MessageFormat.format;
@@ -38,6 +41,13 @@ public class Reference extends ModelProxy {
         componentProperties.put("wcmmode", wcmMode);
 
         String path = componentProperties.get("path","");
+
+        Resource referenceResource = getResourceResolver().getResource(path);
+        if (ResourceUtil.isNonExistingResource(referenceResource)) {
+            LOGGER.error("reference path does not exist {}", path);
+            path = "";
+        }
+
         if (isNotEmpty(path)) {
             componentProperties.put("pathUrl",path.concat(".html"));
         } else {
