@@ -14,7 +14,7 @@ Component for adding Online Media widgets to a page.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/widgets/sharebutton/v2/sharebutton](/content/aemdesign-showcase/en/component/widgets/sharebutton.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton](/crx/de/index.jsp#/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton)
+* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton)
 * **Readme**: [/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton)
 
 # Authoring

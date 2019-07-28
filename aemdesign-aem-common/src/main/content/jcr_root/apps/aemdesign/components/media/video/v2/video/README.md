@@ -14,7 +14,7 @@ Component for adding Assets from DAM to a page to allow playing as a video.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/media/video](/content/aemdesign-showcase/en/component/media/video.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/media/video](/crx/de/#/apps/aemdesign/components/media/video)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/media/video)
+* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/media/video)
 * **Readme**: [/apps/aemdesign/components/media/video](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/media/video)
 
 # Authoring

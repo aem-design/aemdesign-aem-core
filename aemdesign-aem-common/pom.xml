@@ -39,8 +39,8 @@
     </scm>
 
     <issueManagement>
-        <system>Gitlab</system>
-        <url>https://gitlab.com/aem.design/aemdesign-aem-core/issues</url>
+        <system>Github</system>
+        <url>https://github.com/aem-design/aemdesign-aem-core/issues</url>
     </issueManagement>
 
     <distributionManagement>

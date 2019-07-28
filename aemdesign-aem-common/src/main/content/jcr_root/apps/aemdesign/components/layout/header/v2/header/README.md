@@ -14,7 +14,7 @@ Component for adding a header section to a page.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/header](/content/aemdesign-showcase/en/component/layout/header.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/layout/header/v2/header](/crx/de/#/apps/aemdesign/components/layout/header/v2/header)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/header/v2/header)
+* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/header/v2/header)
 * **Readme**: [/apps/aemdesign/components/layout/header/v2/header](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/header/v2/header)
 
 # Authoring

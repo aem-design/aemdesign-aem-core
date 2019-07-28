@@ -14,7 +14,7 @@ Component for adding search and quick search bar to a page.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/widgets/search](/content/aemdesign-showcase/en/component/widgets/search.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/widgets/search/v2/search](/crx/de/#/apps/aemdesign/components/widgets/search/v2/search)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/widgets/search/v2/search)
+* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/widgets/search/v2/search)
 * **Readme**: [/apps/aemdesign/components/widgets/search/v2/search](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/widgets/search/v2/search)
 
 # Authoring

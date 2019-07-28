@@ -14,7 +14,7 @@ Used for creating list of Pages.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/pagelist/v2/pagelist](/content/aemdesign-showcase/en/component/lists/page-list.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/pagelist/v2/pagelist](/crx/de/index.jsp#/apps/aemdesign/components/lists/pagelist/v2/pagelist)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/pagelist/v2/pagelist)
+* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/pagelist/v2/pagelist)
 * **Readme**: [/apps/aemdesign/components/lists/pagelist/v2/pagelist](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/pagelist/v2/pagelist)
 
 ## Features

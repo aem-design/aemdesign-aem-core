@@ -14,7 +14,7 @@ Component for Images to a page.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/media/image](/content/aemdesign-showcase/en/component/media/image.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/media/image](/crx/de/#/apps/aemdesign/components/media/image)
-* **Source**: [gitlab/aemdesign](https://gitlab.com/aem.design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/media/image)
+* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/media/image)
 * **Readme**: [/apps/aemdesign/components/media/image](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/media/image)
 
 # Authoring
