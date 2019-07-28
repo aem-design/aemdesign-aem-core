@@ -14,7 +14,7 @@ Component for adding Assets from DAM to a page to allow download.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/download](/content/aemdesign-showcase/en/component/content/download.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/content/download/v2/download](/crx/de/#/apps/aemdesign/components/content/download/v2/download)
-* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/download/v2/download)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/download/v2/download)
 * **Readme**: [/apps/aemdesign/components/content/download/v2/download](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/download/v2/download)
 
 # Authoring

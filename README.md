@@ -272,7 +272,7 @@ In preparation for a release, create a new git release branch from the current m
 #### Release new version
 Once the testing cycle has been completed and all code fixes have been applied to the remote release branch, we create a git tag of our version and deploy the maven `aemdesign-aem-core` artifact to the remote maven repository and merge our release to master branch.
  1. Ensure we are on the release branch for [aemdesign-aem-core](https://github.com/aem-design/aemdesign-aem-core).
- 2. Raise a Gitlab Merge Request from the relase branch to master branch, adding the necessary reviewers.
+ 2. Raise a Merge Request from the relase branch to master branch, adding the necessary reviewers.
  3. Create the git tag.
     * `mvn scm:tag -Dtag="<version>"`
  4. Deploy the maven release artifacts to the remote maven repository

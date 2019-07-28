@@ -14,7 +14,7 @@ Add timing statistic to a page
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/staticincludes/staticinclude/v2/staticinclude](/content/aemdesign-showcase/en/component/staticincludes/staticinclude.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/staticincludes/staticinclude/v2/staticinclude](/crx/de/#/apps/aemdesign/components/staticincludes/staticinclude/v2/staticinclude)
-* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/staticincludes/staticinclude/v2/staticinclude)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/staticincludes/staticinclude/v2/staticinclude)
 * **Readme**: [/apps/aemdesign/components/staticincludes/staticinclude/v2/staticinclude](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/staticincludes/staticinclude/v2/staticinclude)
 
 # Authoring

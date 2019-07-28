@@ -14,7 +14,7 @@ Component for adding text to pages
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/text](/content/aemdesign-showcase/en/component/content/text.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/content/text/v2/text](/crx/de/#/apps/aemdesign/components/content/text/v2/text)
-* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/text/v2/text)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/text/v2/text)
 * **Readme**: [/apps/aemdesign/components/content/text/v2/text](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/text/v2/text)
 
 # Authoring

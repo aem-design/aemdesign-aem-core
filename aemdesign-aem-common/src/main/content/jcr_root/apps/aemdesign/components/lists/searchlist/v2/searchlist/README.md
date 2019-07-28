@@ -14,7 +14,7 @@ Allows adding Search Results list to a page.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/searchlist/v2/searchlist](/content/aemdesign-showcase/en/component/lists/searchlist.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/searchlist/v2/searchlist](/crx/de/#/apps/aemdesign/components/lists/searchlist/v2/searchlist)
-* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/searchlist/v2/searchlist)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/searchlist/v2/searchlist)
 * **Readme**: [/apps/aemdesign/components/lists/searchlist/v2/searchlist](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/searchlist/v2/searchlist)
 
 # Authoring

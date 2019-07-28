@@ -14,7 +14,7 @@ Component for adding a article section to a page.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/article](/content/aemdesign-showcase/en/component/layout/article.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/layout/article/v2/article](/crx/de/#/apps/aemdesign/components/layout/article/v2/article)
-* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/article/v2/article)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/article/v2/article)
 * **Readme**: [/apps/aemdesign/components/layout/article/v2/article](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/article/v2/article)
 
 # Authoring

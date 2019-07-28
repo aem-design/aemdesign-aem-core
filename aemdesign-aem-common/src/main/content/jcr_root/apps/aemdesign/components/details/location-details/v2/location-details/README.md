@@ -14,7 +14,7 @@ Component for adding content metadata to a Location and Badge config info which 
 * **Status**: review
 * **Showcase**: [/content/aemdesign-showcase/en/component/details/location-details](/content/aemdesign-showcase/en/component/details/location-details.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/details/location-details/v2/location-details](/crx/de/#/apps/aemdesign/components/details/location-details/v2/location-details)
-* **Source**: [gitlab/aemdesign](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/details/location-details/v2/location-details)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/details/location-details/v2/location-details)
 * **Readme**: [/apps/aemdesign/components/details/location-details/v2/location-details](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/location-details/v2/location-details)
 
 ## Features
