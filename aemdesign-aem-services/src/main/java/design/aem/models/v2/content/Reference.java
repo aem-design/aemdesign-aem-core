@@ -43,7 +43,7 @@ public class Reference extends ModelProxy {
         String path = componentProperties.get("path","");
 
         Resource referenceResource = getResourceResolver().getResource(path);
-        if (referenceResource != null && !ResourceUtil.isNonExistingResource(referenceResource)) {
+        if (referenceResource == null || ResourceUtil.isNonExistingResource(referenceResource)) {
             LOGGER.error("reference path does not exist {}", path);
             path = "";
         }
