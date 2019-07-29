@@ -3,7 +3,6 @@ package design.aem.models.v2.media;
 import com.adobe.granite.asset.api.AssetManager;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.i18n.I18n;
-import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
@@ -87,7 +86,6 @@ public class Image extends ModelProxy {
                     com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(fileReference);
 
                     Asset assetBasic = assetR.adaptTo(Asset.class);
-                    Node assetN = assetR.adaptTo(Node.class);
 
                     //get asset metadata
                     String assetUID = asset.getIdentifier();
