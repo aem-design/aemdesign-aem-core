@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.jcr.Node;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;

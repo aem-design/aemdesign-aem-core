@@ -13,7 +13,6 @@ import org.apache.sling.api.resource.ResourceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
