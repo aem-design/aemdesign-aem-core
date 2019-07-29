@@ -864,6 +864,7 @@
 <!--                            <autoDropAfterRelease>true</autoDropAfterRelease>-->
                             <!-- explicit matching using the staging profile id -->
                             <stagingProfileId>c4011210992a35</stagingProfileId>
+                            <stagingRepositoryId>aemdesign-1035</stagingRepositoryId>
                         </configuration>
                     </plugin>
                     <!-- To generate javadoc -->
