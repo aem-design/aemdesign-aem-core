@@ -8,6 +8,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ImagesUtil.DEFAULT_BACKGROUND_IMAGE_NODE_NAME;
 import static design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions;
 
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class Article extends ModelProxy {
 
     protected ComponentProperties componentProperties = null;
