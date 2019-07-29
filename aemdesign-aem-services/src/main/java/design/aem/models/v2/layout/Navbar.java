@@ -11,6 +11,7 @@ import static design.aem.utils.components.I18nUtil.*;
 import static design.aem.utils.components.ImagesUtil.DEFAULT_BACKGROUND_IMAGE_NODE_NAME;
 import static design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions;
 
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class Navbar extends ModelProxy {
 
     protected ComponentProperties componentProperties = null;
