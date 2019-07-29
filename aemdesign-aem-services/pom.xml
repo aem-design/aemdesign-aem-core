@@ -8,7 +8,7 @@
     <parent>
         <groupId>design.aem</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>2.0.288</version>
+        <version>2.0.289</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +17,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-services</artifactId>
-    <version>2.0.288</version>
+    <version>2.0.289</version>
     <packaging>bundle</packaging>
     <name>AEM Design - Core - AEM Services</name>
     <description>Project for all AEM and OSGI Services</description>
@@ -249,6 +249,19 @@
                     </execution>
                 </executions>
             </plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<formats>
+						<format>html</format>
+						<format>xml</format>
+					</formats>
+					<check />
+				</configuration>
+			</plugin>
         </plugins>
     </build>
 
