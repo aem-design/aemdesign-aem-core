@@ -81,7 +81,7 @@ public class ContentTabs extends ModelProxy {
         componentProperties.put("tabPagesInfo",tabPagesInfo);
 
 
-        if (tabPagesInfo == null || tabPagesInfo.isEmpty()0) {
+        if (tabPagesInfo == null || tabPagesInfo.isEmpty()) {
             String variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, "empty");
             componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
         }
