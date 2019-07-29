@@ -7,7 +7,7 @@
 
     <groupId>design.aem</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>2.0.321</version>
+    <version>2.0.323</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -53,7 +53,6 @@
         <package.classNamespace>aemdesign</package.classNamespace>
         <package.uploadProtocol>http</package.uploadProtocol>
         <aem.verison>6.4</aem.verison>
-        <!--<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>-->
         <project.majorVersion>1</project.majorVersion>
         <project.minorVersion>1</project.minorVersion>
         <slf4j.version>1.7.6</slf4j.version>
@@ -520,6 +519,30 @@
                 </configuration>
             </plugin>
 
+
+			<plugin>
+				<groupId>org.codehaus.gmaven</groupId>
+				<artifactId>groovy-maven-plugin</artifactId>
+				<version>2.0</version>
+				<executions>
+					<execution>
+						<id>update-finalname</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<source>
+								project.build.finalName="${project.artifactId}-${gitClosestTagName}.${gitClosestTagCommitCount}";
+								project.properties['gitClosestTagName']="${git.closest.tag.name}";
+								project.properties['gitClosestTagCommitCount']="${git.closest.tag.commit.count}";
+								println("project.build.finalName=${project.build.finalName}");
+							</source>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
             <!-- update versions for all submodules -->
             <plugin>
                 <!-- sets the version for each pom including children pom -->
@@ -542,28 +565,6 @@
                 </executions>
             </plugin>
 
-			<plugin>
-				<groupId>org.codehaus.gmaven</groupId>
-				<artifactId>groovy-maven-plugin</artifactId>
-				<version>2.0</version>
-				<executions>
-					<execution>
-						<id>update-finalname</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>execute</goal>
-						</goals>
-						<configuration>
-							<source>
-								project.build.finalName="${project.artifactId}-${gitClosestTagName}.${gitClosestTagCommitCount}";
-								project.properties['gitClosestTagName']=${git.closest.tag.name};
-								project.properties['gitClosestTagCommitCount']=${git.closest.tag.commit.count};
-								println("project.build.finalName=${project.build.finalName}");
-							</source>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 
             <!-- ensure all version variables names are set to updated version -->
             <plugin>
@@ -592,6 +593,7 @@
                             project.version = git_revision
                             project.artifact.version = git_revision
                             project.artifact.versionRange = VersionRange.createFromVersion(git_revision)
+                            project.build.finalName = '${project.artifactId}-${gitClosestTagName}.${gitClosestTagCommitCount}'
                             }
                             ]]></script>
                             </scripts>
@@ -893,7 +895,7 @@
                             <execution>
                                 <id>attach-sources</id>
                                 <goals>
-                                    <goal>jar-no-fork</goal>
+                                    <goal>jar</goal>
                                 </goals>
                             </execution>
                         </executions>
