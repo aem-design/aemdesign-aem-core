@@ -2,6 +2,7 @@
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=design.aem%3Aaemdesign-aem-core&metric=alert_status)](https://sonarcloud.io/dashboard?id=design.aem%3Aaemdesign-aem-core)
 [![build_status](https://travis-ci.org/aem-design/aemdesign-aem-core.svg?branch=master)](https://travis-ci.org/aem-design/aemdesign-aem-core)
+[![codecov](https://codecov.io/gh/aem-design/aemdesign-aem-core/branch/master/graph/badge.svg)](https://codecov.io/gh/aem-design/aemdesign-aem-core)
 
 A set of standardized components for AEM 6.4+ that can be used to speed up development of websites.
 
