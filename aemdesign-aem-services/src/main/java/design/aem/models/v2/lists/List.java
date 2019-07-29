@@ -128,10 +128,8 @@ public class List extends ModelProxy {
     private long pageMax;
     private long totalPages;
     private long pageStart;
-    private long hitsPerPage;
-    private long totalMatches;
-    private long currentPage;
-    private long listSplitEvery;
+	private long totalMatches;
+	private long listSplitEvery;
     private String id;
     private boolean isPaginating;
     private java.util.List<ResultPage> resultPages;
@@ -880,13 +878,13 @@ public class List extends ModelProxy {
 
         totalMatches = result.getTotalMatches();
         resultPages = result.getResultPages();
-        hitsPerPage = result.getHitsPerPage();
+		long hitsPerPage = result.getHitsPerPage();
         totalPages = result.getResultPages().size();
         pageStart = result.getStartIndex();
-        currentPage = (pageStart / hitsPerPage) + 1;
+		long currentPage = (pageStart / hitsPerPage) + 1;
 
-        resultInfo.put("hitsPerPage",hitsPerPage);
-        resultInfo.put("currentPage",currentPage);
+        resultInfo.put("hitsPerPage", hitsPerPage);
+        resultInfo.put("currentPage", currentPage);
         resultInfo.put("totalMatches",totalMatches);
         resultInfo.put("resultPages",resultPages);
         resultInfo.put("totalPages",totalPages);
