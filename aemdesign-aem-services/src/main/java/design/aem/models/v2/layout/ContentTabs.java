@@ -55,9 +55,6 @@ public class ContentTabs extends ModelProxy {
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY);
 
-        // init
-        Map<String, Object> tabs = new HashMap<String, Object>();
-
         List<ComponentProperties> tabPagesInfo = null;
 
         String[] supportedDetails = DEFAULT_LIST_DETAILS_SUFFIX;
@@ -67,10 +64,7 @@ public class ContentTabs extends ModelProxy {
             String pathToParent = componentProperties.get(FIELD_PATHTOPARENT,"");
             Page tabsParentPage = getCurrentPage();
             if (isNotEmpty(pathToParent)) {
-                Page foundPage = tabsParentPage = getPageManager().getPage(pathToParent);
-                if (foundPage !=null ) {
-                    tabsParentPage = foundPage;
-                }
+            	tabsParentPage = getPageManager().getPage(pathToParent);
             }
 
             if (tabsParentPage != null) {
@@ -87,7 +81,7 @@ public class ContentTabs extends ModelProxy {
         componentProperties.put("tabPagesInfo",tabPagesInfo);
 
 
-        if (tabPagesInfo == null || tabPagesInfo.size() == 0) {
+        if (tabPagesInfo == null || tabPagesInfo.isEmpty()0) {
             String variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, "empty");
             componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
         }
