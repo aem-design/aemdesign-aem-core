@@ -72,12 +72,7 @@ public class ListNav extends ModelProxy {
 
 
     private long totalMatches;
-    private long hitsPerPage;
-    private long totalPages;
-    private long pageStart;
-    private long currentPage;
-    private List<ResultPage> resultPages;
-    private SortOrder sortOrder;
+	private SortOrder sortOrder;
 
     private boolean listLoop = false;
 
@@ -393,17 +388,17 @@ public class ListNav extends ModelProxy {
         resultInfo.put("result",result);
 
         totalMatches = result.getTotalMatches();
-        resultPages = result.getResultPages();
-        hitsPerPage = result.getHitsPerPage();
-        totalPages = result.getResultPages().size();
-        pageStart = result.getStartIndex();
-        currentPage = (pageStart / hitsPerPage) + 1;
+		List<ResultPage> resultPages = result.getResultPages();
+		long hitsPerPage = result.getHitsPerPage();
+		long totalPages = result.getResultPages().size();
+		long pageStart = result.getStartIndex();
+		long currentPage = (pageStart / hitsPerPage) + 1;
 
-        resultInfo.put("hitsPerPage",hitsPerPage);
-        resultInfo.put("currentPage",currentPage);
+        resultInfo.put("hitsPerPage", hitsPerPage);
+        resultInfo.put("currentPage", currentPage);
         resultInfo.put("totalMatches",totalMatches);
-        resultInfo.put("resultPages",resultPages);
-        resultInfo.put("totalPages",totalPages);
+        resultInfo.put("resultPages", resultPages);
+        resultInfo.put("totalPages", totalPages);
 
 
         componentProperties.put("resultInfo",resultInfo);
