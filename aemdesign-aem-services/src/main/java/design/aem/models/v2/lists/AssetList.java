@@ -408,7 +408,7 @@ public class AssetList extends ModelProxy {
                     assetProperties.put(FIELD_RENDITIONS, responsiveImageSet);
 
                     //pick last one from collection
-                    if (responsiveImageSet.values().isEmpty()) {
+                    if (!responsiveImageSet.values().isEmpty()) {
                         assetProperties.put(FIELD_IMAGEURL, responsiveImageSet.values()
                                 .toArray()[responsiveImageSet.values().size() - 1]);
                     }
