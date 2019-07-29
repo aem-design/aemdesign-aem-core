@@ -68,19 +68,21 @@ public class ImageImpl extends GenericModel implements GenericComponent {
 
         final String DEFAULT_I18N_CATEGORY = "image";
         final String DEFAULT_I18N_LABEL_LICENSEINFO = "licenseinfo";
-        final String I18N_FORMAT_DIRECTOR = "directorLine";
         final String DEFAULT_ARIA_ROLE = "banner";
         final String FIELD_LINKURL = "linkURL";
         final String FIELD_IMAGEURL = "imageURL";
         final String FIELD_RENDITIONS = "renditions";
         final String DEFAULT_TITLE_TAG_TYPE = "h4";
 
-        // {
-        //   1 required - property name, [name]
-        //   2 required - default value, [defaultValue]
-        //   3 optional - name of component attribute to add value into [attributeName]
-        //   4 optional - canonical name of class for handling multivalues, String or Tag [stringValueTypeClass]
-        // }
+        /*
+          Component Fields Helper
+
+          Structure:
+          1 required - property name,
+          2 required - default value,
+          3 optional - name of component attribute to add value into
+          4 optional - canonical name of class for handling multivalues, String or Tag
+         */
         Object[][] componentFields = {
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {FIELD_LINKURL, StringUtils.EMPTY},
