@@ -55,7 +55,7 @@ public class Breadcrumb extends ModelProxy {
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY);
 
-        List<Map> values = new ArrayList<Map>();
+        List<Map> values = new ArrayList<>();
 
         int startLevel = tryParseInt(componentProperties.get(FIELD_START_LEVEL, ""), DEFAULT_LEVEL_START);
         int endLevel = tryParseInt(componentProperties.get(FIELD_END_LEVEL, ""), DEFAULT_LEVEL_END);
@@ -70,18 +70,13 @@ public class Breadcrumb extends ModelProxy {
 
         for (int i = startLevel; i <= endLevel; i++) {
             Page pagetrail = getCurrentPage().getAbsoluteParent(i);
-            if (pagetrail == null) {
+            if (pagetrail == null || (hideCurrent && (i == currentLevel - 1))) {
                 continue;
             }
-            if (hideCurrent) {
-                if (i == currentLevel - 1) {
-                    continue;
-                }
-            }
 
-            if (pagetrail != null && (!pagetrail.isHideInNav() || showHidden)) {
+            if (!pagetrail.isHideInNav() || showHidden) {
 
-                HashMap<String, String> pagetrailvalues = new HashMap<String, String>();
+                HashMap<String, String> pagetrailvalues = new HashMap<>();
 
                 pagetrailvalues.put("path", pagetrail.getPath());
                 pagetrailvalues.put("url", pagetrail.getPath().concat(DEFAULT_EXTENTION));
