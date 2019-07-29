@@ -28,7 +28,6 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
 import java.io.ByteArrayInputStream;
 import java.net.URLDecoder;
 import java.text.MessageFormat;
