@@ -91,8 +91,6 @@ public class Image extends ModelProxy {
 
                     //get asset metadata
                     String assetUID = asset.getIdentifier();
-                    String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
-                    String assetUsageTerms = assetBasic.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
                     String licenseInfo = getAssetCopyrightInfo(assetBasic, i18n.get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
                     componentProperties.put(FIELD_LICENSE_INFO, licenseInfo);
                     componentProperties.put(FIELD_ASSETID, assetUID);

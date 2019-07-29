@@ -52,9 +52,6 @@ public class ImageImpl extends GenericModel implements GenericComponent {
      */
     public static final String IMAGE_DELEGATE = "imageDelegate";
 
-    private Resource toBeWrapped;
-    private List<String> hiddenProperties;
-    private Resource imageResource;
     private List<String> hiddenImageResourceProperties = new ArrayList<>();
 
     public ImageImpl() {
@@ -121,8 +118,6 @@ public class ImageImpl extends GenericModel implements GenericComponent {
 
                     //get asset metadata
                     String assetUID = asset.getIdentifier();
-                    String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
-                    String assetUsageTerms = assetBasic.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
                     String licenseInfo = getAssetCopyrightInfo(assetBasic, getI18n().get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
                     componentProperties.put(FIELD_LICENSE_INFO, licenseInfo);
                     componentProperties.put(FIELD_ASSETID, assetUID);
