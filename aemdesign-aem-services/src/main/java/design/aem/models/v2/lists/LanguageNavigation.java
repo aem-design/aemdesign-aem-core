@@ -31,7 +31,7 @@ public class LanguageNavigation extends ModelProxy {
     private static final String SEARCH_LOGIC_DEFAULT = "";
     private static final String FIELD_DESCRIPTION = "description";
 
-    @SuppressWarnings("Duplicates")
+    @SuppressWarnings({"Duplicates","squid:S3776"})
     protected void ready() {
         /*
           Component Fields Helper
