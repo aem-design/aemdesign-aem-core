@@ -29,12 +29,14 @@ public class PageDetails extends GenericDetails {
     private static final String FIELD_FORMAT_TITLE = "titleFormat";
     private static final String FIELD_FORMATTED_TITLE = "titleFormatted";
     private static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
+    private static final String FIELD_SUBCATEGORY = "subCategory";
+    private static final String FIELD_CATEGORY = "category";
 
     @Override
     @SuppressWarnings("Duplicates")
     protected void ready() {
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
-        
+
         final String DEFAULT_ARIA_ROLE = "banner";
         final String DEFAULT_TITLE_TAG_TYPE = "h1";
         final String DEFAULT_I18N_CATEGORY = "page-detail";
@@ -68,7 +70,7 @@ public class PageDetails extends GenericDetails {
                 {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
                 {FIELD_PAGE_TITLE_SUBTITLE, DEFAULT_SUBTITLE},
                 {TagConstants.PN_TAGS, new String[]{}},
-                {"subCategory", new String[]{}},
+                {FIELD_SUBCATEGORY, new String[]{}},
                 {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
                 {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
@@ -83,10 +85,10 @@ public class PageDetails extends GenericDetails {
                 DEFAULT_FIELDS_DETAILS_OPTIONS);
 
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
-        componentProperties.put("category",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
+        componentProperties.put(FIELD_CATEGORY,getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
 
-        String[] subCategory = componentProperties.get("subCategory", new String[]{});
-        componentProperties.put("subCategory",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
+        String[] subCategory = componentProperties.get(FIELD_SUBCATEGORY, new String[]{});
+        componentProperties.put(FIELD_SUBCATEGORY,getTagsAsAdmin(getSlingScriptHelper(), subCategory, getRequest().getLocale()));
 
         processCommonFields();
 
