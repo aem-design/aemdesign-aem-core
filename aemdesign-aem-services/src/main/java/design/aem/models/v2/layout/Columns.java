@@ -23,9 +23,12 @@ import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 
 public class Columns extends ModelProxy {
 
-    private final String COLUMN_CLASS = "col-sm"; //gets added to cols
-    private final String ROW_CLASS = "row"; //gets added to rows
-    private final String COLUMNS_CLASS = "parsys_column"; //gets added to rows and columns
+    private static final String COLUMN_CLASS = "col-sm"; //gets added to cols
+    private static final String ROW_CLASS = "row"; //gets added to rows
+    private static final String COLUMNS_CLASS = "parsys_column"; //gets added to rows and columns
+    private static final String FIELD_LAYOUT = "layout";
+    private static final String FIELD_NUMBER_OF_COLUMNS = "numCols";
+    private static final String COLUMN_CLASS_FORMAT = "{0} {1} {2} {3}";
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
@@ -108,7 +111,7 @@ public class Columns extends ModelProxy {
 		 */
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"layout", DEFAULT_LAYOUT},
+                {FIELD_LAYOUT, DEFAULT_LAYOUT},
                 {DETAILS_COLUMNS_LAYOUT_CLASS_SMALL, new String[]{}, "", Tag.class.getCanonicalName()},
                 {DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, new String[]{},"", Tag.class.getCanonicalName()},
                 {DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, new String[]{},"", Tag.class.getCanonicalName()},
@@ -119,7 +122,6 @@ public class Columns extends ModelProxy {
 
         placeholderText = "";
 
-//        String layout = ConstantsUtil.defaultLayout;
         ValueMap resourceProperties = getResource().adaptTo(ValueMap.class);
         String controlTypeString = "";
         if (resourceProperties != null) {
@@ -132,7 +134,6 @@ public class Columns extends ModelProxy {
         if (!getWcmMode().isEdit()) {
             getComponentContext().setDecorate(false);
             getComponentContext().setDecorationTagName("");
-//                    getComponentContext().setDefaultDecorationTagName("");
         }
 
 
@@ -154,15 +155,15 @@ public class Columns extends ModelProxy {
                         DEFAULT_FIELDS_STYLE,
                         DEFAULT_FIELDS_ACCESSIBILITY);
 
-                String currentLayout = componentProperties.get("layout",DEFAULT_LAYOUT);
+                String currentLayout = componentProperties.get(FIELD_LAYOUT,DEFAULT_LAYOUT);
                 if (currentLayout.contains(";")) {
                     //remove first number which is the number of columns
-                    componentProperties.put("layout",currentLayout.substring(currentLayout.indexOf(";")+1));
+                    componentProperties.put(FIELD_LAYOUT,currentLayout.substring(currentLayout.indexOf(';')+1));
                     String numColsString = currentLayout.split(";")[0];
                     numCols = tryParseInt(numColsString, 0);
                 }
 
-                componentProperties.put("numCols",numCols);
+                componentProperties.put(FIELD_NUMBER_OF_COLUMNS,numCols);
 
                 placeholderText = getDefaultLabelIfEmpty("placeholderTextStart", DEFAULT_I18N_CATEGORY, "Start of {0} Columns", i18n,  Integer.toString(numCols));
 
@@ -171,7 +172,7 @@ public class Columns extends ModelProxy {
                 columnClassLarge = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, "");
                 columnClassXLarge = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, "");
                 aRowClass = componentProperties.get(DETAILS_COLUMNS_LAYOUT_ROW_CLASS, "");
-                aColumnClass = MessageFormat.format("{0} {1} {2} {3}",columnClassSmall, columnClassMedium, columnClassLarge, columnClassXLarge).trim();
+                aColumnClass = MessageFormat.format(COLUMN_CLASS_FORMAT,columnClassSmall, columnClassMedium, columnClassLarge, columnClassXLarge).trim();
 
                 columnClass = getColumnClass(currentColumn, componentProperties, aColumnClass);
                 columnsClass = getColumnsClass(numCols);
@@ -203,7 +204,7 @@ public class Columns extends ModelProxy {
 
                 currentColumn = ((Integer) getRequest().getAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN)));
 
-                numCols = componentProperties.get("numCols",numCols);
+                numCols = componentProperties.get(FIELD_NUMBER_OF_COLUMNS,numCols);
 
                 placeholderText = getDefaultLabelIfEmpty("placeholderTextEnd", DEFAULT_I18N_CATEGORY, "End of {0} Columns", i18n, Integer.toString(numCols));
 
@@ -229,11 +230,11 @@ public class Columns extends ModelProxy {
                     columnClassMedium = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_MEDIUM, "");
                     columnClassLarge = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_LARGE, "");
                     columnClassXLarge = componentProperties.get(DETAILS_COLUMNS_LAYOUT_CLASS_XLARGE, "");
-                    aColumnClass = MessageFormat.format("{0} {1} {2} {3}",columnClassSmall, columnClassMedium, columnClassLarge, columnClassXLarge).trim();
+                    aColumnClass = MessageFormat.format(COLUMN_CLASS_FORMAT,columnClassSmall, columnClassMedium, columnClassLarge, columnClassXLarge).trim();
 
                     columnClass = getColumnClass(currentColumn, componentProperties, aColumnClass);
 
-                    numCols = componentProperties.get("numCols",numCols);
+                    numCols = componentProperties.get(FIELD_NUMBER_OF_COLUMNS,numCols);
 
                     getRequest().setAttribute(COMPONENT_NAMESPACE.concat(COMPONENT_NAMESPACE_CURRENTCOLUMN), currentColumn + 1);
 
@@ -254,15 +255,14 @@ public class Columns extends ModelProxy {
     final String getColumnClass(Integer colNumber, ComponentProperties componentProperties, String columnClassStyle) {
 
 
-        //String[] columnsFormat = new String[0];
-        List<String> columnsFormat = new ArrayList<String>();
+        List<String> columnsFormat = new ArrayList<>();
         String defaultFormat = "1;colctrl-1c"; //alt: col-md-,2,3,2,3,2
-        String columnClass = "colctrl";
+        String columnsClassName = "colctrl";
 
 
         if (componentProperties != null) {
-            columnsFormat = Arrays.asList(componentProperties.get("layout",defaultFormat).split(";"));
-            columnClass = componentProperties.get("class",columnClass);
+            columnsFormat = Arrays.asList(componentProperties.get(FIELD_LAYOUT,defaultFormat).split(";"));
+            columnsClassName = componentProperties.get("class",columnsClassName);
         }
 
         if (columnsFormat.size() >= 1 && columnsFormat.get(0).contains(",")) {
@@ -274,9 +274,9 @@ public class Columns extends ModelProxy {
                 columnClassBuilder.append(columnsFormat.get(i).split(",")[colNumber + 1]);
                 columnClassBuilder.append(spacer);
             }
-             return MessageFormat.format("{0} {1} {2} {3}",COLUMNS_CLASS, COLUMN_CLASS, columnClassBuilder.toString(), columnClassStyle); //EXTENDED
+             return MessageFormat.format(COLUMN_CLASS_FORMAT,COLUMNS_CLASS, COLUMN_CLASS, columnClassBuilder, columnClassStyle); //EXTENDED
         } else {
-            return MessageFormat.format("{0} {1} {2} {3}",COLUMNS_CLASS, COLUMN_CLASS, columnClass, columnClassStyle); //ORIGINAL
+            return MessageFormat.format(COLUMN_CLASS_FORMAT,COLUMNS_CLASS, COLUMN_CLASS, columnsClassName, columnClassStyle); //ORIGINAL
         }
     }
 
