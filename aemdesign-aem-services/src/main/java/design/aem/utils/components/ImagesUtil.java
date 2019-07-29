@@ -1027,7 +1027,7 @@ public class ImagesUtil {
 										imageProperties.put(returnLastRenditionName, fileReference);
 										imageProperties.put(FIELD_IMAGE_OPTION, "simple");
 									} else {
-										responsiveImageSet = getImageSetForImageOptions(imageOption,asset, imageProperties, imageResource, resourceResolver,sling);
+										responsiveImageSet = getImageSetForImageOptions(imageOption,asset, imageProperties, assetR, resourceResolver,sling);
 									}
 
                                     imageProperties.put(returnRenditionsListName, responsiveImageSet);
@@ -1071,44 +1071,42 @@ public class ImagesUtil {
 
         Map<String, String> profileRendtiions = new LinkedHashMap<>();
 
-        if (isEmpty(renditionPrefix))
+		if (asset != null && renditionImageMapping != null) {
 
-            if (asset != null && renditionImageMapping != null) {
+			for (String entry : renditionImageMapping) {
+				String[] entryArray = StringUtils.split(entry, "=");
+				if (entryArray == null || entryArray.length != 2) {
+					LOGGER.error("getBestFitMediaQueryRenditionSet [{}] is invalid", entry);
+					continue;
+				}
+				String minWidth = entryArray[0];
+				if (isEmpty(minWidth) || (!NumberUtils.isDigits(minWidth))) {
+					LOGGER.error("getBestFitMediaQueryRenditionSet [{}] is invalid, incorrect width [{}]", entry, minWidth);
+					continue;
+				}
 
-                for (String entry : renditionImageMapping) {
-                    String[] entryArray = StringUtils.split(entry, "=");
-                    if (entryArray == null || entryArray.length != 2) {
-                        LOGGER.error("getBestFitMediaQueryRenditionSet [{}] is invalid", entry);
-                        continue;
-                    }
-                    String minWidth = entryArray[0];
-                    if (isEmpty(minWidth) || (!NumberUtils.isDigits(minWidth))) {
-                        LOGGER.error("getBestFitMediaQueryRenditionSet [{}] is invalid, incorrect width [{}]", entry, minWidth);
-                        continue;
-                    }
+				String mediaQuery = entryArray[1];
 
-                    String mediaQuery = entryArray[1];
+				com.adobe.granite.asset.api.Rendition rendition = getBestFitRendition(tryParseInt(minWidth, 0), asset, defaultIfEmpty(renditionPrefix, null));
 
-                    com.adobe.granite.asset.api.Rendition rendition = getBestFitRendition(tryParseInt(minWidth, 0), asset, defaultIfEmpty(renditionPrefix, null));
+				String renditionPath = rendition.getPath();
 
-                    String renditionPath = rendition.getPath();
+				//don't return paths to original rendition return path to asset instead
+				if (renditionPath.endsWith("/original")) {
+					String assetPath = renditionPath.substring(0, renditionPath.indexOf(JCR_CONTENT) - 1);
+					ResourceResolver resourceResolver = asset.getResourceResolver();
+					if (resourceResolver != null) {
+						Resource assetPathResource = resourceResolver.resolve(assetPath);
+						if (!ResourceUtil.isNonExistingResource(assetPathResource)) {
+							renditionPath = assetPath;
+						}
+					}
+				}
 
-                    //don't return paths to original rendition return path to asset instead
-                    if (renditionPath.endsWith("/original")) {
-                        String assetPath = renditionPath.substring(0, renditionPath.indexOf(JCR_CONTENT) - 1);
-                        ResourceResolver resourceResolver = asset.getResourceResolver();
-                        if (resourceResolver != null) {
-                            Resource assetPathResource = resourceResolver.resolve(assetPath);
-                            if (!ResourceUtil.isNonExistingResource(assetPathResource)) {
-                                renditionPath = assetPath;
-                            }
-                        }
-                    }
+				profileRendtiions.put(mediaQuery, renditionPath);
+			}
 
-                    profileRendtiions.put(mediaQuery, renditionPath);
-                }
-
-            }
+		}
         return profileRendtiions;
 
     }
@@ -1250,7 +1248,7 @@ public class ImagesUtil {
 	public static Map<String, String> getImageSetForImageOptions(String imageOption, com.adobe.granite.asset.api.Asset asset, ComponentProperties componentProperties,  Resource assetResource, ResourceResolver resourceResolver, SlingScriptHelper sling) {
 		Map<String, String> responsiveImageSet = new LinkedHashMap<>();
 
-		if (isNotEmpty(imageOption) && asset != null && !ResourceUtil.isNonExistingResource(assetResource)) {
+		if (asset != null && !ResourceUtil.isNonExistingResource(assetResource)) {
 			try {
 
 				String assetPath = assetResource.getPath();
