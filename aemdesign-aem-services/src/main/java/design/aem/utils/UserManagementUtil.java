@@ -180,11 +180,8 @@ public final class UserManagementUtil {
     }
 
     public static void disableUser(User user, String reason) throws RepositoryException {
-        if (user == null) {
-            throw new NullPointerException("user == null");
-        }
-        if (reason == null) {
-            throw new NullPointerException("reason == null");
+        if (user == null || reason == null) {
+            throw new NullPointerException("user == null or reason == null");
         }
 
         user.disable(reason);
@@ -206,11 +203,8 @@ public final class UserManagementUtil {
      * @throws RepositoryException repository exception
      */
     public static Value getSingleValuedProperty(Authorizable authorizable, String property) throws RepositoryException {
-        if (authorizable == null) {
-            throw new NullPointerException("user == null");
-        }
-        if (property == null) {
-            throw new NullPointerException("property == null");
+        if (authorizable == null || property == null) {
+            throw new NullPointerException("user == null or property == null");
         }
 
         Value[] values = authorizable.getProperty(property);
@@ -235,7 +229,7 @@ public final class UserManagementUtil {
      * @throws RepositoryException repository exception
      */
     public static Collection<Authorizable> provideAuthorizablesHavingEmail(Authorizable rootAuthorizable) throws RepositoryException {
-        Collection<Authorizable> authorizables = new LinkedHashSet<Authorizable>();
+        Collection<Authorizable> authorizables = new LinkedHashSet<>();
         if (StringUtils.isNotEmpty(getEmail(rootAuthorizable))) {
             authorizables.add(rootAuthorizable);
         }
