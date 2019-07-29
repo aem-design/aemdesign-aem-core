@@ -5,7 +5,6 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.granite.asset.api.AssetManager;
 import org.apache.jackrabbit.vault.util.JcrConstants;
 import com.day.cq.dam.api.Asset;
-import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.models.GenericComponent;
@@ -114,7 +113,6 @@ public class ImageImpl extends GenericModel implements GenericComponent {
                     com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(fileReference);
 
                     Asset assetBasic = assetR.adaptTo(Asset.class);
-                    Node assetN = assetR.adaptTo(Node.class);
 
                     //get asset metadata
                     String assetUID = asset.getIdentifier();
