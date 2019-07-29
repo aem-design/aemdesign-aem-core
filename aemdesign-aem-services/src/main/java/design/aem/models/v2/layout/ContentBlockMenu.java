@@ -44,7 +44,7 @@ public class ContentBlockMenu extends ModelProxy {
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY);
 
-        Map<String, String> contentBlockList = new LinkedHashMap>();
+        Map<String, String> contentBlockList = new LinkedHashMap<>();
         Resource menuSource = getResource().getParent();
 
         if(componentProperties.get(FIELD_MENUSOURCE, DEFAULT_MENUSOURCE_PARENT).equals(DEFAULT_MENUSOURCE_PAGEPATH)) {
