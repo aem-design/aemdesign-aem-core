@@ -125,10 +125,10 @@ public class ComponentDetailsUtil {
         return new ArrayList<>();
 
     }
-    
+
     //A3 MAP
     public static List<ComponentProperties> getPageListInfo(Map<String, Object> pageContext, PageManager pageManager, ResourceResolver resourceResolver, String[] paths, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot, Boolean ignoreHidden) {
-        List<ComponentProperties> pages = new ArrayList<ComponentProperties>();
+        List<ComponentProperties> pages = new ArrayList<>();
 
         for (String path : paths) {
             Page child = pageManager.getPage(path);
@@ -246,7 +246,7 @@ public class ComponentDetailsUtil {
 
     //B3 MAP
     public static List<ComponentProperties> getPageListInfo(Map<String, Object> pageContext, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots, Integer collectChildrenFromRoot, Boolean ignoreHidden) {
-        List<ComponentProperties> pages = new ArrayList<ComponentProperties>();
+        List<ComponentProperties> pages = new ArrayList<>();
 
         if (pageList != null) {
             while (pageList.hasNext()) {
