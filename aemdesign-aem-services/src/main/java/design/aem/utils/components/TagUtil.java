@@ -89,7 +89,7 @@ public class TagUtil {
      * @return map of tag values
      */
     public static LinkedHashMap<String, Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale) {
-        LinkedHashMap<String, Map> tags = new LinkedHashMap<String, Map>();
+        LinkedHashMap<String, Map> tags = new LinkedHashMap<>();
 
         if (sling == null || tagPaths == null || tagPaths.length == 0) {
             return tags;
@@ -103,7 +103,7 @@ public class TagUtil {
                 TagManager tagManager = adminResourceResolver.adaptTo(TagManager.class);
 
                 for (String path : tagPaths) {
-                    Map<String, String> tagValues = new HashMap<String, String>();
+                    Map<String, String> tagValues = new HashMap<>();
 
                     Tag tag = getTag(path, adminResourceResolver, tagManager);
 
