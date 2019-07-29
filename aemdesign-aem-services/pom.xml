@@ -8,7 +8,7 @@
     <parent>
         <groupId>design.aem</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>2.0.281</version>
+        <version>2.0.288</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,10 +17,11 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-services</artifactId>
-    <version>2.0.281</version>
+    <version>2.0.288</version>
     <packaging>bundle</packaging>
     <name>AEM Design - Core - AEM Services</name>
     <description>Project for all AEM and OSGI Services</description>
+	<url>${parent.url}</url>
 
     <properties>
         <jacoco.data.file>${project.build.directory}/jacoco.exec</jacoco.data.file>
