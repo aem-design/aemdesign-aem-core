@@ -33,7 +33,7 @@ public class Image extends ModelProxy {
         return this.componentProperties;
     }
 
-    @SuppressWarnings("Duplicates")
+    @SuppressWarnings({"Duplicates","squid:S3776"})
     protected void ready() {
         I18n i18n = new I18n(getRequest());
 

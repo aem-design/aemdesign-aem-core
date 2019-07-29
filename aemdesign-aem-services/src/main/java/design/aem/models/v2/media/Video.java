@@ -26,6 +26,7 @@ public class Video extends ModelProxy {
         return this.componentProperties;
     }
 
+	@SuppressWarnings({"Duplicates","squid:S3776"})
     protected void ready() throws Exception {
 
         setComponentFields(new Object[][]{

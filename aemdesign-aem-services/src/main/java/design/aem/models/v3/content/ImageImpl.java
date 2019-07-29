@@ -62,7 +62,7 @@ public class ImageImpl extends GenericModel implements GenericComponent {
     }
 
     @PostConstruct
-    @SuppressWarnings("Duplicates")
+	@SuppressWarnings({"Duplicates","squid:S3776"})
     protected void initModel() {
 
 
