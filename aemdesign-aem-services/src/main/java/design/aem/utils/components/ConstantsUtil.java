@@ -122,4 +122,6 @@ public class ConstantsUtil {
     public static final String DEFAULT_RSS_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss";
     public static final String DEFAULT_ICS_DATE_FORMAT = "yyyyMMdd'T'HHmmss";
     public static final String DEFAULT_ICS_TIMESTAMP_FORMAT = "yyyyMMdd'T'HHmmssZ";
+
+    public static final String DATA_ATTRIBUTE_PREFIX = "data-";
 }
