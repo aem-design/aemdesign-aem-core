@@ -5,9 +5,7 @@ import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX;
 import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_PAGE_CONTENT;
