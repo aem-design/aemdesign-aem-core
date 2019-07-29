@@ -62,10 +62,11 @@ public class Link extends ModelProxy {
 
         if (isNotEmpty(linkUrl)) {
             Resource linkResource = getResourceResolver().resolve(linkUrl);
-            if (!ResourceUtil.isNonExistingResource(linkResource) && linkResource.isResourceType(NameConstants.NT_PAGE)) {
-                if (!linkUrl.endsWith(DEFAULT_EXTENTION) && !linkUrl.contains(DEFAULT_LINKURL)) {
+            if (!ResourceUtil.isNonExistingResource(linkResource)
+				&& linkResource.isResourceType(NameConstants.NT_PAGE)
+				&& !linkUrl.endsWith(DEFAULT_EXTENTION)
+				&& !linkUrl.contains(DEFAULT_LINKURL)) {
                     linkUrl = linkUrl.concat(DEFAULT_EXTENTION);
-                }
             }
 
             componentProperties.attr.add("href", linkUrl);
