@@ -29,6 +29,7 @@ import java.util.Map;
 
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentsUtil.*;
+import static design.aem.utils.components.ConstantsUtil.DATA_ATTRIBUTE_PREFIX;
 import static design.aem.utils.components.ConstantsUtil.IMAGE_FILEREFERENCE;
 import static design.aem.utils.components.ImagesUtil.*;
 import static java.text.MessageFormat.format;
@@ -148,9 +149,9 @@ public class ImageImpl extends GenericModel implements GenericComponent {
                         componentProperties.put(DAM_TITLE, assetBasic.getName());
                     }
 
-                    componentProperties.attr.add("data-" + FIELD_ASSETID, assetUID);
-                    componentProperties.attr.add("data-" + FIELD_ASSET_TRACKABLE, true);
-                    componentProperties.attr.add("data-" + FIELD_ASSET_LICENSED, isNotBlank(licenseInfo));
+                    componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSETID, assetUID);
+                    componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSET_TRACKABLE, true);
+                    componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSET_LICENSED, isNotBlank(licenseInfo));
                     componentProperties.attr.add(FIELD_DATA_ANALYTICS_EVENT_LABEL, componentProperties.get(DAM_TITLE, ""));
                     componentProperties.attr.add(FIELD_DATA_ANALYTICS_METATYPE, assetBasic.getMimeType());
                     componentProperties.attr.add(FIELD_DATA_ANALYTICS_FILENAME, assetBasic.getPath());
