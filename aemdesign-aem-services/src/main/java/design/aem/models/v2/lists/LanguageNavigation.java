@@ -54,7 +54,7 @@ public class LanguageNavigation extends ModelProxy {
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY);
 
-        Map<String, Map<String, String>> languageToggleMap = new LinkedHashMap<String, Map<String, String>>();
+        Map<String, Map<String, String>> languageToggleMap = new LinkedHashMap<>();
 
         String appearanceOption = componentProperties.get(SEARCH_LOGIC, String.class);
 
@@ -175,7 +175,7 @@ public class LanguageNavigation extends ModelProxy {
         }
 
         componentProperties.put("languageMap", languageToggleMap);
-        
+
     }
 
 }
