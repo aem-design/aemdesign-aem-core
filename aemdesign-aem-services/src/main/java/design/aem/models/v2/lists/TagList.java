@@ -15,6 +15,7 @@ import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
@@ -62,12 +63,7 @@ public class TagList extends ModelProxy {
     private static final String LIST_ISEMPTY = "isEmpty";
 
     private long totalMatches;
-    private long hitsPerPage;
-    private long totalPages;
-    private long pageStart;
-    private long currentPage;
-    private java.util.List<ResultPage> resultPages;
-    private SortOrder sortOrder;
+	private SortOrder sortOrder;
 
     protected void ready() {
         /*
@@ -243,7 +239,7 @@ public class TagList extends ModelProxy {
      * populates listItems with resources from pages list.
      * page object is also resolved and returned if available
      */
-    @SuppressWarnings("Duplicates")
+    @SuppressWarnings({"Duplicates","squid:S3776"})
     private void populateStaticListItems() {
         listItems = new ArrayList<>();
         String[] tags = componentProperties.get(STATIC_TAGS, new String[0]);
@@ -258,11 +254,9 @@ public class TagList extends ModelProxy {
                 if (tag != null) {
                     item.put("tag", tag);
                     Resource tagResource = resourceResolver.resolve(tag.getPath());
-                    if (tagResource != null) {
+                    if (!ResourceUtil.isNonExistingResource(tagResource)) {
                         ValueMap tagValues = tagResource.getValueMap();
-                        if (tagValues != null) {
-                            item.put(TAG_VALUE, tagValues.get(TAG_VALUE));
-                        }
+						item.put(TAG_VALUE, tagValues.get(TAG_VALUE));
                     }
 
                 } else {
@@ -290,17 +284,17 @@ public class TagList extends ModelProxy {
         resultInfo.put("result",result);
 
         totalMatches = result.getTotalMatches();
-        resultPages = result.getResultPages();
-        hitsPerPage = result.getHitsPerPage();
-        totalPages = result.getResultPages().size();
-        pageStart = result.getStartIndex();
-        currentPage = (pageStart / hitsPerPage) + 1;
+		java.util.List<ResultPage> resultPages = result.getResultPages();
+		long hitsPerPage = result.getHitsPerPage();
+		long totalPages = result.getResultPages().size();
+		long pageStart = result.getStartIndex();
+		long currentPage = (pageStart / hitsPerPage) + 1;
 
-        resultInfo.put("hitsPerPage",hitsPerPage);
-        resultInfo.put("currentPage",currentPage);
+        resultInfo.put("hitsPerPage", hitsPerPage);
+        resultInfo.put("currentPage", currentPage);
         resultInfo.put("totalMatches",totalMatches);
-        resultInfo.put("resultPages",resultPages);
-        resultInfo.put("totalPages",totalPages);
+        resultInfo.put("resultPages", resultPages);
+        resultInfo.put("totalPages", totalPages);
 
         componentProperties.put("resultInfo",resultInfo);
 
