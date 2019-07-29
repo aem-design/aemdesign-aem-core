@@ -1,7 +1,6 @@
 package design.aem.models.v2.lists;
 
 import com.adobe.granite.asset.api.AssetManager;
-import com.day.cq.commons.ImageResource;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.search.PredicateGroup;
@@ -28,15 +27,12 @@ import org.slf4j.LoggerFactory;
 
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.time.Duration;
 import java.util.List;
 import java.util.*;
 
 import static design.aem.models.v2.lists.List.SortOrder;
 import static design.aem.utils.components.CommonUtil.DAM_FIELD_LICENSE_USAGETERMS;
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.IMAGE_OPTION_ADAPTIVE;
-import static design.aem.utils.components.ConstantsUtil.IMAGE_OPTION_RENDITION;
 import static design.aem.utils.components.ImagesUtil.*;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -77,12 +73,7 @@ public class AssetList extends ModelProxy {
     private static final String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
 
     private long totalMatches;
-    private long hitsPerPage;
-    private long totalPages;
-    private long pageStart;
-    private long currentPage;
-    private List<ResultPage> resultPages;
-    private SortOrder sortOrder;
+	private SortOrder sortOrder;
 
     @SuppressWarnings("Duplicates")
     protected void ready() {
@@ -269,26 +260,35 @@ public class AssetList extends ModelProxy {
 
                 Resource assetResource = getResourceResolver().resolve(item);
 
-                com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(item);
+                if (!ResourceUtil.isNonExistingResource(assetResource)) {
 
-                if (asset != null) {
+					com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(item);
 
-                    ComponentProperties assetInfo = getAssetInfo(asset, assetResource, componentProperties, getSlingScriptHelper());
+					if (asset != null) {
 
-                    if (assetInfo != null) {
-                        listItems.add(assetInfo);
-                    }
+						ComponentProperties assetInfo = getAssetInfo(asset, assetResource, componentProperties, getSlingScriptHelper());
 
-                } else {
-                    continue;
-                }
+						if (assetInfo != null) {
+							listItems.add(assetInfo);
+						}
 
+					}
+				}
             }
         } else {
             LOGGER.error("ImageImpl: could not get AssetManager object");
         }
     }
 
+	/**
+	 * get required asset info
+	 * @param asset asset to look into
+	 * @param assetResource asset resource
+	 * @param componentProperties component properties to use for settings
+	 * @param sling sling instance
+	 * @return asset metadata
+	 */
+    @SuppressWarnings("squid:S3776")
     private ComponentProperties getAssetInfo(com.adobe.granite.asset.api.Asset asset, Resource assetResource, ComponentProperties componentProperties, SlingScriptHelper sling) {
 
         final String PROPERTY_METADATA = JcrConstants.JCR_CONTENT + "/metadata";
@@ -365,34 +365,8 @@ public class AssetList extends ModelProxy {
 
                             ValueMap assetMetadataDurationValueMap = assetMetadataDurationResource.getValueMap();
 
-                            try {
+							assetProperties.put("duration", getAssetDuration(assetMetadataDurationValueMap).toString());
 
-                                String durationScale = assetMetadataDurationValueMap.get("xmpDM:scale", "");
-                                String durationValue = assetMetadataDurationValueMap.get("xmpDM:value", "");
-
-                                Double scale = Double.parseDouble("1");
-                                Double value = Double.parseDouble(durationValue);
-                                if (durationScale.contains("/")) {
-                                    String[] scaleList = durationScale.split("/");
-                                    String stringOne = scaleList[0];
-                                    String stringDivided = scaleList[1];
-
-                                    Double doubleOne = Double.parseDouble(stringOne);
-                                    Double doubleDivided = Double.parseDouble(stringDivided);
-
-                                    scale = doubleOne / doubleDivided;
-                                }
-
-                                Double duration = scale * value;
-
-                                Duration durationObject = Duration.ofSeconds(Math.round(duration));
-
-                                assetProperties.put("duration",durationObject.toString());
-
-
-                            } catch (Exception ex) {
-                                LOGGER.error("getAssetInfo: could not extract duration assetMetadataDurationValueMap={}",assetMetadataDurationValueMap);
-                            }
                         }
                     }
 
@@ -418,51 +392,23 @@ public class AssetList extends ModelProxy {
                     }
 
 
-                    Map<String, String> responsiveImageSet = new LinkedHashMap<String, String>();
+                    Map<String, String> responsiveImageSet = new LinkedHashMap<>();
 
                     if (getRenditions) {
-                        try {
-                            switch (imageOption) {
-                                case IMAGE_OPTION_RENDITION:
-                                    int targetWidth = componentProperties.get(ImageResource.PN_WIDTH, 0);
-                                    com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(targetWidth, asset);
-                                    if (bestRendition != null) {
 
-                                        responsiveImageSet.put("", bestRendition.getPath());
-                                    }
-                                    break;
-                                case IMAGE_OPTION_ADAPTIVE:
-                                    String[] adaptiveImageMapping = componentProperties.get(FIELD_ADAPTIVE_MAP, new String[]{});
-
-                                    responsiveImageSet = getAdaptiveImageSet(adaptiveImageMapping, getResourceResolver(), assetPath, assetPath, null, false, sling);
-
-                                    break;
-                                default: //IMAGE_OPTION_RESPONSIVE
-                                    String[] renditionImageMapping = componentProperties.get(FIELD_RESPONSIVE_MAP, new String[]{});
-
-                                    // Check if the image suffix is '.svg' or '.gif', if it is skip any rendition checks and simply return
-                                    // the path to it as no scaling or modifications should be applied.
-                                    if (assetPath.endsWith(".svg") || assetPath.endsWith(".gif")) {
-                                        assetProperties.put(FIELD_IMAGEURL, assetPath);
-                                        assetProperties.put(FIELD_IMAGE_OPTION, "simple");
-                                    } else {
-                                        //get rendition profile prefix selected
-                                        String renditionPrefix = componentProperties.get(FIELD_RENDITION_PREFIX, "");
-
-                                        //get best fit renditions set
-                                        responsiveImageSet = getBestFitMediaQueryRenditionSet(asset, renditionImageMapping, renditionPrefix);
-
-                                    }
-                            }
-                        } catch (Exception ex) {
-                            LOGGER.error("getAssetInfo: could not collect renditions asset={}", asset);
-                        }
-
+						// Check if the image suffix is '.svg' or '.gif', if it is skip any rendition checks and simply return
+						// the path to it as no scaling or modifications should be applied.
+						if (assetPath.endsWith(".svg") || assetPath.endsWith(".gif")) {
+							assetProperties.put(FIELD_IMAGEURL, assetPath);
+							assetProperties.put(FIELD_IMAGE_OPTION, "simple");
+						} else {
+							responsiveImageSet = getImageSetForImageOptions(imageOption, asset, componentProperties, assetResource, getResourceResolver(), sling);
+						}
                     }
                     assetProperties.put(FIELD_RENDITIONS, responsiveImageSet);
 
                     //pick last one from collection
-                    if (responsiveImageSet.values().size() > 0) {
+                    if (responsiveImageSet.values().isEmpty()) {
                         assetProperties.put(FIELD_IMAGEURL, responsiveImageSet.values()
                                 .toArray()[responsiveImageSet.values().size() - 1]);
                     }
@@ -494,17 +440,17 @@ public class AssetList extends ModelProxy {
         resultInfo.put("result",result);
 
         totalMatches = result.getTotalMatches();
-        resultPages = result.getResultPages();
-        hitsPerPage = result.getHitsPerPage();
-        totalPages = result.getResultPages().size();
-        pageStart = result.getStartIndex();
-        currentPage = (pageStart / hitsPerPage) + 1;
+		List<ResultPage> resultPages = result.getResultPages();
+		long hitsPerPage = result.getHitsPerPage();
+		long totalPages = result.getResultPages().size();
+		long pageStart = result.getStartIndex();
+		long currentPage = (pageStart / hitsPerPage) + 1;
 
-        resultInfo.put("hitsPerPage",hitsPerPage);
-        resultInfo.put("currentPage",currentPage);
+        resultInfo.put("hitsPerPage", hitsPerPage);
+        resultInfo.put("currentPage", currentPage);
         resultInfo.put("totalMatches",totalMatches);
-        resultInfo.put("resultPages",resultPages);
-        resultInfo.put("totalPages",totalPages);
+        resultInfo.put("resultPages", resultPages);
+        resultInfo.put("totalPages", totalPages);
 
         componentProperties.put("resultInfo",resultInfo);
 
