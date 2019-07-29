@@ -45,10 +45,8 @@ public class Audio extends ModelProxy {
 
         String audioUrl = componentProperties.get(FIELD_AUDIO_URL, "");
 
-        if (StringUtils.isNotEmpty(audioUrl)) {
-            if (audioUrl.startsWith("/content")) {
-                audioUrl = mappedUrl(getResourceResolver(), audioUrl);
-            }
+        if (StringUtils.isNotEmpty(audioUrl) && audioUrl.startsWith("/content")) {
+			audioUrl = mappedUrl(getResourceResolver(), audioUrl);
         }
 
         componentProperties.put(FIELD_AUDIO_URL, audioUrl);
