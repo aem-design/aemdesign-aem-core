@@ -883,7 +883,8 @@
                         <configuration>
                             <serverId>ossrh</serverId>
                             <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-							<stagingRepositoryId>designaem-1043</stagingRepositoryId>
+							<stagingProfileId>c4011210992a35</stagingProfileId>
+							<stagingRepositoryId>designaem-1049</stagingRepositoryId>
                         </configuration>
                     </plugin>
                     <!-- To generate javadoc -->
