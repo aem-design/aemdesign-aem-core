@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static design.aem.utils.components.CommonUtil.*;
@@ -94,7 +95,7 @@ public class LocationDetails extends GenericDetails {
                     //get list of all keys from object
                     List<String> keys = object.entrySet()
                             .stream()
-                            .map(k -> k.getKey())
+                            .map(Map.Entry::getKey)
                             .collect(Collectors.toCollection(ArrayList::new));
 
                     //remove fields that we dont need
