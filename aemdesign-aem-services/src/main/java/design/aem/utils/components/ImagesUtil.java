@@ -34,6 +34,7 @@ import javax.jcr.RepositoryException;
 import javax.servlet.jsp.PageContext;
 import java.net.URI;
 import java.text.MessageFormat;
+import java.time.Duration;
 import java.util.*;
 import java.util.regex.Matcher;
 
@@ -747,7 +748,7 @@ public class ImagesUtil {
         if (isEmpty(infoPrefix)) {
             infoPrefix = "image";
         }
-        Map<String, String> assetInfo = new HashMap<String, String>();
+        Map<String, String> assetInfo = new HashMap<>();
 
         if (isNotEmpty(assetPath)) {
 
@@ -783,7 +784,7 @@ public class ImagesUtil {
      * @return map of renditions
      */
     public static TreeMap<String, String> getAssetRenditionsVideo(com.adobe.granite.asset.api.Asset asset) {
-        TreeMap<String, String> renditionsSet = new TreeMap<String, String>();
+        TreeMap<String, String> renditionsSet = new TreeMap<>();
 
         if (asset != null) {
             Iterator renditions = asset.listRenditions();
@@ -1021,63 +1022,13 @@ public class ImagesUtil {
 
                                     String imageOption = imageProperties.get(FIELD_IMAGE_OPTION, "");
 
-                                    Map<String, String> responsiveImageSet = new LinkedHashMap<String, String>();
-
-                                    switch (imageOption) {
-                                        case IMAGE_OPTION_GENERATED:
-                                            String imageHref = "";
-                                            Long lastModified = getLastModified(imageResource);
-                                            imageHref = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, imageResource.getPath(), lastModified.toString());
-
-                                            //imageProperties.put(COMPONENT_BACKGROUND_ASSETS, imageHref);
-                                            responsiveImageSet.put("", imageHref);
-                                            break;
-                                        case IMAGE_OPTION_RENDITION:
-                                            int targetWidth = imageProperties.get(ImageResource.PN_WIDTH, 0);
-                                            com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(targetWidth, asset);
-                                            if (bestRendition != null) {
-                                                //imageProperties.put(COMPONENT_BACKGROUND_ASSETS, bestRendition.getPath());
-                                                responsiveImageSet.put("", bestRendition.getPath());
-                                            }
-                                            break;
-                                        case IMAGE_OPTION_ADAPTIVE:
-                                            String[] adaptiveImageMapping = imageProperties.get(FIELD_ADAPTIVE_MAP, new String[]{});
-
-                                            responsiveImageSet = getAdaptiveImageSet(adaptiveImageMapping, resourceResolver, imageResource.getPath(), fileReference, null, false, sling);
-
-                                            break;
-                                        case IMAGE_OPTION_MEDIAQUERYRENDITION:
-                                            //map of media queries to renditions
-                                            String[] mediaQueryList = imageProperties.get(FIELD_MEDIAQUERYRENDITION_KEY, new String[]{});
-                                            String[] renditionList = imageProperties.get(FIELD_MEDIAQUERYRENDITION_VALUE, new String[]{});
-
-                                            if (mediaQueryList.length != renditionList.length) {
-                                                LOGGER.error(MessageFormat.format("fields {0} and {1} need to be equal length", FIELD_MEDIAQUERYRENDITION_KEY, FIELD_MEDIAQUERYRENDITION_VALUE));
-                                                break;
-                                            }
-
-                                            for (int i = 0; i < mediaQueryList.length; i++) {
-                                                responsiveImageSet.put(mediaQueryList[i], fileReference + FIELD_ASSET_RENDITION_PATH_SUFFIX + renditionList[i]);
-                                            }
-
-                                            break;
-                                        default: //IMAGE_OPTION_RESPONSIVE
-                                            String[] renditionImageMapping = imageProperties.get(FIELD_RESPONSIVE_MAP, new String[]{});
-
-                                            // Check if the image suffix is '.svg' or '.gif', if it is skip any rendition checks and simply return
-                                            // the path to it as no scaling or modifications should be applied.
-                                            if (fileReference.endsWith(".svg") || fileReference.endsWith(".gif")) {
-                                                imageProperties.put(returnLastRenditionName, fileReference);
-                                                imageProperties.put(FIELD_IMAGE_OPTION, "simple");
-                                            } else {
-                                                //get rendition profile prefix selected
-                                                String renditionPrefix = imageProperties.get(FIELD_RENDITION_PREFIX, "");
-
-                                                //get best fit renditions set
-                                                responsiveImageSet = getBestFitMediaQueryRenditionSet(asset, renditionImageMapping, renditionPrefix);
-
-                                            }
-                                    }
+                                    Map<String, String> responsiveImageSet = new LinkedHashMap<>();
+									if (fileReference.endsWith(".svg") || fileReference.endsWith(".gif")) {
+										imageProperties.put(returnLastRenditionName, fileReference);
+										imageProperties.put(FIELD_IMAGE_OPTION, "simple");
+									} else {
+										responsiveImageSet = getImageSetForImageOptions(imageOption,asset, imageProperties, imageResource, resourceResolver,sling);
+									}
 
                                     imageProperties.put(returnRenditionsListName, responsiveImageSet);
 
@@ -1118,7 +1069,7 @@ public class ImagesUtil {
      */
     public static Map<String, String> getBestFitMediaQueryRenditionSet(com.adobe.granite.asset.api.Asset asset, String[] renditionImageMapping, String renditionPrefix) {
 
-        Map<String, String> profileRendtiions = new LinkedHashMap<String, String>();
+        Map<String, String> profileRendtiions = new LinkedHashMap<>();
 
         if (isEmpty(renditionPrefix))
 
@@ -1176,7 +1127,7 @@ public class ImagesUtil {
      */
     public static Map<String, String> getAdaptiveImageSet(String[] adaptiveImageMapping, ResourceResolver resolver, String componentPath, String fileReference, String outputFormat, Boolean useFileReferencePathAsRender, org.apache.sling.api.scripting.SlingScriptHelper sling) {
 
-        Map<String, String> responsiveImageSet = new LinkedHashMap<String, String>();
+        Map<String, String> responsiveImageSet = new LinkedHashMap<>();
 
         URI fileReferenceURI = URI.create(fileReference);
         if (isBlank(outputFormat)) {
@@ -1285,6 +1236,117 @@ public class ImagesUtil {
         return supportedWidths;
 
     }
+
+	/**
+	 * get asset image options
+	 * @param imageOption image option
+	 * @param asset asset object
+	 * @param componentProperties component properties for config
+	 * @param assetResource asset resource
+	 * @param resourceResolver resolver instance
+	 * @param sling sling instance
+	 * @return list of images
+	 */
+	public static Map<String, String> getImageSetForImageOptions(String imageOption, com.adobe.granite.asset.api.Asset asset, ComponentProperties componentProperties,  Resource assetResource, ResourceResolver resourceResolver, SlingScriptHelper sling) {
+		Map<String, String> responsiveImageSet = new LinkedHashMap<>();
+
+		if (isNotEmpty(imageOption) && asset != null && !ResourceUtil.isNonExistingResource(assetResource)) {
+			try {
+
+				String assetPath = assetResource.getPath();
+				switch (imageOption) {
+					case IMAGE_OPTION_GENERATED:
+						String imageHref = "";
+						Long lastModified = getLastModified(assetResource);
+						imageHref = MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, assetPath, lastModified.toString());
+
+						responsiveImageSet.put("", imageHref);
+						break;
+					case IMAGE_OPTION_RENDITION:
+						int targetWidth = componentProperties.get(ImageResource.PN_WIDTH, 0);
+						com.adobe.granite.asset.api.Rendition bestRendition = getBestFitRendition(targetWidth, asset);
+						if (bestRendition != null) {
+
+							responsiveImageSet.put("", bestRendition.getPath());
+						}
+						break;
+					case IMAGE_OPTION_ADAPTIVE:
+						String[] adaptiveImageMapping = componentProperties.get(FIELD_ADAPTIVE_MAP, new String[]{});
+
+						responsiveImageSet = getAdaptiveImageSet(adaptiveImageMapping, resourceResolver, assetPath, assetPath, null, false, sling);
+
+						break;
+					case IMAGE_OPTION_MEDIAQUERYRENDITION:
+						//map of media queries to renditions
+						String[] mediaQueryList = componentProperties.get(FIELD_MEDIAQUERYRENDITION_KEY, new String[]{});
+						String[] renditionList = componentProperties.get(FIELD_MEDIAQUERYRENDITION_VALUE, new String[]{});
+
+						if (mediaQueryList.length != renditionList.length) {
+							LOGGER.error(MessageFormat.format("fields {0} and {1} need to be equal length", FIELD_MEDIAQUERYRENDITION_KEY, FIELD_MEDIAQUERYRENDITION_VALUE));
+							break;
+						}
+
+						for (int i = 0; i < mediaQueryList.length; i++) {
+							responsiveImageSet.put(mediaQueryList[i], assetPath + FIELD_ASSET_RENDITION_PATH_SUFFIX + renditionList[i]);
+						}
+
+						break;
+					default: //IMAGE_OPTION_RESPONSIVE
+						String[] renditionImageMapping = componentProperties.get(FIELD_RESPONSIVE_MAP, new String[]{});
+
+						//get rendition profile prefix selected
+						String renditionPrefix = componentProperties.get(FIELD_RENDITION_PREFIX, "");
+
+						//get best fit renditions set
+						responsiveImageSet = getBestFitMediaQueryRenditionSet(asset, renditionImageMapping, renditionPrefix);
+				}
+
+			} catch (Exception ex) {
+				LOGGER.error("getAssetInfo: could not collect renditions asset={}", asset);
+			}
+
+		}
+
+		return responsiveImageSet;
+	}
+
+	/**
+	 * get asset duration from metadata/xmpDM:duration value map
+	 * @param assetMetadataDurationValueMap xmpDM:duration value map
+	 * @return duration
+	 */
+	public static Duration getAssetDuration(ValueMap assetMetadataDurationValueMap)  {
+		if (assetMetadataDurationValueMap != null) {
+			try {
+
+				String durationScale = assetMetadataDurationValueMap.get("xmpDM:scale", "");
+				String durationValue = assetMetadataDurationValueMap.get("xmpDM:value", "");
+
+				Double scale = Double.parseDouble("1");
+				Double value = Double.parseDouble(durationValue);
+				if (durationScale.contains("/")) {
+					String[] scaleList = durationScale.split("/");
+					String stringOne = scaleList[0];
+					String stringDivided = scaleList[1];
+
+					Double doubleOne = Double.parseDouble(stringOne);
+					Double doubleDivided = Double.parseDouble(stringDivided);
+
+					scale = doubleOne / doubleDivided;
+				}
+
+				Double duration = scale * value;
+
+				return Duration.ofSeconds(Math.round(duration));
+
+			} catch (Exception ex) {
+				LOGGER.error("getAssetDuration: could not extract duration asset metadata={}",assetMetadataDurationValueMap);
+			}
+
+		}
+
+		return Duration.ZERO;
+	}
 
 
 
