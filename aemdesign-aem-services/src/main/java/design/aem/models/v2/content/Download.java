@@ -8,18 +8,15 @@ import com.day.cq.tagging.TagConstants;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
-import design.aem.utils.components.TagUtil;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
-import org.apache.sling.api.resource.ValueMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import java.text.MessageFormat;
 
-import static design.aem.utils.components.CommonUtil.DAM_FIELD_LICENSE_USAGETERMS;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_IMAGE_BLANK;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_THUMB_WIDTH_SM;
@@ -31,13 +28,13 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Download extends ModelProxy {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(TagUtil.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Download.class);
 
     protected ComponentProperties componentProperties = null;
 
-    private final String DEFAULT_I18N_CATEGORY = "download";
-    private final String DEFAULT_I18N_LABEL = "downloadlabel";
-    private final String DEFAULT_TITLE_TAG_TYPE = "h4";
+    private static final String DEFAULT_I18N_CATEGORY = "download";
+    private static final String DEFAULT_I18N_LABEL = "downloadlabel";
+    private static final String DEFAULT_TITLE_TAG_TYPE = "h4";
 
     private static final String EMPTY_FILE = "empty file";
     private static final String FIELD_TITLE = "title";
@@ -94,7 +91,6 @@ public class Download extends ModelProxy {
                 String assetTitle = asset.getMetadataValue(DamConstants.DC_TITLE);
                 String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
 
-                String assetUsageTerms = asset.getMetadataValue(DAM_FIELD_LICENSE_USAGETERMS);
                 String licenseInfo = getAssetCopyrightInfo(asset, i18n.get("licenseinfo", DEFAULT_I18N_CATEGORY));
 
                 //override title and description if image has rights
@@ -205,14 +201,6 @@ public class Download extends ModelProxy {
     }
 
 
-
-    private String getDownloadTitle(ValueMap properties, String defaultTitle) {
-        return properties.get(FIELD_TITLE, defaultTitle);
-    }
-
-    private String getDownloadDescription(ValueMap properties, String defaultDescription) {
-        return properties.get(FIELD_DESCRIPTION, defaultDescription);
-    }
 
     /**
      * Determine whether file has an associated data blob, if so then get the formatted
