@@ -44,7 +44,7 @@ public class ContentBlockMenu extends ModelProxy {
                 DEFAULT_FIELDS_STYLE,
                 DEFAULT_FIELDS_ACCESSIBILITY);
 
-        Map<String, String> contentBlockList = new LinkedHashMap<String, String>();
+        Map<String, String> contentBlockList = new LinkedHashMap>();
         Resource menuSource = getResource().getParent();
 
         if(componentProperties.get(FIELD_MENUSOURCE, DEFAULT_MENUSOURCE_PARENT).equals(DEFAULT_MENUSOURCE_PAGEPATH)) {
@@ -111,8 +111,9 @@ public class ContentBlockMenu extends ModelProxy {
      * @return a sequenced map of the content block anchor names and their titles
      * @throws RepositoryException when can't read content
      */
+	@SuppressWarnings({"squid:S3776"})
     private static Map<String, String> getContentBlockMenu(Resource parSys) throws RepositoryException {
-        Map<String, String> contentMenu = new LinkedHashMap<String, String>();
+        Map<String, String> contentMenu = new LinkedHashMap<>();
 
         if (parSys != null) {
 
