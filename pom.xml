@@ -7,11 +7,12 @@
 
     <groupId>design.aem</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>2.0.281</version>
+    <version>2.0.288</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
     <description>Core project for all AEM server dependencies</description>
+	<url>http://aem.design</url>
 
     <modules>
         <module>aemdesign-aem-author</module>
