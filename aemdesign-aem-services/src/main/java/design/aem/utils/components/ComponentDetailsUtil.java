@@ -469,6 +469,7 @@ public class ComponentDetailsUtil {
      * @param request http request
      * @return map of attributes
      */
+    @SuppressWarnings({"squid:S3776"})
     public static ComponentProperties processBadgeRequestConfig(ComponentProperties componentProperties, ResourceResolver resourceResolver, HttpServletRequest request) {
 
         ComponentProperties badgeConfig = (ComponentProperties)request.getAttribute(BADGE_REQUEST_ATTRIBUTES);

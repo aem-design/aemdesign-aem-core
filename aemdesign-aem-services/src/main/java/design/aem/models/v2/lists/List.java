@@ -153,6 +153,7 @@ public class List extends ModelProxy {
         loadConfig();
     }
 
+	@SuppressWarnings({"squid:S3776"})
     protected void loadConfig() {
         I18n i18n = new I18n(getRequest());
         String resourcePath = getResource().getPath();
@@ -791,6 +792,7 @@ public class List extends ModelProxy {
     /**
      * allow passing of querybuilder queries.
      */
+	@SuppressWarnings({"squid:S3776"})
     private void populateQueryListItems() {
         listItems = new ArrayList<>();
         if (!StringUtils.isBlank(savedquery)) {
