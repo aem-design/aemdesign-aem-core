@@ -7,7 +7,7 @@
 
     <groupId>design.aem</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>2.0.320</version>
+    <version>2.0.321</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -63,6 +63,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.site.plugin.version>3.7.1</maven.site.plugin.version>
         <aem.uberjar.version>6.4.0</aem.uberjar.version>
+		<gitClosestTagName>${git.closest.tag.name}</gitClosestTagName>
+		<gitClosestTagCommitCount>${git.closest.tag.commit.count}</gitClosestTagCommitCount>
     </properties>
 
     <developers>
@@ -518,7 +520,6 @@
                 </configuration>
             </plugin>
 
-
             <!-- update versions for all submodules -->
             <plugin>
                 <!-- sets the version for each pom including children pom -->
@@ -540,6 +541,29 @@
                     </execution>
                 </executions>
             </plugin>
+
+			<plugin>
+				<groupId>org.codehaus.gmaven</groupId>
+				<artifactId>groovy-maven-plugin</artifactId>
+				<version>2.0</version>
+				<executions>
+					<execution>
+						<id>update-finalname</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<source>
+								project.build.finalName="${project.artifactId}-${gitClosestTagName}.${gitClosestTagCommitCount}";
+								project.properties['gitClosestTagName']=${git.closest.tag.name};
+								project.properties['gitClosestTagCommitCount']=${git.closest.tag.commit.count};
+								println("project.build.finalName=${project.build.finalName}");
+							</source>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
             <!-- ensure all version variables names are set to updated version -->
             <plugin>
@@ -613,7 +637,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.0.1</version>
+                <version>1.1.0</version>
                 <configuration>
                     <!-- <flattenMode>ossrh</flattenMode> -->
                     <flattenedPomFilename>.flattened-pom.xml</flattenedPomFilename>
@@ -649,7 +673,7 @@
             </plugin>
         </plugins>
         <!-- ensure all artifact names are set to updated version -->
-        <finalName>${project.artifactId}-${git.closest.tag.name}.${git.closest.tag.commit.count}</finalName>
+        <finalName>${project.artifactId}-${gitClosestTagName}.${gitClosestTagCommitCount}</finalName>
 
         <pluginManagement>
             <plugins>
