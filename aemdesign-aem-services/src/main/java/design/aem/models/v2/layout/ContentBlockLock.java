@@ -25,6 +25,7 @@ import static design.aem.utils.components.SecurityUtil.isUserMemberOf;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
+@SuppressWarnings({"Duplicates","squid:S3776"})
 public class ContentBlockLock extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContentBlockLock.class);
 
@@ -33,7 +34,7 @@ public class ContentBlockLock extends ModelProxy {
         return this.componentProperties;
     }
 
-    @SuppressWarnings("Duplicates")
+    @SuppressWarnings({"Duplicates","squid:S3776"})
     protected void ready() throws Exception {
         I18n i18n = new I18n(getRequest());
 
@@ -112,28 +113,22 @@ public class ContentBlockLock extends ModelProxy {
         String variant = componentProperties.get(FIELD_VARIANT,DEFAULT_VARIANT);
 
         //skip output of table if noconfig selector is used, used in testing to speedup page load
-        if (variant.equals("componentConfig") && StringUtils.contains(getRequest().getRequestPathInfo().getSelectorString(),"showconfig") ) {
+        if (variant.equals("componentConfig") && StringUtils.contains(getRequest().getRequestPathInfo().getSelectorString(), "showconfig")) {
             Resource componentresource = getResource().getChild(DEFAULT_PAR_NAME);
-            if (componentresource != null) {
+            if (componentresource != null && componentresource.hasChildren()) {
                 //get first component
-                if (componentresource.hasChildren()) {
-                    Resource firstComponent = componentresource.listChildren().next();
-                    if (firstComponent != null) {
-                        ContentAccess contentAccess = getSlingScriptHelper().getService(ContentAccess.class);
-                        if (contentAccess != null) {
-                            try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
-                                componentProperties.put("firstComponentConfig", getComponentFieldsAndDialogMap(firstComponent, adminResourceResolver, getSlingScriptHelper()));
-                            } catch (Exception ex) {
-                                LOGGER.error("ContentBlock: error accessing component dialog component.path={}, ex={}", firstComponent.getPath(), ex);
-                            }
-                        }
-                    }
-                }
+				Resource firstComponent = componentresource.listChildren().next();
+				if (firstComponent != null) {
+					ContentAccess contentAccess = getSlingScriptHelper().getService(ContentAccess.class);
+					if (contentAccess != null) {
+						try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+							componentProperties.put("firstComponentConfig", getComponentFieldsAndDialogMap(firstComponent, adminResourceResolver, getSlingScriptHelper()));
+						} catch (Exception ex) {
+							LOGGER.error("ContentBlock: error accessing component dialog component.path={}, ex={}", firstComponent.getPath(), ex);
+						}
+					}
+				}
             }
         }
-
     }
-
-
-
 }
