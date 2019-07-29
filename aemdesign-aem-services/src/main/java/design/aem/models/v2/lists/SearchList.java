@@ -385,14 +385,12 @@ public class SearchList extends ModelProxy {
                     }
 
                     if (jcrPrimaryType.equals(DamConstants.NT_DAM_ASSETCONTENT)) {
-                        String relativePath = h.getProperties().get(DamConstants.DAM_ASSET_RELATIVE_PATH).toString();
 
                         newResult.setExcerpt(h.getExcerpt());
                         newResult.setPathUrl(h.getPath());
                         newResult.setIsAsset(true);
 
                         Resource assetResource = h.getResource();
-                        Node assetN = assetResource.adaptTo(Node.class);
 
                         Asset assetBasic = assetResource.adaptTo(Asset.class);
 
@@ -400,7 +398,6 @@ public class SearchList extends ModelProxy {
 
                             newResult.setThumbnailUrl(assetBasic.getPath());
 
-//                        String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, "");
 
                             String licenseInfo = getAssetCopyrightInfo(assetBasic, ASSET_LICENSEINFO);
 
