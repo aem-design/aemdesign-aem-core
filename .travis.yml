@@ -19,8 +19,8 @@ before_install:
 
 install:
   - mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -q && echo "INSTALL DONE"
-  - mvn cobertura:cobertura -DskipTests=true -q && bash <(curl -s https://codecov.io/bash)
-  - echo "COBERTURA DONE"
+#  - mvn cobertura:cobertura -DskipTests=true -q && bash <(curl -s https://codecov.io/bash)
+#  - echo "COBERTURA DONE"
 
 ## Build and release to maven central
 script:
