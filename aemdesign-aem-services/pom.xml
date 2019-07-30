@@ -8,7 +8,7 @@
     <parent>
         <groupId>design.aem</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>2.0.343</version>
+        <version>2.0.345</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +17,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-services</artifactId>
-    <version>2.0.343</version>
+    <version>2.0.345</version>
     <packaging>bundle</packaging>
     <name>AEM Design - Core - AEM Services</name>
     <description>Project for all AEM and OSGI Services</description>
@@ -203,24 +203,6 @@
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                     <linkXRef>false</linkXRef>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.5.1</version>
-                <executions>
-                    <execution>
-                        <id>default-deploy</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <serverId>localdev</serverId>
-                    <skipStaging>true</skipStaging>
                 </configuration>
             </plugin>
             <plugin>
