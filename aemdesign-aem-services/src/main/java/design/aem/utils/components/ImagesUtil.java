@@ -1056,7 +1056,7 @@ public class ImagesUtil {
         } else {
             LOGGER.error("getResourceImageRenditions: could not get ContentAccess service.");
         }
-        return null;
+        return getNewComponentProperties(pageContext);
     }
 
     /**
