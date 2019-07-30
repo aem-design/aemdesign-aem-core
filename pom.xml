@@ -884,7 +884,9 @@
                             <serverId>ossrh</serverId>
                             <nexusUrl>https://oss.sonatype.org/</nexusUrl>
 							<stagingProfileId>c4011210992a35</stagingProfileId>
-							<stagingRepositoryId>designaem-1049</stagingRepositoryId>
+							<stagingDescription>travis pipeline https://travis-ci.org/aem-design/aemdesign-aem-core</stagingDescription>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+							<autoDropAfterRelease>true</autoDropAfterRelease>
                         </configuration>
                     </plugin>
                     <!-- To generate javadoc -->
