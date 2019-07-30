@@ -12,7 +12,7 @@ before_install:
   - echo TRAVIS_BRANCH=$TRAVIS_BRANCH
   - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
   - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
-  - mvn clean -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V && travis_terminate 1
+  - mvn clean -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -q -DforceStdout && travis_terminate 0
   - mvn --settings default.xml package -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
   - if [[ $TRAVIS_BRANCH == "master" && $SONAR_ENABLED == "true" ]]; then mvn sonar:sonar "-Dsonar.branch.name=${TRAVIS_BRANCH}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"; fi
   - if [[ $TRAVIS_BRANCH != "master" && $SONAR_ENABLED == "true" ]]; then mvn sonar:sonar "-Dsonar.branch.name=${TRAVIS_BRANCH}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"; fi
