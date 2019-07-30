@@ -1,8 +1,10 @@
 language: java
-
+jdk:
+  - oraclejdk8
+sudo: false
 cache:
   directories:
-    - ~/.m2/repository
+    - '$HOME/.m2/repository'
 
 git:
   depth: false
@@ -12,18 +14,19 @@ before_install:
   - echo TRAVIS_BRANCH=$TRAVIS_BRANCH
   - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
   - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
-  - mvn --settings default.xml clean -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -q -DforceStdout && echo "CLEAN DONE"
-  - mvn --settings default.xml package -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V -q
-  - if [[ $TRAVIS_BRANCH == "master" && $SONAR_ENABLED == "true" ]]; then mvn sonar:sonar -q "-Dsonar.branch.name=${TRAVIS_BRANCH}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"; fi
-  - if [[ $TRAVIS_BRANCH != "master" && $SONAR_ENABLED == "true" ]]; then mvn sonar:sonar -q "-Dsonar.branch.name=${TRAVIS_BRANCH}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"; fi
+  - mvn clean -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -q && echo "CLEAN DONE"
+  - mvn package -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -q && echo "PACKAGE AND LOCAL INSTALL DONE"
+  - if [[ $TRAVIS_BRANCH == "master" && $SONAR_ENABLED == "true" ]]; then mvn sonar:sonar -q "-Dsonar.branch.name=${TRAVIS_BRANCH}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}" && echo "SONAR ON ${TRAVIS_BRANCH} DONE"; fi
+  - if [[ $TRAVIS_BRANCH != "master" && $SONAR_ENABLED == "true" ]]; then mvn sonar:sonar -q "-Dsonar.branch.name=${TRAVIS_BRANCH}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}" && echo "SONAR ON ${TRAVIS_BRANCH} DONE"; fi
 
 install:
-  - mvn --settings default.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V -q
-  - mvn cobertura:cobertura -q && bash <(curl -s https://codecov.io/bash)
+  - mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -q && echo "INSTALL DONE"
+  - mvn cobertura:cobertura -DskipTests=true -q && bash <(curl -s https://codecov.io/bash)
+  - echo "COBERTURA DONE"
 
 ## Build and release to maven central
 script:
-  - if [[ $TRAVIS_BRANCH == "master" ]]; then mvn clean deploy --settings default.xml -DskipTests=true -B -U -Prelease; fi
+  - if [[ $TRAVIS_BRANCH == "master" ]]; then mvn clean deploy --settings default.xml -DskipTests=true -B -Prelease; fi
 
 ## Get the project version
 before_deploy:
