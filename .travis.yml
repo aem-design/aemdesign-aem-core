@@ -2,7 +2,7 @@ language: java
 
 cache:
   directories:
-    - $HOME/.m2
+    - ~/.m2/repository
 
 git:
   depth: false
