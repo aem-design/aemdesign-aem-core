@@ -775,6 +775,15 @@ public class CommonUtil {
         return source == null;
     }
 
+    /**
+     * check if object is not null.
+     * @param source object
+     * @return status
+     */
+    public static Boolean isNotNull(Object source) {
+        return source != null;
+    }
+
 
 
     /**
