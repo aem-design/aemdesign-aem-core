@@ -112,14 +112,14 @@ public class Image extends ModelProxy {
 						//ensure something is added as title
 						String title = componentProperties.get(DAM_TITLE, "");
 						if (isEmpty(title) && isNotNull(assetBasic)) {
-							componentProperties.put(DAM_TITLE, assetBasic.getName());
+							componentProperties.put(DAM_TITLE, defaultString(assetBasic.getName(), asset.getName()) );
 						}
 
 						componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSETID, assetUID);
 						componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSET_TRACKABLE, true);
 						componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSET_LICENSED, isNotBlank(licenseInfo));
 						componentProperties.attr.add(FIELD_DATA_ANALYTICS_EVENT_LABEL, componentProperties.get(DAM_TITLE, ""));
-						componentProperties.attr.add(FIELD_DATA_ANALYTICS_METATYPE, assetBasic.getMimeType());
+						componentProperties.attr.add(FIELD_DATA_ANALYTICS_METATYPE, defaultString(assetBasic.getMimeType(),""));
 						componentProperties.attr.add(FIELD_DATA_ANALYTICS_FILENAME, assetBasic.getPath());
                     } else {
 						LOGGER.error("ImageImpl: null check asset={} and assetBasic={}", asset, assetBasic);
