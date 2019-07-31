@@ -308,7 +308,6 @@ public class ComponentDetailsUtil {
      *
      * @param page page to get info from.
      * @param pageContext page content
-     * @param page page to use
      * @param resourceResolver resource resolver
      * @param componentNames component names to look for
      * @param pageRoots parent to search
@@ -324,7 +323,6 @@ public class ComponentDetailsUtil {
      *
      * @param page page to get info from.
      * @param pageContext page content
-     * @param page page to use
      * @param resourceResolver resource resolver
      * @param componentNames component names to look for
      * @param pageRoots parent to search
