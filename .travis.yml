@@ -12,8 +12,8 @@ before_install:
   - echo TRAVIS_BRANCH=$TRAVIS_BRANCH
   - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
   - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
-  - mvn clean -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -q && echo "CLEAN DONE"
-  - mvn package -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -q && echo "PACKAGE AND LOCAL INSTALL DONE"
+  - mvn clean -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -Dmaven.source.skip=true -B -q && echo "CLEAN DONE"
+  - mvn package -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -Dmaven.source.skip=true -B -q && echo "PACKAGE AND LOCAL INSTALL DONE"
   - if [[ $TRAVIS_BRANCH == "master" && $SONAR_ENABLED == "true" ]]; then mvn sonar:sonar -q "-Dsonar.branch.name=${TRAVIS_BRANCH}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}" && echo "SONAR ON ${TRAVIS_BRANCH} DONE"; fi
   - if [[ $TRAVIS_BRANCH != "master" && $SONAR_ENABLED == "true" ]]; then mvn sonar:sonar -q "-Dsonar.branch.name=${TRAVIS_BRANCH}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}" && echo "SONAR ON ${TRAVIS_BRANCH} DONE"; fi
 
@@ -24,7 +24,7 @@ install:
 
 ## Build and release to maven central
 script:
-  - if [[ $TRAVIS_BRANCH == "master" ]]; then mvn clean deploy --settings default.xml -Dmaven.javadoc.skip=true -DskipTests=true -B -Prelease; fi
+  - if [[ $TRAVIS_BRANCH == "master" ]]; then mvn clean deploy --settings default.xml -Dmaven.javadoc.skip=true -Dmaven.source.skip=true -DskipTests=true -B -Prelease; fi
 
 ## Get the project version
 before_deploy:
