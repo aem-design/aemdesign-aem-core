@@ -156,7 +156,6 @@ The project has the following requirements:
 
 For ease of build and installation the following profiles are provided:
 
- * ``deploymentpackage`` - activates packaging of aemdesign-aem-core-deploy
  * ``installdeploymentpackage`` - installs the deploy package/bundle to an existing AEM author instance
 
 You can use helper script for ease of local deployment
@@ -266,7 +265,7 @@ In preparation for a release, create a new git release branch from the current m
  3. Update the maven `version` parameter.
     * `mvn versions:set -DnewVersion=<version>`
  4. Check the version number was correctly applied and confirm.
-    * `mvn versions:commit -Pdeploymentpackage`
+    * `mvn versions:commit`
  5. Commit the updated version numbers to the release branch.
     * `mvn scm:checkin -Dmessage="updating version numbers"`
 

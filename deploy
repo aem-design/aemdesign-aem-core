@@ -10,8 +10,8 @@ set_term_title "Core Deploy"
 #try to delete existing jar
 delete_current_jar
 
-echo " - Deploying Monolith Package: mvn -Dvault.useProxy=false -DskipTests -e -U -P installdeploymentpackage,deploymentpackage clean install"
-mvn -Dvault.useProxy=false -DskipTests -e -U -P deploymentpackage,installdeploymentpackage clean install "$@"
+echo " - Deploying Monolith Package: mvn -Dvault.useProxy=false -DskipTests -e -U -P installdeploymentpackag clean install"
+mvn -Dvault.useProxy=false -DskipTests -e -U -P installdeploymentpackage clean install "$@"
 echo " - Deployed"
 
 #restart aem container
