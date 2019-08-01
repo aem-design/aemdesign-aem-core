@@ -282,3 +282,7 @@ Once the testing cycle has been completed and all code fixes have been applied t
 
 Please review [Versions](VERSIONS.md) for all version history
 
+## Commit Signatures
+
+Please ensure you have GPG setup and you sign all of your commits.
+
