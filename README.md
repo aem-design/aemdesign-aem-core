@@ -214,19 +214,9 @@ Following section describes some of the development topics
 
 Release versions are automated and based on Tags and Commit count from Tag using the `git describe` command
 
-To test git versioning run
+To see what the new version will be run:
 
-`git describe`
-
-this will show you generated version message with latest tag and how many commits since tag.
-
-If you get an error:
-
-`fatal: No annotated tags can describe`
-
-create or overwrite an existing tag with a message:
-
-`git tag 1.0 1.0^{} -f -m "initial tag"`
+`mvn help:evaluate -q -DforceStdout -Dexpression=project.version`
 
 ## Version Convention
 
