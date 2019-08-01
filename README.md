@@ -4,6 +4,12 @@
 [![build_status](https://travis-ci.org/aem-design/aemdesign-aem-core.svg?branch=master)](https://travis-ci.org/aem-design/aemdesign-aem-core)
 [![codecov](https://codecov.io/gh/aem-design/aemdesign-aem-core/branch/master/graph/badge.svg?magic)](https://codecov.io/gh/aem-design/aemdesign-aem-core)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/design.aem/aemdesign-aem-common/badge.svg?magic)](https://maven-badges.herokuapp.com/maven-central/design.aem/aemdesign-aem-common)
+[![github license](https://img.shields.io/github/license/aem-design/aemdesign-aem-core)](https://github.com/aem-design/aemdesign-aem-core) 
+[![github issues](https://img.shields.io/github/issues/aem-design/aemdesign-aem-core)](https://github.com/aem-design/aemdesign-aem-core) 
+[![github last commit](https://img.shields.io/github/last-commit/aem-design/aemdesign-aem-core)](https://github.com/aem-design/aemdesign-aem-core) 
+[![github repo size](https://img.shields.io/github/repo-size/aem-design/aemdesign-aem-core)](https://github.com/aem-design/aemdesign-aem-core) 
+[![github repo size](https://img.shields.io/github/languages/code-size/aem-design/aemdesign-aem-core)](https://github.com/aem-design/aemdesign-aem-core) 
+[![github release](https://img.shields.io/github/release/aem-design/aemdesign-aem-core)](https://github.com/aem-design/aemdesign-aem-core)
 
 A set of standardized components for AEM 6.4+ that can be used to speed up development of websites.
 
