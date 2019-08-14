@@ -67,8 +67,8 @@ public class ComponentProperties extends ValueMapDecorator {
      */
     @Override
     public int hashCode() {
-        int result = 31 * this.expressionFields.hashCode();
-        result = 31 * result + this.attr.hashCode();
+        int result = 31 * (this.expressionFields != null ? this.expressionFields.hashCode() : 0);
+        result = 31 * result + (this.attr != null ? this.attr.hashCode() : 0);
         return result;
     }
 
