@@ -37,7 +37,6 @@ import java.util.Map;
 
 import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX;
 import static design.aem.utils.components.CommonUtil.findComponentInPage;
-import static design.aem.utils.components.ComponentDetailsUtil.processBadgeRequestConfig;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.I18nUtil.*;
@@ -133,17 +132,10 @@ public class SearchList extends ModelProxy {
 
         String pageUrl = getCurrentPage().getPath().concat(DEFAULT_EXTENTION);
 
-//        componentProperties.put(COMPONENT_ATTRIBUTES,
-//                addComponentBackgroundToAttributes(componentProperties,getResource(), DEFAULT_BACKGROUND_IMAGE_NODE_NAME));
-
         componentProperties.putAll(
                 getAssetInfo(getResourceResolver(), getResourceImagePath(getResource(), DEFAULT_BACKGROUND_IMAGE_NODE_NAME), FIELD_PAGE_BACKGROUND_IMAGE));
 
-        componentProperties.putAll(processBadgeRequestConfig(componentProperties, getResourceResolver(), getRequest()), true);
-
         componentProperties.attr.add("data-component-id", componentProperties.get(FIELD_STYLE_COMPONENT_ID, getResource().getName()));
-//        componentProperties.put(COMPONENT_ATTRIBUTES,
-//                addComponentAttributes(componentProperties, "data-component-id", componentName));
 
         if (result != null) {
             if (!isEmpty(componentProperties.get("statisticsText", ""))) {
