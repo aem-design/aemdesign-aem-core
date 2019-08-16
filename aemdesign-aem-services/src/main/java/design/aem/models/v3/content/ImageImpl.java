@@ -138,7 +138,7 @@ public class ImageImpl extends GenericModel implements GenericComponent {
 
 						//ensure something is added as title
 						String title = componentProperties.get(DAM_TITLE, "");
-						if (isEmpty(title) && assetBasic != null) {
+						if (isEmpty(title)) {
 							componentProperties.put(DAM_TITLE, assetBasic.getName());
 						}
 
