@@ -1,0 +1,16 @@
+<template data-sly-template.element="${@ componentProperties, options}">
+    <picture class="${options.fieldClassName}"
+             data-sly-set.defaultImagePath="${componentProperties.defaultImagePath}"
+             data-sly-set.sources="${componentProperties.imageSources}"
+             data-sly-test="${defaultImagePath}">
+        <source data-sly-test="${sources && sources.size > 0}"
+                data-sly-repeat="${sources}"
+                data-srcset="${item @ context='attribute'}"
+                media="${sources[item] @ context='attribute'}">
+        <img src="${defaultImagePath @ context='attribute'}"
+             data-sly-attribute="${componentProperties.badgeImageAttr @ context='unsafe'}"
+             data-sizes="auto"
+             class="lazyload"
+             alt="${componentProperties.title @ context='attribute'}">
+    </picture>
+</template>

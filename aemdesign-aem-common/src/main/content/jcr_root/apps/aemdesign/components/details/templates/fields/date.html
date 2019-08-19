@@ -1,0 +1,5 @@
+<template data-sly-template.element="${@ componentProperties, options}">
+    <div class="card-date" itemprop="startDate" content="${componentProperties[options.fields.date.fieldKeyContent]}">
+        ${componentProperties[options.fields.date.fieldKeyValue] @ context='unsafe'}
+    </div>
+</template>

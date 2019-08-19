@@ -1,0 +1,11 @@
+<template data-sly-template.element="${@ componentProperties, options}">
+    <div class="card-action">
+        <a class="card-link ${componentProperties.badgeLinkStyle @ context='attribute', join=' '}"
+           href="${componentProperties.pageUrl @ context='attribute'}"
+           target="${componentProperties.badgeLinkTarget @ context='attribute'}"
+           title="${componentProperties.badgeLinkTitle @ context='attribute'}"
+           data-sly-attribute="${componentProperties.badgeLinkAttr @ context='unsafe'}">
+            <span>${componentProperties.badgeLinkText @ context='text'}</span>
+        </a>
+    </div>
+</template>
