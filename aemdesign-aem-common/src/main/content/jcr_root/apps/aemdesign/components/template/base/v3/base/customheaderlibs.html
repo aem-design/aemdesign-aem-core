@@ -16,16 +16,6 @@
      data-sly-call="${clientlib.all @ categories='aemdesign.common.head.dependencies.publish'}"/>
 <!-- all: aemdesign.common.head.dependencies.publish end -->
 
-<!-- all: aemdesign.common.head.js start -->
-<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-     data-sly-call="${clientlib.js @ categories='aemdesign.common.head'}"/>
-<!-- all: aemdesign.common.head.js end -->
-
-<!-- css: aemdesign.common.components.css start -->
-<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-     data-sly-call="${clientlib.css @ categories='aemdesign.common.components'}"/>
-<!-- css: aemdesign.common.components.css end -->
-
 <!-- css: aemdesign.author.css start -->
 <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
      data-sly-test="${!wcmmode.disabled}"
@@ -54,11 +44,6 @@
      data-sly-test="${wcmmode.preview || wcmmode.edit}"
      data-sly-call="${clientlib.css @ categories='aemdesign.common.coralui'}"/>
 <!-- css: aemdesign.common.coralui.css end-->
-
-<!-- all: aemdesign.core.header.all start -->
-<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-     data-sly-call="${clientlib.all @ categories='aemdesign.core.header'}"/>
-<!-- all: aemdesign.ore.header.all end -->
 
 <!-- aemdesign/components/analytics/datalayer start -->
 <sly data-sly-resource="${ @ resourceType='aemdesign/components/analytics/datalayer'}"/>

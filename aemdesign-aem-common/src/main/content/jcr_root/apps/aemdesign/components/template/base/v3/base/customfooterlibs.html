@@ -1,17 +1,5 @@
 <!-- custom footer libs -->
 <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html">
-    <!-- js: aemdesign.common.components.js start -->
-    <sly data-sly-call="${clientlib.js @ categories='aemdesign.common.components'}"/>
-    <!-- js: aemdesign.common.components.js end -->
-
-    <!-- js: aemdesign.common.body.js start -->
-    <sly data-sly-call="${clientlib.js @ categories='aemdesign.common.body'}"/>
-    <!-- js: aemdesign.common.body.js end -->
-
-    <!-- js: aemdesign.core.footer.js start -->
-    <sly data-sly-call="${clientlib.js @ categories='aemdesign.core.footer'}"/>
-    <!-- js: aemdesign.core.footer.js end -->
-
     <!--/* Load authoring related client libraries */-->
     <!-- js: aemdesign.common.coralui.js start -->
     <sly data-sly-test="${wcmmode.preview || wcmmode.edit}" data-sly-call="${clientLib.js @ categories='aemdesign.common.coralui'}"/>
