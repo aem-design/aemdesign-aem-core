@@ -1,0 +1,13 @@
+<template data-sly-template.standard="${@ componentProperties, badgeConfig}">
+    <div class="card ${componentProperties.badgeClassAttr @ context='attribute'}">
+        <sly data-sly-use.image="/apps/aemdesign/components/details/templates/fields/image.html"
+             data-sly-call="${image.element @ componentProperties=componentProperties, options=badgeConfig, className='card-img-top'}"></sly>
+
+        <div class="card-body" data-sly-test="${badgeConfig.fields && badgeConfig.fields.length}">
+            <sly data-sly-list.field="${badgeConfig.fields}">
+                <sly data-sly-use.child="/apps/swinburne/components/details/common/fields/${field}.html"
+                     data-sly-call="${child.element @ componentProperties=componentProperties, fieldConfig=field}"></sly>
+            </sly>
+        </div>
+    </div>
+</template>

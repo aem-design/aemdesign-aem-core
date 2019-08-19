@@ -1,0 +1,10 @@
+<template data-sly-template.standard="${@ componentProperties, options, fields}">
+    <div class="card ${componentProperties.badgeClassAttr @ context='attribute'}">
+        <div class="card-body" data-sly-test="${fields}">
+            <sly data-sly-list.field="${fields}">
+                <sly data-sly-use.child="/apps/swinburne/components/details/common/fields/${field}.html"
+                     data-sly-call="${child.element @ componentProperties=componentProperties, options=options}"></sly>
+            </sly>
+        </div>
+    </div>
+</template>
