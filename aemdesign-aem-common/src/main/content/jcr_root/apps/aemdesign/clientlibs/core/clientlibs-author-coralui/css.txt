@@ -1,2 +1,5 @@
-
-
+#base=css
+rte-fix.css
+component-badge.css
+author.css
+dialog.css
