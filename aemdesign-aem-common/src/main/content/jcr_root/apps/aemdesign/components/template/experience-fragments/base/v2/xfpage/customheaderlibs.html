@@ -5,40 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- all: aemdesign.common.head.dependencies.author start -->
-    <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-         data-sly-test="${!wcmmode.disabled}"
-         data-sly-call="${clientlib.all @ categories='aemdesign.common.head.dependencies'}"/>
-    <!-- all: aemdesign.common.head.dependencies.author end -->
-
     <!-- all: aemdesign.common.head.dependencies.publish start -->
     <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-         data-sly-test="${wcmmode.disabled}"
-         data-sly-call="${clientlib.all @ categories='aemdesign.common.head.dependencies.publish'}"/>
+         data-sly-call="${clientlib.all @ categories=['aemdesign.common.head.dependencies.publish']}"/>
     <!-- all: aemdesign.common.head.dependencies.publish end -->
-
-    <!-- css: aemdesign.author start -->
-    <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-         data-sly-test="${!wcmmode.disabled}"
-         data-sly-call="${clientlib.css @ categories='aemdesign.author'}"/>
-    <!-- css: aemdesign.author end -->
-
-    <!-- all: aemdesign.common.components.author start -->
-    <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-         data-sly-test="${!wcmmode.disabled}"
-         data-sly-call="${clientlib.all @ categories='aemdesign.common.components.author'}"/>
-    <!-- all: aemdesign.common.components.author end -->
-
-    <!-- css: aemdesign.publish start -->
-    <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-         data-sly-test="${wcmmode.disabled}"
-         data-sly-call="${clientlib.css @ categories='aemdesign.publish'}"/>
-    <!-- css: aemdesign.publish end -->
-    <!-- all: aemdesign.common.components.publish stat -->
-    <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-         data-sly-test="${wcmmode.disabled}"
-         data-sly-call="${clientlib.all @ categories='aemdesign.common.components.publish'}"/>
-    <!-- all: aemdesign.common.components.publish end -->
 
     <!-- css: aemdesign.common.coralui start -->
     <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
