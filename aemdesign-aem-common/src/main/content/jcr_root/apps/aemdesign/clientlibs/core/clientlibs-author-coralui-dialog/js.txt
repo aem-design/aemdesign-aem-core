@@ -1,2 +1,0 @@
-js/dropdownshowhide.js
-js/modals.js
