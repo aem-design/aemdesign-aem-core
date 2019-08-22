@@ -1,1 +1,1 @@
-css/tether.css
+css/tether.min.css

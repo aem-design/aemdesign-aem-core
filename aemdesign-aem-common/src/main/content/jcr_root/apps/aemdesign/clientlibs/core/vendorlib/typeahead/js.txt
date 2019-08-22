@@ -1,1 +1,1 @@
-typeahead.bundle.js
+typeahead.bundle.min.js

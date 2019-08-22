@@ -1,2 +1,2 @@
-js/bootstrap.js
+js/bootstrap.min.js
 #js/bootstrap.bundle.js

@@ -1,1 +1,1 @@
-knockout.js
+knockout.min.js
