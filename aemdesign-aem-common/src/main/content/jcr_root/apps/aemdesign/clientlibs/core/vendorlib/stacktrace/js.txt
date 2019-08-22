@@ -1,1 +1,1 @@
-stacktrace.js
+stacktrace.min.js

@@ -1,1 +1,1 @@
-js/tether.js
+js/tether.min.js

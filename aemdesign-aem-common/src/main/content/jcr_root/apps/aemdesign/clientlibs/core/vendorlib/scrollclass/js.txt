@@ -1,1 +1,1 @@
-scrollclass.js
+scrollclass.min.js

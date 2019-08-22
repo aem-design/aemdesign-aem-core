@@ -2,7 +2,7 @@
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:ClientLibraryFolder"
     allowProxy="{Boolean}true"
-    jsProcessor="[default:none]"
-    cssProcessor="[default:none]"
-    categories="[aemdesign.core.vendorlib.jquery]"/>
+	cssProcessor="[default:none,min:yui]"
+	jsProcessor="[default:none,min:gcc;compilationLevel=advanced]"
+	categories="[aemdesign.core.vendorlib.jquery]"/>
 

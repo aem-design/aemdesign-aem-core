@@ -1,1 +1,1 @@
-js/picturefill.js
+js/picturefill.min.js
