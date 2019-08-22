@@ -18,6 +18,8 @@ A set of standardized components for AEM 6.4+ that can be used to speed up devel
 * [AEM.Design Blog](https://aem.design)
 * [AEM.Design SonarCloud](https://sonarcloud.io/project/issues?id=design.aem%3Aaemdesign-aem-core)
 
+You will require a latest version of [aemdesign-aem-compose](https://github.com/aem-design/aemdesign-aem-support/releases) that has the base dialogs configuration content. 
+
 ## Sonar Quality Gate
 
 After completing your commits and before PUSHING please run following command to push your updates to sonar.
