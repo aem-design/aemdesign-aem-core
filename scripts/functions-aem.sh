@@ -149,14 +149,15 @@ function delete_current_jar() {
     set_term_title "Get Project Version"
 
     PROJECT_VERSION=$(getParamOrDefault "" "version")
-    PROJECT_ARTIFACTID=$($CAT "$POM_FILE" | $GREP artifactId | $HEAD -n 1  | $SED -e 's/.*>\(.*\)<.*/\1/')
+    BUNDLE_NAME=$(getParamOrDefault "" "bundleName")
+    PROJECT_ARTIFACTID=$($CAT "$POM_FILE" | $GREP artifactId -A1 | $HEAD -n 2 | $TAIL -n 1 | $SED -e 's/.*>\(.*\)<.*/\1/')
     GIT_VERSION=$(getCurrentProjectVersion)
 
     echo "Current Project Version: $PROJECT_VERSION"
     echo "Current Git Version: $GIT_VERSION"
     echo "Project Artifact Id Version: $PROJECT_ARTIFACTID"
 
-    PROJECT_JAR="/apps/aemdesign/install/${PROJECT_ARTIFACTID}-${GIT_VERSION}.jar"
+    PROJECT_JAR="/apps/aemdesign/install/${BUNDLE_NAME}-${PROJECT_VERSION}.jar"
     echo "Project Jar: $PROJECT_JAR"
 
     JAR_EXIST=$(doCheckPathExist "$PROJECT_JAR")
