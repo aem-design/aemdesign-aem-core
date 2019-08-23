@@ -1832,7 +1832,7 @@ public class ComponentsUtil {
 		} else {
 			LOGGER.error("getComponentSubResources: please specify component and sub resource: component={},resourceName={}",component, resourceName);
 		}
-		LOGGER.error("getComponentSubResources: subResources={}",subResources);
+
     	return subResources;
 	}
 
