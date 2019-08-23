@@ -5,6 +5,7 @@ import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,9 @@ public class GenericDetails extends ModelProxy {
     @SuppressWarnings("Duplicates")
     protected void processCommonFields() {
         try {
+        	if (componentProperties == null) {
+				componentProperties = getNewComponentProperties(this);
+			}
             //read the image node
             componentProperties.putAll(getAssetInfo(getResourceResolver(),
                     getPageImgReferencePath(getResourcePage()),
@@ -153,6 +157,22 @@ public class GenericDetails extends ModelProxy {
             LOGGER.error("processCommonFields: could not process fields componentProperties={}, ex={}", componentProperties, ex);
         }
     }
+
+	/**
+	 * get field template in component
+	 * @return list of field resources
+	 */
+	public Map<String, Resource> getFields() {
+		return getLocalSubResourcesInSuperComponent(getComponent(), "field", getSlingScriptHelper());
+	}
+
+	/**
+	 * get template in component
+	 * @return list of template resources
+	 */
+	public Map<String, Resource> getTemplates() {
+		return getLocalSubResourcesInSuperComponent(getComponent(), "template", getSlingScriptHelper());
+	}
 
     /***
      * get and format badge config
