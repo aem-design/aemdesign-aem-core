@@ -1,7 +1,6 @@
 package design.aem.models.v2.content;
 
 import com.day.cq.i18n.I18n;
-import com.day.cq.replication.ReplicationStatus;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
@@ -12,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Calendar;
 
+import static design.aem.utils.components.CommonUtil.getPageCreated;
 import static design.aem.utils.components.ComponentsUtil.*;
 
 public class PageDate extends ModelProxy {
@@ -25,6 +25,8 @@ public class PageDate extends ModelProxy {
     @SuppressWarnings({"squid:S3008"})
     private static String PUBLISH_DATE_FORMAT = "yyyy-MM-dd";
 
+    private static final String FIELD_PUBLISH_DATE = "publishDate";
+
     @SuppressWarnings({"squid:S3008"})
     private static String PUBLISH_DATE_DISPLAY_FORMAT = "EEEE dd MMMM YYYY";
 
@@ -35,7 +37,7 @@ public class PageDate extends ModelProxy {
 
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"publishDate", getPageProperties().get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED,getPageProperties().get(JcrConstants.JCR_CREATED, Calendar.getInstance()))},
+                {FIELD_PUBLISH_DATE, getPageCreated(getPageProperties())},
                 {JcrConstants.JCR_CREATED, ""}
         });
 
@@ -46,7 +48,9 @@ public class PageDate extends ModelProxy {
                 DEFAULT_FIELDS_ACCESSIBILITY,
                 DEFAULT_FIELDS_DETAILS_OPTIONS);
 
-        Calendar publishDate = componentProperties.get("publishDate", Calendar.getInstance());
+        long publishDateLong = componentProperties.get(FIELD_PUBLISH_DATE, 0L);
+        Calendar publishDate = Calendar.getInstance();
+		publishDate.setTimeInMillis(publishDateLong);
 
         //get format strings from dictionary
         String dateFormatString = i18n.get("publishDateFormat",DEFAULT_I18N_CATEGORY);
