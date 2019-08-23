@@ -1,0 +1,17 @@
+<template data-sly-template.variant="${@ componentProperties, componentFields}">
+    <div class="card ${componentProperties.badgeClassAttr @ context='attribute'}">
+        <sly data-sly-test="${'icon' in componentFields}">
+            <sly data-sly-use.image="${componentFields['image'].path}"
+                 data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>
+        </sly>
+
+        <div class="card-body">
+            <sly data-sly-list.field="${componentFields}">
+                <sly data-sly-test="${field in request.requestPathInfo.selectors}">
+                    <sly data-sly-use.child="${componentFields[field].path}"
+                         data-sly-call="${child.field @ componentProperties=componentProperties}"></sly>
+                </sly>
+            </sly>
+        </div>
+    </div>
+</template>
