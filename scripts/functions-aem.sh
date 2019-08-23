@@ -149,7 +149,7 @@ function delete_current_jar() {
     set_term_title "Get Project Version"
 
     PROJECT_VERSION=$(getParamOrDefault "" "version")
-    PROJECT_ARTIFACTID=$($CAT "$POM_FILE" | $GREP artifactId | $HEAD -n 2 | $TAIL -n 1 | $SED -e 's/.*>\(.*\)<.*/\1/')
+    PROJECT_ARTIFACTID=$($CAT "$POM_FILE" | $GREP artifactId | $HEAD -n 1  | $SED -e 's/.*>\(.*\)<.*/\1/')
     GIT_VERSION=$(getCurrentProjectVersion)
 
     echo "Current Project Version: $PROJECT_VERSION"
