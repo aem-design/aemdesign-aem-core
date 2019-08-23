@@ -32,6 +32,7 @@ public class NewsDetails extends GenericDetails {
     private static final String FIELD_FORMAT_TITLE = "titleFormat";
     private static final String FIELD_FORMATTED_TITLE = "titleFormatted";
     private static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
+	private static final String FIELD_PUBLISH_DATE = "publishDate";
 
     @Override
     @SuppressWarnings("Duplicates")
@@ -75,6 +76,7 @@ public class NewsDetails extends GenericDetails {
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE, ""},
                 {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
                 {"author", ""},
+				{FIELD_PUBLISH_DATE, getPageCreated(getPageProperties())},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -85,9 +87,9 @@ public class NewsDetails extends GenericDetails {
                 DEFAULT_FIELDS_ANALYTICS,
                 DEFAULT_FIELDS_DETAILS_OPTIONS);
 
-        Calendar publishDate = getProperties().get("publishDate",getResourcePage().getProperties().get(JcrConstants.JCR_CREATED, Calendar.getInstance()));
-
-        componentProperties.put("publishDate",publishDate);
+		long publishDateLong = componentProperties.get(FIELD_PUBLISH_DATE, 0L);
+		Calendar publishDate = Calendar.getInstance();
+		publishDate.setTimeInMillis(publishDateLong);
 
         //get format strings from dictionary
         String dateFormatString = i18n.get("publishDateFormat",DEFAULT_I18N_CATEGORY);
