@@ -1,7 +1,9 @@
 package design.aem.utils.components;
 
 import com.day.cq.contentsync.handler.util.RequestResponseFactory;
+import com.day.cq.replication.ReplicationStatus;
 import com.day.cq.tagging.TagConstants;
+import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.WCMMode;
 import com.day.cq.wcm.api.components.ComponentContext;
@@ -145,11 +147,54 @@ public class CommonUtil {
             }
 
             if (value != null) {
-                lastMod = value.longValue();
+                lastMod = value;
             }
         }
 
         return lastMod;
+    }
+    /**
+     * get page resource created date with failover in order NameConstants.PN_ON_TIME, ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED and JcrConstants.JCR_CREATED.
+     * @param pageProperties page properties
+     * @return resource onTime or jcr:created value
+     */
+
+    public static Long getPageCreated(ValueMap pageProperties) {
+        long longDate = 0L;
+        if (pageProperties != null) {
+            Long value = pageProperties.get(NameConstants.PN_ON_TIME, Long.class); //manually set
+            if (value == null) {
+                value = getPageLastReplicated(pageProperties);
+            }
+
+            if (value != null) {
+				longDate = value;
+            }
+        }
+
+        return longDate;
+    }
+
+    /**
+     * get resource last replicated date.
+     * @param pageProperties page properties
+     * @return resource ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED value
+     */
+
+    public static Long getPageLastReplicated(ValueMap pageProperties) {
+        long longDate = 0L;
+        if (pageProperties != null) {
+            Long value = pageProperties.get(ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED, Long.class);
+            if (value == null) {
+                value = pageProperties.get(JcrConstants.JCR_CREATED, Long.class);
+            }
+
+            if (value != null) {
+				longDate = value;
+            }
+        }
+
+        return longDate;
     }
 
     /**
