@@ -1,0 +1,16 @@
+<template data-sly-template.variant="${@ componentProperties, componentFields}">
+    <a class="card ${componentProperties.badgeClassAttr}"
+       href="${componentProperties.pageUrl}"
+       target="${componentProperties.badgeLinkTarget}"
+       title="${componentProperties.badgeLinkTitle}"
+       data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}">
+        <sly data-sly-test="${'icon' in componentFields}">
+            <sly data-sly-use.image="${componentFields['image'].path}"
+                 data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>
+        </sly>
+        <div class="card-body">
+            <div class="card-text">${componentProperties.badgeDescription @ context = 'unsafe'}</div>
+        </div>
+    </a>
+</template>
+
