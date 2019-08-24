@@ -10,6 +10,7 @@
 [![github repo size](https://img.shields.io/github/repo-size/aem-design/aemdesign-aem-core)](https://github.com/aem-design/aemdesign-aem-core) 
 [![github repo size](https://img.shields.io/github/languages/code-size/aem-design/aemdesign-aem-core)](https://github.com/aem-design/aemdesign-aem-core) 
 [![github release](https://img.shields.io/github/release/aem-design/aemdesign-aem-core)](https://github.com/aem-design/aemdesign-aem-core)
+[![CodeFactor](https://www.codefactor.io/repository/github/aem-design/aemdesign-aem-core/badge)](https://www.codefactor.io/repository/github/aem-design/aemdesign-aem-core)
 
 A set of standardized components for AEM 6.4+ that can be used to speed up development of websites.
 
