@@ -816,7 +816,7 @@ public class CommonUtil {
      * @param source object
      * @return status
      */
-    public static Boolean isNull(Object source) {
+    public static boolean isNull(Object source) {
         return source == null;
     }
 
@@ -825,7 +825,7 @@ public class CommonUtil {
      * @param source object
      * @return status
      */
-    public static Boolean isNotNull(Object source) {
+    public static boolean isNotNull(Object source) {
         return source != null;
     }
 
