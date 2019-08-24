@@ -1763,10 +1763,11 @@ public class ComponentsUtil {
 	 * @param sling sling instance
 	 * @return returns list of resources
 	 */
+	@SuppressWarnings({"squid:S3776"})
     public static Map<String, Resource> getLocalSubResourcesInSuperComponent(Component component,String resourceName, SlingScriptHelper sling) {
 		HashMap<String, Resource> subResources = new HashMap<>();
 		Component superComponent = null;
-		int count = 0;
+
 		if (component != null && isNotEmpty(resourceName)) {
 
 			ContentAccess contentAccess = sling.getService(ContentAccess.class);
@@ -1810,8 +1811,6 @@ public class ComponentsUtil {
 										}
 									}
 								}
-
-								count++;
 							}
 						} else {
 							LOGGER.error("getComponentSubResources: could not convert resource to component, componentAdminResource={}", componentAdminResource);
@@ -1847,7 +1846,6 @@ public class ComponentsUtil {
     public static String findLocalResourceInSuperComponent(Component component, String resourceName, SlingScriptHelper sling) {
 
         Component superComponent = null;
-        int count = 0;
         if (component != null) {
 
             ContentAccess contentAccess = sling.getService(ContentAccess.class);
@@ -1881,7 +1879,7 @@ public class ComponentsUtil {
 
                                     return localresource.getPath();
                                 }
-                                count++;
+
                             }
                         } else {
                             LOGGER.error("findLocalResourceInSuperComponent: could not convert resource to component, componentAdminResource={}", componentAdminResource);
