@@ -1,0 +1,21 @@
+<template data-sly-template.variant="${@ componentProperties, componentFields}">
+    {
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [${componentProperties.longitude}, ${componentProperties.latitude}]
+        },
+        properties: {
+            title: '${componentProperties.title}',
+            menuColor: '${componentProperties.menuColor}',
+            menuIcon: '${componentProperties.menuIcon}',
+            x: '${componentProperties.longitude}',
+            y: '${componentProperties.latitude}',
+            <sly data-sly-test="${componentProperties.pageList}">
+            pages: ${componentProperties.pagesJson @ context="unsafe"}
+            </sly>
+        }
+    }
+    <!--/* hide generated edit controls, closing tag is in location list data variant */-->
+    <sly data-sly-test="${wcmmode.edit}">${'/*'}</sly>
+</template>
