@@ -1,6 +1,6 @@
 <template data-sly-template.field="${@ componentProperties, wrapperCssClass}">
-    <div class="${wrapperCssClass ? wrapperCssClass : 'card-img-top'}">
-        <img src="${componentProperties.pageThumbnail}"
+    <div class="${wrapperCssClass || 'card-img-top'}">
+        <img src="${componentProperties.pageThumbnail || componentProperties.pageImageThumbnail}"
              data-sly-attribute="${componentProperties.badgeImageAttr @ context = 'unsafe'}"
              alt="${componentProperties.title}"/>
     </div>
