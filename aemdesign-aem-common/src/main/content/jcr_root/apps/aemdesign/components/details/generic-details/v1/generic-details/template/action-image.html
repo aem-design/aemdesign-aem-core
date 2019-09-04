@@ -1,4 +1,4 @@
-<template data-sly-template.variant="${@ componentProperties, componentFields}">
+<template data-sly-template.variant="${@ componentProperties, componentFields, requestedFields}">
     <a class="card ${componentProperties.badgeClassAttr}"
        href="${componentProperties.pageUrl}"
        target="${componentProperties.badgeLinkTarget}"
@@ -9,8 +9,12 @@
                  data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>
         </sly>
         <div class="card-body">
-            <title class="card-title"
-                   data-sly-element="${componentProperties.badgeTitleType}">${componentProperties.badgeTitle}</title>
+            <sly data-sly-list.field="${componentFields}">
+                <sly data-sly-test="${field in requestedFields}">
+                    <sly data-sly-use.child="${componentFields[field].path}"
+                         data-sly-call="${child.field @ componentProperties=componentProperties}"></sly>
+                </sly>
+            </sly>
         </div>
     </a>
 </template>

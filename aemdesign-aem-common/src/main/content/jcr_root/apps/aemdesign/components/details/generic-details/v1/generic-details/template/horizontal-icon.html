@@ -1,37 +1,22 @@
-<template data-sly-template.variant="${@ componentProperties, componentFields}">
+<template data-sly-template.variant="${@ componentProperties, componentFields, requestedFields}">
     <div class="card card-horizontal text-center text-md-left ${componentProperties.badgeClassAttr}">
         <div class="row align-items-center no-gutters">
             <sly data-sly-test="${'icon' in componentFields}">
-                <sly data-sly-use.image="${componentFields['image'].path}"
-                     data-sly-call="${image.field @ componentProperties=componentProperties, wrapperCssClass='col-md-auto'}"></sly>
+                <sly data-sly-use.icon="${componentFields['icon'].path}"
+                     data-sly-call="${icon.field @ componentProperties=componentProperties, wrapperCssClass='col-md-auto'}"></sly>
             </sly>
-
-            <div class="col-md-auto" data-sly-test="${componentProperties.cardIconShow}">
-                <i class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
-            </div>
             <div class="col p-collapse pt-reset pt-md-collapse pl-reset pr-reset">
-                <title class="card-title"
-                       data-sly-element="${componentProperties.badgeTitleType}">${componentProperties.badgeTitle}</title>
-                <div class="card-category"
-                     data-sly-test="${componentProperties.category}">
-                    <ul class="tags">
-                        <sly data-sly-list.tag="${componentProperties.category}" data-sly-unwrap>
-                            <sly data-sly-test="${componentProperties.category[tag]}">
-                                <li id="${componentProperties.category[tag].value}">${componentProperties.category[tag].title}</li>
-                            </sly>
-                        </sly>
-                    </ul>
-                </div>
-                <div class="card-text">${componentProperties.badgeDescription @ context = 'unsafe'}</div>
+                <sly data-sly-list.field="${componentFields}">
+                    <sly data-sly-test="${field in requestedFields}">
+                        <sly data-sly-use.child="${componentFields[field].path}"
+                             data-sly-call="${child.field @ componentProperties=componentProperties}"></sly>
+                    </sly>
+                </sly>
             </div>
-            <div class="card-action col-md-auto mt-reset mt-md-collapse">
-                <a class="card-link ${componentProperties.badgeLinkStyle @ join=' '}"
-                   href="${componentProperties.pageUrl}"
-                   target="${componentProperties.badgeLinkTarget}"
-                   title="${componentProperties.badgeLinkTitle}"
-                   data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}">
-                    <span>${componentProperties.badgeLinkText}</span></a>
-            </div>
+            <sly data-sly-test="${'action' in componentFields}">
+                <sly data-sly-use.action="${componentFields['action'].path}"
+                     data-sly-call="${action.field @ componentProperties=componentProperties, wrapperCssClass='card-action col-md-auto mt-reset mt-md-collapse'}"></sly>
+            </sly>
         </div>
     </div>
 </template>
