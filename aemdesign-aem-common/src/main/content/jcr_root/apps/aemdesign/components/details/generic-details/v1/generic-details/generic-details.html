@@ -1,11 +1,12 @@
 <sly data-sly-use.component="design.aem.models.v2.details.GenericDetails"
      data-sly-use.variant="${component.componentProperties.variantTemplate}"
+     data-sly-set.requestedFields="${component.requestedFields}"
      data-sly-use.background="aemdesign/global/templates/component-background.html"
      data-sly-use.info="aemdesign/global/templates/component-info.html">
 
     <!--/* check if dynamic component badge is being requested */-->
     <sly data-sly-list.template="${component.templates}">
-        <sly data-sly-test="${template in request.requestPathInfo.selectors}">
+        <sly data-sly-test="${template in requestedFields}">
             <sly data-sly-set.componentBadgeSelected="true"></sly>
             <sly data-sly-set.componentBadgeSelectedPath="${component.templates[template].path}"></sly>
         </sly>
@@ -13,22 +14,22 @@
 
     <sly data-sly-test="${!componentBadgeSelected}">
         <!--/* print component background if not badge being requested */-->
-        <sly data-sly-test="${!component.componentProperties.componentBadgeSelected && !componentBadgeSelected}"
+        <sly data-sly-test="${!component.componentProperties.componentBadgeSelected}"
              data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.bgimage.componentBackgroundAssets}"></sly>
 
         <!--/* print component variant if not badge being requested */-->
-        <sly data-sly-test="${!component.componentProperties.componentBadgeSelected && !componentBadgeSelected}"
-             data-sly-call="${variant.variant @ componentProperties=component.componentProperties}"></sly>
+        <sly data-sly-test="${!component.componentProperties.componentBadgeSelected}"
+             data-sly-call="${variant.variant @ componentProperties=component.componentProperties, componentFields=component.fields, requestedFields=requestedFields}"></sly>
 
         <!--/* print component info in edit mode if not badge being requested */-->
-        <sly data-sly-test="${!component.componentProperties.componentBadgeSelected && !componentBadgeSelected}}"
+        <sly data-sly-test="${!component.componentProperties.componentBadgeSelected}}"
              data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></sly>
     </sly>
 
     <!--/* print dynamic component badge if badge being requested */-->
-    <sly data-sly-test="${componentBadgeSelectedPath}">
+    <sly data-sly-test="${componentBadgeSelected}">
         <sly data-sly-use.child="${componentBadgeSelectedPath}"
-             data-sly-call="${child.variant @ componentProperties=component.componentProperties, componentFields=component.fields}"></sly>
+             data-sly-call="${child.variant @ componentProperties=component.componentProperties, componentFields=component.fields, requestedFields=requestedFields}"></sly>
     </sly>
 
 </sly>
