@@ -104,8 +104,9 @@ public class PageDetails extends GenericDetails {
      * @param sling sling helper
      * @return returns map with new values
      */
+    @Override
     @SuppressWarnings("Duplicates")
-    public static Map<String, Object> processComponentFields(ComponentProperties componentProperties, com.day.cq.i18n.I18n i18n, SlingScriptHelper sling){
+    public Map<String, Object> processComponentFields(ComponentProperties componentProperties, com.day.cq.i18n.I18n i18n, SlingScriptHelper sling){
         Map<String, Object> newFields = new HashMap<>();
 
         try {
