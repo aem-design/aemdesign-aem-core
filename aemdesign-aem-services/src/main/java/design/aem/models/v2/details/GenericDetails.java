@@ -1,25 +1,33 @@
 package design.aem.models.v2.details;
 
+import com.day.cq.i18n.I18n;
+import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
+import design.aem.utils.components.ComponentsUtil;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.scripting.SlingScriptHelper;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static design.aem.utils.components.CommonUtil.getBadgeFromSelectors;
-import static design.aem.utils.components.CommonUtil.getPageRedirect;
+import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentDetailsUtil.processBadgeRequestConfig;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
+import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.ImagesUtil.*;
 import static design.aem.utils.components.ResolverUtil.mappedUrl;
+import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -27,7 +35,93 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class GenericDetails extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(GenericDetails.class);
 
+	private static final String COMPONENT_DETAILS_NAME = "generic-details";
+
     private static final String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
+	private static final String DEFAULT_FORMAT_TITLE = "${title}";
+	private static final String FIELD_FORMAT_TITLE = "titleFormat";
+	private static final String FIELD_FORMATTED_TITLE = "titleFormatted";
+	private static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
+	private static final String FIELD_SUBCATEGORY = "subCategory";
+	private static final String FIELD_CATEGORY = "category";
+
+	private static final String[] legacyBadgeList = new String[] {
+            "badge.cardActionIconDescription",
+            "badge.cardActionIconTitleCategoryDescription",
+            "badge.cardActionIconTitleDescription",
+            "badge.cardActionImageTitle",
+            "badge.cardActionImageTitleCategoryDescription",
+            "badge.cardActionImageTitleDescription",
+            "badge.cardHorizontalIconTitleCategoryDescriptionAction",
+            "badge.cardIcon",
+            "badge.cardIconDescription",
+            "badge.cardIconTitle",
+            "badge.cardIconTitleAction",
+            "badge.cardIconTitleCategoryDescription",
+            "badge.cardIconTitleCategoryDescriptionAction",
+            "badge.cardIconTitleDate",
+            "badge.cardIconTitleDateDescriptionAction",
+            "badge.cardIconTitleDescription",
+            "badge.cardIconTitleDescriptionAction",
+            "badge.cardIconTitleSubtitleDate",
+            "badge.cardIconTitleSubtitleDateDescriptionAction",
+            "badge.cardIconTitleSubtitleDescriptionAction",
+            "badge.cardImageSubtitleTitleCategoryDescriptionAction",
+            "badge.cardImageSubtitleTitleDescriptionAction",
+            "badge.cardImageTagTitleAction",
+            "badge.cardImageTitleAction",
+            "badge.cardImageTitleCategoryActionDate",
+            "badge.cardImageTitleCategoryDescription",
+            "badge.cardImageTitleCategoryDescriptionAction",
+            "badge.cardImageTitleDescription",
+            "badge.cardImageTitleDescriptionAction",
+            "badge.cardImageTitleSubtitleDescriptionAction",
+            "badge.cardTitleDescriptionAction",
+            "badge.data",
+            "badge.default",
+            "badge.icon",
+            "badge.image",
+            "badge.metadata"
+    };
+
+	private static final String[][] legacyBadgeListMapping = new String[][] {
+            new String[] {"action-icon","description"},
+            new String[] {"action-icon","title", "taglist", "description"},
+            new String[] {"action-icon","title", "description"},
+            new String[] {"action-image","title"},
+            new String[] {"action-image","title", "taglist", "description"},
+            new String[] {"action-image","title", "description"},
+            new String[] {"horizontal-icon","title", "taglist", "description", "action"},
+            new String[] {"card-icon"},
+            new String[] {"card-icon","description"},
+            new String[] {"card-icon","title"},
+            new String[] {"card-icon","title", "action"},
+            new String[] {"card-icon","title", "taglist", "description"},
+            new String[] {"card-icon","title", "taglist", "description", "action"},
+            new String[] {"card-icon","title", "startdate"},
+            new String[] {"card-icon","title", "startdate", "description"},
+            new String[] {"card-icon","title", "description"},
+            new String[] {"card-icon","title", "description", "action"},
+            new String[] {"card-icon","title", "subtitle", "startdate"},
+            new String[] {"card-icon","title", "subtitle", "startdate", "description", "action"},
+            new String[] {"card-icon","title", "subtitle", "description", "action"},
+            new String[] {"card-image","subtitle", "title", "taglist", "description", "action"},
+            new String[] {"card-image","subtitle", "title", "description", "action"},
+            new String[] {"card-image","taglist", "title", "action"},
+            new String[] {"card-image","title", "action"},
+            new String[] {"card-image","title", "taglist", "action", "startdate"},
+            new String[] {"card-image","title", "taglist", "description"},
+            new String[] {"card-image","title", "taglist", "description", "action"},
+            new String[] {"card-image","title", "description"},
+            new String[] {"card-image","title", "description", "action"},
+            new String[] {"card-image","title", "subtitle", "description", "action"},
+            new String[] {"card","title", "description", "action"},
+            new String[] {"simple-data"},
+            new String[] {"default"},
+            new String[] {"simple-icon"},
+            new String[] {"simple-image"},
+            new String[] {"simple-metadata"},
+    };
 
     protected ComponentProperties componentProperties = null;
     public ComponentProperties getComponentProperties() {
@@ -36,7 +130,71 @@ public class GenericDetails extends ModelProxy {
 
     @SuppressWarnings("Duplicates")
     protected void ready() {
-        processCommonFields();
+		com.day.cq.i18n.I18n i18n = new I18n(getRequest());
+
+		final String DEFAULT_ARIA_ROLE = "banner";
+		final String DEFAULT_TITLE_TAG_TYPE = "h1";
+		final String DEFAULT_I18N_CATEGORY = "page-detail";
+		final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
+
+		// default values for the component
+		final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
+		final String DEFAULT_DESCRIPTION = getResourcePage().getDescription();
+		final String DEFAULT_SUBTITLE = getResourcePage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE,"");
+		final Boolean DEFAULT_HIDE_TITLE = false;
+		final Boolean DEFAULT_HIDE_DESCRIPTION = false;
+		final Boolean DEFAULT_SHOW_BREADCRUMB = true;
+		final Boolean DEFAULT_SHOW_TOOLBAR = true;
+		final Boolean DEFAULT_SHOW_PAGE_DATE = true;
+		final Boolean DEFAULT_SHOW_PARSYS = true;
+
+		this.componentProperties = ComponentsUtil.getNewComponentProperties(this);
+
+		setComponentFields(new Object[][]{
+			{FIELD_VARIANT, DEFAULT_VARIANT},
+			{"title", DEFAULT_TITLE},
+			{FIELD_FORMAT_TITLE,""}, //tag path, will be resolved to value in processComponentFields
+			{"description", DEFAULT_DESCRIPTION},
+			{"hideDescription", DEFAULT_HIDE_DESCRIPTION},
+			{"hideTitle", DEFAULT_HIDE_TITLE},
+			{"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
+			{"showToolbar", DEFAULT_SHOW_TOOLBAR},
+			{"showPageDate", DEFAULT_SHOW_PAGE_DATE},
+			{"showParsys", DEFAULT_SHOW_PARSYS},
+			{FIELD_LINK_TARGET, StringUtils.EMPTY, FIELD_TARGET},
+			{FIELD_PAGE_URL, getPageUrl(getResourcePage())},
+			{FIELD_PAGE_TITLE, DEFAULT_TITLE},
+			{FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
+			{FIELD_PAGE_TITLE_SUBTITLE, DEFAULT_SUBTITLE},
+			{TagConstants.PN_TAGS, new String[]{}},
+			{FIELD_SUBCATEGORY, new String[]{}},
+			{FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
+			{FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
+			{"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
+			{"legacyBadgeList", legacyBadgeList},
+			{"legacyBadgeListMapping", legacyBadgeListMapping},
+			{"variantFields", new String[]{}},
+			{"variantTemplate", new String[]{}},
+		});
+
+		componentProperties = ComponentsUtil.getComponentProperties(
+			this,
+			componentFields,
+			DEFAULT_FIELDS_STYLE,
+			DEFAULT_FIELDS_ACCESSIBILITY,
+			DEFAULT_FIELDS_ANALYTICS,
+			DEFAULT_FIELDS_DETAILS_OPTIONS);
+
+		String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
+		componentProperties.put(FIELD_CATEGORY,getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
+
+		String[] subCategory = componentProperties.get(FIELD_SUBCATEGORY, new String[]{});
+		componentProperties.put(FIELD_SUBCATEGORY,getTagsAsAdmin(getSlingScriptHelper(), subCategory, getRequest().getLocale()));
+
+		processCommonFields();
+
+		//format fields
+		componentProperties.putAll(processComponentFields(componentProperties,i18n,getSlingScriptHelper()), false);
     }
 
     @SuppressWarnings("Duplicates")
@@ -174,6 +332,27 @@ public class GenericDetails extends ModelProxy {
 		return getLocalSubResourcesInSuperComponent(getComponent(), "template", getSlingScriptHelper());
 	}
 
+	/**
+	 * get template in component
+	 * @return list of template resources
+	 */
+	public String[] getRequestedFields() {
+        String legacyComponentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
+
+	    if (isNotEmpty(legacyComponentBadge) ) {
+            if (this.componentProperties != null) {
+                String[][] legacyBadgeMapping = this.componentProperties.get("legacyBadgeListMapping", legacyBadgeListMapping);
+                String[] legacyBadges = this.componentProperties.get("legacyBadge", legacyBadgeList);
+                int badgeMapIndex = ArrayUtils.indexOf(legacyBadges, legacyComponentBadge);
+                if (legacyBadgeMapping.length > badgeMapIndex) {
+                    return legacyBadgeMapping[badgeMapIndex];
+                }
+            }
+
+        }
+        return this.getSlingScriptHelper().getRequest().getRequestPathInfo().getSelectors();
+    }
+
     /***
      * get and format badge config
      * @param page resource page
@@ -309,5 +488,37 @@ public class GenericDetails extends ModelProxy {
 
         return newFields;
     }
+
+
+
+	/***
+	 * substitute formatted field template with fields from component.
+	 * @param componentProperties source map with fields
+	 * @param i18n i18n
+	 * @param sling sling helper
+	 * @return returns map with new values
+	 */
+	@SuppressWarnings("Duplicates")
+	public Map<String, Object> processComponentFields(ComponentProperties componentProperties, com.day.cq.i18n.I18n i18n, SlingScriptHelper sling){
+		Map<String, Object> newFields = new HashMap<>();
+
+		try {
+
+			String formattedTitle = compileComponentMessage(FIELD_FORMAT_TITLE, DEFAULT_FORMAT_TITLE, componentProperties, sling);
+			Document fragment = Jsoup.parse(formattedTitle);
+			String formattedTitleText = fragment.text();
+
+			newFields.put(FIELD_FORMATTED_TITLE,
+				formattedTitle.trim()
+			);
+			newFields.put(FIELD_FORMATTED_TITLE_TEXT,
+				formattedTitleText.trim()
+			);
+
+		} catch (Exception ex) {
+			LOGGER.error("Could not process component fields in {}", COMPONENT_DETAILS_NAME);
+		}
+		return newFields;
+	}
 
 }
