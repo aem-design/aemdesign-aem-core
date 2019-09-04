@@ -1,4 +1,4 @@
-<template data-sly-template.variant="${@ componentProperties}">
+<template data-sly-template.variant="${@ componentProperties, componentFields, requestedFields}">
     <sly data-sly-test="${wcmmode.edit}">
         <div class="component" hidden>${componentProperties.variantHiddenLabel}</div>
     </sly>
