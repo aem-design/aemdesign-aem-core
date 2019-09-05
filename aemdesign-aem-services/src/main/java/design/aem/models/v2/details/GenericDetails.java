@@ -174,7 +174,7 @@ public class GenericDetails extends ModelProxy {
 			{"legacyBadgeList", legacyBadgeList},
 			{"legacyBadgeListMapping", legacyBadgeListMapping},
 			{"variantFields", new String[]{}},
-			{"variantTemplate", new String[]{}},
+			{"variantFieldsTemplate", new String[]{}},
 		});
 
 		componentProperties = ComponentsUtil.getComponentProperties(
