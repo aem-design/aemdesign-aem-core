@@ -81,21 +81,21 @@
                                             <note
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                    note="Custom Fields to rendered by Variant on page"/>
+                                                    note="Customise Variant Fields Template and select Fields to render"/>
 
-                                            <variantTemplate
+                                            <variantFieldsTemplate
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                                    fieldLabel="Template"
-                                                    name="./variantTemplate"
-                                                    emptyOption="{Boolean}true"
-                                                    required="{Boolean}true">
+                                                    fieldLabel="Fields Template"
+                                                    fieldDescription="use following fields template to wrap required fields"
+                                                    name="./variantFieldsTemplate"
+                                                    emptyOption="{Boolean}true">
                                                 <datasource
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                         variant="valuelist"
                                                         path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/detials/generic-details/templates"/>
-                                            </variantTemplate>
+                                            </variantFieldsTemplate>
 
                                             <variantFields
                                                     jcr:primaryType="nt:unstructured"
