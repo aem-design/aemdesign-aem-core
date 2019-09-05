@@ -1,20 +1,22 @@
-<template data-sly-template.variant="${@ componentProperties, componentFields, requestedFields}">
+<template data-sly-template.variant="${@ componentProperties, componentTemplates, requestedFieldsTemplate, componentFields, requestedFields}">
     <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
          data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
         <div class="container">
-            <sly data-sly-test="${'header' in componentFields}">
+            <sly data-sly-test="${'breadcrumb' in componentFields}">
                 <sly data-sly-use.image="${componentFields['header'].path}"
                      data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>
             </sly>
             <header>
-                <title class="title"
-                       data-sly-test="${!componentProperties.hideTitle}"
-                       data-sly-element="${componentProperties.titleType}"
-                       data-sly-attribute.id="${componentProperties.ariaLabelledBy}">${componentProperties.titleFormatted @ context = 'unsafe'}</title>
-                <div class="description"
-                     data-sly-test="${!componentProperties.hideDescription}">${componentProperties.description @ context = 'unsafe'}</div>
+                <sly data-sly-test="${'title' in componentFields}">
+                    <sly data-sly-use.image="${componentFields['title'].path}"
+                         data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>
+                </sly>
+                <sly data-sly-test="${'description' in componentFields}">
+                    <sly data-sly-use.image="${componentFields['description'].path}"
+                         data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>
+                </sly>
             </header>
-            <sly data-sly-test="${'footer' in componentFields}">
+            <sly data-sly-test="${'container' in componentFields}">
                 <sly data-sly-use.image="${componentFields['footer'].path}"
                      data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>
             </sly>
