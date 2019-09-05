@@ -6,11 +6,8 @@
                      data-sly-call="${icon.field @ componentProperties=componentProperties, wrapperCssClass='col-md-auto'}"></sly>
             </sly>
             <div class="col p-collapse pt-reset pt-md-collapse pl-reset pr-reset">
-                <sly data-sly-list.field="${componentFields}">
-                    <sly data-sly-test="${field in requestedFields}">
-                        <sly data-sly-use.child="${componentFields[field].path}"
-                             data-sly-call="${child.field @ componentProperties=componentProperties}"></sly>
-                    </sly>
+                <sly data-sly-use.printFields="template/default.html"
+                     data-sly-call="${printFields.variant @ componentProperties=componentProperties, componentFields=componentFields, requestedFields=requestedFields}">
                 </sly>
             </div>
             <sly data-sly-test="${'action' in componentFields}">
