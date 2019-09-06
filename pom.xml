@@ -7,7 +7,7 @@
 
     <groupId>design.aem</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>2.0.430</version>
+    <version>2.0.447</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -25,14 +25,14 @@
     <!-- P R O P E R T I E S                                                    -->
     <!-- ====================================================================== -->
     <properties>
-        <crx.host>192.168.27.2</crx.host>
+        <crx.host>localhost</crx.host>
         <crx.port>4502</crx.port>
         <crx.username>admin</crx.username>
         <crx.password>admin</crx.password>
         <crx.package.path>/etc/packages</crx.package.path>
-        <nexus.host>192.168.27.2</nexus.host>
+        <nexus.host>localhost</nexus.host>
         <nexus.port>8081</nexus.port>
-        <publish.crx.host>192.168.27.2</publish.crx.host>
+        <publish.crx.host>localhost</publish.crx.host>
         <publish.crx.port>4503</publish.crx.port>
         <publish.crx.username>admin</publish.crx.username>
         <publish.crx.password>admin</publish.crx.password>

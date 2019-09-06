@@ -80,7 +80,7 @@
             <repositories>
                 <repository>
                     <id>privateregistry</id>
-                    <url>http://192.168.27.2:8081/repository/maven-snapshots</url>
+                    <url>http://localhost:8081/repository/maven-snapshots</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -92,7 +92,7 @@
             <pluginRepositories>
                 <pluginRepository>
                     <id>privateregistry</id>
-                    <url>http://192.168.27.2:8081/repository/maven-snapshots</url>
+                    <url>http://localhost:8081/repository/maven-snapshots</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -108,7 +108,7 @@
             <!--This sends everything else to /public -->
             <id>aemdesign-mirror</id>
             <mirrorOf>*</mirrorOf>
-            <url>http://192.168.27.2:8081/repository/maven-releases/</url>
+            <url>http://localhost:8081/repository/maven-releases/</url>
         </mirror>
     </mirrors>
     <proxies>
@@ -116,9 +116,9 @@
             <id>aemdesign-proxy</id>
             <active>true</active>
             <protocol>http</protocol>
-            <host>192.168.27.2:8081</host>
+            <host>localhost:8081</host>
             <port>8081</port>
-            <nonProxyHosts>192.168.27.2,localhost,127.0.0.1</nonProxyHosts>
+            <nonProxyHosts>localhost,127.0.0.1</nonProxyHosts>
         </proxy>
     </proxies>
 </settings>
