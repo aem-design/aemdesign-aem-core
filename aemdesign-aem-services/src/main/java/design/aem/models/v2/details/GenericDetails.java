@@ -45,6 +45,7 @@ public class GenericDetails extends ModelProxy {
 	private static final String FIELD_SUBCATEGORY = "subCategory";
 	private static final String FIELD_CATEGORY = "category";
 
+	//used for backwards compatibility of details components
 	private static final String[] legacyBadgeList = new String[] {
             "badge.cardActionIconDescription",
             "badge.cardActionIconTitleCategoryDescription",
@@ -84,6 +85,7 @@ public class GenericDetails extends ModelProxy {
             "badge.metadata"
     };
 
+    //used for backwards compatibility of details components
 	private static final String[][] legacyBadgeListMapping = new String[][] {
             new String[] {"action-icon","description"},
             new String[] {"action-icon","title", "taglist", "description"},
@@ -128,6 +130,9 @@ public class GenericDetails extends ModelProxy {
         return this.componentProperties;
     }
 
+    /***
+     * main activate entry point.
+     */
     @SuppressWarnings("Duplicates")
     protected void ready() {
 		com.day.cq.i18n.I18n i18n = new I18n(getRequest());
@@ -197,6 +202,9 @@ public class GenericDetails extends ModelProxy {
 		componentProperties.putAll(processComponentFields(componentProperties,i18n,getSlingScriptHelper()), false);
     }
 
+    /***
+     * process common fields that details supports.
+     */
     @SuppressWarnings("Duplicates")
     protected void processCommonFields() {
         try {
@@ -317,7 +325,7 @@ public class GenericDetails extends ModelProxy {
     }
 
 	/**
-	 * get field template in component
+	 * get field template in component.
 	 * @return list of field resources
 	 */
 	public Map<String, Resource> getFields() {
@@ -325,7 +333,7 @@ public class GenericDetails extends ModelProxy {
 	}
 
 	/**
-	 * get template in component
+	 * get template in component.
 	 * @return list of template resources
 	 */
 	public Map<String, Resource> getTemplates() {
@@ -333,7 +341,7 @@ public class GenericDetails extends ModelProxy {
 	}
 
 	/**
-	 * get template in component
+	 * return list of selectors if not using legacy badge convention.
 	 * @return list of template resources
 	 */
 	public String[] getRequestedFields() {
@@ -354,7 +362,7 @@ public class GenericDetails extends ModelProxy {
     }
 
     /***
-     * get and format badge config
+     * get and format badge config.
      * @param page resource page
      * @param componentProperties current componentProperties
      * @return badge config map to be added to componentProperties
@@ -454,6 +462,14 @@ public class GenericDetails extends ModelProxy {
     }
 
 
+    /***
+     * process page metadata that has been configures in the page properties.
+     * @param page page to check
+     * @param resourceResolver resolver instance
+     * @param request request instance
+     * @param componentProperties components properties to use for content
+     * @return returns map with page metadata
+     */
     public static Map<String, String> processPageMetaProperties(Page page, ResourceResolver resourceResolver, SlingHttpServletRequest request, ComponentProperties componentProperties) {
         Map<String, String> newFields = new HashMap<>();
 
