@@ -1,6 +1,6 @@
 <template data-sly-template.variant="${@ componentProperties, componentTemplates, requestedFieldsTemplate, componentFields, requestedFields}">
     <sly data-sly-test="${'hidden' in componentFields}">
-        <sly data-sly-use.image="${componentFields['footer'].path}"
-             data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>
+        <sly data-sly-use.container="${componentFields['container'].path}"
+             data-sly-call="${container.field @ componentProperties=componentProperties}"></sly>
     </sly>
 </template>
