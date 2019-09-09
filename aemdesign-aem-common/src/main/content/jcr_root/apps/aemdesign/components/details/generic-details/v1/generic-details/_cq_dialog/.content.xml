@@ -53,7 +53,8 @@
                                             <default
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Default"
-                                                    value=""/>
+                                                    value=""
+                                                    valuealt="displayoptions"/>
                                             <custom
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Custom Layout"
@@ -126,97 +127,108 @@
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
-                            <displayOptions
+                            <variantDisplatyConfig
                                     jcr:primaryType="nt:unstructured"
-                                    jcr:title="Display Options"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                    class="hide genericdetails-variant-showhide-target foundation-layout-util-vmargin"
+                                    showhidetargetvalue="displayoptions"
+                                    sling:resourceType="granite/ui/components/foundation/container">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <showBreadcrumb
+                                    <displayOptions
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="show breadcrumb above title"
-                                            fieldLabel="Show Breadcrumb"
-                                            name="./showBreadcrumb"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </showBreadcrumb>
-                                    <showToolbar
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="show toolbar above title"
-                                            fieldLabel="Show Toolbar"
-                                            name="./showToolbar"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </showToolbar>
-                                    <showPageDate
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="Show page date above title"
-                                            fieldLabel="Show Page Date"
-                                            name="./showPageDate"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </showPageDate>
-                                    <showParsys
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="show parsys after title"
-                                            fieldLabel="Show Parsys"
-                                            name="./showParsys"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </showParsys>
-                                    <hideTitle
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="hide title"
-                                            fieldLabel="Hide Title"
-                                            name="./hideTitle"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </hideTitle>
-                                    <hideDescription
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="hide description after title"
-                                            fieldLabel="Hide Description"
-                                            name="./hideDescription"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </hideDescription>
+                                            jcr:title="Display Options"
+                                            class="hide genericdetails-variant-showhide-target foundation-layout-util-vmargin"
+                                            showhidetargetvalue=""
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <showBreadcrumb
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                                    fieldDescription="show breadcrumb above title"
+                                                    fieldLabel="Show Breadcrumb"
+                                                    name="./showBreadcrumb"
+                                                    emptyOption="{Boolean}true"
+                                                    value="">
+                                                <datasource
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                        variant="valuelist"
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            </showBreadcrumb>
+                                            <showToolbar
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                                    fieldDescription="show toolbar above title"
+                                                    fieldLabel="Show Toolbar"
+                                                    name="./showToolbar"
+                                                    emptyOption="{Boolean}true"
+                                                    value="">
+                                                <datasource
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                        variant="valuelist"
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            </showToolbar>
+                                            <showPageDate
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                                    fieldDescription="Show page date above title"
+                                                    fieldLabel="Show Page Date"
+                                                    name="./showPageDate"
+                                                    emptyOption="{Boolean}true"
+                                                    value="">
+                                                <datasource
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                        variant="valuelist"
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            </showPageDate>
+                                            <showParsys
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                                    fieldDescription="show parsys after title"
+                                                    fieldLabel="Show Parsys"
+                                                    name="./showParsys"
+                                                    emptyOption="{Boolean}true"
+                                                    value="">
+                                                <datasource
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                        variant="valuelist"
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            </showParsys>
+                                            <hideTitle
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                                    fieldDescription="hide title"
+                                                    fieldLabel="Hide Title"
+                                                    name="./hideTitle"
+                                                    emptyOption="{Boolean}true"
+                                                    value="">
+                                                <datasource
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                        variant="valuelist"
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            </hideTitle>
+                                            <hideDescription
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                                    fieldDescription="hide description after title"
+                                                    fieldLabel="Hide Description"
+                                                    name="./hideDescription"
+                                                    emptyOption="{Boolean}true"
+                                                    value="">
+                                                <datasource
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                        variant="valuelist"
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            </hideDescription>
+                                        </items>
+                                    </displayOptions>
                                 </items>
-                            </displayOptions>
+                            </variantDisplatyConfig>
+
                             <titleFormat
                                     jcr:primaryType="nt:unstructured"
                                     jcr:title="Title Format"
