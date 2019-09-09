@@ -756,10 +756,12 @@ public class CommonUtil {
 
     /***
      * return badge name from selector string.
+     * @deprecated use generic-details template and field pattern
      * @param selectorString _slingRequest.getRequestPathInfo().getSelectorString()
      * @return badge name
      */
     @SuppressWarnings({"squid:S4784"})
+    @Deprecated
     public static String getBadgeFromSelectors(String selectorString) {
         String badge = "";
 
