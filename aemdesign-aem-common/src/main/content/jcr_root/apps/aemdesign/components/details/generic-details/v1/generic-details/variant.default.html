@@ -3,22 +3,22 @@
          data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
         <div class="container">
             <sly data-sly-test="${'breadcrumb' in componentFields}">
-                <sly data-sly-use.image="${componentFields['header'].path}"
-                     data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>
+                <sly data-sly-use.breadcrumb="${componentFields['breadcrumb'].path}"
+                     data-sly-call="${breadcrumb.field @ componentProperties=componentProperties}"></sly>
             </sly>
             <header>
                 <sly data-sly-test="${'title' in componentFields}">
-                    <sly data-sly-use.image="${componentFields['title'].path}"
-                         data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>
+                    <sly data-sly-use.title="${componentFields['title'].path}"
+                         data-sly-call="${title.field @ componentProperties=componentProperties}"></sly>
                 </sly>
                 <sly data-sly-test="${'description' in componentFields}">
-                    <sly data-sly-use.image="${componentFields['description'].path}"
-                         data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>
+                    <sly data-sly-use.description="${componentFields['description'].path}"
+                         data-sly-call="${description.field @ componentProperties=componentProperties}"></sly>
                 </sly>
             </header>
             <sly data-sly-test="${'container' in componentFields}">
-                <sly data-sly-use.image="${componentFields['footer'].path}"
-                     data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>
+                <sly data-sly-use.footer="${componentFields['container'].path}"
+                     data-sly-call="${footer.field @ componentProperties=componentProperties}"></sly>
             </sly>
         </div>
     </div>
