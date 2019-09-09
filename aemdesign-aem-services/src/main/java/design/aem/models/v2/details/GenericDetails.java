@@ -262,6 +262,7 @@ public class GenericDetails extends ModelProxy {
 
             //process badge selection
             String componentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
+            Boolean badgeWasRequested = isNotEmpty(componentBadge);
 
             String requestedBadgeTemplate = format(COMPONENT_BADGE_TEMPLATE_FORMAT, componentBadge);
             if (isEmpty(componentBadge)) {
@@ -280,7 +281,9 @@ public class GenericDetails extends ModelProxy {
 
             //check if component has the badge and reset if it does not
             if (isEmpty(badgePath)) {
-                LOGGER.error("BADGE NOT FOUND badgePath={},requestedBadgeTemplate={}",badgePath,requestedBadgeTemplate);
+                if (badgeWasRequested) {
+                    LOGGER.error("LEGACY BADGE WAS REQUESTED BUT NOT FOUND requestedBadgeTemplate={}",requestedBadgeTemplate);
+                }
                 componentBadge = DEFAULT_BADGE;
                 requestedBadgeTemplate = defaultBadgeTemplate;
             }
