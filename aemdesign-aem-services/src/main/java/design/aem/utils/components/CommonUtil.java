@@ -75,13 +75,12 @@ public class CommonUtil {
     public static final String SLING_REDIRECT_TARGET = "sling:redirect";
 
     /**
-     * sling resource type property name
+     * sling resource type property name.
      */
     public static final String RESOURCE_TYPE = "sling:resourceType";
 
     /**
      * This function html4-escapes the provided string/object.
-     *
      * @param body The string/object to encode.
      * @return A properly encoded html4 string.
      * @see StringEscapeUtils#escapeHtml4
@@ -93,6 +92,11 @@ public class CommonUtil {
         return StringEscapeUtils.escapeHtml4(body.toString());
     }
 
+    /**
+     * ger redirect target for a page.
+     * @param page page to check
+     * @return string with redirect value
+     */
     public static String getPageRedirect(Page page) {
         if (page != null && page.getProperties() != null) {
             return page.getProperties().get(PN_REDIRECT_TARGET, page.getProperties().get(SLING_REDIRECT_TARGET, ""));
@@ -102,8 +106,7 @@ public class CommonUtil {
     }
 
     /**
-     * Get a page's url
-     *
+     * Get a page's url.
      * @param page is the page to get the url for
      * @return a string with the page url
      */
@@ -136,7 +139,6 @@ public class CommonUtil {
      * @param resource resource to use
      * @return resource last modified date
      */
-
     public static Long getLastModified(Resource resource) {
         long lastMod = 0L;
         ValueMap values = resource.adaptTo(ValueMap.class);
@@ -158,7 +160,6 @@ public class CommonUtil {
      * @param pageProperties page properties
      * @return resource onTime or jcr:created value
      */
-
     public static Long getPageCreated(ValueMap pageProperties) {
         long longDate = 0L;
         if (pageProperties != null) {
@@ -180,7 +181,6 @@ public class CommonUtil {
      * @param pageProperties page properties
      * @return resource ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED value
      */
-
     public static Long getPageLastReplicated(ValueMap pageProperties) {
         long longDate = 0L;
         if (pageProperties != null) {
@@ -268,8 +268,7 @@ public class CommonUtil {
 
 
     /**
-     * Get a page's navigation title, or normal title
-     *
+     * Get a page's navigation title, or normal title.
      * @param page is the page to get the title for
      * @return a string with the page title
      */
@@ -287,8 +286,7 @@ public class CommonUtil {
     }
 
     /**
-     * get tags for a page
-     *
+     * get tags for a page.
      * @param page is the page to look for the image
      * @return is the relative path to the image
      */
@@ -307,8 +305,7 @@ public class CommonUtil {
     }
 
     /**
-     * Get a JCR value or, if it's not available, return null
-     *
+     * Get a JCR value or, if it's not available, return null.
      * @param node     is the jcr node to find
      * @param property is the property on the node to query
      * @return the value in the property, or null if nothing was found
@@ -319,8 +316,7 @@ public class CommonUtil {
     }
 
     /**
-     * Get a JCR value or, if it's not available, return the defaultValue
-     *
+     * Get a JCR value or, if it's not available, return the defaultValue.
      * @param node         is the jcr node to find
      * @param property     is the property on the node to query
      * @param defaultValue is the default value to return
@@ -338,8 +334,7 @@ public class CommonUtil {
     }
 
     /**
-     * Determine whether named script exists
-     *
+     * Determine whether named script exists.
      * @param page is the current page (for a reference to the root node)
      * @param nodeName  is the node name to check for
      * @return true if the script exists
@@ -386,8 +381,7 @@ public class CommonUtil {
 
 
     /**
-     * Determine whether the page is visible
-     *
+     * Determine whether the page is visible.
      * @param page is the page to determine this for
      * @return true if the page is on, otherwise false is returned.
      */
@@ -401,7 +395,6 @@ public class CommonUtil {
 
     /**
      * Utility function for hashing a string via MD5.
-     *
      * @param content The string to perform the hash on.
      * @return The hash if successful, or the original string if not.
      */
@@ -419,9 +412,8 @@ public class CommonUtil {
     }
 
     /**
-     * Protects against the stupid multi-single property bug AEM seems to have. Will get the value off a node property
-     * if it exists, or return null if anything goes wrong.
-     *
+     * Protects against the stupid multi-single property bug AEM seems to have.
+     * Will get the value off a node property if it exists, or return null if anything goes wrong.
      * @param node The node to get the property value from.
      * @param key  The property key to get the value for.
      * @return The value of the property, or null.
@@ -451,7 +443,6 @@ public class CommonUtil {
 
     /**
      * Convenience method for safely retrieving a String value from a node.
-     *
      * @param node The node to get the property string from.
      * @param key  The property key to get the string for.
      * @return The string value of the property, or null.
@@ -474,8 +465,7 @@ public class CommonUtil {
     }
 
     /**
-     * find a component in a page root that matches required suffix
-     *
+     * find a component in a page root that matches required suffix.
      * @param inputPage        is the page to look through for component
      * @param resourceTypeTail array for suffixes to check as endsWith with sling:resourceType or node name (as failover)
      * @param pageRoots        use matching page root as a staring point for search
@@ -579,8 +569,7 @@ public class CommonUtil {
 
 
     /**
-     * Return a JCR node for a first found matching path
-     *
+     * Return a JCR node for a first found matching path.
      * @param thisPage is the page to inspect for newsdetails
      * @param nodePaths paths to look for
      * @return a JCR node or null when not found
@@ -602,8 +591,7 @@ public class CommonUtil {
     }
 
     /**
-     * Return a JCR node for a first found matching path
-     *
+     * Return a JCR node for a first found matching path.
      * @param thisPage is the page to inspect for newsdetails
      * @param nodePaths paths to look for
      * @return a JCR node or null when not found
@@ -626,8 +614,7 @@ public class CommonUtil {
     }
 
     /**
-     * Return a JCR node for the component in <code>thisPage</code>
-     *
+     * Return a JCR node for the component in <code>thisPage</code>.
      * @param thisPage      is the page to inspect for component
      * @param componentPath is the path of the component eg par/venuedetails
      * @return a JCR node or null when not found
@@ -644,8 +631,7 @@ public class CommonUtil {
     }
 
     /**
-     * Return first mediagallery or video node on <code>thisPage</code>
-     *
+     * Return first mediagallery or video node on <code>thisPage</code>.
      * @param thisPage is the page to inspect for component
      * @return a JCR node or null when not found
      */
@@ -680,7 +666,6 @@ public class CommonUtil {
      * @param map map of attributes to use
      * @return formatted string
      */
-
     public static String compileMapMessage(String template, Map<String, Object> map) {
         //quick fail
         if (isEmpty(template) || map == null) {
@@ -693,7 +678,7 @@ public class CommonUtil {
 
 
     /***
-     * render a resource path as HTML to include in components that reuse content in other resources
+     * render a resource path as HTML to include in components that reuse content in other resources.
      * @param path path to resources
      * @param resourceResolver resource resolver for request
      * @param sling sling helper
@@ -785,7 +770,7 @@ public class CommonUtil {
 
 
     /***
-     * disable decoration of component
+     * disable decoration of component.
      * @param componentContext current component context
      * @param includeOptions include options
      */
@@ -799,7 +784,7 @@ public class CommonUtil {
     }
 
     /***
-     * set component decoration
+     * set component decoration.
      * @param componentContext current component context
      * @param includeOptions include option
      * @param defDecoration defaut decoration
