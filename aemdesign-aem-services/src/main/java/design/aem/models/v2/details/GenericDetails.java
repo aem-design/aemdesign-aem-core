@@ -281,8 +281,8 @@ public class GenericDetails extends ModelProxy {
 
             //check if component has the badge and reset if it does not
             if (isEmpty(badgePath)) {
-                if (badgeWasRequested) {
-                    LOGGER.error("LEGACY BADGE WAS REQUESTED BUT NOT FOUND requestedBadgeTemplate={}",requestedBadgeTemplate);
+                if (badgeWasRequested && !ArrayUtils.contains(legacyBadgeList,componentBadge)) {
+                    LOGGER.error("LEGACY BADGE WAS REQUESTED BUT NOT FOUND IN COMPONENT AND LEGACY MAPPING NOT FOUND requestedBadgeTemplate={}",requestedBadgeTemplate);
                 }
                 componentBadge = DEFAULT_BADGE;
                 requestedBadgeTemplate = defaultBadgeTemplate;
