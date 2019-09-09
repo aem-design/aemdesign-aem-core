@@ -305,16 +305,21 @@ public class GenericDetails extends ModelProxy {
             //process badge config
             componentProperties.putAll(processBadgeConfig(getResourcePage(), componentProperties));
 
+            //only process variantTemplate if its not been set already
+            String variantTemplate = componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
+            if (isEmpty(variantTemplate)) {
 
-            String variant = componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
-            //process variant selection
-            if (isEmpty(variant)) {
-                variant = DEFAULT_VARIANT;
+                String variant = componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
+                //process variant selection
+                if (isEmpty(variant)) {
+                    variant = DEFAULT_VARIANT;
+                }
+
+                variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant);
+
+                //compile variantTemplate param
+                componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
             }
-            String variantTemplate = format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant);
-
-            //compile variantTemplate param
-            componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
 
             //get page metadata fields
             componentProperties.put(PAGE_META_PROPERTY_FIELDS, processPageMetaProperties(getResourcePage(), getResourceResolver(), getRequest(), componentProperties));
