@@ -356,6 +356,7 @@ public class GenericDetails extends ModelProxy {
                 String[] legacyBadges = this.componentProperties.get("legacyBadge", legacyBadgeList);
                 int badgeMapIndex = ArrayUtils.indexOf(legacyBadges, legacyComponentBadge);
                 if (legacyBadgeMapping.length > badgeMapIndex) {
+                    this.componentProperties.put("legacyBadgeSelected", true);
                     return legacyBadgeMapping[badgeMapIndex];
                 }
             }
