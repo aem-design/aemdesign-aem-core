@@ -41,6 +41,7 @@ deploy:
     - aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-$CURRENT_VERSION.zip
     - aemdesign-aem-services/target/aemdesign-aem-services-$CURRENT_VERSION.jar
     - aemdesign-aem-author/target/aemdesign-aem-author-$CURRENT_VERSION.zip
+    - aemdesign-aem-common/target/aemdesign-aem-common-$CURRENT_VERSION.zip
   skip_cleanup: true
   on:
     branch: master
