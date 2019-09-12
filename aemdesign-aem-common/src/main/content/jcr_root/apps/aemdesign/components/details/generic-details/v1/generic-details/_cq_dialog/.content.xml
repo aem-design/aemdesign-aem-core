@@ -49,21 +49,11 @@
                                             class="dialog-dropdown-showhide"
                                             dialog-dropdown-showhide-target=".genericdetails-variant-showhide-target"
                                             value="">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <default
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Default"
-                                                    value=""
-                                                    valuealt="displayoptions"/>
-                                            <custom
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Custom Layout"
-                                                    value="custom"/>
-                                            <hidden
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Hidden"
-                                                    value="hidden"/>
-                                        </items>
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                variant="tagidvalue"
+                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/variant"/>
                                     </variant>
                                 </items>
                             </variant>
@@ -95,7 +85,7 @@
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                         variant="valuelist"
-                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/detials/generic-details/templates"/>
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/templates"/>
                                             </variantFieldsTemplate>
 
                                             <variantFields
@@ -114,7 +104,7 @@
                                                                     jcr:primaryType="nt:unstructured"
                                                                     sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                                     variant="valuelist"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/detials/generic-details/fields"/>
+                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/fields"/>
                                                         </field>
                                             </variantFields>
                                         </items>
