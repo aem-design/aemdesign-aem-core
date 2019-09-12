@@ -117,6 +117,7 @@
 
             ValueMap vm = new ValueMapDecorator(new HashMap<String, Object>());
             String value = tagId;
+            String valueAlt = "";
             String text = tag.getTitlePath(locale);
 
             if (childVM!=null) {
@@ -138,11 +139,14 @@
                     value = childVM.get("value", "");
                     text = tag.getTitle(locale);
                 }
+
+                valueAlt = childVM.get("valuealt", "");
             }
 
 
             vm.put("value", value);
             vm.put("text", text);
+            vm.put("valueAlt", valueAlt);
 
             return new ValueMapResource(resolver, new ResourceMetadata(), "nt:unstructured", vm);
         }
