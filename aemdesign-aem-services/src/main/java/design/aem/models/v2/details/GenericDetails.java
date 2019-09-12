@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static design.aem.utils.components.CommonUtil.*;
@@ -28,6 +29,7 @@ import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.ImagesUtil.*;
 import static design.aem.utils.components.ResolverUtil.mappedUrl;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
+import static design.aem.utils.components.TenantUtil.resolveTenantIdFromPath;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -44,6 +46,7 @@ public class GenericDetails extends ModelProxy {
 	private static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
 	private static final String FIELD_SUBCATEGORY = "subCategory";
 	private static final String FIELD_CATEGORY = "category";
+	private static final String FIELD_LEGACY_BADGE_CONFIG = "legacyBadgeConfig";
 
 	//used for backwards compatibility of details components
 	private static final String[] legacyBadgeList = new String[] {
@@ -60,7 +63,7 @@ public class GenericDetails extends ModelProxy {
             "badge.cardIconTitleAction",
             "badge.cardIconTitleCategoryDescription",
             "badge.cardIconTitleCategoryDescriptionAction",
-            "badge.cardIconTitleDate",
+            "badge.cardIconTitleDateAction",
             "badge.cardIconTitleDateDescriptionAction",
             "badge.cardIconTitleDescription",
             "badge.cardIconTitleDescriptionAction",
@@ -100,7 +103,7 @@ public class GenericDetails extends ModelProxy {
             new String[] {"card-icon","title", "action"},
             new String[] {"card-icon","title", "taglist", "description"},
             new String[] {"card-icon","title", "taglist", "description", "action"},
-            new String[] {"card-icon","title", "startdate"},
+            new String[] {"card-icon","title", "startdate", "action"},
             new String[] {"card-icon","title", "startdate", "description"},
             new String[] {"card-icon","title", "description"},
             new String[] {"card-icon","title", "description", "action"},
@@ -178,8 +181,9 @@ public class GenericDetails extends ModelProxy {
 			{"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
 			{"legacyBadgeList", legacyBadgeList},
 			{"legacyBadgeListMapping", legacyBadgeListMapping},
-			{"variantFields", new String[]{}},
-			{"variantFieldsTemplate", new String[]{}},
+			{"legacyBadgeConfigTags", resolveTenantIdFromPath(getCurrentPage().getPath()).concat(":component-dialog/components/details/generic-details/legacy")},
+			{FIELD_VARIANT_FIELDS, new String[]{}},
+			{FIELD_VARIANT_FIELDS_TEMPLATE, new String[]{}},
 		});
 
 		componentProperties = ComponentsUtil.getComponentProperties(
@@ -305,23 +309,36 @@ public class GenericDetails extends ModelProxy {
             //process badge config
             componentProperties.putAll(processBadgeConfig(getResourcePage(), componentProperties));
 
-            //only process variantTemplate if its not been set already
-            String variant = componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
-            //process variant selection
-            if (isEmpty(variant)) {
-                variant = DEFAULT_VARIANT;
+
+            //if COMPONENT_VARIANT_TEMPLATE has not been set do it now
+            if (isEmpty(componentProperties.get(COMPONENT_VARIANT_TEMPLATE, ""))) {
+
+                //only process variantTemplate if its not been set already
+                String variant = componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
+
+                if (isEmpty(variant)) {
+                    variant = DEFAULT_VARIANT;
+                }
+
+                //compile variantTemplate param
+                String variantTemplate = getComponentVariantTemplate(getComponent(), format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant), getSlingScriptHelper());
+                componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
             }
-
-            String variantTemplate = getComponentVariantTemplate(getComponent(), format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant), getSlingScriptHelper());
-
-            //compile variantTemplate param
-            componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
 
             //get page metadata fields
             componentProperties.put(PAGE_META_PROPERTY_FIELDS, processPageMetaProperties(getResourcePage(), getResourceResolver(), getRequest(), componentProperties));
 
             //set canonical url
             componentProperties.put(FIELD_CANONICAL_URL, mappedUrl(getResourceResolver(), getRequest(), getResourcePage().getPath()).concat(DEFAULT_EXTENTION));
+
+            //get legacy badge configs from tags
+            String legacyBadgeConfigTags = componentProperties.get("legacyBadgeConfigTags","");
+            if (isNotEmpty(legacyBadgeConfigTags)) {
+                Map<String, Map> legacyBadgeConfig = getTagsAsAdmin(getSlingScriptHelper(), new String[]{legacyBadgeConfigTags}, getRequest().getLocale(), new String[]{FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES,FIELD_TAG_TEMPLATE_CONFIG_FIELDS});
+                componentProperties.put(FIELD_LEGACY_BADGE_CONFIG,legacyBadgeConfig);
+            }
+
+
 
         } catch (Exception ex) {
             LOGGER.error("processCommonFields: could not process fields componentProperties={}, ex={}", componentProperties, ex);
@@ -353,17 +370,52 @@ public class GenericDetails extends ModelProxy {
 
 	    if (isNotEmpty(legacyComponentBadge) ) {
             if (this.componentProperties != null) {
-                String[][] legacyBadgeMapping = this.componentProperties.get("legacyBadgeListMapping", legacyBadgeListMapping);
-                String[] legacyBadges = this.componentProperties.get("legacyBadge", legacyBadgeList);
-                int badgeMapIndex = ArrayUtils.indexOf(legacyBadges, legacyComponentBadge);
-                if (legacyBadgeMapping.length > badgeMapIndex) {
-                    this.componentProperties.put("legacyBadgeSelected", true);
-                    return legacyBadgeMapping[badgeMapIndex];
+                //check if config from tags being used
+                LinkedHashMap<String, Map> legacyBadgeConfig = componentProperties.get(FIELD_LEGACY_BADGE_CONFIG, null);
+                if (legacyBadgeConfig != null) {
+                    //remove badge. from badge name
+                    String badgeKey = legacyComponentBadge;
+                    if (legacyComponentBadge.contains(".")) {
+                        badgeKey = legacyComponentBadge.split(".")[1];
+                    }
+                    //check if config exist
+                    if (legacyBadgeConfig.containsKey(badgeKey)) {
+                        this.componentProperties.put("legacyBadgeSelected", true);
+                        Map config = legacyBadgeConfig.get(badgeKey);
+                        if (config != null) {
+                            //get config fields from tag
+                            String[] fields = (String[]) config.get(FIELD_TAG_TEMPLATE_CONFIG_FIELDS);
+                            String[] templates = (String[]) config.get(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES);
+                            return ArrayUtils.addAll(templates,fields);
+                        }
+                    }
+                } else {
+                    String[][] legacyBadgeMapping = this.componentProperties.get("legacyBadgeListMapping", legacyBadgeListMapping);
+                    String[] legacyBadges = this.componentProperties.get("legacyBadge", legacyBadgeList);
+                    int badgeMapIndex = ArrayUtils.indexOf(legacyBadges, legacyComponentBadge);
+                    if (legacyBadgeMapping.length > badgeMapIndex) {
+                        this.componentProperties.put("legacyBadgeSelected", true);
+                        return legacyBadgeMapping[badgeMapIndex];
+                    }
                 }
             }
 
         }
-        return this.getSlingScriptHelper().getRequest().getRequestPathInfo().getSelectors();
+
+	    //selectors selection overrides config
+	    String[] fields = this.getSlingScriptHelper().getRequest().getRequestPathInfo().getSelectors();
+
+	    if (fields.length > 0) {
+	        return fields;
+        }
+
+	    //use configured fields
+	    fields = componentProperties.get(FIELD_VARIANT_FIELDS, new String[]{});
+	    if (fields.length > 0) {
+	        return fields;
+        }
+
+        return new String[]{};
     }
 
     /***
