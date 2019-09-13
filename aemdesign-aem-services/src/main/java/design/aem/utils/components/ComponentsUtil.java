@@ -124,7 +124,6 @@ public class ComponentsUtil {
 
     //badge custom badge
     public static final String DETAILS_BADGE_FIELDS_TEMPLATE = "badgeFieldsTemplate";
-    public static final String DETAILS_BADGE_FIELDS_TEMPLATES = "badgeFieldsTemplates";
     public static final String DETAILS_BADGE_FIELDS = "badgeFields";
     public static final String DETAILS_BADGE_TEMPLATE = "badgeTemplate";
 
