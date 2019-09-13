@@ -283,6 +283,7 @@ public class List extends ModelProxy {
         //prepare request parms to pass to badges
         ComponentProperties badgeRequestAttributes = ComponentsUtil.getComponentProperties(
                 this,
+                false,
                 badgeComponentFields,
                 DEFAULT_FIELDS_DETAILS_OPTIONS_OVERRIDE);
 
