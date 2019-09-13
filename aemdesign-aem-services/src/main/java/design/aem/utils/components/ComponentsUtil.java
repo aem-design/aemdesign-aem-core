@@ -817,6 +817,17 @@ public class ComponentsUtil {
     /**
      * returns component values with defaults from pageContent Properties.
      * @param wcmUsePojoModel component model pojo
+     * @param includeComponentAttributes include attributes specific to this component instance
+     * @param fieldLists      list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
+     * @return map of attributes
+     */
+    public static ComponentProperties getComponentProperties(WCMUsePojo wcmUsePojoModel, Boolean includeComponentAttributes, Object[][]... fieldLists) {
+        return getComponentProperties(wcmUsePojoModel, null, includeComponentAttributes, fieldLists);
+    }
+
+    /**
+     * returns component values with defaults from pageContent Properties.
+     * @param wcmUsePojoModel component model pojo
      * @param fieldLists      list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
      * @return map of attributes
      */
