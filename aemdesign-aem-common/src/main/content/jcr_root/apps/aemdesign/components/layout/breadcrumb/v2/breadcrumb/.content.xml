@@ -3,5 +3,5 @@
     cq:isContainer="{Boolean}false"
     jcr:primaryType="cq:Component"
     jcr:title="Breadcrumb (v2)"
-    cq:icon="BreadcrumbNavigation"
+    cq:icon="breadcrumbNavigation"
     componentGroup="hidden"/>
