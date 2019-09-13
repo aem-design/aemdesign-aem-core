@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
+import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAP;
+import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAP_API_KEY;
 import static design.aem.utils.components.I18nUtil.*;
 import static design.aem.utils.components.ImagesUtil.getMetadataStringForKey;
 import static design.aem.utils.components.ImagesUtil.getResourceImagePath;
@@ -17,9 +19,6 @@ public class LocationList extends List {
     protected static final Logger LOGGER = LoggerFactory.getLogger(LocationList.class);
 
     private final String DEFAULT_I18N_CATEGORY = "newslist";
-
-    final String DEFAULT_CLOUDCONFIG_GOOGLEMAP = "googlemap";
-    final String DEFAULT_CLOUDCONFIG_GOOGLEMAP_API_KEY = "googleApiKey";
 
     @Override
     @SuppressWarnings("Duplicates")
