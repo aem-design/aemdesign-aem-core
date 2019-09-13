@@ -334,7 +334,12 @@ public class GenericDetails extends ModelProxy {
             //get legacy badge configs from tags
             String legacyBadgeConfigTags = componentProperties.get("legacyBadgeConfigTags","");
             if (isNotEmpty(legacyBadgeConfigTags)) {
-                Map<String, Map> legacyBadgeConfig = getTagsAsAdmin(getSlingScriptHelper(), new String[]{legacyBadgeConfigTags}, getRequest().getLocale(), new String[]{FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES,FIELD_TAG_TEMPLATE_CONFIG_FIELDS});
+                Map<String, Map> legacyBadgeConfig = getTagsAsAdmin(
+                        getSlingScriptHelper(),
+                        new String[]{legacyBadgeConfigTags},
+                        getRequest().getLocale(),
+                        new String[]{FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES,FIELD_TAG_TEMPLATE_CONFIG_FIELDS},
+                        true);
                 componentProperties.put(FIELD_LEGACY_BADGE_CONFIG,legacyBadgeConfig);
             }
 
@@ -371,24 +376,36 @@ public class GenericDetails extends ModelProxy {
 	    if (isNotEmpty(legacyComponentBadge) ) {
             if (this.componentProperties != null) {
                 //check if config from tags being used
-                LinkedHashMap<String, Map> legacyBadgeConfig = componentProperties.get(FIELD_LEGACY_BADGE_CONFIG, null);
+                LinkedHashMap<String, Map> legacyBadgeConfig = componentProperties.get(FIELD_LEGACY_BADGE_CONFIG, LinkedHashMap.class);
                 if (legacyBadgeConfig != null) {
-                    //remove badge. from badge name
-                    String badgeKey = legacyComponentBadge;
-                    if (legacyComponentBadge.contains(".")) {
-                        badgeKey = legacyComponentBadge.split(".")[1];
-                    }
                     //check if config exist
-                    if (legacyBadgeConfig.containsKey(badgeKey)) {
-                        this.componentProperties.put("legacyBadgeSelected", true);
-                        Map config = legacyBadgeConfig.get(badgeKey);
-                        if (config != null) {
+                    for (Map.Entry<String, Map> entry : legacyBadgeConfig.entrySet())
+                     {
+                         Map config = entry.getValue();
+                        if (config.containsKey("value") && config.get("value").equals(legacyComponentBadge)) {
+
+                            String[] fields = new String[0];
+                            String[] templates = new String[0];
                             //get config fields from tag
-                            String[] fields = (String[]) config.get(FIELD_TAG_TEMPLATE_CONFIG_FIELDS);
-                            String[] templates = (String[]) config.get(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES);
+                            if (config.containsKey(FIELD_TAG_TEMPLATE_CONFIG_FIELDS)) {
+                                Object value = config.get(FIELD_TAG_TEMPLATE_CONFIG_FIELDS);
+                                if (value !=null && value.getClass().isArray()) {
+                                    fields = (String[]) config.get(FIELD_TAG_TEMPLATE_CONFIG_FIELDS);
+                                }
+                            }
+                            if (config.containsKey(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES)) {
+                                Object value = config.get(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES);
+                                if (value !=null && value.getClass().isArray()) {
+                                    templates = (String[]) config.get(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES);
+                                }
+                            }
+                            this.componentProperties.put("legacyBadgeSelected", true);
                             return ArrayUtils.addAll(templates,fields);
+
                         }
-                    }
+                    };
+
+
                 } else {
                     String[][] legacyBadgeMapping = this.componentProperties.get("legacyBadgeListMapping", legacyBadgeListMapping);
                     String[] legacyBadges = this.componentProperties.get("legacyBadge", legacyBadgeList);
