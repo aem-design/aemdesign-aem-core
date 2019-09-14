@@ -15,22 +15,6 @@
         </sly>
     </sly>
 
-    <!--/* if badge fields template has been selected get its path */-->
-    <sly data-sly-test="${component.componentProperties.badgeFieldsTemplate}"
-         data-sly-list.badgeTemplate="${component.componentProperties.badgeFieldsTemplate}">
-        <sly data-sly-test="${badgeTemplate in fieldsTemplates}">
-            <sly data-sly-set.componentBadgeSelected="true"></sly>
-            <sly data-sly-test="${component.componentProperties.badgeFields}"
-                data-sly-set.componentBadgeFields="${component.componentProperties.badgeFields}"></sly>
-            <sly data-sly-set.componentBadgeSelectedPath="${component.templates[badgeTemplate].path}"></sly>
-        </sly>
-    </sly>
-
-    <!--/* if badge field is just default set to something */-->
-    <sly data-sly-test="${'default' in componentBadgeFields}">
-        <sly data-sly-set.componentBadgeFields="title"></sly>
-    </sly>
-
     <sly data-sly-test="${!componentBadgeSelected}">
         <!--/* print component background if not badge being requested */-->
         <sly data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.bgimage.componentBackgroundAssets}"></sly>
@@ -44,6 +28,21 @@
 
     <!--/* print dynamic component badge if badge being requested */-->
     <sly data-sly-test="${componentBadgeSelected}">
+        <!--/* if badge fields template has been selected get its path */-->
+        <sly data-sly-test="${component.componentProperties.badgeFieldsTemplate}"
+             data-sly-list.badgeTemplate="${component.componentProperties.badgeFieldsTemplate}">
+            <sly data-sly-test="${badgeTemplate in fieldsTemplates}">
+                <sly data-sly-test="${component.componentProperties.badgeFields}"
+                     data-sly-set.componentBadgeFields="${component.componentProperties.badgeFields}"></sly>
+                <sly data-sly-set.componentBadgeSelectedPath="${component.templates[badgeTemplate].path}"></sly>
+            </sly>
+        </sly>
+
+        <!--/* if badge field is just default set to something */-->
+        <sly data-sly-test="${'default' in componentBadgeFields}">
+            <sly data-sly-set.componentBadgeFields="title"></sly>
+        </sly>
+
         <sly data-sly-use.child="${componentBadgeSelectedPath}"
              data-sly-call="${child.variant @ componentProperties=component.componentProperties, componentFields=component.fields, requestedFields=componentBadgeFields}"></sly>
     </sly>
