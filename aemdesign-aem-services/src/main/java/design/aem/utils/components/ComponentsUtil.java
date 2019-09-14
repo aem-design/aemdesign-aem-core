@@ -126,6 +126,7 @@ public class ComponentsUtil {
     public static final String DETAILS_BADGE_FIELDS_TEMPLATE = "badgeFieldsTemplate";
     public static final String DETAILS_BADGE_FIELDS = "badgeFields";
     public static final String DETAILS_BADGE_TEMPLATE = "badgeTemplate";
+    public static final String DETAILS_BADGE_CUSTOM = "badgeCustom";
 
     //variant templates
     public static final String FIELD_VARIANT_FIELDS = "variantFields";
@@ -134,6 +135,8 @@ public class ComponentsUtil {
     //config attributes for templates used for both custom badges and variants
     public static final String FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES = "templates";
     public static final String FIELD_TAG_TEMPLATE_CONFIG_FIELDS = "fields";
+    public static final String FIELD_TAG_TEMPLATE_CONFIG_VALUE = "value";
+    public static final String FIELD_TAG_TEMPLATE_CONFIG_VALUEALT = "valuealt"; //used in dropdowns to show same options in dialogs
 
     //badge analytics
     public static final String DETAILS_BADGE_ANALYTICS_EVENT_TYPE = "badgeAnalyticsEventType"; //NOSONAR
@@ -415,9 +418,10 @@ public class ComponentsUtil {
             {DETAILS_BADGE_ANALYTICS_LABEL, "${value ?  value : " + DETAILS_LINK_TEXT + "}",DETAILS_DATA_ANALYTICS_LABEL},
             {DETAILS_PAGE_METADATA_PROPERTY, new String[]{}},
             {DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[]{}},
+            {DETAILS_BADGE_CUSTOM, false},
             {DETAILS_BADGE_FIELDS_TEMPLATE, new String[]{}},
             {DETAILS_BADGE_FIELDS, new String[]{}},
-            {DETAILS_BADGE_TEMPLATE, StringUtils.EMPTY},
+            {DETAILS_BADGE_TEMPLATE, StringUtils.EMPTY}, //after DETAILS_BADGE_FIELDS_TEMPLATE and DETAILS_BADGE_FIELDS as it will override them
     };
 
     /**
@@ -464,9 +468,10 @@ public class ComponentsUtil {
             {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK}, //basic
             {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION}, //basic
             {DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LABEL}, //basic
+            {DETAILS_BADGE_CUSTOM, false},
             {DETAILS_BADGE_FIELDS_TEMPLATE, new String[]{}},
             {DETAILS_BADGE_FIELDS, new String[]{}},
-            {DETAILS_BADGE_TEMPLATE, StringUtils.EMPTY},
+            {DETAILS_BADGE_TEMPLATE, StringUtils.EMPTY}, //after DETAILS_BADGE_FIELDS_TEMPLATE and DETAILS_BADGE_FIELDS as it will override them
 
     };
 
@@ -1415,6 +1420,13 @@ public class ComponentsUtil {
                         //update the return template name to first entry
                         componentProperties.put(fieldNameFirstTemplateName, template[0]);
                     }
+                } else {
+                    //get tag value as variant name
+                    if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_VALUE)) {
+                        String value = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_VALUE, DEFAULT_VARIANT);
+                        componentProperties.put(fieldNameFirstTemplateName, value);
+                    }
+
                 }
                 //get fields list
                 if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_FIELDS)) {
