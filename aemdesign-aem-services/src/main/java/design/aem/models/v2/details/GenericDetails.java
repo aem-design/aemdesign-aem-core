@@ -2,9 +2,12 @@ package design.aem.models.v2.details;
 
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.TagConstants;
+import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.google.common.base.Throwables;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
+import design.aem.services.ContentAccess;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -301,7 +304,16 @@ public class GenericDetails extends ModelProxy {
             componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME, getBackgroundImageRenditions(this));
 
             //update component properties overrides possibly from list component
-            componentProperties.putAll(processBadgeRequestConfig(componentProperties, getResourceResolver(), getRequest()), true);
+            ComponentProperties badgeOverrides = processBadgeRequestConfig(componentProperties, getResourceResolver(), getRequest());
+            //if override badgeCustom is set to false remove related fields from overrides
+            if (!badgeOverrides.get(DETAILS_BADGE_CUSTOM, false)) {
+                badgeOverrides.remove(DETAILS_BADGE_CUSTOM);
+                badgeOverrides.remove(DETAILS_BADGE_FIELDS);
+                badgeOverrides.remove(DETAILS_BADGE_FIELDS_TEMPLATE);
+                badgeOverrides.remove(DETAILS_BADGE_TEMPLATE);
+            }
+            //add updated overrides
+            componentProperties.putAll(badgeOverrides, true);
 
             //evaluate fields after badge overrides have been applied
             componentProperties.evaluateExpressionFields();
@@ -309,6 +321,23 @@ public class GenericDetails extends ModelProxy {
             //process badge config
             componentProperties.putAll(processBadgeConfig(getResourcePage(), componentProperties));
 
+            //if custom badge being used process its config
+            if (componentProperties.get(DETAILS_BADGE_CUSTOM, false)) {
+                String badge = componentProperties.get(DETAILS_BADGE_TEMPLATE, StringUtils.EMPTY);
+
+                //get badge config
+                if (isNotEmpty(badge)) {
+                    ContentAccess contentAccess = getSlingScriptHelper().getService(ContentAccess.class);
+                    try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+
+                        ComponentProperties badgeConfig = getTemplateConfig(getContextObjects(this), badge, adminResourceResolver, adminResourceResolver.adaptTo(TagManager.class), DETAILS_BADGE_FIELDS_TEMPLATE, DETAILS_BADGE_FIELDS, "detailsBadge");
+                        componentProperties.putAll(badgeConfig);
+
+                    } catch (Exception ex) {
+                        LOGGER.error(Throwables.getStackTraceAsString(ex));
+                    }
+                }
+            }
 
             //if COMPONENT_VARIANT_TEMPLATE has not been set do it now
             if (isEmpty(componentProperties.get(COMPONENT_VARIANT_TEMPLATE, ""))) {
