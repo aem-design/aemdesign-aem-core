@@ -6,6 +6,14 @@
                 <sly data-sly-use.breadcrumb="${componentFields['breadcrumb'].path}"
                      data-sly-call="${breadcrumb.field @ componentProperties=componentProperties}"></sly>
             </sly>
+            <sly data-sly-test="${'toolbar' in componentFields}">
+                <sly data-sly-use.toolbar="${componentFields['toolbar'].path}"
+                     data-sly-call="${toolbar.field @ componentProperties=componentProperties}"></sly>
+            </sly>
+            <sly data-sly-test="${'pagedate' in componentFields}">
+                <sly data-sly-use.pagedate="${componentFields['pagedate'].path}"
+                     data-sly-call="${pagedate.field @ componentProperties=componentProperties}"></sly>
+            </sly>
             <header>
                 <sly data-sly-test="${'title' in componentFields}">
                     <sly data-sly-use.title="${componentFields['title'].path}"
