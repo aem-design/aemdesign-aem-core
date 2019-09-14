@@ -119,15 +119,13 @@
                         <items jcr:primaryType="nt:unstructured">
                             <variantDisplatyConfig
                                     jcr:primaryType="nt:unstructured"
-                                    class="hide genericdetails-variant-showhide-target foundation-layout-util-vmargin"
+                                    class="genericdetails-variant-showhide-target foundation-layout-util-vmargin"
                                     showhidetargetvalue="displayoptions"
                                     sling:resourceType="granite/ui/components/foundation/container">
                                 <items jcr:primaryType="nt:unstructured">
                                     <displayOptions
                                             jcr:primaryType="nt:unstructured"
                                             jcr:title="Display Options"
-                                            class="hide genericdetails-variant-showhide-target foundation-layout-util-vmargin"
-                                            showhidetargetvalue=""
                                             sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                         <items jcr:primaryType="nt:unstructured">
                                             <showBreadcrumb
