@@ -10,7 +10,7 @@ Component for adding a Breadcrumb to a page.
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/breadcrumb](/content/aemdesign-showcase/en/component/layout/breadcrumb.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/layout/breadcrumb/v2/breadcrumb](/crx/de/#/apps/aemdesign/components/layout/breadcrumb/v2/breadcrumb)

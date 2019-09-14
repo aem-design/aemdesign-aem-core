@@ -10,7 +10,7 @@ Component for adding a timing information to a page.
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/timings/timing/v2/timing](/content/aemdesign-showcase/en/component/timings/timing.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/timings/timing/v2/timing](/crx/de/#/apps/aemdesign/components/timings/timing/v2/timing)

@@ -10,7 +10,7 @@ Component for adding content metadata to a event and Badge config info which is 
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/details/event-details.html](/content/aemdesign-showcase/en/component/details/event-details.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/details/event-details/v2/event-details](/crx/de/#/apps/aemdesign/components/details/event-details/v2/event-details)

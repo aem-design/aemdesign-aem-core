@@ -10,7 +10,7 @@ Component for providing base functions for details components
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v1
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/details/generic-details](/content/aemdesign-showcase/en/component/details/generic-details.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/details/generic-details/v1/generic-details](/crx/de/#/apps/aemdesign/components/details/generic-details/v1/generic-details)

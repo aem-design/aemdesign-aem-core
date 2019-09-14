@@ -10,7 +10,7 @@ Component for adding tooltips to pages to use with other content or images
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/tooltip](/content/aemdesign-showcase/en/component/content/tooltip.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/content/tooltip/v2/tooltip](/crx/de/#/apps/aemdesign/components/content/tooltip/v2/tooltip)
