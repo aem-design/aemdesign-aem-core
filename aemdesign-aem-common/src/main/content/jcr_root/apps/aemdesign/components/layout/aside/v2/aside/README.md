@@ -10,7 +10,7 @@ Component for adding a Aside to a page.
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/aside](/content/aemdesign-showcase/en/component/layout/aside.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/layout/aside/v2/aside](/crx/de/#/apps/aemdesign/components/layout/aside/v2/aside)

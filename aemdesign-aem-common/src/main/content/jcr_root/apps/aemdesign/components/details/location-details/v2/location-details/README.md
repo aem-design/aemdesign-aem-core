@@ -10,7 +10,7 @@ Component for adding content metadata to a Location and Badge config info which 
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: review
 * **Showcase**: [/content/aemdesign-showcase/en/component/details/location-details](/content/aemdesign-showcase/en/component/details/location-details.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/details/location-details/v2/location-details](/crx/de/#/apps/aemdesign/components/details/location-details/v2/location-details)

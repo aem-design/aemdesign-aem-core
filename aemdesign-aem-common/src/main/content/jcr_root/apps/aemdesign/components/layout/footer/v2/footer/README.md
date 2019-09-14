@@ -10,7 +10,7 @@ Component for adding a footer section to a page.
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/footer](/content/aemdesign-showcase/en/component/layout/footer.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/layout/footer/v2/footer](/crx/de/#/apps/aemdesign/components/layout/footer/v2/footer)

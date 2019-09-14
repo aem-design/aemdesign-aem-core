@@ -10,7 +10,7 @@ Component for adding Online Media widgets to a page.
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/widgets/sharebutton/v2/sharebutton](/content/aemdesign-showcase/en/component/widgets/sharebutton.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton](/crx/de/index.jsp#/apps/aemdesign/components/widgets/addthis/sharebutton/v2/sharebutton)

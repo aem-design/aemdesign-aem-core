@@ -10,7 +10,7 @@ Component for adding Assets from DAM to a page to allow download.
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/download](/content/aemdesign-showcase/en/component/content/download.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/content/download/v2/download](/crx/de/#/apps/aemdesign/components/content/download/v2/download)

@@ -10,7 +10,7 @@ User as a super resource type by all other lists
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/list/v2/list](/content/aemdesign-showcase/en/component/lists/list.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/list/v2/list](/crx/de/#/apps/aemdesign/components/lists/list/v2/list)

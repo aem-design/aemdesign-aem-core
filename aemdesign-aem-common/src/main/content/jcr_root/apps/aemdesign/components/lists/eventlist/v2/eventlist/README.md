@@ -10,7 +10,7 @@ Used to create list of events
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/eventlist/v2/eventlist](/content/aemdesign-showcase/en/component/lists/newslist.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/eventlist/v2/eventlist](/crx/de/#/apps/aemdesign/components/lists/eventlist/v2/eventlist)

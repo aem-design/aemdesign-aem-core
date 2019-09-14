@@ -10,7 +10,7 @@ Component to create List of locations, used for making maps.
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/locationlist](/content/aemdesign-showcase/en/component/lists/locationlist.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/locationlist/v2/locationlist](/crx/de/#/apps/aemdesign/components/lists/locationlist/v2/locationlist)

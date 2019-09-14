@@ -10,7 +10,7 @@ Component for Audio controls to a page to play Audio or Video audio.
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v1
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/media/audio](/content/aemdesign-showcase/en/component/media/audio.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/media/audio](/crx/de/#/apps/aemdesign/components/media/audio)
