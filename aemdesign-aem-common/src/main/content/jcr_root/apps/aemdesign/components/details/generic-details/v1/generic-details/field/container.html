@@ -1,5 +1,5 @@
 <template data-sly-template.field="${@ componentProperties}">
-    <sly data-sly-test="${componentProperties.variant == 'custom' || (componentProperties.showParsys && componentProperties.variantDisplay)}">
+    <sly data-sly-test="${componentProperties.variant == 'custom' || (componentProperties.showParsys && componentProperties.variantDisplay == true)}">
         <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container', decorationTagName='div'}"></sly>
     </sly>
 </template>
