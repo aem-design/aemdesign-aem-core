@@ -461,6 +461,9 @@ public class GenericDetails extends ModelProxy {
 	        return fields;
         }
 
+	    //if nothing to return mean this is variant display
+        this.componentProperties.put("variantDisplay", true);
+
         return new String[]{};
     }
 
