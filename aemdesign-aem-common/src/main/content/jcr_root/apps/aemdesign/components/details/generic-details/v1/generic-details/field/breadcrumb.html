@@ -1,5 +1,5 @@
 <template data-sly-template.field="${@ componentProperties}">
-    <sly data-sly-test="${componentProperties.variant == 'custom' || (componentProperties.showBreadcrumb && componentProperties.variantDisplay)}">
+    <sly data-sly-test="${componentProperties.variant == 'custom' || (componentProperties.showBreadcrumb && componentProperties.variantDisplay == true)}">
         <sly data-sly-resource="${'./breadcrumb' @ resourceType='aemdesign/components/layout/breadcrumb', decorationTagName='div'}"></sly>
     </sly>
 </template>
