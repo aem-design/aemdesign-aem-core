@@ -1,5 +1,5 @@
 <template data-sly-template.field="${@ componentProperties}">
-    <sly data-sly-test="${componentProperties.variant == 'custom' || (componentProperties.showPageDate && componentProperties.variantDisplay == true)}">
+    <sly data-sly-test="${!componentProperties.legacyVariant || (componentProperties.showPageDate && componentProperties.legacyVariant)}">
         <sly data-sly-resource="${'./pagedate' @ resourceType='aemdesign/components/content/pagedate', decorationTagName='div'}"></sly>
     </sly>
 </template>
