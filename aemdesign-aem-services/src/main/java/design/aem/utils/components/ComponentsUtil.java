@@ -68,6 +68,7 @@ public class ComponentsUtil {
     public static final String DEFAULT_PATH_TAGS = "/content/cq:tags";
 
     public static final String FIELD_VARIANT = "variant";
+    public static final String FIELD_VARIANT_LEGACY = "legacyVariant"; // specify that variant field is derived from config / tag
     public static final String DEFAULT_VARIANT = "default";
     public static final String DEFAULT_VARIANT_TEMPLATE = "variant.default.html";
     public static final String DEFAULT_BADGE = "default";
@@ -1354,6 +1355,8 @@ public class ComponentsUtil {
                         //use default variant if variant value not set
                         if (isEmpty(variant)) {
                             variant = DEFAULT_VARIANT;
+                            //mark current variant selection as legacy
+                            componentProperties.put(FIELD_VARIANT_LEGACY, true);
                         } else {
                             //get variant config
                             ComponentProperties variantConfig = getTemplateConfig(pageContext, variant, adminResourceResolver, tagManager, FIELD_VARIANT_FIELDS_TEMPLATE, FIELD_VARIANT_FIELDS, FIELD_VARIANT);
@@ -1409,6 +1412,9 @@ public class ComponentsUtil {
         if (isNotEmpty(configTag)) {
             Tag tagConfig = getTag(configTag, resourceResolver, tagManager);
             if (tagConfig != null) {
+                //mark current variant selection as not legacy
+                componentProperties.put(FIELD_VARIANT_LEGACY, false);
+
                 //get value map of tag
                 Resource tagConfigRS = resourceResolver.getResource(tagConfig.getPath());
                 ValueMap tagConfigVM = tagConfigRS.adaptTo(ValueMap.class);
@@ -1433,6 +1439,9 @@ public class ComponentsUtil {
                     String[] fields = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_FIELDS, new String[]{});
                     componentProperties.put(fieldNameFields, fields);
                 }
+            } else {
+                //mark current variant selection as legacy
+                componentProperties.put(FIELD_VARIANT_LEGACY, true);
             }
         }
         return componentProperties;
