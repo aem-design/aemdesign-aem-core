@@ -1,3 +1,6 @@
 <template data-sly-template.field="${@ componentProperties}">
-    <div class="card-text">${componentProperties.badgeDescription @ context = 'html'}</div>
+    ddd
+    <sly data-sly-test="${componentProperties.variant == 'custom' || (!componentProperties.hideTitle && componentProperties.variantDisplay)}">
+        <div class="card-text">${componentProperties.badgeDescription @ context = 'html'}</div>
+    </sly>
 </template>
