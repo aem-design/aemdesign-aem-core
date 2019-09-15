@@ -1,5 +1,6 @@
 <sly data-sly-use.component="design.aem.models.v2.details.GenericDetails"
-     data-sly-use.variant="${component.componentProperties.variantTemplate}"
+     data-sly-use.legacyVariant="${component.componentProperties.variantTemplate}"
+     data-sly-use.dynamicVariant="variant.custom.html"
      data-sly-set.requestedFields="${component.requestedFields}"
      data-sly-set.fieldsTemplates="${component.templates}"
      data-sly-use.background="aemdesign/global/templates/component-background.html"
@@ -20,7 +21,12 @@
         <sly data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.bgimage.componentBackgroundAssets}"></sly>
 
         <!--/* print component variant if not badge being requested */-->
-        <sly data-sly-call="${variant.variant @ componentProperties=component.componentProperties, componentTemplates=fieldsTemplates, requestedFieldsTemplate=component.componentProperties.variantFieldsTemplate, componentFields=component.fields, requestedFields=component.componentProperties.variantFields}"></sly>
+        <sly data-sly-test="${component.componentProperties.legacyVariant}"
+                data-sly-call="${legacyVariant.variant @ componentProperties=component.componentProperties, componentTemplates=fieldsTemplates, requestedFieldsTemplate=component.componentProperties.variantFieldsTemplate, componentFields=component.fields, requestedFields=component.componentProperties.variantFields}"></sly>
+
+        <!--/* print component variant if not badge being requested */-->
+        <sly data-sly-test="${!component.componentProperties.legacyVariant}"
+                data-sly-call="${dynamicVariant.variant @ componentProperties=component.componentProperties, componentTemplates=fieldsTemplates, requestedFieldsTemplate=component.componentProperties.variantFieldsTemplate, componentFields=component.fields, requestedFields=component.componentProperties.variantFields}"></sly>
 
         <!--/* print component info in edit mode if not badge being requested */-->
         <sly data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></sly>
