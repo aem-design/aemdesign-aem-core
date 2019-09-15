@@ -1,6 +1,6 @@
 <template data-sly-template.variant="${@ componentProperties, componentTemplates, requestedFieldsTemplate, componentFields, requestedFields}">
     <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}" hidden>
         <sly data-sly-test="${'hidden' in componentFields}">
             <sly data-sly-use.container="${componentFields['container'].path}"
                  data-sly-call="${container.field @ componentProperties=componentProperties}"></sly>
