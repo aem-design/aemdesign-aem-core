@@ -21,11 +21,11 @@
         <sly data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.bgimage.componentBackgroundAssets}"></sly>
 
         <!--/* print component variant if not badge being requested */-->
-        <sly data-sly-test="${component.componentProperties.legacyVariant}"
+        <sly data-sly-test="${component.componentProperties.legacyVariant || 'default' in component.componentProperties.variant}"
                 data-sly-call="${legacyVariant.variant @ componentProperties=component.componentProperties, componentTemplates=fieldsTemplates, requestedFieldsTemplate=component.componentProperties.variantFieldsTemplate, componentFields=component.fields, requestedFields=component.componentProperties.variantFields}"></sly>
 
         <!--/* print component variant if not badge being requested */-->
-        <sly data-sly-test="${!component.componentProperties.legacyVariant}"
+        <sly data-sly-test="${!component.componentProperties.legacyVariant || ! 'default' in component.componentProperties.variant}"
                 data-sly-call="${dynamicVariant.variant @ componentProperties=component.componentProperties, componentTemplates=fieldsTemplates, requestedFieldsTemplate=component.componentProperties.variantFieldsTemplate, componentFields=component.fields, requestedFields=component.componentProperties.variantFields}"></sly>
 
         <!--/* print component info in edit mode if not badge being requested */-->
