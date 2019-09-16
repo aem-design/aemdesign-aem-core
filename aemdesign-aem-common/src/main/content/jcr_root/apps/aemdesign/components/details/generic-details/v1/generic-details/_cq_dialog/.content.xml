@@ -47,8 +47,7 @@
                                             fieldLabel="Variant"
                                             name="./variant"
                                             class="dialog-dropdown-showhide"
-                                            dialog-dropdown-showhide-target=".genericdetails-variant-showhide-target"
-                                            value="">
+                                            dialog-dropdown-showhide-target=".genericdetails-variant-showhide-target">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="aemdesign/components/coral/datasources/tags"
