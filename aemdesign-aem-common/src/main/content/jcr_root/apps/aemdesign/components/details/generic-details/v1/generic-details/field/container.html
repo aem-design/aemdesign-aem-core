@@ -1,5 +1,5 @@
 <template data-sly-template.field="${@ componentProperties}">
-    <sly data-sly-test="${!componentProperties.legacyVariant || (componentProperties.showParsys && componentProperties.legacyVariant)}">
+    <sly data-sly-test="${(componentProperties.legacyVariant || 'default' in componentProperties.variant) ? componentProperties.showParsys : true}">
         <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container', decorationTagName='div'}"></sly>
     </sly>
 </template>
