@@ -25,7 +25,7 @@
                 data-sly-call="${legacyVariant.variant @ componentProperties=component.componentProperties, componentTemplates=fieldsTemplates, requestedFieldsTemplate=component.componentProperties.variantFieldsTemplate, componentFields=component.fields, requestedFields=component.componentProperties.variantFields}"></sly>
 
         <!--/* print component variant if not badge being requested */-->
-        <sly data-sly-test="${!component.componentProperties.legacyVariant || ! 'default' in component.componentProperties.variant}"
+        <sly data-sly-test="${!component.componentProperties.legacyVariant && ('default' in component.componentProperties.variant ? false : true)}"
                 data-sly-call="${dynamicVariant.variant @ componentProperties=component.componentProperties, componentTemplates=fieldsTemplates, requestedFieldsTemplate=component.componentProperties.variantFieldsTemplate, componentFields=component.fields, requestedFields=component.componentProperties.variantFields}"></sly>
 
         <!--/* print component info in edit mode if not badge being requested */-->
