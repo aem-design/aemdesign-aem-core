@@ -9,6 +9,7 @@ import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.services.ContentAccess;
 import design.aem.utils.components.ComponentsUtil;
+import design.aem.utils.components.ContentFragmentUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -20,14 +21,13 @@ import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentDetailsUtil.processBadgeRequestConfig;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
+import static design.aem.utils.components.ContentFragmentUtil.DEFAULT_CONTENTFRAGMENT_VARIATION;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.ImagesUtil.*;
 import static design.aem.utils.components.ResolverUtil.mappedUrl;
@@ -36,6 +36,7 @@ import static design.aem.utils.components.TenantUtil.resolveTenantIdFromPath;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+
 
 public class GenericDetails extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(GenericDetails.class);
@@ -57,8 +58,11 @@ public class GenericDetails extends ModelProxy {
 	private static final String FIELD_LEGACY_BADGE_CNNFIG_TAGS = "legacyBadgeConfigTags";
 	private static final String DEFAULT_TAG_LEGACY_BADGE_CONFIG = ":component-dialog/components/details/generic-details/legacy";
 
-	//used for backwards compatibility of details components
-	private static final String[] legacyBadgeList = new String[] {
+    private static final String FIELD_CONTENTFRAGMENT_VARIATION = "variationName";
+    private static final String FIELD_CONTENTFRAGMENT_FRAGMENTPATH = "fragmentPath";
+
+    //used for backwards compatibility of details components
+    private static final String[] legacyBadgeList = new String[] {
             "badge.cardActionIconDescription",
             "badge.cardActionIconTitleCategoryDescription",
             "badge.cardActionIconTitleDescription",
@@ -193,6 +197,8 @@ public class GenericDetails extends ModelProxy {
 			{FIELD_LEGACY_BADGE_CNNFIG_TAGS, resolveTenantIdFromPath(getCurrentPage().getPath()).concat(DEFAULT_TAG_LEGACY_BADGE_CONFIG)},
 			{FIELD_VARIANT_FIELDS, new String[]{}},
 			{FIELD_VARIANT_FIELDS_TEMPLATE, new String[]{}},
+			{FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION},
+			{FIELD_CONTENTFRAGMENT_FRAGMENTPATH, ""},
 		});
 
 		componentProperties = ComponentsUtil.getComponentProperties(
@@ -203,7 +209,13 @@ public class GenericDetails extends ModelProxy {
 			DEFAULT_FIELDS_ANALYTICS,
 			DEFAULT_FIELDS_DETAILS_OPTIONS);
 
-		String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
+		//process content fragment content if its used
+        String fragmentPath = componentProperties.get(FIELD_CONTENTFRAGMENT_FRAGMENTPATH, "");
+        String variationName = componentProperties.get(FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION);
+
+        componentProperties.putAll(ContentFragmentUtil.getComponentFragmentMap(fragmentPath,variationName, getResourceResolver()));
+
+        String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
 		componentProperties.put(FIELD_CATEGORY,getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
 
 		String[] subCategory = componentProperties.get(FIELD_SUBCATEGORY, new String[]{});
