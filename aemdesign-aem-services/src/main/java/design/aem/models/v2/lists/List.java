@@ -557,9 +557,9 @@ public class List extends ModelProxy {
                 if (includePageInList(page,showInvalid,showHidden)) {
                     item.put("page", page);
                     item.putAll(getPageBadgeInfo(page));
+                    listItems.add(item);
                 }
             }
-            listItems.add(item);
         }
     }
 
@@ -909,10 +909,10 @@ public class List extends ModelProxy {
                 if (includePageInList(containingPage,showInvalid,showHidden)) {
                     item.put("page", containingPage);
                     item.putAll(getPageBadgeInfo(containingPage));
+                    listItems.add(item);
                 }
             }
 
-            listItems.add(item);
         }
     }
 
