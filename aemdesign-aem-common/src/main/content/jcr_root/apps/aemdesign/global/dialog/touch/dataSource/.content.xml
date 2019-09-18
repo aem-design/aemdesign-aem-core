@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
+          xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Data Source Dialog"
+          helpPath=""
+          sling:resourceType="cq/gui/components/authoring/dialog"
+          extraClientlibs="[]">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                type="nav"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+        <items jcr:primaryType="nt:unstructured">
+            <dataSourceTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Data Source"
+                    sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <basic
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Content Fragment"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <note
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/authoring/dialog/note"
+                                            note="All content from fragment is loaded and available for use in presentation"/>
+
+                                    <fragmentPath
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="dam/cfm/components/cfpicker"
+                                            emptyText="Enter or select Content Fragment"
+                                            fieldLabel="Content Fragment"
+                                            name="./fragmentPath"
+                                            pickerTitle="Select Content Fragment"
+                                            rootPath="/content/dam"/>
+
+                                    <variationName
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                            fieldDescription="Specify which variation to display"
+                                            fieldLabel="Variation"
+                                            name="./variationName">
+                                        <datasource
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="core/wcm/extension/components/contentfragment/v1/datasource/variations"
+                                                componentPath="${requestPathInfo.suffix}"
+                                                fragmentPath="${param.fragmentPath}"/>
+                                        <granite:data
+                                                jcr:primaryType="nt:unstructured"
+                                                field-path="${requestPathInfo.resourcePath}"/>
+                                    </variationName>
+
+                                </items>
+                            </basic>
+
+                        </items>
+                    </column>
+                </items>
+            </dataSourceTab>
+        </items>
+    </content>
+</jcr:root>
