@@ -315,6 +315,12 @@
                     path="/apps/aemdesign/global/dialog/touch/pageMetadata/content/items/pageMetadataTab"
                     resourceType="granite/ui/components/foundation/section"
                     sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <dataSourceTab
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Data Source"
+                    path="/apps/aemdesign/global/dialog/touch/dataSource/content/items/dataSourceTab"
+                    resourceType="granite/ui/components/foundation/section"
+                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
         </items>
     </content>
 
