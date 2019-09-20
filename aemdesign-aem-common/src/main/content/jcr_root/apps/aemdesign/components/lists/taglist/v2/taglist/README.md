@@ -10,7 +10,7 @@ Allow ability to create lists made of tags, for display or filtering of lists an
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/taglist/v2/taglist](/content/aemdesign-showcase/en/component/lists/page-list.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/taglist/v2/taglist](/crx/de/index.jsp#/apps/aemdesign/components/lists/taglist/v2/taglist)

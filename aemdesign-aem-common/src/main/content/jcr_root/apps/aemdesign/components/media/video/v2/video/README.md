@@ -10,7 +10,7 @@ Component for adding Assets from DAM to a page to allow playing as a video.
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/media/video](/content/aemdesign-showcase/en/component/media/video.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/media/video](/crx/de/#/apps/aemdesign/components/media/video)

@@ -3,6 +3,6 @@
     cq:isContainer="{Boolean}false"
     jcr:primaryType="cq:Component"
     jcr:title="Breadcrumb"
-    cq:icon="menu"
+    cq:icon="breadcrumbNavigation"
     sling:resourceSuperType="aemdesign/components/layout/breadcrumb/v2/breadcrumb"
     componentGroup="AEM.Design - Layout"/>

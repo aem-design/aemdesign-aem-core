@@ -57,6 +57,7 @@ import java.util.regex.PatternSyntaxException;
 import static design.aem.components.ComponentField.FIELD_VALUES_ARE_ATTRIBUTES;
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
+import static design.aem.utils.components.TagUtil.getTag;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.*;
 
@@ -67,6 +68,7 @@ public class ComponentsUtil {
     public static final String DEFAULT_PATH_TAGS = "/content/cq:tags";
 
     public static final String FIELD_VARIANT = "variant";
+    public static final String FIELD_VARIANT_LEGACY = "legacyVariant"; // specify that variant field is derived from config / tag
     public static final String DEFAULT_VARIANT = "default";
     public static final String DEFAULT_VARIANT_TEMPLATE = "variant.default.html";
     public static final String DEFAULT_BADGE = "default";
@@ -120,6 +122,22 @@ public class ComponentsUtil {
     public static final String DETAILS_BADGE_CLASS = "badgeClassAttr";
     public static final String DETAILS_BADGE_IMAGE_ATTR = "badgeImageAttr";
     public static final String DETAILS_BADGE_LINK_ATTR = "badgeLinkAttr";
+
+    //badge custom badge
+    public static final String DETAILS_BADGE_FIELDS_TEMPLATE = "badgeFieldsTemplate";
+    public static final String DETAILS_BADGE_FIELDS = "badgeFields";
+    public static final String DETAILS_BADGE_TEMPLATE = "badgeTemplate";
+    public static final String DETAILS_BADGE_CUSTOM = "badgeCustom";
+
+    //variant templates
+    public static final String FIELD_VARIANT_FIELDS = "variantFields";
+    public static final String FIELD_VARIANT_FIELDS_TEMPLATE = "variantFieldsTemplate";
+
+    //config attributes for templates used for both custom badges and variants
+    public static final String FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES = "templates";
+    public static final String FIELD_TAG_TEMPLATE_CONFIG_FIELDS = "fields";
+    public static final String FIELD_TAG_TEMPLATE_CONFIG_VALUE = "value";
+    public static final String FIELD_TAG_TEMPLATE_CONFIG_VALUEALT = "valuealt"; //used in dropdowns to show same options in dialogs
 
     //badge analytics
     public static final String DETAILS_BADGE_ANALYTICS_EVENT_TYPE = "badgeAnalyticsEventType"; //NOSONAR
@@ -301,19 +319,19 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_STYLE = { //NOSONAR used by classes
-            {FIELD_STYLE_COMPONENT_ID, "", "id"},
+            {FIELD_STYLE_COMPONENT_ID, StringUtils.EMPTY, "id"},
             {FIELD_STYLE_COMPONENT_THEME, new String[]{}, "class", Tag.class.getCanonicalName()},
             {FIELD_STYLE_COMPONENT_MODIFIERS, new String[]{}, "class", Tag.class.getCanonicalName()},
             {FIELD_STYLE_COMPONENT_MODULES, new String[]{}, "data-modules", Tag.class.getCanonicalName()},
             {FIELD_STYLE_COMPONENT_CHEVRON, new String[]{}, "class", Tag.class.getCanonicalName()},
             {FIELD_STYLE_COMPONENT_ICON, new String[]{}, "class", Tag.class.getCanonicalName()},
-            {FIELD_STYLE_COMPONENT_POSITIONX, "", "x"},
-            {FIELD_STYLE_COMPONENT_POSITIONY, "", "y"},
+            {FIELD_STYLE_COMPONENT_POSITIONX, StringUtils.EMPTY, "x"},
+            {FIELD_STYLE_COMPONENT_POSITIONY, StringUtils.EMPTY, "y"},
             {FIELD_STYLE_COMPONENT_WIDTH, "${value ? 'width:' + value + 'px;' : ''}", "style"},
             {FIELD_STYLE_COMPONENT_HEIGHT, "${value ? 'height:' + value + 'px;' : ''}", "style"},
-            {FIELD_STYLE_COMPONENT_SITETHEMECATEGORY, ""},
-            {FIELD_STYLE_COMPONENT_SITETHEMECOLOR, ""},
-            {FIELD_STYLE_COMPONENT_SITETITLECOLOR, ""},
+            {FIELD_STYLE_COMPONENT_SITETHEMECATEGORY, StringUtils.EMPTY},
+            {FIELD_STYLE_COMPONENT_SITETHEMECOLOR, StringUtils.EMPTY},
+            {FIELD_STYLE_COMPONENT_SITETITLECOLOR, StringUtils.EMPTY},
             {FIELD_STYLE_COMPONENT_BOOLEANATTR, new String[]{}, FIELD_VALUES_ARE_ATTRIBUTES, Tag.class.getCanonicalName()},
     };
 
@@ -327,15 +345,15 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_ACCESSIBILITY = { //NOSONAR used by classes
-            {FIELD_ARIA_ROLE, "", DEFAULT_ARIA_ROLE_ATTRIBUTE},
-            {FIELD_ARIA_LABEL, "", "aria-label"},
-            {FIELD_ARIA_DESCRIBEDBY, "", "aria-describedby"},
-            {FIELD_ARIA_LABELLEDBY, "", "aria-labelledby"},
-            {FIELD_ARIA_CONTROLS, "", "aria-controls"},
-            {FIELD_ARIA_LIVE, "", "aria-live"},
-            {FIELD_ARIA_HIDDEN, "", "aria-hidden"},
-            {FIELD_ARIA_HASPOPUP, "", "aria-haspopup"},
-            {FIELD_ARIA_ACCESSKEY, "", "accesskey"},
+            {FIELD_ARIA_ROLE, StringUtils.EMPTY, DEFAULT_ARIA_ROLE_ATTRIBUTE},
+            {FIELD_ARIA_LABEL, StringUtils.EMPTY, "aria-label"},
+            {FIELD_ARIA_DESCRIBEDBY, StringUtils.EMPTY, "aria-describedby"},
+            {FIELD_ARIA_LABELLEDBY, StringUtils.EMPTY, "aria-labelledby"},
+            {FIELD_ARIA_CONTROLS, StringUtils.EMPTY, "aria-controls"},
+            {FIELD_ARIA_LIVE, StringUtils.EMPTY, "aria-live"},
+            {FIELD_ARIA_HIDDEN, StringUtils.EMPTY, "aria-hidden"},
+            {FIELD_ARIA_HASPOPUP, StringUtils.EMPTY, "aria-haspopup"},
+            {FIELD_ARIA_ACCESSKEY, StringUtils.EMPTY, "accesskey"},
     };
 
     /**
@@ -348,11 +366,11 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_METADATA = { //NOSONAR used by classes
-            {"metadataContentType", ""},
-            {NameConstants.PN_PAGE_LAST_MOD, ""},
-            {JcrConstants.JCR_LASTMODIFIED, ""},
-            {JcrConstants.JCR_CREATED, ""},
-            {NameConstants.PN_PAGE_LAST_REPLICATED, ""},
+            {"metadataContentType", StringUtils.EMPTY},
+            {NameConstants.PN_PAGE_LAST_MOD, StringUtils.EMPTY},
+            {JcrConstants.JCR_LASTMODIFIED, StringUtils.EMPTY},
+            {JcrConstants.JCR_CREATED, StringUtils.EMPTY},
+            {NameConstants.PN_PAGE_LAST_REPLICATED, StringUtils.EMPTY},
     };
 
     /**
@@ -365,18 +383,18 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_DETAILS_OPTIONS = { //NOSONAR used by classes
-            {DETAILS_MENU_COLOR, ""},
+            {DETAILS_MENU_COLOR, StringUtils.EMPTY},
             {DETAILS_MENU_ICONSHOW, false},
-            {DETAILS_MENU_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_MENU_ACCESS_KEY, ""},
-            {DETAILS_CARD_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_MENU_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+            {DETAILS_MENU_ACCESS_KEY, StringUtils.EMPTY},
+            {DETAILS_CARD_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_CARD_ICONSHOW, false},
-            {DETAILS_CARD_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_CARD_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_LINK_TARGET, "_blank"},
             {DETAILS_LINK_TEXT, "${value ? value : (" + FIELD_PAGE_TITLE_NAV + " ? " + FIELD_PAGE_TITLE_NAV + " : '')}"},
             {DETAILS_LINK_TITLE, "${value ? value : (" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " : '')}"},
-            {DETAILS_LINK_STYLE, new String[]{}, "", Tag.class.getCanonicalName()},
-            {DETAILS_LINK_FORMATTED, "${value ? value : pageUrl}", "", Tag.class.getCanonicalName()},
+            {DETAILS_LINK_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+            {DETAILS_LINK_FORMATTED, "${value ? value : pageUrl}", StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, false},
             {DETAILS_TITLE_TRIM_LENGTH_MAX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_LENGTH},
             {DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_SUFFIX},
@@ -384,24 +402,27 @@ public class ComponentsUtil {
             {DETAILS_SUMMARY_TRIM_LENGTH_MAX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_LENGTH},
             {DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_SUFFIX},
             {DETAILS_TAB_ICONSHOW, false},
-            {DETAILS_TAB_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_TAB_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_TITLE_ICONSHOW, false},
-            {DETAILS_TITLE_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_TITLE_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_OVERLAY_ICONSHOW, false},
-            {DETAILS_OVERLAY_ICON, new String[]{}, "", Tag.class.getCanonicalName()},
+            {DETAILS_OVERLAY_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_THUMBNAIL_WIDTH, ConstantsUtil.DEFAULT_THUMB_WIDTH_SM},
-            {DETAILS_THUMBNAIL_HEIGHT, ""},
+            {DETAILS_THUMBNAIL_HEIGHT, StringUtils.EMPTY},
             {DETAILS_THUMBNAIL_TYPE, ConstantsUtil.IMAGE_OPTION_RENDITION},
             {DETAILS_TITLE_TAG_TYPE, ConstantsUtil.DEFAULT_TITLE_TAG_TYPE_BADGE},
-            {DETAILS_THUMBNAIL_ID, ""},
-            {DETAILS_THUMBNAIL_LICENSE_INFO, ""},
-            {DETAILS_THUMBNAIL, ""},
+            {DETAILS_THUMBNAIL_ID, StringUtils.EMPTY},
+            {DETAILS_THUMBNAIL_LICENSE_INFO, StringUtils.EMPTY},
+            {DETAILS_THUMBNAIL, StringUtils.EMPTY},
             {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK},
             {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION},
             {DETAILS_BADGE_ANALYTICS_LABEL, "${value ?  value : " + DETAILS_LINK_TEXT + "}",DETAILS_DATA_ANALYTICS_LABEL},
             {DETAILS_PAGE_METADATA_PROPERTY, new String[]{}},
             {DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[]{}},
-
+            {DETAILS_BADGE_CUSTOM, false},
+            {DETAILS_BADGE_FIELDS_TEMPLATE, new String[]{}},
+            {DETAILS_BADGE_FIELDS, new String[]{}},
+            {DETAILS_BADGE_TEMPLATE, StringUtils.EMPTY}, //after DETAILS_BADGE_FIELDS_TEMPLATE and DETAILS_BADGE_FIELDS as it will override them
     };
 
     /**
@@ -448,6 +469,10 @@ public class ComponentsUtil {
             {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK}, //basic
             {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION}, //basic
             {DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LABEL}, //basic
+            {DETAILS_BADGE_CUSTOM, false},
+            {DETAILS_BADGE_FIELDS_TEMPLATE, new String[]{}},
+            {DETAILS_BADGE_FIELDS, new String[]{}},
+            {DETAILS_BADGE_TEMPLATE, StringUtils.EMPTY}, //after DETAILS_BADGE_FIELDS_TEMPLATE and DETAILS_BADGE_FIELDS as it will override them
 
     };
 
@@ -483,9 +508,9 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_ATTRIBUTES = { //NOSONAR used by classes
-            {"dataType", "", "type"},
-            {"dataTarget", "", "data-target"},
-            {"dataToggle", "", "data-toggle"},
+            {"dataType", StringUtils.EMPTY, "type"},
+            {"dataTarget", StringUtils.EMPTY, "data-target"},
+            {"dataToggle", StringUtils.EMPTY, "data-toggle"},
     };
 
     /**
@@ -561,11 +586,11 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_PAGE_THEME = { //NOSONAR used by classes
-            {"themeStyle", ""},
-            {"faviconsPath", ""},
-            {"favicon", ""},
-            {"siteThemeColor", ""},
-            {"siteTileColor", ""},
+            {"themeStyle", StringUtils.EMPTY},
+            {"faviconsPath", StringUtils.EMPTY},
+            {"favicon", StringUtils.EMPTY},
+            {"siteThemeColor", StringUtils.EMPTY},
+            {"siteTileColor", StringUtils.EMPTY},
     };
 
     /**
@@ -579,7 +604,7 @@ public class ComponentsUtil {
      */
     public static final Object[][] DEFAULT_COMMON_COMPONENT_LAYOUT_FIELDS = { //NOSONAR used by classes
             {FIELD_VARIANT, DEFAULT_VARIANT},
-            {FIELD_TITLE_TAG_TYPE, ""},
+            {FIELD_TITLE_TAG_TYPE, StringUtils.EMPTY},
             {FIELD_HIDE_TITLE, false},
             {FIELD_HIDE_DESCRIPTION, false},
             {FIELD_SHOW_BREADCRUMB, true},
@@ -597,7 +622,7 @@ public class ComponentsUtil {
      * @return a string with the file contents
      */
     public static String getResourceContent(ResourceResolver resourceResolver, String[] paths, String separator) {
-        String returnValue = "";
+        String returnValue = StringUtils.EMPTY;
 
         for (String path : paths) {
             Resource resource = resourceResolver.getResource(path);
@@ -619,7 +644,7 @@ public class ComponentsUtil {
      * @return a string with the file contents
      */
     public static String getResourceContent(Resource resource) {
-        String returnValue = "";
+        String returnValue = StringUtils.EMPTY;
 
         if (resource != null) {
 
@@ -677,7 +702,7 @@ public class ComponentsUtil {
         //quick fail
         if (componentProperties == null) {
             LOGGER.warn("getComponentProperty, componentProperties is ({0})", componentProperties);
-            return "";
+            return StringUtils.EMPTY;
         }
         if (useStyle && (contentPolicy == null || contentPolicy.isEmpty())) {
 
@@ -705,11 +730,11 @@ public class ComponentsUtil {
         //quick fail
         if (componentProperties == null) {
             LOGGER.warn("getComponentProperty, componentProperties is ({0})", componentProperties);
-            return "";
+            return StringUtils.EMPTY;
         }
         if (useStyle && pageStyle == null) {
             LOGGER.warn("getComponentProperty, useStyle is ({0}) but pageStyle is {1}", useStyle, pageStyle);
-            return "";
+            return StringUtils.EMPTY;
         }
 
         if (useStyle) {
@@ -793,6 +818,17 @@ public class ComponentsUtil {
         return componentProperties;
     }
 
+
+    /**
+     * returns component values with defaults from pageContent Properties.
+     * @param wcmUsePojoModel component model pojo
+     * @param includeComponentAttributes include attributes specific to this component instance
+     * @param fieldLists      list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
+     * @return map of attributes
+     */
+    public static ComponentProperties getComponentProperties(WCMUsePojo wcmUsePojoModel, Boolean includeComponentAttributes, Object[][]... fieldLists) {
+        return getComponentProperties(wcmUsePojoModel, null, includeComponentAttributes, fieldLists);
+    }
 
     /**
      * returns component values with defaults from pageContent Properties.
@@ -1025,7 +1061,7 @@ public class ComponentsUtil {
         boolean addMoreAttributes = includeComponentAttributes;
 
         SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) pageContext.get("slingRequest");
-        ResourceResolver resourceResolver = (ResourceResolver) pageContext.get("resourceResolver");
+        //ResourceResolver resourceResolver = (ResourceResolver) pageContext.get("resourceResolver");
 
         SlingScriptHelper sling = (SlingScriptHelper) pageContext.get("sling");
 
@@ -1058,7 +1094,7 @@ public class ComponentsUtil {
                 // if targetResource == null get defaults
                 ValueMap properties = (ValueMap) pageContext.get("properties"); //NOSONAR getting properties from pagecontext
 
-                ValueMap currentPolicy = getContentPolicyProperties(componentContext.getResource(), resourceResolver);
+                ValueMap currentPolicy = getContentPolicyProperties(componentContext.getResource(), adminResourceResolver);
 
                 //if targetResource != null get the appropriate objects
                 if (targetResource != null && targetResource.getClass().getCanonicalName().equals(CLASS_TYPE_ASSET)) {
@@ -1088,7 +1124,7 @@ public class ComponentsUtil {
 
                         properties = contentResource.adaptTo(ValueMap.class);
 
-                        currentPolicy = getContentPolicyProperties(contentResource, resourceResolver);
+                        currentPolicy = getContentPolicyProperties(contentResource, adminResourceResolver);
 
                         ComponentManager componentManager = contentResource.getResourceResolver().adaptTo(ComponentManager.class);
                         Component resourceComponent = componentManager.getComponentOfResource(contentResource);
@@ -1145,11 +1181,11 @@ public class ComponentsUtil {
                             Object fieldDefaultValue = field[1];
                             //set default value to empty string if default value is null
                             if (isNull(fieldDefaultValue)) {
-                                fieldDefaultValue = "";
+                                fieldDefaultValue = StringUtils.EMPTY;
                             }
 
                             //read third field - get data attribute name
-                            String fieldDataName= "";
+                            String fieldDataName= StringUtils.EMPTY;
                             if (field.length > 2) {
                                 fieldDataName = field[2].toString();
                             }
@@ -1216,7 +1252,7 @@ public class ComponentsUtil {
                             //Empty array with empty string will set the default value
                             if (fieldValue instanceof String && StringUtils.isEmpty(fieldValue.toString())) {
                                 fieldValue = fieldDefaultValue;
-                            } else if (fieldValue instanceof String[] && fieldValue != null && (StringUtils.isEmpty(StringUtils.join((String[]) fieldValue, "")))) {
+                            } else if (fieldValue instanceof String[] && fieldValue != null && (StringUtils.isEmpty(StringUtils.join((String[]) fieldValue, StringUtils.EMPTY)))) {
                                 fieldValue = fieldDefaultValue;
                             }
 
@@ -1231,7 +1267,7 @@ public class ComponentsUtil {
                             }
 
                             if (field.length > 2) {
-                                String fieldValueString = "";
+                                String fieldValueString = StringUtils.EMPTY;
 
                                 if (fieldValue.getClass().isArray()) {
                                     if (ArrayUtils.isNotEmpty((String[]) fieldValue)) {
@@ -1260,7 +1296,7 @@ public class ComponentsUtil {
                                     } else {
                                         //if data-attribute not specified return empty if values array is empty
                                         if (isEmpty(fieldDataName)) {
-                                            fieldValue = "";
+                                            fieldValue = StringUtils.EMPTY;
                                         }
                                     }
                                 } else {
@@ -1310,7 +1346,34 @@ public class ComponentsUtil {
                     }
 
                     //get current variant value
-                    String variant = componentProperties.get(FIELD_VARIANT, "");
+                    String variant = componentProperties.get(FIELD_VARIANT, StringUtils.EMPTY);
+                    //get current badge template value
+                    String badge = componentProperties.get(DETAILS_BADGE_TEMPLATE, StringUtils.EMPTY);
+
+                    if (addMoreAttributes) {
+
+                        //use default variant if variant value not set
+                        if (isEmpty(variant)) {
+                            variant = DEFAULT_VARIANT;
+                            //mark current variant selection as legacy
+                            componentProperties.put(FIELD_VARIANT_LEGACY, true);
+                        } else {
+                            //get variant config
+                            ComponentProperties variantConfig = getTemplateConfig(pageContext, variant, adminResourceResolver, tagManager, FIELD_VARIANT_FIELDS_TEMPLATE, FIELD_VARIANT_FIELDS, FIELD_VARIANT);
+                            componentProperties.putAll(variantConfig);
+                            //get updated version of variant
+                            variant = componentProperties.get(FIELD_VARIANT, StringUtils.EMPTY);
+                        }
+                        //get badge config
+                        if (isNotEmpty(badge)) {
+                            ComponentProperties badgeConfig = getTemplateConfig(pageContext, badge, adminResourceResolver, tagManager, DETAILS_BADGE_FIELDS_TEMPLATE, DETAILS_BADGE_FIELDS, "detailsBadge");
+                            componentProperties.putAll(badgeConfig);
+                        }
+
+                        //compile variantTemplate param
+                        String variantTemplate = getComponentVariantTemplate(component, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant), sling);
+                        componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
+                    }
 
                     //add variant to the end of class string
                     if (!componentProperties.attr.isEmpty() && addMoreAttributes) {
@@ -1321,17 +1384,6 @@ public class ComponentsUtil {
                         componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), oldXssAPI));
                     }
 
-                    //use default variant if variant value not set
-                    if (isEmpty(variant)) {
-                        variant = DEFAULT_VARIANT;
-                    }
-
-                    String variantTemplate = getComponentVariantTemplate(component, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant), sling);
-
-                    if (addMoreAttributes) {
-                        //compile variantTemplate param
-                        componentProperties.put(COMPONENT_VARIANT_TEMPLATE, variantTemplate);
-                    }
                 }
 
             } catch (Exception ex) {
@@ -1344,6 +1396,56 @@ public class ComponentsUtil {
         return componentProperties;
     }
 
+    /**
+     * get template structure config from tags for badge or variant
+     * @param pageContext current page context
+     * @param configTag tag to use for lookup
+     * @param resourceResolver instance of resource resolver
+     * @param tagManager instance of tag manager
+     * @param fieldNameTemplates return field name for templates
+     * @param fieldNameFields return field name for fields
+     * @param fieldNameFirstTemplateName return field name for template name
+     * @return return map of fields with values
+     */
+    public static ComponentProperties getTemplateConfig(Map<String, Object> pageContext, String configTag, ResourceResolver resourceResolver, TagManager tagManager, String fieldNameTemplates, String fieldNameFields, String fieldNameFirstTemplateName) {
+        ComponentProperties componentProperties = getNewComponentProperties(pageContext);
+        if (isNotEmpty(configTag)) {
+            Tag tagConfig = getTag(configTag, resourceResolver, tagManager);
+            if (tagConfig != null) {
+                //mark current variant selection as not legacy
+                componentProperties.put(FIELD_VARIANT_LEGACY, false);
+
+                //get value map of tag
+                Resource tagConfigRS = resourceResolver.getResource(tagConfig.getPath());
+                ValueMap tagConfigVM = tagConfigRS.adaptTo(ValueMap.class);
+                //see if it has templates set and get it
+                if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES)) {
+                    String[] template = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES, new String[]{});
+                    componentProperties.put(fieldNameTemplates, template);
+                    if (template.length > 0) {
+                        //update the return template name to first entry
+                        componentProperties.put(fieldNameFirstTemplateName, template[0]);
+                    }
+                } else {
+                    //get tag value as variant name
+                    if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_VALUE)) {
+                        String value = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_VALUE, DEFAULT_VARIANT);
+                        componentProperties.put(fieldNameFirstTemplateName, value);
+                    }
+
+                }
+                //get fields list
+                if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_FIELDS)) {
+                    String[] fields = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_FIELDS, new String[]{});
+                    componentProperties.put(fieldNameFields, fields);
+                }
+            } else {
+                //mark current variant selection as legacy
+                componentProperties.put(FIELD_VARIANT_LEGACY, true);
+            }
+        }
+        return componentProperties;
+    }
     /**
      * return variant template name from component or return default
      * @param component component to check for variant template
@@ -1431,7 +1533,7 @@ public class ComponentsUtil {
             //return string without invalid characters
             return out.toString().replaceAll("&#x20;", " ");
         } catch (Exception ex) {
-            return "";
+            return StringUtils.EMPTY;
         }
     }
 
@@ -1447,12 +1549,12 @@ public class ComponentsUtil {
      */
     @Deprecated
     public static String addComponentBackgroundToAttributes(ComponentProperties componentProperties, Resource resource, String imageResourceName) {
-        String componentAttributes = componentProperties.get(COMPONENT_ATTRIBUTES, "");
+        String componentAttributes = componentProperties.get(COMPONENT_ATTRIBUTES, StringUtils.EMPTY);
         Resource imageResource = resource.getChild(imageResourceName);
         if (imageResource != null) {
             Resource fileReference = imageResource.getChild(ConstantsUtil.IMAGE_FILEREFERENCE);
             if (fileReference != null) {
-                String imageSrc = "";
+                String imageSrc = StringUtils.EMPTY;
                 if (imageResource.getResourceType().equals(DEFAULT_IMAGE_RESOURCETYPE) || imageResource.getResourceType().endsWith(DEFAULT_IMAGE_RESOURCETYPE_SUFFIX)) {
                     Long lastModified = CommonUtil.getLastModified(imageResource);
                     imageSrc = format(DEFAULT_IMAGE_GENERATED_FORMAT, imageResource.getPath(), lastModified.toString());
@@ -1475,7 +1577,7 @@ public class ComponentsUtil {
     @Deprecated
     public static String addComponentAttributes(ComponentProperties componentProperties, Object[][] keyValue) {
 
-        String componentAttributes = componentProperties.get(COMPONENT_ATTRIBUTES, "");
+        String componentAttributes = componentProperties.get(COMPONENT_ATTRIBUTES, StringUtils.EMPTY);
 
         for (Object[] item : keyValue) {
             if (item.length >= 1) {
@@ -1579,7 +1681,7 @@ public class ComponentsUtil {
         if (componentNode == null) {
             return componentId;
         }
-        String path = "";
+        String path = StringUtils.EMPTY;
         try {
             path = componentNode.getPath();
 
@@ -1610,7 +1712,7 @@ public class ComponentsUtil {
 
 
     public static String getCloudConfigProperty(InheritanceValueMap pageProperties, String configurationName, String propertyName, SlingScriptHelper sling) {
-        String returnValue = "";
+        String returnValue = StringUtils.EMPTY;
 
         ContentAccess contentAccess = sling.getService(ContentAccess.class);
         if (contentAccess != null) {
@@ -1623,7 +1725,7 @@ public class ComponentsUtil {
                 if (cfgMgr != null) {
                     addthisConfiguration = cfgMgr.getConfiguration(configurationName, services);
                     if (addthisConfiguration != null) {
-                        returnValue = addthisConfiguration.get(propertyName, "");
+                        returnValue = addthisConfiguration.get(propertyName, StringUtils.EMPTY);
                     }
                 }
 
@@ -1650,7 +1752,7 @@ public class ComponentsUtil {
         final String pageResourcePath = page.getContentResource().getPath(); // assume that page have resource
         final Resource thisResource = componentContext.getResource();
         final String nodeResourceType = thisResource.getResourceType();
-        final String relativePath = thisResource.getPath().replaceFirst(pageResourcePath.concat(FileSystem.SEPARATOR), "");
+        final String relativePath = thisResource.getPath().replaceFirst(pageResourcePath.concat(FileSystem.SEPARATOR), StringUtils.EMPTY);
 
         // defn of a parent node
         // 1. is from parent page
@@ -1684,7 +1786,7 @@ public class ComponentsUtil {
                     curProperties = curResource.adaptTo(ValueMap.class);
                     if (curProperties != null) {
                         curResourceTypeMatch = curResource.isResourceType(nodeResourceType);
-                        curCancelInheritParent = curProperties.get(COMPONENT_CANCEL_INHERIT_PARENT, "").contentEquals("true");
+                        curCancelInheritParent = curProperties.get(COMPONENT_CANCEL_INHERIT_PARENT, StringUtils.EMPTY).contentEquals("true");
 
                         if (curResourceTypeMatch && curCancelInheritParent) {
                             String found = format("findInheritedResource: FOUND looking for inherited resource for path=\"{0}\" by relative path=\"{1}\" in parent=\"{2}\"", pageResourcePath, relativePath, curPage.getPath());
@@ -1725,7 +1827,7 @@ public class ComponentsUtil {
                 }
             }
         }
-        return "";
+        return StringUtils.EMPTY;
     }
 
     /***
@@ -1734,9 +1836,9 @@ public class ComponentsUtil {
      * @return component path relative to {@link JcrConstants#JCR_CONTENT}
      */
     public static String getComponentInPagePath(Node componentNode) {
-        String componentInPagePath = "";
+        String componentInPagePath = StringUtils.EMPTY;
         if (componentNode == null) {
-            return "";
+            return StringUtils.EMPTY;
         }
 
         try {
@@ -1746,7 +1848,7 @@ public class ComponentsUtil {
                 if (parts.length > 0) {
                     componentInPagePath = parts[1];
                     if (isNotEmpty(componentInPagePath) && componentInPagePath.startsWith(FileSystem.SEPARATOR)) {
-                        componentInPagePath = componentInPagePath.replaceFirst(FileSystem.SEPARATOR, "");
+                        componentInPagePath = componentInPagePath.replaceFirst(FileSystem.SEPARATOR, StringUtils.EMPTY);
                     }
                 }
             }
@@ -1870,7 +1972,7 @@ public class ComponentsUtil {
                                 superComponent = superComponent.getSuperComponent();
 
                                 if (superComponent == null) {
-                                    return "";
+                                    return StringUtils.EMPTY;
                                 }
 
                                 localresource = superComponent.getLocalResource(resourceName);
@@ -1898,7 +2000,7 @@ public class ComponentsUtil {
 
 
         }
-        return "";
+        return StringUtils.EMPTY;
     }
 
 
@@ -1930,7 +2032,7 @@ public class ComponentsUtil {
                         //walk up the tree of resourceSuperType and get base component
                         String componentDialogPath = findLocalResourceInSuperComponent(componentOfResource,"cq:dialog", slingScriptHelper);
 
-                        String dialogPath = "";
+                        String dialogPath = StringUtils.EMPTY;
                         Document dialogContent = null;
 
                         if (isNotEmpty(componentDialogPath)) {
@@ -1957,9 +2059,9 @@ public class ComponentsUtil {
 
                             Map<String, Object> row = new HashMap<>();
                             row.put("value", value);
-                            row.put("fieldDescription", "");
-                            row.put("fieldLabel", "");
-                            row.put("type", "");
+                            row.put("fieldDescription", StringUtils.EMPTY);
+                            row.put("fieldLabel", StringUtils.EMPTY);
+                            row.put("type", StringUtils.EMPTY);
 
                             if (isNotEmpty(dialogPath) && dialogContent != null) {
                                 String fieldSelection = "[name='./" + name + "']";
@@ -1989,7 +2091,7 @@ public class ComponentsUtil {
                                         row.put("fieldLabel", fieldLabelText);
                                     }
 
-                                    String fieldDescriptionString = "";
+                                    String fieldDescriptionString = StringUtils.EMPTY;
 
                                     if (fieldDescription != null) {
                                         fieldDescriptionString = fieldDescription.attr("data-quicktip-content");
@@ -2098,7 +2200,7 @@ public class ComponentsUtil {
     public static String removeRegexFromString(String value) {
         try {
             Pattern valueIsRegexPattern = Pattern.compile("(\\$\\{.*?\\})");
-            return value.replaceAll(valueIsRegexPattern.pattern(), "");
+            return value.replaceAll(valueIsRegexPattern.pattern(), StringUtils.EMPTY);
         } catch (PatternSyntaxException ex) {
             LOGGER.error("removeRegexFromString: could not remove patterns from string, ex={}", ex);
         }
@@ -2151,6 +2253,6 @@ public class ComponentsUtil {
 
             return hashMd5(uniqueBase);
         }
-        return "";
+        return StringUtils.EMPTY;
     }
 }

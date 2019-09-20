@@ -117,6 +117,7 @@ public class EventDetails extends GenericDetails {
      * @param sling sling instance
      * @return returns map with new values
      */
+    @Override
     @SuppressWarnings("Duplicates")
     public Map<String, Object> processComponentFields(ComponentProperties componentProperties, I18n i18n, SlingScriptHelper sling) {
         Map<String, Object> newFields = new HashMap<>();

@@ -10,7 +10,7 @@ Component for adding tables to pages
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v1
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/table](/content/aemdesign-showcase/en/component/content/table.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/content/table/v2/table](/crx/de/#/apps/aemdesign/components/content/table/v2/table)

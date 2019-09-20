@@ -10,7 +10,7 @@ Component for adding text to pages
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/text](/content/aemdesign-showcase/en/component/content/text.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/content/text/v2/text](/crx/de/#/apps/aemdesign/components/content/text/v2/text)

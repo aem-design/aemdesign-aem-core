@@ -1,0 +1,25 @@
+.vue-dynamics {
+  padding-top: 30px;
+}
+
+.vue-dynamics-form-field:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.vue-loading {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  position: static;
+}
+
+.cq-RichText-editable.is-invalid {
+  border-color: #e14132;
+  box-shadow: 0 0 3px #e14132;
+  color: #e14132;
+}
+
+input[type='text'].u-coral-screenReaderOnly {
+  top: 0;
+}

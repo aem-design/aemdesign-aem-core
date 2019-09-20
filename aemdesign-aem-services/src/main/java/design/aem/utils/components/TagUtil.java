@@ -80,7 +80,6 @@ public class TagUtil {
         return tagValue;
     }
 
-
     /**
      * Get list of Tags from a list of tag paths.
      * @param sling sling helper
@@ -89,6 +88,19 @@ public class TagUtil {
      * @return map of tag values
      */
     public static LinkedHashMap<String, Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale) {
+        return getTagsAsAdmin(sling, tagPaths, locale, new String[0], false);
+    }
+
+    /**
+     * Get list of Tags from a list of tag paths.
+     * @param sling sling helper
+     * @param tagPaths list of tags
+     * @param locale locale to yse
+     * @param attributesToRead list of attributes to gather from tag
+     * @param getTagChildren for given paths get children
+     * @return map of tag values
+     */
+    public static LinkedHashMap<String, Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale, String[] attributesToRead, boolean getTagChildren) {
         LinkedHashMap<String, Map> tags = new LinkedHashMap<>();
 
         if (sling == null || tagPaths == null || tagPaths.length == 0) {
@@ -102,7 +114,24 @@ public class TagUtil {
 
                 TagManager tagManager = adminResourceResolver.adaptTo(TagManager.class);
 
-                for (String path : tagPaths) {
+                String[] tagPathsToLoad = tagPaths;
+
+                if (getTagChildren) {
+                    ArrayList<String> childList = new ArrayList<>();
+                    for (String path : tagPathsToLoad) {
+                        Tag tag = getTag(path, adminResourceResolver, tagManager);
+                        Resource tagRs = tag.adaptTo(Resource.class);
+                        if (tagRs.hasChildren()) {
+                            for (Resource child : tagRs.getChildren()) {
+                                childList.add(child.getPath());
+                            }
+                        }
+
+                    }
+                    tagPathsToLoad = childList.toArray(new String[0]);
+                }
+
+                for (String path : tagPathsToLoad) {
                     Map<String, String> tagValues = new HashMap<>();
 
                     Tag tag = getTag(path, adminResourceResolver, tagManager);
@@ -139,6 +168,16 @@ public class TagUtil {
                             }
 
                             tagValues.put(TAG_VALUE, tagValue);
+
+                            if (attributesToRead != null) {
+                                for (String attribute : attributesToRead) {
+                                    if (tagVM.containsKey(attribute)) {
+                                        tagValues.put(attribute, tagVM.get(attribute, null));
+                                    }
+
+                                }
+                            }
+
                         } else {
                             LOGGER.error("getTagsAsAdmin: could not get convert tag to Resource, tag={}", tag);
                         }

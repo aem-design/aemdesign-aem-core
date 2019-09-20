@@ -124,4 +124,8 @@ public class ConstantsUtil {
     public static final String DEFAULT_ICS_TIMESTAMP_FORMAT = "yyyyMMdd'T'HHmmssZ";
 
     public static final String DATA_ATTRIBUTE_PREFIX = "data-";
+
+    public static final String DEFAULT_CLOUDCONFIG_GOOGLEMAP = "googlemap";
+    public static final String DEFAULT_CLOUDCONFIG_GOOGLEMAP_API_KEY = "googleApiKey";
+
 }

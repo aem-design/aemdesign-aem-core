@@ -129,6 +129,7 @@ public class NewsDetails extends GenericDetails {
      * @param sling sling helper
      * @return returns map with new values
      */
+    @Override
     @SuppressWarnings("Duplicates")
     public Map<String, Object> processComponentFields(ComponentProperties componentProperties, I18n i18n, SlingScriptHelper sling){
         Map<String, Object> newFields = new HashMap<>();
