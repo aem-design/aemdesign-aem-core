@@ -10,7 +10,7 @@ Component to create List navigation on page that is part of a collection of page
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/navlist](/content/aemdesign-showcase/en/component/lists/navlist.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/navlist/v2/navlist](/crx/de/#/apps/aemdesign/components/lists/navlist/v2/navlist)

@@ -283,6 +283,7 @@ public class List extends ModelProxy {
         //prepare request parms to pass to badges
         ComponentProperties badgeRequestAttributes = ComponentsUtil.getComponentProperties(
                 this,
+                false,
                 badgeComponentFields,
                 DEFAULT_FIELDS_DETAILS_OPTIONS_OVERRIDE);
 
@@ -556,9 +557,9 @@ public class List extends ModelProxy {
                 if (includePageInList(page,showInvalid,showHidden)) {
                     item.put("page", page);
                     item.putAll(getPageBadgeInfo(page));
+                    listItems.add(item);
                 }
             }
-            listItems.add(item);
         }
     }
 
@@ -908,10 +909,10 @@ public class List extends ModelProxy {
                 if (includePageInList(containingPage,showInvalid,showHidden)) {
                     item.put("page", containingPage);
                     item.putAll(getPageBadgeInfo(containingPage));
+                    listItems.add(item);
                 }
             }
 
-            listItems.add(item);
         }
     }
 

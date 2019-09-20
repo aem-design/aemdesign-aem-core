@@ -10,7 +10,7 @@ Component for providing base functions for details components
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v1
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/details/generic-details](/content/aemdesign-showcase/en/component/details/generic-details.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/details/generic-details/v1/generic-details](/crx/de/#/apps/aemdesign/components/details/generic-details/v1/generic-details)
@@ -18,9 +18,15 @@ Component for providing base functions for details components
 * **Readme**: [/apps/aemdesign/components/details/generic-details/v1/generic-details](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/generic-details/v1/generic-details)
 
 ## Features
-* Provides mechanism to add page details and badge config
-* Provides consistent Page Banner experience
-* Supports dynamic badges using sling selectors `http://localhost:4502/content/aemdesign-showcase/au/en/component/details/generic-details/jcr:content/article/par/genericdetails.card-image.image.title.text.date.html`
+* Allow creating custom Variants by selecting:
+    * a custom template
+    * field to display
+    * pre-configured template which takes priority over other config fields
+* Allow creating custom Badges by selecting:
+    * a custom template
+    * field to display
+    * pre-configured template which takes priority over other config fields
+* Supports dynamic badges rendering using sling selectors `http://localhost:4502/content/aemdesign-showcase/au/en/component/details/generic-details/jcr:content/article/par/genericdetails.card-image.image.title.text.date.html`
 
 # Authoring
 

@@ -131,6 +131,19 @@ Detailed table of component can be found here [Component List](https://github.co
 
 The components' versioning scheme is documented on the [AEM Core WCM Components' versioning policies](https://github.com/adobe/aem-core-wcm-components/wiki/Versioning-policies) wiki page.
 
+## Module Purpose
+
+Following is a description of each repo and their purpose.
+
+For more information see [Project Artifacts](http://aem.design/manifesto/project/#project-artifacts)
+
+| Repo                            | Notes                                       |
+|---------------------------------|---------------------------------------------|
+| aemdesign-aem-author/           | has all of the components and configurations that modify/update AEM |
+| aemdesign-aem-common/           | has all of the components code |
+| aemdesign-aem-core-deploy/      | monolith package for all projects           |
+| aemdesign-aem-services/         | has all of the code that compiled and installed by common project |
+
 ## System Requirements
 
 The latest version of the Core Components, require the below system requirements:

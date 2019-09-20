@@ -10,7 +10,7 @@ Component for rendering or including content from other pages
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/reference](/content/aemdesign-showcase/en/component/content/reference.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/content/reference/v2/reference](/crx/de/#/apps/aemdesign/components/content/reference/v2/reference)

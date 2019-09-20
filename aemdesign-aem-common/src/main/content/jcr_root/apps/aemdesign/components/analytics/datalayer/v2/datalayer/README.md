@@ -9,7 +9,7 @@ Component that outputs analytics content into the page
 ### Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v1
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/analytics/datalayer.html](/content/aemdesign-showcase/en/analytics/datalayer.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/analytics/datalayer/v2/datalayer](/crx/de/#/apps/aemdesign/components/analytics/datalayer/v2/datalayer)

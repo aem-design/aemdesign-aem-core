@@ -10,7 +10,7 @@ Component for displaying the jcr:description property of the page
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/pagedescription](/content/aemdesign-showcase/en/component/content/pagedescription.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/content/pagedescription/v2/pagedescription](/crx/de/#/apps/aemdesign/components/content/pagedescription/v2/pagedescription)

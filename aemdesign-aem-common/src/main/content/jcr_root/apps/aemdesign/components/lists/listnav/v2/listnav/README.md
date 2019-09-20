@@ -10,7 +10,7 @@ User for creating Previous and Next navigation on a page based on specified sear
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/listnav/v2/listnav](/content/aemdesign-showcase/en/component/lists/listnav.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/listnav/v2/listnav](/crx/de/#/apps/aemdesign/components/lists/listnav/v2/listnav)

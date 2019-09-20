@@ -7,10 +7,14 @@ Tooltip component
 
 Component for adding tooltips to pages to use with other content or images
 
+## Usage Example
+
+If you would like to have an image with points of interest that could be interacted with by user when image is displayed. You could add a contentblock, then add to it an image and a number of tooltips and use Position X and Y as relative coordinates in image. Then you could use Java Script to load those tooltips as overlay icons on the the image.
+
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/tooltip](/content/aemdesign-showcase/en/component/content/tooltip.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/content/tooltip/v2/tooltip](/crx/de/#/apps/aemdesign/components/content/tooltip/v2/tooltip)

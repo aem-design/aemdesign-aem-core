@@ -498,6 +498,85 @@
                                         </items>
                                     </analyticsConfigGroup>
 
+                                    <badgeFieldConfigGroup
+                                            jcr:primaryType="nt:unstructured"
+                                            jcr:title="Custom Badge Layout"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <note
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="cq/gui/components/authoring/dialog/note"
+                                                    note="Select Pre-Conifigured Badge Template or Select Customise Fields Template and Fields to render"/>
+
+                                            <badgeCustom
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                    fieldDescription="Custom Badge"
+                                                    fieldLabel="Custom Badge"
+                                                    name="./badgeCustom"
+                                                    emptyOption="{Boolean}true"
+                                                    value="">
+                                                <datasource
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                        variant="valuelist"
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            </badgeCustom>
+
+                                            <badgeTemplate
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                                    emptyOption="{Boolean}true"
+                                                    fieldLabel="Badge Template"
+                                                    fieldDescription="use pre-configured layout this will override Fields Template and Fields"
+                                                    name="./badgeTemplate"
+                                                    class="dialog-dropdown-showhide"
+                                                    dialog-dropdown-showhide-target=".genericdetails-variant-showhide-target"
+                                                    value="">
+                                                <datasource
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                        variant="tagidvalue"
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/badge"/>
+                                            </badgeTemplate>
+
+
+                                            <badgeFieldsTemplate
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                    fieldLabel="Fields Template"
+                                                    fieldDescription="use following fields template to wrap required fields"
+                                                    name="./badgeFieldsTemplate"
+                                                    emptyOption="{Boolean}true">
+                                                <datasource
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                        variant="valuelist"
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/templates"/>
+                                            </badgeFieldsTemplate>
+
+                                            <badgeFields
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                    fieldDescription="select fields that should appear in variant"
+                                                    fieldLabel="Fields">
+                                                <field
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                        fieldLabel="Field"
+                                                        name="./badgeFields"
+                                                        emptyOption="{Boolean}true"
+                                                        required="{Boolean}true">
+                                                    <datasource
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                            variant="valuelist"
+                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/fields"/>
+                                                </field>
+                                            </badgeFields>
+                                        </items>
+                                    </badgeFieldConfigGroup>
+
                                 </items>
                             </config>
 

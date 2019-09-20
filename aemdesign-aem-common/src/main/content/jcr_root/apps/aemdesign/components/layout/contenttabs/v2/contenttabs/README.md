@@ -10,7 +10,7 @@ Component for adding a Content Tabs section to a page.
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/contenttabs](/content/aemdesign-showcase/en/component/layout/contenttabs.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/layout/contenttabs/v2/contenttabs](/crx/de/#/apps/aemdesign/components/layout/contenttabs/v2/contenttabs)

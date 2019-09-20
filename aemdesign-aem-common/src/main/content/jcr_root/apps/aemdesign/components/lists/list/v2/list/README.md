@@ -10,7 +10,7 @@ User as a super resource type by all other lists
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/list/v2/list](/content/aemdesign-showcase/en/component/lists/list.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/list/v2/list](/crx/de/#/apps/aemdesign/components/lists/list/v2/list)
@@ -19,6 +19,11 @@ User as a super resource type by all other lists
 
 ## Features
 * Allows creation of Previous and Next page on a Page that is part of a collection of pages.
+* Allow creating custom Badges by selecting:
+    * a custom template
+    * field to display
+    * pre-configured template which takes priority over other config fields
+* Allow selecting to output feed RSS or ATOM link to current list contents 
 
 # Authoring
 

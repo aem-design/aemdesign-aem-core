@@ -10,7 +10,7 @@ Component for adding a Columns to a page.
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v1
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/colctrl](/content/aemdesign-showcase/en/component/layout/colctrl.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/layout/colctrl/v2/colctrl](/crx/de/#/apps/aemdesign/components/layout/colctrl/v2/colctrl)

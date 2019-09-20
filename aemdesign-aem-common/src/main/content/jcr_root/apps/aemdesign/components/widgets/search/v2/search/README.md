@@ -10,7 +10,7 @@ Component for adding search and quick search bar to a page.
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v1
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/widgets/search](/content/aemdesign-showcase/en/component/widgets/search.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/widgets/search/v2/search](/crx/de/#/apps/aemdesign/components/widgets/search/v2/search)

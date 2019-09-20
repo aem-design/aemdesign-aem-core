@@ -54,9 +54,9 @@ public class ResolverUtilTest {
 
         CONTEXT.registerService(Externalizer.class, externalizer,
                 JcrConstants.JCR_PRIMARYTYPE, "sling:OsgiConfig",
-                "externalizer.domains", "[local http://192.168.27.2:4502,author http://192.168.27.2:4502,publish http://192.168.27.2:4503]",
+                "externalizer.domains", "[local http://localhost:4502,author http://localhost:4502,publish http://localhost:4503]",
                 "externalizer.contextpath", "",
-                "externalizer.host", "192.168.27.2",
+                "externalizer.host", "localhost",
                 "externalizer.encodedpath", false
             );
 
@@ -110,7 +110,7 @@ public class ResolverUtilTest {
         // Setup
         final String path = "/content/externalize-me.html";
         final String domain = "local";
-        final String expectedResult = "http://192.168.27.2:4502/content/externalize-me.html";
+        final String expectedResult = "http://localhost:4502/content/externalize-me.html";
 
         request.setResource(testResource);
 
@@ -136,7 +136,7 @@ public class ResolverUtilTest {
         // Setup
         final String path = "/content/externalize-me.html";
         final String domain = "local";
-        final String expectedResult = "http://192.168.27.2:4502/content/externalize-me.html";
+        final String expectedResult = "http://localhost:4502/content/externalize-me.html";
 
         request.setResource(testResource);
 
@@ -162,7 +162,7 @@ public class ResolverUtilTest {
         // Setup
         final String path = "/content/externalize-me.html";
         final String domain = "local";
-        final String expectedResult = "https://192.168.27.2:4502/content/externalize-me.html";
+        final String expectedResult = "https://localhost:4502/content/externalize-me.html";
 
         request.setResource(testResource);
 
@@ -188,7 +188,7 @@ public class ResolverUtilTest {
         // Setup
         final String path = "/content/externalize-me.html";
         final String domain = "local";
-        final String expectedResult = "https://192.168.27.2:4502/content/externalize-me.html";
+        final String expectedResult = "https://localhost:4502/content/externalize-me.html";
 
         request.setResource(testResource);
 

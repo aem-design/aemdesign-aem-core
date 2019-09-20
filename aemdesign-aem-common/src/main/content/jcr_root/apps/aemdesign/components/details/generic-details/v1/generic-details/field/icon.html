@@ -1,5 +1,5 @@
-<template data-sly-template.field="${@ componentProperties}">
-    <div class="card-icon" data-sly-test="${componentProperties.cardIconShow}">
+<template data-sly-template.field="${@ componentProperties, wrapperCssClass}">
+    <div class="${wrapperCssClass || 'card-icon'}" data-sly-test="${!componentProperties.legacyVariant || (componentProperties.cardIconShow && componentProperties.legacyBadgeSelected)}">
         <i class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
     </div>
 </template>

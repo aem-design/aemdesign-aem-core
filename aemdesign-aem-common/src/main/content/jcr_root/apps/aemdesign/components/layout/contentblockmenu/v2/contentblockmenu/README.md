@@ -10,7 +10,7 @@ Component for adding a Content Block Menu section to a page.
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v2
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/contentblockmenu](/content/aemdesign-showcase/en/component/layout/contentblockmenu.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/layout/contentblockmenu/v2/contentblockmenu](/crx/de/#/apps/aemdesign/components/layout/contentblockmenu/v2/contentblockmenu)

@@ -10,7 +10,7 @@ Component for adding content metadata to a News and Badge config info which is u
 ## Information
 * **Vendor**: [AEM.Design](http://aem.design)
 * **Version**: v1
-* **Compatibility**: AEM 6.4
+* **Compatibility**: AEM 6.4+
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/details/news-details](/content/aemdesign-showcase/en/component/details/news-details.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/details/news-details/v2/news-details](/crx/de/#/apps/aemdesign/components/details/news-details/v2/news-details)

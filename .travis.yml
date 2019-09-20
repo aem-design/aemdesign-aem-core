@@ -18,7 +18,7 @@ before_install:
   - if [[ $TRAVIS_BRANCH != "master" && $SONAR_ENABLED == "true" ]]; then mvn sonar:sonar -q "-Dsonar.branch.name=${TRAVIS_BRANCH}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}" && echo "SONAR ON ${TRAVIS_BRANCH} DONE"; fi
 
 install:
-  - mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -q && echo "INSTALL DONE"
+#  - mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -q && echo "INSTALL DONE"
   - mvn test -q && bash <(curl -s https://codecov.io/bash)
   - echo "CODECOVERAGE DONE"
 
@@ -40,6 +40,8 @@ deploy:
   file:
     - aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-$CURRENT_VERSION.zip
     - aemdesign-aem-services/target/aemdesign-aem-services-$CURRENT_VERSION.jar
+    - aemdesign-aem-author/target/aemdesign-aem-author-$CURRENT_VERSION.zip
+    - aemdesign-aem-common/target/aemdesign-aem-common-$CURRENT_VERSION.zip
   skip_cleanup: true
   on:
     branch: master
