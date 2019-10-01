@@ -49,9 +49,9 @@ deploy:
       branch: master
     name: $CURRENT_VERSION
   - provider: script
-    script: if [[ $TRAVIS_BRANCH == "master" ]]; then bash docker run --rm aemdesign/travis-trigger-build sbb --github_user=${REPO_SLUG_ARRAY[0]} --github_repo=${REPO_SLUG_ARRAY[1]} --github_branch=6.5.0-bundle --travis_token=${TRAVIS_TOKEN}; fi
+    script: if [[ $TRAVIS_BRANCH == "master" ]]; then bash docker run --rm aemdesign/travis-trigger-build sbb --github_user=${REPO_SLUG_ARRAY[0]} --github_repo=aem --github_branch=6.5.0-bundle --travis_token=${TRAVIS_TOKEN}; fi
   - provider: script
-    script: if [[ $TRAVIS_BRANCH == "master" ]]; then bash docker run --rm aemdesign/travis-trigger-build sbb --github_user=${REPO_SLUG_ARRAY[0]} --github_repo=${REPO_SLUG_ARRAY[1]} --github_branch=6.4.0-bundle --travis_token=${TRAVIS_TOKEN}; fi
+    script: if [[ $TRAVIS_BRANCH == "master" ]]; then bash docker run --rm aemdesign/travis-trigger-build sbb --github_user=${REPO_SLUG_ARRAY[0]} --github_repo=aem --github_branch=6.4.0-bundle --travis_token=${TRAVIS_TOKEN}; fi
 
 #notifications:
 #  email: false
