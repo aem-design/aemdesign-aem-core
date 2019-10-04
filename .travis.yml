@@ -16,6 +16,8 @@ before_install:
   - mvn package -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -Dmaven.source.skip=true -B -q && echo "PACKAGE AND LOCAL INSTALL DONE"
   - if [[ $TRAVIS_BRANCH == "master" && $SONAR_ENABLED == "true" ]]; then mvn sonar:sonar -q "-Dsonar.branch.name=${TRAVIS_BRANCH}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}" && echo "SONAR ON ${TRAVIS_BRANCH} DONE"; fi
   - if [[ $TRAVIS_BRANCH != "master" && $SONAR_ENABLED == "true" ]]; then mvn sonar:sonar -q "-Dsonar.branch.name=${TRAVIS_BRANCH}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}" && echo "SONAR ON ${TRAVIS_BRANCH} DONE"; fi
+  - echo "READY"
+  - declare -a REPO_SLUG_ARRAY="(${TRAVIS_REPO_SLUG/\// })"
 
 install:
 #  - mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -q && echo "INSTALL DONE"
@@ -35,18 +37,21 @@ before_deploy:
 
 ## Create release in GitHub
 deploy:
-  provider: releases
-  api_key: $GITHUB_TOKEN
-  file:
-    - aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-$CURRENT_VERSION.zip
-    - aemdesign-aem-services/target/aemdesign-aem-services-$CURRENT_VERSION.jar
-    - aemdesign-aem-author/target/aemdesign-aem-author-$CURRENT_VERSION.zip
-    - aemdesign-aem-common/target/aemdesign-aem-common-$CURRENT_VERSION.zip
-  skip_cleanup: true
-  on:
-    branch: master
-  name: $CURRENT_VERSION
-
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    file:
+      - aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-$CURRENT_VERSION.zip
+      - aemdesign-aem-services/target/aemdesign-aem-services-$CURRENT_VERSION.jar
+      - aemdesign-aem-author/target/aemdesign-aem-author-$CURRENT_VERSION.zip
+      - aemdesign-aem-common/target/aemdesign-aem-common-$CURRENT_VERSION.zip
+    skip_cleanup: true
+    on:
+      branch: master
+    name: $CURRENT_VERSION
+  - provider: script
+    script: if [[ $TRAVIS_BRANCH == "master" ]]; then bash docker run --rm aemdesign/travis-trigger-build sbb --github_user=${REPO_SLUG_ARRAY[0]} --github_repo=aem --github_branch=6.5.0-bundle --travis_token=${TRAVIS_TOKEN}; fi
+  - provider: script
+    script: if [[ $TRAVIS_BRANCH == "master" ]]; then bash docker run --rm aemdesign/travis-trigger-build sbb --github_user=${REPO_SLUG_ARRAY[0]} --github_repo=aem --github_branch=6.4.0-bundle --travis_token=${TRAVIS_TOKEN}; fi
 
 #notifications:
 #  email: false
