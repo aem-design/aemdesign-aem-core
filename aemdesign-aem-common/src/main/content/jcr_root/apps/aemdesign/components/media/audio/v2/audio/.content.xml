@@ -4,4 +4,5 @@
     jcr:description="Media audio component"
     jcr:primaryType="cq:Component"
     jcr:title="Audio"
+    cq:icon="pausePlayCircle"
     componentGroup="hidden"/>
