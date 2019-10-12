@@ -3,4 +3,5 @@
     jcr:primaryType="cq:Component"
     jcr:description="Video component"
     jcr:title="Video (v2)"
+    cq:icon="playCircle"
     componentGroup="hidden"/>

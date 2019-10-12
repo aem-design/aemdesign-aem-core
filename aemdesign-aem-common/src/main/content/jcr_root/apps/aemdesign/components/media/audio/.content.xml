@@ -4,5 +4,6 @@
     jcr:description="Media audio component"
     jcr:primaryType="cq:Component"
     jcr:title="Audio"
+    cq:icon="pausePlayCircle"
     sling:resourceSuperType="aemdesign/components/media/audio/v2/audio"
     componentGroup="AEM.Design - Media"/>
