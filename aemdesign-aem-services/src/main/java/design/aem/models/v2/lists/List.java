@@ -85,6 +85,7 @@ public class List extends ModelProxy {
     public static final String LIST_ISEMPTY = "isEmpty";
 
     private static final String PN_SEARCH_IN = "searchIn";
+    private static final String PN_QUERY = "query";
     private static final String PN_SORT_ORDER = "sortOrder";
     private static final String PN_ORDER_BY = "orderBy";
     private static final String PN_ORDER_BY_DEFAULT = "path";
@@ -180,6 +181,7 @@ public class List extends ModelProxy {
                 {PN_TAGS, new String[]{}},
                 {PN_TAGS_MATCH, TAGS_MATCH_ANY_VALUE},
                 {PN_ORDER_BY, StringUtils.EMPTY},
+                {PN_QUERY, StringUtils.EMPTY},
                 {PN_SORT_ORDER, SortOrder.ASC.getValue()},
                 {PN_SEARCH_IN, getResourcePage().getPath()},
                 {SAVEDQUERY_PROPERTY_NAME, StringUtils.EMPTY},
@@ -212,6 +214,7 @@ public class List extends ModelProxy {
         limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
         showHidden = componentProperties.get(SHOW_HIDDEN, false);
         showInvalid = componentProperties.get(SHOW_INVALID, false);
+        query = componentProperties.get(PN_QUERY, "");
 
         //check default details suffix
         if (detailsNameSuffix == null) {
