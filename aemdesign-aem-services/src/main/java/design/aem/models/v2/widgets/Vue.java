@@ -68,6 +68,9 @@ public class Vue extends WCMUsePojo {
 		componentProperties.put("configOutput", configOutput);
 	}
 
+	/***
+	 * set component analytics attributes
+	 */
 	private void setAnalyticsAttributes() {
 		Map<String, String> analyticsAttrs = new HashMap<>();
 		analyticsAttrs.put("analytics-name", "analyticsName");
@@ -82,6 +85,11 @@ public class Vue extends WCMUsePojo {
 		}
 	}
 
+	/***
+	 * returns a attributes from given component node.
+	 * @param componentName component node to read attributes from
+	 */
+	@SuppressWarnings("squid:S3776")
 	private void retrieveComponentConfigurationAndSlots(String componentName) {
 		Resource resource = getResource();
 
@@ -126,8 +134,16 @@ public class Vue extends WCMUsePojo {
 		}
 	}
 
-	private void handleComponentValue(String componentName, String name, String value, PropertyIterator properties) {
-		JsonObject fieldConfig = getFieldConfig(componentName, name);
+	/***
+	 * evaluate component config and its specified fields with types
+	 * @param componentName component node to read config from
+	 * @param fieldName name of field to read from tag config
+	 * @param fieldValue field value to use or lookup
+	 * @param fieldProperties all field properties
+	 */
+	@SuppressWarnings("squid:S3776")
+	private void handleComponentValue(String componentName, String fieldName, String fieldValue, PropertyIterator fieldProperties) {
+		JsonObject fieldConfig = getFieldTagConfig(componentName, fieldName);
 		SightlyWCMMode wcmMode = getWcmMode();
 
 		boolean isSlot = false;
@@ -138,17 +154,17 @@ public class Vue extends WCMUsePojo {
 
 			// Autocompletion
 			if (fieldType.equals("autocomplete")) {
-				value = TagUtil.getTagValueAsAdmin(value, getSlingScriptHelper());
+				fieldValue = TagUtil.getTagValueAsAdmin(fieldValue, getSlingScriptHelper());
 			}
 
 			// Image/File upload
-			if (fieldType.equals("fileUpload") && properties != null) {
-				while (properties.hasNext()) {
-					Property property = properties.nextProperty();
+			if (fieldType.equals("fileUpload") && fieldProperties != null) {
+				while (fieldProperties.hasNext()) {
+					Property property = fieldProperties.nextProperty();
 
 					try {
 						if (property.getName().equals("fileReference")) {
-							value = property.getString();
+							fieldValue = property.getString();
 							break;
 						}
 					} catch (RepositoryException ex) {
@@ -164,18 +180,24 @@ public class Vue extends WCMUsePojo {
 		}
 
 		if (isSlot) {
-			slots.put(slotName, value);
+			slots.put(slotName, fieldValue);
 		} else {
-			attrs.add(name, value);
+			attrs.add(fieldName, fieldValue);
 		}
 
 		// Add the config to some additional output when in the correct WCM Mode
 		if (wcmMode.isEdit() || wcmMode.isPreview()) {
-			configOutput.put(StringUtils.capitalize(name), value);
+			configOutput.put(StringUtils.capitalize(fieldName), fieldValue);
 		}
 	}
 
-	private JsonObject getFieldConfig(String componentName, String fieldName) {
+	/***
+	 * get field config from tags
+	 * @param componentName component name
+	 * @param fieldName field name
+	 * @return returns json config object
+	 */
+	private JsonObject getFieldTagConfig(String componentName, String fieldName) {
 		JsonParser parser = new JsonParser();
 		JsonObject jsonObject = null;
 
@@ -205,6 +227,10 @@ public class Vue extends WCMUsePojo {
 		return jsonObject;
 	}
 
+	/***
+	 * create component HTML template
+	 * @param componentName component name to use
+	 */
 	private void constructComponentHTML(String componentName) {
 		componentHTML.append(String.format("<%s %s>", componentName, attrs.build()));
 
@@ -217,6 +243,10 @@ public class Vue extends WCMUsePojo {
 		componentHTML.append(String.format("</%s>", componentName));
 	}
 
+	/***
+	 * return component html
+	 * @return component html string
+	 */
 	public String getComponentHTML() {
 		return componentHTML.toString();
 	}
