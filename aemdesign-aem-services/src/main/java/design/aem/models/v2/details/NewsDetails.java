@@ -5,7 +5,6 @@ import com.day.cq.tagging.TagConstants;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -58,7 +57,7 @@ public class NewsDetails extends GenericDetails {
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"title", DEFAULT_TITLE},
-                {"titleFormat",""}, //tag path, will be resolved to value in processComponentFields
+                {FIELD_FORMAT_TITLE,""}, //tag path, will be resolved to value in processComponentFields
                 {"description", DEFAULT_DESCRIPTION},
                 {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
                 {"hideTitle", DEFAULT_HIDE_TITLE},
