@@ -25,6 +25,7 @@ public class ContentFragmentUtil {
      * @param variationName variation of content fragment
      * @return ordered map of key value fields
      */
+    @SuppressWarnings("squid:S3776")
     public static Map<String, Object> getComponentFragmentMap(String contentFragmentPath, String variationName, ResourceResolver resourceResolver){
         LinkedHashMap<String, Object> newFields = new LinkedHashMap<>();
 

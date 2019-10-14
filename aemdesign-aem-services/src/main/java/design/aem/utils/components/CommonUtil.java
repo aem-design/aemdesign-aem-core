@@ -471,6 +471,7 @@ public class CommonUtil {
      * @param pageRoots        use matching page root as a staring point for search
      * @return the path to component
      */
+    @SuppressWarnings("squid:S3776")
     public static String findComponentInPage(Page inputPage, String[] resourceTypeTail, String[] pageRoots) {
 
         if (inputPage == null) {

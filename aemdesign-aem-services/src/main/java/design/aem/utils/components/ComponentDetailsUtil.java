@@ -330,6 +330,7 @@ public class ComponentDetailsUtil {
      * @param depth current depth of children
      * @return map of attributes
      */
+    @SuppressWarnings("squid:S3776")
     public static ComponentProperties getPageInfo(Map<String, Object> pageContext, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot, Integer depth) {
         ComponentProperties componentProperties = getNewComponentProperties(pageContext);
 
