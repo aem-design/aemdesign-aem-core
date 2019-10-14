@@ -346,13 +346,15 @@ public class GenericDetails extends ModelProxy {
                 //get badge config
                 if (isNotEmpty(badge)) {
                     ContentAccess contentAccess = getSlingScriptHelper().getService(ContentAccess.class);
-                    try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+                    if (contentAccess != null) {
+                        try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
 
-                        ComponentProperties badgeConfig = getTemplateConfig(getContextObjects(this), badge, adminResourceResolver, adminResourceResolver.adaptTo(TagManager.class), DETAILS_BADGE_FIELDS_TEMPLATE, DETAILS_BADGE_FIELDS, "detailsBadge");
-                        componentProperties.putAll(badgeConfig);
+                            ComponentProperties badgeConfig = getTemplateConfig(getContextObjects(this), badge, adminResourceResolver, adminResourceResolver.adaptTo(TagManager.class), DETAILS_BADGE_FIELDS_TEMPLATE, DETAILS_BADGE_FIELDS, "detailsBadge");
+                            componentProperties.putAll(badgeConfig);
 
-                    } catch (Exception ex) {
-                        LOGGER.error(Throwables.getStackTraceAsString(ex));
+                        } catch (Exception ex) {
+                            LOGGER.error(Throwables.getStackTraceAsString(ex));
+                        }
                     }
                 }
             }
