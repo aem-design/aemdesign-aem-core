@@ -26,12 +26,15 @@ public class Video extends ModelProxy {
         return this.componentProperties;
     }
 
+    private static final String POPUP_HEIGHT = "lightboxHeight";
+    private static final String POPUP_WIDTH = "lightboxWidth";
+
 	@SuppressWarnings({"Duplicates","squid:S3776"})
     protected void ready() throws Exception {
 
         setComponentFields(new Object[][]{
-                {"lightboxHeight", "70"},
-                {"lightboxWidth", "70"},
+                {POPUP_HEIGHT, "70"},
+                {POPUP_WIDTH, "70"},
                 {"thumbnailHeight", "auto"},
                 {"thumbnailWidth", "auto"},
                 {"assetTitlePrefix", StringUtils.EMPTY},
@@ -95,21 +98,21 @@ public class Video extends ModelProxy {
                         Node media = getFirstMediaNode(getResourcePage());
                         //set display area size to first media node
                         if (media != null && !media.getPath().equals(getResource().getPath())) {
-                            if (media.hasProperty("lightboxHeight")) {
-                                componentProperties.put("lightboxHeight", media.getProperty("lightboxHeight").getValue().toString());
+                            if (media.hasProperty(POPUP_HEIGHT)) {
+                                componentProperties.put(POPUP_HEIGHT, media.getProperty(POPUP_HEIGHT).getValue().toString());
                             } else {
-                                componentProperties.put("lightboxHeight", "");
+                                componentProperties.put(POPUP_HEIGHT, "");
                             }
 
-                            if (media.hasProperty("lightboxWidth")) {
-                                componentProperties.put("lightboxWidth", media.getProperty("lightboxWidth").getValue().toString());
+                            if (media.hasProperty(POPUP_WIDTH)) {
+                                componentProperties.put(POPUP_WIDTH, media.getProperty(POPUP_WIDTH).getValue().toString());
                             } else {
-                                componentProperties.put("lightboxWidth", "");
+                                componentProperties.put(POPUP_WIDTH, "");
                             }
                         }
 
-                        String lightboxWidth = componentProperties.get("lightboxWidth", "");
-                        String lightboxHeight = componentProperties.get("lightboxHeight", "");
+                        String lightboxWidth = componentProperties.get(POPUP_WIDTH, "");
+                        String lightboxHeight = componentProperties.get(POPUP_HEIGHT, "");
 
                         componentProperties.put("width", videoWidth);
                         componentProperties.put("height", videoHeight);
