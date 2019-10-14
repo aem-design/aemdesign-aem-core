@@ -681,7 +681,7 @@ public class List extends ModelProxy {
         String queryParam = "";
 
         try {
-            queryParam = request.getParameter("query");
+            queryParam = request.getParameter(PN_QUERY);
 
             // check if we have to convert from the url format to the properties-style format
             String isURLQuery = request.getParameter("isURL");
