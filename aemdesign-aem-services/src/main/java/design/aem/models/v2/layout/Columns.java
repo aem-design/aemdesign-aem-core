@@ -265,7 +265,7 @@ public class Columns extends ModelProxy {
             columnsClassName = componentProperties.get("class",columnsClassName);
         }
 
-        if (columnsFormat.size() >= 1 && columnsFormat.get(0).contains(",")) {
+        if (!columnsFormat.isEmpty() && columnsFormat.get(0).contains(",")) {
             //take the [0] = [col-md-] and add to it width by current column number
             StringBuilder columnClassBuilder = new StringBuilder();
             for(int i=0; i < columnsFormat.size(); i++){
