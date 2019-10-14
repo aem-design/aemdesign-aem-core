@@ -1417,27 +1417,31 @@ public class ComponentsUtil {
 
                 //get value map of tag
                 Resource tagConfigRS = resourceResolver.getResource(tagConfig.getPath());
-                ValueMap tagConfigVM = tagConfigRS.adaptTo(ValueMap.class);
-                //see if it has templates set and get it
-                if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES)) {
-                    String[] template = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES, new String[]{});
-                    componentProperties.put(fieldNameTemplates, template);
-                    if (template.length > 0) {
-                        //update the return template name to first entry
-                        componentProperties.put(fieldNameFirstTemplateName, template[0]);
-                    }
-                } else {
-                    //get tag value as variant name
-                    if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_VALUE)) {
-                        String value = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_VALUE, DEFAULT_VARIANT);
-                        componentProperties.put(fieldNameFirstTemplateName, value);
-                    }
+                if (tagConfigRS != null) {
+                    ValueMap tagConfigVM = tagConfigRS.adaptTo(ValueMap.class);
+                    if (tagConfigVM != null) {
+                        //see if it has templates set and get it
+                        if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES)) {
+                            String[] template = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES, new String[]{});
+                            componentProperties.put(fieldNameTemplates, template);
+                            if (template.length > 0) {
+                                //update the return template name to first entry
+                                componentProperties.put(fieldNameFirstTemplateName, template[0]);
+                            }
+                        } else {
+                            //get tag value as variant name
+                            if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_VALUE)) {
+                                String value = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_VALUE, DEFAULT_VARIANT);
+                                componentProperties.put(fieldNameFirstTemplateName, value);
+                            }
 
-                }
-                //get fields list
-                if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_FIELDS)) {
-                    String[] fields = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_FIELDS, new String[]{});
-                    componentProperties.put(fieldNameFields, fields);
+                        }
+                        //get fields list
+                        if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_FIELDS)) {
+                            String[] fields = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_FIELDS, new String[]{});
+                            componentProperties.put(fieldNameFields, fields);
+                        }
+                    }
                 }
             } else {
                 //mark current variant selection as legacy

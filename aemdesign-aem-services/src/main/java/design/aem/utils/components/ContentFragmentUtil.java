@@ -31,7 +31,7 @@ public class ContentFragmentUtil {
         try {
             if (isNotEmpty(contentFragmentPath)) {
                 Resource fragmentResource = resourceResolver.getResource(contentFragmentPath);
-                if (!ResourceUtil.isNonExistingResource(fragmentResource) ) {
+                if (!ResourceUtil.isNonExistingResource(fragmentResource) && fragmentResource != null) {
 
                     ContentFragment contentFragment = fragmentResource.adaptTo(ContentFragment.class);
                     if (contentFragment == null) {
