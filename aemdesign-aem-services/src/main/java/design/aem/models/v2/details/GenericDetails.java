@@ -231,7 +231,7 @@ public class GenericDetails extends ModelProxy {
     /***
      * process common fields that details supports.
      */
-    @SuppressWarnings("Duplicates")
+    @SuppressWarnings({"Duplicates","squid:S3776"})
     protected void processCommonFields() {
         try {
         	if (componentProperties == null) {
@@ -307,7 +307,7 @@ public class GenericDetails extends ModelProxy {
 
             //check if component has the badge and reset if it does not
             if (isEmpty(badgePath)) {
-                if (badgeWasRequested && !ArrayUtils.contains(legacyBadgeList,componentBadge)) {
+                if (Boolean.TRUE.equals(badgeWasRequested) && !ArrayUtils.contains(legacyBadgeList,componentBadge)) {
                     LOGGER.error("LEGACY BADGE WAS REQUESTED BUT NOT FOUND IN COMPONENT AND LEGACY MAPPING NOT FOUND requestedBadgeTemplate={}",requestedBadgeTemplate);
                 }
                 componentBadge = DEFAULT_BADGE;
