@@ -58,7 +58,7 @@ public class ParagraphUtil {
         if (componentProperties!=null) {
             componentProperties.attr.add("class", numColsCSS);
 
-            final String componentAttributes = componentProperties.attr.build().replaceAll("&#x20;", " ");
+            final String componentAttributes = componentProperties.attr.build().replace("&#x20;", " ");
 
             //columns start div
             out.write(MessageFormat.format("<div{0}>", componentAttributes));
