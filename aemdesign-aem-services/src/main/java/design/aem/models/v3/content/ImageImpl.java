@@ -113,7 +113,7 @@ public class ImageImpl extends GenericModel implements GenericComponent {
 
                     Asset assetBasic = assetR.adaptTo(Asset.class);
 
-                    if (isNotNull(asset) && isNotNull(assetBasic)) {
+                    if (asset != null && assetBasic != null) {
 						//get asset metadata
 						String assetUID = asset.getIdentifier();
 						String licenseInfo = getAssetCopyrightInfo(assetBasic, getI18n().get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
