@@ -101,6 +101,7 @@ public class GenericDetails extends ModelProxy {
             "badge.metadata"
     };
 
+    @SuppressWarnings("squid:S1192")
     //used for backwards compatibility of details components
 	private static final String[][] legacyBadgeListMapping = new String[][] {
             new String[] {"action-icon","description"},
