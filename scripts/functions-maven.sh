@@ -43,6 +43,8 @@ AEM_HOST=$(getParamOrDefault "$SCRIPT_PARAMS" "crx.host" "$POM_FILE")
 AEM_PORT=$(getParamOrDefault "$SCRIPT_PARAMS" "crx.port" "$POM_FILE")
 AEM_SCHEMA=$(getParamOrDefault "$SCRIPT_PARAMS" "package.uploadProtocol" "$POM_FILE")
 
+AEM_APP_FOLDER=$(getParamOrDefault "$SCRIPT_PARAMS" "package.appFolder" "$POM_FILE")
+
 #if [[ "$SCRIPT_PARAMS" == *"localhost"* ]]; then
 #    AEM_HOST = "localhost"
 #fi
@@ -54,3 +56,4 @@ echo "AEM_HOST:   $AEM_HOST"
 echo "AEM_PORT:   $AEM_PORT"
 echo "AEM_SCHEMA: $AEM_SCHEMA"
 echo "POM_FILE:   $POM_FILE"
+echo "APP_FOLDER:   $AEM_APP_FOLDER"

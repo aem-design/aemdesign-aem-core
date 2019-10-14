@@ -158,7 +158,7 @@ function delete_current_jar() {
     echo "Current Git Version: $GIT_VERSION"
     echo "Project Artifact Id Version: $PROJECT_ARTIFACTID"
 
-    PROJECT_JAR="/apps/aemdesign/install/${BUNDLE_FILENAME}-${PROJECT_VERSION}.jar"
+    PROJECT_JAR="/apps/${AEM_APP_FOLDER}/install/${BUNDLE_FILENAME}-${PROJECT_VERSION}.jar"
     echo "Project Jar: $PROJECT_JAR"
 
     echo "Uninstall Bundle: ${BUNDLE_NAME}"
