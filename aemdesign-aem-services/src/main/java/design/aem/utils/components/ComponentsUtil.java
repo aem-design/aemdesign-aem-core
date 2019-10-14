@@ -1649,7 +1649,7 @@ public class ComponentsUtil {
     }
 
     /***
-     * compile a message from component properties using one of the component format tag fields
+     * compile a message from component properties using one of the component format tag fields.
      * @param formatFieldName field with format path
      * @param defaultFormat default format template
      * @param componentProperties component properties

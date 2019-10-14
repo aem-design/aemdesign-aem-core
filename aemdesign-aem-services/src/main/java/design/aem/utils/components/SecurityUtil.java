@@ -73,6 +73,14 @@ public class SecurityUtil {
         return email;
     }
 
+    /***
+     * get user full name from givenName + " " + familyName.
+     * @param userManager user manager instance
+     * @param userPropertiesManager user properties manager instance
+     * @param userId user id to use
+     * @param defaultValue default value to return
+     * @return givenName + " " + familyName
+     */
     public static String getUserFullName(UserManager userManager, UserPropertiesManager userPropertiesManager, String userId, String defaultValue) {
         if (isEmpty(defaultValue)) {
             defaultValue = "";

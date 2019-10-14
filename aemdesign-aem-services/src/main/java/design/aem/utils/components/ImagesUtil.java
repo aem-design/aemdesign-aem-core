@@ -499,7 +499,7 @@ public class ImagesUtil {
 
 
     /***
-     * get default tiff:ImageWidth
+     * get default tiff:ImageWidth.
      * @param r image rendition
      * @return image width
      */
@@ -508,7 +508,7 @@ public class ImagesUtil {
     }
 
     /**
-     * get image dimension
+     * get image dimension.
      * @param r image rendition
      * @param dimensionProperty dimension property to return
      * @return image dimension int
@@ -643,6 +643,7 @@ public class ImagesUtil {
      * @param renditionPrefix rendition prefix
      * @return matching rendition
      */
+    @SuppressWarnings("squid:S3776")
     public static com.adobe.granite.asset.api.Rendition getBestFitRendition(int width, List<com.adobe.granite.asset.api.Rendition> renditions, String renditionPrefix) {
         com.adobe.granite.asset.api.Rendition bestFitRendition = null;
         //try custom prefix directly
@@ -756,6 +757,7 @@ public class ImagesUtil {
      * @param infoPrefix attribute prefix to use
      * @return map of attributes
      */
+    @SuppressWarnings("squid:S3776")
     public static Map<String, String> getAssetInfo(ResourceResolver resourceResolver, String assetPath, String infoPrefix) {
         if (isEmpty(infoPrefix)) {
             infoPrefix = "image";
@@ -854,6 +856,7 @@ public class ImagesUtil {
      * @param pageContext page context
      * @return map of attributes
      */
+    @SuppressWarnings("squid:S3776")
     public static ComponentProperties getBackgroundVideoRenditions(Map<String, Object> pageContext) {
         Resource resource = (org.apache.sling.api.resource.Resource) pageContext.get("resource");
 
@@ -1003,7 +1006,7 @@ public class ImagesUtil {
      * @param returnLastRenditionName last rendition to return if not found
      * @return returns map of attributes
      */
-    @SuppressWarnings("Duplicates")
+    @SuppressWarnings({"Duplicates","squid:S3776"})
     public static ComponentProperties getResourceImageRenditions(Map<String, Object> pageContext, Resource imageResource, String returnRenditionsListName, String returnLastRenditionName) {
 
         SlingScriptHelper sling = (SlingScriptHelper) pageContext.get("sling");
@@ -1079,6 +1082,7 @@ public class ImagesUtil {
      * @param renditionPrefix       prefix to use
      * @return profile with substituted paths
      */
+    @SuppressWarnings("squid:S3776")
     public static Map<String, String> getBestFitMediaQueryRenditionSet(com.adobe.granite.asset.api.Asset asset, String[] renditionImageMapping, String renditionPrefix) {
 
         Map<String, String> profileRendtiions = new LinkedHashMap<>();
