@@ -68,6 +68,7 @@ public class AssetList extends ModelProxy {
     private static final String FIELD_RENDITIONS = "renditions";
     private static final String FIELD_TITLE_TAG_TYPE_DEFAULT = "div";
     private static final String FIELD_IMAGE_OPTION_DEFAULT = "responsive";
+    private static final String ASSET_TYPE = "assetType";
 
 
     private static final String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
@@ -328,18 +329,19 @@ public class AssetList extends ModelProxy {
 						boolean checkDuration = false;
 						boolean getRenditions = false;
 
+
 						if (assetType.startsWith("video/")) {
-							assetProperties.put("assetType", "video");
+							assetProperties.put(ASSET_TYPE, "video");
 							checkDuration = true;
 							getRenditions = true;
 						} else if (assetType.startsWith("audio/") || assetType.startsWith("application/")) {
-							assetProperties.put("assetType", "audio");
+							assetProperties.put(ASSET_TYPE, "audio");
 							checkDuration = true;
 						} else if (assetType.startsWith("image/")) {
-							assetProperties.put("assetType", "image");
+							assetProperties.put(ASSET_TYPE, "image");
 							getRenditions = true;
 						} else {
-							assetProperties.put("assetType", "other");
+							assetProperties.put(ASSET_TYPE, "other");
 							getRenditions = true;
 						}
 

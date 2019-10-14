@@ -620,19 +620,23 @@ public class List extends ModelProxy {
                 String operator = matchAny ? "or" : "and";
 
                 childMap.put("group.p." + operator, "true");
-                childMap.put("group.0_group.p." + operator, "true");
+
+                String groupPrefix = "group.0_group.";
+                String tagIdSuffix = "_group.tagid";
+
+                childMap.put(groupPrefix + "p." + operator, "true");
 
                 int offset = 0;
 
                 for (String tag : tags) {
-                    childMap.put("group.0_group." + offset + "_group.tagid", tag);
-                    childMap.put("group.0_group." + offset + "_group.tagid.property", JcrConstants.JCR_CONTENT.concat("/cq:tags"));
+                    childMap.put(groupPrefix + offset + tagIdSuffix, tag);
+                    childMap.put(groupPrefix + offset + tagIdSuffix + ".property", JcrConstants.JCR_CONTENT.concat("/cq:tags"));
 
                     // Offset the Page Details group by one so we don't conflict with the page properties query
                     offset++;
 
-                    childMap.put("group.0_group." + offset + "_group.tagid", tag);
-                    childMap.put("group.0_group." + offset + "_group.tagid.property", JcrConstants.JCR_CONTENT.concat("/article/par/page_details/cq:tags"));
+                    childMap.put(groupPrefix + offset + tagIdSuffix, tag);
+                    childMap.put(groupPrefix + offset + tagIdSuffix + "property", JcrConstants.JCR_CONTENT.concat("/article/par/page_details/cq:tags"));
                 }
 
                 populateListItemsFromMap(childMap);
