@@ -643,6 +643,7 @@ public class ComponentsUtil {
      * @param resource is the resource
      * @return a string with the file contents
      */
+    @SuppressWarnings("squid:S3776")
     public static String getResourceContent(Resource resource) {
         String returnValue = StringUtils.EMPTY;
 
@@ -1054,7 +1055,7 @@ public class ComponentsUtil {
      * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
      * @return map of attributes
      */
-    @SuppressWarnings({"unchecked","Depreciated","Duplicates"})
+    @SuppressWarnings({"unchecked","Depreciated","Duplicates","squid:S3776"})
     public static ComponentProperties getComponentProperties(Map<String, Object> pageContext, Object targetResource, Boolean includeComponentAttributes, Object[][]... fieldLists) {
         ComponentProperties componentProperties = new ComponentProperties();
 
@@ -1407,6 +1408,7 @@ public class ComponentsUtil {
      * @param fieldNameFirstTemplateName return field name for template name
      * @return return map of fields with values
      */
+    @SuppressWarnings("squid:S3776")
     public static ComponentProperties getTemplateConfig(Map<String, Object> pageContext, String configTag, ResourceResolver resourceResolver, TagManager tagManager, String fieldNameTemplates, String fieldNameFields, String fieldNameFirstTemplateName) {
         ComponentProperties componentProperties = getNewComponentProperties(pageContext);
         if (isNotEmpty(configTag)) {
@@ -2016,6 +2018,7 @@ public class ComponentsUtil {
      * @param slingScriptHelper sling script helper
      * @return map of component dialog fields and their attributes
      */
+    @SuppressWarnings("squid:S3776")
     public static Map<String, Object> getComponentFieldsAndDialogMap(Resource componentResource , ResourceResolver adminResourceResolver, SlingScriptHelper slingScriptHelper) {
         Map<String, Object> firstComponentConfig = new HashMap<>();
 

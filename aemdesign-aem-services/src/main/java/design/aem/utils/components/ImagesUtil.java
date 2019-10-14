@@ -498,10 +498,22 @@ public class ImagesUtil {
     }
 
 
+    /***
+     * get default tiff:ImageWidth
+     * @param r image rendition
+     * @return image width
+     */
     public static int getWidth(com.adobe.granite.asset.api.Rendition r) {
         return getDimension(r, "tiff:ImageWidth");
     }
 
+    /**
+     * get image dimension
+     * @param r image rendition
+     * @param dimensionProperty dimension property to return
+     * @return image dimension int
+     */
+    @SuppressWarnings("squid:S3776")
     public static int getDimension(com.adobe.granite.asset.api.Rendition r, String dimensionProperty) {
         if (r == null) {
             LOGGER.debug("Null rendition at", new Exception("Null rendition"));
