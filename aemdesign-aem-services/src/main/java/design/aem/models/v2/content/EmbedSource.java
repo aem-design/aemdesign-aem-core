@@ -38,9 +38,9 @@ public class EmbedSource extends ModelProxy {
         String html = componentProperties.get("html","");
 
         if (isNotEmpty(html)) {
-            html = html.replaceAll("&nbsp;", " ");
-            html = html.replaceAll("\\s+", " ");
-            html = html.replaceAll(" = ", "=");
+            html = html.replace("&nbsp;", " ");
+            html = html.replace("\\s+", " ");
+            html = html.replace(" = ", "=");
             html = org.apache.commons.lang.StringEscapeUtils.unescapeHtml(html);
         }
 
