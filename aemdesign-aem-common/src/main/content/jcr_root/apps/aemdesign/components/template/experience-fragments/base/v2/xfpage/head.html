@@ -1,0 +1,23 @@
+<sly data-sly-test="${!wcmmode.disabled}">
+
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"
+        data-sly-use.head="head.js"
+        data-sly-use.headlibRenderer="headlibs.html"
+        data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"/>
+  <meta data-sly-test.keywords="${head.keywords}" name="keywords" content="${keywords}"/>
+  <meta data-sly-test.description="${head.description}" name="description" content="${description}"/>
+
+  <sly data-sly-call="${headlibRenderer.headlibs @ designPath=head.designPath}" />
+  <sly data-sly-include="author.html" />
+
+  <sly data-sly-include="/libs/cq/cloudserviceconfigs/components/servicelibs/servicelibs.jsp" />
+  <sly data-sly-resource="${'cloudconfig-header' @ resourceType='cq/cloudconfig/components/scripttags/header'}"/>
+  <sly data-sly-include="customheaderlibs.html" />
+
+  <sly data-sly-test.faviconpath="${head.faviconPath}">
+    <link rel="icon" type="image/vnd.microsoft.icon" href="${faviconpath}">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="${faviconpath}">
+  </sly>
+
+  <title>${head.title}</title>
+</sly>

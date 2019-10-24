@@ -1,0 +1,10 @@
+<sly data-sly-test="${!wcmmode.disabled}">
+
+  <sly data-sly-use.wcmInit="initwcm.js"
+       data-sly-use.clientLib="${'/libs/granite/sightly/templates/clientlib.html'}"/>
+
+  <sly data-sly-test="${wcmInit.templateCategories.length > 0}" data-sly-call="${clientLib.js @ categories=wcmInit.templateCategories}" />
+
+  <sly data-sly-include="customfooterlibs.html" />
+
+</sly>
