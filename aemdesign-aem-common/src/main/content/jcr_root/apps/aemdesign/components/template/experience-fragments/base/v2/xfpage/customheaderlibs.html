@@ -1,6 +1,5 @@
-<!-- custom header libs start -->
-
-<sly data-sly-test="${(wcmmode.edit || wcmmode.preview)}">
+<sly data-sly-test="${!wcmmode.disabled}">
+  <!-- custom header libs start -->
 
     <meta http-equiv="x-ua-compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +11,6 @@
 
     <!-- css: aemdesign.author.coralui.css start -->
     <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-         data-sly-test="${wcmmode.preview || wcmmode.edit}"
          data-sly-call="${clientlib.css @ categories=['aemdesign.author.coralui']}"/>
     <!-- css: aemdesign.author.coralui.css end-->
 
@@ -20,5 +18,5 @@
     <sly data-sly-resource="${ @ resourceType='aemdesign/components/analytics/datalayer'}"/>
     <!-- aemdesign/components/analytics/datalayer end -->
 
+  <!-- custom header libs end -->
 </sly>
-<!-- custom header libs end -->
