@@ -686,7 +686,7 @@ public class List extends ModelProxy {
             // check if we have to convert from the url format to the properties-style format
             String isURLQuery = request.getParameter("isURL");
             if (queryParam != null && "on".equals(isURLQuery)) {
-                queryParam = Text.unescape(queryParam.replace("&", "\n"));
+                queryParam = Text.unescape(queryParam.replaceAll("&", "\n"));
             }
         } catch (Exception ex) {
             LOGGER.error("getPredicateGroupFromQuery: could not read query param q=[{}], ex={}", queryParam, ex);

@@ -1537,7 +1537,7 @@ public class ComponentsUtil {
             }
 
             //return string without invalid characters
-            return out.toString().replace("&#x20;", " ");
+            return out.toString().replaceAll("&#x20;", " ");
         } catch (Exception ex) {
             return StringUtils.EMPTY;
         }
@@ -1695,7 +1695,7 @@ public class ComponentsUtil {
                 String prefix = componentNode.getName();
 
                 //cleanup prefix
-                prefix = prefix.replace("[^a-zA-Z0-9-_]", "_");
+                prefix = prefix.replaceAll("[^a-zA-Z0-9-_]", "_");
 
                 componentNode.setProperty(FIELD_STYLE_COMPONENT_ID,
                         format(
@@ -2207,7 +2207,7 @@ public class ComponentsUtil {
     public static String removeRegexFromString(String value) {
         try {
             Pattern valueIsRegexPattern = Pattern.compile("(\\$\\{.*?\\})");
-            return value.replace(valueIsRegexPattern.pattern(), StringUtils.EMPTY);
+            return value.replaceAll(valueIsRegexPattern.pattern(), StringUtils.EMPTY);
         } catch (PatternSyntaxException ex) {
             LOGGER.error("removeRegexFromString: could not remove patterns from string, ex={}", ex);
         }
