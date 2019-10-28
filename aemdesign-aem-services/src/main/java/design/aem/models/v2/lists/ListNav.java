@@ -72,7 +72,7 @@ public class ListNav extends ModelProxy {
 
 
     private long totalMatches;
-	private SortOrder sortOrder;
+    private SortOrder sortOrder;
 
     private boolean listLoop = false;
 
@@ -269,7 +269,7 @@ public class ListNav extends ModelProxy {
      * populates listItems with resources from pages list.
      * page object is also resolved and returned if available
      */
-	@SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates","squid:S3776"})
     private void populateStaticListItems() {
         listItems = new ArrayList<>();
         String[] items = componentProperties.get(STATIC_ITEMS, new String[0]);
@@ -392,11 +392,11 @@ public class ListNav extends ModelProxy {
         resultInfo.put("result",result);
 
         totalMatches = result.getTotalMatches();
-		List<ResultPage> resultPages = result.getResultPages();
-		long hitsPerPage = result.getHitsPerPage();
-		long totalPages = result.getResultPages().size();
-		long pageStart = result.getStartIndex();
-		long currentPage = (pageStart / hitsPerPage) + 1;
+        List<ResultPage> resultPages = result.getResultPages();
+        long hitsPerPage = result.getHitsPerPage();
+        long totalPages = result.getResultPages().size();
+        long pageStart = result.getStartIndex();
+        long currentPage = (pageStart / hitsPerPage) + 1;
 
         resultInfo.put("hitsPerPage", hitsPerPage);
         resultInfo.put("currentPage", currentPage);

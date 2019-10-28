@@ -41,22 +41,22 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class GenericDetails extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(GenericDetails.class);
 
-	private static final String COMPONENT_DETAILS_NAME = "generic-details";
+    private static final String COMPONENT_DETAILS_NAME = "generic-details";
 
     private static final String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
-	private static final String DEFAULT_FORMAT_TITLE = "${title}";
-	private static final String FIELD_FORMAT_TITLE = "titleFormat";
-	private static final String FIELD_FORMATTED_TITLE = "titleFormatted";
-	private static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
-	private static final String FIELD_SUBCATEGORY = "subCategory";
-	private static final String FIELD_CATEGORY = "category";
-	private static final String FIELD_LEGACY_BADGE_CONFIG = "legacyBadgeConfig";
-	private static final String FIELD_LEGACY_BADGE_SELECTED = "legacyBadgeSelected";
-	private static final String FIELD_LEGACY_BADGE = "legacyBadge";
-	private static final String FIELD_LEGACY_BADGE_LIST = "legacyBadgeList";
-	private static final String FIELD_LEGACY_BADGE_LIST_MAPPING = "legacyBadgeListMapping";
-	private static final String FIELD_LEGACY_BADGE_CNNFIG_TAGS = "legacyBadgeConfigTags";
-	private static final String DEFAULT_TAG_LEGACY_BADGE_CONFIG = ":component-dialog/components/details/generic-details/legacy";
+    private static final String DEFAULT_FORMAT_TITLE = "${title}";
+    private static final String FIELD_FORMAT_TITLE = "titleFormat";
+    private static final String FIELD_FORMATTED_TITLE = "titleFormatted";
+    private static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
+    private static final String FIELD_SUBCATEGORY = "subCategory";
+    private static final String FIELD_CATEGORY = "category";
+    private static final String FIELD_LEGACY_BADGE_CONFIG = "legacyBadgeConfig";
+    private static final String FIELD_LEGACY_BADGE_SELECTED = "legacyBadgeSelected";
+    private static final String FIELD_LEGACY_BADGE = "legacyBadge";
+    private static final String FIELD_LEGACY_BADGE_LIST = "legacyBadgeList";
+    private static final String FIELD_LEGACY_BADGE_LIST_MAPPING = "legacyBadgeListMapping";
+    private static final String FIELD_LEGACY_BADGE_CNNFIG_TAGS = "legacyBadgeConfigTags";
+    private static final String DEFAULT_TAG_LEGACY_BADGE_CONFIG = ":component-dialog/components/details/generic-details/legacy";
 
     private static final String FIELD_CONTENTFRAGMENT_VARIATION = "variationName";
     private static final String FIELD_CONTENTFRAGMENT_FRAGMENTPATH = "fragmentPath";
@@ -103,7 +103,7 @@ public class GenericDetails extends ModelProxy {
 
     @SuppressWarnings("squid:S1192")
     //used for backwards compatibility of details components
-	private static final String[][] legacyBadgeListMapping = new String[][] {
+    private static final String[][] legacyBadgeListMapping = new String[][] {
             new String[] {"action-icon","description"},
             new String[] {"action-icon","title", "taglist", "description"},
             new String[] {"action-icon","title", "description"},
@@ -152,80 +152,80 @@ public class GenericDetails extends ModelProxy {
      */
     @SuppressWarnings("Duplicates")
     protected void ready() {
-		com.day.cq.i18n.I18n i18n = new I18n(getRequest());
+        com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
-		final String DEFAULT_ARIA_ROLE = "banner";
-		final String DEFAULT_TITLE_TAG_TYPE = "h1";
-		final String DEFAULT_I18N_CATEGORY = "page-detail";
-		final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
+        final String DEFAULT_ARIA_ROLE = "banner";
+        final String DEFAULT_TITLE_TAG_TYPE = "h1";
+        final String DEFAULT_I18N_CATEGORY = "page-detail";
+        final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
 
-		// default values for the component
-		final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
-		final String DEFAULT_DESCRIPTION = getResourcePage().getDescription();
-		final String DEFAULT_SUBTITLE = getResourcePage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE,"");
-		final Boolean DEFAULT_HIDE_TITLE = false;
-		final Boolean DEFAULT_HIDE_DESCRIPTION = false;
-		final Boolean DEFAULT_SHOW_BREADCRUMB = true;
-		final Boolean DEFAULT_SHOW_TOOLBAR = true;
-		final Boolean DEFAULT_SHOW_PAGE_DATE = true;
-		final Boolean DEFAULT_SHOW_PARSYS = true;
+        // default values for the component
+        final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
+        final String DEFAULT_DESCRIPTION = getResourcePage().getDescription();
+        final String DEFAULT_SUBTITLE = getResourcePage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE,"");
+        final Boolean DEFAULT_HIDE_TITLE = false;
+        final Boolean DEFAULT_HIDE_DESCRIPTION = false;
+        final Boolean DEFAULT_SHOW_BREADCRUMB = true;
+        final Boolean DEFAULT_SHOW_TOOLBAR = true;
+        final Boolean DEFAULT_SHOW_PAGE_DATE = true;
+        final Boolean DEFAULT_SHOW_PARSYS = true;
 
-		this.componentProperties = ComponentsUtil.getNewComponentProperties(this);
+        this.componentProperties = ComponentsUtil.getNewComponentProperties(this);
 
-		setComponentFields(new Object[][]{
-			{FIELD_VARIANT, DEFAULT_VARIANT},
-			{"title", DEFAULT_TITLE},
-			{FIELD_FORMAT_TITLE,""}, //tag path, will be resolved to value in processComponentFields
-			{"description", DEFAULT_DESCRIPTION},
-			{"hideDescription", DEFAULT_HIDE_DESCRIPTION},
-			{"hideTitle", DEFAULT_HIDE_TITLE},
-			{"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
-			{"showToolbar", DEFAULT_SHOW_TOOLBAR},
-			{"showPageDate", DEFAULT_SHOW_PAGE_DATE},
-			{"showParsys", DEFAULT_SHOW_PARSYS},
-			{FIELD_LINK_TARGET, StringUtils.EMPTY, FIELD_TARGET},
-			{FIELD_PAGE_URL, getPageUrl(getResourcePage())},
-			{FIELD_PAGE_TITLE, DEFAULT_TITLE},
-			{FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
-			{FIELD_PAGE_TITLE_SUBTITLE, DEFAULT_SUBTITLE},
-			{TagConstants.PN_TAGS, new String[]{}},
-			{FIELD_SUBCATEGORY, new String[]{}},
-			{FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
-			{FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
-			{"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
-			{FIELD_LEGACY_BADGE_LIST, legacyBadgeList},
-			{FIELD_LEGACY_BADGE_LIST_MAPPING, legacyBadgeListMapping},
-			{FIELD_LEGACY_BADGE_CNNFIG_TAGS, resolveTenantIdFromPath(getCurrentPage().getPath()).concat(DEFAULT_TAG_LEGACY_BADGE_CONFIG)},
-			{FIELD_VARIANT_FIELDS, new String[]{}},
-			{FIELD_VARIANT_FIELDS_TEMPLATE, new String[]{}},
-			{FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION},
-			{FIELD_CONTENTFRAGMENT_FRAGMENTPATH, ""},
-		});
+        setComponentFields(new Object[][]{
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"title", DEFAULT_TITLE},
+            {FIELD_FORMAT_TITLE,""}, //tag path, will be resolved to value in processComponentFields
+            {"description", DEFAULT_DESCRIPTION},
+            {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
+            {"hideTitle", DEFAULT_HIDE_TITLE},
+            {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
+            {"showToolbar", DEFAULT_SHOW_TOOLBAR},
+            {"showPageDate", DEFAULT_SHOW_PAGE_DATE},
+            {"showParsys", DEFAULT_SHOW_PARSYS},
+            {FIELD_LINK_TARGET, StringUtils.EMPTY, FIELD_TARGET},
+            {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
+            {FIELD_PAGE_TITLE, DEFAULT_TITLE},
+            {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
+            {FIELD_PAGE_TITLE_SUBTITLE, DEFAULT_SUBTITLE},
+            {TagConstants.PN_TAGS, new String[]{}},
+            {FIELD_SUBCATEGORY, new String[]{}},
+            {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
+            {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
+            {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
+            {FIELD_LEGACY_BADGE_LIST, legacyBadgeList},
+            {FIELD_LEGACY_BADGE_LIST_MAPPING, legacyBadgeListMapping},
+            {FIELD_LEGACY_BADGE_CNNFIG_TAGS, resolveTenantIdFromPath(getCurrentPage().getPath()).concat(DEFAULT_TAG_LEGACY_BADGE_CONFIG)},
+            {FIELD_VARIANT_FIELDS, new String[]{}},
+            {FIELD_VARIANT_FIELDS_TEMPLATE, new String[]{}},
+            {FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION},
+            {FIELD_CONTENTFRAGMENT_FRAGMENTPATH, ""},
+        });
 
-		componentProperties = ComponentsUtil.getComponentProperties(
-			this,
-			componentFields,
-			DEFAULT_FIELDS_STYLE,
-			DEFAULT_FIELDS_ACCESSIBILITY,
-			DEFAULT_FIELDS_ANALYTICS,
-			DEFAULT_FIELDS_DETAILS_OPTIONS);
+        componentProperties = ComponentsUtil.getComponentProperties(
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS,
+            DEFAULT_FIELDS_DETAILS_OPTIONS);
 
-		//process content fragment content if its used
+        //process content fragment content if its used
         String fragmentPath = componentProperties.get(FIELD_CONTENTFRAGMENT_FRAGMENTPATH, "");
         String variationName = componentProperties.get(FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION);
 
         componentProperties.putAll(ContentFragmentUtil.getComponentFragmentMap(fragmentPath,variationName, getResourceResolver()));
 
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
-		componentProperties.put(FIELD_CATEGORY,getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
+        componentProperties.put(FIELD_CATEGORY,getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
 
-		String[] subCategory = componentProperties.get(FIELD_SUBCATEGORY, new String[]{});
-		componentProperties.put(FIELD_SUBCATEGORY,getTagsAsAdmin(getSlingScriptHelper(), subCategory, getRequest().getLocale()));
+        String[] subCategory = componentProperties.get(FIELD_SUBCATEGORY, new String[]{});
+        componentProperties.put(FIELD_SUBCATEGORY,getTagsAsAdmin(getSlingScriptHelper(), subCategory, getRequest().getLocale()));
 
-		processCommonFields();
+        processCommonFields();
 
-		//format fields
-		componentProperties.putAll(processComponentFields(componentProperties,i18n,getSlingScriptHelper()), false);
+        //format fields
+        componentProperties.putAll(processComponentFields(componentProperties,i18n,getSlingScriptHelper()), false);
     }
 
     /***
@@ -234,9 +234,9 @@ public class GenericDetails extends ModelProxy {
     @SuppressWarnings({"Duplicates","squid:S3776","squid:S1141"})
     protected void processCommonFields() {
         try {
-        	if (componentProperties == null) {
-				componentProperties = getNewComponentProperties(this);
-			}
+            if (componentProperties == null) {
+                componentProperties = getNewComponentProperties(this);
+            }
             //read the image node
             componentProperties.putAll(getAssetInfo(getResourceResolver(),
                     getPageImgReferencePath(getResourcePage()),
@@ -400,27 +400,27 @@ public class GenericDetails extends ModelProxy {
         }
     }
 
-	/**
-	 * get field template in component.
-	 * @return list of field resources
-	 */
-	public Map<String, Resource> getFields() {
-		return getLocalSubResourcesInSuperComponent(getComponent(), "field", getSlingScriptHelper());
-	}
+    /**
+     * get field template in component.
+     * @return list of field resources
+     */
+    public Map<String, Resource> getFields() {
+        return getLocalSubResourcesInSuperComponent(getComponent(), "field", getSlingScriptHelper());
+    }
 
-	/**
-	 * get template in component.
-	 * @return list of template resources
-	 */
-	public Map<String, Resource> getTemplates() {
-		return getLocalSubResourcesInSuperComponent(getComponent(), "template", getSlingScriptHelper());
-	}
+    /**
+     * get template in component.
+     * @return list of template resources
+     */
+    public Map<String, Resource> getTemplates() {
+        return getLocalSubResourcesInSuperComponent(getComponent(), "template", getSlingScriptHelper());
+    }
 
-	/**
-	 * return list of selectors if not using legacy badge convention.
-	 * @return list of template resources
-	 */
-	public String[] getRequestedFields() {
+    /**
+     * return list of selectors if not using legacy badge convention.
+     * @return list of template resources
+     */
+    public String[] getRequestedFields() {
         String legacyComponentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
 
         if (isNotEmpty(legacyComponentBadge) && this.componentProperties != null ) {
@@ -471,13 +471,13 @@ public class GenericDetails extends ModelProxy {
         String[] fields = this.getSlingScriptHelper().getRequest().getRequestPathInfo().getSelectors();
 
         if (fields.length > 0) {
-	        return fields;
+            return fields;
         }
 
-	    //use configured fields
-	    fields = componentProperties.get(FIELD_VARIANT_FIELDS, new String[]{});
-	    if (fields.length > 0) {
-	        return fields;
+        //use configured fields
+        fields = componentProperties.get(FIELD_VARIANT_FIELDS, new String[]{});
+        if (fields.length > 0) {
+            return fields;
         }
 
         return new String[]{};
@@ -629,34 +629,34 @@ public class GenericDetails extends ModelProxy {
 
 
 
-	/***
-	 * substitute formatted field template with fields from component.
-	 * @param componentProperties source map with fields
-	 * @param i18n i18n
-	 * @param sling sling helper
-	 * @return returns map with new values
-	 */
-	@SuppressWarnings("Duplicates")
-	public Map<String, Object> processComponentFields(ComponentProperties componentProperties, com.day.cq.i18n.I18n i18n, SlingScriptHelper sling){
-		Map<String, Object> newFields = new HashMap<>();
+    /***
+     * substitute formatted field template with fields from component.
+     * @param componentProperties source map with fields
+     * @param i18n i18n
+     * @param sling sling helper
+     * @return returns map with new values
+     */
+    @SuppressWarnings("Duplicates")
+    public Map<String, Object> processComponentFields(ComponentProperties componentProperties, com.day.cq.i18n.I18n i18n, SlingScriptHelper sling){
+        Map<String, Object> newFields = new HashMap<>();
 
-		try {
+        try {
 
-			String formattedTitle = compileComponentMessage(FIELD_FORMAT_TITLE, DEFAULT_FORMAT_TITLE, componentProperties, sling);
-			Document fragment = Jsoup.parse(formattedTitle);
-			String formattedTitleText = fragment.text();
+            String formattedTitle = compileComponentMessage(FIELD_FORMAT_TITLE, DEFAULT_FORMAT_TITLE, componentProperties, sling);
+            Document fragment = Jsoup.parse(formattedTitle);
+            String formattedTitleText = fragment.text();
 
-			newFields.put(FIELD_FORMATTED_TITLE,
-				formattedTitle.trim()
-			);
-			newFields.put(FIELD_FORMATTED_TITLE_TEXT,
-				formattedTitleText.trim()
-			);
+            newFields.put(FIELD_FORMATTED_TITLE,
+                formattedTitle.trim()
+            );
+            newFields.put(FIELD_FORMATTED_TITLE_TEXT,
+                formattedTitleText.trim()
+            );
 
-		} catch (Exception ex) {
-			LOGGER.error("Could not process component fields in {}", COMPONENT_DETAILS_NAME);
-		}
-		return newFields;
-	}
+        } catch (Exception ex) {
+            LOGGER.error("Could not process component fields in {}", COMPONENT_DETAILS_NAME);
+        }
+        return newFields;
+    }
 
 }

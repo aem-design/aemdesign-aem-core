@@ -63,9 +63,9 @@ public class Link extends ModelProxy {
         if (isNotEmpty(linkUrl)) {
             Resource linkResource = getResourceResolver().resolve(linkUrl);
             if (!ResourceUtil.isNonExistingResource(linkResource)
-				&& linkResource.isResourceType(NameConstants.NT_PAGE)
-				&& !linkUrl.endsWith(DEFAULT_EXTENTION)
-				&& !linkUrl.contains(DEFAULT_LINKURL)) {
+                && linkResource.isResourceType(NameConstants.NT_PAGE)
+                && !linkUrl.endsWith(DEFAULT_EXTENTION)
+                && !linkUrl.contains(DEFAULT_LINKURL)) {
                     linkUrl = linkUrl.concat(DEFAULT_EXTENTION);
             }
 

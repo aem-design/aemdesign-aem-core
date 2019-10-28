@@ -169,7 +169,7 @@ public class CommonUtil {
             }
 
             if (value != null) {
-				longDate = value;
+                longDate = value;
             }
         }
 
@@ -190,7 +190,7 @@ public class CommonUtil {
             }
 
             if (value != null) {
-				longDate = value;
+                longDate = value;
             }
         }
 

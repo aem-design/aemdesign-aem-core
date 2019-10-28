@@ -103,17 +103,17 @@ public class ContentBlock extends ModelProxy {
             Resource componentresource = getResource().getChild(DEFAULT_PAR_NAME);
             if (componentresource != null && componentresource.hasChildren()) {
                 //get first component
-				Resource firstComponent = componentresource.listChildren().next();
-				if (firstComponent != null) {
-					ContentAccess contentAccess = getSlingScriptHelper().getService(ContentAccess.class);
-					if (contentAccess != null) {
-						try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
-							componentProperties.put("firstComponentConfig", getComponentFieldsAndDialogMap(firstComponent, adminResourceResolver, getSlingScriptHelper()));
-						} catch (Exception ex) {
-							LOGGER.error("ContentBlock: error accessing component dialog component.path={}, ex={}", firstComponent.getPath(), ex);
-						}
-					}
-				}
+                Resource firstComponent = componentresource.listChildren().next();
+                if (firstComponent != null) {
+                    ContentAccess contentAccess = getSlingScriptHelper().getService(ContentAccess.class);
+                    if (contentAccess != null) {
+                        try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+                            componentProperties.put("firstComponentConfig", getComponentFieldsAndDialogMap(firstComponent, adminResourceResolver, getSlingScriptHelper()));
+                        } catch (Exception ex) {
+                            LOGGER.error("ContentBlock: error accessing component dialog component.path={}, ex={}", firstComponent.getPath(), ex);
+                        }
+                    }
+                }
             }
         }
     }
