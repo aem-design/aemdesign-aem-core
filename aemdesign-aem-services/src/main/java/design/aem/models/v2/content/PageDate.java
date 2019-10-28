@@ -50,7 +50,7 @@ public class PageDate extends ModelProxy {
 
         long publishDateLong = componentProperties.get(FIELD_PUBLISH_DATE, 0L);
         Calendar publishDate = Calendar.getInstance();
-		publishDate.setTimeInMillis(publishDateLong);
+        publishDate.setTimeInMillis(publishDateLong);
 
         //get format strings from dictionary
         String dateFormatString = i18n.get("publishDateFormat",DEFAULT_I18N_CATEGORY);

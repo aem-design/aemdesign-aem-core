@@ -129,8 +129,8 @@ public class List extends ModelProxy {
     private long pageMax;
     private long totalPages;
     private long pageStart;
-	private long totalMatches;
-	private long listSplitEvery;
+    private long totalMatches;
+    private long listSplitEvery;
     private String id;
     private boolean isPaginating;
     private java.util.List<ResultPage> resultPages;
@@ -154,7 +154,7 @@ public class List extends ModelProxy {
         loadConfig();
     }
 
-	@SuppressWarnings({"squid:S3776"})
+    @SuppressWarnings({"squid:S3776"})
     protected void loadConfig() {
         I18n i18n = new I18n(getRequest());
         String resourcePath = getResource().getPath();
@@ -800,7 +800,7 @@ public class List extends ModelProxy {
     /**
      * allow passing of querybuilder queries.
      */
-	@SuppressWarnings({"squid:S3776"})
+    @SuppressWarnings({"squid:S3776"})
     private void populateQueryListItems() {
         listItems = new ArrayList<>();
         if (!StringUtils.isBlank(savedquery)) {
@@ -888,10 +888,10 @@ public class List extends ModelProxy {
 
         totalMatches = result.getTotalMatches();
         resultPages = result.getResultPages();
-		long hitsPerPage = result.getHitsPerPage();
+        long hitsPerPage = result.getHitsPerPage();
         totalPages = result.getResultPages().size();
         pageStart = result.getStartIndex();
-		long currentPage = (pageStart / hitsPerPage) + 1;
+        long currentPage = (pageStart / hitsPerPage) + 1;
 
         resultInfo.put("hitsPerPage", hitsPerPage);
         resultInfo.put("currentPage", currentPage);

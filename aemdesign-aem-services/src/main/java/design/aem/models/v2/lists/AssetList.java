@@ -74,7 +74,7 @@ public class AssetList extends ModelProxy {
     private static final String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
 
     private long totalMatches;
-	private SortOrder sortOrder;
+    private SortOrder sortOrder;
 
     @SuppressWarnings("Duplicates")
     protected void ready() {
@@ -263,32 +263,32 @@ public class AssetList extends ModelProxy {
 
                 if (!ResourceUtil.isNonExistingResource(assetResource)) {
 
-					com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(item);
+                    com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(item);
 
-					if (asset != null) {
+                    if (asset != null) {
 
-						ComponentProperties assetInfo = getAssetInfo(asset, assetResource, componentProperties, getSlingScriptHelper());
+                        ComponentProperties assetInfo = getAssetInfo(asset, assetResource, componentProperties, getSlingScriptHelper());
 
-						if (assetInfo != null) {
-							listItems.add(assetInfo);
-						}
+                        if (assetInfo != null) {
+                            listItems.add(assetInfo);
+                        }
 
-					}
-				}
+                    }
+                }
             }
         } else {
             LOGGER.error("ImageImpl: could not get AssetManager object");
         }
     }
 
-	/**
-	 * get required asset info
-	 * @param asset asset to look into
-	 * @param assetResource asset resource
-	 * @param componentProperties component properties to use for settings
-	 * @param sling sling instance
-	 * @return asset metadata
-	 */
+    /**
+     * get required asset info
+     * @param asset asset to look into
+     * @param assetResource asset resource
+     * @param componentProperties component properties to use for settings
+     * @param sling sling instance
+     * @return asset metadata
+     */
     @SuppressWarnings("squid:S3776")
     private ComponentProperties getAssetInfo(com.adobe.granite.asset.api.Asset asset, Resource assetResource, ComponentProperties componentProperties, SlingScriptHelper sling) {
 
@@ -300,13 +300,13 @@ public class AssetList extends ModelProxy {
                 if (!ResourceUtil.isNonExistingResource(assetResource)) {
                     Asset assetBasic = assetResource.adaptTo(Asset.class);
                     if (assetBasic == null) {
-                    	return getNewComponentProperties(this);
-					} else {
+                        return getNewComponentProperties(this);
+                    } else {
 
-						String assetPath = assetResource.getPath();
+                        String assetPath = assetResource.getPath();
 
-						String imageOption = componentProperties.get(FIELD_IMAGE_OPTION, FIELD_IMAGE_OPTION_DEFAULT);
-						String titleType = componentProperties.get(FIELD_TITLE_TAG_TYPE, FIELD_TITLE_TAG_TYPE_DEFAULT);
+                        String imageOption = componentProperties.get(FIELD_IMAGE_OPTION, FIELD_IMAGE_OPTION_DEFAULT);
+                        String titleType = componentProperties.get(FIELD_TITLE_TAG_TYPE, FIELD_TITLE_TAG_TYPE_DEFAULT);
 
                     /*
                       Component Fields Helper
@@ -317,91 +317,91 @@ public class AssetList extends ModelProxy {
                       3 optional - name of component attribute to add value into
                       4 optional - canonical name of class for handling multivalues, String or Tag
                      */
-						Object[][] assetField = {{"name", assetBasic.getName()}, {"id", assetBasic.getID(), FIELD_ASSETID}, {"path", assetBasic.getPath()}, {"originalPath", assetBasic.getOriginal()}, {"mimeType", assetBasic.getMimeType(), "data-mimetype"}, {"lastModified", assetBasic.getLastModified()}, {"isSubAsset", assetBasic.isSubAsset()}, {FIELD_RENDITIONS, assetBasic.listRenditions()}, {"linkURL", ""}, {"imageOption", imageOption}, {"titleType", titleType}, {"href", assetPath, "data-href"},
+                        Object[][] assetField = {{"name", assetBasic.getName()}, {"id", assetBasic.getID(), FIELD_ASSETID}, {"path", assetBasic.getPath()}, {"originalPath", assetBasic.getOriginal()}, {"mimeType", assetBasic.getMimeType(), "data-mimetype"}, {"lastModified", assetBasic.getLastModified()}, {"isSubAsset", assetBasic.isSubAsset()}, {FIELD_RENDITIONS, assetBasic.listRenditions()}, {"linkURL", ""}, {"imageOption", imageOption}, {"titleType", titleType}, {"href", assetPath, "data-href"},
 
-						};
+                        };
 
-						//get asset properties
-						ComponentProperties assetProperties = ComponentsUtil.getComponentProperties(this, asset, false, assetField, DEFAULT_FIELDS_ASSET);
+                        //get asset properties
+                        ComponentProperties assetProperties = ComponentsUtil.getComponentProperties(this, asset, false, assetField, DEFAULT_FIELDS_ASSET);
 
-						String assetType = assetProperties.get(DamConstants.DC_FORMAT, "");
+                        String assetType = assetProperties.get(DamConstants.DC_FORMAT, "");
 
-						boolean checkDuration = false;
-						boolean getRenditions = false;
-
-
-						if (assetType.startsWith("video/")) {
-							assetProperties.put(ASSET_TYPE, "video");
-							checkDuration = true;
-							getRenditions = true;
-						} else if (assetType.startsWith("audio/") || assetType.startsWith("application/")) {
-							assetProperties.put(ASSET_TYPE, "audio");
-							checkDuration = true;
-						} else if (assetType.startsWith("image/")) {
-							assetProperties.put(ASSET_TYPE, "image");
-							getRenditions = true;
-						} else {
-							assetProperties.put(ASSET_TYPE, "other");
-							getRenditions = true;
-						}
-
-						if (checkDuration) {
-
-							Resource assetMetadataDurationResource = assetResource.getChild(PROPERTY_METADATA_DURATION);
-							if (assetMetadataDurationResource != null) {
-
-								ValueMap assetMetadataDurationValueMap = assetMetadataDurationResource.getValueMap();
-
-								assetProperties.put("duration", getAssetDuration(assetMetadataDurationValueMap).toString());
-
-							}
-						}
+                        boolean checkDuration = false;
+                        boolean getRenditions = false;
 
 
-						//get license info
-						Resource assetMetadataResource = assetResource.getChild(PROPERTY_METADATA);
+                        if (assetType.startsWith("video/")) {
+                            assetProperties.put(ASSET_TYPE, "video");
+                            checkDuration = true;
+                            getRenditions = true;
+                        } else if (assetType.startsWith("audio/") || assetType.startsWith("application/")) {
+                            assetProperties.put(ASSET_TYPE, "audio");
+                            checkDuration = true;
+                        } else if (assetType.startsWith("image/")) {
+                            assetProperties.put(ASSET_TYPE, "image");
+                            getRenditions = true;
+                        } else {
+                            assetProperties.put(ASSET_TYPE, "other");
+                            getRenditions = true;
+                        }
 
-						if (assetMetadataResource != null) {
-							ValueMap assetMetadata = assetMetadataResource.getValueMap();
+                        if (checkDuration) {
 
-							assetProperties.put("assetTags", getTagsAsAdmin(sling, assetMetadata.get(TagConstants.PN_TAGS, new String[0]), getRequest().getLocale()));
+                            Resource assetMetadataDurationResource = assetResource.getChild(PROPERTY_METADATA_DURATION);
+                            if (assetMetadataDurationResource != null) {
 
-							String assetUsageTerms = assetMetadata.get(DAM_FIELD_LICENSE_USAGETERMS, "");
-							assetProperties.put("assetUsageTerms", assetUsageTerms);
+                                ValueMap assetMetadataDurationValueMap = assetMetadataDurationResource.getValueMap();
 
-						}
+                                assetProperties.put("duration", getAssetDuration(assetMetadataDurationValueMap).toString());
 
-						String licenseInfo = getAssetCopyrightInfo(assetBasic, ASSET_LICENSEINFO);
-						assetProperties.put(FIELD_LICENSE_INFO, licenseInfo);
-
-						assetProperties.attr.add("data-license", licenseInfo);
-
-						//get list of renditions
-						Map<String, String> responsiveImageSet = new LinkedHashMap<>();
-
-						if (getRenditions) {
-
-							// Check if the image suffix is '.svg' or '.gif', if it is skip any rendition checks and simply return
-							// the path to it as no scaling or modifications should be applied.
-							if (assetPath.endsWith(".svg") || assetPath.endsWith(".gif")) {
-								assetProperties.put(FIELD_IMAGEURL, assetPath);
-								assetProperties.put(FIELD_IMAGE_OPTION, "simple");
-							} else {
-								responsiveImageSet = getImageSetForImageOptions(imageOption, asset, componentProperties, assetResource, getResourceResolver(), sling);
-							}
-						}
-						assetProperties.put(FIELD_RENDITIONS, responsiveImageSet);
-
-						//pick last one from collection
-						if (!responsiveImageSet.values().isEmpty()) {
-							assetProperties.put(FIELD_IMAGEURL, responsiveImageSet.values().toArray()[responsiveImageSet.values().size() - 1]);
-						}
+                            }
+                        }
 
 
-						assetProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(assetProperties.attr.getData(), null));
+                        //get license info
+                        Resource assetMetadataResource = assetResource.getChild(PROPERTY_METADATA);
 
-						return assetProperties;
-					}
+                        if (assetMetadataResource != null) {
+                            ValueMap assetMetadata = assetMetadataResource.getValueMap();
+
+                            assetProperties.put("assetTags", getTagsAsAdmin(sling, assetMetadata.get(TagConstants.PN_TAGS, new String[0]), getRequest().getLocale()));
+
+                            String assetUsageTerms = assetMetadata.get(DAM_FIELD_LICENSE_USAGETERMS, "");
+                            assetProperties.put("assetUsageTerms", assetUsageTerms);
+
+                        }
+
+                        String licenseInfo = getAssetCopyrightInfo(assetBasic, ASSET_LICENSEINFO);
+                        assetProperties.put(FIELD_LICENSE_INFO, licenseInfo);
+
+                        assetProperties.attr.add("data-license", licenseInfo);
+
+                        //get list of renditions
+                        Map<String, String> responsiveImageSet = new LinkedHashMap<>();
+
+                        if (getRenditions) {
+
+                            // Check if the image suffix is '.svg' or '.gif', if it is skip any rendition checks and simply return
+                            // the path to it as no scaling or modifications should be applied.
+                            if (assetPath.endsWith(".svg") || assetPath.endsWith(".gif")) {
+                                assetProperties.put(FIELD_IMAGEURL, assetPath);
+                                assetProperties.put(FIELD_IMAGE_OPTION, "simple");
+                            } else {
+                                responsiveImageSet = getImageSetForImageOptions(imageOption, asset, componentProperties, assetResource, getResourceResolver(), sling);
+                            }
+                        }
+                        assetProperties.put(FIELD_RENDITIONS, responsiveImageSet);
+
+                        //pick last one from collection
+                        if (!responsiveImageSet.values().isEmpty()) {
+                            assetProperties.put(FIELD_IMAGEURL, responsiveImageSet.values().toArray()[responsiveImageSet.values().size() - 1]);
+                        }
+
+
+                        assetProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(assetProperties.attr.getData(), null));
+
+                        return assetProperties;
+                    }
                 }
             } else {
                 LOGGER.error("getAssetInfo: could not get asset info {}", asset);
@@ -424,11 +424,11 @@ public class AssetList extends ModelProxy {
         resultInfo.put("result",result);
 
         totalMatches = result.getTotalMatches();
-		List<ResultPage> resultPages = result.getResultPages();
-		long hitsPerPage = result.getHitsPerPage();
-		long totalPages = result.getResultPages().size();
-		long pageStart = result.getStartIndex();
-		long currentPage = (pageStart / hitsPerPage) + 1;
+        List<ResultPage> resultPages = result.getResultPages();
+        long hitsPerPage = result.getHitsPerPage();
+        long totalPages = result.getResultPages().size();
+        long pageStart = result.getStartIndex();
+        long currentPage = (pageStart / hitsPerPage) + 1;
 
         resultInfo.put("hitsPerPage", hitsPerPage);
         resultInfo.put("currentPage", currentPage);

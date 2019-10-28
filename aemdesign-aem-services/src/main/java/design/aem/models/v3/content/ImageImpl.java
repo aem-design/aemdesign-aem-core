@@ -58,7 +58,7 @@ public class ImageImpl extends GenericModel implements GenericComponent {
     }
 
     @PostConstruct
-	@SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates","squid:S3776"})
     protected void initModel() {
 
 
@@ -114,43 +114,43 @@ public class ImageImpl extends GenericModel implements GenericComponent {
                     Asset assetBasic = assetR.adaptTo(Asset.class);
 
                     if (asset != null && assetBasic != null) {
-						//get asset metadata
-						String assetUID = asset.getIdentifier();
-						String licenseInfo = getAssetCopyrightInfo(assetBasic, getI18n().get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
-						componentProperties.put(FIELD_LICENSE_INFO, licenseInfo);
-						componentProperties.put(FIELD_ASSETID, assetUID);
+                        //get asset metadata
+                        String assetUID = asset.getIdentifier();
+                        String licenseInfo = getAssetCopyrightInfo(assetBasic, getI18n().get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
+                        componentProperties.put(FIELD_LICENSE_INFO, licenseInfo);
+                        componentProperties.put(FIELD_ASSETID, assetUID);
 
 
-						//get asset properties
-						ComponentProperties assetProperties = ComponentsUtil.getComponentProperties(this, asset, DEFAULT_FIELDS_ASSET_IMAGE);
-						//add asset properties to component properties and ensure licensed image meta does not get overwritten
-						componentProperties.putAll(assetProperties, isEmpty(licenseInfo));
+                        //get asset properties
+                        ComponentProperties assetProperties = ComponentsUtil.getComponentProperties(this, asset, DEFAULT_FIELDS_ASSET_IMAGE);
+                        //add asset properties to component properties and ensure licensed image meta does not get overwritten
+                        componentProperties.putAll(assetProperties, isEmpty(licenseInfo));
 
-						//if asset is not licensed
-						if (isEmpty(licenseInfo)) {
-							//get asset properties override from component
-							ComponentProperties assetPropertiesOverride = ComponentsUtil.getComponentProperties(this, null, false, DEFAULT_FIELDS_ASSET_IMAGE);
+                        //if asset is not licensed
+                        if (isEmpty(licenseInfo)) {
+                            //get asset properties override from component
+                            ComponentProperties assetPropertiesOverride = ComponentsUtil.getComponentProperties(this, null, false, DEFAULT_FIELDS_ASSET_IMAGE);
 
-							//add asset properties override to component properties and ensure licensed image meta does not get overwritten
-							componentProperties.putAll(assetPropertiesOverride, isEmpty(licenseInfo));
+                            //add asset properties override to component properties and ensure licensed image meta does not get overwritten
+                            componentProperties.putAll(assetPropertiesOverride, isEmpty(licenseInfo));
 
-						}
+                        }
 
-						//ensure something is added as title
-						String title = componentProperties.get(DAM_TITLE, "");
-						if (isEmpty(title)) {
-							componentProperties.put(DAM_TITLE, assetBasic.getName());
-						}
+                        //ensure something is added as title
+                        String title = componentProperties.get(DAM_TITLE, "");
+                        if (isEmpty(title)) {
+                            componentProperties.put(DAM_TITLE, assetBasic.getName());
+                        }
 
-						componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSETID, assetUID);
-						componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSET_TRACKABLE, true);
-						componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSET_LICENSED, isNotBlank(licenseInfo));
-						componentProperties.attr.add(FIELD_DATA_ANALYTICS_EVENT_LABEL, componentProperties.get(DAM_TITLE, ""));
-						componentProperties.attr.add(FIELD_DATA_ANALYTICS_METATYPE, assetBasic.getMimeType());
-						componentProperties.attr.add(FIELD_DATA_ANALYTICS_FILENAME, assetBasic.getPath());
+                        componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSETID, assetUID);
+                        componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSET_TRACKABLE, true);
+                        componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSET_LICENSED, isNotBlank(licenseInfo));
+                        componentProperties.attr.add(FIELD_DATA_ANALYTICS_EVENT_LABEL, componentProperties.get(DAM_TITLE, ""));
+                        componentProperties.attr.add(FIELD_DATA_ANALYTICS_METATYPE, assetBasic.getMimeType());
+                        componentProperties.attr.add(FIELD_DATA_ANALYTICS_FILENAME, assetBasic.getPath());
                     } else {
-						LOGGER.error("ImageImpl: null check asset={} and assetBasic={}", asset, assetBasic);
-					}
+                        LOGGER.error("ImageImpl: null check asset={} and assetBasic={}", asset, assetBasic);
+                    }
                 } else {
                     LOGGER.error("ImageImpl: could not get AssetManager object");
                 }

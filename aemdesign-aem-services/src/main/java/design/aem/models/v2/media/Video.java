@@ -29,7 +29,7 @@ public class Video extends ModelProxy {
     private static final String POPUP_HEIGHT = "lightboxHeight";
     private static final String POPUP_WIDTH = "lightboxWidth";
 
-	@SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates","squid:S3776"})
     protected void ready() throws Exception {
 
         setComponentFields(new Object[][]{
