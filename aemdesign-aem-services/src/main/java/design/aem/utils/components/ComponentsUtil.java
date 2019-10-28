@@ -1864,84 +1864,84 @@ public class ComponentsUtil {
         return componentInPagePath;
     }
 
-	/**
-	 * return list of available sub-resources in current and all super components.
-	 * @param component component to start with
-	 * @param resourceName sub-resource container to find
-	 * @param sling sling instance
-	 * @return returns list of resources
-	 */
-	@SuppressWarnings({"squid:S3776"})
+    /**
+     * return list of available sub-resources in current and all super components.
+     * @param component component to start with
+     * @param resourceName sub-resource container to find
+     * @param sling sling instance
+     * @return returns list of resources
+     */
+    @SuppressWarnings({"squid:S3776"})
     public static Map<String, Resource> getLocalSubResourcesInSuperComponent(Component component,String resourceName, SlingScriptHelper sling) {
-		HashMap<String, Resource> subResources = new HashMap<>();
-		Component superComponent = null;
+        HashMap<String, Resource> subResources = new HashMap<>();
+        Component superComponent = null;
 
-		if (component != null && isNotEmpty(resourceName)) {
+        if (component != null && isNotEmpty(resourceName)) {
 
-			ContentAccess contentAccess = sling.getService(ContentAccess.class);
-			if (contentAccess != null) {
-				try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+            ContentAccess contentAccess = sling.getService(ContentAccess.class);
+            if (contentAccess != null) {
+                try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
 
-					//get component with admin resource resolver
-					String componentPath = component.getPath();
-					Resource componentAdminResource = adminResourceResolver.resolve(componentPath);
-					if (!ResourceUtil.isNonExistingResource(componentAdminResource)) {
-						superComponent = componentAdminResource.adaptTo(Component.class);
+                    //get component with admin resource resolver
+                    String componentPath = component.getPath();
+                    Resource componentAdminResource = adminResourceResolver.resolve(componentPath);
+                    if (!ResourceUtil.isNonExistingResource(componentAdminResource)) {
+                        superComponent = componentAdminResource.adaptTo(Component.class);
 
-						if (superComponent != null) {
-							Resource localresource = superComponent.getLocalResource(resourceName);
+                        if (superComponent != null) {
+                            Resource localresource = superComponent.getLocalResource(resourceName);
 
-							//check for local resources
-							if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
-								for (Resource resource : localresource.getChildren()) {
-									String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
-									subResources.put(name, resource);
-								}
-							}
+                            //check for local resources
+                            if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
+                                for (Resource resource : localresource.getChildren()) {
+                                    String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
+                                    subResources.put(name, resource);
+                                }
+                            }
 
-							//collect sub resources from super types
-							while (superComponent.getSuperComponent() != null) {
+                            //collect sub resources from super types
+                            while (superComponent.getSuperComponent() != null) {
 
-								superComponent = superComponent.getSuperComponent();
+                                superComponent = superComponent.getSuperComponent();
 
-								if (superComponent == null) {
-									break;
-								}
+                                if (superComponent == null) {
+                                    break;
+                                }
 
-								localresource = superComponent.getLocalResource(resourceName);
+                                localresource = superComponent.getLocalResource(resourceName);
 
-								if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
-									for (Resource resource : localresource.getChildren()) {
-										//add only newly found resources
-										if (!subResources.containsValue(resource.getName())) {
-											String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
-											subResources.put(name, resource);
-										}
-									}
-								}
-							}
-						} else {
-							LOGGER.error("getComponentSubResources: could not convert resource to component, componentAdminResource={}", componentAdminResource);
-						}
-					} else {
-						LOGGER.error("getComponentSubResources: could not resolve component path to resource, componentPath={}", componentPath);
-					}
+                                if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
+                                    for (Resource resource : localresource.getChildren()) {
+                                        //add only newly found resources
+                                        if (!subResources.containsValue(resource.getName())) {
+                                            String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
+                                            subResources.put(name, resource);
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            LOGGER.error("getComponentSubResources: could not convert resource to component, componentAdminResource={}", componentAdminResource);
+                        }
+                    } else {
+                        LOGGER.error("getComponentSubResources: could not resolve component path to resource, componentPath={}", componentPath);
+                    }
 
-				} catch (Exception ex) {
-					LOGGER.error(Throwables.getStackTraceAsString(ex));
-				}
+                } catch (Exception ex) {
+                    LOGGER.error(Throwables.getStackTraceAsString(ex));
+                }
 
-			} else {
-				LOGGER.error("getComponentSubResources: could not get ContentAccess service.");
-			}
+            } else {
+                LOGGER.error("getComponentSubResources: could not get ContentAccess service.");
+            }
 
 
-		} else {
-			LOGGER.error("getComponentSubResources: please specify component and sub resource: component={},resourceName={}",component, resourceName);
-		}
+        } else {
+            LOGGER.error("getComponentSubResources: please specify component and sub resource: component={},resourceName={}",component, resourceName);
+        }
 
-    	return subResources;
-	}
+        return subResources;
+    }
 
     /**
      * find local resource in component and its super components
