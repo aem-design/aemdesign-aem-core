@@ -3,7 +3,7 @@
     jcr:primaryType="nt:unstructured"
     jcr:title="Process Payload"
     sling:resourceType="cq/gui/components/authoring/dialog"
-    extraClientlibs="[cq.workflow-util,aem.design.worfklow-processpayload]">
+    extraClientlibs="[cq.workflow-util,aem.design.workflow-processpayload]">
     <content
         granite:id="worfklow-processpayload"
         jcr:primaryType="nt:unstructured"
