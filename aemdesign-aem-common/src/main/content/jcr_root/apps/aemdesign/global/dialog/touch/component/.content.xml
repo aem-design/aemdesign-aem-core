@@ -25,7 +25,7 @@
                     <no-option
                             jcr:primaryType="nt:unstructured"
                             text="No"
-                            value="true"/>
+                            value="false"/>
                 </items>
             </showinpage>
         </items>
