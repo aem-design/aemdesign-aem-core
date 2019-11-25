@@ -7,12 +7,12 @@
 
     <groupId>design.aem</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>2.0.535</version>
+    <version>2.0.566</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
     <description>Core project for all AEM server dependencies</description>
-	<url>http://aem.design</url>
+    <url>http://aem.design</url>
 
     <modules>
         <module>aemdesign-aem-author</module>
@@ -61,10 +61,10 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.site.plugin.version>3.7.1</maven.site.plugin.version>
         <aem.uberjar.version>6.4.0</aem.uberjar.version>
-		<gitClosestTagName>${git.closest.tag.name}</gitClosestTagName>
-		<gitClosestTagCommitCount>${git.closest.tag.commit.count}</gitClosestTagCommitCount>
-		<bundleFileName>aemdesign-aem-services</bundleFileName>
-		<bundleName>design.aem.aemdesign-aem-services</bundleName>
+        <gitClosestTagName>${git.closest.tag.name}</gitClosestTagName>
+        <gitClosestTagCommitCount>${git.closest.tag.commit.count}</gitClosestTagCommitCount>
+        <bundleFileName>aemdesign-aem-services</bundleFileName>
+        <bundleName>design.aem.aemdesign-aem-services</bundleName>
     </properties>
 
     <developers>
@@ -501,28 +501,28 @@
             </plugin>
 
 
-			<plugin>
-				<groupId>org.codehaus.gmaven</groupId>
-				<artifactId>groovy-maven-plugin</artifactId>
-				<version>2.0</version>
-				<executions>
-					<execution>
-						<id>update-finalname</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>execute</goal>
-						</goals>
-						<configuration>
-							<source>
-								project.build.finalName="${project.artifactId}-${gitClosestTagName}.${gitClosestTagCommitCount}";
-								project.properties['gitClosestTagName']="${git.closest.tag.name}";
-								project.properties['gitClosestTagCommitCount']="${git.closest.tag.commit.count}";
-								println("project.build.finalName=${project.build.finalName}");
-							</source>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <version>2.0</version>
+                <executions>
+                    <execution>
+                        <id>update-finalname</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>
+                                project.build.finalName="${project.artifactId}-${gitClosestTagName}.${gitClosestTagCommitCount}";
+                                project.properties['gitClosestTagName']="${git.closest.tag.name}";
+                                project.properties['gitClosestTagCommitCount']="${git.closest.tag.commit.count}";
+                                println("project.build.finalName=${project.build.finalName}");
+                            </source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
             <!-- update versions for all submodules -->
             <plugin>
@@ -660,6 +660,7 @@
 
         <pluginManagement>
             <plugins>
+
                 <!--<plugin>-->
                     <!--<groupId>org.apache.maven.plugins</groupId>-->
                     <!--<artifactId>maven-enforcer-plugin</artifactId>-->
@@ -858,10 +859,10 @@
                         <configuration>
                             <serverId>ossrh</serverId>
                             <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-							<stagingProfileId>c4011210992a35</stagingProfileId>
-							<stagingDescription>travis pipeline https://travis-ci.org/aem-design/aemdesign-aem-core</stagingDescription>
-							<autoReleaseAfterClose>true</autoReleaseAfterClose>
-							<autoDropAfterRelease>true</autoDropAfterRelease>
+                            <stagingProfileId>c4011210992a35</stagingProfileId>
+                            <stagingDescription>travis pipeline https://travis-ci.org/aem-design/aemdesign-aem-core</stagingDescription>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                            <autoDropAfterRelease>true</autoDropAfterRelease>
                         </configuration>
                     </plugin>
                     <!-- To generate javadoc -->
