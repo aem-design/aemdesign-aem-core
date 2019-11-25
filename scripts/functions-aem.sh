@@ -163,7 +163,7 @@ function delete_current_jar() {
 
     echo "Uninstall Bundle: ${BUNDLE_NAME}"
 
-    doPostFields "/system/console/bundles/${BUNDLE_NAME}" "-daction=uninstall"
+    doPostFields "/system/console/bundles/${BUNDLE_NAME}" "-Faction=uninstall"
 
     JAR_EXIST=$(doCheckPathExist "$PROJECT_JAR")
 
