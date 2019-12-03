@@ -7,6 +7,7 @@ import com.day.cq.wcm.api.Page;
 import com.google.common.base.Throwables;
 import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
+import design.aem.models.v2.content.ContentTemplate;
 import design.aem.services.ContentAccess;
 import design.aem.utils.components.ComponentsUtil;
 import design.aem.utils.components.ContentFragmentUtil;
@@ -226,6 +227,9 @@ public class GenericDetails extends ModelProxy {
 
         //format fields
         componentProperties.putAll(processComponentFields(componentProperties,i18n,getSlingScriptHelper()), false);
+
+        //set properties into request to allow ContentTemplate to use it for presentation
+        getRequest().setAttribute(ContentTemplate.REQUEST_COMPONENT_PROPERTIES, componentProperties);
     }
 
     /***
