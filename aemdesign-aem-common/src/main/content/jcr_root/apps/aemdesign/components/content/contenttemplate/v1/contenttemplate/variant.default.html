@@ -1,0 +1,12 @@
+<template data-sly-template.variant="${@ componentProperties, component}">
+    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+        <sly data-sly-test="${componentProperties.templateUse == 'customTemplate' && componentProperties.customTemplate != ''}">
+            ${componentProperties.customTemplateJEXLOutput @ context = 'unsafe'}
+        </sly>
+        <sly data-sly-test="${componentProperties.templateUse == 'templatePath' && componentProperties.templatePath != ''}">
+            <sly data-sly-use.templatePath="${componentProperties.templatePath}"
+                 data-sly-call="${templatePath.template @ componentProperties=component.requestComponentProperties}"></sly>
+        </sly>
+    </div>
+</template>
