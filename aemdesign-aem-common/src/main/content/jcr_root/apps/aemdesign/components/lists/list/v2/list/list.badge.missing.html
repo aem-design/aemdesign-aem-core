@@ -1,3 +1,3 @@
-<template data-sly-template.variant="${@ componentProperties}">
-    <i class="page-missing-details">Page Missing Details Component</i>
+<template data-sly-template.variant="${@ componentProperties,item}">
+    <a class="page-missing-details" title="Page Missing Details Component" href="${item.pagePath}.html">${item.resource.name}</a>
 </template>

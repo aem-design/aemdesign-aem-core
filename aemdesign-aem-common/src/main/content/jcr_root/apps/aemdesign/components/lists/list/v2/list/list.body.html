@@ -17,7 +17,7 @@
                      data-sly-resource="${item.componentPath @ selectors=item.componentPathSelectors,wcmmode='disabled'}"></sly>
 
                 <sly data-sly-test="${item.componentMissing}"
-                     data-sly-use.missing="list.badge.missing.html" data-sly-call="${missing.variant @ componentProperties=componentProperties}"></sly>
+                     data-sly-use.missing="list.badge.missing.html" data-sly-call="${missing.variant @ componentProperties=componentProperties, item=item}"></sly>
 
             </li>
 
