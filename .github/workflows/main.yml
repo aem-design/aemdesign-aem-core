@@ -103,11 +103,3 @@ jobs:
         run: |
           docker run --rm aemdesign/travis-trigger-build sbb --github_user=${GITHUB_USER} --github_repo=aem --github_branch=6.5.0-bundle --travis_token=${TRAVIS_TOKEN}
           docker run --rm aemdesign/travis-trigger-build sbb --github_user=${GITHUB_USER} --github_repo=aem --github_branch=6.4.0-bundle --travis_token=${TRAVIS_TOKEN}
-        
-      - name: automation test if failure
-        run: |
-          df
-          docker ps -a
-          docker logs -t service_aem_container_name
-        if: failure()
-
