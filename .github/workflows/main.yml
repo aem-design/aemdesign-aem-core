@@ -69,12 +69,12 @@ jobs:
       - name: docker - mvn clean (cache .m2 in ./build/.m2/repository in repo dir)
         run: $DOCKER_COMMAND mvn clean -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -Dmaven.source.skip=true -B -Dmaven.repo.local=./build/.m2/repository
       - name: docker - mvn package
-        run: $DOCKER_COMMAND mvn package -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -Dmaven.source.skip=true -B -Dmaven.repo.local=./build/.m2/repository
+        run: $DOCKER_COMMAND mvn package -DskipTests=true -Dgpg.skip -B -Dmaven.repo.local=./build/.m2/repository
 
       - name: docker - sonar qube on master
         if: github.ref == 'refs/heads/master'
         run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
-      - name: docker - sonar qube on master
+      - name: docker - sonar qube on branches
         if: github.ref != 'refs/heads/master'
         run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
 
@@ -89,14 +89,11 @@ jobs:
         if: github.ref == 'refs/heads/master'
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${CURRENT_VERSION}
-          name: ${CURRENT_VERSION}
-          body: $GIT_RELEASE_NOTES
+          tag: ${{ env.CURRENT_VERSION }}
+          name: ${{ env.CURRENT_VERSION }}
+          body: ${{ env.GIT_RELEASE_NOTES }}
           files: >
-            aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-$CURRENT_VERSION.zip
-            aemdesign-aem-services/target/aemdesign-aem-services-$CURRENT_VERSION.jar
-            aemdesign-aem-author/target/aemdesign-aem-author-$CURRENT_VERSION.zip
-            aemdesign-aem-common/target/aemdesign-aem-common-$CURRENT_VERSION.zip
+            **/target/*.zip
 
       - name: trigger build of bundle docker container
         if: github.ref == 'refs/heads/master'
