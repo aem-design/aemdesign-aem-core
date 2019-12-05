@@ -219,7 +219,9 @@ public class Timing extends ModelProxy {
         }
 
         /**
-         * Remove chars up to separator in this.input, and return result
+         * Remove chars up to separator in this.input, and return result.
+         * @param separator separator to stop at
+         * @return string up to separator
          */
         private String scan(char separator) {
             final StringBuilder sb = new StringBuilder();

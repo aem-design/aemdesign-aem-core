@@ -224,7 +224,7 @@ public class Download extends ModelProxy {
 
     /**
      * Determine the filetype by extracting and uppercasing the last element of the mimetype
-     *
+     * @param resolver resource resolver instance
      * @param download is the download to do this for
      * @return the filetype for the download
      */

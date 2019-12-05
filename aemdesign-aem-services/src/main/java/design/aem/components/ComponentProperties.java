@@ -8,10 +8,7 @@ import org.apache.sling.api.wrappers.ValueMapDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static design.aem.components.ComponentField.FIELD_VALUES_ARE_ATTRIBUTES;
 import static design.aem.utils.components.ComponentsUtil.*;
@@ -94,6 +91,7 @@ public class ComponentProperties extends ValueMapDecorator {
                 return;
             }
             for (Entry<? extends String, ?> entry : map.entrySet()) {
+                Object updatedValue = null;
                 if (super.containsKey(entry.getKey())) {
                     //skip if non blank value exist
                     Object currentValue = super.get(entry.getKey());
@@ -107,8 +105,20 @@ public class ComponentProperties extends ValueMapDecorator {
                                 //test if currentValue is not empty
                                 if (currentValue.getClass().isArray() && ArrayUtils.getLength(currentValue) != 0) {
                                     //if its an empty array
-                                    LOGGER.warn("skip: {} current value it not empty array", entry.getKey());
-                                    continue;
+                                    LOGGER.warn("skip: {} current value it not empty array, merging", entry.getKey());
+                                    Object[] currentValueArray = (Object[])currentValue;
+                                    Object[] newValueArray =  (Object[])newValue;
+
+                                    List<Object> updatedValueList = new ArrayList<>();
+                                    Collections.addAll(updatedValueList,currentValueArray);
+
+                                    for (Object newValueItem : newValueArray){
+                                        if (!updatedValueList.contains(newValueItem)) {
+                                            updatedValueList.add(newValueItem);
+                                        }
+                                    }
+//                                    continue;
+                                    updatedValue = updatedValueList.toArray();
                                 }
                             }
                         } else {
@@ -119,7 +129,7 @@ public class ComponentProperties extends ValueMapDecorator {
                         }
                     }
                 }
-                super.put(entry.getKey(), entry.getValue());
+                super.put(entry.getKey(), (updatedValue == null ? entry.getValue() : updatedValue));
             }
         }
     }

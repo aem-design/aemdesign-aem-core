@@ -8,7 +8,7 @@
     <parent>
         <groupId>design.aem</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>2.0.508</version>
+        <version>2.0.581</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,14 +17,18 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-services</artifactId>
-    <version>2.0.508</version>
-    <packaging>bundle</packaging>
+    <version>2.0.581</version>
+    <packaging>jar</packaging>
     <name>AEM Design - Core - AEM Services</name>
     <description>Project for all AEM and OSGI Services</description>
-	<url>${parent.url}</url>
+    <url>${parent.url}</url>
 
     <properties>
         <jacoco.data.file>${project.build.directory}/jacoco.exec</jacoco.data.file>
+        <bnd.version>4.1.0</bnd.version>
+        <maven.enforcer.version>3.0.0-M2</maven.enforcer.version>
+        <gson.version>2.8.5</gson.version>
+        <jsoup.version>1.11.2</jsoup.version>
     </properties>
 
     <developers>
@@ -110,83 +114,180 @@
     <!-- B U I L D D E F I N I T I O N -->
     <!-- ====================================================================== -->
     <build>
+
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>4.1.0</version>
-                <extensions>true</extensions>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven.enforcer.version}</version>
                 <executions>
                     <execution>
-                        <id>scr-metadata</id>
+                        <id>ban-maven-scr-plugin</id>
                         <goals>
-                            <goal>manifest</goal>
+                            <goal>enforce</goal>
                         </goals>
                         <configuration>
-                            <supportIncrementalBuild>true</supportIncrementalBuild>
+                            <rules>
+                                <bannedPlugins>
+                                    <excludes>
+                                        <exclude>org.apache.felix:maven-scr-plugin</exclude>
+                                    </excludes>
+                                    <message>Felix SCR annotations and the maven-scr-plugin are no longer supported - please migrate to OSGi
+                                        annotations or stick with Sling Parent 29.</message>
+                                </bannedPlugins>
+                            </rules>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>ban-maven-bundle-plugin</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <bannedPlugins>
+                                    <excludes>
+                                        <exclude>org.apache.felix:maven-bundle-plugin</exclude>
+                                    </excludes>
+                                    <message>The maven-bundle-plugin is no longer supported - please migrate to bnd-maven-plugin or stick
+                                        with Sling Parent 34.</message>
+                                </bannedPlugins>
+                            </rules>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>enforce-java</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <!-- Require Java 8 or higher for building (as bnd since version 4.0 only supports Java 8, https://github.com/bndtools/bnd/wiki/Changes-in-4.0.0) -->
+                                <requireJavaVersion>
+                                    <message>
+                                        Apache Sling must be compiled with Java 8 or higher as the bnd-maven-plugin requires that.
+                                    </message>
+                                    <version>1.8.0</version>
+                                </requireJavaVersion>
+                            </rules>
                         </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <exportScr>true</exportScr>
-                    <instructions>
-                        <!-- Enable registration of Sling Models classes via bnd plugin -->
-                        <!-- The below ModelScannerPlugin include currently causes the following bug to surface https://youtrack.jetbrains.com/issue/IDEA-141732 -->
-                        <_plugin>org.apache.sling.bnd.models.ModelsScannerPlugin</_plugin>
-                        <!-- Enable processing of OSGI DS component annotations -->
-                        <_dsannotations>*</_dsannotations>
-                        <!-- Enable processing of OSGI metatype annotations -->
-                        <_metatypeannotations>*</_metatypeannotations>
-                        <Import-Package>javax.inject;version=0.0.0,*</Import-Package>
-
-                        <Bundle-SymbolicName>design.aem.aemdesign-aem-services</Bundle-SymbolicName>
-                        <Embed-Dependency>gson,javax.inject,jsoup</Embed-Dependency>
-
-
-                        <Export-Package>design.aem.*,
-                            org.jsoup,
-                            org.jsoup.examples,
-                            org.jsoup.helper,
-                            org.jsoup.nodes,
-                            org.jsoup.parser,
-                            org.jsoup.safety,
-                            org.jsoup.select,
-                            org.apache.commons.jexl3.*
-                        </Export-Package>
-                    </instructions>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.sling</groupId>
-                        <artifactId>org.apache.sling.bnd.models</artifactId>
-                        <version>1.0.0</version>
-                    </dependency>
-                </dependencies>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>sling-maven-plugin</artifactId>
+                <version>2.4.0</version>
+            </plugin>
 
+            <plugin>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-maven-plugin</artifactId>
+                <version>${bnd.version}</version>
+                <executions>
+                    <execution>
+                        <id>bnd-process</id>
+                        <goals>
+                            <goal>bnd-process</goal>
+                        </goals>
+                        <configuration>
+                            <bnd><![CDATA[
+Bundle-SymbolicName: design.aem.aemdesign-aem-services
+Bundle-Category: design.aem
+Bundle-Description: ${project.description}
+Bundle-DocURL: https://aem.design
+Bundle-License: Apache License, Version 2.0
+Bundle-Vendor: AEM.Design
+Export-Service: design.aem.workflow.process.*
+Export-Package: design.aem.*,\
+org.jsoup,\
+org.jsoup.examples,\
+org.jsoup.helper,\
+org.jsoup.nodes,\
+org.jsoup.parser,\
+org.jsoup.safety,\
+org.jsoup.select,\
+org.apache.commons.jexl3.*
+-includeresource:\
+lib/jsoup-${jsoup.version}.jar=jsoup-${jsoup.version}.jar;lib:=true,\
+lib/gson-${gson.version}.jar=gson-${gson.version}.jar;lib:=true
+# export all versioned packages by default
+-exportcontents: design.aem.*,\
+org.jsoup,\
+org.jsoup.examples,\
+org.jsoup.helper,\
+org.jsoup.nodes,\
+org.jsoup.parser,\
+org.jsoup.safety,\
+org.jsoup.select,\
+org.apache.commons.jexl3.*
+#-sources: false
+                                ]]></bnd>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+<!--
+            <plugin>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-baseline-maven-plugin</artifactId>
+                <version>${bnd.version}</version>
+                <executions>
+                    <execution>
+                        <id>bnd-baseline</id>
+                        <goals>
+                            <goal>baseline</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+-->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                 <configuration>
+                <version>3.1.1</version>
+                <configuration>
+                    <show>private</show>
+                    <nohelp>true</nohelp>
                     <excludePackageNames>
                         *.impl
                     </excludePackageNames>
-                 </configuration>
+                </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
                 <executions>
                     <execution>
                         <id>checkstyle</id>
@@ -212,26 +313,27 @@
                 <version>3.0.5</version>
             </plugin>
 
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.4</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <!-- attached to Maven test phase -->
-                    <execution>
-                        <id>report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.jacoco</groupId>-->
+<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
+<!--                <version>0.8.4</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>prepare-agent</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                    &lt;!&ndash; attached to Maven test phase &ndash;&gt;-->
+<!--                    <execution>-->
+<!--                        <id>report</id>-->
+<!--                        <phase>test</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>report</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
         </plugins>
     </build>
 
@@ -325,6 +427,89 @@
     <!-- D E P E N D E N C I E S                                                -->
     <!-- ====================================================================== -->
     <dependencies>
+
+        <!-- Aggregates (rather use individual artifacts referenced below) -->
+        <!-- Core R6 -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.core</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Compendium R6 -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.cmpn</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- individual OSGi spec API artifacts (preferred) -->
+        <!-- OSGi framework 1.8, Core R6 (https://osgi.org/javadoc/r6/core/org/osgi/framework/package-summary.html) -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.framework</artifactId>
+            <version>1.8.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Configuration Admin 1.6, Compendium R7 (https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/cm/package-frame.html) -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.cm</artifactId>
+            <version>1.6.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Service Component 1.4, Compendium R7 (https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/component/package-frame.html) -->
+        <!-- and component property types (https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/component/propertytypes/package-frame.html) -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.component</artifactId>
+            <version>1.4.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Event Admin 1.3.1, Compendium R6 (https://osgi.org/javadoc/r6/cmpn/org/osgi/service/event/package-summary.html) -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.event</artifactId>
+            <version>1.3.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- OSGi annotations (OSGi R7) -->
+        <!-- https://osgi.org/javadoc/osgi.annotation/7.0.0/org/osgi/annotation/versioning/package-frame.html -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.annotation.versioning</artifactId>
+            <version>1.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://osgi.org/javadoc/osgi.annotation/7.0.0/org/osgi/annotation/bundle/package-frame.html -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.annotation.bundle</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/component/annotations/package-frame.html -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.component.annotations</artifactId>
+            <version>1.4.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/metatype/annotations/package-frame.html -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.metatype.annotations</artifactId>
+            <version>1.4.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://sling.apache.org/apidocs/sling11/org/apache/sling/servlets/annotations/package-summary.html -->
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.servlets.annotations</artifactId>
+            <version>1.2.4</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -332,14 +517,6 @@
         <dependency>
             <groupId>javax.jcr</groupId>
             <artifactId>jcr</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>osgi.core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>osgi.cmpn</artifactId>
         </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
@@ -615,7 +792,7 @@
         <dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
-			<version>0.8.4</version>
+            <version>0.8.4</version>
         </dependency>
 
         <dependency>
@@ -653,6 +830,21 @@
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>17.0.0</version>
+        </dependency>
+
+        <!-- ACS Commons Dependencies -->
+        <dependency>
+            <groupId>com.adobe.acs</groupId>
+            <artifactId>acs-aem-commons-bundle</artifactId>
+            <version>4.3.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Maven Tools -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <version>${maven.enforcer.version}</version>
+            <type>maven-plugin</type>
         </dependency>
     </dependencies>
 </project>

@@ -643,6 +643,7 @@ public class ComponentsUtil {
      * @param resource is the resource
      * @return a string with the file contents
      */
+    @SuppressWarnings("squid:S3776")
     public static String getResourceContent(Resource resource) {
         String returnValue = StringUtils.EMPTY;
 
@@ -1054,7 +1055,7 @@ public class ComponentsUtil {
      * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
      * @return map of attributes
      */
-    @SuppressWarnings({"unchecked","Depreciated","Duplicates"})
+    @SuppressWarnings({"unchecked","Depreciated","Duplicates","squid:S3776"})
     public static ComponentProperties getComponentProperties(Map<String, Object> pageContext, Object targetResource, Boolean includeComponentAttributes, Object[][]... fieldLists) {
         ComponentProperties componentProperties = new ComponentProperties();
 
@@ -1407,6 +1408,7 @@ public class ComponentsUtil {
      * @param fieldNameFirstTemplateName return field name for template name
      * @return return map of fields with values
      */
+    @SuppressWarnings("squid:S3776")
     public static ComponentProperties getTemplateConfig(Map<String, Object> pageContext, String configTag, ResourceResolver resourceResolver, TagManager tagManager, String fieldNameTemplates, String fieldNameFields, String fieldNameFirstTemplateName) {
         ComponentProperties componentProperties = getNewComponentProperties(pageContext);
         if (isNotEmpty(configTag)) {
@@ -1417,27 +1419,31 @@ public class ComponentsUtil {
 
                 //get value map of tag
                 Resource tagConfigRS = resourceResolver.getResource(tagConfig.getPath());
-                ValueMap tagConfigVM = tagConfigRS.adaptTo(ValueMap.class);
-                //see if it has templates set and get it
-                if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES)) {
-                    String[] template = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES, new String[]{});
-                    componentProperties.put(fieldNameTemplates, template);
-                    if (template.length > 0) {
-                        //update the return template name to first entry
-                        componentProperties.put(fieldNameFirstTemplateName, template[0]);
-                    }
-                } else {
-                    //get tag value as variant name
-                    if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_VALUE)) {
-                        String value = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_VALUE, DEFAULT_VARIANT);
-                        componentProperties.put(fieldNameFirstTemplateName, value);
-                    }
+                if (tagConfigRS != null) {
+                    ValueMap tagConfigVM = tagConfigRS.adaptTo(ValueMap.class);
+                    if (tagConfigVM != null) {
+                        //see if it has templates set and get it
+                        if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES)) {
+                            String[] template = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES, new String[]{});
+                            componentProperties.put(fieldNameTemplates, template);
+                            if (template.length > 0) {
+                                //update the return template name to first entry
+                                componentProperties.put(fieldNameFirstTemplateName, template[0]);
+                            }
+                        } else {
+                            //get tag value as variant name
+                            if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_VALUE)) {
+                                String value = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_VALUE, DEFAULT_VARIANT);
+                                componentProperties.put(fieldNameFirstTemplateName, value);
+                            }
 
-                }
-                //get fields list
-                if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_FIELDS)) {
-                    String[] fields = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_FIELDS, new String[]{});
-                    componentProperties.put(fieldNameFields, fields);
+                        }
+                        //get fields list
+                        if (tagConfigVM.containsKey(FIELD_TAG_TEMPLATE_CONFIG_FIELDS)) {
+                            String[] fields = tagConfigVM.get(FIELD_TAG_TEMPLATE_CONFIG_FIELDS, new String[]{});
+                            componentProperties.put(fieldNameFields, fields);
+                        }
+                    }
                 }
             } else {
                 //mark current variant selection as legacy
@@ -1643,7 +1649,7 @@ public class ComponentsUtil {
     }
 
     /***
-     * compile a message from component properties using one of the component format tag fields
+     * compile a message from component properties using one of the component format tag fields.
      * @param formatFieldName field with format path
      * @param defaultFormat default format template
      * @param componentProperties component properties
@@ -1858,84 +1864,84 @@ public class ComponentsUtil {
         return componentInPagePath;
     }
 
-	/**
-	 * return list of available sub-resources in current and all super components.
-	 * @param component component to start with
-	 * @param resourceName sub-resource container to find
-	 * @param sling sling instance
-	 * @return returns list of resources
-	 */
-	@SuppressWarnings({"squid:S3776"})
+    /**
+     * return list of available sub-resources in current and all super components.
+     * @param component component to start with
+     * @param resourceName sub-resource container to find
+     * @param sling sling instance
+     * @return returns list of resources
+     */
+    @SuppressWarnings({"squid:S3776"})
     public static Map<String, Resource> getLocalSubResourcesInSuperComponent(Component component,String resourceName, SlingScriptHelper sling) {
-		HashMap<String, Resource> subResources = new HashMap<>();
-		Component superComponent = null;
+        HashMap<String, Resource> subResources = new HashMap<>();
+        Component superComponent = null;
 
-		if (component != null && isNotEmpty(resourceName)) {
+        if (component != null && isNotEmpty(resourceName)) {
 
-			ContentAccess contentAccess = sling.getService(ContentAccess.class);
-			if (contentAccess != null) {
-				try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+            ContentAccess contentAccess = sling.getService(ContentAccess.class);
+            if (contentAccess != null) {
+                try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
 
-					//get component with admin resource resolver
-					String componentPath = component.getPath();
-					Resource componentAdminResource = adminResourceResolver.resolve(componentPath);
-					if (!ResourceUtil.isNonExistingResource(componentAdminResource)) {
-						superComponent = componentAdminResource.adaptTo(Component.class);
+                    //get component with admin resource resolver
+                    String componentPath = component.getPath();
+                    Resource componentAdminResource = adminResourceResolver.resolve(componentPath);
+                    if (!ResourceUtil.isNonExistingResource(componentAdminResource)) {
+                        superComponent = componentAdminResource.adaptTo(Component.class);
 
-						if (superComponent != null) {
-							Resource localresource = superComponent.getLocalResource(resourceName);
+                        if (superComponent != null) {
+                            Resource localresource = superComponent.getLocalResource(resourceName);
 
-							//check for local resources
-							if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
-								for (Resource resource : localresource.getChildren()) {
-									String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
-									subResources.put(name, resource);
-								}
-							}
+                            //check for local resources
+                            if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
+                                for (Resource resource : localresource.getChildren()) {
+                                    String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
+                                    subResources.put(name, resource);
+                                }
+                            }
 
-							//collect sub resources from super types
-							while (superComponent.getSuperComponent() != null) {
+                            //collect sub resources from super types
+                            while (superComponent.getSuperComponent() != null) {
 
-								superComponent = superComponent.getSuperComponent();
+                                superComponent = superComponent.getSuperComponent();
 
-								if (superComponent == null) {
-									break;
-								}
+                                if (superComponent == null) {
+                                    break;
+                                }
 
-								localresource = superComponent.getLocalResource(resourceName);
+                                localresource = superComponent.getLocalResource(resourceName);
 
-								if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
-									for (Resource resource : localresource.getChildren()) {
-										//add only newly found resources
-										if (!subResources.containsValue(resource.getName())) {
-											String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
-											subResources.put(name, resource);
-										}
-									}
-								}
-							}
-						} else {
-							LOGGER.error("getComponentSubResources: could not convert resource to component, componentAdminResource={}", componentAdminResource);
-						}
-					} else {
-						LOGGER.error("getComponentSubResources: could not resolve component path to resource, componentPath={}", componentPath);
-					}
+                                if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
+                                    for (Resource resource : localresource.getChildren()) {
+                                        //add only newly found resources
+                                        if (!subResources.containsValue(resource.getName())) {
+                                            String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
+                                            subResources.put(name, resource);
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            LOGGER.error("getComponentSubResources: could not convert resource to component, componentAdminResource={}", componentAdminResource);
+                        }
+                    } else {
+                        LOGGER.error("getComponentSubResources: could not resolve component path to resource, componentPath={}", componentPath);
+                    }
 
-				} catch (Exception ex) {
-					LOGGER.error(Throwables.getStackTraceAsString(ex));
-				}
+                } catch (Exception ex) {
+                    LOGGER.error(Throwables.getStackTraceAsString(ex));
+                }
 
-			} else {
-				LOGGER.error("getComponentSubResources: could not get ContentAccess service.");
-			}
+            } else {
+                LOGGER.error("getComponentSubResources: could not get ContentAccess service.");
+            }
 
 
-		} else {
-			LOGGER.error("getComponentSubResources: please specify component and sub resource: component={},resourceName={}",component, resourceName);
-		}
+        } else {
+            LOGGER.error("getComponentSubResources: please specify component and sub resource: component={},resourceName={}",component, resourceName);
+        }
 
-    	return subResources;
-	}
+        return subResources;
+    }
 
     /**
      * find local resource in component and its super components
@@ -2012,6 +2018,7 @@ public class ComponentsUtil {
      * @param slingScriptHelper sling script helper
      * @return map of component dialog fields and their attributes
      */
+    @SuppressWarnings("squid:S3776")
     public static Map<String, Object> getComponentFieldsAndDialogMap(Resource componentResource , ResourceResolver adminResourceResolver, SlingScriptHelper slingScriptHelper) {
         Map<String, Object> firstComponentConfig = new HashMap<>();
 

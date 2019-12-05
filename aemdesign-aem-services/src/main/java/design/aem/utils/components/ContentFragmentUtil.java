@@ -23,15 +23,17 @@ public class ContentFragmentUtil {
      * get content fragment content in an ordered map
      * @param contentFragmentPath path to content fragment
      * @param variationName variation of content fragment
+     * @param resourceResolver resource resolver to use
      * @return ordered map of key value fields
      */
+    @SuppressWarnings("squid:S3776")
     public static Map<String, Object> getComponentFragmentMap(String contentFragmentPath, String variationName, ResourceResolver resourceResolver){
         LinkedHashMap<String, Object> newFields = new LinkedHashMap<>();
 
         try {
             if (isNotEmpty(contentFragmentPath)) {
                 Resource fragmentResource = resourceResolver.getResource(contentFragmentPath);
-                if (!ResourceUtil.isNonExistingResource(fragmentResource) ) {
+                if (!ResourceUtil.isNonExistingResource(fragmentResource) && fragmentResource != null) {
 
                     ContentFragment contentFragment = fragmentResource.adaptTo(ContentFragment.class);
                     if (contentFragment == null) {

@@ -63,7 +63,7 @@ public class TagList extends ModelProxy {
     private static final String LIST_ISEMPTY = "isEmpty";
 
     private long totalMatches;
-	private SortOrder sortOrder;
+    private SortOrder sortOrder;
 
     protected void ready() {
         /*
@@ -173,6 +173,7 @@ public class TagList extends ModelProxy {
 
     /**
      * populate list items from children of a root page.
+     * @param path path to use
      * @param flat only select children on root page
      */
     @SuppressWarnings("Duplicates")
@@ -256,7 +257,7 @@ public class TagList extends ModelProxy {
                     Resource tagResource = resourceResolver.resolve(tag.getPath());
                     if (!ResourceUtil.isNonExistingResource(tagResource)) {
                         ValueMap tagValues = tagResource.getValueMap();
-						item.put(TAG_VALUE, tagValues.get(TAG_VALUE));
+                        item.put(TAG_VALUE, tagValues.get(TAG_VALUE));
                     }
 
                 } else {
@@ -284,11 +285,11 @@ public class TagList extends ModelProxy {
         resultInfo.put("result",result);
 
         totalMatches = result.getTotalMatches();
-		java.util.List<ResultPage> resultPages = result.getResultPages();
-		long hitsPerPage = result.getHitsPerPage();
-		long totalPages = result.getResultPages().size();
-		long pageStart = result.getStartIndex();
-		long currentPage = (pageStart / hitsPerPage) + 1;
+        java.util.List<ResultPage> resultPages = result.getResultPages();
+        long hitsPerPage = result.getHitsPerPage();
+        long totalPages = result.getResultPages().size();
+        long pageStart = result.getStartIndex();
+        long currentPage = (pageStart / hitsPerPage) + 1;
 
         resultInfo.put("hitsPerPage", hitsPerPage);
         resultInfo.put("currentPage", currentPage);

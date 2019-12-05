@@ -100,15 +100,15 @@ public class Columns extends ModelProxy {
         final String COMPONENT_NAMESPACE_PROPERTIES = ".componentProperties";
         final String COMPONENT_NAMESPACE_CURRENTCOLUMN = ".currentColumn";
 
-		/*
-		  Component Fields Helper
+        /*
+          Component Fields Helper
 
-		  Structure:
-		  1 required - property name,
-		  2 required - default value,
-		  3 optional - name of component attribute to add value into
-		  4 optional - canonical name of class for handling multivalues, String or Tag
-		 */
+          Structure:
+          1 required - property name,
+          2 required - default value,
+          3 optional - name of component attribute to add value into
+          4 optional - canonical name of class for handling multivalues, String or Tag
+         */
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {FIELD_LAYOUT, DEFAULT_LAYOUT},
@@ -265,7 +265,7 @@ public class Columns extends ModelProxy {
             columnsClassName = componentProperties.get("class",columnsClassName);
         }
 
-        if (columnsFormat.size() >= 1 && columnsFormat.get(0).contains(",")) {
+        if (!columnsFormat.isEmpty() && columnsFormat.get(0).contains(",")) {
             //take the [0] = [col-md-] and add to it width by current column number
             StringBuilder columnClassBuilder = new StringBuilder();
             for(int i=0; i < columnsFormat.size(); i++){

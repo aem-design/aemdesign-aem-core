@@ -57,8 +57,9 @@ public class SearchList extends ModelProxy {
     protected int listSplitEvery;
 
     private static final String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
+    private static final String RESULT_STATIC_TEXT= "statisticsText";
 
-    @SuppressWarnings("Duplicates")
+    @SuppressWarnings({"Duplicates","squid:S3776"})
     protected void ready() {
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
@@ -87,21 +88,21 @@ public class SearchList extends ModelProxy {
         final String escapedQueryForAttr = getXSSAPI().encodeForHTMLAttr(queryText);
         final String escapedQueryForHref = getXSSAPI().getValidHref(queryText);
 
-		/*
-		  Component Fields Helper
+        /*
+          Component Fields Helper
 
-		  Structure:
-		  1 required - property name,
-		  2 required - default value,
-		  3 optional - name of component attribute to add value into
-		  4 optional - canonical name of class for handling multivalues, String or Tag
-		 */
+          Structure:
+          1 required - property name,
+          2 required - default value,
+          3 optional - name of component attribute to add value into
+          4 optional - canonical name of class for handling multivalues, String or Tag
+         */
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"emptyQueryText", getDefaultLabelIfEmpty("emptyQueryText", DEFAULT_I18N_CATEGORY, "Invalid query given!", i18n)},
                 {"searchButtonText", getDefaultLabelIfEmpty("searchButtonText", DEFAULT_I18N_CATEGORY, "Search", i18n)},
                 {"searchQueryInformation", getDefaultLabelIfEmpty("searchQueryInformation", DEFAULT_I18N_CATEGORY, "Search query information", i18n)},
-                {"statisticsText", getDefaultLabelIfEmpty("statisticsText", DEFAULT_I18N_CATEGORY, "<div class='content'> <h2>Results {0} for <b>{1}</b></h2></div>", i18n)},
+                {RESULT_STATIC_TEXT, getDefaultLabelIfEmpty(RESULT_STATIC_TEXT, DEFAULT_I18N_CATEGORY, "<div class='content'> <h2>Results {0} for <b>{1}</b></h2></div>", i18n)},
                 {"noResultsText", getDefaultLabelIfEmpty("noResultsText", DEFAULT_I18N_CATEGORY, "Your search - <b>{0}</b> - did not match any documents.", i18n)},
                 {"spellcheckText", getDefaultLabelIfEmpty("spellcheckText", DEFAULT_I18N_CATEGORY, "Did you mean:", i18n)},
                 {"similarPagesText", getDefaultLabelIfEmpty("similarPagesText", DEFAULT_I18N_CATEGORY, "Similar Pages", i18n)},
@@ -138,8 +139,8 @@ public class SearchList extends ModelProxy {
         componentProperties.attr.add("data-component-id", componentProperties.get(FIELD_STYLE_COMPONENT_ID, getResource().getName()));
 
         if (result != null) {
-            if (!isEmpty(componentProperties.get("statisticsText", ""))) {
-                componentProperties.put("statisticsText", MessageFormat.format(componentProperties.get("statisticsText", ""),result.getTotalMatches(),escapedQuery));
+            if (!isEmpty(componentProperties.get(RESULT_STATIC_TEXT, ""))) {
+                componentProperties.put(RESULT_STATIC_TEXT, MessageFormat.format(componentProperties.get(RESULT_STATIC_TEXT, ""),result.getTotalMatches(),escapedQuery));
             }
 
             // Normalise the results tree
@@ -157,7 +158,7 @@ public class SearchList extends ModelProxy {
                     componentProperties.attr.add("data-total-pages", String.valueOf(result.getResultPages().size() - 1));
                     componentProperties.attr.add("data-content-target", "#".concat(componentProperties.get(FIELD_STYLE_COMPONENT_ID, "")));
                     componentProperties.attr.add("data-page-offset", String.valueOf(result.getHits().size()));
-                    componentProperties.attr.add("data-showing-text", componentProperties.get("statisticsText", ""));
+                    componentProperties.attr.add("data-showing-text", componentProperties.get(RESULT_STATIC_TEXT, ""));
 
 
                 }
@@ -312,6 +313,7 @@ public class SearchList extends ModelProxy {
      * @param slingRequest  `SlingHttpServletRequest` instance
      * @param result search result instance
      */
+    @SuppressWarnings("squid:S3776")
     public void normaliseContentTree(
             java.util.List<CustomSearchResult> searchResults,
             SlingScriptHelper sling,

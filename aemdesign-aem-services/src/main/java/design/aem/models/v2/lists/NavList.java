@@ -87,8 +87,8 @@ public class NavList extends ModelProxy {
 
     /***
      * return path before /JCR:CONTENT
-     * @param slingRequest
-     * @return
+     * @param slingRequest sling request instance
+     * @return path
      */
 
     private String getPrimaryPath(SlingHttpServletRequest slingRequest) {

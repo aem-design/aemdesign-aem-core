@@ -3,5 +3,6 @@
     jcr:primaryType="cq:Component"
     jcr:description="Video component"
     jcr:title="Video"
+    cq:icon="playCircle"
     sling:resourceSuperType="aemdesign/components/media/video/v2/video"
     componentGroup="AEM.Design - Media"/>

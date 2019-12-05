@@ -103,7 +103,7 @@ public class EventDetails extends GenericDetails {
 
         componentProperties.putAll(processComponentFields(componentProperties,i18n,getSlingScriptHelper()), false);
 
-        if (componentProperties.get("isPastEventDate", false)) {
+        if (Boolean.TRUE.equals(componentProperties.get("isPastEventDate", false))) {
             componentProperties.put(DETAILS_CARD_ADDITIONAL, "finished");
         }
 

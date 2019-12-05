@@ -5,7 +5,6 @@ import com.day.cq.tagging.TagConstants;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -32,7 +31,7 @@ public class NewsDetails extends GenericDetails {
     private static final String FIELD_FORMAT_TITLE = "titleFormat";
     private static final String FIELD_FORMATTED_TITLE = "titleFormatted";
     private static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
-	private static final String FIELD_PUBLISH_DATE = "publishDate";
+    private static final String FIELD_PUBLISH_DATE = "publishDate";
 
     @Override
     @SuppressWarnings("Duplicates")
@@ -58,7 +57,7 @@ public class NewsDetails extends GenericDetails {
         setComponentFields(new Object[][]{
                 {FIELD_VARIANT, DEFAULT_VARIANT},
                 {"title", DEFAULT_TITLE},
-                {"titleFormat",""}, //tag path, will be resolved to value in processComponentFields
+                {FIELD_FORMAT_TITLE,""}, //tag path, will be resolved to value in processComponentFields
                 {"description", DEFAULT_DESCRIPTION},
                 {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
                 {"hideTitle", DEFAULT_HIDE_TITLE},
@@ -76,7 +75,7 @@ public class NewsDetails extends GenericDetails {
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE, ""},
                 {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
                 {"author", ""},
-				{FIELD_PUBLISH_DATE, getPageCreated(getPageProperties())},
+                {FIELD_PUBLISH_DATE, getPageCreated(getPageProperties())},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -87,9 +86,9 @@ public class NewsDetails extends GenericDetails {
                 DEFAULT_FIELDS_ANALYTICS,
                 DEFAULT_FIELDS_DETAILS_OPTIONS);
 
-		long publishDateLong = componentProperties.get(FIELD_PUBLISH_DATE, 0L);
-		Calendar publishDate = Calendar.getInstance();
-		publishDate.setTimeInMillis(publishDateLong);
+        long publishDateLong = componentProperties.get(FIELD_PUBLISH_DATE, 0L);
+        Calendar publishDate = Calendar.getInstance();
+        publishDate.setTimeInMillis(publishDateLong);
 
         //get format strings from dictionary
         String dateFormatString = i18n.get("publishDateFormat",DEFAULT_I18N_CATEGORY);

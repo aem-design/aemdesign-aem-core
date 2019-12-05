@@ -120,13 +120,14 @@ public class TagUtil {
                     ArrayList<String> childList = new ArrayList<>();
                     for (String path : tagPathsToLoad) {
                         Tag tag = getTag(path, adminResourceResolver, tagManager);
-                        Resource tagRs = tag.adaptTo(Resource.class);
-                        if (tagRs.hasChildren()) {
-                            for (Resource child : tagRs.getChildren()) {
-                                childList.add(child.getPath());
+                        if (tag != null) {
+                            Resource tagRs = tag.adaptTo(Resource.class);
+                            if (tagRs.hasChildren()) {
+                                for (Resource child : tagRs.getChildren()) {
+                                    childList.add(child.getPath());
+                                }
                             }
                         }
-
                     }
                     tagPathsToLoad = childList.toArray(new String[0]);
                 }
@@ -143,40 +144,43 @@ public class TagUtil {
 
                         Resource tagResource = tag.adaptTo(Resource.class);
                         if (tagResource != null) {
-                            ValueMap tagVM = tagResource.getValueMap();
                             String tagValue = tag.getName();
 
-                            if (tagVM.containsKey(TAG_VALUE)) {
-                                tagValue = tagVM.get(TAG_VALUE, tag.getName());
-                            }
+                            ValueMap tagVM = tagResource.getValueMap();
+                            if (tagVM != null) {
 
-                            if (tagVM.containsKey(TAG_ISDEFAULT)) {
-                                tagValue = tagVM.get(TAG_ISDEFAULT, TAG_ISDEFAULT_VALUE);
-                            }
-
-                            if (locale != null) {
-                                String titleLocal = JcrConstants.JCR_TITLE.concat(".").concat(org.apache.jackrabbit.util.Text.escapeIllegalJcrChars(locale.toString().toLowerCase()));
-                                if (tagVM.containsKey(titleLocal)) {
-                                    tagValues.put("title", tagVM.get(titleLocal, tag.getName()));
+                                if (tagVM.containsKey(TAG_VALUE)) {
+                                    tagValue = tagVM.get(TAG_VALUE, tag.getName());
                                 }
-                                tagValues.put("tagid", tag.getLocalTagID());
 
-                                String valueLocal = TAG_VALUE.concat(".").concat(org.apache.jackrabbit.util.Text.escapeIllegalJcrChars(locale.toString().toLowerCase()));
-                                if (tagVM.containsKey(valueLocal)) {
-                                    tagValue = tagVM.get(valueLocal, tag.getName());
+                                if (tagVM.containsKey(TAG_ISDEFAULT)) {
+                                    tagValue = tagVM.get(TAG_ISDEFAULT, TAG_ISDEFAULT_VALUE);
+                                }
+
+                                if (locale != null) {
+                                    String titleLocal = JcrConstants.JCR_TITLE.concat(".").concat(org.apache.jackrabbit.util.Text.escapeIllegalJcrChars(locale.toString().toLowerCase()));
+                                    if (tagVM.containsKey(titleLocal)) {
+                                        tagValues.put("title", tagVM.get(titleLocal, tag.getName()));
+                                    }
+                                    tagValues.put("tagid", tag.getLocalTagID());
+
+                                    String valueLocal = TAG_VALUE.concat(".").concat(org.apache.jackrabbit.util.Text.escapeIllegalJcrChars(locale.toString().toLowerCase()));
+                                    if (tagVM.containsKey(valueLocal)) {
+                                        tagValue = tagVM.get(valueLocal, tag.getName());
+                                    }
+                                }
+
+                                if (attributesToRead != null) {
+                                    for (String attribute : attributesToRead) {
+                                        if (tagVM.containsKey(attribute)) {
+                                            tagValues.put(attribute, tagVM.get(attribute, null));
+                                        }
+
+                                    }
                                 }
                             }
 
                             tagValues.put(TAG_VALUE, tagValue);
-
-                            if (attributesToRead != null) {
-                                for (String attribute : attributesToRead) {
-                                    if (tagVM.containsKey(attribute)) {
-                                        tagValues.put(attribute, tagVM.get(attribute, null));
-                                    }
-
-                                }
-                            }
 
                         } else {
                             LOGGER.error("getTagsAsAdmin: could not get convert tag to Resource, tag={}", tag);

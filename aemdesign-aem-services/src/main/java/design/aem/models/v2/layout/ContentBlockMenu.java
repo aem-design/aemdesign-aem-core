@@ -111,7 +111,7 @@ public class ContentBlockMenu extends ModelProxy {
      * @return a sequenced map of the content block anchor names and their titles
      * @throws RepositoryException when can't read content
      */
-	@SuppressWarnings({"squid:S3776"})
+    @SuppressWarnings({"squid:S3776"})
     private static Map<String, String> getContentBlockMenu(Resource parSys) throws RepositoryException {
         Map<String, String> contentMenu = new LinkedHashMap<>();
 

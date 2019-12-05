@@ -6,4 +6,4 @@
     jcr:title="Generic Details"
     cq:icon="viewDetail"
     sling:resourceSuperType="aemdesign/components/details/generic-details/v1/generic-details"
-    componentGroup=".hidden"/>
+    componentGroup="AEM.Design - Details"/>

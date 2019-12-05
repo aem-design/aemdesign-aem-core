@@ -62,7 +62,7 @@ public class ContentTabs extends ModelProxy {
             String pathToParent = componentProperties.get(FIELD_PATHTOPARENT,"");
             Page tabsParentPage = getCurrentPage();
             if (isNotEmpty(pathToParent)) {
-            	tabsParentPage = getPageManager().getPage(pathToParent);
+                tabsParentPage = getPageManager().getPage(pathToParent);
             }
 
             if (tabsParentPage != null) {

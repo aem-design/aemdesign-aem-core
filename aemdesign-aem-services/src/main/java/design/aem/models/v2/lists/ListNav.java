@@ -72,7 +72,7 @@ public class ListNav extends ModelProxy {
 
 
     private long totalMatches;
-	private SortOrder sortOrder;
+    private SortOrder sortOrder;
 
     private boolean listLoop = false;
 
@@ -202,6 +202,7 @@ public class ListNav extends ModelProxy {
 
     /**
      * populate list items from children of a root page.
+     * @param path path to use
      * @param flat only select children on root page
      */
     @SuppressWarnings("Duplicates")
@@ -269,7 +270,7 @@ public class ListNav extends ModelProxy {
      * populates listItems with resources from pages list.
      * page object is also resolved and returned if available
      */
-	@SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates","squid:S3776"})
     private void populateStaticListItems() {
         listItems = new ArrayList<>();
         String[] items = componentProperties.get(STATIC_ITEMS, new String[0]);
@@ -323,19 +324,23 @@ public class ListNav extends ModelProxy {
      * @param nextResource next page in list
      * @param firstResource first page from list
      */
+    @SuppressWarnings("squid:S3776")
     private void addNavItems(Resource previousResource,Resource currentResource,Resource nextResource,Resource firstResource) {
-
+            String fieldResource = "resource";
+            String fieldType = "type";
+            String fieldNavType = "navType";
+            String fieldPage = "page";
 
         if (listItems != null) {
             if (currentResource != null) {
                 if (previousResource != null) {
                     Page previousPage = getPageManager().getContainingPage(previousResource);
                     Map<String, Object> item = new HashMap<>();
-                    item.put("resource", previousResource);
-                    item.put("type", previousResource.getResourceType());
-                    item.put("navType", "previous");
+                    item.put(fieldResource, previousResource);
+                    item.put(fieldType, previousResource.getResourceType());
+                    item.put(fieldNavType, "previous");
 
-                    item.put("page", previousPage);
+                    item.put(fieldPage, previousPage);
                     item.putAll(design.aem.models.v2.lists.List.getPageBadgeInfo(previousPage, DEFAULT_LIST_DETAILS_SUFFIX, getResourceResolver(), detailsBadge));
 
 
@@ -346,11 +351,11 @@ public class ListNav extends ModelProxy {
                 if (nextResource != null) {
                     Page nextPage = getPageManager().getContainingPage(nextResource);
                     Map<String, Object> item = new HashMap<>();
-                    item.put("resource", nextResource);
-                    item.put("type", nextResource.getResourceType());
-                    item.put("navType", "next");
+                    item.put(fieldResource, nextResource);
+                    item.put(fieldType, nextResource.getResourceType());
+                    item.put(fieldNavType, "next");
 
-                    item.put("page", nextPage);
+                    item.put(fieldPage, nextPage);
                     item.putAll(design.aem.models.v2.lists.List.getPageBadgeInfo(nextPage, DEFAULT_LIST_DETAILS_SUFFIX, getResourceResolver(), detailsBadge));
 
 
@@ -362,11 +367,11 @@ public class ListNav extends ModelProxy {
                 if (firstResource != null) {
                     Page firstPage = getPageManager().getContainingPage(firstResource);
                     Map<String, Object> item = new HashMap<>();
-                    item.put("resource", firstPage);
-                    item.put("type", firstResource.getResourceType());
-                    item.put("navType", "first");
+                    item.put(fieldResource, firstPage);
+                    item.put(fieldType, firstResource.getResourceType());
+                    item.put(fieldNavType, "first");
 
-                    item.put("page", firstPage);
+                    item.put(fieldPage, firstPage);
                     item.putAll(design.aem.models.v2.lists.List.getPageBadgeInfo(firstPage, DEFAULT_LIST_DETAILS_SUFFIX, getResourceResolver(), detailsBadge));
 
 
@@ -388,11 +393,11 @@ public class ListNav extends ModelProxy {
         resultInfo.put("result",result);
 
         totalMatches = result.getTotalMatches();
-		List<ResultPage> resultPages = result.getResultPages();
-		long hitsPerPage = result.getHitsPerPage();
-		long totalPages = result.getResultPages().size();
-		long pageStart = result.getStartIndex();
-		long currentPage = (pageStart / hitsPerPage) + 1;
+        List<ResultPage> resultPages = result.getResultPages();
+        long hitsPerPage = result.getHitsPerPage();
+        long totalPages = result.getResultPages().size();
+        long pageStart = result.getStartIndex();
+        long currentPage = (pageStart / hitsPerPage) + 1;
 
         resultInfo.put("hitsPerPage", hitsPerPage);
         resultInfo.put("currentPage", currentPage);

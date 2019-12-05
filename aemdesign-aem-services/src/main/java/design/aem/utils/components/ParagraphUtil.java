@@ -131,7 +131,7 @@ public class ParagraphUtil {
     public static void openCol(List<String> columnsFormat, Integer colNumber, String columnClass, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
 
         //print column start
-        if (columnsFormat.size() >= 1 && columnsFormat.get(0).contains(",")) {
+        if (!columnsFormat.isEmpty() && columnsFormat.get(0).contains(",")) {
             //take the [0] = [col-md-] and add to it width by current column number
             StringBuilder columnClassBuilder = new StringBuilder();
             for(int i=0; i < columnsFormat.size(); i++){

@@ -1,0 +1,453 @@
+{
+  "page" : {
+    "jcr:primaryType" : "cq:Page",
+    "jcr:content" : {
+      "jcr:primaryType" : "nt:unstructured"
+    },
+    "child1" : {
+      "jcr:primaryType": "cq:Page",
+      "jcr:content": {
+        "jcr:primaryType": "nt:unstructured"
+      }
+    },
+    "child2" : {
+      "jcr:primaryType": "cq:Page",
+      "jcr:content": {
+        "jcr:primaryType": "nt:unstructured"
+      }
+    }
+  },
+  "newpage": {
+    "jcr:primaryType": "cq:Page",
+    "jcr:createdBy": "workflow-process-service",
+    "jcr:created": "Sat Nov 23 2019 23:01:04 GMT+1100",
+    "jcr:content": {
+      "jcr:primaryType": "cq:PageContent",
+      "jcr:createdBy": "workflow-process-service",
+      "jcr:title": "Test2",
+      "cq:template": "/conf/aemdesign/settings/wcm/templates/onecolumn",
+      "jcr:created": "Sat Nov 23 2019 23:01:04 GMT+1100",
+      "cq:lastModified": "Sat Nov 23 2019 23:01:04 GMT+1100",
+      "sling:resourceType": "aemdesign/components/template/base",
+      "cq:allowedTemplates": ["/conf/aemdesign/settings/wcm/templates/.*"],
+      "cq:lastModifiedBy": "workflow-process-service",
+      "header": {
+        "jcr:primaryType": "nt:unstructured",
+        "componentId": "header_KHUT1D5Q0",
+        "sling:resourceType": "aemdesign/components/layout/header",
+        "par": {
+          "jcr:primaryType": "nt:unstructured",
+          "sling:resourceType": "aemdesign/components/layout/container"
+        }
+      },
+      "article": {
+        "jcr:primaryType": "nt:unstructured",
+        "componentId": "article_XZAOX0JCI",
+        "sling:resourceType": "aemdesign/components/layout/article",
+        "par": {
+          "jcr:primaryType": "nt:unstructured",
+          "sling:resourceType": "aemdesign/components/layout/container",
+          "generic_details": {
+            "jcr:primaryType": "nt:unstructured",
+            "jcr:createdBy": "admin",
+            "jcr:lastModifiedBy": "admin",
+            "componentId": "generic_details_K7HIG8YKY",
+            "jcr:created": "Sat Nov 23 2019 21:43:15 GMT+1100",
+            "jcr:lastModified": "Sat Nov 23 2019 21:43:15 GMT+1100",
+            "sling:resourceType": "aemdesign/components/details/generic-details"
+          }
+        }
+      },
+      "footer": {
+        "jcr:primaryType": "nt:unstructured",
+        "componentId": "footer_LFNYFFXMZ",
+        "sling:resourceType": "aemdesign/components/layout/footer",
+        "par": {
+          "jcr:primaryType": "nt:unstructured",
+          "sling:resourceType": "aemdesign/components/layout/container"
+        }
+      }
+    }
+  },
+  "contentfragment" : {
+    "jcr:primaryType": "dam:Asset",
+    "jcr:mixinTypes": [
+      "mix:referenceable",
+      "mix:versionable"
+    ],
+    "jcr:createdBy": "admin",
+    "jcr:versionHistory": "196c791a-4a77-49a6-9915-e5130a0371fd",
+    "jcr:predecessors": ["f4cbd983-de11-4125-aa5e-f36d68ea4749"],
+    "jcr:created": "Sat Nov 23 2019 21:46:16 GMT+1100",
+    "jcr:baseVersion": "f4cbd983-de11-4125-aa5e-f36d68ea4749",
+    "jcr:isCheckedOut": true,
+    "jcr:uuid": "c03aa53f-aea3-47e6-afc8-88e4034902aa",
+    "jcr:content": {
+      "jcr:primaryType": "dam:AssetContent",
+      "jcr:title": "All Field Types",
+      "jcr:lastModifiedBy": "admin",
+      "jcr:description": "Content Fragment Description",
+      "contentFragment": true,
+      "cq:name": "all-field-types",
+      "jcr:lastModified": "Thu Nov 14 2019 16:17:18 GMT+1100",
+      "lastFragmentSave": "Thu Nov 14 2019 16:17:18 GMT+1100",
+      "cq:parentPath": "/content/dam/aemdesign-showcase/en/content-fragments",
+      "renditions": {
+        "jcr:primaryType": "nt:folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Sat Nov 23 2019 21:46:16 GMT+1100"
+      },
+      "related": {"jcr:primaryType": "nt:unstructured"},
+      "metadata": {
+        "jcr:primaryType": "nt:unstructured",
+        "jcr:mixinTypes": ["cq:Taggable"],
+        "cq:tags": ["aemdesign-showcase:content-type/content-fragment"]
+      },
+      "data": {
+        "jcr:primaryType": "nt:unstructured",
+        "cq:model": "/conf/aemdesign-showcase/settings/dam/cfm/models/all-field-types",
+        "master": {
+          "jcr:primaryType": "nt:unstructured",
+          "jcr:mixinTypes": ["cq:Taggable"],
+          "multilinerichtext@ContentType": "text/html",
+          "multilineplaintext": "<b>Multiline Plain Text</b>",
+          "multilineplaintext@LastModified": "Thu Nov 14 2019 16:17:18 GMT+1100",
+          "multilinemarkdown@LastModified": "Thu Nov 14 2019 16:17:18 GMT+1100",
+          "multilinerichtext@LastModified": "Thu Nov 14 2019 16:17:18 GMT+1100",
+          "number": -14.0,
+          "tags@LastModified": "Thu Nov 14 2019 16:17:18 GMT+1100",
+          "textmulti": [
+            "Single Line Text Multi",
+            "Single Line Text Multi"
+          ],
+          "contentreferencemulti": [
+            "/content/cq:tags/aemdesign-showcase/content-type/content-fragment",
+            "/content/cq:tags/aemdesign-showcase/content-type/content-fragment"
+          ],
+          "enumeration@LastModified": "Thu Nov 14 2019 16:17:18 GMT+1100",
+          "contentreference": "/content/cq:tags/aemdesign-showcase/content-type/content-fragment",
+          "multilineplaintext@ContentType": "text/plain",
+          "textmulti@LastModified": "Thu Nov 14 2019 16:17:18 GMT+1100",
+          "multilinerichtext": "<p><b>Multiline Rich Text</b></p>\n",
+          "multilinemarkdown@ContentType": "text/x-markdown",
+          "datetime@LastModified": "Thu Nov 14 2019 16:17:18 GMT+1100",
+          "tags": ["aemdesign-showcase:content-type/content-fragment"],
+          "text": "Single Line Text",
+          "boolean": true,
+          "number@LastModified": "Thu Nov 14 2019 16:17:18 GMT+1100",
+          "contentreferencemulti@LastModified": "Thu Nov 14 2019 16:17:18 GMT+1100",
+          "text@LastModified": "Thu Nov 14 2019 16:17:18 GMT+1100",
+          "numbermulti": [
+            14.0,
+            -14.0
+          ],
+          "cq:tags": ["aemdesign-showcase:content-type/content-fragment"],
+          "boolean@LastModified": "Thu Nov 14 2019 16:17:18 GMT+1100",
+          "multilinemarkdown": "**Multiline Markdown**",
+          "enumeration": "value1",
+          "datetime": "Thu Nov 14 2019 16:15:00 GMT+1100",
+          "numbermulti@LastModified": "Thu Nov 14 2019 16:17:18 GMT+1100",
+          "contentreference@LastModified": "Thu Nov 14 2019 16:17:18 GMT+1100"
+        }
+      }
+    }
+  },
+  "template": {
+    "jcr:primaryType": "cq:Template",
+    "jcr:createdBy": "admin",
+    "jcr:created": "Mon Oct 28 2019 17:17:31 GMT+1100",
+    "ranking": 120,
+    "thumbnail.png": {
+      "jcr:primaryType": "nt:file",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Oct 28 2019 17:17:31 GMT+1100",
+      "jcr:content": {
+        "jcr:primaryType": "nt:resource",
+        "jcr:mixinTypes": ["dam:Thumbnails"],
+        "jcr:lastModifiedBy": "admin",
+        "jcr:mimeType": "image/png",
+        "jcr:lastModified": "Mon Oct 28 2019 17:17:31 GMT+1100",
+        ":jcr:data": 6989,
+        "jcr:uuid": "435480b4-c302-43a7-a81e-dfb0f96d1c13",
+        "dam:thumbnails": {
+          "jcr:primaryType": "nt:folder",
+          "jcr:createdBy": "admin",
+          "jcr:created": "Mon Oct 28 2019 17:17:31 GMT+1100",
+          "dam:thumbnail_319.png": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Oct 28 2019 17:17:31 GMT+1100",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "image/png",
+              "jcr:lastModified": "Mon Oct 28 2019 17:17:31 GMT+1100",
+              ":jcr:data": 3357,
+              "jcr:uuid": "18c53f8f-2de1-4100-b77a-ba259744efcd"
+            }
+          },
+          "dam:thumbnail_60.png": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Nov 18 2019 09:36:39 GMT+1100",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "image/png",
+              "jcr:lastModified": "Mon Nov 18 2019 09:36:39 GMT+1100",
+              ":jcr:data": 966,
+              "jcr:uuid": "17c91b48-4e93-4d45-b224-ccd6732a52c9"
+            }
+          },
+          "dam:thumbnail_300.png": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Oct 28 2019 17:17:31 GMT+1100",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "image/png",
+              "jcr:lastModified": "Mon Oct 28 2019 17:17:31 GMT+1100",
+              ":jcr:data": 3357,
+              "jcr:uuid": "bd720285-0e50-48e0-aaee-63e0942c7b3a"
+            }
+          },
+          "dam:thumbnail_48.png": {
+            "jcr:primaryType": "nt:file",
+            "jcr:createdBy": "admin",
+            "jcr:created": "Mon Oct 28 2019 17:17:31 GMT+1100",
+            "jcr:content": {
+              "jcr:primaryType": "nt:resource",
+              "jcr:lastModifiedBy": "admin",
+              "jcr:mimeType": "image/png",
+              "jcr:lastModified": "Mon Oct 28 2019 17:17:31 GMT+1100",
+              ":jcr:data": 772,
+              "jcr:uuid": "a0c0ef3e-344c-44c4-8fc2-1911aa5262cf"
+            }
+          }
+        }
+      }
+    },
+    "initial": {
+      "jcr:primaryType": "cq:Page",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Oct 28 2019 17:17:31 GMT+1100",
+      "jcr:content": {
+        "jcr:primaryType": "cq:PageContent",
+        "jcr:createdBy": "admin",
+        "cq:template": "/conf/aemdesign/settings/wcm/templates/onecolumn",
+        "jcr:created": "Mon Oct 28 2019 17:17:31 GMT+1100",
+        "cq:lastModified": "Sat Nov 23 2019 21:43:15 GMT+1100",
+        "sling:resourceType": "aemdesign/components/template/base",
+        "cq:allowedTemplates": ["/conf/aemdesign/settings/wcm/templates/.*"],
+        "cq:lastModifiedBy": "admin",
+        "header": {
+          "jcr:primaryType": "nt:unstructured",
+          "componentId": "header_KHUT1D5Q0",
+          "sling:resourceType": "aemdesign/components/layout/header",
+          "par": {
+            "jcr:primaryType": "nt:unstructured",
+            "sling:resourceType": "aemdesign/components/layout/container"
+          }
+        },
+        "article": {
+          "jcr:primaryType": "nt:unstructured",
+          "componentId": "article_XZAOX0JCI",
+          "sling:resourceType": "aemdesign/components/layout/article",
+          "par": {
+            "jcr:primaryType": "nt:unstructured",
+            "sling:resourceType": "aemdesign/components/layout/container",
+            "generic_details": {
+              "jcr:primaryType": "nt:unstructured",
+              "jcr:createdBy": "admin",
+              "jcr:lastModifiedBy": "admin",
+              "componentId": "generic_details_K7HIG8YKY",
+              "jcr:created": "Sat Nov 23 2019 21:43:15 GMT+1100",
+              "jcr:lastModified": "Sat Nov 23 2019 21:43:15 GMT+1100",
+              "sling:resourceType": "aemdesign/components/details/generic-details"
+            }
+          }
+        },
+        "footer": {
+          "jcr:primaryType": "nt:unstructured",
+          "componentId": "footer_LFNYFFXMZ",
+          "sling:resourceType": "aemdesign/components/layout/footer",
+          "par": {
+            "jcr:primaryType": "nt:unstructured",
+            "sling:resourceType": "aemdesign/components/layout/container"
+          }
+        }
+      }
+    },
+    "jcr:content": {
+      "jcr:primaryType": "cq:PageContent",
+      "jcr:createdBy": "admin",
+      "jcr:title": "One Column",
+      "status": "enabled",
+      "jcr:created": "Mon Oct 28 2019 17:17:31 GMT+1100",
+      "cq:lastModified": "Sat Nov 23 2019 21:43:15 GMT+1100",
+      "jcr:description": "AEM.Design One Column",
+      "cq:templateType": "/conf/aemdesign/settings/wcm/template-types/onecolumn",
+      "cq:lastModifiedBy": "admin"
+    },
+    "structure": {
+      "jcr:primaryType": "cq:Page",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Oct 28 2019 17:17:31 GMT+1100",
+      "jcr:content": {
+        "jcr:primaryType": "cq:PageContent",
+        "jcr:createdBy": "admin",
+        "cq:template": "/conf/aemdesign/settings/wcm/templates/onecolumn",
+        "jcr:created": "Mon Oct 28 2019 17:17:31 GMT+1100",
+        "cq:deviceGroups": ["mobile/groups/responsive"],
+        "sling:resourceType": "aemdesign/components/template/base",
+        "header": {
+          "jcr:primaryType": "nt:unstructured",
+          "componentId": "header_O4SU9UACX",
+          "sling:resourceType": "aemdesign/components/layout/header",
+          "editable": true,
+          "par": {
+            "jcr:primaryType": "nt:unstructured",
+            "sling:resourceType": "aemdesign/components/layout/container",
+            "editable": true
+          }
+        },
+        "article": {
+          "jcr:primaryType": "nt:unstructured",
+          "componentId": "article_MZACHSGAN",
+          "sling:resourceType": "aemdesign/components/layout/article",
+          "editable": true,
+          "par": {
+            "jcr:primaryType": "nt:unstructured",
+            "sling:resourceType": "aemdesign/components/layout/container",
+            "editable": true
+          }
+        },
+        "footer": {
+          "jcr:primaryType": "nt:unstructured",
+          "componentId": "footer_JMIJVGLGF",
+          "sling:resourceType": "aemdesign/components/layout/footer",
+          "editable": true,
+          "par": {
+            "jcr:primaryType": "nt:unstructured",
+            "sling:resourceType": "aemdesign/components/layout/container",
+            "editable": true
+          }
+        },
+        "cq:responsive": {
+          "jcr:primaryType": "nt:unstructured",
+          "breakpoints": {
+            "jcr:primaryType": "nt:unstructured",
+            "xs": {
+              "jcr:primaryType": "nt:unstructured",
+              "title": "XS - Phone",
+              "width": 320
+            },
+            "sm": {
+              "jcr:primaryType": "nt:unstructured",
+              "title": "SM - Phone",
+              "width": 640
+            },
+            "md": {
+              "jcr:primaryType": "nt:unstructured",
+              "title": "MD - Tablet",
+              "width": 1024
+            },
+            "lg": {
+              "jcr:primaryType": "nt:unstructured",
+              "title": "LG - Laptop",
+              "width": 1024
+            },
+            "xlg": {
+              "jcr:primaryType": "nt:unstructured",
+              "title": "XLG - Desktop",
+              "width": 1024
+            },
+            "xxlg": {
+              "jcr:primaryType": "nt:unstructured",
+              "title": "XXLG - 4K",
+              "width": 1024
+            }
+          }
+        }
+      }
+    },
+    "policies": {
+      "jcr:primaryType": "cq:Page",
+      "jcr:createdBy": "admin",
+      "jcr:created": "Mon Oct 28 2019 17:17:31 GMT+1100",
+      "jcr:content": {
+        "jcr:primaryType": "nt:unstructured",
+        "cq:policy": "aemdesign/components/template/base/policy_default",
+        "sling:resourceType": "wcm/core/components/policies/mappings",
+        "header": {
+          "jcr:primaryType": "nt:unstructured",
+          "par": {
+            "jcr:primaryType": "nt:unstructured",
+            "cq:policy": "wcm/foundation/components/responsivegrid/aemdesign-default",
+            "sling:resourceType": "wcm/core/components/policies/mapping",
+            "aemdesign": {
+              "jcr:primaryType": "nt:unstructured",
+              "components": {
+                "jcr:primaryType": "nt:unstructured",
+                "media": {
+                  "jcr:primaryType": "nt:unstructured",
+                  "image": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "cq:policy": "aemdesign/components/media/image/policy_default_image",
+                    "sling:resourceType": "wcm/core/components/policies/mapping"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "article": {
+          "jcr:primaryType": "nt:unstructured",
+          "par": {
+            "jcr:primaryType": "nt:unstructured",
+            "cq:policy": "wcm/foundation/components/responsivegrid/aemdesign-default",
+            "sling:resourceType": "wcm/core/components/policies/mapping",
+            "aemdesign": {
+              "jcr:primaryType": "nt:unstructured",
+              "components": {
+                "jcr:primaryType": "nt:unstructured",
+                "media": {
+                  "jcr:primaryType": "nt:unstructured",
+                  "image": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "cq:policy": "aemdesign/components/media/image/policy_default_image",
+                    "sling:resourceType": "wcm/core/components/policies/mapping"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "footer": {
+          "jcr:primaryType": "nt:unstructured",
+          "par": {
+            "jcr:primaryType": "nt:unstructured",
+            "cq:policy": "wcm/foundation/components/responsivegrid/aemdesign-default",
+            "sling:resourceType": "wcm/core/components/policies/mapping",
+            "aemdesign": {
+              "jcr:primaryType": "nt:unstructured",
+              "components": {
+                "jcr:primaryType": "nt:unstructured",
+                "media": {
+                  "jcr:primaryType": "nt:unstructured",
+                  "image": {
+                    "jcr:primaryType": "nt:unstructured",
+                    "cq:policy": "aemdesign/components/media/image/policy_default_image",
+                    "sling:resourceType": "wcm/core/components/policies/mapping"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

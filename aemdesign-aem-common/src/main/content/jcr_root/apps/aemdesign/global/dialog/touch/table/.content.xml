@@ -30,7 +30,6 @@
                             <table
                                     jcr:primaryType="nt:unstructured"
                                     hideLabel="{Boolean}false"
-                                    editorType="table"
                                     name="./text"
                                     jcr:title="Table"
                                     useFixedInlineToolbar="{Boolean}true"

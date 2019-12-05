@@ -85,6 +85,7 @@ public class List extends ModelProxy {
     public static final String LIST_ISEMPTY = "isEmpty";
 
     private static final String PN_SEARCH_IN = "searchIn";
+    private static final String PN_QUERY = "query";
     private static final String PN_SORT_ORDER = "sortOrder";
     private static final String PN_ORDER_BY = "orderBy";
     private static final String PN_ORDER_BY_DEFAULT = "path";
@@ -128,8 +129,8 @@ public class List extends ModelProxy {
     private long pageMax;
     private long totalPages;
     private long pageStart;
-	private long totalMatches;
-	private long listSplitEvery;
+    private long totalMatches;
+    private long listSplitEvery;
     private String id;
     private boolean isPaginating;
     private java.util.List<ResultPage> resultPages;
@@ -153,7 +154,7 @@ public class List extends ModelProxy {
         loadConfig();
     }
 
-	@SuppressWarnings({"squid:S3776"})
+    @SuppressWarnings({"squid:S3776"})
     protected void loadConfig() {
         I18n i18n = new I18n(getRequest());
         String resourcePath = getResource().getPath();
@@ -180,6 +181,7 @@ public class List extends ModelProxy {
                 {PN_TAGS, new String[]{}},
                 {PN_TAGS_MATCH, TAGS_MATCH_ANY_VALUE},
                 {PN_ORDER_BY, StringUtils.EMPTY},
+                {PN_QUERY, StringUtils.EMPTY},
                 {PN_SORT_ORDER, SortOrder.ASC.getValue()},
                 {PN_SEARCH_IN, getResourcePage().getPath()},
                 {SAVEDQUERY_PROPERTY_NAME, StringUtils.EMPTY},
@@ -212,6 +214,7 @@ public class List extends ModelProxy {
         limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
         showHidden = componentProperties.get(SHOW_HIDDEN, false);
         showInvalid = componentProperties.get(SHOW_INVALID, false);
+        query = componentProperties.get(PN_QUERY, "");
 
         //check default details suffix
         if (detailsNameSuffix == null) {
@@ -324,7 +327,7 @@ public class List extends ModelProxy {
     /**
      * get request parameter with component id prefix.
      * @param name name of querystring param suffix
-     * @return
+     * @return parameter value
      */
     private String getParameter(String name) {
         return getRequest().getParameter(id + PATH_UNDERSCORE + name);
@@ -332,7 +335,7 @@ public class List extends ModelProxy {
 
     /**
      * get next page url.
-     * @return
+     * @return next page url
      */
     private String getNextPageLink() {
         long nextPageStart = pageStart + pageMax;
@@ -347,7 +350,7 @@ public class List extends ModelProxy {
 
     /**
      * get previous page url.
-     * @return
+     * @return previous page url
      */
     private String getPreviousPageLink() {
         if (isPaginating && pageMax > 0 && resultPages.size() > 0 && pageStart != 0) {
@@ -362,8 +365,8 @@ public class List extends ModelProxy {
 
     /**
      * get page badge info from a page.
-     * @param page
-     * @return
+     * @param page page to use
+     * @return map of badge attributes
      */
     private Map<String,Object> getPageBadgeInfo(Page page) {
         return getPageBadgeInfo(page,detailsNameSuffix,getResourceResolver(),detailsBadge);
@@ -375,7 +378,7 @@ public class List extends ModelProxy {
      * @param detailsNameSuffix details siffix to look for
      * @param resourceResolver resource resolver to use
      * @param detailsBadge badge selectors to add
-     * @return
+     * @return map of page badge attributes
      */
     static Map<String,Object> getPageBadgeInfo(Page page,String[] detailsNameSuffix, ResourceResolver resourceResolver, String detailsBadge) {
 
@@ -524,7 +527,7 @@ public class List extends ModelProxy {
      * @param page page to check
      * @param includeInvalid include if page is invalid
      * @param includeHidden include in page is hidden
-     * @return
+     * @return boolean if page should be included in the list
      */
     static boolean includePageInList(Page page, boolean includeInvalid, boolean includeHidden) {
         return (includeHidden || !page.isHideInNav()) && (includeInvalid || page.isValid()) && page.getDeleted() == null;
@@ -581,6 +584,7 @@ public class List extends ModelProxy {
 
     /**
      * populate list items from children of a root page.
+     * @param path path to use
      * @param flat only select children on root page
      */
     private void populateChildListItems(String path, Boolean flat) {
@@ -617,19 +621,23 @@ public class List extends ModelProxy {
                 String operator = matchAny ? "or" : "and";
 
                 childMap.put("group.p." + operator, "true");
-                childMap.put("group.0_group.p." + operator, "true");
+
+                String groupPrefix = "group.0_group.";
+                String tagIdSuffix = "_group.tagid";
+
+                childMap.put(groupPrefix + "p." + operator, "true");
 
                 int offset = 0;
 
                 for (String tag : tags) {
-                    childMap.put("group.0_group." + offset + "_group.tagid", tag);
-                    childMap.put("group.0_group." + offset + "_group.tagid.property", JcrConstants.JCR_CONTENT.concat("/cq:tags"));
+                    childMap.put(groupPrefix + offset + tagIdSuffix, tag);
+                    childMap.put(groupPrefix + offset + tagIdSuffix + ".property", JcrConstants.JCR_CONTENT.concat("/cq:tags"));
 
                     // Offset the Page Details group by one so we don't conflict with the page properties query
                     offset++;
 
-                    childMap.put("group.0_group." + offset + "_group.tagid", tag);
-                    childMap.put("group.0_group." + offset + "_group.tagid.property", JcrConstants.JCR_CONTENT.concat("/article/par/page_details/cq:tags"));
+                    childMap.put(groupPrefix + offset + tagIdSuffix, tag);
+                    childMap.put(groupPrefix + offset + tagIdSuffix + "property", JcrConstants.JCR_CONTENT.concat("/article/par/page_details/cq:tags"));
                 }
 
                 populateListItemsFromMap(childMap);
@@ -674,7 +682,7 @@ public class List extends ModelProxy {
         String queryParam = "";
 
         try {
-            queryParam = request.getParameter("query");
+            queryParam = request.getParameter(PN_QUERY);
 
             // check if we have to convert from the url format to the properties-style format
             String isURLQuery = request.getParameter("isURL");
@@ -793,7 +801,7 @@ public class List extends ModelProxy {
     /**
      * allow passing of querybuilder queries.
      */
-	@SuppressWarnings({"squid:S3776"})
+    @SuppressWarnings({"squid:S3776"})
     private void populateQueryListItems() {
         listItems = new ArrayList<>();
         if (!StringUtils.isBlank(savedquery)) {
@@ -881,10 +889,10 @@ public class List extends ModelProxy {
 
         totalMatches = result.getTotalMatches();
         resultPages = result.getResultPages();
-		long hitsPerPage = result.getHitsPerPage();
+        long hitsPerPage = result.getHitsPerPage();
         totalPages = result.getResultPages().size();
         pageStart = result.getStartIndex();
-		long currentPage = (pageStart / hitsPerPage) + 1;
+        long currentPage = (pageStart / hitsPerPage) + 1;
 
         resultInfo.put("hitsPerPage", hitsPerPage);
         resultInfo.put("currentPage", currentPage);
