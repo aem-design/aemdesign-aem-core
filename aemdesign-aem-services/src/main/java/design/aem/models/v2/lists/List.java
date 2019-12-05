@@ -327,7 +327,7 @@ public class List extends ModelProxy {
     /**
      * get request parameter with component id prefix.
      * @param name name of querystring param suffix
-     * @return
+     * @return parameter value
      */
     private String getParameter(String name) {
         return getRequest().getParameter(id + PATH_UNDERSCORE + name);
@@ -335,7 +335,7 @@ public class List extends ModelProxy {
 
     /**
      * get next page url.
-     * @return
+     * @return next page url
      */
     private String getNextPageLink() {
         long nextPageStart = pageStart + pageMax;
@@ -350,7 +350,7 @@ public class List extends ModelProxy {
 
     /**
      * get previous page url.
-     * @return
+     * @return previous page url
      */
     private String getPreviousPageLink() {
         if (isPaginating && pageMax > 0 && resultPages.size() > 0 && pageStart != 0) {
@@ -365,8 +365,8 @@ public class List extends ModelProxy {
 
     /**
      * get page badge info from a page.
-     * @param page
-     * @return
+     * @param page page to use
+     * @return map of badge attributes
      */
     private Map<String,Object> getPageBadgeInfo(Page page) {
         return getPageBadgeInfo(page,detailsNameSuffix,getResourceResolver(),detailsBadge);
@@ -378,7 +378,7 @@ public class List extends ModelProxy {
      * @param detailsNameSuffix details siffix to look for
      * @param resourceResolver resource resolver to use
      * @param detailsBadge badge selectors to add
-     * @return
+     * @return map of page badge attributes
      */
     static Map<String,Object> getPageBadgeInfo(Page page,String[] detailsNameSuffix, ResourceResolver resourceResolver, String detailsBadge) {
 
@@ -527,7 +527,7 @@ public class List extends ModelProxy {
      * @param page page to check
      * @param includeInvalid include if page is invalid
      * @param includeHidden include in page is hidden
-     * @return
+     * @return boolean if page should be included in the list
      */
     static boolean includePageInList(Page page, boolean includeInvalid, boolean includeHidden) {
         return (includeHidden || !page.isHideInNav()) && (includeInvalid || page.isValid()) && page.getDeleted() == null;
@@ -584,6 +584,7 @@ public class List extends ModelProxy {
 
     /**
      * populate list items from children of a root page.
+     * @param path path to use
      * @param flat only select children on root page
      */
     private void populateChildListItems(String path, Boolean flat) {

@@ -23,6 +23,7 @@ public class ContentFragmentUtil {
      * get content fragment content in an ordered map
      * @param contentFragmentPath path to content fragment
      * @param variationName variation of content fragment
+     * @param resourceResolver resource resolver to use
      * @return ordered map of key value fields
      */
     @SuppressWarnings("squid:S3776")

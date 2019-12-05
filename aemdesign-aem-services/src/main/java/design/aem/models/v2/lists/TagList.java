@@ -173,6 +173,7 @@ public class TagList extends ModelProxy {
 
     /**
      * populate list items from children of a root page.
+     * @param path path to use
      * @param flat only select children on root page
      */
     @SuppressWarnings("Duplicates")
