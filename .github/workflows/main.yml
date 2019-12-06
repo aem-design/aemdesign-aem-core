@@ -113,7 +113,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-${GITHUB_TAG}.zip
+          asset_path: ./aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-${GITHUB_TAG}.zip
           asset_name: aemdesign-aem-core-deploy-${GITHUB_TAG}.zip
           asset_content_type: application/zip
 
@@ -124,7 +124,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: aemdesign-aem-services/target/aemdesign-aem-services-${GITHUB_TAG}.zip
+          asset_path: ./aemdesign-aem-services/target/aemdesign-aem-services-${GITHUB_TAG}.zip
           asset_name: aemdesign-aem-services-${GITHUB_TAG}.zip
           asset_content_type: application/zip
     
@@ -135,7 +135,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: aemdesign-aem-author/target/aemdesign-aem-author-${GITHUB_TAG}.zip
+          asset_path: ./aemdesign-aem-author/target/aemdesign-aem-author-${GITHUB_TAG}.zip
           asset_name: aemdesign-aem-author-${GITHUB_TAG}.zip
           asset_content_type: application/zip
     
@@ -146,7 +146,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: aemdesign-aem-common/target/aemdesign-aem-common-${GITHUB_TAG}.zip
+          asset_path: ./aemdesign-aem-common/target/aemdesign-aem-common-${GITHUB_TAG}.zip
           asset_name: aemdesign-aem-common-${GITHUB_TAG}.zip
           asset_content_type: application/zip
 
