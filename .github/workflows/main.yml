@@ -102,6 +102,7 @@ jobs:
         with:
           tag_name: ${{ env.GITHUB_TAG }}
           release_name: ${{ env.GITHUB_TAG }}
+          body: ${{ env.GIT_RELEASE_NOTES }}
           draft: false
           prerelease: false
 
