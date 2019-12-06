@@ -71,21 +71,21 @@ jobs:
       - name: docker - mvn package
         run: $DOCKER_COMMAND mvn package -DskipTests=true -Dgpg.skip -B -Dmaven.repo.local=./build/.m2/repository
 
-      - name: docker - sonar qube on master
-        if: github.ref == 'refs/heads/master'
-        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
-      - name: docker - sonar qube on branches
-        if: github.ref != 'refs/heads/master'
-        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+#      - name: docker - sonar qube on master
+#        if: github.ref == 'refs/heads/master'
+#        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+#      - name: docker - sonar qube on branches
+#        if: github.ref != 'refs/heads/master'
+#        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+#
+#      - name: run unit tests with coverage reports
+#        run: mvn test -q && bash <(curl -s https://codecov.io/bash)
+#
+#      - name: deploy to maven cental
+#        if: github.ref == 'refs/heads/master'
+#        run: $DOCKER_COMMAND echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import && echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust && mvn clean deploy --settings default.xml -B -P release
 
-      - name: run unit tests with coverage reports
-        run: mvn test -q && bash <(curl -s https://codecov.io/bash)
-
-      - name: deploy to maven cental
-        if: github.ref == 'refs/heads/master'
-        run: $DOCKER_COMMAND echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import && echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust && mvn clean deploy --settings default.xml -B -P release
-
-      - name: deploying with following params
+      - name: compile release params
         id: release_params
         run: |
           echo "GIT_RELEASE_NOTES"
