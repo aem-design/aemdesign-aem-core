@@ -98,8 +98,8 @@ jobs:
         if: github.ref == 'refs/heads/master'
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ env.CURRENT_VERSION }}
-          name: ${{ env.CURRENT_VERSION }}
+          tag: ${{ env.GITHUB_TAG }}
+          name: ${{ env.GITHUB_TAG }}
           body: ${{ env.GIT_RELEASE_NOTES }}
           files: >
             **/target/*.zip
