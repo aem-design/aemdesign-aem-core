@@ -66,10 +66,9 @@ jobs:
       - name: setup gpg
         run: |
           source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/latest/download/setup-gpg.sh)
-      - name: docker - mvn clean (cache .m2 in ./build/.m2/repository in repo dir)
-        run: $DOCKER_COMMAND mvn clean -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -Dmaven.source.skip=true -B -Dmaven.repo.local=./build/.m2/repository
+
       - name: docker - mvn package
-        run: $DOCKER_COMMAND mvn package -DskipTests=true -Dgpg.skip -B -Dmaven.repo.local=./build/.m2/repository
+        run: $DOCKER_COMMAND mvn package -B -Dmaven.repo.local=./build/.m2/repository
 
 #      - name: docker - sonar qube on master
 #        if: github.ref == 'refs/heads/master'
@@ -83,7 +82,7 @@ jobs:
 #
 #      - name: deploy to maven cental
 #        if: github.ref == 'refs/heads/master'
-#        run: $DOCKER_COMMAND echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import && echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust && mvn clean deploy --settings default.xml -B -P release
+#        run: $DOCKER_COMMAND echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import && echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust && mvn deploy --settings default.xml -B -P release
 
       - name: compile release params
         id: release_params
@@ -93,11 +92,15 @@ jobs:
           echo $GIT_RELEASE_NOTES
           echo "====END===="
           echo GITHUB_TAG=$GITHUB_TAG
+          echo GITHUB_WORKSPACE=$GITHUB_WORKSPACE
           echo "/home/runner/work/aemdesign-aem-core/aemdesign-aem-core"
           ls -l /home/runner/work/aemdesign-aem-core/aemdesign-aem-core
           echo "/home/runner/work/aemdesign-aem-core/aemdesign-aem-core/aemdesign-aem-core-deploy/target"
           ls -l /home/runner/work/aemdesign-aem-core/aemdesign-aem-core/aemdesign-aem-core-deploy/target
           echo ::set-output name=ASSET_CORE::"/home/runner/work/aemdesign-aem-core/aemdesign-aem-core/aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-${GITHUB_TAG}.zip"
+          echo ::set-output name=ASSET_SERVICES::"/home/runner/work/aemdesign-aem-core/aemdesign-aem-core/aemdesign-aem-services/target/aemdesign-aem-services-${GITHUB_TAG}.zip"
+          echo ::set-output name=ASSET_AUTHOR::"/home/runner/work/aemdesign-aem-core/aemdesign-aem-core/aemdesign-aem-author/target/aemdesign-aem-author-${GITHUB_TAG}.zip"
+          echo ::set-output name=ASSET_COMMON::"/home/runner/work/aemdesign-aem-core/aemdesign-aem-core/aemdesign-aem-common/target/aemdesign-aem-common-${GITHUB_TAG}.zip"
 
       - name: create release with tag ${{ env.GITHUB_TAG }}
         id: create_release
@@ -112,7 +115,7 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: upload release asset - aemdesign-aem-core-deploy-${GITHUB_TAG}.zip
+      - name: upload release asset - aemdesign-aem-core-deploy-${{ env.GITHUB_TAG }}.zip
         if: github.ref == 'refs/heads/master'
         uses: actions/upload-release-asset@v1.0.1
         env:
@@ -120,39 +123,39 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{ steps.release_params.outputs.ASSET_CORE }}
-          asset_name: aemdesign-aem-core-deploy-${GITHUB_TAG}.zip
+          asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'core-deploy', env.GITHUB_TAG) }}
           asset_content_type: application/zip
 
-      - name: upload release asset - aemdesign-aem-services-${GITHUB_TAG}.zip
+      - name: upload release asset - aemdesign-aem-services-${{ env.GITHUB_TAG }}.zip
         if: github.ref == 'refs/heads/master'
         uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "/home/runner/work/aemdesign-aem-core/aemdesign-aem-core/aemdesign-aem-services/target/aemdesign-aem-services-${{ env.GITHUB_TAG }}.zip"
-          asset_name: aemdesign-aem-services-${GITHUB_TAG}.zip
+          asset_path: ${{ steps.release_params.outputs.ASSET_SERVICES }}
+          asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'services', env.GITHUB_TAG) }}
           asset_content_type: application/zip
     
-      - name: upload release asset - aemdesign-aem-author-${GITHUB_TAG}.zip
+      - name: upload release asset - aemdesign-aem-author-${{ env.GITHUB_TAG }}.zip
         if: github.ref == 'refs/heads/master'
         uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "/home/runner/work/aemdesign-aem-core/aemdesign-aem-core/aemdesign-aem-author/target/aemdesign-aem-author-$GITHUB_TAG.zip"
+          asset_path: ${{ steps.release_params.outputs.ASSET_AUTHOR }}
           asset_name: aemdesign-aem-author-${GITHUB_TAG}.zip
           asset_content_type: application/zip
     
-      - name: upload release asset - aemdesign-aem-common-${GITHUB_TAG}.zip
+      - name: upload release asset - aemdesign-aem-common-${{ env.GITHUB_TAG }}.zip
         if: github.ref == 'refs/heads/master'
         uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /home/runner/work/aemdesign-aem-core/aemdesign-aem-core/aemdesign-aem-common/target/aemdesign-aem-common-${{ env.GITHUB_TAG }}.zip
+          asset_path: ${{ steps.release_params.outputs.ASSET_COMMON }}
           asset_name: aemdesign-aem-common-${GITHUB_TAG}.zip
           asset_content_type: application/zip
 
