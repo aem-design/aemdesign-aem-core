@@ -84,24 +84,6 @@ jobs:
 #        if: github.ref == 'refs/heads/master'
 #        run: $DOCKER_COMMAND echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import && echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust && mvn deploy --settings default.xml -B -P release
 
-      - name: compile release params
-        id: release_params
-        run: |
-          echo "GIT_RELEASE_NOTES"
-          echo "===START==="
-          echo $GIT_RELEASE_NOTES
-          echo "====END===="
-          echo GITHUB_TAG=$GITHUB_TAG
-          echo GITHUB_WORKSPACE=$GITHUB_WORKSPACE
-          echo "/home/runner/work/aemdesign-aem-core/aemdesign-aem-core"
-          ls -l /home/runner/work/aemdesign-aem-core/aemdesign-aem-core
-          echo "/home/runner/work/aemdesign-aem-core/aemdesign-aem-core/aemdesign-aem-core-deploy/target"
-          ls -l /home/runner/work/aemdesign-aem-core/aemdesign-aem-core/aemdesign-aem-core-deploy/target
-          echo ::set-output name=ASSET_CORE::"/home/runner/work/aemdesign-aem-core/aemdesign-aem-core/aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-${GITHUB_TAG}.zip"
-          echo ::set-output name=ASSET_SERVICES::"/home/runner/work/aemdesign-aem-core/aemdesign-aem-core/aemdesign-aem-services/target/aemdesign-aem-services-${GITHUB_TAG}.zip"
-          echo ::set-output name=ASSET_AUTHOR::"/home/runner/work/aemdesign-aem-core/aemdesign-aem-core/aemdesign-aem-author/target/aemdesign-aem-author-${GITHUB_TAG}.zip"
-          echo ::set-output name=ASSET_COMMON::"/home/runner/work/aemdesign-aem-core/aemdesign-aem-core/aemdesign-aem-common/target/aemdesign-aem-common-${GITHUB_TAG}.zip"
-
       - name: create release with tag ${{ env.GITHUB_TAG }}
         id: create_release
         if: github.ref == 'refs/heads/master'
@@ -122,7 +104,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ steps.release_params.outputs.ASSET_CORE }}
+          asset_path: ${{ format('{0}/aemdesign-aem-{1}/target/aemdesign-aem-{1}-{2}.zip', env.GITHUB_WORKSPACE, 'core-deploy', env.GITHUB_TAG) }}
           asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'core-deploy', env.GITHUB_TAG) }}
           asset_content_type: application/zip
 
@@ -133,8 +115,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ steps.release_params.outputs.ASSET_SERVICES }}
-          asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'services', env.GITHUB_TAG) }}
+          asset_path: ${{ format('{0}/aemdesign-aem-{1}/target/aemdesign-aem-{1}-{2}.jar', env.GITHUB_WORKSPACE, 'services', env.GITHUB_TAG) }}
+          asset_name: ${{ format('aemdesign-aem-{0}-{1}.jar', 'services', env.GITHUB_TAG) }}
           asset_content_type: application/zip
     
       - name: upload release asset - aemdesign-aem-author-${{ env.GITHUB_TAG }}.zip
@@ -144,8 +126,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ steps.release_params.outputs.ASSET_AUTHOR }}
-          asset_name: aemdesign-aem-author-${GITHUB_TAG}.zip
+          asset_path: ${{ format('{0}/aemdesign-aem-{1}/target/aemdesign-aem-{1}-{2}.zip', env.GITHUB_WORKSPACE, 'author', env.GITHUB_TAG) }}
+          asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'author', env.GITHUB_TAG) }}
           asset_content_type: application/zip
     
       - name: upload release asset - aemdesign-aem-common-${{ env.GITHUB_TAG }}.zip
@@ -155,8 +137,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ steps.release_params.outputs.ASSET_COMMON }}
-          asset_name: aemdesign-aem-common-${GITHUB_TAG}.zip
+          asset_path: ${{ format('{0}/aemdesign-aem-{1}/target/aemdesign-aem-{1}-{2}.zip', env.GITHUB_WORKSPACE, 'common', env.GITHUB_TAG) }}
+          asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'common', env.GITHUB_TAG) }}
           asset_content_type: application/zip
 
       - name: trigger build of bundle docker container
