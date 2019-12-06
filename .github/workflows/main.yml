@@ -104,7 +104,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ format('{0}/aemdesign-aem-{1}/target/aemdesign-aem-{1}-{2}.zip', env.GITHUB_WORKSPACE, 'core-deploy', env.GITHUB_TAG) }}
+          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.zip', 'core-deploy', env.GITHUB_TAG) }}
           asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'core-deploy', env.GITHUB_TAG) }}
           asset_content_type: application/zip
 
@@ -115,7 +115,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ format('{0}/aemdesign-aem-{1}/target/aemdesign-aem-{1}-{2}.jar', env.GITHUB_WORKSPACE, 'services', env.GITHUB_TAG) }}
+          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.jar', 'services', env.GITHUB_TAG) }}
           asset_name: ${{ format('aemdesign-aem-{0}-{1}.jar', 'services', env.GITHUB_TAG) }}
           asset_content_type: application/zip
     
@@ -126,7 +126,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ format('{0}/aemdesign-aem-{1}/target/aemdesign-aem-{1}-{2}.zip', env.GITHUB_WORKSPACE, 'author', env.GITHUB_TAG) }}
+          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.zip', 'author', env.GITHUB_TAG) }}
           asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'author', env.GITHUB_TAG) }}
           asset_content_type: application/zip
     
@@ -137,7 +137,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ format('{0}/aemdesign-aem-{1}/target/aemdesign-aem-{1}-{2}.zip', env.GITHUB_WORKSPACE, 'common', env.GITHUB_TAG) }}
+          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.zip', 'common', env.GITHUB_TAG) }}
           asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'common', env.GITHUB_TAG) }}
           asset_content_type: application/zip
 
