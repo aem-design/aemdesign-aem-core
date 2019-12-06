@@ -70,19 +70,19 @@ jobs:
       - name: docker - mvn package
         run: $DOCKER_COMMAND mvn package -B -Dmaven.repo.local=./build/.m2/repository
 
-#      - name: docker - sonar qube on master
-#        if: github.ref == 'refs/heads/master'
-#        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
-#      - name: docker - sonar qube on branches
-#        if: github.ref != 'refs/heads/master'
-#        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
-#
-#      - name: run unit tests with coverage reports
-#        run: mvn test -q && bash <(curl -s https://codecov.io/bash)
-#
-#      - name: deploy to maven cental
-#        if: github.ref == 'refs/heads/master'
-#        run: $DOCKER_COMMAND echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import && echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust && mvn deploy --settings default.xml -B -P release
+      - name: docker - sonar qube on master
+        if: github.ref == 'refs/heads/master'
+        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+      - name: docker - sonar qube on branches
+        if: github.ref != 'refs/heads/master'
+        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+
+      - name: run unit tests with coverage reports
+        run: mvn test -q && bash <(curl -s https://codecov.io/bash)
+
+      - name: deploy to maven cental
+        if: github.ref == 'refs/heads/master'
+        run: $DOCKER_COMMAND echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import && echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust && mvn deploy --settings default.xml -B -P release
 
       - name: create release with tag ${{ env.GITHUB_TAG }}
         id: create_release
@@ -144,5 +144,5 @@ jobs:
       - name: trigger build of bundle docker container
         if: github.ref == 'refs/heads/master'
         run: |
-          docker run --rm aemdesign/travis-trigger-build sbb --github_user=${GITHUB_USER} --github_repo=aem --github_branch=6.5.0-bundle --travis_token=${TRAVIS_TOKEN}
-          docker run --rm aemdesign/travis-trigger-build sbb --github_user=${GITHUB_USER} --github_repo=aem --github_branch=6.4.0-bundle --travis_token=${TRAVIS_TOKEN}
+          docker run --rm aemdesign/travis-build-trigger sbb --github_user=${GITHUB_USER} --github_repo=aem --github_branch=6.5.0-bundle --travis_token=${TRAVIS_TOKEN}
+          docker run --rm aemdesign/travis-build-trigger sbb --github_user=${GITHUB_USER} --github_repo=aem --github_branch=6.4.0-bundle --travis_token=${TRAVIS_TOKEN}
