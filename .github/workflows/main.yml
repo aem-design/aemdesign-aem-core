@@ -92,6 +92,7 @@ jobs:
           tag: ${{ env.GITHUB_TAG }}
           name: ${{ env.GITHUB_TAG }}
           body: ${{ env.GIT_RELEASE_NOTES }}
+          gzip: false
           files: >
             aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-${{ env.GITHUB_TAG }}.zip
             aemdesign-aem-services/target/aemdesign-aem-services-${{ env.GITHUB_TAG }}.jar
