@@ -1,0 +1,27 @@
+<sly data-sly-use.options="com.adobe.cq.wcm.core.components.models.form.Options"
+     data-sly-use.template="core/wcm/components/commons/v1/templates.html"
+     data-sly-test.isNotEmpty="${options.items.size}">
+    <fieldset class="form-options form-options-${options.type.value}" component>
+        <sly data-sly-test="${options.type.value == 'checkbox' || options.type.value == 'radio'}">
+            <legend class="legend">${options.title}</legend>
+            <label class="field-label" data-sly-repeat.optionItem="${options.items}">
+                <input class="field field-${options.type.value}" type="${options.type.value}" name="${options.name}"
+                       value="${optionItem.value}" checked="${optionItem.selected}" disabled="${optionItem.disabled}"/>
+                <span class="field-description">${optionItem.text}</span>
+            </label>
+        </sly>
+        <sly data-sly-test="${options.type.value == 'drop-down' || options.type.value == 'multi-drop-down'}">
+            <label class="label" for="${options.id}">${options.title}</label>
+            <select class="field field-${options.type.value}" name="${options.name}" id="${options.id}"
+                    data-sly-list.optionItem="${options.items}"
+                    data-sly-attribute.multiple="${options.type.value == 'multi-drop-down'}">
+                <option value="${optionItem.value}" selected="${optionItem.selected}" disabled="${optionItem.disabled}">${optionItem.text}</option>
+            </select>
+        </sly>
+        <p class="help-message" data-sly-test="${options.helpMessage}">${options.helpMessage}</p>
+    </fieldset>
+</sly>
+<sly data-sly-call="${template.placeholder @ isEmpty=!isNotEmpty, classAppend='form-options'}"></sly>
+<!--/* print component info in edit mode */-->
+<sly data-sly-use.info="aemdesign/global/templates/component-info-simple.html"
+     data-sly-call="${info.variant @ title=component.title}"></sly>

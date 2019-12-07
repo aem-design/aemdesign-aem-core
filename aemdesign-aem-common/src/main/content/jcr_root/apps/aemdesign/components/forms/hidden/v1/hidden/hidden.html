@@ -1,0 +1,9 @@
+<input data-sly-use.field="com.adobe.cq.wcm.core.components.models.form.Field"
+       data-sly-use.templates="core/wcm/components/commons/v1/templates.html"
+       data-sly-test.appendText="${field.name && 'name='}${field.name}${field.value && ' | value='}${field.value}"
+       data-sly-call="${templates.placeholder @ isEmpty = true, classAppend, emptyTextAppend = appendText}"
+       component
+       type="hidden" id="${field.id}" name="${field.name}" value="${field.value}" />
+<!--/* print component info in edit mode */-->
+<sly data-sly-use.info="aemdesign/global/templates/component-info-simple.html"
+     data-sly-call="${info.variant @ title=component.title}"></sly>
