@@ -6,6 +6,7 @@
             <legend class="legend">${options.title}</legend>
             <label class="field-label" data-sly-repeat.optionItem="${options.items}">
                 <input class="field field-${options.type.value}" type="${options.type.value}" name="${options.name}"
+                       id="${options.name}"
                        value="${optionItem.value}" checked="${optionItem.selected}" disabled="${optionItem.disabled}"/>
                 <span class="field-description">${optionItem.text}</span>
             </label>
