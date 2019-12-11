@@ -213,9 +213,11 @@ public class GenericDetails extends ModelProxy {
 
         //process content fragment content if its used
         String fragmentPath = componentProperties.get(FIELD_CONTENTFRAGMENT_FRAGMENTPATH, "");
-        String variationName = componentProperties.get(FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION);
 
-        componentProperties.putAll(ContentFragmentUtil.getComponentFragmentMap(fragmentPath,variationName, getResourceResolver()));
+        if (isNotEmpty(fragmentPath)) {
+            String variationName = componentProperties.get(FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION);
+            componentProperties.putAll(ContentFragmentUtil.getComponentFragmentMap(fragmentPath, variationName, getResourceResolver()));
+        }
 
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
         componentProperties.put(FIELD_CATEGORY,getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
