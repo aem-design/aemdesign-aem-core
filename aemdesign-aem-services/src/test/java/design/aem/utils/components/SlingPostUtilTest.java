@@ -1,5 +1,6 @@
 package design.aem.utils.components;
 
+import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import edu.emory.mathcs.backport.java.util.Arrays;
@@ -7,8 +8,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import javax.jcr.Node;
 import javax.jcr.Property;
@@ -20,11 +24,11 @@ import java.util.List;
 import java.util.Locale;
 
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(JcrUtil.class)
 public class SlingPostUtilTest {
 
     @Mock
@@ -48,6 +52,7 @@ public class SlingPostUtilTest {
     @Before
     public void before() {
         initMocks(this);
+        PowerMockito.mockStatic(JcrUtil.class);
     }
 
     @Test
@@ -115,6 +120,35 @@ public class SlingPostUtilTest {
         Node actualNode = SlingPostUtil.getParentNode(node, "./image/content");
         verify(node).getNode("image");
         Assert.assertEquals(node, actualNode);
+    }
+
+    @Test
+    public void testGetParentNode_Success_CreateNode() throws RepositoryException {
+        when(node.hasNode("image")).thenReturn(false);
+        when(node.getSession()).thenReturn(session);
+        when(node.getPath()).thenReturn("/content/aem.design/en");
+        when(JcrUtil.createPath("/content/aem.design/en/image", "nt:unstructured", session)).thenReturn(node);
+        Node actualNode = SlingPostUtil.getParentNode(node, "./image/content");
+        Assert.assertEquals(node, actualNode);
+    }
+
+    @Test
+    public void testWriteContent() throws RepositoryException {
+        final String authors[] = new String[]{"test1", "test2", "test3"};
+        final String writer[] = new String[]{"test4"};
+        when(request.getParameterNames()).thenReturn(Collections.enumeration(
+            Arrays.asList(new String[]{"./authors", "./writer"})));
+        when(request.getParameterValues("./authors")).thenReturn(authors);
+        when(request.getParameterValues("./writer")).thenReturn(writer);
+
+        SlingPostUtil.writeContent(node, request);
+
+        ArgumentCaptor<String[]> multiplesValues = ArgumentCaptor.forClass(String[].class);
+        verify(node).setProperty(eq("authors"), multiplesValues.capture(), eq(1));
+        Assert.assertTrue(Arrays.equals(authors, multiplesValues.getValue()));
+        ArgumentCaptor<String> singleValue = ArgumentCaptor.forClass(String.class);
+        verify(node).setProperty(eq("writer"), singleValue.capture(), eq(1));
+        Assert.assertTrue(writer[0].equals(singleValue.getValue()));
     }
 
 }
