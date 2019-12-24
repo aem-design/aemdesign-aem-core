@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.mockito.stubbing.OngoingStubbing;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -80,14 +79,14 @@ public class ContentFragmentUtilTest {
     public void testGetComponentFragmentMap_NullVariation() {
         when(resourceResolver.getResource(CONTENT_FRAGMENT_PATH)).thenReturn(resource);
         when(resource.getResourceType()).thenReturn("/apps/valid");
-        when(resource.adaptTo(ContentFragment.class)).thenReturn(null);
+        when(resource.adaptTo(ContentFragment.class)).thenReturn(contentFragment);
         when(contentFragment.getElements()).thenReturn(contentElementIterator);
         when(contentElementIterator.hasNext()).thenReturn(true, false);
         when(contentElementIterator.next()).thenReturn(contentElement);
-        final OngoingStubbing<String> name = when(contentElement.getName()).thenReturn("name");
+        when(contentElement.getName()).thenReturn("name");
         when(contentElement.getVariation(VARIATION)).thenReturn(null);
         Map<String, Object> fragmentMap = ContentFragmentUtil.getComponentFragmentMap(CONTENT_FRAGMENT_PATH, VARIATION, resourceResolver);
-        Assert.assertTrue(fragmentMap.isEmpty());
+        Assert.assertNull(fragmentMap.get("name"));
     }
 
     @Test
@@ -98,7 +97,7 @@ public class ContentFragmentUtilTest {
         when(contentFragment.getElements()).thenReturn(contentElementIterator);
         when(contentElementIterator.hasNext()).thenReturn(true, false);
         when(contentElementIterator.next()).thenReturn(contentElement);
-        final OngoingStubbing<String> name = when(contentElement.getName()).thenReturn("name");
+        when(contentElement.getName()).thenReturn("name");
         when(contentElement.getVariation(VARIATION)).thenReturn(variation);
         when(variation.getContent()).thenReturn("content");
         Map<String, Object> fragmentMap = ContentFragmentUtil.getComponentFragmentMap(CONTENT_FRAGMENT_PATH, VARIATION, resourceResolver);
