@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -102,6 +102,27 @@ public class ContentFragmentUtilTest {
         when(variation.getContent()).thenReturn("content");
         Map<String, Object> fragmentMap = ContentFragmentUtil.getComponentFragmentMap(CONTENT_FRAGMENT_PATH, VARIATION, resourceResolver);
         Assert.assertEquals("content", fragmentMap.get("name"));
+    }
+
+    @Test
+    public void testGetComponentFragmentMap_Success_DefaultVariation() {
+        when(resourceResolver.getResource(CONTENT_FRAGMENT_PATH)).thenReturn(resource);
+        when(resource.getResourceType()).thenReturn("/apps/valid");
+        when(resource.adaptTo(ContentFragment.class)).thenReturn(contentFragment);
+        when(contentFragment.getElements()).thenReturn(contentElementIterator);
+        when(contentElementIterator.hasNext()).thenReturn(true, false);
+        when(contentElementIterator.next()).thenReturn(contentElement);
+        when(contentElement.getName()).thenReturn("name");
+        when(contentElement.getContent()).thenReturn("content");
+        Map<String, Object> fragmentMap = ContentFragmentUtil.getComponentFragmentMap(CONTENT_FRAGMENT_PATH, null, resourceResolver);
+        Assert.assertEquals("content", fragmentMap.get("name"));
+        verify(contentElement, never()).getVariation(anyString());
+    }
+
+    @Test
+    public void testGetComponentFragmentMap_Exception() {
+        Map<String, Object> fragmentMap = ContentFragmentUtil.getComponentFragmentMap(CONTENT_FRAGMENT_PATH, VARIATION, null);
+        Assert.assertTrue(fragmentMap.isEmpty());
     }
 
 }
