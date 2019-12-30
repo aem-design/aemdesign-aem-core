@@ -3,6 +3,7 @@ package design.aem.utils.components;
 
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
+import com.day.cq.wcm.api.Page;
 import design.aem.services.ContentAccess;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -49,6 +50,9 @@ public class TagUtilTest {
 
     @Mock
     Tag tag1, tag2;
+
+    @Mock
+    Page page;
 
     @Mock
     Iterable<Resource> resourceIterator;
@@ -189,6 +193,52 @@ public class TagUtilTest {
         mockTag(tag2, "tag2", "tag2", resource2, tagVM2);
         String actualValue = TagUtil.getTagsAsValuesAsAdmin(sling, ":", tagPaths);
         Assert.assertEquals("tag1:tag2", actualValue);
+    }
+
+    @Test
+    public void testGetTagsAsValues_Success() {
+        String[] tagPaths = {"/content/cq:tags/male", "/content/cq:tags/female"};
+        when(adminTagManager.resolve("/content/cq:tags/male")).thenReturn(tag1);
+        when(adminTagManager.resolve("/content/cq:tags/female")).thenReturn(tag2);
+        when(tag1.getName()).thenReturn("tag1");
+        when(tag2.getName()).thenReturn("tag2");
+        mockTag(tag1, "tag1", "tag1", resource1, tagVM1);
+        mockTag(tag2, "tag2", "tag2", resource2, tagVM2);
+        String actualValue = TagUtil.getTagsAsValues(adminTagManager, adminResourceResolver, ":", tagPaths);
+        Assert.assertEquals("tag1:tag2", actualValue);
+    }
+
+    @Test
+    public void testGetTagsValues_Success() {
+        String[] tagPaths = {"/content/cq:tags/male", "/content/cq:tags/female"};
+        when(adminTagManager.resolve("/content/cq:tags/male")).thenReturn(tag1);
+        when(adminTagManager.resolve("/content/cq:tags/female")).thenReturn(tag2);
+        when(tag1.getName()).thenReturn("tag1");
+        when(tag2.getName()).thenReturn("tag2");
+        mockTag(tag1, "tag1", "tag1", resource1, tagVM1);
+        mockTag(tag2, "tag2", "tag2", resource2, tagVM2);
+        String[] actualValue = TagUtil.getTagsValues(adminTagManager, adminResourceResolver, ":", tagPaths);
+        Assert.assertEquals("tag1", actualValue[0]);
+        Assert.assertEquals("tag2", actualValue[1]);
+    }
+
+    @Test
+    public void testGetPathFromTagId(){
+        String path = TagUtil.getPathFromTagId("gender:male/size","/content/cq:tags");
+        Assert.assertEquals("/content/cq:tags/gender/male/size",path);
+    }
+
+    @Test
+    public void testGetPageTags_Success() {
+        when(page.getTags()).thenReturn(new Tag[]{tag1});
+        Tag[] tags = TagUtil.getPageTags(page);
+        Assert.assertEquals(tag1, tags[0]);
+    }
+
+    @Test
+    public void testGetPageTags_NullPage() {
+        Tag[] tags = TagUtil.getPageTags(null);
+        Assert.assertEquals(0,tags.length);
     }
 
     private Iterable<Resource> getResources() {
