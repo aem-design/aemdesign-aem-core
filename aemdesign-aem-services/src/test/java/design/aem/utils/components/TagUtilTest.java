@@ -146,7 +146,7 @@ public class TagUtilTest {
     }
 
     @Test
-    public void testGetTagsAsAdmin_Success() {
+    public void testGetTagsAsAdmin_Success_GetTagChildren() {
         String[] tagPaths = {"/content/cq:tags/gender"};
         String[] attributesToRead = {"title", "description"};
         when(sling.getService(ContentAccess.class)).thenReturn(contentAccess);
@@ -180,6 +180,31 @@ public class TagUtilTest {
     }
 
     @Test
+    public void testGetTagsAsAdmin_Success_NoTagChildren() {
+        String[] tagPaths = {"/content/cq:tags/male"};
+        when(sling.getService(ContentAccess.class)).thenReturn(contentAccess);
+        when(contentAccess.getAdminResourceResolver()).thenReturn(adminResourceResolver);
+        when(adminResourceResolver.adaptTo(TagManager.class)).thenReturn(adminTagManager);
+        when(adminTagManager.resolve("/content/cq:tags/male")).thenReturn(tag1);
+        when(tag1.getTitle()).thenReturn("Male");
+        when(tag1.getDescription()).thenReturn("Male Clothing");
+        when(tag1.getPath()).thenReturn("/content/cq:tags/gender/male");
+        when(tag1.getName()).thenReturn("Male");
+        when(tag1.getLocalTagID()).thenReturn("localId");
+        when(tag1.getTagID()).thenReturn("tagId");
+        when(tag1.adaptTo(Resource.class)).thenReturn(resource1);
+        when(resource1.getValueMap()).thenReturn(tagVM1);
+        when(tagVM1.containsKey("value")).thenReturn(true);
+        when(tagVM1.get("value", "Male")).thenReturn("tagValue");
+        LinkedHashMap<String, Map> actualTagsMap = TagUtil.getTagsAsAdmin(sling, tagPaths, Locale.getDefault());
+        Assert.assertEquals("/content/cq:tags/gender/male", actualTagsMap.get("tagId").get("path"));
+        Assert.assertEquals("localId", actualTagsMap.get("tagId").get("tagid"));
+        Assert.assertEquals("Male Clothing", actualTagsMap.get("tagId").get("description"));
+        Assert.assertEquals("Male", actualTagsMap.get("tagId").get("title"));
+        Assert.assertEquals("tagValue", actualTagsMap.get("tagId").get("value"));
+    }
+
+    @Test
     public void testGetTagsAsValuesAsAdmin_Success() {
         String[] tagPaths = {"/content/cq:tags/male", "/content/cq:tags/female"};
         when(sling.getService(ContentAccess.class)).thenReturn(contentAccess);
@@ -196,6 +221,12 @@ public class TagUtilTest {
     }
 
     @Test
+    public void testGetTagsAsValuesAsAdmin_NullTagPath() {
+        String actualValue = TagUtil.getTagsAsValuesAsAdmin(sling, ":", null);
+        Assert.assertNull(actualValue);
+    }
+
+    @Test
     public void testGetTagsAsValues_Success() {
         String[] tagPaths = {"/content/cq:tags/male", "/content/cq:tags/female"};
         when(adminTagManager.resolve("/content/cq:tags/male")).thenReturn(tag1);
@@ -206,6 +237,12 @@ public class TagUtilTest {
         mockTag(tag2, "tag2", "tag2", resource2, tagVM2);
         String actualValue = TagUtil.getTagsAsValues(adminTagManager, adminResourceResolver, ":", tagPaths);
         Assert.assertEquals("tag1:tag2", actualValue);
+    }
+
+    @Test
+    public void testGetTagsAsValues_NullTagPath() {
+        String actualValue = TagUtil.getTagsAsValues(adminTagManager, adminResourceResolver, ":", null);
+        Assert.assertNull(actualValue);
     }
 
     @Test
@@ -223,9 +260,28 @@ public class TagUtilTest {
     }
 
     @Test
-    public void testGetPathFromTagId(){
-        String path = TagUtil.getPathFromTagId("gender:male/size","/content/cq:tags");
-        Assert.assertEquals("/content/cq:tags/gender/male/size",path);
+    public void testGetTagsValues_NullTagPath() {
+        String[] actualValue = TagUtil.getTagsValues(adminTagManager, adminResourceResolver, ":", null);
+        Assert.assertNull(actualValue);
+    }
+
+    @Test
+    public void testGetTagsValues_NullResource() {
+        String[] tagPaths = {"/content/cq:tags/male", "/content/cq:tags/female"};
+        when(adminTagManager.resolve("/content/cq:tags/male")).thenReturn(tag1);
+        when(adminTagManager.resolve("/content/cq:tags/female")).thenReturn(tag2);
+        when(tag1.getName()).thenReturn("tag1");
+        when(tag2.getName()).thenReturn("tag2");
+        when(tag1.adaptTo(Resource.class)).thenReturn(null);
+        when(tag2.adaptTo(Resource.class)).thenReturn(null);
+        String[] actualValue = TagUtil.getTagsValues(adminTagManager, adminResourceResolver, ":", tagPaths);
+        Assert.assertEquals(0, actualValue.length);
+    }
+
+    @Test
+    public void testGetPathFromTagId() {
+        String path = TagUtil.getPathFromTagId("gender:male/size", "/content/cq:tags");
+        Assert.assertEquals("/content/cq:tags/gender/male/size", path);
     }
 
     @Test
@@ -238,7 +294,7 @@ public class TagUtilTest {
     @Test
     public void testGetPageTags_NullPage() {
         Tag[] tags = TagUtil.getPageTags(null);
-        Assert.assertEquals(0,tags.length);
+        Assert.assertEquals(0, tags.length);
     }
 
     private Iterable<Resource> getResources() {
