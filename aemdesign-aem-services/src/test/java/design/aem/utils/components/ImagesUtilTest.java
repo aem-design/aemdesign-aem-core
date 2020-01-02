@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
+import javax.jcr.Property;
 import javax.jcr.RepositoryException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -59,6 +60,9 @@ public class ImagesUtilTest {
 
     @Mock
     ValueMap valueMap;
+
+    @Mock
+    Property property;
 
     private static final String PATH = "/content/aem.design/en/home";
     @Mock
@@ -212,6 +216,30 @@ public class ImagesUtilTest {
         when(resolver.map("/content/url")).thenReturn("href");
         String actualHref = ImagesUtil.getResourceImageCustomHref(resource, "file");
         Assert.assertEquals("href", actualHref);
+    }
+
+    @Test
+    public void testGetResourceImageCustomHref_NullResource() {
+        String actualHref = ImagesUtil.getResourceImageCustomHref(null, "file");
+        Assert.assertEquals(0, actualHref.length());
+    }
+
+    @Test
+    public void testGetResourceImageCustomHref_BlankResourceName() {
+        String actualHref = ImagesUtil.getResourceImageCustomHref(resource, "");
+        Assert.assertEquals(0, actualHref.length());
+    }
+
+    @Test
+    public void testGetPageImgReferencePath() throws RepositoryException {
+        when(page.getContentResource()).thenReturn(resource);
+        when(resource.getChild("image")).thenReturn(resource);
+        when(resource.adaptTo(Node.class)).thenReturn(node);
+        when(node.hasProperty(IMAGE_FILEREFERENCE)).thenReturn(true);
+        when(node.getProperty(IMAGE_FILEREFERENCE)).thenReturn(property);
+        when(property.getString()).thenReturn("/content/aem.design/home/image");
+        String actualPath = ImagesUtil.getPageImgReferencePath(page);
+        Assert.assertEquals("/content/aem.design/home/image", actualPath);
     }
 
 }
