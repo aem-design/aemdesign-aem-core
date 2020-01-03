@@ -1,5 +1,7 @@
 package design.aem.utils.components;
 
+import com.adobe.xmp.XMPException;
+import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.Rendition;
 import com.day.cq.dam.commons.util.DamUtil;
 import com.day.cq.wcm.api.Page;
@@ -231,7 +233,7 @@ public class ImagesUtilTest {
     }
 
     @Test
-    public void testGetPageImgReferencePath() throws RepositoryException {
+    public void testGetPageImgReferencePath_Success() throws RepositoryException {
         when(page.getContentResource()).thenReturn(resource);
         when(resource.getChild("image")).thenReturn(resource);
         when(resource.adaptTo(Node.class)).thenReturn(node);
@@ -240,6 +242,45 @@ public class ImagesUtilTest {
         when(property.getString()).thenReturn("/content/aem.design/home/image");
         String actualPath = ImagesUtil.getPageImgReferencePath(page);
         Assert.assertEquals("/content/aem.design/home/image", actualPath);
+    }
+
+    @Test
+    public void testGetResourceImagePath_NullResource() throws RepositoryException {
+        String actualPath = ImagesUtil.getResourceImagePath(null, ImagesUtil.DEFAULT_IMAGE_NODE_NAME);
+        Assert.assertEquals(0, actualPath.length());
+    }
+
+    @Test
+    public void testGetAssetPropertyValueWithDefault_Success() {
+        when(damAsset.getMetadataValue("name")).thenReturn("value");
+        String actualValue = ImagesUtil.getAssetPropertyValueWithDefault(damAsset, "name", "defaultValue");
+        Assert.assertEquals("value", actualValue);
+    }
+
+    @Test
+    public void testGetAssetPropertyValueWithDefault_NullAsset() {
+        String actualValue = ImagesUtil.getAssetPropertyValueWithDefault(null, "name", "defaultValue");
+        Assert.assertEquals("defaultValue", actualValue);
+    }
+
+    @Test
+    public void testGetAssetPropertyValueWithDefault_NullValue() {
+        when(damAsset.getMetadataValue("name")).thenReturn(null);
+        String actualValue = ImagesUtil.getAssetPropertyValueWithDefault(damAsset, "name", "defaultValue");
+        Assert.assertEquals("defaultValue", actualValue);
+    }
+
+    @Test
+    public void testGetAssetCopyrightInfo_Success() throws XMPException {
+        when(damAsset.getMetadataValue(DamConstants.DC_CREATOR)).thenReturn("assetCreator");
+        when(damAsset.getMetadataValue(DamConstants.DC_CONTRIBUTOR)).thenReturn("assetContributor");
+        when(damAsset.getMetadataValue(DamConstants.DC_RIGHTS)).thenReturn("assetLicense");
+        when(damAsset.getMetadataValue(CommonUtil.DAM_FIELD_LICENSE_COPYRIGHT_OWNER)).thenReturn("assetCopyrightOwner");
+        when(damAsset.getMetadataValue(CommonUtil.DAM_FIELD_LICENSE_USAGETERMS)).thenReturn("terms");
+        when(damAsset.getMetadataValue(CommonUtil.DAM_FIELD_LICENSE_EXPIRY)).thenReturn(null);
+        when(MessageFormat.format("format", "assetCreator", "assetContributor", "assetLicense", "assetCopyrightOwner", "")).thenReturn("info");
+        String actualInfo = ImagesUtil.getAssetCopyrightInfo(damAsset, "format");
+        Assert.assertEquals("info", actualInfo);
     }
 
 }
