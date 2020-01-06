@@ -61,16 +61,22 @@ public class ImagesUtilTest {
     Rendition rendition;
 
     @Mock
+    com.adobe.granite.asset.api.Rendition graniteRendition;
+
+    @Mock
     ValueMap valueMap;
 
     @Mock
     Property property;
 
-    private static final String PATH = "/content/aem.design/en/home";
     @Mock
     Page page;
+
     @Mock
     Image image;
+
+    private static final String PATH = "/content/aem.design/en/home";
+
 
     @Before
     public void before() {
@@ -281,6 +287,27 @@ public class ImagesUtilTest {
         when(MessageFormat.format("format", "assetCreator", "assetContributor", "assetLicense", "assetCopyrightOwner", "")).thenReturn("info");
         String actualInfo = ImagesUtil.getAssetCopyrightInfo(damAsset, "format");
         Assert.assertEquals("info", actualInfo);
+    }
+
+    @Test
+    public void testGetDimension_Success_Original() throws RepositoryException {
+        when(graniteRendition.getName()).thenReturn("original");
+        when(graniteRendition.adaptTo(com.adobe.granite.asset.api.Asset.class)).thenReturn(graniteAsset);
+        when(graniteAsset.adaptTo(Node.class)).thenReturn(node);
+        when(node.hasNode("jcr:content/metadata")).thenReturn(false);
+        when(node.getNode("jcr:content/metadata")).thenReturn(node);
+        when(node.hasProperty("tiff:ImageLength")).thenReturn(true);
+        when(node.getProperty("tiff:ImageLength")).thenReturn(property);
+        when(property.getString()).thenReturn("1000");
+        int actualDimension = ImagesUtil.getDimension(graniteRendition, "tiff:ImageLength");
+        Assert.assertEquals(1000, actualDimension);
+    }
+
+    @Test
+    public void testGetWidth_Success_Rendition() throws RepositoryException {
+        when(graniteRendition.getName()).thenReturn("cq5dam.thumbnail.48.48.png");
+        int actualDimension = ImagesUtil.getWidth(graniteRendition);
+        Assert.assertEquals(48, actualDimension);
     }
 
 }
