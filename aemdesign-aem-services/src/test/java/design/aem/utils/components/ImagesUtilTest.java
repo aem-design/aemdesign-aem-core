@@ -25,6 +25,7 @@ import javax.jcr.Node;
 import javax.jcr.Property;
 import javax.jcr.RepositoryException;
 import java.text.MessageFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -310,4 +311,19 @@ public class ImagesUtilTest {
         Assert.assertEquals(48, actualDimension);
     }
 
+    @Test
+    public void testGetAssetDuration_Success_NumericDMScale(){
+        when(valueMap.get("xmpDM:scale", "")).thenReturn("31");
+        when(valueMap.get("xmpDM:value", "")).thenReturn("123");
+        Duration duration = ImagesUtil.getAssetDuration(valueMap);
+        Assert.assertEquals(123,duration.getSeconds());
+    }
+
+    @Test
+    public void testGetAssetDuration_Success_NonNumericDMScale(){
+        when(valueMap.get("xmpDM:scale", "")).thenReturn("1/44100");
+        when(valueMap.get("xmpDM:value", "")).thenReturn("123");
+        Duration duration = ImagesUtil.getAssetDuration(valueMap);
+        Assert.assertEquals(0,duration.getSeconds());
+    }
 }
