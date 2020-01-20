@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
+import java.lang.reflect.Field;
 import java.util.*;
 
 import static design.aem.utils.components.CommonUtil.*;
@@ -459,7 +460,28 @@ public class ComponentDetailsUtil {
         return componentProperties;
     }
 
-
+    /***
+     * detect of current component being executed by a list component.
+     * @param request request instance to check
+     * @return true if current component being executed by a list
+     */
+    public static boolean isComponentRenderedByList(SlingHttpServletRequest request) {
+        Object includeServlet = request.getAttribute("org.apache.sling.api.include.servlet");
+        if (isNotNull(includeServlet)) {
+            try {
+                Class<?> clazz = includeServlet.getClass();
+                Field field = clazz.getDeclaredField("scriptName"); //Note, this can throw an exception if the field doesn't exist.
+                field.setAccessible(true);
+                String scriptName = (String)field.get(includeServlet);
+                if (scriptName.contains("/components/lists/")) {
+                    return true;
+                }
+            } catch (Exception ex) {
+                return false;
+            }
+        }
+        return false;
+    }
 
     /***
      * get request fields passed by list and translate to.
