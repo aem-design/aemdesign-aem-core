@@ -13,7 +13,7 @@ public class PageList extends List {
     protected void ready() {
         I18n i18n = new I18n(getRequest());
 
-        detailsNameSuffix = new String[]{"page-details"};
+        detailsNameSuffix = new String[]{"page-details", "generic-details"};
 
         loadConfig();
 

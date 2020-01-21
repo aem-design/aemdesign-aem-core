@@ -25,7 +25,7 @@ public class LocationList extends List {
     protected void ready() {
         I18n i18n = new I18n(getRequest());
 
-        detailsNameSuffix = new String[]{"location-details"};
+        detailsNameSuffix = new String[]{"location-details", "generic-details"};
 
         loadConfig();
 

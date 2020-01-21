@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 import static design.aem.utils.components.CommonUtil.*;
+import static design.aem.utils.components.ComponentDetailsUtil.isComponentRenderedByList;
 import static design.aem.utils.components.ComponentDetailsUtil.processBadgeRequestConfig;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
@@ -328,17 +329,19 @@ public class GenericDetails extends ModelProxy {
             //get background image
             componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME, getBackgroundImageRenditions(this));
 
-            //update component properties overrides possibly from list component
-            ComponentProperties badgeOverrides = processBadgeRequestConfig(componentProperties, getResourceResolver(), getRequest());
-            //if override badgeCustom is set to false remove related fields from overrides
-            if (Boolean.FALSE.equals(badgeOverrides.get(DETAILS_BADGE_CUSTOM, false))) {
-                badgeOverrides.remove(DETAILS_BADGE_CUSTOM);
-                badgeOverrides.remove(DETAILS_BADGE_FIELDS);
-                badgeOverrides.remove(DETAILS_BADGE_FIELDS_TEMPLATE);
-                badgeOverrides.remove(DETAILS_BADGE_TEMPLATE);
+            if (isComponentRenderedByList(getRequest()) ) {
+                //update component properties overrides possibly from list component
+                ComponentProperties badgeOverrides = processBadgeRequestConfig(componentProperties, getResourceResolver(), getRequest());
+                //if override badgeCustom is set to false remove related fields from overrides
+                if (Boolean.FALSE.equals(badgeOverrides.get(DETAILS_BADGE_CUSTOM, false))) {
+                    badgeOverrides.remove(DETAILS_BADGE_CUSTOM);
+                    badgeOverrides.remove(DETAILS_BADGE_FIELDS);
+                    badgeOverrides.remove(DETAILS_BADGE_FIELDS_TEMPLATE);
+                    badgeOverrides.remove(DETAILS_BADGE_TEMPLATE);
+                }
+                //add updated overrides
+                componentProperties.putAll(badgeOverrides, true);
             }
-            //add updated overrides
-            componentProperties.putAll(badgeOverrides, true);
 
             //evaluate fields after badge overrides have been applied
             componentProperties.evaluateExpressionFields();
