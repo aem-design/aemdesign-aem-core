@@ -23,7 +23,6 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -60,12 +59,6 @@ public class ComponentsUtilTest {
     public void before() {
         initMocks(this);
         PowerMockito.mockStatic(IOUtils.class);
-    }
-
-    @Test
-    public void testClass() {
-        ComponentsUtil test = new ComponentsUtil();
-        assertNotNull(test);
     }
 
     @Test

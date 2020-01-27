@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static design.aem.utils.components.CommonUtil.PN_REDIRECT_TARGET;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -38,12 +37,6 @@ public class ComponentDetailsUtilTest {
     @Before
     public void before() {
         initMocks(this);
-    }
-
-    @Test
-    public void testClass() {
-        ComponentDetailsUtil test = new ComponentDetailsUtil();
-        assertNotNull(test);
     }
 
     @Test

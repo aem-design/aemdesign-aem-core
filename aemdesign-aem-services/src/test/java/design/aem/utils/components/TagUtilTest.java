@@ -21,7 +21,6 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -60,12 +59,6 @@ public class TagUtilTest {
     @Before
     public void before() {
         initMocks(this);
-    }
-
-    @Test
-    public void testClass() {
-        TagUtil test = new TagUtil();
-        assertNotNull(test);
     }
 
     @Test

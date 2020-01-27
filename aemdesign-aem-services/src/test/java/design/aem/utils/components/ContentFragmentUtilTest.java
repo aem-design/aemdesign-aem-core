@@ -15,7 +15,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.Iterator;
 import java.util.Map;
 
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -46,12 +45,6 @@ public class ContentFragmentUtilTest {
     @Before
     public void before() {
         initMocks(this);
-    }
-
-    @Test
-    public void testClass() {
-        ContentFragmentUtil test = new ContentFragmentUtil();
-        assertNotNull(test);
     }
 
     @Test

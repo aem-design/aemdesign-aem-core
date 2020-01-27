@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -53,12 +52,6 @@ public class SlingPostUtilTest {
     public void before() {
         initMocks(this);
         PowerMockito.mockStatic(JcrUtil.class);
-    }
-
-    @Test
-    public void testClass() {
-        SlingPostUtil test = new SlingPostUtil();
-        assertNotNull(test);
     }
 
     @Test
