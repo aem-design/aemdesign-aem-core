@@ -1,6 +1,5 @@
 package design.aem.models.v2.common;
 
-import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import design.aem.components.ComponentProperties;
@@ -30,9 +29,6 @@ import static org.mockito.MockitoAnnotations.initMocks;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ComponentsUtil.class})
 public class RedirectNotificationTest {
-
-    @Mock
-    I18n i18n;
 
     @Mock
     private Bindings bindings;
