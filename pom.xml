@@ -7,7 +7,7 @@
 
     <groupId>design.aem</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>2.0.596</version>
+    <version>2.0.609</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -65,6 +65,8 @@
         <gitClosestTagCommitCount>${git.closest.tag.commit.count}</gitClosestTagCommitCount>
         <bundleFileName>aemdesign-aem-services</bundleFileName>
         <bundleName>design.aem.aemdesign-aem-services</bundleName>
+        <adobe.acs.version>4.3.4</adobe.acs.version>
+        <core.wcm.components.version>2.8.0</core.wcm.components.version>
     </properties>
 
     <developers>
@@ -398,6 +400,15 @@
                 <artifactId>org.apache.sling.jcr.api</artifactId>
                 <version>2.1.0</version>
                 <scope>provided</scope>
+            </dependency>
+
+
+            <!-- Adobe Core Dependencies -->
+            <dependency>
+                <groupId>com.adobe.cq</groupId>
+                <artifactId>core.wcm.components.all</artifactId>
+                <type>zip</type>
+                <version>${core.wcm.components.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
