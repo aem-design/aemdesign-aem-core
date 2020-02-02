@@ -66,10 +66,9 @@ jobs:
       - name: setup gpg
         run: |
           source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/latest/download/setup-gpg.sh)
-      - name: docker - mvn clean (cache .m2 in ./build/.m2/repository in repo dir)
-        run: $DOCKER_COMMAND mvn clean -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -Dmaven.source.skip=true -B -Dmaven.repo.local=./build/.m2/repository
+
       - name: docker - mvn package
-        run: $DOCKER_COMMAND mvn package -DskipTests=true -Dgpg.skip -B -Dmaven.repo.local=./build/.m2/repository
+        run: $DOCKER_COMMAND mvn package -B -Dmaven.repo.local=./build/.m2/repository
 
       - name: docker - sonar qube on master
         if: github.ref == 'refs/heads/master'
@@ -83,20 +82,76 @@ jobs:
 
       - name: deploy to maven cental
         if: github.ref == 'refs/heads/master'
-        run: $DOCKER_COMMAND echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import && echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust && mvn clean deploy --settings default.xml -B -P release
+        run: $DOCKER_COMMAND echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import && echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust && mvn deploy --settings default.xml -B -P release
 
-      - uses: meeDamian/github-release@1.0
+      - name: create github release ${{ env.GITHUB_TAG }}
+        uses: meeDamian/github-release@1.0
         if: github.ref == 'refs/heads/master'
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ env.CURRENT_VERSION }}
-          name: ${{ env.CURRENT_VERSION }}
+          tag: ${{ env.GITHUB_TAG }}
+          name: ${{ env.GITHUB_TAG }}
           body: ${{ env.GIT_RELEASE_NOTES }}
+          gzip: false
           files: >
-            **/target/*.zip
+            aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-${{ env.GITHUB_TAG }}.zip
+            aemdesign-aem-services/target/aemdesign-aem-services-${{ env.GITHUB_TAG }}.jar
+            aemdesign-aem-author/target/aemdesign-aem-author-${{ env.GITHUB_TAG }}.zip
+            aemdesign-aem-common/target/aemdesign-aem-common-${{ env.GITHUB_TAG }}.zip
 
-      - name: trigger build of bundle docker container
-        if: github.ref == 'refs/heads/master'
-        run: |
-          docker run --rm aemdesign/travis-trigger-build sbb --github_user=${GITHUB_USER} --github_repo=aem --github_branch=6.5.0-bundle --travis_token=${TRAVIS_TOKEN}
-          docker run --rm aemdesign/travis-trigger-build sbb --github_user=${GITHUB_USER} --github_repo=aem --github_branch=6.4.0-bundle --travis_token=${TRAVIS_TOKEN}
+#      - name: create release with tag ${{ env.GITHUB_TAG }}
+#        id: create_release
+#        if: github.ref == 'refs/heads/master'
+#        uses: actions/create-release@v1.0.0
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          tag_name: ${{ env.GITHUB_TAG }}
+#          release_name: ${{ env.GITHUB_TAG }}
+#          body: ${{ env.GIT_RELEASE_NOTES }}
+#          draft: false
+#          prerelease: false
+#
+#      - name: upload release asset - aemdesign-aem-core-deploy-${{ env.GITHUB_TAG }}.zip
+#        if: github.ref == 'refs/heads/master'
+#        uses: actions/upload-release-asset@v1.0.1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.zip', 'core-deploy', env.GITHUB_TAG) }}
+#          asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'core-deploy', env.GITHUB_TAG) }}
+#          asset_content_type: application/zip
+#
+#      - name: upload release asset - aemdesign-aem-services-${{ env.GITHUB_TAG }}.zip
+#        if: github.ref == 'refs/heads/master'
+#        uses: actions/upload-release-asset@v1.0.1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.jar', 'services', env.GITHUB_TAG) }}
+#          asset_name: ${{ format('aemdesign-aem-{0}-{1}.jar', 'services', env.GITHUB_TAG) }}
+#          asset_content_type: application/zip
+#
+#      - name: upload release asset - aemdesign-aem-author-${{ env.GITHUB_TAG }}.zip
+#        if: github.ref == 'refs/heads/master'
+#        uses: actions/upload-release-asset@v1.0.1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.zip', 'author', env.GITHUB_TAG) }}
+#          asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'author', env.GITHUB_TAG) }}
+#          asset_content_type: application/zip
+#
+#      - name: upload release asset - aemdesign-aem-common-${{ env.GITHUB_TAG }}.zip
+#        if: github.ref == 'refs/heads/master'
+#        uses: actions/upload-release-asset@v1.0.1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.zip', 'common', env.GITHUB_TAG) }}
+#          asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'common', env.GITHUB_TAG) }}
+#          asset_content_type: application/zip
