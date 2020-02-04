@@ -1,125 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
-		  xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-		  xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-		  jcr:primaryType="nt:unstructured"
-		  jcr:title="Vue Widget"
-		  helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/widgets/vue/v2/vue"
-		  sling:resourceType="cq/gui/components/authoring/dialog"
-		  extraClientlibs="[aemdesign.components.author.vue]">
-	<content
-		jcr:primaryType="nt:unstructured"
-		sling:resourceType="granite/ui/components/foundation/container">
-		<layout
-			jcr:primaryType="nt:unstructured"
-			type="nav"
-			sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
-		<items jcr:primaryType="nt:unstructured">
-			<vueComponentTab
-				jcr:primaryType="nt:unstructured"
-				jcr:title="Component"
-				sling:resourceType="granite/ui/components/foundation/section">
-				<layout jcr:primaryType="nt:unstructured"
-						margin="{Boolean}false"
-						sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
-				<items jcr:primaryType="nt:unstructured">
-					<column
-						jcr:primaryType="nt:unstructured"
-						sling:resourceType="granite/ui/components/foundation/container">
-						<items jcr:primaryType="nt:unstructured">
-							<vueComponentName
-								jcr:primaryType="nt:unstructured"
-								sling:resourceType="granite/ui/components/coral/foundation/form/select"
-								fieldDescription="Which Vue component/widget would you like to use?"
-								fieldLabel="Vue Component"
-								name="./vueComponentName"
-								emptyOption="{Boolean}true"
-								required="{Boolean}true"
-								value="">
-								<datasource
-									jcr:primaryType="nt:unstructured"
-									sling:resourceType="aemdesign/components/coral/datasources/tags"
-									variant="valuelist"
-									path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/vue-widgets"/>
-							</vueComponentName>
-						</items>
-					</column>
-				</items>
-			</vueComponentTab>
+          xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Vue Widget"
+          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/widgets/vue/v2/vue"
+          sling:resourceType="cq/gui/components/authoring/dialog"
+          extraClientlibs="[aemdesign.components.author.vue]">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            type="nav"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+        <items jcr:primaryType="nt:unstructured">
+            <vueComponentTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Component"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <vueComponentName
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldDescription="Which Vue component/widget would you like to use?"
+                                fieldLabel="Vue Component"
+                                name="./vueComponentName"
+                                emptyOption="{Boolean}true"
+                                required="{Boolean}true"
+                                value="">
+                                <datasource
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                    variant="valuelist"
+                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/vue-widgets"/>
+                            </vueComponentName>
+                        </items>
+                    </column>
+                </items>
+            </vueComponentTab>
 
-			<configurationTab
-				jcr:primaryType="nt:unstructured"
-				jcr:title="Configuration"
-				sling:resourceType="granite/ui/components/foundation/section">
-				<layout jcr:primaryType="nt:unstructured"
-						margin="{Boolean}false"
-						sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
-				<items jcr:primaryType="nt:unstructured">
-					<column
-						granite:class="coral-RichText-FixedColumn-column"
-						jcr:primaryType="nt:unstructured"
-						sling:resourceType="granite/ui/components/foundation/container">
-						<items jcr:primaryType="nt:unstructured">
-							<configurationDynamic
-								jcr:primaryType="nt:unstructured"
-								sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-								<items jcr:primaryType="nt:unstructured">
-									<configurationIntroduction
-										jcr:primaryType="nt:unstructured"
-										sling:resourceType="granite/ui/components/coral/foundation/text"
-										text="The following configuration fields are dynamic for each Vue component, please review them carefully."/>
-									<configurationMarker
-										jcr:primaryType="nt:unstructured"
-										sling:resourceType="granite/ui/components/coral/foundation/form/hidden"
-										disabled="{Boolean}true"
-										name="./configurationMarker"
-										value="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}"/>
-								</items>
-							</configurationDynamic>
-						</items>
-					</column>
-				</items>
-			</configurationTab>
+            <configurationTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Configuration"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        granite:class="coral-RichText-FixedColumn-column"
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <configurationDynamic
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <configurationIntroduction
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                                        text="The following configuration fields are dynamic for each Vue component, please review them carefully."/>
+                                    <configurationMarker
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/hidden"
+                                        disabled="{Boolean}true"
+                                        name="./configurationMarker"
+                                        value="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}"/>
+                                </items>
+                            </configurationDynamic>
+                        </items>
+                    </column>
+                </items>
+            </configurationTab>
 
-			<analyticsTab
-				jcr:primaryType="nt:unstructured"
-				jcr:title="Analytics"
-				sling:resourceType="granite/ui/components/foundation/section">
-				<layout jcr:primaryType="nt:unstructured"
-						margin="{Boolean}false"
-						sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
-				<items jcr:primaryType="nt:unstructured">
-					<column
-						granite:class="coral-RichText-FixedColumn-column"
-						jcr:primaryType="nt:unstructured"
-						sling:resourceType="granite/ui/components/foundation/container">
-						<items jcr:primaryType="nt:unstructured">
-							<analytics
-								jcr:primaryType="nt:unstructured"
-								sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-								<items jcr:primaryType="nt:unstructured">
-									<analyticsName
-										jcr:primaryType="nt:unstructured"
-										sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-										fieldDescription="Name of the unique component instance"
-										fieldLabel="Name"
-										name="./analyticsName"
-										required="{Boolean}false"
-										value=""/>
-									<analyticsLocation
-										jcr:primaryType="nt:unstructured"
-										sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-										fieldDescription="Location of the unique component instance"
-										fieldLabel="Location"
-										name="./analyticsLocation"
-										required="{Boolean}false"
-										value=""/>
-								</items>
-							</analytics>
-						</items>
-					</column>
-				</items>
-			</analyticsTab>
-		</items>
-	</content>
+            <analyticsTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Analytics"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        granite:class="coral-RichText-FixedColumn-column"
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <analytics
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <analyticsName
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Name of the unique component instance"
+                                        fieldLabel="Name"
+                                        name="./analyticsName"
+                                        required="{Boolean}false"
+                                        value=""/>
+                                    <analyticsLocation
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Location of the unique component instance"
+                                        fieldLabel="Location"
+                                        name="./analyticsLocation"
+                                        required="{Boolean}false"
+                                        value=""/>
+                                </items>
+                            </analytics>
+                        </items>
+                    </column>
+                </items>
+            </analyticsTab>
+        </items>
+    </content>
 </jcr:root>
