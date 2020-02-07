@@ -12,7 +12,7 @@ public class ContactList extends List {
     protected void ready() {
         I18n i18n = new I18n(getRequest());
 
-        detailsNameSuffix = new String[]{"contact-details"};
+        detailsNameSuffix = new String[]{"contact-details", "generic-details"};
 
         loadConfig();
 

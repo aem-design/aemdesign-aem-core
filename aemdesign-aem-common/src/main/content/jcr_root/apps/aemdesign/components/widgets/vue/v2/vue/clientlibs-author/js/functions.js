@@ -37,7 +37,7 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
 
             if (typeof field === 'object') {
               fields[key] = {
-                config : JSON.parse(atob(field.value)),
+                config : JSON.parse(atob(field.value)).value,
                 title  : field['jcr:title'],
               }
             }
@@ -103,7 +103,7 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
    * @param {Element} dialogMarker Position in the dialog to add dynamic nodes
    */
   ns.processComponent = (componentName, componentPath, tagPath, dialogMarker) => {
-    ns.getFieldsConfigurationFromTag(`${tagPath}/component-dialog/vue-widgets/${componentName}.1.json`)
+    ns.getFieldsConfigurationFromTag(`${tagPath}/component-dialog/vue-widgets/${componentName}/fields.1.json`)
       .then((fields) => {
         const dynamicFields = ns.handleDynamicFieldsWrapper(dialogMarker);
 
@@ -124,19 +124,26 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
 
           // Add the form fields in their original order
           for (let i = 1; i <= Object.keys(formFields).length; i++) {
-            dynamicFields.appendChild(formFields[i]);
+            if (formFields[i]) {
+              dynamicFields.appendChild(formFields[i]);
+            }
           }
 
           // Tell Coral to load all the new form elements
           $(document).trigger('cui-contentloaded');
         });
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error("TEST");
         console.error('[Vue Component] Failed to retrieve the fields for:', componentName);
+        console.error(err);
+
         const dynamicFields = ns.handleDynamicFieldsWrapper(dialogMarker);
         const fieldlessPrompt = document.createElement('p');
+
         fieldlessPrompt.innerHTML = `<strong>The ${componentName} component has no configurable fields.</strong>`;
         dynamicFields.appendChild(fieldlessPrompt);
+
         waitingElement.hide();
       });
   };
@@ -185,97 +192,33 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
 
     switch (config.field) {
       case 'autocomplete':
-        fieldConstructor = () => {
-          const autocompleteElement = document.createElement('div');
-          const needsMultiple       = config.multiple === true;
-          const pickerSource        = encodeURIComponent(`${tagPath}/${config.source}`);
+        fieldConstructor = () => window.AEMDESIGN.components.authoring.vue.fields.autoComplete(
+          config,
+          fieldPath,
+          labelledBy,
+          savedValue,
+          tagPath
+        );
+        break;
 
-          autocompleteElement.innerHTML = `
-            <foundation-autocomplete
-              class="cq-ui-tagfield"
-              name="${fieldPath}"
-              pickersrc="/mnt/overlay/cq/gui/content/coral/common/form/tagfield/picker.html?root=${pickerSource}&selectionCount=${needsMultiple ? 'multiple' : 'single'}"
-              labelledby="${labelledBy}"
-              valuedisplaymode="block"
-              data-foundation-validation
-              required
-            >
-              <coral-overlay
-                foundation-autocomplete-suggestion
-                class="foundation-picker-buttonlist"
-                data-foundation-picker-buttonlist-src="/mnt/overlay/cq/gui/content/coral/common/form/tagfield/suggestion{.offset,limit}.html?root=${pickerSource}{&amp;query}"
-              ></coral-overlay>
-
-              <coral-taglist foundation-autocomplete-value name="${fieldPath}">
-                ${savedValue && ns.generateAutocompleteTags(savedValue)}
-              </coral-taglist>
-
-              <input class="foundation-field-related" type="hidden" name="${fieldPath}@TypeHint" value="String${needsMultiple ? '[]' : ''}">
-              <input class="foundation-field-related" type="hidden" name="${fieldPath}s@Delete">
-
-              <ui:includeClientLib categories="cq.ui.coral.common.tagfield" />
-            </foundation-autocomplete>
-          `;
-
-          const autocomplete = autocompleteElement.children[0];
-
-          autocomplete.invalid  = !savedValue || false;
-          autocomplete.multiple = needsMultiple;
-
-          return autocomplete;
-        };
+      case 'pathbrowser':
+        fieldConstructor = () => window.AEMDESIGN.components.authoring.vue.fields.pathBrowser(
+          config,
+          fieldPath,
+          labelledBy,
+          savedValue
+        );
         break;
 
       case 'fileUpload':
-        fieldConstructor = () => {
-          const fileUploadElement = document.createElement('div');
-          const hasSelectedImage  = savedValue && savedValue['fileReference'];
-
-          fileUploadElement.innerHTML = `
-            <coral-fileupload class="coral-Form-field cq-FileUpload cq-droptarget"
-              name="${fieldPath}"
-              async
-              data-foundation-validation
-              accept="image"
-              action="${componentPath}"
-              data-cq-fileupload-temporaryfilename="${fieldPath}.sftmp"
-              data-cq-fileupload-temporaryfiledelete="${fieldPath}.sftmp@Delete"
-              data-cq-fileupload-temporaryfilepath="${componentPath}/${fieldPathBase}.sftmp">
-              <div class="cq-FileUpload-thumbnail">
-                <div class="cq-FileUpload-thumbnail-img" data-cq-fileupload-thumbnail-img>
-                  ${hasSelectedImage ?
-                    `<img src="${savedValue['fileReference']}" alt="${savedValue['fileReference']}" title="${savedValue['fileReference']}">`
-                    : ''
-                  }
-                </div>
-                
-                <button type="button" class="cq-FileUpload-clear" is="coral-button" variant="quiet" coral-fileupload-clear>Clear</button>
-                
-                <div class="cq-FileUpload-thumbnail-dropHere">
-                  <coral-icon icon="image" class="cq-FileUpload-icon"></coral-icon>
-                  <span class="cq-FileUpload-label">Drop an asset here.</span>
-                </div>
-              </div>
-              
-              <input type="hidden" name="${fieldPath}/fileName" data-cq-fileupload-parameter="filename" value="${(hasSelectedImage && savedValue['fileName']) || ''}" disabled>
-              <input type="hidden" name="${fieldPath}/fileReference" data-cq-fileupload-parameter="filereference" value="${(hasSelectedImage && savedValue['fileReference']) || ''}" disabled>
-              <input type="hidden" name="${fieldPath}@Delete" data-cq-fileupload-parameter="filedelete" disabled>
-              <input type="hidden" name="${fieldPath}@MoveFrom" data-cq-fileupload-parameter="filemovefrom" value="${componentPath}/${fieldPathBase}.sftmp" disabled>
-              <input type="hidden" name="${fieldPath}/jcr:lastModified">
-              <input type="hidden" name="${fieldPath}/jcr:lastModifiedBy">
-            </coral-fileupload>
-          `;
-
-          if (hasSelectedImage) {
-            fileUploadElement.children[0].classList.add('is-filled')
-          }
-
-          //if (isRequired) {
-          //  fileUploadElement.children[0].setAttribute('required', 'required')
-          //}
-
-          return fileUploadElement;
-        };
+        fieldConstructor = () => window.AEMDESIGN.components.authoring.vue.fields.fileUpload(
+          config,
+          fieldPath,
+          fieldPathBase,
+          labelledBy,
+          savedValue,
+          componentPath
+        );
         break;
 
       case 'textfield':
@@ -304,56 +247,12 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
         break;
 
       case 'richtext':
-        fieldConstructor = () => {
-          const escapedValue = ns.escapeHtml(savedValue || '');
-
-          const richTextElement = `
-            <input
-              type="hidden"
-              data-cq-richtext-input="true"
-              class="coral-Form-field"
-              data-xtype="richtext"
-              data-useFixedInlineToolbar="true"
-              data-fieldLabel="${fieldLabel}"
-              data-fieldDescription=""
-              data-textPropertyName="${fieldPath}"
-              data-hideLabel="false"
-              name="${fieldPath}"
-              required="required"
-              value="${escapedValue}">
-
-            <input type="hidden" name="./textIsRich" value="true">
-            <input class="u-coral-screenReaderOnly" type="text" value="${escapedValue}" required>
-
-            <div
-              data-cq-richtext-editable="true"
-              class="cq-RichText-editable coral-RichText-editable coral-RichText coral-DecoratedTextfield-input"
-              data-config-path="/apps/aemdesign/global/dialog/touch/description/content/items/descriptionTab/items/column/items/description.infinity.json"
-              data-use-fixed-inline-toolbar="true"
-              data-custom-start="null"
-              data-editor-type="text"
-              data-external-style-sheets=""
-              class="coral-Form-field"
-              data-xtype="richtext"
-              data-useFixedInlineToolbar="true"
-              data-fieldLabel="${fieldLabel}"
-              data-fieldDescription=""
-              data-textPropertyName="${fieldPath}"
-              data-hideLabel="false"
-              name="${fieldPath}"
-              value="${escapedValue}"></div>
-          `;
-
-          const richText = document.createElement('div');
-          richText.setAttribute('class', 'cq-RichText richtext-container coral-DecoratedTextfield');
-
-          richText.innerHTML = richTextElement;
-
-          // Bind a change listener to the hidden input field
-          ns.bindRichTextValidation(richText);
-
-          return richText;
-        };
+        fieldConstructor = () => window.AEMDESIGN.components.authoring.vue.fields.richText(
+          config,
+          fieldPath,
+          fieldLabel,
+          savedValue
+        );
         break;
 
       case 'select':
@@ -385,15 +284,12 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
         break;
 
       case 'checkbox':
-        fieldConstructor = () => {
-          return new Coral.Checkbox().set({
-            invalid     : (!savedValue && isRequired) || false,
-            labelledBy  : labelledBy,
-            name        : fieldPath,
-            required    : isRequired,
-            value       : savedValue || '',
-          });
-        };
+        fieldConstructor = () => window.AEMDESIGN.components.authoring.vue.fields.checkbox(
+          config,
+          fieldPath,
+          isRequired,
+          savedValue
+        );
         break;
 
       default:
@@ -409,20 +305,6 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
       config.order || false,
       labelledBy
     );
-  };
-
-  /**
-   * Generates any autocompletion tags needed for the picker component.
-   *
-   * @param {Array|String} values Saved JCR values or a single value
-   * @return {String}
-   */
-  ns.generateAutocompleteTags = (values) => {
-    values = values instanceof Array ? values : [values];
-
-    return values.map((value) => (
-      `<coral-tag value="${value}">${value}</coral-tag>`
-    )).join('');
   };
 
   /**
@@ -465,7 +347,24 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
       formFields[fieldsTotal] = formFields[order];
     }
 
-    formFields[order ? order : fieldsTotal] = wrapperElement;
+    // When no order is defined, attempt to find a slot between our existing fields
+    if (!order) {
+      let slotFound = false;
+
+      for (let i = 0; i <= fieldsTotal; i++) {
+        if (!formFields[i]) {
+          formFields[i] = wrapperElement;
+          slotFound = true;
+        }
+      }
+
+      // If no slots are found, drop it on the end
+      if (!slotFound) {
+        formFields[fieldsTotal] = formFields[order];
+      }
+    } else {
+      formFields[order] = wrapperElement;
+    }
   };
 
   /**
@@ -505,23 +404,6 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
 
     bindTo.icon    = tooltipIcon;
     bindTo.tooltip = tooltipElement;
-  };
-
-  /**
-   * Binds custom validation logic to the RichText form component.
-   *
-   * @param {Element} richText Parent element
-   */
-  ns.bindRichTextValidation = (richText) => {
-    const hiddenText      = richText.querySelector('input[type="hidden"]');
-    const invisibleText   = richText.querySelector('input[type="text"]');
-    const richTextElement = richText.querySelector('.coral-RichText');
-
-    richTextElement.addEventListener('keyup', () => {
-      invisibleText.value = hiddenText.value;
-
-      $(invisibleText).checkValidity();
-    });
   };
 
   //

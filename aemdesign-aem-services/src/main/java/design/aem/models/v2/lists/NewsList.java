@@ -13,7 +13,7 @@ public class NewsList extends List {
     protected void ready() {
         I18n i18n = new I18n(getRequest());
 
-        detailsNameSuffix = new String[]{"news-details"};
+        detailsNameSuffix = new String[]{"news-details", "generic-details"};
 
         loadConfig();
 

@@ -13,7 +13,7 @@ public class EventList extends List  {
     protected void ready() {
         I18n i18n = new I18n(getRequest());
 
-        detailsNameSuffix = new String[]{"event-details"};
+        detailsNameSuffix = new String[]{"event-details", "generic-details"};
 
         loadConfig();
 
