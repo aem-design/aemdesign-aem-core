@@ -21,7 +21,7 @@
     <packaging>jar</packaging>
     <name>AEM Design - Core - AEM Services</name>
     <description>Project for all AEM and OSGI Services</description>
-    <url>${parent.url}</url>
+    <url>http://aem.design</url>
 
     <properties>
         <jacoco.data.file>${project.build.directory}/jacoco.exec</jacoco.data.file>

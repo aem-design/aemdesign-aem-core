@@ -21,7 +21,7 @@
     <packaging>content-package</packaging>
     <name>AEM Design - Core - AEM Common</name>
     <description>AEM Design package with all common components</description>
-    <url>${parent.url}</url>
+    <url>http://aem.design</url>
 
     <developers>
         <developer>

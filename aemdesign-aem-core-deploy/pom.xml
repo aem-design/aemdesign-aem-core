@@ -21,7 +21,7 @@
     <name>AEM Design - Core - Deployment Package</name>
     <description>AEM package for deploying all packages as one</description>
     <version>2.0.643</version>
-	<url>${parent.url}</url>
+    <url>http://aem.design</url>
 
     <developers>
         <developer>
