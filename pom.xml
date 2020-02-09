@@ -7,7 +7,7 @@
 
     <groupId>design.aem</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>2.0.641</version>
+    <version>2.0.643</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -402,14 +402,6 @@
                 <scope>provided</scope>
             </dependency>
 
-
-            <!-- Adobe Core Dependencies -->
-            <dependency>
-                <groupId>com.adobe.cq</groupId>
-                <artifactId>core.wcm.components.all</artifactId>
-                <type>zip</type>
-                <version>${core.wcm.components.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
