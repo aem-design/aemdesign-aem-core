@@ -8,7 +8,7 @@
     <parent>
         <groupId>design.aem</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>2.0.609</version>
+        <version>2.0.643</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,11 +17,11 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-common</artifactId>
-    <version>2.0.609</version>
+    <version>2.0.643</version>
     <packaging>content-package</packaging>
     <name>AEM Design - Core - AEM Common</name>
     <description>AEM Design package with all common components</description>
-	<url>${parent.url}</url>
+    <url>${parent.url}</url>
 
     <developers>
         <developer>
@@ -248,12 +248,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Adobe Core Dependencies -->
-        <dependency>
-            <groupId>com.adobe.cq</groupId>
-            <artifactId>core.wcm.components.all</artifactId>
-            <type>zip</type>
-        </dependency>
 
     </dependencies>
 
@@ -362,14 +356,6 @@
                         </embedded>
                     </embeddeds>
 
-                    <subPackages>
-                        <subPackage>
-                            <groupId>com.adobe.cq</groupId>
-                            <artifactId>core.wcm.components.all</artifactId>
-                            <filter>true</filter>
-                        </subPackage>
-                    </subPackages>
-                    <dependencies></dependencies>
                 </configuration>
             </plugin>
 

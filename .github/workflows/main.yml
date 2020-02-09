@@ -84,74 +84,59 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: $DOCKER_COMMAND echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import && echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust && mvn deploy --settings default.xml -B -P release
 
-      - name: create github release ${{ env.GITHUB_TAG }}
-        uses: meeDamian/github-release@1.0
+      - name: create release ${{ env.GITHUB_TAG }}
         if: github.ref == 'refs/heads/master'
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ env.GITHUB_TAG }}
-          name: ${{ env.GITHUB_TAG }}
+          tag_name: ${{ env.GITHUB_TAG }}
+          release_name: ${{ env.GITHUB_TAG }}
           body: ${{ env.GIT_RELEASE_NOTES }}
-          gzip: false
-          files: >
-            aemdesign-aem-core-deploy/target/aemdesign-aem-core-deploy-${{ env.GITHUB_TAG }}.zip
-            aemdesign-aem-services/target/aemdesign-aem-services-${{ env.GITHUB_TAG }}.jar
-            aemdesign-aem-author/target/aemdesign-aem-author-${{ env.GITHUB_TAG }}.zip
-            aemdesign-aem-common/target/aemdesign-aem-common-${{ env.GITHUB_TAG }}.zip
+          draft: false
+          prerelease: false
 
-#      - name: create release with tag ${{ env.GITHUB_TAG }}
-#        id: create_release
-#        if: github.ref == 'refs/heads/master'
-#        uses: actions/create-release@v1.0.0
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          tag_name: ${{ env.GITHUB_TAG }}
-#          release_name: ${{ env.GITHUB_TAG }}
-#          body: ${{ env.GIT_RELEASE_NOTES }}
-#          draft: false
-#          prerelease: false
-#
-#      - name: upload release asset - aemdesign-aem-core-deploy-${{ env.GITHUB_TAG }}.zip
-#        if: github.ref == 'refs/heads/master'
-#        uses: actions/upload-release-asset@v1.0.1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          upload_url: ${{ steps.create_release.outputs.upload_url }}
-#          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.zip', 'core-deploy', env.GITHUB_TAG) }}
-#          asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'core-deploy', env.GITHUB_TAG) }}
-#          asset_content_type: application/zip
-#
-#      - name: upload release asset - aemdesign-aem-services-${{ env.GITHUB_TAG }}.zip
-#        if: github.ref == 'refs/heads/master'
-#        uses: actions/upload-release-asset@v1.0.1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          upload_url: ${{ steps.create_release.outputs.upload_url }}
-#          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.jar', 'services', env.GITHUB_TAG) }}
-#          asset_name: ${{ format('aemdesign-aem-{0}-{1}.jar', 'services', env.GITHUB_TAG) }}
-#          asset_content_type: application/zip
-#
-#      - name: upload release asset - aemdesign-aem-author-${{ env.GITHUB_TAG }}.zip
-#        if: github.ref == 'refs/heads/master'
-#        uses: actions/upload-release-asset@v1.0.1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          upload_url: ${{ steps.create_release.outputs.upload_url }}
-#          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.zip', 'author', env.GITHUB_TAG) }}
-#          asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'author', env.GITHUB_TAG) }}
-#          asset_content_type: application/zip
-#
-#      - name: upload release asset - aemdesign-aem-common-${{ env.GITHUB_TAG }}.zip
-#        if: github.ref == 'refs/heads/master'
-#        uses: actions/upload-release-asset@v1.0.1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          upload_url: ${{ steps.create_release.outputs.upload_url }}
-#          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.zip', 'common', env.GITHUB_TAG) }}
-#          asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'common', env.GITHUB_TAG) }}
-#          asset_content_type: application/zip
+      - name: upload release asset - aemdesign-aem-core-deploy-${{ env.GITHUB_TAG }}.zip
+        if: github.ref == 'refs/heads/master'
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.zip', 'core-deploy', env.GITHUB_TAG) }}
+          asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'core-deploy', env.GITHUB_TAG) }}
+          asset_content_type: application/zip
+
+      - name: upload release asset - aemdesign-aem-services-${{ env.GITHUB_TAG }}.zip
+        if: github.ref == 'refs/heads/master'
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.jar', 'services', env.GITHUB_TAG) }}
+          asset_name: ${{ format('aemdesign-aem-{0}-{1}.jar', 'services', env.GITHUB_TAG) }}
+          asset_content_type: application/java-archive
+
+      - name: upload release asset - aemdesign-aem-author-${{ env.GITHUB_TAG }}.zip
+        if: github.ref == 'refs/heads/master'
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.zip', 'author', env.GITHUB_TAG) }}
+          asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'author', env.GITHUB_TAG) }}
+          asset_content_type: application/zip
+
+      - name: upload release asset - aemdesign-aem-common-${{ env.GITHUB_TAG }}.zip
+        if: github.ref == 'refs/heads/master'
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ format('./aemdesign-aem-{0}/target/aemdesign-aem-{0}-{1}.zip', 'common', env.GITHUB_TAG) }}
+          asset_name: ${{ format('aemdesign-aem-{0}-{1}.zip', 'common', env.GITHUB_TAG) }}
+          asset_content_type: application/zip
