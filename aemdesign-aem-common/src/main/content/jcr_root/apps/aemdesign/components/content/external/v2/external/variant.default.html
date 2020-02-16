@@ -1,4 +1,5 @@
 <template data-sly-template.variant="${@ componentProperties}">
     <iframe style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-            data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"></iframe>
+            data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+            src="${componentProperties.target @ context = 'unsafe'}"></iframe>
 </template>
