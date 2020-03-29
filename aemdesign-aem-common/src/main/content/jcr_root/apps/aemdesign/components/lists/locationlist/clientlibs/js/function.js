@@ -56,45 +56,45 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
     };
 
 
-    ns.loadGoogleMap = function ($element) {
+    ns.loadGoogleMaps = function ($element) {
         log.enableLog();
 
         //_self.grid = gridContainer;
-        var googleApiKey = $($element).data("map-apikey");
+        var googleMapsApiKey = $($element).data("maps-apikey");
         var componentId = $($element).attr("id");
         var callBackName = componentId+"_callback";
 
         //create a call back function for current element
-        window[callBackName] = new Function("window.AEMDESIGN.components.locationlist.googleMapCallback(\""+componentId+"\")");
+        window[callBackName] = new Function("window.AEMDESIGN.components.locationlist.googleMapsCallback(\""+componentId+"\")");
 
         ns.topicQueue = $($element).data("topicqueue");
 
         if (ns.topicQueue != "") {
             //monitor initla filter selection before maps have loaded
             ns.topicMapModelNS();
-            log.info(["loadGoogleMap","loading topic",googleApiKey]);
+            log.info(["loadGoogleMaps","loading topic",googleMapsApiKey]);
         }
 
-        log.info(["loadGoogleMap","started",googleApiKey,componentId]);
+        log.info(["loadGoogleMaps","started",googleMapsApiKey,componentId]);
 
 
-        if(ns.googleMapLoaded == undefined || ns.googleMapLoaded == false) {
+        if(ns.googleMapsLoaded == undefined || ns.googleMapsLoaded == false) {
 
-            log.info(["loadGoogleMap","loading",googleApiKey]);
+            log.info(["loadGoogleMaps","loading",googleMapsApiKey]);
 
-            if (googleApiKey){
-                googleApiKey = "&key=" + googleApiKey;
+            if (googleMapsApiKey){
+              googleMapsApiKey = "&key=" + googleMapsApiKey;
             }else{
-                googleApiKey = "";
+              googleMapsApiKey = "";
             }
 
             var script_tag = document.createElement('script');
             script_tag.setAttribute("type", "text/javascript");
-            script_tag.setAttribute("src", "//maps.googleapis.com/maps/api/js?callback=window."+callBackName+googleApiKey);
+            script_tag.setAttribute("src", "//maps.googleapis.com/maps/api/js?callback=window."+callBackName+googleMapsApiKey);
             script_tag.setAttribute("async", "false");
             (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script_tag);
-            ns.googleMapLoaded = true;
-            log.info("Loaded Google Map API with key = " +googleApiKey);
+            ns.googleMapsLoaded = true;
+            log.info("Loaded Google Maps API with key = " +googleMapsApiKey);
         }
     };
 
@@ -444,11 +444,11 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
         return map;
     };
 
-    ns.googleMapCallback = function (componentId) {
+    ns.googleMapsCallback = function (componentId) {
 
-        log.info(["googleMapCallback start !!!",componentId,$(this).attr("id"),ns.currentFilter()]);
+        log.info(["googleMapsCallback start !!!",componentId,$(this).attr("id"),ns.currentFilter()]);
         $("#"+componentId).each(function () {
-            log.info(["googleMapCallback start !!!",$(this),$(this).get(0)]);
+            log.info(["googleMapsCallback start !!!",$(this),$(this).get(0)]);
 
             //
             var map = ns.initMap($(this).get(0));
@@ -487,7 +487,7 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
             this.setAttribute("data-map-index",mapIndex-1);
 
         });
-        log.info("googleMapCallback end !!! ");
+        log.info("googleMapsCallback end !!! ");
     };
 
 

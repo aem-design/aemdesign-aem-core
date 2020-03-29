@@ -125,7 +125,7 @@ public class ConstantsUtil {
 
     public static final String DATA_ATTRIBUTE_PREFIX = "data-";
 
-    public static final String DEFAULT_CLOUDCONFIG_GOOGLEMAP = "googlemap";
-    public static final String DEFAULT_CLOUDCONFIG_GOOGLEMAP_API_KEY = "googleApiKey";
+    public static final String DEFAULT_CLOUDCONFIG_GOOGLEMAPS = "googlemaps";
+    public static final String DEFAULT_CLOUDCONFIG_GOOGLEMAPS_API_KEY = "googleMapsApiKey";
 
 }

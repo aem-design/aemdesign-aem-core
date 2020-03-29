@@ -14,7 +14,7 @@ window.AEMDESIGN.components.locationlist = AEMDESIGN.components.locationlist || 
 
             //var mapKey = $("[data-modules='map']").data("mapapikey");
 
-            ns.loadGoogleMap(this);
+            ns.loadGoogleMaps(this);
 
             log.info("Finished to process Google Map");
 

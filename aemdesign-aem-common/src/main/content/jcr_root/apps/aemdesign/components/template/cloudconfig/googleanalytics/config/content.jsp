@@ -10,12 +10,12 @@
 
 <%
     final I18n i18n = new I18n(request);
-    String thumbnailPath = "/apps/aemdesign/templates/cloudconfig/googleanalytics/thumbnail.png";
+    String ccThumbnailPath = "/apps/aemdesign/templates/cloudconfig/googleanalytics/thumbnail.png";
 
 %>
 <div class="content">
     <h3><%= i18n.get("Google Analytics Account Settings") %></h3>
-    <img src="<%= xssAPI.getValidHref(thumbnailPath) %>" alt="<%= xssAPI.encodeForHTMLAttr(serviceName) %>" style="float: left;" />
+    <img src="<%= xssAPI.getValidHref(ccThumbnailPath) %>" alt="<%= xssAPI.encodeForHTMLAttr(serviceName) %>" style="float: left;" />
     <div class="content">
         <ul style="float: left; margin: 0px;">
             <li><div class="li-bullet">

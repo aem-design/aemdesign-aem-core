@@ -1,8 +1,8 @@
 window.AEMDESIGN = window.AEMDESIGN || {};
-window.AEMDESIGN.components = AEMDESIGN.components || {};
-window.AEMDESIGN.components.authoring = AEMDESIGN.components.authoring || {};
-window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue || {};
-window.AEMDESIGN.components.authoring.vue.fields = AEMDESIGN.components.authoring.vue.fields || {};
+window.AEMDESIGN.components = window.AEMDESIGN.components || {};
+window.AEMDESIGN.components.authoring = window.AEMDESIGN.components.authoring || {};
+window.AEMDESIGN.components.authoring.vue = window.AEMDESIGN.components.authoring.vue || {};
+window.AEMDESIGN.components.authoring.vue.fields = window.AEMDESIGN.components.authoring.vue.fields || {};
 
 ((ns, undefined) => { // NOSONAR convention for wrapping all modules
 
@@ -22,20 +22,20 @@ window.AEMDESIGN.components.authoring.vue.fields = AEMDESIGN.components.authorin
         data-cq-fileupload-temporaryfilepath="${componentPath}/${fieldPathBase}.sftmp">
         <div class="cq-FileUpload-thumbnail">
           <div class="cq-FileUpload-thumbnail-img" data-cq-fileupload-thumbnail-img>
-            ${hasSelectedImage ? 
+            ${hasSelectedImage ?
               `<img src="${savedValue['fileReference']}" alt="${savedValue['fileReference']}" title="${savedValue['fileReference']}">`
               : ''
             }
           </div>
-          
+
           <button type="button" class="cq-FileUpload-clear" is="coral-button" variant="quiet" coral-fileupload-clear>Clear</button>
-          
+
           <div class="cq-FileUpload-thumbnail-dropHere">
             <coral-icon icon="image" class="cq-FileUpload-icon"></coral-icon>
             <span class="cq-FileUpload-label">Drop an asset here.</span>
           </div>
         </div>
-        
+
         <input type="hidden" name="${fieldPath}/fileName" data-cq-fileupload-parameter="filename" value="${(hasSelectedImage && savedValue['fileName']) || ''}" disabled>
         <input type="hidden" name="${fieldPath}/fileReference" data-cq-fileupload-parameter="filereference" value="${(hasSelectedImage && savedValue['fileReference']) || ''}" disabled>
         <input type="hidden" name="${fieldPath}@Delete" data-cq-fileupload-parameter="filedelete" disabled>

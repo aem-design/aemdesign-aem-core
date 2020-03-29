@@ -8,8 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAP;
-import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAP_API_KEY;
+import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAPS;
+import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAPS_API_KEY;
 import static design.aem.utils.components.I18nUtil.*;
 import static design.aem.utils.components.ImagesUtil.getMetadataStringForKey;
 import static design.aem.utils.components.ImagesUtil.getResourceImagePath;
@@ -62,10 +62,10 @@ public class LocationList extends List {
 
             componentProperties.attr.add("wcmmode", getWcmMode().toString().toLowerCase());
 
-            String googleApiKey = getCloudConfigProperty((InheritanceValueMap)getPageProperties(),DEFAULT_CLOUDCONFIG_GOOGLEMAP,DEFAULT_CLOUDCONFIG_GOOGLEMAP_API_KEY,getSlingScriptHelper());
+            String googleMapsApiKey = getCloudConfigProperty((InheritanceValueMap)getPageProperties(), DEFAULT_CLOUDCONFIG_GOOGLEMAPS, DEFAULT_CLOUDCONFIG_GOOGLEMAPS_API_KEY,getSlingScriptHelper());
 
 
-            componentProperties.attr.add("data-map-apikey", googleApiKey);
+            componentProperties.attr.add("data-maps-apikey", googleMapsApiKey);
 
             componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
         }

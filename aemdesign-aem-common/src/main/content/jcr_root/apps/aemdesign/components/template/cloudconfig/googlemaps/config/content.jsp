@@ -9,17 +9,17 @@
 
 <%
     final I18n i18n = new I18n(request);
-    String thumbnailPath = "/apps/aemdesign/templates/cloudconfig/googlemap/thumbnail.png";
+    String ccThumbnailPath = "/apps/aemdesign/templates/cloudconfig/googlemaps/thumbnail.png";
 
 %>
 <div class="content">
-    <h3><%= i18n.get("Google Map API Settings") %></h3>
-    <img src="<%= xssAPI.getValidHref(thumbnailPath) %>" alt="<%= xssAPI.encodeForHTMLAttr(serviceName) %>" style="float: left;" />
+    <h3><%= i18n.get("Google Maps API Settings") %></h3>
+    <img src="<%= xssAPI.getValidHref(ccThumbnailPath) %>" alt="<%= xssAPI.encodeForHTMLAttr(serviceName) %>" style="float: left;" />
     <div class="content">
         <ul style="float: left; margin: 0px;">
             <li><div class="li-bullet">
                 <strong><%= i18n.get("Command Method") %>: </strong><%= xssAPI.encodeForHTML(properties.get("commandMethod", "")) %></div></li>
-            <li><div class="li-bullet"><strong><%= i18n.get("Google MAP API Key") %>: </strong><%= xssAPI.encodeForHTML(properties.get("googleApiKey", "")) %></div></li>
+            <li><div class="li-bullet"><strong><%= i18n.get("Google Maps API Key") %>: </strong><%= xssAPI.encodeForHTML(properties.get("googleMapsApiKey", "")) %></div></li>
 
         </ul>
     </div>

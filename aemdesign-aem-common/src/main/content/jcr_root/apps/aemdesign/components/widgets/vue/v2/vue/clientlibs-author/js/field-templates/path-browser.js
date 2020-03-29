@@ -1,8 +1,8 @@
 window.AEMDESIGN = window.AEMDESIGN || {};
-window.AEMDESIGN.components = AEMDESIGN.components || {};
-window.AEMDESIGN.components.authoring = AEMDESIGN.components.authoring || {};
-window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue || {};
-window.AEMDESIGN.components.authoring.vue.fields = AEMDESIGN.components.authoring.vue.fields || {};
+window.AEMDESIGN.components = window.AEMDESIGN.components || {};
+window.AEMDESIGN.components.authoring = window.AEMDESIGN.components.authoring || {};
+window.AEMDESIGN.components.authoring.vue = window.AEMDESIGN.components.authoring.vue || {};
+window.AEMDESIGN.components.authoring.vue.fields = window.AEMDESIGN.components.authoring.vue.fields || {};
 
 ((ns, undefined) => { // NOSONAR convention for wrapping all modules
 
