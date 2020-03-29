@@ -1,4 +1,0 @@
-#base=js
-
-functions.js
-behaviour.js

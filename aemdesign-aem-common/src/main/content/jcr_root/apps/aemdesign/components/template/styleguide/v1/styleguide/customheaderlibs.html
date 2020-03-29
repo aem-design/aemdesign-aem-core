@@ -1,22 +1,10 @@
-<!-- custom header libs start -->
-
 <meta http-equiv="x-ua-compatible" content="IE=Edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-<!-- all: aemdesign.common.head.dependencies.publish.all start -->
 <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-test="${wcmmode.preview || wcmmode.edit}"
      data-sly-call="${clientlib.all @ categories=['aemdesign.common.head.dependencies.publish']}"/>
-<!-- all: aemdesign.common.head.dependencies.publish end -->
 
-<!-- css: aemdesign.common.coralui.css start -->
 <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
      data-sly-test="${wcmmode.preview || wcmmode.edit}"
      data-sly-call="${clientlib.css @ categories='aemdesign.common.coralui'}"/>
-<!-- css: aemdesign.common.coralui.css end-->
-
-<!-- aemdesign/components/analytics/datalayer start -->
-<sly data-sly-resource="${ @ resourceType='aemdesign/components/analytics/datalayer'}"/>
-<!-- aemdesign/components/analytics/datalayer end -->
-
-<!-- custom header libs end -->
-

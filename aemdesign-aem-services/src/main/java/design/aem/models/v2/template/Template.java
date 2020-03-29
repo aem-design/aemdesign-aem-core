@@ -10,18 +10,16 @@ import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Template extends ModelProxy {
-
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
     protected void ready() {
-
         componentProperties = ComponentsUtil.getNewComponentProperties(this);
 
-        String[] listLookForDetailComponent = DEFAULT_LIST_DETAILS_SUFFIX;
-        String detailsPath = findComponentInPage(getCurrentPage(),listLookForDetailComponent);
+        String detailsPath = findComponentInPage(getCurrentPage(), DEFAULT_LIST_DETAILS_SUFFIX);
 
         if (isNotEmpty(detailsPath)) {
             String componentPath = detailsPath + ".badge.metadata";

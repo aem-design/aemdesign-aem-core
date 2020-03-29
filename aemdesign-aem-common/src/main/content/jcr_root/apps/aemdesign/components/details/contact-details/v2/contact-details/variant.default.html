@@ -13,7 +13,7 @@
                        data-sly-element="${componentProperties.titleType}"
                        data-sly-attribute.id="${componentProperties.ariaLabelledBy}">${componentProperties.titleFormatted @ context = 'unsafe'}</title>
                 <div class="description"
-                     data-sly-test="${!componentProperties.hideDescription}">${componentProperties.descriptionFormatted @ context = 'unsafe'}</div>
+                     data-sly-test="${!componentProperties.hideDescription && componentProperties.description}">${componentProperties.descriptionFormatted @ context = 'unsafe'}</div>
                 <div class="tags" itemprop="keywords"
                      data-sly-test="${componentProperties.category}"
                      data-sly-list.tag="${componentProperties.category}">

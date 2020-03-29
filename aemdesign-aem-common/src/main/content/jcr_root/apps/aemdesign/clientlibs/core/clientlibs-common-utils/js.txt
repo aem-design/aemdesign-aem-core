@@ -9,7 +9,6 @@
 ../utils/utils.js
 ../utils/sling.js
 ../utils/services.js
-../utils/analytics.js
 ../utils/components.js
 ../utils/content.js
 ../utils/commerce.js

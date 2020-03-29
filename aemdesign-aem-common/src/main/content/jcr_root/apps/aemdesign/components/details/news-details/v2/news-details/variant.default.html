@@ -22,7 +22,7 @@
                      data-sly-call="${toolbar.variant @ componentProperties=componentProperties}"></sly>
             </div>
             <div class="description"
-                 data-sly-test="${!componentProperties.hideDescription}">${componentProperties.description @ context = 'unsafe'}</div>
+                 data-sly-test="${!componentProperties.hideDescription && componentProperties.description}">${componentProperties.description @ context = 'unsafe'}</div>
             <sly data-sly-use.footer="./news-details.footer.html"
                  data-sly-call="${footer.variant @ componentProperties=componentProperties}"></sly>
         </div>
