@@ -1,6 +1,7 @@
 package design.aem.models.v2.lists;
 
 import com.day.cq.i18n.I18n;
+import com.day.cq.replication.ReplicationStatus;
 import com.day.cq.search.*;
 import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.ResultPage;
@@ -527,10 +528,21 @@ public class List extends ModelProxy {
      * @param page page to check
      * @param includeInvalid include if page is invalid
      * @param includeHidden include in page is hidden
-     * @return boolean if page should be included in the list
+     * @return boolean if page should be included in the list, excludes hidden, invalid, deleted and deactivated pages.
      */
     static boolean includePageInList(Page page, boolean includeInvalid, boolean includeHidden) {
-        return (includeHidden || !page.isHideInNav()) && (includeInvalid || page.isValid()) && page.getDeleted() == null;
+        boolean pageIsDeactivated = false;
+        if (page != null && page.hasContent()) {
+            Resource pageContent = page.getContentResource();
+            if (pageContent != null) {
+                ReplicationStatus replicationStatus = pageContent.adaptTo(ReplicationStatus.class);
+                if (replicationStatus != null) {
+                    pageIsDeactivated = replicationStatus.isDeactivated();
+                }
+            }
+        }
+
+        return (includeHidden || !page.isHideInNav()) && (includeInvalid || page.isValid()) && !pageIsDeactivated && page.getDeleted() == null;
     }
 
     /**

@@ -21,7 +21,7 @@
     <packaging>content-package</packaging>
     <name>AEM Design - Core - AEM Author UI Updates</name>
     <description>Updates to OOTB AEM</description>
-	<url>${parent.url}</url>
+    <url>http://aem.design</url>
 
     <developers>
         <developer>
