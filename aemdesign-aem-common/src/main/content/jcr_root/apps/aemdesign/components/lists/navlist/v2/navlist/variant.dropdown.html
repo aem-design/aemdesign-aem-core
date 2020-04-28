@@ -2,7 +2,7 @@
     <ul style="${componentProperties.attr.data.style @ context = 'unsafe'}"
         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
         data-sly-list.link="${componentProperties.menuItems}">
-        <sly data-sly-use.menuitem="${'./menuitem.dropdown.html'}"
+        <sly data-sly-use.menuitem="/apps/aemdesign/components/lists/navlist/v2/navlist/menuitem.dropdown.html"
              data-sly-call="${menuitem.variant @ componentProperties=componentProperties, menuitem=link, isTopLevel=true}"></sly>
     </ul>
 </template>
