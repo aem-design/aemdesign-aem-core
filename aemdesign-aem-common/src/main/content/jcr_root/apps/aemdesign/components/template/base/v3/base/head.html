@@ -8,7 +8,7 @@
   <sly data-sly-include="head.socialmedia.html"></sly>
 
   <sly data-sly-use.templateInfo="design.aem.models.v2.template.Template"
-       data-sly-test="${templateInfo.componentProperties.detailsMetadataBadgePath}"
+       data-sly-test="${templateInfo.componentProperties.detailsMetadataBadgePath && wcmmode.disabled}"
        data-sly-resource="${templateInfo.componentProperties.detailsPath @ wcmmode='disabled', selectors=templateInfo.componentProperties.detailsMetadataBadgeSelectors}"></sly>
 
   <sly data-sly-include="customheaderlibs.html"></sly>
