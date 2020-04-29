@@ -19,9 +19,17 @@ window.AEMDESIGN.components.authoring.vue.fields = window.AEMDESIGN.components.a
     const checkbox  = checkboxElement.children[0];
     const isChecked = savedValue === 'true';
 
-    checkbox.checked  = isChecked;
-    checkbox.invalid  = (!isChecked && isRequired) || false;
-    checkbox.required = isRequired;
+    if (isChecked) {
+      checkbox.setAttribute('checked', 'checked')
+    }
+
+    if (!isChecked && isRequired) {
+      checkbox.setAttribute('invalid', 'invalid')
+    }
+
+    if (isRequired) {
+      checkbox.setAttribute('required', 'required')
+    }
 
     return checkboxElement;
   };
