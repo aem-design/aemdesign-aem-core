@@ -2,8 +2,8 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
           xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="cq:Component"
-          jcr:title="AEM.Design Styleguide Page"
-          jcr:description="AEM.Design styleguide template"
-          cq:icon="columnTwoA"
+          jcr:title="AEM.Design DLS Page"
+          jcr:description="AEM.Design DLS template"
+          cq:icon="ColumnTwoC"
           sling:resourceSuperType="aemdesign/components/template/base/v3/base"
           componentGroup=".hidden"/>
