@@ -1,7 +1,6 @@
 package design.aem.models.v2.widgets;
 
 import com.adobe.cq.sightly.SightlyWCMMode;
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.ui.components.AttrBuilder;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.commons.inherit.InheritanceValueMap;
@@ -11,6 +10,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import design.aem.components.ComponentProperties;
+import design.aem.models.ModelProxy;
 import design.aem.services.ServiceAccessor;
 import design.aem.utils.components.ComponentsUtil;
 import design.aem.utils.components.TagUtil;
@@ -23,11 +23,7 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.Property;
-import javax.jcr.PropertyIterator;
-import javax.jcr.RepositoryException;
+import javax.jcr.*;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,31 +33,32 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAPS;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAPS_API_KEY;
 
-public class Vue extends WCMUsePojo {
+public class Vue extends ModelProxy {
     private static final Logger LOGGER = LoggerFactory.getLogger(Vue.class);
 
-    public ComponentProperties componentProperties = null;
+    protected ComponentProperties componentProperties = null;
 
     private AttrBuilder attrs = null;
-    private StringBuilder componentHTML = new StringBuilder();
     private String componentName = StringUtils.EMPTY;
-    private Map<String, String> configOutput = new HashMap<>();
-    private Map<String, String> slots = new HashMap<>();
-    private Map<String, String> fieldToConfigMap = new HashMap<>();
+
+    private final StringBuilder componentHTML = new StringBuilder();
+    private final Map<String, String> configOutput = new HashMap<>();
+    private final Map<String, String> slots = new HashMap<>();
+    private final Map<String, String> fieldToConfigMap = new HashMap<>();
 
     private JsonArray config;
     private Externalizer externalizer;
     private ResourceResolver resourceResolver;
     private Set<String> runModes;
 
-    @Override
-    public void activate() {
-        Object[][] componentFields = {
+    @SuppressWarnings("Duplicates")
+    protected void ready() {
+        setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"vueComponentName", StringUtils.EMPTY},
             {"analyticsName", StringUtils.EMPTY},
             {"analyticsLocation", StringUtils.EMPTY},
-        };
+        });
 
         try {
             attrs = new AttrBuilder(getRequest(), getXSSAPI());
@@ -107,11 +104,11 @@ public class Vue extends WCMUsePojo {
     }
 
     /**
-     * Define the cloud configurations map that enables Vue components to link with the authored values.
+     * Define the configurations map that enables Vue components to link with the authored values.
      *
      * @return {@code Map<String, String>}
      */
-    public Map<String, String> getCloudConfigurations() {
+    public Map<String, String> getConfigurationsMap() {
         Map<String, String> storedConfig = new HashMap<>();
 
         storedConfig.put(DEFAULT_CLOUDCONFIG_GOOGLEMAPS, getCloudConfiguration(
@@ -120,6 +117,22 @@ public class Vue extends WCMUsePojo {
         ));
 
         return storedConfig;
+    }
+
+    /**
+     * Gets the cloud configuration value configured for the given {@code configName} and {@code configProperty}.
+     *
+     * @param configName     Cloud configuration name
+     * @param configProperty JCR property name for the config
+     * @return {@link String} representation of the config value
+     */
+    protected String getCloudConfiguration(String configName, String configProperty) {
+        return getCloudConfigProperty(
+            (InheritanceValueMap) getPageProperties(),
+            configName,
+            configProperty,
+            getSlingScriptHelper()
+        );
     }
 
     /**
@@ -177,8 +190,14 @@ public class Vue extends WCMUsePojo {
                         }
                     }
                 }
-            } catch (Exception ex) {
-                LOGGER.error("Unable to load all or part of the dynamic configuration for: {}", resource.getPath());
+            } catch (ValueFormatException ex) {
+                LOGGER.error("ValueFormatException occurred for: {}", resource.getPath());
+                LOGGER.error(ex.getLocalizedMessage());
+            } catch (PathNotFoundException ex) {
+                LOGGER.error("PathNotFoundException occurred for: {}", resource.getPath());
+                LOGGER.error(ex.getLocalizedMessage());
+            } catch (RepositoryException ex) {
+                LOGGER.error("RepositoryException occurred for: {}", resource.getPath());
                 LOGGER.error(ex.getLocalizedMessage());
             }
         }
@@ -194,97 +213,102 @@ public class Vue extends WCMUsePojo {
      * @throws Error When the value property is missing from the field configuration
      */
     private void handleComponentField(String field, String value, PropertyIterator properties) throws Error {
-        JsonObject fieldElement = getComponentDataByKey(String.format("fields/%s", field)).getAsJsonObject();
-        JsonObject fieldConfig;
-        SightlyWCMMode wcmMode = getWcmMode();
+        try {
+            JsonObject fieldElement = getComponentDataByKey(String.format("fields/%s", field)).getAsJsonObject();
+            JsonObject fieldConfig;
+            SightlyWCMMode wcmMode = getWcmMode();
 
-        boolean skipSlotAndAttribute = false;
-        String debugValue = null;
+            boolean skipSlotAndAttribute = false;
+            String debugValue = null;
 
-        if (fieldElement.has("value") && fieldElement.get("value").isJsonObject()) {
-            fieldConfig = fieldElement.get("value").getAsJsonObject();
-        } else {
-            throw new Error("Unable to handle field as the JSON object is either invalid or is missing the 'value' property");
-        }
-
-        boolean isSlot = false;
-        String slotName = StringUtils.EMPTY;
-
-        // Does the field have a custom configuration map for the attribute map?
-        if (fieldElement.has("mapToConfig")) {
-            fieldToConfigMap.put(fieldElement.get("mapToConfig").getAsString(), value);
-        }
-
-        if (fieldConfig != null && fieldConfig.has("field")) {
-            String fieldType = fieldConfig.get("field").getAsString();
-
-            // Autocompletion
-            if (fieldType.equals("autocomplete")) {
-                value = TagUtil.getTagValueAsAdmin(value, getSlingScriptHelper());
+            if (fieldElement.has("value") && fieldElement.get("value").isJsonObject()) {
+                fieldConfig = fieldElement.get("value").getAsJsonObject();
+            } else {
+                throw new Error("Unable to handle field as the JSON object is either invalid or is missing the 'value' property");
             }
 
-            // Checkbox
-            //
-            // Set the value as empty because Vue.js doesn't allow a string value to be passed when using props
-            // as a boolean. An empty value doesn't count 🙂.
-            if (fieldType.equals("checkbox")) {
-                if (value.equals("true")) {
-                    debugValue = "Yes";
-                    value = StringUtils.EMPTY;
-                } else {
-                    debugValue = "No";
+            boolean isSlot = false;
+            String slotName = StringUtils.EMPTY;
 
-                    // If the value of the checkbox is 'false' it means this field is invalid now and we
-                    // don't need to output the attribute for it.
-                    skipSlotAndAttribute = true;
+            // Does the field have a custom configuration map for the attribute map?
+            if (fieldElement.has("mapToConfig")) {
+                fieldToConfigMap.put(fieldElement.get("mapToConfig").getAsString(), value);
+            }
+
+            if (fieldConfig != null && fieldConfig.has("field")) {
+                String fieldType = fieldConfig.get("field").getAsString();
+
+                // Autocompletion
+                if (fieldType.equals("autocomplete")) {
+                    value = TagUtil.getTagValueAsAdmin(value, getSlingScriptHelper());
                 }
-            }
 
-            // Image/File upload
-            if (fieldType.equals("fileUpload") && properties != null) {
-                while (properties.hasNext()) {
-                    Property property = properties.nextProperty();
+                // Checkbox
+                //
+                // Set the value as empty because Vue.js doesn't allow a string value to be passed when using props
+                // as a boolean. An empty value doesn't count 🙂.
+                if (fieldType.equals("checkbox")) {
+                    if (value.equals("true")) {
+                        debugValue = "Yes";
+                        value = StringUtils.EMPTY;
+                    } else {
+                        debugValue = "No";
 
-                    try {
-                        if (property.getName().equals("fileReference")) {
-                            value = property.getString();
-                            break;
-                        }
-                    } catch (RepositoryException ex) {
-                        LOGGER.error("Unable to handle property iterator step!, {}", property);
-                        LOGGER.error(ex.getLocalizedMessage());
+                        // If the value of the checkbox is 'false' it means this field is invalid now and we
+                        // don't need to output the attribute for it.
+                        skipSlotAndAttribute = true;
                     }
                 }
+
+                // Image/File upload
+                if (fieldType.equals("fileUpload") && properties != null) {
+                    while (properties.hasNext()) {
+                        Property property = properties.nextProperty();
+
+                        try {
+                            if (property.getName().equals("fileReference")) {
+                                value = property.getString();
+                                break;
+                            }
+                        } catch (RepositoryException ex) {
+                            LOGGER.error("Unable to handle property iterator step!, {}", property);
+                            LOGGER.error(ex.getLocalizedMessage());
+                        }
+                    }
+                }
+
+                // Does the field need to run through Externalizer?
+                if (fieldConfig.has("externalizer") && fieldConfig.get("externalizer").getAsBoolean() && runModes != null) {
+                    if (runModes.contains(Externalizer.AUTHOR)) {
+                        value = externalizer.authorLink(resourceResolver, value) + ".html?wcmmode=disabled";
+                    } else {
+                        value = externalizer.externalLink(resourceResolver, Externalizer.LOCAL, value);
+                    }
+                }
+
+                // Is this field a slot?
+                isSlot = fieldConfig.has("slot");
+                slotName = isSlot ? fieldConfig.get("slot").getAsString() : slotName;
             }
 
-            // Does the field need to run through Externalizer?
-            if (fieldConfig.has("externalizer") && fieldConfig.get("externalizer").getAsBoolean() && runModes != null) {
-                if (runModes.contains(Externalizer.AUTHOR)) {
-                    value = externalizer.authorLink(resourceResolver, value) + ".html?wcmmode=disabled";
+            if (!skipSlotAndAttribute) {
+                if (isSlot) {
+                    slots.put(slotName, value);
                 } else {
-                    value = externalizer.externalLink(resourceResolver, Externalizer.LOCAL, value);
+                    attrs.add(field, value);
                 }
             }
 
-            // Is this field a slot?
-            isSlot = fieldConfig.has("slot");
-            slotName = isSlot ? fieldConfig.get("slot").getAsString() : slotName;
-        }
-
-        if (!skipSlotAndAttribute) {
-            if (isSlot) {
-                slots.put(slotName, value);
-            } else {
-                attrs.add(field, value);
+            // Add the config to some additional output when in the correct WCM Mode
+            if (wcmMode.isEdit() || wcmMode.isPreview()) {
+                configOutput.put(
+                    WordUtils.capitalize(StringUtils.join(field.split("-"), " ")),
+                    debugValue != null ? debugValue : value
+                );
             }
-        }
-
-        // Add the config to some additional output when in the correct WCM Mode
-        if (wcmMode.isEdit() || wcmMode.isPreview()) {
-            configOutput.put(
-                WordUtils.capitalize(StringUtils.join(field.split("-"), " ")),
-                debugValue != null ? debugValue : value
-            );
+        } catch (Exception ex) {
+            LOGGER.error("Unable to parse field: {}", field);
+            LOGGER.error(ex.getLocalizedMessage());
         }
     }
 
@@ -310,7 +334,7 @@ public class Vue extends WCMUsePojo {
      */
     private void setConfigurationAttributes() {
         if (config != null) {
-            Map<String, String> configuration = getCloudConfigurations();
+            Map<String, String> configuration = getConfigurationsMap();
 
             for (JsonElement jsonElement : config) {
                 String[] configMap = jsonElement.getAsString().split(":");
@@ -332,22 +356,6 @@ public class Vue extends WCMUsePojo {
                 attrs.set(hasCustomKeyMap ? customKey : configKey, configuration.getOrDefault(configKey, StringUtils.EMPTY));
             }
         }
-    }
-
-    /**
-     * Gets the cloud configuration value configured for the given {@code configName} and {@code configProperty}.
-     *
-     * @param configName     Cloud configuration name
-     * @param configProperty JCR property name for the config
-     * @return {@link String} representation of the config value
-     */
-    private String getCloudConfiguration(String configName, String configProperty) {
-        return getCloudConfigProperty(
-            (InheritanceValueMap) getPageProperties(),
-            configName,
-            configProperty,
-            getSlingScriptHelper()
-        );
     }
 
     /**
