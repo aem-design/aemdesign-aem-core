@@ -17,8 +17,6 @@ public class OnlineMedia extends ModelProxy {
 
     @SuppressWarnings("Duplicates")
     protected void ready() {
-        final String DEFAULT_VARIANT = "default";
-
         setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {FIELD_MEDIA_PROVIDER, StringUtils.EMPTY, FIELD_DATA_MEDIA_PROVIDER},
