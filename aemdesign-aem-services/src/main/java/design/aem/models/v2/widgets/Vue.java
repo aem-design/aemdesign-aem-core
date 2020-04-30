@@ -107,6 +107,22 @@ public class Vue extends WCMUsePojo {
     }
 
     /**
+     * Define the cloud configurations map that enables Vue components to link with the authored values.
+     *
+     * @return {@code Map<String, String>}
+     */
+    public Map<String, String> getCloudConfigurations() {
+        Map<String, String> storedConfig = new HashMap<>();
+
+        storedConfig.put(DEFAULT_CLOUDCONFIG_GOOGLEMAPS, getCloudConfiguration(
+            DEFAULT_CLOUDCONFIG_GOOGLEMAPS,
+            DEFAULT_CLOUDCONFIG_GOOGLEMAPS_API_KEY
+        ));
+
+        return storedConfig;
+    }
+
+    /**
      * Attempts to retrieve the component configuration from pre-stored JSON structures that have
      * been defined within content tags.
      */
@@ -316,17 +332,6 @@ public class Vue extends WCMUsePojo {
                 attrs.set(hasCustomKeyMap ? customKey : configKey, configuration.getOrDefault(configKey, StringUtils.EMPTY));
             }
         }
-    }
-
-    private Map<String, String> getCloudConfigurations() {
-        Map<String, String> storedConfig = new HashMap<>();
-
-        storedConfig.put(DEFAULT_CLOUDCONFIG_GOOGLEMAPS, getCloudConfiguration(
-            DEFAULT_CLOUDCONFIG_GOOGLEMAPS,
-            DEFAULT_CLOUDCONFIG_GOOGLEMAPS_API_KEY
-        ));
-
-        return storedConfig;
     }
 
     /**
