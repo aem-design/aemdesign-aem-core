@@ -191,7 +191,7 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
 
     switch (config.field) {
       case 'autocomplete':
-        fieldConstructor = () => window.SWINBURNE.components.authoring.vue.fields.autoComplete(
+        fieldConstructor = () => window.AEMDESIGN.components.authoring.vue.fields.autoComplete(
           config,
           fieldPath,
           labelledBy,
@@ -201,7 +201,7 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
         break;
 
       case 'pathbrowser':
-        fieldConstructor = () => window.SWINBURNE.components.authoring.vue.fields.pathBrowser(
+        fieldConstructor = () => window.AEMDESIGN.components.authoring.vue.fields.pathBrowser(
           config,
           fieldPath,
           labelledBy,
@@ -210,7 +210,7 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
         break;
 
       case 'fileUpload':
-        fieldConstructor = () => window.SWINBURNE.components.authoring.vue.fields.fileUpload(
+        fieldConstructor = () => window.AEMDESIGN.components.authoring.vue.fields.fileUpload(
           config,
           fieldPath,
           fieldPathBase,
@@ -246,7 +246,7 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
         break;
 
       case 'richtext':
-        fieldConstructor = () => window.SWINBURNE.components.authoring.vue.fields.richText(
+        fieldConstructor = () => window.AEMDESIGN.components.authoring.vue.fields.richText(
           config,
           fieldPath,
           fieldLabel,
@@ -283,7 +283,7 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
         break;
 
       case 'checkbox':
-        fieldConstructor = () => window.SWINBURNE.components.authoring.vue.fields.checkbox(
+        fieldConstructor = () => window.AEMDESIGN.components.authoring.vue.fields.checkbox(
           config,
           fieldPath,
           isRequired,
@@ -471,4 +471,4 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
       .removeClass('is-invalid');
   };
 
-})($, Coral, SWINBURNE.components.authoring.vue, window);
+})($, Coral, AEMDESIGN.components.authoring.vue, window);
