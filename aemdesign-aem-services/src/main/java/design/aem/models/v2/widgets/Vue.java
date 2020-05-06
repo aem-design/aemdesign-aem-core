@@ -37,6 +37,9 @@ public class Vue extends ModelProxy {
     private static final Logger LOGGER = LoggerFactory.getLogger(Vue.class);
 
     protected ComponentProperties componentProperties = null;
+    public ComponentProperties getComponentProperties() {
+        return this.componentProperties;
+    }
 
     private AttrBuilder attrs = null;
     private String componentName = StringUtils.EMPTY;
@@ -60,15 +63,16 @@ public class Vue extends ModelProxy {
             {"analyticsLocation", StringUtils.EMPTY},
         });
 
+        componentProperties = ComponentsUtil.getComponentProperties(
+            this,
+            componentFields);
+
         try {
             attrs = new AttrBuilder(getRequest(), getXSSAPI());
             ServiceAccessor serviceAccessor = getSlingScriptHelper().getService(ServiceAccessor.class);
 
-            componentProperties = ComponentsUtil.getComponentProperties(this, componentFields);
             componentName = componentProperties.get("vueComponentName", StringUtils.EMPTY);
-
             resourceResolver = getResourceResolver();
-
             externalizer = resourceResolver.adaptTo(Externalizer.class);
 
             if (serviceAccessor != null) {
@@ -143,8 +147,7 @@ public class Vue extends ModelProxy {
         try {
             config = getComponentDataByKey("config").getAsJsonArray();
         } catch (Exception ex) {
-            LOGGER.error("Unable to retrieve the component configuration!");
-            LOGGER.error(ex.getLocalizedMessage());
+            LOGGER.warn("Unable to retrieve the component configuration, this could mean it doesn't exist or is invalid.");
         }
     }
 
