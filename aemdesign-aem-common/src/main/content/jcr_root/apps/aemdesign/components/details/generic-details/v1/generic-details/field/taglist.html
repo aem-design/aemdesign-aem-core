@@ -1,11 +1,11 @@
 <template data-sly-template.field="${@ componentProperties}">
-    <div data-sly-test="${componentProperties.category}"
-         class="card-taglist">
-        <ul data-sly-list.tag="${componentProperties.category}"
-            class="taglist">
-            <li data-sly-test="${componentProperties.category[tag]}"
-                class="taglist__item"
-                id="${componentProperties.category[tag].value @ context='attribute'}">${componentProperties.category[tag].title @ context='text'}</li>
-        </ul>
-    </div>
+  <div data-sly-test="${componentProperties.category}"
+       class="card-taglist">
+    <ul data-sly-list.tag="${componentProperties.category}"
+        class="taglist">
+      <li data-sly-test="${componentProperties.category[tag]}"
+          class="taglist__item"
+          id="${componentProperties.category[tag].value @ context='attribute'}">${componentProperties.category[tag].title @ context='text'}</li>
+    </ul>
+  </div>
 </template>

@@ -1,9 +1,9 @@
 <template data-sly-template.variant="${@ componentProperties, componentFields, requestedFields}">
-    <a data-sly-test="${componentProperties.pageUrl != ''}"
-       href="${componentProperties.pageUrl}" title="${componentProperties.title}"
-       data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}">
-        <i class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
-    </a>
-    <i data-sly-test="${componentProperties.pageUrl == ''}"
-       class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
+  <a data-sly-test="${componentProperties.pageUrl != ''}"
+     href="${componentProperties.pageUrl}" title="${componentProperties.title}"
+     data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}">
+    <i class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
+  </a>
+  <i data-sly-test="${componentProperties.pageUrl == ''}"
+     class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
 </template>

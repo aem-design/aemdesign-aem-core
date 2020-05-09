@@ -1,8 +1,8 @@
 <template data-sly-template.variant="${@ componentProperties, componentFields, requestedFields}">
-    <sly data-sly-list.requestedField="${requestedFields}">
-        <sly data-sly-test="${requestedField in componentFields}">
-            <sly data-sly-use.child="${componentFields[requestedField].path}"
-                 data-sly-call="${child.field @ componentProperties=componentProperties}"></sly>
-        </sly>
+  <sly data-sly-list.requestedField="${requestedFields}">
+    <sly data-sly-test="${requestedField in componentFields}">
+      <sly data-sly-use.child="${componentFields[requestedField].path}"
+           data-sly-call="${child.field @ componentProperties=componentProperties}"></sly>
     </sly>
+  </sly>
 </template>

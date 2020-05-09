@@ -1,14 +1,15 @@
 <template data-sly-template.field="${@ componentProperties}">
-    <picture data-sly-test="${componentProperties.imageURL}">
-        <sly data-sly-list.asset="${componentProperties.renditions}" data-sly-unwrap>
-        <source srcset="${componentProperties.renditions[asset] @ context='attribute'}"
-                media="${asset @ context='attribute'}"/>>
-        </sly>
-        <img src="${componentProperties.imageURL @ context='attribute'}"
-             data-sly-attribute="${componentProperties.badgeImageAttr @ context='unsafe'}"
-             data-sizes="auto"
-             class="lazyload"
-             alt="${componentProperties.imageTitleAlt @ context='attribute'}"
-             title="${componentProperties.imageTitle @ context='attribute'}">
-    </picture>
+  <picture data-sly-test="${componentProperties.imageURL}">
+    <sly data-sly-list.asset="${componentProperties.renditions}" data-sly-unwrap>
+      <source srcset="${componentProperties.renditions[asset] @ context='attribute'}"
+              media="${asset @ context='attribute'}"/>
+      >
+    </sly>
+    <img src="${componentProperties.imageURL @ context='attribute'}"
+         data-sly-attribute="${componentProperties.badgeImageAttr @ context='unsafe'}"
+         data-sizes="auto"
+         class="lazyload"
+         alt="${componentProperties.imageTitleAlt @ context='attribute'}"
+         title="${componentProperties.imageTitle @ context='attribute'}">
+  </picture>
 </template>
