@@ -18,6 +18,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 public class PageAuthor extends ModelProxy {
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -43,7 +44,7 @@ public class PageAuthor extends ModelProxy {
                 pageAuthorEmail = getUserEmail(userManager, userPropertiesManager, pageAuthorUser, "");
 
                 if (isNotBlank(pageAuthorEmail)) {
-                    pageAuthorEmail = MessageFormat.format("mailto:{0}",pageAuthorEmail);
+                    pageAuthorEmail = MessageFormat.format("mailto:{0}", pageAuthorEmail);
                 } else {
                     pageAuthorEmail = "#";
                 }
@@ -53,15 +54,15 @@ public class PageAuthor extends ModelProxy {
         }
 
         setComponentFields(new Object[][]{
-                {"author", pageAuthorFullName},
-                {"authorUrl", pageAuthorEmail},
-                {FIELD_VARIANT, DEFAULT_VARIANT}
+            {"author", pageAuthorFullName},
+            {"authorUrl", pageAuthorEmail},
+            {FIELD_VARIANT, DEFAULT_VARIANT}
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
     }
 }

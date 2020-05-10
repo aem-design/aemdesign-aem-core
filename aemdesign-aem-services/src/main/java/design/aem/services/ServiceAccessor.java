@@ -9,7 +9,7 @@ import java.util.Set;
 @Component
 public class ServiceAccessor {
     @Reference
-    private SlingSettingsService slingSettingsService;
+    private final SlingSettingsService slingSettingsService;
 
     public ServiceAccessor(SlingSettingsService slingSettingsService) {
         this.slingSettingsService = slingSettingsService;

@@ -1,5 +1,5 @@
 //list functions - author
-window.AEMDESIGN = window.AEMDESIGN || {"jQuery":{}};
+window.AEMDESIGN = window.AEMDESIGN || { "jQuery": {} };
 window.AEMDESIGN.author = AEMDESIGN.author || {};
 window.AEMDESIGN.author.components = AEMDESIGN.author.components || {};
 window.AEMDESIGN.author.components.list = AEMDESIGN.author.components.list || {};
@@ -7,20 +7,20 @@ window.AEMDESIGN.author.components.list = AEMDESIGN.author.components.list || {}
 
 (function ($, ns, nsDialog, CQ, Granite, window, undefined) { //NOSONAR convention for wrapping all modules
 
-    "use strict";
-    var _version = "0.1";
+  "use strict";
+  var _version = "0.1";
 
-    ns.version = function () {
-        return _version;
-    };
+  ns.version = function () {
+    return _version;
+  };
 
-    ns.manageTabs = function (tabPanels, tabToSelectName, noSwitch, noHide) {
-        nsDialog.manageTabs(tabPanels, tabToSelectName, noSwitch, noHide);
-    };
+  ns.manageTabs = function (tabPanels, tabToSelectName, noSwitch, noHide) {
+    nsDialog.manageTabs(tabPanels, tabToSelectName, noSwitch, noHide);
+  };
 
-    ns.hideTab = function (tabToHide, tabPanels) {
-        nsDialog.hideTab(tabToHide, tabPanels);
-    };
+  ns.hideTab = function (tabToHide, tabPanels) {
+    nsDialog.hideTab(tabToHide, tabPanels);
+  };
 
 
 })(AEMDESIGN.jQuery, AEMDESIGN.author.components.list, AEMDESIGN.dialog, Granite, this); //pass in additional dependencies

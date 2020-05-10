@@ -20,6 +20,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 public class Breadcrumb extends ModelProxy {
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -38,22 +39,22 @@ public class Breadcrumb extends ModelProxy {
         final String FIELD_START_LEVEL = "startLevel";
 
         setComponentFields(new Object[][]{
-                {"delimiter", DEFAULT_DELIMITER},
-                {"trail", DEFAULT_TRAIL},
-                {FIELD_START_LEVEL, ""},
-                {FIELD_END_LEVEL, ""},
-                {"showHidden", DEFAULT_SHOW_HIDDEN},
-                {"hideCurrent", DEFAULT_HIDE_CURRENT},
-                {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE},
-                {FIELD_ARIA_LABEL, DEFAULT_ARIA_LABEL},
-                {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"delimiter", DEFAULT_DELIMITER},
+            {"trail", DEFAULT_TRAIL},
+            {FIELD_START_LEVEL, ""},
+            {FIELD_END_LEVEL, ""},
+            {"showHidden", DEFAULT_SHOW_HIDDEN},
+            {"hideCurrent", DEFAULT_HIDE_CURRENT},
+            {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE},
+            {FIELD_ARIA_LABEL, DEFAULT_ARIA_LABEL},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
         List<Map> values = new ArrayList<>();
 

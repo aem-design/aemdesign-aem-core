@@ -3,13 +3,15 @@
      data-sly-use.empty="${'./searchlist.empty.html'}"
      data-sly-use.info="aemdesign/global/templates/component-info.html">
 
-    <!--/* print component variant */-->
-    <sly data-sly-test="${component.componentProperties.results}" data-sly-call="${variant.variant @ componentProperties=component.componentProperties, component=component}"></sly>
+  <!--/* print component variant */-->
+  <sly data-sly-test="${component.componentProperties.results}"
+       data-sly-call="${variant.variant @ componentProperties=component.componentProperties, component=component}"></sly>
 
-    <!--/* print empty variant if no results */-->
-    <sly data-sly-test="${!component.componentProperties.results}" data-sly-call="${empty.variant @ componentProperties=component.componentProperties, component=component}"></sly>
+  <!--/* print empty variant if no results */-->
+  <sly data-sly-test="${!component.componentProperties.results}"
+       data-sly-call="${empty.variant @ componentProperties=component.componentProperties, component=component}"></sly>
 
-    <!--/* print component info in edit mode */-->
-    <sly data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></sly>
+  <!--/* print component info in edit mode */-->
+  <sly data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></sly>
 
 </sly>

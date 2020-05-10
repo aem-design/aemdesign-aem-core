@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    jcr:primaryType="cq:Panel"
-    title="General">
+          jcr:primaryType="cq:Panel"
+          title="General">
     <items jcr:primaryType="cq:WidgetCollection">
         <arguments
             jcr:primaryType="cq:Widget"
@@ -18,12 +18,12 @@
                     name="./metaData/servicePath"
                     xtype="textfield"/>
                 <configuration
-                        jcr:primaryType="cq:Widget"
-                        fieldLabel="Configuration"
-                        flex="{Long}1"
-                        name="metaData/cq:cloudserviceconfig"
-                        rootPath="/etc/cloudservices/rest"
-                        xtype="cloudservicescombo"/>
+                    jcr:primaryType="cq:Widget"
+                    fieldLabel="Configuration"
+                    flex="{Long}1"
+                    name="metaData/cq:cloudserviceconfig"
+                    rootPath="/etc/cloudservices/rest"
+                    xtype="cloudservicescombo"/>
             </items>
         </arguments>
     </items>

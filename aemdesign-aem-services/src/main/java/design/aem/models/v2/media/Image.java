@@ -28,11 +28,12 @@ public class Image extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(Image.class);
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
-    @SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates", "squid:S3776"})
     protected void ready() {
         I18n i18n = new I18n(getRequest());
 
@@ -54,19 +55,19 @@ public class Image extends ModelProxy {
           4 optional - canonical name of class for handling multivalues, String or Tag
          */
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {FIELD_LINKURL,StringUtils.EMPTY},
-                {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
-                {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_LINKURL, StringUtils.EMPTY},
+            {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
+            {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_IMAGE_OPTIONS,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ANALYTICS,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_IMAGE_OPTIONS,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ANALYTICS,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
         String fileReference = componentProperties.get(IMAGE_FILEREFERENCE, "");
 
@@ -112,14 +113,14 @@ public class Image extends ModelProxy {
                         //ensure something is added as title
                         String title = componentProperties.get(DAM_TITLE, "");
                         if (isEmpty(title) && isNotNull(assetBasic)) {
-                            componentProperties.put(DAM_TITLE, defaultString(assetBasic.getName(), asset.getName()) );
+                            componentProperties.put(DAM_TITLE, defaultString(assetBasic.getName(), asset.getName()));
                         }
 
                         componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSETID, assetUID);
                         componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSET_TRACKABLE, true);
                         componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSET_LICENSED, isNotBlank(licenseInfo));
                         componentProperties.attr.add(FIELD_DATA_ANALYTICS_EVENT_LABEL, componentProperties.get(DAM_TITLE, ""));
-                        componentProperties.attr.add(FIELD_DATA_ANALYTICS_METATYPE, defaultString(assetBasic.getMimeType(),""));
+                        componentProperties.attr.add(FIELD_DATA_ANALYTICS_METATYPE, defaultString(assetBasic.getMimeType(), ""));
                         componentProperties.attr.add(FIELD_DATA_ANALYTICS_FILENAME, assetBasic.getPath());
                     } else {
                         LOGGER.error("ImageImpl: null check asset={} and assetBasic={}", asset, assetBasic);
@@ -142,17 +143,17 @@ public class Image extends ModelProxy {
                 componentProperties.put(FIELD_LINKURL, linkURL);
 
                 //get renditions for current resource
-                ComponentProperties imageProps = getResourceImageRenditions(this, getResource(),FIELD_RENDITIONS, FIELD_IMAGEURL);
+                ComponentProperties imageProps = getResourceImageRenditions(this, getResource(), FIELD_RENDITIONS, FIELD_IMAGEURL);
                 Map<String, String> renditions = imageProps.get(FIELD_RENDITIONS, new LinkedHashMap<>());
 
-                componentProperties.put(FIELD_IMAGEURL,imageProps.get(FIELD_IMAGEURL,fileReference));
+                componentProperties.put(FIELD_IMAGEURL, imageProps.get(FIELD_IMAGEURL, fileReference));
 
                 componentProperties.put(FIELD_RENDITIONS, renditions);
 
             }
         }
 
-        componentProperties.put("fileReferenceMissing",fileReferenceMissing);
+        componentProperties.put("fileReferenceMissing", fileReferenceMissing);
 
         String variant = componentProperties.get(FIELD_VARIANT, "");
 
@@ -165,10 +166,10 @@ public class Image extends ModelProxy {
             variant = "empty";
         }
 
-        componentProperties.put(FIELD_VARIANT,variant);
+        componentProperties.put(FIELD_VARIANT, variant);
 
         //compile variantTemplate param
-        componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT,variant));
+        componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant));
 
         if (getWcmMode().isEdit()) {
             //add class to allow image dropping

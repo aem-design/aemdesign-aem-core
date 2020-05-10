@@ -22,8 +22,8 @@ window.AEMDESIGN.components.authoring.vue.fields = window.AEMDESIGN.components.a
 
   ns.autoComplete = (config, fieldPath, labelledBy, savedValue, tagPath) => {
     const autocompleteElement = document.createElement('div');
-    const needsMultiple       = config.multiple === true;
-    const pickerSource        = encodeURIComponent(`${tagPath}/${config.source}`);
+    const needsMultiple = config.multiple === true;
+    const pickerSource = encodeURIComponent(`${tagPath}/${config.source}`);
 
     autocompleteElement.innerHTML = `
       <foundation-autocomplete
@@ -54,7 +54,7 @@ window.AEMDESIGN.components.authoring.vue.fields = window.AEMDESIGN.components.a
 
     const autocomplete = autocompleteElement.children[0];
 
-    autocomplete.invalid  = !savedValue || false;
+    autocomplete.invalid = !savedValue || false;
     autocomplete.multiple = needsMultiple;
 
     return autocomplete;

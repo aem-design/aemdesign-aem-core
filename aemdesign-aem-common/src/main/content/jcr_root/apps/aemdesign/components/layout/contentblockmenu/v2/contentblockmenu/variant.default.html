@@ -1,8 +1,8 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <nav style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <ul data-sly-list.link="${componentProperties.contentBlockList}">
-            <li><a href="#${link}">${componentProperties.contentBlockList[link]}</a></li>
-        </ul>
-    </nav>
+  <nav style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+    <ul data-sly-list.link="${componentProperties.contentBlockList}">
+      <li><a href="#${link}">${componentProperties.contentBlockList[link]}</a></li>
+    </ul>
+  </nav>
 </template>

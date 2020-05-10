@@ -1,14 +1,14 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div class="card ${componentProperties.badgeClassAttr}">
-        <div class="card-img-top">
-            <img src="${componentProperties.pageThumbnail}"
-                 data-sly-attribute="${componentProperties.badgeImageAttr @ context = 'unsafe'}"
-                 alt="${componentProperties.title}">
-        </div>
-        <div class="card-body">
-            <title class="card-title"
-                   data-sly-element="${componentProperties.badgeTitleType}">${componentProperties.badgeTitle}</title>
-            <div class="card-text">${componentProperties.badgeDescription @ context = 'unsafe'}</div>
-        </div>
+  <div class="card ${componentProperties.badgeClassAttr}">
+    <div class="card-img-top">
+      <img src="${componentProperties.pageThumbnail}"
+           data-sly-attribute="${componentProperties.badgeImageAttr @ context = 'unsafe'}"
+           alt="${componentProperties.title}">
     </div>
+    <div class="card-body">
+      <title class="card-title"
+             data-sly-element="${componentProperties.badgeTitleType}">${componentProperties.badgeTitle}</title>
+      <div class="card-text">${componentProperties.badgeDescription @ context = 'unsafe'}</div>
+    </div>
+  </div>
 </template>

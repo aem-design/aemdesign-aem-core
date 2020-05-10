@@ -39,11 +39,12 @@ public class TagList extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(TagList.class);
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
-    private java.util.List<Map<String,Object>> listItems;
+    private java.util.List<Map<String, Object>> listItems;
 
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     @Default(intValues = LIMIT_DEFAULT)
@@ -76,28 +77,28 @@ public class TagList extends ModelProxy {
           4 optional - canonical name of class for handling multivalues, String or Tag
          */
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"displayType", StringUtils.EMPTY},
-                {"emptyOption", true},
-                {"emptyOptionTitle", "Select"},
-                {"filter", false, "filter"},
-                {"filterDefaults", StringUtils.EMPTY, "filter-defaults"},
-                {"filterTopic", StringUtils.EMPTY, "filter-topic"},
-                {STATIC_TAGS, new String[0]},
-                {DESCENDANT_TAG, PARENT_TAG_DEFAULT},
-                {PN_SOURCE, PN_SOURCE_DEFAULT},
-                {PARENT_TAG, PARENT_TAG_DEFAULT},
-                {PN_ORDER_BY, StringUtils.EMPTY},
-                {LIMIT_PROPERTY_NAME, LIMIT_DEFAULT},
-                {PN_SORT_ORDER, SortOrder.ASC.getValue()},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"displayType", StringUtils.EMPTY},
+            {"emptyOption", true},
+            {"emptyOptionTitle", "Select"},
+            {"filter", false, "filter"},
+            {"filterDefaults", StringUtils.EMPTY, "filter-defaults"},
+            {"filterTopic", StringUtils.EMPTY, "filter-topic"},
+            {STATIC_TAGS, new String[0]},
+            {DESCENDANT_TAG, PARENT_TAG_DEFAULT},
+            {PN_SOURCE, PN_SOURCE_DEFAULT},
+            {PARENT_TAG, PARENT_TAG_DEFAULT},
+            {PN_ORDER_BY, StringUtils.EMPTY},
+            {LIMIT_PROPERTY_NAME, LIMIT_DEFAULT},
+            {PN_SORT_ORDER, SortOrder.ASC.getValue()},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_ANALYTICS);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS);
 
         sortOrder = SortOrder.fromString(componentProperties.get(PN_SORT_ORDER, SortOrder.ASC.getValue()));
         limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
@@ -106,6 +107,7 @@ public class TagList extends ModelProxy {
 
     /**
      * get list options type.
+     *
      * @return list type
      */
     protected Source getListType() {
@@ -118,9 +120,10 @@ public class TagList extends ModelProxy {
 
     /**
      * get list items, used by HTL templates.
+     *
      * @return list of items
      */
-    public Collection<Map<String,Object>> getListItems() {
+    public Collection<Map<String, Object>> getListItems() {
 
         if (listItems == null) {
             Source listType = getListType();
@@ -133,6 +136,7 @@ public class TagList extends ModelProxy {
 
     /**
      * populate list items.
+     *
      * @param listType list type to execute
      */
     protected void populateListItems(Source listType) {
@@ -157,7 +161,7 @@ public class TagList extends ModelProxy {
      * populate list items from only children of a root page.
      */
     private void populateChildListItems() {
-        String path = componentProperties.get(PARENT_TAG,PARENT_TAG_DEFAULT);
+        String path = componentProperties.get(PARENT_TAG, PARENT_TAG_DEFAULT);
         populateChildListItems(path, true);
     }
 
@@ -166,13 +170,14 @@ public class TagList extends ModelProxy {
      * populate list items from descendants of a root page.
      */
     private void populateDescendantsListItems() {
-        String path = componentProperties.get(DESCENDANT_TAG,PARENT_TAG_DEFAULT);
+        String path = componentProperties.get(DESCENDANT_TAG, PARENT_TAG_DEFAULT);
         populateChildListItems(path, false);
     }
 
 
     /**
      * populate list items from children of a root page.
+     *
      * @param path path to use
      * @param flat only select children on root page
      */
@@ -194,10 +199,11 @@ public class TagList extends ModelProxy {
 
     /**
      * doa query using a predicate map.
+     *
      * @param map predicate map
      */
     @SuppressWarnings("Duplicates")
-    private void populateListItemsFromMap(Map<String,String> map) {
+    private void populateListItemsFromMap(Map<String, String> map) {
         try {
 
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
@@ -229,10 +235,10 @@ public class TagList extends ModelProxy {
                     collectSearchResults(query.getResult());
                 }
             } else {
-                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]",map);
+                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]", map);
             }
         } catch (Exception ex) {
-            LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}",map,ex);
+            LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}", map, ex);
         }
     }
 
@@ -240,7 +246,7 @@ public class TagList extends ModelProxy {
      * populates listItems with resources from pages list.
      * page object is also resolved and returned if available
      */
-    @SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates", "squid:S3776"})
     private void populateStaticListItems() {
         listItems = new ArrayList<>();
         String[] tags = componentProperties.get(STATIC_TAGS, new String[0]);
@@ -275,14 +281,15 @@ public class TagList extends ModelProxy {
 
     /**
      * process search results.
+     *
      * @param result search results
      * @throws RepositoryException when can't read content
      */
     @SuppressWarnings("Duplicates")
     private void collectSearchResults(SearchResult result) throws RepositoryException {
         Map<String, Object> resultInfo = new HashMap<>();
-        resultInfo.put("executionTime",result.getExecutionTime());
-        resultInfo.put("result",result);
+        resultInfo.put("executionTime", result.getExecutionTime());
+        resultInfo.put("result", result);
 
         totalMatches = result.getTotalMatches();
         java.util.List<ResultPage> resultPages = result.getResultPages();
@@ -293,14 +300,14 @@ public class TagList extends ModelProxy {
 
         resultInfo.put("hitsPerPage", hitsPerPage);
         resultInfo.put("currentPage", currentPage);
-        resultInfo.put("totalMatches",totalMatches);
+        resultInfo.put("totalMatches", totalMatches);
         resultInfo.put("resultPages", resultPages);
         resultInfo.put("totalPages", totalPages);
 
-        componentProperties.put("resultInfo",resultInfo);
+        componentProperties.put("resultInfo", resultInfo);
 
         for (Hit hit : result.getHits()) {
-            Map<String,Object> item = new HashMap<>();
+            Map<String, Object> item = new HashMap<>();
             item.put("hit", hit);
 
             Resource tagResource = hit.getResource();
@@ -327,7 +334,7 @@ public class TagList extends ModelProxy {
         DESCENDANTS("descendants"),
         EMPTY(StringUtils.EMPTY);
 
-        private String value;
+        private final String value;
 
         public String getValue() {
             return value;

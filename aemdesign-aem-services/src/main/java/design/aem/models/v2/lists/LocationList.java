@@ -62,7 +62,7 @@ public class LocationList extends List {
 
             componentProperties.attr.add("wcmmode", getWcmMode().toString().toLowerCase());
 
-            String googleMapsApiKey = getCloudConfigProperty((InheritanceValueMap)getPageProperties(), DEFAULT_CLOUDCONFIG_GOOGLEMAPS, DEFAULT_CLOUDCONFIG_GOOGLEMAPS_API_KEY,getSlingScriptHelper());
+            String googleMapsApiKey = getCloudConfigProperty((InheritanceValueMap) getPageProperties(), DEFAULT_CLOUDCONFIG_GOOGLEMAPS, DEFAULT_CLOUDCONFIG_GOOGLEMAPS_API_KEY, getSlingScriptHelper());
 
 
             componentProperties.attr.add("data-maps-apikey", googleMapsApiKey);

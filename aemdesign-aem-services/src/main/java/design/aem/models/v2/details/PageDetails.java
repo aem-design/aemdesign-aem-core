@@ -45,7 +45,7 @@ public class PageDetails extends GenericDetails {
         // default values for the component
         final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
         final String DEFAULT_DESCRIPTION = getResourcePage().getDescription();
-        final String DEFAULT_SUBTITLE = getResourcePage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE,"");
+        final String DEFAULT_SUBTITLE = getResourcePage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE, "");
         final Boolean DEFAULT_HIDE_TITLE = false;
         final Boolean DEFAULT_HIDE_DESCRIPTION = false;
         final Boolean DEFAULT_SHOW_BREADCRUMB = true;
@@ -54,46 +54,46 @@ public class PageDetails extends GenericDetails {
         final Boolean DEFAULT_SHOW_PARSYS = true;
 
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"title", DEFAULT_TITLE},
-                {FIELD_FORMAT_TITLE,""}, //tag path, will be resolved to value in processComponentFields
-                {"description", DEFAULT_DESCRIPTION},
-                {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
-                {"hideTitle", DEFAULT_HIDE_TITLE},
-                {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
-                {"showToolbar", DEFAULT_SHOW_TOOLBAR},
-                {"showPageDate", DEFAULT_SHOW_PAGE_DATE},
-                {"showParsys", DEFAULT_SHOW_PARSYS},
-                {FIELD_LINK_TARGET, StringUtils.EMPTY, FIELD_TARGET},
-                {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
-                {FIELD_PAGE_TITLE, DEFAULT_TITLE},
-                {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
-                {FIELD_PAGE_TITLE_SUBTITLE, DEFAULT_SUBTITLE},
-                {TagConstants.PN_TAGS, new String[]{}},
-                {FIELD_SUBCATEGORY, new String[]{}},
-                {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
-                {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
-                {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"title", DEFAULT_TITLE},
+            {FIELD_FORMAT_TITLE, ""}, //tag path, will be resolved to value in processComponentFields
+            {"description", DEFAULT_DESCRIPTION},
+            {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
+            {"hideTitle", DEFAULT_HIDE_TITLE},
+            {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
+            {"showToolbar", DEFAULT_SHOW_TOOLBAR},
+            {"showPageDate", DEFAULT_SHOW_PAGE_DATE},
+            {"showParsys", DEFAULT_SHOW_PARSYS},
+            {FIELD_LINK_TARGET, StringUtils.EMPTY, FIELD_TARGET},
+            {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
+            {FIELD_PAGE_TITLE, DEFAULT_TITLE},
+            {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
+            {FIELD_PAGE_TITLE_SUBTITLE, DEFAULT_SUBTITLE},
+            {TagConstants.PN_TAGS, new String[]{}},
+            {FIELD_SUBCATEGORY, new String[]{}},
+            {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
+            {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
+            {"variantHiddenLabel", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LABEL, DEFAULT_I18N_CATEGORY, i18n)},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_ANALYTICS,
-                DEFAULT_FIELDS_DETAILS_OPTIONS);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS,
+            DEFAULT_FIELDS_DETAILS_OPTIONS);
 
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
-        componentProperties.put(FIELD_CATEGORY,getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
+        componentProperties.put(FIELD_CATEGORY, getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
 
         String[] subCategory = componentProperties.get(FIELD_SUBCATEGORY, new String[]{});
-        componentProperties.put(FIELD_SUBCATEGORY,getTagsAsAdmin(getSlingScriptHelper(), subCategory, getRequest().getLocale()));
+        componentProperties.put(FIELD_SUBCATEGORY, getTagsAsAdmin(getSlingScriptHelper(), subCategory, getRequest().getLocale()));
 
         processCommonFields();
 
         //format fields
-        componentProperties.putAll(processComponentFields(componentProperties,i18n,getSlingScriptHelper()), false);
+        componentProperties.putAll(processComponentFields(componentProperties, i18n, getSlingScriptHelper()), false);
 
     }
 
@@ -106,7 +106,7 @@ public class PageDetails extends GenericDetails {
      */
     @Override
     @SuppressWarnings("Duplicates")
-    public Map<String, Object> processComponentFields(ComponentProperties componentProperties, com.day.cq.i18n.I18n i18n, SlingScriptHelper sling){
+    public Map<String, Object> processComponentFields(ComponentProperties componentProperties, com.day.cq.i18n.I18n i18n, SlingScriptHelper sling) {
         Map<String, Object> newFields = new HashMap<>();
 
         try {
@@ -116,10 +116,10 @@ public class PageDetails extends GenericDetails {
             String formattedTitleText = fragment.text();
 
             newFields.put(FIELD_FORMATTED_TITLE,
-                    formattedTitle.trim()
+                formattedTitle.trim()
             );
             newFields.put(FIELD_FORMATTED_TITLE_TEXT,
-                    formattedTitleText.trim()
+                formattedTitleText.trim()
             );
 
         } catch (Exception ex) {

@@ -98,6 +98,7 @@ public class List extends ModelProxy {
     private static final String DEFAULT_PAGINATION = "default";
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -111,7 +112,7 @@ public class List extends ModelProxy {
     private static final String FIELD_FEED_TITLE = "feedTitle";
     private static final String FIELD_FEED_URL = "feedUrl";
 
-    private java.util.List<Map<String,Object>> listItems;
+    private java.util.List<Map<String, Object>> listItems;
 
     private String startIn;
     private List.SortOrder sortOrder;
@@ -161,49 +162,49 @@ public class List extends ModelProxy {
         String resourcePath = getResource().getPath();
 
         setComponentFields(new Object[][]{
-                {LIST_TAG, LIST_TAG_UNORDERED},
-                {FIELD_FEED_ENABLED, false},
-                {FIELD_FEED_TYPE, "rss"},
-                {"listSplit", false, "data-list-split-enabled"},
-                {LIST_SPLIT_EVERY, LIST_SPLIT_EVERY_DEFAULT, "data-list-split-every"},
-                {DETAILS_BADGE, DEFAULT_BADGE, "data-badge"},
-                {"printStructure", DEFAULT_PRINT_STRUCTURE},
-                {"topicQueue", StringUtils.EMPTY, "topicqueue"},
-                {SHOW_HIDDEN, false},
-                {SHOW_INVALID, false},
-                {PAGINATION_TYPE, DEFAULT_PAGINATION},
-                {LIMIT_PROPERTY_NAME, LIMIT_DEFAULT},
-                {PAGE_MAX_PROPERTY_NAME, PAGEMAX_DEFAULT},
-                {ANCESTOR_PAGE_PROPERTY_NAME, StringUtils.EMPTY},
-                {PN_PARENT_PAGE, getCurrentPage().getPath()},
-                {PN_SOURCE, StringUtils.EMPTY},
-                {PN_PAGES, new String[]{}},
-                {PN_TAGS_PARENT_PAGE, getCurrentPage().getPath()},
-                {PN_TAGS, new String[]{}},
-                {PN_TAGS_MATCH, TAGS_MATCH_ANY_VALUE},
-                {PN_ORDER_BY, StringUtils.EMPTY},
-                {PN_QUERY, StringUtils.EMPTY},
-                {PN_SORT_ORDER, SortOrder.ASC.getValue()},
-                {PN_SEARCH_IN, getResourcePage().getPath()},
-                {SAVEDQUERY_PROPERTY_NAME, StringUtils.EMPTY},
-                {SEARCH_IN_PROPERTY_NAME, StringUtils.EMPTY},
-                {LISTITEM_LINK_TEXT, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TEXT,DEFAULT_I18N_CATEGORY,i18n)},
-                {LISTITEM_LINK_TITLE, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TITLE,DEFAULT_I18N_CATEGORY,i18n)}
+            {LIST_TAG, LIST_TAG_UNORDERED},
+            {FIELD_FEED_ENABLED, false},
+            {FIELD_FEED_TYPE, "rss"},
+            {"listSplit", false, "data-list-split-enabled"},
+            {LIST_SPLIT_EVERY, LIST_SPLIT_EVERY_DEFAULT, "data-list-split-every"},
+            {DETAILS_BADGE, DEFAULT_BADGE, "data-badge"},
+            {"printStructure", DEFAULT_PRINT_STRUCTURE},
+            {"topicQueue", StringUtils.EMPTY, "topicqueue"},
+            {SHOW_HIDDEN, false},
+            {SHOW_INVALID, false},
+            {PAGINATION_TYPE, DEFAULT_PAGINATION},
+            {LIMIT_PROPERTY_NAME, LIMIT_DEFAULT},
+            {PAGE_MAX_PROPERTY_NAME, PAGEMAX_DEFAULT},
+            {ANCESTOR_PAGE_PROPERTY_NAME, StringUtils.EMPTY},
+            {PN_PARENT_PAGE, getCurrentPage().getPath()},
+            {PN_SOURCE, StringUtils.EMPTY},
+            {PN_PAGES, new String[]{}},
+            {PN_TAGS_PARENT_PAGE, getCurrentPage().getPath()},
+            {PN_TAGS, new String[]{}},
+            {PN_TAGS_MATCH, TAGS_MATCH_ANY_VALUE},
+            {PN_ORDER_BY, StringUtils.EMPTY},
+            {PN_QUERY, StringUtils.EMPTY},
+            {PN_SORT_ORDER, SortOrder.ASC.getValue()},
+            {PN_SEARCH_IN, getResourcePage().getPath()},
+            {SAVEDQUERY_PROPERTY_NAME, StringUtils.EMPTY},
+            {SEARCH_IN_PROPERTY_NAME, StringUtils.EMPTY},
+            {LISTITEM_LINK_TEXT, getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LIST_ITEM_LINK_TEXT, DEFAULT_I18N_CATEGORY, i18n)},
+            {LISTITEM_LINK_TITLE, getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LIST_ITEM_LINK_TITLE, DEFAULT_I18N_CATEGORY, i18n)}
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_ANALYTICS);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS);
 
         //generate id to be used when reading the query string
         generateId();
 
         //save tag info
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
-        componentProperties.attr.add("data-search-tags", StringUtils.join(tags,","));
+        componentProperties.attr.add("data-search-tags", StringUtils.join(tags, ","));
 
         //collection info for variables
         startIn = componentProperties.get(PN_SEARCH_IN, getResourcePage().getPath());
@@ -235,7 +236,7 @@ public class List extends ModelProxy {
             componentProperties.put(PAGE_MAX_PROPERTY_NAME, pageStart);
         }
 
-        if (getRequest().getRequestParameter(REQUEST_PARAM_QUERY) !=null) {
+        if (getRequest().getRequestParameter(REQUEST_PARAM_QUERY) != null) {
             try {
                 RequestParameter requestParameter = getRequest().getRequestParameter(REQUEST_PARAM_QUERY);
                 if (requestParameter != null) {
@@ -248,12 +249,12 @@ public class List extends ModelProxy {
 
 
         //setup feed config
-        if ((Boolean)componentProperties.get(FIELD_FEED_ENABLED)) {
+        if ((Boolean) componentProperties.get(FIELD_FEED_ENABLED)) {
             if ("atom".equals(componentProperties.get(FIELD_FEED_TYPE))) {
                 componentProperties.put(FIELD_FEED_EXT, ".feed");
                 componentProperties.put(FIELD_FEED_TITLE, "Atom 1.0 (List)");
                 componentProperties.put(FIELD_FEED_TYPE, "application/atom+xml");
-            } else if("ics".equals(componentProperties.get(FIELD_FEED_TYPE))) {
+            } else if ("ics".equals(componentProperties.get(FIELD_FEED_TYPE))) {
                 componentProperties.put(FIELD_FEED_EXT, ".ics");
                 componentProperties.put(FIELD_FEED_TITLE, "iCalendar Subscription List");
                 componentProperties.put(FIELD_FEED_TYPE, "text/calendar");
@@ -262,13 +263,12 @@ public class List extends ModelProxy {
                 componentProperties.put(FIELD_FEED_TITLE, "RSS Feed");
                 componentProperties.put(FIELD_FEED_TYPE, "application/rss+xml");
             }
-            if (isNotEmpty(componentProperties.get(FIELD_FEED_EXT,""))) {
-                componentProperties.put(FIELD_FEED_URL, resourcePath.concat(componentProperties.get(FIELD_FEED_EXT,"")));
+            if (isNotEmpty(componentProperties.get(FIELD_FEED_EXT, ""))) {
+                componentProperties.put(FIELD_FEED_URL, resourcePath.concat(componentProperties.get(FIELD_FEED_EXT, "")));
             } else {
-                componentProperties.put(FIELD_FEED_URL,resourcePath);
+                componentProperties.put(FIELD_FEED_URL, resourcePath);
             }
         }
-
 
 
         String strItemLimit = componentProperties.get(LIMIT_PROPERTY_NAME, "");
@@ -280,20 +280,20 @@ public class List extends ModelProxy {
         }
 
         Object[][] badgeComponentFields = {
-                {FIELD_PAGE_TITLE, ""},
-                {FIELD_PAGE_TITLE_NAV, ""},
+            {FIELD_PAGE_TITLE, ""},
+            {FIELD_PAGE_TITLE_NAV, ""},
         };
 
         //prepare request parms to pass to badges
         ComponentProperties badgeRequestAttributes = ComponentsUtil.getComponentProperties(
-                this,
-                false,
-                badgeComponentFields,
-                DEFAULT_FIELDS_DETAILS_OPTIONS_OVERRIDE);
+            this,
+            false,
+            badgeComponentFields,
+            DEFAULT_FIELDS_DETAILS_OPTIONS_OVERRIDE);
 
         badgeRequestAttributes.putAll(getAssetInfo(getResourceResolver(),
-                getResourceImagePath(getResource(), DETAILS_THUMBNAIL),
-                DETAILS_THUMBNAIL));
+            getResourceImagePath(getResource(), DETAILS_THUMBNAIL),
+            DETAILS_THUMBNAIL));
 
         componentProperties.put(BADGE_REQUEST_ATTRIBUTES, badgeRequestAttributes);
 
@@ -305,7 +305,7 @@ public class List extends ModelProxy {
         }
 
         String paginationTemplate = String.format("pagination.%s.html", componentProperties.get(PAGINATION_TYPE, DEFAULT_PAGINATION));
-        componentProperties.put("paginationTemplate",paginationTemplate);
+        componentProperties.put("paginationTemplate", paginationTemplate);
 
         componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
 
@@ -327,6 +327,7 @@ public class List extends ModelProxy {
 
     /**
      * get request parameter with component id prefix.
+     *
      * @param name name of querystring param suffix
      * @return parameter value
      */
@@ -336,6 +337,7 @@ public class List extends ModelProxy {
 
     /**
      * get next page url.
+     *
      * @return next page url
      */
     private String getNextPageLink() {
@@ -351,6 +353,7 @@ public class List extends ModelProxy {
 
     /**
      * get previous page url.
+     *
      * @return previous page url
      */
     private String getPreviousPageLink() {
@@ -366,24 +369,26 @@ public class List extends ModelProxy {
 
     /**
      * get page badge info from a page.
+     *
      * @param page page to use
      * @return map of badge attributes
      */
-    private Map<String,Object> getPageBadgeInfo(Page page) {
-        return getPageBadgeInfo(page,detailsNameSuffix,getResourceResolver(),detailsBadge);
+    private Map<String, Object> getPageBadgeInfo(Page page) {
+        return getPageBadgeInfo(page, detailsNameSuffix, getResourceResolver(), detailsBadge);
     }
 
     /**
      * return page badge info.
-     * @param page page to use for collection
+     *
+     * @param page              page to use for collection
      * @param detailsNameSuffix details siffix to look for
-     * @param resourceResolver resource resolver to use
-     * @param detailsBadge badge selectors to add
+     * @param resourceResolver  resource resolver to use
+     * @param detailsBadge      badge selectors to add
      * @return map of page badge attributes
      */
-    static Map<String,Object> getPageBadgeInfo(Page page,String[] detailsNameSuffix, ResourceResolver resourceResolver, String detailsBadge) {
+    static Map<String, Object> getPageBadgeInfo(Page page, String[] detailsNameSuffix, ResourceResolver resourceResolver, String detailsBadge) {
 
-        Map<String,Object> badge = new HashMap<>();
+        Map<String, Object> badge = new HashMap<>();
 
         try {
 
@@ -417,7 +422,7 @@ public class List extends ModelProxy {
             badge.put("pagePath", page.getPath());
 
         } catch (Exception ex) {
-            LOGGER.error("getPageBadgeInfo: could not get page info {}",ex);
+            LOGGER.error("getPageBadgeInfo: could not get page info {}", ex);
         }
         return badge;
 
@@ -425,6 +430,7 @@ public class List extends ModelProxy {
 
     /**
      * get list options type.
+     *
      * @return selected list type
      */
     protected Source getListType() {
@@ -434,9 +440,10 @@ public class List extends ModelProxy {
 
     /**
      * get list items, used by HTL templates.
+     *
      * @return collection of list types
      */
-    public Collection<Map<String,Object>> getListItems() {
+    public Collection<Map<String, Object>> getListItems() {
 
         if (listItems == null) {
             Source listType = getListType();
@@ -448,6 +455,7 @@ public class List extends ModelProxy {
 
     /**
      * populate list items.
+     *
      * @param listType list type to execute
      */
     protected void populateListItems(Source listType) {
@@ -482,8 +490,8 @@ public class List extends ModelProxy {
 
         updateListSplit();
 
-        componentProperties.put("nextPageLink",getNextPageLink());
-        componentProperties.put("previousPageLink",getPreviousPageLink());
+        componentProperties.put("nextPageLink", getNextPageLink());
+        componentProperties.put("previousPageLink", getPreviousPageLink());
 
 //        setMaxItems();
     }
@@ -516,18 +524,19 @@ public class List extends ModelProxy {
      */
     private void updateListSplit() {
         //parse list and set items that should force a split in a list
-        for (int i=0; i < listItems.size();i++) {
+        for (int i = 0; i < listItems.size(); i++) {
             if ((i + 1) % listSplitEvery == 0) {
-                listItems.get(i).put("split",true);
+                listItems.get(i).put("split", true);
             }
         }
     }
 
     /**
      * determine if the page should be shown in output.
-     * @param page page to check
+     *
+     * @param page           page to check
      * @param includeInvalid include if page is invalid
-     * @param includeHidden include in page is hidden
+     * @param includeHidden  include in page is hidden
      * @return boolean if page should be included in the list, excludes hidden, invalid, deleted and deactivated pages.
      */
     static boolean includePageInList(Page page, boolean includeInvalid, boolean includeHidden) {
@@ -555,7 +564,7 @@ public class List extends ModelProxy {
         String[] resourcePaths = componentProperties.get(PN_PAGES, new String[0]);
         ResourceResolver resourceResolver = getResourceResolver();
         for (String path : resourcePaths) {
-            Map<String,Object> item = new HashMap<>();
+            Map<String, Object> item = new HashMap<>();
 
             Resource pathResource = resourceResolver.resolve(path);
 
@@ -569,7 +578,7 @@ public class List extends ModelProxy {
 
             Page page = getPageManager().getContainingPage(path);
             if (page != null) {
-                if (includePageInList(page,showInvalid,showHidden)) {
+                if (includePageInList(page, showInvalid, showHidden)) {
                     item.put("page", page);
                     item.putAll(getPageBadgeInfo(page));
                     listItems.add(item);
@@ -582,20 +591,21 @@ public class List extends ModelProxy {
      * populate list items from only children of a root page.
      */
     private void populateChildListItems() {
-        String path = componentProperties.get(PN_PARENT_PAGE,PN_PARENT_PAGE_DEFAULT);
-        populateChildListItems(path,true);
+        String path = componentProperties.get(PN_PARENT_PAGE, PN_PARENT_PAGE_DEFAULT);
+        populateChildListItems(path, true);
     }
 
     /**
      * populate list items from descendants of a root page.
      */
     private void populateDescendantsListItems() {
-        String path = componentProperties.get(DESCENDANT_TAG,PN_PARENT_PAGE_DEFAULT);
-        populateChildListItems(path,false);
+        String path = componentProperties.get(DESCENDANT_TAG, PN_PARENT_PAGE_DEFAULT);
+        populateChildListItems(path, false);
     }
 
     /**
      * populate list items from children of a root page.
+     *
      * @param path path to use
      * @param flat only select children on root page
      */
@@ -624,7 +634,7 @@ public class List extends ModelProxy {
         boolean matchAny = componentProperties.get(PN_TAGS_MATCH, TAGS_MATCH_ANY_VALUE).equals(TAGS_MATCH_ANY_VALUE);
 
         if (ArrayUtils.isNotEmpty(tags)) {
-            Page rootPage = getPageManager().getPage(componentProperties.get(PN_TAGS_PARENT_PAGE,""));
+            Page rootPage = getPageManager().getPage(componentProperties.get(PN_TAGS_PARENT_PAGE, ""));
 
             if (rootPage != null) {
                 Map<String, String> childMap = new HashMap<>();
@@ -686,6 +696,7 @@ public class List extends ModelProxy {
 
     /**
      * get predicate group from query string.
+     *
      * @param request reques instance
      * @return predicates converted from query string
      */
@@ -711,6 +722,7 @@ public class List extends ModelProxy {
 
     /**
      * get predicate group config from querystring param.
+     *
      * @param queryParam query string param, same as querybuilder
      * @return predicates converted from query string
      */
@@ -730,6 +742,7 @@ public class List extends ModelProxy {
 
     /**
      * do a search based on querystring params.
+     *
      * @param queryParam querystring param same as querybuilder
      */
     private void populateListItemsFromQuery(String queryParam) {
@@ -751,19 +764,20 @@ public class List extends ModelProxy {
                     collectSearchResults(query.getResult());
                 }
             } else {
-                LOGGER.error("populateListItemsFromMap: could not get query builder object, q={}",queryParam);
+                LOGGER.error("populateListItemsFromMap: could not get query builder object, q={}", queryParam);
             }
         } catch (Exception ex) {
-            LOGGER.error("populateListItemsFromQuery: could not execute query q=[{}], ex={}",queryParam,ex);
+            LOGGER.error("populateListItemsFromQuery: could not execute query q=[{}], ex={}", queryParam, ex);
         }
     }
 
     /**
      * doa query using a predicate map.
+     *
      * @param map predicate map
      */
     @SuppressWarnings("Duplicates")
-    private void populateListItemsFromMap(Map<String,String> map) {
+    private void populateListItemsFromMap(Map<String, String> map) {
         try {
 
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
@@ -803,10 +817,10 @@ public class List extends ModelProxy {
                     collectSearchResults(query.getResult());
                 }
             } else {
-                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]",map);
+                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]", map);
             }
         } catch (Exception ex) {
-            LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}",map,ex);
+            LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}", map, ex);
         }
     }
 
@@ -888,16 +902,17 @@ public class List extends ModelProxy {
 
     /**
      * process search results.
-      * @param result search results
+     *
+     * @param result search results
      * @throws RepositoryException when can't read content
      */
     @SuppressWarnings("Duplicates")
     private void collectSearchResults(SearchResult result) throws RepositoryException {
         Map<String, Object> resultInfo = new HashMap<>();
-        resultInfo.put("executionTime",result.getExecutionTime());
-        resultInfo.put("startIndex",result.getStartIndex());
-        resultInfo.put("hasMore",result.hasMore());
-        resultInfo.put("result",result);
+        resultInfo.put("executionTime", result.getExecutionTime());
+        resultInfo.put("startIndex", result.getStartIndex());
+        resultInfo.put("hasMore", result.hasMore());
+        resultInfo.put("result", result);
 
         totalMatches = result.getTotalMatches();
         resultPages = result.getResultPages();
@@ -908,25 +923,25 @@ public class List extends ModelProxy {
 
         resultInfo.put("hitsPerPage", hitsPerPage);
         resultInfo.put("currentPage", currentPage);
-        resultInfo.put("totalMatches",totalMatches);
-        resultInfo.put("resultPages",resultPages);
-        resultInfo.put("totalPages",totalPages);
-        resultInfo.put(PAGE_START_PROPERTY_NAME,pageStart);
+        resultInfo.put("totalMatches", totalMatches);
+        resultInfo.put("resultPages", resultPages);
+        resultInfo.put("totalPages", totalPages);
+        resultInfo.put(PAGE_START_PROPERTY_NAME, pageStart);
 
         isPaginating = (pageMax > 0 && result.getResultPages().size() > 0);
         componentProperties.put(LIST_ISPAGINATING, isPaginating);
 
-        componentProperties.put("resultInfo",resultInfo);
+        componentProperties.put("resultInfo", resultInfo);
 
         for (Hit hit : result.getHits()) {
-            Map<String,Object> item = new HashMap<>();
+            Map<String, Object> item = new HashMap<>();
             item.put("hit", hit);
             item.put("resource", hit.getResource());
             item.put("type", hit.getResource().getResourceType());
 
             Page containingPage = getPageManager().getContainingPage(hit.getResource());
             if (containingPage != null) {
-                if (includePageInList(containingPage,showInvalid,showHidden)) {
+                if (includePageInList(containingPage, showInvalid, showHidden)) {
                     item.put("page", containingPage);
                     item.putAll(getPageBadgeInfo(containingPage));
                     listItems.add(item);
@@ -946,7 +961,7 @@ public class List extends ModelProxy {
         DESCENDANTS("descendants"),
         EMPTY(StringUtils.EMPTY);
 
-        private String value;
+        private final String value;
 
         Source(String value) {
             this.value = value;
@@ -967,7 +982,7 @@ public class List extends ModelProxy {
         ASC("asc"),
         DESC("desc");
 
-        private String value;
+        private final String value;
 
         public String getValue() {
             return value;
@@ -1025,8 +1040,8 @@ public class List extends ModelProxy {
             String url = this.path;
 
             String param;
-            for(Iterator i$ = this.params.keySet().iterator(); i$.hasNext(); url = this.appendParam(url, param, this.params.get(param))) {
-                param = (String)i$.next();
+            for (Iterator i$ = this.params.keySet().iterator(); i$.hasNext(); url = this.appendParam(url, param, this.params.get(param))) {
+                param = (String) i$.next();
             }
 
             return url;
@@ -1046,7 +1061,7 @@ public class List extends ModelProxy {
             String[] arr$ = pairs;
             int len$ = pairs.length;
 
-            for(int i$ = 0; i$ < len$; ++i$) {
+            for (int i$ = 0; i$ < len$; ++i$) {
                 String pair = arr$[i$];
                 String[] param = Text.explode(pair, 61, true);
                 this.params.put(param[0], param[1]);
@@ -1055,7 +1070,7 @@ public class List extends ModelProxy {
         }
 
         private String appendParam(String url, String name, Object value) {
-            char delim = url.indexOf(63) > 0 ? (char)38 : (char)63;
+            char delim = url.indexOf(63) > 0 ? (char) 38 : (char) 63;
             return url + delim + name + '=' + value;
         }
     }

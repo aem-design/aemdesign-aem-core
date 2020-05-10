@@ -8,7 +8,7 @@ window.AEMDESIGN.components.authoring.vue.fields = window.AEMDESIGN.components.a
 
   ns.fileUpload = (config, fieldPath, fieldPathBase, labelledBy, savedValue, componentPath) => {
     const fileUploadElement = document.createElement('div');
-    const hasSelectedImage  = savedValue && savedValue['fileReference'];
+    const hasSelectedImage = savedValue && savedValue['fileReference'];
 
     fileUploadElement.innerHTML = `
       <coral-fileupload class="coral-Form-field cq-FileUpload cq-droptarget"
@@ -23,9 +23,9 @@ window.AEMDESIGN.components.authoring.vue.fields = window.AEMDESIGN.components.a
         <div class="cq-FileUpload-thumbnail">
           <div class="cq-FileUpload-thumbnail-img" data-cq-fileupload-thumbnail-img>
             ${hasSelectedImage ?
-              `<img src="${savedValue['fileReference']}" alt="${savedValue['fileReference']}" title="${savedValue['fileReference']}">`
-              : ''
-            }
+      `<img src="${savedValue['fileReference']}" alt="${savedValue['fileReference']}" title="${savedValue['fileReference']}">`
+      : ''
+    }
           </div>
 
           <button type="button" class="cq-FileUpload-clear" is="coral-button" variant="quiet" coral-fileupload-clear>Clear</button>

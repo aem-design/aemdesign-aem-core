@@ -9,9 +9,8 @@ import static design.aem.utils.components.ImagesUtil.getWidth;
 /***
  * allow asset rendition compare by width
  */
-public class WidthBasedRenditionComparator implements Comparator<Rendition>  {
-    public int compare(com.adobe.granite.asset.api.Rendition r1, com.adobe.granite.asset.api.Rendition r2)
-    {
+public class WidthBasedRenditionComparator implements Comparator<Rendition> {
+    public int compare(com.adobe.granite.asset.api.Rendition r1, com.adobe.granite.asset.api.Rendition r2) {
         int w1 = getWidth(r1);
         int w2 = getWidth(r2);
         if (w1 < w2) {

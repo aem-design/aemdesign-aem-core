@@ -3,16 +3,16 @@
      data-sly-use.info="aemdesign/global/templates/component-info.html">
 
 
-    <!--/* print component variant */-->
-    <sly data-sly-test="${component.componentProperties.detailsBadge != 'data'}"
-         data-sly-call="${variant.variant @ componentProperties=component.componentProperties, component=component}"></sly>
+  <!--/* print component variant */-->
+  <sly data-sly-test="${component.componentProperties.detailsBadge != 'data'}"
+       data-sly-call="${variant.variant @ componentProperties=component.componentProperties, component=component}"></sly>
 
-    <!--/* print component variant */-->
-    <sly data-sly-test="${component.componentProperties.detailsBadge == 'data'}"
-         data-sly-use.badge="variant.data.html"
-         data-sly-call="${badge.variant @ componentProperties=component.componentProperties, component=component}"></sly>
+  <!--/* print component variant */-->
+  <sly data-sly-test="${component.componentProperties.detailsBadge == 'data'}"
+       data-sly-use.badge="variant.data.html"
+       data-sly-call="${badge.variant @ componentProperties=component.componentProperties, component=component}"></sly>
 
-    <!--/* print component info in edit mode */-->
-    <sly data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></sly>
+  <!--/* print component info in edit mode */-->
+  <sly data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></sly>
 
 </sly>

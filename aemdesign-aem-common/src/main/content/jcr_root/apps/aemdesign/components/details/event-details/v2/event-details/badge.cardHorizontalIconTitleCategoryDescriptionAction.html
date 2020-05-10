@@ -1,32 +1,34 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div class="card card-horizontal text-center text-md-left ${componentProperties.badgeClassAttr}" itemscope itemtype="http://schema.org/Event">
-        <div class="row align-items-center no-gutters">
-            <div class="col-md-auto" data-sly-test="${componentProperties.cardIconShow}">
-                <i class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
-            </div>
-            <div class="col p-collapse pt-reset pt-md-collapse pl-reset pr-reset">
-                <title class="card-title"
-                       data-sly-element="${componentProperties.badgeTitleType}" itemprop="name">${componentProperties.badgeTitle}</title>
-                <div class="card-category"
-                     data-sly-test="${componentProperties.category}">
-                    <ul class="tags">
-                        <sly data-sly-list.tag="${componentProperties.category}" data-sly-unwrap>
-                            <sly data-sly-test="${componentProperties.category[tag]}">
-                                <li id="${componentProperties.category[tag].value}">${componentProperties.category[tag].title}</li>
-                            </sly>
-                        </sly>
-                    </ul>
-                </div>
-                <div class="card-text" itemprop="description">${componentProperties.badgeDescription @ context = 'unsafe'}</div>
-            </div>
-            <div class="card-action col-md-auto mt-reset mt-md-collapse">
-                <a class="card-link ${componentProperties.badgeLinkStyle @ join=' '}"
-                   href="${componentProperties.pageUrl}"
-                   target="${componentProperties.badgeLinkTarget}"
-                   title="${componentProperties.badgeLinkTitle}"
-                   data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}">
-                    <span>${componentProperties.badgeLinkText}</span></a>
-            </div>
+  <div class="card card-horizontal text-center text-md-left ${componentProperties.badgeClassAttr}" itemscope
+       itemtype="http://schema.org/Event">
+    <div class="row align-items-center no-gutters">
+      <div class="col-md-auto" data-sly-test="${componentProperties.cardIconShow}">
+        <i class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
+      </div>
+      <div class="col p-collapse pt-reset pt-md-collapse pl-reset pr-reset">
+        <title class="card-title"
+               data-sly-element="${componentProperties.badgeTitleType}"
+               itemprop="name">${componentProperties.badgeTitle}</title>
+        <div class="card-category"
+             data-sly-test="${componentProperties.category}">
+          <ul class="tags">
+            <sly data-sly-list.tag="${componentProperties.category}" data-sly-unwrap>
+              <sly data-sly-test="${componentProperties.category[tag]}">
+                <li id="${componentProperties.category[tag].value}">${componentProperties.category[tag].title}</li>
+              </sly>
+            </sly>
+          </ul>
         </div>
+        <div class="card-text" itemprop="description">${componentProperties.badgeDescription @ context = 'unsafe'}</div>
+      </div>
+      <div class="card-action col-md-auto mt-reset mt-md-collapse">
+        <a class="card-link ${componentProperties.badgeLinkStyle @ join=' '}"
+           href="${componentProperties.pageUrl}"
+           target="${componentProperties.badgeLinkTarget}"
+           title="${componentProperties.badgeLinkTitle}"
+           data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}">
+          <span>${componentProperties.badgeLinkText}</span></a>
+      </div>
     </div>
+  </div>
 </template>

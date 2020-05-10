@@ -45,6 +45,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Array;
 
 import javax.jcr.Node;
@@ -192,7 +193,6 @@ public class ComponentsUtil {
     public static final String COMPONENT_BADGE_DEFAULT_TEMPLATE_FORMAT = "badge.{0}.html";
 
 
-
     public static final String COMPONENT_CANCEL_INHERIT_PARENT = "cancelInheritParent";
 
     public static final String FIELD_STYLE_COMPONENT_ID = "componentId";
@@ -255,7 +255,7 @@ public class ComponentsUtil {
     public static final String FIELD_DATA_ASSET_PRIMARY_ID = "data-asset-primary-id";
     public static final String FIELD_DATA_ASSET_PRIMARY_LICENSE = "data-asset-primary-license";
     public static final String FIELD_DATA_ASSET_SECONDARY_ID = "data-asset-secondary-id";
-    public static final String FIELD_DATA_ASSET_SECONDARY_LICENSE= "data-asset-secondary-license";
+    public static final String FIELD_DATA_ASSET_SECONDARY_LICENSE = "data-asset-secondary-license";
 
 
     public static final String FIELD_DATA_ASSET_SECONDARY_SRC = "data-asset-secondary-src";
@@ -275,7 +275,6 @@ public class ComponentsUtil {
     public static final String FIELD_OG_IMAGE = "og:image";
     public static final String FIELD_OG_TITLE = "og:title";
     public static final String FIELD_OG_DESCRIPTION = "og:description";
-
 
 
     public static final String DETAILS_TITLE = "title";
@@ -311,7 +310,7 @@ public class ComponentsUtil {
 
     /**
      * Component Style
-     *
+     * <p>
      * Structure:
      * 1 required - property name,
      * 2 required - default value,
@@ -319,25 +318,25 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_STYLE = { //NOSONAR used by classes
-            {FIELD_STYLE_COMPONENT_ID, StringUtils.EMPTY, "id"},
-            {FIELD_STYLE_COMPONENT_THEME, new String[]{}, "class", Tag.class.getCanonicalName()},
-            {FIELD_STYLE_COMPONENT_MODIFIERS, new String[]{}, "class", Tag.class.getCanonicalName()},
-            {FIELD_STYLE_COMPONENT_MODULES, new String[]{}, "data-modules", Tag.class.getCanonicalName()},
-            {FIELD_STYLE_COMPONENT_CHEVRON, new String[]{}, "class", Tag.class.getCanonicalName()},
-            {FIELD_STYLE_COMPONENT_ICON, new String[]{}, "class", Tag.class.getCanonicalName()},
-            {FIELD_STYLE_COMPONENT_POSITIONX, StringUtils.EMPTY, "x"},
-            {FIELD_STYLE_COMPONENT_POSITIONY, StringUtils.EMPTY, "y"},
-            {FIELD_STYLE_COMPONENT_WIDTH, "${value ? 'width:' + value + 'px;' : ''}", "style"},
-            {FIELD_STYLE_COMPONENT_HEIGHT, "${value ? 'height:' + value + 'px;' : ''}", "style"},
-            {FIELD_STYLE_COMPONENT_SITETHEMECATEGORY, StringUtils.EMPTY},
-            {FIELD_STYLE_COMPONENT_SITETHEMECOLOR, StringUtils.EMPTY},
-            {FIELD_STYLE_COMPONENT_SITETITLECOLOR, StringUtils.EMPTY},
-            {FIELD_STYLE_COMPONENT_BOOLEANATTR, new String[]{}, FIELD_VALUES_ARE_ATTRIBUTES, Tag.class.getCanonicalName()},
+        {FIELD_STYLE_COMPONENT_ID, StringUtils.EMPTY, "id"},
+        {FIELD_STYLE_COMPONENT_THEME, new String[]{}, "class", Tag.class.getCanonicalName()},
+        {FIELD_STYLE_COMPONENT_MODIFIERS, new String[]{}, "class", Tag.class.getCanonicalName()},
+        {FIELD_STYLE_COMPONENT_MODULES, new String[]{}, "data-modules", Tag.class.getCanonicalName()},
+        {FIELD_STYLE_COMPONENT_CHEVRON, new String[]{}, "class", Tag.class.getCanonicalName()},
+        {FIELD_STYLE_COMPONENT_ICON, new String[]{}, "class", Tag.class.getCanonicalName()},
+        {FIELD_STYLE_COMPONENT_POSITIONX, StringUtils.EMPTY, "x"},
+        {FIELD_STYLE_COMPONENT_POSITIONY, StringUtils.EMPTY, "y"},
+        {FIELD_STYLE_COMPONENT_WIDTH, "${value ? 'width:' + value + 'px;' : ''}", "style"},
+        {FIELD_STYLE_COMPONENT_HEIGHT, "${value ? 'height:' + value + 'px;' : ''}", "style"},
+        {FIELD_STYLE_COMPONENT_SITETHEMECATEGORY, StringUtils.EMPTY},
+        {FIELD_STYLE_COMPONENT_SITETHEMECOLOR, StringUtils.EMPTY},
+        {FIELD_STYLE_COMPONENT_SITETITLECOLOR, StringUtils.EMPTY},
+        {FIELD_STYLE_COMPONENT_BOOLEANATTR, new String[]{}, FIELD_VALUES_ARE_ATTRIBUTES, Tag.class.getCanonicalName()},
     };
 
     /**
      * Component Accessibility
-     *
+     * <p>
      * Structure:
      * 1 required - property name,
      * 2 required - default value,
@@ -345,20 +344,20 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_ACCESSIBILITY = { //NOSONAR used by classes
-            {FIELD_ARIA_ROLE, StringUtils.EMPTY, DEFAULT_ARIA_ROLE_ATTRIBUTE},
-            {FIELD_ARIA_LABEL, StringUtils.EMPTY, "aria-label"},
-            {FIELD_ARIA_DESCRIBEDBY, StringUtils.EMPTY, "aria-describedby"},
-            {FIELD_ARIA_LABELLEDBY, StringUtils.EMPTY, "aria-labelledby"},
-            {FIELD_ARIA_CONTROLS, StringUtils.EMPTY, "aria-controls"},
-            {FIELD_ARIA_LIVE, StringUtils.EMPTY, "aria-live"},
-            {FIELD_ARIA_HIDDEN, StringUtils.EMPTY, "aria-hidden"},
-            {FIELD_ARIA_HASPOPUP, StringUtils.EMPTY, "aria-haspopup"},
-            {FIELD_ARIA_ACCESSKEY, StringUtils.EMPTY, "accesskey"},
+        {FIELD_ARIA_ROLE, StringUtils.EMPTY, DEFAULT_ARIA_ROLE_ATTRIBUTE},
+        {FIELD_ARIA_LABEL, StringUtils.EMPTY, "aria-label"},
+        {FIELD_ARIA_DESCRIBEDBY, StringUtils.EMPTY, "aria-describedby"},
+        {FIELD_ARIA_LABELLEDBY, StringUtils.EMPTY, "aria-labelledby"},
+        {FIELD_ARIA_CONTROLS, StringUtils.EMPTY, "aria-controls"},
+        {FIELD_ARIA_LIVE, StringUtils.EMPTY, "aria-live"},
+        {FIELD_ARIA_HIDDEN, StringUtils.EMPTY, "aria-hidden"},
+        {FIELD_ARIA_HASPOPUP, StringUtils.EMPTY, "aria-haspopup"},
+        {FIELD_ARIA_ACCESSKEY, StringUtils.EMPTY, "accesskey"},
     };
 
     /**
      * Default Node Metadata
-     *
+     * <p>
      * Structure:
      * 1 required - property name,
      * 2 required - default value,
@@ -366,16 +365,16 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_METADATA = { //NOSONAR used by classes
-            {"metadataContentType", StringUtils.EMPTY},
-            {NameConstants.PN_PAGE_LAST_MOD, StringUtils.EMPTY},
-            {JcrConstants.JCR_LASTMODIFIED, StringUtils.EMPTY},
-            {JcrConstants.JCR_CREATED, StringUtils.EMPTY},
-            {NameConstants.PN_PAGE_LAST_REPLICATED, StringUtils.EMPTY},
+        {"metadataContentType", StringUtils.EMPTY},
+        {NameConstants.PN_PAGE_LAST_MOD, StringUtils.EMPTY},
+        {JcrConstants.JCR_LASTMODIFIED, StringUtils.EMPTY},
+        {JcrConstants.JCR_CREATED, StringUtils.EMPTY},
+        {NameConstants.PN_PAGE_LAST_REPLICATED, StringUtils.EMPTY},
     };
 
     /**
      * Badge Metadata used by Details Components
-     *
+     * <p>
      * Structure:
      * 1 required - property name,
      * 2 required - default value,
@@ -383,51 +382,51 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_DETAILS_OPTIONS = { //NOSONAR used by classes
-            {DETAILS_MENU_COLOR, StringUtils.EMPTY},
-            {DETAILS_MENU_ICONSHOW, false},
-            {DETAILS_MENU_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_MENU_ACCESS_KEY, StringUtils.EMPTY},
-            {DETAILS_CARD_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_CARD_ICONSHOW, false},
-            {DETAILS_CARD_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_LINK_TARGET, "_blank"},
-            {DETAILS_LINK_TEXT, "${value ? value : (" + FIELD_PAGE_TITLE_NAV + " ? " + FIELD_PAGE_TITLE_NAV + " : '')}"},
-            {DETAILS_LINK_TITLE, "${value ? value : (" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " : '')}"},
-            {DETAILS_LINK_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_LINK_FORMATTED, "${value ? value : pageUrl}", StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_TITLE_TRIM, false},
-            {DETAILS_TITLE_TRIM_LENGTH_MAX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_LENGTH},
-            {DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_SUFFIX},
-            {DETAILS_SUMMARY_TRIM, false},
-            {DETAILS_SUMMARY_TRIM_LENGTH_MAX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_LENGTH},
-            {DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_SUFFIX},
-            {DETAILS_TAB_ICONSHOW, false},
-            {DETAILS_TAB_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_TITLE_ICONSHOW, false},
-            {DETAILS_TITLE_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_OVERLAY_ICONSHOW, false},
-            {DETAILS_OVERLAY_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_THUMBNAIL_WIDTH, ConstantsUtil.DEFAULT_THUMB_WIDTH_SM},
-            {DETAILS_THUMBNAIL_HEIGHT, StringUtils.EMPTY},
-            {DETAILS_THUMBNAIL_TYPE, ConstantsUtil.IMAGE_OPTION_RENDITION},
-            {DETAILS_TITLE_TAG_TYPE, ConstantsUtil.DEFAULT_TITLE_TAG_TYPE_BADGE},
-            {DETAILS_THUMBNAIL_ID, StringUtils.EMPTY},
-            {DETAILS_THUMBNAIL_LICENSE_INFO, StringUtils.EMPTY},
-            {DETAILS_THUMBNAIL, StringUtils.EMPTY},
-            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK},
-            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION},
-            {DETAILS_BADGE_ANALYTICS_LABEL, "${value ?  value : " + DETAILS_LINK_TEXT + "}",DETAILS_DATA_ANALYTICS_LABEL},
-            {DETAILS_PAGE_METADATA_PROPERTY, new String[]{}},
-            {DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[]{}},
-            {DETAILS_BADGE_CUSTOM, false},
-            {DETAILS_BADGE_FIELDS_TEMPLATE, new String[]{}},
-            {DETAILS_BADGE_FIELDS, new String[]{}},
-            {DETAILS_BADGE_TEMPLATE, StringUtils.EMPTY}, //after DETAILS_BADGE_FIELDS_TEMPLATE and DETAILS_BADGE_FIELDS as it will override them
+        {DETAILS_MENU_COLOR, StringUtils.EMPTY},
+        {DETAILS_MENU_ICONSHOW, false},
+        {DETAILS_MENU_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_MENU_ACCESS_KEY, StringUtils.EMPTY},
+        {DETAILS_CARD_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_CARD_ICONSHOW, false},
+        {DETAILS_CARD_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_LINK_TARGET, "_blank"},
+        {DETAILS_LINK_TEXT, "${value ? value : (" + FIELD_PAGE_TITLE_NAV + " ? " + FIELD_PAGE_TITLE_NAV + " : '')}"},
+        {DETAILS_LINK_TITLE, "${value ? value : (" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " : '')}"},
+        {DETAILS_LINK_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_LINK_FORMATTED, "${value ? value : pageUrl}", StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_TITLE_TRIM, false},
+        {DETAILS_TITLE_TRIM_LENGTH_MAX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_LENGTH},
+        {DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_SUFFIX},
+        {DETAILS_SUMMARY_TRIM, false},
+        {DETAILS_SUMMARY_TRIM_LENGTH_MAX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_LENGTH},
+        {DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX, ConstantsUtil.DEFAULT_SUMMARY_TRIM_SUFFIX},
+        {DETAILS_TAB_ICONSHOW, false},
+        {DETAILS_TAB_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_TITLE_ICONSHOW, false},
+        {DETAILS_TITLE_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_OVERLAY_ICONSHOW, false},
+        {DETAILS_OVERLAY_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_THUMBNAIL_WIDTH, ConstantsUtil.DEFAULT_THUMB_WIDTH_SM},
+        {DETAILS_THUMBNAIL_HEIGHT, StringUtils.EMPTY},
+        {DETAILS_THUMBNAIL_TYPE, ConstantsUtil.IMAGE_OPTION_RENDITION},
+        {DETAILS_TITLE_TAG_TYPE, ConstantsUtil.DEFAULT_TITLE_TAG_TYPE_BADGE},
+        {DETAILS_THUMBNAIL_ID, StringUtils.EMPTY},
+        {DETAILS_THUMBNAIL_LICENSE_INFO, StringUtils.EMPTY},
+        {DETAILS_THUMBNAIL, StringUtils.EMPTY},
+        {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_TRACK},
+        {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LOCATION},
+        {DETAILS_BADGE_ANALYTICS_LABEL, "${value ?  value : " + DETAILS_LINK_TEXT + "}", DETAILS_DATA_ANALYTICS_LABEL},
+        {DETAILS_PAGE_METADATA_PROPERTY, new String[]{}},
+        {DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[]{}},
+        {DETAILS_BADGE_CUSTOM, false},
+        {DETAILS_BADGE_FIELDS_TEMPLATE, new String[]{}},
+        {DETAILS_BADGE_FIELDS, new String[]{}},
+        {DETAILS_BADGE_TEMPLATE, StringUtils.EMPTY}, //after DETAILS_BADGE_FIELDS_TEMPLATE and DETAILS_BADGE_FIELDS as it will override them
     };
 
     /**
      * Badge Metadata used in Lists
-     *
+     * <p>
      * Structure:
      * 1 required - property name,
      * 2 required - default value,
@@ -435,50 +434,50 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_DETAILS_OPTIONS_OVERRIDE = { //NOSONAR used by classes
-            {DETAILS_MENU_COLOR, StringUtils.EMPTY},
-            {DETAILS_MENU_ICONSHOW, StringUtils.EMPTY},
-            {DETAILS_MENU_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_MENU_ACCESS_KEY, StringUtils.EMPTY},
-            {DETAILS_CARD_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_CARD_ICONSHOW, StringUtils.EMPTY},
-            {DETAILS_CARD_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_LINK_TARGET, StringUtils.EMPTY},
-            {DETAILS_LINK_TEXT, StringUtils.EMPTY},
-            {DETAILS_LINK_TITLE, StringUtils.EMPTY},
-            {DETAILS_LINK_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_LINK_FORMATTED, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_TITLE_TRIM, StringUtils.EMPTY},
-            {DETAILS_TITLE_TRIM_LENGTH_MAX, DETAILS_TITLE_TRIM_LENGTH_MAX_DEFAULT},
-            {DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX, DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX_DEFAULT},
-            {DETAILS_SUMMARY_TRIM, StringUtils.EMPTY},
-            {DETAILS_SUMMARY_TRIM_LENGTH_MAX, DETAILS_SUMMARY_TRIM_LENGTH_MAX_DEFAULT},
-            {DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX, DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX_DEFAULT},
-            {DETAILS_TAB_ICONSHOW, StringUtils.EMPTY},
-            {DETAILS_TAB_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_TITLE_ICONSHOW, StringUtils.EMPTY},
-            {DETAILS_TITLE_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_OVERLAY_ICONSHOW, StringUtils.EMPTY},
-            {DETAILS_OVERLAY_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
-            {DETAILS_THUMBNAIL_WIDTH, StringUtils.EMPTY},
-            {DETAILS_THUMBNAIL_HEIGHT, StringUtils.EMPTY},
-            {DETAILS_THUMBNAIL_TYPE, StringUtils.EMPTY},
-            {DETAILS_TITLE_TAG_TYPE, StringUtils.EMPTY},
-            {DETAILS_THUMBNAIL_ID, StringUtils.EMPTY},
-            {DETAILS_THUMBNAIL_LICENSE_INFO, StringUtils.EMPTY},
-            {DETAILS_THUMBNAIL, StringUtils.EMPTY},
-            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK}, //basic
-            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION}, //basic
-            {DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LABEL}, //basic
-            {DETAILS_BADGE_CUSTOM, false},
-            {DETAILS_BADGE_FIELDS_TEMPLATE, new String[]{}},
-            {DETAILS_BADGE_FIELDS, new String[]{}},
-            {DETAILS_BADGE_TEMPLATE, StringUtils.EMPTY}, //after DETAILS_BADGE_FIELDS_TEMPLATE and DETAILS_BADGE_FIELDS as it will override them
+        {DETAILS_MENU_COLOR, StringUtils.EMPTY},
+        {DETAILS_MENU_ICONSHOW, StringUtils.EMPTY},
+        {DETAILS_MENU_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_MENU_ACCESS_KEY, StringUtils.EMPTY},
+        {DETAILS_CARD_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_CARD_ICONSHOW, StringUtils.EMPTY},
+        {DETAILS_CARD_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_LINK_TARGET, StringUtils.EMPTY},
+        {DETAILS_LINK_TEXT, StringUtils.EMPTY},
+        {DETAILS_LINK_TITLE, StringUtils.EMPTY},
+        {DETAILS_LINK_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_LINK_FORMATTED, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_TITLE_TRIM, StringUtils.EMPTY},
+        {DETAILS_TITLE_TRIM_LENGTH_MAX, DETAILS_TITLE_TRIM_LENGTH_MAX_DEFAULT},
+        {DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX, DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX_DEFAULT},
+        {DETAILS_SUMMARY_TRIM, StringUtils.EMPTY},
+        {DETAILS_SUMMARY_TRIM_LENGTH_MAX, DETAILS_SUMMARY_TRIM_LENGTH_MAX_DEFAULT},
+        {DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX, DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX_DEFAULT},
+        {DETAILS_TAB_ICONSHOW, StringUtils.EMPTY},
+        {DETAILS_TAB_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_TITLE_ICONSHOW, StringUtils.EMPTY},
+        {DETAILS_TITLE_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_OVERLAY_ICONSHOW, StringUtils.EMPTY},
+        {DETAILS_OVERLAY_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+        {DETAILS_THUMBNAIL_WIDTH, StringUtils.EMPTY},
+        {DETAILS_THUMBNAIL_HEIGHT, StringUtils.EMPTY},
+        {DETAILS_THUMBNAIL_TYPE, StringUtils.EMPTY},
+        {DETAILS_TITLE_TAG_TYPE, StringUtils.EMPTY},
+        {DETAILS_THUMBNAIL_ID, StringUtils.EMPTY},
+        {DETAILS_THUMBNAIL_LICENSE_INFO, StringUtils.EMPTY},
+        {DETAILS_THUMBNAIL, StringUtils.EMPTY},
+        {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_TRACK}, //basic
+        {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LOCATION}, //basic
+        {DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LABEL}, //basic
+        {DETAILS_BADGE_CUSTOM, false},
+        {DETAILS_BADGE_FIELDS_TEMPLATE, new String[]{}},
+        {DETAILS_BADGE_FIELDS, new String[]{}},
+        {DETAILS_BADGE_TEMPLATE, StringUtils.EMPTY}, //after DETAILS_BADGE_FIELDS_TEMPLATE and DETAILS_BADGE_FIELDS as it will override them
 
     };
 
     /**
      * Component Analytics
-     *
+     * <p>
      * Structure:
      * 1 required - property name,
      * 2 required - default value,
@@ -486,21 +485,21 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_ANALYTICS = { //NOSONAR used by classes
-            {DETAILS_ANALYTICS_TRACK, false, DETAILS_DATA_ANALYTICS_TRACK}, //basic
-            {DETAILS_ANALYTICS_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LOCATION}, //basic
-            {DETAILS_ANALYTICS_LABEL, "${ value ? value : label }", DETAILS_DATA_ANALYTICS_LABEL}, //basic
-            {"analyticsEventType", StringUtils.EMPTY, "data-analytics-event"}, //advanced
-            {"analyticsHitType", StringUtils.EMPTY, "data-analytics-hit-type"}, //advanced
-            {"analyticsEventCategory", StringUtils.EMPTY, "data-analytics-event-category"}, //advanced
-            {"analyticsEventAction", StringUtils.EMPTY, "data-analytics-event-action"}, //advanced
-            {"analyticsEventLabel", StringUtils.EMPTY, "data-analytics-event-label"}, //advanced
-            {"analyticsTransport", StringUtils.EMPTY, "data-analytics-transport"}, //advanced
-            {"analyticsNonInteraction", StringUtils.EMPTY, "data-analytics-noninteraction"}, //advanced
+        {DETAILS_ANALYTICS_TRACK, false, DETAILS_DATA_ANALYTICS_TRACK}, //basic
+        {DETAILS_ANALYTICS_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LOCATION}, //basic
+        {DETAILS_ANALYTICS_LABEL, "${ value ? value : label }", DETAILS_DATA_ANALYTICS_LABEL}, //basic
+        {"analyticsEventType", StringUtils.EMPTY, "data-analytics-event"}, //advanced
+        {"analyticsHitType", StringUtils.EMPTY, "data-analytics-hit-type"}, //advanced
+        {"analyticsEventCategory", StringUtils.EMPTY, "data-analytics-event-category"}, //advanced
+        {"analyticsEventAction", StringUtils.EMPTY, "data-analytics-event-action"}, //advanced
+        {"analyticsEventLabel", StringUtils.EMPTY, "data-analytics-event-label"}, //advanced
+        {"analyticsTransport", StringUtils.EMPTY, "data-analytics-transport"}, //advanced
+        {"analyticsNonInteraction", StringUtils.EMPTY, "data-analytics-noninteraction"}, //advanced
     };
 
     /**
      * Link Attributes
-     *
+     * <p>
      * Structure:
      * 1 required - property name,
      * 2 required - default value,
@@ -508,14 +507,14 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_ATTRIBUTES = { //NOSONAR used by classes
-            {"dataType", StringUtils.EMPTY, "type"},
-            {"dataTarget", StringUtils.EMPTY, "data-target"},
-            {"dataToggle", StringUtils.EMPTY, "data-toggle"},
+        {"dataType", StringUtils.EMPTY, "type"},
+        {"dataTarget", StringUtils.EMPTY, "data-target"},
+        {"dataToggle", StringUtils.EMPTY, "data-toggle"},
     };
 
     /**
      * Asset Metadata
-     *
+     * <p>
      * Structure:
      * 1 required - property name,
      * 2 required - default value,
@@ -523,24 +522,24 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_ASSET = { //NOSONAR used by classes
-            {CommonUtil.DAM_TITLE, "${ value ? value : name }", "data-title"},
-            {CommonUtil.DAM_DESCRIPTION, StringUtils.EMPTY, "data-description"},
-            {CommonUtil.DAM_CREDIT, StringUtils.EMPTY, "data-credit"},
-            {CommonUtil.DAM_HEADLINE, StringUtils.EMPTY, "data-headline"},
-            {CommonUtil.DAM_SOURCE, StringUtils.EMPTY, "data-source"},
-            {CommonUtil.DAM_SOURCE_URL, StringUtils.EMPTY, "data-sourceurl"},
-            {CommonUtil.DAM_VIDEO_URL, StringUtils.EMPTY, "data-videourl"},
-            {DamConstants.TIFF_IMAGEWIDTH, StringUtils.EMPTY, "data-width"},
-            {DamConstants.TIFF_IMAGELENGTH, StringUtils.EMPTY, "data-height"},
-            {DamConstants.DC_RIGHTS, StringUtils.EMPTY, "data-rights"},
-            {DamConstants.DC_CREATOR, StringUtils.EMPTY, "data-creator"},
-            {DamConstants.DC_FORMAT, StringUtils.EMPTY},
+        {CommonUtil.DAM_TITLE, "${ value ? value : name }", "data-title"},
+        {CommonUtil.DAM_DESCRIPTION, StringUtils.EMPTY, "data-description"},
+        {CommonUtil.DAM_CREDIT, StringUtils.EMPTY, "data-credit"},
+        {CommonUtil.DAM_HEADLINE, StringUtils.EMPTY, "data-headline"},
+        {CommonUtil.DAM_SOURCE, StringUtils.EMPTY, "data-source"},
+        {CommonUtil.DAM_SOURCE_URL, StringUtils.EMPTY, "data-sourceurl"},
+        {CommonUtil.DAM_VIDEO_URL, StringUtils.EMPTY, "data-videourl"},
+        {DamConstants.TIFF_IMAGEWIDTH, StringUtils.EMPTY, "data-width"},
+        {DamConstants.TIFF_IMAGELENGTH, StringUtils.EMPTY, "data-height"},
+        {DamConstants.DC_RIGHTS, StringUtils.EMPTY, "data-rights"},
+        {DamConstants.DC_CREATOR, StringUtils.EMPTY, "data-creator"},
+        {DamConstants.DC_FORMAT, StringUtils.EMPTY},
     };
 
 
     /**
      * Asset Image Metadata
-     *
+     * <p>
      * Structure:
      * 1 required - property name,
      * 2 required - default value,
@@ -548,17 +547,17 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_ASSET_IMAGE = { //NOSONAR used by classes
-            {CommonUtil.DAM_TITLE, StringUtils.EMPTY},
-            {CommonUtil.DAM_DESCRIPTION, StringUtils.EMPTY},
-            {CommonUtil.DAM_CREDIT, StringUtils.EMPTY},
-            {CommonUtil.DAM_HEADLINE, StringUtils.EMPTY},
-            {CommonUtil.DAM_SOURCE, StringUtils.EMPTY},
-            {CommonUtil.DAM_SOURCE_URL, StringUtils.EMPTY},
+        {CommonUtil.DAM_TITLE, StringUtils.EMPTY},
+        {CommonUtil.DAM_DESCRIPTION, StringUtils.EMPTY},
+        {CommonUtil.DAM_CREDIT, StringUtils.EMPTY},
+        {CommonUtil.DAM_HEADLINE, StringUtils.EMPTY},
+        {CommonUtil.DAM_SOURCE, StringUtils.EMPTY},
+        {CommonUtil.DAM_SOURCE_URL, StringUtils.EMPTY},
     };
 
     /**
      * Asset Video Metadata
-     *
+     * <p>
      * Structure:
      * 1 required - property name,
      * 2 required - default value,
@@ -566,19 +565,19 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_ASSET_VIDEO = { //NOSONAR used by classes
-            {CommonUtil.DAM_TITLE, StringUtils.EMPTY},
-            {CommonUtil.DAM_DESCRIPTION, StringUtils.EMPTY},
-            {CommonUtil.DAM_HEADLINE, StringUtils.EMPTY},
-            {CommonUtil.DAM_CREDIT, StringUtils.EMPTY},
-            {CommonUtil.DAM_SOURCE, StringUtils.EMPTY},
-            {CommonUtil.DAM_SOURCE_URL, StringUtils.EMPTY},
-            {CommonUtil.DAM_VIDEO_URL, StringUtils.EMPTY},
+        {CommonUtil.DAM_TITLE, StringUtils.EMPTY},
+        {CommonUtil.DAM_DESCRIPTION, StringUtils.EMPTY},
+        {CommonUtil.DAM_HEADLINE, StringUtils.EMPTY},
+        {CommonUtil.DAM_CREDIT, StringUtils.EMPTY},
+        {CommonUtil.DAM_SOURCE, StringUtils.EMPTY},
+        {CommonUtil.DAM_SOURCE_URL, StringUtils.EMPTY},
+        {CommonUtil.DAM_VIDEO_URL, StringUtils.EMPTY},
     };
 
 
     /**
      * Page Theme Metadata
-     *
+     * <p>
      * Structure:
      * 1 required - property name,
      * 2 required - default value,
@@ -586,16 +585,16 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_PAGE_THEME = { //NOSONAR used by classes
-            {"themeStyle", StringUtils.EMPTY},
-            {"faviconsPath", StringUtils.EMPTY},
-            {"favicon", StringUtils.EMPTY},
-            {"siteThemeColor", StringUtils.EMPTY},
-            {"siteTileColor", StringUtils.EMPTY},
+        {"themeStyle", StringUtils.EMPTY},
+        {"faviconsPath", StringUtils.EMPTY},
+        {"favicon", StringUtils.EMPTY},
+        {"siteThemeColor", StringUtils.EMPTY},
+        {"siteTileColor", StringUtils.EMPTY},
     };
 
     /**
      * Common Component Layout Fields
-     *
+     * <p>
      * Structure:
      * 1 required - property name,
      * 2 required - default value,
@@ -603,22 +602,22 @@ public class ComponentsUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_COMMON_COMPONENT_LAYOUT_FIELDS = { //NOSONAR used by classes
-            {FIELD_VARIANT, DEFAULT_VARIANT},
-            {FIELD_TITLE_TAG_TYPE, StringUtils.EMPTY},
-            {FIELD_HIDE_TITLE, false},
-            {FIELD_HIDE_DESCRIPTION, false},
-            {FIELD_SHOW_BREADCRUMB, true},
-            {FIELD_SHOW_TOOLBAR, true},
-            {FIELD_SHOW_PAGEDATE, true},
-            {FIELD_SHOW_PARSYS, true},
+        {FIELD_VARIANT, DEFAULT_VARIANT},
+        {FIELD_TITLE_TAG_TYPE, StringUtils.EMPTY},
+        {FIELD_HIDE_TITLE, false},
+        {FIELD_HIDE_DESCRIPTION, false},
+        {FIELD_SHOW_BREADCRUMB, true},
+        {FIELD_SHOW_TOOLBAR, true},
+        {FIELD_SHOW_PAGEDATE, true},
+        {FIELD_SHOW_PARSYS, true},
     };
 
     /**
      * Get a include file contents
      *
      * @param resourceResolver is the resource
-     * @param paths paths to check
-     * @param separator separator to use
+     * @param paths            paths to check
+     * @param separator        separator to use
      * @return a string with the file contents
      */
     public static String getResourceContent(ResourceResolver resourceResolver, String[] paths, String separator) {
@@ -660,7 +659,7 @@ public class ComponentsUtil {
                     }
 
                     String originalPath = JcrConstants.JCR_CONTENT.concat("/").concat(DamConstants.RENDITIONS_FOLDER).concat("/original/").concat(JcrConstants.JCR_CONTENT);
-                    if (resourceNode.getPrimaryNodeType().getName().equals(DamConstants.NT_DAM_ASSET) && resourceNode.hasNode(originalPath))  {
+                    if (resourceNode.getPrimaryNodeType().getName().equals(DamConstants.NT_DAM_ASSET) && resourceNode.hasNode(originalPath)) {
                         contentNode = resourceNode.getNode(originalPath);
                     }
 
@@ -691,6 +690,7 @@ public class ComponentsUtil {
 
     /**
      * Read properties for the Component, use component style to override properties if they are not set.
+     *
      * @param componentProperties component properties
      * @param contentPolicy       value map of content policy
      * @param name                name of the property
@@ -719,6 +719,7 @@ public class ComponentsUtil {
 
     /**
      * Read properties for the Component, use component style to override properties if they are not set.
+     *
      * @param componentProperties component properties
      * @param pageStyle           page style to use as default
      * @param name                name of the property
@@ -747,10 +748,11 @@ public class ComponentsUtil {
 
     /**
      * returns component values with defaults from target component on a page.
-     * @param pageContext current page context
+     *
+     * @param pageContext   current page context
      * @param componentPage target page
      * @param componentPath target component path
-     * @param fieldLists list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
+     * @param fieldLists    list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
      * @return map of component attributes
      */
     public static ComponentProperties getComponentProperties(PageContext pageContext, Page componentPage, String componentPath, Object[][]... fieldLists) {
@@ -822,9 +824,10 @@ public class ComponentsUtil {
 
     /**
      * returns component values with defaults from pageContent Properties.
-     * @param wcmUsePojoModel component model pojo
+     *
+     * @param wcmUsePojoModel            component model pojo
      * @param includeComponentAttributes include attributes specific to this component instance
-     * @param fieldLists      list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
+     * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
      * @return map of attributes
      */
     public static ComponentProperties getComponentProperties(WCMUsePojo wcmUsePojoModel, Boolean includeComponentAttributes, Object[][]... fieldLists) {
@@ -833,6 +836,7 @@ public class ComponentsUtil {
 
     /**
      * returns component values with defaults from pageContent Properties.
+     *
      * @param wcmUsePojoModel component model pojo
      * @param fieldLists      list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
      * @return map of attributes
@@ -844,8 +848,9 @@ public class ComponentsUtil {
 
     /**
      * returns component values with defaults from pageContent Properties.
+     *
      * @param genericModel generic model
-     * @param fieldLists      list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
+     * @param fieldLists   list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
      * @return map of attributes
      */
     public static ComponentProperties getComponentProperties(GenericModel genericModel, Object[][]... fieldLists) {
@@ -855,9 +860,10 @@ public class ComponentsUtil {
 
     /**
      * returns component values with defaults from target component on a page.
-     * @param wcmUsePojoModel            component model
-     * @param targetResource             resource to use as source
-     * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
+     *
+     * @param wcmUsePojoModel component model
+     * @param targetResource  resource to use as source
+     * @param fieldLists      list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
      * @return map of attributes
      */
     public static ComponentProperties getComponentProperties(WCMUsePojo wcmUsePojoModel, Object targetResource, Object[][]... fieldLists) {
@@ -876,9 +882,10 @@ public class ComponentsUtil {
 
     /**
      * returns component values with defaults from target component on a page.
-     * @param genericModel               component model
-     * @param targetResource             resource to use as source
-     * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
+     *
+     * @param genericModel   component model
+     * @param targetResource resource to use as source
+     * @param fieldLists     list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
      * @return map of attributes
      */
     public static ComponentProperties getComponentProperties(GenericModel genericModel, Resource targetResource, Object[][]... fieldLists) {
@@ -897,6 +904,7 @@ public class ComponentsUtil {
 
     /**
      * returns component values with defaults from a targetResource, default to pageContext properties.
+     *
      * @param pageContext    current page context
      * @param targetResource resource to use as source
      * @param fieldLists     list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
@@ -909,6 +917,7 @@ public class ComponentsUtil {
 
     /**
      * get context objects.
+     *
      * @param wcmUsePojoModel model to use
      * @return map of objects
      */
@@ -946,6 +955,7 @@ public class ComponentsUtil {
 
     /**
      * get context objects.
+     *
      * @param pageContext page context to use
      * @return map of objects
      */
@@ -985,7 +995,8 @@ public class ComponentsUtil {
 
     /**
      * returns component values with defaults from target component on a page.
-     * @param genericModel            component model
+     *
+     * @param genericModel               component model
      * @param targetResource             resource to use as source
      * @param includeComponentAttributes include additional attibutes associated with component
      * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
@@ -1006,6 +1017,7 @@ public class ComponentsUtil {
 
     /**
      * returns component values with defaults from target component on a page.
+     *
      * @param wcmUsePojoModel            component model
      * @param targetResource             resource to use as source
      * @param includeComponentAttributes include additional attibutes associated with component
@@ -1027,6 +1039,7 @@ public class ComponentsUtil {
 
     /**
      * returns component values with defaults from a targetResource, default to pageContext properties.
+     *
      * @param pageContext                current page context
      * @param targetResource             resource to use as source
      * @param includeComponentAttributes include additional attibutes associated with component
@@ -1049,13 +1062,14 @@ public class ComponentsUtil {
 
     /**
      * returns component values with defaults from a targetResource, default to pageContext properties.
+     *
      * @param pageContext                current page context
      * @param targetResource             resource to use as source
      * @param includeComponentAttributes include additional attibutes associated with component
      * @param fieldLists                 list of fields definition Object{{name, defaultValue, attributeName, valueTypeClass},...}
      * @return map of attributes
      */
-    @SuppressWarnings({"unchecked","Depreciated","Duplicates","squid:S3776"})
+    @SuppressWarnings({"unchecked", "Depreciated", "Duplicates", "squid:S3776"})
     public static ComponentProperties getComponentProperties(Map<String, Object> pageContext, Object targetResource, Boolean includeComponentAttributes, Object[][]... fieldLists) {
         ComponentProperties componentProperties = new ComponentProperties();
 
@@ -1186,7 +1200,7 @@ public class ComponentsUtil {
                             }
 
                             //read third field - get data attribute name
-                            String fieldDataName= StringUtils.EMPTY;
+                            String fieldDataName = StringUtils.EMPTY;
                             if (field.length > 2) {
                                 fieldDataName = field[2].toString();
                             }
@@ -1221,7 +1235,7 @@ public class ComponentsUtil {
                                 boolean expressionValid = false;
                                 //try to evaluate default value expression
                                 try {
-                                    Object expressonResult = evaluateExpressionWithValue(jxlt,jc,fieldDefaultValue.toString(),fieldValue);
+                                    Object expressonResult = evaluateExpressionWithValue(jxlt, jc, fieldDefaultValue.toString(), fieldValue);
                                     if (expressonResult != null) {
                                         expressionValid = true;
                                         //evaluate the expression
@@ -1259,11 +1273,11 @@ public class ComponentsUtil {
 
                             //fix values that should be arrays but are not
                             if (fieldValueType.equals(Tag.class.getCanonicalName()) && !fieldValue.getClass().isArray()) {
-                                fieldValue = new String[]{(String)fieldValue};
+                                fieldValue = new String[]{(String) fieldValue};
                             } else if ((fieldValueType.getClass().isArray() || fieldDefaultValue.getClass().isArray()) && !fieldValue.getClass().isArray()) {
                                 Class<?> arrayType = fieldValue.getClass().getComponentType();
-                                Object newArray = Array.newInstance(arrayType,1);
-                                Array.set(newArray,1, fieldValue);
+                                Object newArray = Array.newInstance(arrayType, 1);
+                                Array.set(newArray, 1, fieldValue);
                                 fieldValue = newArray;
                             }
 
@@ -1278,7 +1292,7 @@ public class ComponentsUtil {
                                             if (isEmpty(fieldDataName)) {
                                                 fieldValue = TagUtil.getTagsValues(tagManager, adminResourceResolver, " ", (String[]) fieldValue);
                                                 //find the first item that has expressions
-                                                for (String tagValue: (String[])fieldValue) {
+                                                for (String tagValue : (String[]) fieldValue) {
                                                     if (isStringRegex(tagValue)) {
                                                         fieldValueHasExpressions = true;
                                                         break;
@@ -1399,12 +1413,13 @@ public class ComponentsUtil {
 
     /**
      * get template structure config from tags for badge or variant
-     * @param pageContext current page context
-     * @param configTag tag to use for lookup
-     * @param resourceResolver instance of resource resolver
-     * @param tagManager instance of tag manager
-     * @param fieldNameTemplates return field name for templates
-     * @param fieldNameFields return field name for fields
+     *
+     * @param pageContext                current page context
+     * @param configTag                  tag to use for lookup
+     * @param resourceResolver           instance of resource resolver
+     * @param tagManager                 instance of tag manager
+     * @param fieldNameTemplates         return field name for templates
+     * @param fieldNameFields            return field name for fields
      * @param fieldNameFirstTemplateName return field name for template name
      * @return return map of fields with values
      */
@@ -1452,11 +1467,13 @@ public class ComponentsUtil {
         }
         return componentProperties;
     }
+
     /**
      * return variant template name from component or return default
-     * @param component component to check for variant template
+     *
+     * @param component       component to check for variant template
      * @param variantTemplate variant template
-     * @param sling sling instance
+     * @param sling           sling instance
      * @return variant template path
      */
     public static String getComponentVariantTemplate(Component component, String variantTemplate, SlingScriptHelper sling) {
@@ -1614,6 +1631,7 @@ public class ComponentsUtil {
 
     /**
      * Find the summary field in a 'detail' component or just return the page description.
+     *
      * @param page is the page to investiage
      * @return page description
      */
@@ -1698,10 +1716,10 @@ public class ComponentsUtil {
                 prefix = prefix.replaceAll("[^a-zA-Z0-9-_]", "_");
 
                 componentNode.setProperty(FIELD_STYLE_COMPONENT_ID,
-                        format(
-                                "{0}_{1}",
-                                prefix,
-                                RandomStringUtils.randomAlphanumeric(9).toUpperCase())
+                    format(
+                        "{0}_{1}",
+                        prefix,
+                        RandomStringUtils.randomAlphanumeric(9).toUpperCase())
                 );
 
                 componentNode.getSession().save();
@@ -1776,8 +1794,8 @@ public class ComponentsUtil {
                 // find by same relative path
 
                 String error = format(
-                        "findInheritedResource: looking for inherited resource for path=\"{0}\" by relative path=\"{1}\" in parent=\"{2}\""
-                        , pageResourcePath, relativePath, curPage.getPath());
+                    "findInheritedResource: looking for inherited resource for path=\"{0}\" by relative path=\"{1}\" in parent=\"{2}\""
+                    , pageResourcePath, relativePath, curPage.getPath());
                 LOGGER.info(error);
 
                 try {
@@ -1866,13 +1884,14 @@ public class ComponentsUtil {
 
     /**
      * return list of available sub-resources in current and all super components.
-     * @param component component to start with
+     *
+     * @param component    component to start with
      * @param resourceName sub-resource container to find
-     * @param sling sling instance
+     * @param sling        sling instance
      * @return returns list of resources
      */
     @SuppressWarnings({"squid:S3776"})
-    public static Map<String, Resource> getLocalSubResourcesInSuperComponent(Component component,String resourceName, SlingScriptHelper sling) {
+    public static Map<String, Resource> getLocalSubResourcesInSuperComponent(Component component, String resourceName, SlingScriptHelper sling) {
         HashMap<String, Resource> subResources = new HashMap<>();
         Component superComponent = null;
 
@@ -1937,7 +1956,7 @@ public class ComponentsUtil {
 
 
         } else {
-            LOGGER.error("getComponentSubResources: please specify component and sub resource: component={},resourceName={}",component, resourceName);
+            LOGGER.error("getComponentSubResources: please specify component and sub resource: component={},resourceName={}", component, resourceName);
         }
 
         return subResources;
@@ -1945,9 +1964,10 @@ public class ComponentsUtil {
 
     /**
      * find local resource in component and its super components
-     * @param component component to check
+     *
+     * @param component    component to check
      * @param resourceName local resource name
-     * @param sling sing instance
+     * @param sling        sing instance
      * @return local resource path found
      */
     @SuppressWarnings("squid:S3776")
@@ -2010,16 +2030,16 @@ public class ComponentsUtil {
     }
 
 
-
     /**
      * create a map of component fields matched to Dialog Title and Description
-     * @param componentResource component resource
+     *
+     * @param componentResource     component resource
      * @param adminResourceResolver admin resolver
-     * @param slingScriptHelper sling script helper
+     * @param slingScriptHelper     sling script helper
      * @return map of component dialog fields and their attributes
      */
     @SuppressWarnings("squid:S3776")
-    public static Map<String, Object> getComponentFieldsAndDialogMap(Resource componentResource , ResourceResolver adminResourceResolver, SlingScriptHelper slingScriptHelper) {
+    public static Map<String, Object> getComponentFieldsAndDialogMap(Resource componentResource, ResourceResolver adminResourceResolver, SlingScriptHelper slingScriptHelper) {
         Map<String, Object> firstComponentConfig = new HashMap<>();
 
         if (!ResourceUtil.isNonExistingResource(componentResource)) {
@@ -2037,7 +2057,7 @@ public class ComponentsUtil {
                         Resource componentOfResourceRS = adminResourceResolver.resolve(componentPath);
 
                         //walk up the tree of resourceSuperType and get base component
-                        String componentDialogPath = findLocalResourceInSuperComponent(componentOfResource,"cq:dialog", slingScriptHelper);
+                        String componentDialogPath = findLocalResourceInSuperComponent(componentOfResource, "cq:dialog", slingScriptHelper);
 
                         String dialogPath = StringUtils.EMPTY;
                         Document dialogContent = null;
@@ -2048,13 +2068,13 @@ public class ComponentsUtil {
                             dialogPath = componentDialogPath.concat(DEFAULT_EXTENTION).concat(componentResource.getPath());
 
                             String dialogHTML = resourceRenderAsHtml(
-                                    dialogPath,
-                                    adminResourceResolver,
-                                    slingScriptHelper,
-                                    WCMMode.DISABLED,
-                                    null,
-                                    null,
-                                    false);
+                                dialogPath,
+                                adminResourceResolver,
+                                slingScriptHelper,
+                                WCMMode.DISABLED,
+                                null,
+                                null,
+                                false);
 
                             dialogContent = Jsoup.parse(dialogHTML);
 
@@ -2118,16 +2138,16 @@ public class ComponentsUtil {
                         }
 
                     } else {
-                        LOGGER.error("getComponentFieldsAndDialogMap: could not get component from resource - path={}",componentResource.getPath());
+                        LOGGER.error("getComponentFieldsAndDialogMap: could not get component from resource - path={}", componentResource.getPath());
                     }
                 } catch (Exception ex) {
-                    LOGGER.error("getComponentFieldsAndDialogMap: ex={}",ex);
+                    LOGGER.error("getComponentFieldsAndDialogMap: ex={}", ex);
                 }
             } else {
-                LOGGER.error("getComponentFieldsAndDialogMap: could not get component values - path={}",componentResource.getPath());
+                LOGGER.error("getComponentFieldsAndDialogMap: could not get component values - path={}", componentResource.getPath());
             }
         } else {
-            LOGGER.error("getComponentFieldsAndDialogMap: could not find component for resource - path={}",componentResource.getPath());
+            LOGGER.error("getComponentFieldsAndDialogMap: could not find component for resource - path={}", componentResource.getPath());
         }
 
         return firstComponentConfig;
@@ -2136,8 +2156,9 @@ public class ComponentsUtil {
 
     /**
      * return current content policy settings for a component
+     *
      * @param componentResource component resource to use
-     * @param resourceResolver resource resolver to use
+     * @param resourceResolver  resource resolver to use
      * @return ValueMap of policy settings
      */
     public static ValueMap getContentPolicyProperties(Resource componentResource, ResourceResolver resourceResolver) {
@@ -2155,6 +2176,7 @@ public class ComponentsUtil {
 
     /**
      * check if string value a regex
+     *
      * @param value string to check if its a regex
      * @return does string match regex check
      */
@@ -2164,7 +2186,8 @@ public class ComponentsUtil {
 
     /**
      * check if string value a regex
-     * @param value string to check if its a regex
+     *
+     * @param value        string to check if its a regex
      * @param patternToUse regex to use to check string
      * @return does string match regex check
      */
@@ -2181,13 +2204,13 @@ public class ComponentsUtil {
     /**
      * evaluate expression in a context with value
      * reference https://commons.apache.org/proper/commons-jexl/reference/syntax.html
-     * @param jxlt JXTL Engine
-     * @param jc JXTL Context
+     *
+     * @param jxlt       JXTL Engine
+     * @param jc         JXTL Context
      * @param expression regex expression
-     * @param value value to add into JXTL context
+     * @param value      value to add into JXTL context
      * @return returns evaluated value
      * @throws JexlException throes Jexl errors with regex expression
-     *
      */
     public static Object evaluateExpressionWithValue(JxltEngine jxlt, JexlContext jc, String expression, Object value) {
         JxltEngine.Expression expr = jxlt.createExpression(expression);
@@ -2200,6 +2223,7 @@ public class ComponentsUtil {
 
     /**
      * replace regex chars in a string
+     *
      * @param value regex expression
      * @return updated string or original string
      */
@@ -2234,7 +2258,7 @@ public class ComponentsUtil {
     /**
      * Transform calendar into a publication date.
      *
-     * @param cal is the calendar to transform
+     * @param cal    is the calendar to transform
      * @param format format to use
      * @return is the formatted RSS date.
      */
@@ -2255,7 +2279,7 @@ public class ComponentsUtil {
      * @return the md5 hash of the page's content path
      */
     public static String getUniquePageIdentifier(Page listPage) {
-        if (listPage!= null) {
+        if (listPage != null) {
             String uniqueBase = listPage.getPath().substring(1).replace(FileSystem.SEPARATOR, "-");
 
             return hashMd5(uniqueBase);

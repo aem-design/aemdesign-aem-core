@@ -1,13 +1,13 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <figure itemscope itemtype="http://schema.org/AudioObject">
-        <meta data-sly-test="${componentProperties.duration}"
-              itemprop="duration" content="${componentProperties.duration}"/>
-        <meta itemprop="encodingFormat" content="audio/mpeg" />
-        <meta itemprop="contentUrl" content="${componentProperties.href}" />
-        <audio class="embed-audio-item" controls>
-            <source src="${componentProperties.href}" type="audio/mpeg">
-        </audio>
-        <sly data-sly-use.figcaption="asset.figcaption.html"
-             data-sly-call="${figcaption.variant @ componentProperties=componentProperties}"></sly>
-    </figure>
+  <figure itemscope itemtype="http://schema.org/AudioObject">
+    <meta data-sly-test="${componentProperties.duration}"
+          itemprop="duration" content="${componentProperties.duration}"/>
+    <meta itemprop="encodingFormat" content="audio/mpeg"/>
+    <meta itemprop="contentUrl" content="${componentProperties.href}"/>
+    <audio class="embed-audio-item" controls>
+      <source src="${componentProperties.href}" type="audio/mpeg">
+    </audio>
+    <sly data-sly-use.figcaption="asset.figcaption.html"
+         data-sly-call="${figcaption.variant @ componentProperties=componentProperties}"></sly>
+  </figure>
 </template>

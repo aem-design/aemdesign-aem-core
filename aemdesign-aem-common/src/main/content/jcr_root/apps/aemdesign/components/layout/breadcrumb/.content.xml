@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    cq:isContainer="{Boolean}false"
-    jcr:primaryType="cq:Component"
-    jcr:title="Breadcrumb"
-    cq:icon="breadcrumbNavigation"
-    sling:resourceSuperType="aemdesign/components/layout/breadcrumb/v2/breadcrumb"
-    componentGroup="AEM.Design - Layout"/>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          cq:isContainer="{Boolean}false"
+          jcr:primaryType="cq:Component"
+          jcr:title="Breadcrumb"
+          cq:icon="breadcrumbNavigation"
+          sling:resourceSuperType="aemdesign/components/layout/breadcrumb/v2/breadcrumb"
+          componentGroup="AEM.Design - Layout"/>

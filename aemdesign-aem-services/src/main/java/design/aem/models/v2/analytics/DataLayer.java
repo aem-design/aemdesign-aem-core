@@ -26,12 +26,13 @@ public class DataLayer extends WCMUsePojo {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataLayer.class);
 
     private ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
     @Override
-    @SuppressWarnings({"squid:S2637","squid:S2259"})
+    @SuppressWarnings({"squid:S2637", "squid:S2259"})
     public void activate() throws Exception {
 
         componentProperties = ComponentsUtil.getNewComponentProperties(this);
@@ -80,8 +81,6 @@ public class DataLayer extends WCMUsePojo {
             LOGGER.error("datalayer: {}", ex);
         }
     }
-
-
 
 
 }

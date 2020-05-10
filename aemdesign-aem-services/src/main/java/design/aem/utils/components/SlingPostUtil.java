@@ -24,12 +24,13 @@ public class SlingPostUtil {
 
     /**
      * Copied from Sling. Later on Sling POST Servlet will be refactored to provide a generic service for this.
+     *
      * @param parentNode node to delete content from
-     * @param req sling request
+     * @param req        sling request
      * @throws Exception when can't read content
      */
     public static void processDeletes(final Node parentNode, final HttpServletRequest req) throws Exception {
-        for (Enumeration en = req.getParameterNames(); en.hasMoreElements();) {
+        for (Enumeration en = req.getParameterNames(); en.hasMoreElements(); ) {
             String name = en.nextElement().toString();
 
             if (!name.startsWith("./")) continue;
@@ -45,13 +46,14 @@ public class SlingPostUtil {
 
     /**
      * Copied from Sling. Later on Sling POST Servlet will be refactored to provide a generic service for this.
+     *
      * @param parentNode node to write into
-     * @param req sling request
+     * @param req        sling request
      * @throws RepositoryException when can't read content
      */
     @SuppressWarnings("squid:S3776")
     public static void writeContent(final Node parentNode, final HttpServletRequest req) throws RepositoryException {
-        for (Enumeration en = req.getParameterNames(); en.hasMoreElements();) {
+        for (Enumeration en = req.getParameterNames(); en.hasMoreElements(); ) {
             String name = en.nextElement().toString();
 
             if (!name.startsWith("./")) continue;
@@ -99,14 +101,15 @@ public class SlingPostUtil {
 
     /**
      * Get tags form request and resolve to tag id strings.
+     *
      * @param tagManager tag manager instance
-     * @param name request param name
-     * @param req sling request
+     * @param name       request param name
+     * @param req        sling request
      * @return list of tag ids
      * @throws Exception when can't read content
      */
     public static List<String> getProcessedTags(TagManager tagManager, String name, final HttpServletRequest req)
-            throws Exception {
+        throws Exception {
         List<String> processedTags = new ArrayList<String>();
 
         if (tagManager != null) {
@@ -130,12 +133,13 @@ public class SlingPostUtil {
 
     /**
      * Find all cq:tags parameters as they have to be handled separated
+     *
      * @param req sling request instance
      * @return list of tags
      */
     public static List<String> getTagRequestParameters(final HttpServletRequest req) {
         List<String> tagsParameters = new ArrayList<String>();
-        for (Enumeration en = req.getParameterNames(); en.hasMoreElements();) {
+        for (Enumeration en = req.getParameterNames(); en.hasMoreElements(); ) {
             String name = en.nextElement().toString();
             if (name.endsWith(TagConstants.PN_TAGS)) {
                 tagsParameters.add(name);
@@ -146,6 +150,7 @@ public class SlingPostUtil {
 
     /**
      * Get property name for repository
+     *
      * @param name property name name
      * @return property name
      */
@@ -162,8 +167,9 @@ public class SlingPostUtil {
 
     /**
      * Get the parent node, if the node doesn't exist, create it.
+     *
      * @param parentNode parent node to look in
-     * @param name node name to look for
+     * @param name       node name to look for
      * @return returns child node
      */
     public static Node getParentNode(Node parentNode, String name) {

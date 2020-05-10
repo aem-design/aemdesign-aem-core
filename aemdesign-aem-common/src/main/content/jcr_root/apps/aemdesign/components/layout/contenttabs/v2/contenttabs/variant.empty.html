@@ -1,19 +1,19 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
-         empty>
-        <ul class="nav nav-tabs" role="tablist" data-sly-test="${componentProperties.tabPosition == 'top'}">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#empty" role="tab">Empty</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="empty" role="tabpanel">Empty</div>
-        </div>
-        <ul class="nav nav-tabs" role="tablist" data-sly-test="${componentProperties.tabPosition == 'bottom'}">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#empty" role="tab">Empty</a>
-            </li>
-        </ul>
+  <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+       empty>
+    <ul class="nav nav-tabs" role="tablist" data-sly-test="${componentProperties.tabPosition == 'top'}">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#empty" role="tab">Empty</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="empty" role="tabpanel">Empty</div>
     </div>
+    <ul class="nav nav-tabs" role="tablist" data-sly-test="${componentProperties.tabPosition == 'bottom'}">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#empty" role="tab">Empty</a>
+      </li>
+    </ul>
+  </div>
 </template>

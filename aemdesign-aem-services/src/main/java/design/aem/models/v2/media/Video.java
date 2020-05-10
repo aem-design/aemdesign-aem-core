@@ -22,6 +22,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class Video extends ModelProxy {
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -29,17 +30,17 @@ public class Video extends ModelProxy {
     private static final String POPUP_HEIGHT = "lightboxHeight";
     private static final String POPUP_WIDTH = "lightboxWidth";
 
-    @SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates", "squid:S3776"})
     protected void ready() throws Exception {
 
         setComponentFields(new Object[][]{
-                {POPUP_HEIGHT, "70"},
-                {POPUP_WIDTH, "70"},
-                {"thumbnailHeight", "auto"},
-                {"thumbnailWidth", "auto"},
-                {"assetTitlePrefix", StringUtils.EMPTY},
-                {"fileReference", StringUtils.EMPTY},
-                {FIELD_VARIANT, DEFAULT_VARIANT}
+            {POPUP_HEIGHT, "70"},
+            {POPUP_WIDTH, "70"},
+            {"thumbnailHeight", "auto"},
+            {"thumbnailWidth", "auto"},
+            {"assetTitlePrefix", StringUtils.EMPTY},
+            {"fileReference", StringUtils.EMPTY},
+            {FIELD_VARIANT, DEFAULT_VARIANT}
         });
 
         String msgStart = "";
@@ -50,10 +51,10 @@ public class Video extends ModelProxy {
         String metaCopyRight = "";
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
         String fileReference = componentProperties.get(IMAGE_FILEREFERENCE, "");
 

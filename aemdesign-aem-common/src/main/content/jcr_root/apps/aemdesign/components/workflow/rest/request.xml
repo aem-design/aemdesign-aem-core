@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    jcr:primaryType="cq:Panel"
-    title="Request">
+          jcr:primaryType="cq:Panel"
+          title="Request">
     <items jcr:primaryType="cq:WidgetCollection">
         <arguments
             jcr:primaryType="cq:Widget"
@@ -11,149 +11,149 @@
             xtype="dialogfieldset">
             <items jcr:primaryType="cq:WidgetCollection">
                 <saveRequest
-                        jcr:primaryType="cq:Widget"
-                        defaultValue=""
-                        fieldDescription="Default is NO"
-                        fieldLabel="Save request payload to workflow"
-                        allowBlank="true"
-                        name="./metaData/saveRequest"
-                        type="select"
-                        xtype="selection">
+                    jcr:primaryType="cq:Widget"
+                    defaultValue=""
+                    fieldDescription="Default is NO"
+                    fieldLabel="Save request payload to workflow"
+                    allowBlank="true"
+                    name="./metaData/saveRequest"
+                    type="select"
+                    xtype="selection">
                     <options jcr:primaryType="cq:WidgetCollection">
                         <default
-                                jcr:primaryType="nt:unstructured"
-                                text="Default"
-                                value=""/>
+                            jcr:primaryType="nt:unstructured"
+                            text="Default"
+                            value=""/>
                         <yes
-                                jcr:primaryType="nt:unstructured"
-                                text="Yes"
-                                value="true"/>
+                            jcr:primaryType="nt:unstructured"
+                            text="Yes"
+                            value="true"/>
                         <no
-                                jcr:primaryType="nt:unstructured"
-                                text="No"
-                                value="false"/>
+                            jcr:primaryType="nt:unstructured"
+                            text="No"
+                            value="false"/>
                     </options>
                 </saveRequest>
                 <sendMetaData
-                        jcr:primaryType="cq:Widget"
-                        defaultValue=""
-                        fieldDescription="Default is NO"
-                        fieldLabel="Send Metadata"
-                        allowBlank="true"
-                        name="./metaData/sendMetaData"
-                        type="select"
-                        xtype="selection">
+                    jcr:primaryType="cq:Widget"
+                    defaultValue=""
+                    fieldDescription="Default is NO"
+                    fieldLabel="Send Metadata"
+                    allowBlank="true"
+                    name="./metaData/sendMetaData"
+                    type="select"
+                    xtype="selection">
                     <options jcr:primaryType="cq:WidgetCollection">
                         <default
-                                jcr:primaryType="nt:unstructured"
-                                text="Default"
-                                value=""/>
+                            jcr:primaryType="nt:unstructured"
+                            text="Default"
+                            value=""/>
                         <yes
-                                jcr:primaryType="nt:unstructured"
-                                text="Yes"
-                                value="true"/>
+                            jcr:primaryType="nt:unstructured"
+                            text="Yes"
+                            value="true"/>
                         <no
-                                jcr:primaryType="nt:unstructured"
-                                text="No"
-                                value="false"/>
+                            jcr:primaryType="nt:unstructured"
+                            text="No"
+                            value="false"/>
                     </options>
                 </sendMetaData>
                 <sendMetaDataType
-                        jcr:primaryType="cq:Widget"
-                        defaultValue=""
-                        fieldDescription="Default is FORM"
-                        fieldLabel="Send Content Type"
-                        allowBlank="true"
-                        name="./metaData/sendMetaDataType"
-                        type="select"
-                        xtype="selection">
+                    jcr:primaryType="cq:Widget"
+                    defaultValue=""
+                    fieldDescription="Default is FORM"
+                    fieldLabel="Send Content Type"
+                    allowBlank="true"
+                    name="./metaData/sendMetaDataType"
+                    type="select"
+                    xtype="selection">
                     <options jcr:primaryType="cq:WidgetCollection">
                         <default
-                                jcr:primaryType="nt:unstructured"
-                                text="Default"
-                                value=""/>
+                            jcr:primaryType="nt:unstructured"
+                            text="Default"
+                            value=""/>
                         <form
-                                jcr:primaryType="nt:unstructured"
-                                text="Form"
-                                value="form"/>
+                            jcr:primaryType="nt:unstructured"
+                            text="Form"
+                            value="form"/>
                         <json
-                                jcr:primaryType="nt:unstructured"
-                                text="JSON"
-                                value="json"/>
+                            jcr:primaryType="nt:unstructured"
+                            text="JSON"
+                            value="json"/>
                         <xml
-                                jcr:primaryType="nt:unstructured"
-                                text="XML"
-                                value="xml"/>
+                            jcr:primaryType="nt:unstructured"
+                            text="XML"
+                            value="xml"/>
                         <file
-                                jcr:primaryType="nt:unstructured"
-                                text="File"
-                                value="file"/>
+                            jcr:primaryType="nt:unstructured"
+                            text="File"
+                            value="file"/>
                     </options>
                 </sendMetaDataType>
                 <sendMethod
-                        jcr:primaryType="cq:Widget"
-                        defaultValue=""
-                        fieldDescription="Which HTTP method to use, default is GET"
-                        fieldLabel="Send Method"
-                        allowBlank="true"
-                        name="./metaData/sendMethod"
-                        type="select"
-                        xtype="selection">
+                    jcr:primaryType="cq:Widget"
+                    defaultValue=""
+                    fieldDescription="Which HTTP method to use, default is GET"
+                    fieldLabel="Send Method"
+                    allowBlank="true"
+                    name="./metaData/sendMethod"
+                    type="select"
+                    xtype="selection">
                     <options jcr:primaryType="cq:WidgetCollection">
                         <default
-                                jcr:primaryType="nt:unstructured"
-                                text="Default"
-                                value=""/>
+                            jcr:primaryType="nt:unstructured"
+                            text="Default"
+                            value=""/>
                         <get
-                                jcr:primaryType="nt:unstructured"
-                                text="GET"
-                                value="get"/>
+                            jcr:primaryType="nt:unstructured"
+                            text="GET"
+                            value="get"/>
                         <post
-                                jcr:primaryType="nt:unstructured"
-                                text="POST"
-                                value="post"/>
+                            jcr:primaryType="nt:unstructured"
+                            text="POST"
+                            value="post"/>
                         <put
-                                jcr:primaryType="nt:unstructured"
-                                text="PUT"
-                                value="put"/>
+                            jcr:primaryType="nt:unstructured"
+                            text="PUT"
+                            value="put"/>
                         <delete
-                                jcr:primaryType="nt:unstructured"
-                                text="DELETE"
-                                value="delete"/>
+                            jcr:primaryType="nt:unstructured"
+                            text="DELETE"
+                            value="delete"/>
                     </options>
                 </sendMethod>
                 <requestFields
-                        jcr:primaryType="cq:Widget"
-                        allowBlank="true"
-                        fieldDescription="Grab following fields from Metadata and send {Metadata Name}={Destination Name}"
-                        fieldLabel="Request Fields"
-                        name="./metaData/requestFields"
-                        xtype="multifield">
+                    jcr:primaryType="cq:Widget"
+                    allowBlank="true"
+                    fieldDescription="Grab following fields from Metadata and send {Metadata Name}={Destination Name}"
+                    fieldLabel="Request Fields"
+                    name="./metaData/requestFields"
+                    xtype="multifield">
                 </requestFields>
                 <requestHeader
-                        jcr:primaryType="cq:Widget"
-                        allowBlank="true"
-                        fieldDescription="Grab following fields from Metadata and send as header {Metadata Name}={Header Name}"
-                        fieldLabel="Request Headers"
-                        name="./metaData/requestHeaders"
-                        xtype="multifield">
+                    jcr:primaryType="cq:Widget"
+                    allowBlank="true"
+                    fieldDescription="Grab following fields from Metadata and send as header {Metadata Name}={Header Name}"
+                    fieldLabel="Request Headers"
+                    name="./metaData/requestHeaders"
+                    xtype="multifield">
                 </requestHeader>
                 <requestTemplatePath
-                        jcr:primaryType="cq:Widget"
-                        fieldDescription="Template Path"
-                        fieldLabel="Template Path"
-                        name="./metaData/requestTemplatePath"
-                        rootPath="/"
-                        predicate="siteadmin"
-                        xtype="pathfield"/>
+                    jcr:primaryType="cq:Widget"
+                    fieldDescription="Template Path"
+                    fieldLabel="Template Path"
+                    name="./metaData/requestTemplatePath"
+                    rootPath="/"
+                    predicate="siteadmin"
+                    xtype="pathfield"/>
                 <requestTemplate
-                        jcr:primaryType="cq:Widget"
-                        allowBlank="true"
-                        fieldDescription="Enter the Service Path, this will be added to Service URL from Configurations"
-                        fieldLabel="Template Text"
-                        name="./metaData/requestTemplate"
-                        width="250"
-                        xtype="textarea"/>
+                    jcr:primaryType="cq:Widget"
+                    allowBlank="true"
+                    fieldDescription="Enter the Service Path, this will be added to Service URL from Configurations"
+                    fieldLabel="Template Text"
+                    name="./metaData/requestTemplate"
+                    width="250"
+                    xtype="textarea"/>
             </items>
         </arguments>
     </items>

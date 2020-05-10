@@ -98,30 +98,30 @@ public class ImagesUtil {
     public static final String ASSET_METADATA_FOLDER = JCR_CONTENT.concat("/").concat(METADATA_FOLDER);
 
     public static final String[] DEFAULT_RENDITION_IMAGE_MAP = new String[]{ //NOSONAR used by classes
-            "48=(min-width: 1px) and (max-width: 72px)",
-            "140=(min-width: 73px) and (max-width: 210px)",
-            "319=(min-width: 211px) and (max-width: 478px)",
-            "1280=(min-width: 478px)"
+        "48=(min-width: 1px) and (max-width: 72px)",
+        "140=(min-width: 73px) and (max-width: 210px)",
+        "319=(min-width: 211px) and (max-width: 478px)",
+        "1280=(min-width: 478px)"
     };
 
     //core: 128, 256, 512, 1024, 1280, 1440, 1920, 2048
     //normal: 480, 640, 720, 800, 960, 1024, 1280, 1440, 1920, 2048
     public static final String[] DEFAULT_ADAPTIVE_IMAGE_MAP = new String[]{ //NOSONAR used by classes
-            "480=(min-width: 1px) and (max-width: 533px)",
-            "640=(min-width: 534px) and (max-width: 691px)",
-            "720=(min-width: 692px) and (max-width: 770px)",
-            "800=(min-width: 771px) and (max-width: 848px)",
-            "960=(min-width: 849px) and (max-width: 1008px)",
-            "1024=(min-width: 1009px) and (max-width: 1075px)",
-            "1280=(min-width: 1076px) and (max-width: 1331px)",
-            "1440=(min-width: 1332px) and (max-width: 1572px)",
-            "1920=(min-width: 1573px) and (max-width: 1971px)",
-            "2048=(min-width: 1971px)"
+        "480=(min-width: 1px) and (max-width: 533px)",
+        "640=(min-width: 534px) and (max-width: 691px)",
+        "720=(min-width: 692px) and (max-width: 770px)",
+        "800=(min-width: 771px) and (max-width: 848px)",
+        "960=(min-width: 849px) and (max-width: 1008px)",
+        "1024=(min-width: 1009px) and (max-width: 1075px)",
+        "1280=(min-width: 1076px) and (max-width: 1331px)",
+        "1440=(min-width: 1332px) and (max-width: 1572px)",
+        "1920=(min-width: 1573px) and (max-width: 1971px)",
+        "2048=(min-width: 1971px)"
     };
 
     /**
      * Image Options
-     *
+     * <p>
      * Structure:
      * 1 required - property name,
      * 2 required - default value,
@@ -129,23 +129,23 @@ public class ImagesUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_IMAGE_OPTIONS = { //NOSONAR used by classes
-            {FIELD_IMAGE_OPTION, IMAGE_OPTION_RESPONSIVE},
-            {ImageResource.PN_HTML_WIDTH, ""},
-            {ImageResource.PN_HTML_HEIGHT, ""},
-            {ImageResource.PN_WIDTH, 0},
-            {ImageResource.PN_HEIGHT, 0},
-            {IMAGE_FILEREFERENCE, ""},
-            {FIELD_ADAPTIVE_MAP, DEFAULT_ADAPTIVE_IMAGE_MAP},
-            {FIELD_RESPONSIVE_MAP, DEFAULT_RENDITION_IMAGE_MAP},
-            {FIELD_RENDITION_PREFIX, StringUtils.EMPTY},
-            {FIELD_MEDIAQUERYRENDITION_KEY, new String[]{}, "", Tag.class.getCanonicalName()},
-            {FIELD_MEDIAQUERYRENDITION_VALUE, new String[0]},
+        {FIELD_IMAGE_OPTION, IMAGE_OPTION_RESPONSIVE},
+        {ImageResource.PN_HTML_WIDTH, ""},
+        {ImageResource.PN_HTML_HEIGHT, ""},
+        {ImageResource.PN_WIDTH, 0},
+        {ImageResource.PN_HEIGHT, 0},
+        {IMAGE_FILEREFERENCE, ""},
+        {FIELD_ADAPTIVE_MAP, DEFAULT_ADAPTIVE_IMAGE_MAP},
+        {FIELD_RESPONSIVE_MAP, DEFAULT_RENDITION_IMAGE_MAP},
+        {FIELD_RENDITION_PREFIX, StringUtils.EMPTY},
+        {FIELD_MEDIAQUERYRENDITION_KEY, new String[]{}, "", Tag.class.getCanonicalName()},
+        {FIELD_MEDIAQUERYRENDITION_VALUE, new String[0]},
     };
 
 
     /**
      * Background Video Options
-     *
+     * <p>
      * Structure:
      * 1 required - property name,
      * 2 required - default value,
@@ -153,7 +153,7 @@ public class ImagesUtil {
      * 4 optional - canonical name of class for handling multivalues, String or Tag
      */
     public static final Object[][] DEFAULT_FIELDS_BACKGROUNDVIDEO_OPTIONS = { //NOSONAR used by classes
-            {IMAGE_FILEREFERENCE, ""},
+        {IMAGE_FILEREFERENCE, ""},
     };
 
     /**
@@ -162,8 +162,8 @@ public class ImagesUtil {
      * returned as Object[] with one element instead of a String. This method tests that
      * and returns the first element from the list or just the element itself
      *
-     * @param assetNode is the asset to interogate
-     * @param key       is the key to get the metadata for
+     * @param assetNode    is the asset to interogate
+     * @param key          is the key to get the metadata for
      * @param defaultValue default value to return on null
      * @return the value or null when nothing is found
      */
@@ -287,7 +287,8 @@ public class ImagesUtil {
 
     /**
      * get thumbnail url for a page.
-     * @param page page object
+     *
+     * @param page             page object
      * @param resourceResolver resource resolver instance
      * @return page thumbnail url
      */
@@ -309,8 +310,8 @@ public class ImagesUtil {
             Node metadataNode = assetNode.getNode(ASSET_METADATA_FOLDER);
             try {
                 width = Integer.valueOf(
-                        DamUtil.getValue(metadataNode, "tiff:ImageWidth",
-                                DamUtil.getValue(metadataNode, "exif:PixelXDimension", "")));
+                    DamUtil.getValue(metadataNode, "tiff:ImageWidth",
+                        DamUtil.getValue(metadataNode, "exif:PixelXDimension", "")));
             } catch (Exception e) {
                 // If this fails it's ok, we return 0 as fallback
             }
@@ -509,7 +510,8 @@ public class ImagesUtil {
 
     /**
      * get image dimension.
-     * @param r image rendition
+     *
+     * @param r                 image rendition
      * @param dimensionProperty dimension property to return
      * @return image dimension int
      */
@@ -827,7 +829,7 @@ public class ImagesUtil {
             return getBackgroundVideoRenditions(getContextObjects(wcmUsePojoModel));
 
         } catch (Exception ex) {
-            LOGGER.error("getBackgroundImageRenditions(WCMUsePojo) could not read required objects={}, error={}",wcmUsePojoModel,ex);
+            LOGGER.error("getBackgroundImageRenditions(WCMUsePojo) could not read required objects={}, error={}", wcmUsePojoModel, ex);
         }
 
         return getNewComponentProperties(wcmUsePojoModel);
@@ -916,7 +918,7 @@ public class ImagesUtil {
             return getBackgroundImageRenditions(getContextObjects(wcmUsePojoModel));
 
         } catch (Exception ex) {
-            LOGGER.error("getBackgroundImageRenditions(WCMUsePojo) could not read required objects={}, error={}",wcmUsePojoModel,ex);
+            LOGGER.error("getBackgroundImageRenditions(WCMUsePojo) could not read required objects={}, error={}", wcmUsePojoModel, ex);
         }
 
         return getNewComponentProperties(wcmUsePojoModel);
@@ -954,7 +956,6 @@ public class ImagesUtil {
     }
 
 
-
     /***
      * get resource image settings.
      * @param wcmUsePojoModel component model model
@@ -970,7 +971,7 @@ public class ImagesUtil {
             return getResourceImageRenditions(getContextObjects(wcmUsePojoModel), resource, attributeName, returnLastRenditionName);
 
         } catch (Exception ex) {
-            LOGGER.error("getBackgroundImageRenditions(WCMUsePojo) could not read required objects={}, error={}",wcmUsePojoModel,ex);
+            LOGGER.error("getBackgroundImageRenditions(WCMUsePojo) could not read required objects={}, error={}", wcmUsePojoModel, ex);
         }
 
         return getNewComponentProperties(wcmUsePojoModel);
@@ -1006,7 +1007,7 @@ public class ImagesUtil {
      * @param returnLastRenditionName last rendition to return if not found
      * @return returns map of attributes
      */
-    @SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates", "squid:S3776"})
     public static ComponentProperties getResourceImageRenditions(Map<String, Object> pageContext, Resource imageResource, String returnRenditionsListName, String returnLastRenditionName) {
 
         SlingScriptHelper sling = (SlingScriptHelper) pageContext.get("sling");
@@ -1042,7 +1043,7 @@ public class ImagesUtil {
                                         imageProperties.put(returnLastRenditionName, fileReference);
                                         imageProperties.put(FIELD_IMAGE_OPTION, "simple");
                                     } else {
-                                        responsiveImageSet = getImageSetForImageOptions(imageOption,asset, imageProperties, assetR, resourceResolver,sling);
+                                        responsiveImageSet = getImageSetForImageOptions(imageOption, asset, imageProperties, assetR, resourceResolver, sling);
                                     }
 
                                     imageProperties.put(returnRenditionsListName, responsiveImageSet);
@@ -1130,13 +1131,13 @@ public class ImagesUtil {
     /**
      * function to filter out the design dialog values which are not matching adaptive profile
      *
-     * @param adaptiveImageMapping image mapping config
-     * @param resolver resolver instance
+     * @param adaptiveImageMapping         image mapping config
+     * @param resolver                     resolver instance
      * @param componentPath                path to component doing the render
      * @param fileReference                path to asset to use for render
      * @param outputFormat                 specify which output format to use
      * @param useFileReferencePathAsRender create paths using fileReference instead of using Component Path
-     * @param sling sling instance
+     * @param sling                        sling instance
      * @return map of urls
      */
     public static Map<String, String> getAdaptiveImageSet(String[] adaptiveImageMapping, ResourceResolver resolver, String componentPath, String fileReference, String outputFormat, Boolean useFileReferencePathAsRender, org.apache.sling.api.scripting.SlingScriptHelper sling) {
@@ -1162,7 +1163,7 @@ public class ImagesUtil {
 
             String[] entryArray = StringUtils.split(entry, "="); //320.medium=(min-width: 1px) and (max-width: 425px)
             if (entryArray == null || entryArray.length != 2) {
-                LOGGER.error("getAdaptiveImageSet [{}] is invalid",entry);
+                LOGGER.error("getAdaptiveImageSet [{}] is invalid", entry);
                 continue;
             }
             String adaptiveProfile = entryArray[0];
@@ -1184,12 +1185,12 @@ public class ImagesUtil {
 
             if (adaptiveProfile.equals("full") || ArrayUtils.contains(allowedSizes, profileWidth)) {
                 responsiveImageSet.put(mediaQuery,
-                        MessageFormat.format("{0}.img.{1}{2}{3}",
-                                renderPath,
-                                adaptiveProfile,
-                                profileOutputFormat,
-                                suffix
-                        )
+                    MessageFormat.format("{0}.img.{1}{2}{3}",
+                        renderPath,
+                        adaptiveProfile,
+                        profileOutputFormat,
+                        suffix
+                    )
                 );
             } else {
                 LOGGER.error("getAdaptiveImageSet rendition selected size is not allowed [{}], [{}]", profileWidth, entry);
@@ -1253,15 +1254,16 @@ public class ImagesUtil {
 
     /**
      * get asset image options
-     * @param imageOption image option
-     * @param asset asset object
+     *
+     * @param imageOption         image option
+     * @param asset               asset object
      * @param componentProperties component properties for config
-     * @param assetResource asset resource
-     * @param resourceResolver resolver instance
-     * @param sling sling instance
+     * @param assetResource       asset resource
+     * @param resourceResolver    resolver instance
+     * @param sling               sling instance
      * @return list of images
      */
-    public static Map<String, String> getImageSetForImageOptions(String imageOption, com.adobe.granite.asset.api.Asset asset, ComponentProperties componentProperties,  Resource assetResource, ResourceResolver resourceResolver, SlingScriptHelper sling) {
+    public static Map<String, String> getImageSetForImageOptions(String imageOption, com.adobe.granite.asset.api.Asset asset, ComponentProperties componentProperties, Resource assetResource, ResourceResolver resourceResolver, SlingScriptHelper sling) {
         Map<String, String> responsiveImageSet = new LinkedHashMap<>();
 
         if (asset != null && !ResourceUtil.isNonExistingResource(assetResource)) {
@@ -1326,10 +1328,11 @@ public class ImagesUtil {
 
     /**
      * get asset duration from metadata/xmpDM:duration value map
+     *
      * @param assetMetadataDurationValueMap xmpDM:duration value map
      * @return duration
      */
-    public static Duration getAssetDuration(ValueMap assetMetadataDurationValueMap)  {
+    public static Duration getAssetDuration(ValueMap assetMetadataDurationValueMap) {
         if (assetMetadataDurationValueMap != null) {
             try {
 
@@ -1354,7 +1357,7 @@ public class ImagesUtil {
                 return Duration.ofSeconds(Math.round(duration));
 
             } catch (Exception ex) {
-                LOGGER.error("getAssetDuration: could not extract duration asset metadata={}",assetMetadataDurationValueMap);
+                LOGGER.error("getAssetDuration: could not extract duration asset metadata={}", assetMetadataDurationValueMap);
             }
 
         }

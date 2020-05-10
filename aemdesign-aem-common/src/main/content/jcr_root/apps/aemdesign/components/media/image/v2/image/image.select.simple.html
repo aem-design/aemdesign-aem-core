@@ -1,9 +1,9 @@
 <template data-sly-template.variant="${@ componentProperties, imageClass}">
-    <img class="img-fluid ${imageClass}" itemprop="contentUrl"
-         data-sly-test="${componentProperties.imageURL}"
-         src="${componentProperties.imageURL}"
-         alt="${componentProperties['photoshop:Headline']}"
-         width="${componentProperties.htmlWidth}"
-         height="${componentProperties.htmlHeight}"
-         title="${componentProperties['dc:title']}">
+  <img class="img-fluid ${imageClass}" itemprop="contentUrl"
+       data-sly-test="${componentProperties.imageURL}"
+       src="${componentProperties.imageURL}"
+       alt="${componentProperties['photoshop:Headline']}"
+       width="${componentProperties.htmlWidth}"
+       height="${componentProperties.htmlHeight}"
+       title="${componentProperties['dc:title']}">
 </template>

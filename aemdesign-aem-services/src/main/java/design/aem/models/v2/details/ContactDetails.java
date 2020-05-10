@@ -65,57 +65,57 @@ public class ContactDetails extends GenericDetails {
           4 optional - canonical name of class for handling multivalues, String or Tag
          */
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
-                {FIELD_TITLE, getResourcePage().getProperties().get(JcrConstants.JCR_TITLE, getResourcePage().getName())},
-                {FIELD_FORMAT_TITLE,""},
-                {FIELD_HONOTIFIC_PREFIX, ""}, //tag path
-                {"givenName",""},
-                {"familyName",""},
-                {FIELD_FORMAT_TITLE, ""}, //tag path, will be resolved to value in processComponentFields
-                {"jobTitle",""},
-                {"employee",""},
-                {"email",""},
-                {"contactNumber",""},
-                {FIELD_FORMAT_DESCRIPTION, ""}, //tag path, will be resolved to value in processComponentFields
-                {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
-                {TagConstants.PN_TAGS, new String[]{},"data-tags", Tag.class.getCanonicalName()},
-                {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
-                {"showToolbar", DEFAULT_SHOW_TOOLBAR},
-                {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
-                {FIELD_PAGE_TITLE, DEFAULT_TITLE},
-                {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
-                {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
+            {FIELD_TITLE, getResourcePage().getProperties().get(JcrConstants.JCR_TITLE, getResourcePage().getName())},
+            {FIELD_FORMAT_TITLE, ""},
+            {FIELD_HONOTIFIC_PREFIX, ""}, //tag path
+            {"givenName", ""},
+            {"familyName", ""},
+            {FIELD_FORMAT_TITLE, ""}, //tag path, will be resolved to value in processComponentFields
+            {"jobTitle", ""},
+            {"employee", ""},
+            {"email", ""},
+            {"contactNumber", ""},
+            {FIELD_FORMAT_DESCRIPTION, ""}, //tag path, will be resolved to value in processComponentFields
+            {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
+            {TagConstants.PN_TAGS, new String[]{}, "data-tags", Tag.class.getCanonicalName()},
+            {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
+            {"showToolbar", DEFAULT_SHOW_TOOLBAR},
+            {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
+            {FIELD_PAGE_TITLE, DEFAULT_TITLE},
+            {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
+            {"variantHiddenLabel", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LABEL, DEFAULT_I18N_CATEGORY, i18n)},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_ANALYTICS,
-                DEFAULT_FIELDS_DETAILS_OPTIONS);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS,
+            DEFAULT_FIELDS_DETAILS_OPTIONS);
 
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
 
-        componentProperties.put("category",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
+        componentProperties.put("category", getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
 
         //grab value for prefix
         componentProperties.put(FIELD_HONOTIFIC_PREFIX,
-                getTagValueAsAdmin(componentProperties.get(FIELD_HONOTIFIC_PREFIX, ""),getSlingScriptHelper())
+            getTagValueAsAdmin(componentProperties.get(FIELD_HONOTIFIC_PREFIX, ""), getSlingScriptHelper())
         );
 
         //format fields
-        componentProperties.putAll(processComponentFields(componentProperties,i18n,getSlingScriptHelper()), false);
+        componentProperties.putAll(processComponentFields(componentProperties, i18n, getSlingScriptHelper()), false);
 
-        componentProperties.put(DETAILS_DESCRIPTION,componentProperties.get(FIELD_FORMATTED_DESCRIPTION,""));
+        componentProperties.put(DETAILS_DESCRIPTION, componentProperties.get(FIELD_FORMATTED_DESCRIPTION, ""));
 
         processCommonFields();
 
         //set something if title formatted is empty
-        if (isEmpty(componentProperties.get(FIELD_FORMATTED_TITLE,""))) {
-            componentProperties.put(FIELD_FORMATTED_TITLE,componentProperties.get(FIELD_TITLE,""));
-            componentProperties.put(FIELD_FORMATTED_TITLE_TEXT,componentProperties.get(FIELD_TITLE,""));
+        if (isEmpty(componentProperties.get(FIELD_FORMATTED_TITLE, ""))) {
+            componentProperties.put(FIELD_FORMATTED_TITLE, componentProperties.get(FIELD_TITLE, ""));
+            componentProperties.put(FIELD_FORMATTED_TITLE_TEXT, componentProperties.get(FIELD_TITLE, ""));
         }
     }
 
@@ -128,7 +128,7 @@ public class ContactDetails extends GenericDetails {
      */
     @Override
     @SuppressWarnings("Duplicates")
-    public Map<String, Object> processComponentFields(ComponentProperties componentProperties, com.day.cq.i18n.I18n i18n, SlingScriptHelper sling){
+    public Map<String, Object> processComponentFields(ComponentProperties componentProperties, com.day.cq.i18n.I18n i18n, SlingScriptHelper sling) {
         Map<String, Object> newFields = new HashMap();
 
         try {
@@ -138,13 +138,13 @@ public class ContactDetails extends GenericDetails {
             String formattedTitleText = fragment.text();
 
             newFields.put(FIELD_FORMATTED_TITLE,
-                    formattedTitle.trim()
+                formattedTitle.trim()
             );
             newFields.put(FIELD_FORMATTED_TITLE_TEXT,
-                    formattedTitleText.trim()
+                formattedTitleText.trim()
             );
             newFields.put(FIELD_FORMATTED_DESCRIPTION,
-                    compileComponentMessage(FIELD_FORMAT_DESCRIPTION, DEFAULT_FORMAT_DESCRIPTION, componentProperties, sling).trim()
+                compileComponentMessage(FIELD_FORMAT_DESCRIPTION, DEFAULT_FORMAT_DESCRIPTION, componentProperties, sling).trim()
             );
 
         } catch (Exception ex) {

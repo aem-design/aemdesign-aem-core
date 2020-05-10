@@ -32,8 +32,8 @@ import java.util.Map;
 import static design.aem.utils.components.ComponentsUtil.*;
 
 @Model(adaptables = SlingHttpServletRequest.class,
-        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL,
-        adapters = {GenericComponent.class, ComponentExporter.class})
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL,
+    adapters = {GenericComponent.class, ComponentExporter.class})
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class GenericModel implements GenericComponent {
 
@@ -86,26 +86,85 @@ public class GenericModel implements GenericComponent {
         return resource.getResourceType();
     }
 
-    public final PageManager getPageManager() { return this.pageManager; }
-    public final Page getCurrentPage() { return this.currentPage; }
-    public final Page getResourcePage() { return this.resourcePage; }
-    public final ValueMap getPageProperties() { return this.pageProperties; }
-    public final ValueMap getProperties() { return this.properties; }
-    public final Designer getDesigner() { return this.designer; }
-    public final Design getCurrentDesign() { return this.currentDesign; }
-    public final Style getCurrentStyle() { return this.currentStyle; }
-    public final Component getComponent() { return this.component; }
-    public final ValueMap getInheritedPageProperties() { return this.inheritedPageProperties; }
-    public final Resource getResource() { return this.resource; }
-    public final ResourceResolver getResourceResolver() { return this.resourceResolver; }
-    public final SlingHttpServletRequest getRequest() { return this.slingHttpServletRequest; }
-    public final SlingHttpServletResponse getResponse() { return this.slingHttpServletResponse; }
-    public final SlingScriptHelper getSlingScriptHelper() { return this.slingScriptHelper; }
-    public final ComponentContext getComponentContext() { return this.componentContext; }
-    public final EditContext getEditContext() { return this.componentContext.getEditContext(); }
-    public final Design getResourceDesign() { return this.resourceDesign; }
-    public final Node getCurrentNode() { return this.resource.adaptTo(Node.class); }
-    public final I18n getI18n() { return new I18n(getRequest()); }
+    public final PageManager getPageManager() {
+        return this.pageManager;
+    }
+
+    public final Page getCurrentPage() {
+        return this.currentPage;
+    }
+
+    public final Page getResourcePage() {
+        return this.resourcePage;
+    }
+
+    public final ValueMap getPageProperties() {
+        return this.pageProperties;
+    }
+
+    public final ValueMap getProperties() {
+        return this.properties;
+    }
+
+    public final Designer getDesigner() {
+        return this.designer;
+    }
+
+    public final Design getCurrentDesign() {
+        return this.currentDesign;
+    }
+
+    public final Style getCurrentStyle() {
+        return this.currentStyle;
+    }
+
+    public final Component getComponent() {
+        return this.component;
+    }
+
+    public final ValueMap getInheritedPageProperties() {
+        return this.inheritedPageProperties;
+    }
+
+    public final Resource getResource() {
+        return this.resource;
+    }
+
+    public final ResourceResolver getResourceResolver() {
+        return this.resourceResolver;
+    }
+
+    public final SlingHttpServletRequest getRequest() {
+        return this.slingHttpServletRequest;
+    }
+
+    public final SlingHttpServletResponse getResponse() {
+        return this.slingHttpServletResponse;
+    }
+
+    public final SlingScriptHelper getSlingScriptHelper() {
+        return this.slingScriptHelper;
+    }
+
+    public final ComponentContext getComponentContext() {
+        return this.componentContext;
+    }
+
+    public final EditContext getEditContext() {
+        return this.componentContext.getEditContext();
+    }
+
+    public final Design getResourceDesign() {
+        return this.resourceDesign;
+    }
+
+    public final Node getCurrentNode() {
+        return this.resource.adaptTo(Node.class);
+    }
+
+    public final I18n getI18n() {
+        return new I18n(getRequest());
+    }
 
     public Map<String, Object> getPageContextMap() {
 

@@ -11,6 +11,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 public class PageTitle extends ModelProxy {
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -20,17 +21,17 @@ public class PageTitle extends ModelProxy {
         final String DEFAULT_TAG_TYPE = "span";
 
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {JcrConstants.JCR_TITLE, ""},
-                {FIELD_TITLE_TAG_TYPE, DEFAULT_TAG_TYPE}
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {JcrConstants.JCR_TITLE, ""},
+            {FIELD_TITLE_TAG_TYPE, DEFAULT_TAG_TYPE}
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_DETAILS_OPTIONS);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_DETAILS_OPTIONS);
 
         String jcrTitle = getPageProperties().get(JcrConstants.JCR_TITLE, "");
         String overrideTitle = componentProperties.get(JcrConstants.JCR_TITLE, "");

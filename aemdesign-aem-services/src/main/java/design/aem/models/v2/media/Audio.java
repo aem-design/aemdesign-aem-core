@@ -11,6 +11,7 @@ import static design.aem.utils.components.ResolverUtil.mappedUrl;
 public class Audio extends ModelProxy {
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -31,17 +32,17 @@ public class Audio extends ModelProxy {
           4 optional - canonical name of class for handling multivalues, String or Tag
          */
         setComponentFields(new Object[][]{
-                {FIELD_AUDIO_URL,""},
-                {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE},
-                {FIELD_ARIA_LABEL,DEFAULT_ARIA_LABEL},
-                {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_AUDIO_URL, ""},
+            {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE},
+            {FIELD_ARIA_LABEL, DEFAULT_ARIA_LABEL},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
         String audioUrl = componentProperties.get(FIELD_AUDIO_URL, "");
 

@@ -40,6 +40,7 @@ public class ComponentProperties extends ValueMapDecorator {
 
     /**
      * override default equals
+     *
      * @param obj source componentProperties
      * @return true of same as self
      */
@@ -60,6 +61,7 @@ public class ComponentProperties extends ValueMapDecorator {
 
     /**
      * generate object hashcode with seed
+     *
      * @return hashcode
      */
     @Override
@@ -106,13 +108,13 @@ public class ComponentProperties extends ValueMapDecorator {
                                 if (currentValue.getClass().isArray() && ArrayUtils.getLength(currentValue) != 0) {
                                     //if its an empty array
                                     LOGGER.warn("skip: {} current value it not empty array, merging", entry.getKey());
-                                    Object[] currentValueArray = (Object[])currentValue;
-                                    Object[] newValueArray =  (Object[])newValue;
+                                    Object[] currentValueArray = (Object[]) currentValue;
+                                    Object[] newValueArray = (Object[]) newValue;
 
                                     List<Object> updatedValueList = new ArrayList<>();
-                                    Collections.addAll(updatedValueList,currentValueArray);
+                                    Collections.addAll(updatedValueList, currentValueArray);
 
-                                    for (Object newValueItem : newValueArray){
+                                    for (Object newValueItem : newValueArray) {
                                         if (!updatedValueList.contains(newValueItem)) {
                                             updatedValueList.add(newValueItem);
                                         }
@@ -165,8 +167,8 @@ public class ComponentProperties extends ValueMapDecorator {
                             //use default expression if item does not have expression
                             String valueExpression = defaultValueExpression;
                             //if field value is expression use it
-                            if (isStringRegex((String)fieldValue)) {
-                                valueExpression = (String)fieldValue;
+                            if (isStringRegex((String) fieldValue)) {
+                                valueExpression = (String) fieldValue;
                             }
 
                             Object expressonResult = evaluateExpressionWithValue(jxlt, jc, valueExpression, fieldValue);
@@ -181,7 +183,7 @@ public class ComponentProperties extends ValueMapDecorator {
                         } else {
 
                             //get current field value
-                            String[] values = (String[])field.getValue();
+                            String[] values = (String[]) field.getValue();
 
                             if (!ArrayUtils.isEmpty(values)) {
                                 //loop though array and evaluate each item value
@@ -195,7 +197,7 @@ public class ComponentProperties extends ValueMapDecorator {
                                     values[i] = (String) evaluateExpressionWithValue(jxlt, jc, valueExpression, values[i]);
                                 }
                             } else {
-                                values = ArrayUtils.add(values,(String) evaluateExpressionWithValue(jxlt, jc, defaultValueExpression, null));
+                                values = ArrayUtils.add(values, (String) evaluateExpressionWithValue(jxlt, jc, defaultValueExpression, null));
                             }
 
                             //update evaluated values

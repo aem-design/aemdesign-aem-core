@@ -1,9 +1,9 @@
 <template data-sly-template.variant="${@ componentProperties, imageClass}">
-    <sly data-sly-test="${componentProperties.imageOption == 'responsive' || componentProperties.imageOption == 'mediaqueryrendition' || componentProperties.imageOption == 'adaptive'}"
-         data-sly-use.responsive="image.select.responsive.html"
-         data-sly-call="${responsive.variant @ componentProperties=componentProperties, imageClass=imageClass}"></sly>
+  <sly data-sly-test="${componentProperties.imageOption == 'responsive' || componentProperties.imageOption == 'mediaqueryrendition' || componentProperties.imageOption == 'adaptive'}"
+       data-sly-use.responsive="image.select.responsive.html"
+       data-sly-call="${responsive.variant @ componentProperties=componentProperties, imageClass=imageClass}"></sly>
 
-    <sly data-sly-test="${componentProperties.imageOption != 'responsive' && componentProperties.imageOption != 'mediaqueryrendition' && componentProperties.imageOption != 'adaptive'}"
-         data-sly-use.info="image.select.simple.html"
-         data-sly-call="${info.variant @ componentProperties=componentProperties, imageClass=imageClass}"></sly>
+  <sly data-sly-test="${componentProperties.imageOption != 'responsive' && componentProperties.imageOption != 'mediaqueryrendition' && componentProperties.imageOption != 'adaptive'}"
+       data-sly-use.info="image.select.simple.html"
+       data-sly-call="${info.variant @ componentProperties=componentProperties, imageClass=imageClass}"></sly>
 </template>

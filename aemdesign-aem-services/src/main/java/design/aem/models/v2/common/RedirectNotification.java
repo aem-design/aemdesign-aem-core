@@ -15,6 +15,7 @@ import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 public class RedirectNotification extends ModelProxy {
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -38,17 +39,17 @@ public class RedirectNotification extends ModelProxy {
           4 optional - canonical name of class for handling multivalues, String or Tag
          */
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {FIELD_REDIRECT_TITLE, ""},
-                {FIELD_REDIRECT_URL, "#"},
-                {FIELD_REDIRECT_TARGET, getPageProperties().get(PN_REDIRECT_TARGET, "")},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_REDIRECT_TITLE, ""},
+            {FIELD_REDIRECT_URL, "#"},
+            {FIELD_REDIRECT_TARGET, getPageProperties().get(PN_REDIRECT_TARGET, "")},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
         String redirectTarget = componentProperties.get(FIELD_REDIRECT_URL, "");
         String redirectTitle = componentProperties.get(FIELD_REDIRECT_TITLE, "");
@@ -62,17 +63,17 @@ public class RedirectNotification extends ModelProxy {
             Page targetPage = getPageManager().getPage(redirectTarget);
 
             if (targetPage != null) {
-                componentProperties.put(FIELD_REDIRECT_URL,redirectTarget.concat(DEFAULT_EXTENTION));
-                componentProperties.put(FIELD_REDIRECT_TITLE,currentTitle);
+                componentProperties.put(FIELD_REDIRECT_URL, redirectTarget.concat(DEFAULT_EXTENTION));
+                componentProperties.put(FIELD_REDIRECT_TITLE, currentTitle);
             }
         } else if (StringUtils.isNotEmpty(redirectTarget)) {
-            componentProperties.put(FIELD_REDIRECT_TITLE,currentTitle);
-            componentProperties.put(FIELD_REDIRECT_URL,redirectTarget);
+            componentProperties.put(FIELD_REDIRECT_TITLE, currentTitle);
+            componentProperties.put(FIELD_REDIRECT_URL, redirectTarget);
         } else {
-            componentProperties.put(FIELD_REDIRECT_TITLE,currentTitle);
+            componentProperties.put(FIELD_REDIRECT_TITLE, currentTitle);
         }
 
-        componentProperties.put(DEFAULT_I18N_LABEL_REDIRECT_IS_SET,getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL_REDIRECT_IS_SET,DEFAULT_I18N_CATEGORY,i18n));
-        componentProperties.put(DEFAULT_I18N_LABEL_REDIRECT_IS_NOT_SET,getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL_REDIRECT_IS_NOT_SET,DEFAULT_I18N_CATEGORY,i18n));
+        componentProperties.put(DEFAULT_I18N_LABEL_REDIRECT_IS_SET, getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LABEL_REDIRECT_IS_SET, DEFAULT_I18N_CATEGORY, i18n));
+        componentProperties.put(DEFAULT_I18N_LABEL_REDIRECT_IS_NOT_SET, getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LABEL_REDIRECT_IS_NOT_SET, DEFAULT_I18N_CATEGORY, i18n));
     }
 }

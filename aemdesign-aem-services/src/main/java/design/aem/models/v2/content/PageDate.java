@@ -18,17 +18,18 @@ public class PageDate extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(PageDate.class);
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
     @SuppressWarnings({"squid:S3008"})
-    private static String PUBLISH_DATE_FORMAT = "yyyy-MM-dd";
+    private static final String PUBLISH_DATE_FORMAT = "yyyy-MM-dd";
 
     private static final String FIELD_PUBLISH_DATE = "publishDate";
 
     @SuppressWarnings({"squid:S3008"})
-    private static String PUBLISH_DATE_DISPLAY_FORMAT = "EEEE dd MMMM YYYY";
+    private static final String PUBLISH_DATE_DISPLAY_FORMAT = "EEEE dd MMMM YYYY";
 
     protected void ready() {
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
@@ -36,25 +37,25 @@ public class PageDate extends ModelProxy {
         final String DEFAULT_I18N_CATEGORY = "pagedate";
 
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {FIELD_PUBLISH_DATE, getPageCreated(getPageProperties())},
-                {JcrConstants.JCR_CREATED, ""}
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_PUBLISH_DATE, getPageCreated(getPageProperties())},
+            {JcrConstants.JCR_CREATED, ""}
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_DETAILS_OPTIONS);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_DETAILS_OPTIONS);
 
         long publishDateLong = componentProperties.get(FIELD_PUBLISH_DATE, 0L);
         Calendar publishDate = Calendar.getInstance();
         publishDate.setTimeInMillis(publishDateLong);
 
         //get format strings from dictionary
-        String dateFormatString = i18n.get("publishDateFormat",DEFAULT_I18N_CATEGORY);
-        String dateDisplayFormatString = i18n.get("publishDateDisplayFormat",DEFAULT_I18N_CATEGORY);
+        String dateFormatString = i18n.get("publishDateFormat", DEFAULT_I18N_CATEGORY);
+        String dateDisplayFormatString = i18n.get("publishDateDisplayFormat", DEFAULT_I18N_CATEGORY);
 
         //could not read dictionary
         if (dateFormatString.equals("publishDateFormat")) {
@@ -82,7 +83,7 @@ public class PageDate extends ModelProxy {
             componentProperties.attr.add("datetime", publishDateText);
 
         } catch (Exception ex) {
-            LOGGER.error("PageDate: dateFormatString={},dateDisplayFormatString={},publishDate={},path={},ex.message={},ex={}", dateFormatString,dateDisplayFormatString,publishDate,getResource().getPath(),ex.getMessage(), ex);
+            LOGGER.error("PageDate: dateFormatString={},dateDisplayFormatString={},publishDate={},path={},ex.message={},ex={}", dateFormatString, dateDisplayFormatString, publishDate, getResource().getPath(), ex.getMessage(), ex);
         }
 
         componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));

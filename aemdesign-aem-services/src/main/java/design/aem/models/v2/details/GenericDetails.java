@@ -64,87 +64,88 @@ public class GenericDetails extends ModelProxy {
     private static final String FIELD_CONTENTFRAGMENT_FRAGMENTPATH = "fragmentPath";
 
     //used for backwards compatibility of details components
-    private static final String[] legacyBadgeList = new String[] {
-            "badge.cardActionIconDescription",
-            "badge.cardActionIconTitleCategoryDescription",
-            "badge.cardActionIconTitleDescription",
-            "badge.cardActionImageTitle",
-            "badge.cardActionImageTitleCategoryDescription",
-            "badge.cardActionImageTitleDescription",
-            "badge.cardHorizontalIconTitleCategoryDescriptionAction",
-            "badge.cardIcon",
-            "badge.cardIconDescription",
-            "badge.cardIconTitle",
-            "badge.cardIconTitleAction",
-            "badge.cardIconTitleCategoryDescription",
-            "badge.cardIconTitleCategoryDescriptionAction",
-            "badge.cardIconTitleDateAction",
-            "badge.cardIconTitleDateDescriptionAction",
-            "badge.cardIconTitleDescription",
-            "badge.cardIconTitleDescriptionAction",
-            "badge.cardIconTitleSubtitleDate",
-            "badge.cardIconTitleSubtitleDateDescriptionAction",
-            "badge.cardIconTitleSubtitleDescriptionAction",
-            "badge.cardImageSubtitleTitleCategoryDescriptionAction",
-            "badge.cardImageSubtitleTitleDescriptionAction",
-            "badge.cardImageTagTitleAction",
-            "badge.cardImageTitleAction",
-            "badge.cardImageTitleCategoryActionDate",
-            "badge.cardImageTitleCategoryDescription",
-            "badge.cardImageTitleCategoryDescriptionAction",
-            "badge.cardImageTitleDescription",
-            "badge.cardImageTitleDescriptionAction",
-            "badge.cardImageTitleSubtitleDescriptionAction",
-            "badge.cardTitleDescriptionAction",
-            "badge.data",
-            "badge.default",
-            "badge.icon",
-            "badge.image",
-            "badge.metadata"
+    private static final String[] legacyBadgeList = new String[]{
+        "badge.cardActionIconDescription",
+        "badge.cardActionIconTitleCategoryDescription",
+        "badge.cardActionIconTitleDescription",
+        "badge.cardActionImageTitle",
+        "badge.cardActionImageTitleCategoryDescription",
+        "badge.cardActionImageTitleDescription",
+        "badge.cardHorizontalIconTitleCategoryDescriptionAction",
+        "badge.cardIcon",
+        "badge.cardIconDescription",
+        "badge.cardIconTitle",
+        "badge.cardIconTitleAction",
+        "badge.cardIconTitleCategoryDescription",
+        "badge.cardIconTitleCategoryDescriptionAction",
+        "badge.cardIconTitleDateAction",
+        "badge.cardIconTitleDateDescriptionAction",
+        "badge.cardIconTitleDescription",
+        "badge.cardIconTitleDescriptionAction",
+        "badge.cardIconTitleSubtitleDate",
+        "badge.cardIconTitleSubtitleDateDescriptionAction",
+        "badge.cardIconTitleSubtitleDescriptionAction",
+        "badge.cardImageSubtitleTitleCategoryDescriptionAction",
+        "badge.cardImageSubtitleTitleDescriptionAction",
+        "badge.cardImageTagTitleAction",
+        "badge.cardImageTitleAction",
+        "badge.cardImageTitleCategoryActionDate",
+        "badge.cardImageTitleCategoryDescription",
+        "badge.cardImageTitleCategoryDescriptionAction",
+        "badge.cardImageTitleDescription",
+        "badge.cardImageTitleDescriptionAction",
+        "badge.cardImageTitleSubtitleDescriptionAction",
+        "badge.cardTitleDescriptionAction",
+        "badge.data",
+        "badge.default",
+        "badge.icon",
+        "badge.image",
+        "badge.metadata"
     };
 
     @SuppressWarnings("squid:S1192")
     //used for backwards compatibility of details components
-    private static final String[][] legacyBadgeListMapping = new String[][] {
-            new String[] {"action-icon","description"},
-            new String[] {"action-icon","title", "taglist", "description"},
-            new String[] {"action-icon","title", "description"},
-            new String[] {"action-image","title"},
-            new String[] {"action-image","title", "taglist", "description"},
-            new String[] {"action-image","title", "description"},
-            new String[] {"horizontal-icon","title", "taglist", "description", "action"},
-            new String[] {"card-icon"},
-            new String[] {"card-icon","description"},
-            new String[] {"card-icon","title"},
-            new String[] {"card-icon","title", "action"},
-            new String[] {"card-icon","title", "taglist", "description"},
-            new String[] {"card-icon","title", "taglist", "description", "action"},
-            new String[] {"card-icon","title", "startdate", "action"},
-            new String[] {"card-icon","title", "startdate", "description"},
-            new String[] {"card-icon","title", "description"},
-            new String[] {"card-icon","title", "description", "action"},
-            new String[] {"card-icon","title", "subtitle", "startdate"},
-            new String[] {"card-icon","title", "subtitle", "startdate", "description", "action"},
-            new String[] {"card-icon","title", "subtitle", "description", "action"},
-            new String[] {"card-image","subtitle", "title", "taglist", "description", "action"},
-            new String[] {"card-image","subtitle", "title", "description", "action"},
-            new String[] {"card-image","taglist", "title", "action"},
-            new String[] {"card-image","title", "action"},
-            new String[] {"card-image","title", "taglist", "action", "startdate"},
-            new String[] {"card-image","title", "taglist", "description"},
-            new String[] {"card-image","title", "taglist", "description", "action"},
-            new String[] {"card-image","title", "description"},
-            new String[] {"card-image","title", "description", "action"},
-            new String[] {"card-image","title", "subtitle", "description", "action"},
-            new String[] {"card","title", "description", "action"},
-            new String[] {"simple-data"},
-            new String[] {"default"},
-            new String[] {"simple-icon"},
-            new String[] {"simple-image"},
-            new String[] {"simple-metadata"},
+    private static final String[][] legacyBadgeListMapping = new String[][]{
+        new String[]{"action-icon", "description"},
+        new String[]{"action-icon", "title", "taglist", "description"},
+        new String[]{"action-icon", "title", "description"},
+        new String[]{"action-image", "title"},
+        new String[]{"action-image", "title", "taglist", "description"},
+        new String[]{"action-image", "title", "description"},
+        new String[]{"horizontal-icon", "title", "taglist", "description", "action"},
+        new String[]{"card-icon"},
+        new String[]{"card-icon", "description"},
+        new String[]{"card-icon", "title"},
+        new String[]{"card-icon", "title", "action"},
+        new String[]{"card-icon", "title", "taglist", "description"},
+        new String[]{"card-icon", "title", "taglist", "description", "action"},
+        new String[]{"card-icon", "title", "startdate", "action"},
+        new String[]{"card-icon", "title", "startdate", "description"},
+        new String[]{"card-icon", "title", "description"},
+        new String[]{"card-icon", "title", "description", "action"},
+        new String[]{"card-icon", "title", "subtitle", "startdate"},
+        new String[]{"card-icon", "title", "subtitle", "startdate", "description", "action"},
+        new String[]{"card-icon", "title", "subtitle", "description", "action"},
+        new String[]{"card-image", "subtitle", "title", "taglist", "description", "action"},
+        new String[]{"card-image", "subtitle", "title", "description", "action"},
+        new String[]{"card-image", "taglist", "title", "action"},
+        new String[]{"card-image", "title", "action"},
+        new String[]{"card-image", "title", "taglist", "action", "startdate"},
+        new String[]{"card-image", "title", "taglist", "description"},
+        new String[]{"card-image", "title", "taglist", "description", "action"},
+        new String[]{"card-image", "title", "description"},
+        new String[]{"card-image", "title", "description", "action"},
+        new String[]{"card-image", "title", "subtitle", "description", "action"},
+        new String[]{"card", "title", "description", "action"},
+        new String[]{"simple-data"},
+        new String[]{"default"},
+        new String[]{"simple-icon"},
+        new String[]{"simple-image"},
+        new String[]{"simple-metadata"},
     };
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -164,7 +165,7 @@ public class GenericDetails extends ModelProxy {
         // default values for the component
         final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
         final String DEFAULT_DESCRIPTION = getResourcePage().getDescription();
-        final String DEFAULT_SUBTITLE = getResourcePage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE,"");
+        final String DEFAULT_SUBTITLE = getResourcePage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE, "");
         final Boolean DEFAULT_HIDE_TITLE = false;
         final Boolean DEFAULT_HIDE_DESCRIPTION = false;
         final Boolean DEFAULT_SHOW_BREADCRUMB = true;
@@ -177,7 +178,7 @@ public class GenericDetails extends ModelProxy {
         setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {"title", DEFAULT_TITLE},
-            {FIELD_FORMAT_TITLE,""}, //tag path, will be resolved to value in processComponentFields
+            {FIELD_FORMAT_TITLE, ""}, //tag path, will be resolved to value in processComponentFields
             {"description", DEFAULT_DESCRIPTION},
             {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
             {"hideTitle", DEFAULT_HIDE_TITLE},
@@ -192,9 +193,9 @@ public class GenericDetails extends ModelProxy {
             {FIELD_PAGE_TITLE_SUBTITLE, DEFAULT_SUBTITLE},
             {TagConstants.PN_TAGS, new String[]{}},
             {FIELD_SUBCATEGORY, new String[]{}},
-            {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
+            {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
             {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
-            {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
+            {"variantHiddenLabel", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LABEL, DEFAULT_I18N_CATEGORY, i18n)},
             {FIELD_LEGACY_BADGE_LIST, legacyBadgeList},
             {FIELD_LEGACY_BADGE_LIST_MAPPING, legacyBadgeListMapping},
             {FIELD_LEGACY_BADGE_CNNFIG_TAGS, resolveTenantIdFromPath(getCurrentPage().getPath()).concat(DEFAULT_TAG_LEGACY_BADGE_CONFIG)},
@@ -221,15 +222,15 @@ public class GenericDetails extends ModelProxy {
         }
 
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
-        componentProperties.put(FIELD_CATEGORY,getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
+        componentProperties.put(FIELD_CATEGORY, getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
 
         String[] subCategory = componentProperties.get(FIELD_SUBCATEGORY, new String[]{});
-        componentProperties.put(FIELD_SUBCATEGORY,getTagsAsAdmin(getSlingScriptHelper(), subCategory, getRequest().getLocale()));
+        componentProperties.put(FIELD_SUBCATEGORY, getTagsAsAdmin(getSlingScriptHelper(), subCategory, getRequest().getLocale()));
 
         processCommonFields();
 
         //format fields
-        componentProperties.putAll(processComponentFields(componentProperties,i18n,getSlingScriptHelper()), false);
+        componentProperties.putAll(processComponentFields(componentProperties, i18n, getSlingScriptHelper()), false);
 
         //set properties into request to allow ContentTemplate to use it for presentation
         getRequest().setAttribute(ContentTemplate.REQUEST_COMPONENT_PROPERTIES, componentProperties);
@@ -238,7 +239,7 @@ public class GenericDetails extends ModelProxy {
     /***
      * process common fields that details supports.
      */
-    @SuppressWarnings({"Duplicates","squid:S3776","squid:S1141"})
+    @SuppressWarnings({"Duplicates", "squid:S3776", "squid:S1141"})
     protected void processCommonFields() {
         try {
             if (componentProperties == null) {
@@ -246,51 +247,51 @@ public class GenericDetails extends ModelProxy {
             }
             //read the image node
             componentProperties.putAll(getAssetInfo(getResourceResolver(),
-                    getPageImgReferencePath(getResourcePage()),
-                    FIELD_PAGE_IMAGE));
+                getPageImgReferencePath(getResourcePage()),
+                FIELD_PAGE_IMAGE));
 
             //read the secondary image node
             componentProperties.putAll(getAssetInfo(getResourceResolver(),
-                    getResourceImagePath(getResource(), DEFAULT_SECONDARY_IMAGE_NODE_NAME),
-                    FIELD_PAGE_SECONDARY_IMAGE));
+                getResourceImagePath(getResource(), DEFAULT_SECONDARY_IMAGE_NODE_NAME),
+                FIELD_PAGE_SECONDARY_IMAGE));
 
             //read the background image node
             componentProperties.putAll(getAssetInfo(getResourceResolver(),
-                    getResourceImagePath(getResource(), DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
-                    FIELD_PAGE_BACKGROUND_IMAGE));
+                getResourceImagePath(getResource(), DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
+                FIELD_PAGE_BACKGROUND_IMAGE));
 
             //read the thumbnail image node
             componentProperties.putAll(getAssetInfo(getResourceResolver(),
-                    getResourceImagePath(getResource(), DEFAULT_THUMBNAIL_IMAGE_NODE_NAME),
-                    FIELD_PAGE_THUMBNAIL_IMAGE));
+                getResourceImagePath(getResource(), DEFAULT_THUMBNAIL_IMAGE_NODE_NAME),
+                FIELD_PAGE_THUMBNAIL_IMAGE));
 
             componentProperties.put(FIELD_REDIRECT_TARGET, getResourcePage().getProperties().get(FIELD_REDIRECT_TARGET, ""));
 
             //set thumbnail path for image node
             componentProperties.put(FIELD_PAGE_IMAGE_THUMBNAIL,
-                    getBestFitRendition(
-                            componentProperties.get(FIELD_PAGE_IMAGE, ""),
-                            componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
-                            getResourceResolver()
-                    )
+                getBestFitRendition(
+                    componentProperties.get(FIELD_PAGE_IMAGE, ""),
+                    componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
+                    getResourceResolver()
+                )
             );
 
             //set thumbnail path for secondary image node
             componentProperties.put(FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL,
-                    getBestFitRendition(
-                            componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE, ""),
-                            componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
-                            getResourceResolver()
-                    )
+                getBestFitRendition(
+                    componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE, ""),
+                    componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
+                    getResourceResolver()
+                )
             );
 
             //set thumbnail path for thumbnail image node
             componentProperties.put(FIELD_PAGE_THUMBNAIL_IMAGE_THUMBNAIL,
-                    getBestFitRendition(
-                            componentProperties.get(FIELD_PAGE_THUMBNAIL_IMAGE, ""),
-                            componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
-                            getResourceResolver()
-                    )
+                getBestFitRendition(
+                    componentProperties.get(FIELD_PAGE_THUMBNAIL_IMAGE, ""),
+                    componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
+                    getResourceResolver()
+                )
             );
 
             //process badge selection
@@ -314,8 +315,8 @@ public class GenericDetails extends ModelProxy {
 
             //check if component has the badge and reset if it does not
             if (isEmpty(badgePath)) {
-                if (Boolean.TRUE.equals(badgeWasRequested) && !ArrayUtils.contains(legacyBadgeList,componentBadge)) {
-                    LOGGER.error("LEGACY BADGE WAS REQUESTED BUT NOT FOUND IN COMPONENT AND LEGACY MAPPING NOT FOUND requestedBadgeTemplate={}",requestedBadgeTemplate);
+                if (Boolean.TRUE.equals(badgeWasRequested) && !ArrayUtils.contains(legacyBadgeList, componentBadge)) {
+                    LOGGER.error("LEGACY BADGE WAS REQUESTED BUT NOT FOUND IN COMPONENT AND LEGACY MAPPING NOT FOUND requestedBadgeTemplate={}", requestedBadgeTemplate);
                 }
                 componentBadge = DEFAULT_BADGE;
                 requestedBadgeTemplate = defaultBadgeTemplate;
@@ -329,7 +330,7 @@ public class GenericDetails extends ModelProxy {
             //get background image
             componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME, getBackgroundImageRenditions(this));
 
-            if (isComponentRenderedByList(getRequest()) ) {
+            if (isComponentRenderedByList(getRequest())) {
                 //update component properties overrides possibly from list component
                 ComponentProperties badgeOverrides = processBadgeRequestConfig(componentProperties, getResourceResolver(), getRequest());
                 //if override badgeCustom is set to false remove related fields from overrides
@@ -391,17 +392,16 @@ public class GenericDetails extends ModelProxy {
             componentProperties.put(FIELD_CANONICAL_URL, mappedUrl(getResourceResolver(), getRequest(), getResourcePage().getPath()).concat(DEFAULT_EXTENTION));
 
             //get legacy badge configs from tags
-            String legacyBadgeConfigTags = componentProperties.get(FIELD_LEGACY_BADGE_CNNFIG_TAGS,"");
+            String legacyBadgeConfigTags = componentProperties.get(FIELD_LEGACY_BADGE_CNNFIG_TAGS, "");
             if (isNotEmpty(legacyBadgeConfigTags)) {
                 Map<String, Map> legacyBadgeConfig = getTagsAsAdmin(
-                        getSlingScriptHelper(),
-                        new String[]{legacyBadgeConfigTags},
-                        getRequest().getLocale(),
-                        new String[]{FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES,FIELD_TAG_TEMPLATE_CONFIG_FIELDS},
-                        true);
-                componentProperties.put(FIELD_LEGACY_BADGE_CONFIG,legacyBadgeConfig);
+                    getSlingScriptHelper(),
+                    new String[]{legacyBadgeConfigTags},
+                    getRequest().getLocale(),
+                    new String[]{FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES, FIELD_TAG_TEMPLATE_CONFIG_FIELDS},
+                    true);
+                componentProperties.put(FIELD_LEGACY_BADGE_CONFIG, legacyBadgeConfig);
             }
-
 
 
         } catch (Exception ex) {
@@ -411,6 +411,7 @@ public class GenericDetails extends ModelProxy {
 
     /**
      * get field template in component.
+     *
      * @return list of field resources
      */
     public Map<String, Resource> getFields() {
@@ -419,6 +420,7 @@ public class GenericDetails extends ModelProxy {
 
     /**
      * get template in component.
+     *
      * @return list of template resources
      */
     public Map<String, Resource> getTemplates() {
@@ -427,19 +429,19 @@ public class GenericDetails extends ModelProxy {
 
     /**
      * return list of selectors if not using legacy badge convention.
+     *
      * @return list of template resources
      */
     public String[] getRequestedFields() {
         String legacyComponentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
 
-        if (isNotEmpty(legacyComponentBadge) && this.componentProperties != null ) {
+        if (isNotEmpty(legacyComponentBadge) && this.componentProperties != null) {
             //check if config from tags being used
             LinkedHashMap<String, Map> legacyBadgeConfig = componentProperties.get(FIELD_LEGACY_BADGE_CONFIG, LinkedHashMap.class);
             if (legacyBadgeConfig != null) {
                 //check if config exist
-                for (Map.Entry<String, Map> entry : legacyBadgeConfig.entrySet())
-                 {
-                     Map config = entry.getValue();
+                for (Map.Entry<String, Map> entry : legacyBadgeConfig.entrySet()) {
+                    Map config = entry.getValue();
                     if (config.containsKey("value") && config.get("value").equals(legacyComponentBadge)) {
 
                         String[] fields = new String[0];
@@ -447,18 +449,18 @@ public class GenericDetails extends ModelProxy {
                         //get config fields from tag
                         if (config.containsKey(FIELD_TAG_TEMPLATE_CONFIG_FIELDS)) {
                             Object value = config.get(FIELD_TAG_TEMPLATE_CONFIG_FIELDS);
-                            if (value !=null && value.getClass().isArray()) {
+                            if (value != null && value.getClass().isArray()) {
                                 fields = (String[]) config.get(FIELD_TAG_TEMPLATE_CONFIG_FIELDS);
                             }
                         }
                         if (config.containsKey(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES)) {
                             Object value = config.get(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES);
-                            if (value !=null && value.getClass().isArray()) {
+                            if (value != null && value.getClass().isArray()) {
                                 templates = (String[]) config.get(FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES);
                             }
                         }
                         this.componentProperties.put(FIELD_LEGACY_BADGE_SELECTED, true);
-                        return ArrayUtils.addAll(templates,fields);
+                        return ArrayUtils.addAll(templates, fields);
 
                     }
                 }
@@ -556,12 +558,12 @@ public class GenericDetails extends ModelProxy {
             if (StringUtils.isNotEmpty(pageTitle)) {
                 if (pageTitle.length() > badgeTitleTrimLengthMax) {
                     pageTitle = pageTitle.substring(0, badgeTitleTrimLengthMax)
-                            .concat(
-                                    componentProperties.get(
-                                            DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX,
-                                            DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX_DEFAULT
-                                    )
-                            );
+                        .concat(
+                            componentProperties.get(
+                                DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX,
+                                DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX_DEFAULT
+                            )
+                        );
                 }
 
                 badgeConfig.put(DETAILS_BADGE_TITLE, pageTitle);
@@ -577,12 +579,12 @@ public class GenericDetails extends ModelProxy {
             if (StringUtils.isNotEmpty(badgeDescription)) {
                 if (badgeDescription.length() > badgeSummaryLengthMax) {
                     badgeDescription = badgeDescription.substring(0, badgeSummaryLengthMax)
-                            .concat(
-                                    componentProperties.get(
-                                            DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX,
-                                            DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX
-                                    )
-                            );
+                        .concat(
+                            componentProperties.get(
+                                DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX,
+                                DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX
+                            )
+                        );
                 }
 
                 badgeConfig.put(DETAILS_BADGE_DESCRIPTION, badgeDescription);
@@ -637,7 +639,6 @@ public class GenericDetails extends ModelProxy {
     }
 
 
-
     /***
      * substitute formatted field template with fields from component.
      * @param componentProperties source map with fields
@@ -646,7 +647,7 @@ public class GenericDetails extends ModelProxy {
      * @return returns map with new values
      */
     @SuppressWarnings("Duplicates")
-    public Map<String, Object> processComponentFields(ComponentProperties componentProperties, com.day.cq.i18n.I18n i18n, SlingScriptHelper sling){
+    public Map<String, Object> processComponentFields(ComponentProperties componentProperties, com.day.cq.i18n.I18n i18n, SlingScriptHelper sling) {
         Map<String, Object> newFields = new HashMap<>();
 
         try {

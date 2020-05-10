@@ -34,29 +34,29 @@ public class LocationDetails extends GenericDetails {
         final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
 
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"title", DEFAULT_TITLE, "data-title"},
-                {"latitude", 0.0, "data-latitude"},
-                {"longitude", 0.0, "data-longitude"},
-                {"description", getPageDescription(getResourcePage()),"data-description"},
-                {"pages", new String[0]},
-                {TagConstants.PN_TAGS, getPageTags(getResourcePage())},
-                {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
-                {FIELD_PAGE_TITLE, DEFAULT_TITLE},
-                {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
-                {"variantHiddenLabel", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LABEL, DEFAULT_I18N_CATEGORY, i18n)},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"title", DEFAULT_TITLE, "data-title"},
+            {"latitude", 0.0, "data-latitude"},
+            {"longitude", 0.0, "data-longitude"},
+            {"description", getPageDescription(getResourcePage()), "data-description"},
+            {"pages", new String[0]},
+            {TagConstants.PN_TAGS, getPageTags(getResourcePage())},
+            {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
+            {FIELD_PAGE_TITLE, DEFAULT_TITLE},
+            {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
+            {"variantHiddenLabel", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LABEL, DEFAULT_I18N_CATEGORY, i18n)},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_ANALYTICS,
-                DEFAULT_FIELDS_DETAILS_OPTIONS);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS,
+            DEFAULT_FIELDS_DETAILS_OPTIONS);
 
         String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
-        componentProperties.put("category",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
+        componentProperties.put("category", getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
 
 
         //get additional page list
@@ -94,9 +94,9 @@ public class LocationDetails extends GenericDetails {
                     JsonObject object = pagesJsonArray.get(i).getAsJsonObject();
                     //get list of all keys from object
                     List<String> keys = object.entrySet()
-                            .stream()
-                            .map(Map.Entry::getKey)
-                            .collect(Collectors.toCollection(ArrayList::new));
+                        .stream()
+                        .map(Map.Entry::getKey)
+                        .collect(Collectors.toCollection(ArrayList::new));
 
                     //remove fields that we dont need
                     for (String key : keys) {

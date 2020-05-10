@@ -9,20 +9,38 @@
 <sling:defineObjects/>
 
 <%
-    final I18n i18n = new I18n(request);
-    String ccThumbnailPath = "/apps/aemdesign/templates/cloudconfig/googleanalytics/thumbnail.png";
+  final I18n i18n = new I18n(request);
+  String ccThumbnailPath = "/apps/aemdesign/templates/cloudconfig/googleanalytics/thumbnail.png";
 
 %>
 <div class="content">
-    <h3><%= i18n.get("Google Analytics Account Settings") %></h3>
-    <img src="<%= xssAPI.getValidHref(ccThumbnailPath) %>" alt="<%= xssAPI.encodeForHTMLAttr(serviceName) %>" style="float: left;" />
-    <div class="content">
-        <ul style="float: left; margin: 0px;">
-            <li><div class="li-bullet">
-                <strong><%= i18n.get("Command Method") %>: </strong><%= xssAPI.encodeForHTML(properties.get("commandMethod", "")) %></div></li>
-            <li><div class="li-bullet"><strong><%= i18n.get("Tracking ID") %>: </strong><%= xssAPI.encodeForHTML(properties.get("trackingId", "")) %></div></li>
-            <li><div class="li-bullet"><strong><%= i18n.get("Cookie Domain") %>: </strong><%= xssAPI.encodeForHTML(properties.get("cookieDomain", "")) %></div></li>
-            <li><div class="li-bullet"><strong><%= i18n.get("Tracking Name") %>: </strong><%= xssAPI.encodeForHTML(properties.get("trackingName", "")) %></div></li>
-        </ul>
-    </div>
+  <h3><%= i18n.get("Google Analytics Account Settings") %>
+  </h3>
+  <img src="<%= xssAPI.getValidHref(ccThumbnailPath) %>" alt="<%= xssAPI.encodeForHTMLAttr(serviceName) %>"
+       style="float: left;"/>
+  <div class="content">
+    <ul style="float: left; margin: 0px;">
+      <li>
+        <div class="li-bullet">
+          <strong><%= i18n.get("Command Method") %>
+            : </strong><%= xssAPI.encodeForHTML(properties.get("commandMethod", "")) %>
+        </div>
+      </li>
+      <li>
+        <div class="li-bullet"><strong><%= i18n.get("Tracking ID") %>
+          : </strong><%= xssAPI.encodeForHTML(properties.get("trackingId", "")) %>
+        </div>
+      </li>
+      <li>
+        <div class="li-bullet"><strong><%= i18n.get("Cookie Domain") %>
+          : </strong><%= xssAPI.encodeForHTML(properties.get("cookieDomain", "")) %>
+        </div>
+      </li>
+      <li>
+        <div class="li-bullet"><strong><%= i18n.get("Tracking Name") %>
+          : </strong><%= xssAPI.encodeForHTML(properties.get("trackingName", "")) %>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>

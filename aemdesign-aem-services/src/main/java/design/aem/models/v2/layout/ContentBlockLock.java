@@ -25,16 +25,17 @@ import static design.aem.utils.components.SecurityUtil.isUserMemberOf;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-@SuppressWarnings({"Duplicates","squid:S3776"})
+@SuppressWarnings({"Duplicates", "squid:S3776"})
 public class ContentBlockLock extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContentBlockLock.class);
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
-    @SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates", "squid:S3776"})
     protected void ready() throws Exception {
         I18n i18n = new I18n(getRequest());
 
@@ -45,31 +46,31 @@ public class ContentBlockLock extends ModelProxy {
         final String FIELD_LOCKED = "islocked";
 
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"hideTitle", false},
-                {"hideTopLink", false},
-                {FIELD_LOCKED, true},
-                {"linksLeftTitle", ""},
-                {"linksRightTitle", ""},
-                {"dataTitle", ""},
-                {"dataScroll", ""},
-                {"linksRight", new String[]{}},
-                {"linksLeft", new String[]{}},
-                {"titleType", DEFAULT_TITLE_TAG_TYPE},
-                {"title", ""},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"hideTitle", false},
+            {"hideTopLink", false},
+            {FIELD_LOCKED, true},
+            {"linksLeftTitle", ""},
+            {"linksRightTitle", ""},
+            {"dataTitle", ""},
+            {"dataScroll", ""},
+            {"linksRight", new String[]{}},
+            {"linksLeft", new String[]{}},
+            {"titleType", DEFAULT_TITLE_TAG_TYPE},
+            {"title", ""},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
-        componentProperties.put("linksRightList",getPageListInfo(this,getPageManager(), getResourceResolver(), componentProperties.get("linksRight", new String[]{})));
-        componentProperties.put("linksLeftList",getPageListInfo(this,getPageManager(), getResourceResolver(), componentProperties.get("linksLeft", new String[]{})));
+        componentProperties.put("linksRightList", getPageListInfo(this, getPageManager(), getResourceResolver(), componentProperties.get("linksRight", new String[]{})));
+        componentProperties.put("linksLeftList", getPageListInfo(this, getPageManager(), getResourceResolver(), componentProperties.get("linksLeft", new String[]{})));
 
-        componentProperties.put("topLinkLabel",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_LABEL,DEFAULT_I18N_CATEGORY,i18n));
-        componentProperties.put("topLinkTitle",getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_BACKTOTOP_TITLE,DEFAULT_I18N_CATEGORY,i18n));
+        componentProperties.put("topLinkLabel", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_BACKTOTOP_LABEL, DEFAULT_I18N_CATEGORY, i18n));
+        componentProperties.put("topLinkTitle", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_BACKTOTOP_TITLE, DEFAULT_I18N_CATEGORY, i18n));
 
         Node resourceNode = getResource().adaptTo(Node.class);
 
@@ -93,7 +94,7 @@ public class ContentBlockLock extends ModelProxy {
             instanceName = resourceNode.getName();
         }
 
-        String componentId = componentProperties.get(FIELD_STYLE_COMPONENT_ID,"");
+        String componentId = componentProperties.get(FIELD_STYLE_COMPONENT_ID, "");
         if (isNotEmpty(componentId)) {
             instanceName = componentId;
         }
@@ -102,15 +103,15 @@ public class ContentBlockLock extends ModelProxy {
         final Authorizable authorizable = getResourceResolver().adaptTo(Authorizable.class);
         final List<String> groups = Arrays.asList(componentProperties.get("groups", new String[]{"administrators"}));
 
-        if (isUserMemberOf(authorizable,groups)) {
+        if (isUserMemberOf(authorizable, groups)) {
             componentProperties.put(FIELD_LOCKED, false);
         }
 
-        componentProperties.put(DEFAULT_BACKGROUND_VIDEO_NODE_NAME,getBackgroundVideoRenditions(this));
+        componentProperties.put(DEFAULT_BACKGROUND_VIDEO_NODE_NAME, getBackgroundVideoRenditions(this));
 
-        componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME,getBackgroundImageRenditions(this));
+        componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME, getBackgroundImageRenditions(this));
 
-        String variant = componentProperties.get(FIELD_VARIANT,DEFAULT_VARIANT);
+        String variant = componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
 
         //skip output of table if noconfig selector is used, used in testing to speedup page load
         if (variant.equals("componentConfig") && StringUtils.contains(getRequest().getRequestPathInfo().getSelectorString(), "showconfig")) {

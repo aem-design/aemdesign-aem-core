@@ -5,25 +5,25 @@
      data-sly-use.normal="${'./columns.normal.html'}"
      data-sly-use.info="aemdesign/global/templates/component-info.html">
 
-    <!--/* print columns start */-->
-    <sly data-sly-test="${component.controlType == 'START'}"
-         data-sly-call="${start.variant @ componentProperties=component.componentProperties, component=component}"></sly>
+  <!--/* print columns start */-->
+  <sly data-sly-test="${component.controlType == 'START'}"
+       data-sly-call="${start.variant @ componentProperties=component.componentProperties, component=component}"></sly>
 
-    <!--/* print columns end */-->
-    <sly data-sly-test="${component.controlType == 'END'}"
-         data-sly-call="${end.variant @ componentProperties=component.componentProperties, component=component}"></sly>
+  <!--/* print columns end */-->
+  <sly data-sly-test="${component.controlType == 'END'}"
+       data-sly-call="${end.variant @ componentProperties=component.componentProperties, component=component}"></sly>
 
-    <!--/* print columns break */-->
-    <sly data-sly-test="${component.controlType == 'BREAK'}"
-         data-sly-call="${break.variant @ componentProperties=component.componentProperties, component=component}"></sly>
+  <!--/* print columns break */-->
+  <sly data-sly-test="${component.controlType == 'BREAK'}"
+       data-sly-call="${break.variant @ componentProperties=component.componentProperties, component=component}"></sly>
 
-    <!--/* print columns normal */-->
-    <sly data-sly-test="${component.controlType == 'NORMAL'}"
-         data-sly-call="${normal.variant @ componentProperties=component.componentProperties, component=component}"></sly>
+  <!--/* print columns normal */-->
+  <sly data-sly-test="${component.controlType == 'NORMAL'}"
+       data-sly-call="${normal.variant @ componentProperties=component.componentProperties, component=component}"></sly>
 
-    <!--/* print component info in edit mode */-->
-    <div data-sly-test="${component.controlType == 'END'}"
-         data-sly-unwrap="${!(wcmmode.edit || wcmmode.preview)}"
-         data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></div>
+  <!--/* print component info in edit mode */-->
+  <div data-sly-test="${component.controlType == 'END'}"
+       data-sly-unwrap="${!(wcmmode.edit || wcmmode.preview)}"
+       data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></div>
 
 </sly>

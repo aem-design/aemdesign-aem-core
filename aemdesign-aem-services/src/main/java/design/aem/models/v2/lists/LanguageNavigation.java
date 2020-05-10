@@ -23,6 +23,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 public class LanguageNavigation extends ModelProxy {
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -31,7 +32,7 @@ public class LanguageNavigation extends ModelProxy {
     private static final String SEARCH_LOGIC_DEFAULT = "";
     private static final String FIELD_DESCRIPTION = "description";
 
-    @SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates", "squid:S3776"})
     protected void ready() {
         /*
           Component Fields Helper
@@ -43,30 +44,30 @@ public class LanguageNavigation extends ModelProxy {
           4 optional - canonical name of class for handling multivalues, String or Tag
          */
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"languageSet", new String[]{}},
-                {SEARCH_LOGIC, SEARCH_LOGIC_DEFAULT}
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"languageSet", new String[]{}},
+            {SEARCH_LOGIC, SEARCH_LOGIC_DEFAULT}
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
         Map<String, Map<String, String>> languageToggleMap = new LinkedHashMap<>();
 
         String appearanceOption = componentProperties.get(SEARCH_LOGIC, String.class);
 
-        boolean isShowRoot =  ("showRoot").equals(appearanceOption);
+        boolean isShowRoot = ("showRoot").equals(appearanceOption);
 
-        boolean isShowNothing =  ("showNothing").equals(appearanceOption);
+        boolean isShowNothing = ("showNothing").equals(appearanceOption);
 
         String[] tagsFilterList = componentProperties.get("languageSet", new String[]{});
 
         LinkedHashMap<String, Map> languageMap = getTagsAsAdmin(getSlingScriptHelper(), tagsFilterList, getRequest().getLocale());
 
-        if (!isShowNothing && languageMap != null || !languageMap.isEmpty()){
+        if (!isShowNothing && languageMap != null || !languageMap.isEmpty()) {
 
             //get info on current page
             Page currentPage = getResourcePage();
@@ -85,7 +86,7 @@ public class LanguageNavigation extends ModelProxy {
             String languageSiteParentPath = StringUtils.EMPTY;
             Resource languageSiteRootPage = null;
             //for each configuref language
-            for (String key : languageMap.keySet()){
+            for (String key : languageMap.keySet()) {
 
                 //get language tag info
                 Map<String, String> langTag = languageMap.get(key);
@@ -108,7 +109,7 @@ public class LanguageNavigation extends ModelProxy {
 
 
                 String langPageRootPath = MessageFormat.format("{0}/{1}", languageSiteParentPath, tagValue);
-                String langPagePath = MessageFormat.format("{0}/{1}{2}", languageSiteParentPath, tagValue,pagePath);
+                String langPagePath = MessageFormat.format("{0}/{1}{2}", languageSiteParentPath, tagValue, pagePath);
 
 
                 //get language root and matching language page
@@ -125,7 +126,7 @@ public class LanguageNavigation extends ModelProxy {
 
 
                 //if page and root is found
-                if (langPage != null && langPageRoot !=null) {
+                if (langPage != null && langPageRoot != null) {
 
 
                     Map<String, String> pageInfo = new HashMap<>();
@@ -165,7 +166,7 @@ public class LanguageNavigation extends ModelProxy {
                             pageInfo.put("current", "true");
                         }
 
-                        languageToggleMap.put(langPageRootPage.getName(),pageInfo);
+                        languageToggleMap.put(langPageRootPage.getName(), pageInfo);
                     }
                 }
 

@@ -1,12 +1,12 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <ol class="tags"
-        style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-        data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <sly data-sly-list.tag="${componentProperties.pagetags}" data-sly-unwrap>
-            <sly data-sly-set.taghref="${'#'}"></sly>
-            <sly data-sly-test="${tag.value.href}"
-                 data-sly-set.taghref="${tag.value.href}"></sly>
-            <li><a href="${taghref}">${componentProperties.pagetags[tag].title}</a></li>
-        </sly>
-    </ol>
+  <ol class="tags"
+      style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+      data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+    <sly data-sly-list.tag="${componentProperties.pagetags}" data-sly-unwrap>
+      <sly data-sly-set.taghref="${'#'}"></sly>
+      <sly data-sly-test="${tag.value.href}"
+           data-sly-set.taghref="${tag.value.href}"></sly>
+      <li><a href="${taghref}">${componentProperties.pagetags[tag].title}</a></li>
+    </sly>
+  </ol>
 </template>

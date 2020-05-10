@@ -1,9 +1,11 @@
-<%@include file="/libs/granite/ui/global.jsp" %><%
-%><%@page session="false"
-          import="java.util.Iterator,
-                  com.adobe.granite.ui.components.AttrBuilder,
-                  com.adobe.granite.ui.components.Config,
-                  com.adobe.granite.ui.components.Tag" %><%--###
+<%@include file="/libs/granite/ui/global.jsp" %>
+<%
+%>
+<%@page session="false"
+        import="java.util.Iterator,
+                com.adobe.granite.ui.components.AttrBuilder,
+                com.adobe.granite.ui.components.Config,
+                com.adobe.granite.ui.components.Tag" %><%--###
 Accordion
 =========
 
@@ -79,51 +81,56 @@ Accordion
             - jcr:title = "Item 2"
             + parentConfig
               - active = true
-###--%><%
+###--%>
+<%
 
-if (!cmp.getRenderCondition(resource, false).check()) {
+  if (!cmp.getRenderCondition(resource, false).check()) {
     return;
-}
+  }
 
-Config cfg = cmp.getConfig();
+  Config cfg = cmp.getConfig();
 
-Tag tag = cmp.consumeTag();
+  Tag tag = cmp.consumeTag();
 
-AttrBuilder attrs = tag.getAttrs();
-cmp.populateCommonAttrs(attrs);
-attrs.addMultiple(cfg.get("multiple", false));
-attrs.add("variant", cfg.get("variant", String.class));
+  AttrBuilder attrs = tag.getAttrs();
+  cmp.populateCommonAttrs(attrs);
+  attrs.addMultiple(cfg.get("multiple", false));
+  attrs.add("variant", cfg.get("variant", String.class));
 
-if (cfg.get("margin", false)) {
+  if (cfg.get("margin", false)) {
     attrs.addClass("foundation-layout-util-vmargin");
-}
+  }
 
-%><coral-accordion <%= attrs.build() %>><%
-    for (Iterator<Resource> items = cmp.getItemDataSource().iterator(); items.hasNext();) {
-        Resource item = items.next();
-        Config itemCfg = new Config(item);
+%>
+<coral-accordion <%= attrs.build() %>><%
+  for (Iterator<Resource> items = cmp.getItemDataSource().iterator(); items.hasNext(); ) {
+    Resource item = items.next();
+    Config itemCfg = new Config(item);
 
 
-        AttrBuilder itemAttrs = new AttrBuilder(request, xssAPI);
+    AttrBuilder itemAttrs = new AttrBuilder(request, xssAPI);
 
-        Resource parentConfig = item.getChild("parentConfig");
+    Resource parentConfig = item.getChild("parentConfig");
 
-        if (parentConfig != null) {
-            Config parentConfigCfg = new Config(parentConfig);
+    if (parentConfig != null) {
+      Config parentConfigCfg = new Config(parentConfig);
 
-            itemAttrs.addSelected(parentConfigCfg.get("active", false));
-            itemAttrs.addBoolean("disabled", parentConfigCfg.get("disabled", false));
-        }
-
-        //add config
-        itemAttrs.addClass(itemCfg.get("class",""));
-        itemAttrs.add("data-showhidetargetvalue",itemCfg.get("showhidetargetvalue",""));
-
-        %><coral-accordion-item <%= itemAttrs %>>
-            <coral-accordion-item-label><%= outVar(xssAPI, i18n, itemCfg.get("jcr:title", String.class)) %></coral-accordion-item-label>
-            <coral-accordion-item-content>
-                <sling:include resource="<%= item %>" />
-            </coral-accordion-item-content>
-        </coral-accordion-item><%
+      itemAttrs.addSelected(parentConfigCfg.get("active", false));
+      itemAttrs.addBoolean("disabled", parentConfigCfg.get("disabled", false));
     }
-%></coral-accordion>
+
+    //add config
+    itemAttrs.addClass(itemCfg.get("class", ""));
+    itemAttrs.add("data-showhidetargetvalue", itemCfg.get("showhidetargetvalue", ""));
+
+%>
+  <coral-accordion-item <%= itemAttrs %>>
+    <coral-accordion-item-label><%= outVar(xssAPI, i18n, itemCfg.get("jcr:title", String.class)) %>
+    </coral-accordion-item-label>
+    <coral-accordion-item-content>
+      <sling:include resource="<%= item %>"/>
+    </coral-accordion-item-content>
+  </coral-accordion-item>
+  <%
+    }
+  %></coral-accordion>

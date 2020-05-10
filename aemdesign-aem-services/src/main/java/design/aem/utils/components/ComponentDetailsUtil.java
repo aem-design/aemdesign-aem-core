@@ -105,7 +105,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(getContextObjects(wcmUsePojoModel), pageManager, resourceResolver, paths, componentNames, pageRoots, null, false);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(WCMUsePojo) A3 could not read required objects: {},error={},pageManager={},resourceResolver={},pageList={},detailsComponentName={},pageRoots={}",wcmUsePojoModel, ex, pageManager, resourceResolver, paths, componentNames, pageRoots);
+            LOGGER.error("getPageListInfo(WCMUsePojo) A3 could not read required objects: {},error={},pageManager={},resourceResolver={},pageList={},detailsComponentName={},pageRoots={}", wcmUsePojoModel, ex, pageManager, resourceResolver, paths, componentNames, pageRoots);
         }
 
         return new ArrayList<>();
@@ -179,9 +179,6 @@ public class ComponentDetailsUtil {
     }
 
 
-
-
-
     //B2 -> B3 WCMUsePojo
     @SuppressWarnings("Duplicates")
     public static List<ComponentProperties> getPageListInfo(WCMUsePojo wcmUsePojoModel, PageManager pageManager, ResourceResolver resourceResolver, Iterator<Page> pageList, String[] detailsComponentName, String[] pageRoots) {
@@ -223,7 +220,7 @@ public class ComponentDetailsUtil {
             return getPageListInfo(getContextObjects(wcmUsePojoModel), pageManager, resourceResolver, pageList, detailsComponentName, pageRoots, null, false);
 
         } catch (Exception ex) {
-            LOGGER.error("getPageListInfo(WCMUsePojo) B3 could not read required objects: {},error={},pageManager={},resourceResolver={},pageList={},detailsComponentName={},pageRoots={}",wcmUsePojoModel, ex, pageManager, resourceResolver, pageList, detailsComponentName, pageRoots);
+            LOGGER.error("getPageListInfo(WCMUsePojo) B3 could not read required objects: {},error={},pageManager={},resourceResolver={},pageList={},detailsComponentName={},pageRoots={}", wcmUsePojoModel, ex, pageManager, resourceResolver, pageList, detailsComponentName, pageRoots);
         }
 
         return new ArrayList<>();
@@ -273,8 +270,8 @@ public class ComponentDetailsUtil {
      */
     public static boolean checkSelected(Page page, Page currentPage, ResourceResolver resourceResolver) {
         return currentPage.equals(page) ||
-                currentPage.getPath().startsWith(page.getPath() + "/") ||
-                currentPageIsRedirectTarget(page, currentPage, resourceResolver);
+            currentPage.getPath().startsWith(page.getPath() + "/") ||
+            currentPageIsRedirectTarget(page, currentPage, resourceResolver);
     }
 
     /***
@@ -290,7 +287,7 @@ public class ComponentDetailsUtil {
         if (contentResource != null) {
             ValueMap valueMap = contentResource.getValueMap();
             String redirectTarget = valueMap.get(PN_REDIRECT_TARGET, String.class);
-            if(StringUtils.isNotBlank(redirectTarget)) {
+            if (StringUtils.isNotBlank(redirectTarget)) {
                 PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
                 if (pageManager != null) {
                     Page redirectPage = pageManager.getPage(redirectTarget);
@@ -316,7 +313,7 @@ public class ComponentDetailsUtil {
      * @return map of attributes
      */
     public static ComponentProperties getPageInfo(Map<String, Object> pageContext, Page page, ResourceResolver resourceResolver, String[] componentNames, String[] pageRoots, Integer collectChildrenFromRoot) {
-        return getPageInfo(pageContext,page,resourceResolver,componentNames,pageRoots,collectChildrenFromRoot,1);
+        return getPageInfo(pageContext, page, resourceResolver, componentNames, pageRoots, collectChildrenFromRoot, 1);
     }
 
     /***
@@ -367,30 +364,30 @@ public class ComponentDetailsUtil {
                         }
 
                         Object[][] componentFields = {
-                                {TagConstants.PN_TAGS, new String[]{}},
-                                {FIELD_PAGE_TITLE, getPageTitle(page, detailsNodeResource)},
-                                {FIELD_PAGE_TITLE_NAV, getPageNavTitle(page)},
+                            {TagConstants.PN_TAGS, new String[]{}},
+                            {FIELD_PAGE_TITLE, getPageTitle(page, detailsNodeResource)},
+                            {FIELD_PAGE_TITLE_NAV, getPageNavTitle(page)},
 
                         };
 
                         componentProperties = getComponentProperties(
-                                pageContextMap,
-                                detailsNodeResource,
-                                false,
-                                componentFields,
-                                DEFAULT_FIELDS_DETAILS_OPTIONS
+                            pageContextMap,
+                            detailsNodeResource,
+                            false,
+                            componentFields,
+                            DEFAULT_FIELDS_DETAILS_OPTIONS
                         );
 
                         componentProperties.put("detailsPath", detailsNodeResource.getPath());
 
 
                         componentProperties.putAll(getAssetInfo(resourceResolver,
-                                getResourceImagePath(detailsNodeResource, DEFAULT_SECONDARY_IMAGE_NODE_NAME),
-                                FIELD_PAGE_SECONDARY_IMAGE));
+                            getResourceImagePath(detailsNodeResource, DEFAULT_SECONDARY_IMAGE_NODE_NAME),
+                            FIELD_PAGE_SECONDARY_IMAGE));
 
                         componentProperties.putAll(getAssetInfo(resourceResolver,
-                                getResourceImagePath(detailsNodeResource, DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
-                                FIELD_PAGE_BACKGROUND_IMAGE));
+                            getResourceImagePath(detailsNodeResource, DEFAULT_BACKGROUND_IMAGE_NODE_NAME),
+                            FIELD_PAGE_BACKGROUND_IMAGE));
                     }
 
                 }
@@ -407,8 +404,8 @@ public class ComponentDetailsUtil {
                 componentProperties.put("depth", depth);
                 componentProperties.put("vanityPath", defaultIfEmpty(page.getVanityUrl(), ""));
                 componentProperties.putAll(getAssetInfo(resourceResolver,
-                        getPageImgReferencePath(page),
-                        FIELD_PAGE_IMAGE));
+                    getPageImgReferencePath(page),
+                    FIELD_PAGE_IMAGE));
 
                 String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
                 componentProperties.put("category", getTagsAsValuesAsAdmin((SlingScriptHelper) pageContext.get(PAGECONTEXTMAP_OBJECT_SLING), ",", tags));
@@ -443,7 +440,7 @@ public class ComponentDetailsUtil {
                             while (children.hasNext()) {
                                 Page nextchild = children.next();
 
-                                childrenList.add(getPageInfo(pageContext, nextchild, resourceResolver, componentNames, pageRoots, collectChildrenFromRoot - 1,depth + 1));
+                                childrenList.add(getPageInfo(pageContext, nextchild, resourceResolver, componentNames, pageRoots, collectChildrenFromRoot - 1, depth + 1));
                             }
 
                             componentProperties.put("children", childrenList);
@@ -455,7 +452,7 @@ public class ComponentDetailsUtil {
 
             }
         } catch (Exception ex) {
-            LOGGER.error("getPageInfo: error={}",ex);
+            LOGGER.error("getPageInfo: error={}", ex);
         }
         return componentProperties;
     }
@@ -472,7 +469,7 @@ public class ComponentDetailsUtil {
                 Class<?> clazz = includeServlet.getClass();
                 Field field = clazz.getDeclaredField("scriptName"); //Note, this can throw an exception if the field doesn't exist.
                 field.setAccessible(true);
-                String scriptName = (String)field.get(includeServlet);
+                String scriptName = (String) field.get(includeServlet);
                 if (scriptName.contains("/components/lists/")) {
                     return true;
                 }
@@ -493,18 +490,18 @@ public class ComponentDetailsUtil {
     @SuppressWarnings({"squid:S3776"})
     public static ComponentProperties processBadgeRequestConfig(ComponentProperties componentProperties, ResourceResolver resourceResolver, HttpServletRequest request) {
 
-        ComponentProperties badgeConfig = (ComponentProperties)request.getAttribute(BADGE_REQUEST_ATTRIBUTES);
+        ComponentProperties badgeConfig = (ComponentProperties) request.getAttribute(BADGE_REQUEST_ATTRIBUTES);
 
         //quick fail
         if (badgeConfig == null || resourceResolver == null || request == null || componentProperties == null) {
             badgeConfig = new ComponentProperties();
-            badgeConfig.put(COMPONENT_BADGE_CONFIG_SET,false);
+            badgeConfig.put(COMPONENT_BADGE_CONFIG_SET, false);
             return badgeConfig;
         }
 
         try {
 
-            badgeConfig.put(COMPONENT_BADGE_CONFIG_SET,true);
+            badgeConfig.put(COMPONENT_BADGE_CONFIG_SET, true);
 
             int thumbnailWidth = componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM);
 
@@ -551,45 +548,45 @@ public class ComponentDetailsUtil {
             //use primary image as thumbnail
             if (isNotEmpty(pageImage_Thumbnail)) {
                 badgeConfig.put(FIELD_PAGE_THUMBNAIL,
-                        getBestFitRendition(
-                                pageImage,
-                                badgeThumbnailWidth,
-                                resourceResolver
-                        ));
+                    getBestFitRendition(
+                        pageImage,
+                        badgeThumbnailWidth,
+                        resourceResolver
+                    ));
             }
 
             //use secondary image as thumbnail
             if (isNotEmpty(pageSecondaryImage_Thumbnail)) {
                 badgeConfig.put(FIELD_PAGE_THUMBNAIL,
-                        getBestFitRendition(
-                                pageSecondaryImage,
-                                badgeThumbnailWidth,
-                                resourceResolver
-                        ));
+                    getBestFitRendition(
+                        pageSecondaryImage,
+                        badgeThumbnailWidth,
+                        resourceResolver
+                    ));
             }
 
             //use thumbnail image as thumbnial
             if (isNotEmpty(pageThumbnailImage_Thumbnail)) {
                 badgeConfig.put(FIELD_PAGE_THUMBNAIL,
-                        getBestFitRendition(
-                                pageThumbnailImage,
-                                badgeThumbnailWidth,
-                                resourceResolver
-                        ));
+                    getBestFitRendition(
+                        pageThumbnailImage,
+                        badgeThumbnailWidth,
+                        resourceResolver
+                    ));
             }
 
             //use badge override as thumbnail
             if (isNotEmpty(badgeThumbnail_Thumbnail)) {
                 badgeConfig.put(FIELD_PAGE_THUMBNAIL,
-                        getBestFitRendition(
-                                badgeThumbnail,
-                                badgeThumbnailWidth,
-                                resourceResolver
-                        ));
+                    getBestFitRendition(
+                        badgeThumbnail,
+                        badgeThumbnailWidth,
+                        resourceResolver
+                    ));
             }
 
         } catch (Exception ex) {
-            LOGGER.error("processBadgeRequestConfig: could not process {}",ex);
+            LOGGER.error("processBadgeRequestConfig: could not process {}", ex);
         }
         return badgeConfig;
     }

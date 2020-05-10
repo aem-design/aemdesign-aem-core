@@ -21,9 +21,7 @@
        id="${menuIdentifier}"
        data-sly-attribute.aria-expanded="${menuItem.children ? 'false' : false}"
        data-sly-attribute.aria-haspopup="${menuItem.children ? 'true' : false}"
-       data-sly-attribute.data-toggle="${menuItem.children ? 'dropdown' : false}"
-       data-sly-attribute.title="${menuItem.children ? false : '{0}{1}' @ format=[componentProperties.linkTitlePrefix, menuItem.title]}"
-    >
+       data-sly-attribute.data-toggle="${menuItem.children ? 'dropdown' : false}">
       ${menuItem.pageNavTitle}
       <span data-sly-test="${menuItem.current}" class="sr-only">(current)</span>
     </a>
@@ -40,9 +38,7 @@
            data-sly-set.parentIsActive="${currentPage.path == menuItem.path}"
            class="nav-item nav-item-parent ${levelClass} ${parentIsActive ? 'active' : ''}">
         <a class="nav-link nav-link-parent ${levelClass} ${parentIsActive ? 'active' : ''}"
-           href="${menuItem.href}"
-           data-sly-attribute.title="${'{0}{1} homepage' @ format=[componentProperties.linkTitlePrefix, menuItem.title]}"
-        >
+           href="${menuItem.href}">
           <span class="sr-only">${menuItem.pageNavTitle}</span>
           Homepage
           <span data-sly-test="${menuItem.current}" class="sr-only">(current)</span>

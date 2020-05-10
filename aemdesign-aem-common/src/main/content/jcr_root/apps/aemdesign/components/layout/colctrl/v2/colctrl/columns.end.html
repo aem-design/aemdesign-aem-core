@@ -1,16 +1,17 @@
 <template data-sly-template.variant="${@ componentProperties, component}">
-    <sly data-sly-use.closecol="${'./columns.closecol.html'}"
-         data-sly-use.closecols="${'./columns.closecols.html'}"
-         data-sly-use.closerow="${'./columns.closerow.html'}">
+  <sly data-sly-use.closecol="${'./columns.closecol.html'}"
+       data-sly-use.closecols="${'./columns.closecols.html'}"
+       data-sly-use.closerow="${'./columns.closerow.html'}">
 
-        <div data-sly-test="${(wcmmode.edit || wcmmode.preview)}" class="cq-placeholder cq-marker-end" data-emptytext="${component.placeholderText}">
-            <!--${component.placeholderText}-->
-        </div>
+    <div data-sly-test="${(wcmmode.edit || wcmmode.preview)}" class="cq-placeholder cq-marker-end"
+         data-emptytext="${component.placeholderText}">
+      <!--${component.placeholderText}-->
+    </div>
 
-        <sly data-sly-test="${!(wcmmode.edit || wcmmode.preview)}">
-            <sly data-sly-call="${closecol.variant}"></sly>
-            <sly data-sly-call="${closerow.variant}"></sly>
-            <sly data-sly-call="${closecols.variant}"></sly>
-        </sly>
+    <sly data-sly-test="${!(wcmmode.edit || wcmmode.preview)}">
+      <sly data-sly-call="${closecol.variant}"></sly>
+      <sly data-sly-call="${closerow.variant}"></sly>
+      <sly data-sly-call="${closecols.variant}"></sly>
     </sly>
+  </sly>
 </template>

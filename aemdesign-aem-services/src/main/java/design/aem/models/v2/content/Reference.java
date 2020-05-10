@@ -15,6 +15,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class Reference extends ModelProxy {
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -22,24 +23,24 @@ public class Reference extends ModelProxy {
     protected void ready() {
 
         setComponentFields(new Object[][]{
-                {"path", StringUtils.EMPTY},
-                {"selectors", StringUtils.EMPTY},
-                {"wcmmodeName", "DISABLED"},
-                {FIELD_VARIANT, DEFAULT_VARIANT}
+            {"path", StringUtils.EMPTY},
+            {"selectors", StringUtils.EMPTY},
+            {"wcmmodeName", "DISABLED"},
+            {FIELD_VARIANT, DEFAULT_VARIANT}
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
 
-        String wcmmodeName = componentProperties.get("wcmmodeName","DISABLED");
+        String wcmmodeName = componentProperties.get("wcmmodeName", "DISABLED");
         WCMMode wcmMode = WCMMode.valueOf(wcmmodeName);
         componentProperties.put("wcmmode", wcmMode);
 
-        String path = componentProperties.get("path","");
+        String path = componentProperties.get("path", "");
 
         Resource referenceResource = getResourceResolver().getResource(path);
         if (referenceResource == null || ResourceUtil.isNonExistingResource(referenceResource)) {
@@ -48,21 +49,21 @@ public class Reference extends ModelProxy {
         }
 
         if (isNotEmpty(path)) {
-            componentProperties.put("pathUrl",path.concat(".html"));
+            componentProperties.put("pathUrl", path.concat(".html"));
         } else {
             componentProperties.put("isEmpty", true);
         }
 
-        String variant = componentProperties.get(FIELD_VARIANT,DEFAULT_VARIANT);
+        String variant = componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
 
         //render is default, render resource in its own context
         if (variant.equals("render")) {
             variant = DEFAULT_VARIANT;
         }
 
-        componentProperties.put(FIELD_VARIANT,variant);
+        componentProperties.put(FIELD_VARIANT, variant);
 
         //compile variantTemplate param
-        componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT,variant));
+        componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant));
     }
 }

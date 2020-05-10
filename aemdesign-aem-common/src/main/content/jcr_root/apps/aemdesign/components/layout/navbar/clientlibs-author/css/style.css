@@ -1,8 +1,8 @@
 /*navbar author*/
 .navbar {
-    display: block !important;
-    position: relative !important;
-    top: auto !important;
-    right: auto !important;
-    left: auto !important;
+  display: block !important;
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  left: auto !important;
 }

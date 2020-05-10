@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    jcr:description="Creates a graph data link to view performance of page components"
-    jcr:primaryType="cq:Component"
-    jcr:title="Timing Component"
-    cq:icon="stopwatch"
-    sling:resourceSuperType="aemdesign/components/common/timing/v2/timing"
-    componentGroup=".hidden"/>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          jcr:description="Creates a graph data link to view performance of page components"
+          jcr:primaryType="cq:Component"
+          jcr:title="Timing Component"
+          cq:icon="stopwatch"
+          sling:resourceSuperType="aemdesign/components/common/timing/v2/timing"
+          componentGroup=".hidden"/>

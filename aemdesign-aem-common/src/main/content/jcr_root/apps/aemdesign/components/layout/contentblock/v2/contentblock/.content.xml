@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    cq:isContainer="{Boolean}true"
-    jcr:description="Primary block for content"
-    jcr:primaryType="cq:Component"
-    jcr:title="Content Block (v2)"
-    cq:icon="mBox"
-    componentGroup="hidden"/>
+          cq:isContainer="{Boolean}true"
+          jcr:description="Primary block for content"
+          jcr:primaryType="cq:Component"
+          jcr:title="Content Block (v2)"
+          cq:icon="mBox"
+          componentGroup="hidden"/>

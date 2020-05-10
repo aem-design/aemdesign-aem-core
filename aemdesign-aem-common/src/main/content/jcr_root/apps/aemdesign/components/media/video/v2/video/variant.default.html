@@ -1,9 +1,9 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
-         itemscope itemtype="http://schema.org/VideoObject">
-        <video class="embed-responsive-item" autoplay controls loop muted>
-            <source src="${componentProperties.href}" type="video/mp4">
-        </video>
-    </div>
+  <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+       itemscope itemtype="http://schema.org/VideoObject">
+    <video class="embed-responsive-item" autoplay controls loop muted>
+      <source src="${componentProperties.href}" type="video/mp4">
+    </video>
+  </div>
 </template>

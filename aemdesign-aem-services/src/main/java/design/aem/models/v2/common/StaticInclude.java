@@ -15,6 +15,7 @@ import static design.aem.utils.components.I18nUtil.*;
 public class StaticInclude extends ModelProxy {
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -35,24 +36,24 @@ public class StaticInclude extends ModelProxy {
           4 optional - canonical name of class for handling multivalues, String or Tag
          */
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {COMPONENT_CANCEL_INHERIT_PARENT, false},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {COMPONENT_CANCEL_INHERIT_PARENT, false},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
-        componentProperties.put(INHERITED_RESOURCE,findInheritedResource(getResourcePage(),getComponentContext()));
-        componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,getDefaultLabelIfEmpty("",DEFAULT_I18N_INHERIT_CATEGORY,DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,DEFAULT_I18N_INHERIT_CATEGORY,i18n));
+        componentProperties.put(INHERITED_RESOURCE, findInheritedResource(getResourcePage(), getComponentContext()));
+        componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND, getDefaultLabelIfEmpty("", DEFAULT_I18N_INHERIT_CATEGORY, DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND, DEFAULT_I18N_INHERIT_CATEGORY, i18n));
 
-        componentProperties.put("componentName", getComponent().getProperties().get(JcrConstants.JCR_TITLE,""));
+        componentProperties.put("componentName", getComponent().getProperties().get(JcrConstants.JCR_TITLE, ""));
 
         String[] includePaths = getProperties().get(SITE_INCLUDE_PATHS, new String[0]);
 
-        componentProperties.put("includePaths", StringUtils.join(includePaths,","));
+        componentProperties.put("includePaths", StringUtils.join(includePaths, ","));
 
         Boolean showContentPreview = Boolean.parseBoolean(getProperties().get(FIELD_SHOW_CONTENT_PREVIEW, "false"));
         Boolean showContent = Boolean.parseBoolean(getProperties().get(FIELD_SHOW_CONTENT, "false"));
@@ -62,7 +63,7 @@ public class StaticInclude extends ModelProxy {
 
         String includeContents = "";
 
-        includeContents = getResourceContent(getResourceResolver(),includePaths,"");
+        includeContents = getResourceContent(getResourceResolver(), includePaths, "");
         componentProperties.put("includeContents", includeContents);
         componentProperties.put("hasContent", StringUtils.isNotEmpty(includeContents));
 

@@ -35,8 +35,8 @@ import static org.apache.commons.lang3.StringUtils.*;
 
 
 @Model(adaptables = SlingHttpServletRequest.class,
-        adapters = {GenericComponent.class, ComponentExporter.class},
-        resourceType = {ImageImpl.RESOURCE_TYPE_V3})
+    adapters = {GenericComponent.class, ComponentExporter.class},
+    resourceType = {ImageImpl.RESOURCE_TYPE_V3})
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class ImageImpl extends GenericModel implements GenericComponent {
     protected static final String RESOURCE_TYPE_V3 = "aemdesign/components/media/image/v3/image";
@@ -50,7 +50,7 @@ public class ImageImpl extends GenericModel implements GenericComponent {
      */
     public static final String IMAGE_DELEGATE = "imageDelegate";
 
-    private List<String> hiddenImageResourceProperties = new ArrayList<>();
+    private final List<String> hiddenImageResourceProperties = new ArrayList<>();
 
     public ImageImpl() {
         hiddenImageResourceProperties.add(JcrConstants.JCR_TITLE);
@@ -58,7 +58,7 @@ public class ImageImpl extends GenericModel implements GenericComponent {
     }
 
     @PostConstruct
-    @SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates", "squid:S3776"})
     protected void initModel() {
 
 
@@ -80,20 +80,20 @@ public class ImageImpl extends GenericModel implements GenericComponent {
           4 optional - canonical name of class for handling multivalues, String or Tag
          */
         Object[][] componentFields = {
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {FIELD_LINKURL, StringUtils.EMPTY},
-                {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
-                {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_LINKURL, StringUtils.EMPTY},
+            {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
+            {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
         };
 
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_ANALYTICS,
-                DEFAULT_FIELDS_IMAGE_OPTIONS);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS,
+            DEFAULT_FIELDS_IMAGE_OPTIONS);
 
         String fileReference = componentProperties.get(IMAGE_FILEREFERENCE, "");
 

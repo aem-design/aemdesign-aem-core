@@ -1,81 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-    jcr:primaryType="nt:unstructured"
-    jcr:title="Table"
-    helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/table/v2/table"
-    sling:resourceType="cq/gui/components/authoring/dialog"
-    extraClientlibs="[]">
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
+          xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Table"
+          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/table/v2/table"
+          sling:resourceType="cq/gui/components/authoring/dialog"
+          extraClientlibs="[]">
     <content
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/foundation/container">
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
         <layout
-                jcr:primaryType="nt:unstructured"
-                type="nav"
-                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+            jcr:primaryType="nt:unstructured"
+            type="nav"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
             <tableTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Table"
-                    path="/apps/aemdesign/global/dialog/touch/table/content/items/tableTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Table"
+                path="/apps/aemdesign/global/dialog/touch/table/content/items/tableTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
             <!--<tableTab-->
-                    <!--jcr:primaryType="nt:unstructured"-->
-                    <!--jcr:title="Table"-->
-                    <!--sling:resourceType="granite/ui/components/foundation/section">-->
+            <!--jcr:primaryType="nt:unstructured"-->
+            <!--jcr:title="Table"-->
+            <!--sling:resourceType="granite/ui/components/foundation/section">-->
 
-                <!--<layout jcr:primaryType="nt:unstructured"-->
-                        <!--margin="{Boolean}false"-->
-                        <!--sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>-->
-                <!--<items jcr:primaryType="nt:unstructured">-->
-                    <!--<column-->
-                            <!--jcr:primaryType="nt:unstructured"-->
-                            <!--sling:resourceType="granite/ui/components/foundation/container">-->
-                        <!--<items jcr:primaryType="nt:unstructured">-->
-                            <!--<note-->
-                                    <!--jcr:primaryType="nt:unstructured"-->
-                                    <!--sling:resourceType="cq/gui/components/authoring/dialog/note"-->
-                                    <!--note="Please use inplace editing for modifying content"/>-->
-                        <!--</items>-->
-                    <!--</column>-->
-                <!--</items>-->
+            <!--<layout jcr:primaryType="nt:unstructured"-->
+            <!--margin="{Boolean}false"-->
+            <!--sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>-->
+            <!--<items jcr:primaryType="nt:unstructured">-->
+            <!--<column-->
+            <!--jcr:primaryType="nt:unstructured"-->
+            <!--sling:resourceType="granite/ui/components/foundation/container">-->
+            <!--<items jcr:primaryType="nt:unstructured">-->
+            <!--<note-->
+            <!--jcr:primaryType="nt:unstructured"-->
+            <!--sling:resourceType="cq/gui/components/authoring/dialog/note"-->
+            <!--note="Please use inplace editing for modifying content"/>-->
+            <!--</items>-->
+            <!--</column>-->
+            <!--</items>-->
 
             <!--</tableTab>-->
             <layoutTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Layout"
-                    sling:resourceType="granite/ui/components/foundation/section">
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Layout"
+                sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <variant
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Layout"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Layout"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <variant
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            emptyOption="{Boolean}true"
-                                            fieldLabel="Variant"
-                                            name="./variant"
-                                            value="">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        emptyOption="{Boolean}true"
+                                        fieldLabel="Variant"
+                                        name="./variant"
+                                        value="">
                                         <items jcr:primaryType="nt:unstructured">
                                             <default
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Default"
-                                                    value=""/>
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Default"
+                                                value=""/>
                                             <render
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Render"
-                                                    value="render"/>
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Render"
+                                                value="render"/>
                                         </items>
                                     </variant>
                                 </items>
@@ -85,17 +87,17 @@
                 </items>
             </layoutTab>
             <styleTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Style"
-                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Style"
+                path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
             <accessibilityTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Accessibility"
-                    path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Accessibility"
+                path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
         </items>
     </content>
 </jcr:root>

@@ -4,29 +4,29 @@
      data-cmp-is="formText"
      data-cmp-constraint-message="${text.constraintMessage}"
      data-cmp-required-message="${text.requiredMessage}">
-    <label for="${text.id}" data-sly-test="${text.title && !text.hideTitle}">${text.title}</label>
-    <p data-sly-test="${!text.placeholder && text.helpMessage}" class="help-block">${text.helpMessage}</p>
-    <textarea data-sly-test.useTextarea="${text.type == 'textarea'}"
-        class="textarea"
-        data-cmp-hook-form-text="input"
-        aria-label="${text.hideTitle && text.title}"
-        id="${text.id}"
-        placeholder="${text.placeholder}"
-        name="${text.name}"
-        readonly="${text.readOnly}"
-        required="${text.required}"
-        rows="${text.rows}">${text.value}</textarea>
-    <input data-sly-test="${!useTextarea}"
-        class="text"
-        data-cmp-hook-form-text="input"
-        aria-label="${text.hideTitle && text.title}"
-        type="${text.type}"
-        id="${text.id}"
-        placeholder="${text.placeholder}"
-        name="${text.name}"
-        value="${text.value}"
-        readonly="${text.readOnly}"
-        required="${text.required}"/>
+  <label for="${text.id}" data-sly-test="${text.title && !text.hideTitle}">${text.title}</label>
+  <p data-sly-test="${!text.placeholder && text.helpMessage}" class="help-block">${text.helpMessage}</p>
+  <textarea data-sly-test.useTextarea="${text.type == 'textarea'}"
+            class="textarea"
+            data-cmp-hook-form-text="input"
+            aria-label="${text.hideTitle && text.title}"
+            id="${text.id}"
+            placeholder="${text.placeholder}"
+            name="${text.name}"
+            readonly="${text.readOnly}"
+            required="${text.required}"
+            rows="${text.rows}">${text.value}</textarea>
+  <input data-sly-test="${!useTextarea}"
+         class="text"
+         data-cmp-hook-form-text="input"
+         aria-label="${text.hideTitle && text.title}"
+         type="${text.type}"
+         id="${text.id}"
+         placeholder="${text.placeholder}"
+         name="${text.name}"
+         value="${text.value}"
+         readonly="${text.readOnly}"
+         required="${text.required}"/>
 </div>
 <!--/* print component info in edit mode */-->
 <sly data-sly-use.info="aemdesign/global/templates/component-info-simple.html"

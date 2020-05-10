@@ -11,6 +11,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 public class PageDescription extends ModelProxy {
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -18,16 +19,16 @@ public class PageDescription extends ModelProxy {
     protected void ready() {
 
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {JcrConstants.JCR_DESCRIPTION, ""}
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {JcrConstants.JCR_DESCRIPTION, ""}
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_DETAILS_OPTIONS);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_DETAILS_OPTIONS);
 
         String jcrDescription = getPageProperties().get(JcrConstants.JCR_DESCRIPTION, "");
         String overrideDescription = componentProperties.get(JcrConstants.JCR_DESCRIPTION, "");

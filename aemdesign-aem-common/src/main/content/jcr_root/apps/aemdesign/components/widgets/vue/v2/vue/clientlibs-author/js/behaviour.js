@@ -7,7 +7,7 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
 
   $(document).on('dialog-ready', () => {
     const componentSelect = document.querySelector('[name="./vueComponentName"]');
-    const dialogMarker    = document.querySelector('[name="./configurationMarker"]');
+    const dialogMarker = document.querySelector('[name="./configurationMarker"]');
 
     if (!(componentSelect || dialogMarker)) {
       console.error('[Vue Component] Unable to find one or more required dialog elements!', componentSelect, dialogMarker);
@@ -16,7 +16,7 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
 
     // Set some basic configuration values
     const componentPath = $(dialogMarker).closest('form').attr('action');
-    const tagPath       = dialogMarker.value;
+    const tagPath = dialogMarker.value;
 
     componentSelect.addEventListener('change', (event) => {
       const component = event.target.selectedItem.value;

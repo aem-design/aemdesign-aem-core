@@ -12,6 +12,7 @@ import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 public class PageTags extends ModelProxy {
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -19,17 +20,17 @@ public class PageTags extends ModelProxy {
     protected void ready() {
 
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {JcrConstants.JCR_CREATED, ""}
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {JcrConstants.JCR_CREATED, ""}
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_DETAILS_OPTIONS);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_DETAILS_OPTIONS);
 
-        componentProperties.put("pagetags", getTagsAsAdmin(getSlingScriptHelper(), getPageProperties().get(TagConstants.PN_TAGS,new String[]{}), getRequest().getLocale()));
+        componentProperties.put("pagetags", getTagsAsAdmin(getSlingScriptHelper(), getPageProperties().get(TagConstants.PN_TAGS, new String[]{}), getRequest().getLocale()));
     }
 }

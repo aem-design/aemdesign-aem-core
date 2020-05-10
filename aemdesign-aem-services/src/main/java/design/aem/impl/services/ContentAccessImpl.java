@@ -67,7 +67,7 @@ public class ContentAccessImpl implements ContentAccess {
         // Create the Map to pass in the Service Account Identifier
         // Remember, "SERVICE_ACCOUNT_IDENTIFIER" is mapped  to the CRX User via a SEPARATE ServiceUserMapper Factory OSGi Config
         final Map<String, Object> authInfo = Collections.singletonMap(
-                ResourceResolverFactory.SUBSERVICE, SERVICE_NAME);
+            ResourceResolverFactory.SUBSERVICE, SERVICE_NAME);
 
         // Get the auto-closing Service resource resolver
         try (ResourceResolver serviceResolver = resourceResolverFactory.getServiceResourceResolver(authInfo)) {

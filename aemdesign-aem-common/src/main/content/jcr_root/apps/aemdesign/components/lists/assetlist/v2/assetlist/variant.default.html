@@ -1,11 +1,11 @@
 <template data-sly-template.variant="${@ componentProperties, component}">
-    <ul style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-        data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <sly data-sly-list.listItem="${component.ListItems}">
-            <li class="asset">
-                <sly data-sly-use.info="asset.select.html"
-                     data-sly-call="${info.variant @ componentProperties=listItem}"></sly>
-            </li>
-        </sly>
-    </ul>
+  <ul style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+      data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+    <sly data-sly-list.listItem="${component.ListItems}">
+      <li class="asset">
+        <sly data-sly-use.info="asset.select.html"
+             data-sly-call="${info.variant @ componentProperties=listItem}"></sly>
+      </li>
+    </sly>
+  </ul>
 </template>

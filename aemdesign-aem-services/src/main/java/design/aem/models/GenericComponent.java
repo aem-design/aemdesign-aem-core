@@ -24,6 +24,7 @@ public interface GenericComponent extends ComponentExporter {
 
     /**
      * return component type.
+     *
      * @see ComponentExporter#getExportedType()
      */
     @Nonnull

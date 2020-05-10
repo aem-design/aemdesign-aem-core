@@ -21,16 +21,17 @@ import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.ImagesUtil.*;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
-@SuppressWarnings({"Duplicates","squid:S3776"})
+@SuppressWarnings({"Duplicates", "squid:S3776"})
 public class ContentBlock extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContentBlock.class);
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
 
-    @SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates", "squid:S3776"})
     protected void ready() throws Exception {
         I18n i18n = new I18n(getRequest());
 
@@ -40,34 +41,34 @@ public class ContentBlock extends ModelProxy {
         final String DEFAULT_TITLE_TAG_TYPE = "h2";
 
         final String[] DEFAULT_VIDEO_ATTRIBUTES = new String[]{
-                "aemdesign:component-style-modifier/video/playsinline",
-                "aemdesign:component-style-modifier/video/loop",
-                "aemdesign:component-style-modifier/video/muted",
+            "aemdesign:component-style-modifier/video/playsinline",
+            "aemdesign:component-style-modifier/video/loop",
+            "aemdesign:component-style-modifier/video/muted",
         };
 
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"hideTitle", false},
-                {"hideTopLink", false},
-                {"linksLeftTitle", ""},
-                {"linksRightTitle", ""},
-                {"dataTitle", ""},
-                {"dataScroll", ""},
-                {"linksRight", new String[]{}},
-                {"linksLeft", new String[]{}},
-                {"titleType", DEFAULT_TITLE_TAG_TYPE},
-                {"title", ""},
-                {"dataParent", ""},
-                {"dataToggle", ""},
-                {FIELD_STYLE_COMPONENT_BOOLEANATTR, DEFAULT_VIDEO_ATTRIBUTES, "", Tag.class.getCanonicalName()},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"hideTitle", false},
+            {"hideTopLink", false},
+            {"linksLeftTitle", ""},
+            {"linksRightTitle", ""},
+            {"dataTitle", ""},
+            {"dataScroll", ""},
+            {"linksRight", new String[]{}},
+            {"linksLeft", new String[]{}},
+            {"titleType", DEFAULT_TITLE_TAG_TYPE},
+            {"title", ""},
+            {"dataParent", ""},
+            {"dataToggle", ""},
+            {FIELD_STYLE_COMPONENT_BOOLEANATTR, DEFAULT_VIDEO_ATTRIBUTES, "", Tag.class.getCanonicalName()},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ANALYTICS,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ANALYTICS,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
         componentProperties.put("linksRightList", getPageListInfo(this, getPageManager(), getResourceResolver(), componentProperties.get("linksRight", new String[]{})));
         componentProperties.put("linksLeftList", getPageListInfo(this, getPageManager(), getResourceResolver(), componentProperties.get("linksLeft", new String[]{})));

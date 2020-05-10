@@ -1,12 +1,12 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <a style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <sly data-sly-test="${componentProperties.linkIcon && componentProperties.linkIconPosition == 'left'}"
-             data-sly-use.iconLeft="link.icon.html"
-             data-sly-call="${iconLeft.variant @ linkIcon=componentProperties.linkIcon}"></sly>
-        <span class="link-text">${componentProperties.label}</span>
-        <sly data-sly-test="${componentProperties.linkIcon && componentProperties.linkIconPosition == 'right'}"
-             data-sly-use.iconRight="link.icon.html"
-             data-sly-call="${iconRight.variant @ linkIcon=componentProperties.linkIcon}"></sly>
-    </a>
+  <a style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+     data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+    <sly data-sly-test="${componentProperties.linkIcon && componentProperties.linkIconPosition == 'left'}"
+         data-sly-use.iconLeft="link.icon.html"
+         data-sly-call="${iconLeft.variant @ linkIcon=componentProperties.linkIcon}"></sly>
+    <span class="link-text">${componentProperties.label}</span>
+    <sly data-sly-test="${componentProperties.linkIcon && componentProperties.linkIconPosition == 'right'}"
+         data-sly-use.iconRight="link.icon.html"
+         data-sly-call="${iconRight.variant @ linkIcon=componentProperties.linkIcon}"></sly>
+  </a>
 </template>

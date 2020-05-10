@@ -16,7 +16,7 @@ window.AEMDESIGN.components.authoring.vue.fields = window.AEMDESIGN.components.a
       <input class="foundation-field-related" type="hidden" value="true" name="${fieldPath}@UseDefaultWhenMissing">
     `;
 
-    const checkbox  = checkboxElement.children[0];
+    const checkbox = checkboxElement.children[0];
     const isChecked = savedValue === 'true';
 
     if (isChecked) {

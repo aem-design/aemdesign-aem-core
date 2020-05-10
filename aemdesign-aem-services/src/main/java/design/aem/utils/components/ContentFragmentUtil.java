@@ -21,13 +21,14 @@ public class ContentFragmentUtil {
 
     /**
      * get content fragment content in an ordered map
+     *
      * @param contentFragmentPath path to content fragment
-     * @param variationName variation of content fragment
-     * @param resourceResolver resource resolver to use
+     * @param variationName       variation of content fragment
+     * @param resourceResolver    resource resolver to use
      * @return ordered map of key value fields
      */
     @SuppressWarnings("squid:S3776")
-    public static Map<String, Object> getComponentFragmentMap(String contentFragmentPath, String variationName, ResourceResolver resourceResolver){
+    public static Map<String, Object> getComponentFragmentMap(String contentFragmentPath, String variationName, ResourceResolver resourceResolver) {
         LinkedHashMap<String, Object> newFields = new LinkedHashMap<>();
 
         try {
@@ -45,7 +46,7 @@ public class ContentFragmentUtil {
                         }
                         //load all available attributes and values into a map
                         for (Iterator contentElementIterator = contentFragment.getElements(); contentElementIterator.hasNext(); ) {
-                            ContentElement contentElement = (ContentElement)contentElementIterator.next();
+                            ContentElement contentElement = (ContentElement) contentElementIterator.next();
                             String name = contentElement.getName();
                             Object value = null;
                             //if variant name is specified get that value

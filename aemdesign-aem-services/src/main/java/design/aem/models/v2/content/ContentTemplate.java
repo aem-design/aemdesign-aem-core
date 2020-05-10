@@ -12,9 +12,11 @@ public class ContentTemplate extends ModelProxy {
 
     protected ComponentProperties componentProperties = null;
     protected ComponentProperties requestComponentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
+
     public ComponentProperties getRequestComponentProperties() {
         return this.requestComponentProperties;
     }
@@ -33,22 +35,22 @@ public class ContentTemplate extends ModelProxy {
           4 optional - canonical name of class for handling multivalues, String or Tag
          */
         setComponentFields(new Object[][]{
-                {"templatePath", ""},
-                {FIELD_CUSTOM_TEMPLATE_JEXL, ""},
-                {"templateUse", "templatePath"},
-                {FIELD_VARIANT, DEFAULT_VARIANT}
+            {"templatePath", ""},
+            {FIELD_CUSTOM_TEMPLATE_JEXL, ""},
+            {"templateUse", "templatePath"},
+            {FIELD_VARIANT, DEFAULT_VARIANT}
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
-        String customTemplate = componentProperties.get(FIELD_CUSTOM_TEMPLATE_JEXL,"");
+        String customTemplate = componentProperties.get(FIELD_CUSTOM_TEMPLATE_JEXL, "");
         String customTemplateOutput = "";
 
-        requestComponentProperties = (ComponentProperties)getRequest().getAttribute(REQUEST_COMPONENT_PROPERTIES);
+        requestComponentProperties = (ComponentProperties) getRequest().getAttribute(REQUEST_COMPONENT_PROPERTIES);
 
         if (isNotEmpty(customTemplate) && requestComponentProperties != null) {
 
@@ -63,7 +65,7 @@ public class ContentTemplate extends ModelProxy {
                 //add componentProperties as a variable as well
                 jc.set("componentProperties", requestComponentProperties);
 
-                customTemplateOutput = (String)expr.evaluate(jc);
+                customTemplateOutput = (String) expr.evaluate(jc);
 
             } catch (JexlException jex) {
                 LOGGER.warn("could not evaluate default value expression customTemplate={}, requestComponentProperties={}, jex.info={}", customTemplate, requestComponentProperties, jex.getInfo());

@@ -14,7 +14,7 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
   const foundationRegistry = $(window).adaptTo('foundation-registry');
 
   // Define some core namespace values
-  ns.name    = 'aemdesign.components.widgets.vue';
+  ns.name = 'aemdesign.components.widgets.vue';
   ns.version = () => _version;
 
   let formFields = {};
@@ -37,8 +37,8 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
 
             if (typeof field === 'object') {
               fields[key] = {
-                config : JSON.parse(atob(field.value)).value,
-                title  : field['jcr:title'],
+                config: JSON.parse(atob(field.value)).value,
+                title: field['jcr:title'],
               }
             }
           }
@@ -178,14 +178,14 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
   ns.processField = (field, data, savedValue, componentName, tagPath, componentPath) => {
     const config = data.config;
 
-    const fieldLabel       = Coral.i18n.get(data.title);
-    const fieldIdentifier  = field;
-    const fieldPath        = `./dynamic/${componentName}/${fieldIdentifier}`;
-    const fieldPathBase    = `dynamic/${componentName}/${fieldIdentifier}`;
+    const fieldLabel = Coral.i18n.get(data.title);
+    const fieldIdentifier = field;
+    const fieldPath = `./dynamic/${componentName}/${fieldIdentifier}`;
+    const fieldPathBase = `dynamic/${componentName}/${fieldIdentifier}`;
     const fieldPlaceholder = config.placeholder || '';
-    const fieldTooltip     = config.tooltip || false;
-    const isRequired       = config.required !== undefined ? config.required : true;
-    const labelledBy       = `vue_label_${fieldIdentifier}`;
+    const fieldTooltip = config.tooltip || false;
+    const isRequired = config.required !== undefined ? config.required : true;
+    const labelledBy = `vue_label_${fieldIdentifier}`;
 
     let fieldConstructor = false;
 
@@ -223,12 +223,12 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
       case 'textfield':
         fieldConstructor = () => {
           return new Coral.Textfield().set({
-            invalid     : (!savedValue && isRequired) || false,
-            labelledBy  : labelledBy,
-            name        : fieldPath,
-            placeholder : fieldPlaceholder,
-            required    : isRequired,
-            value       : savedValue || '',
+            invalid: (!savedValue && isRequired) || false,
+            labelledBy: labelledBy,
+            name: fieldPath,
+            placeholder: fieldPlaceholder,
+            required: isRequired,
+            value: savedValue || '',
           });
         };
         break;
@@ -236,11 +236,11 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
       case 'textarea':
         fieldConstructor = () => {
           return new Coral.Textarea().set({
-            invalid     : (!savedValue && isRequired) || false,
-            labelledBy  : labelledBy,
-            name        : fieldPath,
-            required    : isRequired,
-            value       : savedValue || '',
+            invalid: (!savedValue && isRequired) || false,
+            labelledBy: labelledBy,
+            name: fieldPath,
+            required: isRequired,
+            value: savedValue || '',
           });
         };
         break;
@@ -257,11 +257,11 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
       case 'select':
         fieldConstructor = () => {
           const selectElement = new Coral.Select().set({
-            invalid     : (!savedValue && isRequired) || false,
-            labelledBy  : labelledBy,
-            name        : fieldPath,
-            placeholder : fieldPlaceholder,
-            required    : isRequired,
+            invalid: (!savedValue && isRequired) || false,
+            labelledBy: labelledBy,
+            name: fieldPath,
+            placeholder: fieldPlaceholder,
+            required: isRequired,
           });
 
           if (config.items) {
@@ -271,9 +271,9 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
                   innerHTML: item.label,
                 },
 
-                disabled : false,
-                selected : savedValue === item.value,
-                value    : item.value,
+                disabled: false,
+                selected: savedValue === item.value,
+                value: item.value,
               });
             }
           }
@@ -382,16 +382,16 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
       size: iconSize,
     });
 
-    tooltipIcon.classList.add(error ? 'coral-Form-fielderror': 'coral-Form-fieldinfo');
+    tooltipIcon.classList.add(error ? 'coral-Form-fielderror' : 'coral-Form-fieldinfo');
 
     const tooltipElement = new Coral.Tooltip().set({
       content: {
         innerHTML: text,
       },
 
-      placement : 'left',
-      target    : tooltipIcon,
-      variant   : Coral.Tooltip.variant[error ? 'ERROR' : 'INFO'],
+      placement: 'left',
+      target: tooltipIcon,
+      variant: Coral.Tooltip.variant[error ? 'ERROR' : 'INFO'],
     });
 
     target.appendChild(tooltipIcon);
@@ -401,7 +401,7 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
       bindTo = target
     }
 
-    bindTo.icon    = tooltipIcon;
+    bindTo.icon = tooltipIcon;
     bindTo.tooltip = tooltipElement;
   };
 
@@ -411,10 +411,10 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
       selector: '.richtext-container > input:text',
 
       validate(el) {
-        const $el          = $(el);
-        const $hidden      = $el.parent().find('input[type=hidden]');
+        const $el = $(el);
+        const $hidden = $el.parent().find('input[type=hidden]');
         const fieldWrapper = $el.closest('.coral-Form-fieldwrapper').get(0);
-        const isRequired   = $hidden.attr('required') === 'required' || $hidden.attr('aria-required') === 'true';
+        const isRequired = $hidden.attr('required') === 'required' || $hidden.attr('aria-required') === 'true';
 
         // Hide the field icon and tooltip
         if (el.icon && el.tooltip) {
@@ -434,7 +434,7 @@ window.AEMDESIGN.components.authoring.vue = AEMDESIGN.components.authoring.vue |
       },
 
       show(el, message) {
-        const $el          = $(el);
+        const $el = $(el);
         const fieldWrapper = $el.closest('.coral-Form-fieldwrapper').get(0);
 
         ns.clearValidationState($el.siblings('.coral-RichText'), el, fieldWrapper);

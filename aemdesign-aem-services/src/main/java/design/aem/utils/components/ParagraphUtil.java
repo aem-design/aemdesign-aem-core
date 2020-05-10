@@ -29,33 +29,35 @@ public class ParagraphUtil {
 
     /**
      * advanced open row
-     * @param parSys list of pars being processed
-     * @param par current par child of parSys being processed
-     * @param out html output
+     *
+     * @param parSys              list of pars being processed
+     * @param par                 current par child of parSys being processed
+     * @param out                 html output
      * @param componentProperties component properties
-     * @param rowClass css class to use for row
+     * @param rowClass            css class to use for row
      * @throws IOException when can't write to jsp output
      */
     public static void openRow(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties, String rowClass) throws IOException {
 
-        openRow(par.getNumCols(),out,componentProperties, rowClass);
+        openRow(par.getNumCols(), out, componentProperties, rowClass);
 
     }
 
 
     /**
      * advanced open row
-     * @param numCols number of los
-     * @param out html output
+     *
+     * @param numCols             number of los
+     * @param out                 html output
      * @param componentProperties component properties
-     * @param rowClass row class name
+     * @param rowClass            row class name
      * @throws IOException when can't write to jsp output
      */
     public static void openRow(Integer numCols, JspWriter out, ComponentProperties componentProperties, String rowClass) throws IOException {
 
-        final String numColsCSS = MessageFormat.format("colctrl-{0}c",numCols);
+        final String numColsCSS = MessageFormat.format("colctrl-{0}c", numCols);
 
-        if (componentProperties!=null) {
+        if (componentProperties != null) {
             componentProperties.attr.add("class", numColsCSS);
 
             final String componentAttributes = componentProperties.attr.build().replaceAll("&#x20;", " ");
@@ -70,13 +72,14 @@ public class ParagraphUtil {
 
 
         // row start
-        out.write(MessageFormat.format("<div class=\"{0} {1} {2}\">",COLUMNS_CLASS, ROW_CLASS, rowClass));
+        out.write(MessageFormat.format("<div class=\"{0} {1} {2}\">", COLUMNS_CLASS, ROW_CLASS, rowClass));
     }
 
     /**
      * print close of row
-     * @param par current par child of parSys being processed
-     * @param out html output
+     *
+     * @param par      current par child of parSys being processed
+     * @param out      html output
      * @param clearFix add extra div at the end
      * @throws IOException when can't write to jsp output
      */
@@ -86,7 +89,8 @@ public class ParagraphUtil {
 
     /**
      * print close of row
-     * @param out html output
+     *
+     * @param out      html output
      * @param clearFix add extra div at the end
      * @throws IOException when can't write to jsp output
      */
@@ -105,27 +109,29 @@ public class ParagraphUtil {
 
     /**
      * used by classic column component, write opening tags for the column for Paragraph System, also check if base alignment is required based
-     * @param parSys list of pars being processed
-     * @param par current par child of parSys being processed
-     * @param out html output
+     *
+     * @param parSys              list of pars being processed
+     * @param par                 current par child of parSys being processed
+     * @param out                 html output
      * @param componentProperties component properties to use for attributes
-     * @param columnClassStyle column class to use
+     * @param columnClassStyle    column class to use
      * @throws IOException when can't write to jsp output
      */
     public static void openCol(Object parSys, Paragraph par, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
 
-        openCol(Arrays.asList(par.getBaseCssClass().split(",")),par.getColNr(),par.getCssClass(),out,componentProperties, columnClassStyle);
+        openCol(Arrays.asList(par.getBaseCssClass().split(",")), par.getColNr(), par.getCssClass(), out, componentProperties, columnClassStyle);
 
     }
 
     /**
      * used by classic column component, write opening tags for the column for Paragraph System, also check if base alignment is required based
-     * @param columnsFormat columns format
-     * @param colNumber current column
-     * @param columnClass column class
-     * @param out html output
+     *
+     * @param columnsFormat       columns format
+     * @param colNumber           current column
+     * @param columnClass         column class
+     * @param out                 html output
      * @param componentProperties columns componentProperties for attributes
-     * @param columnClassStyle column class to use
+     * @param columnClassStyle    column class to use
      * @throws IOException when can't write to jsp output
      */
     public static void openCol(List<String> columnsFormat, Integer colNumber, String columnClass, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
@@ -134,25 +140,26 @@ public class ParagraphUtil {
         if (!columnsFormat.isEmpty() && columnsFormat.get(0).contains(",")) {
             //take the [0] = [col-md-] and add to it width by current column number
             StringBuilder columnClassBuilder = new StringBuilder();
-            for(int i=0; i < columnsFormat.size(); i++){
-                String spacer = (i == columnsFormat.size()-1 ? "" : " ");
+            for (int i = 0; i < columnsFormat.size(); i++) {
+                String spacer = (i == columnsFormat.size() - 1 ? "" : " ");
                 columnClassBuilder.append(columnsFormat.get(i).split(",")[0]);
                 columnClassBuilder.append(columnsFormat.get(i).split(",")[colNumber + 1]);
                 columnClassBuilder.append(spacer);
             }
-            out.write(MessageFormat.format("<div class=\"{0} {1} {2} {3}\">",COLUMNS_CLASS, COLUMN_CLASS, columnClassBuilder.toString(), columnClassStyle)); //EXTENDED
+            out.write(MessageFormat.format("<div class=\"{0} {1} {2} {3}\">", COLUMNS_CLASS, COLUMN_CLASS, columnClassBuilder.toString(), columnClassStyle)); //EXTENDED
         } else {
             //out.write("<div class='parsys_column " + par.getBaseCssClass() + " col-" + n + "'>");
-            out.write(MessageFormat.format("<div class=\"{0} {1} {2} {3}\">",COLUMNS_CLASS, COLUMN_CLASS, columnClass, columnClassStyle)); //ORIGINAL
+            out.write(MessageFormat.format("<div class=\"{0} {1} {2} {3}\">", COLUMNS_CLASS, COLUMN_CLASS, columnClass, columnClassStyle)); //ORIGINAL
         }
     }
 
     /**
      * used by classic column component, write opening tags for the column for Paragraph System, also check if base alignment is required based
-     * @param colNumber current column number
-     * @param out html output
+     *
+     * @param colNumber           current column number
+     * @param out                 html output
      * @param componentProperties component properties to use
-     * @param columnClassStyle column css
+     * @param columnClassStyle    column css
      * @throws IOException when can't write to jsp output
      */
     public static void openCol(Integer colNumber, JspWriter out, ComponentProperties componentProperties, String columnClassStyle) throws IOException {
@@ -163,8 +170,8 @@ public class ParagraphUtil {
         String columnClass = "colctrl";
 
         if (componentProperties != null) {
-            columnsFormat = Arrays.asList(componentProperties.get("layout",defaultFormat).split(";"));
-            columnClass = componentProperties.get("class",columnClass);
+            columnsFormat = Arrays.asList(componentProperties.get("layout", defaultFormat).split(";"));
+            columnClass = componentProperties.get("class", columnClass);
         }
 
         openCol(columnsFormat, colNumber, columnClass, out, componentProperties, columnClassStyle);
@@ -172,6 +179,7 @@ public class ParagraphUtil {
 
     /**
      * print end of column
+     *
      * @param par current par child of parSys being processed
      * @param out html output
      * @throws IOException when can't write to jsp output
@@ -184,8 +192,9 @@ public class ParagraphUtil {
 
     /**
      * look ahead try find the end/break of col and return component before it if there is one
+     *
      * @param parSys list of pars being processed
-     * @param par current par child of parSys being processed
+     * @param par    current par child of parSys being processed
      * @return last item in the column
      */
     public static Paragraph getLastItemInColumn(Object parSys, Paragraph par) {
@@ -223,8 +232,9 @@ public class ParagraphUtil {
 
     /**
      * return position of a par in the list.
+     *
      * @param parSys parent
-     * @param par par to check in parent
+     * @param par    par to check in parent
      * @return return index of parsys in parent
      */
     public static int getListPosition(Object parSys, Paragraph par) {
@@ -242,6 +252,7 @@ public class ParagraphUtil {
 
     /**
      * return the size of the par list.
+     *
      * @param parSys parsys to check
      * @return size of parsys
      */
@@ -260,8 +271,9 @@ public class ParagraphUtil {
 
     /**
      * return a par from par list at an index.
+     *
      * @param parSys gets item from parsys
-     * @param index index to return
+     * @param index  index to return
      * @return result parsys or null
      */
     public static Paragraph getListPar(Object parSys, int index) {
@@ -279,14 +291,15 @@ public class ParagraphUtil {
 
     /**
      * Force output of a Start/Top Edit bar/placeholder for a component
-     * @param resource Current component resource being processed
-     * @param slingRequest current sling request
-     * @param slingResponse current sling response
-     * @param editContext current cq edit context
-     * @param out current jsp output
+     *
+     * @param resource       Current component resource being processed
+     * @param slingRequest   current sling request
+     * @param slingResponse  current sling response
+     * @param editContext    current cq edit context
+     * @param out            current jsp output
      * @param componentStyle component style
-     * @param title title to use for the toolbar and placeholder
-     * @throws IOException when can't write to jsp output
+     * @param title          title to use for the toolbar and placeholder
+     * @throws IOException      when can't write to jsp output
      * @throws ServletException when can't include epilog
      */
     public static void includeEditRowStart(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException, ServletException {
@@ -321,14 +334,15 @@ public class ParagraphUtil {
 
     /**
      * Force output of a End/Bottom Edit bar/placeholder for a component
-     * @param resource Current component resource being processed
-     * @param slingRequest current sling request
-     * @param slingResponse current sling response
-     * @param editContext current cq edit context
-     * @param out current jsp output
+     *
+     * @param resource       Current component resource being processed
+     * @param slingRequest   current sling request
+     * @param slingResponse  current sling response
+     * @param editContext    current cq edit context
+     * @param out            current jsp output
      * @param componentStyle component style
-     * @param title title to use for the toolbar and placeholder
-     * @throws IOException when can't write to jsp output
+     * @param title          title to use for the toolbar and placeholder
+     * @throws IOException      when can't write to jsp output
      * @throws ServletException when can't include epilog
      */
     public static void includeEditRowEnd(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException, ServletException {
@@ -349,7 +363,7 @@ public class ParagraphUtil {
 
             editContext.getEditConfig().getToolbar().clear();
             editContext.getEditConfig().getToolbar().add(
-                    new Toolbar.Label(title));
+                new Toolbar.Label(title));
 
             // disable ordering to get consistent behavior
             editContext.getEditConfig().setOrderable(false);
@@ -369,14 +383,15 @@ public class ParagraphUtil {
 
     /**
      * Print CQ edit controls
-     * @param resource resource to use
-     * @param slingRequest sling request
-     * @param slingResponse sling response
-     * @param editContext edit content
-     * @param out jsp output
+     *
+     * @param resource       resource to use
+     * @param slingRequest   sling request
+     * @param slingResponse  sling response
+     * @param editContext    edit content
+     * @param out            jsp output
      * @param componentStyle component styles map
-     * @param title title
-     * @throws IOException when can't write to jsp output
+     * @param title          title
+     * @throws IOException      when can't write to jsp output
      * @throws ServletException when can't include epilog
      */
     public static void includeEditContext(Resource resource, SlingHttpServletRequest slingRequest, SlingHttpServletResponse slingResponse, EditContext editContext, JspWriter out, Map<String, Object> componentStyle, String title) throws IOException, ServletException {
@@ -389,6 +404,7 @@ public class ParagraphUtil {
 
     /**
      * return count of child element in iterator.
+     *
      * @param itr children iterator
      * @return count of children
      */
@@ -403,6 +419,7 @@ public class ParagraphUtil {
 
     /**
      * return last element in the iterator.
+     *
      * @param itr iterator to check
      * @return last resource
      */
@@ -421,6 +438,7 @@ public class ParagraphUtil {
 
     /**
      * return first element in the iterator.
+     *
      * @param itr iterator to check
      * @return first element
      */
@@ -437,9 +455,10 @@ public class ParagraphUtil {
 
     /**
      * write opening tags for the column for Resource component, also check if base alignment is required based
-     * @param out html output
+     *
+     * @param out            html output
      * @param componentStyle style of container resource
-     * @param currColNumber current column number
+     * @param currColNumber  current column number
      * @throws IOException when can't write to jsp output
      */
     public static void openCol(JspWriter out, Map componentStyle, Integer currColNumber) throws IOException {
@@ -451,18 +470,18 @@ public class ParagraphUtil {
         //print column start
         if (width.length > 1) {
             // take the [0] = [col-md-] and add to it width by current column number
-            out.write("<div class='"+ COLUMN_CLASS +" " + width[0] + width[currColNumber] + "'>");
+            out.write("<div class='" + COLUMN_CLASS + " " + width[0] + width[currColNumber] + "'>");
 
         } else {
             // take the [0] = [col-md-] and add to it width by current column number
-            out.write("<div class='"+ COLUMN_CLASS + " " + width[0] + "'>");
+            out.write("<div class='" + COLUMN_CLASS + " " + width[0] + "'>");
         }
     }
 
 
-
     /**
      * return current paragraph control type.
+     *
      * @param resource current paragpraph resource
      * @return return type of parsys
      */
@@ -476,6 +495,7 @@ public class ParagraphUtil {
 
     /**
      * return current UI Mode, Classic or Touch
+     *
      * @param slingRequest sling request
      * @return string value of ui mode cookie
      */

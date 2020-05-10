@@ -12,8 +12,8 @@ window.AEMDESIGN.components.authoring.vue.fields = window.AEMDESIGN.components.a
    * @param {Element} richText Parent element
    */
   const bindRichTextValidation = (richText) => {
-    const hiddenText      = richText.querySelector('input[type="hidden"]');
-    const invisibleText   = richText.querySelector('input[type="text"]');
+    const hiddenText = richText.querySelector('input[type="hidden"]');
+    const invisibleText = richText.querySelector('input[type="text"]');
     const richTextElement = richText.querySelector('.coral-RichText');
 
     richTextElement.addEventListener('keyup', () => {

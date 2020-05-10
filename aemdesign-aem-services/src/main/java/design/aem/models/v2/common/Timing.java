@@ -78,13 +78,13 @@ public class Timing extends ModelProxy {
     @SuppressWarnings("squid:S1604")
     protected void ready() {
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE);
 
         // Convert RequestProgressTracker TIMER_END messages to timings and operation names
         RequestProgressTracker t = getRequest().getRequestProgressTracker();
@@ -172,7 +172,7 @@ public class Timing extends ModelProxy {
             componentProperties.put("jsonString", jsonString);
 
         } catch (Exception ex) {
-            LOGGER.error("ready {}",ex);
+            LOGGER.error("ready {}", ex);
         }
 
 
@@ -220,6 +220,7 @@ public class Timing extends ModelProxy {
 
         /**
          * Remove chars up to separator in this.input, and return result.
+         *
          * @param separator separator to stop at
          * @return string up to separator
          */

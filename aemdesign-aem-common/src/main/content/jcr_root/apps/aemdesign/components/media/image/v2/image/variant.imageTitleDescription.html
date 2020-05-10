@@ -1,19 +1,20 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
-         itemscope itemtype="http://schema.org/ImageObject">
-        <figure>
-            <sly data-sly-use.info="image.select.html"
-                 data-sly-call="${info.variant @ componentProperties=componentProperties}"></sly>
-            <figcaption>
-                <a data-sly-unwrap="${componentProperties.linkURL == ''}" itemprop="name"
-                   href="${componentProperties.linkURL}">
-                    <span data-sly-element="${componentProperties.titleType}">${componentProperties['dc:title']}</span>
-                </a>
-            </figcaption>
-            <div class="description" itemprop="description">${componentProperties['dc:description'] @ context = 'unsafe'}</div>
-            <span class="license"
-                  data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo @ context = 'unsafe'}</span>
-        </figure>
-    </div>
+  <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+       itemscope itemtype="http://schema.org/ImageObject">
+    <figure>
+      <sly data-sly-use.info="image.select.html"
+           data-sly-call="${info.variant @ componentProperties=componentProperties}"></sly>
+      <figcaption>
+        <a data-sly-unwrap="${componentProperties.linkURL == ''}" itemprop="name"
+           href="${componentProperties.linkURL}">
+          <span data-sly-element="${componentProperties.titleType}">${componentProperties['dc:title']}</span>
+        </a>
+      </figcaption>
+      <div class="description"
+           itemprop="description">${componentProperties['dc:description'] @ context = 'unsafe'}</div>
+      <span class="license"
+            data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo @ context = 'unsafe'}</span>
+    </figure>
+  </div>
 </template>

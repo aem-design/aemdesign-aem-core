@@ -82,9 +82,10 @@ public class TagUtil {
 
     /**
      * Get list of Tags from a list of tag paths.
-     * @param sling sling helper
+     *
+     * @param sling    sling helper
      * @param tagPaths list of tags
-     * @param locale locale to yse
+     * @param locale   locale to yse
      * @return map of tag values
      */
     public static LinkedHashMap<String, Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale) {
@@ -93,11 +94,12 @@ public class TagUtil {
 
     /**
      * Get list of Tags from a list of tag paths.
-     * @param sling sling helper
-     * @param tagPaths list of tags
-     * @param locale locale to yse
+     *
+     * @param sling            sling helper
+     * @param tagPaths         list of tags
+     * @param locale           locale to yse
      * @param attributesToRead list of attributes to gather from tag
-     * @param getTagChildren for given paths get children
+     * @param getTagChildren   for given paths get children
      * @return map of tag values
      */
     public static LinkedHashMap<String, Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale, String[] attributesToRead, boolean getTagChildren) {
@@ -202,9 +204,10 @@ public class TagUtil {
 
     /**
      * get a string of tags values.
-     * @param sling sling instance
+     *
+     * @param sling     sling instance
      * @param separator string for separating tags
-     * @param tagPaths tag paths to look up
+     * @param tagPaths  tag paths to look up
      * @return string of tag values
      */
     public static String getTagsAsValuesAsAdmin(SlingScriptHelper sling, String separator, String[] tagPaths) {
@@ -215,7 +218,7 @@ public class TagUtil {
 
         for (String path : tagPaths) {
 
-            String tagValue = getTagValueAsAdmin(path,sling);
+            String tagValue = getTagValueAsAdmin(path, sling);
 
             builder.append(tagValue);
             builder.append(separator);
@@ -230,10 +233,11 @@ public class TagUtil {
 
     /**
      * Get Tag values.
-     * @param tagManager tag manager
+     *
+     * @param tagManager       tag manager
      * @param resourceResolver resolver instance
-     * @param separator separator to use between tags
-     * @param tagPaths list of tags
+     * @param separator        separator to use between tags
+     * @param tagPaths         list of tags
      * @return comma separated list of tag values
      */
     @SuppressWarnings("Duplicates")
@@ -278,10 +282,11 @@ public class TagUtil {
 
     /**
      * Get Tag values.
-     * @param tagManager tag manage
+     *
+     * @param tagManager       tag manage
      * @param resourceResolver resolver instance
-     * @param separator separator to use between tags
-     * @param tagPaths list of tags
+     * @param separator        separator to use between tags
+     * @param tagPaths         list of tags
      * @return string array of tag values
      */
     @SuppressWarnings("Duplicates")
@@ -324,7 +329,7 @@ public class TagUtil {
      *
      * @param path             tag path or tagId path
      * @param resourceResolver resolver instance
-     * @param tagManager tag manager instance
+     * @param tagManager       tag manager instance
      * @return return null or Tag
      */
     public static Tag getTag(String path, ResourceResolver resourceResolver, TagManager tagManager) {

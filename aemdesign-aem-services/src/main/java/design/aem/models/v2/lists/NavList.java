@@ -21,6 +21,7 @@ public class NavList extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(NavList.class);
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }
@@ -35,29 +36,29 @@ public class NavList extends ModelProxy {
         final int DEFAULT_DEPTH_FROM_ROOT = 2;
 
         setComponentFields(new Object[][]{
-                {"pages", new String[0]},
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"depthFromRoot", DEFAULT_DEPTH_FROM_ROOT},
-                {"listFrom", DEFAULT_LISTFROM},
-                {"currentPage", getCurrentPage()},
-                {"menuTitle", i18n.get("menuTitle","navlist")},
-                {"parentPage", getPrimaryPath(getRequest())},
-                {"linkTitlePrefix", i18n.get("linkTitlePrefix","navlist")},
-                {COMPONENT_CANCEL_INHERIT_PARENT, false},
+            {"pages", new String[0]},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"depthFromRoot", DEFAULT_DEPTH_FROM_ROOT},
+            {"listFrom", DEFAULT_LISTFROM},
+            {"currentPage", getCurrentPage()},
+            {"menuTitle", i18n.get("menuTitle", "navlist")},
+            {"parentPage", getPrimaryPath(getRequest())},
+            {"linkTitlePrefix", i18n.get("linkTitlePrefix", "navlist")},
+            {COMPONENT_CANCEL_INHERIT_PARENT, false},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_ANALYTICS);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS);
 
         String[] supportedDetails = DEFAULT_LIST_DETAILS_SUFFIX;
         String[] supportedRoots = DEFAULT_LIST_PAGE_CONTENT;
 
         //set default level to be 5
-        int depthFromRoot = componentProperties.get("depthFromRoot",DEFAULT_DEPTH_FROM_ROOT);
+        int depthFromRoot = componentProperties.get("depthFromRoot", DEFAULT_DEPTH_FROM_ROOT);
         if (depthFromRoot > 5) {
             depthFromRoot = 5;
         } else if (depthFromRoot < 0) {
@@ -68,21 +69,20 @@ public class NavList extends ModelProxy {
         if (componentProperties.get("listFrom", DEFAULT_LISTFROM).equals(LISTFROM_CHILDREN)) {
             Page parentPage = getPageManager().getPage(componentProperties.get("parentPage", ""));
             if (parentPage != null) {
-                pagesInfo = getPageListInfo(getContextObjects(this),getPageManager(), getResourceResolver(), parentPage.listChildren(), supportedDetails, supportedRoots, depthFromRoot, true);
+                pagesInfo = getPageListInfo(getContextObjects(this), getPageManager(), getResourceResolver(), parentPage.listChildren(), supportedDetails, supportedRoots, depthFromRoot, true);
             }
         } else {
             String[] paths = componentProperties.get("pages", new String[0]);
             if (paths.length != 0) {
-                pagesInfo = getPageListInfo(getContextObjects(this),getPageManager(), getResourceResolver(), paths, supportedDetails, supportedRoots, depthFromRoot, true);
+                pagesInfo = getPageListInfo(getContextObjects(this), getPageManager(), getResourceResolver(), paths, supportedDetails, supportedRoots, depthFromRoot, true);
             }
         }
 
-        componentProperties.put("menuItems",pagesInfo);
+        componentProperties.put("menuItems", pagesInfo);
 
-        componentProperties.put(INHERITED_RESOURCE,findInheritedResource(getResourcePage(),getComponentContext()));
-        componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,getDefaultLabelIfEmpty("",DEFAULT_I18N_INHERIT_CATEGORY,DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,DEFAULT_I18N_INHERIT_CATEGORY,i18n));
+        componentProperties.put(INHERITED_RESOURCE, findInheritedResource(getResourcePage(), getComponentContext()));
+        componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND, getDefaultLabelIfEmpty("", DEFAULT_I18N_INHERIT_CATEGORY, DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND, DEFAULT_I18N_INHERIT_CATEGORY, i18n));
     }
-
 
 
     /***
@@ -94,12 +94,11 @@ public class NavList extends ModelProxy {
     private String getPrimaryPath(SlingHttpServletRequest slingRequest) {
         String requestPath = slingRequest.getRequestPathInfo().getResourcePath();
         if (requestPath.contains(JcrConstants.JCR_CONTENT)) {
-            return requestPath.substring(0, requestPath.indexOf(JcrConstants.JCR_CONTENT)-1);
+            return requestPath.substring(0, requestPath.indexOf(JcrConstants.JCR_CONTENT) - 1);
         }
 
         return "";
     }
-
 
 
 }

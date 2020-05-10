@@ -1,33 +1,34 @@
-<template data-sly-template.variant="${@ componentProperties, componentTemplates, requestedFieldsTemplate, componentFields, requestedFields}">
-    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <div class="container">
-            <sly data-sly-test="${'breadcrumb' in componentFields}">
-                <sly data-sly-use.breadcrumb="${componentFields['breadcrumb'].path}"
-                     data-sly-call="${breadcrumb.field @ componentProperties=componentProperties}"></sly>
-            </sly>
-            <sly data-sly-test="${'toolbar' in componentFields}">
-                <sly data-sly-use.toolbar="${componentFields['toolbar'].path}"
-                     data-sly-call="${toolbar.field @ componentProperties=componentProperties}"></sly>
-            </sly>
-            <sly data-sly-test="${'pagedate' in componentFields}">
-                <sly data-sly-use.pagedate="${componentFields['pagedate'].path}"
-                     data-sly-call="${pagedate.field @ componentProperties=componentProperties}"></sly>
-            </sly>
-            <header>
-                <sly data-sly-test="${'title' in componentFields}">
-                    <sly data-sly-use.title="${componentFields['title'].path}"
-                         data-sly-call="${title.field @ componentProperties=componentProperties}"></sly>
-                </sly>
-                <sly data-sly-test="${'description' in componentFields}">
-                    <sly data-sly-use.description="${componentFields['description'].path}"
-                         data-sly-call="${description.field @ componentProperties=componentProperties}"></sly>
-                </sly>
-            </header>
-            <sly data-sly-test="${'container' in componentFields}">
-                <sly data-sly-use.footer="${componentFields['container'].path}"
-                     data-sly-call="${footer.field @ componentProperties=componentProperties}"></sly>
-            </sly>
-        </div>
+<template
+        data-sly-template.variant="${@ componentProperties, componentTemplates, requestedFieldsTemplate, componentFields, requestedFields}">
+  <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+    <div class="container">
+      <sly data-sly-test="${'breadcrumb' in componentFields}">
+        <sly data-sly-use.breadcrumb="${componentFields['breadcrumb'].path}"
+             data-sly-call="${breadcrumb.field @ componentProperties=componentProperties}"></sly>
+      </sly>
+      <sly data-sly-test="${'toolbar' in componentFields}">
+        <sly data-sly-use.toolbar="${componentFields['toolbar'].path}"
+             data-sly-call="${toolbar.field @ componentProperties=componentProperties}"></sly>
+      </sly>
+      <sly data-sly-test="${'pagedate' in componentFields}">
+        <sly data-sly-use.pagedate="${componentFields['pagedate'].path}"
+             data-sly-call="${pagedate.field @ componentProperties=componentProperties}"></sly>
+      </sly>
+      <header>
+        <sly data-sly-test="${'title' in componentFields}">
+          <sly data-sly-use.title="${componentFields['title'].path}"
+               data-sly-call="${title.field @ componentProperties=componentProperties}"></sly>
+        </sly>
+        <sly data-sly-test="${'description' in componentFields}">
+          <sly data-sly-use.description="${componentFields['description'].path}"
+               data-sly-call="${description.field @ componentProperties=componentProperties}"></sly>
+        </sly>
+      </header>
+      <sly data-sly-test="${'container' in componentFields}">
+        <sly data-sly-use.footer="${componentFields['container'].path}"
+             data-sly-call="${footer.field @ componentProperties=componentProperties}"></sly>
+      </sly>
     </div>
+  </div>
 </template>

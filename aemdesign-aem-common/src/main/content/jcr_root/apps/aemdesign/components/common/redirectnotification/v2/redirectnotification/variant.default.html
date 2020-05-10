@@ -1,13 +1,13 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div data-sly-test="${wcmmode.edit}"
-         style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <sly data-sly-test="${componentProperties.redirectTarget}">
-            ${componentProperties.redirectIsSet}
-            <a href="${componentProperties.redirectUrl}">${componentProperties.redirectTitle}</a>
-        </sly>
-        <sly data-sly-test="${!componentProperties.redirectTarget}">
-            ${componentProperties.redirectIsNotSet}
-        </sly>
-    </div>
+  <div data-sly-test="${wcmmode.edit}"
+       style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+    <sly data-sly-test="${componentProperties.redirectTarget}">
+      ${componentProperties.redirectIsSet}
+      <a href="${componentProperties.redirectUrl}">${componentProperties.redirectTitle}</a>
+    </sly>
+    <sly data-sly-test="${!componentProperties.redirectTarget}">
+      ${componentProperties.redirectIsNotSet}
+    </sly>
+  </div>
 </template>

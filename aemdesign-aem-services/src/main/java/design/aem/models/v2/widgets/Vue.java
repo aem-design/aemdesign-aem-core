@@ -37,6 +37,7 @@ public class Vue extends ModelProxy {
     private static final Logger LOGGER = LoggerFactory.getLogger(Vue.class);
 
     protected ComponentProperties componentProperties = null;
+
     public ComponentProperties getComponentProperties() {
         return this.componentProperties;
     }

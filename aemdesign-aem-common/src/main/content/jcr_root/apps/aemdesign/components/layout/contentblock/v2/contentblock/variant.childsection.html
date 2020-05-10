@@ -1,19 +1,19 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
-         data-toggle="${componentProperties.dataToggle}"
-         data-target="#${componentProperties.componentId}-content"
-         aria-controls="${componentProperties.componentId}-content">
-        <div class="header" id="${componentProperties.componentId}-heading">
-            <button class="btn btn-link title">${componentProperties.title}</button>
-        </div>
-        <div id="${componentProperties.componentId}-content"
-             class="${componentProperties.dataToggle}"
-             aria-labelledby="${componentProperties.componentId}-heading"
-             data-parent="#${componentProperties.dataParent}">
-            <div class="body">
-                <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>
-            </div>
-        </div>
+  <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+       data-toggle="${componentProperties.dataToggle}"
+       data-target="#${componentProperties.componentId}-content"
+       aria-controls="${componentProperties.componentId}-content">
+    <div class="header" id="${componentProperties.componentId}-heading">
+      <button class="btn btn-link title">${componentProperties.title}</button>
     </div>
+    <div id="${componentProperties.componentId}-content"
+         class="${componentProperties.dataToggle}"
+         aria-labelledby="${componentProperties.componentId}-heading"
+         data-parent="#${componentProperties.dataParent}">
+      <div class="body">
+        <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>
+      </div>
+    </div>
+  </div>
 </template>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    jcr:primaryType="cq:Panel"
-    title="Simple Fields">
+          jcr:primaryType="cq:Panel"
+          title="Simple Fields">
     <items jcr:primaryType="cq:WidgetCollection">
         <arguments
             jcr:primaryType="cq:Widget"
@@ -32,20 +32,20 @@
                     xtype="textfield"/>
 
                 <!--<metadataname-->
-                        <!--jcr:primaryType="cq:Widget"-->
-                        <!--hideLabel="false"-->
-                        <!--fieldLabel="Meta Data Name"-->
-                        <!--fieldDescription="this will be the output metadata field for the workflow"-->
-                        <!--key="metadataname"-->
-                        <!--xtype="textfield"/>-->
+                <!--jcr:primaryType="cq:Widget"-->
+                <!--hideLabel="false"-->
+                <!--fieldLabel="Meta Data Name"-->
+                <!--fieldDescription="this will be the output metadata field for the workflow"-->
+                <!--key="metadataname"-->
+                <!--xtype="textfield"/>-->
 
                 <!--<emailFields-->
-                        <!--jcr:primaryType="cq:Widget"-->
-                        <!--allowBlank="true"-->
-                        <!--fieldDescription="Specify list of metadata attributes to be read from payload metadata"-->
-                        <!--fieldLabel="Other Email Fields"-->
-                        <!--name="./metaData/metaDataFields"-->
-                        <!--xtype="multifield">-->
+                <!--jcr:primaryType="cq:Widget"-->
+                <!--allowBlank="true"-->
+                <!--fieldDescription="Specify list of metadata attributes to be read from payload metadata"-->
+                <!--fieldLabel="Other Email Fields"-->
+                <!--name="./metaData/metaDataFields"-->
+                <!--xtype="multifield">-->
                 <!--</emailFields>-->
             </items>
         </arguments>

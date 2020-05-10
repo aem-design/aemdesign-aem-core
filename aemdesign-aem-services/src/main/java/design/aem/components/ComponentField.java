@@ -94,12 +94,12 @@ public class ComponentField {
     @Override
     public String toString() {
         return "ComponentField{" +
-                "fieldName='" + fieldName + '\'' +
-                ", defaultValue=" + defaultValue +
-                ", dataAttributeName='" + dataAttributeName + '\'' +
-                ", multiValueClass='" + multiValueClass + '\'' +
-                ", expression='" + expression + '\'' +
-                ", value=" + value +
-                '}';
+            "fieldName='" + fieldName + '\'' +
+            ", defaultValue=" + defaultValue +
+            ", dataAttributeName='" + dataAttributeName + '\'' +
+            ", multiValueClass='" + multiValueClass + '\'' +
+            ", expression='" + expression + '\'' +
+            ", value=" + value +
+            '}';
     }
 }
