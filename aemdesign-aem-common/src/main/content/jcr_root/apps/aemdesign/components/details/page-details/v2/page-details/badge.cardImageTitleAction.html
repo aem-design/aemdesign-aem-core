@@ -1,21 +1,14 @@
 <template data-sly-template.variant="${@ componentProperties}">
   <div class="card ${componentProperties.badgeClassAttr}">
-    <div class="card-img-top">
-      <img src="${componentProperties.pageThumbnail}"
-           data-sly-attribute="${componentProperties.badgeImageAttr @ context = 'unsafe'}"
-           alt="${componentProperties.title}">
-    </div>
+    <sly data-sly-use.image="/apps/aemdesign/components/details/generic-details/v1/generic-details/field/image.html"
+         data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>
+
     <div class="card-body">
-      <title class="card-title"
-             data-sly-element="${componentProperties.badgeTitleType}">${componentProperties.badgeTitle}</title>
-      <div class="card-action">
-        <a class="card-link ${componentProperties.badgeLinkStyle @ join=' '}"
-           href="${componentProperties.pageUrl}"
-           target="${componentProperties.badgeLinkTarget}"
-           title="${componentProperties.badgeLinkTitle}"
-           data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}">
-          <span>${componentProperties.badgeLinkText}</span></a>
-      </div>
+      <sly data-sly-use.title="/apps/aemdesign/components/details/generic-details/v1/generic-details/field/title.html"
+           data-sly-call="${title.field @ componentProperties=componentProperties}"></sly>
+
+      <sly data-sly-use.action="/apps/aemdesign/components/details/generic-details/v1/generic-details/field/action.html"
+           data-sly-call="${action.field @ componentProperties=componentProperties}"></sly>
     </div>
   </div>
 </template>

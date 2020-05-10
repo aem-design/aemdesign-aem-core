@@ -2,17 +2,16 @@
   <a class="card ${componentProperties.badgeClassAttr}"
      href="${componentProperties.pageUrl}"
      target="${componentProperties.badgeLinkTarget}"
-     title="${componentProperties.badgeLinkTitle}"
      data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}">
-    <div class="card-img-top">
-      <img src="${componentProperties.pageThumbnail}"
-           data-sly-attribute="${componentProperties.badgeImageAttr @ context = 'unsafe'}"
-           alt="${componentProperties.title}">
-    </div>
+    <sly data-sly-use.image="/apps/aemdesign/components/details/generic-details/v1/generic-details/field/image.html"
+         data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>
+
     <div class="card-body">
-      <title class="card-title"
-             data-sly-element="${componentProperties.badgeTitleType}">${componentProperties.badgeTitle}</title>
-      <div class="card-text">${componentProperties.badgeDescription @ context = 'unsafe'}</div>
+      <sly data-sly-use.title="/apps/aemdesign/components/details/generic-details/v1/generic-details/field/title.html"
+           data-sly-call="${title.field @ componentProperties=componentProperties}"></sly>
+
+      <sly data-sly-use.description="/apps/aemdesign/components/details/generic-details/v1/generic-details/field/description.html"
+           data-sly-call="${description.field @ componentProperties=componentProperties}"></sly>
     </div>
   </a>
 </template>

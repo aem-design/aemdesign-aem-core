@@ -1,0 +1,13 @@
+<template data-sly-template.field="${@ componentProperties}">
+  <div class="card-category"
+       data-sly-set.categories="${componentProperties.category}"
+       data-sly-test="${categories}">
+    <ul class="tags">
+      <sly data-sly-list.tag="${categories}">
+        <sly data-sly-test="${categories[tag]}">
+          <li id="${categories[tag].value}">${categories[tag].title}</li>
+        </sly>
+      </sly>
+    </ul>
+  </div>
+</template>
