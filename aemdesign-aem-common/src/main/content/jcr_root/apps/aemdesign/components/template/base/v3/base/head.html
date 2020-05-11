@@ -1,15 +1,20 @@
 <template data-sly-template.head="${ @ page }"
           data-sly-use.headlibRenderer="headlibs.html"
-          data-sly-use.headResources="head.resources.html">
+          data-sly-use.headResources="head.resources.html"
+          data-sly-set.pageTitleSuffix="${inheritedPageProperties.pageTitleSuffix}"
+          data-sly-set.titleSuffix="${'{0}{1}' @ format=[
+            pageTitleSuffix.length ? ' | ' : '',
+            pageTitleSuffix.length ? pageTitleSuffix : ''
+          ]}">
   <meta charset="utf-8">
-  <title>${page.title}</title>
-  <meta data-sly-test.keywords="${page.keywords}" name="keywords" content="${keywords}">
+  <title>${page.title}${titleSuffix}</title>
   <meta data-sly-test.description="${properties['jcr:description']}" name="description" content="${description}">
-  <sly data-sly-include="head.socialmedia.html"></sly>
 
   <sly data-sly-use.templateInfo="design.aem.models.v2.template.Template"
        data-sly-test="${templateInfo.componentProperties.detailsMetadataBadgePath && wcmmode.disabled}"
-       data-sly-resource="${templateInfo.componentProperties.detailsPath @ wcmmode='disabled', selectors=templateInfo.componentProperties.detailsMetadataBadgeSelectors}"></sly>
+       data-sly-resource="${templateInfo.componentProperties.detailsPath @
+                                selectors = templateInfo.componentProperties.detailsMetadataBadgeSelectors,
+                                wcmmode   = 'disabled'}"></sly>
 
   <sly data-sly-include="customheaderlibs.html"></sly>
   <sly data-sly-call="${headlibRenderer.headlibs @
