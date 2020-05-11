@@ -36,6 +36,10 @@ import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOG
 public class Vue extends ModelProxy {
     private static final Logger LOGGER = LoggerFactory.getLogger(Vue.class);
 
+    private static final String FIELD_ANALYTICS_NAME = "analyticsName";
+    private static final String FIELD_ANALYTICS_LOCATION = "analyticsLocation";
+    private static final String FIELD_VUE_COMPONENT = "vueComponentName";
+
     protected ComponentProperties componentProperties = null;
 
     public ComponentProperties getComponentProperties() {
@@ -59,9 +63,9 @@ public class Vue extends ModelProxy {
     protected void ready() {
         setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
-            {"vueComponentName", StringUtils.EMPTY},
-            {"analyticsName", StringUtils.EMPTY},
-            {"analyticsLocation", StringUtils.EMPTY},
+            {FIELD_ANALYTICS_NAME, StringUtils.EMPTY},
+            {FIELD_ANALYTICS_LOCATION, StringUtils.EMPTY},
+            {FIELD_VUE_COMPONENT, StringUtils.EMPTY},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -70,11 +74,11 @@ public class Vue extends ModelProxy {
 
         try {
             attrs = new AttrBuilder(getRequest(), getXSSAPI());
-            ServiceAccessor serviceAccessor = getSlingScriptHelper().getService(ServiceAccessor.class);
-
-            componentName = componentProperties.get("vueComponentName", StringUtils.EMPTY);
+            componentName = componentProperties.get(FIELD_VUE_COMPONENT, StringUtils.EMPTY);
             resourceResolver = getResourceResolver();
             externalizer = resourceResolver.adaptTo(Externalizer.class);
+
+            ServiceAccessor serviceAccessor = getSlingScriptHelper().getService(ServiceAccessor.class);
 
             if (serviceAccessor != null) {
                 runModes = serviceAccessor.getRunModes();
@@ -247,21 +251,14 @@ public class Vue extends ModelProxy {
                     value = TagUtil.getTagValueAsAdmin(value, getSlingScriptHelper());
                 }
 
-                // Checkbox
-                //
-                // Set the value as empty because Vue.js doesn't allow a string value to be passed when using props
-                // as a boolean. An empty value doesn't count 🙂.
+                // Checkboxes
                 if (fieldType.equals("checkbox")) {
-                    if (value.equals("true")) {
-                        debugValue = "Yes";
-                        value = StringUtils.EMPTY;
-                    } else {
-                        debugValue = "No";
+                    boolean isChecked = value.equals("true");
 
-                        // If the value of the checkbox is 'false' it means this field is invalid now and we
-                        // don't need to output the attribute for it.
-                        skipSlotAndAttribute = true;
-                    }
+                    debugValue = isChecked ? "Yes" : "No";
+                    skipSlotAndAttribute = true;
+
+                    attrs.addBoolean(field, isChecked);
                 }
 
                 // Image/File upload
@@ -321,8 +318,9 @@ public class Vue extends ModelProxy {
      */
     private void setAnalyticsAttributes() {
         Map<String, String> analyticsAttrs = new HashMap<>();
-        analyticsAttrs.put("analytics-name", "analyticsName");
-        analyticsAttrs.put("analytics-location", "analyticsLocation");
+
+        analyticsAttrs.put("analytics-label", DETAILS_ANALYTICS_LABEL);
+        analyticsAttrs.put("analytics-location", DETAILS_ANALYTICS_LOCATION);
 
         for (Map.Entry<String, String> attr : analyticsAttrs.entrySet()) {
             String value = componentProperties.get(attr.getValue(), StringUtils.EMPTY);
