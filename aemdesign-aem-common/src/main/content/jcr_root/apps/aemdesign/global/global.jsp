@@ -98,7 +98,7 @@
     final boolean INCLUDE_BADGE_VARIANT_CODE = false; //show component variant template in component BADGE
     final boolean INCLUDE_USE_GRID = true; //for a parsys use aemdesign/components/layout/container
     //Do not update unless you have verified all components work
-    final Boolean REMOVEDECORATION = true; //change this if you want component decoration removed
+    final Boolean REMOVEDECORATION = false; //change this if you want component decoration removed, does not work well with HTL, will remove decoration on next HTL component.
     //Decide to print Component Badges
     final Boolean PRINT_COMPONENT_BADGE = true;
 
