@@ -85,7 +85,6 @@
 
     final ComponentHelper cmp = new ComponentHelper(pageContext);
 
-
     // add initialization code here
     // can put language, wcmmode here
     final WCMMode CURRENT_WCMMODE = WCMMode.fromRequest(request);
@@ -98,31 +97,13 @@
     final boolean INCLUDE_BADGE_VARIANT_CODE = false; //show component variant template in component BADGE
     final boolean INCLUDE_USE_GRID = true; //for a parsys use aemdesign/components/layout/container
     //Do not update unless you have verified all components work
-    final Boolean REMOVEDECORATION = false; //change this if you want component decoration removed, does not work well with HTL, will remove decoration on next HTL component.
+    final Boolean REMOVEDECORATION = true; //change this if you want component decoration removed, does not work well with HTL, will remove decoration on next HTL component.
     //Decide to print Component Badges
     final Boolean PRINT_COMPONENT_BADGE = true;
 
-
-    //remove decoration for all components
-    if (CURRENT_WCMMODE != WCMMode.EDIT && CURRENT_WCMMODE != WCMMode.DESIGN) {
-        if (REMOVEDECORATION)   {
-
-            _componentContext.setDecorate(false);
-            _componentContext.setDecorationTagName("");
-            _componentContext.setDefaultDecorationTagName("");
-
-            IncludeOptions.getOptions(request, true).forceSameContext(Boolean.FALSE).setDecorationTagName("");
-
-        }
-    }
-    List<String> selectors = Arrays.asList(_slingRequest.getRequestPathInfo().getSelectors());
     boolean MODE_TOUCHUI = Placeholder.isAuthoringUIModeTouch(_slingRequest);
-//    if (selectors.contains("touchedit")) {
-//        MODE_TOUCHUI = true;
-//    }
 
     String componentBadge = getBadgeFromSelectors(_slingRequest.getRequestPathInfo().getSelectorString());
-
 
 %>
 
