@@ -107,13 +107,19 @@
                 String defDecor =_componentContext.getDefaultDecorationTagName();
 
                 if (REMOVEDECORATION && WCMMode.DISABLED == WCMMode.fromRequest(request)) {
-                    forceNoDecoration(_componentContext,IncludeOptions.getOptions(request, true));
+                  //only remove decoration for current component context
+                  _componentContext.setDecorate(false);
+                  _componentContext.setDecorationTagName("");
+                  _componentContext.setDefaultDecorationTagName("");
                 }
 
                 %><sling:include resource="<%= par %>"/><%
 
                 if (REMOVEDECORATION && WCMMode.DISABLED == WCMMode.fromRequest(request)) {
-                    setDecoration(_componentContext,IncludeOptions.getOptions(request, true),defDecor);
+                  //put back decoration as it was
+                  _componentContext.setDecorate(false);
+                  _componentContext.setDecorationTagName(defDecor);
+                  _componentContext.setDefaultDecorationTagName(defDecor);
                 }
 
                 break;
