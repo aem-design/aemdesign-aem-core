@@ -1,15 +1,16 @@
 <template data-sly-template.variant="${@ componentProperties}">
   <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
        data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
-       data-toggle="${componentProperties.dataToggle}"
+       aria-controls="${componentProperties.componentId}-content"
        data-target="#${componentProperties.componentId}-content"
-       aria-controls="${componentProperties.componentId}-content">
-    <div class="header" id="${componentProperties.componentId}-heading">
+       data-toggle="${componentProperties.dataToggle}">
+    <header id="${componentProperties.componentId}-heading">
       <button class="btn btn-link title">${componentProperties.title}</button>
-    </div>
+    </header>
+
     <div id="${componentProperties.componentId}-content"
-         class="${componentProperties.dataToggle}"
          aria-labelledby="${componentProperties.componentId}-heading"
+         class="${componentProperties.dataToggle}"
          data-parent="#${componentProperties.dataParent}">
       <div class="body">
         <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>

@@ -66,6 +66,8 @@ public class ComponentsUtil {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(ComponentsUtil.class);
 
+    public static final String DEFAULT_TENANT = "aemdesign";
+
     public static final String DEFAULT_PATH_TAGS = "/content/cq:tags";
 
     public static final String FIELD_VARIANT = "variant";

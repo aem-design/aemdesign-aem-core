@@ -44,7 +44,6 @@
                         </items>
                     </basic>
 
-
                     <layout
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Layout"
@@ -74,7 +73,6 @@
                             </fixedcol>
                         </items>
                     </layout>
-
 
                     <linkLeft
                         jcr:primaryType="nt:unstructured"
@@ -136,7 +134,6 @@
                         </items>
                     </linkRight>
 
-
                     <imageBackgroundTab
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Background Image"
@@ -166,7 +163,6 @@
                             </fixedcol>
                         </items>
                     </imageBackgroundTab>
-
 
                     <videoBackgroundTab
                         jcr:primaryType="nt:unstructured"
@@ -204,12 +200,14 @@
                         path="/apps/aemdesign/global/dialog/touch/style_design/content"
                         resourceType="granite/ui/components/coral/foundation/container"
                         sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
                     <accessibility
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Accessibility"
                         path="/apps/aemdesign/global/dialog/touch/accessibility_design/content"
                         resourceType="granite/ui/components/coral/foundation/container"
                         sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
                     <analytics
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Analytics"

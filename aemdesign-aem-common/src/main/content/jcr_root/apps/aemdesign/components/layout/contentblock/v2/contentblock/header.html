@@ -1,0 +1,60 @@
+<template data-sly-template.layout="${@ componentProperties}">
+  <!--/* Hidden element used for jump-to links */-->
+  <span id="${componentProperties.instanceName}"></span>
+
+  <header>
+    <ul class="linksleft"
+        data-sly-test="${componentProperties.listLinksLeft && !componentProperties.linksLeftTitle}">
+      <li data-sly-test="${componentProperties.linksLeftTitle}"
+          class="title">${componentProperties.linksLeftTitle}</li>
+
+      <sly data-sly-list.linkLeft="${componentProperties.linksLeftList}" data-sly-unwrap>
+        <li data-sly-test="${componentProperties.linksLeftList[linkLeft].titleIconShow && componentProperties.linksLeftList[linkLeft].titleIcon}"
+            class="title-icon">
+          <a href="${componentProperties.linksLeftList[linkLeft].href}">
+            <i class="icon ${componentProperties.linksLeftList[linkLeft].titleIcon @ join=' '}"
+               title="${componentProperties.linksLeftList[linkLeft].title}"></i>
+            <span class="title">${componentProperties.linksLeftList[linkLeft].pageNavTitle}</span>
+          </a>
+        </li>
+        <li data-sly-test="${!componentProperties.linksLeftList[linkLeft].titleIconShow}"
+            class="title-link"><a
+                href="${componentProperties.linksLeftList[linkLeft].href}">${componentProperties.linksLeftList[linkLeft].pageNavTitle}</a>
+        </li>
+      </sly>
+    </ul>
+
+    <ul class="linksright"
+        data-sly-test="${componentProperties.listLinksRight && !componentProperties.linksRightTitle}">
+      <li data-sly-test="${componentProperties.linksRightTitle}"
+          class="title">${componentProperties.linksRightTitle}</li>
+
+      <sly data-sly-list.linkRight="${componentProperties.linksRightList}" data-sly-unwrap>
+        <li data-sly-test="${componentProperties.linksRightList[linkRight].titleIconShow && componentProperties.linksRightList[linkRight].titleIcon}"
+            class="title-icon">
+          <a href="${componentProperties.linksRightList[linkRight].href}">
+            <i class="icon ${componentProperties.linksRightList[linkRight].titleIcon @ join=' '}"
+               title="${componentProperties.linksRightList[linkRight].title}"></i>
+            <span class="title">${componentProperties.linksRightList[linkRight].pageNavTitle}</span>
+          </a>
+        </li>
+        <li data-sly-test="${!componentProperties.linksRightList[linkRight].titleIconShow}"
+            class="title-link"><a
+                href="${componentProperties.linksRightList[linkRight].href}">${componentProperties.linksRightList[linkRight].pageNavTitle}</a>
+        </li>
+      </sly>
+    </ul>
+
+    <div data-sly-test="${componentProperties.showIcon && componentProperties.icon}"
+         class="icon">
+      <i class="icon ${componentProperties.icon}"></i>
+    </div>
+
+    <title class="title"
+           data-sly-test="${!componentProperties.hideTitle && componentProperties.title}"
+           data-sly-element="${componentProperties.titleType}"
+           data-sly-attribute.id="${componentProperties.ariaLabelledBy}">
+      ${componentProperties.title @ context = 'unsafe'}
+    </title>
+  </header>
+</template>

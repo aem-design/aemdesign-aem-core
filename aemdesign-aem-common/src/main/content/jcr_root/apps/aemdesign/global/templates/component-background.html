@@ -1,17 +1,38 @@
 <template data-sly-template.variant="${@ componentId, assets}">
-    <style type="text/css" id="background-${componentId}" data-sly-test="${assets}">
-        <sly data-sly-list.asset="${assets}" data-sly-unwrap>
-            <sly data-sly-test="${asset}">
-                @media only screen and ${asset} {
-            </sly>
+  <style type="text/css" id="background-${componentId}" data-sly-test="${assets}">
+    <
+    sly data-sly-list.asset
 
-            #${componentId} {
-                background-image: url('${assets[asset]}');
-            }
+    =
+    "
+    ${assets}
+    "
+    data-sly-unwrap >
+    < sly data-sly-test
 
-            <sly data-sly-test="${asset}">
-                }
-            </sly>
-        </sly>
-    </style>
+    =
+    "
+    ${asset}
+    "
+    >
+
+    @media only screen and ${asset} {
+    </sly >
+    #${componentId} {
+      background-image: url('${assets[asset]}');
+    }
+
+    <sly data-sly-test
+
+    ="${asset}">
+    }
+
+    <
+    /
+    sly >
+    <
+
+    /
+    sly >
+  </style>
 </template>
