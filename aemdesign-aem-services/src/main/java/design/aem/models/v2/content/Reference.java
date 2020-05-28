@@ -13,15 +13,7 @@ import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Reference extends ModelProxy {
-
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     protected void ready() {
-
         setComponentFields(new Object[][]{
             {"path", StringUtils.EMPTY},
             {"selectors", StringUtils.EMPTY},
@@ -34,7 +26,6 @@ public class Reference extends ModelProxy {
             componentFields,
             DEFAULT_FIELDS_STYLE,
             DEFAULT_FIELDS_ACCESSIBILITY);
-
 
         String wcmmodeName = componentProperties.get("wcmmodeName", "DISABLED");
         WCMMode wcmMode = WCMMode.valueOf(wcmmodeName);

@@ -9,12 +9,6 @@ import design.aem.utils.components.ComponentsUtil;
 import static design.aem.utils.components.ComponentsUtil.*;
 
 public class ShareButton extends ModelProxy {
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     protected void ready() {
         final String DEFAULT_ARIA_ROLE = "banner";
         final String DEFAULT_CLOUDCONFIG_ADDTHIS = "addthisconnect";

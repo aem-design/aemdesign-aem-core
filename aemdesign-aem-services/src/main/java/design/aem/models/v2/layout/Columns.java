@@ -22,19 +22,12 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 
 public class Columns extends ModelProxy {
-
     private static final String COLUMN_CLASS = "col-sm"; //gets added to cols
     private static final String ROW_CLASS = "row"; //gets added to rows
     private static final String COLUMNS_CLASS = "parsys_column"; //gets added to rows and columns
     private static final String FIELD_LAYOUT = "layout";
     private static final String FIELD_NUMBER_OF_COLUMNS = "numCols";
     private static final String COLUMN_CLASS_FORMAT = "{0} {1} {2} {3}";
-
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
 
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     @Default(values = "")

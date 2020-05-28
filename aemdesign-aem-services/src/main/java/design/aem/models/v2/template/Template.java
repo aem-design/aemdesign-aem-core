@@ -1,6 +1,5 @@
 package design.aem.models.v2.template;
 
-import design.aem.components.ComponentProperties;
 import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 
@@ -10,12 +9,6 @@ import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Template extends ModelProxy {
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     protected void ready() {
         componentProperties = ComponentsUtil.getNewComponentProperties(this);
 

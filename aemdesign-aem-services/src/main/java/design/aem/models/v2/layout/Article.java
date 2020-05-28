@@ -10,15 +10,7 @@ import static design.aem.utils.components.ImagesUtil.getBackgroundImageRendition
 
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class Article extends ModelProxy {
-
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     protected void ready() {
-
         final String DEFAULT_ARIA_ROLE = "article";
 
         /*

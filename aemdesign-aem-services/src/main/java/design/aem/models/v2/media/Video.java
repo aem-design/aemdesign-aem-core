@@ -20,19 +20,11 @@ import static design.aem.utils.components.ImagesUtil.DEFAULT_THUMBNAIL_IMAGE_NOD
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Video extends ModelProxy {
-
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     private static final String POPUP_HEIGHT = "lightboxHeight";
     private static final String POPUP_WIDTH = "lightboxWidth";
 
     @SuppressWarnings({"Duplicates", "squid:S3776"})
     protected void ready() throws Exception {
-
         setComponentFields(new Object[][]{
             {POPUP_HEIGHT, "70"},
             {POPUP_WIDTH, "70"},

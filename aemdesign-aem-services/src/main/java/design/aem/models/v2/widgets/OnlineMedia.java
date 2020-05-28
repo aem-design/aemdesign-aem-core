@@ -9,12 +9,6 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
 
 public class OnlineMedia extends ModelProxy {
-    private ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     @SuppressWarnings("Duplicates")
     protected void ready() {
         setComponentFields(new Object[][]{

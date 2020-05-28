@@ -1,14 +1,11 @@
 <template data-sly-template.layout="${@ componentProperties}">
-  <!--/* Hidden element used for jump-to links */-->
-  <span id="${componentProperties.instanceName}"></span>
-
   <header>
-    <ul class="linksleft"
-        data-sly-test="${componentProperties.listLinksLeft && !componentProperties.linksLeftTitle}">
+    <ul class="links-left"
+        data-sly-test="${componentProperties.linksLeftList && !componentProperties.linksLeftTitle}">
       <li data-sly-test="${componentProperties.linksLeftTitle}"
           class="title">${componentProperties.linksLeftTitle}</li>
 
-      <sly data-sly-list.linkLeft="${componentProperties.linksLeftList}" data-sly-unwrap>
+      <sly data-sly-list.linkLeft="${componentProperties.linksLeftList}">
         <li data-sly-test="${componentProperties.linksLeftList[linkLeft].titleIconShow && componentProperties.linksLeftList[linkLeft].titleIcon}"
             class="title-icon">
           <a href="${componentProperties.linksLeftList[linkLeft].href}">
@@ -24,12 +21,12 @@
       </sly>
     </ul>
 
-    <ul class="linksright"
+    <ul class="links-right"
         data-sly-test="${componentProperties.listLinksRight && !componentProperties.linksRightTitle}">
       <li data-sly-test="${componentProperties.linksRightTitle}"
           class="title">${componentProperties.linksRightTitle}</li>
 
-      <sly data-sly-list.linkRight="${componentProperties.linksRightList}" data-sly-unwrap>
+      <sly data-sly-list.linkRight="${componentProperties.linksRightList}">
         <li data-sly-test="${componentProperties.linksRightList[linkRight].titleIconShow && componentProperties.linksRightList[linkRight].titleIcon}"
             class="title-icon">
           <a href="${componentProperties.linksRightList[linkRight].href}">
@@ -46,8 +43,8 @@
     </ul>
 
     <div data-sly-test="${componentProperties.showIcon && componentProperties.icon}"
-         class="icon">
-      <i class="icon ${componentProperties.icon}"></i>
+         class="icon-wrapper">
+      <i class="${componentProperties.icon}"></i>
     </div>
 
     <title class="title"

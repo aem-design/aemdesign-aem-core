@@ -8,13 +8,6 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class EmbedSource extends ModelProxy {
-
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     protected void ready() {
         /*
           Component Fields Helper

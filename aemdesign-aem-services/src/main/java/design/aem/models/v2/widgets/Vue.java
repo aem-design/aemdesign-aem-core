@@ -40,12 +40,6 @@ public class Vue extends ModelProxy {
     private static final String FIELD_ANALYTICS_LOCATION = "analyticsLocation";
     private static final String FIELD_VUE_COMPONENT = "vueComponentName";
 
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     private AttrBuilder attrs = null;
     private String componentName = StringUtils.EMPTY;
 

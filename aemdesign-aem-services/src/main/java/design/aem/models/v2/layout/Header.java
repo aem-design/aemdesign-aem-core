@@ -13,13 +13,6 @@ import static design.aem.utils.components.ImagesUtil.getBackgroundImageRendition
 
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class Header extends ModelProxy {
-
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     @SuppressWarnings("Duplicates")
     protected void ready() {
 

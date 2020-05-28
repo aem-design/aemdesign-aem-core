@@ -22,11 +22,14 @@ import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentDetailsUtil.isComponentRenderedByList;
 import static design.aem.utils.components.ComponentDetailsUtil.processBadgeRequestConfig;
+import static design.aem.utils.components.ComponentsUtil.getPageDescription;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.ContentFragmentUtil.DEFAULT_CONTENTFRAGMENT_VARIATION;
@@ -39,29 +42,44 @@ import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-
 public class GenericDetails extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(GenericDetails.class);
 
+    protected final String PAR_NAME = DEFAULT_PAR_NAME;
+
+    protected final String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
+    protected final String DEFAULT_FORMAT_TITLE = "${title}";
+    protected final String FIELD_FORMATTED_TITLE = "titleFormatted";
+    protected final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
+    protected final String FIELD_SUBCATEGORY = "subCategory";
+    protected final String FIELD_CATEGORY = "category";
+    protected final String FIELD_LEGACY_BADGE_CONFIG = "legacyBadgeConfig";
+    protected final String FIELD_LEGACY_BADGE_SELECTED = "legacyBadgeSelected";
+    protected final String FIELD_LEGACY_BADGE = "legacyBadge";
+    protected final String FIELD_LEGACY_BADGE_LIST = "legacyBadgeList";
+    protected final String FIELD_LEGACY_BADGE_LIST_MAPPING = "legacyBadgeListMapping";
+    protected final String FIELD_LEGACY_BADGE_CNNFIG_TAGS = "legacyBadgeConfigTags";
+
+    protected String DEFAULT_TITLE = null;
+    protected String DEFAULT_DESCRIPTION = null;
+    protected String DEFAULT_SUBTITLE = null;
+
+    protected final String DEFAULT_ARIA_ROLE = "banner";
+    protected final String DEFAULT_TITLE_TAG_TYPE = "h1";
+    protected final String DEFAULT_I18N_CATEGORY = "page-detail";
+    protected final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
+    protected final Boolean DEFAULT_HIDE_TITLE = false;
+    protected final Boolean DEFAULT_HIDE_DESCRIPTION = false;
+    protected final Boolean DEFAULT_SHOW_BREADCRUMB = true;
+    protected final Boolean DEFAULT_SHOW_TOOLBAR = true;
+    protected final Boolean DEFAULT_SHOW_PAGE_DATE = true;
+    protected final Boolean DEFAULT_SHOW_PARSYS = true;
+    protected final String DEFAULT_TAG_LEGACY_BADGE_CONFIG = ":component-dialog/components/details/generic-details/legacy";
+
+    protected final String FIELD_CONTENTFRAGMENT_VARIATION = "variationName";
+    protected final String FIELD_CONTENTFRAGMENT_FRAGMENTPATH = "fragmentPath";
+
     private static final String COMPONENT_DETAILS_NAME = "generic-details";
-
-    private static final String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
-    private static final String DEFAULT_FORMAT_TITLE = "${title}";
-    private static final String FIELD_FORMAT_TITLE = "titleFormat";
-    private static final String FIELD_FORMATTED_TITLE = "titleFormatted";
-    private static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
-    private static final String FIELD_SUBCATEGORY = "subCategory";
-    private static final String FIELD_CATEGORY = "category";
-    private static final String FIELD_LEGACY_BADGE_CONFIG = "legacyBadgeConfig";
-    private static final String FIELD_LEGACY_BADGE_SELECTED = "legacyBadgeSelected";
-    private static final String FIELD_LEGACY_BADGE = "legacyBadge";
-    private static final String FIELD_LEGACY_BADGE_LIST = "legacyBadgeList";
-    private static final String FIELD_LEGACY_BADGE_LIST_MAPPING = "legacyBadgeListMapping";
-    private static final String FIELD_LEGACY_BADGE_CNNFIG_TAGS = "legacyBadgeConfigTags";
-    private static final String DEFAULT_TAG_LEGACY_BADGE_CONFIG = ":component-dialog/components/details/generic-details/legacy";
-
-    private static final String FIELD_CONTENTFRAGMENT_VARIATION = "variationName";
-    private static final String FIELD_CONTENTFRAGMENT_FRAGMENTPATH = "fragmentPath";
 
     //used for backwards compatibility of details components
     private static final String[] legacyBadgeList = new String[]{
@@ -144,44 +162,20 @@ public class GenericDetails extends ModelProxy {
         new String[]{"simple-metadata"},
     };
 
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
-    /***
-     * main activate entry point.
-     */
     @SuppressWarnings("Duplicates")
     protected void ready() {
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
-        final String DEFAULT_ARIA_ROLE = "banner";
-        final String DEFAULT_TITLE_TAG_TYPE = "h1";
-        final String DEFAULT_I18N_CATEGORY = "page-detail";
-        final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
-
-        // default values for the component
-        final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
-        final String DEFAULT_DESCRIPTION = getResourcePage().getDescription();
-        final String DEFAULT_SUBTITLE = getResourcePage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE, "");
-        final Boolean DEFAULT_HIDE_TITLE = false;
-        final Boolean DEFAULT_HIDE_DESCRIPTION = false;
-        final Boolean DEFAULT_SHOW_BREADCRUMB = true;
-        final Boolean DEFAULT_SHOW_TOOLBAR = true;
-        final Boolean DEFAULT_SHOW_PAGE_DATE = true;
-        final Boolean DEFAULT_SHOW_PARSYS = true;
-
-        this.componentProperties = ComponentsUtil.getNewComponentProperties(this);
+        setComponentFieldsDefaults();
 
         setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
-            {"title", DEFAULT_TITLE},
-            {FIELD_FORMAT_TITLE, ""}, //tag path, will be resolved to value in processComponentFields
+            {FIELD_TITLE, DEFAULT_TITLE},
+            {FIELD_TITLE_FORMAT, ""}, // Tag path, will be resolved to value in processComponentFields
+            {FIELD_HIDE_TITLE, DEFAULT_HIDE_TITLE},
+            {FIELD_TAGS, new String[]{}},
             {"description", DEFAULT_DESCRIPTION},
             {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
-            {"hideTitle", DEFAULT_HIDE_TITLE},
             {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
             {"showToolbar", DEFAULT_SHOW_TOOLBAR},
             {"showPageDate", DEFAULT_SHOW_PAGE_DATE},
@@ -191,7 +185,6 @@ public class GenericDetails extends ModelProxy {
             {FIELD_PAGE_TITLE, DEFAULT_TITLE},
             {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
             {FIELD_PAGE_TITLE_SUBTITLE, DEFAULT_SUBTITLE},
-            {TagConstants.PN_TAGS, new String[]{}},
             {FIELD_SUBCATEGORY, new String[]{}},
             {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
             {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
@@ -234,6 +227,15 @@ public class GenericDetails extends ModelProxy {
 
         //set properties into request to allow ContentTemplate to use it for presentation
         getRequest().setAttribute(ContentTemplate.REQUEST_COMPONENT_PROPERTIES, componentProperties);
+    }
+
+    /**
+     * Set the default component field values that are dynamic.
+     */
+    protected void setComponentFieldsDefaults() {
+        DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
+        DEFAULT_DESCRIPTION = getResourcePage().getDescription();
+        DEFAULT_SUBTITLE = getResourcePage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE, "");
     }
 
     /***
@@ -651,22 +653,28 @@ public class GenericDetails extends ModelProxy {
         Map<String, Object> newFields = new HashMap<>();
 
         try {
-
-            String formattedTitle = compileComponentMessage(FIELD_FORMAT_TITLE, DEFAULT_FORMAT_TITLE, componentProperties, sling);
+            String formattedTitle = compileComponentMessage(FIELD_TITLE_FORMAT, DEFAULT_FORMAT_TITLE, componentProperties, sling);
             Document fragment = Jsoup.parse(formattedTitle);
             String formattedTitleText = fragment.text();
 
             newFields.put(FIELD_FORMATTED_TITLE,
                 formattedTitle.trim()
             );
+
             newFields.put(FIELD_FORMATTED_TITLE_TEXT,
                 formattedTitleText.trim()
             );
-
         } catch (Exception ex) {
             LOGGER.error("Could not process component fields in {}", COMPONENT_DETAILS_NAME);
         }
+
         return newFields;
     }
 
+    protected void generateHasAuthoredContentComponentProps() {
+        Resource componentResource = getResource().getChild(PAR_NAME);
+
+        componentProperties.put("hasAuthoredContent",
+            componentResource != null && componentResource.hasChildren());
+    }
 }

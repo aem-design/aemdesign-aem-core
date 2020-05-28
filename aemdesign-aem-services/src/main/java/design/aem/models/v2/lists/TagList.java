@@ -38,12 +38,6 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class TagList extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(TagList.class);
 
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     private java.util.List<Map<String, Object>> listItems;
 
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)

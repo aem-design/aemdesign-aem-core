@@ -1,9 +1,11 @@
 <template data-sly-template.variant="${@ componentProperties}">
-  <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+  <section style="${componentProperties.attr.data.style @ context = 'unsafe'}"
        data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
        aria-controls="${componentProperties.componentId}-content"
        data-target="#${componentProperties.componentId}-content"
        data-toggle="${componentProperties.dataToggle}">
+    <span id="${componentProperties.instanceName}"></span>
+
     <header id="${componentProperties.componentId}-heading">
       <button class="btn btn-link title">${componentProperties.title}</button>
     </header>
@@ -16,5 +18,5 @@
         <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>
       </div>
     </div>
-  </div>
+  </section>
 </template>

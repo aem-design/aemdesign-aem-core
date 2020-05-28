@@ -74,6 +74,7 @@ public class PageDetails extends GenericDetails {
             {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
             {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
             {"variantHiddenLabel", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LABEL, DEFAULT_I18N_CATEGORY, i18n)},
+            {"useContainer", true},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -95,6 +96,7 @@ public class PageDetails extends GenericDetails {
         //format fields
         componentProperties.putAll(processComponentFields(componentProperties, i18n, getSlingScriptHelper()), false);
 
+        generateHasAuthoredContentComponentProps();
     }
 
     /***
@@ -110,7 +112,6 @@ public class PageDetails extends GenericDetails {
         Map<String, Object> newFields = new HashMap<>();
 
         try {
-
             String formattedTitle = compileComponentMessage(FIELD_FORMAT_TITLE, DEFAULT_FORMAT_TITLE, componentProperties, sling);
             Document fragment = Jsoup.parse(formattedTitle);
             String formattedTitleText = fragment.text();
@@ -118,14 +119,14 @@ public class PageDetails extends GenericDetails {
             newFields.put(FIELD_FORMATTED_TITLE,
                 formattedTitle.trim()
             );
+
             newFields.put(FIELD_FORMATTED_TITLE_TEXT,
                 formattedTitleText.trim()
             );
-
         } catch (Exception ex) {
             LOGGER.error("Could not process component fields in {}", COMPONENT_DETAILS_NAME);
         }
+
         return newFields;
     }
-
 }

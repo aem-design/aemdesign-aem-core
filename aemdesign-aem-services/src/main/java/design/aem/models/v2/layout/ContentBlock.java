@@ -35,15 +35,13 @@ public class ContentBlock extends ModelProxy {
     protected final Boolean DEFAULT_SHOW_ICON = false;
     protected final String DEFAULT_TITLE_TAG_TYPE = "h2";
 
-    protected final String FIELD_HIDE_TITLE = "hideTitle";
     protected final String FIELD_SHOW_TOP_LINK = "showTopLink";
     protected final String FIELD_SHOW_ICON = "showIcon";
-    protected final String FIELD_TITLE = "title";
     protected final String FIELD_TITLE_TYPE = "titleType";
     protected final String FIELD_LINKS_LEFT_TITLE = "linksLeftTitle";
-    protected final String FIELD_LINKS_LEFT = "linksLeft";
+    protected final String FIELD_LINKS_LEFT = "linkPagesLeft";
     protected final String FIELD_LINKS_RIGHT_TITLE = "linksRightTitle";
-    protected final String FIELD_LINKS_RIGHT = "linksRight";
+    protected final String FIELD_LINKS_RIGHT = "linkPagesRight";
     protected final String FIELD_DATA_PARENT = "dataParent";
     protected final String FIELD_DATA_TOGGLE = "dataToggle";
 
@@ -51,6 +49,7 @@ public class ContentBlock extends ModelProxy {
     protected void ready() {
         setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_TITLE, StringUtils.EMPTY},
             {FIELD_HIDE_TITLE, DEFAULT_HIDE_TITLE},
             {FIELD_SHOW_TOP_LINK, DEFAULT_SHOW_TOP_LINK},
             {FIELD_SHOW_ICON, DEFAULT_SHOW_ICON},
@@ -58,7 +57,6 @@ public class ContentBlock extends ModelProxy {
             {FIELD_LINKS_LEFT, new String[]{}},
             {FIELD_LINKS_RIGHT_TITLE, StringUtils.EMPTY},
             {FIELD_LINKS_RIGHT, new String[]{}},
-            {FIELD_TITLE, StringUtils.EMPTY},
             {FIELD_TITLE_TYPE, DEFAULT_TITLE_TAG_TYPE},
             {FIELD_DATA_PARENT, StringUtils.EMPTY},
             {FIELD_DATA_TOGGLE, StringUtils.EMPTY},
@@ -107,19 +105,19 @@ public class ContentBlock extends ModelProxy {
     protected void generateAdditionalComponentProps() {
         I18n i18n = new I18n(getRequest());
 
-        componentProperties.put("linksRightList",
-            getPageListInfo(
-                this,
-                getPageManager(),
-                getResourceResolver(),
-                componentProperties.get("linksRight", new String[]{})));
-
         componentProperties.put("linksLeftList",
             getPageListInfo(
                 this,
                 getPageManager(),
                 getResourceResolver(),
-                componentProperties.get("linksLeft", new String[]{})));
+                componentProperties.get(FIELD_LINKS_LEFT, new String[]{})));
+
+        componentProperties.put("linksRightList",
+            getPageListInfo(
+                this,
+                getPageManager(),
+                getResourceResolver(),
+                componentProperties.get(FIELD_LINKS_RIGHT, new String[]{})));
 
         componentProperties.put("topLinkLabel",
             getDefaultLabelIfEmpty(

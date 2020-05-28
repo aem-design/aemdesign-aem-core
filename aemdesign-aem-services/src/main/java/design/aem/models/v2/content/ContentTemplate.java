@@ -9,17 +9,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class ContentTemplate extends ModelProxy {
-
-    protected ComponentProperties componentProperties = null;
     protected ComponentProperties requestComponentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
-    public ComponentProperties getRequestComponentProperties() {
-        return this.requestComponentProperties;
-    }
 
     public static final String REQUEST_COMPONENT_PROPERTIES = "design.aem.models.v2.content.ContentTemplate.componentProperties";
     public static final String FIELD_CUSTOM_TEMPLATE_JEXL = "customTemplateJEXL";
@@ -66,15 +56,17 @@ public class ContentTemplate extends ModelProxy {
                 jc.set("componentProperties", requestComponentProperties);
 
                 customTemplateOutput = (String) expr.evaluate(jc);
-
             } catch (JexlException jex) {
                 LOGGER.warn("could not evaluate default value expression customTemplate={}, requestComponentProperties={}, jex.info={}", customTemplate, requestComponentProperties, jex.getInfo());
             } catch (Exception ex) {
                 LOGGER.error("could not evaluate default value expression customTemplate={}, requestComponentProperties={}, error={}", customTemplate, requestComponentProperties, ex);
             }
-
         }
-        componentProperties.put("customTemplateJEXLOutput", customTemplateOutput);
 
+        componentProperties.put("customTemplateJEXLOutput", customTemplateOutput);
+    }
+
+    public ComponentProperties getRequestComponentProperties() {
+        return this.requestComponentProperties;
     }
 }

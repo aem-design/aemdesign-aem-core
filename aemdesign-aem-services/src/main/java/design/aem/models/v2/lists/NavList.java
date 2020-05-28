@@ -20,12 +20,6 @@ import static design.aem.utils.components.I18nUtil.*;
 public class NavList extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(NavList.class);
 
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     protected void ready() {
         I18n i18n = new I18n(getRequest());
 

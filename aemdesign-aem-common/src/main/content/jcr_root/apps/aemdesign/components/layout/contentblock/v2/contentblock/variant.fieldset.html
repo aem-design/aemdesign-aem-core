@@ -1,6 +1,8 @@
 <template data-sly-template.variant="${@ componentProperties}">
   <section style="${componentProperties.attr.data.style @ context = 'unsafe'}"
            data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+    <span id="${componentProperties.instanceName}"></span>
+
     <fieldset>
       <legend class="legend">${componentProperties.title}</legend>
       <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>

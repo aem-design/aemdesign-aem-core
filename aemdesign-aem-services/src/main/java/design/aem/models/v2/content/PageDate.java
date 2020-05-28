@@ -17,12 +17,6 @@ import static design.aem.utils.components.ComponentsUtil.*;
 public class PageDate extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(PageDate.class);
 
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     @SuppressWarnings({"squid:S3008"})
     private static final String PUBLISH_DATE_FORMAT = "yyyy-MM-dd";
 

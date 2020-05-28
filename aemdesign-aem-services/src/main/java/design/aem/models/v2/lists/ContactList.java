@@ -5,7 +5,6 @@ import com.day.cq.i18n.I18n;
 import static design.aem.utils.components.I18nUtil.*;
 
 public class ContactList extends List {
-
     private final String DEFAULT_I18N_CATEGORY = "contactlist";
 
     @Override

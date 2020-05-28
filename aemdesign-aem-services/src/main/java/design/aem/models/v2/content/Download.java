@@ -30,8 +30,6 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class Download extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(Download.class);
 
-    protected ComponentProperties componentProperties = null;
-
     private static final String DEFAULT_I18N_CATEGORY = "download";
     private static final String DEFAULT_I18N_LABEL = "downloadlabel";
     private static final String DEFAULT_TITLE_TAG_TYPE = "h4";
@@ -195,11 +193,6 @@ public class Download extends ModelProxy {
             componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant));
         }
     }
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
 
     /**
      * Determine whether file has an associated data blob, if so then get the formatted

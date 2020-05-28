@@ -9,15 +9,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ResolverUtil.mappedUrl;
 
 public class Audio extends ModelProxy {
-
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     protected void ready() {
-
         final String DEFAULT_ARIA_ROLE = "button";
         final String DEFAULT_ARIA_LABEL = "Audio Fragment";
         final String FIELD_AUDIO_URL = "audioUrl";

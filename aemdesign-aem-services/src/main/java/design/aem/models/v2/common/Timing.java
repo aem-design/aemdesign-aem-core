@@ -21,7 +21,6 @@ public class Timing extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(Timing.class);
 
     private static final String TIMER_END = "TIMER_END";
-    protected ComponentProperties componentProperties = null;
 
     private static String basename(String path) {
         String result = path;
@@ -69,10 +68,6 @@ public class Timing extends ModelProxy {
         }
 
         return output.toString();
-    }
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
     }
 
     @SuppressWarnings("squid:S1604")

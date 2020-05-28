@@ -47,12 +47,6 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class SearchList extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(SearchList.class);
 
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     @Default(intValues = 0)
     protected int listSplitEvery;

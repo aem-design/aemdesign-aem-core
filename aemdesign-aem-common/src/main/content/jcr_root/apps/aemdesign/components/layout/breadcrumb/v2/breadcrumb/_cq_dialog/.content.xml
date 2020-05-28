@@ -14,16 +14,16 @@
             jcr:primaryType="nt:unstructured"
             type="nav"
             sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
-        <items jcr:primaryType="nt:unstructured">
 
+        <items jcr:primaryType="nt:unstructured">
             <layoutTab
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Layout"
                 sling:resourceType="granite/ui/components/foundation/section">
-
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+
                 <items jcr:primaryType="nt:unstructured">
                     <column
                         jcr:primaryType="nt:unstructured"
@@ -37,9 +37,9 @@
                                     <variant
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/select"
+                                        emptyOption="{Boolean}true"
                                         fieldLabel="Variant"
                                         name="./variant"
-                                        emptyOption="{Boolean}true"
                                         value="">
                                         <items jcr:primaryType="nt:unstructured">
                                             <default
@@ -48,18 +48,21 @@
                                                 value=""/>
                                         </items>
                                     </variant>
+
                                     <startLevel
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
                                         fieldDescription="Start at level in URL"
                                         fieldLabel="Start Level"
                                         name="./startLevel"/>
+
                                     <endLevel
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
                                         fieldDescription=""
                                         fieldLabel="End Level"
                                         name="./endLevel"/>
+
                                     <hideCurrent
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/select"
@@ -71,23 +74,25 @@
                                         <datasource
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
+                                            variant="valuelist"/>
                                     </hideCurrent>
+
                                     <showHidden
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/select"
+                                        emptyOption="{Boolean}true"
                                         fieldDescription="show pages hidden from nav"
                                         fieldLabel="Show Hidden"
                                         name="./showHidden"
-                                        emptyOption="{Boolean}true"
                                         value="">
                                         <datasource
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
+                                            variant="valuelist"/>
                                     </showHidden>
+
                                     <trail
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -103,7 +108,6 @@
                                         fieldDescription="add delimiter between items"
                                         name="./delimiter"
                                         required="{Boolean}false"/>
-
                                 </items>
                             </variant>
                         </items>
@@ -111,13 +115,13 @@
                 </items>
             </layoutTab>
 
-
             <styleTab
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Style"
                 path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
             <accessibilityTab
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Accessibility"

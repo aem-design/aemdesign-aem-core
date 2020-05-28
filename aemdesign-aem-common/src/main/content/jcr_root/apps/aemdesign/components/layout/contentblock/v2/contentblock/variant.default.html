@@ -5,7 +5,8 @@
       <sly data-sly-use.header="/apps/aemdesign/components/layout/contentblock/v2/contentblock/header.html"
            data-sly-call="${header.layout @ componentProperties=componentProperties}"></sly>
 
-      <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>
+      <sly data-sly-test="${componentProperties.hasAuthoredContent}"
+           data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>
     </div>
   </section>
 </template>

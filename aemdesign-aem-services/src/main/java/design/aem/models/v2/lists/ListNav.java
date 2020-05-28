@@ -36,12 +36,6 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class ListNav extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ListNav.class);
 
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     private List<Map<String, Object>> listItems;
 
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)

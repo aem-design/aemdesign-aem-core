@@ -13,13 +13,6 @@ import static design.aem.utils.components.ConstantsUtil.SITE_INCLUDE_PATHS;
 import static design.aem.utils.components.I18nUtil.*;
 
 public class StaticInclude extends ModelProxy {
-
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     protected void ready() {
         I18n i18n = new I18n(getRequest());
 

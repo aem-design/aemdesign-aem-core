@@ -97,12 +97,6 @@ public class List extends ModelProxy {
     private static final String DEFAULT_I18N_CATEGORY = "list";
     private static final String DEFAULT_PAGINATION = "default";
 
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     public static final String LISTITEM_LINK_TEXT = "listItemLinkText";
     public static final String LISTITEM_LINK_TITLE = "listItemLinkTitle";
 

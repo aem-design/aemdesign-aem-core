@@ -1,6 +1,8 @@
 <template data-sly-template.variant="${@ componentProperties}">
-  <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+  <section style="${componentProperties.attr.data.style @ context = 'unsafe'}"
        data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+    <span id="${componentProperties.instanceName}"></span>
+
     <sly data-sly-use.video="aemdesign/global/templates/component-video.html"
          data-sly-call="${video.variant @
          assets            = componentProperties.bgvideo.renditionsVideo,
@@ -8,5 +10,5 @@
          videoBooleanAttrs = componentProperties.componentBooleanAttrs}"></sly>
 
     <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>
-  </div>
+  </section>
 </template>

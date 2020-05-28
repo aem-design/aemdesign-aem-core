@@ -21,13 +21,6 @@ import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class LanguageNavigation extends ModelProxy {
-
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     private static final String SEARCH_LOGIC = "searchlogic";
     private static final String SEARCH_LOGIC_DEFAULT = "";
     private static final String FIELD_DESCRIPTION = "description";

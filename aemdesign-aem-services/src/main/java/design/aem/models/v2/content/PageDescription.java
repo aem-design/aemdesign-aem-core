@@ -9,15 +9,7 @@ import org.apache.jackrabbit.vault.util.JcrConstants;
 import static design.aem.utils.components.ComponentsUtil.*;
 
 public class PageDescription extends ModelProxy {
-
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     protected void ready() {
-
         setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {JcrConstants.JCR_DESCRIPTION, ""}

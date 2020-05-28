@@ -29,12 +29,6 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class ContentBlockLock extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContentBlockLock.class);
 
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     @SuppressWarnings({"Duplicates", "squid:S3776"})
     protected void ready() throws Exception {
         I18n i18n = new I18n(getRequest());

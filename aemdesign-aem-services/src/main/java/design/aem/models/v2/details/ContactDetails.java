@@ -37,7 +37,6 @@ public class ContactDetails extends GenericDetails {
     static final String FIELD_FORMATTED_DESCRIPTION = "descriptionFormatted";
     static final String I18N_CATEGORY = "contact-detail";
 
-
     @Override
     @SuppressWarnings("Duplicates")
     protected void ready() {

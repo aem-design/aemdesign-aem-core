@@ -40,12 +40,6 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class AssetList extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(AssetList.class);
 
-    protected ComponentProperties componentProperties = null;
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     private List<Map<String, Object>> listItems;
 
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)

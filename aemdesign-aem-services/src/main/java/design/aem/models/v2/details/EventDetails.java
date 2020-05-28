@@ -25,7 +25,6 @@ import static design.aem.utils.components.TagUtil.getTagValueAsAdmin;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 
 public class EventDetails extends GenericDetails {
-
     // default values for the component
     static final String EVENT_DISPLAY_DATE_FORMAT = "EEE d MMMMM";
     static final String EVENT_DISPLAY_DATE_FORMAT_ISO = "yyyy-MM-dd'T'HH:mm:ss'Z'";
@@ -43,7 +42,6 @@ public class EventDetails extends GenericDetails {
 
     static final String FIELD_EVENT_START_DATE = "eventStartDate";
     static final String FIELD_EVENT_END_DATE = "eventEndDate";
-
 
     @Override
     @SuppressWarnings("Duplicates")

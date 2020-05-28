@@ -7,6 +7,7 @@ import com.day.cq.commons.inherit.InheritanceValueMap;
 import org.apache.jackrabbit.vault.util.JcrConstants;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
@@ -68,7 +69,7 @@ public class ComponentsUtil {
 
     public static final String DEFAULT_TENANT = "aemdesign";
 
-    public static final String DEFAULT_PATH_TAGS = "/content/cq:tags";
+    public static final String DEFAULT_PATH_TAGS = "/content/" + TagConstants.PN_TAGS;
 
     public static final String FIELD_VARIANT = "variant";
     public static final String FIELD_VARIANT_LEGACY = "legacyVariant"; // specify that variant field is derived from config / tag
@@ -238,6 +239,8 @@ public class ComponentsUtil {
     public static final String FIELD_DATA_TAG_SEPARATOR = " ";
 
     public static final String FIELD_HREF = "href"; //NOSONAR
+    public static final String FIELD_TITLE = "title";
+    public static final String FIELD_TITLE_FORMAT = "titleFormat";
     public static final String FIELD_TITLE_TAG_TYPE = "titleType";
     public static final String FIELD_HIDE_TITLE = "hideTitle";
     public static final String FIELD_HIDE_DESCRIPTION = "hideDescription";
@@ -245,6 +248,7 @@ public class ComponentsUtil {
     public static final String FIELD_SHOW_TOOLBAR = "showToolbar";
     public static final String FIELD_SHOW_PAGEDATE = "showPageDate";
     public static final String FIELD_SHOW_PARSYS = "showParsys";
+    public static final String FIELD_TAGS = TagConstants.PN_TAGS;
 
     public static final String FIELD_BADGE_PAGE = "badgePage"; //NOSONAR
 

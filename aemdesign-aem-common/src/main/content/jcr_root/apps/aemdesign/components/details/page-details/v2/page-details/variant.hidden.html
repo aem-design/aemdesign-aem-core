@@ -1,9 +1,8 @@
 <template data-sly-template.variant="${@ componentProperties}">
   <sly data-sly-test="${wcmmode.edit}">
-    <div class="component" hidden>${componentProperties.variantHiddenLabel}</div>
+    <div class="component-hidden">${componentProperties.variantHiddenLabel}</div>
   </sly>
-  <div hidden
-       style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-  </div>
+  <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+       hidden></div>
 </template>
