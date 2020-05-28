@@ -72,6 +72,7 @@ public class ComponentsUtil {
     public static final String DEFAULT_PATH_TAGS = "/content/" + TagConstants.PN_TAGS;
 
     public static final String FIELD_VARIANT = "variant";
+    public static final String FIELD_VARIANT_LABEL = "variantHiddenLabel";
     public static final String FIELD_VARIANT_LEGACY = "legacyVariant"; // specify that variant field is derived from config / tag
     public static final String DEFAULT_VARIANT = "default";
     public static final String DEFAULT_VARIANT_TEMPLATE = "variant.default.html";
@@ -243,11 +244,13 @@ public class ComponentsUtil {
     public static final String FIELD_TITLE_FORMAT = "titleFormat";
     public static final String FIELD_TITLE_TAG_TYPE = "titleType";
     public static final String FIELD_HIDE_TITLE = "hideTitle";
+    public static final String FIELD_DESCRIPTION = "description";
     public static final String FIELD_HIDE_DESCRIPTION = "hideDescription";
     public static final String FIELD_SHOW_BREADCRUMB = "showBreadcrumb";
     public static final String FIELD_SHOW_TOOLBAR = "showToolbar";
     public static final String FIELD_SHOW_PAGEDATE = "showPageDate";
     public static final String FIELD_SHOW_PARSYS = "showParsys";
+    public static final String FIELD_USE_CONTAINER = "useContainer";
     public static final String FIELD_TAGS = TagConstants.PN_TAGS;
 
     public static final String FIELD_BADGE_PAGE = "badgePage"; //NOSONAR

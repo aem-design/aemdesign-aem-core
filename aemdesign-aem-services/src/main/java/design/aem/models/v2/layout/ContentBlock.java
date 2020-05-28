@@ -50,6 +50,7 @@ public class ContentBlock extends ModelProxy {
         setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {FIELD_TITLE, StringUtils.EMPTY},
+            {FIELD_TITLE_TYPE, DEFAULT_TITLE_TAG_TYPE},
             {FIELD_HIDE_TITLE, DEFAULT_HIDE_TITLE},
             {FIELD_SHOW_TOP_LINK, DEFAULT_SHOW_TOP_LINK},
             {FIELD_SHOW_ICON, DEFAULT_SHOW_ICON},
@@ -57,7 +58,6 @@ public class ContentBlock extends ModelProxy {
             {FIELD_LINKS_LEFT, new String[]{}},
             {FIELD_LINKS_RIGHT_TITLE, StringUtils.EMPTY},
             {FIELD_LINKS_RIGHT, new String[]{}},
-            {FIELD_TITLE_TYPE, DEFAULT_TITLE_TAG_TYPE},
             {FIELD_DATA_PARENT, StringUtils.EMPTY},
             {FIELD_DATA_TOGGLE, StringUtils.EMPTY},
             {FIELD_STYLE_COMPONENT_BOOLEANATTR, getDefaultVideoAttributes(), StringUtils.EMPTY, Tag.class.getCanonicalName()},

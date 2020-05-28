@@ -69,16 +69,16 @@
                                     <useContainer
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        emptyOption="{Boolean}true"
                                         fieldDescription="Wrap the content of Page Details within a container element."
                                         fieldLabel="Use Container"
                                         name="./useContainer"
-                                        emptyOption="{Boolean}true"
                                         value="">
                                         <datasource
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
+                                            variant="valuelist"/>
                                     </useContainer>
 
                                     <showBreadcrumb

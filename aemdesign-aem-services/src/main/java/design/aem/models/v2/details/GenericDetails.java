@@ -74,6 +74,7 @@ public class GenericDetails extends ModelProxy {
     protected final Boolean DEFAULT_SHOW_TOOLBAR = true;
     protected final Boolean DEFAULT_SHOW_PAGE_DATE = true;
     protected final Boolean DEFAULT_SHOW_PARSYS = true;
+    protected final Boolean DEFAULT_USE_CONTAINER = true;
     protected final String DEFAULT_TAG_LEGACY_BADGE_CONFIG = ":component-dialog/components/details/generic-details/legacy";
 
     protected final String FIELD_CONTENTFRAGMENT_VARIATION = "variationName";
@@ -81,7 +82,7 @@ public class GenericDetails extends ModelProxy {
 
     private static final String COMPONENT_DETAILS_NAME = "generic-details";
 
-    //used for backwards compatibility of details components
+    // Used for backwards compatibility of details components
     private static final String[] legacyBadgeList = new String[]{
         "badge.cardActionIconDescription",
         "badge.cardActionIconTitleCategoryDescription",
@@ -122,7 +123,7 @@ public class GenericDetails extends ModelProxy {
     };
 
     @SuppressWarnings("squid:S1192")
-    //used for backwards compatibility of details components
+    // Used for backwards compatibility of details components
     private static final String[][] legacyBadgeListMapping = new String[][]{
         new String[]{"action-icon", "description"},
         new String[]{"action-icon", "title", "taglist", "description"},
@@ -164,38 +165,90 @@ public class GenericDetails extends ModelProxy {
 
     @SuppressWarnings("Duplicates")
     protected void ready() {
+        setComponentFields(new Object[][]{
+            {FIELD_VARIANT_FIELDS, new String[]{}},
+            {FIELD_VARIANT_FIELDS_TEMPLATE, new String[]{}},
+
+            // Legacy variants
+            {FIELD_LEGACY_BADGE_LIST, legacyBadgeList},
+            {FIELD_LEGACY_BADGE_LIST_MAPPING, legacyBadgeListMapping},
+            {FIELD_LEGACY_BADGE_CNNFIG_TAGS,
+                resolveTenantIdFromPath(getCurrentPage().getPath()).concat(DEFAULT_TAG_LEGACY_BADGE_CONFIG)},
+
+            // Content Fragment
+            {FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION},
+            {FIELD_CONTENTFRAGMENT_FRAGMENTPATH, StringUtils.EMPTY},
+        });
+
+        generateComponentFields();
+
+        // Process content fragment content if its used
+        String fragmentPath = componentProperties.get(FIELD_CONTENTFRAGMENT_FRAGMENTPATH, "");
+
+        if (isNotEmpty(fragmentPath)) {
+            String variationName = componentProperties.get(
+                FIELD_CONTENTFRAGMENT_VARIATION,
+                DEFAULT_CONTENTFRAGMENT_VARIATION);
+
+            componentProperties.putAll(ContentFragmentUtil.getComponentFragmentMap(
+                fragmentPath,
+                variationName,
+                getResourceResolver()));
+        }
+
+        // Set properties into request to allow ContentTemplate to use it for presentation
+        getRequest().setAttribute(ContentTemplate.REQUEST_COMPONENT_PROPERTIES, componentProperties);
+    }
+
+    /**
+     * Process the component fields and generate the {@link componentProperties} instance.
+     */
+    protected void generateComponentFields() {
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
         setComponentFieldsDefaults();
 
         setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_VARIANT_LABEL, getDefaultLabelIfEmpty(
+                StringUtils.EMPTY,
+                DEFAULT_I18N_CATEGORY,
+                DEFAULT_I18N_LABEL,
+                DEFAULT_I18N_CATEGORY,
+                i18n)},
+
+            // Title
             {FIELD_TITLE, DEFAULT_TITLE},
-            {FIELD_TITLE_FORMAT, ""}, // Tag path, will be resolved to value in processComponentFields
+            {FIELD_TITLE_FORMAT, StringUtils.EMPTY}, // Tag path, will be resolved to value in processComponentFields
+            {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
             {FIELD_HIDE_TITLE, DEFAULT_HIDE_TITLE},
-            {FIELD_TAGS, new String[]{}},
-            {"description", DEFAULT_DESCRIPTION},
-            {"hideDescription", DEFAULT_HIDE_DESCRIPTION},
-            {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
-            {"showToolbar", DEFAULT_SHOW_TOOLBAR},
-            {"showPageDate", DEFAULT_SHOW_PAGE_DATE},
-            {"showParsys", DEFAULT_SHOW_PARSYS},
-            {FIELD_LINK_TARGET, StringUtils.EMPTY, FIELD_TARGET},
-            {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
+
+            // Page/Navigation Title & Subtitle
             {FIELD_PAGE_TITLE, DEFAULT_TITLE},
             {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
             {FIELD_PAGE_TITLE_SUBTITLE, DEFAULT_SUBTITLE},
-            {FIELD_SUBCATEGORY, new String[]{}},
+
+            // Description
+            {FIELD_DESCRIPTION, DEFAULT_DESCRIPTION},
+            {FIELD_HIDE_DESCRIPTION, DEFAULT_HIDE_DESCRIPTION},
+
+            // Layout toggles
+            {FIELD_USE_CONTAINER, DEFAULT_USE_CONTAINER},
+            {FIELD_SHOW_BREADCRUMB, DEFAULT_SHOW_BREADCRUMB},
+            {FIELD_SHOW_TOOLBAR, DEFAULT_SHOW_TOOLBAR},
+            {FIELD_SHOW_PAGEDATE, DEFAULT_SHOW_PAGE_DATE},
+            {FIELD_SHOW_PARSYS, DEFAULT_SHOW_PARSYS},
+
+            // Aria
             {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
-            {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
-            {"variantHiddenLabel", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LABEL, DEFAULT_I18N_CATEGORY, i18n)},
-            {FIELD_LEGACY_BADGE_LIST, legacyBadgeList},
-            {FIELD_LEGACY_BADGE_LIST_MAPPING, legacyBadgeListMapping},
-            {FIELD_LEGACY_BADGE_CNNFIG_TAGS, resolveTenantIdFromPath(getCurrentPage().getPath()).concat(DEFAULT_TAG_LEGACY_BADGE_CONFIG)},
-            {FIELD_VARIANT_FIELDS, new String[]{}},
-            {FIELD_VARIANT_FIELDS_TEMPLATE, new String[]{}},
-            {FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION},
-            {FIELD_CONTENTFRAGMENT_FRAGMENTPATH, ""},
+
+            // Tagging
+            {FIELD_TAGS, new String[]{}},
+            {FIELD_SUBCATEGORY, new String[]{}},
+
+            // Miscellaneous..
+            {FIELD_LINK_TARGET, StringUtils.EMPTY, FIELD_TARGET},
+            {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -206,27 +259,28 @@ public class GenericDetails extends ModelProxy {
             DEFAULT_FIELDS_ANALYTICS,
             DEFAULT_FIELDS_DETAILS_OPTIONS);
 
-        //process content fragment content if its used
-        String fragmentPath = componentProperties.get(FIELD_CONTENTFRAGMENT_FRAGMENTPATH, "");
-
-        if (isNotEmpty(fragmentPath)) {
-            String variationName = componentProperties.get(FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION);
-            componentProperties.putAll(ContentFragmentUtil.getComponentFragmentMap(fragmentPath, variationName, getResourceResolver()));
-        }
-
-        String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
-        componentProperties.put(FIELD_CATEGORY, getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
-
-        String[] subCategory = componentProperties.get(FIELD_SUBCATEGORY, new String[]{});
-        componentProperties.put(FIELD_SUBCATEGORY, getTagsAsAdmin(getSlingScriptHelper(), subCategory, getRequest().getLocale()));
-
         processCommonFields();
 
-        //format fields
-        componentProperties.putAll(processComponentFields(componentProperties, i18n, getSlingScriptHelper()), false);
+        String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
 
-        //set properties into request to allow ContentTemplate to use it for presentation
-        getRequest().setAttribute(ContentTemplate.REQUEST_COMPONENT_PROPERTIES, componentProperties);
+        componentProperties.put(FIELD_CATEGORY, getTagsAsAdmin(
+            getSlingScriptHelper(),
+            tags,
+            getRequest().getLocale()));
+
+        String[] subCategory = componentProperties.get(FIELD_SUBCATEGORY, new String[]{});
+
+        componentProperties.put(FIELD_SUBCATEGORY, getTagsAsAdmin(
+            getSlingScriptHelper(),
+            subCategory,
+            getRequest().getLocale()));
+
+        // Format fields
+        componentProperties.putAll(
+            processComponentFields(componentProperties, i18n, getSlingScriptHelper()),
+            false);
+
+        generateHasAuthoredContentComponentProps();
     }
 
     /**
@@ -649,7 +703,11 @@ public class GenericDetails extends ModelProxy {
      * @return returns map with new values
      */
     @SuppressWarnings("Duplicates")
-    public Map<String, Object> processComponentFields(ComponentProperties componentProperties, com.day.cq.i18n.I18n i18n, SlingScriptHelper sling) {
+    public Map<String, Object> processComponentFields(
+        ComponentProperties componentProperties,
+        com.day.cq.i18n.I18n i18n,
+        SlingScriptHelper sling
+    ) {
         Map<String, Object> newFields = new HashMap<>();
 
         try {
@@ -665,16 +723,29 @@ public class GenericDetails extends ModelProxy {
                 formattedTitleText.trim()
             );
         } catch (Exception ex) {
-            LOGGER.error("Could not process component fields in {}", COMPONENT_DETAILS_NAME);
+            LOGGER.error("Could not process component fields in {}", getComponentDetailsName());
         }
 
         return newFields;
     }
 
+    /**
+     * Detects if the child parsys has any authored content which enables us to hide certain elements
+     * within the details component when no children exist.
+     */
     protected void generateHasAuthoredContentComponentProps() {
         Resource componentResource = getResource().getChild(PAR_NAME);
 
         componentProperties.put("hasAuthoredContent",
             componentResource != null && componentResource.hasChildren());
+    }
+
+    /**
+     * Retrieve the name of the current details component.
+     *
+     * @return Name of the component
+     */
+    protected String getComponentDetailsName() {
+        return COMPONENT_DETAILS_NAME;
     }
 }

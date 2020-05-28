@@ -1,30 +1,22 @@
 <%@include file="/apps/aemdesign/global/global.jsp" %>
-<%
-%>
 <%@page session="false"
         import="com.adobe.granite.ui.components.Config,
+                com.adobe.granite.ui.components.ExpressionCustomizer,
+                com.adobe.granite.ui.components.ExpressionHelper,
                 com.adobe.granite.ui.components.ds.DataSource,
                 com.adobe.granite.ui.components.ds.SimpleDataSource,
                 com.adobe.granite.ui.components.ds.ValueMapResource,
                 com.day.cq.tagging.Tag,
                 com.day.cq.tagging.TagManager,
-                org.apache.commons.collections.Transformer,
                 org.apache.commons.collections.iterators.IteratorChain,
                 org.apache.commons.collections.iterators.TransformIterator,
-                org.apache.commons.lang3.StringUtils,
-                org.apache.sling.tenant.Tenant,
-                com.adobe.granite.ui.components.ExpressionHelper,
-                com.adobe.granite.ui.components.ExpressionCustomizer,
-                org.apache.sling.api.resource.Resource,
                 org.apache.sling.api.resource.ResourceMetadata,
                 org.apache.sling.api.resource.ResourceResolver,
                 org.apache.sling.api.wrappers.ValueMapDecorator,
-                java.util.Arrays,
-                java.util.HashMap" %>
+                org.apache.sling.tenant.Tenant,
+                java.util.HashMap,
+                java.util.Locale" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="static design.aem.utils.components.TenantUtil.resolveTenantIdFromPath" %>
 <%@ page import="static org.apache.commons.lang3.StringUtils.isNotEmpty" %>
 <%
