@@ -163,7 +163,6 @@ public class GenericDetails extends ModelProxy {
         new String[]{"simple-metadata"},
     };
 
-    @SuppressWarnings("Duplicates")
     protected void ready() {
         setComponentFields(new Object[][]{
             {FIELD_VARIANT_FIELDS, new String[]{}},

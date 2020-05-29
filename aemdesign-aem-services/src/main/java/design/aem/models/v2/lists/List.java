@@ -118,6 +118,7 @@ public class List extends ModelProxy {
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     @Default(values = StringUtils.EMPTY)
     private String query;
+
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     @Default(values = StringUtils.EMPTY)
     private String savedquery;
@@ -131,20 +132,10 @@ public class List extends ModelProxy {
     private boolean isPaginating;
     private java.util.List<ResultPage> resultPages;
 
-    @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
-    @Default(values = StringUtils.EMPTY)
-    private String detailsBadge;
-
-    @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
+    protected String detailsBadge;
     protected String[] detailsNameSuffix;
-
-    @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
-    @Default(booleanValues = false)
-    private boolean showHidden;
-
-    @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
-    @Default(booleanValues = false)
-    private boolean showInvalid;
+    protected boolean showHidden;
+    protected boolean showInvalid;
 
     protected void ready() {
         loadConfig();
