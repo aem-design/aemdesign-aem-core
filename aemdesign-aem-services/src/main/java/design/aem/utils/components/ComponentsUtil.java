@@ -2295,4 +2295,18 @@ public class ComponentsUtil {
         }
         return StringUtils.EMPTY;
     }
+
+    /**
+     * Helper that generates an expression used for field defaults.
+     *
+     * @param fields List of field names
+     * @return {@code fields} as an expression
+     */
+    public static String getFormatExpression(String ...fields) {
+        List<String> expression = new ArrayList<>();
+
+        Arrays.asList(fields).forEach(field -> expression.add(String.format("${%s}", field)));
+
+        return String.join(" ", expression);
+    }
 }
