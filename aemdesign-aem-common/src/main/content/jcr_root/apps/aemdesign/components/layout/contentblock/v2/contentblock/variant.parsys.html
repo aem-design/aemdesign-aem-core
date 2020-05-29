@@ -1,8 +1,8 @@
 <template data-sly-template.variant="${@ componentProperties}">
+  <span id="${componentProperties.instanceName}"></span>
+
   <section style="${componentProperties.attr.data.style @ context = 'unsafe'}"
        data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-    <span id="${componentProperties.instanceName}"></span>
-
     <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/parsys'}"></sly>
   </section>
 </template>
