@@ -45,42 +45,46 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class GenericDetails extends ModelProxy {
     protected static final Logger LOGGER = LoggerFactory.getLogger(GenericDetails.class);
 
-    protected final String PAR_NAME = DEFAULT_PAR_NAME;
+    protected static String COMPONENT_DETAILS_NAME = "generic-details";
 
-    protected final String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
-    protected final String DEFAULT_FORMAT_TITLE = "${title}";
-    protected final String FIELD_FORMATTED_TITLE = "titleFormatted";
-    protected final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
-    protected final String FIELD_SUBCATEGORY = "subCategory";
-    protected final String FIELD_CATEGORY = "category";
-    protected final String FIELD_LEGACY_BADGE_CONFIG = "legacyBadgeConfig";
-    protected final String FIELD_LEGACY_BADGE_SELECTED = "legacyBadgeSelected";
-    protected final String FIELD_LEGACY_BADGE = "legacyBadge";
-    protected final String FIELD_LEGACY_BADGE_LIST = "legacyBadgeList";
-    protected final String FIELD_LEGACY_BADGE_LIST_MAPPING = "legacyBadgeListMapping";
-    protected final String FIELD_LEGACY_BADGE_CNNFIG_TAGS = "legacyBadgeConfigTags";
+    protected static String PAR_NAME = DEFAULT_PAR_NAME;
+    protected static String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
 
-    protected String DEFAULT_TITLE = null;
-    protected String DEFAULT_DESCRIPTION = null;
-    protected String DEFAULT_SUBTITLE = null;
+    protected static String FIELD_FORMATTED_TITLE = "titleFormatted";
+    protected static String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
+    protected static String FIELD_SUBCATEGORY = "subCategory";
+    protected static String FIELD_CATEGORY = "category";
+    protected static String FIELD_LEGACY_BADGE_CONFIG = "legacyBadgeConfig";
+    protected static String FIELD_LEGACY_BADGE_SELECTED = "legacyBadgeSelected";
+    protected static String FIELD_LEGACY_BADGE = "legacyBadge";
+    protected static String FIELD_LEGACY_BADGE_LIST = "legacyBadgeList";
+    protected static String FIELD_LEGACY_BADGE_LIST_MAPPING = "legacyBadgeListMapping";
+    protected static String FIELD_LEGACY_BADGE_CNNFIG_TAGS = "legacyBadgeConfigTags";
+    protected static String FIELD_CONTENTFRAGMENT_VARIATION = "variationName";
+    protected static String FIELD_CONTENTFRAGMENT_FRAGMENTPATH = "fragmentPath";
 
-    protected final String DEFAULT_ARIA_ROLE = "banner";
-    protected final String DEFAULT_TITLE_TAG_TYPE = "h1";
-    protected final String DEFAULT_I18N_CATEGORY = "page-detail";
-    protected final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
-    protected final Boolean DEFAULT_HIDE_TITLE = false;
-    protected final Boolean DEFAULT_HIDE_DESCRIPTION = false;
-    protected final Boolean DEFAULT_SHOW_BREADCRUMB = true;
-    protected final Boolean DEFAULT_SHOW_TOOLBAR = true;
-    protected final Boolean DEFAULT_SHOW_PAGE_DATE = true;
-    protected final Boolean DEFAULT_SHOW_PARSYS = true;
-    protected final Boolean DEFAULT_USE_CONTAINER = true;
-    protected final String DEFAULT_TAG_LEGACY_BADGE_CONFIG = ":component-dialog/components/details/generic-details/legacy";
+    protected static String DEFAULT_TITLE = null;
+    protected static String DEFAULT_TITLE_FORMAT = getFormatExpression(FIELD_TITLE);
+    protected static String DEFAULT_TITLE_TAG_TYPE = "h1";
 
-    protected final String FIELD_CONTENTFRAGMENT_VARIATION = "variationName";
-    protected final String FIELD_CONTENTFRAGMENT_FRAGMENTPATH = "fragmentPath";
+    protected static String DEFAULT_DESCRIPTION = null;
+    protected static String DEFAULT_DESCRIPTION_FORMAT = getFormatExpression(FIELD_DESCRIPTION);
 
-    private static final String COMPONENT_DETAILS_NAME = "generic-details";
+    protected static String DEFAULT_SUBTITLE = null;
+    protected static String DEFAULT_ARIA_ROLE = "banner";
+
+    protected static String DEFAULT_I18N_CATEGORY = "generic-details";
+    protected static String DEFAULT_I18N_LABEL = "variantHiddenLabel";
+
+    protected static Boolean DEFAULT_USE_CONTAINER = true;
+    protected static Boolean DEFAULT_HIDE_TITLE = false;
+    protected static Boolean DEFAULT_HIDE_DESCRIPTION = false;
+    protected static Boolean DEFAULT_SHOW_BREADCRUMB = true;
+    protected static Boolean DEFAULT_SHOW_TOOLBAR = true;
+    protected static Boolean DEFAULT_SHOW_PAGE_DATE = true;
+    protected static Boolean DEFAULT_SHOW_PARSYS = true;
+
+    protected static String DEFAULT_TAG_LEGACY_BADGE_CONFIG = ":component-dialog/components/details/generic-details/legacy";
 
     // Used for backwards compatibility of details components
     private static final String[] legacyBadgeList = new String[]{
@@ -200,7 +204,7 @@ public class GenericDetails extends ModelProxy {
     }
 
     /**
-     * Process the component fields and generate the {@link componentProperties} instance.
+     * Process the component fields and generate the {@link #componentProperties} instance.
      */
     protected void generateComponentFields() {
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
@@ -229,6 +233,7 @@ public class GenericDetails extends ModelProxy {
 
             // Description
             {FIELD_DESCRIPTION, DEFAULT_DESCRIPTION},
+            {FIELD_DESCRIPTION_FORMAT, DEFAULT_DESCRIPTION_FORMAT},
             {FIELD_HIDE_DESCRIPTION, DEFAULT_HIDE_DESCRIPTION},
 
             // Layout toggles
@@ -693,15 +698,14 @@ public class GenericDetails extends ModelProxy {
         return newFields;
     }
 
-
     /***
-     * substitute formatted field template with fields from component.
-     * @param componentProperties source map with fields
-     * @param i18n i18n
-     * @param sling sling helper
-     * @return returns map with new values
+     * Substitute the original field values with the structure set by the author.
+     *
+     * @param componentProperties Original authored fields
+     * @param i18n i18n language handler
+     * @param sling Sling script helper instance
+     * @return returns map with substituted values (if any)
      */
-    @SuppressWarnings("Duplicates")
     public Map<String, Object> processComponentFields(
         ComponentProperties componentProperties,
         com.day.cq.i18n.I18n i18n,
@@ -710,19 +714,27 @@ public class GenericDetails extends ModelProxy {
         Map<String, Object> newFields = new HashMap<>();
 
         try {
-            String formattedTitle = compileComponentMessage(FIELD_TITLE_FORMAT, DEFAULT_FORMAT_TITLE, componentProperties, sling);
+            String formattedTitle = compileComponentMessage(
+                FIELD_TITLE_FORMAT,
+                DEFAULT_TITLE_FORMAT,
+                componentProperties,
+                sling);
+
             Document fragment = Jsoup.parse(formattedTitle);
             String formattedTitleText = fragment.text();
 
-            newFields.put(FIELD_FORMATTED_TITLE,
-                formattedTitle.trim()
-            );
+            newFields.put(FIELD_FORMATTED_TITLE, formattedTitle.trim());
 
-            newFields.put(FIELD_FORMATTED_TITLE_TEXT,
-                formattedTitleText.trim()
+            newFields.put(FIELD_FORMATTED_TITLE_TEXT, formattedTitleText.trim());
+
+            newFields.put(FIELD_DESCRIPTION_FORMATTED, compileComponentMessage(
+                FIELD_DESCRIPTION_FORMAT,
+                DEFAULT_DESCRIPTION_FORMAT,
+                componentProperties,
+                sling).trim()
             );
         } catch (Exception ex) {
-            LOGGER.error("Could not process component fields in {}", getComponentDetailsName());
+            LOGGER.error("Could not process component fields in {}", COMPONENT_DETAILS_NAME);
         }
 
         return newFields;
@@ -737,14 +749,5 @@ public class GenericDetails extends ModelProxy {
 
         componentProperties.put("hasAuthoredContent",
             componentResource != null && componentResource.hasChildren());
-    }
-
-    /**
-     * Retrieve the name of the current details component.
-     *
-     * @return Name of the component
-     */
-    protected String getComponentDetailsName() {
-        return COMPONENT_DETAILS_NAME;
     }
 }

@@ -245,6 +245,8 @@ public class ComponentsUtil {
     public static final String FIELD_TITLE_TAG_TYPE = "titleType";
     public static final String FIELD_HIDE_TITLE = "hideTitle";
     public static final String FIELD_DESCRIPTION = "description";
+    public static final String FIELD_DESCRIPTION_FORMAT = "descriptionFormat";
+    public static final String FIELD_DESCRIPTION_FORMATTED = "descriptionFormatted";
     public static final String FIELD_HIDE_DESCRIPTION = "hideDescription";
     public static final String FIELD_SHOW_BREADCRUMB = "showBreadcrumb";
     public static final String FIELD_SHOW_TOOLBAR = "showToolbar";
