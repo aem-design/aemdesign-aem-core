@@ -50,8 +50,8 @@ public class GenericDetails extends ModelProxy {
     protected static String PAR_NAME = DEFAULT_PAR_NAME;
     protected static String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
 
-    protected static String FIELD_FORMATTED_TITLE = "titleFormatted";
-    protected static String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
+    protected static String FIELD_TITLE_FORMATTED = "titleFormatted";
+    protected static String FIELD_TITLE_FORMATTED_TEXT = "titleFormattedText";
     protected static String FIELD_SUBCATEGORY = "subCategory";
     protected static String FIELD_CATEGORY = "category";
     protected static String FIELD_LEGACY_BADGE_CONFIG = "legacyBadgeConfig";
@@ -723,9 +723,9 @@ public class GenericDetails extends ModelProxy {
             Document fragment = Jsoup.parse(formattedTitle);
             String formattedTitleText = fragment.text();
 
-            newFields.put(FIELD_FORMATTED_TITLE, formattedTitle.trim());
+            newFields.put(FIELD_TITLE_FORMATTED, formattedTitle.trim());
 
-            newFields.put(FIELD_FORMATTED_TITLE_TEXT, formattedTitleText.trim());
+            newFields.put(FIELD_TITLE_FORMATTED_TEXT, formattedTitleText.trim());
 
             newFields.put(FIELD_DESCRIPTION_FORMATTED, compileComponentMessage(
                 FIELD_DESCRIPTION_FORMAT,
