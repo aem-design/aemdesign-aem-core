@@ -1,14 +1,14 @@
 package design.aem.models.v2.content;
 
 import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.jexl3.*;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class ContentTemplate extends ModelProxy {
+public class ContentTemplate extends BaseComponent {
     protected ComponentProperties requestComponentProperties = null;
 
     public static final String REQUEST_COMPONENT_PROPERTIES = "design.aem.models.v2.content.ContentTemplate.componentProperties";

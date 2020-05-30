@@ -4,7 +4,7 @@ import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.components.Toolbar;
 import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.ValueMap;
@@ -21,7 +21,7 @@ import static design.aem.utils.components.CommonUtil.tryParseInt;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 
-public class Columns extends ModelProxy {
+public class Columns extends BaseComponent {
     private static final String COLUMN_CLASS = "col-sm"; //gets added to cols
     private static final String ROW_CLASS = "row"; //gets added to rows
     private static final String COLUMNS_CLASS = "parsys_column"; //gets added to rows and columns

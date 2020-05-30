@@ -1,8 +1,7 @@
 package design.aem.models.v2.content;
 
 import com.adobe.granite.security.user.UserPropertiesManager;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.jackrabbit.api.security.user.UserManager;
 
@@ -15,7 +14,7 @@ import static design.aem.utils.components.SecurityUtil.getUserEmail;
 import static design.aem.utils.components.SecurityUtil.getUserFullName;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-public class PageAuthor extends ModelProxy {
+public class PageAuthor extends BaseComponent {
     protected void ready() throws Exception {
         com.adobe.granite.security.user.UserPropertiesService userPropertiesService = getSlingScriptHelper().getService(com.adobe.granite.security.user.UserPropertiesService.class);
 

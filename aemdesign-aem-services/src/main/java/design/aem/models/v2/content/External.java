@@ -1,14 +1,13 @@
 package design.aem.models.v2.content;
 
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 
 import static design.aem.utils.components.CommonUtil.getUrlContent;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static java.text.MessageFormat.format;
 
-public class External extends ModelProxy {
+public class External extends BaseComponent {
     protected void ready() {
         /*
           Component Fields Helper

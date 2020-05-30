@@ -1,8 +1,7 @@
 package design.aem.models.v2.common;
 
 import com.google.gson.Gson;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.sling.api.request.RequestProgressTracker;
 import org.slf4j.Logger;
@@ -17,7 +16,7 @@ import java.util.zip.GZIPOutputStream;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 
-public class Timing extends ModelProxy {
+public class Timing extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(Timing.class);
 
     private static final String TIMER_END = "TIMER_END";

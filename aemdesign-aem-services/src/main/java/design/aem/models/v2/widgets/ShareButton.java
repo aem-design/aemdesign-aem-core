@@ -2,13 +2,12 @@ package design.aem.models.v2.widgets;
 
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.tagging.Tag;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 
-public class ShareButton extends ModelProxy {
+public class ShareButton extends BaseComponent {
     protected void ready() {
         final String DEFAULT_ARIA_ROLE = "banner";
         final String DEFAULT_CLOUDCONFIG_ADDTHIS = "addthisconnect";

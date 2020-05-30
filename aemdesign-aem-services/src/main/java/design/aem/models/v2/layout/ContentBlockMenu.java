@@ -1,7 +1,6 @@
 package design.aem.models.v2.layout;
 
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.jcr.resource.api.JcrResourceConstants;
@@ -18,7 +17,7 @@ import static design.aem.utils.components.ImagesUtil.getBackgroundImageRendition
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class ContentBlockMenu extends ModelProxy {
+public class ContentBlockMenu extends BaseComponent {
     protected void ready() throws Exception {
         final String DEFAULT_MENUSOURCE_PARENT = "parent";
         final String DEFAULT_MENUSOURCE_PAGEPATH = "pagepath";

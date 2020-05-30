@@ -3,7 +3,7 @@ package design.aem.models.v2.lists;
 import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -17,7 +17,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.INHERITED_RESOURCE;
 import static design.aem.utils.components.I18nUtil.*;
 
-public class NavList extends ModelProxy {
+public class NavList extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(NavList.class);
 
     protected void ready() {

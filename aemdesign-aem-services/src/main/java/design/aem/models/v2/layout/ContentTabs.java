@@ -2,7 +2,7 @@ package design.aem.models.v2.layout;
 
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class ContentTabs extends ModelProxy {
+public class ContentTabs extends BaseComponent {
     protected void ready() {
         final String DEFAULT_LISTFROM_CHILDREN = "children";
         final String DEFAULT_LISTFROM_STATIC = "static";

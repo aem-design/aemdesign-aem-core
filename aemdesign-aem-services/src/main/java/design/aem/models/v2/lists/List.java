@@ -12,7 +12,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.text.Text;
 import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -44,7 +44,7 @@ import static design.aem.utils.components.ImagesUtil.getResourceImagePath;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class List extends ModelProxy {
+public class List extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(List.class);
 
     private static final int LIMIT_DEFAULT = 100;

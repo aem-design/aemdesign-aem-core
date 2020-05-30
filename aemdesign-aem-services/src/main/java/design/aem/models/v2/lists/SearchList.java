@@ -10,8 +10,7 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import design.aem.CustomSearchResult;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.vault.util.JcrConstants;
@@ -44,7 +43,7 @@ import static design.aem.utils.components.ImagesUtil.*;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class SearchList extends ModelProxy {
+public class SearchList extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(SearchList.class);
 
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)

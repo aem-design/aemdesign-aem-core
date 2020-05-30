@@ -1,13 +1,12 @@
 package design.aem.models.v2.content;
 
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class EmbedSource extends ModelProxy {
+public class EmbedSource extends BaseComponent {
     protected void ready() {
         /*
           Component Fields Helper

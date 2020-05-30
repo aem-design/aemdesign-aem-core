@@ -9,8 +9,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.services.ServiceAccessor;
 import design.aem.utils.components.ComponentsUtil;
 import design.aem.utils.components.TagUtil;
@@ -33,7 +32,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAPS;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAPS_API_KEY;
 
-public class Vue extends ModelProxy {
+public class Vue extends BaseComponent {
     private static final Logger LOGGER = LoggerFactory.getLogger(Vue.class);
 
     private static final String FIELD_ANALYTICS_NAME = "analyticsName";

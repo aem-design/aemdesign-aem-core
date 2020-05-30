@@ -1,8 +1,7 @@
 package design.aem.models.v2.layout;
 
 import com.day.cq.i18n.I18n;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 
 import static design.aem.utils.components.ComponentsUtil.*;
@@ -12,7 +11,7 @@ import static design.aem.utils.components.ImagesUtil.DEFAULT_BACKGROUND_IMAGE_NO
 import static design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions;
 
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class Footer extends ModelProxy {
+public class Footer extends BaseComponent {
     @SuppressWarnings("Duplicates")
     protected void ready() {
         I18n i18n = new I18n(getRequest());

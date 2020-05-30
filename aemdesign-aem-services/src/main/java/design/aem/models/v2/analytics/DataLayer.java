@@ -1,8 +1,7 @@
 package design.aem.models.v2.analytics;
 
 import com.day.cq.replication.ReplicationStatus;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -21,7 +20,7 @@ import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class DataLayer extends ModelProxy {
+public class DataLayer extends BaseComponent {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataLayer.class);
 
     @SuppressWarnings({"Duplicates", "squid:S2637", "squid:S2259", "squid:S3776"})

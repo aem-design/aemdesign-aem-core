@@ -3,8 +3,7 @@ package design.aem.models.v2.media;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.Rendition;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -19,7 +18,7 @@ import static design.aem.utils.components.ImagesUtil.DEFAULT_IMAGE_PATH_SELECTOR
 import static design.aem.utils.components.ImagesUtil.DEFAULT_THUMBNAIL_IMAGE_NODE_NAME;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class Video extends ModelProxy {
+public class Video extends BaseComponent {
     private static final String POPUP_HEIGHT = "lightboxHeight";
     private static final String POPUP_WIDTH = "lightboxWidth";
 

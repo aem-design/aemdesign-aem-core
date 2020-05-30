@@ -1,7 +1,6 @@
 package design.aem.models.v2.content;
 
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 
 import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_ACCESSIBILITY;
@@ -9,7 +8,7 @@ import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_STYLE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class Table extends ModelProxy {
+public class Table extends BaseComponent {
     protected void ready() {
 
         /*

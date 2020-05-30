@@ -1,7 +1,6 @@
 package design.aem.models.v2.layout;
 
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 
 import static design.aem.utils.components.ComponentsUtil.*;
@@ -9,7 +8,7 @@ import static design.aem.utils.components.ImagesUtil.DEFAULT_BACKGROUND_IMAGE_NO
 import static design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions;
 
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class Article extends ModelProxy {
+public class Article extends BaseComponent {
     protected void ready() {
         final String DEFAULT_ARIA_ROLE = "article";
 

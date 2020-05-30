@@ -1,8 +1,7 @@
 package design.aem.models.v2.content;
 
 import com.day.cq.i18n.I18n;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.jackrabbit.vault.util.JcrConstants;
@@ -14,7 +13,7 @@ import java.util.Calendar;
 import static design.aem.utils.components.CommonUtil.getPageCreated;
 import static design.aem.utils.components.ComponentsUtil.*;
 
-public class PageDate extends ModelProxy {
+public class PageDate extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(PageDate.class);
 
     @SuppressWarnings({"squid:S3008"})

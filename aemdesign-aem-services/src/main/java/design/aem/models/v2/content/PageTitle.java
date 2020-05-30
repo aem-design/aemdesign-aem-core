@@ -1,14 +1,13 @@
 package design.aem.models.v2.content;
 
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.vault.util.JcrConstants;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 
-public class PageTitle extends ModelProxy {
+public class PageTitle extends BaseComponent {
     protected void ready() {
 
         final String DEFAULT_TAG_TYPE = "span";

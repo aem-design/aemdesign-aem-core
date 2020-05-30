@@ -1,8 +1,7 @@
 package design.aem.models.v2.content;
 
 import com.day.cq.wcm.api.WCMMode;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -12,7 +11,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class Reference extends ModelProxy {
+public class Reference extends BaseComponent {
     protected void ready() {
         setComponentFields(new Object[][]{
             {"path", StringUtils.EMPTY},

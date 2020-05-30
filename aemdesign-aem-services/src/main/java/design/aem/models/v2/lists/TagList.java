@@ -9,8 +9,7 @@ import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -35,7 +34,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.TagUtil.TAG_VALUE;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class TagList extends ModelProxy {
+public class TagList extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(TagList.class);
 
     private java.util.List<Map<String, Object>> listItems;

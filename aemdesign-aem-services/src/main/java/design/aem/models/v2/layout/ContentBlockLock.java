@@ -1,8 +1,7 @@
 package design.aem.models.v2.layout;
 
 import com.day.cq.i18n.I18n;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.services.ContentAccess;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang.StringUtils;
@@ -26,7 +25,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @SuppressWarnings({"Duplicates", "squid:S3776"})
-public class ContentBlockLock extends ModelProxy {
+public class ContentBlockLock extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContentBlockLock.class);
 
     @SuppressWarnings({"Duplicates", "squid:S3776"})

@@ -1,14 +1,13 @@
 package design.aem.models.v2.content;
 
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static java.text.MessageFormat.format;
 
-public class Text extends ModelProxy {
+public class Text extends BaseComponent {
     protected void ready() {
 
         /*

@@ -5,8 +5,7 @@ import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.Rendition;
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.TagConstants;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -27,7 +26,7 @@ import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class Download extends ModelProxy {
+public class Download extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(Download.class);
 
     private static final String DEFAULT_I18N_CATEGORY = "download";

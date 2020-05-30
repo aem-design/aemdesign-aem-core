@@ -11,7 +11,7 @@ import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.TagConstants;
 import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.vault.util.JcrConstants;
@@ -37,7 +37,7 @@ import static design.aem.utils.components.ImagesUtil.*;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class AssetList extends ModelProxy {
+public class AssetList extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(AssetList.class);
 
     private List<Map<String, Object>> listItems;

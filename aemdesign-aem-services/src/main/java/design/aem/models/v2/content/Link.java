@@ -3,8 +3,7 @@ package design.aem.models.v2.content;
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.NameConstants;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -15,7 +14,7 @@ import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class Link extends ModelProxy {
+public class Link extends BaseComponent {
     protected void ready() {
         I18n i18n = new I18n(getRequest());
 

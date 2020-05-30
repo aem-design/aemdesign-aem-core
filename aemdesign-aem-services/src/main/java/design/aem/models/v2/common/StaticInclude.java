@@ -2,8 +2,7 @@ package design.aem.models.v2.common;
 
 import org.apache.jackrabbit.vault.util.JcrConstants;
 import com.day.cq.i18n.I18n;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 
@@ -12,7 +11,7 @@ import static design.aem.utils.components.ConstantsUtil.INHERITED_RESOURCE;
 import static design.aem.utils.components.ConstantsUtil.SITE_INCLUDE_PATHS;
 import static design.aem.utils.components.I18nUtil.*;
 
-public class StaticInclude extends ModelProxy {
+public class StaticInclude extends BaseComponent {
     protected void ready() {
         I18n i18n = new I18n(getRequest());
 

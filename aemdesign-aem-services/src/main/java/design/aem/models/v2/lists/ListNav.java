@@ -8,8 +8,7 @@ import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -28,12 +27,11 @@ import java.util.*;
 
 import static design.aem.models.v2.lists.List.SortOrder;
 import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX;
-import static design.aem.utils.components.CommonUtil.getBadgeFromSelectors;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ImagesUtil.FIELD_IMAGE_OPTION;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class ListNav extends ModelProxy {
+public class ListNav extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ListNav.class);
 
     private List<Map<String, Object>> listItems;

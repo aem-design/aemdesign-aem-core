@@ -5,7 +5,7 @@ import com.day.cq.dam.api.Asset;
 import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -24,7 +24,7 @@ import static design.aem.utils.components.ImagesUtil.*;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.*;
 
-public class Image extends ModelProxy {
+public class Image extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(Image.class);
 
     @SuppressWarnings({"Duplicates", "squid:S3776"})

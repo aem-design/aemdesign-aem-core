@@ -1,14 +1,13 @@
 package design.aem.models.v2.media;
 
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ResolverUtil.mappedUrl;
 
-public class Audio extends ModelProxy {
+public class Audio extends BaseComponent {
     protected void ready() {
         final String DEFAULT_ARIA_ROLE = "button";
         final String DEFAULT_ARIA_LABEL = "Audio Fragment";

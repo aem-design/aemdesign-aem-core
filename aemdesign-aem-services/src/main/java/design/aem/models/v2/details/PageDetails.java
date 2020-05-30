@@ -14,6 +14,6 @@ public class PageDetails extends GenericDetails {
 
     @Override
     protected void ready() {
-        generateComponentFields();
+        generateComponentPropertiesFromFields();
     }
 }

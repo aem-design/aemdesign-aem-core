@@ -2,8 +2,7 @@ package design.aem.models.v2.common;
 
 import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.Page;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 
@@ -12,7 +11,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 
-public class RedirectNotification extends ModelProxy {
+public class RedirectNotification extends BaseComponent {
     protected void ready() {
         I18n i18n = new I18n(getRequest());
 

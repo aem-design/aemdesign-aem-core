@@ -2,7 +2,7 @@ package design.aem.models.v2.layout;
 
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.Tag;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.services.ContentAccess;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang.StringUtils;
@@ -21,7 +21,7 @@ import static design.aem.utils.components.ImagesUtil.*;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 @SuppressWarnings({"Duplicates", "squid:S3776"})
-public class ContentBlock extends ModelProxy {
+public class ContentBlock extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContentBlock.class);
 
     protected final String PAR_NAME = DEFAULT_PAR_NAME;

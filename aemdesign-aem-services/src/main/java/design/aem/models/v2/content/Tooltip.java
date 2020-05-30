@@ -1,12 +1,11 @@
 package design.aem.models.v2.content;
 
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 
-public class Tooltip extends ModelProxy {
+public class Tooltip extends BaseComponent {
     protected void ready() {
         final String DEFAULT_ARIA_ROLE = "tooltip";
 

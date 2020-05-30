@@ -1,8 +1,7 @@
 package design.aem.models.v2.layout;
 
 import com.day.cq.wcm.api.Page;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.BooleanUtils;
 
@@ -17,7 +16,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-public class Breadcrumb extends ModelProxy {
+public class Breadcrumb extends BaseComponent {
     protected void ready() {
 
         final String DEFAULT_DELIMITER = "";

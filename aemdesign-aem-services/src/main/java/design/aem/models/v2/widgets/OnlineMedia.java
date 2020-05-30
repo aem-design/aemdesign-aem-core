@@ -1,14 +1,13 @@
 package design.aem.models.v2.widgets;
 
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
 
-public class OnlineMedia extends ModelProxy {
+public class OnlineMedia extends BaseComponent {
     @SuppressWarnings("Duplicates")
     protected void ready() {
         setComponentFields(new Object[][]{
