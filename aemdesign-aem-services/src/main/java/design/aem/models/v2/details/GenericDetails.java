@@ -6,7 +6,7 @@ import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.google.common.base.Throwables;
 import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.models.v2.content.ContentTemplate;
 import design.aem.services.ContentAccess;
 import design.aem.utils.components.ComponentsUtil;
@@ -42,7 +42,7 @@ import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class GenericDetails extends ModelProxy {
+public class GenericDetails extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(GenericDetails.class);
 
     protected static String COMPONENT_DETAILS_NAME = "generic-details";
@@ -168,22 +168,9 @@ public class GenericDetails extends ModelProxy {
     };
 
     protected void ready() {
-        setComponentFields(new Object[][]{
-            {FIELD_VARIANT_FIELDS, new String[]{}},
-            {FIELD_VARIANT_FIELDS_TEMPLATE, new String[]{}},
+        setAdditionalComponentFields();
 
-            // Legacy variants
-            {FIELD_LEGACY_BADGE_LIST, legacyBadgeList},
-            {FIELD_LEGACY_BADGE_LIST_MAPPING, legacyBadgeListMapping},
-            {FIELD_LEGACY_BADGE_CNNFIG_TAGS,
-                resolveTenantIdFromPath(getCurrentPage().getPath()).concat(DEFAULT_TAG_LEGACY_BADGE_CONFIG)},
-
-            // Content Fragment
-            {FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION},
-            {FIELD_CONTENTFRAGMENT_FRAGMENTPATH, StringUtils.EMPTY},
-        });
-
-        generateComponentFields();
+        generateComponentPropertiesFromFields();
 
         // Process content fragment content if its used
         String fragmentPath = componentProperties.get(FIELD_CONTENTFRAGMENT_FRAGMENTPATH, "");
@@ -204,9 +191,29 @@ public class GenericDetails extends ModelProxy {
     }
 
     /**
+     * Sets additional fields in conjunction with the the defaults in {@link #generateComponentPropertiesFromFields}.
+     */
+    protected void setAdditionalComponentFields() {
+        setComponentFields(new Object[][]{
+            {FIELD_VARIANT_FIELDS, new String[]{}},
+            {FIELD_VARIANT_FIELDS_TEMPLATE, new String[]{}},
+
+            // Legacy variants
+            {FIELD_LEGACY_BADGE_LIST, legacyBadgeList},
+            {FIELD_LEGACY_BADGE_LIST_MAPPING, legacyBadgeListMapping},
+            {FIELD_LEGACY_BADGE_CNNFIG_TAGS,
+                resolveTenantIdFromPath(getCurrentPage().getPath()).concat(DEFAULT_TAG_LEGACY_BADGE_CONFIG)},
+
+            // Content Fragment
+            {FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION},
+            {FIELD_CONTENTFRAGMENT_FRAGMENTPATH, StringUtils.EMPTY},
+        });
+    }
+
+    /**
      * Process the component fields and generate the {@link #componentProperties} instance.
      */
-    protected void generateComponentFields() {
+    protected void generateComponentPropertiesFromFields() {
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
         setComponentFieldsDefaults();
@@ -305,6 +312,19 @@ public class GenericDetails extends ModelProxy {
             if (componentProperties == null) {
                 componentProperties = getNewComponentProperties(this);
             }
+
+            // Ensure the formatted title & description have values
+            componentProperties.put(DETAILS_DESCRIPTION,
+                componentProperties.get(FIELD_DESCRIPTION_FORMATTED, StringUtils.EMPTY));
+
+            if (isEmpty(componentProperties.get(FIELD_TITLE_FORMATTED, StringUtils.EMPTY))) {
+                componentProperties.put(FIELD_TITLE_FORMATTED,
+                    componentProperties.get(FIELD_TITLE, StringUtils.EMPTY));
+
+                componentProperties.put(FIELD_TITLE_FORMATTED_TEXT,
+                    componentProperties.get(FIELD_TITLE, StringUtils.EMPTY));
+            }
+
             //read the image node
             componentProperties.putAll(getAssetInfo(getResourceResolver(),
                 getPageImgReferencePath(getResourcePage()),

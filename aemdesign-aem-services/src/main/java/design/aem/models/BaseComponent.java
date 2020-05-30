@@ -12,8 +12,8 @@ import java.lang.reflect.Field;
 
 import static design.aem.utils.components.ComponentsUtil.DEFAULT_TENANT;
 
-public abstract class ModelProxy extends WCMUsePojo {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(ModelProxy.class);
+public abstract class BaseComponent extends WCMUsePojo {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(BaseComponent.class);
 
     protected ComponentProperties componentProperties = null;
 

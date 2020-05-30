@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.TagUtil.getTagValueAsAdmin;
-import static org.eclipse.jetty.util.LazyList.isEmpty;
 
 public class ContactDetails extends GenericDetails {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContactDetails.class);
@@ -31,6 +30,18 @@ public class ContactDetails extends GenericDetails {
 
     @Override
     protected void ready() {
+        setAdditionalComponentFields();
+
+        generateComponentPropertiesFromFields();
+
+        // Grab the tag value for honorific prefix
+        componentProperties.put(FIELD_HONORIFIC_PREFIX, getTagValueAsAdmin(
+            componentProperties.get(FIELD_HONORIFIC_PREFIX, StringUtils.EMPTY),
+            getSlingScriptHelper()));
+    }
+
+    @Override
+    protected void setAdditionalComponentFields() {
         setComponentFields(new Object[][]{
             {FIELD_CONTACT_NUMBER, StringUtils.EMPTY},
             {FIELD_EMAIL, StringUtils.EMPTY},
@@ -40,25 +51,5 @@ public class ContactDetails extends GenericDetails {
             {FIELD_HONORIFIC_PREFIX, StringUtils.EMPTY}, // Tag path
             {FIELD_JOB_TITLE, StringUtils.EMPTY},
         });
-
-        generateComponentFields();
-
-        // Grab value for prefix
-        componentProperties.put(FIELD_HONORIFIC_PREFIX, getTagValueAsAdmin(
-            componentProperties.get(FIELD_HONORIFIC_PREFIX, StringUtils.EMPTY),
-            getSlingScriptHelper()));
-
-        componentProperties.put(DETAILS_DESCRIPTION,
-            componentProperties.get(FIELD_DESCRIPTION_FORMATTED, StringUtils.EMPTY));
-
-        // Ensure the formatted titles have values
-        // TODO: Moves these into GenericDetails?
-        if (isEmpty(componentProperties.get(FIELD_TITLE_FORMATTED, ""))) {
-            componentProperties.put(FIELD_TITLE_FORMATTED,
-                componentProperties.get(FIELD_TITLE, StringUtils.EMPTY));
-
-            componentProperties.put(FIELD_TITLE_FORMATTED_TEXT,
-                componentProperties.get(FIELD_TITLE, StringUtils.EMPTY));
-        }
     }
 }
