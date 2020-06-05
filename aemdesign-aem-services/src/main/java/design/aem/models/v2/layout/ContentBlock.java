@@ -46,7 +46,7 @@ public class ContentBlock extends BaseComponent {
     protected final String FIELD_DATA_TOGGLE = "dataToggle";
 
     @SuppressWarnings({"Duplicates", "squid:S3776"})
-    protected void ready() {
+    public void ready() {
         setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {FIELD_TITLE, StringUtils.EMPTY},

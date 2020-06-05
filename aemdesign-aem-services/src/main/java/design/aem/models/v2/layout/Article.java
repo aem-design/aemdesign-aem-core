@@ -9,7 +9,7 @@ import static design.aem.utils.components.ImagesUtil.getBackgroundImageRendition
 
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class Article extends BaseComponent {
-    protected void ready() {
+    public void ready() {
         final String DEFAULT_ARIA_ROLE = "article";
 
         /*

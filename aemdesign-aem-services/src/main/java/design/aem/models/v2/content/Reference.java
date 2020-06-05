@@ -12,7 +12,7 @@ import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Reference extends BaseComponent {
-    protected void ready() {
+    public void ready() {
         setComponentFields(new Object[][]{
             {"path", StringUtils.EMPTY},
             {"selectors", StringUtils.EMPTY},

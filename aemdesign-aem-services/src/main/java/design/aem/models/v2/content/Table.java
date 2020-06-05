@@ -9,7 +9,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Table extends BaseComponent {
-    protected void ready() {
+    public void ready() {
 
         /*
           Component Fields Helper

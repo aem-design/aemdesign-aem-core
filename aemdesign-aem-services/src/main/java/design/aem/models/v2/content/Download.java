@@ -39,7 +39,7 @@ public class Download extends BaseComponent {
     private static final String FIELD_THUMBNAIL = DEFAULT_THUMBNAIL_IMAGE_NODE_NAME;
 
     @SuppressWarnings({"uncheked", "squid:S3776"})
-    protected void ready() {
+    public void ready() {
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
         setComponentFields(new Object[][]{

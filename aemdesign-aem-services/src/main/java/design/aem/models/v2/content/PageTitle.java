@@ -8,7 +8,7 @@ import org.apache.jackrabbit.vault.util.JcrConstants;
 import static design.aem.utils.components.ComponentsUtil.*;
 
 public class PageTitle extends BaseComponent {
-    protected void ready() {
+    public void ready() {
 
         final String DEFAULT_TAG_TYPE = "span";
 

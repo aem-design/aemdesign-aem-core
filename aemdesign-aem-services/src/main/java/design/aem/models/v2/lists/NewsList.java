@@ -9,7 +9,7 @@ public class NewsList extends List {
 
     @Override
     @SuppressWarnings("Duplicates")
-    protected void ready() {
+    public void ready() {
         I18n i18n = new I18n(getRequest());
 
         detailsNameSuffix = new String[]{"news-details", "generic-details"};

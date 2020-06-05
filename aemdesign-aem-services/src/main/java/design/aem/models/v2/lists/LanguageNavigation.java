@@ -25,7 +25,7 @@ public class LanguageNavigation extends BaseComponent {
     private static final String FIELD_DESCRIPTION = "description";
 
     @SuppressWarnings({"Duplicates", "squid:S3776"})
-    protected void ready() {
+    public void ready() {
         /*
           Component Fields Helper
 

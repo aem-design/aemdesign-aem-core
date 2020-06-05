@@ -12,7 +12,7 @@ import static design.aem.utils.components.ConstantsUtil.SITE_INCLUDE_PATHS;
 import static design.aem.utils.components.I18nUtil.*;
 
 public class StaticInclude extends BaseComponent {
-    protected void ready() {
+    public void ready() {
         I18n i18n = new I18n(getRequest());
 
         final String FIELD_SHOW_CONTENT = "showContent";

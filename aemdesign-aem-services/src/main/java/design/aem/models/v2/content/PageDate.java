@@ -24,7 +24,7 @@ public class PageDate extends BaseComponent {
     @SuppressWarnings({"squid:S3008"})
     private static final String PUBLISH_DATE_DISPLAY_FORMAT = "EEEE dd MMMM YYYY";
 
-    protected void ready() {
+    public void ready() {
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "pagedate";

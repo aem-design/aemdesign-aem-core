@@ -137,7 +137,7 @@ public class List extends BaseComponent {
     protected boolean showHidden;
     protected boolean showInvalid;
 
-    protected void ready() {
+    public void ready() {
         loadConfig();
     }
 

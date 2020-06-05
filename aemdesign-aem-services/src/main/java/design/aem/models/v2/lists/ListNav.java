@@ -75,7 +75,7 @@ public class ListNav extends BaseComponent {
     @Default(values = StringUtils.EMPTY)
     private String detailsBadge;
 
-    protected void ready() {
+    public void ready() {
         PARENT_PATH_DEFAULT = getCurrentPage().getPath();
 
         /*

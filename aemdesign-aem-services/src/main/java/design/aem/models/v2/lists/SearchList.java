@@ -54,7 +54,7 @@ public class SearchList extends BaseComponent {
     private static final String RESULT_STATIC_TEXT = "statisticsText";
 
     @SuppressWarnings({"Duplicates", "squid:S3776"})
-    protected void ready() {
+    public void ready() {
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "searchlist";

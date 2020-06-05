@@ -10,10 +10,7 @@ public class PageDetails extends GenericDetails {
         COMPONENT_DETAILS_NAME = "page-details";
 
         DEFAULT_I18N_CATEGORY = "page-details";
-    }
 
-    @Override
-    protected void ready() {
-        generateComponentPropertiesFromFields();
+        USE_SIDE_EFFECTS = false;
     }
 }

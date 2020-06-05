@@ -7,7 +7,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class EmbedSource extends BaseComponent {
-    protected void ready() {
+    public void ready() {
         /*
           Component Fields Helper
 

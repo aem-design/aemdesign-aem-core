@@ -24,7 +24,7 @@ public class DataLayer extends BaseComponent {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataLayer.class);
 
     @SuppressWarnings({"Duplicates", "squid:S2637", "squid:S2259", "squid:S3776"})
-    protected void ready() {
+    public void ready() {
         componentProperties = ComponentsUtil.getNewComponentProperties(this);
 
         //set defaults variant template before potentially overriding

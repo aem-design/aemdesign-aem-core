@@ -8,7 +8,7 @@ import design.aem.utils.components.ComponentsUtil;
 import static design.aem.utils.components.ComponentsUtil.*;
 
 public class ShareButton extends BaseComponent {
-    protected void ready() {
+    public void ready() {
         final String DEFAULT_ARIA_ROLE = "banner";
         final String DEFAULT_CLOUDCONFIG_ADDTHIS = "addthisconnect";
         final String DEFAULT_CLOUDCONFIG_ADDTHIS_ID = "pubId";

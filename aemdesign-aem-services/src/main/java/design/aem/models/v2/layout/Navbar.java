@@ -13,7 +13,7 @@ import static design.aem.utils.components.ImagesUtil.getBackgroundImageRendition
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class Navbar extends BaseComponent {
     @SuppressWarnings("Duplicates")
-    protected void ready() {
+    public void ready() {
         I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_ARIA_ROLE = "navigation";

@@ -9,7 +9,7 @@ import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Template extends BaseComponent {
-    protected void ready() {
+    public void ready() {
         componentProperties = ComponentsUtil.getNewComponentProperties(this);
 
         String detailsPath = findComponentInPage(getCurrentPage(), DEFAULT_LIST_DETAILS_SUFFIX);

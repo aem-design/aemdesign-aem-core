@@ -15,7 +15,7 @@ import static design.aem.utils.components.SecurityUtil.getUserFullName;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 public class PageAuthor extends BaseComponent {
-    protected void ready() throws Exception {
+    public void ready() throws Exception {
         com.adobe.granite.security.user.UserPropertiesService userPropertiesService = getSlingScriptHelper().getService(com.adobe.granite.security.user.UserPropertiesService.class);
 
         String pageAuthorFullName = "";

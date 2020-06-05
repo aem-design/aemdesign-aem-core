@@ -84,6 +84,8 @@ public class GenericDetails extends BaseComponent {
     protected static Boolean DEFAULT_SHOW_PAGE_DATE = true;
     protected static Boolean DEFAULT_SHOW_PARSYS = true;
 
+    protected static Boolean USE_SIDE_EFFECTS = true;
+
     protected static String DEFAULT_TAG_LEGACY_BADGE_CONFIG = ":component-dialog/components/details/generic-details/legacy";
 
     // Used for backwards compatibility of details components
@@ -167,13 +169,22 @@ public class GenericDetails extends BaseComponent {
         new String[]{"simple-metadata"},
     };
 
-    protected void ready() {
+    public void ready() {
         setAdditionalComponentFields();
 
         generateComponentPropertiesFromFields();
 
+        if (USE_SIDE_EFFECTS) {
+            processGenericSideEffects();
+        }
+    }
+
+    /**
+     * Process some generic side-effects that apply generally only to {@code GenericDetails}.
+     */
+    protected void processGenericSideEffects() {
         // Process content fragment content if its used
-        String fragmentPath = componentProperties.get(FIELD_CONTENTFRAGMENT_FRAGMENTPATH, "");
+        String fragmentPath = componentProperties.get(FIELD_CONTENTFRAGMENT_FRAGMENTPATH, StringUtils.EMPTY);
 
         if (isNotEmpty(fragmentPath)) {
             String variationName = componentProperties.get(

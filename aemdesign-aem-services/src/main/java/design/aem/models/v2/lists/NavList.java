@@ -20,7 +20,7 @@ import static design.aem.utils.components.I18nUtil.*;
 public class NavList extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(NavList.class);
 
-    protected void ready() {
+    public void ready() {
         I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_LISTFROM = "children";

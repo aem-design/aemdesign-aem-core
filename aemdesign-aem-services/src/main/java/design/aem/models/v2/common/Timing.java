@@ -70,7 +70,7 @@ public class Timing extends BaseComponent {
     }
 
     @SuppressWarnings("squid:S1604")
-    protected void ready() {
+    public void ready() {
         setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
         });

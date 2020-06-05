@@ -35,7 +35,7 @@ public class NewsDetails extends GenericDetails {
 
     @Override
     @SuppressWarnings("Duplicates")
-    protected void ready() {
+    public void ready() {
         I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_ARIA_ROLE = "banner";

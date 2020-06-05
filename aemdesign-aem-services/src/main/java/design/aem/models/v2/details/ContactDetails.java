@@ -26,13 +26,13 @@ public class ContactDetails extends GenericDetails {
 //        DEFAULT_TITLE_TAG_TYPE = "div";
 
         DEFAULT_I18N_CATEGORY = "contact-details";
+
+        USE_SIDE_EFFECTS = false;
     }
 
     @Override
-    protected void ready() {
-        setAdditionalComponentFields();
-
-        generateComponentPropertiesFromFields();
+    public void ready() {
+        super.ready();
 
         // Grab the tag value for honorific prefix
         componentProperties.put(FIELD_HONORIFIC_PREFIX, getTagValueAsAdmin(

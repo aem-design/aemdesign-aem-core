@@ -18,7 +18,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class ContentBlockMenu extends BaseComponent {
-    protected void ready() throws Exception {
+    public void ready() throws Exception {
         final String DEFAULT_MENUSOURCE_PARENT = "parent";
         final String DEFAULT_MENUSOURCE_PAGEPATH = "pagepath";
         final String FIELD_MENUSOURCE = "menuSource";

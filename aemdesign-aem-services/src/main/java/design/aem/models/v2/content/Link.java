@@ -15,7 +15,7 @@ import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Link extends BaseComponent {
-    protected void ready() {
+    public void ready() {
         I18n i18n = new I18n(getRequest());
 
         final String FIELD_LINKURL = "linkUrl";

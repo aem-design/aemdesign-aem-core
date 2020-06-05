@@ -23,7 +23,7 @@ public abstract class BaseComponent extends WCMUsePojo {
     private static final String ANALYTICS_FIELDS = "analyticsFields";
     private static final String COMPONENT_FIELDS = "componentFields";
 
-    protected abstract void ready() throws Exception; //NOSONAR generic exception is fine
+    public abstract void ready() throws Exception; //NOSONAR generic exception is fine
 
     @Override
     public void activate() throws Exception {

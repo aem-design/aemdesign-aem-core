@@ -8,7 +8,7 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static java.text.MessageFormat.format;
 
 public class Text extends BaseComponent {
-    protected void ready() {
+    public void ready() {
 
         /*
           Component Fields Helper

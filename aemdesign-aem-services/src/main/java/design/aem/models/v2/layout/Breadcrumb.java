@@ -17,7 +17,7 @@ import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class Breadcrumb extends BaseComponent {
-    protected void ready() {
+    public void ready() {
 
         final String DEFAULT_DELIMITER = "";
         final String DEFAULT_TRAIL = "";

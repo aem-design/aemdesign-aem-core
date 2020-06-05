@@ -59,7 +59,7 @@ public class TagList extends BaseComponent {
     private long totalMatches;
     private SortOrder sortOrder;
 
-    protected void ready() {
+    public void ready() {
         /*
           Component Fields Helper
 

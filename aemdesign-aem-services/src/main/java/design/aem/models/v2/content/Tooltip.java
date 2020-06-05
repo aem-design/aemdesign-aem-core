@@ -6,7 +6,7 @@ import design.aem.utils.components.ComponentsUtil;
 import static design.aem.utils.components.ComponentsUtil.*;
 
 public class Tooltip extends BaseComponent {
-    protected void ready() {
+    public void ready() {
         final String DEFAULT_ARIA_ROLE = "tooltip";
 
         setComponentFields(new Object[][]{

@@ -28,7 +28,7 @@ public class Image extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(Image.class);
 
     @SuppressWarnings({"Duplicates", "squid:S3776"})
-    protected void ready() {
+    public void ready() {
         I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "image";

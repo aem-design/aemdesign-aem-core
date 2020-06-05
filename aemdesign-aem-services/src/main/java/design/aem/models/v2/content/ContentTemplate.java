@@ -14,7 +14,7 @@ public class ContentTemplate extends BaseComponent {
     public static final String REQUEST_COMPONENT_PROPERTIES = "design.aem.models.v2.content.ContentTemplate.componentProperties";
     public static final String FIELD_CUSTOM_TEMPLATE_JEXL = "customTemplateJEXL";
 
-    protected void ready() {
+    public void ready() {
         /*
           Component Fields Helper
 

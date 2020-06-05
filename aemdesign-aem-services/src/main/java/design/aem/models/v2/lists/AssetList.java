@@ -72,7 +72,7 @@ public class AssetList extends BaseComponent {
     private SortOrder sortOrder;
 
     @SuppressWarnings("Duplicates")
-    protected void ready() {
+    public void ready() {
         /*
           Component Fields Helper
 

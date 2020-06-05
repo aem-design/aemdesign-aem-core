@@ -8,7 +8,7 @@ public class ContactList extends List {
     private final String DEFAULT_I18N_CATEGORY = "contactlist";
 
     @Override
-    protected void ready() {
+    public void ready() {
         I18n i18n = new I18n(getRequest());
 
         detailsNameSuffix = new String[]{"contact-details", "generic-details"};

@@ -85,7 +85,7 @@ public class Columns extends BaseComponent {
         return numCols;
     }
 
-    protected void ready() {
+    public void ready() {
         I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "columns";

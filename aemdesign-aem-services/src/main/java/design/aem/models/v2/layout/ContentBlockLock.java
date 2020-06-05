@@ -29,7 +29,7 @@ public class ContentBlockLock extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContentBlockLock.class);
 
     @SuppressWarnings({"Duplicates", "squid:S3776"})
-    protected void ready() throws Exception {
+    public void ready() throws Exception {
         I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "contentblock";

@@ -12,7 +12,7 @@ import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 
 public class RedirectNotification extends BaseComponent {
-    protected void ready() {
+    public void ready() {
         I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "redirectnotification";

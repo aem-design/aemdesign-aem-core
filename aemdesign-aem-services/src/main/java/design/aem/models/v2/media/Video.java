@@ -23,7 +23,7 @@ public class Video extends BaseComponent {
     private static final String POPUP_WIDTH = "lightboxWidth";
 
     @SuppressWarnings({"Duplicates", "squid:S3776"})
-    protected void ready() throws Exception {
+    public void ready() throws Exception {
         setComponentFields(new Object[][]{
             {POPUP_HEIGHT, "70"},
             {POPUP_WIDTH, "70"},

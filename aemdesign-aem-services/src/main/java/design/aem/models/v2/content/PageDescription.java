@@ -8,7 +8,7 @@ import org.apache.jackrabbit.vault.util.JcrConstants;
 import static design.aem.utils.components.ComponentsUtil.*;
 
 public class PageDescription extends BaseComponent {
-    protected void ready() {
+    public void ready() {
         setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {JcrConstants.JCR_DESCRIPTION, ""}

@@ -15,7 +15,7 @@ import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class ContentTabs extends BaseComponent {
-    protected void ready() {
+    public void ready() {
         final String DEFAULT_LISTFROM_CHILDREN = "children";
         final String DEFAULT_LISTFROM_STATIC = "static";
         final String FIELD_LISTFROM = "listFrom";

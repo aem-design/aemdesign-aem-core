@@ -53,7 +53,7 @@ public class Vue extends BaseComponent {
     private Set<String> runModes;
 
     @SuppressWarnings("Duplicates")
-    protected void ready() {
+    public void ready() {
         setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {FIELD_ANALYTICS_NAME, StringUtils.EMPTY},

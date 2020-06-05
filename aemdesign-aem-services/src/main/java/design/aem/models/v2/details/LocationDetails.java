@@ -26,7 +26,7 @@ public class LocationDetails extends GenericDetails {
 
     @Override
     @SuppressWarnings("Duplicates")
-    protected void ready() {
+    public void ready() {
         I18n i18n = new I18n(getRequest());
 
         final String DEFAULT_I18N_CATEGORY = "location-detail";
