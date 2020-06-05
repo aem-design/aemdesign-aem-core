@@ -242,6 +242,8 @@ public class ComponentsUtil {
     public static final String FIELD_HREF = "href"; //NOSONAR
     public static final String FIELD_TITLE = "title";
     public static final String FIELD_TITLE_FORMAT = "titleFormat";
+    public static final String FIELD_TITLE_FORMATTED = "titleFormatted";
+    public static final String FIELD_TITLE_FORMATTED_TEXT = "titleFormattedText";
     public static final String FIELD_TITLE_TAG_TYPE = "titleType";
     public static final String FIELD_HIDE_TITLE = "hideTitle";
     public static final String FIELD_DESCRIPTION = "description";
@@ -253,6 +255,9 @@ public class ComponentsUtil {
     public static final String FIELD_SHOW_PAGEDATE = "showPageDate";
     public static final String FIELD_SHOW_PARSYS = "showParsys";
     public static final String FIELD_USE_CONTAINER = "useContainer";
+
+    public static final String FIELD_CATEGORY = "category";
+    public static final String FIELD_SUBCATEGORY = "subCategory";
     public static final String FIELD_TAGS = TagConstants.PN_TAGS;
 
     public static final String FIELD_BADGE_PAGE = "badgePage"; //NOSONAR

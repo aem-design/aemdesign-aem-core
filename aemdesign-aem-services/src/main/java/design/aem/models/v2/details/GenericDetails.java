@@ -50,10 +50,6 @@ public class GenericDetails extends BaseComponent {
     protected static String PAR_NAME = DEFAULT_PAR_NAME;
     protected static String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
 
-    protected static String FIELD_TITLE_FORMATTED = "titleFormatted";
-    protected static String FIELD_TITLE_FORMATTED_TEXT = "titleFormattedText";
-    protected static String FIELD_SUBCATEGORY = "subCategory";
-    protected static String FIELD_CATEGORY = "category";
     protected static String FIELD_LEGACY_BADGE_CONFIG = "legacyBadgeConfig";
     protected static String FIELD_LEGACY_BADGE_SELECTED = "legacyBadgeSelected";
     protected static String FIELD_LEGACY_BADGE = "legacyBadge";
@@ -265,8 +261,8 @@ public class GenericDetails extends BaseComponent {
             {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
 
             // Tagging
-            {FIELD_TAGS, new String[]{}},
             {FIELD_SUBCATEGORY, new String[]{}},
+            {FIELD_TAGS, new String[]{}},
 
             // Miscellaneous..
             {FIELD_LINK_TARGET, StringUtils.EMPTY, FIELD_TARGET},
@@ -311,7 +307,7 @@ public class GenericDetails extends BaseComponent {
     protected void setComponentFieldsDefaults() {
         DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
         DEFAULT_DESCRIPTION = getResourcePage().getDescription();
-        DEFAULT_SUBTITLE = getResourcePage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE, "");
+        DEFAULT_SUBTITLE = getResourcePage().getProperties().get(FIELD_PAGE_TITLE_SUBTITLE, StringUtils.EMPTY);
     }
 
     /***
@@ -356,12 +352,12 @@ public class GenericDetails extends BaseComponent {
                 getResourceImagePath(getResource(), DEFAULT_THUMBNAIL_IMAGE_NODE_NAME),
                 FIELD_PAGE_THUMBNAIL_IMAGE));
 
-            componentProperties.put(FIELD_REDIRECT_TARGET, getResourcePage().getProperties().get(FIELD_REDIRECT_TARGET, ""));
+            componentProperties.put(FIELD_REDIRECT_TARGET, getResourcePage().getProperties().get(FIELD_REDIRECT_TARGET, StringUtils.EMPTY));
 
             //set thumbnail path for image node
             componentProperties.put(FIELD_PAGE_IMAGE_THUMBNAIL,
                 getBestFitRendition(
-                    componentProperties.get(FIELD_PAGE_IMAGE, ""),
+                    componentProperties.get(FIELD_PAGE_IMAGE, StringUtils.EMPTY),
                     componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
                     getResourceResolver()
                 )
@@ -370,7 +366,7 @@ public class GenericDetails extends BaseComponent {
             //set thumbnail path for secondary image node
             componentProperties.put(FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL,
                 getBestFitRendition(
-                    componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE, ""),
+                    componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE, StringUtils.EMPTY),
                     componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
                     getResourceResolver()
                 )
@@ -379,7 +375,7 @@ public class GenericDetails extends BaseComponent {
             //set thumbnail path for thumbnail image node
             componentProperties.put(FIELD_PAGE_THUMBNAIL_IMAGE_THUMBNAIL,
                 getBestFitRendition(
-                    componentProperties.get(FIELD_PAGE_THUMBNAIL_IMAGE, ""),
+                    componentProperties.get(FIELD_PAGE_THUMBNAIL_IMAGE, StringUtils.EMPTY),
                     componentProperties.get(DETAILS_THUMBNAIL_WIDTH, DEFAULT_THUMB_WIDTH_SM),
                     getResourceResolver()
                 )
@@ -462,7 +458,7 @@ public class GenericDetails extends BaseComponent {
             }
 
             //if COMPONENT_VARIANT_TEMPLATE has not been set do it now
-            if (isEmpty(componentProperties.get(COMPONENT_VARIANT_TEMPLATE, ""))) {
+            if (isEmpty(componentProperties.get(COMPONENT_VARIANT_TEMPLATE, StringUtils.EMPTY))) {
 
                 //only process variantTemplate if its not been set already
                 String variant = componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
@@ -483,7 +479,7 @@ public class GenericDetails extends BaseComponent {
             componentProperties.put(FIELD_CANONICAL_URL, mappedUrl(getResourceResolver(), getRequest(), getResourcePage().getPath()).concat(DEFAULT_EXTENTION));
 
             //get legacy badge configs from tags
-            String legacyBadgeConfigTags = componentProperties.get(FIELD_LEGACY_BADGE_CNNFIG_TAGS, "");
+            String legacyBadgeConfigTags = componentProperties.get(FIELD_LEGACY_BADGE_CNNFIG_TAGS, StringUtils.EMPTY);
             if (isNotEmpty(legacyBadgeConfigTags)) {
                 Map<String, Map> legacyBadgeConfig = getTagsAsAdmin(
                     getSlingScriptHelper(),
@@ -597,28 +593,28 @@ public class GenericDetails extends BaseComponent {
 
         //get badge action attributes
         Map<String, String> badgeLinkAttr = new HashMap<>();
-        badgeLinkAttr.put(FIELD_TARGET, componentProperties.get(FIELD_LINK_TARGET, ""));
+        badgeLinkAttr.put(FIELD_TARGET, componentProperties.get(FIELD_LINK_TARGET, StringUtils.EMPTY));
         if (isNotEmpty(getPageRedirect(page))) {
             badgeLinkAttr.put(FIELD_EXTERNAL, "true");
         }
-        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_TRACK, componentProperties.get(DETAILS_BADGE_ANALYTICS_TRACK, ""));
-        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LOCATION, componentProperties.get(DETAILS_BADGE_ANALYTICS_LOCATION, ""));
-        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LABEL, componentProperties.get(DETAILS_BADGE_ANALYTICS_LABEL, ""));
-        badgeLinkAttr.put(COMPONENT_ATTRIBUTE_INPAGEPATH, componentProperties.get(COMPONENT_INPAGEPATH, ""));
+        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_TRACK, componentProperties.get(DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY));
+        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LOCATION, componentProperties.get(DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY));
+        badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LABEL, componentProperties.get(DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY));
+        badgeLinkAttr.put(COMPONENT_ATTRIBUTE_INPAGEPATH, componentProperties.get(COMPONENT_INPAGEPATH, StringUtils.EMPTY));
 
         badgeConfig.put(DETAILS_BADGE_LINK_ATTR, badgeLinkAttr);
 
         //get badge image attributes
         Map<String, String> badgeImageAttr = new HashMap<>();
-        badgeImageAttr.put(FIELD_DATA_ASSET_PRIMARY_ID, componentProperties.get(FIELD_PAGE_IMAGE_ID, ""));
-        badgeImageAttr.put(FIELD_DATA_ASSET_PRIMARY_LICENSE, componentProperties.get(FIELD_PAGE_IMAGE_LICENSE_INFO, ""));
-        badgeImageAttr.put(FIELD_DATA_ASSET_SECONDARY_ID, componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY_ID, ""));
-        badgeImageAttr.put(FIELD_DATA_ASSET_SECONDARY_LICENSE, componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY_LICENSE_INFO, ""));
-        badgeImageAttr.put(FIELD_WIDTH, componentProperties.get(FIELD_THUMBNAIL_WIDTH, ""));
+        badgeImageAttr.put(FIELD_DATA_ASSET_PRIMARY_ID, componentProperties.get(FIELD_PAGE_IMAGE_ID, StringUtils.EMPTY));
+        badgeImageAttr.put(FIELD_DATA_ASSET_PRIMARY_LICENSE, componentProperties.get(FIELD_PAGE_IMAGE_LICENSE_INFO, StringUtils.EMPTY));
+        badgeImageAttr.put(FIELD_DATA_ASSET_SECONDARY_ID, componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY_ID, StringUtils.EMPTY));
+        badgeImageAttr.put(FIELD_DATA_ASSET_SECONDARY_LICENSE, componentProperties.get(FIELD_PAGE_IMAGE_SECONDARY_LICENSE_INFO, StringUtils.EMPTY));
+        badgeImageAttr.put(FIELD_WIDTH, componentProperties.get(FIELD_THUMBNAIL_WIDTH, StringUtils.EMPTY));
 
-        badgeImageAttr.put(FIELD_HEIGHT, componentProperties.get(FIELD_THUMBNAIL_HEIGHT, ""));
+        badgeImageAttr.put(FIELD_HEIGHT, componentProperties.get(FIELD_THUMBNAIL_HEIGHT, StringUtils.EMPTY));
 
-        String pageSecondaryImageThumbnail = componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL, "");
+        String pageSecondaryImageThumbnail = componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL, StringUtils.EMPTY);
         if (isNotEmpty(pageSecondaryImageThumbnail)) {
             badgeImageAttr.put(FIELD_CLASS, FIELD_DATA_ASSET_SECONDARY_CLASS);
             badgeImageAttr.put(FIELD_DATA_ASSET_SECONDARY_SRC, pageSecondaryImageThumbnail);
@@ -627,24 +623,24 @@ public class GenericDetails extends BaseComponent {
         badgeConfig.put(DETAILS_BADGE_IMAGE_ATTR, badgeImageAttr);
 
         //get badge class attributes
-        String badgeClassAttr = "";
+        String badgeClassAttr = StringUtils.EMPTY;
         badgeClassAttr += StringUtils.join(componentProperties.get(DETAILS_CARD_STYLE, new String[0]), " ");
         badgeClassAttr += StringUtils.join(componentProperties.get(DETAILS_TITLE_ICON, new String[0]), " ");
         badgeClassAttr += StringUtils.join(componentProperties.get(DETAILS_CARD_ADDITIONAL, new String[0]), " ");
 
         badgeConfig.put(DETAILS_BADGE_CLASS, badgeClassAttr);
 
-        String badgeClassIconAttr = "";
+        String badgeClassIconAttr = StringUtils.EMPTY;
         badgeClassIconAttr += StringUtils.join(componentProperties.get(DETAILS_CARD_ICON, new String[0]), " ");
 
         badgeConfig.put(DETAILS_BADGE_CLASS_ICON, badgeClassIconAttr);
 
 
         //check badge title
-        String pageTitle = componentProperties.get(FIELD_PAGE_TITLE, "");
+        String pageTitle = componentProperties.get(FIELD_PAGE_TITLE, StringUtils.EMPTY);
         badgeConfig.put(DETAILS_BADGE_TITLE, pageTitle);
         //trim pageNavTitle if needed
-        if (Boolean.parseBoolean(componentProperties.get(DETAILS_TITLE_TRIM, ""))) {
+        if (Boolean.parseBoolean(componentProperties.get(DETAILS_TITLE_TRIM, StringUtils.EMPTY))) {
             int badgeTitleTrimLengthMax = componentProperties.get(DETAILS_TITLE_TRIM_LENGTH_MAX, 20);
             if (StringUtils.isNotEmpty(pageTitle)) {
                 if (pageTitle.length() > badgeTitleTrimLengthMax) {
@@ -662,10 +658,10 @@ public class GenericDetails extends BaseComponent {
         }
 
         //check badge description
-        String badgeDescription = componentProperties.get(DETAILS_DESCRIPTION, "");
+        String badgeDescription = componentProperties.get(DETAILS_DESCRIPTION, StringUtils.EMPTY);
         badgeConfig.put(DETAILS_BADGE_DESCRIPTION, badgeDescription);
         //trim page description if needed
-        if (Boolean.parseBoolean(componentProperties.get(DETAILS_SUMMARY_TRIM, ""))) {
+        if (Boolean.parseBoolean(componentProperties.get(DETAILS_SUMMARY_TRIM, StringUtils.EMPTY))) {
             int badgeSummaryLengthMax = componentProperties.get(DETAILS_SUMMARY_TRIM_LENGTH_MAX, 20);
             if (StringUtils.isNotEmpty(badgeDescription)) {
                 if (badgeDescription.length() > badgeSummaryLengthMax) {
@@ -737,7 +733,7 @@ public class GenericDetails extends BaseComponent {
      * @param sling Sling script helper instance
      * @return returns map with substituted values (if any)
      */
-    public Map<String, Object> processComponentFields(
+    protected Map<String, Object> processComponentFields(
         ComponentProperties componentProperties,
         com.day.cq.i18n.I18n i18n,
         SlingScriptHelper sling
@@ -755,20 +751,29 @@ public class GenericDetails extends BaseComponent {
             String formattedTitleText = fragment.text();
 
             newFields.put(FIELD_TITLE_FORMATTED, formattedTitle.trim());
-
             newFields.put(FIELD_TITLE_FORMATTED_TEXT, formattedTitleText.trim());
 
             newFields.put(FIELD_DESCRIPTION_FORMATTED, compileComponentMessage(
                 FIELD_DESCRIPTION_FORMAT,
                 DEFAULT_DESCRIPTION_FORMAT,
                 componentProperties,
-                sling).trim()
-            );
+                sling).trim());
+
+            processAdditionalComponentFields(componentProperties, i18n, sling, newFields);
         } catch (Exception ex) {
             LOGGER.error("Could not process component fields in {}", COMPONENT_DETAILS_NAME);
         }
 
         return newFields;
+    }
+
+    protected void processAdditionalComponentFields(
+        ComponentProperties componentProperties,
+        com.day.cq.i18n.I18n i18n,
+        SlingScriptHelper sling,
+        Map<String, Object> newFields
+    ) {
+        LOGGER.info("processAdditionalComponentFields() not implemented!");
     }
 
     /**
