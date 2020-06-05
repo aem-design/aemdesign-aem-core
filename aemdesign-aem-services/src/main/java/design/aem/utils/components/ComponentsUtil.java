@@ -2305,10 +2305,10 @@ public class ComponentsUtil {
      * @return {@code fields} as an expression
      */
     public static String getFormatExpression(String ...fields) {
-        List<String> expression = new ArrayList<>();
+        List<String> expressions = Arrays.asList(fields);
 
-        Arrays.asList(fields).forEach(field -> expression.add(String.format("${%s}", field)));
+        expressions.replaceAll(field -> String.format("${%s}", field));
 
-        return String.join(" ", expression);
+        return String.join(" ", expressions);
     }
 }
