@@ -10,13 +10,13 @@ import static design.aem.utils.components.TagUtil.getTagValueAsAdmin;
 public class ContactDetails extends GenericDetails {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContactDetails.class);
 
-    protected static String FIELD_CONTACT_NUMBER = "contactNumber";
-    protected static String FIELD_EMAIL = "email";
-    protected static String FIELD_EMPLOYEE = "employee";
-    protected static String FIELD_FAMILY_NAME = "familyName";
-    protected static String FIELD_GIVEN_NAME = "givenName";
-    protected static String FIELD_HONORIFIC_PREFIX = "honorificPrefix";
-    protected static String FIELD_JOB_TITLE = "jobTitle";
+    protected static final String FIELD_CONTACT_NUMBER = "contactNumber";
+    protected static final String FIELD_EMAIL = "email";
+    protected static final String FIELD_EMPLOYEE = "employee";
+    protected static final String FIELD_FAMILY_NAME = "familyName";
+    protected static final String FIELD_GIVEN_NAME = "givenName";
+    protected static final String FIELD_HONORIFIC_PREFIX = "honorificPrefix";
+    protected static final String FIELD_JOB_TITLE = "jobTitle";
 
     static {
         COMPONENT_DETAILS_NAME = "contact-details";
