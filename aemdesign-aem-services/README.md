@@ -22,26 +22,15 @@ Use following template when creating new WCMUsePojo models
 ```java
 package design.aem.models.v2.details;
 
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
-import design.aem.utils.components.TagUtil;
-import com.day.cq.i18n.I18n;
+import design.aem.models.BaseComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PageDetails extends ModelProxy {
-
-    protected static final Logger LOGGER = LoggerFactory.getLogger(PageDetails.class);
-
-    protected ComponentProperties componentProperties = null;
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
+public class MyComponent extends BaseComponent {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(MyComponent.class);
     
+    @Override
     protected void ready() {
-        
-        com.day.cq.i18n.I18n i18n = new I18n(getRequest());
-
         /*
           Component Fields Helper
          
@@ -54,15 +43,6 @@ public class PageDetails extends ModelProxy {
         setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
         });
-        
-        componentProperties = ComponentsUtil.getComponentProperties(
-            this,
-            componentFields,
-            DEFAULT_FIELDS_STYLE,
-            DEFAULT_FIELDS_ACCESSIBILITY,
-            DEFAULT_FIELDS_ANALYTICS
-        );
-        
     }
 }
 ```
