@@ -40,6 +40,16 @@ public class EventDetails extends GenericDetails {
     protected static final String FIELD_EVENT_LOCATION = "eventLoc";
     protected static final String FIELD_EVENT_START_DATE = "eventStartDate";
     protected static final String FIELD_EVENT_END_DATE = "eventEndDate";
+    protected static final String FIELD_EVENT_REF_LABEL = "eventRefLabel";
+    protected static final String FIELD_EVENT_REF_LINK = "eventRefLink";
+    protected static final String FIELD_EVENT_REF_LABEL_TWO = "eventRefLabel2";
+    protected static final String FIELD_EVENT_REF_LINK_TWO = "eventRefLink2";
+    protected static final String FIELD_EVENT_DISPLAY_DATE_FORMAT = "eventDisplayDateFormat";
+    protected static final String FIELD_EVENT_DISPLAY_TIME_FORMAT = "eventDisplayTimeFormat";
+    protected static final String FIELD_EVENT_TIME_FORMAT = "eventTimeFormat";
+    protected static final String FIELD_USE_PARENT_PAGE_TITLE = "useParentPageTitle";
+    protected static final String FIELD_SUBTITLE_FORMAT = "subTitleFormat";
+    protected static final String FIELD_MENU_COLOR = "menuColor";
     protected static final String FIELD_SHOW_TAGS = "showTags";
 
     protected static Calendar DEFAULT_END_DATE = null;
@@ -53,9 +63,7 @@ public class EventDetails extends GenericDetails {
     public void ready() {
         super.ready();
 
-        if (Boolean.TRUE.equals(componentProperties.get("isPastEventDate", false))) {
-            componentProperties.put(DETAILS_CARD_ADDITIONAL, EVENT_FINISHED_CLASS);
-        }
+        processComponentProperties();
     }
 
     @Override
@@ -77,43 +85,41 @@ public class EventDetails extends GenericDetails {
             {FIELD_EVENT_END_DATE, DEFAULT_END_DATE},
             {FIELD_EVENT_START_DATE, DEFAULT_START_DATE},
             {FIELD_EVENT_LOCATION, StringUtils.EMPTY},
-            {"eventRefLabel", StringUtils.EMPTY},
-            {"eventRefLink", StringUtils.EMPTY},
-            {"eventRefLabel2", StringUtils.EMPTY},
-            {"eventRefLink2", StringUtils.EMPTY},
-            {"useParentPageTitle", false},
-            {"subTitleFormat", StringUtils.EMPTY},
-            {"eventDisplayDateFormat", StringUtils.EMPTY},
-            {"eventDisplayTimeFormat", StringUtils.EMPTY},
-            {"eventTimeFormat", EVENT_TIME_DEFAULT_FORMAT},
-            {"menuColor", StringUtils.EMPTY},
+            {FIELD_EVENT_REF_LABEL, StringUtils.EMPTY},
+            {FIELD_EVENT_REF_LINK, StringUtils.EMPTY},
+            {FIELD_EVENT_REF_LABEL_TWO, StringUtils.EMPTY},
+            {FIELD_EVENT_REF_LINK_TWO, StringUtils.EMPTY},
+            {FIELD_EVENT_DISPLAY_DATE_FORMAT, StringUtils.EMPTY},
+            {FIELD_EVENT_DISPLAY_TIME_FORMAT, StringUtils.EMPTY},
+            {FIELD_EVENT_TIME_FORMAT, EVENT_TIME_DEFAULT_FORMAT},
+            {FIELD_USE_PARENT_PAGE_TITLE, false},
+            {FIELD_SUBTITLE_FORMAT, StringUtils.EMPTY},
+            {FIELD_MENU_COLOR, StringUtils.EMPTY},
             {FIELD_SHOW_TAGS, false},
         });
     }
 
-    @Override
-    protected void processAdditionalComponentFields(
-        ComponentProperties componentProperties,
-        I18n i18n,
-        SlingScriptHelper sling,
-        Map<String, Object> newFields
-    ) {
+    protected void processComponentProperties() {
+        if (Boolean.TRUE.equals(componentProperties.get("isPastEventDate", false))) {
+            componentProperties.put(DETAILS_CARD_ADDITIONAL, EVENT_FINISHED_CLASS);
+        }
+
         Calendar eventStartDate = componentProperties.get(FIELD_EVENT_START_DATE, Calendar.getInstance());
         Calendar eventEndDate = componentProperties.get(FIELD_EVENT_END_DATE, Calendar.getInstance());
         String selectedEventTimeFormat = componentProperties.get("eventTimeFormat", StringUtils.EMPTY);
 
-        newFields.put("isPastEventDate", eventEndDate.before(Calendar.getInstance()));
+        componentProperties.put("isPastEventDate", eventEndDate.before(Calendar.getInstance()));
 
-        newFields.put(FIELD_EVENT_START_DATE, eventStartDate);
-        newFields.put(FIELD_EVENT_END_DATE, eventEndDate);
+        componentProperties.put(FIELD_EVENT_START_DATE, eventStartDate);
+        componentProperties.put(FIELD_EVENT_END_DATE, eventEndDate);
 
         FastDateFormat dateFormatString = FastDateFormat.getInstance(EVENT_DISPLAY_DATE_FORMAT_ISO);
 
         Date startDateTime = eventStartDate.getTime();
         Date endDateTime = eventEndDate.getTime();
 
-        newFields.put("eventStartDateISO", dateFormatString.format(startDateTime));
-        newFields.put("eventEndDateISO", dateFormatString.format(endDateTime));
+        componentProperties.put("eventStartDateISO", dateFormatString.format(startDateTime));
+        componentProperties.put("eventEndDateISO", dateFormatString.format(endDateTime));
 
         FastDateFormat dateFormat = FastDateFormat.getInstance(EVENT_DISPLAY_DATE_FORMAT);
         String eventStartDateText = dateFormat.format(startDateTime);
@@ -125,17 +131,17 @@ public class EventDetails extends GenericDetails {
         String eventStartDateLowercase = dateFormat.format(startDateTime).toLowerCase();
         String eventEndDateLowercase = dateFormat.format(endDateTime).toLowerCase();
 
-        newFields.put("eventStartDateText", eventStartDateText);
-        newFields.put("eventEndDateText", eventEndDateText);
+        componentProperties.put("eventStartDateText", eventStartDateText);
+        componentProperties.put("eventEndDateText", eventEndDateText);
 
-        newFields.put("eventStartDateUppercase", eventStartDateUppercase);
-        newFields.put("eventEndDateUppercase", eventEndDateUppercase);
+        componentProperties.put("eventStartDateUppercase", eventStartDateUppercase);
+        componentProperties.put("eventEndDateUppercase", eventEndDateUppercase);
 
-        newFields.put("eventStartDateLowercase", eventStartDateLowercase);
-        newFields.put("eventEndDateLowercase", eventEndDateLowercase);
+        componentProperties.put("eventStartDateLowercase", eventStartDateLowercase);
+        componentProperties.put("eventEndDateLowercase", eventEndDateLowercase);
 
         if (!selectedEventTimeFormat.equals(EVENT_TIME_DEFAULT_FORMAT)) {
-            selectedEventTimeFormat = getTagValueAsAdmin(selectedEventTimeFormat, sling);
+            selectedEventTimeFormat = getTagValueAsAdmin(selectedEventTimeFormat, getSlingScriptHelper());
         }
 
         FastDateFormat timeFormat = FastDateFormat.getInstance(selectedEventTimeFormat);
@@ -159,40 +165,40 @@ public class EventDetails extends GenericDetails {
             eventEndTimeMinFormatted = hourTimeFormat.format(endDateTime);
         }
 
-        newFields.put("eventStartTimeText", eventStartTimeText);
-        newFields.put("eventEndTimeText", eventEndTimeText);
+        componentProperties.put("eventStartTimeText", eventStartTimeText);
+        componentProperties.put("eventEndTimeText", eventEndTimeText);
 
-        newFields.put("eventStartTimeUppercase", eventStartTimeText.toUpperCase());
-        newFields.put("eventEndTimeUppercase", eventEndTimeText.toUpperCase());
+        componentProperties.put("eventStartTimeUppercase", eventStartTimeText.toUpperCase());
+        componentProperties.put("eventEndTimeUppercase", eventEndTimeText.toUpperCase());
 
-        newFields.put("eventStartTimeLowercase", eventStartTimeText.toLowerCase());
-        newFields.put("eventEndTimeLowercase", eventEndTimeText.toLowerCase());
+        componentProperties.put("eventStartTimeLowercase", eventStartTimeText.toLowerCase());
+        componentProperties.put("eventEndTimeLowercase", eventEndTimeText.toLowerCase());
 
-        newFields.put("eventStartTimeMinFormatted", eventStartTimeMinFormatted);
-        newFields.put("eventEndTimeMinFormatted", eventEndTimeMinFormatted);
+        componentProperties.put("eventStartTimeMinFormatted", eventStartTimeMinFormatted);
+        componentProperties.put("eventEndTimeMinFormatted", eventEndTimeMinFormatted);
 
-        newFields.put("eventStartTimeMinLowerFormatted", eventStartTimeMinFormatted.toLowerCase());
-        newFields.put("eventEndTimeMinLowerFormatted", eventEndTimeMinFormatted.toLowerCase());
+        componentProperties.put("eventStartTimeMinLowerFormatted", eventStartTimeMinFormatted.toLowerCase());
+        componentProperties.put("eventEndTimeMinLowerFormatted", eventEndTimeMinFormatted.toLowerCase());
 
-        newFields.put("eventStartTimeMinUpperFormatted", eventStartTimeMinFormatted.toUpperCase());
-        newFields.put("eventEndTimeMinUpperFormatted", eventEndTimeMinFormatted.toUpperCase());
+        componentProperties.put("eventStartTimeMinUpperFormatted", eventStartTimeMinFormatted.toUpperCase());
+        componentProperties.put("eventEndTimeMinUpperFormatted", eventEndTimeMinFormatted.toUpperCase());
 
-        newFields.put("subTitleFormatted", compileComponentMessage(
+        componentProperties.put("subTitleFormatted", compileComponentMessage(
             "subTitleFormat",
             DEFAULT_FORMAT_SUBTITLE,
             componentProperties,
-            sling));
+            getSlingScriptHelper()));
 
-        newFields.put("eventDisplayDateFormatted", compileComponentMessage(
+        componentProperties.put("eventDisplayDateFormatted", compileComponentMessage(
             "eventDisplayDateFormat",
             DEFAULT_FORMAT_DISPLAYDATE,
             componentProperties,
-            sling));
+            getSlingScriptHelper()));
 
-        newFields.put("eventDisplayTimeFormatted", compileComponentMessage(
+        componentProperties.put("eventDisplayTimeFormatted", compileComponentMessage(
             "eventDisplayTimeFormat",
             DEFAULT_FORMAT_DISPLAYTIME,
             componentProperties,
-            sling));
+            getSlingScriptHelper()));
     }
 }
