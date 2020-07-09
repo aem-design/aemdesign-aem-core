@@ -19,8 +19,15 @@
   const ACTION_TITLE = Granite.I18n.get('Component Info')
   const ACTION_NAME  = 'AEM_DESIGN_COMPONENT_INFO'
 
+  const IGNORED_SLING_KEYS = [
+    'editable',
+    'textIsRich',
+  ]
+
   /**
    * Generates a new Coral UI dialog.
+   *
+   * @return {Coral.Dialog & HTMLElement}
    */
   function buildDialog({ closable, componentName, content, header, id, interaction, variant }) {
     if (content && !(content instanceof HTMLElement)) {
@@ -34,7 +41,7 @@
       id,
 
       header: header || {
-        innerHTML: `${ACTION_TITLE} (${componentName})`,
+        innerHTML: `${ACTION_TITLE} (<span>${componentName}</span>)`,
       },
 
       content: content || {
@@ -57,6 +64,8 @@
 
   /**
    * Create a waiting element that uses the CoralUI waiting component.
+   *
+   * @return {HTMLDivElement}
    */
   function createWaitingElement() {
     const waitingElement = document.createElement('div')
@@ -73,7 +82,35 @@
   }
 
   /**
+   * Filter the given `keys` list and remove anything that doesn't need to be displayed.
+   *
+   * @param {string[]} keys
+   * @return {string[]} filtered keys
+   */
+  function filterSlingPropertyKeys(keys) {
+    return keys.filter((prop) =>
+      (prop.indexOf('cq:') === -1 && prop !== 'cq:tags') &&
+      prop.indexOf('jcr:') === -1 &&
+      prop.indexOf('sling:') === -1 &&
+      IGNORED_SLING_KEYS.indexOf(prop) === -1
+    )
+  }
+
+  /**
+   * Replaces any HTML within the given `input` with an encoded entity to prevent XSS.
+   *
+   * @param {string} input
+   * @return {string}
+   */
+  function encodeHTMLEntities(input) {
+    return input.replace(/[\u00A0-\u9999<>&]/gim, (char) => `&#${char.charCodeAt(0)};`)
+  }
+
+  /**
    * Generate a new Sling request for the given `url`.
+   *
+   * @param {string} url
+   * @return {Promise}
    */
   function makeSlingRequest(url) {
     return window.fetch(url).then((response) => response.json())
@@ -115,26 +152,35 @@
             <th is="coral-table-headercell">${Granite.I18n.get('Component Group')}</th>
             <td is="coral-table-cell">${componentResponse['componentGroup'] || 'n/a'}</td>
           </tr>
-          <tr is="coral-table-row">
-            <th is="coral-table-headercell">${Granite.I18n.get('Component ID')}</th>
-            <td is="coral-table-cell">${contentResponse['componentId'] || 'n/a'}</td>
-          </tr>
         </tbody>
       </table>
 
-      <h2 class="coral-Heading coral-Heading--2 margin-t-2">Attributes</h2>
+      <h2 class="coral-Heading coral-Heading--2 margin-t-2">${Granite.I18n.get('Attributes')}</h2>
       <table is="coral-table" style="width: 800px;">
         <tbody is="coral-table-body" divider="cell">
         ${Array.prototype.slice.call(componentElement.attributes).map((attr) => `
           <tr is="coral-table-row">
             <th is="coral-table-headercell" width="200">${attr.nodeName}</th>
-            <td is="coral-table-cell">${attr.value}</td>
+            <td is="coral-table-cell">${encodeHTMLEntities(attr.value)}</td>
+          </tr>
+        `).join('')}
+        </tbody>
+      </table>
+
+      <h2 class="coral-Heading coral-Heading--2 margin-t-2">${Granite.I18n.get('Sling Configuration')}</h2>
+      <table is="coral-table" style="width: 800px;">
+        <tbody is="coral-table-body" divider="cell">
+        ${filterSlingPropertyKeys(Object.keys(contentResponse)).map((prop) => `
+          <tr is="coral-table-row">
+            <th is="coral-table-headercell" width="200">${prop}</th>
+            <td is="coral-table-cell">${encodeHTMLEntities(contentResponse[prop])}</td>
           </tr>
         `).join('')}
         </tbody>
       </table>
     `
 
+    dialog.header.querySelector('span').innerText = componentResponse['jcr:title']
     dialog.center()
   }
 
@@ -147,6 +193,7 @@
     `
 
     dialog.variant = 'error'
+    dialog.center()
   }
 
   /**
