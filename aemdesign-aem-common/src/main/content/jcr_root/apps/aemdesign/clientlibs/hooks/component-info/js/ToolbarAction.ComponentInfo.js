@@ -34,7 +34,7 @@
       id,
 
       header: header || {
-        innerHTML: `${ACTION_TITLE} (<span>${componentName}</span>)`,
+        innerHTML: `${ACTION_TITLE} (${componentName})`,
       },
 
       content: content || {
@@ -42,7 +42,11 @@
       },
 
       footer: {
-        innerHTML: "<button is=\"coral-button\" variant=\"primary\" class=\"coral-Button coral-Button--primary\" size=\"M\" coral-close><coral-button-label>Close</coral-button-label></button>",
+        innerHTML: `
+          <button is="coral-button" variant="primary" class="coral-Button coral-Button--primary" size="M" coral-close>
+            <coral-button-label>Close</coral-button-label>
+          </button>
+        `,
       },
 
       closable    : closable    || 'on',
