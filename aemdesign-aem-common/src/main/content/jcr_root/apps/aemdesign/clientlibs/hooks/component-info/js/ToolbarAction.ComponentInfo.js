@@ -52,7 +52,7 @@
   }
 
   /**
-   * Create a waiting element that uses the Coral UI waiting component.
+   * Create a waiting element that uses the CoralUI waiting component.
    */
   function createWaitingElement() {
     const waitingElement = document.createElement('div')
@@ -69,16 +69,16 @@
   }
 
   /**
-   * Generate a new JCR request for the given `url`.
+   * Generate a new Sling request for the given `url`.
    */
-  function makeJCRRequest(url) {
+  function makeSlingRequest(url) {
     return window.fetch(url).then((response) => response.json())
   }
 
   /**
-   * Handle the JSON response sent back from the JCR request.
+   * Handle the JSON response sent back from the Sling request.
    */
-  function handleJCRResponses(responses, editable, componentElement, dialog) {
+  function handleSlingResponses(responses, editable, componentElement, dialog) {
     const componentResponse = responses[0]
     const contentResponse   = responses[1]
 
@@ -135,9 +135,9 @@
   }
 
   /**
-   * Handle any JCR requests with invalid data.
+   * Handle any Sling requests with invalid data.
    */
-  function handleInvalidJCRResponse(error, dialog) {
+  function handleInvalidSlingResponse(error, dialog) {
     dialog.content.innerHTML = `
       <strong>${Granite.I18n.get('Unexpected error:')}</strong> ${error}
     `
@@ -179,13 +179,13 @@
           id            : `${componentElement.id}-dialog`,
         })
 
-        // Retrieve some additional information about the component from JCR
+        // Retrieve some additional information about the component from Sling
         Promise.all([
-          makeJCRRequest(`/apps/${editable.type}.json`),
-          makeJCRRequest(`${editable.path}.json`),
+          makeSlingRequest(`/apps/${editable.type}.json`),
+          makeSlingRequest(`${editable.path}.json`),
         ])
-          .then((responses) => handleJCRResponses(responses, editable, componentElement, dialog))
-          .catch(error => handleInvalidJCRResponse(error, dialog))
+          .then((responses) => handleSlingResponses(responses, editable, componentElement, dialog))
+          .catch(error => handleInvalidSlingResponse(error, dialog))
 
         componentElement.dialog = dialog
       } else {
