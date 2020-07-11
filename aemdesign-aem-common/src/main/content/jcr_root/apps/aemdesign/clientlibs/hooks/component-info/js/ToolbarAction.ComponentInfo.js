@@ -129,7 +129,7 @@
         innerHTML: label,
       },
 
-      selected: selected,
+      selected,
     });
   }
 
@@ -138,17 +138,25 @@
    *
    * @param {Coral.PanelStack & HTMLElement} panelStack
    * @param {string} content
+   * @param {boolean} selected
    */
-  function createTabListPanelStackItem(panelStack, content) {
+  function createTabListPanelStackItem(panelStack, content, selected = false) {
     panelStack.items.add({
       content: {
         innerHTML: content,
       },
+
+      selected,
     })
   }
 
   /**
    * Handle the JSON response sent back from the Sling request.
+   *
+   * @param {Object[]} responses
+   * @param {Object} editable
+   * @param {HTMLElement} componentElement
+   * @param {Coral.Dialog & HTMLElement} dialog
    */
   function handleSlingResponses(responses, editable, componentElement, dialog) {
     const componentResponse = responses[0]
@@ -201,7 +209,7 @@
           </tr>
         </tbody>
       </table>
-    `)
+    `, true)
 
     // Sling Configuration
     createTabListPanelStackItem(panelStack, `
@@ -241,6 +249,9 @@
 
   /**
    * Handle any Sling requests with invalid data.
+   *
+   * @param {string} error
+   * @param {Coral.Dialog & HTMLElement} dialog
    */
   function handleInvalidSlingResponse(error, dialog) {
     dialog.content.innerHTML = `
@@ -253,10 +264,13 @@
 
   /**
    * Generates a dialog for the component information.
+   *
+   * @param {Object} editable
    */
   function generateDialogForComponent(editable) {
     const componentElement = editable.dom.get(0).querySelector('[component]')
 
+    /** @type {Coral.Dialog & HTMLElement} */
     let dialog = null
 
     if (!componentElement) {
@@ -306,7 +320,7 @@
   }
 
   /**
-   * Defines the 'ComponentInfo' Toolbar Action
+   * Defines the 'ComponentInfo' Toolbar Action for AEM.Design components.
    *
    * @type Granite.author.ui.ToolbarAction
    * @alias ComponentInfo
@@ -321,11 +335,8 @@
     isNonMulti : true,
   })
 
-  // When the Edit Layer gets activated
-  channel.on('cq-layer-activated', (event) => {
-    if (event.layer === 'Edit') {
-      EditorFrame.editableToolbar.registerAction(ACTION_NAME, componentInfoAction)
-    }
-  })
+  // When the Edit Layer gets activated register the action in the toolbar
+  channel.on('cq-layer-activated', ({ layer }) =>
+    layer === 'Edit' && EditorFrame.editableToolbar.registerAction(ACTION_NAME, componentInfoAction))
 
 }(jQuery, Granite.author, jQuery(document), this));
