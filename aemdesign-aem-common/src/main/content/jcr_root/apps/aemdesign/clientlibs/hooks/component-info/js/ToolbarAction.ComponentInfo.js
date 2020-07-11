@@ -215,7 +215,7 @@
     createTabListPanelStackItem(panelStack, `
       <table is="coral-table" style="width: 800px;">
         <tbody is="coral-table-body" divider="cell">
-        ${filterSlingProperties(Object.keys(contentResponse)).map((prop) => `
+        ${filterSlingProperties(Object.keys(contentResponse)).sort().map((prop) => `
           <tr is="coral-table-row">
             <th is="coral-table-headercell" width="140">${prop}</th>
             <td is="coral-table-cell">${encodeHTMLEntities(contentResponse[prop])}</td>
