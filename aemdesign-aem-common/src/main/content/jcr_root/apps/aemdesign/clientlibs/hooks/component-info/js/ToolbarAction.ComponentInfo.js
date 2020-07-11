@@ -330,7 +330,7 @@
     name: ACTION_NAME,
     text: ACTION_TITLE,
 
-    condition  : (editable) => editable && editable.dom,
+    condition  : (editable) => editable && editable.dom && !/\/new$/.test(editable.type),
     execute    : generateDialogForComponent,
     isNonMulti : true,
   })
