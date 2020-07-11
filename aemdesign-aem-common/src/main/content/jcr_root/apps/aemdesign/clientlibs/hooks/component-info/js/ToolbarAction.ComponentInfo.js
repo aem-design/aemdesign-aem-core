@@ -19,7 +19,7 @@
   const ACTION_TITLE = Granite.I18n.get('Component Info')
   const ACTION_NAME  = 'AEM_DESIGN_COMPONENT_INFO'
 
-  const IGNORED_SLING_KEYS = [
+  const IGNORED_SLING_PROPERTIES = [
     'editable',
     'textIsRich',
   ]
@@ -82,17 +82,17 @@
   }
 
   /**
-   * Filter the given `keys` list and remove anything that doesn't need to be displayed.
+   * Filter the given `props` list and remove anything that doesn't need to be displayed.
    *
-   * @param {string[]} keys
-   * @return {string[]} filtered keys
+   * @param {string[]} props
+   * @return {string[]} filtered properties
    */
-  function filterSlingPropertyKeys(keys) {
-    return keys.filter((prop) =>
+  function filterSlingProperties(props) {
+    return props.filter((prop) =>
       (prop.indexOf('cq:') === -1 && prop !== 'cq:tags') &&
       prop.indexOf('jcr:') === -1 &&
       prop.indexOf('sling:') === -1 &&
-      IGNORED_SLING_KEYS.indexOf(prop) === -1
+      IGNORED_SLING_PROPERTIES.indexOf(prop) === -1
     )
   }
 
@@ -117,13 +117,60 @@
   }
 
   /**
+   * Create a new tab list tab (label).
+   *
+   * @param {Coral.TabList & HTMLElement} tablist
+   * @param {string} label
+   * @param {boolean} selected
+   */
+  function createTabListTab(tablist, label, selected = false) {
+    tablist.items.add({
+      label: {
+        innerHTML: label,
+      },
+
+      selected: selected,
+    });
+  }
+
+  /**
+   * Create a new tab list panel stack item.
+   *
+   * @param {Coral.PanelStack & HTMLElement} panelStack
+   * @param {string} content
+   */
+  function createTabListPanelStackItem(panelStack, content) {
+    panelStack.items.add({
+      content: {
+        innerHTML: content,
+      },
+    })
+  }
+
+  /**
    * Handle the JSON response sent back from the Sling request.
    */
   function handleSlingResponses(responses, editable, componentElement, dialog) {
     const componentResponse = responses[0]
     const contentResponse   = responses[1]
 
-    dialog.content.innerHTML = `
+    // Create the tabs
+    const tabList = new Coral.TabList().set({
+      target: `${componentElement.id}-tabs`,
+    })
+
+    createTabListTab(tabList, Granite.I18n.get('Component'), true)
+    createTabListTab(tabList, Granite.I18n.get('Sling Configuration'))
+    createTabListTab(tabList, Granite.I18n.get('Attributes'))
+
+    const panelStack = new Coral.PanelStack().set({
+      id: `${componentElement.id}-tabs`,
+    })
+
+    panelStack.classList.add('coral-Well')
+
+    // Component
+    createTabListPanelStackItem(panelStack, `
       <table is="coral-table" style="width: 800px;">
         <tbody is="coral-table-body" divider="cell">
           <tr is="coral-table-row">
@@ -154,8 +201,24 @@
           </tr>
         </tbody>
       </table>
+    `)
 
-      <h2 class="coral-Heading coral-Heading--2 margin-t-2">${Granite.I18n.get('Attributes')}</h2>
+    // Sling Configuration
+    createTabListPanelStackItem(panelStack, `
+      <table is="coral-table" style="width: 800px;">
+        <tbody is="coral-table-body" divider="cell">
+        ${filterSlingProperties(Object.keys(contentResponse)).map((prop) => `
+          <tr is="coral-table-row">
+            <th is="coral-table-headercell" width="140">${prop}</th>
+            <td is="coral-table-cell">${encodeHTMLEntities(contentResponse[prop])}</td>
+          </tr>
+        `).join('')}
+        </tbody>
+      </table>
+    `)
+
+    // Attributes
+    createTabListPanelStackItem(panelStack, `
       <table is="coral-table" style="width: 800px;">
         <tbody is="coral-table-body" divider="cell">
         ${Array.prototype.slice.call(componentElement.attributes).map((attr) => `
@@ -166,22 +229,14 @@
         `).join('')}
         </tbody>
       </table>
+    `)
 
-      <h2 class="coral-Heading coral-Heading--2 margin-t-2">${Granite.I18n.get('Sling Configuration')}</h2>
-      <table is="coral-table" style="width: 800px;">
-        <tbody is="coral-table-body" divider="cell">
-        ${filterSlingPropertyKeys(Object.keys(contentResponse)).map((prop) => `
-          <tr is="coral-table-row">
-            <th is="coral-table-headercell" width="200">${prop}</th>
-            <td is="coral-table-cell">${encodeHTMLEntities(contentResponse[prop])}</td>
-          </tr>
-        `).join('')}
-        </tbody>
-      </table>
-    `
+    const tabView = new Coral.TabView().set({ panelStack, tabList })
 
+    dialog.content.innerHTML = tabView.outerHTML
     dialog.header.querySelector('span').innerText = componentResponse['jcr:title']
-    dialog.center()
+
+    Coral.commons.ready(tabView, () => dialog.center())
   }
 
   /**
