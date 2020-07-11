@@ -330,7 +330,7 @@
     name: ACTION_NAME,
     text: ACTION_TITLE,
 
-    condition  : (editable) => editable && editable.dom && editable.type.indexOf('aemdesign') === 0,
+    condition  : (editable) => editable && editable.dom,
     execute    : generateDialogForComponent,
     isNonMulti : true,
   })
