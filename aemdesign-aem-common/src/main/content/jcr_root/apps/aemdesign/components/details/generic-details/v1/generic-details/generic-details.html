@@ -3,8 +3,7 @@
      data-sly-use.dynamicVariant="variant.custom.html"
      data-sly-set.requestedFields="${component.requestedFields}"
      data-sly-set.fieldsTemplates="${component.templates}"
-     data-sly-use.background="aemdesign/global/templates/component-background.html"
-     data-sly-use.info="aemdesign/global/templates/component-info.html">
+     data-sly-use.background="aemdesign/global/templates/component-background.html">
 
   <!--/* check if dynamic component badge is being requested */-->
   <sly data-sly-test="${requestedFields}"
@@ -27,9 +26,6 @@
     <!--/* print component variant if not badge being requested */-->
     <sly data-sly-test="${!component.componentProperties.legacyVariant && ('default' in component.componentProperties.variant ? false : true)}"
          data-sly-call="${dynamicVariant.variant @ componentProperties=component.componentProperties, componentTemplates=fieldsTemplates, requestedFieldsTemplate=component.componentProperties.variantFieldsTemplate, componentFields=component.fields, requestedFields=component.componentProperties.variantFields}"></sly>
-
-    <!--/* print component info in edit mode if not badge being requested */-->
-    <sly data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></sly>
   </sly>
 
   <!--/* print dynamic component badge if badge being requested */-->

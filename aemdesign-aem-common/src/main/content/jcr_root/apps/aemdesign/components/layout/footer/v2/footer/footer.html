@@ -2,8 +2,7 @@
      data-sly-use.variant="${component.componentProperties.variantTemplate}"
      data-sly-use.notfound="${'./parent.notfound.html'}"
      data-sly-use.render="${'./parent.render.html'}"
-     data-sly-use.background="aemdesign/global/templates/component-background.html"
-     data-sly-use.info="aemdesign/global/templates/component-info.html">
+     data-sly-use.background="aemdesign/global/templates/component-background.html">
 
   <!--/* print component background */-->
   <sly data-sly-test="${component.componentProperties.cancelInheritParent}"
@@ -20,8 +19,5 @@
   <!--/* print component variant */-->
   <sly data-sly-test="${component.componentProperties.cancelInheritParent}"
        data-sly-call="${variant.variant @ componentProperties=component.componentProperties}"></sly>
-
-  <!--/* print component info in edit mode */-->
-  <sly data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component, inheritParent=(!component.componentProperties.cancelInheritParent && component.componentProperties.inheritedResource.path)}"></sly>
 
 </sly>

@@ -1,8 +1,7 @@
 <sly data-sly-use.component="design.aem.models.v2.details.EventDetails"
      data-sly-use.variant="${component.componentProperties.variantTemplate}"
      data-sly-use.badge="${component.componentProperties.componentBadgeTemplate}"
-     data-sly-use.background="aemdesign/global/templates/component-background.html"
-     data-sly-use.info="aemdesign/global/templates/component-info.html">
+     data-sly-use.background="aemdesign/global/templates/component-background.html">
 
   <!--/* print component background if not badge being requested */-->
   <sly data-sly-test="${!component.componentProperties.componentBadgeSelected}"
@@ -11,10 +10,6 @@
   <!--/* print component variant if not badge being requested */-->
   <sly data-sly-test="${!component.componentProperties.componentBadgeSelected}"
        data-sly-call="${variant.variant @ componentProperties=component.componentProperties}"></sly>
-
-  <!--/* print component info in edit mode if not badge being requested */-->
-  <sly data-sly-test="${!component.componentProperties.componentBadgeSelected}"
-       data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></sly>
 
   <!--/* print component badge if badge being requested */-->
   <sly data-sly-test="${component.componentProperties.componentBadgeSelected}"
