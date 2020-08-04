@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   build:
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -31,13 +32,15 @@ jobs:
       GPG_PUBID: "50A036956AAC64C13EF47B10D1E96A30ECFC7DFF"
       GPG_PUBID_KEYGRIP: "020E615868703482DC2CD110B98D2702B6ABF89C"
 
-      
+
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
         with:
           submodules: true
           lfs: true
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
