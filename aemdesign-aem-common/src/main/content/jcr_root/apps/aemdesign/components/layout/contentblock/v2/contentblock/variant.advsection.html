@@ -7,7 +7,7 @@
          data-sly-call="${header.layout @ componentProperties=componentProperties}"></sly>
 
     <div class="contents"
-         data-sly-test="${componentProperties.hasAuthoredContent}">
+         data-sly-test="${wcmmode.edit || componentProperties.hasAuthoredContent}">
       <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>
     </div>
 
