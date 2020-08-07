@@ -2,6 +2,6 @@
  * Always show the component name to make authors lives a little bit easier.
  */
 
-.cq-Overlay--component:not(.cq-Overlay--container) .cq-Overlay--component-name {
+.cq-Overlay--component:not(.cq-Overlay--container) > .cq-Overlay--component-name {
   display: block;
 }
