@@ -4,6 +4,6 @@
           jcr:primaryType="cq:Component"
           jcr:title="Page List"
           cq:icon="viewList"
-          sling:resourceSuperType="aemdesign/components/lists/list/v2/list"
+          sling:resourceSuperType="aemdesign/components/lists/list"
           allowedParents="[*/parsys]"
           componentGroup="hidden"/>

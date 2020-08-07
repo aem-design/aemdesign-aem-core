@@ -3,132 +3,26 @@
           xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Contact List"
-          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/contactlist/v2/contactlist"
-          sling:resourceType="cq/gui/components/authoring/dialog">
-    <content
-        jcr:primaryType="nt:unstructured"
-        sling:resourceType="granite/ui/components/foundation/container">
-        <layout
-            jcr:primaryType="nt:unstructured"
-            type="nav"
-            sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/contactlist/v2/contactlist">
+    <content jcr:primaryType="nt:unstructured">
         <items jcr:primaryType="nt:unstructured">
-
-            <listTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="List"
-                path="/apps/aemdesign/components/lists/list/v2/list/cq:dialog/content/items/listTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-            <listConfigTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="List Config"
-                path="/apps/aemdesign/components/lists/list/v2/list/cq:dialog/content/items/listConfigTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-            <layoutTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Layout"
-                sling:resourceType="granite/ui/components/foundation/section">
-
-                <layout jcr:primaryType="nt:unstructured"
-                        margin="{Boolean}false"
-                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+            <layoutTab jcr:primaryType="nt:unstructured">
                 <items jcr:primaryType="nt:unstructured">
-                    <column
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/container">
+                    <column jcr:primaryType="nt:unstructured">
                         <items jcr:primaryType="nt:unstructured">
-                            <variant
-                                jcr:primaryType="nt:unstructured"
-                                jcr:title="Layout"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                            <variant jcr:primaryType="nt:unstructured">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <!--<variant-->
-                                    <!--jcr:primaryType="nt:unstructured"-->
-                                    <!--sling:resourceType="granite/ui/components/foundation/form/select"-->
-                                    <!--fieldLabel="Variant"-->
-                                    <!--name="./variant"-->
-                                    <!--emptyOption="{Boolean}true"-->
-                                    <!--value="">-->
-                                    <!--<items jcr:primaryType="nt:unstructured">-->
-                                    <!--<default-->
-                                    <!--jcr:primaryType="nt:unstructured"-->
-                                    <!--text="Default"-->
-                                    <!--value=""/>-->
-                                    <!--</items>-->
-                                    <!--</variant>-->
-                                    <detailsBadge
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="Which badge to select from the Details component on the page"
-                                        fieldLabel="Use Badge"
-                                        name="./detailsBadge"
-                                        value="">
+                                    <detailsBadge jcr:primaryType="nt:unstructured">
                                         <datasource
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
                                             path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/contactlist/badge"/>
                                     </detailsBadge>
-                                    <topic
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="Subscribers waiting for notification of the filter value is updated"
-                                        fieldLabel="Topic Queue"
-                                        name="./topicQueue"
-                                        emptyOption="{Boolean}true"
-                                        value="">
-                                        <datasource
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-topic/topic"/>
-                                    </topic>
                                 </items>
                             </variant>
                         </items>
                     </column>
                 </items>
             </layoutTab>
-
-
-            <badgeConfigTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Badge Config"
-                path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-            <badgeThumbnailTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Badge Thumbnail"
-                path="/apps/aemdesign/global/dialog/touch/asset/content/items/badgeThumbnailTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-
-            <styleTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Style"
-                path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
-            <accessibilityTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Accessibility"
-                path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
-            <analyticsTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Analytics"
-                path="/apps/aemdesign/global/dialog/touch/analytics/content/items/analyticsTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
         </items>
     </content>
-
 </jcr:root>

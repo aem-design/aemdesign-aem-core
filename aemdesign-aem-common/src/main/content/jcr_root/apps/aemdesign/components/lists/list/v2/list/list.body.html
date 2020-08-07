@@ -1,26 +1,21 @@
 <template data-sly-template.variant="${@ componentProperties, component}">
-
   <sly data-sly-test="${!componentProperties.isEmpty}">
-
     <sly data-sly-set.tag="${componentProperties.listTag}"></sly>
 
     <sly data-sly-test="${componentProperties.printStructure}">
       ${"<{0} class=\"list\">" @ format=[tag], context = 'unsafe' }
     </sly>
 
-
     <sly data-sly-list.item="${component.ListItems}">
-
       <li class="${itemList.first ? 'first' : ''} ${(itemList.last && !itemList.first) ? 'last' : ''} ${(!itemList.last && !itemList.first) ? 'item' : ''} ${item.redirectLink ? 'redirectLink' : ''}"
           data-sly-unwrap="${!componentProperties.printStructure}">
 
-        <sly data-sly-test="${!item.componentMissing}"
+        <sly data-sly-test="${!item.componentMissing && item.componentPath}"
              data-sly-resource="${item.componentPath @ selectors=item.componentPathSelectors,wcmmode='disabled'}"></sly>
 
         <sly data-sly-test="${item.componentMissing}"
              data-sly-use.missing="list.badge.missing.html"
              data-sly-call="${missing.variant @ componentProperties=componentProperties, item=item}"></sly>
-
       </li>
 
       <sly data-sly-test="${componentProperties.listSplit && componentProperties.printStructure}">
@@ -35,7 +30,5 @@
     <sly data-sly-test="${componentProperties.printStructure}">
       ${"</{0}>" @ format=[tag], context = 'unsafe' }
     </sly>
-
-
   </sly>
 </template>
