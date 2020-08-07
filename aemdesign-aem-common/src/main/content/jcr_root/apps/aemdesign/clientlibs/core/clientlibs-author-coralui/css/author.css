@@ -9,6 +9,7 @@
 
 .cq-Editable-dom:not(.responsivegrid):not([component]) {
   border: 2px solid rgba(0, 0, 0, 0.10);
+  position: relative;
 }
 
 .cq-Editable-dom:not(.responsivegrid) + .cq-Editable-dom {
@@ -20,23 +21,3 @@
   padding-right: 25px;
   min-height: 20px;
 }
-
-
-/*.cq-info {*/
-/*  !* #EEE49D *!*/
-/*  border: 1px dashed #999;*/
-/*  background-color: #eeecd8;*/
-/*  color: #333;*/
-/*  font-weight: bold;*/
-/*  font-size: 11px;*/
-/*  padding: 10px;*/
-/*}*/
-
-/*!* hide component badges in preview *!*/
-/*.cq-wcm-preview details.component.badge, .cq-wcm-preview .cq-info {*/
-/*  display: none;*/
-/*}*/
-
-/*details.component div.code.variant {*/
-/*  display: none;*/
-/*}*/
