@@ -190,13 +190,13 @@ public class EventDetails extends GenericDetails {
             getSlingScriptHelper()));
 
         componentProperties.put("eventDisplayDateFormatted", compileComponentMessage(
-            "eventDisplayDateFormat",
+            FIELD_EVENT_DISPLAY_DATE_FORMAT,
             DEFAULT_FORMAT_DISPLAYDATE,
             componentProperties,
             getSlingScriptHelper()));
 
         componentProperties.put("eventDisplayTimeFormatted", compileComponentMessage(
-            "eventDisplayTimeFormat",
+            FIELD_EVENT_DISPLAY_TIME_FORMAT,
             DEFAULT_FORMAT_DISPLAYTIME,
             componentProperties,
             getSlingScriptHelper()));
