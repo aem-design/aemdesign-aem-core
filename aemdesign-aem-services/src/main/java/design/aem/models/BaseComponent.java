@@ -48,11 +48,11 @@ public abstract class BaseComponent extends WCMUsePojo {
         }
     }
 
-    protected void setAnalyticsFields(Object[][] fields) {
+    protected final void setAnalyticsFields(Object[][] fields) {
         setFields(fields, ANALYTICS_FIELDS);
     }
 
-    protected void setComponentFields(Object[][] fields) {
+    protected final void setComponentFields(Object[][] fields) {
         setFields(fields, COMPONENT_FIELDS);
     }
 
@@ -62,7 +62,7 @@ public abstract class BaseComponent extends WCMUsePojo {
      *
      * @return {@code String}
      */
-    protected String getCurrentTenant() {
+    protected final String getCurrentTenant() {
         String currentTenant = TenantUtil.resolveTenantIdFromPath(getResource().getPath());
 
         if (StringUtils.isEmpty(currentTenant)) {
