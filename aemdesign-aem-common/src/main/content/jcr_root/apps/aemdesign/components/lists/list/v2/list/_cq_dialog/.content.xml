@@ -407,12 +407,14 @@
                                                         name="./limit"
                                                         value="${cqDesign.limit}"/>
 
-                                                    <pagination
+                                                    <paginateAfter
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
                                                         fieldDescription="Set the number of results before pagination will appear."
                                                         fieldLabel="Paginate After"
-                                                        name="./pageMax"/>
+                                                        min="1"
+                                                        name="./pageMax"
+                                                        value="${cqDesign.paginateAfter}"/>
 
                                                     <paginationType
                                                         jcr:primaryType="nt:unstructured"
@@ -491,7 +493,7 @@
                                                         <datasource
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                            defaultSelection="true"
+                                                            defaultSelection="${cqDesign.showHidden}"
                                                             path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
                                                             variant="valuelist"/>
                                                     </showHidden>
@@ -581,10 +583,12 @@
                                                                 text="Default"
                                                                 value=""/>
                                                             <rss
+                                                                granite:hide="${cqDesign.disableFeedTypeRSS}"
                                                                 jcr:primaryType="nt:unstructured"
                                                                 text="RSS"
                                                                 value="rss"/>
                                                             <atom
+                                                                granite:hide="${cqDesign.disableFeedTypeAtom}"
                                                                 jcr:primaryType="nt:unstructured"
                                                                 text="Atom"
                                                                 value="atom"/>

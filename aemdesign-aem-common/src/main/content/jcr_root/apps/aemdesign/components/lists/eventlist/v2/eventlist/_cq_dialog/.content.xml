@@ -14,8 +14,8 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Event List"
           helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/eventlist/v2/eventlist">
@@ -47,13 +47,8 @@
                                                 <items jcr:primaryType="nt:unstructured">
                                                     <feedType jcr:primaryType="nt:unstructured">
                                                         <items jcr:primaryType="nt:unstructured">
-                                                            <rss
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:hideResource="{Boolean}true"/>
-                                                            <atom
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:hideResource="{Boolean}true"/>
                                                             <ics
+                                                                granite:hide="${cqDesign.disableFeedTypeICS}"
                                                                 jcr:primaryType="nt:unstructured"
                                                                 text="ICS"
                                                                 value="ics"/>
