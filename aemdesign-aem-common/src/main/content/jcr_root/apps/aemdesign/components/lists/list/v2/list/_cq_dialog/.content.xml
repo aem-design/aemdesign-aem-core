@@ -607,7 +607,7 @@
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Badge Config"
                         sling:resourceType="granite/ui/components/coral/foundation/include"
-                        path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab"
+                        path="/apps/aemdesign/global/dialog/touch/badge/content/items/tabs/items/badgeConfigTab"
                         resourceType="granite/ui/components/foundation/section"/>
 
                     <badgeThumbnail
@@ -628,14 +628,14 @@
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Accessibility"
                         sling:resourceType="granite/ui/components/coral/foundation/include"
-                        path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
+                        path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/tabs/items/accessibilityTab"
                         resourceType="granite/ui/components/foundation/section"/>
 
                     <analytics
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Analytics"
                         sling:resourceType="granite/ui/components/coral/foundation/include"
-                        path="/apps/aemdesign/global/dialog/touch/analytics/content/items/analyticsTab"
+                        path="/apps/aemdesign/global/dialog/touch/analytics/content/items/tabs/items/analyticsTab"
                         resourceType="granite/ui/components/foundation/section"/>
                 </items>
             </tabs>

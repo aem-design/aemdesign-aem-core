@@ -1,136 +1,162 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
-          xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright 2020 AEM.Design
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Accessibility Dialog"
-          helpPath=""
-          sling:resourceType="cq/gui/components/authoring/dialog"
-          extraClientlibs="[]">
+          sling:resourceType="cq/gui/components/authoring/dialog">
     <content
         jcr:primaryType="nt:unstructured"
         sling:resourceType="granite/ui/components/foundation/container">
-        <layout
-            jcr:primaryType="nt:unstructured"
-            type="nav"
-            sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
-            <accessibilityTab
+            <tabs
                 jcr:primaryType="nt:unstructured"
-                jcr:title="Accessibility"
-                sling:resourceType="granite/ui/components/foundation/section">
-
-                <layout jcr:primaryType="nt:unstructured"
-                        margin="{Boolean}false"
-                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                sling:resourceType="granite/ui/components/coral/foundation/tabs"
+                size="L">
                 <items jcr:primaryType="nt:unstructured">
-                    <column
+                    <accessibilityTab
                         jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:title="Accessibility"
+                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                        margin="{Boolean}true">
                         <items jcr:primaryType="nt:unstructured">
-                            <attributes
+                            <columns
                                 jcr:primaryType="nt:unstructured"
-                                jcr:title="Attributes"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+                                margin="{Boolean}true">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <ariaLabel
+                                    <column
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                        fieldDescription="Defines a string value that labels the current element."
-                                        fieldLabel="Aria Label"
-                                        name="./ariaLabel"
-                                        required="{Boolean}false"/>
-                                    <ariaRole
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                        fieldDescription="Main indicator of type. This semantic association allows tools to present and support interaction with the object in a manner that is consistent with user expectations about other objects of that type."
-                                        fieldLabel="Aria Role"
-                                        name="./ariaRole"
-                                        emptyOption="{Boolean}true"
-                                        value="">
-                                        <datasource
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-aria/role"/>
-                                    </ariaRole>
-                                    <ariaDescribedBy
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                        fieldDescription="Identifies the element (or elements) that describes the object."
-                                        fieldLabel="Aria Described By"
-                                        name="./ariaDescribedBy"
-                                        required="{Boolean}false"/>
-                                    <ariaLabelledBy
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                        fieldDescription="Identifies the element (or elements) that labels the current element."
-                                        fieldLabel="Aria Labelled By"
-                                        name="./ariaLabelledBy"
-                                        required="{Boolean}false"/>
-                                    <ariaControls
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                        fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
-                                        fieldLabel="Aria Controls"
-                                        name="./ariaControls"
-                                        required="{Boolean}false"/>
-                                    <ariaLive
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                        fieldDescription="Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region."
-                                        fieldLabel="Aria Live"
-                                        name="./ariaLive"
-                                        emptyOption="{Boolean}true"
-                                        value="">
-                                        <datasource
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-aria/live"/>
-                                    </ariaLive>
-                                    <ariaHidden
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                        fieldDescription="Indicates that the element and all of its descendants are not visible or perceivable to any user as implemented by the author."
-                                        fieldLabel="Aria Hidden"
-                                        name="./ariaHidden"
-                                        emptyOption="{Boolean}true"
-                                        value="">
-                                        <datasource
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </ariaHidden>
-                                    <ariaHaspopup
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                        fieldDescription="Indicates that the element has a popup context menu or sub-level menu."
-                                        fieldLabel="Aria Has-Popup"
-                                        name="./ariaHaspopup"
-                                        emptyOption="{Boolean}true"
-                                        value="">
-                                        <datasource
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </ariaHaspopup>
-                                    <ariaAccessKey
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                        fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
-                                        fieldLabel="Access Key"
-                                        name="./ariaAccessKey"
-                                        required="{Boolean}false"/>
-                                </items>
-                            </attributes>
+                                        sling:resourceType="granite/ui/components/foundation/container">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <attributes
+                                                jcr:primaryType="nt:unstructured"
+                                                jcr:title="Attributes"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <ariaLabel
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldDescription="Defines a string value that labels the current element."
+                                                        fieldLabel="Aria Label"
+                                                        name="./ariaLabel"
+                                                        required="{Boolean}false"/>
 
+                                                    <ariaRole
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                        fieldDescription="Main indicator of type. This semantic association allows tools to present and support interaction with the object in a manner that is consistent with user expectations about other objects of that type."
+                                                        fieldLabel="Aria Role"
+                                                        name="./ariaRole"
+                                                        emptyOption="{Boolean}true"
+                                                        value="">
+                                                        <datasource
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-aria/role"
+                                                            variant="valuelist"/>
+                                                    </ariaRole>
+
+                                                    <ariaDescribedBy
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldDescription="Identifies the element (or elements) that describes the object."
+                                                        fieldLabel="Aria Described By"
+                                                        name="./ariaDescribedBy"
+                                                        required="{Boolean}false"/>
+
+                                                    <ariaLabelledBy
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldDescription="Identifies the element (or elements) that labels the current element."
+                                                        fieldLabel="Aria Labelled By"
+                                                        name="./ariaLabelledBy"
+                                                        required="{Boolean}false"/>
+
+                                                    <ariaControls
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
+                                                        fieldLabel="Aria Controls"
+                                                        name="./ariaControls"
+                                                        required="{Boolean}false"/>
+
+                                                    <ariaLive
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                        fieldDescription="Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region."
+                                                        fieldLabel="Aria Live"
+                                                        name="./ariaLive"
+                                                        emptyOption="{Boolean}true"
+                                                        value="">
+                                                        <datasource
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-aria/live"
+                                                            variant="valuelist"/>
+                                                    </ariaLive>
+
+                                                    <ariaHidden
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                        fieldDescription="Indicates that the element and all of its descendants are not visible or perceivable to any user as implemented by the author."
+                                                        fieldLabel="Aria Hidden"
+                                                        name="./ariaHidden"
+                                                        emptyOption="{Boolean}true"
+                                                        value="">
+                                                        <datasource
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
+                                                            variant="valuelist"/>
+                                                    </ariaHidden>
+
+                                                    <ariaHaspopup
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                        fieldDescription="Indicates that the element has a popup context menu or sub-level menu."
+                                                        fieldLabel="Aria Has-Popup"
+                                                        name="./ariaHaspopup"
+                                                        emptyOption="{Boolean}true"
+                                                        value="">
+                                                        <datasource
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
+                                                            variant="valuelist"/>
+                                                    </ariaHaspopup>
+
+                                                    <ariaAccessKey
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldDescription="Identifies the element (or elements) whose contents or presence are controlled by the current element. "
+                                                        fieldLabel="Access Key"
+                                                        name="./ariaAccessKey"
+                                                        required="{Boolean}false"/>
+                                                </items>
+                                            </attributes>
+                                        </items>
+                                    </column>
+                                </items>
+                            </columns>
                         </items>
-                    </column>
+                    </accessibilityTab>
                 </items>
-            </accessibilityTab>
+            </tabs>
         </items>
     </content>
 </jcr:root>

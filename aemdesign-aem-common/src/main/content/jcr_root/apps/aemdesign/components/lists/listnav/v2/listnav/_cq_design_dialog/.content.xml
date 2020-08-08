@@ -94,49 +94,49 @@
                                             <titleConfigGroup
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Title Configuration"
-                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/titleConfigGroup"
+                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/tabs/items/badgeConfigTab/items/column/items/config/items/titleConfigGroup"
                                                 resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                             <cardConfigGroup
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Card Badge Config"
-                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/cardConfigGroup"
+                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/tabs/items/badgeConfigTab/items/column/items/config/items/cardConfigGroup"
                                                 resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                             <badgeConfigGroup
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="General Badge Config"
-                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/badgeConfigGroup"
+                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/tabs/items/badgeConfigTab/items/column/items/config/items/badgeConfigGroup"
                                                 resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                             <linkConfigGroup
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Badge CTA Config"
-                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/linkConfigGroup"
+                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/tabs/items/badgeConfigTab/items/column/items/config/items/linkConfigGroup"
                                                 resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                             <iconConfigGroup
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Icon Badge Config"
-                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/iconConfigGroup"
+                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/tabs/items/badgeConfigTab/items/column/items/config/items/iconConfigGroup"
                                                 resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                             <thumbnailConfig
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Thumbnail Config"
-                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/thumbnailConfig"
+                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/tabs/items/badgeConfigTab/items/column/items/config/items/thumbnailConfig"
                                                 resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                             <menuConfigGroup
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Menu Configuration"
-                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/menuConfigGroup"
+                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/tabs/items/badgeConfigTab/items/column/items/config/items/menuConfigGroup"
                                                 resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                             <tabConfigGroup
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Tab Configuration"
-                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/tabConfigGroup"
+                                                path="/apps/aemdesign/global/dialog/touch/badge/content/items/tabs/items/badgeConfigTab/items/column/items/config/items/tabConfigGroup"
                                                 resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>

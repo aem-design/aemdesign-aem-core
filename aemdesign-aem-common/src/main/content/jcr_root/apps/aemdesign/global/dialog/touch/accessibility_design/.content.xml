@@ -26,7 +26,7 @@
                             <accessibility
                                 jcr:primaryType="nt:unstructured"
                                 jcr:title="Style"
-                                path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab/items/column/items/attributes"
+                                path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/tabs/items/accessibilityTab/items/column/items/attributes"
                                 resourceType="granite/ui/components/coral/foundation/form/fieldset"
                                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
                         </items>

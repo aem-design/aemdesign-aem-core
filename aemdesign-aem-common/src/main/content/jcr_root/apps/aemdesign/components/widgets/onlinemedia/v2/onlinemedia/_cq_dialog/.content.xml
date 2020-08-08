@@ -128,13 +128,13 @@
             <accessibilityTab
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Accessibility"
-                path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
+                path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/tabs/items/accessibilityTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
             <analyticsTab
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Analytics"
-                path="/apps/aemdesign/global/dialog/touch/analytics/content/items/analyticsTab"
+                path="/apps/aemdesign/global/dialog/touch/analytics/content/items/tabs/items/analyticsTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
         </items>
