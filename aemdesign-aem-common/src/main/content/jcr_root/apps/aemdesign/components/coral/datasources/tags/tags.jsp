@@ -19,6 +19,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="static design.aem.utils.components.TenantUtil.resolveTenantIdFromPath" %>
 <%@ page import="static org.apache.commons.lang3.StringUtils.isNotEmpty" %>
+<%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%
 
   /**
@@ -28,6 +29,8 @@
    @name Tags
    @location /libs/cq/gui/components/common/datasources/tags
 
+   @context {String} Define a custom context that will be available as an expression variable
+   @defaultSelection {String} Pass a value that will be selected as the default, doesn't apply to authored selections
    @path {String[]} [namespaces] The namespaces of the tags to return. Only the tag which namespace equals to one of this values is returned. If this property is not specified, all tags are returned.
    @variant {String[]} [namespaces] variant name with following values:
    tagname returns tag name, no reference to Tags
@@ -69,11 +72,12 @@
     }
   }
 
+  expressionCustomizer.setVariable("context", dsCfg.get("context", ""));
+
   ExpressionHelper ex = cmp.getExpressionHelper();
 
-  String path = ex.getString(dsCfg.get("path", ""));
-
-  final String defaultSelection = dsCfg.get("defaultSelection", "");
+  final String path = ex.getString(dsCfg.get("path", ""));
+  final String defaultSelection = ex.getString(dsCfg.get("defaultSelection", ""));
   final String variant = dsCfg.get("variant", "");
 
   IteratorChain tags = new IteratorChain();

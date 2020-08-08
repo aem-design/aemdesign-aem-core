@@ -1,47 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Inherit"
           sling:resourceType="cq/gui/components/authoring/dialog">
     <content
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/foundation/container">
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
         <layout
-                jcr:primaryType="nt:unstructured"
-                type="nav"
-                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+            jcr:primaryType="nt:unstructured"
+            type="nav"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
 
             <inheritTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Inherit"
-                    sling:resourceType="granite/ui/components/foundation/section">
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Inherit"
+                sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <inherit
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Inherit"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Inherit"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <cancelinheritparent
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                            fieldLabel="Cancel Inherit Parent"
-                                            name="./cancelInheritParent"
-                                            emptyOption="{Boolean}true"
-                                            value="">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldLabel="Cancel Inherit Parent"
+                                        name="./cancelInheritParent"
+                                        emptyOption="{Boolean}true"
+                                        value="">
                                         <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="valuelist"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
                                     </cancelinheritparent>
                                 </items>
                             </inherit>

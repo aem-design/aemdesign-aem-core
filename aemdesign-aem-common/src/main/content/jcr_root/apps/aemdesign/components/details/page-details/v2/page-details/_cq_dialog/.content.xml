@@ -13,8 +13,9 @@
         sling:resourceType="granite/ui/components/foundation/container">
         <layout
             jcr:primaryType="nt:unstructured"
-            type="nav"
-            sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            type="nav"/>
+
         <items jcr:primaryType="nt:unstructured">
             <pageDetails
                 jcr:primaryType="nt:unstructured"
@@ -28,8 +29,9 @@
                 jcr:title="Layout"
                 sling:resourceType="granite/ui/components/foundation/section">
                 <layout jcr:primaryType="nt:unstructured"
-                        margin="{Boolean}false"
-                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+
                 <items jcr:primaryType="nt:unstructured">
                     <column
                         jcr:primaryType="nt:unstructured"
@@ -66,21 +68,6 @@
                                 jcr:title="Display Options"
                                 sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <useContainer
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                        emptyOption="{Boolean}true"
-                                        fieldDescription="Wrap the content of Page Details within a container element."
-                                        fieldLabel="Use Container"
-                                        name="./useContainer"
-                                        value="">
-                                        <datasource
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
-                                            variant="valuelist"/>
-                                    </useContainer>
-
                                     <showBreadcrumb
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/select"
@@ -245,7 +232,7 @@
             <styleTab
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Style"
-                path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
+                path="/apps/aemdesign/global/dialog/touch/style/content/items/tabs/items/styleTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
 

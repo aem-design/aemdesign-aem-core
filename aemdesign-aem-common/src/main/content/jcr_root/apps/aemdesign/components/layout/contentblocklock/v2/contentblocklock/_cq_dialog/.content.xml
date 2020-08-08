@@ -342,7 +342,7 @@
             <styleTab
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Style"
-                path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
+                path="/apps/aemdesign/global/dialog/touch/style/content/items/tabs/items/styleTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
             <accessibilityTab

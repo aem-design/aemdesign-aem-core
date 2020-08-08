@@ -1,0 +1,8 @@
+#base=js
+fields/autocomplete.js
+fields/checkbox.js
+fields/file-upload.js
+fields/path-browser.js
+fields/rich-text.js
+functions.js
+behaviour.js

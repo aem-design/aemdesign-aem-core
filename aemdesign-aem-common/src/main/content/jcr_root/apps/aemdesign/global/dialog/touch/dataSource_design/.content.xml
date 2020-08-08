@@ -8,27 +8,27 @@
           sling:resourceType="cq/gui/components/authoring/dialog"
           extraClientlibs="[]">
     <content
-            jcr:primaryType="nt:unstructured"
-            jcr:title="Data Source"
-            sling:resourceType="granite/ui/components/coral/foundation/container"
-            maximized="{Boolean}true">
+        jcr:primaryType="nt:unstructured"
+        jcr:title="Data Source"
+        sling:resourceType="granite/ui/components/coral/foundation/container"
+        maximized="{Boolean}true">
         <items jcr:primaryType="nt:unstructured">
             <fixedcol
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
-                    maximized="{Boolean}false">
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+                maximized="{Boolean}false">
                 <items jcr:primaryType="nt:unstructured">
                     <col1
-                            granite:class="foundation-layout-util-maximized-alt"
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                        granite:class="foundation-layout-util-maximized-alt"
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <dataSourcetab
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Content Fragment"
-                                    path="/apps/aemdesign/global/dialog/touch/dataSource/content/items/dataSourceTab/items/column/items/basic"
-                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
-                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Content Fragment"
+                                path="/apps/aemdesign/global/dialog/touch/dataSource/content/items/dataSourceTab/items/column/items/basic"
+                                resourceType="granite/ui/components/coral/foundation/form/fieldset"
+                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
                         </items>
                     </col1>
                 </items>

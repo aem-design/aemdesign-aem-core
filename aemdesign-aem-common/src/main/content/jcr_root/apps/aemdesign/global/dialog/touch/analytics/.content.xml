@@ -8,145 +8,145 @@
           sling:resourceType="cq/gui/components/authoring/dialog"
           extraClientlibs="[]">
     <content
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/foundation/container">
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
         <layout
-                jcr:primaryType="nt:unstructured"
-                type="nav"
-                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+            jcr:primaryType="nt:unstructured"
+            type="nav"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
             <analyticsTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Analytics"
-                    sling:resourceType="granite/ui/components/foundation/section">
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Analytics"
+                sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <basic
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Basic"
-                                    granite:id="analytics-basic"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Basic"
+                                granite:id="analytics-basic"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <analyticsTrack
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                            fieldDescription="Track"
-                                            fieldLabel="Track"
-                                            name="./analyticsTrack"
-                                            emptyOption="{Boolean}true"
-                                            value="">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="Track"
+                                        fieldLabel="Track"
+                                        name="./analyticsTrack"
+                                        emptyOption="{Boolean}true"
+                                        value="">
                                         <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="valuelist"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
                                     </analyticsTrack>
                                     <analyticsLabel
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldDescription="Label"
-                                            fieldLabel="Label"
-                                            name="./analyticsLabel"
-                                            required="{Boolean}false"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Label"
+                                        fieldLabel="Label"
+                                        name="./analyticsLabel"
+                                        required="{Boolean}false"/>
                                     <analyticsLocation
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldDescription="Link Description"
-                                            fieldLabel="Location"
-                                            name="./analyticsLocation"
-                                            required="{Boolean}false"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Link Description"
+                                        fieldLabel="Location"
+                                        name="./analyticsLocation"
+                                        required="{Boolean}false"/>
                                 </items>
                             </basic>
                             <advanced
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Advanced"
-                                    granite:class="hidden"
-                                    granite:id="analytics-advanced"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Advanced"
+                                granite:class="hidden"
+                                granite:id="analytics-advanced"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <analyticsType
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                            fieldDescription="/content/cq:tags/{tenant}/component-analytics/type"
-                                            fieldLabel="Analytics Type"
-                                            name="./analyticsType"
-                                            emptyOption="{Boolean}true"
-                                            value="">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="/content/cq:tags/{tenant}/component-analytics/type"
+                                        fieldLabel="Analytics Type"
+                                        name="./analyticsType"
+                                        emptyOption="{Boolean}true"
+                                        value="">
                                         <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/type"/>
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="valuelist"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/type"/>
                                     </analyticsType>
                                     <analyticsEventLabel
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldLabel="Event Label"
-                                            name="./analyticsEventLabel"
-                                            required="{Boolean}false"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldLabel="Event Label"
+                                        name="./analyticsEventLabel"
+                                        required="{Boolean}false"/>
                                     <analyticsHitType
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                            fieldDescription="/content/cq:tags/{tenant}/component-analytics/hittype"
-                                            fieldLabel="Hit Type"
-                                            name="./analyticsHitType"
-                                            emptyOption="{Boolean}true"
-                                            value="">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="/content/cq:tags/{tenant}/component-analytics/hittype"
+                                        fieldLabel="Hit Type"
+                                        name="./analyticsHitType"
+                                        emptyOption="{Boolean}true"
+                                        value="">
                                         <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/hittype"/>
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="valuelist"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/hittype"/>
                                     </analyticsHitType>
                                     <analyticsEventCategory
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                            fieldDescription="/content/cq:tags/{tenant}/component-analytics/event-category"
-                                            fieldLabel="Event Category"
-                                            multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/event-category"
-                                            name="./analyticsEventCategory"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/coral/common/form/tagfield"
+                                        fieldDescription="/content/cq:tags/{tenant}/component-analytics/event-category"
+                                        fieldLabel="Event Category"
+                                        multiple="{Boolean}true"
+                                        rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/event-category"
+                                        name="./analyticsEventCategory"/>
                                     <analyticsEventCategoryHint
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
-                                            name="./analyticsEventCategory@TypeHint"
-                                            value="String[]"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                        name="./analyticsEventCategory@TypeHint"
+                                        value="String[]"/>
 
                                     <analyticsEventAction
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                            fieldDescription="/content/cq:tags/{tenant}/component-analytics/event-action"
-                                            fieldLabel="Event Action"
-                                            multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/event-action"
-                                            name="./analyticsEventAction"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/coral/common/form/tagfield"
+                                        fieldDescription="/content/cq:tags/{tenant}/component-analytics/event-action"
+                                        fieldLabel="Event Action"
+                                        multiple="{Boolean}true"
+                                        rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-analytics/event-action"
+                                        name="./analyticsEventAction"/>
                                     <analyticsTransport
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldDescription=""
-                                            fieldLabel="Transport [GA]"
-                                            name="./analyticsTransport"
-                                            required="{Boolean}false"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription=""
+                                        fieldLabel="Transport [GA]"
+                                        name="./analyticsTransport"
+                                        required="{Boolean}false"/>
                                     <analyticsNonInteraction
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                            fieldDescription="Is action interactive"
-                                            fieldLabel="Non Interactive"
-                                            name="./analyticsNonInteraction"
-                                            emptyOption="{Boolean}true"
-                                            value="">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="Is action interactive"
+                                        fieldLabel="Non Interactive"
+                                        name="./analyticsNonInteraction"
+                                        emptyOption="{Boolean}true"
+                                        value="">
                                         <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="valuelist"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
                                     </analyticsNonInteraction>
                                 </items>
                             </advanced>
