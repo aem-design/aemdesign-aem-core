@@ -16,6 +16,7 @@
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
           xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Badge Dialog"
           sling:resourceType="cq/gui/components/authoring/dialog">
@@ -39,64 +40,49 @@
                                 sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
                                 margin="{Boolean}true">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <column
+                                    <columnNote
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/container"
                                         margin="{Boolean}true">
                                         <items jcr:primaryType="nt:unstructured">
-                                            <note
+                                            <noteIntroduction
+                                                granite:class="display-block font-size-1 lh-1-375 margin-b-1"
                                                 jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                note="This config is used in Badges to display content in other components"/>
+                                                sling:resourceType="granite/ui/components/coral/foundation/text"
+                                                text="The badge configuration is used to control how child components behave. Any configuration options set here will always be superseded by the child component."/>
+                                            <noteDepth
+                                                granite:class="display-block font-size-1 lh-1-375 margin-b-1"
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/text"
+                                                text="You should use these options when you need to control the behaviour of all the components in context. Be aware that applying these changes may have undesired results on some components depending on how they have been configured."/>
+                                        </items>
+                                    </columnNote>
 
+                                    <columnConfig
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/container"
+                                        margin="{Boolean}true">
+                                        <items jcr:primaryType="nt:unstructured">
                                             <config
                                                 jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/accordion">
+                                                sling:resourceType="granite/ui/components/coral/foundation/accordion"
+                                                variant="large">
                                                 <items jcr:primaryType="nt:unstructured">
-                                                    <titleConfigGroup
+                                                    <headingsAndSummary
                                                         jcr:primaryType="nt:unstructured"
-                                                        jcr:title="Title Configuration"
-                                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                                        jcr:title="Heading + Summary"
+                                                        sling:resourceType="granite/ui/components/foundation/container"
+                                                        margin="{Boolean}true">
                                                         <items jcr:primaryType="nt:unstructured">
-                                                            <note
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                                note="Icon used in Content Tabs and other Tab based components"/>
+                                                            <!--                                                        TODO: Rename 'badgeTitleType' to 'badgeHeadingLevel' -->
+                                                            <!--                                                        TODO: Remove 'titleIcon' -->
+                                                            <!--                                                        TODO: Remove 'titleIconShow' -->
 
-                                                            <titleIconShow
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                                                fieldDescription="show icon with title"
-                                                                fieldLabel="Show Title Icon"
-                                                                name="./titleIconShow"
-                                                                emptyOption="{Boolean}true"
-                                                                value="">
-                                                                <datasource
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
-                                                                    variant="valuelist"/>
-                                                            </titleIconShow>
-
-                                                            <titleIcon
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                                                fieldDescription="When showing this page links show this Icon"
-                                                                fieldLabel="Title Icon"
-                                                                multiple="{Boolean}true"
-                                                                rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
-                                                                name="./titleIcon"/>
-                                                            <titleIconHint
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/hidden"
-                                                                name="./titleIcon@TypeHint"
-                                                                value="String[]"/>
-
-                                                            <badgeTitleType
+                                                            <headingLevel
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldDescription="which paragraph tag to use for Badge Title display"
-                                                                fieldLabel="Badge Title Type"
+                                                                fieldDescription="Set a custom heading level."
+                                                                fieldLabel="Heading Level"
                                                                 name="./badgeTitleType"
                                                                 emptyOption="{Boolean}true"
                                                                 value="">
@@ -105,26 +91,14 @@
                                                                     sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                                     path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/heading"
                                                                     variant="valuelist"/>
-                                                            </badgeTitleType>
-                                                        </items>
-                                                    </titleConfigGroup>
+                                                            </headingLevel>
 
-                                                    <cardConfigGroup
-                                                        jcr:primaryType="nt:unstructured"
-                                                        jcr:title="Card Badge Config"
-                                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                                        <items jcr:primaryType="nt:unstructured">
-                                                            <note
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                                note="Card config used in lists"/>
-
-                                                            <cardIconShow
+                                                            <headingTrim
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldDescription="show icon instead of page image"
-                                                                fieldLabel="Show Card Icon"
-                                                                name="./cardIconShow"
+                                                                fieldDescription="Enabling this will automatically trim the heading to the maximum length set."
+                                                                fieldLabel="Heading Trim"
+                                                                name="./badgeTitleTrim"
                                                                 emptyOption="{Boolean}true"
                                                                 value="">
                                                                 <datasource
@@ -132,26 +106,92 @@
                                                                     sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                                     path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
                                                                     variant="valuelist"/>
-                                                            </cardIconShow>
+                                                            </headingTrim>
+
+                                                            <headingTrimMaxLength
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                                                fieldDescription="The total of number of characters before the heading is trimmed."
+                                                                fieldLabel="Heading Max Length"
+                                                                name="./badgeTitleTrimLengthMax"/>
+
+                                                            <headingTrimSuffix
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldDescription="Set a custom suffix that will appear at the end of the trimmed heading."
+                                                                fieldLabel="Heading Trim Suffix"
+                                                                name="./badgeTitleTrimLengthMaxSuffix"/>
+
+                                                            <summaryTrim
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldDescription="Enabling this will automatically trim the summary to the maximum length set."
+                                                                fieldLabel="Summary Trim"
+                                                                name="./badgeSummaryTrim"
+                                                                emptyOption="{Boolean}true"
+                                                                value="">
+                                                                <datasource
+                                                                    jcr:primaryType="nt:unstructured"
+                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
+                                                                    variant="valuelist"/>
+                                                            </summaryTrim>
+
+                                                            <summaryTrimMaxLength
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                                                fieldDescription="The total of number of characters before the summary is trimmed."
+                                                                fieldLabel="Summary Max Length"
+                                                                name="./badgeSummaryLengthMax"/>
+
+                                                            <summaryTrimSuffix
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldDescription="Set a custom suffix that will appear at the end of the trimmed summary."
+                                                                fieldLabel="Summary Trim Suffix"
+                                                                name="./badgeSummaryLengthMaxSuffix"/>
+                                                        </items>
+                                                    </headingsAndSummary>
+
+                                                    <cards
+                                                        jcr:primaryType="nt:unstructured"
+                                                        jcr:title="Cards"
+                                                        sling:resourceType="granite/ui/components/foundation/container"
+                                                        margin="{Boolean}true">
+                                                        <items jcr:primaryType="nt:unstructured">
+                                                            <!--                                                            TODO: Work out if this is needed -->
+                                                            <!--                                                            <cardIconShow-->
+                                                            <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                            <!--                                                                sling:resourceType="granite/ui/components/foundation/form/select"-->
+                                                            <!--                                                                fieldDescription=""-->
+                                                            <!--                                                                fieldLabel="Show Card Icon"-->
+                                                            <!--                                                                name="./cardIconShow"-->
+                                                            <!--                                                                emptyOption="{Boolean}true"-->
+                                                            <!--                                                                value="">-->
+                                                            <!--                                                                <datasource-->
+                                                            <!--                                                                    jcr:primaryType="nt:unstructured"-->
+                                                            <!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
+                                                            <!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"-->
+                                                            <!--                                                                    variant="valuelist"/>-->
+                                                            <!--                                                            </cardIconShow>-->
 
                                                             <cardIcon
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                                                fieldDescription="When showing this page as card badge use this Icon"
                                                                 fieldLabel="Card Icon"
-                                                                multiple="{Boolean}true"
+                                                                multiple="{Boolean}false"
                                                                 rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
                                                                 name="./cardIcon"/>
                                                             <cardIconHint
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/hidden"
                                                                 name="./cardIcon@TypeHint"
-                                                                value="String[]"/>
+                                                                value="String"/>
 
                                                             <cardStyle
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                                                fieldDescription="Apply this style to card badge"
+                                                                fieldDescription="Apply custom styles to every card in context."
                                                                 fieldLabel="Card Style"
                                                                 multiple="{Boolean}true"
                                                                 rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
@@ -162,93 +202,19 @@
                                                                 name="./cardStyle@TypeHint"
                                                                 value="String[]"/>
                                                         </items>
-                                                    </cardConfigGroup>
+                                                    </cards>
 
-                                                    <badgeConfigGroup
+                                                    <callToAction
                                                         jcr:primaryType="nt:unstructured"
-                                                        jcr:title="General Badge Config"
-                                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                                        jcr:title="Call to Action"
+                                                        sling:resourceType="granite/ui/components/foundation/container"
+                                                        margin="{Boolean}true">
                                                         <items jcr:primaryType="nt:unstructured">
-                                                            <note
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                                note="Config how Title and Summary should be treated"/>
-
-                                                            <badgeTitleTrim
+                                                            <target
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldDescription="apply trim on Title field"
-                                                                fieldLabel="Title Trim"
-                                                                name="./badgeTitleTrim"
-                                                                emptyOption="{Boolean}true"
-                                                                value="">
-                                                                <datasource
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
-                                                                    variant="valuelist"/>
-                                                            </badgeTitleTrim>
-
-                                                            <badgeTitleTrimLengthMax
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                                                fieldDescription="crop Title text after this many characters"
-                                                                fieldLabel="Title Max Length"
-                                                                name="./badgeTitleTrimLengthMax"/>
-
-                                                            <badgeTitleTrimLengthMaxSuffix
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                fieldDescription="add the following text as suffix when cropping Title"
-                                                                fieldLabel="Title Max Length Suffix"
-                                                                name="./badgeTitleTrimLengthMaxSuffix"/>
-
-                                                            <badgeSummaryTrim
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldDescription="apply trim on Summary field"
-                                                                fieldLabel="Summary Trim"
-                                                                name="./badgeSummaryTrim"
-                                                                emptyOption="{Boolean}true"
-                                                                value="">
-                                                                <datasource
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
-                                                                    variant="valuelist"/>
-                                                            </badgeSummaryTrim>
-
-                                                            <badgeSummaryLengthMax
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                                                fieldDescription="crop Summary text after this many characters"
-                                                                fieldLabel="Summary Max Length"
-                                                                name="./badgeSummaryLengthMax"/>
-
-                                                            <badgeSummaryLengthMaxSuffix
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                fieldDescription="add the following text as suffix when cropping Summary"
-                                                                fieldLabel="Summary Max Length Suffix"
-                                                                name="./badgeSummaryLengthMaxSuffix"/>
-                                                        </items>
-                                                    </badgeConfigGroup>
-
-                                                    <linkConfigGroup
-                                                        jcr:primaryType="nt:unstructured"
-                                                        jcr:title="Badge CTA Config"
-                                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                                        <items jcr:primaryType="nt:unstructured">
-                                                            <note
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                                note="Config CTA style"/>
-
-                                                            <badgeLinkTarget
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldDescription="how should the link of items behave when clicked"
-                                                                fieldLabel="Card CTA Target"
+                                                                fieldDescription="How should the link behave when clicked?"
+                                                                fieldLabel="Target"
                                                                 name="./badgeLinkTarget"
                                                                 emptyOption="{Boolean}true"
                                                                 value="">
@@ -257,41 +223,41 @@
                                                                     sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                                     path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/linktarget"
                                                                     variant="valuelist"/>
-                                                            </badgeLinkTarget>
+                                                            </target>
 
-                                                            <badgeLinkText
+                                                            <text
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                fieldDescription="shows as a link visible text"
-                                                                fieldLabel="Card CTA Text"
+                                                                fieldDescription="Override the text that appears on each link."
+                                                                fieldLabel="Text"
                                                                 name="./badgeLinkText"/>
 
-                                                            <badgeLinkTitle
+                                                            <title
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                fieldDescription="shows as a link alt title"
-                                                                fieldLabel="Card CTA Title"
+                                                                fieldDescription="Override the title that appears on each link."
+                                                                fieldLabel="Title"
                                                                 name="./badgeLinkTitle"/>
 
-                                                            <badgeLinkStyle
+                                                            <style
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                                                fieldDescription="The type of button that should appear on the card"
-                                                                fieldLabel="Card CTA Style"
+                                                                fieldDescription="Apply custom styles to every call to action in context."
+                                                                fieldLabel="Style"
                                                                 multiple="{Boolean}true"
                                                                 rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
                                                                 name="./badgeLinkStyle"/>
-                                                            <badgeLinkStyleHint
+                                                            <styleHint
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/hidden"
                                                                 name="./badgeLinkStyle@TypeHint"
                                                                 value="String[]"/>
 
-                                                            <badgeLinkFormat
+                                                            <format
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldDescription="Format for Action Link"
-                                                                fieldLabel="Action Format"
+                                                                fieldDescription="Apply a custom format type to every call to action."
+                                                                fieldLabel="Format"
                                                                 name="./badgeLinkFormatted"
                                                                 emptyOption="{Boolean}true"
                                                                 value="">
@@ -300,309 +266,287 @@
                                                                     sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                                     path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/contact-details/format/action"
                                                                     variant="tagidvalue"/>
-                                                            </badgeLinkFormat>
+                                                            </format>
                                                         </items>
-                                                    </linkConfigGroup>
+                                                    </callToAction>
 
-                                                    <thumbnailConfig
+                                                    <!--                                                    <thumbnailConfig-->
+                                                    <!--                                                        jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                        jcr:title="Thumbnail Config"-->
+                                                    <!--                                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">-->
+                                                    <!--                                                        <items jcr:primaryType="nt:unstructured">-->
+                                                    <!--                                                            <badgeThumbnailType-->
+                                                    <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                sling:resourceType="granite/ui/components/foundation/form/select"-->
+                                                    <!--                                                                fieldLabel="Thumbnail Image Option"-->
+                                                    <!--                                                                name="./badgeThumbnailType"-->
+                                                    <!--                                                                value="">-->
+                                                    <!--                                                                <items jcr:primaryType="nt:unstructured">-->
+                                                    <!--                                                                    <default-->
+                                                    <!--                                                                        jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                        text="Default"-->
+                                                    <!--                                                                        value=""/>-->
+                                                    <!--                                                                    <rendition-->
+                                                    <!--                                                                        jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                        selectTab="imageConfig"-->
+                                                    <!--                                                                        text="Rendition: pick a suitable image rendition"-->
+                                                    <!--                                                                        value="rendition"/>-->
+                                                    <!--                                                                </items>-->
+                                                    <!--                                                            </badgeThumbnailType>-->
+
+                                                    <!--                                                            <badgeThumbnailSize-->
+                                                    <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                sling:resourceType="cq/gui/components/authoring/dialog/sizefield"-->
+                                                    <!--                                                                fieldDescription="blank values are not added as attributes"-->
+                                                    <!--                                                                fieldLabel="Icon Size (w,h)">-->
+                                                    <!--                                                                <width-->
+                                                    <!--                                                                    jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                    sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"-->
+                                                    <!--                                                                    name="./badgeThumbnailWidth"/>-->
+                                                    <!--                                                                <height-->
+                                                    <!--                                                                    jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                    sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"-->
+                                                    <!--                                                                    name="./badgeThumbnailHeight"/>-->
+                                                    <!--                                                            </badgeThumbnailSize>-->
+
+                                                    <!--                                                            <badgeOverlayIconShow-->
+                                                    <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                sling:resourceType="granite/ui/components/foundation/form/select"-->
+                                                    <!--                                                                fieldDescription="show overlay icon on image"-->
+                                                    <!--                                                                fieldLabel="Show Overlay Icon"-->
+                                                    <!--                                                                name="./badgeOverlayIconShow"-->
+                                                    <!--                                                                emptyOption="{Boolean}true"-->
+                                                    <!--                                                                value="">-->
+                                                    <!--                                                                <datasource-->
+                                                    <!--                                                                    jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
+                                                    <!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"-->
+                                                    <!--                                                                    variant="valuelist"/>-->
+                                                    <!--                                                            </badgeOverlayIconShow>-->
+
+                                                    <!--                                                            <badgeOverlayIcon-->
+                                                    <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                sling:resourceType="aemdesign/components/coral/common/form/tagfield"-->
+                                                    <!--                                                                fieldDescription="When showing this page in a list show this icon for overlay"-->
+                                                    <!--                                                                fieldLabel="Overlay Icon"-->
+                                                    <!--                                                                multiple="{Boolean}true"-->
+                                                    <!--                                                                rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"-->
+                                                    <!--                                                                name="./badgeOverlayIcon"/>-->
+                                                    <!--                                                            <badgeOverlayIconHint-->
+                                                    <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                sling:resourceType="granite/ui/components/foundation/form/hidden"-->
+                                                    <!--                                                                name="./badgeOverlayIcon@TypeHint"-->
+                                                    <!--                                                                value="String[]"/>-->
+                                                    <!--                                                        </items>-->
+                                                    <!--                                                    </thumbnailConfig>-->
+
+                                                    <!--                                                    <menuConfigGroup-->
+                                                    <!--                                                        jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                        jcr:title="Menu Configuration"-->
+                                                    <!--                                                        sling:resourceType="granite/ui/components/foundation/container"-->
+                                                    <!--                                                        margin="{Boolean}true">-->
+                                                    <!--                                                        <items jcr:primaryType="nt:unstructured">-->
+                                                    <!--                                                            <note-->
+                                                    <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                sling:resourceType="granite/ui/components/coral/foundation/text"-->
+                                                    <!--                                                                note="Config for Menu based components"/>-->
+
+                                                    <!--                                                            <menuColor-->
+                                                    <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                sling:resourceType="granite/ui/components/foundation/form/select"-->
+                                                    <!--                                                                fieldDescription="Color to be used for highlighting in Site Menu"-->
+                                                    <!--                                                                fieldLabel="Color"-->
+                                                    <!--                                                                name="./menuColor"-->
+                                                    <!--                                                                emptyOption="{Boolean}true"-->
+                                                    <!--                                                                value="">-->
+                                                    <!--                                                                <datasource-->
+                                                    <!--                                                                    jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
+                                                    <!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/lists/navlist/color"-->
+                                                    <!--                                                                    variant="valuelist"/>-->
+                                                    <!--                                                            </menuColor>-->
+
+                                                    <!--                                                            <menuIconShow-->
+                                                    <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                sling:resourceType="granite/ui/components/foundation/form/select"-->
+                                                    <!--                                                                fieldDescription="show icon in menus"-->
+                                                    <!--                                                                fieldLabel="Show Icon"-->
+                                                    <!--                                                                name="./menuIconShow"-->
+                                                    <!--                                                                emptyOption="{Boolean}true"-->
+                                                    <!--                                                                value="">-->
+                                                    <!--                                                                <datasource-->
+                                                    <!--                                                                    jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
+                                                    <!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"-->
+                                                    <!--                                                                    variant="valuelist"/>-->
+                                                    <!--                                                            </menuIconShow>-->
+
+                                                    <!--                                                            <menuIcon-->
+                                                    <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                sling:resourceType="aemdesign/components/coral/common/form/tagfield"-->
+                                                    <!--                                                                fieldDescription="Use this icon for Icon badge"-->
+                                                    <!--                                                                fieldLabel="Menu Icon"-->
+                                                    <!--                                                                multiple="{Boolean}true"-->
+                                                    <!--                                                                rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"-->
+                                                    <!--                                                                name="./menuIcon"/>-->
+                                                    <!--                                                            <menuIconHint-->
+                                                    <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                sling:resourceType="granite/ui/components/foundation/form/hidden"-->
+                                                    <!--                                                                name="./menuIcon@TypeHint"-->
+                                                    <!--                                                                value="String[]"/>-->
+
+                                                    <!--                                                            <menuAccesskey-->
+                                                    <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"-->
+                                                    <!--                                                                fieldDescription="Keyboard Access key to use in menu"-->
+                                                    <!--                                                                fieldLabel="Menu Access Key"-->
+                                                    <!--                                                                name="./menuAccessKey"-->
+                                                    <!--                                                                required="{Boolean}false"/>-->
+                                                    <!--                                                        </items>-->
+                                                    <!--                                                    </menuConfigGroup>-->
+
+                                                    <!--                                                    <tabConfigGroup-->
+                                                    <!--                                                        jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                        jcr:title="Tab Configuration"-->
+                                                    <!--                                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">-->
+                                                    <!--                                                        <items jcr:primaryType="nt:unstructured">-->
+                                                    <!--                                                            <note-->
+                                                    <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                sling:resourceType="granite/ui/components/coral/foundation/text"-->
+                                                    <!--                                                                note="Icon used in Content Tabs and other Tab based components"/>-->
+
+                                                    <!--                                                            <tabIconShow-->
+                                                    <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                sling:resourceType="granite/ui/components/foundation/form/select"-->
+                                                    <!--                                                                fieldDescription="show icon in tabs"-->
+                                                    <!--                                                                fieldLabel="Show Tab Icon"-->
+                                                    <!--                                                                name="./tabIconShow"-->
+                                                    <!--                                                                emptyOption="{Boolean}true"-->
+                                                    <!--                                                                value="">-->
+                                                    <!--                                                                <datasource-->
+                                                    <!--                                                                    jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
+                                                    <!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"-->
+                                                    <!--                                                                    variant="valuelist"/>-->
+                                                    <!--                                                            </tabIconShow>-->
+
+                                                    <!--                                                            <tabIcon-->
+                                                    <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                sling:resourceType="aemdesign/components/coral/common/form/tagfield"-->
+                                                    <!--                                                                fieldDescription="When showing this page in a tab show this Icon"-->
+                                                    <!--                                                                fieldLabel="Tab Icon"-->
+                                                    <!--                                                                multiple="{Boolean}true"-->
+                                                    <!--                                                                rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"-->
+                                                    <!--                                                                name="./tabIcon"/>-->
+                                                    <!--                                                            <tabIconHint-->
+                                                    <!--                                                                jcr:primaryType="nt:unstructured"-->
+                                                    <!--                                                                sling:resourceType="granite/ui/components/foundation/form/hidden"-->
+                                                    <!--                                                                name="./tabIcon@TypeHint"-->
+                                                    <!--                                                                value="String[]"/>-->
+                                                    <!--                                                        </items>-->
+                                                    <!--                                                    </tabConfigGroup>-->
+
+                                                    <analytics
                                                         jcr:primaryType="nt:unstructured"
-                                                        jcr:title="Thumbnail Config"
-                                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                                        jcr:title="Analytics"
+                                                        sling:resourceType="granite/ui/components/foundation/container"
+                                                        margin="{Boolean}true">
                                                         <items jcr:primaryType="nt:unstructured">
-                                                            <badgeThumbnailType
+                                                            <analytics
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="Thumbnail Image Option"
-                                                                name="./badgeThumbnailType"
-                                                                value="">
-                                                                <items jcr:primaryType="nt:unstructured">
-                                                                    <default
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="Default"
-                                                                        value=""/>
-                                                                    <rendition
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        selectTab="imageConfig"
-                                                                        text="Rendition: pick a suitable image rendition"
-                                                                        value="rendition"/>
-                                                                </items>
-                                                            </badgeThumbnailType>
-
-                                                            <badgeThumbnailSize
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="cq/gui/components/authoring/dialog/sizefield"
-                                                                fieldDescription="blank values are not added as attributes"
-                                                                fieldLabel="Icon Size (w,h)">
-                                                                <width
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                                                    name="./badgeThumbnailWidth"/>
-                                                                <height
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                                                    name="./badgeThumbnailHeight"/>
-                                                            </badgeThumbnailSize>
-
-                                                            <badgeOverlayIconShow
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldDescription="show overlay icon on image"
-                                                                fieldLabel="Show Overlay Icon"
-                                                                name="./badgeOverlayIconShow"
-                                                                emptyOption="{Boolean}true"
-                                                                value="">
-                                                                <datasource
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
-                                                                    variant="valuelist"/>
-                                                            </badgeOverlayIconShow>
-
-                                                            <badgeOverlayIcon
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                                                fieldDescription="When showing this page in a list show this icon for overlay"
-                                                                fieldLabel="Overlay Icon"
-                                                                multiple="{Boolean}true"
-                                                                rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
-                                                                name="./badgeOverlayIcon"/>
-                                                            <badgeOverlayIconHint
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/hidden"
-                                                                name="./badgeOverlayIcon@TypeHint"
-                                                                value="String[]"/>
+                                                                sling:resourceType="aemdesign/components/coral/foundation/include"
+                                                                path="/apps/aemdesign/global/dialog/touch/analytics/content/items/tabs/items/analyticsTab/items/columns/items/column/items/basic"
+                                                                resourceType="granite/ui/components/foundation/section"
+                                                                selector="badge"/>
                                                         </items>
-                                                    </thumbnailConfig>
+                                                    </analytics>
 
-                                                    <menuConfigGroup
-                                                        jcr:primaryType="nt:unstructured"
-                                                        jcr:title="Menu Configuration"
-                                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                                        <items jcr:primaryType="nt:unstructured">
-                                                            <note
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                                note="Config for Menu based components"/>
+<!--                                                    TODO: Move this into a dedicated tab -->
+<!--                                                    <badgeLayout-->
+<!--                                                        jcr:primaryType="nt:unstructured"-->
+<!--                                                        jcr:title="Custom Badge Layout"-->
+<!--                                                        sling:resourceType="granite/ui/components/foundation/container"-->
+<!--                                                        margin="{Boolean}true">-->
+<!--                                                        <items jcr:primaryType="nt:unstructured">-->
+<!--                                                            <note-->
+<!--                                                                granite:class="display-block margin-b-1"-->
+<!--                                                                jcr:primaryType="nt:unstructured"-->
+<!--                                                                sling:resourceType="granite/ui/components/coral/foundation/text"-->
+<!--                                                                text=""/>-->
 
-                                                            <menuColor
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldDescription="Color to be used for highlighting in Site Menu"
-                                                                fieldLabel="Color"
-                                                                name="./menuColor"
-                                                                emptyOption="{Boolean}true"
-                                                                value="">
-                                                                <datasource
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/lists/navlist/color"
-                                                                    variant="valuelist"/>
-                                                            </menuColor>
+<!--                                                            <badgeCustom-->
+<!--                                                                jcr:primaryType="nt:unstructured"-->
+<!--                                                                sling:resourceType="granite/ui/components/coral/foundation/form/select"-->
+<!--                                                                fieldDescription="Custom Badge"-->
+<!--                                                                fieldLabel="Custom Badge"-->
+<!--                                                                name="./badgeCustom"-->
+<!--                                                                emptyOption="{Boolean}true"-->
+<!--                                                                value="">-->
+<!--                                                                <datasource-->
+<!--                                                                    jcr:primaryType="nt:unstructured"-->
+<!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
+<!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"-->
+<!--                                                                    variant="valuelist"/>-->
+<!--                                                            </badgeCustom>-->
 
-                                                            <menuIconShow
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldDescription="show icon in menus"
-                                                                fieldLabel="Show Icon"
-                                                                name="./menuIconShow"
-                                                                emptyOption="{Boolean}true"
-                                                                value="">
-                                                                <datasource
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
-                                                                    variant="valuelist"/>
-                                                            </menuIconShow>
+<!--                                                            <badgeTemplate-->
+<!--                                                                granite:class="dialog-dropdown-showhide"-->
+<!--                                                                jcr:primaryType="nt:unstructured"-->
+<!--                                                                sling:resourceType="granite/ui/components/foundation/form/select"-->
+<!--                                                                emptyOption="{Boolean}true"-->
+<!--                                                                fieldLabel="Badge Template"-->
+<!--                                                                fieldDescription="use pre-configured layout this will override Fields Template and Fields"-->
+<!--                                                                name="./badgeTemplate"-->
+<!--                                                                value="">-->
+<!--                                                                <granite:data-->
+<!--                                                                    jcr:primaryType="nt:unstructured"-->
+<!--                                                                    dialog-dropdown-showhide-target=".genericdetails-variant-showhide-target"/>-->
+<!--                                                                <datasource-->
+<!--                                                                    jcr:primaryType="nt:unstructured"-->
+<!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
+<!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/badge"-->
+<!--                                                                    variant="tagidvalue"/>-->
+<!--                                                            </badgeTemplate>-->
 
-                                                            <menuIcon
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                                                fieldDescription="Use this icon for Icon badge"
-                                                                fieldLabel="Menu Icon"
-                                                                multiple="{Boolean}true"
-                                                                rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
-                                                                name="./menuIcon"/>
-                                                            <menuIconHint
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/hidden"
-                                                                name="./menuIcon@TypeHint"
-                                                                value="String[]"/>
+<!--                                                            <badgeFieldsTemplate-->
+<!--                                                                jcr:primaryType="nt:unstructured"-->
+<!--                                                                sling:resourceType="granite/ui/components/coral/foundation/form/select"-->
+<!--                                                                fieldLabel="Fields Template"-->
+<!--                                                                fieldDescription="use following fields template to wrap required fields"-->
+<!--                                                                name="./badgeFieldsTemplate"-->
+<!--                                                                emptyOption="{Boolean}true">-->
+<!--                                                                <datasource-->
+<!--                                                                    jcr:primaryType="nt:unstructured"-->
+<!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
+<!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/templates"-->
+<!--                                                                    variant="valuelist"/>-->
+<!--                                                            </badgeFieldsTemplate>-->
 
-                                                            <menuAccesskey
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                fieldDescription="Keyboard Access key to use in menu"
-                                                                fieldLabel="Menu Access Key"
-                                                                name="./menuAccessKey"
-                                                                required="{Boolean}false"/>
-                                                        </items>
-                                                    </menuConfigGroup>
-
-                                                    <tabConfigGroup
-                                                        jcr:primaryType="nt:unstructured"
-                                                        jcr:title="Tab Configuration"
-                                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                                        <items jcr:primaryType="nt:unstructured">
-                                                            <note
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                                note="Icon used in Content Tabs and other Tab based components"/>
-
-                                                            <tabIconShow
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldDescription="show icon in tabs"
-                                                                fieldLabel="Show Tab Icon"
-                                                                name="./tabIconShow"
-                                                                emptyOption="{Boolean}true"
-                                                                value="">
-                                                                <datasource
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
-                                                                    variant="valuelist"/>
-                                                            </tabIconShow>
-
-                                                            <tabIcon
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                                                fieldDescription="When showing this page in a tab show this Icon"
-                                                                fieldLabel="Tab Icon"
-                                                                multiple="{Boolean}true"
-                                                                rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
-                                                                name="./tabIcon"/>
-                                                            <tabIconHint
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/hidden"
-                                                                name="./tabIcon@TypeHint"
-                                                                value="String[]"/>
-                                                        </items>
-                                                    </tabConfigGroup>
-
-                                                    <analyticsConfigGroup
-                                                        jcr:primaryType="nt:unstructured"
-                                                        jcr:title="Analytics Configuration"
-                                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                                        <items jcr:primaryType="nt:unstructured">
-                                                            <note
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                                note="This information is used in badges that have an action. These badges will be used in Lists for presentation."/>
-
-                                                            <badgeAnalyticsTrack
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                                                fieldDescription="Track"
-                                                                fieldLabel="Track"
-                                                                name="./badgeAnalyticsTrack"
-                                                                emptyOption="{Boolean}true"
-                                                                value="">
-                                                                <datasource
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
-                                                                    variant="valuelist"/>
-                                                            </badgeAnalyticsTrack>
-
-                                                            <badgeAnalyticsLocation
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                fieldDescription="Location"
-                                                                fieldLabel="Location"
-                                                                name="./badgeAnalyticsLocation"
-                                                                required="{Boolean}false"/>
-
-                                                            <badgeAnalyticsLabel
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                fieldDescription="Label"
-                                                                fieldLabel="Label"
-                                                                name="./badgeAnalyticsLabel"
-                                                                required="{Boolean}false"/>
-                                                        </items>
-                                                    </analyticsConfigGroup>
-
-                                                    <badgeFieldConfigGroup
-                                                        jcr:primaryType="nt:unstructured"
-                                                        jcr:title="Custom Badge Layout"
-                                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                                        <items jcr:primaryType="nt:unstructured">
-                                                            <note
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="cq/gui/components/authoring/dialog/note"
-                                                                note="Select Pre-Conifigured Badge Template or Select Customise Fields Template and Fields to render"/>
-
-                                                            <badgeCustom
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                                                fieldDescription="Custom Badge"
-                                                                fieldLabel="Custom Badge"
-                                                                name="./badgeCustom"
-                                                                emptyOption="{Boolean}true"
-                                                                value="">
-                                                                <datasource
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
-                                                                    variant="valuelist"/>
-                                                            </badgeCustom>
-
-                                                            <badgeTemplate
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                emptyOption="{Boolean}true"
-                                                                fieldLabel="Badge Template"
-                                                                fieldDescription="use pre-configured layout this will override Fields Template and Fields"
-                                                                name="./badgeTemplate"
-                                                                class="dialog-dropdown-showhide"
-                                                                dialog-dropdown-showhide-target=".genericdetails-variant-showhide-target"
-                                                                value="">
-                                                                <datasource
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/badge"
-                                                                    variant="tagidvalue"/>
-                                                            </badgeTemplate>
-
-                                                            <badgeFieldsTemplate
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                                                fieldLabel="Fields Template"
-                                                                fieldDescription="use following fields template to wrap required fields"
-                                                                name="./badgeFieldsTemplate"
-                                                                emptyOption="{Boolean}true">
-                                                                <datasource
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    variant="valuelist"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/templates"/>
-                                                            </badgeFieldsTemplate>
-
-                                                            <badgeFields
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
-                                                                fieldDescription="select fields that should appear in variant"
-                                                                fieldLabel="Fields">
-                                                                <field
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                                                    fieldLabel="Field"
-                                                                    name="./badgeFields"
-                                                                    emptyOption="{Boolean}true"
-                                                                    required="{Boolean}true">
-                                                                    <datasource
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                        variant="valuelist"
-                                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/fields"/>
-                                                                </field>
-                                                            </badgeFields>
-                                                        </items>
-                                                    </badgeFieldConfigGroup>
+<!--                                                            <badgeFields-->
+<!--                                                                jcr:primaryType="nt:unstructured"-->
+<!--                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"-->
+<!--                                                                fieldDescription="select fields that should appear in variant"-->
+<!--                                                                fieldLabel="Fields">-->
+<!--                                                                <field-->
+<!--                                                                    jcr:primaryType="nt:unstructured"-->
+<!--                                                                    sling:resourceType="granite/ui/components/coral/foundation/form/select"-->
+<!--                                                                    fieldLabel="Field"-->
+<!--                                                                    name="./badgeFields"-->
+<!--                                                                    emptyOption="{Boolean}true"-->
+<!--                                                                    required="{Boolean}true">-->
+<!--                                                                    <datasource-->
+<!--                                                                        jcr:primaryType="nt:unstructured"-->
+<!--                                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"-->
+<!--                                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/fields"-->
+<!--                                                                        variant="valuelist"/>-->
+<!--                                                                </field>-->
+<!--                                                            </badgeFields>-->
+<!--                                                        </items>-->
+<!--                                                    </badgeLayout>-->
                                                 </items>
                                             </config>
                                         </items>
-                                    </column>
+                                    </columnConfig>
                                 </items>
                             </columns>
                         </items>
