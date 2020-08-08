@@ -146,21 +146,21 @@
                 </items>
             </layoutTab>
 
-            <badgeConfigTab
+            <badgeConfig
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Badge Config"
                 path="/apps/aemdesign/global/dialog/touch/badge/content/items/tabs/items/badgeConfigTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
-            <styleTab
+            <style
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Style"
                 path="/apps/aemdesign/global/dialog/touch/style/content/items/tabs/items/styleTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
-            <accessibilityTab
+            <accessibility
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Accessibility"
                 path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/tabs/items/accessibilityTab"

@@ -117,19 +117,19 @@
                 </items>
             </layoutTab>
 
-            <styleTab
+            <style
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Style"
                 path="/apps/aemdesign/global/dialog/touch/style/content/items/tabs/items/styleTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
-            <accessibilityTab
+            <accessibility
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Accessibility"
                 path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/tabs/items/accessibilityTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
-            <analyticsTab
+            <analytics
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Analytics"
                 path="/apps/aemdesign/global/dialog/touch/analytics/content/items/tabs/items/analyticsTab"

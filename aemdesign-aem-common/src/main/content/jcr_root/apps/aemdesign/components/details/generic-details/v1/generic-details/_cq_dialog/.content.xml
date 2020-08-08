@@ -296,59 +296,59 @@
                 </items>
             </layoutTab>
 
-            <badgeConfigTab
+            <badgeConfig
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Badge Config"
                 path="/apps/aemdesign/global/dialog/touch/badge/content/items/tabs/items/badgeConfigTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
-            <imageBackgroundTab
+            <imageBackground
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Background Image"
                 path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageBackgroundTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
-            <thumbnailImageTab
+            <thumbnailImage
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Thumbnail"
                 path="/apps/aemdesign/global/dialog/touch/asset/content/items/thumbnailImageTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
-            <secondaryImageTab
+            <secondaryImage
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Secondary Thumbnail"
                 path="/apps/aemdesign/global/dialog/touch/asset/content/items/secondaryImageTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
-            <styleTab
+            <style
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Style"
                 path="/apps/aemdesign/global/dialog/touch/style/content/items/tabs/items/styleTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
-            <accessibilityTab
+            <accessibility
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Accessibility"
                 path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/tabs/items/accessibilityTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
-            <analyticsTab
+            <analytics
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Analytics"
                 path="/apps/aemdesign/global/dialog/touch/analytics/content/items/tabs/items/analyticsTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
-            <pageAnalyticsTab
+            <pageAnalytics
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Page Analytics"
                 path="/apps/aemdesign/global/dialog/touch/pageAnalytics/content/items/pageAnalyticsTab"
                 resourceType="granite/ui/components/foundation/section"
                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
-            <pageMetadataTab
+            <pageMetadata
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Page Metadata"
                 path="/apps/aemdesign/global/dialog/touch/pageMetadata/content/items/pageMetadataTab"

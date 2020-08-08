@@ -1,6 +1,4 @@
 <%@include file="/libs/granite/ui/global.jsp" %>
-<%
-%>
 <%@page session="false"
         import="java.util.Iterator,
                 com.adobe.granite.ui.components.AttrBuilder,

@@ -98,7 +98,7 @@
                     </layout>
 
 
-                    <imageBackgroundTab
+                    <imageBackground
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Background Image"
                         sling:resourceType="granite/ui/components/coral/foundation/container"
@@ -114,7 +114,7 @@
                                         granite:class="foundation-layout-util-maximized-alt"
                                         sling:resourceType="granite/ui/components/coral/foundation/container">
                                         <items jcr:primaryType="nt:unstructured">
-                                            <imageBackgroundTab
+                                            <imageBackground
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Background Image"
                                                 granite:class="js-cq-IPEPlugin-group"
