@@ -1,10 +1,11 @@
 package design.aem.models.v2.lists;
 
-import com.day.cq.i18n.I18n;
 import com.day.cq.replication.ReplicationStatus;
-import com.day.cq.search.*;
+import com.day.cq.search.PredicateGroup;
+import com.day.cq.search.Query;
+import com.day.cq.search.QueryBuilder;
+import com.day.cq.search.SimpleSearch;
 import com.day.cq.search.result.Hit;
-import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.NameConstants;
@@ -18,163 +19,185 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.request.RequestParameter;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
-import org.apache.sling.models.annotations.Default;
-import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
-import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.io.ByteArrayInputStream;
-import java.io.StringReader;
-import java.net.URLDecoder;
 import java.util.*;
 
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
-import static design.aem.utils.components.I18nUtil.*;
-import static design.aem.utils.components.ImagesUtil.getAssetInfo;
-import static design.aem.utils.components.ImagesUtil.getResourceImagePath;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class List extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(List.class);
 
-    private static final int LIMIT_DEFAULT = 100;
-    private static final int PAGEMAX_DEFAULT = -1;
-    private static final int PN_DEPTH_DEFAULT = 1;
-    private static final int LIST_SPLIT_EVERY_DEFAULT = 5;
-    private static final String TAGS_MATCH_ANY_VALUE = "any";
-    private static final String PN_DATE_FORMAT_DEFAULT = "yyyy-MM-dd";
+    protected static String COMPONENT_LIST_NAME = "list";
 
-    private static final String PN_SOURCE = "listFrom"; //SOURCE_PROPERTY_NAME
-    private static final String PN_PAGES = "pages"; //PAGES_PROPERTY_NAME
-    private static final String PN_PARENT_PAGE = "parentPage"; //PARENT_PAGE_PROPERTY_NAME
-    private static final String DESCENDANT_TAG = "ancestorTag";
-    private static final String PN_PARENT_PAGE_DEFAULT = "/content";
-    private static final String PN_TAGS_PARENT_PAGE = "tagsSearchRoot";
-    private static final String PN_TAGS = "tags"; //TAGS_PROPERTY_NAME
-    private static final String PN_TAGS_MATCH = "tagsMatch"; //TAGS_MATCH_PROPERTY_NAME
-    private static final String LIMIT_PROPERTY_NAME = "limit"; //TAGS_MATCH_PROPERTY_NAME
-    private static final String PAGE_MAX_PROPERTY_NAME = "pageMax";
-    private static final String PAGE_START_PROPERTY_NAME = "pageStart";
-    private static final String ANCESTOR_PAGE_PROPERTY_NAME = "ancestorPage";
-    private static final String SEARCH_IN_PROPERTY_NAME = "searchIn";
-    private static final String SAVEDQUERY_PROPERTY_NAME = "savedquery";
-    private static final String LIST_SPLIT_EVERY = "listSplitEvery";
-    private static final String SHOW_HIDDEN = "showHidden";
-    private static final String SHOW_INVALID = "showInvalid";
-    private static final String DETAILS_BADGE = "detailsBadge";
-    private static final String PAGINATION_TYPE = "paginationType";
+    protected static String[] DETAILS_COMPONENT_LOOKUP_NAMES;
 
-    private static final String REQUEST_PARAM_MARKER_START = "start";
-    private static final String REQUEST_PARAM_MARKER_MAX = "max";
-    private static final String REQUEST_PARAM_QUERY = "q";
-    private static final String QUERY_ENCODING = "UTF-8";
+    protected static final String FIELD_LIST_SOURCE = "listFrom";
+    protected static final String FIELD_LIST_SOURCE_CHILDREN_PARENT_PATH = "parentPage";
+    protected static final String FIELD_LIST_SOURCE_DESCENDANTS_PARENT_PATH = "ancestorPage";
+    protected static final String FIELD_LIST_SOURCE_STATIC_PAGES = "pages";
+    protected static final String FIELD_LIST_SOURCE_SEARCH_PATH = "searchIn";
+    protected static final String FIELD_LIST_SOURCE_SEARCH_QUERY = "query";
+    protected static final String FIELD_LIST_SOURCE_TAGS_PARENT_PATH = "tagsSearchRoot";
+    protected static final String FIELD_LIST_SOURCE_TAGS_SELECTION = "tags";
+    protected static final String FIELD_LIST_SOURCE_TAGS_CONDITION = "tagsMatch";
+    protected static final String FIELD_LIST_SOURCE_TAGS_SEARCH_DETAILS = "useDetailsTags";
+    protected static final String FIELD_LIST_SOURCE_QUERY_BUILDER = "savedquery";
 
-    public static final String LIST_TAG_ORDERED = "ol";
-    public static final String LIST_TAG_UNORDERED = "ul";
-    public static final String LIST_TAG = "listTag";
-    public static final String LIST_ISPAGINATING = "isPaginating";
-    public static final String LIST_ISEMPTY = "isEmpty";
+    protected static final String FIELD_LIST_SORT_ORDER = "sortOrder";
+    protected static final String FIELD_LIST_ORDER_BY = "orderBy";
+    protected static final String FIELD_LIST_LIMIT = "limit";
+    protected static final String FIELD_LIST_PAGINATION_AFTER = "pageMax";
+    protected static final String FIELD_LIST_PAGINATION_TYPE = "paginationType";
 
-    private static final String PN_SEARCH_IN = "searchIn";
-    private static final String PN_QUERY = "query";
-    private static final String PN_SORT_ORDER = "sortOrder";
-    private static final String PN_ORDER_BY = "orderBy";
-    private static final String PN_ORDER_BY_DEFAULT = "path";
+    protected static final String FIELD_LIST_DETAILS_BADGE = "detailsBadge";
+    protected static final String FIELD_LIST_SHOW_HIDDEN_PAGES = "showHidden";
 
+    protected static final String FIELD_LIST_PRINT_STRUCTURE = "printStructure";
+    protected static final String FIELD_LIST_TAG = "listTag";
+    protected static final String FIELD_LIST_SPLIT = "listSplit";
+    protected static final String FIELD_LIST_SPLIT_EVERY = "listSplitEvery";
 
-    private static final Boolean DEFAULT_PRINT_STRUCTURE = true;
-    private static final String DEFAULT_TITLE_TYPE = "h2";
-    private static final String DEFAULT_I18N_CATEGORY = "list";
-    private static final String DEFAULT_PAGINATION = "default";
+    protected static final String FIELD_LIST_FEED_ENABLED = "feedEnabled";
+    protected static final String FIELD_LIST_FEED_TYPE = "feedType";
 
-    public static final String LISTITEM_LINK_TEXT = "listItemLinkText";
-    public static final String LISTITEM_LINK_TITLE = "listItemLinkTitle";
+    protected static String DEFAULT_LIST_SOURCE = StringUtils.EMPTY;
+    protected static String DEFAULT_LIST_SOURCE_CHILDREN_PARENT_PATH = null;
+    protected static String DEFAULT_LIST_SOURCE_DESCENDANTS_PARENT_PATH = null;
+    protected static String DEFAULT_LIST_SOURCE_SEARCH_PATH = null;
+    protected static String DEFAULT_LIST_SOURCE_SEARCH_QUERY = StringUtils.EMPTY;
+    protected static String DEFAULT_LIST_SOURCE_TAGS_PARENT_PATH = null;
+    protected static String DEFAULT_LIST_SOURCE_TAGS_CONDITION = "any";
+    protected static Boolean DEFAULT_LIST_SOURCE_TAGS_SEARCH_DETAILS = false;
+    protected static String DEFAULT_LIST_SOURCE_QUERY_BUILDER = StringUtils.EMPTY;
 
-    private static final String FIELD_FEED_ENABLED = "feedEnabled";
-    private static final String FIELD_FEED_TYPE = "feedType";
-    private static final String FIELD_FEED_EXT = "feedExt";
-    private static final String FIELD_FEED_TITLE = "feedTitle";
-    private static final String FIELD_FEED_URL = "feedUrl";
+    protected static String DEFAULT_LIST_ORDER_BY = StringUtils.EMPTY;
+    protected static String DEFAULT_LIST_SORT_ORDER = SortOrder.ASC.getValue();
+    protected static int DEFAULT_LIST_LIMIT = -1;
+    protected static int DEFAULT_LIST_PAGINATION_AFTER = -1;
+    protected static String DEFAULT_LIST_PAGINATION_TYPE = "hidden";
 
-    private java.util.List<Map<String, Object>> listItems;
+    protected static String DEFAULT_LIST_DETAILS_BADGE = DEFAULT_BADGE;
+    protected static Boolean DEFAULT_LIST_SHOW_HIDDEN_PAGES = false;
 
-    private String startIn;
-    private List.SortOrder sortOrder;
+    protected static Boolean DEFAULT_LIST_PRINT_STRUCTURE = true;
+    protected static String DEFAULT_LIST_TAG = "ul";
+    protected static Boolean DEFAULT_LIST_SPLIT = false;
+    protected static int DEFAULT_LIST_SPLIT_EVERY = 3;
 
-    @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
-    @Default(intValues = LIMIT_DEFAULT)
+    protected static Boolean DEFAULT_LIST_FEED_ENABLED = false;
+    protected static String DEFAULT_LIST_FEED_TYPE = null;
+
+    protected static String DEFAULT_CURRENT_PATH = null;
+    protected static String DEFAULT_SEARCH_IN_PATH = null;
+    protected static String DEFAULT_LIST_LINK_TEXT = null;
+    protected static String DEFAULT_LIST_LINK_TITLE = null;
+
+    protected static String ATTR_LIST_SPLIT = "data-list-split-enabled";
+    protected static String ATTR_LIST_SPLIT_EVERY = "data-list-split-every";
+
+    protected static String PROP_FEED_TYPE = "feedType";
+    protected static String PROP_FEED_TITLE = "feedTitle";
+    protected static String PROP_FEED_URL = "feedUrl";
+    protected static String PROP_LIST_EMPTY = "isEmpty";
+    protected static String PROP_IS_PAGINATING = "isPaginating";
+    protected static String PROP_NEEDS_PAGINATION = "needsPagination";
+    protected static String PROP_RESULT_INFO = "resultInfo";
+
+    protected Map<String, ListFeed> listFeeds = new HashMap<>();
+    protected java.util.List<Map<String, Object>> listItems;
+
+    private String identifier;
+
+    private String searchInPath;
+    private String searchQuery;
+    private String queryBuilderString;
+
+    private SortOrder sortOrder;
     private int limit;
+    private int paginationAfter;
 
-    @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
-    @Default(values = StringUtils.EMPTY)
-    private String query;
+    private String detailsBadge;
+    private Boolean showHidden;
 
-    @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
-    @Default(values = StringUtils.EMPTY)
-    private String savedquery;
+    private int listSplitEvery;
 
-    private long pageMax;
-    private long totalPages;
-    private long pageStart;
+    private Boolean feedEnabled;
+    private String feedType;
+
     private long totalMatches;
-    private long listSplitEvery;
-    private String id;
-    private boolean isPaginating;
-    private java.util.List<ResultPage> resultPages;
-
-    protected String detailsBadge;
-    protected String[] detailsNameSuffix;
-    protected boolean showHidden;
-    protected boolean showInvalid;
 
     public void ready() {
-        loadConfig();
+        registerListFeedTypes();
+
+        generateComponentPropertiesFromFields();
     }
 
-    @SuppressWarnings({"squid:S3776"})
-    protected void loadConfig() {
-        I18n i18n = new I18n(getRequest());
-        String resourcePath = getResource().getPath();
+    /**
+     * Register the feed types that are available for the list.
+     */
+    private void registerListFeedTypes() {
+        if (Boolean.FALSE.equals(getCurrentStyle().get("disableFeedTypeRSS", false))) {
+            listFeeds.put("rss", new ListFeed(".rss", "RSS Feed", "application/rss+xml"));
+        }
+
+        if (Boolean.FALSE.equals(getCurrentStyle().get("disableFeedTypeAtom", false))) {
+            listFeeds.put("atom", new ListFeed(".feed", "Atom 1.0 (List)", "application/atom+xml"));
+        }
+    }
+
+    /**
+     * Process the component fields and generate the {@link #componentProperties} instance.
+     */
+    protected void generateComponentPropertiesFromFields() {
+        DEFAULT_CURRENT_PATH = getCurrentPage().getPath();
+
+        setComponentFieldsDefaults();
 
         setComponentFields(new Object[][]{
-            {LIST_TAG, LIST_TAG_UNORDERED},
-            {FIELD_FEED_ENABLED, false},
-            {FIELD_FEED_TYPE, "rss"},
-            {"listSplit", false, "data-list-split-enabled"},
-            {LIST_SPLIT_EVERY, LIST_SPLIT_EVERY_DEFAULT, "data-list-split-every"},
-            {DETAILS_BADGE, DEFAULT_BADGE, "data-badge"},
-            {"printStructure", DEFAULT_PRINT_STRUCTURE},
-            {"topicQueue", StringUtils.EMPTY, "topicqueue"},
-            {SHOW_HIDDEN, false},
-            {SHOW_INVALID, false},
-            {PAGINATION_TYPE, DEFAULT_PAGINATION},
-            {LIMIT_PROPERTY_NAME, LIMIT_DEFAULT},
-            {PAGE_MAX_PROPERTY_NAME, PAGEMAX_DEFAULT},
-            {ANCESTOR_PAGE_PROPERTY_NAME, StringUtils.EMPTY},
-            {PN_PARENT_PAGE, getCurrentPage().getPath()},
-            {PN_SOURCE, StringUtils.EMPTY},
-            {PN_PAGES, new String[]{}},
-            {PN_TAGS_PARENT_PAGE, getCurrentPage().getPath()},
-            {PN_TAGS, new String[]{}},
-            {PN_TAGS_MATCH, TAGS_MATCH_ANY_VALUE},
-            {PN_ORDER_BY, StringUtils.EMPTY},
-            {PN_QUERY, StringUtils.EMPTY},
-            {PN_SORT_ORDER, SortOrder.ASC.getValue()},
-            {PN_SEARCH_IN, getResourcePage().getPath()},
-            {SAVEDQUERY_PROPERTY_NAME, StringUtils.EMPTY},
-            {SEARCH_IN_PROPERTY_NAME, StringUtils.EMPTY},
-            {LISTITEM_LINK_TEXT, getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LIST_ITEM_LINK_TEXT, DEFAULT_I18N_CATEGORY, i18n)},
-            {LISTITEM_LINK_TITLE, getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LIST_ITEM_LINK_TITLE, DEFAULT_I18N_CATEGORY, i18n)}
+            // Sources
+            {FIELD_LIST_SOURCE, DEFAULT_LIST_SOURCE},
+            {FIELD_LIST_SOURCE_CHILDREN_PARENT_PATH, DEFAULT_LIST_SOURCE_CHILDREN_PARENT_PATH},
+            {FIELD_LIST_SOURCE_DESCENDANTS_PARENT_PATH, DEFAULT_LIST_SOURCE_DESCENDANTS_PARENT_PATH},
+            {FIELD_LIST_SOURCE_STATIC_PAGES, new String[]{}},
+            {FIELD_LIST_SOURCE_SEARCH_PATH, DEFAULT_LIST_SOURCE_SEARCH_PATH},
+            {FIELD_LIST_SOURCE_SEARCH_QUERY, DEFAULT_LIST_SOURCE_SEARCH_QUERY},
+            {FIELD_LIST_SOURCE_TAGS_PARENT_PATH, DEFAULT_LIST_SOURCE_TAGS_PARENT_PATH},
+            {FIELD_LIST_SOURCE_TAGS_SELECTION, new String[]{}},
+            {FIELD_LIST_SOURCE_TAGS_CONDITION, DEFAULT_LIST_SOURCE_TAGS_CONDITION},
+            {FIELD_LIST_SOURCE_TAGS_SEARCH_DETAILS, DEFAULT_LIST_SOURCE_TAGS_SEARCH_DETAILS},
+            {FIELD_LIST_SOURCE_QUERY_BUILDER, DEFAULT_LIST_SOURCE_QUERY_BUILDER},
+
+            // Options
+            {FIELD_LIST_ORDER_BY, DEFAULT_LIST_ORDER_BY},
+            {FIELD_LIST_SORT_ORDER, DEFAULT_LIST_SORT_ORDER},
+            {FIELD_LIST_LIMIT, DEFAULT_LIST_LIMIT},
+            {FIELD_LIST_PAGINATION_AFTER, DEFAULT_LIST_PAGINATION_AFTER},
+            {FIELD_LIST_PAGINATION_TYPE, DEFAULT_LIST_PAGINATION_TYPE},
+
+            // Items
+            {FIELD_LIST_DETAILS_BADGE, DEFAULT_LIST_DETAILS_BADGE},
+            {FIELD_LIST_SHOW_HIDDEN_PAGES, false},
+
+            // Structure
+            {FIELD_LIST_PRINT_STRUCTURE, DEFAULT_LIST_PRINT_STRUCTURE},
+            {FIELD_LIST_TAG, DEFAULT_LIST_TAG},
+            {FIELD_LIST_SPLIT, DEFAULT_LIST_SPLIT, ATTR_LIST_SPLIT},
+            {FIELD_LIST_SPLIT_EVERY, DEFAULT_LIST_SPLIT_EVERY, ATTR_LIST_SPLIT_EVERY},
+
+            // Feed
+            {FIELD_LIST_FEED_ENABLED, DEFAULT_LIST_FEED_ENABLED},
+            {FIELD_LIST_FEED_TYPE, DEFAULT_LIST_FEED_TYPE},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -184,101 +207,95 @@ public class List extends BaseComponent {
             DEFAULT_FIELDS_ACCESSIBILITY,
             DEFAULT_FIELDS_ANALYTICS);
 
-        //generate id to be used when reading the query string
-        generateId();
+        componentProperties.put(PROP_NEEDS_PAGINATION,
+            componentProperties.get(FIELD_LIST_PAGINATION_TYPE, DEFAULT_LIST_PAGINATION_TYPE).equals("hidden"));
 
-        //save tag info
-        String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
-        componentProperties.attr.add("data-search-tags", StringUtils.join(tags, ","));
+        componentProperties.put(COMPONENT_ATTRIBUTES,
+            buildAttributesString(componentProperties.attr.getData(), null));
 
-        //collection info for variables
-        startIn = componentProperties.get(PN_SEARCH_IN, getResourcePage().getPath());
-        sortOrder = SortOrder.fromString(componentProperties.get(PN_SORT_ORDER, SortOrder.ASC.getValue()));
-        savedquery = componentProperties.get(SAVEDQUERY_PROPERTY_NAME, "");
-        pageMax = componentProperties.get(PAGE_MAX_PROPERTY_NAME, PAGEMAX_DEFAULT);
-        listSplitEvery = componentProperties.get(LIST_SPLIT_EVERY, LIST_SPLIT_EVERY_DEFAULT);
-        detailsBadge = componentProperties.get(DETAILS_BADGE, DEFAULT_BADGE);
-        limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
-        showHidden = componentProperties.get(SHOW_HIDDEN, false);
-        showInvalid = componentProperties.get(SHOW_INVALID, false);
-        query = componentProperties.get(PN_QUERY, "");
+        processListSettingsAndConfiguration();
 
-        //check default details suffix
-        if (detailsNameSuffix == null) {
-            detailsNameSuffix = DEFAULT_LIST_DETAILS_SUFFIX;
+        if (Boolean.TRUE.equals(feedEnabled)) {
+            setupFeedForList();
         }
 
-        //check query string for parameters
-        String requestPageStart = getParameter(REQUEST_PARAM_MARKER_START);
-        if (isNotEmpty(requestPageStart)) {
-            pageStart = tryParseLong(requestPageStart, 0);
-            componentProperties.put(PAGE_START_PROPERTY_NAME, pageStart);
-        }
+        processBadgeRequestAttributes();
 
-        String requestPageMax = getParameter(REQUEST_PARAM_MARKER_MAX);
-        if (isNotEmpty(requestPageMax)) {
-            pageMax = tryParseLong(requestPageMax, pageMax);
-            componentProperties.put(PAGE_MAX_PROPERTY_NAME, pageStart);
-        }
+        generateUniqueIdentifier();
+    }
 
-        if (getRequest().getRequestParameter(REQUEST_PARAM_QUERY) != null) {
-            try {
-                RequestParameter requestParameter = getRequest().getRequestParameter(REQUEST_PARAM_QUERY);
-                if (requestParameter != null) {
-                    query = requestParameter.toString();
-                }
-            } catch (Exception ex) {
-                LOGGER.error("could not read query param {}", ex);
-            }
-        }
+    /**
+     * Set the default component field values that are dynamic.
+     */
+    protected void setComponentFieldsDefaults() {
+        DEFAULT_LIST_SOURCE_CHILDREN_PARENT_PATH = DEFAULT_CURRENT_PATH;
+        DEFAULT_LIST_SOURCE_DESCENDANTS_PARENT_PATH = DEFAULT_CURRENT_PATH;
+        DEFAULT_LIST_SOURCE_SEARCH_PATH = getResourcePage().getPath();
+        DEFAULT_LIST_SOURCE_TAGS_PARENT_PATH = DEFAULT_CURRENT_PATH;
 
+        DEFAULT_LIST_ORDER_BY = getCurrentStyle().get("orderBy", DEFAULT_LIST_ORDER_BY);
+        DEFAULT_LIST_SORT_ORDER = getCurrentStyle().get("sortOrder", DEFAULT_LIST_SORT_ORDER);
+        DEFAULT_LIST_LIMIT = getCurrentStyle().get("limit", DEFAULT_LIST_LIMIT);
+        DEFAULT_LIST_PAGINATION_AFTER = getCurrentStyle().get("paginateAfter", DEFAULT_LIST_PAGINATION_AFTER);
 
-        //setup feed config
-        if ((Boolean) componentProperties.get(FIELD_FEED_ENABLED)) {
-            if ("atom".equals(componentProperties.get(FIELD_FEED_TYPE))) {
-                componentProperties.put(FIELD_FEED_EXT, ".feed");
-                componentProperties.put(FIELD_FEED_TITLE, "Atom 1.0 (List)");
-                componentProperties.put(FIELD_FEED_TYPE, "application/atom+xml");
-            } else if ("ics".equals(componentProperties.get(FIELD_FEED_TYPE))) {
-                componentProperties.put(FIELD_FEED_EXT, ".ics");
-                componentProperties.put(FIELD_FEED_TITLE, "iCalendar Subscription List");
-                componentProperties.put(FIELD_FEED_TYPE, "text/calendar");
-            } else {
-                componentProperties.put(FIELD_FEED_EXT, ".rss");
-                componentProperties.put(FIELD_FEED_TITLE, "RSS Feed");
-                componentProperties.put(FIELD_FEED_TYPE, "application/rss+xml");
-            }
-            if (isNotEmpty(componentProperties.get(FIELD_FEED_EXT, ""))) {
-                componentProperties.put(FIELD_FEED_URL, resourcePath.concat(componentProperties.get(FIELD_FEED_EXT, "")));
-            } else {
-                componentProperties.put(FIELD_FEED_URL, resourcePath);
-            }
-        }
+        DEFAULT_LIST_SHOW_HIDDEN_PAGES = getCurrentStyle().get("showHidden", DEFAULT_LIST_SHOW_HIDDEN_PAGES);
 
+        DEFAULT_LIST_SPLIT = getCurrentStyle().get("listSplit", DEFAULT_LIST_SPLIT);
+        DEFAULT_LIST_SPLIT_EVERY = getCurrentStyle().get("listSplitEvery", DEFAULT_LIST_SPLIT_EVERY);
+    }
 
-        String strItemLimit = componentProperties.get(LIMIT_PROPERTY_NAME, "");
-        String strPageItems = componentProperties.get(PAGE_MAX_PROPERTY_NAME, "");
+    /**
+     * Process the most common settings and configurations for the list.
+     */
+    private void processListSettingsAndConfiguration() {
+        searchInPath = componentProperties.get(FIELD_LIST_SOURCE_SEARCH_PATH, DEFAULT_LIST_SOURCE_SEARCH_PATH);
+        searchQuery = componentProperties.get(FIELD_LIST_SOURCE_SEARCH_QUERY, DEFAULT_LIST_SOURCE_SEARCH_QUERY);
+        queryBuilderString = componentProperties.get(FIELD_LIST_SOURCE_QUERY_BUILDER, DEFAULT_LIST_SOURCE_QUERY_BUILDER);
 
-        // no limit set, but pagination enabled, set limit to infinite
-        if (StringUtils.isBlank(strItemLimit) && !StringUtils.isBlank(strPageItems)) {
-            limit = Integer.MAX_VALUE;
-        }
+        sortOrder = SortOrder.fromString(componentProperties.get(FIELD_LIST_SORT_ORDER, DEFAULT_LIST_SORT_ORDER));
+        paginationAfter = componentProperties.get(FIELD_LIST_PAGINATION_AFTER, DEFAULT_LIST_PAGINATION_AFTER);
 
-        Object[][] badgeComponentFields = {
-            {FIELD_PAGE_TITLE, ""},
-            {FIELD_PAGE_TITLE_NAV, ""},
-        };
+        limit = componentProperties.get(FIELD_LIST_LIMIT, DEFAULT_LIST_LIMIT);
+        limit = limit < 1 ? Integer.MAX_VALUE : limit;
 
-        //prepare request parms to pass to badges
+        detailsBadge = componentProperties.get(FIELD_LIST_DETAILS_BADGE, DEFAULT_LIST_DETAILS_BADGE);
+        showHidden = componentProperties.get(FIELD_LIST_SHOW_HIDDEN_PAGES, DEFAULT_LIST_SHOW_HIDDEN_PAGES);
+
+        listSplitEvery = componentProperties.get(FIELD_LIST_SPLIT_EVERY, DEFAULT_LIST_SPLIT_EVERY);
+
+        feedEnabled = componentProperties.get(FIELD_LIST_FEED_ENABLED, DEFAULT_LIST_FEED_ENABLED);
+        feedType = componentProperties.get(FIELD_LIST_FEED_TYPE, DEFAULT_LIST_FEED_TYPE);
+    }
+
+    private void setupFeedForList() {
+        ListFeed listFeed = listFeeds.get(feedType);
+
+        componentProperties.put(PROP_FEED_TYPE, listFeed != null ? listFeed.type : null);
+        componentProperties.put(PROP_FEED_TITLE, listFeed != null ? listFeed.title : null);
+
+        componentProperties.put(PROP_FEED_URL,
+            listFeed != null ? getResource().getPath().concat(listFeed.extension) : null);
+
+//            TODO: Move this into EventList.java
+//            componentProperties.put(FIELD_FEED_EXT, ".ics");
+//            componentProperties.put(FIELD_FEED_TITLE, "iCalendar Subscription List");
+//            componentProperties.put(FIELD_LIST_FEED_TYPE, "text/calendar");
+    }
+
+    /**
+     * Process the badge configuration which will be passed onto each page during runtime.
+     */
+    private void processBadgeRequestAttributes() {
         ComponentProperties badgeRequestAttributes = ComponentsUtil.getComponentProperties(
             this,
             false,
-            badgeComponentFields,
             DEFAULT_FIELDS_DETAILS_OPTIONS_OVERRIDE);
 
-        badgeRequestAttributes.putAll(getAssetInfo(getResourceResolver(),
-            getResourceImagePath(getResource(), DETAILS_THUMBNAIL),
-            DETAILS_THUMBNAIL));
+//        TODO: Determine if this provides any real-world value
+//        badgeRequestAttributes.putAll(
+//            getAssetInfo(getResourceResolver(),
+//            getResourceImagePath(getResource(), DETAILS_THUMBNAIL),
+//            DETAILS_THUMBNAIL));
 
         componentProperties.put(BADGE_REQUEST_ATTRIBUTES, badgeRequestAttributes);
 
@@ -286,229 +303,346 @@ public class List extends BaseComponent {
             getRequest().setAttribute(BADGE_REQUEST_ATTRIBUTES, badgeRequestAttributes);
             getRequest().setAttribute(COMPONENT_PROPERTIES, componentProperties);
         } catch (Exception ex) {
-            LOGGER.error("could not set request attributes for use in badges");
+            LOGGER.error("Could not set badge request attributes.\n{}", ex.getMessage());
         }
-
-        String paginationTemplate = String.format("pagination.%s.html", componentProperties.get(PAGINATION_TYPE, DEFAULT_PAGINATION));
-        componentProperties.put("paginationTemplate", paginationTemplate);
-
-        componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
-
     }
 
     /**
-     * generate component id to use in creating querystring parameters.
+     * Generate a unique identifier to use in creating query string parameters.
      */
-    private void generateId() {
+    private void generateUniqueIdentifier() {
         String path = getResource().getPath();
         String rootMarker = JcrConstants.JCR_CONTENT.concat(PATH_SEPARATOR);
         int root = path.indexOf(rootMarker);
+
         if (root >= 0) {
             path = path.substring(root + rootMarker.length());
         }
 
-        id = path.replace(PATH_SEPARATOR, PATH_UNDERSCORE);
+        identifier = path.replace(PATH_SEPARATOR, PATH_UNDERSCORE);
     }
 
     /**
-     * get request parameter with component id prefix.
+     * Retrieve all of the content associated with the authored parameters.
      *
-     * @param name name of querystring param suffix
-     * @return parameter value
-     */
-    private String getParameter(String name) {
-        return getRequest().getParameter(id + PATH_UNDERSCORE + name);
-    }
-
-    /**
-     * get next page url.
-     *
-     * @return next page url
-     */
-    private String getNextPageLink() {
-        long nextPageStart = pageStart + pageMax;
-        if (isPaginating && pageMax > 0 && resultPages.size() > 0 && nextPageStart < totalMatches) {
-            List.PageLink link = new List.PageLink(getRequest());
-            link.setParameter(REQUEST_PARAM_MARKER_START, nextPageStart);
-            return link.toString();
-        } else {
-            return "";
-        }
-    }
-
-    /**
-     * get previous page url.
-     *
-     * @return previous page url
-     */
-    private String getPreviousPageLink() {
-        if (isPaginating && pageMax > 0 && resultPages.size() > 0 && pageStart != 0) {
-            long previousPageStart = pageStart > pageMax ? pageStart - pageMax : 0;
-            List.PageLink link = new List.PageLink(getRequest());
-            link.setParameter(REQUEST_PARAM_MARKER_START, previousPageStart);
-            return link.toString();
-        } else {
-            return "";
-        }
-    }
-
-    /**
-     * get page badge info from a page.
-     *
-     * @param page page to use
-     * @return map of badge attributes
-     */
-    private Map<String, Object> getPageBadgeInfo(Page page) {
-        return getPageBadgeInfo(page, detailsNameSuffix, getResourceResolver(), detailsBadge);
-    }
-
-    /**
-     * return page badge info.
-     *
-     * @param page              page to use for collection
-     * @param detailsNameSuffix details siffix to look for
-     * @param resourceResolver  resource resolver to use
-     * @param detailsBadge      badge selectors to add
-     * @return map of page badge attributes
-     */
-    static Map<String, Object> getPageBadgeInfo(Page page, String[] detailsNameSuffix, ResourceResolver resourceResolver, String detailsBadge) {
-
-        Map<String, Object> badge = new HashMap<>();
-
-        try {
-
-            String componentPath = findComponentInPage(page, detailsNameSuffix);
-            if (isNotEmpty(componentPath)) {
-                Resource componentResource = resourceResolver.getResource(componentPath);
-                if (componentResource != null) {
-                    String componentResourceType = componentResource.getResourceType();
-                    if (isNull(componentResourceType)) {
-                        componentResourceType = "";
-                    }
-                    badge.put("componentResourceType", componentResourceType);
-                }
-
-                badge.put("componentPath", componentPath);
-
-                badge.put("componentPathSelectors", new String[]{DETAILS_SELECTOR_BADGE, detailsBadge});
-
-                String pageRedirect = getPageRedirect(page);
-
-                if (isEmpty(pageRedirect)) {
-                    badge.put("redirectLink", pageRedirect);
-                }
-
-            } else {
-                LOGGER.warn("getPageBadgeInfo: page {} does not have component with resource type suffix {}", page.getPath(), detailsNameSuffix);
-                badge.put("componentMissing", true);
-            }
-
-
-            badge.put("pagePath", page.getPath());
-
-        } catch (Exception ex) {
-            LOGGER.error("getPageBadgeInfo: could not get page info {}", ex);
-        }
-        return badge;
-
-    }
-
-    /**
-     * get list options type.
-     *
-     * @return selected list type
-     */
-    protected Source getListType() {
-        String listFromValue = componentProperties.get(PN_SOURCE, getCurrentStyle().get(PN_SOURCE, StringUtils.EMPTY));
-        return Source.fromString(listFromValue);
-    }
-
-    /**
-     * get list items, used by HTL templates.
-     *
-     * @return collection of list types
+     * @return Collection of list items.
      */
     public Collection<Map<String, Object>> getListItems() {
-
         if (listItems == null) {
-            Source listType = getListType();
-            populateListItems(listType);
+            populateListItems(getListType());
         }
 
         return listItems;
     }
 
     /**
-     * populate list items.
+     * Retrieve the authored list type.
      *
-     * @param listType list type to execute
+     * @return Authored list type
+     */
+    protected Source getListType() {
+        String listFromValue = componentProperties.get(FIELD_LIST_SOURCE, DEFAULT_LIST_SOURCE);
+
+        return Source.fromString(listFromValue);
+    }
+
+    /**
+     * Populate the list of results using the {@code listType} provided.
+     *
+     * @param listType List type to execute
      */
     protected void populateListItems(Source listType) {
+        String styleCheck = null;
+        Runnable callback = null;
+
+        listItems = new ArrayList<>();
+
         switch (listType) {
-            case STATIC: //SOURCE_STATIC
-                populateStaticListItems();
+            case CHILDREN:
+                styleCheck = "disableChildren";
+                callback = this::populateChildListItems;
                 break;
-            case CHILDREN: //SOURCE_CHILDREN
-                populateChildListItems();
+            case DESCENDANTS:
+                styleCheck = "disableDescendants";
+                callback = this::populateDescendantsListItems;
                 break;
-            case TAGS: //SOURCE_TAGS
-                populateTagListItems();
+            case STATIC:
+                styleCheck = "disableStatic";
+                callback = this::populateStaticListItems;
                 break;
-            case SEARCH: //SOURCE_SEARCH
-                populateSearchListItems();
+            case SEARCH:
+                styleCheck = "disableSearch";
+                callback = this::populateSearchListItems;
                 break;
-            case QUERYBUILDER: //SOURCE_QUERYBUILDER
-                populateQueryListItems();
+            case TAGS:
+                styleCheck = "disableTags";
+                callback = this::populateTagListItems;
                 break;
-            case DESCENDANTS: //SOURCE_DESCENDANTS
-                populateDescendantsListItems();
-                break;
-            default:
-                listItems = new ArrayList<>();
+            case QUERYBUILDER:
+                styleCheck = "disableQuerybuilder";
+                callback = this::populateQueryListItems;
                 break;
         }
-        //sortListItems();
 
-        componentProperties.put(LIST_ISEMPTY, totalMatches == 0);
+        try {
+            if (callback != null) {
+                if (Boolean.FALSE.equals(getCurrentStyle().get(styleCheck, false))) {
+                    callback.run();
+                } else {
+                    LOGGER.info("List instance attempted to access disabled list type builder!\nList Type: {}\nPath: {}",
+                        listType,
+                        getResource().getPath());
+                }
+            }
+        } catch (Exception ex) {
+            LOGGER.error("Unable to populate list items due to an expected error!\n{}", ex.getMessage());
+        }
 
-        updateIsPaginating();
+        componentProperties.put(PROP_LIST_EMPTY, totalMatches == 0);
 
-        updateListSplit();
+//        TODO: Reimplement the following functionality
+//        updateIsPaginating();
 
-        componentProperties.put("nextPageLink", getNextPageLink());
-        componentProperties.put("previousPageLink", getPreviousPageLink());
+        if (Boolean.TRUE.equals(componentProperties.get(FIELD_LIST_SPLIT))) {
+            chunkItemsIntoGroups();
+        }
 
-//        setMaxItems();
+//
+//        componentProperties.put("nextPageLink", getNextPageLink());
+//        componentProperties.put("previousPageLink", getPreviousPageLink());
     }
 
     /**
-     * set pagination helper attributes.
+     * Populate the list of results using depth based on the value of {@code flat}.
+     *
+     * @param path Resource path to search from
+     * @param flat When {@code true}, only the same path will be searched
      */
-    private void updateIsPaginating() {
+    protected void populateChildListItems(String path, Boolean flat) {
+        Map<String, String> predicates = new HashMap<>();
 
-        //isPaginating = listItems.size() > 0 && listItems.size() > pageMax;
+        predicates.put("path", getPageManager().getPage(path).getPath());
+        predicates.put("path.flat", String.valueOf(flat));
+        predicates.put("type", NameConstants.NT_PAGE);
 
-        //componentProperties.put(LIST_ISPAGINATING, isPaginating);
-
-        componentProperties.attr.add("data-has-pages", isPaginating);
-
-
-        if (isPaginating) {
-
-            componentProperties.attr.add("data-total-pages", String.valueOf(totalPages));
-            componentProperties.attr.add("data-content-url", getResource().getPath().concat(DEFAULT_EXTENTION));
-            componentProperties.attr.add("data-content-start", id.concat("_start"));
-
-        }
-
+        populateListItemsFromMap(predicates);
     }
 
+    /**
+     * Populate the list of results from only direct children of a parent path.
+     */
+    protected void populateChildListItems() {
+        String path = componentProperties.get(FIELD_LIST_SOURCE_CHILDREN_PARENT_PATH, String.class);
+
+        populateChildListItems(path, true);
+    }
 
     /**
-     * calculate splits in list items
+     * Populate the list of results from descendants of a parent path.
      */
-    private void updateListSplit() {
-        //parse list and set items that should force a split in a list
+    protected void populateDescendantsListItems() {
+        String path = componentProperties.get(FIELD_LIST_SOURCE_DESCENDANTS_PARENT_PATH, String.class);
+
+        populateChildListItems(path, false);
+    }
+
+    /**
+     * Populate the list of results using a static list of pages.
+     */
+    protected void populateStaticListItems() {
+        String[] resourcePaths = (String[]) componentProperties.get(FIELD_LIST_SOURCE_STATIC_PAGES);
+        ResourceResolver resourceResolver = getResourceResolver();
+
+        for (String path : resourcePaths) {
+            Resource pathResource = resourceResolver.resolve(path);
+
+            if (ResourceUtil.isNonExistingResource(pathResource)) {
+                LOGGER.error("Skipping item as it does not exist!\nPath: {}", path);
+                continue;
+            }
+
+            Map<String, Object> item = new HashMap<>();
+            Page page = getPageManager().getContainingPage(path);
+
+            if (page != null && includePageInList(page, showHidden)) {
+                item.put("type", pathResource.getResourceType());
+                item.put("resource", pathResource);
+                item.put("page", page);
+                item.putAll(getPageBadgeInfo(page));
+
+                listItems.add(item);
+            }
+        }
+    }
+
+    /**
+     * Populate the list of results using a simple content search.
+     */
+    protected void populateSearchListItems() {
+        if (StringUtils.isBlank(searchQuery)) {
+            return;
+        }
+
+        SimpleSearch search = getResource().adaptTo(SimpleSearch.class);
+
+        if (search != null) {
+            search.setSearchIn(searchInPath);
+            search.setQuery(searchQuery);
+
+            if (paginationAfter > 0) {
+                search.setHitsPerPage(paginationAfter);
+            } else if (limit > 0) {
+                search.setHitsPerPage(limit);
+            }
+
+            try {
+                collectSearchResults(search.getResult());
+            } catch (RepositoryException ex) {
+                LOGGER.error("Unable to retrieve search results for query!\nQuery: {}\nException: {}",
+                    searchQuery,
+                    ex);
+            }
+        }
+    }
+
+    /**
+     * Populate the list of results using by searching for tags set on pages.
+     */
+    protected void populateTagListItems() {
+        String[] tags = (String[]) componentProperties.get(FIELD_LIST_SOURCE_TAGS_SELECTION);
+
+        if (!ArrayUtils.isEmpty(tags)) {
+            return;
+        }
+
+        Page rootPage = getPageManager().getPage((String) componentProperties.get(FIELD_LIST_SOURCE_TAGS_PARENT_PATH));
+
+        if (rootPage != null) {
+            populateListItemsFromMap(getTagListPredicates(tags, rootPage.getPath()));
+        }
+    }
+
+    /**
+     * Generate the predicate map for the tags search.
+     *
+     * @param tags List of tags
+     * @param rootPath Path that will be used in the search
+     * @return Predicates map
+     */
+    protected Map<String, String> getTagListPredicates(String[] tags, String rootPath) {
+        Map<String, String> predicates = new HashMap<>();
+
+        boolean matchAny = componentProperties.get(FIELD_LIST_SOURCE_TAGS_CONDITION)
+            .equals(DEFAULT_LIST_SOURCE_TAGS_CONDITION);
+
+        boolean matchDetailsTags = Boolean.TRUE.equals(componentProperties.get(FIELD_LIST_SOURCE_TAGS_SEARCH_DETAILS));
+
+        String operator = matchAny ? "or" : "and";
+        String groupPrefix = "group.0_group.";
+        String tagSuffix = "_group.tagid";
+
+        predicates.put("path", rootPath);
+        predicates.put("group.p." + operator, "true");
+        predicates.put(groupPrefix + "p." + operator, "true");
+
+        int offset = 0;
+
+        for (String tag : tags) {
+            predicates.put(groupPrefix + offset + tagSuffix, tag);
+            predicates.put(groupPrefix + offset + tagSuffix + ".property",
+                JcrConstants.JCR_CONTENT.concat("/").concat(TagConstants.PN_TAGS));
+
+            ++offset;
+
+            if (matchDetailsTags) {
+                predicates.put(groupPrefix + offset + tagSuffix, tag);
+                predicates.put(groupPrefix + offset + tagSuffix + "property",
+                    JcrConstants.JCR_CONTENT.concat("/article/par/*/").concat(TagConstants.PN_TAGS));
+            }
+        }
+
+        return predicates;
+    }
+
+    /**
+     * Populate the list of results using by using an authored Query Builder string.
+     */
+    protected void populateQueryListItems() {
+        if (StringUtils.isBlank(queryBuilderString)) {
+            return;
+        }
+
+//        TODO: Reimplement this
+//        try {
+//            if (getRequest().getRequestParameter(REQUEST_PARAM_QUERY) != null) {
+//                //if query passed read and process
+//                String escapedQuery = "";
+//                RequestParameter requestParameter = getRequest().getRequestParameter(REQUEST_PARAM_QUERY);
+//                if (requestParameter != null) {
+//                    escapedQuery = requestParameter.toString();
+//                }
+//                String unescapedQuery = URLDecoder.decode(escapedQuery, QUERY_ENCODING);
+//                QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
+//                if (queryBuilder != null) {
+//                    PageManager pm = getResourceResolver().adaptTo(PageManager.class);
+//                    //create props for query
+//                    java.util.Properties props = new java.util.Properties();
+//                    //load query candidate
+//                    props.load(new ByteArrayInputStream(unescapedQuery.getBytes()));
+//                    //create predicate from query candidate
+//                    PredicateGroup predicateGroup = PredicateConverter.createPredicates(props);
+//                    //TODO: add limits and pages
+////                    predicateGroup.add(new Predicate("p.offset","0"));
+////                    if (limit > 0) {
+////                        predicateGroup.add(new Predicate("p.limit", Integer.toString(limit)));
+////                    }
+////                    predicateGroup.add(new Predicate("p.guessTotal","true"));
+////                    boolean allowDuplicates = componentProperties.get("allowDuplicates", false);
+//                    javax.jcr.Session jcrSession = getResourceResolver().adaptTo(javax.jcr.Session.class);
+//                    if (jcrSession != null) {
+//                        Query query = queryBuilder.createQuery(predicateGroup, jcrSession);
+//                        //TODO: add limits and pages
+//
+//
+////                    query.setStart(0);
+////                    query.setHitsPerPage(20);
+//                        if (query != null) {
+////                        SearchResult result = query.getResult();
+////                        HitBasedPageIterator newList = new HitBasedPageIterator(pm, result.getHits().iterator(), !allowDuplicates, new PageFilter(false, showHidden));
+//
+//                            collectSearchResults(query.getResult());
+//                        }
+//                    } else {
+//                        LOGGER.error("populateQueryListItems: could not get sessions object");
+//                    }
+//                } else {
+//                    LOGGER.error("populateQueryListItems: could not get query builder object");
+//                }
+//            } else {
+//                //if not passed read saved query
+//                Session session = getResourceResolver().adaptTo(Session.class);
+//                QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
+//                if (session != null && queryBuilder != null) {
+//                    try {
+//                        Query query = queryBuilder.loadQuery(getResource().getPath() + "/" + FIELD_LIST_SOURCE_QUERY_BUILDER, session);
+//                        if (query != null) {
+//                            collectSearchResults(query.getResult());
+//                        }
+//                    } catch (Exception ex) {
+//                        LOGGER.error("error loading stored querybuilder query from {},{}", getResource().getPath(), ex);
+//                    }
+//                }
+//
+//            }
+//        } catch (Exception ex) {
+//            LOGGER.error("LIST: could not do query {}", ex);
+//        }
+    }
+
+    /**
+     * Take the items and determine where the list split on each should occur,
+     */
+    private void chunkItemsIntoGroups() {
         for (int i = 0; i < listItems.size(); i++) {
             if ((i + 1) % listSplitEvery == 0) {
                 listItems.get(i).put("split", true);
@@ -517,427 +651,344 @@ public class List extends BaseComponent {
     }
 
     /**
-     * determine if the page should be shown in output.
+     * Execute a query against the content tree.
      *
-     * @param page           page to check
-     * @param includeInvalid include if page is invalid
-     * @param includeHidden  include in page is hidden
-     * @return boolean if page should be included in the list, excludes hidden, invalid, deleted and deactivated pages.
+     * @param predicates Predicate query map
      */
-    static boolean includePageInList(Page page, boolean includeInvalid, boolean includeHidden) {
+    @SuppressWarnings("Duplicates")
+    protected void populateListItemsFromMap(Map<String, String> predicates) {
+        try {
+            QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
+
+            if (builder != null) {
+                Session session = getResourceResolver().adaptTo(Session.class);
+
+                // Limit the number of results
+                if (paginationAfter > 0) {
+                    predicates.put("p.limit", String.valueOf(paginationAfter));
+                } else if (limit > 0) {
+                    predicates.put("p.limit", String.valueOf(limit));
+                }
+
+//                TODO: Reimplement query string pagination
+//                if (pageStart > 0) {
+//                    predicates.put("p.offset", String.valueOf(pageStart));
+//                }
+
+                String orderBy = componentProperties.get(FIELD_LIST_ORDER_BY, DEFAULT_LIST_ORDER_BY);
+
+                predicates.put("orderby", orderBy);
+                predicates.put("orderby.sort", sortOrder.getValue());
+
+                PredicateGroup root = PredicateGroup.create(predicates);
+
+                // Avoid slow //* xpath queries
+                if (!root.isEmpty()) {
+                    Query query = builder.createQuery(root, session);
+
+                    if (query != null) {
+                        collectSearchResults(query.getResult());
+                    }
+                }
+            } else {
+                LOGGER.error("Could not get Query Builder object!");
+            }
+        } catch (Exception ex) {
+            LOGGER.error("Could not execute query!\nPredicates [{}]\nException={}", predicates, ex);
+        }
+    }
+
+    /**
+     * Process the results of the search result given.
+     *
+     * @param searchResult Search results instance
+     * @throws RepositoryException when can't read content
+     */
+    @SuppressWarnings("Duplicates")
+    private void collectSearchResults(SearchResult searchResult) throws RepositoryException {
+        Map<String, Object> resultInfo = new HashMap<>();
+
+        resultInfo.put("executionTime", searchResult.getExecutionTime());
+        resultInfo.put("startIndex", searchResult.getStartIndex());
+        resultInfo.put("hasMore", searchResult.hasMore());
+        resultInfo.put("result", searchResult);
+
+//        resultPages = result.getResultPages();
+        totalMatches = searchResult.getTotalMatches();
+        long hitsPerPage = searchResult.getHitsPerPage();
+//        totalPages = searchResult.getResultPages().size();
+//        pageStart = searchResult.getStartIndex();
+//        long currentPage = (pageStart / hitsPerPage) + 1;
+
+//        resultInfo.put("currentPage", currentPage);
+        resultInfo.put("hitsPerPage", hitsPerPage);
+//        resultInfo.put("resultPages", resultPages);
+        resultInfo.put("totalMatches", totalMatches);
+        resultInfo.put("totalPages", searchResult.getResultPages().size());
+//        resultInfo.put(PAGE_START_PROPERTY_NAME, pageStart);
+
+        componentProperties.put(PROP_IS_PAGINATING, paginationAfter > 0 && searchResult.getResultPages().size() > 0);
+        componentProperties.put(PROP_RESULT_INFO, resultInfo);
+
+        for (Hit hit : searchResult.getHits()) {
+            Map<String, Object> result = new HashMap<>();
+
+            result.put("hit", hit);
+            result.put("resource", hit.getResource());
+            result.put("type", hit.getResource().getResourceType());
+
+            Page containingPage = getPageManager().getContainingPage(hit.getResource());
+
+            if (containingPage != null && includePageInList(containingPage, showHidden)) {
+                result.put("page", containingPage);
+                result.putAll(getPageBadgeInfo(containingPage));
+
+                listItems.add(result);
+            }
+        }
+    }
+
+    /**
+     * Determine if the page should be allowed to be used.
+     *
+     * @param page          Page to check
+     * @param includeHidden Include in page is hidden
+     * @return Whether or not the page should be included
+     */
+    protected boolean includePageInList(Page page, boolean includeHidden) {
         boolean pageIsDeactivated = false;
+        boolean pageIsDeleted = false;
+        boolean pageIsHidden = false;
+
         if (page != null && page.hasContent()) {
             Resource pageContent = page.getContentResource();
+
             if (pageContent != null) {
                 ReplicationStatus replicationStatus = pageContent.adaptTo(ReplicationStatus.class);
+
                 if (replicationStatus != null) {
                     pageIsDeactivated = replicationStatus.isDeactivated();
                 }
             }
+
+            pageIsDeleted = page.getDeleted() != null;
+            pageIsHidden = page.isHideInNav();
         }
 
-        return (includeHidden || !page.isHideInNav()) && (includeInvalid || page.isValid()) && !pageIsDeactivated && page.getDeleted() == null;
+        return (includeHidden || !pageIsHidden) && !pageIsDeactivated && !pageIsDeleted;
     }
 
     /**
-     * populates listItems with resources from pages list.
-     * page object is also resolved and returned if available
-     */
-    @SuppressWarnings("Duplicates")
-    private void populateStaticListItems() {
-        listItems = new ArrayList<>();
-        String[] resourcePaths = componentProperties.get(PN_PAGES, new String[0]);
-        ResourceResolver resourceResolver = getResourceResolver();
-        for (String path : resourcePaths) {
-            Map<String, Object> item = new HashMap<>();
-
-            Resource pathResource = resourceResolver.resolve(path);
-
-            if (!ResourceUtil.isNonExistingResource(pathResource)) {
-                item.put("type", pathResource.getResourceType());
-                item.put("resource", pathResource);
-            } else {
-                LOGGER.error("populateStaticListItems: skipping item as it does not exist {}", path);
-                continue;
-            }
-
-            Page page = getPageManager().getContainingPage(path);
-            if (page != null) {
-                if (includePageInList(page, showInvalid, showHidden)) {
-                    item.put("page", page);
-                    item.putAll(getPageBadgeInfo(page));
-                    listItems.add(item);
-                }
-            }
-        }
-    }
-
-    /**
-     * populate list items from only children of a root page.
-     */
-    private void populateChildListItems() {
-        String path = componentProperties.get(PN_PARENT_PAGE, PN_PARENT_PAGE_DEFAULT);
-        populateChildListItems(path, true);
-    }
-
-    /**
-     * populate list items from descendants of a root page.
-     */
-    private void populateDescendantsListItems() {
-        String path = componentProperties.get(DESCENDANT_TAG, PN_PARENT_PAGE_DEFAULT);
-        populateChildListItems(path, false);
-    }
-
-    /**
-     * populate list items from children of a root page.
+     * Get badge information for the given {@code page}.
      *
-     * @param path path to use
-     * @param flat only select children on root page
+     * @param page Page to use for collection
+     * @return Map of page badge attributes
      */
-    private void populateChildListItems(String path, Boolean flat) {
-        listItems = new ArrayList<>();
-
-        Map<String, String> childMap = new HashMap<>();
-        Page rootPage = getPageManager().getPage(path);
-        childMap.put("path", rootPage.getPath());
-        if (flat) {
-            childMap.put("path.flat", "true");
-        } else {
-            childMap.put("path.flat", "false");
-        }
-        childMap.put("type", NameConstants.NT_PAGE);
-
-        populateListItemsFromMap(childMap);
+    protected Map<String, Object> getPageBadgeInfo(Page page) {
+        return getPageBadgeInfo(page, DETAILS_COMPONENT_LOOKUP_NAMES, getResourceResolver(), detailsBadge);
     }
 
     /**
-     * populate listitem from tag list type
-     */
-    private void populateTagListItems() {
-        listItems = new ArrayList<>();
-        String[] tags = componentProperties.get(PN_TAGS, new String[0]);
-        boolean matchAny = componentProperties.get(PN_TAGS_MATCH, TAGS_MATCH_ANY_VALUE).equals(TAGS_MATCH_ANY_VALUE);
-
-        if (ArrayUtils.isNotEmpty(tags)) {
-            Page rootPage = getPageManager().getPage(componentProperties.get(PN_TAGS_PARENT_PAGE, ""));
-
-            if (rootPage != null) {
-                Map<String, String> childMap = new HashMap<>();
-                childMap.put("path", rootPage.getPath());
-
-                String operator = matchAny ? "or" : "and";
-
-                childMap.put("group.p." + operator, "true");
-
-                String groupPrefix = "group.0_group.";
-                String tagIdSuffix = "_group.tagid";
-
-                childMap.put(groupPrefix + "p." + operator, "true");
-
-                int offset = 0;
-
-                for (String tag : tags) {
-                    childMap.put(groupPrefix + offset + tagIdSuffix, tag);
-                    childMap.put(groupPrefix + offset + tagIdSuffix + ".property", JcrConstants.JCR_CONTENT.concat("/cq:tags"));
-
-                    // Offset the Page Details group by one so we don't conflict with the page properties query
-                    offset++;
-
-                    childMap.put(groupPrefix + offset + tagIdSuffix, tag);
-                    childMap.put(groupPrefix + offset + tagIdSuffix + "property", JcrConstants.JCR_CONTENT.concat("/article/par/page_details/cq:tags"));
-                }
-
-                populateListItemsFromMap(childMap);
-            }
-        }
-    }
-
-    /**
-     * populate listitems form search list type.
-     */
-    private void populateSearchListItems() {
-        listItems = new ArrayList<>();
-        if (!StringUtils.isBlank(query)) {
-            SimpleSearch search = getResource().adaptTo(SimpleSearch.class);
-            if (search != null) {
-                search.setQuery(query);
-                search.setSearchIn(startIn);
-//                search.addPredicate(new Predicate("type", "type").set("type", NameConstants.NT_PAGE));
-                //TODO: add limits and pages
-//                search.setStart(pageStart);
-//                search.addPredicate(new Predicate("p.guessTotal", "true")); //guess amount
-                if (limit > 0) {
-                    search.setHitsPerPage(pageMax);
-                }
-                try {
-                    collectSearchResults(search.getResult());
-                } catch (RepositoryException e) {
-                    LOGGER.error("Unable to retrieve search results for query.", e);
-                }
-            }
-        }
-    }
-
-
-    /**
-     * get predicate group from query string.
+     * Get badge information for the given {@code page}.
      *
-     * @param request reques instance
-     * @return predicates converted from query string
+     * @param page              Page to use for collection
+     * @param detailsNameSuffix Details component suffix(s) to look for
+     * @param resourceResolver  Resource resolver to use
+     * @param detailsBadge      Badge selectors to add
+     * @return Map of page badge attributes
      */
-    public static PredicateGroup getPredicateGroupFromRequest(SlingHttpServletRequest request) {
-
-        String queryParam = "";
+    public static Map<String, Object> getPageBadgeInfo(
+        Page page,
+        String[] detailsNameSuffix,
+        ResourceResolver resourceResolver,
+        String detailsBadge
+    ) {
+        Map<String, Object> badge = new HashMap<>();
 
         try {
-            queryParam = request.getParameter(PN_QUERY);
+            String componentPath = findComponentInPage(page, detailsNameSuffix);
 
-            // check if we have to convert from the url format to the properties-style format
-            String isURLQuery = request.getParameter("isURL");
-            if (queryParam != null && "on".equals(isURLQuery)) {
-                queryParam = Text.unescape(queryParam.replaceAll("&", "\n"));
-            }
-        } catch (Exception ex) {
-            LOGGER.error("getPredicateGroupFromQuery: could not read query param q=[{}], ex={}", queryParam, ex);
-            return null;
-        }
+            if (isNotEmpty(componentPath)) {
+                Resource componentResource = resourceResolver.getResource(componentPath);
 
-        return getPredicateGroupFromQuery(queryParam);
-    }
-
-    /**
-     * get predicate group config from querystring param.
-     *
-     * @param queryParam query string param, same as querybuilder
-     * @return predicates converted from query string
-     */
-    public static PredicateGroup getPredicateGroupFromQuery(String queryParam) {
-
-        try {
-
-            Properties props = new Properties();
-            props.load(new StringReader(queryParam));
-            return PredicateConverter.createPredicates(props);
-        } catch (Exception ex) {
-            LOGGER.error("getPredicateGroupFromQuery: could not create PredicateGroupFromQuery from query param q=[{}], ex={}", queryParam, ex);
-        }
-
-        return null;
-    }
-
-    /**
-     * do a search based on querystring params.
-     *
-     * @param queryParam querystring param same as querybuilder
-     */
-    private void populateListItemsFromQuery(String queryParam) {
-        try {
-
-            QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
-            if (builder != null) {
-                Session session = getResourceResolver().adaptTo(Session.class);
-
-                Query query = null;
-
-                PredicateGroup root = getPredicateGroupFromQuery(queryParam);
-                // avoid slow //* queries
-                if (root != null && !root.isEmpty()) {
-                    query = builder.createQuery(root, session);
+                if (componentResource != null) {
+                    badge.put("componentResourceType", componentResource.getResourceType());
                 }
 
-                if (query != null) {
-                    collectSearchResults(query.getResult());
+                badge.put("componentPath", componentPath);
+                badge.put("componentPathSelectors", new String[]{DETAILS_SELECTOR_BADGE, detailsBadge});
+
+                String pageRedirect = getPageRedirect(page);
+
+                if (isEmpty(pageRedirect)) {
+                    badge.put("redirectLink", pageRedirect);
                 }
             } else {
-                LOGGER.error("populateListItemsFromMap: could not get query builder object, q={}", queryParam);
+                LOGGER.warn("Page does not have component with the given suffix!\nPath: {}\nSuffix: {}",
+                    page.getPath(),
+                    detailsNameSuffix);
+
+                badge.put("componentMissing", true);
             }
+
+            badge.put("pagePath", page.getPath());
         } catch (Exception ex) {
-            LOGGER.error("populateListItemsFromQuery: could not execute query q=[{}], ex={}", queryParam, ex);
+            LOGGER.error("Could not get badge information for the given page!\nPath: {}\nException: {}",
+                page.getPath(),
+                ex);
         }
-    }
 
-    /**
-     * doa query using a predicate map.
-     *
-     * @param map predicate map
-     */
-    @SuppressWarnings("Duplicates")
-    private void populateListItemsFromMap(Map<String, String> map) {
-        try {
-
-            QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
-            if (builder != null) {
-                Session session = getResourceResolver().adaptTo(Session.class);
-
-                Query query = null;
-
-                //pagination limit is set
-                if (pageMax > 0) {
-                    map.put("p.limit", String.valueOf(pageMax));
-                } else if (limit > 0) {
-                    //limit is set
-                    map.put("p.limit", String.valueOf(limit));
-                }
-
-                if (pageStart > 0) {
-                    map.put("p.offset", String.valueOf(pageStart));
-                }
-
-                String orderBy = componentProperties.get(PN_ORDER_BY, PN_ORDER_BY_DEFAULT);
-                if (isNotEmpty(orderBy)) {
-                    map.put("orderby", orderBy);
-                } else {
-                    map.put("orderby", PN_ORDER_BY_DEFAULT);
-                }
-
-                map.put("orderby.sort", sortOrder.getValue());
-
-                PredicateGroup root = PredicateGroup.create(map);
-                // avoid slow //* queries
-                if (!root.isEmpty()) {
-                    query = builder.createQuery(root, session);
-                }
-
-                if (query != null) {
-                    collectSearchResults(query.getResult());
-                }
-            } else {
-                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]", map);
-            }
-        } catch (Exception ex) {
-            LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}", map, ex);
-        }
-    }
-
-    /**
-     * allow passing of querybuilder queries.
-     */
-    @SuppressWarnings({"squid:S3776"})
-    private void populateQueryListItems() {
-        listItems = new ArrayList<>();
-        if (!StringUtils.isBlank(savedquery)) {
-
-
-            try {
-                if (getRequest().getRequestParameter(REQUEST_PARAM_QUERY) != null) {
-                    //if query passed read and process
-                    String escapedQuery = "";
-                    RequestParameter requestParameter = getRequest().getRequestParameter(REQUEST_PARAM_QUERY);
-                    if (requestParameter != null) {
-                        escapedQuery = requestParameter.toString();
-                    }
-                    String unescapedQuery = URLDecoder.decode(escapedQuery, QUERY_ENCODING);
-                    QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
-                    if (queryBuilder != null) {
-                        PageManager pm = getResourceResolver().adaptTo(PageManager.class);
-                        //create props for query
-                        java.util.Properties props = new java.util.Properties();
-                        //load query candidate
-                        props.load(new ByteArrayInputStream(unescapedQuery.getBytes()));
-                        //create predicate from query candidate
-                        PredicateGroup predicateGroup = PredicateConverter.createPredicates(props);
-                        //TODO: add limits and pages
-//                    predicateGroup.add(new Predicate("p.offset","0"));
-//                    if (limit > 0) {
-//                        predicateGroup.add(new Predicate("p.limit", Integer.toString(limit)));
-//                    }
-//                    predicateGroup.add(new Predicate("p.guessTotal","true"));
-//                    boolean allowDuplicates = componentProperties.get("allowDuplicates", false);
-                        javax.jcr.Session jcrSession = getResourceResolver().adaptTo(javax.jcr.Session.class);
-                        if (jcrSession != null) {
-                            Query query = queryBuilder.createQuery(predicateGroup, jcrSession);
-                            //TODO: add limits and pages
-
-
-//                    query.setStart(0);
-//                    query.setHitsPerPage(20);
-                            if (query != null) {
-//                        SearchResult result = query.getResult();
-//                        HitBasedPageIterator newList = new HitBasedPageIterator(pm, result.getHits().iterator(), !allowDuplicates, new PageFilter(false, showHidden));
-
-                                collectSearchResults(query.getResult());
-                            }
-                        } else {
-                            LOGGER.error("populateQueryListItems: could not get sessions object");
-                        }
-                    } else {
-                        LOGGER.error("populateQueryListItems: could not get query builder object");
-                    }
-                } else {
-                    //if not passed read saved query
-                    Session session = getResourceResolver().adaptTo(Session.class);
-                    QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
-                    if (session != null && queryBuilder != null) {
-                        try {
-                            Query query = queryBuilder.loadQuery(getResource().getPath() + "/" + SAVEDQUERY_PROPERTY_NAME, session);
-                            if (query != null) {
-                                collectSearchResults(query.getResult());
-                            }
-                        } catch (Exception ex) {
-                            LOGGER.error("error loading stored querybuilder query from {},{}", getResource().getPath(), ex);
-                        }
-                    }
-
-                }
-            } catch (Exception ex) {
-                LOGGER.error("LIST: could not do query {}", ex);
-            }
-        }
-    }
-
-    /**
-     * process search results.
-     *
-     * @param result search results
-     * @throws RepositoryException when can't read content
-     */
-    @SuppressWarnings("Duplicates")
-    private void collectSearchResults(SearchResult result) throws RepositoryException {
-        Map<String, Object> resultInfo = new HashMap<>();
-        resultInfo.put("executionTime", result.getExecutionTime());
-        resultInfo.put("startIndex", result.getStartIndex());
-        resultInfo.put("hasMore", result.hasMore());
-        resultInfo.put("result", result);
-
-        totalMatches = result.getTotalMatches();
-        resultPages = result.getResultPages();
-        long hitsPerPage = result.getHitsPerPage();
-        totalPages = result.getResultPages().size();
-        pageStart = result.getStartIndex();
-        long currentPage = (pageStart / hitsPerPage) + 1;
-
-        resultInfo.put("hitsPerPage", hitsPerPage);
-        resultInfo.put("currentPage", currentPage);
-        resultInfo.put("totalMatches", totalMatches);
-        resultInfo.put("resultPages", resultPages);
-        resultInfo.put("totalPages", totalPages);
-        resultInfo.put(PAGE_START_PROPERTY_NAME, pageStart);
-
-        isPaginating = (pageMax > 0 && result.getResultPages().size() > 0);
-        componentProperties.put(LIST_ISPAGINATING, isPaginating);
-
-        componentProperties.put("resultInfo", resultInfo);
-
-        for (Hit hit : result.getHits()) {
-            Map<String, Object> item = new HashMap<>();
-            item.put("hit", hit);
-            item.put("resource", hit.getResource());
-            item.put("type", hit.getResource().getResourceType());
-
-            Page containingPage = getPageManager().getContainingPage(hit.getResource());
-            if (containingPage != null) {
-                if (includePageInList(containingPage, showInvalid, showHidden)) {
-                    item.put("page", containingPage);
-                    item.putAll(getPageBadgeInfo(containingPage));
-                    listItems.add(item);
-                }
-            }
-
-        }
+        return badge;
     }
 
 
-    protected enum Source {
+//    /**
+//     * get request parameter with component id prefix.
+//     *
+//     * @param name name of querystring param suffix
+//     * @return parameter value
+//     */
+//    private String getParameter(String name) {
+//        return getRequest().getParameter(identifier + PATH_UNDERSCORE + name);
+//    }
+//
+//    /**
+//     * get next page url.
+//     *
+//     * @return next page url
+//     */
+//    private String getNextPageLink() {
+//        long nextPageStart = pageStart + pageMax;
+//        if (isPaginating && pageMax > 0 && resultPages.size() > 0 && nextPageStart < totalMatches) {
+//            List.PageLink link = new List.PageLink(getRequest());
+//            link.setParameter(REQUEST_PARAM_MARKER_START, nextPageStart);
+//            return link.toString();
+//        } else {
+//            return "";
+//        }
+//    }
+//
+//    /**
+//     * get previous page url.
+//     *
+//     * @return previous page url
+//     */
+//    private String getPreviousPageLink() {
+//        if (isPaginating && pageMax > 0 && resultPages.size() > 0 && pageStart != 0) {
+//            long previousPageStart = pageStart > pageMax ? pageStart - pageMax : 0;
+//            List.PageLink link = new List.PageLink(getRequest());
+//            link.setParameter(REQUEST_PARAM_MARKER_START, previousPageStart);
+//            return link.toString();
+//        } else {
+//            return "";
+//        }
+//    }
+//
+//    /**
+//     * set pagination helper attributes.
+//     */
+//    private void updateIsPaginating() {
+//
+//        //isPaginating = listItems.size() > 0 && listItems.size() > pageMax;
+//
+//        //componentProperties.put(LIST_ISPAGINATING, isPaginating);
+//
+//        componentProperties.attr.add("data-has-pages", isPaginating);
+//
+//
+//        if (isPaginating) {
+//
+//            componentProperties.attr.add("data-total-pages", String.valueOf(totalPages));
+//            componentProperties.attr.add("data-content-url", getResource().getPath().concat(DEFAULT_EXTENTION));
+//            componentProperties.attr.add("data-content-start", identifier.concat("_start"));
+//
+//        }
+//
+//    }
+//
+//
+//
+
+//
+//
+//    /**
+//     * get predicate group from query string.
+//     *
+//     * @param request reques instance
+//     * @return predicates converted from query string
+//     */
+//    public static PredicateGroup getPredicateGroupFromRequest(SlingHttpServletRequest request) {
+//
+//        String queryParam = "";
+//
+//        try {
+//            queryParam = request.getParameter(FIELD_LIST_SOURCE_SEARCH_QUERY);
+//
+//            // check if we have to convert from the url format to the properties-style format
+//            String isURLQuery = request.getParameter("isURL");
+//            if (queryParam != null && "on".equals(isURLQuery)) {
+//                queryParam = Text.unescape(queryParam.replaceAll("&", "\n"));
+//            }
+//        } catch (Exception ex) {
+//            LOGGER.error("getPredicateGroupFromQuery: could not read query param q=[{}], ex={}", queryParam, ex);
+//            return null;
+//        }
+//
+//        return getPredicateGroupFromQuery(queryParam);
+//    }
+//
+//    /**
+//     * get predicate group config from querystring param.
+//     *
+//     * @param queryParam query string param, same as querybuilder
+//     * @return predicates converted from query string
+//     */
+//    public static PredicateGroup getPredicateGroupFromQuery(String queryParam) {
+//
+//        try {
+//
+//            Properties props = new Properties();
+//            props.load(new StringReader(queryParam));
+//            return PredicateConverter.createPredicates(props);
+//        } catch (Exception ex) {
+//            LOGGER.error("getPredicateGroupFromQuery: could not create PredicateGroupFromQuery from query param q=[{}], ex={}", queryParam, ex);
+//        }
+//
+//        return null;
+//    }
+//
+//    /**
+//     * do a search based on querystring params.
+//     *
+//     * @param queryParam querystring param same as querybuilder
+//     */
+//    private void populateListItemsFromQuery(String queryParam) {
+//        try {
+//
+//            QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
+//            if (builder != null) {
+//                Session session = getResourceResolver().adaptTo(Session.class);
+//
+//                Query query = null;
+//
+//                PredicateGroup root = getPredicateGroupFromQuery(queryParam);
+//                // avoid slow //* queries
+//                if (root != null && !root.isEmpty()) {
+//                    query = builder.createQuery(root, session);
+//                }
+//
+//                if (query != null) {
+//                    collectSearchResults(query.getResult());
+//                }
+//            } else {
+//                LOGGER.error("populateListItemsFromMap: could not get query builder object, q={}", queryParam);
+//            }
+//        } catch (Exception ex) {
+//            LOGGER.error("populateListItemsFromQuery: could not execute query q=[{}], ex={}", queryParam, ex);
+//        }
+//    }
+
+    public enum Source {
         CHILDREN("children"),
         STATIC("static"),
         SEARCH("search"),
@@ -958,10 +1009,10 @@ public class List extends BaseComponent {
                     return s;
                 }
             }
+
             return null;
         }
     }
-
 
     public enum SortOrder {
         ASC("asc"),
@@ -983,14 +1034,12 @@ public class List extends BaseComponent {
                     return s;
                 }
             }
+
             return ASC;
         }
     }
 
-    /**
-     * helper for generating next and previous links for a list.
-     */
-    private class PageLink {
+    public class PageLink {
         private String path;
         private HashMap<String, Object> params;
 
@@ -1033,8 +1082,8 @@ public class List extends BaseComponent {
         }
 
         private String prefixName(String name) {
-            if (!name.startsWith(List.this.id + "_")) {
-                name = List.this.id + "_" + name;
+            if (!name.startsWith(List.this.identifier + "_")) {
+                name = List.this.identifier + "_" + name;
             }
 
             return name;
@@ -1060,4 +1109,15 @@ public class List extends BaseComponent {
         }
     }
 
+    public static class ListFeed {
+        public String extension;
+        public String title;
+        public String type;
+
+        public ListFeed(String extension, String title, String type) {
+            this.extension = extension;
+            this.title = title;
+            this.type = type;
+        }
+    }
 }
