@@ -17,11 +17,11 @@ public abstract class BaseComponent extends WCMUsePojo {
 
     protected ComponentProperties componentProperties = null;
 
+    protected static final String ANALYTICS_FIELDS = "analyticsFields";
+    protected static final String COMPONENT_FIELDS = "componentFields";
+
     public Object[][] analyticsFields = {}; //NOSONAR this needs to be accessible directly
     public Object[][] componentFields = {}; //NOSONAR this needs to be accessible directly
-
-    private static final String ANALYTICS_FIELDS = "analyticsFields";
-    private static final String COMPONENT_FIELDS = "componentFields";
 
     public abstract void ready() throws Exception; //NOSONAR generic exception is fine
 
@@ -34,7 +34,13 @@ public abstract class BaseComponent extends WCMUsePojo {
         return this.componentProperties;
     }
 
-    private void setFields(Object[][] fields, String target) {
+    /**
+     * Define an {@code Object} array of fields which will be merged with the pre-existing values.
+     *
+     * @param fields An {@code Object[][]} array of fields to set
+     * @param target Which property should the array be applied to?
+     */
+    protected void setFields(Object[][] fields, String target) {
         if (fields != null && fields.length > 0) {
             try {
                 Field classField = this.getClass().getField(target);
@@ -48,10 +54,20 @@ public abstract class BaseComponent extends WCMUsePojo {
         }
     }
 
+    /**
+     * A shortcut to {@link #setFields} to set analytics field values.
+     *
+     * @param fields An {@code Object[][]} array of fields to set
+     */
     protected final void setAnalyticsFields(Object[][] fields) {
         setFields(fields, ANALYTICS_FIELDS);
     }
 
+    /**
+     * A shortcut to {@link #setFields} to set component field values.
+     *
+     * @param fields An {@code Object[][]} array of fields to set
+     */
     protected final void setComponentFields(Object[][] fields) {
         setFields(fields, COMPONENT_FIELDS);
     }
