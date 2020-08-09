@@ -221,7 +221,7 @@ public class GenericDetails extends BaseComponent {
      * Process the component fields and generate the {@link #componentProperties} instance.
      */
     protected void generateComponentPropertiesFromFields() {
-        com.day.cq.i18n.I18n i18n = new I18n(getRequest());
+        I18n i18n = new I18n(getRequest());
 
         setComponentFieldsDefaults();
 
