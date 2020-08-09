@@ -151,7 +151,7 @@
                                                                     jcr:primaryType="nt:unstructured"
                                                                     sling:resourceType="granite/ui/components/foundation/layouts/well"/>
                                                                 <items jcr:primaryType="nt:unstructured">
-                                                                    <parentPage
+                                                                    <ancestorPage
                                                                         jcr:primaryType="nt:unstructured"
                                                                         sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                                                         fieldDescription="Define a path to find descendant pages, leave this field empty to use the current path."
@@ -265,7 +265,7 @@
                                                                     sling:resourceType="granite/ui/components/foundation/layouts/well"/>
 
                                                                 <items jcr:primaryType="nt:unstructured">
-                                                                    <parentPage
+                                                                    <tagsSearchRoot
                                                                         jcr:primaryType="nt:unstructured"
                                                                         sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                                                         fieldDescription="Leave empty to use current page"
@@ -410,7 +410,7 @@
                                                     <paginateAfter
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                                        fieldDescription="Set the number of results before pagination will appear."
+                                                        fieldDescription="Set the number of results before pagination will appear. Please note that this will override the limit set above."
                                                         fieldLabel="Paginate After"
                                                         min="1"
                                                         name="./pageMax"
@@ -423,10 +423,6 @@
                                                         name="./paginationType"
                                                         value="">
                                                         <items jcr:primaryType="nt:unstructured">
-                                                            <default
-                                                                jcr:primaryType="nt:unstructured"
-                                                                text="Default"
-                                                                value=""/>
                                                             <hidden
                                                                 jcr:primaryType="nt:unstructured"
                                                                 text="Hidden"
@@ -499,7 +495,13 @@
                                                     </showHidden>
                                                 </items>
                                             </listItems>
+                                        </items>
+                                    </columnConfiguration>
 
+                                    <structureConfiguration
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/container">
+                                        <items jcr:primaryType="nt:unstructured">
                                             <structure
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Structure"
@@ -520,6 +522,26 @@
                                                             variant="valuelist"/>
                                                     </printStructure>
 
+                                                    <listTag
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                                        fieldDescription="Which HTML tag should be used to render the list?"
+                                                        fieldLabel="List Tag"
+                                                        name="./listTag"
+                                                        emptyOption="{Boolean}true"
+                                                        value="">
+                                                        <items jcr:primaryType="nt:unstructured">
+                                                            <unorderedList
+                                                                jcr:primaryType="nt:unstructured"
+                                                                text="Unordered List"
+                                                                value="ul"/>
+                                                            <orderedList
+                                                                jcr:primaryType="nt:unstructured"
+                                                                text="Ordered List"
+                                                                value="ol"/>
+                                                        </items>
+                                                    </listTag>
+
                                                     <listSplit
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="granite/ui/components/foundation/form/select"
@@ -531,6 +553,7 @@
                                                         <datasource
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                            defaultSelection="${cqDesign.listSplit}"
                                                             path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
                                                             variant="valuelist"/>
                                                     </listSplit>
@@ -540,11 +563,13 @@
                                                         sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
                                                         fieldDescription="How many results should occur before the section split occurs?"
                                                         fieldLabel="Split Sections Every"
-                                                        name="./listSplitEvery"/>
+                                                        min="1"
+                                                        name="./listSplitEvery"
+                                                        value="${cqDesign.listSplitEvery}"/>
                                                 </items>
                                             </structure>
                                         </items>
-                                    </columnConfiguration>
+                                    </structureConfiguration>
 
                                     <columnFeed
                                         jcr:primaryType="nt:unstructured"

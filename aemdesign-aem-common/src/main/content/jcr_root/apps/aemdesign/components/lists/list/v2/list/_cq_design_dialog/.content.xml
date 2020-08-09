@@ -147,7 +147,7 @@
                         sling:resourceType="granite/ui/components/coral/foundation/container"
                         margin="{Boolean}true">
                         <items jcr:primaryType="nt:unstructured">
-                            <items
+                            <listItems
                                 jcr:primaryType="nt:unstructured"
                                 jcr:title="Items"
                                 sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
@@ -161,7 +161,7 @@
                                         uncheckedValue="false"
                                         value="true"/>
                                 </items>
-                            </items>
+                            </listItems>
 
                             <feed
                                 jcr:primaryType="nt:unstructured"
