@@ -9,8 +9,6 @@ public class PageDetails extends GenericDetails {
     static {
         COMPONENT_DETAILS_NAME = "page-details";
 
-        DEFAULT_I18N_CATEGORY = "page-details";
-
         USE_SIDE_EFFECTS = false;
     }
 }

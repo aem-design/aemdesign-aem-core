@@ -22,10 +22,6 @@ public class ContactDetails extends GenericDetails {
         COMPONENT_DETAILS_NAME = "contact-details";
 
         DEFAULT_TITLE_FORMAT = getFormatExpression(FIELD_HONORIFIC_PREFIX, FIELD_GIVEN_NAME, FIELD_FAMILY_NAME);
-//        TODO: Find out why this was a div instead of a heading
-//        DEFAULT_TITLE_TAG_TYPE = "div";
-
-        DEFAULT_I18N_CATEGORY = "contact-details";
 
         USE_SIDE_EFFECTS = false;
     }

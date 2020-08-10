@@ -1,10 +1,7 @@
 package design.aem.models.v2.details;
 
-import com.day.cq.i18n.I18n;
 import com.google.gson.*;
 import design.aem.components.ComponentProperties;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,15 +14,12 @@ import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX
 import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_PAGE_CONTENT;
 import static design.aem.utils.components.ComponentDetailsUtil.getPageListInfo;
 import static design.aem.utils.components.ComponentsUtil.getContextObjects;
-import static design.aem.utils.components.TagUtil.getTagValueAsAdmin;
 
 public class LocationDetails extends GenericDetails {
     protected static final Logger LOGGER = LoggerFactory.getLogger(LocationDetails.class);
 
     static {
         COMPONENT_DETAILS_NAME = "location-details";
-
-        DEFAULT_I18N_CATEGORY = "location-details";
 
         USE_SIDE_EFFECTS = false;
     }

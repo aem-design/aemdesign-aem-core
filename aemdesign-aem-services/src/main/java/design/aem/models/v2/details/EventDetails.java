@@ -24,8 +24,6 @@ public class EventDetails extends GenericDetails {
     static {
         COMPONENT_DETAILS_NAME = "event-details";
 
-        DEFAULT_I18N_CATEGORY = "event-details";
-
         USE_SIDE_EFFECTS = false;
     }
 
@@ -52,12 +50,12 @@ public class EventDetails extends GenericDetails {
     protected static final String FIELD_MENU_COLOR = "menuColor";
     protected static final String FIELD_SHOW_TAGS = "showTags";
 
-    protected static Calendar DEFAULT_END_DATE = null;
-    protected static Calendar DEFAULT_START_DATE = null;
+    protected Calendar DEFAULT_END_DATE = null;
+    protected Calendar DEFAULT_START_DATE = null;
 
-    protected static String DEFAULT_FORMAT_DISPLAYDATE = "${eventStartDateText} to ${eventEndDateText}";
-    protected static String DEFAULT_FORMAT_DISPLAYTIME = "${eventStartTimeText} to ${eventEndTimeText}";
-    protected static String DEFAULT_FORMAT_SUBTITLE = "${eventStartDateText} to ${eventEndDateText}";
+    protected String DEFAULT_FORMAT_DISPLAYDATE = "${eventStartDateText} to ${eventEndDateText}";
+    protected String DEFAULT_FORMAT_DISPLAYTIME = "${eventStartTimeText} to ${eventEndTimeText}";
+    protected String DEFAULT_FORMAT_SUBTITLE = "${eventStartDateText} to ${eventEndDateText}";
 
     @Override
     public void ready() {

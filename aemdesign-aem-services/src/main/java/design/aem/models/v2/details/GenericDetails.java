@@ -59,26 +59,26 @@ public class GenericDetails extends BaseComponent {
     protected static String FIELD_CONTENTFRAGMENT_VARIATION = "variationName";
     protected static String FIELD_CONTENTFRAGMENT_FRAGMENTPATH = "fragmentPath";
 
-    protected static String DEFAULT_TITLE = null;
+    protected String DEFAULT_TITLE = null;
+
     protected static String DEFAULT_TITLE_FORMAT = getFormatExpression(FIELD_TITLE);
     protected static String DEFAULT_TITLE_TAG_TYPE = "h1";
 
-    protected static String DEFAULT_DESCRIPTION = null;
-    protected static String DEFAULT_DESCRIPTION_FORMAT = getFormatExpression(FIELD_DESCRIPTION);
+    protected String DEFAULT_DESCRIPTION = null;
+    protected String DEFAULT_DESCRIPTION_FORMAT = getFormatExpression(FIELD_DESCRIPTION);
 
-    protected static String DEFAULT_SUBTITLE = null;
-    protected static String DEFAULT_ARIA_ROLE = "banner";
+    protected String DEFAULT_SUBTITLE = null;
+    protected String DEFAULT_ARIA_ROLE = "banner";
 
-    protected static String DEFAULT_I18N_CATEGORY = "generic-details";
-    protected static String DEFAULT_I18N_LABEL = "variantHiddenLabel";
+    protected String DEFAULT_I18N_LABEL = "variantHiddenLabel";
 
-    protected static Boolean DEFAULT_USE_CONTAINER = true;
-    protected static Boolean DEFAULT_HIDE_TITLE = false;
-    protected static Boolean DEFAULT_HIDE_DESCRIPTION = false;
-    protected static Boolean DEFAULT_SHOW_BREADCRUMB = true;
-    protected static Boolean DEFAULT_SHOW_TOOLBAR = true;
-    protected static Boolean DEFAULT_SHOW_PAGE_DATE = true;
-    protected static Boolean DEFAULT_SHOW_PARSYS = true;
+    protected Boolean DEFAULT_USE_CONTAINER = true;
+    protected Boolean DEFAULT_HIDE_TITLE = false;
+    protected Boolean DEFAULT_HIDE_DESCRIPTION = false;
+    protected Boolean DEFAULT_SHOW_BREADCRUMB = true;
+    protected Boolean DEFAULT_SHOW_TOOLBAR = true;
+    protected Boolean DEFAULT_SHOW_PAGE_DATE = true;
+    protected Boolean DEFAULT_SHOW_PARSYS = true;
 
     protected static Boolean USE_SIDE_EFFECTS = true;
 
@@ -229,9 +229,9 @@ public class GenericDetails extends BaseComponent {
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {FIELD_VARIANT_LABEL, getDefaultLabelIfEmpty(
                 StringUtils.EMPTY,
-                DEFAULT_I18N_CATEGORY,
+                COMPONENT_DETAILS_NAME,
                 DEFAULT_I18N_LABEL,
-                DEFAULT_I18N_CATEGORY,
+                COMPONENT_DETAILS_NAME,
                 i18n)},
 
             // Title

@@ -19,8 +19,6 @@ public class NewsDetails extends GenericDetails {
     static {
         COMPONENT_DETAILS_NAME = "news-details";
 
-        DEFAULT_I18N_CATEGORY = "news-details";
-
         USE_SIDE_EFFECTS = false;
     }
 
@@ -48,8 +46,8 @@ public class NewsDetails extends GenericDetails {
         publishDate.setTimeInMillis(publishDateLong);
 
         //get format strings from dictionary
-        String dateFormatString = i18n.get("publishDateFormat", DEFAULT_I18N_CATEGORY);
-        String dateDisplayFormatString = i18n.get("publishDateDisplayFormat", DEFAULT_I18N_CATEGORY);
+        String dateFormatString = i18n.get("publishDateFormat", COMPONENT_DETAILS_NAME);
+        String dateDisplayFormatString = i18n.get("publishDateDisplayFormat", COMPONENT_DETAILS_NAME);
 
         //format date into formatted date
         SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString);
@@ -63,7 +61,11 @@ public class NewsDetails extends GenericDetails {
         newFields.put("publishDisplayDateText", publishDisplayDateText);
 
         //get full published date display text
-        String newsDateStatusText = i18n.get("newsDateStatusText", DEFAULT_I18N_CATEGORY, publishDateText, publishDisplayDateText);
+        String newsDateStatusText = i18n.get("newsDateStatusText",
+            COMPONENT_DETAILS_NAME,
+            publishDateText,
+            publishDisplayDateText);
+
         newFields.put("newsDateStatusText", newsDateStatusText);
     }
 }
