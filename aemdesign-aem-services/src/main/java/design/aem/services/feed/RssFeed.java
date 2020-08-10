@@ -30,8 +30,8 @@ public class RssFeed extends FeedService {
     }
 
     @Override
-    protected void handleResponse(SlingHttpServletResponse response) throws IOException {
-        response.setContentType("application/xml");
+    protected void handleResponse(SlingHttpServletResponse slingResponse) throws IOException {
+        slingResponse.setContentType("application/xml");
 
         StringBuilder rss = new StringBuilder();
 
@@ -46,6 +46,6 @@ public class RssFeed extends FeedService {
         rss.append("</channel>");
         rss.append("</rss>");
 
-        response.getWriter().write(rss.toString());
+        slingResponse.getWriter().write(rss.toString());
     }
 }

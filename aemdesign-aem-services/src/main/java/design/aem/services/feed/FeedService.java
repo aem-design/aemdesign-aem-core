@@ -27,12 +27,12 @@ public class FeedService extends SlingSafeMethodsServlet {
 
     @Override
     protected void doGet(
-        final SlingHttpServletRequest request,
-        final @Nonnull SlingHttpServletResponse response
+        final @Nonnull SlingHttpServletRequest slingRequest,
+        final @Nonnull SlingHttpServletResponse slingResponse
     ) throws IOException {
-        this.resource = request.getResource();
-        this.resourceResolver = request.getResourceResolver();
-        this.request = request;
+        resource = request.getResource();
+        resourceResolver = request.getResourceResolver();
+        request = slingRequest;
 
         try {
             pageManager = resourceResolver.adaptTo(PageManager.class);
@@ -47,15 +47,15 @@ public class FeedService extends SlingSafeMethodsServlet {
                 boolean feedEnabled = Boolean.TRUE.equals(resourceNode.getProperty("feedEnabled").getBoolean());
 
                 if (!feedEnabled || !feedMatchesRequest()) {
-                    response.sendError(501, "This feed doesn't appear to be enabled!");
+                    slingResponse.sendError(501, "This feed doesn't appear to be enabled!");
                 } else {
-                    handleResponse(response);
+                    handleResponse(slingResponse);
                 }
             } else {
-                response.sendError(404, "Something unknown appears to have gone wrong while initialising the feed.");
+                slingResponse.sendError(404, "Something unknown appears to have gone wrong while initialising the feed.");
             }
         } catch (Exception ex) {
-            response.sendError(404);
+            slingResponse.sendError(404);
         }
     }
 
@@ -91,10 +91,10 @@ public class FeedService extends SlingSafeMethodsServlet {
     /**
      * Default handler when the feed hasn't been implemented correctly.
      *
-     * @param response {@code SlingHttpServletResponse} instance
+     * @param slingResponse {@code SlingHttpServletResponse} instance
      * @throws IOException
      */
-    protected void handleResponse(final SlingHttpServletResponse response) throws IOException {
+    protected void handleResponse(final SlingHttpServletResponse slingResponse) throws IOException {
         throw new RuntimeException("Response handler has not been implemented.");
     }
 }
