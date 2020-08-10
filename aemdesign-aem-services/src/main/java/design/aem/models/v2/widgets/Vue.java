@@ -143,7 +143,7 @@ public class Vue extends BaseComponent {
      */
     private void retrieveComponentConfig() {
         try {
-            config = getComponentDataByKey("config").getAsJsonArray();
+            config = getComponentDataByKey("config").getAsJsonArray(); // NOSONAR
         } catch (Exception ex) {
             LOGGER.warn("Unable to retrieve the component configuration, this could mean it doesn't exist or is invalid.");
         }
@@ -364,7 +364,7 @@ public class Vue extends BaseComponent {
         JsonElement jsonElement = null;
 
         try {
-            String componentPath = "/content/%s/%s/component-dialog/vue-widgets/%s/%s";
+            String componentPath = "/content/%s/%s/component-dialog/vue-widgets/%s/%s";  // NOSONAR
             String tenantName = TenantUtil.resolveTenantIdFromPath(getResource().getPath());
             String resourcePath = String.format(componentPath, NameConstants.PN_TAGS, tenantName, componentName, pathPart);
 

@@ -1948,7 +1948,7 @@ public class ComponentsUtil {
                                 if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
                                     for (Resource resource : localresource.getChildren()) {
                                         //add only newly found resources
-                                        if (!subResources.containsValue(resource.getName())) {
+                                        if (!subResources.containsValue(resource.getName())) { // NOSONAR
                                             String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
                                             subResources.put(name, resource);
                                         }
