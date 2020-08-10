@@ -7,11 +7,6 @@
   margin-bottom: 30px;
 }
 
-.cq-Editable-dom:not(.responsivegrid):not([component]) {
-  border: 2px solid rgba(0, 0, 0, 0.10);
-  position: relative;
-}
-
 .cq-Editable-dom:not(.responsivegrid) + .cq-Editable-dom {
   margin-top: 30px;
 }
