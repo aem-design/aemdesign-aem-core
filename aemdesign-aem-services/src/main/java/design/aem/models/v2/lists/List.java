@@ -52,7 +52,6 @@ public class List extends BaseComponent {
     protected static final String FIELD_LIST_SOURCE_TAGS_SELECTION = "tags";
     protected static final String FIELD_LIST_SOURCE_TAGS_CONDITION = "tagsMatch";
     protected static final String FIELD_LIST_SOURCE_TAGS_SEARCH_DETAILS = "useDetailsTags";
-    protected static final String FIELD_LIST_SOURCE_QUERY_BUILDER = "savedquery";
 
     protected static final String FIELD_LIST_SORT_ORDER = "sortOrder";
     protected static final String FIELD_LIST_ORDER_BY = "orderBy";
@@ -79,7 +78,6 @@ public class List extends BaseComponent {
     protected static String DEFAULT_LIST_SOURCE_TAGS_PARENT_PATH = null;
     protected static String DEFAULT_LIST_SOURCE_TAGS_CONDITION = "any";
     protected static Boolean DEFAULT_LIST_SOURCE_TAGS_SEARCH_DETAILS = false;
-    protected static String DEFAULT_LIST_SOURCE_QUERY_BUILDER = StringUtils.EMPTY;
 
     protected static String DEFAULT_LIST_ORDER_BY = StringUtils.EMPTY;
     protected static String DEFAULT_LIST_SORT_ORDER = SortOrder.ASC.getValue();
@@ -118,10 +116,6 @@ public class List extends BaseComponent {
     protected java.util.List<Map<String, Object>> listItems;
 
     private String identifier;
-
-    private String searchInPath;
-    private String searchQuery;
-    private String queryBuilderString;
 
     private SortOrder sortOrder;
     private int limit;
@@ -250,7 +244,6 @@ public class List extends BaseComponent {
     private void processListSettingsAndConfiguration() {
         searchInPath = componentProperties.get(FIELD_LIST_SOURCE_SEARCH_PATH, DEFAULT_LIST_SOURCE_SEARCH_PATH);
         searchQuery = componentProperties.get(FIELD_LIST_SOURCE_SEARCH_QUERY, DEFAULT_LIST_SOURCE_SEARCH_QUERY);
-        queryBuilderString = componentProperties.get(FIELD_LIST_SOURCE_QUERY_BUILDER, DEFAULT_LIST_SOURCE_QUERY_BUILDER);
 
         sortOrder = SortOrder.fromString(componentProperties.get(FIELD_LIST_SORT_ORDER, DEFAULT_LIST_SORT_ORDER));
         paginationAfter = componentProperties.get(FIELD_LIST_PAGINATION_AFTER, DEFAULT_LIST_PAGINATION_AFTER);
@@ -377,10 +370,6 @@ public class List extends BaseComponent {
             case TAGS:
                 styleCheck = "disableTags";
                 callback = this::populateTagListItems;
-                break;
-            case QUERYBUILDER:
-                styleCheck = "disableQuerybuilder";
-                callback = this::populateQueryListItems;
                 break;
         }
 
@@ -562,81 +551,6 @@ public class List extends BaseComponent {
         }
 
         return predicates;
-    }
-
-    /**
-     * Populate the list of results using by using an authored Query Builder string.
-     */
-    protected void populateQueryListItems() {
-        if (StringUtils.isBlank(queryBuilderString)) {
-            return;
-        }
-
-//        TODO: Reimplement this
-//        try {
-//            if (getRequest().getRequestParameter(REQUEST_PARAM_QUERY) != null) {
-//                //if query passed read and process
-//                String escapedQuery = "";
-//                RequestParameter requestParameter = getRequest().getRequestParameter(REQUEST_PARAM_QUERY);
-//                if (requestParameter != null) {
-//                    escapedQuery = requestParameter.toString();
-//                }
-//                String unescapedQuery = URLDecoder.decode(escapedQuery, QUERY_ENCODING);
-//                QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
-//                if (queryBuilder != null) {
-//                    PageManager pm = getResourceResolver().adaptTo(PageManager.class);
-//                    //create props for query
-//                    java.util.Properties props = new java.util.Properties();
-//                    //load query candidate
-//                    props.load(new ByteArrayInputStream(unescapedQuery.getBytes()));
-//                    //create predicate from query candidate
-//                    PredicateGroup predicateGroup = PredicateConverter.createPredicates(props);
-//                    //TODO: add limits and pages
-////                    predicateGroup.add(new Predicate("p.offset","0"));
-////                    if (limit > 0) {
-////                        predicateGroup.add(new Predicate("p.limit", Integer.toString(limit)));
-////                    }
-////                    predicateGroup.add(new Predicate("p.guessTotal","true"));
-////                    boolean allowDuplicates = componentProperties.get("allowDuplicates", false);
-//                    javax.jcr.Session jcrSession = getResourceResolver().adaptTo(javax.jcr.Session.class);
-//                    if (jcrSession != null) {
-//                        Query query = queryBuilder.createQuery(predicateGroup, jcrSession);
-//                        //TODO: add limits and pages
-//
-//
-////                    query.setStart(0);
-////                    query.setHitsPerPage(20);
-//                        if (query != null) {
-////                        SearchResult result = query.getResult();
-////                        HitBasedPageIterator newList = new HitBasedPageIterator(pm, result.getHits().iterator(), !allowDuplicates, new PageFilter(false, showHidden));
-//
-//                            collectSearchResults(query.getResult());
-//                        }
-//                    } else {
-//                        LOGGER.error("populateQueryListItems: could not get sessions object");
-//                    }
-//                } else {
-//                    LOGGER.error("populateQueryListItems: could not get query builder object");
-//                }
-//            } else {
-//                //if not passed read saved query
-//                Session session = getResourceResolver().adaptTo(Session.class);
-//                QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
-//                if (session != null && queryBuilder != null) {
-//                    try {
-//                        Query query = queryBuilder.loadQuery(getResource().getPath() + "/" + FIELD_LIST_SOURCE_QUERY_BUILDER, session);
-//                        if (query != null) {
-//                            collectSearchResults(query.getResult());
-//                        }
-//                    } catch (Exception ex) {
-//                        LOGGER.error("error loading stored querybuilder query from {},{}", getResource().getPath(), ex);
-//                    }
-//                }
-//
-//            }
-//        } catch (Exception ex) {
-//            LOGGER.error("LIST: could not do query {}", ex);
-//        }
     }
 
     /**

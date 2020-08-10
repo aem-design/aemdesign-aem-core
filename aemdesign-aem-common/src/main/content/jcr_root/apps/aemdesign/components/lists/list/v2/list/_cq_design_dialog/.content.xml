@@ -74,14 +74,6 @@
                                 text="Disable tags"
                                 uncheckedValue="false"
                                 value="true"/>
-                            <disableQuerybuilder
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
-                                fieldDescription="Disable advanced search list source type."
-                                name="./disableQuerybuilder"
-                                text="Disable advanced search"
-                                uncheckedValue="false"
-                                value="true"/>
                         </items>
                     </listSettings>
 
