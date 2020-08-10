@@ -132,6 +132,8 @@ public class List extends BaseComponent {
     private long totalMatches;
 
     public void ready() {
+        LOGGER.info("Getting list component ready for: {}", COMPONENT_LIST_NAME);
+
         registerListFeedTypes();
 
         generateComponentPropertiesFromFields();
@@ -140,12 +142,12 @@ public class List extends BaseComponent {
     /**
      * Register the feed types that are available for the list.
      */
-    private void registerListFeedTypes() {
-        if (Boolean.FALSE.equals(getCurrentStyle().get("disableFeedTypeRSS", false))) {
+    protected void registerListFeedTypes() {
+        if (Boolean.FALSE.equals(currentStyle.get("disableFeedTypeRSS", false))) {
             listFeeds.put("rss", new ListFeed(".rss", "RSS Feed", "application/rss+xml"));
         }
 
-        if (Boolean.FALSE.equals(getCurrentStyle().get("disableFeedTypeAtom", false))) {
+        if (Boolean.FALSE.equals(currentStyle.get("disableFeedTypeAtom", false))) {
             listFeeds.put("atom", new ListFeed(".feed", "Atom 1.0 (List)", "application/atom+xml"));
         }
     }
@@ -153,7 +155,7 @@ public class List extends BaseComponent {
     /**
      * Process the component fields and generate the {@link #componentProperties} instance.
      */
-    protected void generateComponentPropertiesFromFields() {
+    private void generateComponentPropertiesFromFields() {
         DEFAULT_CURRENT_PATH = getCurrentPage().getPath();
 
         setComponentFieldsDefaults();
@@ -170,7 +172,6 @@ public class List extends BaseComponent {
             {FIELD_LIST_SOURCE_TAGS_SELECTION, new String[]{}},
             {FIELD_LIST_SOURCE_TAGS_CONDITION, DEFAULT_LIST_SOURCE_TAGS_CONDITION},
             {FIELD_LIST_SOURCE_TAGS_SEARCH_DETAILS, DEFAULT_LIST_SOURCE_TAGS_SEARCH_DETAILS},
-            {FIELD_LIST_SOURCE_QUERY_BUILDER, DEFAULT_LIST_SOURCE_QUERY_BUILDER},
 
             // Options
             {FIELD_LIST_ORDER_BY, DEFAULT_LIST_ORDER_BY},
@@ -201,21 +202,25 @@ public class List extends BaseComponent {
             DEFAULT_FIELDS_ACCESSIBILITY,
             DEFAULT_FIELDS_ANALYTICS);
 
-        componentProperties.put(PROP_NEEDS_PAGINATION,
-            componentProperties.get(FIELD_LIST_PAGINATION_TYPE, DEFAULT_LIST_PAGINATION_TYPE).equals("hidden"));
-
-        componentProperties.put(COMPONENT_ATTRIBUTES,
-            buildAttributesString(componentProperties.attr.getData(), null));
-
         processListSettingsAndConfiguration();
+
+        handleAdditionalSetup();
+
+        processBadgeRequestAttributes();
+
+        componentProperties.put(PROP_NEEDS_PAGINATION, componentProperties.get(FIELD_LIST_PAGINATION_TYPE).equals("hidden"));
+        componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
+    }
+
+    /**
+     * Helper method that allows additional setup to be completed.
+     */
+    protected void handleAdditionalSetup() {
+        generateUniqueIdentifier();
 
         if (Boolean.TRUE.equals(feedEnabled)) {
             setupFeedForList();
         }
-
-        processBadgeRequestAttributes();
-
-        generateUniqueIdentifier();
     }
 
     /**
@@ -227,24 +232,21 @@ public class List extends BaseComponent {
         DEFAULT_LIST_SOURCE_SEARCH_PATH = getResourcePage().getPath();
         DEFAULT_LIST_SOURCE_TAGS_PARENT_PATH = DEFAULT_CURRENT_PATH;
 
-        DEFAULT_LIST_ORDER_BY = getCurrentStyle().get("orderBy", DEFAULT_LIST_ORDER_BY);
-        DEFAULT_LIST_SORT_ORDER = getCurrentStyle().get("sortOrder", DEFAULT_LIST_SORT_ORDER);
-        DEFAULT_LIST_LIMIT = getCurrentStyle().get("limit", DEFAULT_LIST_LIMIT);
-        DEFAULT_LIST_PAGINATION_AFTER = getCurrentStyle().get("paginateAfter", DEFAULT_LIST_PAGINATION_AFTER);
+        DEFAULT_LIST_ORDER_BY = currentStyle.get("orderBy", DEFAULT_LIST_ORDER_BY);
+        DEFAULT_LIST_SORT_ORDER = currentStyle.get("sortOrder", DEFAULT_LIST_SORT_ORDER);
+        DEFAULT_LIST_LIMIT = currentStyle.get("limit", DEFAULT_LIST_LIMIT);
+        DEFAULT_LIST_PAGINATION_AFTER = currentStyle.get("paginateAfter", DEFAULT_LIST_PAGINATION_AFTER);
 
-        DEFAULT_LIST_SHOW_HIDDEN_PAGES = getCurrentStyle().get("showHidden", DEFAULT_LIST_SHOW_HIDDEN_PAGES);
+        DEFAULT_LIST_SHOW_HIDDEN_PAGES = currentStyle.get("showHidden", DEFAULT_LIST_SHOW_HIDDEN_PAGES);
 
-        DEFAULT_LIST_SPLIT = getCurrentStyle().get("listSplit", DEFAULT_LIST_SPLIT);
-        DEFAULT_LIST_SPLIT_EVERY = getCurrentStyle().get("listSplitEvery", DEFAULT_LIST_SPLIT_EVERY);
+        DEFAULT_LIST_SPLIT = currentStyle.get("listSplit", DEFAULT_LIST_SPLIT);
+        DEFAULT_LIST_SPLIT_EVERY = currentStyle.get("listSplitEvery", DEFAULT_LIST_SPLIT_EVERY);
     }
 
     /**
      * Process the most common settings and configurations for the list.
      */
     private void processListSettingsAndConfiguration() {
-        searchInPath = componentProperties.get(FIELD_LIST_SOURCE_SEARCH_PATH, DEFAULT_LIST_SOURCE_SEARCH_PATH);
-        searchQuery = componentProperties.get(FIELD_LIST_SOURCE_SEARCH_QUERY, DEFAULT_LIST_SOURCE_SEARCH_QUERY);
-
         sortOrder = SortOrder.fromString(componentProperties.get(FIELD_LIST_SORT_ORDER, DEFAULT_LIST_SORT_ORDER));
         paginationAfter = componentProperties.get(FIELD_LIST_PAGINATION_AFTER, DEFAULT_LIST_PAGINATION_AFTER);
 
@@ -260,6 +262,9 @@ public class List extends BaseComponent {
         feedType = componentProperties.get(FIELD_LIST_FEED_TYPE, DEFAULT_LIST_FEED_TYPE);
     }
 
+    /**
+     * Retrieve the configuration for the authored feed (if any).
+     */
     private void setupFeedForList() {
         ListFeed listFeed = listFeeds.get(feedType);
 
@@ -268,11 +273,6 @@ public class List extends BaseComponent {
 
         componentProperties.put(PROP_FEED_URL,
             listFeed != null ? getResource().getPath().concat(listFeed.extension) : null);
-
-//            TODO: Move this into EventList.java
-//            componentProperties.put(FIELD_FEED_EXT, ".ics");
-//            componentProperties.put(FIELD_FEED_TITLE, "iCalendar Subscription List");
-//            componentProperties.put(FIELD_LIST_FEED_TYPE, "text/calendar");
     }
 
     /**
@@ -374,14 +374,12 @@ public class List extends BaseComponent {
         }
 
         try {
-            if (callback != null) {
-                if (Boolean.FALSE.equals(getCurrentStyle().get(styleCheck, false))) {
-                    callback.run();
-                } else {
-                    LOGGER.info("List instance attempted to access disabled list type builder!\nList Type: {}\nPath: {}",
-                        listType,
-                        getResource().getPath());
-                }
+            if (Boolean.FALSE.equals(currentStyle.get(styleCheck, false))) {
+                callback.run();
+            } else {
+                LOGGER.info("List instance attempted to access disabled list type builder!\nList Type: {}\nPath: {}",
+                    listType,
+                    getResource().getPath());
             }
         } catch (Exception ex) {
             LOGGER.error("Unable to populate list items due to an expected error!\n{}", ex.getMessage());
@@ -468,6 +466,9 @@ public class List extends BaseComponent {
      * Populate the list of results using a simple content search.
      */
     protected void populateSearchListItems() {
+        String searchInPath = componentProperties.get(FIELD_LIST_SOURCE_SEARCH_PATH, DEFAULT_LIST_SOURCE_SEARCH_PATH);
+        String searchQuery = componentProperties.get(FIELD_LIST_SOURCE_SEARCH_QUERY, DEFAULT_LIST_SOURCE_SEARCH_QUERY);
+
         if (StringUtils.isBlank(searchQuery)) {
             return;
         }
@@ -514,7 +515,7 @@ public class List extends BaseComponent {
     /**
      * Generate the predicate map for the tags search.
      *
-     * @param tags List of tags
+     * @param tags     List of tags
      * @param rootPath Path that will be used in the search
      * @return Predicates map
      */
@@ -755,7 +756,6 @@ public class List extends BaseComponent {
         return badge;
     }
 
-
 //    /**
 //     * get request parameter with component id prefix.
 //     *
@@ -870,46 +870,25 @@ public class List extends BaseComponent {
 //
 //        return null;
 //    }
-//
-//    /**
-//     * do a search based on querystring params.
-//     *
-//     * @param queryParam querystring param same as querybuilder
-//     */
-//    private void populateListItemsFromQuery(String queryParam) {
-//        try {
-//
-//            QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
-//            if (builder != null) {
-//                Session session = getResourceResolver().adaptTo(Session.class);
-//
-//                Query query = null;
-//
-//                PredicateGroup root = getPredicateGroupFromQuery(queryParam);
-//                // avoid slow //* queries
-//                if (root != null && !root.isEmpty()) {
-//                    query = builder.createQuery(root, session);
-//                }
-//
-//                if (query != null) {
-//                    collectSearchResults(query.getResult());
-//                }
-//            } else {
-//                LOGGER.error("populateListItemsFromMap: could not get query builder object, q={}", queryParam);
-//            }
-//        } catch (Exception ex) {
-//            LOGGER.error("populateListItemsFromQuery: could not execute query q=[{}], ex={}", queryParam, ex);
-//        }
-//    }
+
+    public static class ListFeed {
+        public String extension;
+        public String title;
+        public String type;
+
+        public ListFeed(String extension, String title, String type) {
+            this.extension = extension;
+            this.title = title;
+            this.type = type;
+        }
+    }
 
     public enum Source {
         CHILDREN("children"),
+        DESCENDANTS("descendants"),
         STATIC("static"),
         SEARCH("search"),
-        TAGS("tags"),
-        QUERYBUILDER("querybuilder"),
-        DESCENDANTS("descendants"),
-        EMPTY(StringUtils.EMPTY);
+        TAGS("tags");
 
         private final String value;
 
@@ -1020,18 +999,6 @@ public class List extends BaseComponent {
         private String appendParam(String url, String name, Object value) {
             char delim = url.indexOf(63) > 0 ? (char) 38 : (char) 63;
             return url + delim + name + '=' + value;
-        }
-    }
-
-    public static class ListFeed {
-        public String extension;
-        public String title;
-        public String type;
-
-        public ListFeed(String extension, String title, String type) {
-            this.extension = extension;
-            this.title = title;
-            this.type = type;
         }
     }
 }

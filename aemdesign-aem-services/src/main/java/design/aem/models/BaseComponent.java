@@ -1,6 +1,7 @@
 package design.aem.models;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.wcm.api.designer.Style;
 import design.aem.components.ComponentProperties;
 import design.aem.utils.components.TenantUtil;
 import org.apache.commons.lang.StringUtils;
@@ -16,6 +17,7 @@ public abstract class BaseComponent extends WCMUsePojo {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BaseComponent.class);
 
     protected ComponentProperties componentProperties = null;
+    protected Style currentStyle;
 
     protected static final String ANALYTICS_FIELDS = "analyticsFields";
     protected static final String COMPONENT_FIELDS = "componentFields";
@@ -27,6 +29,8 @@ public abstract class BaseComponent extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
+        currentStyle = getCurrentStyle();
+
         ready();
     }
 
