@@ -11,7 +11,7 @@
            data-sly-call="${body.variant @ componentProperties=componentProperties, component=component}"></sly>
     </div>
 
-    <sly data-sly-test="${componentProperties.needsPagination}"
+    <sly data-sly-test="${componentProperties.needsPagination && componentProperties.isPaginating}"
          data-sly-use.pagination="pagination.html"
          data-sly-call="${pagination.variant @ componentProperties=componentProperties}"></sly>
   </div>

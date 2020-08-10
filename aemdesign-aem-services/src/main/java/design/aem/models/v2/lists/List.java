@@ -6,6 +6,7 @@ import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.SimpleSearch;
 import com.day.cq.search.result.Hit;
+import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.NameConstants;
@@ -73,7 +74,7 @@ public class List extends BaseComponent {
     protected String DEFAULT_LIST_SOURCE_SEARCH_QUERY = StringUtils.EMPTY;
     protected String DEFAULT_LIST_SOURCE_TAGS_PARENT_PATH = null;
     protected String DEFAULT_LIST_SOURCE_TAGS_CONDITION = "any";
-    protected Boolean DEFAULT_LIST_SOURCE_TAGS_SEARCH_DETAILS = false;
+    protected boolean DEFAULT_LIST_SOURCE_TAGS_SEARCH_DETAILS = false;
 
     protected String DEFAULT_LIST_ORDER_BY = "path";
     protected String DEFAULT_LIST_SORT_ORDER = SortOrder.ASC.getValue();
@@ -82,14 +83,14 @@ public class List extends BaseComponent {
     protected String DEFAULT_LIST_PAGINATION_TYPE = "hidden";
 
     protected String DEFAULT_LIST_DETAILS_BADGE = DEFAULT_BADGE;
-    protected Boolean DEFAULT_LIST_SHOW_HIDDEN_PAGES = false;
+    protected boolean DEFAULT_LIST_SHOW_HIDDEN_PAGES = false;
 
-    protected Boolean DEFAULT_LIST_PRINT_STRUCTURE = true;
+    protected boolean DEFAULT_LIST_PRINT_STRUCTURE = true;
     protected String DEFAULT_LIST_TAG = "ul";
-    protected Boolean DEFAULT_LIST_SPLIT = false;
+    protected boolean DEFAULT_LIST_SPLIT = false;
     protected int DEFAULT_LIST_SPLIT_EVERY = 3;
 
-    protected Boolean DEFAULT_LIST_FEED_ENABLED = false;
+    protected boolean DEFAULT_LIST_FEED_ENABLED = false;
     protected String DEFAULT_LIST_FEED_TYPE = null;
 
     protected String DEFAULT_CURRENT_PATH = null;
@@ -105,7 +106,10 @@ public class List extends BaseComponent {
     protected static String PROP_LIST_EMPTY = "isEmpty";
     protected static String PROP_IS_PAGINATING = "isPaginating";
     protected static String PROP_NEEDS_PAGINATION = "needsPagination";
+    protected static String PROP_PARAM_MARKER_MAX = "max";
+    protected static String PROP_PARAM_MARKER_START = "start";
     protected static String PROP_RESULT_INFO = "resultInfo";
+    protected static String PROP_QUERY_PARAM = "q";
 
     protected Map<String, ListFeed> listFeeds = new HashMap<>();
     protected java.util.List<Map<String, Object>> listItems;
@@ -114,30 +118,47 @@ public class List extends BaseComponent {
 
     private SortOrder sortOrder;
     private int limit;
+    private boolean needsPagination;
     private int paginationAfter;
 
     private String detailsBadge;
-    private Boolean showHidden;
+    private boolean showHidden;
 
     private int listSplitEvery;
 
-    private Boolean feedEnabled;
+    private boolean feedEnabled;
     private String feedType;
 
+    private boolean isPaginating;
+    private long pageStart;
     private long totalMatches;
+    private long totalPages;
+    private java.util.List<ResultPage> resultPages;
 
     public void ready() {
         LOGGER.info("Getting list component ready for: {}", getComponentName());
+
+        generateUniqueIdentifier();
 
         registerListFeedTypes();
 
         generateComponentPropertiesFromFields();
     }
 
+    /**
+     * Define the literal component name.
+     *
+     * @return String literal of the component name
+     */
     protected String getComponentName() {
-        return "list";
+        return "list"; // NOSONAR
     }
 
+    /**
+     * Define a list of detail component names to find in the results.
+     *
+     * @return List of component names
+     */
     protected String[] getDetailsComponentLookupNames() {
         return DEFAULT_LIST_DETAILS_SUFFIX;
     }
@@ -211,7 +232,7 @@ public class List extends BaseComponent {
 
         processBadgeRequestAttributes();
 
-        componentProperties.put(PROP_NEEDS_PAGINATION, componentProperties.get(FIELD_LIST_PAGINATION_TYPE).equals("hidden"));
+        componentProperties.put(PROP_NEEDS_PAGINATION, needsPagination);
         componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
     }
 
@@ -219,8 +240,6 @@ public class List extends BaseComponent {
      * Helper method that allows additional setup to be completed.
      */
     protected void handleAdditionalSetup() {
-        generateUniqueIdentifier();
-
         if (Boolean.TRUE.equals(feedEnabled)) {
             setupFeedForList();
         }
@@ -251,6 +270,7 @@ public class List extends BaseComponent {
      */
     private void processListSettingsAndConfiguration() {
         sortOrder = SortOrder.fromString(componentProperties.get(FIELD_LIST_SORT_ORDER, DEFAULT_LIST_SORT_ORDER));
+        needsPagination = !componentProperties.get(FIELD_LIST_PAGINATION_TYPE).equals(DEFAULT_LIST_PAGINATION_TYPE);
         paginationAfter = componentProperties.get(FIELD_LIST_PAGINATION_AFTER, DEFAULT_LIST_PAGINATION_AFTER);
 
         limit = componentProperties.get(FIELD_LIST_LIMIT, DEFAULT_LIST_LIMIT);
@@ -263,6 +283,23 @@ public class List extends BaseComponent {
 
         feedEnabled = componentProperties.get(FIELD_LIST_FEED_ENABLED, DEFAULT_LIST_FEED_ENABLED);
         feedType = componentProperties.get(FIELD_LIST_FEED_TYPE, DEFAULT_LIST_FEED_TYPE);
+
+        // Check the query string parameters for the start offset
+        String requestPageStart = getParameter(PROP_PARAM_MARKER_START);
+
+        if (isNotEmpty(requestPageStart)) {
+            pageStart = tryParseLong(requestPageStart, 0);
+        }
+    }
+
+    /**
+     * Retrieve a request parameter with component id prefix.
+     *
+     * @param name Name of query string parameter
+     * @return Parameter value
+     */
+    private String getParameter(String name) {
+        return getRequest().getParameter(identifier + PATH_UNDERSCORE + name);
     }
 
     /**
@@ -273,9 +310,7 @@ public class List extends BaseComponent {
 
         componentProperties.put(FIELD_LIST_FEED_TYPE, listFeed != null ? listFeed.type : null);
         componentProperties.put(PROP_FEED_TITLE, listFeed != null ? listFeed.title : null);
-
-        componentProperties.put(PROP_FEED_URL,
-            listFeed != null ? getResource().getPath().concat(listFeed.extension) : null);
+        componentProperties.put(PROP_FEED_URL, listFeed != null ? getResource().getPath().concat(listFeed.extension) : null);
     }
 
     /**
@@ -381,7 +416,7 @@ public class List extends BaseComponent {
                 if (Boolean.FALSE.equals(currentStyle.get(styleCheck, false))) {
                     callback.run();
                 } else {
-                    LOGGER.info("List instance attempted to access disabled list type builder!\nList Type: {}\nPath: {}",
+                    LOGGER.warn("List instance attempted to access disabled list type builder!\nList Type: {}\nPath: {}",
                         listType,
                         getResource().getPath());
                 }
@@ -392,16 +427,11 @@ public class List extends BaseComponent {
 
         componentProperties.put(PROP_LIST_EMPTY, totalMatches == 0);
 
-//        TODO: Reimplement the following functionality
-//        updateIsPaginating();
+        updateIsPaginating();
 
         if (Boolean.TRUE.equals(componentProperties.get(FIELD_LIST_SPLIT))) {
             chunkItemsIntoGroups();
         }
-
-//
-//        componentProperties.put("nextPageLink", getNextPageLink());
-//        componentProperties.put("previousPageLink", getPreviousPageLink());
     }
 
     /**
@@ -588,10 +618,9 @@ public class List extends BaseComponent {
                     predicates.put("p.limit", String.valueOf(limit));
                 }
 
-//                TODO: Reimplement query string pagination
-//                if (pageStart > 0) {
-//                    predicates.put("p.offset", String.valueOf(pageStart));
-//                }
+                if (pageStart > 0) {
+                    predicates.put("p.offset", String.valueOf(pageStart));
+                }
 
                 String orderBy = componentProperties.get(FIELD_LIST_ORDER_BY, DEFAULT_LIST_ORDER_BY);
 
@@ -631,21 +660,23 @@ public class List extends BaseComponent {
         resultInfo.put("hasMore", searchResult.hasMore());
         resultInfo.put("result", searchResult);
 
-//        resultPages = result.getResultPages();
+        pageStart = searchResult.getStartIndex();
+        resultPages = searchResult.getResultPages();
         totalMatches = searchResult.getTotalMatches();
-        long hitsPerPage = searchResult.getHitsPerPage();
-//        totalPages = searchResult.getResultPages().size();
-//        pageStart = searchResult.getStartIndex();
-//        long currentPage = (pageStart / hitsPerPage) + 1;
+        totalPages = searchResult.getResultPages().size();
 
-//        resultInfo.put("currentPage", currentPage);
+        long hitsPerPage = searchResult.getHitsPerPage();
+
+        resultInfo.put("currentPage", (pageStart / hitsPerPage) + 1);
         resultInfo.put("hitsPerPage", hitsPerPage);
-//        resultInfo.put("resultPages", resultPages);
+        resultInfo.put("resultPages", resultPages);
         resultInfo.put("totalMatches", totalMatches);
         resultInfo.put("totalPages", searchResult.getResultPages().size());
-//        resultInfo.put(PAGE_START_PROPERTY_NAME, pageStart);
+        resultInfo.put("pageStart", pageStart);
 
-        componentProperties.put(PROP_IS_PAGINATING, paginationAfter > 0 && !searchResult.getResultPages().isEmpty());
+        isPaginating = paginationAfter > 0 && !searchResult.getResultPages().isEmpty();
+
+        componentProperties.put(PROP_IS_PAGINATING, isPaginating);
         componentProperties.put(PROP_RESULT_INFO, resultInfo);
 
         for (Hit hit : searchResult.getHits()) {
@@ -759,120 +790,57 @@ public class List extends BaseComponent {
         return badge;
     }
 
-//    /**
-//     * get request parameter with component id prefix.
-//     *
-//     * @param name name of querystring param suffix
-//     * @return parameter value
-//     */
-//    private String getParameter(String name) {
-//        return getRequest().getParameter(identifier + PATH_UNDERSCORE + name);
-//    }
-//
-//    /**
-//     * get next page url.
-//     *
-//     * @return next page url
-//     */
-//    private String getNextPageLink() {
-//        long nextPageStart = pageStart + pageMax;
-//        if (isPaginating && pageMax > 0 && resultPages.size() > 0 && nextPageStart < totalMatches) {
-//            List.PageLink link = new List.PageLink(getRequest());
-//            link.setParameter(REQUEST_PARAM_MARKER_START, nextPageStart);
-//            return link.toString();
-//        } else {
-//            return "";
-//        }
-//    }
-//
-//    /**
-//     * get previous page url.
-//     *
-//     * @return previous page url
-//     */
-//    private String getPreviousPageLink() {
-//        if (isPaginating && pageMax > 0 && resultPages.size() > 0 && pageStart != 0) {
-//            long previousPageStart = pageStart > pageMax ? pageStart - pageMax : 0;
-//            List.PageLink link = new List.PageLink(getRequest());
-//            link.setParameter(REQUEST_PARAM_MARKER_START, previousPageStart);
-//            return link.toString();
-//        } else {
-//            return "";
-//        }
-//    }
-//
-//    /**
-//     * set pagination helper attributes.
-//     */
-//    private void updateIsPaginating() {
-//
-//        //isPaginating = listItems.size() > 0 && listItems.size() > pageMax;
-//
-//        //componentProperties.put(LIST_ISPAGINATING, isPaginating);
-//
-//        componentProperties.attr.add("data-has-pages", isPaginating);
-//
-//
-//        if (isPaginating) {
-//
-//            componentProperties.attr.add("data-total-pages", String.valueOf(totalPages));
-//            componentProperties.attr.add("data-content-url", getResource().getPath().concat(DEFAULT_EXTENTION));
-//            componentProperties.attr.add("data-content-start", identifier.concat("_start"));
-//
-//        }
-//
-//    }
-//
-//
-//
+    /**
+     * Get previous page url.
+     *
+     * @return URL for the previous page
+     */
+    private String getPreviousPageLink() {
+        if (isPaginating && paginationAfter > 0 && !resultPages.isEmpty() && pageStart != 0) {
+            long previousPageStart = pageStart > paginationAfter ? pageStart - paginationAfter : 0;
 
-//
-//
-//    /**
-//     * get predicate group from query string.
-//     *
-//     * @param request reques instance
-//     * @return predicates converted from query string
-//     */
-//    public static PredicateGroup getPredicateGroupFromRequest(SlingHttpServletRequest request) {
-//
-//        String queryParam = "";
-//
-//        try {
-//            queryParam = request.getParameter(FIELD_LIST_SOURCE_SEARCH_QUERY);
-//
-//            // check if we have to convert from the url format to the properties-style format
-//            String isURLQuery = request.getParameter("isURL");
-//            if (queryParam != null && "on".equals(isURLQuery)) {
-//                queryParam = Text.unescape(queryParam.replaceAll("&", "\n"));
-//            }
-//        } catch (Exception ex) {
-//            LOGGER.error("getPredicateGroupFromQuery: could not read query param q=[{}], ex={}", queryParam, ex);
-//            return null;
-//        }
-//
-//        return getPredicateGroupFromQuery(queryParam);
-//    }
-//
-//    /**
-//     * get predicate group config from querystring param.
-//     *
-//     * @param queryParam query string param, same as querybuilder
-//     * @return predicates converted from query string
-//     */
-//    public static PredicateGroup getPredicateGroupFromQuery(String queryParam) {
-//
-//        try {
-//
-//            Properties props = new Properties();
-//            props.load(new StringReader(queryParam));
-//            return PredicateConverter.createPredicates(props);
-//        } catch (Exception ex) {
-//            LOGGER.error("getPredicateGroupFromQuery: could not create PredicateGroupFromQuery from query param q=[{}], ex={}", queryParam, ex);
-//        }
-//
-//        return null;
-//    }
+            List.PageLink link = new List.PageLink(getRequest());
+            link.setParameter(PROP_PARAM_MARKER_START, previousPageStart);
+
+            return link.toString();
+        }
+
+        return StringUtils.EMPTY;
+    }
+
+    /**
+     * Get next page url.
+     *
+     * @return URL for the next page
+     */
+    private String getNextPageLink() {
+        long nextPageStart = pageStart + paginationAfter;
+
+        if (isPaginating && paginationAfter > 0 && !resultPages.isEmpty() && nextPageStart < totalMatches) {
+            List.PageLink link = new List.PageLink(getRequest());
+            link.setParameter(PROP_PARAM_MARKER_START, nextPageStart);
+
+            return link.toString();
+        }
+
+        return StringUtils.EMPTY;
+    }
+
+    /**
+     * Define the pagination attributes that front end technologies can make use of.
+     */
+    private void updateIsPaginating() {
+        componentProperties.attr.add("data-has-pages", isPaginating);
+
+        if (isPaginating) {
+            componentProperties.attr.add("data-total-pages", String.valueOf(totalPages));
+            componentProperties.attr.add("data-content-url", getResource().getPath().concat(DEFAULT_EXTENTION));
+            componentProperties.attr.add("data-content-start", identifier.concat("_start"));
+
+            componentProperties.put("nextPageLink", getNextPageLink());
+            componentProperties.put("previousPageLink", getPreviousPageLink());
+        }
+    }
 
     public static class ListFeed {
         public String extension;
