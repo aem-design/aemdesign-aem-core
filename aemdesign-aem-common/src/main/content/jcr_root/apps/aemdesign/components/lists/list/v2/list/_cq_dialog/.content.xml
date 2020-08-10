@@ -375,7 +375,7 @@
                                                         fieldLabel="Paginate After"
                                                         min="1"
                                                         name="./pageMax"
-                                                        value="${cqDesign.paginateAfter}"/>
+                                                        value="${cqDesign.pageMax}"/>
 
                                                     <paginationType
                                                         jcr:primaryType="nt:unstructured"

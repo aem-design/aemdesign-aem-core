@@ -1,12 +1,13 @@
 package design.aem.models.v2.lists;
 
 public class PageList extends List {
-    static {
-        COMPONENT_LIST_NAME = "pagelist";
+    @Override
+    protected String getComponentName() {
+        return "pagelist";
+    }
 
-        DETAILS_COMPONENT_LOOKUP_NAMES = new String[]{
-            "page-details",
-            "generic-details",
-        };
+    @Override
+    protected String[] getDetailsComponentLookupNames() {
+        return new String[]{"page-details", "generic-details"};
     }
 }

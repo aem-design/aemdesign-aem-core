@@ -38,10 +38,6 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class List extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(List.class);
 
-    protected static String COMPONENT_LIST_NAME = "list";
-
-    protected static String[] DETAILS_COMPONENT_LOOKUP_NAMES;
-
     protected static final String FIELD_LIST_SOURCE = "listFrom";
     protected static final String FIELD_LIST_SOURCE_CHILDREN_PARENT_PATH = "parentPage";
     protected static final String FIELD_LIST_SOURCE_DESCENDANTS_PARENT_PATH = "ancestorPage";
@@ -70,41 +66,40 @@ public class List extends BaseComponent {
     protected static final String FIELD_LIST_FEED_ENABLED = "feedEnabled";
     protected static final String FIELD_LIST_FEED_TYPE = "feedType";
 
-    protected static String DEFAULT_LIST_SOURCE = StringUtils.EMPTY;
-    protected static String DEFAULT_LIST_SOURCE_CHILDREN_PARENT_PATH = null;
-    protected static String DEFAULT_LIST_SOURCE_DESCENDANTS_PARENT_PATH = null;
-    protected static String DEFAULT_LIST_SOURCE_SEARCH_PATH = null;
-    protected static String DEFAULT_LIST_SOURCE_SEARCH_QUERY = StringUtils.EMPTY;
-    protected static String DEFAULT_LIST_SOURCE_TAGS_PARENT_PATH = null;
-    protected static String DEFAULT_LIST_SOURCE_TAGS_CONDITION = "any";
-    protected static Boolean DEFAULT_LIST_SOURCE_TAGS_SEARCH_DETAILS = false;
+    protected String DEFAULT_LIST_SOURCE = StringUtils.EMPTY;
+    protected String DEFAULT_LIST_SOURCE_CHILDREN_PARENT_PATH = null;
+    protected String DEFAULT_LIST_SOURCE_DESCENDANTS_PARENT_PATH = null;
+    protected String DEFAULT_LIST_SOURCE_SEARCH_PATH = null;
+    protected String DEFAULT_LIST_SOURCE_SEARCH_QUERY = StringUtils.EMPTY;
+    protected String DEFAULT_LIST_SOURCE_TAGS_PARENT_PATH = null;
+    protected String DEFAULT_LIST_SOURCE_TAGS_CONDITION = "any";
+    protected Boolean DEFAULT_LIST_SOURCE_TAGS_SEARCH_DETAILS = false;
 
-    protected static String DEFAULT_LIST_ORDER_BY = StringUtils.EMPTY;
-    protected static String DEFAULT_LIST_SORT_ORDER = SortOrder.ASC.getValue();
-    protected static int DEFAULT_LIST_LIMIT = -1;
-    protected static int DEFAULT_LIST_PAGINATION_AFTER = -1;
-    protected static String DEFAULT_LIST_PAGINATION_TYPE = "hidden";
+    protected String DEFAULT_LIST_ORDER_BY = "path";
+    protected String DEFAULT_LIST_SORT_ORDER = SortOrder.ASC.getValue();
+    protected int DEFAULT_LIST_LIMIT = -1;
+    protected int DEFAULT_LIST_PAGINATION_AFTER = -1;
+    protected String DEFAULT_LIST_PAGINATION_TYPE = "hidden";
 
-    protected static String DEFAULT_LIST_DETAILS_BADGE = DEFAULT_BADGE;
-    protected static Boolean DEFAULT_LIST_SHOW_HIDDEN_PAGES = false;
+    protected String DEFAULT_LIST_DETAILS_BADGE = DEFAULT_BADGE;
+    protected Boolean DEFAULT_LIST_SHOW_HIDDEN_PAGES = false;
 
-    protected static Boolean DEFAULT_LIST_PRINT_STRUCTURE = true;
-    protected static String DEFAULT_LIST_TAG = "ul";
-    protected static Boolean DEFAULT_LIST_SPLIT = false;
-    protected static int DEFAULT_LIST_SPLIT_EVERY = 3;
+    protected Boolean DEFAULT_LIST_PRINT_STRUCTURE = true;
+    protected String DEFAULT_LIST_TAG = "ul";
+    protected Boolean DEFAULT_LIST_SPLIT = false;
+    protected int DEFAULT_LIST_SPLIT_EVERY = 3;
 
-    protected static Boolean DEFAULT_LIST_FEED_ENABLED = false;
-    protected static String DEFAULT_LIST_FEED_TYPE = null;
+    protected Boolean DEFAULT_LIST_FEED_ENABLED = false;
+    protected String DEFAULT_LIST_FEED_TYPE = null;
 
-    protected static String DEFAULT_CURRENT_PATH = null;
-    protected static String DEFAULT_SEARCH_IN_PATH = null;
-    protected static String DEFAULT_LIST_LINK_TEXT = null;
-    protected static String DEFAULT_LIST_LINK_TITLE = null;
+    protected String DEFAULT_CURRENT_PATH = null;
+    protected String DEFAULT_SEARCH_IN_PATH = null;
+    protected String DEFAULT_LIST_LINK_TEXT = null;
+    protected String DEFAULT_LIST_LINK_TITLE = null;
 
     protected static String ATTR_LIST_SPLIT = "data-list-split-enabled";
     protected static String ATTR_LIST_SPLIT_EVERY = "data-list-split-every";
 
-    protected static String PROP_FEED_TYPE = "feedType";
     protected static String PROP_FEED_TITLE = "feedTitle";
     protected static String PROP_FEED_URL = "feedUrl";
     protected static String PROP_LIST_EMPTY = "isEmpty";
@@ -132,11 +127,19 @@ public class List extends BaseComponent {
     private long totalMatches;
 
     public void ready() {
-        LOGGER.info("Getting list component ready for: {}", COMPONENT_LIST_NAME);
+        LOGGER.info("Getting list component ready for: {}", getComponentName());
 
         registerListFeedTypes();
 
         generateComponentPropertiesFromFields();
+    }
+
+    protected String getComponentName() {
+        return "list";
+    }
+
+    protected String[] getDetailsComponentLookupNames() {
+        return DEFAULT_LIST_DETAILS_SUFFIX;
     }
 
     /**
@@ -232,15 +235,15 @@ public class List extends BaseComponent {
         DEFAULT_LIST_SOURCE_SEARCH_PATH = getResourcePage().getPath();
         DEFAULT_LIST_SOURCE_TAGS_PARENT_PATH = DEFAULT_CURRENT_PATH;
 
-        DEFAULT_LIST_ORDER_BY = currentStyle.get("orderBy", DEFAULT_LIST_ORDER_BY);
-        DEFAULT_LIST_SORT_ORDER = currentStyle.get("sortOrder", DEFAULT_LIST_SORT_ORDER);
-        DEFAULT_LIST_LIMIT = currentStyle.get("limit", DEFAULT_LIST_LIMIT);
-        DEFAULT_LIST_PAGINATION_AFTER = currentStyle.get("paginateAfter", DEFAULT_LIST_PAGINATION_AFTER);
+        DEFAULT_LIST_ORDER_BY = currentStyle.get(FIELD_LIST_ORDER_BY, DEFAULT_LIST_ORDER_BY);
+        DEFAULT_LIST_SORT_ORDER = currentStyle.get(FIELD_LIST_SORT_ORDER, DEFAULT_LIST_SORT_ORDER);
+        DEFAULT_LIST_LIMIT = currentStyle.get(FIELD_LIST_LIMIT, DEFAULT_LIST_LIMIT);
+        DEFAULT_LIST_PAGINATION_AFTER = currentStyle.get(FIELD_LIST_PAGINATION_AFTER, DEFAULT_LIST_PAGINATION_AFTER);
 
-        DEFAULT_LIST_SHOW_HIDDEN_PAGES = currentStyle.get("showHidden", DEFAULT_LIST_SHOW_HIDDEN_PAGES);
+        DEFAULT_LIST_SHOW_HIDDEN_PAGES = currentStyle.get(FIELD_LIST_SHOW_HIDDEN_PAGES, DEFAULT_LIST_SHOW_HIDDEN_PAGES);
 
-        DEFAULT_LIST_SPLIT = currentStyle.get("listSplit", DEFAULT_LIST_SPLIT);
-        DEFAULT_LIST_SPLIT_EVERY = currentStyle.get("listSplitEvery", DEFAULT_LIST_SPLIT_EVERY);
+        DEFAULT_LIST_SPLIT = currentStyle.get(FIELD_LIST_SPLIT, DEFAULT_LIST_SPLIT);
+        DEFAULT_LIST_SPLIT_EVERY = currentStyle.get(FIELD_LIST_SPLIT_EVERY, DEFAULT_LIST_SPLIT_EVERY);
     }
 
     /**
@@ -268,7 +271,7 @@ public class List extends BaseComponent {
     private void setupFeedForList() {
         ListFeed listFeed = listFeeds.get(feedType);
 
-        componentProperties.put(PROP_FEED_TYPE, listFeed != null ? listFeed.type : null);
+        componentProperties.put(FIELD_LIST_FEED_TYPE, listFeed != null ? listFeed.type : null);
         componentProperties.put(PROP_FEED_TITLE, listFeed != null ? listFeed.title : null);
 
         componentProperties.put(PROP_FEED_URL,
@@ -374,12 +377,14 @@ public class List extends BaseComponent {
         }
 
         try {
-            if (Boolean.FALSE.equals(currentStyle.get(styleCheck, false))) {
-                callback.run();
-            } else {
-                LOGGER.info("List instance attempted to access disabled list type builder!\nList Type: {}\nPath: {}",
-                    listType,
-                    getResource().getPath());
+            if (callback != null) {
+                if (Boolean.FALSE.equals(currentStyle.get(styleCheck, false))) {
+                    callback.run();
+                } else {
+                    LOGGER.info("List instance attempted to access disabled list type builder!\nList Type: {}\nPath: {}",
+                        listType,
+                        getResource().getPath());
+                }
             }
         } catch (Exception ex) {
             LOGGER.error("Unable to populate list items due to an expected error!\n{}", ex.getMessage());
@@ -488,9 +493,7 @@ public class List extends BaseComponent {
             try {
                 collectSearchResults(search.getResult());
             } catch (RepositoryException ex) {
-                LOGGER.error("Unable to retrieve search results for query!\nQuery: {}\nException: {}",
-                    searchQuery,
-                    ex);
+                LOGGER.error("Unable to retrieve search results for query!\nQuery: {}\nException: {}", searchQuery, ex);
             }
         }
     }
@@ -642,7 +645,7 @@ public class List extends BaseComponent {
         resultInfo.put("totalPages", searchResult.getResultPages().size());
 //        resultInfo.put(PAGE_START_PROPERTY_NAME, pageStart);
 
-        componentProperties.put(PROP_IS_PAGINATING, paginationAfter > 0 && searchResult.getResultPages().size() > 0);
+        componentProperties.put(PROP_IS_PAGINATING, paginationAfter > 0 && !searchResult.getResultPages().isEmpty());
         componentProperties.put(PROP_RESULT_INFO, resultInfo);
 
         for (Hit hit : searchResult.getHits()) {
@@ -700,7 +703,7 @@ public class List extends BaseComponent {
      * @return Map of page badge attributes
      */
     protected Map<String, Object> getPageBadgeInfo(Page page) {
-        return getPageBadgeInfo(page, DETAILS_COMPONENT_LOOKUP_NAMES, getResourceResolver(), detailsBadge);
+        return getPageBadgeInfo(page, getDetailsComponentLookupNames(), getResourceResolver(), detailsBadge);
     }
 
     /**

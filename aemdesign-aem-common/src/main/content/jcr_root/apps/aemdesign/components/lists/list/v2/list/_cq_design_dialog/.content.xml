@@ -129,7 +129,7 @@
                                 fieldDescription="Set the default number of results before pagination will appear."
                                 fieldLabel="Paginate After"
                                 min="1"
-                                name="./paginateAfter"/>
+                                name="./pageMax"/>
                         </items>
                     </listOptions>
 

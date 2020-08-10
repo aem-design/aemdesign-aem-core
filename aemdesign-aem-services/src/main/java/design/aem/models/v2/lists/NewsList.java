@@ -1,12 +1,13 @@
 package design.aem.models.v2.lists;
 
 public class NewsList extends List {
-    static {
-        COMPONENT_LIST_NAME = "newslist";
+    @Override
+    protected String getComponentName() {
+        return "newslist";
+    }
 
-        DETAILS_COMPONENT_LOOKUP_NAMES = new String[]{
-            "news-details",
-            "generic-details",
-        };
+    @Override
+    protected String[] getDetailsComponentLookupNames() {
+        return new String[]{"news-details", "generic-details"};
     }
 }

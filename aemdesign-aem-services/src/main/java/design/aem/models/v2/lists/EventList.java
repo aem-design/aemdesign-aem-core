@@ -1,13 +1,14 @@
 package design.aem.models.v2.lists;
 
 public class EventList extends List {
-    static {
-        COMPONENT_LIST_NAME = "eventlist";
+    @Override
+    protected String getComponentName() {
+        return "eventlist";
+    }
 
-        DETAILS_COMPONENT_LOOKUP_NAMES = new String[]{
-            "event-details",
-            "generic-details",
-        };
+    @Override
+    protected String[] getDetailsComponentLookupNames() {
+        return new String[]{"event-details", "generic-details"};
     }
 
     @Override

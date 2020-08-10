@@ -15,13 +15,14 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class LocationList extends List {
     protected static final Logger LOGGER = LoggerFactory.getLogger(LocationList.class);
 
-    static {
-        COMPONENT_LIST_NAME = "locationlist";
+    @Override
+    protected String getComponentName() {
+        return "locationlist";
+    }
 
-        DETAILS_COMPONENT_LOOKUP_NAMES = new String[]{
-            "location-details",
-            "generic-details",
-        };
+    @Override
+    protected String[] getDetailsComponentLookupNames() {
+        return new String[]{"location-details", "generic-details"};
     }
 
     @Override
