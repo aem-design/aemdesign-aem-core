@@ -30,11 +30,10 @@ public class FeedService extends SlingSafeMethodsServlet {
         final @Nonnull SlingHttpServletRequest slingRequest,
         final @Nonnull SlingHttpServletResponse slingResponse
     ) throws IOException {
-        resource = request.getResource();
-        resourceResolver = request.getResourceResolver();
-        request = slingRequest;
-
         try {
+            resource = slingRequest.getResource();
+            resourceResolver = slingRequest.getResourceResolver();
+            request = slingRequest;
             pageManager = resourceResolver.adaptTo(PageManager.class);
             policyManager = resourceResolver.adaptTo(ContentPolicyManager.class);
             resourceNode = resource.adaptTo(Node.class);
