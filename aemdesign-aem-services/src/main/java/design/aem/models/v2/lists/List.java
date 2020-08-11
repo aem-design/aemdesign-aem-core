@@ -23,6 +23,8 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
+import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.api.wrappers.ValueMapDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,37 +69,6 @@ public class List extends BaseComponent {
     protected static final String FIELD_LIST_FEED_ENABLED = "feedEnabled";
     protected static final String FIELD_LIST_FEED_TYPE = "feedType";
 
-    protected String DEFAULT_LIST_SOURCE = StringUtils.EMPTY;
-    protected String DEFAULT_LIST_SOURCE_CHILDREN_PARENT_PATH = null;
-    protected String DEFAULT_LIST_SOURCE_DESCENDANTS_PARENT_PATH = null;
-    protected String DEFAULT_LIST_SOURCE_SEARCH_PATH = null;
-    protected String DEFAULT_LIST_SOURCE_SEARCH_QUERY = StringUtils.EMPTY;
-    protected String DEFAULT_LIST_SOURCE_TAGS_PARENT_PATH = null;
-    protected String DEFAULT_LIST_SOURCE_TAGS_CONDITION = "any";
-    protected boolean DEFAULT_LIST_SOURCE_TAGS_SEARCH_DETAILS = false;
-
-    protected String DEFAULT_LIST_ORDER_BY = "path";
-    protected String DEFAULT_LIST_SORT_ORDER = SortOrder.ASC.getValue();
-    protected int DEFAULT_LIST_LIMIT = -1;
-    protected int DEFAULT_LIST_PAGINATION_AFTER = -1;
-    protected String DEFAULT_LIST_PAGINATION_TYPE = "hidden";
-
-    protected String DEFAULT_LIST_DETAILS_BADGE = DEFAULT_BADGE;
-    protected boolean DEFAULT_LIST_SHOW_HIDDEN_PAGES = false;
-
-    protected boolean DEFAULT_LIST_PRINT_STRUCTURE = true;
-    protected String DEFAULT_LIST_TAG = "ul";
-    protected boolean DEFAULT_LIST_SPLIT = false;
-    protected int DEFAULT_LIST_SPLIT_EVERY = 3;
-
-    protected boolean DEFAULT_LIST_FEED_ENABLED = false;
-    protected String DEFAULT_LIST_FEED_TYPE = null;
-
-    protected String DEFAULT_CURRENT_PATH = null;
-    protected String DEFAULT_SEARCH_IN_PATH = null;
-    protected String DEFAULT_LIST_LINK_TEXT = null;
-    protected String DEFAULT_LIST_LINK_TITLE = null;
-
     protected static String ATTR_LIST_SPLIT = "data-list-split-enabled";
     protected static String ATTR_LIST_SPLIT_EVERY = "data-list-split-every";
 
@@ -109,8 +80,8 @@ public class List extends BaseComponent {
     protected static String PROP_PARAM_MARKER_MAX = "max";
     protected static String PROP_PARAM_MARKER_START = "start";
     protected static String PROP_RESULT_INFO = "resultInfo";
-    protected static String PROP_QUERY_PARAM = "q";
 
+    protected ValueMap fieldDefaults;
     protected Map<String, ListFeed> listFeeds = new HashMap<>();
     protected java.util.List<Map<String, Object>> listItems;
 
@@ -168,56 +139,120 @@ public class List extends BaseComponent {
      */
     protected void registerListFeedTypes() {
         if (Boolean.FALSE.equals(currentStyle.get("disableFeedTypeRSS", false))) {
-            listFeeds.put("rss", new ListFeed(".rss", "RSS Feed", "application/rss+xml"));
+            listFeeds.put("rss", new ListFeed(".rss.xml", "RSS Feed", "application/rss+xml"));
         }
 
         if (Boolean.FALSE.equals(currentStyle.get("disableFeedTypeAtom", false))) {
-            listFeeds.put("atom", new ListFeed(".feed", "Atom 1.0 (List)", "application/atom+xml"));
+            listFeeds.put("atom", new ListFeed(".atom", "Atom 1.0 (List)", "application/atom+xml"));
         }
+    }
+
+    /**
+     * Generate the field defaults which are used to help the component properties initialise properly.
+     *
+     * @param currentStyle Instance of a {@link com.day.cq.wcm.api.policies.ContentPolicy}
+     * @param defaultPath A default resource path for the page
+     * @return {@link ValueMap} of defaults
+     */
+    public static ValueMap componentFieldsSharedDefaults(ValueMap currentStyle, String defaultPath) {
+        Map<String, Object> defaults = new HashMap<>();
+
+        // Sources
+        defaults.put(FIELD_LIST_SOURCE, StringUtils.EMPTY);
+        defaults.put(FIELD_LIST_SOURCE_CHILDREN_PARENT_PATH, defaultPath);
+        defaults.put(FIELD_LIST_SOURCE_DESCENDANTS_PARENT_PATH, defaultPath);
+        defaults.put(FIELD_LIST_SOURCE_STATIC_PAGES, new String[]{});
+        defaults.put(FIELD_LIST_SOURCE_SEARCH_PATH, defaultPath);
+        defaults.put(FIELD_LIST_SOURCE_SEARCH_QUERY, StringUtils.EMPTY);
+        defaults.put(FIELD_LIST_SOURCE_TAGS_PARENT_PATH, defaultPath);
+        defaults.put(FIELD_LIST_SOURCE_TAGS_SELECTION, new String[]{});
+        defaults.put(FIELD_LIST_SOURCE_TAGS_CONDITION, "any");
+        defaults.put(FIELD_LIST_SOURCE_TAGS_SEARCH_DETAILS, false);
+
+        // Options
+        defaults.put(FIELD_LIST_ORDER_BY, currentStyle.get(FIELD_LIST_ORDER_BY, "path"));
+        defaults.put(FIELD_LIST_SORT_ORDER, currentStyle.get(FIELD_LIST_ORDER_BY, SortOrder.ASC.getValue()));
+        defaults.put(FIELD_LIST_LIMIT, currentStyle.get(FIELD_LIST_ORDER_BY, -1));
+        defaults.put(FIELD_LIST_PAGINATION_AFTER, currentStyle.get(FIELD_LIST_ORDER_BY, -1));
+        defaults.put(FIELD_LIST_PAGINATION_TYPE, "hidden");
+
+        // Items
+        defaults.put(FIELD_LIST_DETAILS_BADGE, DEFAULT_BADGE);
+        defaults.put(FIELD_LIST_SHOW_HIDDEN_PAGES, currentStyle.get(FIELD_LIST_SHOW_HIDDEN_PAGES, false));
+
+        // Structure
+        defaults.put(FIELD_LIST_PRINT_STRUCTURE, true);
+        defaults.put(FIELD_LIST_TAG, "ul");
+        defaults.put(FIELD_LIST_SPLIT, currentStyle.get(FIELD_LIST_SPLIT, false));
+        defaults.put(FIELD_LIST_SPLIT_EVERY, currentStyle.get(FIELD_LIST_SPLIT_EVERY, 3));
+
+        // Feed
+        defaults.put(FIELD_LIST_FEED_ENABLED, false);
+        defaults.put(FIELD_LIST_FEED_TYPE, null);
+
+        return new ValueMapDecorator(defaults);
+    }
+
+    /**
+     * Retrieve the fields for the {@link List} component.
+     *
+     * @param defaults {@link ValueMap} of field defaults
+     * @return {@code Object[][]} of component fields
+     */
+    public static Object[][] componentFieldsShared(ValueMap defaults) {
+        return new Object[][]{
+            // Sources
+            {FIELD_LIST_SOURCE, defaults.get(FIELD_LIST_SOURCE)},
+            {FIELD_LIST_SOURCE_CHILDREN_PARENT_PATH, defaults.get(FIELD_LIST_SOURCE_CHILDREN_PARENT_PATH)},
+            {FIELD_LIST_SOURCE_DESCENDANTS_PARENT_PATH, defaults.get(FIELD_LIST_SOURCE_DESCENDANTS_PARENT_PATH)},
+            {FIELD_LIST_SOURCE_STATIC_PAGES,defaults.get(FIELD_LIST_SOURCE_STATIC_PAGES)},
+            {FIELD_LIST_SOURCE_SEARCH_PATH, defaults.get(FIELD_LIST_SOURCE_SEARCH_PATH)},
+            {FIELD_LIST_SOURCE_SEARCH_QUERY, defaults.get(FIELD_LIST_SOURCE_SEARCH_QUERY)},
+            {FIELD_LIST_SOURCE_TAGS_PARENT_PATH, defaults.get(FIELD_LIST_SOURCE_TAGS_PARENT_PATH)},
+            {FIELD_LIST_SOURCE_TAGS_SELECTION, defaults.get(FIELD_LIST_SOURCE_TAGS_SELECTION)},
+            {FIELD_LIST_SOURCE_TAGS_CONDITION, defaults.get(FIELD_LIST_SOURCE_TAGS_CONDITION)},
+            {FIELD_LIST_SOURCE_TAGS_SEARCH_DETAILS, defaults.get(FIELD_LIST_SOURCE_TAGS_SEARCH_DETAILS)},
+
+            // Options
+            {FIELD_LIST_ORDER_BY, defaults.get(FIELD_LIST_ORDER_BY)},
+            {FIELD_LIST_SORT_ORDER, defaults.get(FIELD_LIST_SORT_ORDER)},
+            {FIELD_LIST_LIMIT, defaults.get(FIELD_LIST_LIMIT)},
+            {FIELD_LIST_PAGINATION_AFTER, defaults.get(FIELD_LIST_PAGINATION_AFTER)},
+            {FIELD_LIST_PAGINATION_TYPE, defaults.get(FIELD_LIST_PAGINATION_TYPE)},
+
+            // Items
+            {FIELD_LIST_DETAILS_BADGE, defaults.get(FIELD_LIST_SOURCE)},
+            {FIELD_LIST_SHOW_HIDDEN_PAGES, defaults.get(FIELD_LIST_SHOW_HIDDEN_PAGES)},
+
+            // Structure
+            {FIELD_LIST_PRINT_STRUCTURE, defaults.get(FIELD_LIST_PRINT_STRUCTURE)},
+            {FIELD_LIST_TAG, defaults.get(FIELD_LIST_TAG)},
+            {FIELD_LIST_SPLIT, defaults.get(FIELD_LIST_SPLIT), ATTR_LIST_SPLIT},
+            {FIELD_LIST_SPLIT_EVERY, defaults.get(FIELD_LIST_SPLIT_EVERY), ATTR_LIST_SPLIT_EVERY},
+
+            // Feed
+            {FIELD_LIST_FEED_ENABLED, defaults.get(FIELD_LIST_FEED_ENABLED)},
+            {FIELD_LIST_FEED_TYPE, defaults.get(FIELD_LIST_FEED_TYPE)},
+        };
+    }
+
+    /**
+     * Intermediate helper function to change the list defaults before they get used.
+     *
+     * @param defaultPath The default path to use for list sources
+     * @return {@code ValueMap}
+     */
+    protected ValueMap getComponentFieldsDefaults(String defaultPath) {
+        return componentFieldsSharedDefaults(getCurrentStyle(), defaultPath);
     }
 
     /**
      * Process the component fields and generate the {@link #componentProperties} instance.
      */
     private void generateComponentPropertiesFromFields() {
-        DEFAULT_CURRENT_PATH = getCurrentPage().getPath();
+        fieldDefaults = getComponentFieldsDefaults(getCurrentPage().getPath());
 
-        setComponentFieldsDefaults();
-
-        setComponentFields(new Object[][]{
-            // Sources
-            {FIELD_LIST_SOURCE, DEFAULT_LIST_SOURCE},
-            {FIELD_LIST_SOURCE_CHILDREN_PARENT_PATH, DEFAULT_LIST_SOURCE_CHILDREN_PARENT_PATH},
-            {FIELD_LIST_SOURCE_DESCENDANTS_PARENT_PATH, DEFAULT_LIST_SOURCE_DESCENDANTS_PARENT_PATH},
-            {FIELD_LIST_SOURCE_STATIC_PAGES, new String[]{}},
-            {FIELD_LIST_SOURCE_SEARCH_PATH, DEFAULT_LIST_SOURCE_SEARCH_PATH},
-            {FIELD_LIST_SOURCE_SEARCH_QUERY, DEFAULT_LIST_SOURCE_SEARCH_QUERY},
-            {FIELD_LIST_SOURCE_TAGS_PARENT_PATH, DEFAULT_LIST_SOURCE_TAGS_PARENT_PATH},
-            {FIELD_LIST_SOURCE_TAGS_SELECTION, new String[]{}},
-            {FIELD_LIST_SOURCE_TAGS_CONDITION, DEFAULT_LIST_SOURCE_TAGS_CONDITION},
-            {FIELD_LIST_SOURCE_TAGS_SEARCH_DETAILS, DEFAULT_LIST_SOURCE_TAGS_SEARCH_DETAILS},
-
-            // Options
-            {FIELD_LIST_ORDER_BY, DEFAULT_LIST_ORDER_BY},
-            {FIELD_LIST_SORT_ORDER, DEFAULT_LIST_SORT_ORDER},
-            {FIELD_LIST_LIMIT, DEFAULT_LIST_LIMIT},
-            {FIELD_LIST_PAGINATION_AFTER, DEFAULT_LIST_PAGINATION_AFTER},
-            {FIELD_LIST_PAGINATION_TYPE, DEFAULT_LIST_PAGINATION_TYPE},
-
-            // Items
-            {FIELD_LIST_DETAILS_BADGE, DEFAULT_LIST_DETAILS_BADGE},
-            {FIELD_LIST_SHOW_HIDDEN_PAGES, false},
-
-            // Structure
-            {FIELD_LIST_PRINT_STRUCTURE, DEFAULT_LIST_PRINT_STRUCTURE},
-            {FIELD_LIST_TAG, DEFAULT_LIST_TAG},
-            {FIELD_LIST_SPLIT, DEFAULT_LIST_SPLIT, ATTR_LIST_SPLIT},
-            {FIELD_LIST_SPLIT_EVERY, DEFAULT_LIST_SPLIT_EVERY, ATTR_LIST_SPLIT_EVERY},
-
-            // Feed
-            {FIELD_LIST_FEED_ENABLED, DEFAULT_LIST_FEED_ENABLED},
-            {FIELD_LIST_FEED_TYPE, DEFAULT_LIST_FEED_TYPE},
-        });
+        setComponentFields(componentFieldsShared(fieldDefaults));
 
         componentProperties = ComponentsUtil.getComponentProperties(
             this,
@@ -246,43 +281,35 @@ public class List extends BaseComponent {
     }
 
     /**
-     * Set the default component field values that are dynamic.
-     */
-    protected void setComponentFieldsDefaults() {
-        DEFAULT_LIST_SOURCE_CHILDREN_PARENT_PATH = DEFAULT_CURRENT_PATH;
-        DEFAULT_LIST_SOURCE_DESCENDANTS_PARENT_PATH = DEFAULT_CURRENT_PATH;
-        DEFAULT_LIST_SOURCE_SEARCH_PATH = getResourcePage().getPath();
-        DEFAULT_LIST_SOURCE_TAGS_PARENT_PATH = DEFAULT_CURRENT_PATH;
-
-        DEFAULT_LIST_ORDER_BY = currentStyle.get(FIELD_LIST_ORDER_BY, DEFAULT_LIST_ORDER_BY);
-        DEFAULT_LIST_SORT_ORDER = currentStyle.get(FIELD_LIST_SORT_ORDER, DEFAULT_LIST_SORT_ORDER);
-        DEFAULT_LIST_LIMIT = currentStyle.get(FIELD_LIST_LIMIT, DEFAULT_LIST_LIMIT);
-        DEFAULT_LIST_PAGINATION_AFTER = currentStyle.get(FIELD_LIST_PAGINATION_AFTER, DEFAULT_LIST_PAGINATION_AFTER);
-
-        DEFAULT_LIST_SHOW_HIDDEN_PAGES = currentStyle.get(FIELD_LIST_SHOW_HIDDEN_PAGES, DEFAULT_LIST_SHOW_HIDDEN_PAGES);
-
-        DEFAULT_LIST_SPLIT = currentStyle.get(FIELD_LIST_SPLIT, DEFAULT_LIST_SPLIT);
-        DEFAULT_LIST_SPLIT_EVERY = currentStyle.get(FIELD_LIST_SPLIT_EVERY, DEFAULT_LIST_SPLIT_EVERY);
-    }
-
-    /**
      * Process the most common settings and configurations for the list.
      */
     private void processListSettingsAndConfiguration() {
-        sortOrder = SortOrder.fromString(componentProperties.get(FIELD_LIST_SORT_ORDER, DEFAULT_LIST_SORT_ORDER));
-        needsPagination = !componentProperties.get(FIELD_LIST_PAGINATION_TYPE).equals(DEFAULT_LIST_PAGINATION_TYPE);
-        paginationAfter = componentProperties.get(FIELD_LIST_PAGINATION_AFTER, DEFAULT_LIST_PAGINATION_AFTER);
+        sortOrder = SortOrder.fromString(componentProperties.get(FIELD_LIST_SORT_ORDER,
+            fieldDefaults.get(FIELD_LIST_SORT_ORDER, String.class)));
 
-        limit = componentProperties.get(FIELD_LIST_LIMIT, DEFAULT_LIST_LIMIT);
+        needsPagination = !componentProperties.get(FIELD_LIST_PAGINATION_TYPE)
+            .equals(fieldDefaults.get(FIELD_LIST_PAGINATION_TYPE, boolean.class));
+
+        paginationAfter = componentProperties.get(FIELD_LIST_PAGINATION_AFTER,
+            fieldDefaults.get(FIELD_LIST_PAGINATION_AFTER, int.class));
+
+        limit = componentProperties.get(FIELD_LIST_LIMIT, fieldDefaults.get(FIELD_LIST_LIMIT, int.class));
         limit = limit < 1 ? Integer.MAX_VALUE : limit;
 
-        detailsBadge = componentProperties.get(FIELD_LIST_DETAILS_BADGE, DEFAULT_LIST_DETAILS_BADGE);
-        showHidden = componentProperties.get(FIELD_LIST_SHOW_HIDDEN_PAGES, DEFAULT_LIST_SHOW_HIDDEN_PAGES);
+        detailsBadge = componentProperties.get(FIELD_LIST_DETAILS_BADGE,
+            fieldDefaults.get(FIELD_LIST_DETAILS_BADGE, String.class));
 
-        listSplitEvery = componentProperties.get(FIELD_LIST_SPLIT_EVERY, DEFAULT_LIST_SPLIT_EVERY);
+        showHidden = componentProperties.get(FIELD_LIST_SHOW_HIDDEN_PAGES,
+            fieldDefaults.get(FIELD_LIST_SHOW_HIDDEN_PAGES, boolean.class));
 
-        feedEnabled = componentProperties.get(FIELD_LIST_FEED_ENABLED, DEFAULT_LIST_FEED_ENABLED);
-        feedType = componentProperties.get(FIELD_LIST_FEED_TYPE, DEFAULT_LIST_FEED_TYPE);
+        listSplitEvery = componentProperties.get(FIELD_LIST_SPLIT_EVERY,
+            fieldDefaults.get(FIELD_LIST_SPLIT_EVERY, int.class));
+
+        feedEnabled = componentProperties.get(FIELD_LIST_FEED_ENABLED,
+            fieldDefaults.get(FIELD_LIST_FEED_ENABLED, boolean.class));
+
+        feedType = componentProperties.get(FIELD_LIST_FEED_TYPE,
+            fieldDefaults.get(FIELD_LIST_FEED_TYPE, String.class));
 
         // Check the query string parameters for the start offset
         String requestPageStart = getParameter(PROP_PARAM_MARKER_START);
@@ -372,7 +399,7 @@ public class List extends BaseComponent {
      * @return Authored list type
      */
     protected Source getListType() {
-        String listFromValue = componentProperties.get(FIELD_LIST_SOURCE, DEFAULT_LIST_SOURCE);
+        String listFromValue = componentProperties.get(FIELD_LIST_SOURCE, fieldDefaults.get(FIELD_LIST_SOURCE, String.class));
 
         return Source.fromString(listFromValue);
     }
@@ -412,6 +439,7 @@ public class List extends BaseComponent {
         }
 
         try {
+            // noinspection ConstantConditions
             if (callback != null) {
                 if (Boolean.FALSE.equals(currentStyle.get(styleCheck, false))) {
                     callback.run();
@@ -422,7 +450,7 @@ public class List extends BaseComponent {
                 }
             }
         } catch (Exception ex) {
-            LOGGER.error("Unable to populate list items due to an expected error!\n{}", ex.getMessage());
+            LOGGER.error("Unable to populate list items due to an unexpected error!\n{}", ex.getMessage());
         }
 
         componentProperties.put(PROP_LIST_EMPTY, totalMatches == 0);
@@ -501,8 +529,11 @@ public class List extends BaseComponent {
      * Populate the list of results using a simple content search.
      */
     protected void populateSearchListItems() {
-        String searchInPath = componentProperties.get(FIELD_LIST_SOURCE_SEARCH_PATH, DEFAULT_LIST_SOURCE_SEARCH_PATH);
-        String searchQuery = componentProperties.get(FIELD_LIST_SOURCE_SEARCH_QUERY, DEFAULT_LIST_SOURCE_SEARCH_QUERY);
+        String searchInPath = componentProperties.get(FIELD_LIST_SOURCE_SEARCH_PATH,
+            fieldDefaults.get(FIELD_LIST_SOURCE_SEARCH_PATH, String.class));
+
+        String searchQuery = componentProperties.get(FIELD_LIST_SOURCE_SEARCH_QUERY,
+            fieldDefaults.get(FIELD_LIST_SOURCE_SEARCH_QUERY, String.class));
 
         if (StringUtils.isBlank(searchQuery)) {
             return;
@@ -523,7 +554,9 @@ public class List extends BaseComponent {
             try {
                 collectSearchResults(search.getResult());
             } catch (RepositoryException ex) {
-                LOGGER.error("Unable to retrieve search results for query!\nQuery: {}\nException: {}", searchQuery, ex);
+                LOGGER.error("Unable to retrieve search results for query!\nQuery: {}\nError: {}",
+                    searchQuery,
+                    ex.getMessage());
             }
         }
     }
@@ -556,7 +589,7 @@ public class List extends BaseComponent {
         Map<String, String> predicates = new HashMap<>();
 
         boolean matchAny = componentProperties.get(FIELD_LIST_SOURCE_TAGS_CONDITION)
-            .equals(DEFAULT_LIST_SOURCE_TAGS_CONDITION);
+            .equals(fieldDefaults.get(FIELD_LIST_SOURCE_TAGS_CONDITION, boolean.class));
 
         boolean matchDetailsTags = Boolean.TRUE.equals(componentProperties.get(FIELD_LIST_SOURCE_TAGS_SEARCH_DETAILS));
 
@@ -603,7 +636,6 @@ public class List extends BaseComponent {
      *
      * @param predicates Predicate query map
      */
-    @SuppressWarnings("Duplicates")
     protected void populateListItemsFromMap(Map<String, String> predicates) {
         try {
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
@@ -622,7 +654,8 @@ public class List extends BaseComponent {
                     predicates.put("p.offset", String.valueOf(pageStart));
                 }
 
-                String orderBy = componentProperties.get(FIELD_LIST_ORDER_BY, DEFAULT_LIST_ORDER_BY);
+                String orderBy = componentProperties.get(FIELD_LIST_ORDER_BY,
+                    fieldDefaults.get(FIELD_LIST_ORDER_BY, String.class));
 
                 predicates.put("orderby", orderBy);
                 predicates.put("orderby.sort", sortOrder.getValue());
@@ -641,7 +674,7 @@ public class List extends BaseComponent {
                 LOGGER.error("Could not get Query Builder object!");
             }
         } catch (Exception ex) {
-            LOGGER.error("Could not execute query!\nPredicates [{}]\nException={}", predicates, ex);
+            LOGGER.error("Could not execute query!\nPredicates: [{}]\nError: {}", predicates, ex.getMessage());
         }
     }
 
@@ -651,7 +684,6 @@ public class List extends BaseComponent {
      * @param searchResult Search results instance
      * @throws RepositoryException when can't read content
      */
-    @SuppressWarnings("Duplicates")
     private void collectSearchResults(SearchResult searchResult) throws RepositoryException {
         Map<String, Object> resultInfo = new HashMap<>();
 
@@ -782,9 +814,9 @@ public class List extends BaseComponent {
 
             badge.put("pagePath", page.getPath());
         } catch (Exception ex) {
-            LOGGER.error("Could not get badge information for the given page!\nPath: {}\nException: {}",
+            LOGGER.error("Could not get badge information for the given page!\nPath: {}\nError: {}",
                 page.getPath(),
-                ex);
+                ex.getMessage());
         }
 
         return badge;
