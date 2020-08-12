@@ -1,25 +1,32 @@
 package design.aem.services.feed;
 
 import com.day.cq.wcm.api.PageManager;
-import com.day.cq.wcm.api.policies.ContentPolicy;
-import com.day.cq.wcm.api.policies.ContentPolicyManager;
+import design.aem.utils.components.ComponentsUtil;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import javax.jcr.Node;
 import java.io.IOException;
 import java.util.Arrays;
 
+import static design.aem.models.v2.lists.List.componentFieldsShared;
+import static design.aem.models.v2.lists.List.componentFieldsSharedDefaults;
+
 public class FeedService extends SlingSafeMethodsServlet {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(FeedService.class);
+
     private static final long serialVersionUID = 1L;
 
+    protected transient ValueMap fieldDefaults;
     protected transient PageManager pageManager;
-    protected transient ContentPolicy policy;
-    protected transient ContentPolicyManager policyManager;
+    protected transient ValueMap policy;
     protected transient Node resourceNode;
     protected transient Resource resource;
     protected transient ResourceResolver resourceResolver;
@@ -35,45 +42,41 @@ public class FeedService extends SlingSafeMethodsServlet {
             resourceResolver = slingRequest.getResourceResolver();
             request = slingRequest;
             pageManager = resourceResolver.adaptTo(PageManager.class);
-            policyManager = resourceResolver.adaptTo(ContentPolicyManager.class);
             resourceNode = resource.adaptTo(Node.class);
 
-            if (policyManager != null) {
-                policy = policyManager.getPolicy(resource, request);
-            }
+            policy = ComponentsUtil.getContentPolicyProperties(resource, resourceResolver);
 
             if (resourceNode != null) {
-                boolean feedEnabled = Boolean.TRUE.equals(resourceNode.getProperty("feedEnabled").getBoolean());
+                fieldDefaults = componentFieldsSharedDefaults(policy, resource.getPath());
 
-                if (!feedEnabled || !feedMatchesRequest()) {
-                    slingResponse.sendError(501, "This feed doesn't appear to be enabled!");
-                } else {
-                    handleResponse(slingResponse);
-                }
+                Object[][] componentFields = componentFieldsShared(fieldDefaults);
+
+//                boolean feedEnabled = Boolean.TRUE.equals(componentProperties.get("feedEnabled", boolean.class));
+//                String feedType = componentProperties.get("feedType", String.class);
+//
+//                if (!feedEnabled || !feedMatchesRequest(feedType)) {
+//                    slingResponse.sendError(501, "This feed doesn't appear to be enabled!");
+//                } else {
+//                    handleResponse(slingResponse);
+//                }
             } else {
                 slingResponse.sendError(404, "Something unknown appears to have gone wrong while initialising the feed.");
             }
         } catch (Exception ex) {
+            LOGGER.error("Unable to generate feed due to an unexpected error!\nException: {}", ex.getMessage());
+
             slingResponse.sendError(404);
         }
     }
 
     /**
-     * Default selector for the feed.
-     *
-     * @return {@code null} when this selector hasn't been overridden
-     */
-    protected String feedSelector() {
-        return null;
-    }
-
-    /**
      * Determine if the current request aligns with the current feed.
      *
+     * @param feedType The identifier of the selected feed
      * @return {@code true} when all conditions match
      */
-    protected boolean feedMatchesRequest() {
-        return Arrays.asList(request.getRequestPathInfo().getSelectors()).contains(feedSelector());
+    protected boolean feedMatchesRequest(String feedType) {
+        return Arrays.asList(request.getRequestPathInfo().getSelectors()).contains(feedType);
     }
 
     /**
@@ -84,7 +87,7 @@ public class FeedService extends SlingSafeMethodsServlet {
      * @return {@code T} found value or {@code null}
      */
     protected <T> T getStyle(String property, T fallback) {
-        return policy != null ? policy.getProperties().get(property, fallback) : fallback;
+        return policy.get(property, fallback);
     }
 
     /**
@@ -94,6 +97,6 @@ public class FeedService extends SlingSafeMethodsServlet {
      * @throws IOException
      */
     protected void handleResponse(final SlingHttpServletResponse slingResponse) throws IOException {
-        throw new RuntimeException("Response handler has not been implemented.");
+        handleMethodNotImplemented(request, slingResponse);
     }
 }

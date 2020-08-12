@@ -1,6 +1,6 @@
 <template data-sly-template.variant="${@ componentProperties}">
-  <nav style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+  <nav style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}">
     <sly data-sly-test="${wcmmode.edit}"
          data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/parsys', decorationTagName='div'}"></sly>
     <sly data-sly-test="${!wcmmode.edit}"

@@ -1,6 +1,6 @@
 <template data-sly-template.variant="${@ componentProperties}">
-  <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+  <div style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}"
        itemscope itemtype="https://schema.org/WebSite">
     <form action="${componentProperties.formAction}" method="${componentProperties.formMethod}" novalidate=""
           role="form search" itemprop="potentialAction" itemscope itemtype="https://schema.org/SearchAction">

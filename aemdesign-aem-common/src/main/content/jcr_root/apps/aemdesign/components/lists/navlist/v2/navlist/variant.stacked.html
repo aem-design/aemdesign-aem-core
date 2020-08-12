@@ -1,6 +1,6 @@
 <template data-sly-template.variant="${@ componentProperties}">
-  <ul style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-      data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+  <ul style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+      data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}"
       itemscope itemtype="http://www.schema.org/SiteNavigationElement"
       data-sly-list.linkL1="${componentProperties.menuItems}">
     <li class="nav-item ${linkL1.hasChildren ? ' dropdown' : ''}${linkL1.current ? ' current' : ''}" itemprop="name">

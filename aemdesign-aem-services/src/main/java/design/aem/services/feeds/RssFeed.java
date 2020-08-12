@@ -7,7 +7,7 @@ import javax.servlet.Servlet;
 import java.io.IOException;
 
 @Component(
-    name = "AEM.Design RSS Feed",
+    name = "aem.design.rss.feed",
     service = Servlet.class,
     property = {
         "service.description=RSS servlet that provides a feed for lists",
@@ -17,16 +17,10 @@ import java.io.IOException;
         "sling.servlet.selectors=rss",
     })
 public class RssFeed extends FeedService {
-    private static final String SELECTOR = "rss";
-
     @Override
-    protected String feedSelector() {
-        return SELECTOR;
-    }
-
-    @Override
-    protected boolean feedMatchesRequest() {
-        return super.feedMatchesRequest() && Boolean.FALSE.equals(getStyle("disableFeedTypeRSS", false));
+    protected boolean feedMatchesRequest(String feedType) {
+        return super.feedMatchesRequest(feedType) &&
+            Boolean.FALSE.equals(getStyle("disableFeedTypeRSS", false));
     }
 
     @Override

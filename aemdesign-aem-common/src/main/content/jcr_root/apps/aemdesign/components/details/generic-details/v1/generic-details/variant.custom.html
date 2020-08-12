@@ -1,7 +1,7 @@
 <template
         data-sly-template.variant="${@ componentProperties, componentTemplates, requestedFieldsTemplate, componentFields, requestedFields}">
-  <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+  <div style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}">
     <sly data-sly-list.template="${requestedFieldsTemplate}">
       <sly data-sly-test="${template in componentTemplates}">
         <sly data-sly-set.fieldsTemplateFound="true"></sly>

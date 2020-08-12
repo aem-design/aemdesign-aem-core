@@ -2,7 +2,7 @@
   <sly data-sly-set.componentName="${componentProperties.vueComponentName}"></sly>
 
   <div vue-component="${componentProperties.vueComponentName @ content = 'unsafe'}"
-       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}"
        data-sly-test="${componentName && wcmmode.disabled}">
     ${componentHTML @ context = 'unsafe'}
     <noscript>Please enable JavaScript to get the full experience of this website.</noscript>
@@ -25,7 +25,7 @@
     </table>
   </div>
 
-  <div data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+  <div data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}"
        data-sly-test="${!componentName && wcmmode.edit}">
     <p>Invalid component state, no Vue component has been configured yet!</p>
   </div>
