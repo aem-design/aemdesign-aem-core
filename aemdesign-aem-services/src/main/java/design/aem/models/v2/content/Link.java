@@ -8,6 +8,7 @@ import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
+import org.apache.sling.xss.XSSAPI;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
@@ -64,7 +65,8 @@ public class Link extends BaseComponent {
 
             componentProperties.attr.add("href", linkUrl);
 
-            componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
+            componentProperties.put(COMPONENT_ATTRIBUTES,
+                buildAttributesString(componentProperties.attr.getAttributes(), getSlingScriptHelper().getService(XSSAPI.class)));
         }
     }
 }

@@ -1,6 +1,5 @@
 package design.aem.components;
 
-import com.adobe.granite.ui.components.AttrBuilder;
 import org.apache.commons.jexl3.*;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -15,14 +14,13 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class ComponentProperties extends ValueMapDecorator {
-
     protected static final Logger LOGGER = LoggerFactory.getLogger(ComponentProperties.class);
 
     public AttrBuilder attr; //NOSONAR use simpler patter as a util
     public ArrayList<ComponentField> expressionFields; //NOSONAR used by components to evaluate values
 
     /***
-     * <p>Created empty map.</p>
+     * Create empty map.
      */
     @SuppressWarnings("unchecked")
     public ComponentProperties() {
@@ -119,7 +117,7 @@ public class ComponentProperties extends ValueMapDecorator {
                                             updatedValueList.add(newValueItem);
                                         }
                                     }
-//                                    continue;
+
                                     updatedValue = updatedValueList.toArray();
                                 }
                             }
@@ -174,14 +172,13 @@ public class ComponentProperties extends ValueMapDecorator {
                             Object expressonResult = evaluateExpressionWithValue(jxlt, jc, valueExpression, fieldValue);
 
                             if (expressonResult != null) {
-
                                 //update field value
                                 this.put(field.getFieldName(), expressonResult);
+
                                 //save field value into data attribute
                                 this.attr.set(field.getDataAttributeName(), (String) expressonResult);
                             }
                         } else {
-
                             //get current field value
                             String[] values = (String[]) field.getValue();
 
@@ -216,12 +213,10 @@ public class ComponentProperties extends ValueMapDecorator {
                                     }
                                 } else {
                                     //save values as comma delimited array
-                                    this.attr.add(field.getDataAttributeName(), StringUtils.join((String[]) field.getValue(), FIELD_DATA_ARRAY_SEPARATOR));
+                                    this.attr.add(field.getDataAttributeName(),
+                                        StringUtils.join((String[]) field.getValue(), FIELD_DATA_ARRAY_SEPARATOR));
                                 }
-
                             }
-
-
                         }
                     }
                 } catch (JexlException jex) {
@@ -229,7 +224,6 @@ public class ComponentProperties extends ValueMapDecorator {
                 } catch (Exception ex) {
                     LOGGER.error("evaluateExpressionFields: field={},Exception={}", field, ex);
                 }
-
             }
         }
     }

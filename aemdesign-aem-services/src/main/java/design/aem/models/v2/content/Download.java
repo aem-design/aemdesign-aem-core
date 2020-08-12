@@ -10,6 +10,7 @@ import design.aem.utils.components.ComponentsUtil;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
+import org.apache.sling.xss.XSSAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -176,7 +177,8 @@ public class Download extends BaseComponent {
                 componentProperties.attr.add("href", href);
                 componentProperties.attr.add("data-tags", assetTags);
 
-                componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
+                componentProperties.put(COMPONENT_ATTRIBUTES,
+                    buildAttributesString(componentProperties.attr.getAttributes(), getSlingScriptHelper().getService(XSSAPI.class)));
 
                 componentProperties.put("info", MessageFormat.format("({0}, {1})", getFormattedDownloadSize(dld), mimeTypeLabel));
             } else {

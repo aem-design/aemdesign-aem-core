@@ -22,6 +22,7 @@ import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
+import org.apache.sling.xss.XSSAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -399,8 +400,9 @@ public class AssetList extends BaseComponent {
                             assetProperties.put(FIELD_IMAGEURL, responsiveImageSet.values().toArray()[responsiveImageSet.values().size() - 1]);
                         }
 
-
-                        assetProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(assetProperties.attr.getData(), null));
+                        assetProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(
+                            assetProperties.attr.getAttributes(),
+                            getSlingScriptHelper().getService(XSSAPI.class)));
 
                         return assetProperties;
                     }

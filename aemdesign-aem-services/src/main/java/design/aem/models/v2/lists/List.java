@@ -25,6 +25,7 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.wrappers.ValueMapDecorator;
+import org.apache.sling.xss.XSSAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -268,7 +269,10 @@ public class List extends BaseComponent {
         processBadgeRequestAttributes();
 
         componentProperties.put(PROP_NEEDS_PAGINATION, needsPagination);
-        componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
+
+        componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(
+            componentProperties.attr.getAttributes(),
+            getSlingScriptHelper().getService(XSSAPI.class)));
     }
 
     /**

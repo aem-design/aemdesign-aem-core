@@ -1,7 +1,6 @@
 package design.aem.models.v2.widgets;
 
 import com.adobe.cq.sightly.SightlyWCMMode;
-import com.adobe.granite.ui.components.AttrBuilder;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.wcm.api.NameConstants;
@@ -9,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import design.aem.components.AttrBuilder;
 import design.aem.models.BaseComponent;
 import design.aem.services.ServiceAccessor;
 import design.aem.utils.components.ComponentsUtil;
@@ -19,14 +19,12 @@ import org.apache.commons.lang.WordUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceNotFoundException;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.xss.XSSAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.*;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAPS;
@@ -39,7 +37,7 @@ public class Vue extends BaseComponent {
     private static final String FIELD_ANALYTICS_LOCATION = "analyticsLocation";
     private static final String FIELD_VUE_COMPONENT = "vueComponentName";
 
-    private AttrBuilder attrs = null;
+    private design.aem.components.AttrBuilder attrs = null;
     private String componentName = StringUtils.EMPTY;
 
     private final StringBuilder componentHTML = new StringBuilder();
@@ -66,7 +64,7 @@ public class Vue extends BaseComponent {
             componentFields);
 
         try {
-            attrs = new AttrBuilder(getRequest(), getXSSAPI());
+            attrs = new AttrBuilder(Objects.requireNonNull(getSlingScriptHelper().getService(XSSAPI.class)));
             componentName = componentProperties.get(FIELD_VUE_COMPONENT, StringUtils.EMPTY);
             resourceResolver = getResourceResolver();
             externalizer = resourceResolver.adaptTo(Externalizer.class);

@@ -8,6 +8,7 @@ import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.xss.XSSAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -150,8 +151,9 @@ public class ContentBlock extends BaseComponent {
             componentProperties.put(FIELD_ARIA_LABELLEDBY, labelId);
             componentProperties.attr.add("aria-labelledby", labelId);
 
-            componentProperties.put(COMPONENT_ATTRIBUTES,
-                buildAttributesString(componentProperties.attr.getData(), null));
+            componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(
+                componentProperties.attr.getAttributes(),
+                getSlingScriptHelper().getService(XSSAPI.class)));
         }
     }
 

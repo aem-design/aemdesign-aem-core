@@ -24,6 +24,7 @@ import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
+import org.apache.sling.xss.XSSAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -240,10 +241,9 @@ public class SearchList extends BaseComponent {
         componentProperties.put("listItemLinkTitle",
             getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LIST_ITEM_LINK_TITLE, DEFAULT_I18N_CATEGORY, i18n));
 
-
-        componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
-
-
+        componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(
+            componentProperties.attr.getAttributes(),
+            getSlingScriptHelper().getService(XSSAPI.class)));
     }
 
 

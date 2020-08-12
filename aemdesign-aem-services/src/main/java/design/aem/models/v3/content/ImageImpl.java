@@ -16,6 +16,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.xss.XSSAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -155,7 +156,9 @@ public class ImageImpl extends GenericModel implements GenericComponent {
                     LOGGER.error("ImageImpl: could not get AssetManager object");
                 }
 
-                componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
+                componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(
+                    componentProperties.attr.getAttributes(),
+                    getSlingScriptHelper().getService(XSSAPI.class)));
 
                 //get page link
                 String linkURL = componentProperties.get(FIELD_LINKURL, StringUtils.EMPTY);
