@@ -5,7 +5,6 @@ import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.jackrabbit.vault.util.JcrConstants;
-import org.apache.sling.xss.XSSAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,6 +80,6 @@ public class PageDate extends BaseComponent {
         }
 
         componentProperties.put(COMPONENT_ATTRIBUTES,
-            buildAttributesString(componentProperties.attr.getAttributes(), getSlingScriptHelper().getService(XSSAPI.class)));
+            buildAttributesString(componentProperties.attr.getAttributes(), xss));
     }
 }

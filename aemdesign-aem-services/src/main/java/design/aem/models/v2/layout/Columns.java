@@ -11,7 +11,6 @@ import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
-import org.apache.sling.xss.XSSAPI;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -176,7 +175,7 @@ public class Columns extends BaseComponent {
                 componentProperties.attr.add("class", columnsClass);
 
                 componentProperties.put(COMPONENT_ATTRIBUTES,
-                    buildAttributesString(componentProperties.attr.getAttributes(), getSlingScriptHelper().getService(XSSAPI.class)));
+                    buildAttributesString(componentProperties.attr.getAttributes(), xss));
 
                 componentProperties.put("rowClass", rowClass);
                 componentProperties.put("columnsClass", columnsClass);

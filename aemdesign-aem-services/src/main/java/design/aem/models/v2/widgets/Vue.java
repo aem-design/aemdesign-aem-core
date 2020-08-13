@@ -10,7 +10,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import design.aem.components.AttrBuilder;
 import design.aem.models.BaseComponent;
-import design.aem.services.ServiceAccessor;
 import design.aem.utils.components.ComponentsUtil;
 import design.aem.utils.components.TagUtil;
 import design.aem.utils.components.TenantUtil;
@@ -19,12 +18,16 @@ import org.apache.commons.lang.WordUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceNotFoundException;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.xss.XSSAPI;
+import org.apache.sling.settings.SlingSettingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.jcr.*;
-import java.util.*;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAPS;
@@ -48,9 +51,7 @@ public class Vue extends BaseComponent {
     private JsonArray config;
     private Externalizer externalizer;
     private ResourceResolver resourceResolver;
-    private Set<String> runModes;
 
-    @SuppressWarnings("Duplicates")
     public void ready() {
         setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
@@ -59,21 +60,13 @@ public class Vue extends BaseComponent {
             {FIELD_VUE_COMPONENT, StringUtils.EMPTY},
         });
 
-        componentProperties = ComponentsUtil.getComponentProperties(
-            this,
-            componentFields);
+        componentProperties = ComponentsUtil.getComponentProperties(this, componentFields);
 
         try {
-            attrs = new AttrBuilder(Objects.requireNonNull(getSlingScriptHelper().getService(XSSAPI.class)));
+            attrs = new AttrBuilder(xss);
             componentName = componentProperties.get(FIELD_VUE_COMPONENT, StringUtils.EMPTY);
             resourceResolver = getResourceResolver();
             externalizer = resourceResolver.adaptTo(Externalizer.class);
-
-            ServiceAccessor serviceAccessor = getSlingScriptHelper().getService(ServiceAccessor.class);
-
-            if (serviceAccessor != null) {
-                runModes = serviceAccessor.getRunModes();
-            }
         } catch (Exception ex) {
             LOGGER.error("Vue component activation failed!");
             LOGGER.error(ex.getLocalizedMessage());
@@ -270,8 +263,8 @@ public class Vue extends BaseComponent {
                 }
 
                 // Does the field need to run through Externalizer?
-                if (fieldConfig.has("externalizer") && fieldConfig.get("externalizer").getAsBoolean() && runModes != null) {
-                    if (runModes.contains(Externalizer.AUTHOR)) {
+                if (fieldConfig.has("externalizer") && fieldConfig.get("externalizer").getAsBoolean()) {
+                    if (slingSettingsService.getRunModes().contains(Externalizer.AUTHOR)) {
                         value = externalizer.authorLink(resourceResolver, value) + ".html?wcmmode=disabled";
                     } else {
                         value = externalizer.externalLink(resourceResolver, Externalizer.LOCAL, value);
@@ -388,7 +381,7 @@ public class Vue extends BaseComponent {
      * Builds the HTML structure needed for our front-end JavaScript code.
      */
     private void constructComponentHTML() {
-        componentHTML.append(String.format("<%s%s>", componentName, attrs.build()));
+        componentHTML.append(String.format("<%s %s>", componentName, attrs.build()));
 
         if (slots.size() > 0) {
             for (Map.Entry<String, String> slot : slots.entrySet()) {

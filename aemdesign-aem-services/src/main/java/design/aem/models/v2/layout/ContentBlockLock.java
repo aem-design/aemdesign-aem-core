@@ -8,7 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.jackrabbit.api.security.user.Authorizable;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.xss.XSSAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,7 +80,7 @@ public class ContentBlockLock extends BaseComponent {
 
                 componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(
                     componentProperties.attr.getAttributes(),
-                    getSlingScriptHelper().getService(XSSAPI.class)));
+                    xss));
             }
 
         }

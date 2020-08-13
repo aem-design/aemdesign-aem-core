@@ -10,7 +10,6 @@ import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
-import org.apache.sling.xss.XSSAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -173,6 +172,6 @@ public class Image extends BaseComponent {
 
         componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(
             componentProperties.attr.getAttributes(),
-            getSlingScriptHelper().getService(XSSAPI.class)));
+            xss));
     }
 }

@@ -24,7 +24,6 @@ import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
-import org.apache.sling.xss.XSSAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -243,7 +242,7 @@ public class SearchList extends BaseComponent {
 
         componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(
             componentProperties.attr.getAttributes(),
-            getSlingScriptHelper().getService(XSSAPI.class)));
+            xss));
     }
 
 

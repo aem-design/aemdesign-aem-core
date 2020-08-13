@@ -6,6 +6,8 @@ import design.aem.components.ComponentProperties;
 import design.aem.utils.components.TenantUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.sling.settings.SlingSettingsService;
+import org.apache.sling.xss.XSSAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,20 +18,24 @@ import static design.aem.utils.components.ComponentsUtil.DEFAULT_TENANT;
 public abstract class BaseComponent extends WCMUsePojo {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BaseComponent.class);
 
-    protected ComponentProperties componentProperties = null;
-    protected Style currentStyle;
-
     protected static final String ANALYTICS_FIELDS = "analyticsFields";
     protected static final String COMPONENT_FIELDS = "componentFields";
 
-    public Object[][] analyticsFields = {}; //NOSONAR this needs to be accessible directly
-    public Object[][] componentFields = {}; //NOSONAR this needs to be accessible directly
+    protected ComponentProperties componentProperties = null;
+    protected Style currentStyle;
+    protected SlingSettingsService slingSettingsService;
+    protected XSSAPI xss;
 
-    public abstract void ready() throws Exception; //NOSONAR generic exception is fine
+    public Object[][] analyticsFields = {}; // NOSONAR this needs to be accessible directly
+    public Object[][] componentFields = {}; // NOSONAR this needs to be accessible directly
+
+    public abstract void ready() throws Exception; // NOSONAR generic exception is fine
 
     @Override
     public void activate() throws Exception {
         currentStyle = getCurrentStyle();
+        slingSettingsService = getSlingScriptHelper().getService(SlingSettingsService.class);
+        xss = getSlingScriptHelper().getService(XSSAPI.class);
 
         ready();
     }
@@ -50,7 +56,7 @@ public abstract class BaseComponent extends WCMUsePojo {
                 Field classField = this.getClass().getField(target);
 
                 for (Object[] field : fields) {
-                    classField.set(this, ArrayUtils.add((Object[][]) classField.get(this), field)); //NOSONAR adding array fields into a field in this class
+                    classField.set(this, ArrayUtils.add((Object[][]) classField.get(this), field)); // NOSONAR adding array fields into a field in this class
                 }
             } catch (Exception ex) {
                 LOGGER.error("ModelProxy: something went wrong while parsing the field! {}", ex.getLocalizedMessage());
