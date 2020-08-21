@@ -1511,8 +1511,6 @@ public class ComponentsUtil {
         }
 
         try {
-            String path = componentNode.getPath();
-
             if (!componentNode.hasProperty(FIELD_STYLE_COMPONENT_ID)) {
                 String prefix = componentNode.getName();
 

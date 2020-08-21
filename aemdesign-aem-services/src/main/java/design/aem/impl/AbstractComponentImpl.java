@@ -32,10 +32,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.scripting.SlingScriptHelper;
-import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
-import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
-import org.apache.sling.models.annotations.injectorspecific.Self;
-import org.apache.sling.models.annotations.injectorspecific.SlingObject;
+import org.apache.sling.models.annotations.injectorspecific.*;
 import org.apache.sling.settings.SlingSettingsService;
 import org.apache.sling.xss.XSSAPI;
 
@@ -102,11 +99,16 @@ public abstract class AbstractComponentImpl implements Component {
     @JsonIgnore
     protected List<String> requestSelectors;
 
+    @ValueMapValue(name = FIELD_STYLE_COMPONENT_ID, injectionStrategy = InjectionStrategy.OPTIONAL)
+    @Nullable
     private String componentId;
+
+    protected ValueMap properties;
 
     @PostConstruct
     protected void init() {
         attributes = new AttrBuilder(xss);
+        properties = resource.getValueMap();
         requestSelectors = Arrays.asList(request.getRequestPathInfo().getSelectors());
 
         // Set the component 'id' attribute
@@ -124,17 +126,11 @@ public abstract class AbstractComponentImpl implements Component {
         return !requestSelectors.isEmpty() && requestSelectors.contains("model");
     }
 
-    @Nullable
     @Override
+    @Nullable
     public String getComponentId() {
-        if (componentId == null) {
-            ValueMap properties = resource.getValueMap();
-
-            componentId = properties.get(FIELD_STYLE_COMPONENT_ID, String.class);
-
-            if (StringUtils.isEmpty(componentId)) {
-                componentId = ComponentsUtil.getComponentId(currentNode);
-            }
+        if (StringUtils.isEmpty(componentId)) {
+            componentId = ComponentsUtil.getComponentId(currentNode);
         }
 
         return componentId;
