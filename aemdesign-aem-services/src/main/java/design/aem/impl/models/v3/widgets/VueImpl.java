@@ -1,3 +1,18 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ~ Copyright 2020 AEM.Design
+ ~
+ ~ Licensed under the Apache License, Version 2.0 (the "License");
+ ~ you may not use this file except in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~     http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing, software
+ ~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~ See the License for the specific language governing permissions and
+ ~ limitations under the License.
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package design.aem.impl.models.v3.widgets;
 
 import com.adobe.cq.export.json.ComponentExporter;
@@ -22,6 +37,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceNotFoundException;
 import org.apache.sling.models.annotations.Exporter;
+import org.apache.sling.models.annotations.ExporterOption;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
@@ -35,7 +51,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
-import static design.aem.utils.components.ComponentsUtil.*;
+import static design.aem.utils.components.ComponentsUtil.getCloudConfigProperty;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAPS;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAPS_API_KEY;
 
@@ -46,7 +62,11 @@ import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOG
 )
 @Exporter(
     extensions = ExporterConstants.SLING_MODEL_EXTENSION,
-    name = ExporterConstants.SLING_MODEL_EXPORTER_NAME
+    name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    options = {
+        @ExporterOption(name = "MapperFeature.SORT_PROPERTIES_ALPHABETICALLY", value = "true"),
+        @ExporterOption(name = "SerializationFeature.WRITE_DATES_AS_TIMESTAMPS", value = "false")
+    }
 )
 public class VueImpl extends ComponentImpl implements Vue {
     private static final Logger LOGGER = LoggerFactory.getLogger(VueImpl.class);
@@ -77,6 +97,8 @@ public class VueImpl extends ComponentImpl implements Vue {
     @PostConstruct
     protected void init() {
         super.init();
+
+        attributes.add("vue-component", componentName);
 
         vueAttributes = new AttrBuilder(xss);
 
@@ -130,6 +152,7 @@ public class VueImpl extends ComponentImpl implements Vue {
      * @return {@code true} when configured and {@code false} when not
      */
     @JsonIgnore
+    @Override
     public boolean isConfigured() {
         return StringUtils.isNotEmpty(componentName);
     }
@@ -200,7 +223,7 @@ public class VueImpl extends ComponentImpl implements Vue {
      * Retrieve and parse over the authored configuration and hand off to {@link #handleComponentField}.
      */
     @SuppressWarnings("Duplicates")
-    private void handleComponentConfigurationAndSlots() {
+    private void handleComponentConfigurationAndSlots() { // NOSONAR
         try {
             Node dynamicNode = dynamicResource.adaptTo(Node.class);
 
@@ -255,7 +278,8 @@ public class VueImpl extends ComponentImpl implements Vue {
      * @throws Error when the value property is missing from the field configuration
      */
     @SuppressWarnings("Duplicates")
-    private void handleComponentField(String field, String value, PropertyIterator properties) throws Error {
+    private void handleComponentField(String field, String value, PropertyIterator properties) // NOSONAR
+        throws Error {
         try {
             JsonObject fieldElement = getComponentDataByPath("fields/" + field).getAsJsonObject(); // NOSONAR
             JsonObject fieldConfig;
@@ -263,7 +287,7 @@ public class VueImpl extends ComponentImpl implements Vue {
             boolean skipSlotAndAttribute = false;
             String debugValue = null;
 
-            if (fieldElement.has("value") && fieldElement.get("value").isJsonObject()) {
+            if (fieldElement.has("value") && fieldElement.get("value").isJsonObject()) { // NOSONAR
                 fieldConfig = fieldElement.get("value").getAsJsonObject();
             } else {
                 throw new Error("Unable to handle field as the JSON object is either invalid or is missing the 'value' property");
@@ -300,7 +324,7 @@ public class VueImpl extends ComponentImpl implements Vue {
                     while (properties.hasNext()) {
                         Property property = properties.nextProperty();
 
-                        try {
+                        try { // NOSONAR
                             if (property.getName().equals("fileReference")) {
                                 value = property.getString();
                                 break;
@@ -405,7 +429,7 @@ public class VueImpl extends ComponentImpl implements Vue {
      * Binds the cloud configuration values to their respective attributes for use in the component.
      */
     @SuppressWarnings("Duplicates")
-    private void setConfigurationAttributes() {
+    private void setConfigurationAttributes() { // NOSONAR
         if (componentConfiguration != null) {
             Map<String, String> configuration = getConfigurationsMap();
 
