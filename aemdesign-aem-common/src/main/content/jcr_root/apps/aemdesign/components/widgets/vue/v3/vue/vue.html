@@ -1,0 +1,30 @@
+<sly data-sly-use.vue="design.aem.models.v3.widgets.Vue">
+  <div vue-component="${vue.componentName @ context='text'}"
+       data-sly-attribute="${vue.attributes.attributes @ context='unsafe'}"
+       data-sly-test="${vue.componentName && wcmmode.disabled}">
+    ${vue.componentHTML @ context='unsafe'}
+    <noscript>Please enable JavaScript to get the full experience of this website.</noscript>
+  </div>
+
+  <div data-sly-attribute="${vue.vueAttributes.attributes @ context='unsafe'}"
+       data-sly-test="${vue.componentName && (wcmmode.edit || wcmmode.preview)}">
+    <h4>Vue Component Configuration</h4>
+    <table>
+      <tr>
+        <td width="150px">Widget Name:</td>
+        <td>${vue.componentName}</td>
+      </tr>
+      <sly data-sly-list="${vue.configOutput}">
+        <tr>
+          <td>${item}:</td>
+          <td>${vue.configOutput[item]}</td>
+        </tr>
+      </sly>
+    </table>
+  </div>
+
+  <div data-sly-attribute="${vue.attributes.attributes @ context='unsafe'}"
+       data-sly-test="${!vue.componentName && wcmmode.edit}">
+    <p>Invalid component state, no Vue component has been configured yet!</p>
+  </div>
+</sly>

@@ -208,6 +208,7 @@ Bundle-Description: ${project.description}
 Bundle-DocURL: https://aem.design
 Bundle-License: Apache License, Version 2.0
 Bundle-Vendor: AEM.Design
+Sling-Model-Packages: design.aem
 Export-Service: design.aem.workflow.process.*
 Export-Package: design.aem.*,\
 org.jsoup,\
@@ -792,8 +793,7 @@ com.adobe.acs.commons.util.visitors
         <dependency>
             <groupId>com.adobe.cq</groupId>
             <artifactId>core.wcm.components.core</artifactId>
-            <scope>provided</scope>
-            <version>2.5.0</version>
+            <version>${core.wcm.components.version}</version>
         </dependency>
         <dependency>
             <groupId>com.adobe.cq</groupId>
@@ -825,6 +825,12 @@ com.adobe.acs.commons.util.visitors
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.installer.hc</artifactId>
             <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

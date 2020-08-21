@@ -345,6 +345,10 @@
                             <groupId>com.adobe.acs</groupId>
                             <artifactId>acs-aem-commons-bundle</artifactId>
                         </embedded>
+                        <embedded>
+                            <groupId>com.adobe.cq</groupId>
+                            <artifactId>core.wcm.components.core</artifactId>
+                        </embedded>
                     </embeddeds>
                 </configuration>
             </plugin>

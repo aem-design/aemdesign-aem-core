@@ -19,7 +19,7 @@
           xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Vue Widget"
-          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/widgets/vue/v2/vue"
+          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/widgets/vue/v3/vue"
           sling:resourceType="cq/gui/components/authoring/dialog"
           extraClientlibs="[aemdesign.components.widgets.vue.v2.dialog]">
     <content
@@ -113,12 +113,12 @@
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <analyticsName
+                                    <analyticsLabel
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                        fieldDescription="Name of the unique component instance"
-                                        fieldLabel="Name"
-                                        name="./analyticsName"
+                                        fieldDescription="Label of the unique component instance"
+                                        fieldLabel="Label"
+                                        name="./analyticsLabel"
                                         required="{Boolean}false"
                                         value=""/>
                                     <analyticsLocation
