@@ -24,15 +24,13 @@
   </sly>
 
   <sly data-sly-test="${wcmmode.edit || wcmmode.preview}">
-    <h4>${'Vue Component Configuration' @ i18n}</h4>
+    <div style="margin-bottom: 10px;">
+      <strong>${'Vue Component Configuration' @ i18n}</strong> - ${vue.componentName}
+    </div>
     <table>
-      <tr>
-        <td width="150px">${'Widget Name:' @ i18n}</td>
-        <td>${vue.componentName}</td>
-      </tr>
       <sly data-sly-list="${vue.configOutput}">
         <tr>
-          <td>${item @ i18n}:</td>
+          <td style="width: 250px;">${item @ i18n}:</td>
           <td>${vue.configOutput[item]}</td>
         </tr>
       </sly>
