@@ -31,8 +31,8 @@ public class ComponentImpl extends AbstractComponentImpl {
     @Default(values = DEFAULT_VARIANT)
     protected String variant;
 
-    @NotNull
     @Override
+    @NotNull
     public String getExportedType() {
         return resource.getResourceType();
     }
