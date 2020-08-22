@@ -16,8 +16,9 @@
 
 <div data-sly-use.vue="design.aem.models.v3.widgets.Vue"
      data-sly-use.shared="/apps/aemdesign/components/common/shared.html"
+     data-sly-test.configured="${vue.configured}"
      data-sly-attribute="${vue.attributes.attributes @ context='unsafe'}"
-     data-sly-test="${vue.configured}">
+     component>
   <sly data-sly-test="${wcmmode.disabled}">
     ${vue.componentHTML @ context='unsafe'}
     <noscript>Please enable JavaScript to get the full experience of this website.</noscript>
@@ -38,4 +39,4 @@
   </sly>
 </div>
 
-<sly data-sly-call="${shared.placeholder @ misconfigured=!vue.configured}"></sly>
+<sly data-sly-call="${shared.placeholder @ misconfigured=!configured}"></sly>
