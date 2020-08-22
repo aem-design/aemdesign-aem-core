@@ -13,7 +13,7 @@
  ~ See the License for the specific language governing permissions and
  ~ limitations under the License.
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-package design.aem.impl;
+package design.aem.impl.models;
 
 import com.adobe.cq.sightly.SightlyWCMMode;
 import com.day.cq.commons.Externalizer;
@@ -21,10 +21,9 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.components.ComponentContext;
 import com.day.cq.wcm.api.designer.Design;
 import com.day.cq.wcm.api.designer.Style;
-import com.drew.lang.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import design.aem.components.AttrBuilder;
-import design.aem.models.v3.Component;
+import design.aem.models.Component;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -35,6 +34,7 @@ import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.apache.sling.models.annotations.injectorspecific.*;
 import org.apache.sling.settings.SlingSettingsService;
 import org.apache.sling.xss.XSSAPI;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -56,8 +56,7 @@ public abstract class AbstractComponentImpl implements Component {
     @ScriptVariable(injectionStrategy = InjectionStrategy.OPTIONAL)
     private Node currentNode;
 
-    @ScriptVariable(injectionStrategy = InjectionStrategy.OPTIONAL)
-    @Nullable
+    @ScriptVariable
     protected Page currentPage;
 
     @ScriptVariable(injectionStrategy = InjectionStrategy.OPTIONAL)
@@ -113,7 +112,6 @@ public abstract class AbstractComponentImpl implements Component {
 
         // Set a few standard component attributes
         attributes.add(COMPONENT_ATTRIBUTE_ID, getComponentId());
-        attributes.add(COMPONENT_ATTRIBUTE_CLASS, "c-" + componentContext.getComponent().getName().trim());
     }
 
     @Override
@@ -133,8 +131,19 @@ public abstract class AbstractComponentImpl implements Component {
         return requestSelectors.contains("model");
     }
 
-    @Override
+    @JsonIgnore
     @Nullable
+    @Override
+    public String getBadgeTemplate() {
+        if (isBadgeRequest() && requestSelectors.size() >= 2) {
+            return requestSelectors.get(1);
+        }
+
+        return null;
+    }
+
+    @Nullable
+    @Override
     public String getComponentId() {
         if (StringUtils.isEmpty(componentId)) {
             componentId = ComponentsUtil.getComponentId(currentNode);

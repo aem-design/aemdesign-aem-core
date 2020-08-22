@@ -13,9 +13,9 @@
  ~ See the License for the specific language governing permissions and
  ~ limitations under the License.
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-package design.aem.impl;
+package design.aem.impl.models;
 
-import design.aem.models.v3.Component;
+import design.aem.models.Component;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.Model;
@@ -31,8 +31,8 @@ public class ComponentImpl extends AbstractComponentImpl {
     @Default(values = DEFAULT_VARIANT)
     protected String variant;
 
-    @Override
     @NotNull
+    @Override
     public String getExportedType() {
         return resource.getResourceType();
     }

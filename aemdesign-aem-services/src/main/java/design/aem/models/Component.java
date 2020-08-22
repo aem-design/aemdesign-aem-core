@@ -13,7 +13,7 @@
  ~ See the License for the specific language governing permissions and
  ~ limitations under the License.
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-package design.aem.models.v3;
+package design.aem.models;
 
 import com.adobe.cq.export.json.ComponentExporter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -32,8 +32,6 @@ public interface Component extends ComponentExporter {
 
     /**
      * Retrieve the unique HTML identifier of the component.
-     *
-     * @return unique HTML identifier
      */
     @Nullable
     default String getComponentId() {
@@ -59,6 +57,14 @@ public interface Component extends ComponentExporter {
      */
     default boolean isSlingModelRequest() {
         return false;
+    }
+
+    /**
+     * Retrieve the HTL template for the current badge request.
+     */
+    @Nullable
+    default String getBadgeTemplate() {
+        return null;
     }
 
     /**
