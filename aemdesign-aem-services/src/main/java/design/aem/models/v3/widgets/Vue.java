@@ -16,7 +16,7 @@
 package design.aem.models.v3.widgets;
 
 import design.aem.components.AttrBuilder;
-import design.aem.models.v3.Component;
+import design.aem.models.Component;
 import org.jetbrains.annotations.Nullable;
 import org.osgi.annotation.versioning.ConsumerType;
 

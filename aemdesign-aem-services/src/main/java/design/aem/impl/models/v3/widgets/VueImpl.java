@@ -27,7 +27,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import design.aem.components.AttrBuilder;
-import design.aem.impl.ComponentImpl;
+import design.aem.impl.models.ComponentImpl;
 import design.aem.models.v3.widgets.Vue;
 import design.aem.utils.components.TagUtil;
 import design.aem.utils.components.TenantUtil;
