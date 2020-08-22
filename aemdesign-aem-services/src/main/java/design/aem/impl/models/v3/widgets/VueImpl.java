@@ -151,7 +151,6 @@ public class VueImpl extends ComponentImpl implements Vue {
      *
      * @return {@code true} when configured and {@code false} when not
      */
-    @JsonIgnore
     @Override
     public boolean isConfigured() {
         return StringUtils.isNotEmpty(componentName);

@@ -16,11 +16,20 @@
 package design.aem.models.v3;
 
 import com.adobe.cq.export.json.ComponentExporter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import design.aem.components.AttrBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public interface Component extends ComponentExporter {
+    /**
+     * Get a {@code boolean} whether the component has been configured.
+     */
+    @JsonIgnore
+    default boolean isConfigured() {
+        return false;
+    }
+
     /**
      * Retrieve the unique HTML identifier of the component.
      *
@@ -39,6 +48,13 @@ public interface Component extends ComponentExporter {
     }
 
     /**
+     * Determine if the request is a 'badge' request.
+     */
+    default boolean isBadgeRequest() {
+        return false;
+    }
+
+    /**
      * Determine if the request is a Sling 'model' request.
      */
     default boolean isSlingModelRequest() {
@@ -48,8 +64,8 @@ public interface Component extends ComponentExporter {
     /**
      * @see ComponentExporter#getExportedType()
      */
-    @NotNull
     @Override
+    @NotNull
     default String getExportedType() {
         throw new UnsupportedOperationException();
     }

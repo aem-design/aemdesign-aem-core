@@ -32,13 +32,6 @@ public interface Vue extends Component {
     }
 
     /**
-     * Get a {@code boolean} whether the component has been configured.
-     */
-    default boolean isConfigured() {
-        return false;
-    }
-
-    /**
      * Get the current Vue component name.
      */
     @Nullable

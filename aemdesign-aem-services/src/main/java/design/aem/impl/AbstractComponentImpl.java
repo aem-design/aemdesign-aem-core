@@ -42,7 +42,7 @@ import javax.jcr.Node;
 import java.util.Arrays;
 import java.util.List;
 
-import static design.aem.utils.components.ComponentsUtil.FIELD_STYLE_COMPONENT_ID;
+import static design.aem.utils.components.ComponentsUtil.*;
 
 public abstract class AbstractComponentImpl implements Component {
     @ScriptVariable(injectionStrategy = InjectionStrategy.OPTIONAL)
@@ -111,8 +111,9 @@ public abstract class AbstractComponentImpl implements Component {
         properties = resource.getValueMap();
         requestSelectors = Arrays.asList(request.getRequestPathInfo().getSelectors());
 
-        // Set the component 'id' attribute
-        attributes.add("id", getComponentId());
+        // Set a few standard component attributes
+        attributes.add(COMPONENT_ATTRIBUTE_ID, getComponentId());
+        attributes.add(COMPONENT_ATTRIBUTE_CLASS, "c-" + componentContext.getComponent().getName().trim());
     }
 
     @Override
@@ -122,8 +123,14 @@ public abstract class AbstractComponentImpl implements Component {
 
     @JsonIgnore
     @Override
+    public boolean isBadgeRequest() {
+        return requestSelectors.contains("badge");
+    }
+
+    @JsonIgnore
+    @Override
     public boolean isSlingModelRequest() {
-        return !requestSelectors.isEmpty() && requestSelectors.contains("model");
+        return requestSelectors.contains("model");
     }
 
     @Override
