@@ -12,10 +12,6 @@
   display: block;
 }
 
-.cq-Overlay--component.cq-Overlay--placeholder {
-  margin-top: 30px;
-}
-
 /**
  * Poor man's fix to ensure 'Container' elements don't appear when we don't want them to.
  */
