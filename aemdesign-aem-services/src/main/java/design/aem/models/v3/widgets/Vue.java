@@ -35,7 +35,7 @@ public interface Vue extends Component {
      * Get the current Vue component name.
      */
     @Nullable
-    default String getComponentName() {
+    default String getVueComponentName() {
         return null;
     }
 

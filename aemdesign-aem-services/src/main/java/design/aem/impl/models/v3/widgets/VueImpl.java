@@ -130,7 +130,7 @@ public class VueImpl extends ComponentImpl implements Vue {
 
     @JsonIgnore
     @Override
-    public String getComponentName() {
+    public String getVueComponentName() {
         return componentName;
     }
 
