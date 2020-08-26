@@ -14,13 +14,15 @@
   ~ limitations under the License.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/-->
 
-<div data-sly-use.vue="design.aem.models.v3.widgets.Vue"
+<div data-sly-use.component="design.aem.models.v3.widgets.Vue"
      data-sly-use.shared="/apps/aemdesign/components/common/shared.html"
-     data-sly-test.configured="${vue.configured}"
-     data-sly-attribute="${vue.attributes.attributes @ context='unsafe'}"
+     data-sly-test.configured="${component.configured}"
+     data-sly-attribute="${component.attributes.attributes @ context='unsafe'}"
+     class="c-${component.componentName}"
+     id="${component.componentId}"
      component>
   <sly data-sly-test="${wcmmode.disabled}">
-    ${vue.componentHTML @ context='unsafe'}
+    ${component.componentHTML @ context='unsafe'}
     <noscript>Please enable JavaScript to get the full experience of this website.</noscript>
   </sly>
 
@@ -29,10 +31,10 @@
       <strong>${'Vue Component Configuration' @ i18n}</strong> - ${component.vueComponentName}
     </div>
     <table>
-      <sly data-sly-list="${vue.configOutput}">
+      <sly data-sly-list="${component.configOutput}">
         <tr>
           <td style="width: 250px;">${item @ i18n}:</td>
-          <td>${vue.configOutput[item]}</td>
+          <td>${component.configOutput[item]}</td>
         </tr>
       </sly>
     </table>
