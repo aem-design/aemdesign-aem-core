@@ -27,7 +27,7 @@ public interface Component extends ComponentExporter {
      */
     @JsonIgnore
     default boolean isConfigured() {
-        return false;
+        return true;
     }
 
     /**
@@ -65,6 +65,20 @@ public interface Component extends ComponentExporter {
     @Nullable
     default String getBadgeTemplate() {
         return null;
+    }
+
+    /**
+     * Retrieve the name of the component.
+     */
+    default String getComponentName() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Retrieve the variant name for the component.
+     */
+    default String getVariant() {
+        throw new UnsupportedOperationException();
     }
 
     /**

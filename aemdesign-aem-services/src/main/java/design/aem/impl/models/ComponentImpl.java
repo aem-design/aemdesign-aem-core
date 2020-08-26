@@ -17,19 +17,17 @@ package design.aem.impl.models;
 
 import design.aem.models.Component;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
-import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.jetbrains.annotations.NotNull;
 
-import static design.aem.utils.components.ComponentsUtil.DEFAULT_VARIANT;
+import static design.aem.utils.components.ComponentsUtil.FIELD_VARIANT;
 
 @Model(adaptables = SlingHttpServletRequest.class, adapters = Component.class)
 public class ComponentImpl extends AbstractComponentImpl {
-    @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
-    @Default(values = DEFAULT_VARIANT)
-    protected String variant;
+    @Override
+    public String getVariant() {
+        return properties.get(FIELD_VARIANT, String.class);
+    }
 
     @NotNull
     @Override

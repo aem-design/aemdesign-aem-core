@@ -23,6 +23,7 @@ import com.day.cq.wcm.api.designer.Design;
 import com.day.cq.wcm.api.designer.Style;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import design.aem.components.AttrBuilder;
+import design.aem.components.ComponentProperties;
 import design.aem.models.Component;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +32,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.scripting.SlingScriptHelper;
+import org.apache.sling.api.wrappers.ValueMapDecorator;
 import org.apache.sling.models.annotations.injectorspecific.*;
 import org.apache.sling.settings.SlingSettingsService;
 import org.apache.sling.xss.XSSAPI;
@@ -40,13 +42,15 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.jcr.Node;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 
 public abstract class AbstractComponentImpl implements Component {
-    @ScriptVariable(injectionStrategy = InjectionStrategy.OPTIONAL)
-    @Nullable
+    @ScriptVariable
     protected ComponentContext componentContext;
 
     @ScriptVariable
@@ -102,16 +106,41 @@ public abstract class AbstractComponentImpl implements Component {
     @Nullable
     private String componentId;
 
-    protected ValueMap properties;
+    protected ValueMap properties = new ValueMapDecorator(new HashMap<>());
 
     @PostConstruct
     protected void init() {
         attributes = new AttrBuilder(xss);
-        properties = resource.getValueMap();
         requestSelectors = Arrays.asList(request.getRequestPathInfo().getSelectors());
+
+        // Handle the component properties
+        evaluatePropertyDefaults();
+
+        properties.putAll(resource.getValueMap());
 
         // Set a few standard component attributes
         attributes.add(COMPONENT_ATTRIBUTE_ID, getComponentId());
+    }
+
+    /**
+     * Iterate through the component property field defaults and assign default values.
+     */
+    private void evaluatePropertyDefaults() {
+        getPropertyDefaultsMap().forEach((fieldName, callback) ->
+            properties.put(fieldName, callback.apply(properties.get(fieldName))));
+    }
+
+    /**
+     * Construct the component property defaults to ensure critical fields have values.
+     *
+     * @return {@link Map} instance with property defaults
+     */
+    protected Map<String, Function<Object, Object>> getPropertyDefaultsMap() {
+        Map<String, Function<Object, Object>> propertyDefaults = new HashMap<>();
+
+        propertyDefaults.put(FIELD_VARIANT, value -> StringUtils.defaultIfEmpty((String) value, DEFAULT_VARIANT));
+
+        return propertyDefaults;
     }
 
     @Override
@@ -140,6 +169,11 @@ public abstract class AbstractComponentImpl implements Component {
         }
 
         return null;
+    }
+
+    @Override
+    public @Nullable String getComponentName() {
+        return componentContext.getComponent().getName().trim();
     }
 
     @Nullable
