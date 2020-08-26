@@ -20,13 +20,29 @@ import org.jetbrains.annotations.Nullable;
 import org.osgi.annotation.versioning.ConsumerType;
 
 @ConsumerType
-public interface BaseDetails extends Component {
+public interface BaseDetails extends Component { // NOSONAR
+    String DEFAULT_TITLE_LEVEL = "h1";
+
     /**
      * Get the title of the page using the details component first, then Page Properties.
      */
     @Nullable
     default String getTitle() {
         return null;
+    }
+
+    /**
+     * Get the heading level of the title.
+     */
+    default String getTitleLevel() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Should the title be available to the page?
+     */
+    default boolean hasTitle() {
+        return false;
     }
 
     /**

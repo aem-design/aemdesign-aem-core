@@ -14,17 +14,19 @@
   ~ limitations under the License.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/-->
 
-<div data-sly-use.pageDetails="design.aem.models.v3.details.PageDetails"
+<div data-sly-use.component="design.aem.models.Component"
      data-sly-use.shared="/apps/aemdesign/components/common/shared.html"
-     data-sly-test.configured="${pageDetails.configured && !pageDetails.badgeRequest}"
-     data-sly-attribute="${pageDetails.attributes.attributes @ context='unsafe'}"
-     class="c-page-details"
+     data-sly-test.configured="${component.configured && !component.badgeRequest}"
+     data-sly-attribute="${component.attributes.attributes @ context='unsafe'}"
+     class="c-${component.componentName} c-${component.componentName}--${component.variant}"
+     id="${component.componentId}"
      component>
-  <h1>${pageDetails.title}</h1>
+  <sly data-sly-use.template="variants/${component.variant}.html"
+       data-sly-call="${template.variant}"></sly>
 </div>
 
-<sly data-sly-test="${pageDetails.configured && pageDetails.badgeRequest}">
-  <!-- Badge request: ${pageDetails.badgeTemplate} -->
+<sly data-sly-test="${component.configured && component.badgeRequest}">
+  <!-- Badge request: ${component.badgeTemplate} -->
 </sly>
 
 <sly data-sly-call="${shared.placeholder @ misconfigured=!configured}"></sly>

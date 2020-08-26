@@ -1,26 +1,54 @@
-<template data-sly-template.variant="${@ componentProperties}">
-  <div style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
-       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}">
-    <div class="container" data-sly-unwrap="${!componentProperties.useContainer}">
-      <sly data-sly-use.header="./page-details.header.html"
-           data-sly-call="${header.variant @ componentProperties=componentProperties}"></sly>
+<!--/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright 2020 AEM.Design
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/-->
 
-      <header>
-        <title class="title"
-               data-sly-element="${componentProperties.titleType}"
-               data-sly-attribute.id="${componentProperties.ariaLabelledBy}"
-               data-sly-test="${!componentProperties.hideTitle}">
-          ${componentProperties.titleFormatted @ context = 'unsafe'}
-        </title>
+<template data-sly-template.variant>
+  <div data-sly-use.component="design.aem.models.v3.details.PageDetails"
+       class="container">
+    <div class="c-${component.componentName}__callout">
+      <title data-sly-element="${component.titleLevel}"
+             data-sly-test="${component.hasTitle}"
+             class="c-${component.componentName}__title">${component.title}</title>
 
-        <div class="description"
-             data-sly-test="${!componentProperties.hideDescription && componentProperties.description}">
-          ${componentProperties.description @ context = 'unsafe'}
-        </div>
-      </header>
+      <div class="c-${component.componentName}__description"
+           data-sly-test="${!component.description.empty}">
+        ${component.description @ context='html'}
+      </div>
 
-      <sly data-sly-use.footer="./page-details.footer.html"
-           data-sly-call="${footer.variant @ componentProperties=componentProperties}"></sly>
+      <!--/*        <title class="title"*/-->
+      <!--/*               data-sly-element="${componentProperties.titleType}"*/-->
+      <!--/*               data-sly-attribute.id="${componentProperties.ariaLabelledBy}"*/-->
+      <!--/*               data-sly-test="${!componentProperties.hideTitle}">*/-->
+      <!--/*          ${componentProperties.titleFormatted @ context = 'unsafe'}*/-->
+      <!--/*        </title>*/-->
+
+      <!--/*        <div class="description"*/-->
+      <!--/*             data-sly-test="${!componentProperties.hideDescription && componentProperties.description}">*/-->
+      <!--/*          ${componentProperties.description @ context = 'unsafe'}*/-->
+      <!--/*        </div>*/-->
     </div>
   </div>
+
+  <!--/*  <div style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"*/-->
+  <!--/*       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}">*/-->
+  <!--/*    <div class="container" data-sly-unwrap="${!componentProperties.useContainer}">*/-->
+  <!--/*      <sly data-sly-use.header="./page-details.header.html"*/-->
+  <!--/*           data-sly-call="${header.variant @ componentProperties=componentProperties}"></sly>*/-->
+
+  <!--/*      <sly data-sly-use.footer="./page-details.footer.html"*/-->
+  <!--/*           data-sly-call="${footer.variant @ componentProperties=componentProperties}"></sly>*/-->
+  <!--/*    </div>*/-->
+  <!--/*  </div>*/-->
 </template>

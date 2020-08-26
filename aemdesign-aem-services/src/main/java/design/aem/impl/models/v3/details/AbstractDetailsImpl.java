@@ -15,26 +15,65 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package design.aem.impl.models.v3.details;
 
-import design.aem.impl.models.AbstractComponentImpl;
+import design.aem.impl.models.ComponentImpl;
 import design.aem.models.v3.details.BaseDetails;
 import design.aem.utils.components.CommonUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.models.annotations.Default;
+import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
+import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractDetailsImpl extends AbstractComponentImpl implements BaseDetails {
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
+import static design.aem.utils.components.ComponentsUtil.*;
+
+public abstract class AbstractDetailsImpl extends ComponentImpl implements BaseDetails {
+    @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
+    @Default(booleanValues = false)
+    protected boolean hideTitle;
+
     @Override
-    public boolean isConfigured() {
-        return true;
+    protected Map<String, Function<Object, Object>> getPropertyDefaultsMap() {
+        Map<String, Function<Object, Object>> propertyDefaults = super.getPropertyDefaultsMap();
+
+        propertyDefaults.put(FIELD_TITLE, value ->
+            StringUtils.defaultIfEmpty((String) value, CommonUtil.getPageTitle(currentPage, resource)));
+
+        propertyDefaults.put(FIELD_TITLE_TAG_TYPE, value ->
+            StringUtils.defaultIfEmpty((String) value, DEFAULT_TITLE_LEVEL));
+
+        propertyDefaults.put(FIELD_DESCRIPTION, value ->
+            StringUtils.defaultIfEmpty((String) value, CommonUtil.getPageDescription(currentPage, properties)));
+
+        return propertyDefaults;
     }
 
     @Nullable
     @Override
     public String getTitle() {
-        return CommonUtil.getPageTitle(currentPage, resource);
+        return compileComponentMessage(FIELD_TITLE_FORMAT, getTitleFormat(), properties, slingScriptHelper);
+    }
+
+    protected String getTitleFormat() {
+        return (String) properties.getOrDefault(FIELD_TITLE_FORMAT, getFormatExpression(FIELD_TITLE));
+    }
+
+    @Override
+    public String getTitleLevel() {
+        return properties.get(FIELD_TITLE_TAG_TYPE, String.class);
+    }
+
+    @Override
+    public boolean hasTitle() {
+        return Boolean.FALSE.equals(hideTitle) && StringUtils.isNotEmpty(getTitle());
     }
 
     @Nullable
     @Override
     public String getDescription() {
-        return CommonUtil.getPageDescription(currentPage, properties);
+        return properties.get(FIELD_DESCRIPTION, String.class);
     }
 }

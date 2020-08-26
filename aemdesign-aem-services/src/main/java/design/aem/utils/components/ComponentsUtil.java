@@ -1480,7 +1480,7 @@ public class ComponentsUtil {
     public static String compileComponentMessage(
         String formatFieldName,
         String defaultFormat,
-        ComponentProperties componentProperties,
+        ValueMap componentProperties,
         SlingScriptHelper sling
     ) {
         if (componentProperties == null || sling == null) {
