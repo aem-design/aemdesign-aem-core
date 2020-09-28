@@ -141,6 +141,17 @@ This component has the following variants
 </table>
 
 
+# Template Usage
+
+Following is an example of HTL template that can be used as a layout source.
+
+```html
+<template data-sly-template.template="${@ componentProperties, component}">
+    <div class="test">
+		${componentProperties.title}
+    </div>
+</template>
+```
 
 
 <p></p>
