@@ -44,31 +44,33 @@ public class TagUtil {
         ContentAccess contentAccess = sling.getService(ContentAccess.class);
         if (contentAccess != null) {
             try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
+                if (adminResourceResolver != null) {
+                    TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
 
-                TagManager _adminTagManager = adminResourceResolver.adaptTo(TagManager.class);
+                    Tag jcrTag = getTag(tagPath, adminResourceResolver, _adminTagManager);
 
-                Tag jcrTag = getTag(tagPath, adminResourceResolver, _adminTagManager);
+                    if (jcrTag != null) {
+                        tagValue = jcrTag.getName();
 
-                if (jcrTag != null) {
-                    tagValue = jcrTag.getName();
+                        Resource jcrTagResource = jcrTag.adaptTo(Resource.class);
 
-                    Resource jcrTagResource = jcrTag.adaptTo(Resource.class);
+                        if (jcrTagResource != null) {
+                            ValueMap tagVM = jcrTagResource.getValueMap();
 
-                    if (jcrTagResource != null) {
-                        ValueMap tagVM = jcrTagResource.getValueMap();
-
-                        if (tagVM != null) {
-                            if (tagVM.containsKey(TAG_VALUE)) {
-                                tagValue = tagVM.get(TAG_VALUE, jcrTag.getName());
+                            if (tagVM != null) {
+                                if (tagVM.containsKey(TAG_VALUE)) {
+                                    tagValue = tagVM.get(TAG_VALUE, jcrTag.getName());
+                                }
                             }
+                        } else {
+                            LOGGER.error("getTagValueAsAdmin: could not convert tag to Resource, jcrTag={}", jcrTag);
                         }
                     } else {
-                        LOGGER.error("getTagValueAsAdmin: could not convert tag to Resource, jcrTag={}", jcrTag);
+                        LOGGER.error("getTagValueAsAdmin: Could not find tag path: {}", tagPath);
                     }
                 } else {
-                    LOGGER.error("getTagValueAsAdmin: Could not find tag path: {}", tagPath);
+                    LOGGER.error("getTagValueAsAdmin: Could not get adminResourceResolver: {}", adminResourceResolver);
                 }
-
             } catch (Exception ex) {
                 LOGGER.error("getTagValueAsAdmin: {}", ex);
                 //out.write( Throwables.getStackTraceAsString(ex) );
