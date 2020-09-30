@@ -57,7 +57,7 @@ public class TagUtilTest {
     Iterable<Resource> resourceIterator;
 
     @Before
-    public void before() {
+    public void before() throws Exception {
         initMocks(this);
     }
 
