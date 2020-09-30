@@ -7,8 +7,9 @@ import com.day.cq.dam.api.handler.AssetHandler;
 import com.day.cq.dam.api.metadata.ExtractedMetadata;
 import com.day.cq.dam.commons.handler.StandardImageHandler;
 import com.day.image.Layer;
+import com.luciad.imageio.webp.WebPImageReaderSpi;
+import com.luciad.imageio.webp.WebPImageWriterSpi;
 import com.luciad.imageio.webp.WebPReadParam;
-import design.aem.workflow.process.WebpImageGenerator;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.*;
 import org.slf4j.Logger;
@@ -16,9 +17,13 @@ import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
+import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageInputStream;
+import javax.imageio.stream.ImageOutputStream;
+import javax.imageio.stream.MemoryCacheImageOutputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -35,7 +40,7 @@ import java.io.InputStream;
 )})
 public class WebpAssetHandler extends StandardImageHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WebpImageGenerator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebpAssetHandler.class);
 
     public static final String CONTENT_MIMETYPE = "image/webp";
 
@@ -67,7 +72,7 @@ public class WebpAssetHandler extends StandardImageHandler {
         try {
             return this.dogetImage(rendition, maxDimension);
         } catch (Exception ex) {
-            LOGGER.error("getImage: Cannot read image from {}: {}", rendition.getPath(), ex.getMessage());
+            LOGGER.error("WebpAssetHandler.getImage: Cannot read image from {}: {}", rendition.getPath(), ex.getMessage());
             return null;
         }
     }
@@ -75,20 +80,25 @@ public class WebpAssetHandler extends StandardImageHandler {
     private BufferedImage dogetImage(Rendition rendition, Dimension maxDimension) throws Exception {
         InputStream stream = null;
 
+        LOGGER.warn("WebpAssetHandler.dogetImage {}", rendition.getPath());
+
         BufferedImage bufReturn = null;
         try {
             stream = rendition.getStream();
-            ImageInputStream original = ImageIO.createImageInputStream(stream);
 
-            // Obtain a WebP ImageReader instance
-            ImageReader reader = ImageIO.getImageReadersByMIMEType("image/webp").next();
+            //create webp readerspi
+            WebPImageReaderSpi readerspi = new WebPImageReaderSpi();
+            ImageReader reader = readerspi.createReaderInstance();
+
+            // Configure the input on the ImageReader
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageOutputStream outputStream = new MemoryCacheImageOutputStream(
+                byteArrayOutputStream);
+            reader.setInput(outputStream);
 
             // Configure decoding parameters
             WebPReadParam readParam = new WebPReadParam();
             readParam.setBypassFiltering(true);
-
-            // Configure the input on the ImageReader
-            reader.setInput(original);
 
             bufReturn = reader.read(0, readParam);
 
