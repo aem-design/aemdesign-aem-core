@@ -1,8 +1,5 @@
 <sly data-sly-use.component="design.aem.models.v2.widgets.Vue"
      data-sly-use.variant="${component.componentProperties.variantTemplate}">
-
-  <!--/* print component variant */-->
   <sly data-sly-call="${variant.variant @ componentProperties=component.componentProperties,
                                           componentHTML=component.componentHTML}"></sly>
-
 </sly>
