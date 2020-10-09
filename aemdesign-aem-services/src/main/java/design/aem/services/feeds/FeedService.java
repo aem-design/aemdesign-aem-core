@@ -1,4 +1,4 @@
-package design.aem.services.feed;
+package design.aem.services.feeds;
 
 import com.day.cq.wcm.api.PageManager;
 import design.aem.utils.components.ComponentsUtil;

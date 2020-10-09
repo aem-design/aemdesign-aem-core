@@ -1,4 +1,4 @@
-package design.aem.services.feed;
+package design.aem.services.feeds;
 
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.osgi.service.component.annotations.Component;
