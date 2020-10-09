@@ -28,7 +28,7 @@ public interface BaseDetails extends Component { // NOSONAR
      */
     @Nullable
     default String getTitle() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -41,8 +41,8 @@ public interface BaseDetails extends Component { // NOSONAR
     /**
      * Should the title be available to the page?
      */
-    default boolean hasTitle() {
-        return false;
+    default boolean isHasTitle() {
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -50,6 +50,34 @@ public interface BaseDetails extends Component { // NOSONAR
      */
     @Nullable
     default String getDescription() {
-        return null;
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Should the details component use a container wrapper?
+     */
+    default boolean isUseContainer() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Should the breadcrumb component be available to the author?
+     */
+    default boolean isShowBreadcrumb() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Should a new layout container be available to the author?
+     */
+    default boolean isShowParsys() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Does the layout container have authored content within it?
+     */
+    default boolean isParsysWithAuthoredContent() {
+        throw new UnsupportedOperationException();
     }
 }

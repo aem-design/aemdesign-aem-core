@@ -19,15 +19,16 @@ import design.aem.impl.models.ComponentImpl;
 import design.aem.models.v3.details.BaseDetails;
 import design.aem.utils.components.CommonUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import static design.aem.utils.components.CommonUtil.DEFAULT_PAR_NAME;
 import static design.aem.utils.components.ComponentsUtil.*;
 
 public abstract class AbstractDetailsImpl extends ComponentImpl implements BaseDetails {
@@ -48,6 +49,10 @@ public abstract class AbstractDetailsImpl extends ComponentImpl implements BaseD
         propertyDefaults.put(FIELD_DESCRIPTION, value ->
             StringUtils.defaultIfEmpty((String) value, CommonUtil.getPageDescription(currentPage, properties)));
 
+        propertyDefaults.put(FIELD_USE_CONTAINER, value -> value == null ? Boolean.TRUE : value);
+        propertyDefaults.put(FIELD_SHOW_BREADCRUMB, value -> value == null ? Boolean.FALSE : value);
+        propertyDefaults.put(FIELD_SHOW_PARSYS, value -> value == null ? Boolean.TRUE : value);
+
         return propertyDefaults;
     }
 
@@ -67,7 +72,7 @@ public abstract class AbstractDetailsImpl extends ComponentImpl implements BaseD
     }
 
     @Override
-    public boolean hasTitle() {
+    public boolean isHasTitle() {
         return Boolean.FALSE.equals(hideTitle) && StringUtils.isNotEmpty(getTitle());
     }
 
@@ -75,5 +80,25 @@ public abstract class AbstractDetailsImpl extends ComponentImpl implements BaseD
     @Override
     public String getDescription() {
         return properties.get(FIELD_DESCRIPTION, String.class);
+    }
+
+    @Override
+    public boolean isUseContainer() {
+        return Boolean.TRUE.equals(properties.get(FIELD_USE_CONTAINER));
+    }
+
+    @Override
+    public boolean isShowBreadcrumb() {
+        return Boolean.TRUE.equals(properties.get(FIELD_SHOW_BREADCRUMB));
+    }
+
+    @Override
+    public boolean isShowParsys() {
+        return Boolean.TRUE.equals(properties.get(FIELD_SHOW_PARSYS));
+    }
+
+    @Override
+    public boolean isParsysWithAuthoredContent() {
+        return resourceChildHasChildren(DEFAULT_PAR_NAME);
     }
 }
