@@ -16,12 +16,12 @@
 
 <template data-sly-template.variant>
   <div data-sly-use.component="design.aem.models.v3.details.PageDetails"
+       data-sly-use.templateSupport="design.aem.utils.htl.TemplateSupport"
        data-sly-unwrap="${!component.useContainer}"
        class="container">
-    <!--/* TODO: Get 'resourceType' from Sling class so it uses a proxy component when extended */-->
     <sly data-sly-test="${component.showBreadcrumb}"
          data-sly-set.breadcrumbClassName="c-${component.componentName}__breadcrumb"
-         data-sly-resource="${'./breadcrumb' @ resourceType='aemdesign/components/layout/breadcrumb',
+         data-sly-resource="${'./breadcrumb' @ resourceType=templateSupport.componentPath['breadcrumb'],
                                                cssClassName=breadcrumbClassName,
                                                decorationTagName='div'}"></sly>
 
@@ -38,9 +38,9 @@
     </div>
 
     <sly data-sly-test="${component.showParsys && (wcmmode.edit || component.parsysWithAuthoredContent)}">
-      <!--/* TODO: Get 'resourceType' from Sling class so it uses a proxy component when extended */-->
       <sly data-sly-set.parsysClassName="c-${component.componentName}__parsys"
            data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container',
+           data-sly-resource="${'./par' @ resourceType=templateSupport.componentPath['container'],
                                           cssClassName=parsysClassName,
                                           decorationTagName='div'}"></sly>
     </sly>
