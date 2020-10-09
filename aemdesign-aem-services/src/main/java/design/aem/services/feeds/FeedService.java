@@ -59,6 +59,15 @@ public class FeedService extends SlingSafeMethodsServlet {
 //                } else {
 //                    handleResponse(slingResponse);
 //                }
+
+                boolean feedEnabled = Boolean.TRUE.equals(resourceNode.getProperty("feedEnabled").getBoolean());
+                String feedType = resourceNode.getProperty("feedType").getString();
+
+                if (!feedEnabled || !feedMatchesRequest(feedType)) {
+                    slingResponse.sendError(501, "This feed doesn't appear to be enabled!");
+                } else {
+                    handleResponse(slingResponse);
+                }
             } else {
                 slingResponse.sendError(404, "Something unknown appears to have gone wrong while initialising the feed.");
             }
