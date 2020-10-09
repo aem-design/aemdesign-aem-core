@@ -129,9 +129,6 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
     protected static final String ARG_CONTENT_FRAGMENT_ATTRIBUTE_NAME = "contentFragmentAttributeName";
 
     @Reference
-    private WorkflowHelper workflowHelper;
-
-    @Reference
     private WorkflowPackageManager workflowPackageManager;
 
     @Reference
@@ -153,18 +150,17 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
 
     @Override
     public final void execute(WorkItem workItem, WorkflowSession workflowSession, MetaDataMap metaDataMap) throws WorkflowException {
-        ResourceResolver resourceResolver = null;
         final long start = System.currentTimeMillis();
 
         try {
-            resourceResolver = workflowHelper.getResourceResolver(workflowSession);
+            final Session session = workflowSession.adaptTo(Session.class);
+            final ResourceResolver resourceResolver = workflowSession.adaptTo(ResourceResolver.class);
             final String originalPayload = (String) workItem.getWorkflowData().getPayload();
             final List<String> payloads = workflowPackageManager.getPaths(resourceResolver, originalPayload);
             final ProcessArgs processArgs = new ProcessArgs(metaDataMap, config);
             final AtomicInteger count = new AtomicInteger(0);
             final AtomicInteger failCount = new AtomicInteger(0);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-            final Session session = resourceResolver.adaptTo(Session.class);
 
             // Anonymous inner class to facilitate counting of processed payloads
             final ResourceRunnable generatorRunnable = new ResourceRunnable() {
