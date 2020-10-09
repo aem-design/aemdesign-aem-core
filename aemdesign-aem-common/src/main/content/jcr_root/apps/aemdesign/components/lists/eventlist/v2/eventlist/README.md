@@ -14,7 +14,7 @@ Used to create list of events
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/eventlist/v2/eventlist](/content/aemdesign-showcase/en/component/lists/newslist.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/eventlist/v2/eventlist](/crx/de/#/apps/aemdesign/components/lists/eventlist/v2/eventlist)
-* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/eventlist/v2/eventlist)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/lists/eventlist/v2/eventlist)
 * **Readme**: [/apps/aemdesign/components/lists/eventlist/v2/eventlist](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/eventlist/v2/eventlist)
 
 ## Features

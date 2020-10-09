@@ -14,7 +14,7 @@ Used for creating list of News Articles.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/newslist/v2/newslist](/content/aemdesign-showcase/en/component/lists/newslist.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/newslist/v2/newslist](/crx/de/#/apps/aemdesign/components/lists/newslist/v2/newslist)
-* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/newslist/v2/newslist)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/lists/newslist/v2/newslist)
 * **Readme**: [/apps/aemdesign/components/lists/newslist/v2/newslist](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/newslist/v2/newslist)
 
 ## Features

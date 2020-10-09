@@ -14,7 +14,7 @@ User for creating Previous and Next navigation on a page based on specified sear
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/listnav/v2/listnav](/content/aemdesign-showcase/en/component/lists/listnav.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/listnav/v2/listnav](/crx/de/#/apps/aemdesign/components/lists/listnav/v2/listnav)
-* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/listnav/v2/listnav)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/lists/listnav/v2/listnav)
 * **Readme**: [/apps/aemdesign/components/lists/listnav/v2/listnav](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/listnav/v2/listnav)
 
 ## Features
