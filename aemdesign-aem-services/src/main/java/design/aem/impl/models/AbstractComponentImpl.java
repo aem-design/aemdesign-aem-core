@@ -185,4 +185,16 @@ public abstract class AbstractComponentImpl implements Component {
 
         return componentId;
     }
+
+    /**
+     * Determine if the given {@code childNode} resource exists and has children.
+     *
+     * @param childNode name of the child node
+     * @return 'true' with children and 'false' without
+     */
+    protected final boolean resourceChildHasChildren(String childNode) {
+        Resource componentResource = resource.getChild(childNode);
+
+        return componentResource != null && componentResource.hasChildren();
+    }
 }
