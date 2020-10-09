@@ -23,7 +23,6 @@ import com.day.cq.wcm.api.designer.Design;
 import com.day.cq.wcm.api.designer.Style;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import design.aem.components.AttrBuilder;
-import design.aem.components.ComponentProperties;
 import design.aem.models.Component;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
