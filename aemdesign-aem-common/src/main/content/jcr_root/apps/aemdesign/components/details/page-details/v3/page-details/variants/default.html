@@ -31,7 +31,7 @@
              data-sly-test="${component.hasTitle}"
              class="c-${component.componentName}__title">${component.title}</title>
 
-      <div data-sly-test="${component.description.length}"
+      <div data-sly-test="${component.description && !component.description.empty}"
            class="c-${component.componentName}__description">
         ${component.description @ context='html'}
       </div>
@@ -39,7 +39,6 @@
 
     <sly data-sly-test="${component.showParsys && (wcmmode.edit || component.parsysWithAuthoredContent)}">
       <sly data-sly-set.parsysClassName="c-${component.componentName}__parsys"
-           data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container',
            data-sly-resource="${'./par' @ resourceType=templateSupport.componentPath['container'],
                                           cssClassName=parsysClassName,
                                           decorationTagName='div'}"></sly>

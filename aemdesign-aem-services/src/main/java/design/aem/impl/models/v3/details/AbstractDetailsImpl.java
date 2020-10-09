@@ -79,7 +79,9 @@ public abstract class AbstractDetailsImpl extends ComponentImpl implements BaseD
     @Nullable
     @Override
     public String getDescription() {
-        return properties.get(FIELD_DESCRIPTION, String.class);
+        String description = properties.get(FIELD_DESCRIPTION, String.class);
+
+        return description != null ? description.trim() : null;
     }
 
     @Override
