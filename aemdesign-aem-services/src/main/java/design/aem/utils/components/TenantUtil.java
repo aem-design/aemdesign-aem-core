@@ -1,5 +1,8 @@
 package design.aem.utils.components;
 
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.tenant.Tenant;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -7,10 +10,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_TENANT;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class TenantUtil {
-
     // System config located
     // http://localhost:4502/system/console/configMgr/org.apache.sling.tenant.internal.TenantProviderImpl
     @SuppressWarnings({"squid:S4784"})
@@ -19,25 +23,6 @@ public class TenantUtil {
         Pattern.compile("(?:experience-fragments/)([^/]+)"),
         Pattern.compile("^/content/([^/]+)"),
         Pattern.compile("^/conf/([^/]+)/*")
-//            Pattern.compile("/apps/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/content/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/content/dam/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/content/experience-fragments/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/conf/aemdesign/([^/-]+)/*"), //match all tenant and -default
-//            Pattern.compile("/content/cq:tags/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/etc/clientlibs/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/apps/settings/wcm/design/([^/]+)/*"),
-//            Pattern.compile("/etc/blueprints/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/etc/clientcontext/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/etc/segmentation/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/conf/global/settings/workflows/models/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/conf/global/settings/workflows/launcher/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/conf/global/settings/workflows/scripts/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/conf/global/settings/workflows/packages/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/home/users/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/home/groups/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/var/aemdesign/([^/]+)/*"),
-//            Pattern.compile("/content/campaigns/aemdesign/([^/]+)/*")
     );
 
     public static String resolveTenantIdFromPath(String path) {
@@ -50,6 +35,7 @@ public class TenantUtil {
         while (i$.hasNext()) {
             Pattern pathPattern = (Pattern) i$.next();
             Matcher matcher = pathPattern.matcher(path);
+
             if (matcher.find() && matcher.groupCount() >= 1) {
                 String tenantId = matcher.group(1);
                 return tenantId;
@@ -59,5 +45,23 @@ public class TenantUtil {
         return null;
     }
 
+    public static String resolveTenantWithTenantResolver(ResourceResolver resourceResolver, Resource resource) {
+        Tenant tenant = resourceResolver.adaptTo(Tenant.class);
 
+        if (tenant == null) {
+            tenant = resource.adaptTo(Tenant.class);
+
+            if (tenant != null) {
+                return tenant.getId();
+            }
+
+            String finalTenantId = resolveTenantIdFromPath(resource.getPath());
+
+            if (isNotEmpty(finalTenantId)) {
+                return finalTenantId;
+            }
+        }
+
+        return DEFAULT_TENANT;
+    }
 }
