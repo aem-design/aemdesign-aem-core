@@ -16,39 +16,33 @@
 
 <template data-sly-template.variant>
   <div data-sly-use.component="design.aem.models.v3.details.PageDetails"
+       data-sly-unwrap="${!component.useContainer}"
        class="container">
-    <div class="c-${component.componentName}__callout">
+    <!--/* TODO: Get 'resourceType' from Sling class so it uses a proxy component when extended */-->
+    <sly data-sly-test="${component.showBreadcrumb}"
+         data-sly-set.breadcrumbClassName="c-${component.componentName}__breadcrumb"
+         data-sly-resource="${'./breadcrumb' @ resourceType='aemdesign/components/layout/breadcrumb',
+                                               cssClassName=breadcrumbClassName,
+                                               decorationTagName='div'}"></sly>
+
+    <div data-sly-unwrap="${!component.hasTitle && !component.description.length}"
+         class="c-${component.componentName}__callout">
       <title data-sly-element="${component.titleLevel}"
              data-sly-test="${component.hasTitle}"
              class="c-${component.componentName}__title">${component.title}</title>
 
-      <div class="c-${component.componentName}__description"
-           data-sly-test="${!component.description.empty}">
+      <div data-sly-test="${component.description.length}"
+           class="c-${component.componentName}__description">
         ${component.description @ context='html'}
       </div>
-
-      <!--/*        <title class="title"*/-->
-      <!--/*               data-sly-element="${componentProperties.titleType}"*/-->
-      <!--/*               data-sly-attribute.id="${componentProperties.ariaLabelledBy}"*/-->
-      <!--/*               data-sly-test="${!componentProperties.hideTitle}">*/-->
-      <!--/*          ${componentProperties.titleFormatted @ context = 'unsafe'}*/-->
-      <!--/*        </title>*/-->
-
-      <!--/*        <div class="description"*/-->
-      <!--/*             data-sly-test="${!componentProperties.hideDescription && componentProperties.description}">*/-->
-      <!--/*          ${componentProperties.description @ context = 'unsafe'}*/-->
-      <!--/*        </div>*/-->
     </div>
+
+    <sly data-sly-test="${component.showParsys && (wcmmode.edit || component.parsysWithAuthoredContent)}">
+      <!--/* TODO: Get 'resourceType' from Sling class so it uses a proxy component when extended */-->
+      <sly data-sly-set.parsysClassName="c-${component.componentName}__parsys"
+           data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container',
+                                          cssClassName=parsysClassName,
+                                          decorationTagName='div'}"></sly>
+    </sly>
   </div>
-
-  <!--/*  <div style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"*/-->
-  <!--/*       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}">*/-->
-  <!--/*    <div class="container" data-sly-unwrap="${!componentProperties.useContainer}">*/-->
-  <!--/*      <sly data-sly-use.header="./page-details.header.html"*/-->
-  <!--/*           data-sly-call="${header.variant @ componentProperties=componentProperties}"></sly>*/-->
-
-  <!--/*      <sly data-sly-use.footer="./page-details.footer.html"*/-->
-  <!--/*           data-sly-call="${footer.variant @ componentProperties=componentProperties}"></sly>*/-->
-  <!--/*    </div>*/-->
-  <!--/*  </div>*/-->
 </template>

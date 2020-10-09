@@ -14,7 +14,7 @@ Component for displaying the cq:tags property of the page
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/pagetags](/content/aemdesign-showcase/en/component/content/pagetags.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/content/pagetags/v2/pagetags](/crx/de/#/apps/aemdesign/components/content/pagetags/v2/pagetags)
-* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/pagetags/v2/pagetags)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/content/pagetags/v2/pagetags)
 * **Readme**: [/apps/aemdesign/components/content/pagetags/v2/pagetags](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/pagetags/v2/pagetags)
 
 # Authoring

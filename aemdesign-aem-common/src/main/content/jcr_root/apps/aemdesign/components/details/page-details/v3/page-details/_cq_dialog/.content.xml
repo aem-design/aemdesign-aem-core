@@ -19,266 +19,310 @@
           xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Page Details"
-          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/page-details/v2/page-details"
-          sling:resourceType="cq/gui/components/authoring/dialog"
-          extraClientlibs="[aem.design.components.author.pagedetails,aem.design.components.coral.widgets.form.assetoptions]">
+          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/page-details/v3/page-details"
+          sling:resourceType="cq/gui/components/authoring/dialog">
     <content
-        granite:id="dialog-pagedetails"
         jcr:primaryType="nt:unstructured"
         sling:resourceType="granite/ui/components/foundation/container">
-        <layout
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
-            type="nav"/>
-
         <items jcr:primaryType="nt:unstructured">
-            <pageDetails
+            <tabs
                 jcr:primaryType="nt:unstructured"
-                jcr:title="Page Details"
-                path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-            <layoutTab
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Layout"
-                sling:resourceType="granite/ui/components/foundation/section">
-                <layout jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                        margin="{Boolean}false"/>
-
+                sling:resourceType="granite/ui/components/coral/foundation/tabs"
+                size="L">
                 <items jcr:primaryType="nt:unstructured">
-                    <column
+                    <detailsBasic
                         jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:title="Details"
+                        sling:resourceType="granite/ui/components/coral/foundation/include"
+                        path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab"
+                        resourceType="granite/ui/components/foundation/section"/>
+
+                    <detailsConfiguration
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Configuration"
+                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                        margin="{Boolean}true">
                         <items jcr:primaryType="nt:unstructured">
-                            <variant
+                            <columns
                                 jcr:primaryType="nt:unstructured"
-                                jcr:title="Layout"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+                                margin="{Boolean}true">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <variant
+                                    <detailsConfiguration
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        emptyOption="{Boolean}true"
-                                        fieldLabel="Variant"
-                                        name="./variant"
-                                        value="">
+                                        sling:resourceType="granite/ui/components/foundation/container">
                                         <items jcr:primaryType="nt:unstructured">
-                                            <default
+                                            <presentation
                                                 jcr:primaryType="nt:unstructured"
-                                                text="Default"
-                                                value=""/>
-                                            <hidden
-                                                jcr:primaryType="nt:unstructured"
-                                                text="Hidden"
-                                                value="hidden"/>
+                                                jcr:title="Presentation"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <variant
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                                        emptyOption="{Boolean}true"
+                                                        fieldLabel="Variant"
+                                                        name="./variant"
+                                                        value="">
+                                                        <items jcr:primaryType="nt:unstructured">
+                                                            <default
+                                                                jcr:primaryType="nt:unstructured"
+                                                                text="Default"
+                                                                value=""/>
+                                                            <hidden
+                                                                jcr:primaryType="nt:unstructured"
+                                                                text="Hidden"
+                                                                value="hidden"/>
+                                                        </items>
+                                                    </variant>
+                                                </items>
+                                            </presentation>
                                         </items>
-                                    </variant>
+                                    </detailsConfiguration>
+
+                                    <structureConfiguration
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/container">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <structure
+                                                jcr:primaryType="nt:unstructured"
+                                                jcr:title="Structure"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <showBreadcrumb
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                                        fieldDescription="Toggle the breadcrumbs component off/on."
+                                                        fieldLabel="Show Breadcrumbs"
+                                                        name="./showBreadcrumb"
+                                                        emptyOption="{Boolean}true"
+                                                        value="">
+                                                        <datasource
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                            variant="valuelist"
+                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                                    </showBreadcrumb>
+                                                    <showBreadcrumbTypeHint
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                        ignoreData="{Boolean}true"
+                                                        name="./showBreadcrumb@TypeHint"
+                                                        value="Boolean"/>
+
+                                                    <showToolbar
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                                        fieldDescription="Toggle the toolbar component off/on."
+                                                        fieldLabel="Show Toolbar"
+                                                        name="./showToolbar"
+                                                        emptyOption="{Boolean}true"
+                                                        value="">
+                                                        <datasource
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                            variant="valuelist"
+                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                                    </showToolbar>
+                                                    <showToolbarTypeHint
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                        ignoreData="{Boolean}true"
+                                                        name="./showToolbar@TypeHint"
+                                                        value="Boolean"/>
+
+                                                    <showPageDate
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                                        fieldDescription="Toggle the page date component off/on."
+                                                        fieldLabel="Show Page Date"
+                                                        name="./showPageDate"
+                                                        emptyOption="{Boolean}true"
+                                                        value="">
+                                                        <datasource
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                            variant="valuelist"
+                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                                    </showPageDate>
+                                                    <showPageDateTypeHint
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                        ignoreData="{Boolean}true"
+                                                        name="./showPageDate@TypeHint"
+                                                        value="Boolean"/>
+
+                                                    <showParsys
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                                        fieldDescription="Show a parsys component to author additional content"
+                                                        fieldLabel="Show Parsys"
+                                                        name="./showParsys"
+                                                        emptyOption="{Boolean}true"
+                                                        value="">
+                                                        <datasource
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                            variant="valuelist"
+                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                                    </showParsys>
+                                                    <showParsysTypeHint
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                        ignoreData="{Boolean}true"
+                                                        name="./showParsys@TypeHint"
+                                                        value="Boolean"/>
+
+                                                    <hideTitle
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                                        fieldDescription="Prevent the title from appearing on the page."
+                                                        fieldLabel="Hide Title"
+                                                        name="./hideTitle"
+                                                        emptyOption="{Boolean}true"
+                                                        value="">
+                                                        <datasource
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                            variant="valuelist"
+                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                                    </hideTitle>
+                                                    <hideTitleTypeHint
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                        ignoreData="{Boolean}true"
+                                                        name="./hideTitle@TypeHint"
+                                                        value="Boolean"/>
+
+                                                    <hideDescription
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                                        fieldDescription="Prevent the description from appearing on the page."
+                                                        fieldLabel="Hide Description"
+                                                        name="./hideDescription"
+                                                        emptyOption="{Boolean}true"
+                                                        value="">
+                                                        <datasource
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                            variant="valuelist"
+                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                                    </hideDescription>
+                                                    <hideDescriptionTypeHint
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                        ignoreData="{Boolean}true"
+                                                        name="./hideDescription@TypeHint"
+                                                        value="Boolean"/>
+                                                </items>
+                                            </structure>
+                                        </items>
+                                    </structureConfiguration>
+
+                                    <elementConfiguration
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/container">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <titleConfiguration
+                                                jcr:primaryType="nt:unstructured"
+                                                jcr:title="Title Configuration"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <titleType
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                                        fieldDescription="Which type of heading should be used for the title?"
+                                                        fieldLabel="Title Type"
+                                                        name="./titleType"
+                                                        emptyOption="{Boolean}true"
+                                                        value="">
+                                                        <datasource
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                            variant="valuelist"
+                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/heading"/>
+                                                    </titleType>
+
+                                                    <titleFormat
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                                        fieldDescription="Define a custom title formatter that generates custom output."
+                                                        fieldLabel="Title Format"
+                                                        name="./titleFormat"
+                                                        emptyOption="{Boolean}true"
+                                                        value="">
+                                                        <datasource
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                            variant="tagidvalue"
+                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/page-details/format/title"/>
+                                                    </titleFormat>
+                                                </items>
+                                            </titleConfiguration>
+                                        </items>
+                                    </elementConfiguration>
                                 </items>
-                            </variant>
-
-                            <displayOptions
-                                jcr:primaryType="nt:unstructured"
-                                jcr:title="Display Options"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <showBreadcrumb
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="Toggle the breadcrumbs component off/on."
-                                        fieldLabel="Show Breadcrumbs"
-                                        name="./showBreadcrumb"
-                                        emptyOption="{Boolean}true"
-                                        value="">
-                                        <datasource
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </showBreadcrumb>
-
-                                    <showToolbar
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="Toggle the toolbar component off/on."
-                                        fieldLabel="Show Toolbar"
-                                        name="./showToolbar"
-                                        emptyOption="{Boolean}true"
-                                        value="">
-                                        <datasource
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </showToolbar>
-
-                                    <showPageDate
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="Toggle the page date component off/on."
-                                        fieldLabel="Show Page Date"
-                                        name="./showPageDate"
-                                        emptyOption="{Boolean}true"
-                                        value="">
-                                        <datasource
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </showPageDate>
-
-                                    <showParsys
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="Show a parsys component to author additional content"
-                                        fieldLabel="Show Parsys"
-                                        name="./showParsys"
-                                        emptyOption="{Boolean}true"
-                                        value="">
-                                        <datasource
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </showParsys>
-
-                                    <hideTitle
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="Prevent the title from appearing on the page."
-                                        fieldLabel="Hide Title"
-                                        name="./hideTitle"
-                                        emptyOption="{Boolean}false"
-                                        value="">
-                                        <datasource
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </hideTitle>
-
-                                    <hideDescription
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="Prevent the description from appearing on the page."
-                                        fieldLabel="Hide Description"
-                                        name="./hideDescription"
-                                        emptyOption="{Boolean}false"
-                                        value="">
-                                        <datasource
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </hideDescription>
-                                </items>
-                            </displayOptions>
-
-                            <titleFormat
-                                jcr:primaryType="nt:unstructured"
-                                jcr:title="Title Format"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <titleType
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="Which type of heading should be used for the title?"
-                                        fieldLabel="Title Type"
-                                        name="./titleType"
-                                        emptyOption="{Boolean}true"
-                                        value="">
-                                        <datasource
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/heading"/>
-                                    </titleType>
-
-                                    <titleFormat
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="Define a custom title formatter that generates custom output."
-                                        fieldLabel="Title Format"
-                                        name="./titleFormat"
-                                        emptyOption="{Boolean}true"
-                                        value="">
-                                        <datasource
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            variant="tagidvalue"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/page-details/format/title"/>
-                                    </titleFormat>
-                                </items>
-                            </titleFormat>
+                            </columns>
                         </items>
-                    </column>
+                    </detailsConfiguration>
+
+                    <imageBackground
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Background Image"
+                        sling:resourceType="granite/ui/components/coral/foundation/include"
+                        path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageBackgroundTab"
+                        resourceType="granite/ui/components/foundation/section"/>
+
+                    <thumbnailImage
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Thumbnail"
+                        sling:resourceType="granite/ui/components/coral/foundation/include"
+                        path="/apps/aemdesign/global/dialog/touch/asset/content/items/thumbnailImageTab"
+                        resourceType="granite/ui/components/foundation/section"/>
+
+                    <secondaryImage
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Secondary Thumbnail"
+                        sling:resourceType="granite/ui/components/coral/foundation/include"
+                        path="/apps/aemdesign/global/dialog/touch/asset/content/items/secondaryImageTab"
+                        resourceType="granite/ui/components/foundation/section"/>
+
+                    <badgeConfig
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Badge Config"
+                        sling:resourceType="granite/ui/components/coral/foundation/include"
+                        path="/apps/aemdesign/global/dialog/touch/badge/content/items/tabs/items/badgeConfigTab"
+                        resourceType="granite/ui/components/foundation/section"/>
+
+                    <style
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Style"
+                        sling:resourceType="granite/ui/components/coral/foundation/include"
+                        path="/apps/aemdesign/global/dialog/touch/style/content/items/tabs/items/styleTab"
+                        resourceType="granite/ui/components/foundation/section"/>
+
+                    <accessibility
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Accessibility"
+                        sling:resourceType="granite/ui/components/coral/foundation/include"
+                        path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/tabs/items/accessibilityTab"
+                        resourceType="granite/ui/components/foundation/section"/>
+
+                    <pageMetadata
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Page Metadata"
+                        sling:resourceType="granite/ui/components/coral/foundation/include"
+                        path="/apps/aemdesign/global/dialog/touch/pageMetadata/content/items/pageMetadataTab"
+                        resourceType="granite/ui/components/foundation/section"/>
+
+                    <analytics
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Analytics"
+                        sling:resourceType="granite/ui/components/coral/foundation/include"
+                        path="/apps/aemdesign/global/dialog/touch/analytics/content/items/tabs/items/analyticsTab"
+                        resourceType="granite/ui/components/foundation/section"/>
                 </items>
-            </layoutTab>
-
-            <badgeConfig
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Badge Config"
-                path="/apps/aemdesign/global/dialog/touch/badge/content/items/tabs/items/badgeConfigTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-            <imageBackground
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Background Image"
-                path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageBackgroundTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-            <thumbnailImage
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Thumbnail"
-                path="/apps/aemdesign/global/dialog/touch/asset/content/items/thumbnailImageTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-            <secondaryImage
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Secondary Thumbnail"
-                path="/apps/aemdesign/global/dialog/touch/asset/content/items/secondaryImageTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-            <style
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Style"
-                path="/apps/aemdesign/global/dialog/touch/style/content/items/tabs/items/styleTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-            <accessibility
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Accessibility"
-                path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/tabs/items/accessibilityTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-            <analytics
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Analytics"
-                path="/apps/aemdesign/global/dialog/touch/analytics/content/items/tabs/items/analyticsTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-            <pageAnalytics
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Page Analytics"
-                path="/apps/aemdesign/global/dialog/touch/pageAnalytics/content/items/pageAnalyticsTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-            <pageMetadata
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Page Metadata"
-                path="/apps/aemdesign/global/dialog/touch/pageMetadata/content/items/pageMetadataTab"
-                resourceType="granite/ui/components/foundation/section"
-                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            </tabs>
         </items>
     </content>
-
 </jcr:root>

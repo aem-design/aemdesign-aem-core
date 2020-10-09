@@ -16,7 +16,7 @@
 
 <div data-sly-use.component="design.aem.models.Component"
      data-sly-use.shared="/apps/aemdesign/components/common/shared.html"
-     data-sly-test.configured="${component.configured && !component.badgeRequest}"
+     data-sly-test="${component.configured && !component.badgeRequest && component.variant != 'hidden'}"
      data-sly-attribute="${component.attributes.attributes @ context='unsafe'}"
      class="c-${component.componentName} c-${component.componentName}--${component.variant}"
      id="${component.componentId}"
@@ -29,4 +29,4 @@
   <!-- Badge request: ${component.badgeTemplate} -->
 </sly>
 
-<sly data-sly-call="${shared.placeholder @ misconfigured=!configured}"></sly>
+<sly data-sly-call="${shared.placeholder @ misconfigured=!component.configured}"></sly>

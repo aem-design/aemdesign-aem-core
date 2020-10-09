@@ -14,7 +14,7 @@ Component for displaying the jcr:title property of the page
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/pagetitle](/content/aemdesign-showcase/en/component/content/pagetitle.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/content/pagetitle/v2/pagetitle](/crx/de/#/apps/aemdesign/components/content/pagetitle/v2/pagetitle)
-* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/pagetitle/v2/pagetitle)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/content/pagetitle/v2/pagetitle)
 * **Readme**: [/apps/aemdesign/components/content/pagetitle/v2/pagetitle](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/pagetitle/v2/pagetitle)
 
 # Authoring
