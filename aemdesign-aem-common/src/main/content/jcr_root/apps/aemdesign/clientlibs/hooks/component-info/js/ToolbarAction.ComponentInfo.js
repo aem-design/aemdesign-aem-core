@@ -103,6 +103,10 @@
    * @return {string}
    */
   function encodeHTMLEntities(input) {
+    if (typeof input !== 'string') {
+      return input
+    }
+
     return input.replace(/[\u00A0-\u9999<>&]/gim, (char) => `&#${char.charCodeAt(0)};`)
   }
 
