@@ -96,7 +96,7 @@
                 </items>
             </configurationTab>
 
-            <analytics
+            <analyticsTab
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Analytics"
                 sling:resourceType="granite/ui/components/foundation/section">

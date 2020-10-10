@@ -96,13 +96,14 @@
                 </items>
             </configurationTab>
 
-            <analytics
+            <analyticsTab
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Analytics"
                 sling:resourceType="granite/ui/components/foundation/section">
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+
                 <items jcr:primaryType="nt:unstructured">
                     <column
                         granite:class="coral-RichText-FixedColumn-column"

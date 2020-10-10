@@ -182,7 +182,7 @@
                     </linkRight>
 
 
-                    <imageBackground
+                    <imageBackgroundTab
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Background Image"
                         sling:resourceType="granite/ui/components/coral/foundation/container"

@@ -90,7 +90,7 @@
                         </items>
                     </layout>
 
-                    <badgeConfig
+                    <badgeConfigTab
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Badge Config"
                         sling:resourceType="granite/ui/components/coral/foundation/container"

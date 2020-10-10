@@ -88,7 +88,7 @@
                         </items>
                     </layout>
 
-                    <badgeConfig
+                    <badgeConfigTab
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Badge Config"
                         sling:resourceType="granite/ui/components/coral/foundation/container"
@@ -165,7 +165,7 @@
                         </items>
                     </badgeConfigTab>
 
-                    <secondaryImage
+                    <secondaryImageTab
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Secondary Image"
                         sling:resourceType="granite/ui/components/coral/foundation/container"
@@ -195,7 +195,7 @@
                         </items>
                     </secondaryImageTab>
 
-                    <imageBackground
+                    <imageBackgroundTab
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Background Image"
                         sling:resourceType="granite/ui/components/coral/foundation/container"
