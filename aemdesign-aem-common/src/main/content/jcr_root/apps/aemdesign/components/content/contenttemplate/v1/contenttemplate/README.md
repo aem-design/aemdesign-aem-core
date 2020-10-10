@@ -14,7 +14,7 @@ Component for using a template to display component content.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/content/contenttemplate](/content/aemdesign-showcase/en/component/content/contenttemplate.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/content/contenttemplate/v2/contenttemplate](/crx/de/#/apps/aemdesign/components/content/contenttemplate/v2/contenttemplate)
-* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/content/contenttemplate/v2/contenttemplate)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/content/contenttemplate/v2/contenttemplate)
 * **Readme**: [/apps/aemdesign/components/content/contenttemplate/v2/contenttemplate](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/contenttemplate/v2/contenttemplate)
 
 # Authoring

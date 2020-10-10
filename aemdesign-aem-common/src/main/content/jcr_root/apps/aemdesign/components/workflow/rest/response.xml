@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    jcr:primaryType="cq:Panel"
-    title="Response">
+          jcr:primaryType="cq:Panel"
+          title="Response">
     <items jcr:primaryType="cq:WidgetCollection">
         <arguments
             jcr:primaryType="cq:Widget"
@@ -11,64 +11,64 @@
             xtype="dialogfieldset">
             <items jcr:primaryType="cq:WidgetCollection">
                 <saveResponse
-                        jcr:primaryType="cq:Widget"
-                        defaultValue=""
-                        fieldDescription="Default is NO"
-                        fieldLabel="Save response payload to workflow"
-                        allowBlank="true"
-                        name="./metaData/saveResponse"
-                        type="select"
-                        xtype="selection">
+                    jcr:primaryType="cq:Widget"
+                    defaultValue=""
+                    fieldDescription="Default is NO"
+                    fieldLabel="Save response payload to workflow"
+                    allowBlank="true"
+                    name="./metaData/saveResponse"
+                    type="select"
+                    xtype="selection">
                     <options jcr:primaryType="cq:WidgetCollection">
                         <default
-                                jcr:primaryType="nt:unstructured"
-                                text="Default"
-                                value=""/>
+                            jcr:primaryType="nt:unstructured"
+                            text="Default"
+                            value=""/>
                         <yes
-                                jcr:primaryType="nt:unstructured"
-                                text="Yes"
-                                value="true"/>
+                            jcr:primaryType="nt:unstructured"
+                            text="Yes"
+                            value="true"/>
                         <no
-                                jcr:primaryType="nt:unstructured"
-                                text="No"
-                                value="false"/>
+                            jcr:primaryType="nt:unstructured"
+                            text="No"
+                            value="false"/>
                     </options>
                 </saveResponse>
                 <responseHeaders
-                        jcr:primaryType="cq:Widget"
-                        allowBlank="true"
-                        fieldDescription="Grab following headers from Response and save them in Metadata {Metadata Name}={Header Name}"
-                        fieldLabel="Response Headers"
-                        name="./metaData/responseHeaders"
-                        xtype="multifield">
+                    jcr:primaryType="cq:Widget"
+                    allowBlank="true"
+                    fieldDescription="Grab following headers from Response and save them in Metadata {Metadata Name}={Header Name}"
+                    fieldLabel="Response Headers"
+                    name="./metaData/responseHeaders"
+                    xtype="multifield">
                 </responseHeaders>
                 <responseFields
-                        jcr:primaryType="cq:Widget"
-                        allowBlank="true"
-                        fieldDescription="Filter out following fields from response and save them in Metadata"
-                        fieldLabel="Response Fields"
-                        width="250"
-                        name="./metaData/responseFields"
-                        xtype="multifield">
+                    jcr:primaryType="cq:Widget"
+                    allowBlank="true"
+                    fieldDescription="Filter out following fields from response and save them in Metadata"
+                    fieldLabel="Response Fields"
+                    width="250"
+                    name="./metaData/responseFields"
+                    xtype="multifield">
                     <fieldConfig
-                            jcr:primaryType="cq:Widget"
-                            xtype="multifieldpanel">
+                        jcr:primaryType="cq:Widget"
+                        xtype="multifieldpanel">
                         <items jcr:primaryType="cq:WidgetCollection">
                             <metadataname
-                                    jcr:primaryType="cq:Widget"
-                                    hideLabel="false"
-                                    fieldLabel="Meta Data Name"
-                                    fieldDescription="this will be the output metadata field for the workflow"
-                                    key="metadataname"
-                                    xtype="textfield"/>
+                                jcr:primaryType="cq:Widget"
+                                hideLabel="false"
+                                fieldLabel="Meta Data Name"
+                                fieldDescription="this will be the output metadata field for the workflow"
+                                key="metadataname"
+                                xtype="textfield"/>
                             <regex
-                                    jcr:primaryType="cq:Widget"
-                                    hideLabel="false"
-                                    fieldLabel="Response Regex"
-                                    fieldDescription="This will be used to parse response content"
-                                    key="regex"
-                                    width="250"
-                                    xtype="textarea"/>
+                                jcr:primaryType="cq:Widget"
+                                hideLabel="false"
+                                fieldLabel="Response Regex"
+                                fieldDescription="This will be used to parse response content"
+                                key="regex"
+                                width="250"
+                                xtype="textarea"/>
                         </items>
                     </fieldConfig>
                 </responseFields>

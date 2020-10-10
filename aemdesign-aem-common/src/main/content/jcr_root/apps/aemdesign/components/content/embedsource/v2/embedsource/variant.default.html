@@ -1,6 +1,6 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        ${componentProperties.html @ context = 'unsafe'}
-    </div>
+  <div style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}">
+    ${componentProperties.html @ context = 'unsafe'}
+  </div>
 </template>

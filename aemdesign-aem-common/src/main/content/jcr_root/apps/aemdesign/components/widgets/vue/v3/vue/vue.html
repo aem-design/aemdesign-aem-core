@@ -1,0 +1,44 @@
+<!--/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright 2020 AEM.Design
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/-->
+
+<div data-sly-use.component="design.aem.models.v3.widgets.Vue"
+     data-sly-use.shared="/apps/aemdesign/components/common/shared.html"
+     data-sly-test.configured="${component.configured}"
+     data-sly-attribute="${component.attributes.attributes @ context='unsafe'}"
+     class="c-${component.componentName}"
+     id="${component.componentId}"
+     component>
+  <sly data-sly-test="${wcmmode.disabled}">
+    ${component.componentHTML @ context='unsafe'}
+    <noscript>Please enable JavaScript to get the full experience of this website.</noscript>
+  </sly>
+
+  <sly data-sly-test="${wcmmode.edit || wcmmode.preview}">
+    <div style="margin-bottom: 10px;">
+      <strong>${'Vue Component Configuration' @ i18n}</strong> - ${component.vueComponentName}
+    </div>
+    <table>
+      <sly data-sly-list="${component.configOutput}">
+        <tr>
+          <td style="width: 250px;">${item @ i18n}:</td>
+          <td>${component.configOutput[item]}</td>
+        </tr>
+      </sly>
+    </table>
+  </sly>
+</div>
+
+<sly data-sly-call="${shared.placeholder @ misconfigured=!configured}"></sly>

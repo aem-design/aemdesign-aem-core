@@ -1,5 +1,5 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <sly data-sly-test="${componentProperties.showParsys}">
-        <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container', decorationTagName='div'}"></sly>
-    </sly>
+  <sly data-sly-test="${componentProperties.showParsys && (wcmmode.edit || componentProperties.hasAuthoredContent)}">
+    <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container', decorationTagName='div'}"></sly>
+  </sly>
 </template>

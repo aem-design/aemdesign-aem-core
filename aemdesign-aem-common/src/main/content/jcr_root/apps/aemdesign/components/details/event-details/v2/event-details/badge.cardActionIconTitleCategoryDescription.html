@@ -1,27 +1,29 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <a class="card ${componentProperties.badgeClassAttr}"
-       href="${componentProperties.pageUrl}"
-       target="${componentProperties.badgeLinkTarget}"
-       title="${componentProperties.badgeLinkTitle}"
-       data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}" itemscope itemtype="http://schema.org/Event">
-        <div class="card-icon" data-sly-test="${componentProperties.cardIconShow}">
-            <i class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
-        </div>
-        <div class="card-body">
-            <title class="card-title"
-                   data-sly-element="${componentProperties.badgeTitleType}" itemprop="name">${componentProperties.badgeTitle}</title>
-            <div class="card-category"
-                 data-sly-test="${componentProperties.category}">
-                <ul class="tags">
-                    <sly data-sly-list.tag="${componentProperties.category}" data-sly-unwrap>
-                        <sly data-sly-test="${componentProperties.category[tag]}">
-                            <li id="${componentProperties.category[tag].value}">${componentProperties.category[tag].title}</li>
-                        </sly>
-                    </sly>
-                </ul>
-            </div>
-            <div class="card-text" itemprop="description">${componentProperties.badgeDescription @ context = 'unsafe'}</div>
-        </div>
-    </a>
+  <a class="card ${componentProperties.badgeClassAttr}"
+     href="${componentProperties.pageUrl}"
+     target="${componentProperties.badgeLinkTarget}"
+     title="${componentProperties.badgeLinkTitle}"
+     data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}" itemscope
+     itemtype="http://schema.org/Event">
+    <div class="card-icon" data-sly-test="${componentProperties.cardIconShow}">
+      <i class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
+    </div>
+    <div class="card-body">
+      <title class="card-title"
+             data-sly-element="${componentProperties.badgeTitleType}"
+             itemprop="name">${componentProperties.badgeTitle}</title>
+      <div class="card-category"
+           data-sly-test="${componentProperties.category}">
+        <ul class="tags">
+          <sly data-sly-list.tag="${componentProperties.category}" data-sly-unwrap>
+            <sly data-sly-test="${componentProperties.category[tag]}">
+              <li id="${componentProperties.category[tag].value}">${componentProperties.category[tag].title}</li>
+            </sly>
+          </sly>
+        </ul>
+      </div>
+      <div class="card-text" itemprop="description">${componentProperties.badgeDescription @ context = 'unsafe'}</div>
+    </div>
+  </a>
 </template>
 

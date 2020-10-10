@@ -1,10 +1,10 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <a
-        href="${componentProperties.pageUrl}"
-        title="${componentProperties.title}"
-        data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}">
-        <img src="${componentProperties.pageThumbnail}"
-             data-sly-attribute="${componentProperties.badgeImageAttr @ context = 'unsafe'}"
-             alt="${componentProperties.title}">
-    </a>
+  <a
+          href="${componentProperties.pageUrl}"
+          title="${componentProperties.title}"
+          data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}">
+    <img src="${componentProperties.pageThumbnail}"
+         data-sly-attribute="${componentProperties.badgeImageAttr @ context = 'unsafe'}"
+         alt="${componentProperties.title}">
+  </a>
 </template>

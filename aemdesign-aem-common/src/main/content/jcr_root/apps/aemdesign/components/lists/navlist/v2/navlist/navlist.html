@@ -1,27 +1,39 @@
+<!--/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright 2020 AEM.Design
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/-->
+
 <sly data-sly-use.component="design.aem.models.v2.lists.NavList"
      data-sly-use.variant="${component.componentProperties.variantTemplate}"
      data-sly-use.notfound="${'./parent.notfound.html'}"
      data-sly-use.render="${'./parent.render.html'}"
-     data-sly-use.background="aemdesign/global/templates/component-background.html"
-     data-sly-use.info="aemdesign/global/templates/component-info.html">
+     data-sly-use.background="aemdesign/global/templates/component-background.html">
 
-    <!--/* print component background */-->
-    <sly data-sly-test="${component.componentProperties.cancelInheritParent}"
-         data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.bgimage.componentBackgroundAssets}"></sly>
+  <!--/* print component background */-->
+  <sly data-sly-test="${component.componentProperties.cancelInheritParent}"
+       data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.bgimage.componentBackgroundAssets}"></sly>
 
-    <!--/* print inherited resource notfound edit message */-->
-    <sly data-sly-test="${!component.componentProperties.cancelInheritParent && !component.componentProperties.inheritedResource}"
-         data-sly-call="${notfound.variant @ componentProperties=component.componentProperties}"></sly>
+  <!--/* print inherited resource notfound edit message */-->
+  <sly data-sly-test="${!component.componentProperties.cancelInheritParent && !component.componentProperties.inheritedResource}"
+       data-sly-call="${notfound.variant @ componentProperties=component.componentProperties}"></sly>
 
-    <!--/* print inherited resource */-->
-    <sly data-sly-test="${!component.componentProperties.cancelInheritParent && component.componentProperties.inheritedResource}"
-         data-sly-call="${render.variant @ resource=component.componentProperties.inheritedResource}"></sly>
+  <!--/* print inherited resource */-->
+  <sly data-sly-test="${!component.componentProperties.cancelInheritParent && component.componentProperties.inheritedResource}"
+       data-sly-call="${render.variant @ resource=component.componentProperties.inheritedResource}"></sly>
 
-    <!--/* print component variant */-->
-    <sly data-sly-test="${component.componentProperties.cancelInheritParent}"
-         data-sly-call="${variant.variant @ componentProperties=component.componentProperties}"></sly>
-
-    <!--/* print component info in edit mode */-->
-    <sly data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component, inheritParent=(!component.componentProperties.cancelInheritParent && component.componentProperties.inheritedResource.path)}"></sly>
+  <!--/* print component variant */-->
+  <sly data-sly-test="${component.componentProperties.cancelInheritParent}"
+       data-sly-call="${variant.variant @ componentProperties=component.componentProperties}"></sly>
 
 </sly>

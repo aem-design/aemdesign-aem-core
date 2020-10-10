@@ -1,3 +1,18 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ~ Copyright 2020 AEM.Design
+ ~
+ ~ Licensed under the Apache License, Version 2.0 (the "License");
+ ~ you may not use this file except in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~     http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing, software
+ ~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~ See the License for the specific language governing permissions and
+ ~ limitations under the License.
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package design.aem.workflow.process;
 
 import com.adobe.acs.commons.fam.ThrottledTaskRunner;
@@ -32,6 +47,7 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.day.cq.wcm.api.Page;
+
 import javax.jcr.Node;
 import javax.jcr.Session;
 
@@ -42,8 +58,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @Component(
-        immediate = true,
-        service = WorkflowProcess.class
+    immediate = true,
+    service = WorkflowProcess.class
 )
 @Designate(ocd = ContentFragmentPageGenerator.Config.class)
 @ServiceDescription("Workflow step for generating pages for Content Fragments")
@@ -52,61 +68,61 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class ContentFragmentPageGenerator implements WorkflowProcess {
 
     @ObjectClassDefinition(
-            name = "AEM Design - Workflow - Content Fragment Page Generator",
-            description = "Workflow step for generating pages for Content Fragments"
+        name = "AEM Design - Workflow - Content Fragment Page Generator",
+        description = "Workflow step for generating pages for Content Fragments"
     )
     public @interface Config {
 
         @AttributeDefinition(
-                name = "Content Fragment Attribute Name",
-                description = "Attribute Name for path to content fragment, default: fragmentPath"
+            name = "Content Fragment Attribute Name",
+            description = "Attribute Name for path to content fragment, default: fragmentPath"
         )
         String content_fragment_attribute_name() default "fragmentPath";
 
         @AttributeDefinition(
-                name = "Content Fragment Component Node Name",
-                description = "Name of new content fragment component node, default: contentfragment"
+            name = "Content Fragment Component Node Name",
+            description = "Name of new content fragment component node, default: contentfragment"
         )
         String content_fragment_component_node_name() default "contentfragment";
 
 
         @AttributeDefinition(
-                name = "Update Existing Component",
-                description = "Add reference to existing component, default: true",
-                type = AttributeType.BOOLEAN
+            name = "Update Existing Component",
+            description = "Add reference to existing component, default: true",
+            type = AttributeType.BOOLEAN
         )
         boolean update_existing_component() default true;
 
         @AttributeDefinition(
-                name = "Update Page Root Path",
-                description = "Path of root nodes in page to use, default: article/par"
+            name = "Update Page Root Path",
+            description = "Path of root nodes in page to use, default: article/par"
         )
-        String[] update_page_root_path() default { "article/par" };
+        String[] update_page_root_path() default {"article/par"};
 
         @AttributeDefinition(
-                name = "Update Existing Component Resource Types",
-                description = "Resource type for Component to Update, default: aemdesign/components/details/generic-details"
+            name = "Update Existing Component Resource Types",
+            description = "Resource type for Component to Update, default: aemdesign/components/details/generic-details"
         )
         String[] update_existing_component_resourcetype() default {"aemdesign/components/details/generic-details"};
 
         @AttributeDefinition(
-                name = "Create Content Fragment Component",
-                description = "Create content component in page root, default: false",
-                type = AttributeType.BOOLEAN
+            name = "Create Content Fragment Component",
+            description = "Create content component in page root, default: false",
+            type = AttributeType.BOOLEAN
         )
         boolean content_fragment_component_create() default false;
 
         @AttributeDefinition(
-                name = "Create Content Fragment Resource Type",
-                description = "Resource type for Content Fragment component default: aemdesign/components/content/contentfragment"
+            name = "Create Content Fragment Resource Type",
+            description = "Resource type for Content Fragment component default: aemdesign/components/content/contentfragment"
         )
         String content_fragment_component_resourcetype() default "aemdesign/components/content/contentfragment";
 
         @AttributeDefinition(
-                name = "Create Content Fragment Page Root Path",
-                description = "Path of root node where to create Content Fragment, default: article/par"
+            name = "Create Content Fragment Page Root Path",
+            description = "Path of root node where to create Content Fragment, default: article/par"
         )
-        String content_fragment_component_page_root_path() default  "article/par";
+        String content_fragment_component_page_root_path() default "article/par";
 
 
     }
@@ -181,11 +197,11 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
                         }
 
                         Page newPage = pageManager.create(
-                                processArgs.getOutputLocation(),
-                                contentFragment.getName(),
-                                processArgs.getTemplatePath(),
-                                contentFragment.getTitle(),
-                                autoSaveContent
+                            processArgs.getOutputLocation(),
+                            contentFragment.getName(),
+                            processArgs.getTemplatePath(),
+                            contentFragment.getTitle(),
+                            autoSaveContent
                         );
 
                         if (newPage != null) {
@@ -211,7 +227,7 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
                                             }
 
                                         } else {
-                                            failed("Could not find component int root paths {} with resource type {}",processArgs.getUpdateExistingRootPaths(), processArgs.getUpdateComponentResourceType());
+                                            failed("Could not find component int root paths {} with resource type {}", processArgs.getUpdateExistingRootPaths(), processArgs.getUpdateComponentResourceType());
                                         }
                                     }
 
@@ -285,17 +301,17 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
      * ProcessArgs parsed from the Workflow metadata map.
      */
     protected static class ProcessArgs {
-        private boolean throttle;
-        private String templatePage;
-        private String outputLocation;
-        private String contentFragmentComponentResourceType;
-        private boolean contentFragmentComponentCreate;
-        private String contentFragmentComponentPageRootPath;
-        private boolean updateExistingComponent;
-        private String[] updateComponentResourceType;
-        private String[] updateExistingRootPaths;
-        private String contentFragmentAttributeName;
-        private String contentFragmentComponentNodeName;
+        private final boolean throttle;
+        private final String templatePage;
+        private final String outputLocation;
+        private final String contentFragmentComponentResourceType;
+        private final boolean contentFragmentComponentCreate;
+        private final String contentFragmentComponentPageRootPath;
+        private final boolean updateExistingComponent;
+        private final String[] updateComponentResourceType;
+        private final String[] updateExistingRootPaths;
+        private final String contentFragmentAttributeName;
+        private final String contentFragmentComponentNodeName;
 
         ProcessArgs(MetaDataMap map, Config config) throws WorkflowException {
 
@@ -382,9 +398,11 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
         public String getContentFragmentComponentResourceType() {
             return contentFragmentComponentResourceType;
         }
+
         public String getContentFragmentComponentPageRootPath() {
             return contentFragmentComponentPageRootPath;
         }
+
         public String getContentFragmentComponentNodeName() {
             return contentFragmentComponentNodeName;
         }

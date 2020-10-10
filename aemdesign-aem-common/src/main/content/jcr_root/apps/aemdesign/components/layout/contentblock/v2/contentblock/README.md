@@ -14,7 +14,7 @@ Component for adding a Content Block section to a page.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/layout/contentblock](/content/aemdesign-showcase/en/component/layout/contentblock.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/layout/contentblock/v2/contentblock](/crx/de/#/apps/aemdesign/components/layout/contentblock/v2/contentblock)
-* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/layout/contentblock/v2/contentblock)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/layout/contentblock/v2/contentblock)
 * **Readme**: [/apps/aemdesign/components/layout/contentblock/v2/contentblock](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/contentblock/v2/contentblock)
 
 # Selectors

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    cq:actions="[text:Columns,edit,-,delete,insert]"
-    cq:disableTargeting="{Boolean}true"
-    cq:layout="editbar"
-    jcr:primaryType="cq:EditConfig"
-    cq:dialogMode="floating">
+          cq:actions="[text:Columns,edit,-,delete,insert]"
+          cq:disableTargeting="{Boolean}true"
+          cq:layout="editbar"
+          jcr:primaryType="cq:EditConfig"
+          cq:dialogMode="floating">
     <cq:formParameters
-            jcr:primaryType="nt:unstructured"
-            controlType="start"
-            layout="1;colctrl-1c"/>
+        jcr:primaryType="nt:unstructured"
+        controlType="start"
+        layout="1;colctrl-1c"/>
     <cq:listeners
         jcr:primaryType="cq:EditListenersConfig"
         aftercopy="REFRESH_PAGE"

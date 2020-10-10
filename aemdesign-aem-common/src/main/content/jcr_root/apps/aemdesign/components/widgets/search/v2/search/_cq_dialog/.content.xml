@@ -1,55 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright 2020 AEM.Design
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
+          xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Search Box"
           helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/widgets/search/v2/search"
           sling:resourceType="cq/gui/components/authoring/dialog"
           extraClientlibs="[]">
     <content
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/foundation/container">
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
         <layout
-                jcr:primaryType="nt:unstructured"
-                type="nav"
-                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+            jcr:primaryType="nt:unstructured"
+            type="nav"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
             <searchTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Search"
-                    sling:resourceType="granite/ui/components/foundation/section">
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Search"
+                sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <variant
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Search"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Search"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
 
 
-
-
                                     <formAction
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldLabel="Search URL"
-                                            name="./formAction"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldLabel="Search URL"
+                                        name="./formAction"/>
                                     <formMethod
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldLabel="Form Submit Method"
-                                            name="./formMethod"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldLabel="Form Submit Method"
+                                        name="./formMethod"/>
                                     <formParameterName
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldLabel="Form Parameter Name"
-                                            name="./formParameterName"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldLabel="Form Parameter Name"
+                                        name="./formParameterName"/>
 
 
                                 </items>
@@ -59,65 +74,65 @@
                 </items>
             </searchTab>
             <layoutTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Layout"
-                    sling:resourceType="granite/ui/components/foundation/section">
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Layout"
+                sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <variant
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Layout"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Layout"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
 
 
                                     <variant
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            emptyOption="{Boolean}true"
-                                            fieldLabel="Variant"
-                                            name="./variant"
-                                            value="">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        emptyOption="{Boolean}true"
+                                        fieldLabel="Variant"
+                                        name="./variant"
+                                        value="">
                                         <items jcr:primaryType="nt:unstructured">
                                             <default
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Default"
-                                                    value=""/>
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Default"
+                                                value=""/>
                                             <quick
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Quick Search"
-                                                    value="quick"/>
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Quick Search"
+                                                value="quick"/>
                                         </items>
                                     </variant>
 
 
                                     <placeholderText
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldLabel="Placeholder Text"
-                                            name="./placeholderText"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldLabel="Placeholder Text"
+                                        name="./placeholderText"/>
                                     <legendText
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldLabel="Legend Text"
-                                            name="./legendText"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldLabel="Legend Text"
+                                        name="./legendText"/>
                                     <labelText
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldLabel="Label Text"
-                                            name="./labelText"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldLabel="Label Text"
+                                        name="./labelText"/>
                                     <searchButtonText
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            fieldLabel="Search Button Text"
-                                            name="./searchButtonText"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldLabel="Search Button Text"
+                                        name="./searchButtonText"/>
 
                                 </items>
                             </variant>
@@ -127,34 +142,34 @@
             </layoutTab>
 
             <feedTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Feed"
-                    sling:resourceType="granite/ui/components/foundation/section">
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Feed"
+                sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <variant
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Feed"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Feed"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
 
                                     <feeds
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
-                                            fieldDescription="Click the '+' to add a new urls, these urls will be used for quick search"
-                                            fieldLabel="List of Feeds">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                        fieldDescription="Click the '+' to add a new urls, these urls will be used for quick search"
+                                        fieldLabel="List of Feeds">
                                         <field
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                name="./feedUrl"
-                                                required="{Boolean}false"/>
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            name="./feedUrl"
+                                            required="{Boolean}false"/>
                                     </feeds>
 
                                 </items>
@@ -164,18 +179,18 @@
                 </items>
             </feedTab>
 
-            <styleTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Style"
-                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-            <accessibilityTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Accessibility"
-                    path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <style
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Style"
+                path="/apps/aemdesign/global/dialog/touch/style/content/items/tabs/items/styleTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <accessibility
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Accessibility"
+                path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/tabs/items/accessibilityTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
         </items>
     </content>
 </jcr:root>

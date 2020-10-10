@@ -14,7 +14,7 @@ Component for providing base functions for details components
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/details/generic-details](/content/aemdesign-showcase/en/component/details/generic-details.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/details/generic-details/v1/generic-details](/crx/de/#/apps/aemdesign/components/details/generic-details/v1/generic-details)
-* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/details/generic-details/v1/generic-details)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/details/generic-details/v1/generic-details)
 * **Readme**: [/apps/aemdesign/components/details/generic-details/v1/generic-details](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/generic-details/v1/generic-details)
 
 ## Features

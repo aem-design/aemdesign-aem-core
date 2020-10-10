@@ -1,8 +1,0 @@
-<template data-sly-template.variant="${@ componentProperties, component}">
-    <ul style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-        data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <sly data-sly-list.listItem="${component.ListItems}">
-            <li class="tag" data-value="${listItem.value}">${listItem.tag.title}</li>
-        </sly>
-    </ul>
-</template>

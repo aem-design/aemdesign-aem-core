@@ -1,9 +1,4 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <sly data-sly-list.field="${componentProperties.metaPropertyFields}" data-sly-unwrap>
-        <sly data-sly-test="${componentProperties.metaPropertyFields[field]}">
-            <meta property="${field}" content="${componentProperties.metaPropertyFields[field]}" />
-        </sly>
-    </sly>
-    <link data-sly-test="${componentProperties.canonicalUrl}"
-          rel="canonical" href="${componentProperties.canonicalUrl}"/>
+  <sly data-sly-use.metadata="/apps/aemdesign/components/details/generic-details/v1/generic-details/template/simple-metadata.html"
+       data-sly-call="${metadata.variant @ componentProperties=componentProperties}"></sly>
 </template>

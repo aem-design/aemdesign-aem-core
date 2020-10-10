@@ -1,8 +1,4 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <div class="container">
-            <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>
-        </div>
-    </div>
+  <sly data-sly-use.default="/apps/aemdesign/components/layout/contentblock/v2/contentblock/variant.default.html"
+       data-sly-call="${default.variant @ componentProperties=componentProperties, isContainer=true}"></sly>
 </template>

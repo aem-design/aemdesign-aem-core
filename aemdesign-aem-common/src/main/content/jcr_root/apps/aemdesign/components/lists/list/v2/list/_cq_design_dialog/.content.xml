@@ -1,234 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright 2020 AEM.Design
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
-          jcr:title="List (Design)"
-          sling:resourceType="cq/gui/components/authoring/dialog">
+          jcr:title="List"
+          sling:resourceType="cq/gui/components/authoring/dialog"
+          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/list/v2/list">
     <content
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/coral/foundation/container">
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
         <items jcr:primaryType="nt:unstructured">
-            <plugins
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="granite/ui/components/coral/foundation/accordion">
+            <tabs
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/tabs">
                 <items jcr:primaryType="nt:unstructured">
-
-                    <list
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="List"
-                            sling:resourceType="granite/ui/components/coral/foundation/container"
-                            maximized="{Boolean}true">
+                    <listSettings
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="List Settings"
+                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                        margin="{Boolean}true">
                         <items jcr:primaryType="nt:unstructured">
-                            <fixedcol
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
-                                    maximized="{Boolean}true">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <col1
-                                            jcr:primaryType="nt:unstructured"
-                                            granite:class="foundation-layout-util-maximized-alt"
-                                            sling:resourceType="granite/ui/components/coral/foundation/container">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <list
-                                                    jcr:primaryType="nt:unstructured"
-                                                    jcr:title="List"
-                                                    granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/lists/list/v2/list/cq:dialog/content/items/listTab"
-                                                    resourceType="granite/ui/components/coral/foundation/container"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                                        </items>
-                                    </col1>
-                                </items>
-                            </fixedcol>
+                            <disableChildren
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                fieldDescription="Disable children list source type."
+                                name="./disableChildren"
+                                text="Disable children"
+                                uncheckedValue="false"
+                                value="true"/>
+                            <disableDescendants
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                fieldDescription="Disable descendants list source type."
+                                name="./disableDescendants"
+                                text="Disable descendants"
+                                uncheckedValue="false"
+                                value="true"/>
+                            <disableStatic
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                fieldDescription="Disable static list source type."
+                                name="./disableStatic"
+                                text="Disable static"
+                                uncheckedValue="false"
+                                value="true"/>
+                            <disableSearch
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                fieldDescription="Disable search list source type."
+                                name="./disableSearch"
+                                text="Disable search"
+                                uncheckedValue="false"
+                                value="true"/>
+                            <disableTags
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                fieldDescription="Disable tags list source type."
+                                name="./disableTags"
+                                text="Disable tags"
+                                uncheckedValue="false"
+                                value="true"/>
                         </items>
-                    </list>
+                    </listSettings>
 
-
-                    <listConfig
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="List Config"
-                            sling:resourceType="granite/ui/components/coral/foundation/container"
-                            maximized="{Boolean}true">
+                    <listOptions
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="List Options"
+                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                        margin="{Boolean}true">
                         <items jcr:primaryType="nt:unstructured">
-                            <fixedcol
+                            <orderBy
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldDescription="Set the default order of the list items."
+                                fieldLabel="Order By"
+                                emptyOption="{Boolean}true"
+                                name="./orderBy">
+                                <datasource
                                     jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
-                                    maximized="{Boolean}true">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <col1
-                                            jcr:primaryType="nt:unstructured"
-                                            granite:class="foundation-layout-util-maximized-alt"
-                                            sling:resourceType="granite/ui/components/coral/foundation/container">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <layout
-                                                    jcr:primaryType="nt:unstructured"
-                                                    jcr:title="List Config"
-                                                    granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/lists/list/v2/list/cq:dialog/content/items/listConfigTab"
-                                                    resourceType="granite/ui/components/coral/foundation/container"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                                        </items>
-                                    </col1>
-                                </items>
-                            </fixedcol>
-                        </items>
-                    </listConfig>
+                                    sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                    path="/content/cq:tags/${namespace}/component-dialog/components/lists/list/orderby"
+                                    variant="valuelist"/>
+                            </orderBy>
 
-                    <layout
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Layout"
-                            sling:resourceType="granite/ui/components/coral/foundation/container"
-                            maximized="{Boolean}true">
+                            <sortOrder
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldDescription="Set the default sort order of the list items."
+                                fieldLabel="Sort Order"
+                                name="./sortOrder">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <asc
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Ascending"
+                                        value="asc"/>
+                                    <desc
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Descending"
+                                        value="desc"/>
+                                </items>
+                            </sortOrder>
+
+                            <limit
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                fieldDescription="Set the default maximum number of items to display in the list."
+                                fieldLabel="Limit"
+                                min="1"
+                                name="./limit"/>
+
+                            <paginateAfter
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                fieldDescription="Set the default number of results before pagination will appear."
+                                fieldLabel="Paginate After"
+                                min="1"
+                                name="./pageMax"/>
+                        </items>
+                    </listOptions>
+
+                    <listConfiguration
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Configuration"
+                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                        margin="{Boolean}true">
                         <items jcr:primaryType="nt:unstructured">
-                            <fixedcol
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
-                                    maximized="{Boolean}true">
+                            <listItems
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Items"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <col1
-                                            jcr:primaryType="nt:unstructured"
-                                            granite:class="foundation-layout-util-maximized-alt"
-                                            sling:resourceType="granite/ui/components/coral/foundation/container">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <layout
-                                                    jcr:primaryType="nt:unstructured"
-                                                    jcr:title="Layout"
-                                                    granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/components/lists/list/v2/list/cq:dialog/content/items/layoutTab"
-                                                    resourceType="granite/ui/components/coral/foundation/container"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                                        </items>
-                                    </col1>
+                                    <showHidden
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                        fieldDescription="Define whether or not pages hidden from navigation will be visible in the list."
+                                        name="./showHidden"
+                                        text="Show Hidden Pages"
+                                        uncheckedValue="false"
+                                        value="true"/>
                                 </items>
-                            </fixedcol>
-                        </items>
-                    </layout>
+                            </listItems>
 
-                    <badgeConfigTab
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Badge Config"
-                            sling:resourceType="granite/ui/components/coral/foundation/container"
-                            maximized="{Boolean}true">
-                        <items jcr:primaryType="nt:unstructured">
-                            <fixedcol
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
-                                    maximized="{Boolean}true">
+                            <feed
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Feed"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <col1
-                                            jcr:primaryType="nt:unstructured"
-                                            granite:class="foundation-layout-util-maximized-alt"
-                                            sling:resourceType="granite/ui/components/coral/foundation/container">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <titleConfigGroup
-                                                    jcr:primaryType="nt:unstructured"
-                                                    jcr:title="Title Configuration"
-                                                    path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/titleConfigGroup"
-                                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                                            <cardConfigGroup
-                                                    jcr:primaryType="nt:unstructured"
-                                                    jcr:title="Card Badge Config"
-                                                    path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/cardConfigGroup"
-                                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                                            <badgeConfigGroup
-                                                    jcr:primaryType="nt:unstructured"
-                                                    jcr:title="General Badge Config"
-                                                    path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/badgeConfigGroup"
-                                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                                            <linkConfigGroup
-                                                    jcr:primaryType="nt:unstructured"
-                                                    jcr:title="Badge CTA Config"
-                                                    path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/linkConfigGroup"
-                                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                                            <iconConfigGroup
-                                                    jcr:primaryType="nt:unstructured"
-                                                    jcr:title="Icon Badge Config"
-                                                    path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/iconConfigGroup"
-                                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                                            <thumbnailConfig
-                                                    jcr:primaryType="nt:unstructured"
-                                                    jcr:title="Thumbnail Config"
-                                                    path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/thumbnailConfig"
-                                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                                            <menuConfigGroup
-                                                    jcr:primaryType="nt:unstructured"
-                                                    jcr:title="Menu Configuration"
-                                                    path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/menuConfigGroup"
-                                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                                            <tabConfigGroup
-                                                    jcr:primaryType="nt:unstructured"
-                                                    jcr:title="Tab Configuration"
-                                                    path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/tabConfigGroup"
-                                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                                            <analyticsConfigGroup
-                                                    jcr:primaryType="nt:unstructured"
-                                                    jcr:title="Analytics Configuration"
-                                                    path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab/items/column/items/config/items/analyticsConfigGroup"
-                                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                                        </items>
-                                    </col1>
+                                    <disableFeedTypeRSS
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                        fieldDescription="Disable the RSS feed type."
+                                        name="./disableFeedTypeRSS"
+                                        text="Disable RSS Feed"
+                                        uncheckedValue="false"
+                                        value="true"/>
+                                    <disableFeedTypeAtom
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                        fieldDescription="Disable the Atom feed type."
+                                        name="./disableFeedTypeAtom"
+                                        text="Disable Atom Feed"
+                                        uncheckedValue="false"
+                                        value="true"/>
                                 </items>
-                            </fixedcol>
+                            </feed>
                         </items>
-                    </badgeConfigTab>
-
-                    <badgeThumbnailTab
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Badge Thumbnail"
-                            sling:resourceType="granite/ui/components/coral/foundation/container"
-                            maximized="{Boolean}true">
-                        <items jcr:primaryType="nt:unstructured">
-                            <fixedcol
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
-                                    maximized="{Boolean}true">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <col1
-                                            jcr:primaryType="nt:unstructured"
-                                            granite:class="foundation-layout-util-maximized-alt"
-                                            sling:resourceType="granite/ui/components/coral/foundation/container">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <badgeThumbnail
-                                                    jcr:primaryType="nt:unstructured"
-                                                    jcr:title="Badge Thumbnail"
-                                                    granite:class="js-cq-IPEPlugin-group"
-                                                    path="/apps/aemdesign/global/dialog/touch/asset_design/content/items/fixedcol/items/col1/items/badgeThumbnailTab"
-                                                    resourceType="granite/ui/components/coral/foundation/form/fieldset"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                                        </items>
-                                    </col1>
-                                </items>
-                            </fixedcol>
-                        </items>
-                    </badgeThumbnailTab>
-
-                    <style
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Style"
-                            path="/apps/aemdesign/global/dialog/touch/style_design/content"
-                            resourceType="granite/ui/components/coral/foundation/container"
-                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                    <accessibility
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Accessibility"
-                            path="/apps/aemdesign/global/dialog/touch/accessibility_design/content"
-                            resourceType="granite/ui/components/coral/foundation/container"
-                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
-                    <analytics
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Analytics"
-                            path="/apps/aemdesign/global/dialog/touch/analytics_design/content"
-                            resourceType="granite/ui/components/coral/foundation/container"
-                            sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                    </listConfiguration>
                 </items>
-            </plugins>
+            </tabs>
         </items>
-    </content></jcr:root>
+    </content>
+</jcr:root>

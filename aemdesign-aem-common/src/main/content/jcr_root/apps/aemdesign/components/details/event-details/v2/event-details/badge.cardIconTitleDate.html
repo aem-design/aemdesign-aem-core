@@ -1,12 +1,14 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div class="card ${componentProperties.badgeClassAttr}" itemscope itemtype="http://schema.org/Event">
-        <div class="card-icon" data-sly-test="${componentProperties.cardIconShow}">
-            <i class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
-        </div>
-        <div class="card-body">
-            <title class="card-title"
-                   data-sly-element="${componentProperties.badgeTitleType}" itemprop="name">${componentProperties.badgeTitle}</title>
-            <div class="card-date" itemprop="startDate" content="${componentProperties.eventStartDateISO}">${componentProperties.eventDisplayTimeFormatted @ context = 'unsafe'}</div>
-        </div>
+  <div class="card ${componentProperties.badgeClassAttr}" itemscope itemtype="http://schema.org/Event">
+    <div class="card-icon" data-sly-test="${componentProperties.cardIconShow}">
+      <i class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
     </div>
+    <div class="card-body">
+      <title class="card-title"
+             data-sly-element="${componentProperties.badgeTitleType}"
+             itemprop="name">${componentProperties.badgeTitle}</title>
+      <div class="card-date" itemprop="startDate"
+           content="${componentProperties.eventStartDateISO}">${componentProperties.eventDisplayTimeFormatted @ context = 'unsafe'}</div>
+    </div>
+  </div>
 </template>

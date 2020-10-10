@@ -1,6 +1,12 @@
-<template data-sly-template.variant="${@ componentProperties}">
-    <section style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-             data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>
-    </section>
+<template data-sly-template.variant="${@ componentProperties, isContainer}">
+  <section style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+           data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}">
+    <div class="container" data-sly-unwrap="${!isContainer}">
+      <sly data-sly-use.header="/apps/aemdesign/components/layout/contentblock/v2/contentblock/header.html"
+           data-sly-call="${header.layout @ componentProperties=componentProperties}"></sly>
+
+      <sly data-sly-test="${wcmmode.edit || componentProperties.hasAuthoredContent}"
+           data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>
+    </div>
+  </section>
 </template>

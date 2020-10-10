@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <!-- ====================================================================== -->
     <!-- P A R E N T     P R O J E C T     D E S C R I P T I O N                -->
     <!-- ====================================================================== -->
 
     <groupId>design.aem</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>2.0.680</version>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -60,19 +62,21 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.site.plugin.version>3.7.1</maven.site.plugin.version>
-        <aem.uberjar.version>6.4.0</aem.uberjar.version>
-        <gitClosestTagName>${git.closest.tag.name}</gitClosestTagName>
-        <gitClosestTagCommitCount>${git.closest.tag.commit.count}</gitClosestTagCommitCount>
+        <aem.uberjar.version>6.4.2</aem.uberjar.version>
         <bundleFileName>aemdesign-aem-services</bundleFileName>
         <bundleName>design.aem.aemdesign-aem-services</bundleName>
         <adobe.acs.version>4.4.0</adobe.acs.version>
-        <core.wcm.components.version>2.8.0</core.wcm.components.version>
+        <core.wcm.components.version>2.11.0</core.wcm.components.version>
     </properties>
 
     <developers>
         <developer>
             <email>max@aem.design</email>
             <name>Max Barrass</name>
+        </developer>
+        <developer>
+            <email>me@cshaw.xyz</email>
+            <name>Chris Shaw</name>
         </developer>
     </developers>
 
@@ -153,7 +157,6 @@
                 <version>1.0.0</version>
                 <scope>provided</scope>
             </dependency>
-
             <!-- javax.inject 1 -->
             <dependency>
                 <artifactId>geronimo-atinject_1.0_spec</artifactId>
@@ -161,7 +164,6 @@
                 <groupId>org.apache.geronimo.specs</groupId>
                 <scope>provided</scope>
             </dependency>
-
             <!-- Servlet API -->
             <dependency>
                 <groupId>javax.servlet</groupId>
@@ -188,7 +190,6 @@
                 <version>2.12.1</version>
                 <scope>provided</scope>
             </dependency>
-
             <!-- Commons -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -202,21 +203,18 @@
                 <version>2.5</version>
                 <scope>provided</scope>
             </dependency>
-
             <dependency>
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>3.2.2</version>
                 <scope>provided</scope>
             </dependency>
-
             <dependency>
                 <groupId>com.google.code.findbugs</groupId>
                 <artifactId>jsr305</artifactId>
                 <version>2.0.0</version>
                 <scope>provided</scope>
             </dependency>
-
             <!--
                 AEM APIs; make sure to not move this bundle upper in the list so that newer APIs available in AEM but not in the Uber
                 Jar can be used as dependencies.
@@ -228,7 +226,6 @@
                 <classifier>apis</classifier>
                 <scope>provided</scope>
             </dependency>
-
             <!-- Testing -->
             <dependency>
                 <groupId>junit</groupId>
@@ -296,23 +293,18 @@
                 <version>2.4.4</version>
                 <scope>test</scope>
             </dependency>
-
-
             <!--other-->
-
             <dependency>
                 <groupId>org.osgi</groupId>
                 <artifactId>org.osgi.core</artifactId>
                 <version>6.0.0</version>
                 <scope>provided</scope>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.sling</groupId>
                 <artifactId>org.apache.sling.bnd.models</artifactId>
                 <version>1.0.0</version>
             </dependency>
-
             <dependency>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
@@ -323,7 +315,6 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.4</version>
             </dependency>
-
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
@@ -401,10 +392,8 @@
                 <version>2.1.0</version>
                 <scope>provided</scope>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
-
 
     <!--
         Inclusion of repositories in POMs is controversial, to say the least.
@@ -465,160 +454,6 @@
 
     <build>
         <plugins>
-            <!-- get git information to update artifacts version -->
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <version>2.2.5</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <id>get-the-git-infos</id>
-                        <goals>
-                            <goal>revision</goal>
-                        </goals>
-                        <!-- *NOTE*: The default phase of revision is initialize, but in case you want to change it, you can do so by adding the phase here -->
-                        <!--<phase>initialize</phase>-->
-                    </execution>
-                    <execution>
-                        <phase>validate</phase>
-                        <id>validate-the-git-infos</id>
-                        <goals>
-                            <goal>validateRevision</goal>
-                        </goals>
-                        <!-- *NOTE*: The default phase of validateRevision is verify, but in case you want to change it, you can do so by adding the phase here -->
-                        <!--<phase>package</phase>-->
-                    </execution>
-                </executions>
-                <configuration>
-                    <skipPoms>false</skipPoms>
-                    <injectAllReactorProjects>true</injectAllReactorProjects>
-                    <dateFormat>yyyy.MM.dd</dateFormat>
-                    <gitDescribe>
-                        <!--<always>true</always>-->
-                        <dirty>-SNAPSHOT</dirty>
-                        <!--<match>__null__</match>-->
-                        <!--<tags>true</tags>-->
-                    </gitDescribe>
-                </configuration>
-            </plugin>
-
-
-            <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>groovy-maven-plugin</artifactId>
-                <version>2.0</version>
-                <executions>
-                    <execution>
-                        <id>update-finalname</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <source>
-                                project.build.finalName="${project.artifactId}-${gitClosestTagName}.${gitClosestTagCommitCount}";
-                                project.properties['gitClosestTagName']="${git.closest.tag.name}";
-                                project.properties['gitClosestTagCommitCount']="${git.closest.tag.commit.count}";
-                                println("project.build.finalName=${project.build.finalName}");
-                            </source>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- update versions for all submodules -->
-            <plugin>
-                <!-- sets the version for each pom including children pom -->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>2.5</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>set</goal>
-                        </goals>
-                        <inherited>false</inherited>
-                        <configuration>
-                            <!-- comes from the git-commit-id-plugin -->
-                            <newVersion>${git.closest.tag.name}.${git.closest.tag.commit.count}</newVersion>
-                            <generateBackupPoms>false</generateBackupPoms>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-
-            <!-- ensure all version variables names are set to updated version -->
-            <plugin>
-                <groupId>org.codehaus.gmavenplus</groupId>
-                <artifactId>gmavenplus-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>change-version</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <scripts>
-                                <script><![CDATA[
-                            import org.apache.maven.artifact.versioning.VersionRange;
-
-                            git_revision = '${git.closest.tag.name}.${git.closest.tag.commit.count}'
-                            if (! project.properties['revision']?.trim()) {
-                            println 'Change `version` to ' + git_revision
-                            System.properties['revision'] = git_revision
-                            project.properties['revision'] = git_revision
-                            project.properties['project.version'] = git_revision
-                            project.properties['git.build.version'] = git_revision
-                            project.version = git_revision
-                            project.artifact.version = git_revision
-                            project.artifact.versionRange = VersionRange.createFromVersion(git_revision)
-                            project.build.finalName = '${project.artifactId}-${gitClosestTagName}.${gitClosestTagCommitCount}'
-                            }
-                            ]]></script>
-                            </scripts>
-                        </configuration>
-                    </execution>
-
-                    <!-- for debug: -->
-                    <!--
-                    <execution>
-                    <id>dump-version</id>
-                    <phase>package</phase>
-                    <goals>
-                    <goal>execute</goal>
-                    </goals>
-                    <configuration>
-                    <scripts>
-                    <script><![CDATA[
-                    println System.properties['revision']
-                    println '${revision}'
-                    println '${project.version}'
-                    println '${git.build.version}'
-                    println project.version
-                    println project.artifact
-                    println project.artifact.version
-                    println project.artifact.versionRange
-                    ]]></script>
-                    </scripts>
-                    </configuration>
-                    </execution>
-                    -->
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-all</artifactId>
-                        <version>2.4.14</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
             <!-- ensure all variables are set -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -658,45 +493,9 @@
                 </configuration>
             </plugin>
         </plugins>
-        <!-- ensure all artifact names are set to updated version -->
-        <finalName>${project.artifactId}-${gitClosestTagName}.${gitClosestTagCommitCount}</finalName>
 
         <pluginManagement>
             <plugins>
-
-                <!--<plugin>-->
-                    <!--<groupId>org.apache.maven.plugins</groupId>-->
-                    <!--<artifactId>maven-enforcer-plugin</artifactId>-->
-                    <!--<version>1.4.1</version>-->
-                    <!--<executions>-->
-                        <!--<execution>-->
-                            <!--<id>enforce-java</id>-->
-                            <!--<goals>-->
-                                <!--<goal>enforce</goal>-->
-                            <!--</goals>-->
-                            <!--<configuration>-->
-                                <!--<rules>-->
-                                    <!--<requireJavaVersion>-->
-                                        <!--<version>1.8</version>-->
-                                    <!--</requireJavaVersion>-->
-                                <!--</rules>-->
-                            <!--</configuration>-->
-                        <!--</execution>-->
-                        <!--<execution>-->
-                            <!--<id>enforce-maven</id>-->
-                            <!--<goals>-->
-                                <!--<goal>enforce</goal>-->
-                            <!--</goals>-->
-                            <!--<configuration>-->
-                                <!--<rules>-->
-                                    <!--<requireMavenVersion>-->
-                                        <!--<version>3.3.9</version>-->
-                                    <!--</requireMavenVersion>-->
-                                <!--</rules>-->
-                            <!--</configuration>-->
-                        <!--</execution>-->
-                    <!--</executions>-->
-                <!--</plugin>-->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
@@ -770,40 +569,8 @@
                         <password>${crx.password}</password>
                     </configuration>
                 </plugin>
-                <!--This plugin's configuration is used to store Eclipse
-                    m2e settings only. It has no influence on the Maven build itself. -->
-                <!--<plugin>-->
-                    <!--<groupId>org.eclipse.m2e</groupId>-->
-                    <!--<artifactId>lifecycle-mapping</artifactId>-->
-                    <!--<version>1.0.0</version>-->
-                    <!--<configuration>-->
-                        <!--<lifecycleMappingMetadata>-->
-                            <!--<pluginExecutions>-->
-                                <!--<pluginExecution>-->
-                                    <!--<pluginExecutionFilter>-->
-                                        <!--<groupId>-->
-                                            <!--org.apache.felix-->
-                                        <!--</groupId>-->
-                                        <!--<artifactId>-->
-                                            <!--maven-scr-plugin-->
-                                        <!--</artifactId>-->
-                                        <!--<versionRange>-->
-                                            <!--[1.0.0,)-->
-                                        <!--</versionRange>-->
-                                        <!--<goals>-->
-                                            <!--<goal>scr</goal>-->
-                                        <!--</goals>-->
-                                    <!--</pluginExecutionFilter>-->
-                                    <!--<action>-->
-                                        <!--<ignore/>-->
-                                    <!--</action>-->
-                                <!--</pluginExecution>-->
-                            <!--</pluginExecutions>-->
-                        <!--</lifecycleMappingMetadata>-->
-                    <!--</configuration>-->
-                <!--</plugin>-->
-                <!-- This plugin's configuration is to
-                 access the parsed components of a project version. -->
+
+                <!-- This plugin's configuration is to access the parsed components of a project version. -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
@@ -863,7 +630,8 @@
                             <serverId>ossrh</serverId>
                             <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                             <stagingProfileId>c4011210992a35</stagingProfileId>
-                            <stagingDescription>travis pipeline https://travis-ci.org/aem-design/aemdesign-aem-core</stagingDescription>
+                            <stagingDescription>travis pipeline https://travis-ci.org/aem-design/aemdesign-aem-core
+                            </stagingDescription>
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                             <autoDropAfterRelease>true</autoDropAfterRelease>
                         </configuration>

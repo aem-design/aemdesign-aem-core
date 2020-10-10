@@ -1,18 +1,21 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
-         itemscope itemtype="http://schema.org/Event">
-        <div class="container">
-            <header>
-                <title class="title"
-                       data-sly-test="${!componentProperties.hideTitle}"
-                       data-sly-element="${componentProperties.titleType}"
-                       data-sly-attribute.id="${componentProperties.ariaLabelledBy}" itemprop="name">${componentProperties.titleFormatted @ context = 'unsafe'}</title>
-                <div class="description"
-                     data-sly-test="${!componentProperties.hideDescription}" itemprop="description">${componentProperties.description @ context = 'unsafe'}</div>
-                <div class="card-subtitle">${componentProperties.subTitleFormatted @ context = 'unsafe'}</div>
-                <div class="card-date" content="${componentProperties.eventStartDateISO}">${componentProperties.eventDisplayTimeFormatted @ context = 'unsafe'}</div>
-            </header>
-        </div>
+  <div style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}"
+       itemscope itemtype="http://schema.org/Event">
+    <div class="container">
+      <header>
+        <title class="title"
+               data-sly-test="${!componentProperties.hideTitle}"
+               data-sly-element="${componentProperties.titleType}"
+               data-sly-attribute.id="${componentProperties.ariaLabelledBy}"
+               itemprop="name">${componentProperties.titleFormatted @ context = 'unsafe'}</title>
+        <div class="description"
+             data-sly-test="${!componentProperties.hideDescription && componentProperties.description}"
+             itemprop="description">${componentProperties.description @ context = 'unsafe'}</div>
+        <div class="card-subtitle">${componentProperties.subTitleFormatted @ context = 'unsafe'}</div>
+        <div class="card-date"
+             content="${componentProperties.eventStartDateISO}">${componentProperties.eventDisplayTimeFormatted @ context = 'unsafe'}</div>
+      </header>
     </div>
+  </div>
 </template>

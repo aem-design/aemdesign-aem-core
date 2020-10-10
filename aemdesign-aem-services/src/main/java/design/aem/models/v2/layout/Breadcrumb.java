@@ -1,8 +1,7 @@
 package design.aem.models.v2.layout;
 
 import com.day.cq.wcm.api.Page;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.BooleanUtils;
 
@@ -17,14 +16,8 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-public class Breadcrumb extends ModelProxy {
-
-    protected ComponentProperties componentProperties = null;
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
-    protected void ready() {
+public class Breadcrumb extends BaseComponent {
+    public void ready() {
 
         final String DEFAULT_DELIMITER = "";
         final String DEFAULT_TRAIL = "";
@@ -38,22 +31,22 @@ public class Breadcrumb extends ModelProxy {
         final String FIELD_START_LEVEL = "startLevel";
 
         setComponentFields(new Object[][]{
-                {"delimiter", DEFAULT_DELIMITER},
-                {"trail", DEFAULT_TRAIL},
-                {FIELD_START_LEVEL, ""},
-                {FIELD_END_LEVEL, ""},
-                {"showHidden", DEFAULT_SHOW_HIDDEN},
-                {"hideCurrent", DEFAULT_HIDE_CURRENT},
-                {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE},
-                {FIELD_ARIA_LABEL, DEFAULT_ARIA_LABEL},
-                {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"delimiter", DEFAULT_DELIMITER},
+            {"trail", DEFAULT_TRAIL},
+            {FIELD_START_LEVEL, ""},
+            {FIELD_END_LEVEL, ""},
+            {"showHidden", DEFAULT_SHOW_HIDDEN},
+            {"hideCurrent", DEFAULT_HIDE_CURRENT},
+            {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE},
+            {FIELD_ARIA_LABEL, DEFAULT_ARIA_LABEL},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
         List<Map> values = new ArrayList<>();
 

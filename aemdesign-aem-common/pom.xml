@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <!-- ====================================================================== -->
     <!-- P A R E N T    P R O J E C T    D E S C R I P T I O N                  -->
     <!-- ====================================================================== -->
     <parent>
         <groupId>design.aem</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>2.0.680</version>
+        <version>3.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +18,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-common</artifactId>
-    <version>2.0.680</version>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>content-package</packaging>
     <name>AEM Design - Core - AEM Common</name>
     <description>AEM Design package with all common components</description>
@@ -80,14 +81,12 @@
             <artifactId>aem-sass-compiler</artifactId>
             <version>1.0.1</version>
         </dependency>
-
         <!--Add aemdesign dependencies to be embedded via content-package-maven-plugin-->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>aemdesign-aem-services</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -205,7 +204,6 @@
             <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
-
         <!-- Common API -->
         <dependency>
             <groupId>org.jsoup</groupId>
@@ -219,15 +217,12 @@
             <version>2.8.5</version>
             <scope>provided</scope>
         </dependency>
-
-
         <!-- health check around the OSGi installer, http://sling.apache.org/documentation/bundles/osgi-installer.html#health-check -->
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.installer.hc</artifactId>
             <version>2.0.0</version>
         </dependency>
-
         <!-- wcm.io context aware configuration -->
         <dependency>
             <groupId>io.wcm</groupId>
@@ -239,7 +234,6 @@
             <artifactId>io.wcm.caconfig.extensions</artifactId>
             <version>1.4.0</version>
         </dependency>
-
         <!-- ACS Commons Dependencies -->
         <dependency>
             <groupId>com.adobe.acs</groupId>
@@ -247,8 +241,6 @@
             <version>${adobe.acs.version}</version>
             <scope>provided</scope>
         </dependency>
-
-
     </dependencies>
 
     <!-- ====================================================================== -->
@@ -256,7 +248,7 @@
     <!-- ====================================================================== -->
     <build>
         <resources>
-        <!-- define the resources that will go into the package -->
+            <!-- define the resources that will go into the package -->
             <resource>
                 <directory>src/main/content/jcr_root</directory>
                 <filtering>false</filtering>
@@ -277,12 +269,12 @@
         </resources>
 
         <plugins>
-        <!--
-            we want to keep some of the META-INF files and not configure
-            everything in the plugin (mainly the filters).
+            <!--
+                we want to keep some of the META-INF files and not configure
+                everything in the plugin (mainly the filters).
 
-            copy the resource explicitly instead of attaching it to the default resources
-            -->
+                copy the resource explicitly instead of attaching it to the default resources
+                -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -337,7 +329,6 @@
                             <artifactId>io.wcm.caconfig.editor</artifactId>
                             <artifactId>io.wcm.caconfig.extensions</artifactId>
                         </embedded>
-
                         <embedded>
                             <groupId>${project.parent.groupId}</groupId>
                             <artifactId>aemdesign-aem-services</artifactId>
@@ -354,11 +345,13 @@
                             <groupId>com.adobe.acs</groupId>
                             <artifactId>acs-aem-commons-bundle</artifactId>
                         </embedded>
+                        <embedded>
+                            <groupId>com.adobe.cq</groupId>
+                            <artifactId>core.wcm.components.core</artifactId>
+                        </embedded>
                     </embeddeds>
-
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 
@@ -384,7 +377,9 @@
                                     <goal>install</goal>
                                 </goals>
                                 <configuration>
-                                    <targetURL>${package.uploadProtocol}://${crx.host}:${crx.port}/crx/packmgr/service.jsp</targetURL>
+                                    <targetURL>
+                                        ${package.uploadProtocol}://${crx.host}:${crx.port}/crx/packmgr/service.jsp
+                                    </targetURL>
                                     <userId>${crx.username}</userId>
                                     <password>${crx.password}</password>
                                 </configuration>

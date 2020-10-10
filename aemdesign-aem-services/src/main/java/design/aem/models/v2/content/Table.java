@@ -1,7 +1,6 @@
 package design.aem.models.v2.content;
 
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 
 import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_ACCESSIBILITY;
@@ -9,14 +8,8 @@ import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_STYLE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class Table extends ModelProxy {
-
-    protected ComponentProperties componentProperties = null;
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
-    protected void ready() {
+public class Table extends BaseComponent {
+    public void ready() {
 
         /*
           Component Fields Helper
@@ -28,22 +21,22 @@ public class Table extends ModelProxy {
           4 optional - canonical name of class for handling multivalues, String or Tag
          */
         setComponentFields(new Object[][]{
-                {"text",""},
-                {"tableData",""}
+            {"text", ""},
+            {"tableData", ""}
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
         //backwards compatibility for components that use textData
-        String tableData = componentProperties.get("tableData","");
-        String text = componentProperties.get("text","");
+        String tableData = componentProperties.get("tableData", "");
+        String text = componentProperties.get("text", "");
 
         if (isEmpty(text) && isNotEmpty(tableData)) {
-            componentProperties.put("text",tableData);
+            componentProperties.put("text", tableData);
         }
     }
 }

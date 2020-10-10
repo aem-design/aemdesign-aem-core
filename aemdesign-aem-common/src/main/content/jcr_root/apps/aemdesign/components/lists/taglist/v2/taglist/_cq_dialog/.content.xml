@@ -1,151 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright 2020 AEM.Design
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Tags List"
           helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/taglist/v2/taglist"
           sling:resourceType="cq/gui/components/authoring/dialog">
     <content
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/foundation/container">
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
         <layout
-                jcr:primaryType="nt:unstructured"
-                type="nav"
-                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+            jcr:primaryType="nt:unstructured"
+            type="nav"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
 
 
             <tagsTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Tags"
-                    sling:resourceType="granite/ui/components/foundation/section">
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Tags"
+                sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column1
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <tags
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Tags"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Tags"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <listFrom
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            class="cq-dialog-dropdown-showhide"
-                                            cq-dialog-dropdown-showhide-target=".list-option-listfrom-showhide-target"
-                                            fieldLabel="Build list using"
-                                            emptyOption="{Boolean}true"
-                                            name="./listFrom">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        class="cq-dialog-dropdown-showhide"
+                                        cq-dialog-dropdown-showhide-target=".list-option-listfrom-showhide-target"
+                                        fieldLabel="Build list using"
+                                        emptyOption="{Boolean}true"
+                                        name="./listFrom">
                                         <items jcr:primaryType="nt:unstructured">
                                             <children
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Child Tags"
-                                                    value="children"/>
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Child Tags"
+                                                value="children"/>
                                             <descendants
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Descendant Tags"
-                                                    value="descendants"/>
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Descendant Tags"
+                                                value="descendants"/>
                                             <static
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Fixed list"
-                                                    value="static"/>
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Fixed list"
+                                                value="static"/>
                                         </items>
                                     </listFrom>
                                     <setChildren
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/container"
-                                            class="hide list-option-listfrom-showhide-target foundation-layout-util-vmargin"
-                                            showhidetargetvalue="children">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/container"
+                                        class="hide list-option-listfrom-showhide-target foundation-layout-util-vmargin"
+                                        showhidetargetvalue="children">
                                         <items jcr:primaryType="nt:unstructured">
                                             <heading
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/heading"
-                                                    class="coral-Heading coral-Heading--4"
-                                                    level="{Long}4"
-                                                    text="Options for Child Tags"/>
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/heading"
+                                                class="coral-Heading coral-Heading--4"
+                                                level="{Long}4"
+                                                text="Options for Child Tags"/>
                                             <well
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/container">
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/container">
                                                 <layout
-                                                        jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/layouts/well"/>
                                                 <items jcr:primaryType="nt:unstructured">
                                                     <parentTag
-                                                            jcr:primaryType="nt:unstructured"
-                                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                                            fieldDescription="Leave empty to use current page"
-                                                            fieldLabel="Parent page"
-                                                            name="./parentTag"
-                                                            rootPath="/content/_cq_tags/"/>
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                        fieldDescription="Leave empty to use current page"
+                                                        fieldLabel="Parent page"
+                                                        name="./parentTag"
+                                                        rootPath="/content/_cq_tags/"/>
                                                 </items>
                                             </well>
                                         </items>
                                     </setChildren>
                                     <setDescendants
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/container"
-                                            class="hide list-option-listfrom-showhide-target foundation-layout-util-vmargin"
-                                            showhidetargetvalue="descendants">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/container"
+                                        class="hide list-option-listfrom-showhide-target foundation-layout-util-vmargin"
+                                        showhidetargetvalue="descendants">
                                         <items jcr:primaryType="nt:unstructured">
                                             <heading
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/heading"
-                                                    class="coral-Heading coral-Heading--4"
-                                                    level="{Long}4"
-                                                    text="Options for Descendant Tags"/>
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/heading"
+                                                class="coral-Heading coral-Heading--4"
+                                                level="{Long}4"
+                                                text="Options for Descendant Tags"/>
                                             <well
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/container">
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/container">
                                                 <layout
-                                                        jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/layouts/well"/>
                                                 <items jcr:primaryType="nt:unstructured">
                                                     <ancestorTag
-                                                            jcr:primaryType="nt:unstructured"
-                                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                                            fieldDescription="Leave empty to use current page"
-                                                            fieldLabel="Descendants of"
-                                                            name="./ancestorTag"
-                                                            rootPath="/content/_cq_tags/"/>
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                        fieldDescription="Leave empty to use current page"
+                                                        fieldLabel="Descendants of"
+                                                        name="./ancestorTag"
+                                                        rootPath="/content/_cq_tags/"/>
                                                 </items>
                                             </well>
                                         </items>
                                     </setDescendants>
                                     <setStatic
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/container"
-                                            class="hide list-option-listfrom-showhide-target foundation-layout-util-vmargin"
-                                            showhidetargetvalue="static">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/container"
+                                        class="hide list-option-listfrom-showhide-target foundation-layout-util-vmargin"
+                                        showhidetargetvalue="static">
                                         <items jcr:primaryType="nt:unstructured">
                                             <heading
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/heading"
-                                                    class="coral-Heading coral-Heading--4"
-                                                    level="{Long}4"
-                                                    text="Options for Fixed list"/>
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/heading"
+                                                class="coral-Heading coral-Heading--4"
+                                                level="{Long}4"
+                                                text="Options for Fixed list"/>
                                             <well
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/container">
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/container">
                                                 <layout
-                                                        jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/layouts/well"/>
                                                 <items jcr:primaryType="nt:unstructured">
                                                     <tags
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                                         fieldLabel="Tags"
                                                         multiple="{Boolean}true"
-                                                        rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}"
+                                                        rootPath="/content/cq:tags/${namespace}"
                                                         name="./tags"/>
                                                     <tagsHint
-                                                            jcr:primaryType="nt:unstructured"
-                                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
-                                                            name="./tags@TypeHint"
-                                                            value="String[]"/>
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                        name="./tags@TypeHint"
+                                                        value="String[]"/>
 
                                                 </items>
                                             </well>
@@ -158,74 +174,74 @@
                         </items>
                     </column1>
                     <column2
-                            jcr:primaryType="nt:unstructured"
-                            class="u-coral-padding u-coral-noMargin"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:primaryType="nt:unstructured"
+                        class="u-coral-padding u-coral-noMargin"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <basic
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Config"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Config"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <emptyOption
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="show empty option"
-                                            fieldLabel="Empty Option"
-                                            name="./emptyOption"
-                                            emptyOption="{Boolean}true"
-                                            value="">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="show empty option"
+                                        fieldLabel="Empty Option"
+                                        name="./emptyOption"
+                                        emptyOption="{Boolean}true"
+                                        value="">
                                         <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="valuelist"
+                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"/>
                                     </emptyOption>
                                     <emptyOptionTitle
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                            fieldDescription="Title to use for empty option"
-                                            fieldLabel="Empty Option Title"
-                                            name="./emptyOptionTitle"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                        fieldDescription="Title to use for empty option"
+                                        fieldLabel="Empty Option Title"
+                                        name="./emptyOptionTitle"/>
 
                                     <orderBy
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="Enter a property like 'jcr:created'"
-                                            fieldLabel="Order by"
-                                            emptyOption="{Boolean}true"
-                                            name="./orderBy">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Enter a property like 'jcr:created'"
+                                        fieldLabel="Order by"
+                                        emptyOption="{Boolean}true"
+                                        name="./orderBy">
                                         <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/taglist/orderby"/>
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="valuelist"
+                                            path="/content/cq:tags/${namespace}/component-dialog/components/lists/taglist/orderby"/>
                                     </orderBy>
                                     <sortOrder
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
-                                            fieldDescription="Sort order ascending or descending"
-                                            fieldLabel="Sort Order"
-                                            name="./sortOrder"
-                                            type="editable">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="Sort order ascending or descending"
+                                        fieldLabel="Sort Order"
+                                        name="./sortOrder"
+                                        type="editable">
                                         <items jcr:primaryType="nt:unstructured">
                                             <asc
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Ascending"
-                                                    value="asc"/>
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Ascending"
+                                                value="asc"/>
                                             <desc
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Descending"
-                                                    value="desc"/>
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Descending"
+                                                value="desc"/>
                                         </items>
                                     </sortOrder>
 
                                     <limit
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                            fieldDescription="Maximum number of items displayed in list default is 100"
-                                            fieldLabel="Limit"
-                                            name="./limit"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                        fieldDescription="Maximum number of items displayed in list default is 100"
+                                        fieldLabel="Limit"
+                                        name="./limit"/>
                                 </items>
                             </basic>
                         </items>
@@ -234,34 +250,34 @@
             </tagsTab>
 
             <layoutTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Layout"
-                    sling:resourceType="granite/ui/components/foundation/section">
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Layout"
+                sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <variant
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Layout"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Layout"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <variant
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldLabel="Variant"
-                                            name="./variant"
-                                            value="list">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldLabel="Variant"
+                                        name="./variant"
+                                        value="list">
                                         <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/taglist/variant"/>
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="valuelist"
+                                            path="/content/cq:tags/${namespace}/component-dialog/components/lists/taglist/variant"/>
                                     </variant>
                                 </items>
                             </variant>
@@ -271,69 +287,68 @@
             </layoutTab>
 
 
-
             <filteringTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Filtering"
-                    sling:resourceType="granite/ui/components/foundation/section">
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Filtering"
+                sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <filtering
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Filtering"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Filtering"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
 
                                     <filter
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="use this component as a filter for lists or other components"
-                                            fieldLabel="Component Filter"
-                                            name="./filter"
-                                            emptyOption="{Boolean}true"
-                                            value="">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="use this component as a filter for lists or other components"
+                                        fieldLabel="Component Filter"
+                                        name="./filter"
+                                        emptyOption="{Boolean}true"
+                                        value="">
                                         <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="valuelist"
+                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"/>
                                     </filter>
 
                                     <filterTopic
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="Notify other components on a topic when selection is made in this component"
-                                            fieldLabel="Topic Queue"
-                                            name="./filterTopic"
-                                            emptyOption="{Boolean}true"
-                                            value="">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Notify other components on a topic when selection is made in this component"
+                                        fieldLabel="Topic Queue"
+                                        name="./filterTopic"
+                                        emptyOption="{Boolean}true"
+                                        value="">
                                         <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-topic/topic"/>
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="valuelist"
+                                            path="/content/cq:tags/${namespace}/component-topic/topic"/>
                                     </filterTopic>
 
                                     <filterDefaults
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                            fieldDescription="Following tags should be selected as default filters"
-                                            fieldLabel="Default Filters"
-                                            multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}"
-                                            name="./filterDefaults"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/coral/common/form/tagfield"
+                                        fieldDescription="Following tags should be selected as default filters"
+                                        fieldLabel="Default Filters"
+                                        multiple="{Boolean}true"
+                                        rootPath="/content/cq:tags/${namespace}"
+                                        name="./filterDefaults"/>
                                     <filterDefaultsHint
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
-                                            name="./filterDefaults@TypeHint"
-                                            value="String[]"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                        name="./filterDefaults@TypeHint"
+                                        value="String[]"/>
 
                                 </items>
                             </filtering>
@@ -343,25 +358,24 @@
             </filteringTab>
 
 
-
-            <styleTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Style"
-                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-            <accessibilityTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Accessibility"
-                    path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-            <analyticsTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Analytics"
-                    path="/apps/aemdesign/global/dialog/touch/analytics/content/items/analyticsTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <style
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Style"
+                path="/apps/aemdesign/global/dialog/touch/style/content/items/tabs/items/styleTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <accessibility
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Accessibility"
+                path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/tabs/items/accessibilityTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <analytics
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Analytics"
+                path="/apps/aemdesign/global/dialog/touch/analytics/content/items/tabs/items/analyticsTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
         </items>
     </content>
 

@@ -7,12 +7,12 @@
   <meta data-sly-test.keywords="${head.keywords}" name="keywords" content="${keywords}"/>
   <meta data-sly-test.description="${head.description}" name="description" content="${description}"/>
 
-  <sly data-sly-call="${headlibRenderer.headlibs @ designPath=head.designPath}" />
-  <sly data-sly-include="author.html" />
+  <sly data-sly-call="${headlibRenderer.headlibs @ designPath=head.designPath}"/>
+  <sly data-sly-include="author.html"/>
 
-  <sly data-sly-include="/libs/cq/cloudserviceconfigs/components/servicelibs/servicelibs.jsp" />
+  <sly data-sly-include="/libs/cq/cloudserviceconfigs/components/servicelibs/servicelibs.jsp"/>
   <sly data-sly-resource="${'cloudconfig-header' @ resourceType='cq/cloudconfig/components/scripttags/header'}"/>
-  <sly data-sly-include="customheaderlibs.html" />
+  <sly data-sly-include="customheaderlibs.html"/>
 
   <sly data-sly-test.faviconpath="${head.faviconPath}">
     <link rel="icon" type="image/vnd.microsoft.icon" href="${faviconpath}">

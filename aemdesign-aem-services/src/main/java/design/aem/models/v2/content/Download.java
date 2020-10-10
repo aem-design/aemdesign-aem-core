@@ -5,8 +5,7 @@ import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.Rendition;
 import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.TagConstants;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -27,10 +26,8 @@ import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class Download extends ModelProxy {
+public class Download extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(Download.class);
-
-    protected ComponentProperties componentProperties = null;
 
     private static final String DEFAULT_I18N_CATEGORY = "download";
     private static final String DEFAULT_I18N_LABEL = "downloadlabel";
@@ -41,36 +38,36 @@ public class Download extends ModelProxy {
     private static final String FIELD_DESCRIPTION = "description";
     private static final String FIELD_THUMBNAIL = DEFAULT_THUMBNAIL_IMAGE_NODE_NAME;
 
-    @SuppressWarnings({"uncheked","squid:S3776"})
-    protected void ready() {
+    @SuppressWarnings({"uncheked", "squid:S3776"})
+    public void ready() {
         com.day.cq.i18n.I18n i18n = new I18n(getRequest());
 
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"thumbnailType", "icon"},
-                {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
-                {"thumbnailWidth","", "thumbnailWidth"},
-                {"thumbnailHeight","","thumbnailHeight"},
-                {FIELD_TITLE,""},
-                {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
-                {FIELD_DESCRIPTION,""},
-                {"fileReference",""},
-                {FIELD_THUMBNAIL, DEFAULT_IMAGE_BLANK},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"thumbnailType", "icon"},
+            {"label", getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LABEL, DEFAULT_I18N_CATEGORY, i18n)},
+            {"thumbnailWidth", "", "thumbnailWidth"},
+            {"thumbnailHeight", "", "thumbnailHeight"},
+            {FIELD_TITLE, ""},
+            {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
+            {FIELD_DESCRIPTION, ""},
+            {"fileReference", ""},
+            {FIELD_THUMBNAIL, DEFAULT_IMAGE_BLANK},
         });
 
         setAnalyticsFields(new Object[][]{
-                {DETAILS_BADGE_ANALYTICS_LABEL, "${(fileReference ? fileReference + '|' : '') + value }"}, //basic
+            {DETAILS_BADGE_ANALYTICS_LABEL, "${(fileReference ? fileReference + '|' : '') + value }"}, //basic
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_ANALYTICS,
-                analyticsFields);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS,
+            analyticsFields);
 
-        String variant = componentProperties.get(FIELD_VARIANT,DEFAULT_VARIANT);
+        String variant = componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
 
         com.day.cq.wcm.foundation.Download dld = new com.day.cq.wcm.foundation.Download(this.getResource());
         componentProperties.put("hasContent", dld.hasContent());
@@ -81,7 +78,7 @@ public class Download extends ModelProxy {
 
             Resource assetRes = dld.getResourceResolver().resolve(dld.getHref());
 
-            if( !ResourceUtil.isNonExistingResource(assetRes)) {
+            if (!ResourceUtil.isNonExistingResource(assetRes)) {
 
                 Asset asset = assetRes.adaptTo(Asset.class);
                 Node assetN = asset.adaptTo(Node.class);
@@ -95,7 +92,7 @@ public class Download extends ModelProxy {
 
                 //override title and description if image has rights
                 String title = componentProperties.get(FIELD_TITLE, "");
-                if(isNotEmpty(licenseInfo)) {
+                if (isNotEmpty(licenseInfo)) {
                     componentProperties.put("isLicensed", true);
                     if (isNotEmpty(assetTitle)) {
                         componentProperties.put("hasAssetTitle", true);
@@ -117,7 +114,7 @@ public class Download extends ModelProxy {
 
                 String description = componentProperties.get(FIELD_DESCRIPTION, "");
 
-                if (isNotEmpty(licenseInfo)|| (isEmpty(description) && isNotEmpty(assetDescription))) {
+                if (isNotEmpty(licenseInfo) || (isEmpty(description) && isNotEmpty(assetDescription))) {
                     componentProperties.put(FIELD_DESCRIPTION, assetDescription);
                 }
 
@@ -179,7 +176,8 @@ public class Download extends ModelProxy {
                 componentProperties.attr.add("href", href);
                 componentProperties.attr.add("data-tags", assetTags);
 
-                componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
+                componentProperties.put(COMPONENT_ATTRIBUTES,
+                    buildAttributesString(componentProperties.attr.getAttributes(), xss));
 
                 componentProperties.put("info", MessageFormat.format("({0}, {1})", getFormattedDownloadSize(dld), mimeTypeLabel));
             } else {
@@ -191,16 +189,10 @@ public class Download extends ModelProxy {
 
         //compile variantTemplate param
         if (isNotEmpty(variant)) {
-            componentProperties.put(FIELD_VARIANT,variant);
-            componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT,variant));
+            componentProperties.put(FIELD_VARIANT, variant);
+            componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant));
         }
     }
-
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
-
 
     /**
      * Determine whether file has an associated data blob, if so then get the formatted
@@ -224,6 +216,7 @@ public class Download extends ModelProxy {
 
     /**
      * Determine the filetype by extracting and uppercasing the last element of the mimetype
+     *
      * @param resolver resource resolver instance
      * @param download is the download to do this for
      * @return the filetype for the download
@@ -263,7 +256,7 @@ public class Download extends ModelProxy {
 
         try {
 
-            String[] measures = { "bytes", "kB", "MB", "GB"};
+            String[] measures = {"bytes", "kB", "MB", "GB"};
             Double measurementIndex = Math.floor(Math.log10(fileSize) / 3.0f);
             Double decSize = fileSize / Math.pow(1024, measurementIndex);
             fileSizeReturn = String.format("%.0f %S", decSize, measures[measurementIndex.intValue()]);

@@ -1,9 +1,10 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <!--
-        Timing chart URL
-        -->
-        <a class="timing" target="new" href="${componentProperties.url}${componentProperties.encodedData}" x-cq-linkchecker="skip">Component Timing</a>
-    </div>
+  <div style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}">
+    <!--
+    Timing chart URL
+    -->
+    <a class="timing" target="new" href="${componentProperties.url}${componentProperties.encodedData}"
+       x-cq-linkchecker="skip">Component Timing</a>
+  </div>
 </template>

@@ -1,156 +1,164 @@
-<%@include file="/apps/aemdesign/global/global.jsp"%><%
-%><%@page session="false"
-          import="com.adobe.granite.ui.components.Config,
-                  com.adobe.granite.ui.components.ds.DataSource,
-                  com.adobe.granite.ui.components.ds.SimpleDataSource,
-                  com.adobe.granite.ui.components.ds.ValueMapResource,
-                  com.day.cq.tagging.Tag,
-                  com.day.cq.tagging.TagManager,
-                  org.apache.commons.collections.Transformer,
-                  org.apache.commons.collections.iterators.IteratorChain,
-                  org.apache.commons.collections.iterators.TransformIterator,
-                  org.apache.commons.lang3.StringUtils,
-                  org.apache.sling.tenant.Tenant,
-                  com.adobe.granite.ui.components.ExpressionHelper,
-                  com.adobe.granite.ui.components.ExpressionCustomizer,
-                  org.apache.sling.api.resource.Resource,
-                  org.apache.sling.api.resource.ResourceMetadata,
-                  org.apache.sling.api.resource.ResourceResolver,
-                  org.apache.sling.api.wrappers.ValueMapDecorator,
-                  java.util.Arrays,
-                  java.util.HashMap"%>
+<%@include file="/apps/aemdesign/global/global.jsp" %>
+<%@page session="false"
+        import="com.adobe.granite.ui.components.Config,
+                com.adobe.granite.ui.components.ExpressionCustomizer,
+                com.adobe.granite.ui.components.ExpressionHelper,
+                com.adobe.granite.ui.components.ds.DataSource,
+                com.adobe.granite.ui.components.ds.SimpleDataSource,
+                com.adobe.granite.ui.components.ds.ValueMapResource,
+                com.day.cq.tagging.Tag,
+                com.day.cq.tagging.TagManager,
+                org.apache.commons.collections.iterators.IteratorChain,
+                org.apache.commons.collections.iterators.TransformIterator,
+                org.apache.sling.api.resource.ResourceMetadata,
+                org.apache.sling.api.resource.ResourceResolver,
+                org.apache.sling.api.wrappers.ValueMapDecorator,
+                org.apache.sling.tenant.Tenant,
+                java.util.HashMap,
+                java.util.Locale" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="static design.aem.utils.components.TenantUtil.resolveTenantIdFromPath" %>
 <%@ page import="static org.apache.commons.lang3.StringUtils.isNotEmpty" %>
+<%@ page import="static design.aem.utils.components.ComponentsUtil.DEFAULT_TENANT" %>
 <%
-    /**
-     A datasource returning tag key-value pairs that is suitable to be used for select or autocomplete (or compatible) components.
 
-     @datasource
-     @name Tags
-     @location /libs/cq/gui/components/common/datasources/tags
+  /**
+   A datasource returning tag key-value pairs that is suitable to be used for select or autocomplete (or compatible) components.
 
-     @path {String[]} [namespaces] The namespaces of the tags to return. Only the tag which namespace equals to one of this values is returned. If this property is not specified, all tags are returned.
-     @variant {String[]} [namespaces] variant name with following values:
-            tagname returns tag name, no reference to Tags
-            pathvalue returns tag path, output full path to tag, central to update, will need content migration when path to Tag storage change
-            tagidvalue return tag tagid, safest to use with Tag Manager and central to update
-            valuelist return tag value, NOTE only use this for drop-downs that value values that don't use Expression Language
-     */
-    Config dsCfg = new Config(_resource.getChild("datasource"));
-    List<String> namespaces = Arrays.asList(dsCfg.get("namespaces", new String[0]));
+   @datasource
+   @name Tags
+   @location /libs/cq/gui/components/common/datasources/tags
 
+   @context {String} Define a custom context that will be available as an expression variable
+   @defaultSelection {String} Pass a value that will be selected as the default, doesn't apply to authored selections
+   @path {String[]} [namespaces] The namespaces of the tags to return. Only the tag which namespace equals to one of this values is returned. If this property is not specified, all tags are returned.
+   @variant {String[]} [namespaces] variant name with following values:
+   tagname returns tag name, no reference to Tags
+   pathvalue returns tag path, output full path to tag, central to update, will need content migration when path to Tag storage change
+   tagidvalue return tag tagid, safest to use with Tag Manager and central to update
+   valuelist return tag value, NOTE only use this for drop-downs that value values that don't use Expression Language
+   */
 
-    ExpressionCustomizer expressionCustomizer = ExpressionCustomizer.from(request);
+  Config dsCfg = new Config(_resource.getChild("datasource"));
+  List<String> namespaces = Arrays.asList(dsCfg.get("namespaces", new String[0]));
 
-    TagManager tm = _resourceResolver.adaptTo(TagManager.class);
+  ExpressionCustomizer expressionCustomizer = ExpressionCustomizer.from(request);
 
-    Tenant tenant = _resourceResolver.adaptTo(Tenant.class);
+  TagManager tm = _resourceResolver.adaptTo(TagManager.class);
+  Tenant tenant = _resourceResolver.adaptTo(Tenant.class);
 
+  String finalTenantId = null;
+
+  if (tenant == null) {
+    tenant = _resource.adaptTo(Tenant.class);
+
+    // Secondary try if the OOTB solution doesn't work
+    if (tenant != null) {
+      expressionCustomizer.setVariable("tenantId", tenant.getId());
+      expressionCustomizer.setVariable("tenant", tenant);
+    }
+
+    // Try manually to resolve the tenant from the suffix
     String requestSuffix = _slingRequest.getRequestPathInfo().getSuffix();
 
-    if (tenant == null) {
-        tenant = _resource.adaptTo(Tenant.class);
-
-        //if tenant OOTB works
-        if (tenant != null) {
-            expressionCustomizer.setVariable("tenantId", tenant.getId());
-            expressionCustomizer.setVariable("tenant", tenant);
-        }
-
-        //try manually resolve tenant from suffix
-        String finalTenantId;
-        if (isNotEmpty(requestSuffix)) {
-            finalTenantId = resolveTenantIdFromPath(requestSuffix);
-        } else {
-            finalTenantId = resolveTenantIdFromPath(_resource.getPath());
-        }
-        if (isNotEmpty(finalTenantId)) {
-            expressionCustomizer.setVariable("tenantId", finalTenantId);
-        }
-
+    if (isNotEmpty(requestSuffix)) {
+      finalTenantId = resolveTenantIdFromPath(requestSuffix);
+    } else {
+      finalTenantId = resolveTenantIdFromPath(_resource.getPath());
     }
 
-    ExpressionHelper ex = cmp.getExpressionHelper();
+    if (isNotEmpty(finalTenantId)) {
+      expressionCustomizer.setVariable("tenantId", finalTenantId);
+    }
+  }
 
-    String path = ex.getString(dsCfg.get("path",""));
+  // TODO: Implement a way of filtering tenants and paths, and assign the 'namespace' dynamically
+  expressionCustomizer.setVariable("namespace", tenant == null && (finalTenantId == null || finalTenantId.isEmpty())
+    ? DEFAULT_TENANT
+    : tenant != null ? tenant.getId() : finalTenantId);
 
-    final String variant = dsCfg.get("variant","");
+  expressionCustomizer.setVariable("context", dsCfg.get("context", ""));
 
+  ExpressionHelper ex = cmp.getExpressionHelper();
 
-    IteratorChain tags = new IteratorChain();
+  final String path = ex.getString(dsCfg.get("path", ""));
+  final String defaultSelection = ex.getString(dsCfg.get("defaultSelection", ""));
+  final String variant = dsCfg.get("variant", "");
 
-    if (tm != null) {
+  IteratorChain tags = new IteratorChain();
 
-        if (isNotEmpty(path)) {
-            Resource rs = _resourceResolver.resolve(path);
-            if (rs != null) {
-                Tag tagPath = rs.adaptTo(Tag.class);
-                if (tagPath != null) {
-                    tags.addIterator(tagPath.listChildren());
-                }
-            }
-        } else {
+  if (tm != null) {
+    if (isNotEmpty(path)) {
+      Resource rs = _resourceResolver.resolve(path);
 
-            for (Tag ns : tm.getNamespaces()) {
-                if (namespaces.size() == 0 || namespaces.contains(ns.getName())) {
-                    tags.addIterator(ns.listChildren());
-                }
-            }
+      if (rs != null) {
+        Tag tagPath = rs.adaptTo(Tag.class);
+
+        if (tagPath != null) {
+          tags.addIterator(tagPath.listChildren());
         }
+      }
+    } else {
+      for (Tag ns : tm.getNamespaces()) {
+        if (namespaces.size() == 0 || namespaces.contains(ns.getName())) {
+          tags.addIterator(ns.listChildren());
+        }
+      }
+    }
+  }
+
+  final Locale locale = request.getLocale();
+  final ResourceResolver resolver = _resourceResolver;
+
+  @SuppressWarnings("unchecked")
+  DataSource ds = new SimpleDataSource(new TransformIterator(tags, o -> {
+    Tag tag = (Tag) o;
+
+    String tagId = tag.getTagID();
+
+    Resource childR = tag.adaptTo(Resource.class);
+    ValueMap childVM = childR.adaptTo(ValueMap.class);
+    ValueMap vm = new ValueMapDecorator(new HashMap<>());
+
+    String value = tagId;
+    String valueAlt = "";
+    String text = tag.getTitlePath(locale);
+
+    if (childVM != null) {
+      if ("pathvalue".equals(variant)) {
+        value = tag.getPath();
+        text = tag.getTitle(locale);
+
+        // tagidvalue
+      } else if ("tagidvalue".equals(variant)) {
+        value = tag.getTagID();
+        text = tag.getTitle(locale);
+
+        // tagname
+      } else if ("tagname".equals(variant)) {
+        value = tag.getName();
+        text = tag.getTitle(locale);
+
+        // valuelist
+      } else if ("valuelist".equals(variant)) {
+        value = childVM.get("value", "");
+        text = tag.getTitle(locale);
+      }
+
+      valueAlt = childVM.get("valuealt", "");
     }
 
-    final Locale locale = request.getLocale();
-    final ResourceResolver resolver = _resourceResolver;
+    if (value.equals(defaultSelection)) {
+      vm.put("selected", true);
+    }
 
-    @SuppressWarnings("unchecked")
-    DataSource ds = new SimpleDataSource(new TransformIterator(tags, new Transformer() {
-        public Object transform(Object o) {
-            Tag tag = (Tag) o;
+    vm.put("value", value);
+    vm.put("text", text);
+    vm.put("valueAlt", valueAlt);
 
-            String tagId = tag.getTagID();
-            Resource childR = tag.adaptTo(Resource.class);
-            ValueMap childVM = childR.adaptTo(ValueMap.class);
+    return new ValueMapResource(resolver, new ResourceMetadata(), "nt:unstructured", vm);
+  }));
 
-            ValueMap vm = new ValueMapDecorator(new HashMap<String, Object>());
-            String value = tagId;
-            String valueAlt = "";
-            String text = tag.getTitlePath(locale);
+  request.setAttribute(DataSource.class.getName(), ds);
 
-            if (childVM!=null) {
-
-                if ("pathvalue".equals(variant)) {
-
-                    value = tag.getPath();
-                    text = tag.getTitle(locale);
-                } else if ("tagidvalue".equals(variant)) {
-
-                    value = tag.getTagID();
-                    text = tag.getTitle(locale);
-                } else if ("tagname".equals(variant)) {
-
-                    value = tag.getName();
-                    text = tag.getTitle(locale);
-                } else if ("valuelist".equals(variant)) {
-
-                    value = childVM.get("value", "");
-                    text = tag.getTitle(locale);
-                }
-
-                valueAlt = childVM.get("valuealt", "");
-            }
-
-
-            vm.put("value", value);
-            vm.put("text", text);
-            vm.put("valueAlt", valueAlt);
-
-            return new ValueMapResource(resolver, new ResourceMetadata(), "nt:unstructured", vm);
-        }
-    }));
-
-    request.setAttribute(DataSource.class.getName(), ds);
 %>

@@ -1,9 +1,11 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <section style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-             data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <fieldset>
-            <legend class="legend">${componentProperties.title}</legend>
-            <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>
-        </fieldset>
-    </section>
+  <section style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+           data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}">
+    <span id="${componentProperties.instanceName}"></span>
+
+    <fieldset>
+      <legend class="legend">${componentProperties.title}</legend>
+      <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>
+    </fieldset>
+  </section>
 </template>

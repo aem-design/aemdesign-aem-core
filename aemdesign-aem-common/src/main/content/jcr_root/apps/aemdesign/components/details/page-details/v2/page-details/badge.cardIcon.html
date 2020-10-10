@@ -1,7 +1,6 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div class="card ${componentProperties.badgeClassAttr}">
-        <div class="card-icon">
-            <i class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
-        </div>
-    </div>
+  <div class="card ${componentProperties.badgeClassAttr}">
+    <sly data-sly-use.icon="/apps/aemdesign/components/details/generic-details/v1/generic-details/field/icon.html"
+         data-sly-call="${icon.field @ componentProperties=componentProperties}"></sly>
+  </div>
 </template>

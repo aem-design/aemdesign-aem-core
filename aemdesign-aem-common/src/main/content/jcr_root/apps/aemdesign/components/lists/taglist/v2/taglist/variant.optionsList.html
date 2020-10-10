@@ -1,9 +1,0 @@
-<template data-sly-template.variant="${@ componentProperties, component}">
-    <select style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-            data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <option data-sly-test="${componentProperties.emptyOption}" value="" selected>${componentProperties.emptyOptionTitle}</option>
-        <sly data-sly-list.listItem="${component.ListItems}">
-            <option value="${listItem.tag.id}">${listItem.tag.title}</option>
-        </sly>
-    </select>
-</template>

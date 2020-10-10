@@ -1,18 +1,19 @@
-<template data-sly-template.variant="${@ componentProperties, componentTemplates, requestedFieldsTemplate, componentFields, requestedFields}">
-    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <sly data-sly-list.template="${requestedFieldsTemplate}">
-            <sly data-sly-test="${template in componentTemplates}">
-                <sly data-sly-set.fieldsTemplateFound="true"></sly>
-                <sly data-sly-use.child="${componentTemplates[template].path}"
-                     data-sly-call="${child.variant @ componentProperties=componentProperties, componentFields=componentFields, requestedFields=requestedFields}"></sly>
-            </sly>
-        </sly>
-        <sly data-sly-test="${!fieldsTemplateFound}">
-            <sly data-sly-test="${'default' in componentTemplates}">
-                <sly data-sly-use.child="${componentTemplates['default'].path}"
-                     data-sly-call="${child.variant @ componentProperties=componentProperties, componentFields=componentFields, requestedFields=requestedFields}"></sly>
-            </sly>
-        </sly>
-    </div>
+<template
+        data-sly-template.variant="${@ componentProperties, componentTemplates, requestedFieldsTemplate, componentFields, requestedFields}">
+  <div style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}">
+    <sly data-sly-list.template="${requestedFieldsTemplate}">
+      <sly data-sly-test="${template in componentTemplates}">
+        <sly data-sly-set.fieldsTemplateFound="true"></sly>
+        <sly data-sly-use.child="${componentTemplates[template].path}"
+             data-sly-call="${child.variant @ componentProperties=componentProperties, componentFields=componentFields, requestedFields=requestedFields}"></sly>
+      </sly>
+    </sly>
+    <sly data-sly-test="${!fieldsTemplateFound}">
+      <sly data-sly-test="${'default' in componentTemplates}">
+        <sly data-sly-use.child="${componentTemplates['default'].path}"
+             data-sly-call="${child.variant @ componentProperties=componentProperties, componentFields=componentFields, requestedFields=requestedFields}"></sly>
+      </sly>
+    </sly>
+  </div>
 </template>

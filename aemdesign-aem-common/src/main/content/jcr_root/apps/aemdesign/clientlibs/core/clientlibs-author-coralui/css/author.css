@@ -1,22 +1,18 @@
-/*aemdesign.author.css - specific author rules*/
+/**
+ * aemdesign.author.css - specific author rules
+ */
 
-/* TODO: need to align to [badge badge-pill badge-{default,primary,success,info,warning,danger}] */
-.cq-info {
-    /* #EEE49D */
-    border: 1px dashed #999;
-    background-color: #eeecd8;
-    color: #333;
-    font-weight: bold;
-    font-size: 11px;
-    padding: 10px;
+.cq-Editable-dom.cq-Editable-dom--container.article {
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
-
-/* hide component badges in preview */
-.cq-wcm-preview details.component.badge, .cq-wcm-preview .cq-info{
-    display: none;
+.cq-Editable-dom:not(.responsivegrid) + .cq-Editable-dom {
+  margin-top: 30px;
 }
 
-details.component div.code.variant {
-    display: none;
+.cq-Editable-dom > [component] {
+  padding-left: 25px;
+  padding-right: 25px;
+  min-height: 20px;
 }

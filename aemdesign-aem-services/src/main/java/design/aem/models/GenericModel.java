@@ -1,3 +1,18 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ~ Copyright 2020 AEM.Design
+ ~
+ ~ Licensed under the Apache License, Version 2.0 (the "License");
+ ~ you may not use this file except in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~     http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing, software
+ ~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~ See the License for the specific language governing permissions and
+ ~ limitations under the License.
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package design.aem.models;
 
 import com.adobe.cq.export.json.ComponentExporter;
@@ -32,8 +47,8 @@ import java.util.Map;
 import static design.aem.utils.components.ComponentsUtil.*;
 
 @Model(adaptables = SlingHttpServletRequest.class,
-        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL,
-        adapters = {GenericComponent.class, ComponentExporter.class})
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL,
+    adapters = {GenericComponent.class, ComponentExporter.class})
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class GenericModel implements GenericComponent {
 
@@ -86,26 +101,85 @@ public class GenericModel implements GenericComponent {
         return resource.getResourceType();
     }
 
-    public final PageManager getPageManager() { return this.pageManager; }
-    public final Page getCurrentPage() { return this.currentPage; }
-    public final Page getResourcePage() { return this.resourcePage; }
-    public final ValueMap getPageProperties() { return this.pageProperties; }
-    public final ValueMap getProperties() { return this.properties; }
-    public final Designer getDesigner() { return this.designer; }
-    public final Design getCurrentDesign() { return this.currentDesign; }
-    public final Style getCurrentStyle() { return this.currentStyle; }
-    public final Component getComponent() { return this.component; }
-    public final ValueMap getInheritedPageProperties() { return this.inheritedPageProperties; }
-    public final Resource getResource() { return this.resource; }
-    public final ResourceResolver getResourceResolver() { return this.resourceResolver; }
-    public final SlingHttpServletRequest getRequest() { return this.slingHttpServletRequest; }
-    public final SlingHttpServletResponse getResponse() { return this.slingHttpServletResponse; }
-    public final SlingScriptHelper getSlingScriptHelper() { return this.slingScriptHelper; }
-    public final ComponentContext getComponentContext() { return this.componentContext; }
-    public final EditContext getEditContext() { return this.componentContext.getEditContext(); }
-    public final Design getResourceDesign() { return this.resourceDesign; }
-    public final Node getCurrentNode() { return this.resource.adaptTo(Node.class); }
-    public final I18n getI18n() { return new I18n(getRequest()); }
+    public final PageManager getPageManager() {
+        return this.pageManager;
+    }
+
+    public final Page getCurrentPage() {
+        return this.currentPage;
+    }
+
+    public final Page getResourcePage() {
+        return this.resourcePage;
+    }
+
+    public final ValueMap getPageProperties() {
+        return this.pageProperties;
+    }
+
+    public final ValueMap getProperties() {
+        return this.properties;
+    }
+
+    public final Designer getDesigner() {
+        return this.designer;
+    }
+
+    public final Design getCurrentDesign() {
+        return this.currentDesign;
+    }
+
+    public final Style getCurrentStyle() {
+        return this.currentStyle;
+    }
+
+    public final Component getComponent() {
+        return this.component;
+    }
+
+    public final ValueMap getInheritedPageProperties() {
+        return this.inheritedPageProperties;
+    }
+
+    public final Resource getResource() {
+        return this.resource;
+    }
+
+    public final ResourceResolver getResourceResolver() {
+        return this.resourceResolver;
+    }
+
+    public final SlingHttpServletRequest getRequest() {
+        return this.slingHttpServletRequest;
+    }
+
+    public final SlingHttpServletResponse getResponse() {
+        return this.slingHttpServletResponse;
+    }
+
+    public final SlingScriptHelper getSlingScriptHelper() {
+        return this.slingScriptHelper;
+    }
+
+    public final ComponentContext getComponentContext() {
+        return this.componentContext;
+    }
+
+    public final EditContext getEditContext() {
+        return this.componentContext.getEditContext();
+    }
+
+    public final Design getResourceDesign() {
+        return this.resourceDesign;
+    }
+
+    public final Node getCurrentNode() {
+        return this.resource.adaptTo(Node.class);
+    }
+
+    public final I18n getI18n() {
+        return new I18n(getRequest());
+    }
 
     public Map<String, Object> getPageContextMap() {
 

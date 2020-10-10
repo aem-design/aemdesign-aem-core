@@ -47,7 +47,8 @@
             <property name="excludes" value="java.io,java.net,java.lang.Math,javax.jcr,java.util"/>
             <property name="allowClassImports" value="false"/>
             <property name="allowStaticMemberImports" value="false"/>
-        </module>        <module name="OneTopLevelClass"/>
+        </module>
+        <module name="OneTopLevelClass"/>
         <module name="NoLineWrap"/>
         <module name="EmptyBlock">
             <property name="option" value="TEXT"/>

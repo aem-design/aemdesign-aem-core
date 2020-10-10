@@ -1,6 +1,20 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ~ Copyright 2020 AEM.Design
+ ~
+ ~ Licensed under the Apache License, Version 2.0 (the "License");
+ ~ you may not use this file except in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~     http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing, software
+ ~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~ See the License for the specific language governing permissions and
+ ~ limitations under the License.
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package design.aem.components;
 
-import com.adobe.granite.ui.components.AttrBuilder;
 import org.apache.commons.jexl3.*;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -15,14 +29,13 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class ComponentProperties extends ValueMapDecorator {
-
     protected static final Logger LOGGER = LoggerFactory.getLogger(ComponentProperties.class);
 
     public AttrBuilder attr; //NOSONAR use simpler patter as a util
     public ArrayList<ComponentField> expressionFields; //NOSONAR used by components to evaluate values
 
     /***
-     * <p>Created empty map.</p>
+     * Create empty map.
      */
     @SuppressWarnings("unchecked")
     public ComponentProperties() {
@@ -40,6 +53,7 @@ public class ComponentProperties extends ValueMapDecorator {
 
     /**
      * override default equals
+     *
      * @param obj source componentProperties
      * @return true of same as self
      */
@@ -60,6 +74,7 @@ public class ComponentProperties extends ValueMapDecorator {
 
     /**
      * generate object hashcode with seed
+     *
      * @return hashcode
      */
     @Override
@@ -106,18 +121,18 @@ public class ComponentProperties extends ValueMapDecorator {
                                 if (currentValue.getClass().isArray() && ArrayUtils.getLength(currentValue) != 0) {
                                     //if its an empty array
                                     LOGGER.warn("skip: {} current value it not empty array, merging", entry.getKey());
-                                    Object[] currentValueArray = (Object[])currentValue;
-                                    Object[] newValueArray =  (Object[])newValue;
+                                    Object[] currentValueArray = (Object[]) currentValue;
+                                    Object[] newValueArray = (Object[]) newValue;
 
                                     List<Object> updatedValueList = new ArrayList<>();
-                                    Collections.addAll(updatedValueList,currentValueArray);
+                                    Collections.addAll(updatedValueList, currentValueArray);
 
-                                    for (Object newValueItem : newValueArray){
+                                    for (Object newValueItem : newValueArray) {
                                         if (!updatedValueList.contains(newValueItem)) {
                                             updatedValueList.add(newValueItem);
                                         }
                                     }
-//                                    continue;
+
                                     updatedValue = updatedValueList.toArray();
                                 }
                             }
@@ -165,23 +180,22 @@ public class ComponentProperties extends ValueMapDecorator {
                             //use default expression if item does not have expression
                             String valueExpression = defaultValueExpression;
                             //if field value is expression use it
-                            if (isStringRegex((String)fieldValue)) {
-                                valueExpression = (String)fieldValue;
+                            if (isStringRegex((String) fieldValue)) {
+                                valueExpression = (String) fieldValue;
                             }
 
                             Object expressonResult = evaluateExpressionWithValue(jxlt, jc, valueExpression, fieldValue);
 
                             if (expressonResult != null) {
-
                                 //update field value
                                 this.put(field.getFieldName(), expressonResult);
+
                                 //save field value into data attribute
                                 this.attr.set(field.getDataAttributeName(), (String) expressonResult);
                             }
                         } else {
-
                             //get current field value
-                            String[] values = (String[])field.getValue();
+                            String[] values = (String[]) field.getValue();
 
                             if (!ArrayUtils.isEmpty(values)) {
                                 //loop though array and evaluate each item value
@@ -195,7 +209,7 @@ public class ComponentProperties extends ValueMapDecorator {
                                     values[i] = (String) evaluateExpressionWithValue(jxlt, jc, valueExpression, values[i]);
                                 }
                             } else {
-                                values = ArrayUtils.add(values,(String) evaluateExpressionWithValue(jxlt, jc, defaultValueExpression, null));
+                                values = ArrayUtils.add(values, (String) evaluateExpressionWithValue(jxlt, jc, defaultValueExpression, null));
                             }
 
                             //update evaluated values
@@ -214,12 +228,10 @@ public class ComponentProperties extends ValueMapDecorator {
                                     }
                                 } else {
                                     //save values as comma delimited array
-                                    this.attr.add(field.getDataAttributeName(), StringUtils.join((String[]) field.getValue(), FIELD_DATA_ARRAY_SEPARATOR));
+                                    this.attr.add(field.getDataAttributeName(),
+                                        StringUtils.join((String[]) field.getValue(), FIELD_DATA_ARRAY_SEPARATOR));
                                 }
-
                             }
-
-
                         }
                     }
                 } catch (JexlException jex) {
@@ -227,7 +239,6 @@ public class ComponentProperties extends ValueMapDecorator {
                 } catch (Exception ex) {
                     LOGGER.error("evaluateExpressionFields: field={},Exception={}", field, ex);
                 }
-
             }
         }
     }

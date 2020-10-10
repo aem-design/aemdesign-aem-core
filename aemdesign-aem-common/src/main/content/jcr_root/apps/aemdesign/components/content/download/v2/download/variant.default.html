@@ -1,9 +1,9 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <a style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
-       download>
-        ${componentProperties.title}
-        <div class="license"
-             data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo @ context = 'unsafe'}</div>
-    </a>
+  <a style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+     data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}"
+     download>
+    ${componentProperties.title}
+    <div class="license"
+         data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo @ context = 'unsafe'}</div>
+  </a>
 </template>

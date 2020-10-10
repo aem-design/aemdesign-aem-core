@@ -1,0 +1,47 @@
+<!--/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright 2020 AEM.Design
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/-->
+
+<template data-sly-template.variant>
+  <div data-sly-use.component="design.aem.models.v3.details.PageDetails"
+       data-sly-use.templateSupport="design.aem.utils.htl.TemplateSupport"
+       data-sly-unwrap="${!component.useContainer}"
+       class="container">
+    <sly data-sly-test="${component.showBreadcrumb}"
+         data-sly-set.breadcrumbClassName="c-${component.componentName}__breadcrumb"
+         data-sly-resource="${'./breadcrumb' @ resourceType=templateSupport.componentPath['breadcrumb'],
+                                               cssClassName=breadcrumbClassName,
+                                               decorationTagName='div'}"></sly>
+
+    <div data-sly-unwrap="${!component.hasTitle && !component.description.length}"
+         class="c-${component.componentName}__callout">
+      <title data-sly-element="${component.titleLevel}"
+             data-sly-test="${component.hasTitle}"
+             class="c-${component.componentName}__title">${component.title}</title>
+
+      <div data-sly-test="${component.description && !component.description.empty}"
+           class="c-${component.componentName}__description">
+        ${component.description @ context='html'}
+      </div>
+    </div>
+
+    <sly data-sly-test="${component.showParsys && (wcmmode.edit || component.parsysWithAuthoredContent)}">
+      <sly data-sly-set.parsysClassName="c-${component.componentName}__parsys"
+           data-sly-resource="${'./par' @ resourceType=templateSupport.componentPath['parsys'],
+                                          cssClassName=parsysClassName,
+                                          decorationTagName='div'}"></sly>
+    </sly>
+  </div>
+</template>

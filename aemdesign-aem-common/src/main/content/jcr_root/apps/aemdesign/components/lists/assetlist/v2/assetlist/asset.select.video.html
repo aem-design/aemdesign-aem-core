@@ -1,12 +1,13 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <figure itemscope itemtype="http://schema.org/ImageObject">
-        <meta data-sly-test="${componentProperties.duration}"
-              itemprop="duration" content="${componentProperties.duration}"/>
-        <meta data-sly-test="${componentProperties.imageURL}" itemprop="thumbnail" content="${componentProperties.imageURL}" />
-        <video class="embed-responsive-item" autoplay controls loop muted>
-            <source src="${componentProperties.href}" type="video/mp4">
-        </video>
-        <sly data-sly-use.figcaption="asset.figcaption.html"
-             data-sly-call="${figcaption.variant @ componentProperties=componentProperties}"></sly>
-    </figure>
+  <figure itemscope itemtype="http://schema.org/ImageObject">
+    <meta data-sly-test="${componentProperties.duration}"
+          itemprop="duration" content="${componentProperties.duration}"/>
+    <meta data-sly-test="${componentProperties.imageURL}" itemprop="thumbnail"
+          content="${componentProperties.imageURL}"/>
+    <video class="embed-responsive-item" autoplay controls loop muted>
+      <source src="${componentProperties.href}" type="video/mp4">
+    </video>
+    <sly data-sly-use.figcaption="asset.figcaption.html"
+         data-sly-call="${figcaption.variant @ componentProperties=componentProperties}"></sly>
+  </figure>
 </template>

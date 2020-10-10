@@ -1,7 +1,8 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <sly data-sly-test="${wcmmode.edit}" data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/parsys'}"></sly>
-        <sly data-sly-test="${!wcmmode.edit}" data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/parsys'}"></sly>
-    </div>
+  <span id="${componentProperties.instanceName}"></span>
+
+  <section style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}">
+    <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/parsys'}"></sly>
+  </section>
 </template>

@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-    jcr:primaryType="nt:unstructured"
-    jcr:title="Page"
-    sling:resourceType="cq/gui/components/authoring/dialog"
-    extraClientlibs="[cq.common.wcm,core.wcm.components.page.v2.editor,cq.wcm.msm.properties,granite.contexthub.configuration]"
-    helpPath="https://www.adobe.com/go/aem_cmp_page_v2"
-    mode="edit">
-    <content
-        granite:class="cq-dialog-content-page"
-        jcr:primaryType="nt:unstructured"
-        sling:resourceType="granite/ui/components/coral/foundation/container">
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured">
+    <content jcr:primaryType="nt:unstructured">
         <items jcr:primaryType="nt:unstructured">
-            <tabs
-                granite:class="cq-siteadmin-admin-properties-tabs"
-                jcr:primaryType="nt:unstructured"
-                sling:resourceType="granite/ui/components/coral/foundation/tabs"
-                size="L">
+            <tabs jcr:primaryType="nt:unstructured">
                 <items jcr:primaryType="nt:unstructured">
+                    <titles_and_seo
+                        cq:showOnCreate="{Boolean}true"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Titles + SEO"
+                        sling:orderBefore="advanced"
+                        sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <titles
+                                        jcr:primaryType="nt:unstructured"
+                                        jcr:title="Titles"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <pageTitleSuffix
+                                                cq:showOnCreate="{Boolean}true"
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:orderBefore="./pagetitle"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldDescription="A suffix that appears for all child pages (this inclusive)"
+                                                fieldLabel="Page Title Suffix"
+                                                name="./pageTitleSuffix"
+                                                renderReadOnly="{Boolean}true"/>
+                                        </items>
+                                    </titles>
+                                </items>
+                            </column>
+                        </items>
+                    </titles_and_seo>
+
                     <errorpages
                         cq:showOnCreate="{Boolean}true"
                         jcr:primaryType="nt:unstructured"
@@ -33,17 +54,17 @@
                                         sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                         <items jcr:primaryType="nt:unstructured">
                                             <note
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/text"
-                                                    text="Select folder with error pages to use for this page and its content tree"/>
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/text"
+                                                text="Select folder with error pages to use for this page and its content tree"/>
 
                                             <errorpages
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                                                    fieldLabel="Error Pages"
-                                                    fieldDescription="Pages from this folder will be used for display for different error messages using ACS Error Page Handler component"
-                                                    name="./errorPages"
-                                                    required="{Boolean}false"/>
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                                fieldLabel="Error Pages"
+                                                fieldDescription="Pages from this folder will be used for display for different error messages using ACS Error Page Handler component"
+                                                name="./errorPages"
+                                                required="{Boolean}false"/>
 
                                         </items>
                                     </section>

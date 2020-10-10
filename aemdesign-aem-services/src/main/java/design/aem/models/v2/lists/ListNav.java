@@ -8,8 +8,7 @@ import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -28,20 +27,14 @@ import java.util.*;
 
 import static design.aem.models.v2.lists.List.SortOrder;
 import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX;
-import static design.aem.utils.components.CommonUtil.getBadgeFromSelectors;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ImagesUtil.FIELD_IMAGE_OPTION;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class ListNav extends ModelProxy {
+public class ListNav extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ListNav.class);
 
-    protected ComponentProperties componentProperties = null;
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
-    private List<Map<String,Object>> listItems;
+    private List<Map<String, Object>> listItems;
 
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     @Default(intValues = LIMIT_DEFAULT)
@@ -82,7 +75,7 @@ public class ListNav extends ModelProxy {
     @Default(values = StringUtils.EMPTY)
     private String detailsBadge;
 
-    protected void ready() {
+    public void ready() {
         PARENT_PATH_DEFAULT = getCurrentPage().getPath();
 
         /*
@@ -95,25 +88,25 @@ public class ListNav extends ModelProxy {
           4 optional - canonical name of class for handling multivalues, String or Tag
          */
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {STATIC_ITEMS, new String[0]},
-                {DESCENDANT_PATH, PARENT_PATH_DEFAULT},
-                {PN_SOURCE, PN_SOURCE_DEFAULT},
-                {PARENT_PATH, PARENT_PATH_DEFAULT},
-                {PN_ORDER_BY, StringUtils.EMPTY},
-                {LIMIT_PROPERTY_NAME, LIMIT_DEFAULT},
-                {PN_SORT_ORDER, SortOrder.ASC.getValue()},
-                {FIELD_IMAGE_OPTION, FIELD_IMAGE_OPTION_DEFAULT},
-                {LIST_LOOP, LIST_LOOP_DEFAULT},
-                {"filterPage", ""},
-                {DETAILS_BADGE, DEFAULT_BADGE, "data-badge"},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {STATIC_ITEMS, new String[0]},
+            {DESCENDANT_PATH, PARENT_PATH_DEFAULT},
+            {PN_SOURCE, PN_SOURCE_DEFAULT},
+            {PARENT_PATH, PARENT_PATH_DEFAULT},
+            {PN_ORDER_BY, StringUtils.EMPTY},
+            {LIMIT_PROPERTY_NAME, LIMIT_DEFAULT},
+            {PN_SORT_ORDER, SortOrder.ASC.getValue()},
+            {FIELD_IMAGE_OPTION, FIELD_IMAGE_OPTION_DEFAULT},
+            {LIST_LOOP, LIST_LOOP_DEFAULT},
+            {"filterPage", ""},
+            {DETAILS_BADGE, DEFAULT_BADGE, "data-badge"},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
         sortOrder = SortOrder.fromString(componentProperties.get(PN_SORT_ORDER, SortOrder.ASC.getValue()));
         limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
@@ -133,6 +126,7 @@ public class ListNav extends ModelProxy {
 
     /**
      * get list options type.
+     *
      * @return list type
      */
     protected Source getListType() {
@@ -145,9 +139,10 @@ public class ListNav extends ModelProxy {
 
     /**
      * get list items, used by HTL templates.
+     *
      * @return list of items
      */
-    public Collection<Map<String,Object>> getListItems() {
+    public Collection<Map<String, Object>> getListItems() {
 
         if (listItems == null) {
             Source listType = getListType();
@@ -160,6 +155,7 @@ public class ListNav extends ModelProxy {
 
     /**
      * populate list items.
+     *
      * @param listType list type to execute
      */
     @SuppressWarnings("Duplicates")
@@ -186,7 +182,7 @@ public class ListNav extends ModelProxy {
      * populate list items from only children of a root page.
      */
     private void populateChildListItems() {
-        String path = componentProperties.get(PARENT_PATH,PARENT_PATH_DEFAULT);
+        String path = componentProperties.get(PARENT_PATH, PARENT_PATH_DEFAULT);
         populateChildListItems(path, true);
     }
 
@@ -195,13 +191,14 @@ public class ListNav extends ModelProxy {
      * populate list items from descendants of a root page.
      */
     private void populateDescendantsListItems() {
-        String path = componentProperties.get(DESCENDANT_PATH,PARENT_PATH_DEFAULT);
+        String path = componentProperties.get(DESCENDANT_PATH, PARENT_PATH_DEFAULT);
         populateChildListItems(path, false);
     }
 
 
     /**
      * populate list items from children of a root page.
+     *
      * @param path path to use
      * @param flat only select children on root page
      */
@@ -223,10 +220,11 @@ public class ListNav extends ModelProxy {
 
     /**
      * doa query using a predicate map.
+     *
      * @param map predicate map
      */
     @SuppressWarnings("Duplicates")
-    private void populateListItemsFromMap(Map<String,String> map) {
+    private void populateListItemsFromMap(Map<String, String> map) {
         try {
 
 
@@ -259,10 +257,10 @@ public class ListNav extends ModelProxy {
                     collectSearchResults(query.getResult());
                 }
             } else {
-                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]",map);
+                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]", map);
             }
         } catch (Exception ex) {
-            LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}",map,ex);
+            LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}", map, ex);
         }
     }
 
@@ -270,7 +268,7 @@ public class ListNav extends ModelProxy {
      * populates listItems with resources from pages list.
      * page object is also resolved and returned if available
      */
-    @SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates", "squid:S3776"})
     private void populateStaticListItems() {
         listItems = new ArrayList<>();
         String[] items = componentProperties.get(STATIC_ITEMS, new String[0]);
@@ -312,24 +310,25 @@ public class ListNav extends ModelProxy {
 
         }
 
-        addNavItems(previousResource,currentResource,nextResource,firstResource);
+        addNavItems(previousResource, currentResource, nextResource, firstResource);
 
 
     }
 
     /**
      * add items to list items from results.
+     *
      * @param previousResource previous page in list
-     * @param currentResource current page in list
-     * @param nextResource next page in list
-     * @param firstResource first page from list
+     * @param currentResource  current page in list
+     * @param nextResource     next page in list
+     * @param firstResource    first page from list
      */
     @SuppressWarnings("squid:S3776")
-    private void addNavItems(Resource previousResource,Resource currentResource,Resource nextResource,Resource firstResource) {
-            String fieldResource = "resource";
-            String fieldType = "type";
-            String fieldNavType = "navType";
-            String fieldPage = "page";
+    private void addNavItems(Resource previousResource, Resource currentResource, Resource nextResource, Resource firstResource) {
+        String fieldResource = "resource";
+        String fieldType = "type";
+        String fieldNavType = "navType";
+        String fieldPage = "page";
 
         if (listItems != null) {
             if (currentResource != null) {
@@ -383,14 +382,15 @@ public class ListNav extends ModelProxy {
 
     /**
      * process search results.
+     *
      * @param result search results
      * @throws RepositoryException when can't read content
      */
     @SuppressWarnings("Duplicates")
     private void collectSearchResults(SearchResult result) throws RepositoryException {
         Map<String, Object> resultInfo = new HashMap<>();
-        resultInfo.put("executionTime",result.getExecutionTime());
-        resultInfo.put("result",result);
+        resultInfo.put("executionTime", result.getExecutionTime());
+        resultInfo.put("result", result);
 
         totalMatches = result.getTotalMatches();
         List<ResultPage> resultPages = result.getResultPages();
@@ -401,12 +401,12 @@ public class ListNav extends ModelProxy {
 
         resultInfo.put("hitsPerPage", hitsPerPage);
         resultInfo.put("currentPage", currentPage);
-        resultInfo.put("totalMatches",totalMatches);
+        resultInfo.put("totalMatches", totalMatches);
         resultInfo.put("resultPages", resultPages);
         resultInfo.put("totalPages", totalPages);
 
 
-        componentProperties.put("resultInfo",resultInfo);
+        componentProperties.put("resultInfo", resultInfo);
 
         Resource previousResource = null;
         Resource currentResource = null;
@@ -435,11 +435,9 @@ public class ListNav extends ModelProxy {
 
         }
 
-        addNavItems(previousResource,currentResource,nextResource,firstResource);
+        addNavItems(previousResource, currentResource, nextResource, firstResource);
 
     }
-
-
 
 
     protected enum Source {
@@ -448,7 +446,7 @@ public class ListNav extends ModelProxy {
         DESCENDANTS("descendants"),
         EMPTY(StringUtils.EMPTY);
 
-        private String value;
+        private final String value;
 
         public String getValue() {
             return value;

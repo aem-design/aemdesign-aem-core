@@ -1,0 +1,28 @@
+/**
+ * Always show the component name to make authors lives a little bit easier.
+ */
+
+.cq-Overlay--component {
+  border: 2px solid #bebebe;
+  margin: -2px;
+}
+
+.cq-Overlay--component > .cq-Overlay--component-name {
+  background-color: #bebebe;
+  display: block;
+}
+
+/**
+ * Poor man's fix to ensure 'Container' elements don't appear when we don't want them to.
+ */
+.cq-Overlay--component[title='Container']:not(.cq-Overlay--placeholder):not(.is-hover),
+.cq-Overlay--component[title='Container']:not(.cq-Overlay--placeholder):not(.is-selected),
+.cq-Overlay--component[title='Container']:not(.cq-Overlay--placeholder):not(.is-active) {
+  border-color: transparent;
+}
+
+.cq-Overlay--component[title='Container']:not(.cq-Overlay--placeholder):not(.is-hover) > .cq-Overlay--component-name,
+.cq-Overlay--component[title='Container']:not(.cq-Overlay--placeholder):not(.is-selected) > .cq-Overlay--component-name,
+.cq-Overlay--component[title='Container']:not(.cq-Overlay--placeholder):not(.is-active) > .cq-Overlay--component-name {
+  display: none;
+}

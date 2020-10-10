@@ -1,0 +1,83 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ~ Copyright 2020 AEM.Design
+ ~
+ ~ Licensed under the Apache License, Version 2.0 (the "License");
+ ~ you may not use this file except in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~     http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing, software
+ ~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~ See the License for the specific language governing permissions and
+ ~ limitations under the License.
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+package design.aem.models.v3.details;
+
+import design.aem.models.Component;
+import org.jetbrains.annotations.Nullable;
+import org.osgi.annotation.versioning.ConsumerType;
+
+@ConsumerType
+public interface BaseDetails extends Component { // NOSONAR
+    String DEFAULT_TITLE_LEVEL = "h1";
+
+    /**
+     * Get the title of the page using the details component first, then Page Properties.
+     */
+    @Nullable
+    default String getTitle() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Get the heading level of the title.
+     */
+    default String getTitleLevel() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Should the title be available to the page?
+     */
+    default boolean isHasTitle() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Get the description of the page using the details component first, then Page Properties.
+     */
+    @Nullable
+    default String getDescription() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Should the details component use a container wrapper?
+     */
+    default boolean isUseContainer() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Should the breadcrumb component be available to the author?
+     */
+    default boolean isShowBreadcrumb() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Should a new layout container be available to the author?
+     */
+    default boolean isShowParsys() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Does the layout container have authored content within it?
+     */
+    default boolean isParsysWithAuthoredContent() {
+        throw new UnsupportedOperationException();
+    }
+}

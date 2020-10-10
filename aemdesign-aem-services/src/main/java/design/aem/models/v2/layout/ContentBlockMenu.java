@@ -1,7 +1,6 @@
 package design.aem.models.v2.layout;
 
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.jcr.resource.api.JcrResourceConstants;
@@ -18,36 +17,29 @@ import static design.aem.utils.components.ImagesUtil.getBackgroundImageRendition
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class ContentBlockMenu extends ModelProxy {
-
-    protected ComponentProperties componentProperties = null;
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
-    protected void ready() throws Exception {
-
+public class ContentBlockMenu extends BaseComponent {
+    public void ready() throws Exception {
         final String DEFAULT_MENUSOURCE_PARENT = "parent";
         final String DEFAULT_MENUSOURCE_PAGEPATH = "pagepath";
         final String FIELD_MENUSOURCE = "menuSource";
         final String FIELD_MENUSOURCEPAGEPATH = "menuSourcePagePath";
 
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {FIELD_MENUSOURCE, DEFAULT_MENUSOURCE_PARENT},
-                {FIELD_MENUSOURCEPAGEPATH, ""},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_MENUSOURCE, DEFAULT_MENUSOURCE_PARENT},
+            {FIELD_MENUSOURCEPAGEPATH, ""},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
         Map<String, String> contentBlockList = new LinkedHashMap<>();
         Resource menuSource = getResource().getParent();
 
-        if(componentProperties.get(FIELD_MENUSOURCE, DEFAULT_MENUSOURCE_PARENT).equals(DEFAULT_MENUSOURCE_PAGEPATH)) {
+        if (componentProperties.get(FIELD_MENUSOURCE, DEFAULT_MENUSOURCE_PARENT).equals(DEFAULT_MENUSOURCE_PAGEPATH)) {
             String menuSourcePagePath = componentProperties.get(FIELD_MENUSOURCEPAGEPATH, "");
             if (isNotEmpty(menuSourcePagePath)) {
                 Resource menuSourcePagePathRes = getResourceResolver().getResource(menuSourcePagePath);
@@ -62,9 +54,9 @@ public class ContentBlockMenu extends ModelProxy {
             contentBlockList = getContentBlockMenu(menuSource);
         }
 
-        componentProperties.put("contentBlockList",contentBlockList);
+        componentProperties.put("contentBlockList", contentBlockList);
 
-        componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME,getBackgroundImageRenditions(this));
+        componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME, getBackgroundImageRenditions(this));
 
     }
 
@@ -79,10 +71,10 @@ public class ContentBlockMenu extends ModelProxy {
     private static boolean isContentBlockComponent(Node childNode) throws RepositoryException {
 
         return
+            (childNode.hasProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY) &&
+                childNode.getProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY).getString().endsWith("contentblock")) ||
                 (childNode.hasProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY) &&
-                        childNode.getProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY).getString().endsWith("contentblock") ) ||
-                        (childNode.hasProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY) &&
-                                childNode.getProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY).getString().endsWith("contentblocklock") );
+                    childNode.getProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY).getString().endsWith("contentblocklock"));
 
     }
 
@@ -93,15 +85,14 @@ public class ContentBlockMenu extends ModelProxy {
      *
      * @param childNode is the content block child node to inspect
      * @return true if the content block's title should be shown in the menu
-     *
      * @throws RepositoryException when something weird happens retrieving the properties.
      */
     private static boolean isVisibleInMenu(Node childNode) throws RepositoryException {
         return
-                // not been set? it's visible
-                !childNode.hasProperty(FIELD_HIDEINMENU) ||
-                        // set to true? it's visible.
-                        "true".equals(childNode.getProperty(FIELD_HIDEINMENU).getString());
+            // not been set? it's visible
+            !childNode.hasProperty(FIELD_HIDEINMENU) ||
+                // set to true? it's visible.
+                "true".equals(childNode.getProperty(FIELD_HIDEINMENU).getString());
     }
 
     /**

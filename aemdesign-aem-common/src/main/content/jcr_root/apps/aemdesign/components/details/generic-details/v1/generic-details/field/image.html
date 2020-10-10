@@ -1,7 +1,8 @@
-<template data-sly-template.field="${@ componentProperties, wrapperCssClass}">
-    <div class="${wrapperCssClass || 'card-img-top'}">
-        <img src="${componentProperties.pageThumbnail || componentProperties.pageImageThumbnail}"
-             data-sly-attribute="${componentProperties.badgeImageAttr @ context = 'unsafe'}"
-             alt="${componentProperties.title}"/>
-    </div>
+<template data-sly-template.field="${@ componentProperties, wrapperCssClass, omitWrapper}">
+  <div class="${wrapperCssClass || 'card-img-top'}"
+       data-sly-unwrap="${omitWrapper}">
+    <img src="${componentProperties.pageThumbnail || componentProperties.pageImageThumbnail}"
+         data-sly-attribute="${componentProperties.badgeImageAttr @ context = 'unsafe'}"
+         alt="${componentProperties.title}"/>
+  </div>
 </template>

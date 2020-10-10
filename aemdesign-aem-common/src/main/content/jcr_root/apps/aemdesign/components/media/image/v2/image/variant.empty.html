@@ -1,10 +1,10 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
-         empty>
-        <div data-sly-test="${(wcmmode.edit || wcmmode.preview) && componentProperties.isEmpty}"
-             class="cq-placeholder cq-dd-image" data-emptytext="Video"></div>
-    </div>
-    <sly data-sly-use.templates="core/wcm/components/commons/v1/templates.html"
-         data-sly-call="${templates.placeholder @ isEmpty = componentProperties.isEmpty, classAppend = 'cmp-image cq-dd-image'}"></sly>
+  <div style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}"
+       empty>
+    <div data-sly-test="${(wcmmode.edit || wcmmode.preview) && componentProperties.isEmpty}"
+         class="cq-placeholder cq-dd-image" data-emptytext="Video"></div>
+  </div>
+  <sly data-sly-use.templates="core/wcm/components/commons/v1/templates.html"
+       data-sly-call="${templates.placeholder @ isEmpty = componentProperties.isEmpty, classAppend = 'cmp-image cq-dd-image'}"></sly>
 </template>

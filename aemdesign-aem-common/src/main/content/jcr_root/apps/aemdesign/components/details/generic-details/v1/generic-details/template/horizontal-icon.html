@@ -1,19 +1,19 @@
 <template data-sly-template.variant="${@ componentProperties, componentFields, requestedFields}">
-    <div class="card card-horizontal text-center text-md-left ${componentProperties.badgeClassAttr}">
-        <div class="row align-items-center no-gutters">
-            <sly data-sly-test="${'icon' in componentFields}">
-                <sly data-sly-use.icon="${componentFields['icon'].path}"
-                     data-sly-call="${icon.field @ componentProperties=componentProperties, wrapperCssClass='col-md-auto'}"></sly>
-            </sly>
-            <div class="col p-collapse pt-reset pt-md-collapse pl-reset pr-reset">
-                <sly data-sly-use.printFields="template/default.html"
-                     data-sly-call="${printFields.variant @ componentProperties=componentProperties, componentFields=componentFields, requestedFields=requestedFields}">
-                </sly>
-            </div>
-            <sly data-sly-test="${'action' in componentFields}">
-                <sly data-sly-use.action="${componentFields['action'].path}"
-                     data-sly-call="${action.field @ componentProperties=componentProperties, wrapperCssClass='card-action col-md-auto mt-reset mt-md-collapse'}"></sly>
-            </sly>
-        </div>
+  <div class="card card-horizontal text-center text-md-left ${componentProperties.badgeClassAttr}">
+    <div class="row align-items-center no-gutters">
+      <sly data-sly-test="${'icon' in componentFields}">
+        <sly data-sly-use.icon="${componentFields['icon'].path}"
+             data-sly-call="${icon.field @ componentProperties=componentProperties, wrapperCssClass='col-md-auto'}"></sly>
+      </sly>
+      <div class="col p-collapse pt-reset pt-md-collapse pl-reset pr-reset">
+        <sly data-sly-use.printFields="template/default.html"
+             data-sly-call="${printFields.variant @ componentProperties=componentProperties, componentFields=componentFields, requestedFields=requestedFields}">
+        </sly>
+      </div>
+      <sly data-sly-test="${'action' in componentFields}">
+        <sly data-sly-use.action="${componentFields['action'].path}"
+             data-sly-call="${action.field @ componentProperties=componentProperties, wrapperCssClass='card-action col-md-auto mt-reset mt-md-collapse'}"></sly>
+      </sly>
     </div>
+  </div>
 </template>

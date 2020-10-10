@@ -1,14 +1,15 @@
 <template data-sly-template.variant="${@ componentProperties, imageClass}">
-    <picture data-sly-test="${componentProperties.imageURL}">
-        <!--[if IE 9]><video style="display: none;"><![endif]-->
-        <sly  data-sly-list.asset="${componentProperties.renditions}" data-sly-unwrap>
-            <source srcset="${componentProperties.renditions[asset]}" media="${asset}"/>
-        </sly>
-        <!--[if IE 9]></video><![endif]-->
-        <img class="${imageClass}" itemprop="contentUrl"
-             src="${componentProperties.imageURL}"
-             alt="${componentProperties['photoshop:Headline']}"
-             title="${componentProperties['dc:title']}"
-             data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-    </picture>
+  <picture data-sly-test="${componentProperties.imageURL}">
+    <!--[if IE 9]>
+    <video style="display: none;"><![endif]-->
+    <sly data-sly-list.asset="${componentProperties.renditions}" data-sly-unwrap>
+      <source srcset="${componentProperties.renditions[asset]}" media="${asset}"/>
+    </sly>
+    <!--[if IE 9]></video><![endif]-->
+    <img class="${imageClass}" itemprop="contentUrl"
+         src="${componentProperties.imageURL}"
+         alt="${componentProperties['photoshop:Headline']}"
+         title="${componentProperties['dc:title']}"
+         data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}">
+  </picture>
 </template>

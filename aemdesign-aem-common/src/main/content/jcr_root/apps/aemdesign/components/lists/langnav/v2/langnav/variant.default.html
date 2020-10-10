@@ -1,17 +1,17 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
-         itemscope itemtype="http://schema.org/WebPageElement">
-        <ul class="langlist" data-sly-list.langToggle="${componentProperties.languageMap}">
-            <li class="${componentProperties.languageMap[langToggle].current ? 'active' : ''}"
-                itemprop="availableLanguage" itemscope itemtype="http://schema.org/Language">
-                <a itemprop="name"
-                   href="${componentProperties.languageMap[langToggle].path}"
-                   lang="${componentProperties.languageMap[langToggle].language}"
-                   hreflang="${componentProperties.languageMap[langToggle].hreflang}"
-                   rel="alternate"
-                   title="${componentProperties.languageMap[langToggle].description}">${componentProperties.languageMap[langToggle].displayTitle}</a>
-            </li>
-        </ul>
-    </div>
+  <div style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}"
+       itemscope itemtype="http://schema.org/WebPageElement">
+    <ul class="langlist" data-sly-list.langToggle="${componentProperties.languageMap}">
+      <li class="${componentProperties.languageMap[langToggle].current ? 'active' : ''}"
+          itemprop="availableLanguage" itemscope itemtype="http://schema.org/Language">
+        <a itemprop="name"
+           href="${componentProperties.languageMap[langToggle].path}"
+           lang="${componentProperties.languageMap[langToggle].language}"
+           hreflang="${componentProperties.languageMap[langToggle].hreflang}"
+           rel="alternate"
+           title="${componentProperties.languageMap[langToggle].description}">${componentProperties.languageMap[langToggle].displayTitle}</a>
+      </li>
+    </ul>
+  </div>
 </template>

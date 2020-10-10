@@ -1,15 +1,15 @@
 <template data-sly-template.variant="${@ componentProperties}">
 
-    <sly data-sly-test="${componentProperties.assetType == 'audio'}"
-         data-sly-use.audio="asset.select.audio.html"
-         data-sly-call="${audio.variant @ componentProperties=componentProperties}"></sly>
+  <sly data-sly-test="${componentProperties.assetType == 'audio'}"
+       data-sly-use.audio="asset.select.audio.html"
+       data-sly-call="${audio.variant @ componentProperties=componentProperties}"></sly>
 
-    <sly data-sly-test="${componentProperties.assetType == 'image' || componentProperties.assetType == 'other' }"
-         data-sly-use.image="asset.select.image.html"
-         data-sly-call="${image.variant @ componentProperties=componentProperties}"></sly>
+  <sly data-sly-test="${componentProperties.assetType == 'image' || componentProperties.assetType == 'other' }"
+       data-sly-use.image="asset.select.image.html"
+       data-sly-call="${image.variant @ componentProperties=componentProperties}"></sly>
 
-    <sly data-sly-test="${componentProperties.assetType == 'video'}"
-         data-sly-use.video="asset.select.video.html"
-         data-sly-call="${video.variant @ componentProperties=componentProperties}"></sly>
+  <sly data-sly-test="${componentProperties.assetType == 'video'}"
+       data-sly-use.video="asset.select.video.html"
+       data-sly-call="${video.variant @ componentProperties=componentProperties}"></sly>
 
 </template>

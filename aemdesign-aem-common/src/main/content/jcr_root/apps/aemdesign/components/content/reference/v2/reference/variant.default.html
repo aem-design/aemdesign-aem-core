@@ -1,7 +1,7 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <sly data-sly-test="${componentProperties.path && !componentProperties.isEmpty}"
-             data-sly-resource="${componentProperties.path @ wcmmode=componentProperties.wcmmode, selectors=componentProperties.selectors}"></sly>
-    </div>
+  <div style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}">
+    <sly data-sly-test="${componentProperties.path && !componentProperties.isEmpty}"
+         data-sly-resource="${componentProperties.path @ wcmmode=componentProperties.wcmmode, selectors=componentProperties.selectors}"></sly>
+  </div>
 </template>

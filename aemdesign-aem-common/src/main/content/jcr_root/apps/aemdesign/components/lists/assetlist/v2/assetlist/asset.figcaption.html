@@ -1,13 +1,13 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <figcaption>
-        <a data-sly-unwrap="${componentProperties.linkURL == ''}" itemprop="name"
-           href="${componentProperties.linkURL}">
-            <title itemprop="name" class="title"
-                   data-sly-element="${componentProperties.titleType}">${componentProperties['dc:title']}</title>
-        </a>
-    </figcaption>
-    <div data-sly-test="${componentProperties['dc:description']}"
-         class="description" itemprop="description">${componentProperties['dc:description'] @ context = 'unsafe'}</div>
-    <span class="license"
-          data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo @ context = 'unsafe'}</span>
+  <figcaption>
+    <a data-sly-unwrap="${componentProperties.linkURL == ''}" itemprop="name"
+       href="${componentProperties.linkURL}">
+      <title itemprop="name" class="title"
+             data-sly-element="${componentProperties.titleType}">${componentProperties['dc:title']}</title>
+    </a>
+  </figcaption>
+  <div data-sly-test="${componentProperties['dc:description']}"
+       class="description" itemprop="description">${componentProperties['dc:description'] @ context = 'unsafe'}</div>
+  <span class="license"
+        data-sly-test="${componentProperties.licenseInfo}">${componentProperties.licenseInfo @ context = 'unsafe'}</span>
 </template>

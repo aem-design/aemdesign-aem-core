@@ -1,240 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright 2020 AEM.Design
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Event List"
-          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/eventlist/v2/eventlist"
-          sling:resourceType="cq/gui/components/authoring/dialog">
-    <content
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/foundation/container">
-        <layout
-                jcr:primaryType="nt:unstructured"
-                type="nav"
-                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/eventlist/v2/eventlist">
+    <content jcr:primaryType="nt:unstructured">
         <items jcr:primaryType="nt:unstructured">
-
-            <listTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="List"
-                    path="/apps/aemdesign/components/lists/list/v2/list/cq:dialog/content/items/listTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-            <listConfigTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="List Config"
-                    sling:resourceType="granite/ui/components/foundation/section">
-
-                <layout jcr:primaryType="nt:unstructured"
-                        margin="{Boolean}false"
-                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+            <tabs jcr:primaryType="nt:unstructured">
                 <items jcr:primaryType="nt:unstructured">
-                    <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                    <listConfiguration jcr:primaryType="nt:unstructured">
                         <items jcr:primaryType="nt:unstructured">
-                            <basic
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Config"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                            <columns jcr:primaryType="nt:unstructured">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <printStructure
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="Don't print structure of the list, omit (OL/UL and LI tags)"
-                                            fieldLabel="Print List Structure"
-                                            name="./printStructure"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </printStructure>
-                                    <showHidden
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="pages with selected Hide in Navigation will be hidden"
-                                            fieldLabel="Show Hidden Pages"
-                                            name="./showHidden"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </showHidden>
-                                    <listSplit
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="break list after number of items"
-                                            fieldLabel="Split list into section"
-                                            name="./listSplit"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </listSplit>
-                                    <listSplitEvery
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                            fieldDescription="break list after this number of items"
-                                            fieldLabel="Split List After Every"
-                                            name="./listSplitEvery"/>
-
-                                </items>
-                            </basic>
-                            <feed
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Feed"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <feedEnabled
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldLabel="Enable Feed"
-                                            name="./feedEnabled"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
-                                    </feedEnabled>
-                                    <feedType
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="type of feed to show as icon"
-                                            fieldLabel="Feed Type"
-                                            name="./feedType"
-                                            emptyOption="{Boolean}true"
-                                            value="">
+                                    <columnConfiguration jcr:primaryType="nt:unstructured">
                                         <items jcr:primaryType="nt:unstructured">
-                                            <default
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Default"
-                                                    value=""/>
-                                            <ics
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="ICS"
-                                                    value="ics"/>
+                                            <listItems jcr:primaryType="nt:unstructured">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <badge jcr:primaryType="nt:unstructured">
+                                                        <datasource
+                                                            jcr:primaryType="nt:unstructured"
+                                                            context="eventlist"/>
+                                                    </badge>
+                                                </items>
+                                            </listItems>
                                         </items>
-                                    </feedType>
+                                    </columnConfiguration>
 
+                                    <columnFeed jcr:primaryType="nt:unstructured">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <feed jcr:primaryType="nt:unstructured">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <feedType jcr:primaryType="nt:unstructured">
+                                                        <items jcr:primaryType="nt:unstructured">
+                                                            <ics
+                                                                granite:hide="${cqDesign.disableFeedTypeICS}"
+                                                                jcr:primaryType="nt:unstructured"
+                                                                text="ICS"
+                                                                value="ics"/>
+                                                        </items>
+                                                    </feedType>
+                                                </items>
+                                            </feed>
+                                        </items>
+                                    </columnFeed>
                                 </items>
-                            </feed>
+                            </columns>
                         </items>
-                    </column>
+                    </listConfiguration>
                 </items>
-            </listConfigTab>
-
-            <layoutTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Layout"
-                    sling:resourceType="granite/ui/components/foundation/section">
-
-                <layout jcr:primaryType="nt:unstructured"
-                        margin="{Boolean}false"
-                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
-                <items jcr:primaryType="nt:unstructured">
-                    <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
-                            <variant
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Layout"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <!--<variant-->
-                                    <!--jcr:primaryType="nt:unstructured"-->
-                                    <!--sling:resourceType="granite/ui/components/foundation/form/select"-->
-                                    <!--fieldLabel="Variant"-->
-                                    <!--name="./variant"-->
-                                    <!--emptyOption="{Boolean}true"-->
-                                    <!--value="">-->
-                                    <!--<items jcr:primaryType="nt:unstructured">-->
-                                    <!--<default-->
-                                    <!--jcr:primaryType="nt:unstructured"-->
-                                    <!--text="Default"-->
-                                    <!--value=""/>-->
-                                    <!--</items>-->
-                                    <!--</variant>-->
-                                    <detailsBadge
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="Which badge to select from the Details component on the page"
-                                            fieldLabel="Use Badge"
-                                            name="./detailsBadge"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/eventlist/badge"/>
-                                    </detailsBadge>
-                                    <topic
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldDescription="Subscribers waiting for notification of the filter value is updated"
-                                            fieldLabel="Topic Queue"
-                                            name="./topicQueue"
-                                            emptyOption="{Boolean}true"
-                                            value="">
-                                        <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-topic/topic"/>
-                                    </topic>
-                                </items>
-                            </variant>
-                        </items>
-                    </column>
-                </items>
-            </layoutTab>
-
-
-            <badgeConfigTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Badge Config"
-                    path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-            <badgeThumbnailTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Badge Thumbnail"
-                    path="/apps/aemdesign/global/dialog/touch/asset/content/items/badgeThumbnailTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-
-            <styleTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Style"
-                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-            <accessibilityTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Accessibility"
-                    path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
-            <analyticsTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Analytics"
-                    path="/apps/aemdesign/global/dialog/touch/analytics/content/items/analyticsTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            </tabs>
         </items>
     </content>
-
 </jcr:root>

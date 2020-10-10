@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
     <modelVersion>4.0.0</modelVersion>
 
     <!-- ====================================================================== -->
@@ -8,7 +9,7 @@
     <parent>
         <groupId>design.aem</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>2.0.671</version>
+        <version>3.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +18,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-services</artifactId>
-    <version>2.0.671</version>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>AEM Design - Core - AEM Services</name>
     <description>Project for all AEM and OSGI Services</description>
@@ -37,6 +38,10 @@
         <developer>
             <email>max@aem.design</email>
             <name>Max Barrass</name>
+        </developer>
+        <developer>
+            <email>me@cshaw.xyz</email>
+            <name>Chris Shaw</name>
         </developer>
     </developers>
 
@@ -116,9 +121,7 @@
     <!-- B U I L D D E F I N I T I O N -->
     <!-- ====================================================================== -->
     <build>
-
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -135,8 +138,10 @@
                                     <excludes>
                                         <exclude>org.apache.felix:maven-scr-plugin</exclude>
                                     </excludes>
-                                    <message>Felix SCR annotations and the maven-scr-plugin are no longer supported - please migrate to OSGi
-                                        annotations or stick with Sling Parent 29.</message>
+                                    <message>Felix SCR annotations and the maven-scr-plugin are no longer supported -
+                                        please migrate to OSGi
+                                        annotations or stick with Sling Parent 29.
+                                    </message>
                                 </bannedPlugins>
                             </rules>
                         </configuration>
@@ -152,8 +157,10 @@
                                     <excludes>
                                         <exclude>org.apache.felix:maven-bundle-plugin</exclude>
                                     </excludes>
-                                    <message>The maven-bundle-plugin is no longer supported - please migrate to bnd-maven-plugin or stick
-                                        with Sling Parent 34.</message>
+                                    <message>The maven-bundle-plugin is no longer supported - please migrate to
+                                        bnd-maven-plugin or stick
+                                        with Sling Parent 34.
+                                    </message>
                                 </bannedPlugins>
                             </rules>
                         </configuration>
@@ -168,7 +175,8 @@
                                 <!-- Require Java 8 or higher for building (as bnd since version 4.0 only supports Java 8, https://github.com/bndtools/bnd/wiki/Changes-in-4.0.0) -->
                                 <requireJavaVersion>
                                     <message>
-                                        Apache Sling must be compiled with Java 8 or higher as the bnd-maven-plugin requires that.
+                                        Apache Sling must be compiled with Java 8 or higher as the bnd-maven-plugin
+                                        requires that.
                                     </message>
                                     <version>1.8.0</version>
                                 </requireJavaVersion>
@@ -202,7 +210,7 @@ Bundle-Description: ${project.description}
 Bundle-DocURL: https://aem.design
 Bundle-License: Apache License, Version 2.0
 Bundle-Vendor: AEM.Design
-Embed-Transitive: true
+Sling-Model-Packages: design.aem
 Export-Service: design.aem.workflow.process.*
 Export-Package: design.aem.*,\
 org.jsoup,\
@@ -252,21 +260,6 @@ com.github.jaiimageio.*
                     </execution>
                 </executions>
             </plugin>
-<!--
-            <plugin>
-                <groupId>biz.aQute.bnd</groupId>
-                <artifactId>bnd-baseline-maven-plugin</artifactId>
-                <version>${bnd.version}</version>
-                <executions>
-                    <execution>
-                        <id>bnd-baseline</id>
-                        <goals>
-                            <goal>baseline</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
--->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -330,33 +323,12 @@ com.github.jaiimageio.*
                     <linkXRef>false</linkXRef>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>3.0.5</version>
             </plugin>
-
-<!--            <plugin>-->
-<!--                <groupId>org.jacoco</groupId>-->
-<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--                <version>0.8.4</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>prepare-agent</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    &lt;!&ndash; attached to Maven test phase &ndash;&gt;-->
-<!--                    <execution>-->
-<!--                        <id>report</id>-->
-<!--                        <phase>test</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>report</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-
         </plugins>
     </build>
 
@@ -378,7 +350,6 @@ com.github.jaiimageio.*
     </reporting>
 
     <profiles>
-
         <profile>
             <id>autoInstallBundle</id>
             <activation>
@@ -390,7 +361,9 @@ com.github.jaiimageio.*
                         <groupId>org.apache.sling</groupId>
                         <artifactId>maven-sling-plugin</artifactId>
                         <configuration>
-                            <slingUrl>${package.uploadProtocol}://${crx.host}:${crx.port}/apps/${package.appFolder}/install</slingUrl>
+                            <slingUrl>
+                                ${package.uploadProtocol}://${crx.host}:${crx.port}/apps/${package.appFolder}/install
+                            </slingUrl>
                             <usePut>true</usePut>
                         </configuration>
                         <executions>
@@ -441,16 +414,12 @@ com.github.jaiimageio.*
                 </plugins>
             </build>
         </profile>
-
-
     </profiles>
-
 
     <!-- ====================================================================== -->
     <!-- D E P E N D E N C I E S                                                -->
     <!-- ====================================================================== -->
     <dependencies>
-
         <!-- Aggregates (rather use individual artifacts referenced below) -->
         <!-- Core R6 -->
         <dependency>
@@ -532,7 +501,6 @@ com.github.jaiimageio.*
             <version>1.2.4</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -690,7 +658,6 @@ com.github.jaiimageio.*
             <artifactId>uber-jar</artifactId>
             <classifier>apis</classifier>
         </dependency>
-
         <!--other-->
         <dependency>
             <groupId>org.apache.sling</groupId>
@@ -710,7 +677,6 @@ com.github.jaiimageio.*
             <version>5.9.4</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -807,7 +773,6 @@ com.github.jaiimageio.*
             <version>1.11.2</version>
             <scope>compile</scope>
         </dependency>
-
         <dependency>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>findbugs-maven-plugin</artifactId>
@@ -817,7 +782,6 @@ com.github.jaiimageio.*
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.8.4</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-jexl3</artifactId>
@@ -836,12 +800,10 @@ com.github.jaiimageio.*
             <version>1.3</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>com.adobe.cq</groupId>
             <artifactId>core.wcm.components.core</artifactId>
-            <scope>provided</scope>
-            <version>2.5.0</version>
+            <version>${core.wcm.components.version}</version>
         </dependency>
         <dependency>
             <groupId>com.adobe.cq</groupId>
@@ -854,7 +816,6 @@ com.github.jaiimageio.*
             <artifactId>annotations</artifactId>
             <version>17.0.0</version>
         </dependency>
-
         <!-- ACS Commons Dependencies -->
         <dependency>
             <groupId>com.adobe.acs</groupId>
@@ -869,16 +830,18 @@ com.github.jaiimageio.*
             <version>${maven.enforcer.version}</version>
             <type>maven-plugin</type>
         </dependency>
-
-
         <!-- health check around the OSGi installer, http://sling.apache.org/documentation/bundles/osgi-installer.html#health-check -->
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.installer.hc</artifactId>
             <version>2.0.0</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.sejda.webp-imageio/webp-imageio-sejda -->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.sejda.webp-imageio</groupId>
             <artifactId>webp-imageio-sejda</artifactId>
@@ -891,7 +854,5 @@ com.github.jaiimageio.*
             <version>${imageio.version}</version>
             <scope>compile</scope>
         </dependency>
-
-
     </dependencies>
 </project>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    jcr:primaryType="cq:Panel"
-    title="Arguments">
+          jcr:primaryType="cq:Panel"
+          title="Arguments">
     <items jcr:primaryType="cq:WidgetCollection">
         <arguments
             jcr:primaryType="cq:Widget"
@@ -19,12 +19,12 @@
                     predicate="siteadmin"
                     xtype="pathfield"/>
                 <metaDataFields
-                        jcr:primaryType="cq:Widget"
-                        allowBlank="true"
-                        fieldDescription="Specify list of properties attributes to be read from payload metadata, paths can be specified as relative to payload. ex ./jcr:content/jcr:title"
-                        fieldLabel="Metadata Fields"
-                        name="./metaData/metaDataFields"
-                        xtype="multifield">
+                    jcr:primaryType="cq:Widget"
+                    allowBlank="true"
+                    fieldDescription="Specify list of properties attributes to be read from payload metadata, paths can be specified as relative to payload. ex ./jcr:content/jcr:title"
+                    fieldLabel="Metadata Fields"
+                    name="./metaData/metaDataFields"
+                    xtype="multifield">
                 </metaDataFields>
             </items>
         </arguments>

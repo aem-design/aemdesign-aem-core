@@ -1,15 +1,18 @@
 <template data-sly-template.variant="${@ componentProperties, component}">
-    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
-        data-sly-unwrap="${!componentProperties.printStructure}">
+  <div style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}"
+       data-sly-unwrap="${!componentProperties.printStructure}">
+    <sly data-sly-test="${componentProperties.feedEnabled && componentProperties.feedUrl}"
+         data-sly-use.feed="list.feed.html"
+         data-sly-call="${feed.variant @ componentProperties=componentProperties}"></sly>
 
-        <sly data-sly-use.feed="list.feedurl.html" data-sly-call="${feed.variant @ componentProperties=componentProperties}"></sly>
-        <div class="content" data-sly-unwrap="${!componentProperties.printStructure}">
-            <sly data-sly-use.body="list.body.html"
-                 data-sly-call="${body.variant @ componentProperties=componentProperties, component=component}"></sly>
-        </div>
-
-        <sly data-sly-use.pagination="${componentProperties.paginationTemplate}" data-sly-call="${pagination.variant @ componentProperties=componentProperties}"></sly>
-
+    <div class="content" data-sly-unwrap="${!componentProperties.printStructure}">
+      <sly data-sly-use.body="list.body.html"
+           data-sly-call="${body.variant @ componentProperties=componentProperties, component=component}"></sly>
     </div>
+
+    <sly data-sly-test="${componentProperties.needsPagination && componentProperties.isPaginating}"
+         data-sly-use.pagination="pagination.html"
+         data-sly-call="${pagination.variant @ componentProperties=componentProperties}"></sly>
+  </div>
 </template>

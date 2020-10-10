@@ -1,6 +1,6 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <footer style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-            data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container', decorationTagName='div'}"></sly>
-    </footer>
+  <footer style="${componentProperties.attr.attributes.style @ context = 'unsafe'}"
+          data-sly-attribute="${componentProperties.attr.attributes @ context = 'unsafe'}">
+    <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container', decorationTagName='div'}"></sly>
+  </footer>
 </template>

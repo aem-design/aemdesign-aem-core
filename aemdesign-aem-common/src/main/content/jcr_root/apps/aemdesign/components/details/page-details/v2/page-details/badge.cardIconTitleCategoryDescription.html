@@ -1,22 +1,17 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <div class="card ${componentProperties.badgeClassAttr}">
-        <div class="card-icon" data-sly-test="${componentProperties.cardIconShow}">
-            <i class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
-        </div>
-        <div class="card-body">
-            <title class="card-title"
-                   data-sly-element="${componentProperties.badgeTitleType}">${componentProperties.badgeTitle}</title>
-            <div class="card-category"
-                 data-sly-test="${componentProperties.category}">
-                <ul class="tags">
-                    <sly data-sly-list.tag="${componentProperties.category}" data-sly-unwrap>
-                        <sly data-sly-test="${componentProperties.category[tag]}">
-                            <li id="${componentProperties.category[tag].value}">${componentProperties.category[tag].title}</li>
-                        </sly>
-                    </sly>
-                </ul>
-            </div>
-            <div class="card-text">${componentProperties.badgeDescription @ context = 'unsafe'}</div>
-        </div>
+  <div class="card ${componentProperties.badgeClassAttr}">
+    <sly data-sly-use.icon="/apps/aemdesign/components/details/generic-details/v1/generic-details/field/icon.html"
+         data-sly-call="${icon.field @ componentProperties=componentProperties}"></sly>
+
+    <div class="card-body">
+      <sly data-sly-use.title="/apps/aemdesign/components/details/generic-details/v1/generic-details/field/title.html"
+           data-sly-call="${title.field @ componentProperties=componentProperties}"></sly>
+
+      <sly data-sly-use.category="/apps/aemdesign/components/details/generic-details/v1/generic-details/field/category.html"
+           data-sly-call="${category.field @ componentProperties=componentProperties}"></sly>
+
+      <sly data-sly-use.description="/apps/aemdesign/components/details/generic-details/v1/generic-details/field/description.html"
+           data-sly-call="${description.field @ componentProperties=componentProperties}"></sly>
     </div>
+  </div>
 </template>

@@ -3,46 +3,46 @@
 /*NORMAL*/
 
 .contentblockMenu ol {
-    list-style: none;
+  list-style: none;
 }
 
 .contentblockMenu ol li {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .contentblockMenu ol span {
-    float: left;
-    width: 20px;
-    font-size: 13px;
-    font-weight: bold;
-    display: block;
-    padding-top: 3px;
+  float: left;
+  width: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  display: block;
+  padding-top: 3px;
 }
 
 .contentblockMenu ol a {
-    font-size: 13px;
-    font-weight: bold;
-    display: inline-block;
+  font-size: 13px;
+  font-weight: bold;
+  display: inline-block;
 }
 
 .contentblockMenu ol.no-bullets {
-    list-style: none;
+  list-style: none;
 }
 
 /*
     horizontal variation of content block menu
 */
 .contentblockMenu .horizontal-menu {
-    text-align: center;
-    font-size: 13px;
-    margin: 10px 0px;
+  text-align: center;
+  font-size: 13px;
+  margin: 10px 0px;
 }
 
 .contentblockMenu .horizontal-menu a {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .contentblockMenu .horizontal-menu span {
-    font-weight: bold;
-    padding: 5px 0px;
+  font-weight: bold;
+  padding: 5px 0px;
 }

@@ -1,3 +1,18 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ~ Copyright 2020 AEM.Design
+ ~
+ ~ Licensed under the Apache License, Version 2.0 (the "License");
+ ~ you may not use this file except in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~     http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing, software
+ ~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~ See the License for the specific language governing permissions and
+ ~ limitations under the License.
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package design.aem.utils;
 
 import com.adobe.granite.security.user.util.AuthorizableUtil;
@@ -21,7 +36,8 @@ import java.util.LinkedHashSet;
 import static com.day.cq.replication.ReplicationStatus.NODE_PROPERTY_LAST_REPLICATION_ACTION;
 
 public final class UserManagementUtil {
-    private UserManagementUtil() { }
+    private UserManagementUtil() {
+    }
 
     public static final String PATH_PROFILE = "./profile";
     public static final String PROPERTY_PROFILE_EMAIL = PATH_PROFILE + "/email";
@@ -41,7 +57,7 @@ public final class UserManagementUtil {
             throw new NullPointerException("session == null");
         }
 
-        return ((JackrabbitSession)session).getUserManager();
+        return ((JackrabbitSession) session).getUserManager();
     }
 
     public static User getCurrentUser(Session session) throws RepositoryException {
@@ -65,8 +81,9 @@ public final class UserManagementUtil {
 
     /**
      * <p>Gets user instance from a user ID.</p>
+     *
      * @param session JCR session
-     * @param userId is of user
+     * @param userId  is of user
      * @return User instance or null if not exists
      * @throws RepositoryException repository exception
      */
@@ -80,6 +97,7 @@ public final class UserManagementUtil {
 
     /**
      * <p>Gets group instance from a user ID.</p>
+     *
      * @param session JCR session
      * @param groupId is of group
      * @return Group instance or null if not exists
@@ -97,7 +115,7 @@ public final class UserManagementUtil {
      * Gets user formatted display name (given name + family name) or group name.
      *
      * @param resourceResolver sling resolver
-     * @param authorizableId is of user
+     * @param authorizableId   is of user
      * @return formatted display name or authorizable ID when name could not be determined
      */
     public static String getDisplayName(ResourceResolver resourceResolver, String authorizableId) {
@@ -106,7 +124,8 @@ public final class UserManagementUtil {
 
     /**
      * <p>Checks if user or group is active - enabled and not deactivated.</p>
-     * @param session JCR session
+     *
+     * @param session      JCR session
      * @param authorizable user
      * @return true when active and false when non-active (disabled or deactivated)
      * @throws RepositoryException repository exception
@@ -121,7 +140,7 @@ public final class UserManagementUtil {
         }
 
         if (authorizable instanceof User) {
-            User user = (User)authorizable;
+            User user = (User) authorizable;
             if (user.isDisabled()) {
                 return false;
             }
@@ -140,6 +159,7 @@ public final class UserManagementUtil {
 
     /**
      * <p>Gets e-mail from authorizable's profile.</p>
+     *
      * @param authorizable Group or User
      * @return email string or empty string when user does not have e-mail property (never null)
      * @throws RepositoryException repository exception
@@ -162,8 +182,9 @@ public final class UserManagementUtil {
 
     /**
      * <p>Returns mailing target in format: "NAME" [E-MAIL].</p>
+     *
      * @param resourceResolver resolver instance
-     * @param authorizable user to check
+     * @param authorizable     user to check
      * @return Mailing target or null in case of non-specified email
      * @throws RepositoryException if cant read content
      */
@@ -197,8 +218,9 @@ public final class UserManagementUtil {
 
     /**
      * <p>Return single value of a property from authorizable.</p>
+     *
      * @param authorizable user
-     * @param property prop name
+     * @param property     prop name
      * @return value or null in case of no value or multiple values
      * @throws RepositoryException repository exception
      */

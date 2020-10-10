@@ -1,3 +1,18 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ~ Copyright 2020 AEM.Design
+ ~
+ ~ Licensed under the Apache License, Version 2.0 (the "License");
+ ~ you may not use this file except in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~     http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing, software
+ ~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~ See the License for the specific language governing permissions and
+ ~ limitations under the License.
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package design.aem.utils.components;
 
 import com.day.cq.contentsync.handler.util.RequestResponseFactory;
@@ -81,6 +96,7 @@ public class CommonUtil {
 
     /**
      * This function html4-escapes the provided string/object.
+     *
      * @param body The string/object to encode.
      * @return A properly encoded html4 string.
      * @see StringEscapeUtils#escapeHtml4
@@ -94,6 +110,7 @@ public class CommonUtil {
 
     /**
      * ger redirect target for a page.
+     *
      * @param page page to check
      * @return string with redirect value
      */
@@ -107,6 +124,7 @@ public class CommonUtil {
 
     /**
      * Get a page's url.
+     *
      * @param page is the page to get the url for
      * @return a string with the page url
      */
@@ -123,9 +141,9 @@ public class CommonUtil {
             }
 
             if (pageUrl.startsWith("/content")
-                    && !pageUrl.endsWith(ConstantsUtil.DEFAULT_EXTENTION)
-                    && !pageUrl.contains(ConstantsUtil.DEFAULT_MARK_HASHBANG)
-                    && !pageUrl.contains(ConstantsUtil.DEFAULT_MARK_QUERYSTRING)) {
+                && !pageUrl.endsWith(ConstantsUtil.DEFAULT_EXTENTION)
+                && !pageUrl.contains(ConstantsUtil.DEFAULT_MARK_HASHBANG)
+                && !pageUrl.contains(ConstantsUtil.DEFAULT_MARK_QUERYSTRING)) {
                 pageUrl = pageUrl.concat(ConstantsUtil.DEFAULT_EXTENTION);
             }
 
@@ -136,6 +154,7 @@ public class CommonUtil {
 
     /**
      * get resource last modified attribute.
+     *
      * @param resource resource to use
      * @return resource last modified date
      */
@@ -155,8 +174,10 @@ public class CommonUtil {
 
         return lastMod;
     }
+
     /**
      * get page resource created date with failover in order NameConstants.PN_ON_TIME, ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED and JcrConstants.JCR_CREATED.
+     *
      * @param pageProperties page properties
      * @return resource onTime or jcr:created value
      */
@@ -178,6 +199,7 @@ public class CommonUtil {
 
     /**
      * get resource last replicated date.
+     *
      * @param pageProperties page properties
      * @return resource ReplicationStatus.NODE_PROPERTY_LAST_REPLICATED value
      */
@@ -199,7 +221,8 @@ public class CommonUtil {
 
     /**
      * Get a page's description from Details component on the page with failover to page properties.
-     * @param page is the page to get the title for
+     *
+     * @param page                       is the page to get the title for
      * @param detailsComponentProperties details component properties
      * @return a string with title from details component or from page
      */
@@ -219,7 +242,8 @@ public class CommonUtil {
 
     /**
      * Get a page's title from Details component on the page with failover to page properties.
-     * @param page is the page to get the title for
+     *
+     * @param page             is the page to get the title for
      * @param detailsComponent details component resource
      * @return a string with the page title
      */
@@ -249,6 +273,7 @@ public class CommonUtil {
 
     /**
      * Get a page's title, nv title navigation title, or name.
+     *
      * @param page is the page to get the title for
      * @return a string with the page title
      */
@@ -269,6 +294,7 @@ public class CommonUtil {
 
     /**
      * Get a page's navigation title, or normal title.
+     *
      * @param page is the page to get the title for
      * @return a string with the page title
      */
@@ -287,6 +313,7 @@ public class CommonUtil {
 
     /**
      * get tags for a page.
+     *
      * @param page is the page to look for the image
      * @return is the relative path to the image
      */
@@ -306,6 +333,7 @@ public class CommonUtil {
 
     /**
      * Get a JCR value or, if it's not available, return null.
+     *
      * @param node     is the jcr node to find
      * @param property is the property on the node to query
      * @return the value in the property, or null if nothing was found
@@ -317,6 +345,7 @@ public class CommonUtil {
 
     /**
      * Get a JCR value or, if it's not available, return the defaultValue.
+     *
      * @param node         is the jcr node to find
      * @param property     is the property on the node to query
      * @param defaultValue is the default value to return
@@ -329,19 +358,20 @@ public class CommonUtil {
 
     public static boolean validDetailComponent(String resourceType) {
         return
-                !StringUtils.isBlank(resourceType) &&
-                        resourceType.endsWith(COMPONENT_DETAILS_SUFFIX);
+            !StringUtils.isBlank(resourceType) &&
+                resourceType.endsWith(COMPONENT_DETAILS_SUFFIX);
     }
 
     /**
      * Determine whether named script exists.
-     * @param page is the current page (for a reference to the root node)
-     * @param nodeName  is the node name to check for
+     *
+     * @param page     is the current page (for a reference to the root node)
+     * @param nodeName is the node name to check for
      * @return true if the script exists
      */
     public static boolean nodeExists(Page page, String nodeName) {
         if (page == null || isEmpty(nodeName)) {
-            LOGGER.error("nodeExists: page={},nodeName={}",page,nodeName);
+            LOGGER.error("nodeExists: page={},nodeName={}", page, nodeName);
             return false;
         }
 
@@ -350,21 +380,21 @@ public class CommonUtil {
             Resource pageContent = page.getContentResource();
 
             if (pageContent == null) {
-                LOGGER.error("nodeExists: pageContent={}",pageContent);
+                LOGGER.error("nodeExists: pageContent={}", pageContent);
                 return false;
             }
 
             Node pageContentNode = pageContent.adaptTo(Node.class);
 
             if (pageContentNode == null) {
-                LOGGER.error("nodeExists: pageContentNode={}",pageContentNode);
+                LOGGER.error("nodeExists: pageContentNode={}", pageContentNode);
                 return false;
             }
 
             Session session = pageContentNode.getSession();
 
             if (session == null) {
-                LOGGER.error("nodeExists: session={}",session);
+                LOGGER.error("nodeExists: session={}", session);
                 return false;
             }
 
@@ -374,7 +404,7 @@ public class CommonUtil {
             return pageContentNode.hasNode(nodeName);
 
         } catch (Exception ex) {
-            LOGGER.error("nodeExists: ex={}",ex);
+            LOGGER.error("nodeExists: ex={}", ex);
             return false;
         }
     }
@@ -382,6 +412,7 @@ public class CommonUtil {
 
     /**
      * Determine whether the page is visible.
+     *
      * @param page is the page to determine this for
      * @return true if the page is on, otherwise false is returned.
      */
@@ -389,12 +420,13 @@ public class CommonUtil {
         Calendar cal = Calendar.getInstance();
 
         return
-                (page.getOffTime() == null || cal.compareTo(page.getOffTime()) <= 0) &&
-                        (page.getOnTime() == null || cal.compareTo(page.getOnTime()) >= 0);
+            (page.getOffTime() == null || cal.compareTo(page.getOffTime()) <= 0) &&
+                (page.getOnTime() == null || cal.compareTo(page.getOnTime()) >= 0);
     }
 
     /**
      * Utility function for hashing a string via MD5.
+     *
      * @param content The string to perform the hash on.
      * @return The hash if successful, or the original string if not.
      */
@@ -414,6 +446,7 @@ public class CommonUtil {
     /**
      * Protects against the stupid multi-single property bug AEM seems to have.
      * Will get the value off a node property if it exists, or return null if anything goes wrong.
+     *
      * @param node The node to get the property value from.
      * @param key  The property key to get the value for.
      * @return The value of the property, or null.
@@ -443,6 +476,7 @@ public class CommonUtil {
 
     /**
      * Convenience method for safely retrieving a String value from a node.
+     *
      * @param node The node to get the property string from.
      * @param key  The property key to get the string for.
      * @return The string value of the property, or null.
@@ -466,6 +500,7 @@ public class CommonUtil {
 
     /**
      * find a component in a page root that matches required suffix.
+     *
      * @param inputPage        is the page to look through for component
      * @param resourceTypeTail array for suffixes to check as endsWith with sling:resourceType or node name (as failover)
      * @param pageRoots        use matching page root as a staring point for search
@@ -543,7 +578,8 @@ public class CommonUtil {
 
     /**
      * try parse int.
-     * @param value value to use
+     *
+     * @param value        value to use
      * @param defaultValue default value
      * @return parsed value
      */
@@ -554,9 +590,11 @@ public class CommonUtil {
             return defaultValue;
         }
     }
+
     /**
      * try parse long.
-     * @param value value to use
+     *
+     * @param value        value to use
      * @param defaultValue default value
      * @return parsed value
      */
@@ -571,7 +609,8 @@ public class CommonUtil {
 
     /**
      * Return a JCR node for a first found matching path.
-     * @param thisPage is the page to inspect for newsdetails
+     *
+     * @param thisPage  is the page to inspect for newsdetails
      * @param nodePaths paths to look for
      * @return a JCR node or null when not found
      */
@@ -593,7 +632,8 @@ public class CommonUtil {
 
     /**
      * Return a JCR node for a first found matching path.
-     * @param thisPage is the page to inspect for newsdetails
+     *
+     * @param thisPage  is the page to inspect for newsdetails
      * @param nodePaths paths to look for
      * @return a JCR node or null when not found
      */
@@ -616,6 +656,7 @@ public class CommonUtil {
 
     /**
      * Return a JCR node for the component in <code>thisPage</code>.
+     *
      * @param thisPage      is the page to inspect for component
      * @param componentPath is the path of the component eg par/venuedetails
      * @return a JCR node or null when not found
@@ -633,6 +674,7 @@ public class CommonUtil {
 
     /**
      * Return first mediagallery or video node on <code>thisPage</code>.
+     *
      * @param thisPage is the page to inspect for component
      * @return a JCR node or null when not found
      */
@@ -653,7 +695,7 @@ public class CommonUtil {
                 }
             }
         } catch (Exception ex) {
-            LOGGER.error("getFirstMediaNode: Could not get media node in page {}, err: {}",thisPage,ex);
+            LOGGER.error("getFirstMediaNode: Could not get media node in page {}, err: {}", thisPage, ex);
         }
         return media;
 
@@ -693,8 +735,8 @@ public class CommonUtil {
     public static String resourceRenderAsHtml(String path, ResourceResolver resourceResolver, SlingScriptHelper sling, WCMMode mode, String requestAttributeName, ComponentProperties requestAttributes, boolean appendHTMLExtention) {
         if (isEmpty(path) || resourceResolver == null || sling == null) {
             String error = format(
-                    "resourceRenderAsHtml5: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
-                    , path, resourceResolver, sling);
+                "resourceRenderAsHtml5: params not specified path=\"{0}\",resourceResolver=\"{1}\",sling=\"{2}\""
+                , path, resourceResolver, sling);
             LOGGER.error(error);
             return "<!--".concat(error).concat("-->");
         }
@@ -731,7 +773,7 @@ public class CommonUtil {
 
                 return _out.toString();
             } else {
-                LOGGER.error("resourceRenderAsHtml: could not get objects, _requestResponseFactory={},_requestProcessor={}",_requestResponseFactory,_requestProcessor);
+                LOGGER.error("resourceRenderAsHtml: could not get objects, _requestResponseFactory={},_requestProcessor={}", _requestResponseFactory, _requestProcessor);
             }
             return "<![CDATA[could not get objects]]>";
         } catch (Exception e) {
@@ -801,6 +843,7 @@ public class CommonUtil {
 
     /**
      * check if object is null.
+     *
      * @param source object
      * @return status
      */
@@ -810,6 +853,7 @@ public class CommonUtil {
 
     /**
      * check if object is not null.
+     *
      * @param source object
      * @return status
      */
@@ -818,9 +862,9 @@ public class CommonUtil {
     }
 
 
-
     /**
      * get content of a specified URL.
+     *
      * @param Url url to load
      * @return string content
      */
@@ -834,7 +878,7 @@ public class CommonUtil {
 
                 // open the stream and put it into BufferedReader
                 BufferedReader bufferReader = new BufferedReader(
-                        new InputStreamReader(conn.getInputStream()));
+                    new InputStreamReader(conn.getInputStream()));
 
                 StringBuilder sb = new StringBuilder();
 
@@ -853,5 +897,6 @@ public class CommonUtil {
         }
         return "";
     }
+
 
 }

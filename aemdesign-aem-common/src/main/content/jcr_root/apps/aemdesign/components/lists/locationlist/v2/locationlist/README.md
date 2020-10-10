@@ -14,7 +14,7 @@ Component to create List of locations, used for making maps.
 * **Status**: production-ready
 * **Showcase**: [/content/aemdesign-showcase/en/component/lists/locationlist](/content/aemdesign-showcase/en/component/lists/locationlist.html?wcmmode=disabled)
 * **Local Code**: [/apps/aemdesign/components/lists/locationlist/v2/locationlist](/crx/de/#/apps/aemdesign/components/lists/locationlist/v2/locationlist)
-* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-common/tree/master/src/main/content/jcr_root/apps/aemdesign/components/lists/locationlist/v2/locationlist)
+* **Source**: [github/aem-design](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/lists/locationlist/v2/locationlist)
 * **Readme**: [/apps/aemdesign/components/lists/locationlist/v2/locationlist](/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/lists/locationlist/v2/locationlist)
 
 ## Features

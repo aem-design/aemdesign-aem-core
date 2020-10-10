@@ -1,11 +1,10 @@
 <template data-sly-template.field="${@ componentProperties, wrapperCssClass}">
-    <div class="${wrapperCssClass || 'card-action'}">
-        <a class="card-link ${componentProperties.badgeLinkStyle @ context='attribute', join=' '}"
-           href="${componentProperties.pageUrl @ context='attribute'}"
-           target="${componentProperties.badgeLinkTarget @ context='attribute'}"
-           title="${componentProperties.badgeLinkTitle @ context='attribute'}"
-           data-sly-attribute="${componentProperties.badgeLinkAttr @ context='unsafe'}">
-            <span>${componentProperties.badgeLinkText @ context='text'}</span>
-        </a>
-    </div>
+  <div class="${wrapperCssClass || 'card-action'}">
+    <a class="card-link ${componentProperties.badgeLinkStyle @ context='attribute', join=' '}"
+       href="${componentProperties.pageUrl @ context='attribute'}"
+       target="${componentProperties.badgeLinkTarget @ context='attribute'}"
+       data-sly-attribute="${componentProperties.badgeLinkAttr @ context='unsafe'}">
+      <span>${componentProperties.badgeLinkText @ context='text'}</span>
+    </a>
+  </div>
 </template>

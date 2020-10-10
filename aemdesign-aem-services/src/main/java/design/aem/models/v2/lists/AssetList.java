@@ -11,7 +11,7 @@ import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.TagConstants;
 import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.vault.util.JcrConstants;
@@ -37,15 +37,10 @@ import static design.aem.utils.components.ImagesUtil.*;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class AssetList extends ModelProxy {
+public class AssetList extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(AssetList.class);
 
-    protected ComponentProperties componentProperties = null;
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
-    private List<Map<String,Object>> listItems;
+    private List<Map<String, Object>> listItems;
 
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     @Default(intValues = LIMIT_DEFAULT)
@@ -77,7 +72,7 @@ public class AssetList extends ModelProxy {
     private SortOrder sortOrder;
 
     @SuppressWarnings("Duplicates")
-    protected void ready() {
+    public void ready() {
         /*
           Component Fields Helper
 
@@ -88,25 +83,25 @@ public class AssetList extends ModelProxy {
           4 optional - canonical name of class for handling multivalues, String or Tag
          */
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {STATIC_ITEMS, new String[0]},
-                {DESCENDANT_PATH, PARENT_PATH_DEFAULT},
-                {PN_SOURCE, PN_SOURCE_DEFAULT},
-                {PARENT_PATH, PARENT_PATH_DEFAULT},
-                {PN_ORDER_BY, StringUtils.EMPTY},
-                {LIMIT_PROPERTY_NAME, LIMIT_DEFAULT},
-                {PN_SORT_ORDER, SortOrder.ASC.getValue()},
-                {FIELD_IMAGE_OPTION, FIELD_IMAGE_OPTION_DEFAULT},
-                {FIELD_TITLE_TAG_TYPE, FIELD_TITLE_TAG_TYPE_DEFAULT},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {STATIC_ITEMS, new String[0]},
+            {DESCENDANT_PATH, PARENT_PATH_DEFAULT},
+            {PN_SOURCE, PN_SOURCE_DEFAULT},
+            {PARENT_PATH, PARENT_PATH_DEFAULT},
+            {PN_ORDER_BY, StringUtils.EMPTY},
+            {LIMIT_PROPERTY_NAME, LIMIT_DEFAULT},
+            {PN_SORT_ORDER, SortOrder.ASC.getValue()},
+            {FIELD_IMAGE_OPTION, FIELD_IMAGE_OPTION_DEFAULT},
+            {FIELD_TITLE_TAG_TYPE, FIELD_TITLE_TAG_TYPE_DEFAULT},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_IMAGE_OPTIONS,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_ANALYTICS
+            this,
+            componentFields,
+            DEFAULT_FIELDS_IMAGE_OPTIONS,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS
         );
 
         sortOrder = SortOrder.fromString(componentProperties.get(PN_SORT_ORDER, SortOrder.ASC.getValue()));
@@ -116,6 +111,7 @@ public class AssetList extends ModelProxy {
 
     /**
      * get list options type.
+     *
      * @return list type
      */
     protected Source getListType() {
@@ -128,9 +124,10 @@ public class AssetList extends ModelProxy {
 
     /**
      * get list items, used by HTL templates.
+     *
      * @return list of items
      */
-    public Collection<Map<String,Object>> getListItems() {
+    public Collection<Map<String, Object>> getListItems() {
 
         if (listItems == null) {
             Source listType = getListType();
@@ -143,6 +140,7 @@ public class AssetList extends ModelProxy {
 
     /**
      * populate list items.
+     *
      * @param listType list type to execute
      */
     @SuppressWarnings("Duplicates")
@@ -169,7 +167,7 @@ public class AssetList extends ModelProxy {
      * populate list items from only children of a root page.
      */
     private void populateChildListItems() {
-        String path = componentProperties.get(PARENT_PATH,PARENT_PATH_DEFAULT);
+        String path = componentProperties.get(PARENT_PATH, PARENT_PATH_DEFAULT);
         populateChildListItems(path, true);
     }
 
@@ -178,13 +176,14 @@ public class AssetList extends ModelProxy {
      * populate list items from descendants of a root page.
      */
     private void populateDescendantsListItems() {
-        String path = componentProperties.get(DESCENDANT_PATH,PARENT_PATH_DEFAULT);
+        String path = componentProperties.get(DESCENDANT_PATH, PARENT_PATH_DEFAULT);
         populateChildListItems(path, false);
     }
 
 
     /**
      * populate list items from children of a root page.
+     *
      * @param path path to use
      * @param flat only select children on root page
      */
@@ -206,10 +205,11 @@ public class AssetList extends ModelProxy {
 
     /**
      * doa query using a predicate map.
+     *
      * @param map predicate map
      */
     @SuppressWarnings("Duplicates")
-    private void populateListItemsFromMap(Map<String,String> map) {
+    private void populateListItemsFromMap(Map<String, String> map) {
         try {
 
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
@@ -240,10 +240,10 @@ public class AssetList extends ModelProxy {
                     collectSearchResults(query.getResult());
                 }
             } else {
-                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]",map);
+                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]", map);
             }
         } catch (Exception ex) {
-            LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}",map,ex);
+            LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}", map, ex);
         }
     }
 
@@ -251,7 +251,7 @@ public class AssetList extends ModelProxy {
      * populates listItems with resources from pages list.
      * page object is also resolved and returned if available
      */
-    @SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates", "squid:S3776"})
     private void populateStaticListItems() {
         listItems = new ArrayList<>();
         String[] items = componentProperties.get(STATIC_ITEMS, new String[0]);
@@ -284,10 +284,11 @@ public class AssetList extends ModelProxy {
 
     /**
      * get required asset info
-     * @param asset asset to look into
-     * @param assetResource asset resource
+     *
+     * @param asset               asset to look into
+     * @param assetResource       asset resource
      * @param componentProperties component properties to use for settings
-     * @param sling sling instance
+     * @param sling               sling instance
      * @return asset metadata
      */
     @SuppressWarnings("squid:S3776")
@@ -398,8 +399,9 @@ public class AssetList extends ModelProxy {
                             assetProperties.put(FIELD_IMAGEURL, responsiveImageSet.values().toArray()[responsiveImageSet.values().size() - 1]);
                         }
 
-
-                        assetProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(assetProperties.attr.getData(), null));
+                        assetProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(
+                            assetProperties.attr.getAttributes(),
+                            xss));
 
                         return assetProperties;
                     }
@@ -415,14 +417,15 @@ public class AssetList extends ModelProxy {
 
     /**
      * process search results.
+     *
      * @param result search results
      * @throws RepositoryException when can't access content in repository
      */
     @SuppressWarnings("Duplicates")
     private void collectSearchResults(SearchResult result) throws RepositoryException {
         Map<String, Object> resultInfo = new HashMap<>();
-        resultInfo.put("executionTime",result.getExecutionTime());
-        resultInfo.put("result",result);
+        resultInfo.put("executionTime", result.getExecutionTime());
+        resultInfo.put("result", result);
 
         totalMatches = result.getTotalMatches();
         List<ResultPage> resultPages = result.getResultPages();
@@ -433,11 +436,11 @@ public class AssetList extends ModelProxy {
 
         resultInfo.put("hitsPerPage", hitsPerPage);
         resultInfo.put("currentPage", currentPage);
-        resultInfo.put("totalMatches",totalMatches);
+        resultInfo.put("totalMatches", totalMatches);
         resultInfo.put("resultPages", resultPages);
         resultInfo.put("totalPages", totalPages);
 
-        componentProperties.put("resultInfo",resultInfo);
+        componentProperties.put("resultInfo", resultInfo);
 
         AssetManager assetManager = getResourceResolver().adaptTo(AssetManager.class);
 
@@ -477,7 +480,7 @@ public class AssetList extends ModelProxy {
         DESCENDANTS("descendants"),
         EMPTY(StringUtils.EMPTY);
 
-        private String value;
+        private final String value;
 
         public String getValue() {
             return value;

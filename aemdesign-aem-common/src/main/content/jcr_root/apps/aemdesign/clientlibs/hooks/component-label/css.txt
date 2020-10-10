@@ -1,0 +1,2 @@
+#base=css
+component-label.css

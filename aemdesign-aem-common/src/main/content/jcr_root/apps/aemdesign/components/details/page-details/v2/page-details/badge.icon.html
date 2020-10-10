@@ -1,9 +1,9 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <a data-sly-test="${componentProperties.pageUrl != ''}"
-       href="${componentProperties.pageUrl}" title="${componentProperties.title}"
-       data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}">
-        <i class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
-    </a>
-    <i data-sly-test="${componentProperties.pageUrl == ''}"
-       class="icon ${componentProperties.badgeClassIconAttr}" title="${componentProperties.title}"></i>
+  <a data-sly-test="${componentProperties.pageUrl != ''}"
+     href="${componentProperties.pageUrl}"
+     data-sly-attribute="${componentProperties.badgeLinkAttr @ context = 'unsafe'}"
+     data-sly-unwrap="${componentProperties.pageUrl == ''}">
+    <sly data-sly-use.icon="/apps/aemdesign/components/details/generic-details/v1/generic-details/field/icon.html"
+         data-sly-call="${icon.field @ componentProperties=componentProperties, omitWrapper=true}"></sly>
+  </a>
 </template>
