@@ -441,6 +441,7 @@ public class List extends BaseComponent {
                 break;
             default:
                 LOGGER.error("Invalid list type was supplied: {}", listType.value);
+                break;
         }
 
         try {

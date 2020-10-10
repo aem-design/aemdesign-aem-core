@@ -895,7 +895,7 @@ public class GenericDetails extends BaseComponent {
 
     protected void processAdditionalComponentFields(
         ComponentProperties componentProperties, // NOSONAR
-        com.day.cq.i18n.I18n i18n,
+        I18n i18n,
         SlingScriptHelper sling,
         Map<String, Object> newFields
     ) {

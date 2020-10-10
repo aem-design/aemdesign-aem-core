@@ -33,17 +33,11 @@ public class ImageImplTest {
     protected static final String ROOT = "/asset";
     protected static final String IMAGE_01_PATH = ROOT + "/image/jcr:content/article/par/contentblock1/par/image";
 
-    MockSlingHttpServletRequest request;
-    MockSlingHttpServletResponse response;
-
     @ClassRule
     public static final AemContext CONTEXT = CoreComponentTestContext.createContext(ROOT, ROOT);
 
     @Before
     public void setUp() {
-        request = new MockSlingHttpServletRequest(CONTEXT.resourceResolver(), CONTEXT.bundleContext());
-        response = new MockSlingHttpServletResponse();
-
         Resource testResource = CONTEXT.resourceResolver().getResource(IMAGE_01_PATH);
 
         if (testResource == null) {
