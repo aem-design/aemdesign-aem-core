@@ -41,20 +41,16 @@
                                 margin="{Boolean}true">
                                 <items jcr:primaryType="nt:unstructured">
                                     <columnNote
+                                        granite:class="font-0-875 lh-1-2"
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/container"
                                         margin="{Boolean}true">
                                         <items jcr:primaryType="nt:unstructured">
-                                            <noteIntroduction
-                                                granite:class="display-block font-size-1 lh-1-375 margin-b-1"
+                                            <note
+                                                granite:class="display-block margin-b-1"
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/text"
-                                                text="The badge configuration is used to control how child components behave. Any configuration options set here will always be superseded by the child component."/>
-                                            <noteDepth
-                                                granite:class="display-block font-size-1 lh-1-375 margin-b-1"
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/text"
-                                                text="You should use these options when you need to control the behaviour of all the components in context. Be aware that applying these changes may have undesired results on some components depending on how they have been configured."/>
+                                                text="The badge configuration is used to control how this page (or pages in a list for instance) behave. Any configurations set on the page will always supersede those set on a component referencing the page. Using these options will directly affect the page (or pages referenced). Please ensure you understand how these configurations affect pages in context as undesired results can be expected if misconfigured."/>
                                         </items>
                                     </columnNote>
 

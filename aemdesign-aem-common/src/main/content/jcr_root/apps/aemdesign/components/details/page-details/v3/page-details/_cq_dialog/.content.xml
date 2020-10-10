@@ -37,6 +37,20 @@
                         path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab"
                         resourceType="granite/ui/components/foundation/section"/>
 
+                    <thumbnailImage
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Thumbnail"
+                        sling:resourceType="granite/ui/components/coral/foundation/include"
+                        path="/apps/aemdesign/global/dialog/touch/asset/content/items/tabs/items/thumbnailImageTab"
+                        resourceType="granite/ui/components/foundation/section"/>
+
+                    <imageBackground
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Background Image"
+                        sling:resourceType="granite/ui/components/coral/foundation/include"
+                        path="/apps/aemdesign/global/dialog/touch/asset/content/items/tabs/items/imageBackgroundTab"
+                        resourceType="granite/ui/components/foundation/section"/>
+
                     <detailsConfiguration
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Configuration"
@@ -287,39 +301,25 @@
                         </items>
                     </detailsConfiguration>
 
-                    <imageBackground
+                    <styles
                         jcr:primaryType="nt:unstructured"
-                        jcr:title="Background Image"
+                        jcr:title="Styles"
                         sling:resourceType="granite/ui/components/coral/foundation/include"
-                        path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageBackgroundTab"
+                        path="/apps/aemdesign/global/dialog/touch/style/content/items/tabs/items/styleTab"
                         resourceType="granite/ui/components/foundation/section"/>
 
-                    <thumbnailImage
-                        jcr:primaryType="nt:unstructured"
-                        jcr:title="Thumbnail"
-                        sling:resourceType="granite/ui/components/coral/foundation/include"
-                        path="/apps/aemdesign/global/dialog/touch/asset/content/items/thumbnailImageTab"
-                        resourceType="granite/ui/components/foundation/section"/>
-
-                    <secondaryImage
-                        jcr:primaryType="nt:unstructured"
-                        jcr:title="Secondary Thumbnail"
-                        sling:resourceType="granite/ui/components/coral/foundation/include"
-                        path="/apps/aemdesign/global/dialog/touch/asset/content/items/secondaryImageTab"
-                        resourceType="granite/ui/components/foundation/section"/>
+<!--                    <secondaryImage-->
+<!--                        jcr:primaryType="nt:unstructured"-->
+<!--                        jcr:title="Secondary Thumbnail"-->
+<!--                        sling:resourceType="granite/ui/components/coral/foundation/include"-->
+<!--                        path="/apps/aemdesign/global/dialog/touch/asset/content/items/tabs/items/secondaryImageTab"-->
+<!--                        resourceType="granite/ui/components/foundation/section"/>-->
 
                     <badgeConfig
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Badge Config"
                         sling:resourceType="granite/ui/components/coral/foundation/include"
                         path="/apps/aemdesign/global/dialog/touch/badge/content/items/tabs/items/badgeConfigTab"
-                        resourceType="granite/ui/components/foundation/section"/>
-
-                    <style
-                        jcr:primaryType="nt:unstructured"
-                        jcr:title="Style"
-                        sling:resourceType="granite/ui/components/coral/foundation/include"
-                        path="/apps/aemdesign/global/dialog/touch/style/content/items/tabs/items/styleTab"
                         resourceType="granite/ui/components/foundation/section"/>
 
                     <accessibility
