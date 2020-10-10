@@ -22,8 +22,6 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.ExporterOption;
 import org.apache.sling.models.annotations.Model;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Model(
     adaptables = SlingHttpServletRequest.class,
@@ -39,7 +37,5 @@ import org.slf4j.LoggerFactory;
     }
 )
 public class PageDetailsImpl extends AbstractDetailsImpl implements PageDetails {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PageDetailsImpl.class);
-
     protected static final String RESOURCE_TYPE = "aemdesign/components/details/page-details/v3/page-details";
 }

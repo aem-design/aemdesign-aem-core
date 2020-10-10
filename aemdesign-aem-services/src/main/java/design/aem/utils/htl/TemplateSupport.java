@@ -16,7 +16,7 @@
 package design.aem.utils.htl;
 
 import design.aem.utils.support.ComponentPathInvocationHandler;
-import design.aem.utils.support.InvocationProxyFactory;
+import design.aem.utils.support.InvocationProxyFactoryHelper;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
@@ -36,7 +36,7 @@ public class TemplateSupport {
 
     @PostConstruct
     protected void init() {
-        componentPathProxy = InvocationProxyFactory.create(resource.adaptTo(ComponentPathInvocationHandler.class));
+        componentPathProxy = InvocationProxyFactoryHelper.create(resource.adaptTo(ComponentPathInvocationHandler.class));
     }
 
     /**

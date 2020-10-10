@@ -32,7 +32,11 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.apache.sling.api.wrappers.ValueMapDecorator;
-import org.apache.sling.models.annotations.injectorspecific.*;
+import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
+import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
+import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.apache.sling.models.annotations.injectorspecific.SlingObject;
+import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.apache.sling.settings.SlingSettingsService;
 import org.apache.sling.xss.XSSAPI;
 import org.jetbrains.annotations.Nullable;
@@ -46,7 +50,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-import static design.aem.utils.components.ComponentsUtil.*;
+import static design.aem.utils.components.ComponentsUtil.COMPONENT_ATTRIBUTE_ID;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_VARIANT;
+import static design.aem.utils.components.ComponentsUtil.FIELD_STYLE_COMPONENT_ID;
+import static design.aem.utils.components.ComponentsUtil.FIELD_VARIANT;
 
 public abstract class AbstractComponentImpl implements Component {
     @ScriptVariable
@@ -79,8 +86,7 @@ public abstract class AbstractComponentImpl implements Component {
     @SlingObject
     protected Resource resource;
 
-    @SlingObject(injectionStrategy = InjectionStrategy.OPTIONAL)
-    @Nullable
+    @SlingObject
     protected ResourceResolver resourceResolver;
 
     @Inject

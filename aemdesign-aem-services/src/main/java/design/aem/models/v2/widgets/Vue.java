@@ -18,18 +18,25 @@ import org.apache.commons.lang.WordUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceNotFoundException;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.settings.SlingSettingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
-import javax.jcr.*;
+import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.PathNotFoundException;
+import javax.jcr.Property;
+import javax.jcr.PropertyIterator;
+import javax.jcr.RepositoryException;
+import javax.jcr.ValueFormatException;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-import static design.aem.utils.components.ComponentsUtil.*;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_VARIANT;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_ANALYTICS_LABEL;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_ANALYTICS_LOCATION;
+import static design.aem.utils.components.ComponentsUtil.FIELD_VARIANT;
+import static design.aem.utils.components.ComponentsUtil.getCloudConfigProperty;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAPS;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAPS_API_KEY;
 
@@ -40,7 +47,7 @@ public class Vue extends BaseComponent {
     private static final String FIELD_ANALYTICS_LOCATION = "analyticsLocation";
     private static final String FIELD_VUE_COMPONENT = "vueComponentName";
 
-    private design.aem.components.AttrBuilder attrs = null;
+    private AttrBuilder attrs = null;
     private String componentName = StringUtils.EMPTY;
 
     private final StringBuilder componentHTML = new StringBuilder();

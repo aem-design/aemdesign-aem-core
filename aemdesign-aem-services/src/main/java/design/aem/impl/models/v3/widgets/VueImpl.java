@@ -274,100 +274,120 @@ public class VueImpl extends ComponentImpl implements Vue {
      * @param field      name of the component field
      * @param value      value of the component field
      * @param properties any properties that require additional parsing
-     * @throws Error when the value property is missing from the field configuration
      */
-    @SuppressWarnings("Duplicates")
-    private void handleComponentField(String field, String value, PropertyIterator properties) // NOSONAR
-        throws Error {
+    private void handleComponentField(final String field, final String value, final PropertyIterator properties) { // NOSONAR
         try {
             JsonObject fieldElement = getComponentDataByPath("fields/" + field).getAsJsonObject(); // NOSONAR
             JsonObject fieldConfig;
 
-            boolean skipSlotAndAttribute = false;
-            String debugValue = null;
+            String newValue = value;
+            Map<String, Object> processedField = new HashMap<>();
 
             if (fieldElement.has("value") && fieldElement.get("value").isJsonObject()) { // NOSONAR
                 fieldConfig = fieldElement.get("value").getAsJsonObject();
             } else {
-                throw new Error("Unable to handle field as the JSON object is either invalid or is missing the 'value' property");
+                throw new InvalidItemStateException("Unable to handle field as the JSON object is either invalid or is missing the 'value' property");
             }
-
-            boolean isSlot = false;
-            String slotName = StringUtils.EMPTY;
 
             // Does the field have a custom configuration map for the attribute map?
             if (fieldElement.has("mapToConfig")) {
-                fieldToConfigMap.put(fieldElement.get("mapToConfig").getAsString(), value);
+                fieldToConfigMap.put(fieldElement.get("mapToConfig").getAsString(), newValue);
             }
 
             if (fieldConfig != null && fieldConfig.has("field")) {
-                String fieldType = fieldConfig.get("field").getAsString();
+                processComponentField(field, newValue, fieldConfig, properties, processedField);
 
-                // Autocompletion
-                if (fieldType.equals("autocomplete")) {
-                    value = TagUtil.getTagValueAsAdmin(value, slingScriptHelper);
-                }
-
-                // Checkboxes
-                if (fieldType.equals("checkbox")) {
-                    boolean isChecked = value.equals("true");
-
-                    debugValue = isChecked ? "Yes" : "No";
-                    skipSlotAndAttribute = true;
-
-                    vueAttributes.addBoolean(field, isChecked);
-                }
-
-                // Image/File upload
-                if (fieldType.equals("fileUpload") && properties != null) {
-                    while (properties.hasNext()) {
-                        Property property = properties.nextProperty();
-
-                        try { // NOSONAR
-                            if (property.getName().equals("fileReference")) {
-                                value = property.getString();
-                                break;
-                            }
-                        } catch (RepositoryException ex) {
-                            LOGGER.error("Unable to handle property iterator step!, {}", property);
-                            LOGGER.error(ex.getLocalizedMessage());
-                        }
-                    }
-                }
+                newValue = (String) processedField.getOrDefault("value", newValue);
 
                 // Does the field need to run through externalizer?
                 if (fieldConfig.has("externalizer") && fieldConfig.get("externalizer").getAsBoolean()) {
                     if (slingSettingsService.getRunModes().contains(Externalizer.AUTHOR)) {
-                        value = externalizer.authorLink(resourceResolver, value) + ".html?wcmmode=disabled";
+                        newValue = externalizer.authorLink(resourceResolver, newValue) + ".html?wcmmode=disabled";
                     } else {
-                        value = externalizer.externalLink(resourceResolver, Externalizer.LOCAL, value);
+                        newValue = externalizer.externalLink(resourceResolver, Externalizer.LOCAL, newValue);
                     }
                 }
-
-                // Is this field a slot?
-                isSlot = fieldConfig.has("slot");
-                slotName = isSlot ? fieldConfig.get("slot").getAsString() : slotName;
             }
 
-            if (!skipSlotAndAttribute) {
-                if (isSlot) {
-                    slots.put(slotName, value);
+            if (Boolean.TRUE.equals(processedField.getOrDefault("skipSlotAndAttribute", Boolean.FALSE))) {
+                if (Boolean.TRUE.equals(processedField.getOrDefault("isSlot", Boolean.FALSE))) {
+                    slots.put((String) processedField.get("slotName"), newValue);
                 } else {
-                    vueAttributes.add(field, value);
+                    vueAttributes.add(field, newValue);
                 }
             }
 
             // Add the config to some additional output when in the correct WCM Mode
             if (wcmmode.isEdit() || wcmmode.isPreview()) {
+                String debugValue = (String) processedField.getOrDefault("debugValue", null);
+
                 configOutput.put(
                     WordUtils.capitalize(StringUtils.join(field.split("-"), " ")),
-                    debugValue != null ? debugValue : value
+                    debugValue != null ? debugValue : newValue
                 );
             }
         } catch (Exception ex) {
             LOGGER.error("Unable to parse field: {}", field);
             LOGGER.error(ex.getLocalizedMessage());
         }
+    }
+
+    /**
+     * Process the incoming field using the {@code fieldConfig} configuration given.
+     *
+     * @param field          name of the component field
+     * @param value          value of the component field
+     * @param fieldConfig    configuration used to determine the field outcomes
+     * @param properties     JCR properties stored with the field
+     * @param processedField {@link Map} containing the processed inputs
+     */
+    @SuppressWarnings("Duplicates")
+    protected void processComponentField(
+        final String field,
+        final String value,
+        final JsonObject fieldConfig,
+        final PropertyIterator properties,
+        final Map<String, Object> processedField
+    ) {
+        String fieldType = fieldConfig.get("field").getAsString();
+        boolean isSlot = fieldConfig.has("slot");
+        String newValue = value;
+
+        // Autocompletion
+        if (fieldType.equals("autocomplete")) {
+            newValue = TagUtil.getTagValueAsAdmin(value, slingScriptHelper);
+        }
+
+        // Checkboxes
+        if (fieldType.equals("checkbox")) {
+            boolean isChecked = value.equals("true");
+
+            processedField.put("debugValue", isChecked ? "Yes" : "No");
+            processedField.put("skipSlotAndAttribute", true);
+
+            vueAttributes.addBoolean(field, isChecked);
+        }
+
+        // Image/File upload
+        if (fieldType.equals("fileUpload") && properties != null) {
+            while (properties.hasNext()) {
+                Property property = properties.nextProperty();
+
+                try { // NOSONAR
+                    if (property.getName().equals("fileReference")) {
+                        newValue = property.getString();
+                        break;
+                    }
+                } catch (RepositoryException ex) {
+                    LOGGER.error("Unable to handle property iterator step!, {}", property);
+                    LOGGER.error(ex.getLocalizedMessage());
+                }
+            }
+        }
+
+        processedField.put("isSlot", isSlot);
+        processedField.put("slotName", isSlot ? fieldConfig.get("slot").getAsString() : null);
+        processedField.put("value", newValue);
     }
 
     /**
