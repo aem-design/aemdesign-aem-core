@@ -210,7 +210,7 @@
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                             variant="valuelist"
-                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/heading"/>
+                                                            path="/content/cq:tags/${namespace}/component-dialog/html/heading"/>
                                                     </titleType>
                                                 </items>
                                             </cardConfig>
@@ -364,7 +364,7 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                     variant="valuelist"
-                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/asset/rendition/prefix"/>
+                                                    path="/content/cq:tags/${namespace}/component-dialog/asset/rendition/prefix"/>
                                             </renditionPrefix>
                                         </items>
                                     </responsiveConfig>
@@ -456,7 +456,7 @@
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                         variant="tagidvalue"
-                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/css/mediaquery"/>
+                                                        path="/content/cq:tags/${namespace}/component-dialog/css/mediaquery"/>
                                                 </assetMediaQuery>
 
                                                 <assetMediaQueryRendition

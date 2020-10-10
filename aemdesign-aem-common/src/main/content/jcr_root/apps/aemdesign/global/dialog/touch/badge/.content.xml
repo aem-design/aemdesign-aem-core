@@ -89,7 +89,7 @@
                                                                 <datasource
                                                                     jcr:primaryType="nt:unstructured"
                                                                     sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/heading"
+                                                                    path="/content/cq:tags/${namespace}/component-dialog/html/heading"
                                                                     variant="valuelist"/>
                                                             </headingLevel>
 
@@ -104,7 +104,7 @@
                                                                 <datasource
                                                                     jcr:primaryType="nt:unstructured"
                                                                     sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
+                                                                    path="/content/cq:tags/${namespace}/component-dialog/common/true-false"
                                                                     variant="valuelist"/>
                                                             </headingTrim>
 
@@ -133,7 +133,7 @@
                                                                 <datasource
                                                                     jcr:primaryType="nt:unstructured"
                                                                     sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
+                                                                    path="/content/cq:tags/${namespace}/component-dialog/common/true-false"
                                                                     variant="valuelist"/>
                                                             </summaryTrim>
 
@@ -171,7 +171,7 @@
                                                             <!--                                                                <datasource-->
                                                             <!--                                                                    jcr:primaryType="nt:unstructured"-->
                                                             <!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
-                                                            <!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"-->
+                                                            <!--                                                                    path="/content/cq:tags/${namespace}/component-dialog/common/true-false"-->
                                                             <!--                                                                    variant="valuelist"/>-->
                                                             <!--                                                            </cardIconShow>-->
 
@@ -180,7 +180,7 @@
                                                                 sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                                                 fieldLabel="Card Icon"
                                                                 multiple="{Boolean}false"
-                                                                rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"
+                                                                rootPath="/content/cq:tags/${namespace}/component-style-icon"
                                                                 name="./cardIcon"/>
                                                             <cardIconHint
                                                                 jcr:primaryType="nt:unstructured"
@@ -194,7 +194,7 @@
                                                                 fieldDescription="Apply custom styles to every card in context."
                                                                 fieldLabel="Card Style"
                                                                 multiple="{Boolean}true"
-                                                                rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
+                                                                rootPath="/content/cq:tags/${namespace}/component-style-modifier"
                                                                 name="./cardStyle"/>
                                                             <cardStyleHint
                                                                 jcr:primaryType="nt:unstructured"
@@ -221,7 +221,7 @@
                                                                 <datasource
                                                                     jcr:primaryType="nt:unstructured"
                                                                     sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/linktarget"
+                                                                    path="/content/cq:tags/${namespace}/component-dialog/html/linktarget"
                                                                     variant="valuelist"/>
                                                             </target>
 
@@ -245,7 +245,7 @@
                                                                 fieldDescription="Apply custom styles to every call to action in context."
                                                                 fieldLabel="Style"
                                                                 multiple="{Boolean}true"
-                                                                rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-modifier"
+                                                                rootPath="/content/cq:tags/${namespace}/component-style-modifier"
                                                                 name="./badgeLinkStyle"/>
                                                             <styleHint
                                                                 jcr:primaryType="nt:unstructured"
@@ -264,7 +264,7 @@
                                                                 <datasource
                                                                     jcr:primaryType="nt:unstructured"
                                                                     sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/contact-details/format/action"
+                                                                    path="/content/cq:tags/${namespace}/component-style-theme/details/contact-details/format/action"
                                                                     variant="tagidvalue"/>
                                                             </format>
                                                         </items>
@@ -320,7 +320,7 @@
                                                     <!--                                                                <datasource-->
                                                     <!--                                                                    jcr:primaryType="nt:unstructured"-->
                                                     <!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
-                                                    <!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"-->
+                                                    <!--                                                                    path="/content/cq:tags/${namespace}/component-dialog/common/true-false"-->
                                                     <!--                                                                    variant="valuelist"/>-->
                                                     <!--                                                            </badgeOverlayIconShow>-->
 
@@ -330,7 +330,7 @@
                                                     <!--                                                                fieldDescription="When showing this page in a list show this icon for overlay"-->
                                                     <!--                                                                fieldLabel="Overlay Icon"-->
                                                     <!--                                                                multiple="{Boolean}true"-->
-                                                    <!--                                                                rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"-->
+                                                    <!--                                                                rootPath="/content/cq:tags/${namespace}/component-style-icon"-->
                                                     <!--                                                                name="./badgeOverlayIcon"/>-->
                                                     <!--                                                            <badgeOverlayIconHint-->
                                                     <!--                                                                jcr:primaryType="nt:unstructured"-->
@@ -362,7 +362,7 @@
                                                     <!--                                                                <datasource-->
                                                     <!--                                                                    jcr:primaryType="nt:unstructured"-->
                                                     <!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
-                                                    <!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/lists/navlist/color"-->
+                                                    <!--                                                                    path="/content/cq:tags/${namespace}/component-style-theme/lists/navlist/color"-->
                                                     <!--                                                                    variant="valuelist"/>-->
                                                     <!--                                                            </menuColor>-->
 
@@ -377,7 +377,7 @@
                                                     <!--                                                                <datasource-->
                                                     <!--                                                                    jcr:primaryType="nt:unstructured"-->
                                                     <!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
-                                                    <!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"-->
+                                                    <!--                                                                    path="/content/cq:tags/${namespace}/component-dialog/common/true-false"-->
                                                     <!--                                                                    variant="valuelist"/>-->
                                                     <!--                                                            </menuIconShow>-->
 
@@ -387,7 +387,7 @@
                                                     <!--                                                                fieldDescription="Use this icon for Icon badge"-->
                                                     <!--                                                                fieldLabel="Menu Icon"-->
                                                     <!--                                                                multiple="{Boolean}true"-->
-                                                    <!--                                                                rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"-->
+                                                    <!--                                                                rootPath="/content/cq:tags/${namespace}/component-style-icon"-->
                                                     <!--                                                                name="./menuIcon"/>-->
                                                     <!--                                                            <menuIconHint-->
                                                     <!--                                                                jcr:primaryType="nt:unstructured"-->
@@ -426,7 +426,7 @@
                                                     <!--                                                                <datasource-->
                                                     <!--                                                                    jcr:primaryType="nt:unstructured"-->
                                                     <!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
-                                                    <!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"-->
+                                                    <!--                                                                    path="/content/cq:tags/${namespace}/component-dialog/common/true-false"-->
                                                     <!--                                                                    variant="valuelist"/>-->
                                                     <!--                                                            </tabIconShow>-->
 
@@ -436,7 +436,7 @@
                                                     <!--                                                                fieldDescription="When showing this page in a tab show this Icon"-->
                                                     <!--                                                                fieldLabel="Tab Icon"-->
                                                     <!--                                                                multiple="{Boolean}true"-->
-                                                    <!--                                                                rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"-->
+                                                    <!--                                                                rootPath="/content/cq:tags/${namespace}/component-style-icon"-->
                                                     <!--                                                                name="./tabIcon"/>-->
                                                     <!--                                                            <tabIconHint-->
                                                     <!--                                                                jcr:primaryType="nt:unstructured"-->
@@ -485,7 +485,7 @@
 <!--                                                                <datasource-->
 <!--                                                                    jcr:primaryType="nt:unstructured"-->
 <!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
-<!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"-->
+<!--                                                                    path="/content/cq:tags/${namespace}/component-dialog/common/true-false"-->
 <!--                                                                    variant="valuelist"/>-->
 <!--                                                            </badgeCustom>-->
 
@@ -504,7 +504,7 @@
 <!--                                                                <datasource-->
 <!--                                                                    jcr:primaryType="nt:unstructured"-->
 <!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
-<!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/badge"-->
+<!--                                                                    path="/content/cq:tags/${namespace}/component-dialog/components/details/generic-details/badge"-->
 <!--                                                                    variant="tagidvalue"/>-->
 <!--                                                            </badgeTemplate>-->
 
@@ -518,7 +518,7 @@
 <!--                                                                <datasource-->
 <!--                                                                    jcr:primaryType="nt:unstructured"-->
 <!--                                                                    sling:resourceType="aemdesign/components/coral/datasources/tags"-->
-<!--                                                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/templates"-->
+<!--                                                                    path="/content/cq:tags/${namespace}/component-dialog/components/details/generic-details/templates"-->
 <!--                                                                    variant="valuelist"/>-->
 <!--                                                            </badgeFieldsTemplate>-->
 
@@ -537,7 +537,7 @@
 <!--                                                                    <datasource-->
 <!--                                                                        jcr:primaryType="nt:unstructured"-->
 <!--                                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"-->
-<!--                                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/fields"-->
+<!--                                                                        path="/content/cq:tags/${namespace}/component-dialog/components/details/generic-details/fields"-->
 <!--                                                                        variant="valuelist"/>-->
 <!--                                                                </field>-->
 <!--                                                            </badgeFields>-->

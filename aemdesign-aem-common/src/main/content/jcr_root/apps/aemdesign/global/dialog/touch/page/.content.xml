@@ -80,7 +80,7 @@
                                         fieldLabel="Primary Category"
                                         fieldDescription="this will be displayed as Primary Category on the page and on cards in grids"
                                         multiple="{Boolean}true"
-                                        rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}"
+                                        rootPath="/content/cq:tags/${namespace}"
                                         name="./cq:tags"/>
                                     <categoryHint
                                         jcr:primaryType="nt:unstructured"
@@ -94,7 +94,7 @@
                                         fieldLabel="Secondary Category"
                                         fieldDescription="this will be display as Secondary Category on cards in grids"
                                         multiple="{Boolean}true"
-                                        rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}"
+                                        rootPath="/content/cq:tags/${namespace}"
                                         name="./subCategory"/>
                                     <subCategoryHint
                                         jcr:primaryType="nt:unstructured"

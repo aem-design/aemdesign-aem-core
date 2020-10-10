@@ -155,7 +155,7 @@
                                                         sling:resourceType="aemdesign/components/coral/common/form/tagfield"
                                                         fieldLabel="Tags"
                                                         multiple="{Boolean}true"
-                                                        rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}"
+                                                        rootPath="/content/cq:tags/${namespace}"
                                                         name="./tags"/>
                                                     <tagsHint
                                                         jcr:primaryType="nt:unstructured"
@@ -195,7 +195,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"/>
                                     </emptyOption>
                                     <emptyOptionTitle
                                         jcr:primaryType="nt:unstructured"
@@ -215,7 +215,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/taglist/orderby"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/components/lists/taglist/orderby"/>
                                     </orderBy>
                                     <sortOrder
                                         jcr:primaryType="nt:unstructured"
@@ -277,7 +277,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/taglist/variant"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/components/lists/taglist/variant"/>
                                     </variant>
                                 </items>
                             </variant>
@@ -318,7 +318,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"/>
                                     </filter>
 
                                     <filterTopic
@@ -333,7 +333,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-topic/topic"/>
+                                            path="/content/cq:tags/${namespace}/component-topic/topic"/>
                                     </filterTopic>
 
                                     <filterDefaults
@@ -342,7 +342,7 @@
                                         fieldDescription="Following tags should be selected as default filters"
                                         fieldLabel="Default Filters"
                                         multiple="{Boolean}true"
-                                        rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}"
+                                        rootPath="/content/cq:tags/${namespace}"
                                         name="./filterDefaults"/>
                                     <filterDefaultsHint
                                         jcr:primaryType="nt:unstructured"

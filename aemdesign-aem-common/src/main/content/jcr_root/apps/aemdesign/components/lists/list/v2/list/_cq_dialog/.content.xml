@@ -303,7 +303,7 @@
                                                                             jcr:primaryType="nt:unstructured"
                                                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                                             variant="valuelist"
-                                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"/>
                                                                     </useDetailsTags>
                                                                 </items>
                                                             </well>
@@ -334,7 +334,7 @@
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                             defaultSelection="${cqDesign.orderBy}"
-                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/list/orderby"
+                                                            path="/content/cq:tags/${namespace}/component-dialog/components/lists/list/orderby"
                                                             variant="valuelist"/>
                                                     </orderBy>
 
@@ -435,7 +435,7 @@
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                             context="list"
-                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/${context}/badge"
+                                                            path="/content/cq:tags/${namespace}/component-dialog/components/lists/${context}/badge"
                                                             variant="valuelist"/>
                                                     </badge>
 
@@ -451,7 +451,7 @@
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                             defaultSelection="${cqDesign.showHidden}"
-                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
+                                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"
                                                             variant="valuelist"/>
                                                     </showHidden>
                                                 </items>
@@ -479,7 +479,7 @@
                                                         <datasource
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
+                                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"
                                                             variant="valuelist"/>
                                                     </printStructure>
 
@@ -515,7 +515,7 @@
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                                             defaultSelection="${cqDesign.listSplit}"
-                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
+                                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"
                                                             variant="valuelist"/>
                                                     </listSplit>
 
@@ -551,7 +551,7 @@
                                                         <datasource
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"
+                                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"
                                                             variant="valuelist"/>
                                                     </feedEnabled>
 

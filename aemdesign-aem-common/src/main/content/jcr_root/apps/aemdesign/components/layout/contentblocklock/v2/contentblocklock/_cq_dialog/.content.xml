@@ -92,7 +92,7 @@
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="aemdesign/components/coral/datasources/tags"
                                     variant="valuelist"
-                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                    path="/content/cq:tags/${namespace}/component-dialog/common/true-false"/>
                             </locked>
                         </items>
                     </lock>
@@ -138,7 +138,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/heading"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/html/heading"/>
                                     </titleType>
 
                                     <hideTitle
@@ -152,7 +152,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"/>
                                     </hideTitle>
                                     <hideTopLink
                                         jcr:primaryType="nt:unstructured"
@@ -166,7 +166,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"/>
                                     </hideTopLink>
                                     <hideInContentMenu
                                         jcr:primaryType="nt:unstructured"
@@ -180,7 +180,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"/>
                                     </hideInContentMenu>
                                 </items>
                             </basic>

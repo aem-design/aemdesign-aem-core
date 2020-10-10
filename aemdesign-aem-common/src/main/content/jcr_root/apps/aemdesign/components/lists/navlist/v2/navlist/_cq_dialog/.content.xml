@@ -190,7 +190,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/navlist/variant"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/components/lists/navlist/variant"/>
                                     </variant>
                                     <variantSimple
                                         jcr:primaryType="nt:unstructured"

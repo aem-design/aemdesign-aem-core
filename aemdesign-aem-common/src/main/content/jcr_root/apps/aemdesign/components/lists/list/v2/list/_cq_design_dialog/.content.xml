@@ -93,7 +93,7 @@
                                 <datasource
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                    path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/list/orderby"
+                                    path="/content/cq:tags/${namespace}/component-dialog/components/lists/list/orderby"
                                     variant="valuelist"/>
                             </orderBy>
 

@@ -216,7 +216,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/heading"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/html/heading"/>
                                     </titleType>
 
                                     <titleFormat
@@ -231,7 +231,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="tagidvalue"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/event-details/format/title"/>
+                                            path="/content/cq:tags/${namespace}/component-style-theme/details/event-details/format/title"/>
                                     </titleFormat>
 
                                     <subTitleFormat
@@ -246,7 +246,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="tagidvalue"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/event-details/format/subtitle"/>
+                                            path="/content/cq:tags/${namespace}/component-style-theme/details/event-details/format/subtitle"/>
                                     </subTitleFormat>
                                     <eventDisplayDateFormat
                                         jcr:primaryType="nt:unstructured"
@@ -260,7 +260,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="tagidvalue"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/event-details/format/displaydate"/>
+                                            path="/content/cq:tags/${namespace}/component-style-theme/details/event-details/format/displaydate"/>
                                     </eventDisplayDateFormat>
                                     <eventTimeFormat
                                         jcr:primaryType="nt:unstructured"
@@ -274,7 +274,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="tagidvalue"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/event-details/format/time"/>
+                                            path="/content/cq:tags/${namespace}/component-style-theme/details/event-details/format/time"/>
                                     </eventTimeFormat>
                                     <eventDisplayTimeFormat
                                         jcr:primaryType="nt:unstructured"
@@ -288,7 +288,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="tagidvalue"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/event-details/format/displaytime"/>
+                                            path="/content/cq:tags/${namespace}/component-style-theme/details/event-details/format/displaytime"/>
                                     </eventDisplayTimeFormat>
                                     <showTags
                                         jcr:primaryType="nt:unstructured"
@@ -302,7 +302,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"/>
                                     </showTags>
 
                                 </items>

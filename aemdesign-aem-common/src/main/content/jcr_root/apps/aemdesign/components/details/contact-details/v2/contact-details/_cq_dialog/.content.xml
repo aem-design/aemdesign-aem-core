@@ -65,7 +65,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="tagidvalue"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/honorific/prefix"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/honorific/prefix"/>
                                     </honorificPrefix>
 
                                     <givenName
@@ -94,7 +94,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/heading"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/html/heading"/>
                                     </titleType>
 
                                     <titleFormat
@@ -109,7 +109,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="tagidvalue"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/contact-details/format/title"/>
+                                            path="/content/cq:tags/${namespace}/component-style-theme/details/contact-details/format/title"/>
                                     </titleFormat>
                                 </items>
                             </title>
@@ -161,7 +161,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="tagidvalue"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/contact-details/format/description"/>
+                                            path="/content/cq:tags/${namespace}/component-style-theme/details/contact-details/format/description"/>
                                     </descriptionFormat>
 
                                     <hideDescription
@@ -175,7 +175,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"/>
                                     </hideDescription>
 
                                 </items>
@@ -272,7 +272,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"/>
                                     </showBreadcrumb>
                                     <showToolbar
                                         jcr:primaryType="nt:unstructured"
@@ -286,7 +286,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"/>
                                     </showToolbar>
                                     <showParsys
                                         jcr:primaryType="nt:unstructured"
@@ -300,7 +300,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/common/true-false"/>
                                     </showParsys>
                                 </items>
                             </displayOptions>

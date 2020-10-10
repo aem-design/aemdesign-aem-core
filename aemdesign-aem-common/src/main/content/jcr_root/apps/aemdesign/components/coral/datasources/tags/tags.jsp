@@ -19,7 +19,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="static design.aem.utils.components.TenantUtil.resolveTenantIdFromPath" %>
 <%@ page import="static org.apache.commons.lang3.StringUtils.isNotEmpty" %>
-<%@ page import="org.apache.commons.lang3.StringUtils" %>
+<%@ page import="static design.aem.utils.components.ComponentsUtil.DEFAULT_TENANT" %>
 <%
 
   /**
@@ -47,7 +47,7 @@
   TagManager tm = _resourceResolver.adaptTo(TagManager.class);
   Tenant tenant = _resourceResolver.adaptTo(Tenant.class);
 
-  String requestSuffix = _slingRequest.getRequestPathInfo().getSuffix();
+  String finalTenantId = null;
 
   if (tenant == null) {
     tenant = _resource.adaptTo(Tenant.class);
@@ -59,7 +59,7 @@
     }
 
     // Try manually to resolve the tenant from the suffix
-    String finalTenantId;
+    String requestSuffix = _slingRequest.getRequestPathInfo().getSuffix();
 
     if (isNotEmpty(requestSuffix)) {
       finalTenantId = resolveTenantIdFromPath(requestSuffix);
@@ -71,6 +71,11 @@
       expressionCustomizer.setVariable("tenantId", finalTenantId);
     }
   }
+
+  // TODO: Implement a way of filtering tenants and paths, and assign the 'namespace' dynamically
+  expressionCustomizer.setVariable("namespace", tenant == null && (finalTenantId == null || finalTenantId.isEmpty())
+    ? DEFAULT_TENANT
+    : tenant != null ? tenant.getId() : finalTenantId);
 
   expressionCustomizer.setVariable("context", dsCfg.get("context", ""));
 
@@ -134,7 +139,7 @@
         value = tag.getName();
         text = tag.getTitle(locale);
 
-      // valuelist
+        // valuelist
       } else if ("valuelist".equals(variant)) {
         value = childVM.get("value", "");
         text = tag.getTitle(locale);

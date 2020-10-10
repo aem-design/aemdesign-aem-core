@@ -1,10 +1,7 @@
 <%--
   Mostly a copy of /libs/cq/gui/components/coral/common/form/tagfield/render.jsp with additional support for tenant tags.
 --%>
-
-<%@include file="/libs/granite/ui/global.jsp" %>
-<%
-%>
+<%@include file="/apps/aemdesign/global/global.jsp" %>
 <%@page import="org.apache.commons.lang3.StringUtils,
                 org.apache.jackrabbit.util.Text,
                 com.adobe.granite.ui.components.AttrBuilder,
@@ -17,6 +14,7 @@
                 org.apache.sling.tenant.Tenant" %>
 <%@ page import="static design.aem.utils.components.TenantUtil.resolveTenantIdFromPath" %>
 <%@ page import="static org.apache.commons.lang3.StringUtils.isNotEmpty" %>
+<%@ page import="static design.aem.utils.components.ComponentsUtil.DEFAULT_TENANT" %>
 <%--###
 TagField
 ========
@@ -96,31 +94,37 @@ TagField
   ExpressionHelper ex = cmp.getExpressionHelper();
   TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
 
-  Tenant tenant = resourceResolver.adaptTo(Tenant.class);
+  Tenant tenant = _resourceResolver.adaptTo(Tenant.class);
 
-  String requestSuffix = slingRequest.getRequestPathInfo().getSuffix();
+  String finalTenantId = null;
 
   if (tenant == null) {
-    tenant = resource.adaptTo(Tenant.class);
+    tenant = _resource.adaptTo(Tenant.class);
 
-    //if tenant OOTB works
+    // Secondary try if the OOTB solution doesn't work
     if (tenant != null) {
       expressionCustomizer.setVariable("tenantId", tenant.getId());
       expressionCustomizer.setVariable("tenant", tenant);
     }
 
-    //try manually resolve tenant from suffix
-    String finalTenantId;
+    // Try manually to resolve the tenant from the suffix
+    String requestSuffix = _slingRequest.getRequestPathInfo().getSuffix();
+
     if (isNotEmpty(requestSuffix)) {
       finalTenantId = resolveTenantIdFromPath(requestSuffix);
     } else {
-      finalTenantId = resolveTenantIdFromPath(resource.getPath());
+      finalTenantId = resolveTenantIdFromPath(_resource.getPath());
     }
+
     if (isNotEmpty(finalTenantId)) {
       expressionCustomizer.setVariable("tenantId", finalTenantId);
     }
-
   }
+
+  // TODO: Implement a way of filtering tenants and paths, and assign the 'namespace' dynamically
+  expressionCustomizer.setVariable("namespace", tenant == null && (finalTenantId == null || finalTenantId.isEmpty())
+    ? DEFAULT_TENANT
+    : tenant != null ? tenant.getId() : finalTenantId);
 
   final String[] values = vm.get("value", new String[0]);
 
@@ -146,9 +150,9 @@ TagField
 
   String placeholder;
   if (isMixed) {
-    placeholder = i18n.get("<Mixed Entries>");
+    placeholder = _i18n.get("<Mixed Entries>");
   } else {
-    placeholder = i18n.getVar(cfg.get("emptyText", String.class));
+    placeholder = _i18n.getVar(cfg.get("emptyText", String.class));
   }
 
   Tag tag = cmp.consumeTag();

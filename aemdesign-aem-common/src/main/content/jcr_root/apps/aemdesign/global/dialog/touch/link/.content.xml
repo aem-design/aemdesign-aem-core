@@ -77,7 +77,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/linktarget"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/html/linktarget"/>
                                     </linkTarget>
                                     <linkIcon
                                         jcr:primaryType="nt:unstructured"
@@ -85,7 +85,7 @@
                                         fieldLabel="Link Icon"
                                         multiple="{Boolean}true"
                                         name="./linkIcon"
-                                        rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-icon"/>
+                                        rootPath="/content/cq:tags/${namespace}/component-style-icon"/>
                                     <linkIconHint
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/hidden"
@@ -103,7 +103,7 @@
                                         <datasource
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/position"
+                                            path="/content/cq:tags/${namespace}/component-dialog/html/position"
                                             variant="valuelist"/>
                                     </linkIconPosition>
 
@@ -128,7 +128,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/type"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/html/type"/>
                                     </dataType>
 
                                     <dataTarget
@@ -152,7 +152,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"
                                             variant="valuelist"
-                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/toggle"/>
+                                            path="/content/cq:tags/${namespace}/component-dialog/html/toggle"/>
                                     </dataToggle>
                                 </items>
                             </attributes>
