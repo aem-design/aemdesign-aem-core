@@ -26,21 +26,147 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static design.aem.utils.components.CommonUtil.*;
+import static design.aem.utils.components.CommonUtil.DEFAULT_PAR_NAME;
+import static design.aem.utils.components.CommonUtil.getBadgeFromSelectors;
+import static design.aem.utils.components.CommonUtil.getPageNavTitle;
+import static design.aem.utils.components.CommonUtil.getPageRedirect;
+import static design.aem.utils.components.CommonUtil.getPageTitle;
+import static design.aem.utils.components.CommonUtil.getPageUrl;
 import static design.aem.utils.components.ComponentDetailsUtil.isComponentRenderedByList;
 import static design.aem.utils.components.ComponentDetailsUtil.processBadgeRequestConfig;
+import static design.aem.utils.components.ComponentsUtil.COMPONENT_ATTRIBUTE_INPAGEPATH;
+import static design.aem.utils.components.ComponentsUtil.COMPONENT_BADGE;
+import static design.aem.utils.components.ComponentsUtil.COMPONENT_BADGE_DEFAULT_TEMPLATE_FORMAT;
+import static design.aem.utils.components.ComponentsUtil.COMPONENT_BADGE_SELECTED;
+import static design.aem.utils.components.ComponentsUtil.COMPONENT_BADGE_TEMPLATE;
+import static design.aem.utils.components.ComponentsUtil.COMPONENT_BADGE_TEMPLATE_FORMAT;
+import static design.aem.utils.components.ComponentsUtil.COMPONENT_INPAGEPATH;
+import static design.aem.utils.components.ComponentsUtil.COMPONENT_VARIANT_TEMPLATE;
+import static design.aem.utils.components.ComponentsUtil.COMPONENT_VARIANT_TEMPLATE_FORMAT;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_BADGE;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_ACCESSIBILITY;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_ANALYTICS;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_DETAILS_OPTIONS;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_STYLE;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_VARIANT;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_BADGE_ANALYTICS_LABEL;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_BADGE_ANALYTICS_LOCATION;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_BADGE_ANALYTICS_TRACK;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_BADGE_CLASS;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_BADGE_CLASS_ICON;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_BADGE_CUSTOM;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_BADGE_DESCRIPTION;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_BADGE_FIELDS;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_BADGE_FIELDS_TEMPLATE;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_BADGE_IMAGE_ATTR;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_BADGE_LINK_ATTR;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_BADGE_TEMPLATE;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_BADGE_TITLE;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_CARD_ADDITIONAL;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_CARD_ICON;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_CARD_STYLE;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_DATA_ANALYTICS_LABEL;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_DATA_ANALYTICS_LOCATION;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_DATA_ANALYTICS_TRACK;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_DESCRIPTION;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_PAGE_METADATA_PROPERTY;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_PAGE_METADATA_PROPERTY_CONTENT;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_SUMMARY_TRIM;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_SUMMARY_TRIM_LENGTH_MAX;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_SUMMARY_TRIM_LENGTH_MAX_SUFFIX;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_THUMBNAIL_WIDTH;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_TITLE_ICON;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_TITLE_TRIM;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_TITLE_TRIM_LENGTH_MAX;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_TITLE_TRIM_LENGTH_MAX_SUFFIX_DEFAULT;
+import static design.aem.utils.components.ComponentsUtil.FIELD_ARIA_DATA_ATTRIBUTE_ROLE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_ARIA_ROLE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_CANONICAL_URL;
+import static design.aem.utils.components.ComponentsUtil.FIELD_CATEGORY;
+import static design.aem.utils.components.ComponentsUtil.FIELD_CLASS;
+import static design.aem.utils.components.ComponentsUtil.FIELD_DATA_ASSET_PRIMARY_ID;
+import static design.aem.utils.components.ComponentsUtil.FIELD_DATA_ASSET_PRIMARY_LICENSE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_DATA_ASSET_SECONDARY_CLASS;
+import static design.aem.utils.components.ComponentsUtil.FIELD_DATA_ASSET_SECONDARY_ID;
+import static design.aem.utils.components.ComponentsUtil.FIELD_DATA_ASSET_SECONDARY_LICENSE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_DATA_ASSET_SECONDARY_SRC;
+import static design.aem.utils.components.ComponentsUtil.FIELD_DESCRIPTION;
+import static design.aem.utils.components.ComponentsUtil.FIELD_DESCRIPTION_FORMAT;
+import static design.aem.utils.components.ComponentsUtil.FIELD_DESCRIPTION_FORMATTED;
+import static design.aem.utils.components.ComponentsUtil.FIELD_EXTERNAL;
+import static design.aem.utils.components.ComponentsUtil.FIELD_HEIGHT;
+import static design.aem.utils.components.ComponentsUtil.FIELD_HIDE_DESCRIPTION;
+import static design.aem.utils.components.ComponentsUtil.FIELD_HIDE_TITLE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_LINK_TARGET;
+import static design.aem.utils.components.ComponentsUtil.FIELD_OG_DESCRIPTION;
+import static design.aem.utils.components.ComponentsUtil.FIELD_OG_IMAGE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_OG_TITLE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_OG_URL;
+import static design.aem.utils.components.ComponentsUtil.FIELD_REDIRECT_TARGET;
+import static design.aem.utils.components.ComponentsUtil.FIELD_SHOW_BREADCRUMB;
+import static design.aem.utils.components.ComponentsUtil.FIELD_SHOW_PAGEDATE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_SHOW_PARSYS;
+import static design.aem.utils.components.ComponentsUtil.FIELD_SHOW_TOOLBAR;
+import static design.aem.utils.components.ComponentsUtil.FIELD_SUBCATEGORY;
+import static design.aem.utils.components.ComponentsUtil.FIELD_TAGS;
+import static design.aem.utils.components.ComponentsUtil.FIELD_TAG_TEMPLATE_CONFIG_FIELDS;
+import static design.aem.utils.components.ComponentsUtil.FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES;
+import static design.aem.utils.components.ComponentsUtil.FIELD_TARGET;
+import static design.aem.utils.components.ComponentsUtil.FIELD_TITLE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_TITLE_FORMAT;
+import static design.aem.utils.components.ComponentsUtil.FIELD_TITLE_FORMATTED;
+import static design.aem.utils.components.ComponentsUtil.FIELD_TITLE_FORMATTED_TEXT;
+import static design.aem.utils.components.ComponentsUtil.FIELD_TITLE_TAG_TYPE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_USE_CONTAINER;
+import static design.aem.utils.components.ComponentsUtil.FIELD_VARIANT;
+import static design.aem.utils.components.ComponentsUtil.FIELD_VARIANT_FIELDS;
+import static design.aem.utils.components.ComponentsUtil.FIELD_VARIANT_FIELDS_TEMPLATE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_VARIANT_LABEL;
+import static design.aem.utils.components.ComponentsUtil.FIELD_WIDTH;
+import static design.aem.utils.components.ComponentsUtil.compileComponentMessage;
+import static design.aem.utils.components.ComponentsUtil.findLocalResourceInSuperComponent;
+import static design.aem.utils.components.ComponentsUtil.getComponentVariantTemplate;
+import static design.aem.utils.components.ComponentsUtil.getContextObjects;
+import static design.aem.utils.components.ComponentsUtil.getFormatExpression;
+import static design.aem.utils.components.ComponentsUtil.getLocalSubResourcesInSuperComponent;
+import static design.aem.utils.components.ComponentsUtil.getNewComponentProperties;
 import static design.aem.utils.components.ComponentsUtil.getPageDescription;
-import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.*;
+import static design.aem.utils.components.ComponentsUtil.getTemplateConfig;
+import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
+import static design.aem.utils.components.ConstantsUtil.DEFAULT_THUMB_WIDTH_SM;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_BACKGROUND_IMAGE;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_IMAGE;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_IMAGE_ID;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_IMAGE_LICENSE_INFO;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_IMAGE_SECONDARY_ID;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_IMAGE_SECONDARY_LICENSE_INFO;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_IMAGE_THUMBNAIL;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_SECONDARY_IMAGE;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_THUMBNAIL_IMAGE;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_THUMBNAIL_IMAGE_THUMBNAIL;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE_NAV;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE_SUBTITLE;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_URL;
+import static design.aem.utils.components.ConstantsUtil.FIELD_THUMBNAIL_HEIGHT;
+import static design.aem.utils.components.ConstantsUtil.FIELD_THUMBNAIL_WIDTH;
 import static design.aem.utils.components.ContentFragmentUtil.DEFAULT_CONTENTFRAGMENT_VARIATION;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
-import static design.aem.utils.components.ImagesUtil.*;
+import static design.aem.utils.components.ImagesUtil.DEFAULT_BACKGROUND_IMAGE_NODE_NAME;
+import static design.aem.utils.components.ImagesUtil.DEFAULT_SECONDARY_IMAGE_NODE_NAME;
+import static design.aem.utils.components.ImagesUtil.DEFAULT_THUMBNAIL_IMAGE_NODE_NAME;
+import static design.aem.utils.components.ImagesUtil.getAssetInfo;
+import static design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions;
+import static design.aem.utils.components.ImagesUtil.getBestFitRendition;
+import static design.aem.utils.components.ImagesUtil.getPageImgReferencePath;
+import static design.aem.utils.components.ImagesUtil.getResourceImagePath;
+import static design.aem.utils.components.ImagesUtil.getThumbnailUrl;
 import static design.aem.utils.components.ResolverUtil.mappedUrl;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static design.aem.utils.components.TenantUtil.resolveTenantIdFromPath;
 import static java.text.MessageFormat.format;
-import static org.apache.commons.lang3.StringUtils.isEmpty;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class GenericDetails extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(GenericDetails.class);
@@ -182,7 +308,7 @@ public class GenericDetails extends BaseComponent {
         // Process content fragment content if its used
         String fragmentPath = componentProperties.get(FIELD_CONTENTFRAGMENT_FRAGMENTPATH, StringUtils.EMPTY);
 
-        if (isNotEmpty(fragmentPath)) {
+        if (StringUtils.isNotEmpty(fragmentPath)) {
             String variationName = componentProperties.get(
                 FIELD_CONTENTFRAGMENT_VARIATION,
                 DEFAULT_CONTENTFRAGMENT_VARIATION);
@@ -324,7 +450,7 @@ public class GenericDetails extends BaseComponent {
             componentProperties.put(DETAILS_DESCRIPTION,
                 componentProperties.get(FIELD_DESCRIPTION_FORMATTED, StringUtils.EMPTY));
 
-            if (isEmpty(componentProperties.get(FIELD_TITLE_FORMATTED, StringUtils.EMPTY))) {
+            if (StringUtils.isEmpty(componentProperties.get(FIELD_TITLE_FORMATTED, StringUtils.EMPTY))) {
                 componentProperties.put(FIELD_TITLE_FORMATTED,
                     componentProperties.get(FIELD_TITLE, StringUtils.EMPTY));
 
@@ -383,10 +509,11 @@ public class GenericDetails extends BaseComponent {
 
             //process badge selection
             String componentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
-            Boolean badgeWasRequested = isNotEmpty(componentBadge);
+            Boolean badgeWasRequested = StringUtils.isNotEmpty(componentBadge);
 
             String requestedBadgeTemplate = format(COMPONENT_BADGE_TEMPLATE_FORMAT, componentBadge);
-            if (isEmpty(componentBadge)) {
+
+            if (StringUtils.isEmpty(componentBadge)) {
                 componentProperties.put(COMPONENT_BADGE_SELECTED, false);
                 componentBadge = DEFAULT_BADGE;
                 requestedBadgeTemplate = format(COMPONENT_BADGE_DEFAULT_TEMPLATE_FORMAT, componentBadge);
@@ -394,14 +521,13 @@ public class GenericDetails extends BaseComponent {
                 componentProperties.put(COMPONENT_BADGE_SELECTED, true);
             }
 
-
             String defaultBadgeTemplate = format(COMPONENT_BADGE_DEFAULT_TEMPLATE_FORMAT, DEFAULT_BADGE);
 
             //get super component if exists
             String badgePath = findLocalResourceInSuperComponent(getComponent(), requestedBadgeTemplate, getSlingScriptHelper());
 
             //check if component has the badge and reset if it does not
-            if (isEmpty(badgePath)) {
+            if (StringUtils.isEmpty(badgePath)) {
                 if (Boolean.TRUE.equals(badgeWasRequested) && !ArrayUtils.contains(legacyBadgeList, componentBadge)) {
                     LOGGER.error("LEGACY BADGE WAS REQUESTED BUT NOT FOUND IN COMPONENT AND LEGACY MAPPING NOT FOUND requestedBadgeTemplate={}", requestedBadgeTemplate);
                 }
@@ -442,7 +568,7 @@ public class GenericDetails extends BaseComponent {
                 String badge = componentProperties.get(DETAILS_BADGE_TEMPLATE, StringUtils.EMPTY);
 
                 //get badge config
-                if (isNotEmpty(badge)) {
+                if (StringUtils.isNotEmpty(badge)) {
                     ContentAccess contentAccess = getSlingScriptHelper().getService(ContentAccess.class);
                     if (contentAccess != null) {
                         try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
@@ -458,12 +584,12 @@ public class GenericDetails extends BaseComponent {
             }
 
             //if COMPONENT_VARIANT_TEMPLATE has not been set do it now
-            if (isEmpty(componentProperties.get(COMPONENT_VARIANT_TEMPLATE, StringUtils.EMPTY))) {
+            if (StringUtils.isEmpty(componentProperties.get(COMPONENT_VARIANT_TEMPLATE, StringUtils.EMPTY))) {
 
                 //only process variantTemplate if its not been set already
                 String variant = componentProperties.get(FIELD_VARIANT, DEFAULT_VARIANT);
 
-                if (isEmpty(variant)) {
+                if (StringUtils.isEmpty(variant)) {
                     variant = DEFAULT_VARIANT;
                 }
 
@@ -480,7 +606,7 @@ public class GenericDetails extends BaseComponent {
 
             //get legacy badge configs from tags
             String legacyBadgeConfigTags = componentProperties.get(FIELD_LEGACY_BADGE_CNNFIG_TAGS, StringUtils.EMPTY);
-            if (isNotEmpty(legacyBadgeConfigTags)) {
+            if (StringUtils.isNotEmpty(legacyBadgeConfigTags)) {
                 Map<String, Map> legacyBadgeConfig = getTagsAsAdmin(
                     getSlingScriptHelper(),
                     new String[]{legacyBadgeConfigTags},
@@ -522,7 +648,7 @@ public class GenericDetails extends BaseComponent {
     public String[] getRequestedFields() {
         String legacyComponentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
 
-        if (isNotEmpty(legacyComponentBadge) && this.componentProperties != null) {
+        if (StringUtils.isNotEmpty(legacyComponentBadge) && this.componentProperties != null) {
             //check if config from tags being used
             LinkedHashMap<String, Map> legacyBadgeConfig = componentProperties.get(FIELD_LEGACY_BADGE_CONFIG, LinkedHashMap.class);
             if (legacyBadgeConfig != null) {
@@ -594,7 +720,7 @@ public class GenericDetails extends BaseComponent {
         //get badge action attributes
         Map<String, String> badgeLinkAttr = new HashMap<>();
         badgeLinkAttr.put(FIELD_TARGET, componentProperties.get(FIELD_LINK_TARGET, StringUtils.EMPTY));
-        if (isNotEmpty(getPageRedirect(page))) {
+        if (StringUtils.isNotEmpty(getPageRedirect(page))) {
             badgeLinkAttr.put(FIELD_EXTERNAL, "true");
         }
         badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_TRACK, componentProperties.get(DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY));
@@ -615,7 +741,7 @@ public class GenericDetails extends BaseComponent {
         badgeImageAttr.put(FIELD_HEIGHT, componentProperties.get(FIELD_THUMBNAIL_HEIGHT, StringUtils.EMPTY));
 
         String pageSecondaryImageThumbnail = componentProperties.get(FIELD_PAGE_SECONDARY_IMAGE_THUMBNAIL, StringUtils.EMPTY);
-        if (isNotEmpty(pageSecondaryImageThumbnail)) {
+        if (StringUtils.isNotEmpty(pageSecondaryImageThumbnail)) {
             badgeImageAttr.put(FIELD_CLASS, FIELD_DATA_ASSET_SECONDARY_CLASS);
             badgeImageAttr.put(FIELD_DATA_ASSET_SECONDARY_SRC, pageSecondaryImageThumbnail);
         }
@@ -701,7 +827,7 @@ public class GenericDetails extends BaseComponent {
             for (int i = 0; i < pageMetaProperty.length; i++) {
                 String key = pageMetaProperty[i];
                 String value = pageMetaPropertyContent[i];
-                if (isNotEmpty(key) || isNotEmpty(value)) {
+                if (StringUtils.isNotEmpty(key) || StringUtils.isNotEmpty(value)) {
                     newFields.put(key, value);
                 }
             }
@@ -735,7 +861,7 @@ public class GenericDetails extends BaseComponent {
      */
     protected Map<String, Object> processComponentFields(
         ComponentProperties componentProperties,
-        com.day.cq.i18n.I18n i18n,
+        I18n i18n,
         SlingScriptHelper sling
     ) {
         Map<String, Object> newFields = new HashMap<>();
@@ -768,7 +894,7 @@ public class GenericDetails extends BaseComponent {
     }
 
     protected void processAdditionalComponentFields(
-        ComponentProperties componentProperties,
+        ComponentProperties componentProperties, // NOSONAR
         com.day.cq.i18n.I18n i18n,
         SlingScriptHelper sling,
         Map<String, Object> newFields

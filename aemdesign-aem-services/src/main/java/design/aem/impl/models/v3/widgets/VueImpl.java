@@ -282,6 +282,7 @@ public class VueImpl extends ComponentImpl implements Vue {
      * @param value      value of the component field
      * @param properties any properties that require additional parsing
      */
+    @SuppressWarnings("Duplicates")
     private void handleComponentField(final String field, final String value, final PropertyIterator properties) { // NOSONAR
         try {
             JsonObject fieldElement = getComponentDataByPath("fields/" + field).getAsJsonObject(); // NOSONAR

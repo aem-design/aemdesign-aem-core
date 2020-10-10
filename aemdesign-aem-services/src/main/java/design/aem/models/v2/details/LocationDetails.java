@@ -47,7 +47,7 @@ public class LocationDetails extends GenericDetails {
     protected void processComponentProperties() {
         String[] pages = componentProperties.get("pages", new String[0]);
 
-        java.util.List<ComponentProperties> pageList = getPageListInfo(
+        List<ComponentProperties> pageList = getPageListInfo(
             getContextObjects(this),
             getPageManager(),
             getResourceResolver(),

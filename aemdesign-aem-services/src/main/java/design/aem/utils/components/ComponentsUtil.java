@@ -94,10 +94,6 @@ import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE;
 import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE_NAV;
 import static design.aem.utils.components.TagUtil.getTag;
 import static java.text.MessageFormat.format;
-import static org.apache.commons.lang3.StringUtils.EMPTY;
-import static org.apache.commons.lang3.StringUtils.isEmpty;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class ComponentsUtil {
     public static final Logger LOGGER = LoggerFactory.getLogger(ComponentsUtil.class);
@@ -1202,7 +1198,7 @@ public class ComponentsUtil {
                                     // Handle tags as values
                                     if (fieldValueType.equals(Tag.class.getCanonicalName())) {
                                         // If an attribute was not specified, return values as map entry
-                                        if (isEmpty(fieldAttribute)) {
+                                        if (StringUtils.isEmpty(fieldAttribute)) {
                                             fieldValue = TagUtil.getTagsValues(tagManager,
                                                 adminResourceResolver, " ",
                                                 (String[]) fieldValue);
@@ -1226,7 +1222,7 @@ public class ComponentsUtil {
                                         fieldValueString = StringUtils.join((String[]) fieldValue, FIELD_DATA_ARRAY_SEPARATOR);
                                     }
                                 } else {
-                                    if (isEmpty(fieldAttribute)) {
+                                    if (StringUtils.isEmpty(fieldAttribute)) {
                                         fieldValue = StringUtils.EMPTY;
                                     }
                                 }
@@ -1234,14 +1230,14 @@ public class ComponentsUtil {
                                 fieldValueString = fieldValue.toString();
                             }
 
-                            if (isNotEmpty(fieldValueString) &&
-                                isNotEmpty(fieldAttribute) &&
+                            if (StringUtils.isNotEmpty(fieldValueString) &&
+                                StringUtils.isNotEmpty(fieldAttribute) &&
                                 !fieldAttribute.equals(FIELD_VALUES_ARE_ATTRIBUTES)
                             ) {
                                 componentProperties.attr.add(fieldAttribute, fieldValueString);
 
                                 // Handle possible <key, value> pairs that may be in the values
-                            } else if (isNotEmpty(fieldValueString) && fieldAttribute.equals(FIELD_VALUES_ARE_ATTRIBUTES)) {
+                            } else if (StringUtils.isNotEmpty(fieldValueString) && fieldAttribute.equals(FIELD_VALUES_ARE_ATTRIBUTES)) {
                                 if (fieldValueString.contains(FIELD_DATA_TAG_SEPARATOR)) {
                                     for (String item : fieldValueString.split(FIELD_VALUES_ARE_ATTRIBUTES)) {
                                         if (!item.contains("=")) {
@@ -1288,7 +1284,7 @@ public class ComponentsUtil {
                 String variant = componentProperties.get(FIELD_VARIANT, StringUtils.EMPTY);
 
                 if (addMoreAttributes) {
-                    if (isEmpty(variant)) {
+                    if (StringUtils.isEmpty(variant)) {
                         variant = DEFAULT_VARIANT;
 
                         componentProperties.put(FIELD_VARIANT_LEGACY, true);
@@ -1307,7 +1303,7 @@ public class ComponentsUtil {
                     }
 
                     // Get the badge configuration, this is how lists interact with the details badges
-                    if (isNotEmpty(badge)) {
+                    if (StringUtils.isNotEmpty(badge)) {
                         ComponentProperties badgeConfig = getTemplateConfig(pageContext,
                             badge,
                             adminResourceResolver,
@@ -1328,7 +1324,7 @@ public class ComponentsUtil {
 
                 // Add the variant name to the component attributes
                 if (!componentProperties.attr.isEmpty() && addMoreAttributes) {
-                    if (isNotEmpty(variant) && !variant.equals(DEFAULT_VARIANT)) {
+                    if (StringUtils.isNotEmpty(variant) && !variant.equals(DEFAULT_VARIANT)) {
                         componentProperties.attr.add(COMPONENT_ATTRIBUTE_CLASS, variant);
                     }
 
@@ -1369,7 +1365,7 @@ public class ComponentsUtil {
     ) {
         ComponentProperties componentProperties = getNewComponentProperties(pageContext);
 
-        if (isEmpty(configTag)) {
+        if (StringUtils.isEmpty(configTag)) {
             return componentProperties;
         }
 
@@ -1421,10 +1417,10 @@ public class ComponentsUtil {
      * @return variant template path
      */
     public static String getComponentVariantTemplate(Component component, String template, SlingScriptHelper sling) {
-        if (component != null && isNotEmpty(template)) {
+        if (component != null && StringUtils.isNotEmpty(template)) {
             String variantTemplatePath = findLocalResourceInSuperComponent(component, template, sling);
 
-            if (isNotBlank(variantTemplatePath)) {
+            if (StringUtils.isNotBlank(variantTemplatePath)) {
                 return variantTemplatePath;
             }
         }
@@ -1525,7 +1521,7 @@ public class ComponentsUtil {
         String formatFieldTagPath = componentProperties.get(formatFieldName, StringUtils.EMPTY);
         String fieldFormatValue = defaultFormat;
 
-        if (isNotEmpty(formatFieldTagPath)) {
+        if (StringUtils.isNotEmpty(formatFieldTagPath)) {
             fieldFormatValue = TagUtil.getTagValueAsAdmin(formatFieldTagPath, sling);
         }
 
@@ -1700,13 +1696,13 @@ public class ComponentsUtil {
         try {
             componentInPagePath = componentNode.getPath();
 
-            if (isNotEmpty(componentInPagePath) && componentInPagePath.contains(JcrConstants.JCR_CONTENT)) {
+            if (StringUtils.isNotEmpty(componentInPagePath) && componentInPagePath.contains(JcrConstants.JCR_CONTENT)) {
                 String[] parts = componentInPagePath.split(JcrConstants.JCR_CONTENT);
 
                 if (parts.length > 0) {
                     componentInPagePath = parts[1];
 
-                    if (isNotEmpty(componentInPagePath) && componentInPagePath.startsWith(FileSystem.SEPARATOR)) {
+                    if (StringUtils.isNotEmpty(componentInPagePath) && componentInPagePath.startsWith(FileSystem.SEPARATOR)) {
                         componentInPagePath = componentInPagePath.replaceFirst(FileSystem.SEPARATOR, StringUtils.EMPTY);
                     }
                 }
@@ -1737,7 +1733,7 @@ public class ComponentsUtil {
         HashMap<String, Resource> subResources = new HashMap<>();
         Component superComponent;
 
-        if (component != null && isNotEmpty(resourceName)) {
+        if (component != null && StringUtils.isNotEmpty(resourceName)) {
             ContentAccess contentAccess = sling.getService(ContentAccess.class);
 
             if (contentAccess != null) {
@@ -1753,7 +1749,7 @@ public class ComponentsUtil {
 
                             if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
                                 for (Resource resource : localresource.getChildren()) {
-                                    String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
+                                    String name = resource.getName().replace(DEFAULT_EXTENTION, StringUtils.EMPTY);
 
                                     subResources.put(name, resource);
                                 }
@@ -1771,7 +1767,7 @@ public class ComponentsUtil {
                                 if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
                                     for (Resource resource : localresource.getChildren()) {
                                         if (!subResources.containsValue(resource.getName())) { // NOSONAR
-                                            String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
+                                            String name = resource.getName().replace(DEFAULT_EXTENTION, StringUtils.EMPTY);
 
                                             subResources.put(name, resource);
                                         }
@@ -1901,7 +1897,7 @@ public class ComponentsUtil {
                         String dialogPath = StringUtils.EMPTY;
                         Document dialogContent = null;
 
-                        if (isNotEmpty(componentDialogPath)) {
+                        if (StringUtils.isNotEmpty(componentDialogPath)) {
                             // Get dialog with value from resource: /<app component path>/cq:dialog/content.html/<resource path to pull values>
                             dialogPath = componentDialogPath.concat(DEFAULT_EXTENTION).concat(componentResource.getPath());
 
@@ -1928,7 +1924,7 @@ public class ComponentsUtil {
                             row.put("fieldLabel", StringUtils.EMPTY);
                             row.put("type", StringUtils.EMPTY);
 
-                            if (isNotEmpty(dialogPath) && dialogContent != null) {
+                            if (StringUtils.isNotEmpty(dialogPath) && dialogContent != null) {
                                 String fieldSelection = "[name='./" + name + "']";
                                 Element htmlSection = dialogContent.selectFirst(".coral-Form-fieldwrapper:has(" + fieldSelection + ")");
                                 Element fieldElement = dialogContent.selectFirst(fieldSelection);

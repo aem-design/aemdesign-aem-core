@@ -12,11 +12,13 @@ import org.apache.sling.api.resource.ResourceUtil;
 import javax.jcr.Node;
 
 import static design.aem.utils.components.CommonUtil.getFirstMediaNode;
-import static design.aem.utils.components.ComponentsUtil.*;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_ACCESSIBILITY;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_STYLE;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_VARIANT;
+import static design.aem.utils.components.ComponentsUtil.FIELD_VARIANT;
 import static design.aem.utils.components.ConstantsUtil.IMAGE_FILEREFERENCE;
 import static design.aem.utils.components.ImagesUtil.DEFAULT_IMAGE_PATH_SELECTOR;
 import static design.aem.utils.components.ImagesUtil.DEFAULT_THUMBNAIL_IMAGE_NODE_NAME;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Video extends BaseComponent {
     private static final String POPUP_HEIGHT = "lightboxHeight";
@@ -34,12 +36,12 @@ public class Video extends BaseComponent {
             {FIELD_VARIANT, DEFAULT_VARIANT}
         });
 
-        String msgStart = "";
-        String thumbnail = "";
-        String metaTitle = "";
-        String metaDesc = "";
-        String metaCreator = "";
-        String metaCopyRight = "";
+        String msgStart;
+        String thumbnail;
+        String metaTitle;
+        String metaDesc;
+        String metaCreator;
+        String metaCopyRight;
 
         componentProperties = ComponentsUtil.getComponentProperties(
             this,
@@ -49,13 +51,13 @@ public class Video extends BaseComponent {
 
         String fileReference = componentProperties.get(IMAGE_FILEREFERENCE, "");
 
-        Boolean fileReferenceMissing = true;
+        boolean fileReferenceMissing = true;
 
         componentProperties.put("href", fileReference);
 
         msgStart = (String) componentProperties.get("assetTitlePrefix");
 
-        if (isNotEmpty(fileReference)) {
+        if (StringUtils.isNotEmpty(fileReference)) {
 
             //get asset
             Resource assetR = getResourceResolver().resolve(fileReference);
@@ -109,10 +111,10 @@ public class Video extends BaseComponent {
                         componentProperties.put("width", videoWidth);
                         componentProperties.put("height", videoHeight);
 
-                        if (isNotEmpty(lightboxWidth)) {
+                        if (StringUtils.isNotEmpty(lightboxWidth)) {
                             componentProperties.put("width", lightboxWidth);
                         }
-                        if (isNotEmpty(lightboxWidth)) {
+                        if (StringUtils.isNotEmpty(lightboxWidth)) {
                             componentProperties.put("height", lightboxHeight);
                         }
                     }

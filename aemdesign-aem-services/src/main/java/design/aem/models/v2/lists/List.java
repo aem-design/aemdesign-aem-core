@@ -439,6 +439,8 @@ public class List extends BaseComponent {
                 styleCheck = "disableTags";
                 callback = this::populateTagListItems;
                 break;
+            default:
+                LOGGER.error("Invalid list type was supplied: {}", listType.value);
         }
 
         try {

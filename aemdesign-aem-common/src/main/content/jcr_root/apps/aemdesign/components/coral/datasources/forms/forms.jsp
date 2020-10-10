@@ -1,8 +1,5 @@
-<%@include file="/libs/granite/ui/global.jsp" %>
-<%
-%>
-<%@page session="false"
-        import="com.adobe.granite.ui.components.Config,
+<%@ include file="/libs/granite/ui/global.jsp" %>
+<%@ page pageEncoding="UTF-8" session="false" import="com.adobe.granite.ui.components.Config,
                 com.adobe.granite.ui.components.ds.DataSource,
                 com.adobe.granite.ui.components.ds.SimpleDataSource,
                 com.adobe.granite.ui.components.ds.ValueMapResource,
@@ -15,10 +12,7 @@
                 org.apache.sling.api.resource.ResourceResolver,
                 org.apache.sling.api.resource.ValueMap,
                 org.apache.sling.api.wrappers.ValueMapDecorator,
-                java.util.Arrays,
-                java.util.HashMap,
-                java.util.List" %>
-<%@ page import="java.util.Locale" %>
+                java.util.HashMap" %>
 <%
   /**
    A datasource returning tag key-value pairs that is suitable to be used for select or autocomplete (or compatible) components.

@@ -1,3 +1,18 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ~ Copyright 2020 AEM.Design
+ ~
+ ~ Licensed under the Apache License, Version 2.0 (the "License");
+ ~ you may not use this file except in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~     http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing, software
+ ~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~ See the License for the specific language governing permissions and
+ ~ limitations under the License.
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package design.aem.impl.models.v3.content;
 
 import com.adobe.cq.export.json.ComponentExporter;
@@ -26,30 +41,49 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static design.aem.utils.components.CommonUtil.*;
-import static design.aem.utils.components.ComponentsUtil.*;
+import static design.aem.utils.components.CommonUtil.DAM_SOURCE_URL;
+import static design.aem.utils.components.CommonUtil.DAM_TITLE;
+import static design.aem.utils.components.CommonUtil.getPageUrl;
+import static design.aem.utils.components.ComponentsUtil.COMPONENT_ATTRIBUTES;
+import static design.aem.utils.components.ComponentsUtil.COMPONENT_VARIANT_TEMPLATE;
+import static design.aem.utils.components.ComponentsUtil.COMPONENT_VARIANT_TEMPLATE_FORMAT;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_ACCESSIBILITY;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_ANALYTICS;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_ASSET_IMAGE;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_STYLE;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_VARIANT;
+import static design.aem.utils.components.ComponentsUtil.FIELD_ARIA_DATA_ATTRIBUTE_ROLE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_ARIA_ROLE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_ASSETID;
+import static design.aem.utils.components.ComponentsUtil.FIELD_ASSET_LICENSED;
+import static design.aem.utils.components.ComponentsUtil.FIELD_ASSET_TRACKABLE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_DATA_ANALYTICS_EVENT_LABEL;
+import static design.aem.utils.components.ComponentsUtil.FIELD_DATA_ANALYTICS_FILENAME;
+import static design.aem.utils.components.ComponentsUtil.FIELD_DATA_ANALYTICS_METATYPE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_LICENSE_INFO;
+import static design.aem.utils.components.ComponentsUtil.FIELD_TITLE_TAG_TYPE;
+import static design.aem.utils.components.ComponentsUtil.FIELD_VARIANT;
+import static design.aem.utils.components.ComponentsUtil.buildAttributesString;
 import static design.aem.utils.components.ConstantsUtil.DATA_ATTRIBUTE_PREFIX;
 import static design.aem.utils.components.ConstantsUtil.IMAGE_FILEREFERENCE;
-import static design.aem.utils.components.ImagesUtil.*;
+import static design.aem.utils.components.ImagesUtil.DEFAULT_FIELDS_IMAGE_OPTIONS;
+import static design.aem.utils.components.ImagesUtil.getAssetCopyrightInfo;
+import static design.aem.utils.components.ImagesUtil.getResourceImageRenditions;
 import static java.text.MessageFormat.format;
-import static org.apache.commons.lang3.StringUtils.*;
 
-
-@Model(adaptables = SlingHttpServletRequest.class,
+@Model(
+    adaptables = SlingHttpServletRequest.class,
     adapters = {GenericComponent.class, ComponentExporter.class},
-    resourceType = {ImageImpl.RESOURCE_TYPE_V3})
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+    resourceType = {ImageImpl.RESOURCE_TYPE_V3}
+)
+@Exporter(
+    name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION
+)
 public class ImageImpl extends GenericModel implements GenericComponent {
     protected static final String RESOURCE_TYPE_V3 = "aemdesign/components/media/image/v3/image";
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ImageImpl.class);
-
-    /**
-     * Component property name that indicates which Image Component will perform the image rendering for composed components. When
-     * rendering images, the composed components that provide this property will be able to retrieve the content policy defined for the
-     * Image Component's resource type.
-     */
-    public static final String IMAGE_DELEGATE = "imageDelegate";
 
     private final List<String> hiddenImageResourceProperties = new ArrayList<>();
 
@@ -61,8 +95,6 @@ public class ImageImpl extends GenericModel implements GenericComponent {
     @PostConstruct
     @SuppressWarnings({"Duplicates", "squid:S3776"})
     protected void initModel() {
-
-
         final String DEFAULT_I18N_CATEGORY = "image";
         final String DEFAULT_I18N_LABEL_LICENSEINFO = "licenseinfo";
         final String DEFAULT_ARIA_ROLE = "banner";
@@ -87,7 +119,6 @@ public class ImageImpl extends GenericModel implements GenericComponent {
             {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
         };
 
-
         componentProperties = ComponentsUtil.getComponentProperties(
             this,
             componentFields,
@@ -100,12 +131,10 @@ public class ImageImpl extends GenericModel implements GenericComponent {
 
         Boolean fileReferenceMissing = true;
 
-        if (isNotEmpty(fileReference)) {
-
-            //get asset
+        if (StringUtils.isNotEmpty(fileReference)) {
             Resource assetR = getResourceResolver().resolve(fileReference);
-            if (!ResourceUtil.isNonExistingResource(assetR)) {
 
+            if (!ResourceUtil.isNonExistingResource(assetR)) {
                 fileReferenceMissing = false;
 
                 AssetManager assetManager = getResourceResolver().adaptTo(AssetManager.class);
@@ -125,27 +154,27 @@ public class ImageImpl extends GenericModel implements GenericComponent {
                         //get asset properties
                         ComponentProperties assetProperties = ComponentsUtil.getComponentProperties(this, asset, DEFAULT_FIELDS_ASSET_IMAGE);
                         //add asset properties to component properties and ensure licensed image meta does not get overwritten
-                        componentProperties.putAll(assetProperties, isEmpty(licenseInfo));
+                        componentProperties.putAll(assetProperties, StringUtils.isEmpty(licenseInfo));
 
                         //if asset is not licensed
-                        if (isEmpty(licenseInfo)) {
+                        if (StringUtils.isEmpty(licenseInfo)) {
                             //get asset properties override from component
                             ComponentProperties assetPropertiesOverride = ComponentsUtil.getComponentProperties(this, null, false, DEFAULT_FIELDS_ASSET_IMAGE);
 
                             //add asset properties override to component properties and ensure licensed image meta does not get overwritten
-                            componentProperties.putAll(assetPropertiesOverride, isEmpty(licenseInfo));
+                            componentProperties.putAll(assetPropertiesOverride, StringUtils.isEmpty(licenseInfo));
 
                         }
 
                         //ensure something is added as title
                         String title = componentProperties.get(DAM_TITLE, "");
-                        if (isEmpty(title)) {
+                        if (StringUtils.isEmpty(title)) {
                             componentProperties.put(DAM_TITLE, assetBasic.getName());
                         }
 
                         componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSETID, assetUID);
                         componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSET_TRACKABLE, true);
-                        componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSET_LICENSED, isNotBlank(licenseInfo));
+                        componentProperties.attr.add(DATA_ATTRIBUTE_PREFIX + FIELD_ASSET_LICENSED, StringUtils.isNotBlank(licenseInfo));
                         componentProperties.attr.add(FIELD_DATA_ANALYTICS_EVENT_LABEL, componentProperties.get(DAM_TITLE, ""));
                         componentProperties.attr.add(FIELD_DATA_ANALYTICS_METATYPE, assetBasic.getMimeType());
                         componentProperties.attr.add(FIELD_DATA_ANALYTICS_FILENAME, assetBasic.getPath());
@@ -162,7 +191,7 @@ public class ImageImpl extends GenericModel implements GenericComponent {
 
                 //get page link
                 String linkURL = componentProperties.get(FIELD_LINKURL, StringUtils.EMPTY);
-                if (isNotEmpty(linkURL)) {
+                if (StringUtils.isNotEmpty(linkURL)) {
                     Page imageTargetPage = getPageManager().getPage(linkURL);
                     if (imageTargetPage != null) {
                         linkURL = getPageUrl(imageTargetPage);
@@ -182,10 +211,7 @@ public class ImageImpl extends GenericModel implements GenericComponent {
                 }
 
                 componentProperties.put(FIELD_RENDITIONS, renditions);
-
             }
-
-
         }
 
         componentProperties.put("fileReferenceMissing", fileReferenceMissing);
@@ -201,8 +227,5 @@ public class ImageImpl extends GenericModel implements GenericComponent {
 
         //compile variantTemplate param
         componentProperties.put(COMPONENT_VARIANT_TEMPLATE, format(COMPONENT_VARIANT_TEMPLATE_FORMAT, variant));
-
     }
-
-
 }

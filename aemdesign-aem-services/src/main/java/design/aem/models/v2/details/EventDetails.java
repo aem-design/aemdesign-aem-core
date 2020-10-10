@@ -1,18 +1,14 @@
 package design.aem.models.v2.details;
 
-import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.NameConstants;
-import design.aem.components.ComponentProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.jackrabbit.vault.util.JcrConstants;
-import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
 
 import static design.aem.utils.components.ComponentsUtil.DETAILS_CARD_ADDITIONAL;
 import static design.aem.utils.components.ComponentsUtil.compileComponentMessage;
