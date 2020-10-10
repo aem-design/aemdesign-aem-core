@@ -27,7 +27,7 @@ import javax.annotation.PostConstruct;
 import java.util.Map;
 
 @ConsumerType
-@Model(adaptables = { SlingHttpServletRequest.class, Resource.class })
+@Model(adaptables = {SlingHttpServletRequest.class, Resource.class})
 public class TemplateSupport {
     private Map<String, String> componentPathProxy;
 

@@ -28,7 +28,7 @@ public class InvocationProxyFactory {
         // noinspection unchecked
         return (Map<String, String>) Proxy.newProxyInstance(
             InvocationProxyFactory.class.getClassLoader(),
-            new Class[] { Map.class },
+            new Class[]{Map.class},
             invocationHandler);
     }
 }
