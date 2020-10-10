@@ -39,6 +39,11 @@ public class TemplateSupport {
         componentPathProxy = InvocationProxyFactory.create(resource.adaptTo(ComponentPathInvocationHandler.class));
     }
 
+    /**
+     * Retrieve the component path given via a {@link Map} key.
+     *
+     * @return {@code Map<String, String>}
+     */
     public Map<String, String> getComponentPath() {
         return componentPathProxy;
     }
