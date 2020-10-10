@@ -665,6 +665,8 @@ public class ComponentsUtil {
         Object defaultValue,
         boolean useStyle
     ) {
+        boolean needsUseStyle = useStyle;
+
         if (componentProperties == null) {
             LOGGER.warn("Cannot retrieve component property as 'componentProperties' is 'null'.");
 
@@ -672,10 +674,10 @@ public class ComponentsUtil {
         }
 
         if (useStyle && (contentPolicy == null || contentPolicy.isEmpty())) {
-            useStyle = false;
+            needsUseStyle = false;
         }
 
-        if (useStyle) {
+        if (needsUseStyle) {
             return componentProperties.get(name, contentPolicy.get(name, defaultValue));
         } else {
             return componentProperties.get(name, defaultValue);
@@ -987,14 +989,10 @@ public class ComponentsUtil {
         final String CLASS_TYPE_JCRNODERESOURCE = "org.apache.sling.jcr.resource.internal.helper.jcr.JcrNodeResource";
         final String CLASS_TYPE_ASSET = "com.adobe.granite.asset.core.impl.AssetImpl";
 
-        ContentAccess contentAccess = sling.getService(ContentAccess.class);
-
-        if (contentAccess == null) {
-            throw new NullPointerException("Could not get ContentAccess service");
-        }
+        ContentAccess contentAccess = Objects.requireNonNull(sling.getService(ContentAccess.class));
 
         try (ResourceResolver adminResourceResolver = contentAccess.getAdminResourceResolver()) {
-            Node currentNode = (javax.jcr.Node) pageContext.get(PAGECONTEXTMAP_OBJECT_CURRENTNODE);
+            Node currentNode = (Node) pageContext.get(PAGECONTEXTMAP_OBJECT_CURRENTNODE);
             TagManager tagManager = adminResourceResolver.adaptTo(TagManager.class);
 
             // if targetResource == null get defaults
