@@ -46,7 +46,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.jcr.*;
+import javax.jcr.InvalidItemStateException;
+import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.PathNotFoundException;
+import javax.jcr.Property;
+import javax.jcr.PropertyIterator;
+import javax.jcr.RepositoryException;
+import javax.jcr.ValueFormatException;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;

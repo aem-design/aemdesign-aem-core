@@ -151,12 +151,12 @@ public class AttrBuilder {
     }
 
     private void addNoCheck(@Nonnull String name, @Nonnull String value) {
-        // When the attribute has already been added, append the new value onto the end of it
         if (attributes.containsKey(name)) {
-            value = attributes.get(name) + " " + value;
+            // When the attribute has already been added, append the new value onto the end of it
+            attributes.put(name, attributes.get(name) + " " + value);
+        } else {
+            attributes.put(name, value);
         }
-
-        attributes.put(name, value);
     }
 
     /**

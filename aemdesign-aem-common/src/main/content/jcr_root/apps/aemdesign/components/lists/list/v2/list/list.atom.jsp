@@ -1,4 +1,4 @@
-<%@ page session="false" %>
+<%@ page session="false" pageEncoding="utf-8" %>
 <%@ page import="com.adobe.granite.license.ProductInfo,
                  com.adobe.granite.license.ProductInfoService,
                  com.day.cq.wcm.foundation.Download" %>

@@ -15,8 +15,8 @@
   from Adobe.
 --%><%
 %><%@ include file="/libs/granite/ui/global.jsp" %><%
-%><%@ page session="false"
-           import="com.adobe.granite.ui.components.Config" %><%--###
+%><%@ page session="false" import="com.adobe.granite.ui.components.Config" pageEncoding="utf-8" %>
+<%--###
 Include
 =======
 

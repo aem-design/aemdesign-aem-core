@@ -1,6 +1,4 @@
-<%@page session="false" contentType="text/html"
-        pageEncoding="utf-8"
-        import="com.day.cq.i18n.I18n" %>
+<%@page session="false" contentType="text/html" pageEncoding="utf-8" import="com.day.cq.i18n.I18n" %>
 <%@taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling/1.0" %>
 <%@include file="/libs/foundation/global.jsp" %>
 <%@include file="/libs/cq/cloudserviceconfigs/components/configpage/init.jsp" %>
