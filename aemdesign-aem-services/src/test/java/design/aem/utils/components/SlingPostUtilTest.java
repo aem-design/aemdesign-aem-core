@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(JcrUtil.class)
+@PrepareForTest({JcrUtil.class})
 public class SlingPostUtilTest {
 
     @Mock
@@ -50,8 +50,12 @@ public class SlingPostUtilTest {
 
     @Before
     public void before() {
-        initMocks(this);
-        PowerMockito.mockStatic(JcrUtil.class);
+        try {
+            initMocks(this);
+            PowerMockito.mockStatic(JcrUtil.class);
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 
     @Test
