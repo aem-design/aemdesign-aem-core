@@ -39,7 +39,7 @@
 
     <sly data-sly-test="${component.showParsys && (wcmmode.edit || component.parsysWithAuthoredContent)}">
       <sly data-sly-set.parsysClassName="c-${component.componentName}__parsys"
-           data-sly-resource="${'./par' @ resourceType=templateSupport.componentPath['container'],
+           data-sly-resource="${'./par' @ resourceType=templateSupport.componentPath['parsys'],
                                           cssClassName=parsysClassName,
                                           decorationTagName='div'}"></sly>
     </sly>
