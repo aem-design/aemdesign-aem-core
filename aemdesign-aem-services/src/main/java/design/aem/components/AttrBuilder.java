@@ -185,7 +185,7 @@ public class AttrBuilder {
      * @return {@link Map} of raw attributes
      */
     @Nonnull
-    public Map<String, String> getAttributes() {
+    public Map<String, String> getData() {
         return attributes;
     }
 

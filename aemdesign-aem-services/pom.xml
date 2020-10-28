@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
     <modelVersion>4.0.0</modelVersion>
 
     <!-- ====================================================================== -->
@@ -8,7 +9,7 @@
     <parent>
         <groupId>design.aem</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>2.0.671</version>
+        <version>2.1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +18,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-services</artifactId>
-    <version>2.0.671</version>
+    <version>2.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>AEM Design - Core - AEM Services</name>
     <description>Project for all AEM and OSGI Services</description>
@@ -37,6 +38,10 @@
         <developer>
             <email>max@aem.design</email>
             <name>Max Barrass</name>
+        </developer>
+        <developer>
+            <email>me@cshaw.xyz</email>
+            <name>Chris Shaw</name>
         </developer>
     </developers>
 
@@ -98,6 +103,7 @@
             </snapshots>
         </repository>
     </repositories>
+
     <pluginRepositories>
         <pluginRepository>
             <id>adobe-public-releases</id>
@@ -116,9 +122,7 @@
     <!-- B U I L D D E F I N I T I O N -->
     <!-- ====================================================================== -->
     <build>
-
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -135,8 +139,10 @@
                                     <excludes>
                                         <exclude>org.apache.felix:maven-scr-plugin</exclude>
                                     </excludes>
-                                    <message>Felix SCR annotations and the maven-scr-plugin are no longer supported - please migrate to OSGi
-                                        annotations or stick with Sling Parent 29.</message>
+                                    <message>Felix SCR annotations and the maven-scr-plugin are no longer supported -
+                                        please migrate to OSGi
+                                        annotations or stick with Sling Parent 29.
+                                    </message>
                                 </bannedPlugins>
                             </rules>
                         </configuration>
@@ -152,8 +158,10 @@
                                     <excludes>
                                         <exclude>org.apache.felix:maven-bundle-plugin</exclude>
                                     </excludes>
-                                    <message>The maven-bundle-plugin is no longer supported - please migrate to bnd-maven-plugin or stick
-                                        with Sling Parent 34.</message>
+                                    <message>The maven-bundle-plugin is no longer supported - please migrate to
+                                        bnd-maven-plugin or stick
+                                        with Sling Parent 34.
+                                    </message>
                                 </bannedPlugins>
                             </rules>
                         </configuration>
@@ -168,7 +176,8 @@
                                 <!-- Require Java 8 or higher for building (as bnd since version 4.0 only supports Java 8, https://github.com/bndtools/bnd/wiki/Changes-in-4.0.0) -->
                                 <requireJavaVersion>
                                     <message>
-                                        Apache Sling must be compiled with Java 8 or higher as the bnd-maven-plugin requires that.
+                                        Apache Sling must be compiled with Java 8 or higher as the bnd-maven-plugin
+                                        requires that.
                                     </message>
                                     <version>1.8.0</version>
                                 </requireJavaVersion>
@@ -252,21 +261,6 @@ com.github.jaiimageio.*
                     </execution>
                 </executions>
             </plugin>
-<!--
-            <plugin>
-                <groupId>biz.aQute.bnd</groupId>
-                <artifactId>bnd-baseline-maven-plugin</artifactId>
-                <version>${bnd.version}</version>
-                <executions>
-                    <execution>
-                        <id>bnd-baseline</id>
-                        <goals>
-                            <goal>baseline</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
--->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -330,33 +324,12 @@ com.github.jaiimageio.*
                     <linkXRef>false</linkXRef>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>3.0.5</version>
             </plugin>
-
-<!--            <plugin>-->
-<!--                <groupId>org.jacoco</groupId>-->
-<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--                <version>0.8.4</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>prepare-agent</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    &lt;!&ndash; attached to Maven test phase &ndash;&gt;-->
-<!--                    <execution>-->
-<!--                        <id>report</id>-->
-<!--                        <phase>test</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>report</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-
         </plugins>
     </build>
 
@@ -378,7 +351,6 @@ com.github.jaiimageio.*
     </reporting>
 
     <profiles>
-
         <profile>
             <id>autoInstallBundle</id>
             <activation>
@@ -390,7 +362,9 @@ com.github.jaiimageio.*
                         <groupId>org.apache.sling</groupId>
                         <artifactId>maven-sling-plugin</artifactId>
                         <configuration>
-                            <slingUrl>${package.uploadProtocol}://${crx.host}:${crx.port}/apps/${package.appFolder}/install</slingUrl>
+                            <slingUrl>
+                                ${package.uploadProtocol}://${crx.host}:${crx.port}/apps/${package.appFolder}/install
+                            </slingUrl>
                             <usePut>true</usePut>
                         </configuration>
                         <executions>
@@ -441,16 +415,12 @@ com.github.jaiimageio.*
                 </plugins>
             </build>
         </profile>
-
-
     </profiles>
-
 
     <!-- ====================================================================== -->
     <!-- D E P E N D E N C I E S                                                -->
     <!-- ====================================================================== -->
     <dependencies>
-
         <!-- Aggregates (rather use individual artifacts referenced below) -->
         <!-- Core R6 -->
         <dependency>
@@ -459,6 +429,7 @@ com.github.jaiimageio.*
             <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Compendium R6 -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -466,6 +437,7 @@ com.github.jaiimageio.*
             <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- individual OSGi spec API artifacts (preferred) -->
         <!-- OSGi framework 1.8, Core R6 (https://osgi.org/javadoc/r6/core/org/osgi/framework/package-summary.html) -->
         <dependency>
@@ -474,6 +446,7 @@ com.github.jaiimageio.*
             <version>1.8.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Configuration Admin 1.6, Compendium R7 (https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/cm/package-frame.html) -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -481,6 +454,7 @@ com.github.jaiimageio.*
             <version>1.6.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Service Component 1.4, Compendium R7 (https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/component/package-frame.html) -->
         <!-- and component property types (https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/component/propertytypes/package-frame.html) -->
         <dependency>
@@ -489,6 +463,7 @@ com.github.jaiimageio.*
             <version>1.4.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Event Admin 1.3.1, Compendium R6 (https://osgi.org/javadoc/r6/cmpn/org/osgi/service/event/package-summary.html) -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -496,6 +471,7 @@ com.github.jaiimageio.*
             <version>1.3.1</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- OSGi annotations (OSGi R7) -->
         <!-- https://osgi.org/javadoc/osgi.annotation/7.0.0/org/osgi/annotation/versioning/package-frame.html -->
         <dependency>
@@ -504,6 +480,7 @@ com.github.jaiimageio.*
             <version>1.1.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- https://osgi.org/javadoc/osgi.annotation/7.0.0/org/osgi/annotation/bundle/package-frame.html -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -511,6 +488,7 @@ com.github.jaiimageio.*
             <version>1.0.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/component/annotations/package-frame.html -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -518,6 +496,7 @@ com.github.jaiimageio.*
             <version>1.4.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/metatype/annotations/package-frame.html -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -525,6 +504,7 @@ com.github.jaiimageio.*
             <version>1.4.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- https://sling.apache.org/apidocs/sling11/org/apache/sling/servlets/annotations/package-summary.html -->
         <dependency>
             <groupId>org.apache.sling</groupId>
@@ -532,7 +512,6 @@ com.github.jaiimageio.*
             <version>1.2.4</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -549,6 +528,7 @@ com.github.jaiimageio.*
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
         </dependency>
+
         <!-- javax.inject 1 -->
         <dependency>
             <artifactId>geronimo-atinject_1.0_spec</artifactId>
@@ -600,6 +580,7 @@ com.github.jaiimageio.*
             <version>2.11.0</version>
             <scope>test</scope>
         </dependency>
+
         <!-- for testing we need the new ResourceTypeBasedResourcePicker -->
         <dependency>
             <groupId>org.apache.sling</groupId>
@@ -701,7 +682,7 @@ com.github.jaiimageio.*
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.xss</artifactId>
-            <version>1.0.16</version>
+            <version>2.2.6</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -710,7 +691,6 @@ com.github.jaiimageio.*
             <version>5.9.4</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -807,7 +787,6 @@ com.github.jaiimageio.*
             <version>1.11.2</version>
             <scope>compile</scope>
         </dependency>
-
         <dependency>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>findbugs-maven-plugin</artifactId>
@@ -817,7 +796,6 @@ com.github.jaiimageio.*
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.8.4</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-jexl3</artifactId>
@@ -836,7 +814,6 @@ com.github.jaiimageio.*
             <version>1.3</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>com.adobe.cq</groupId>
             <artifactId>core.wcm.components.core</artifactId>
@@ -862,6 +839,7 @@ com.github.jaiimageio.*
             <version>${adobe.acs.version}</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Maven Tools -->
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
@@ -869,7 +847,6 @@ com.github.jaiimageio.*
             <version>${maven.enforcer.version}</version>
             <type>maven-plugin</type>
         </dependency>
-
 
         <!-- health check around the OSGi installer, http://sling.apache.org/documentation/bundles/osgi-installer.html#health-check -->
         <dependency>
@@ -891,7 +868,5 @@ com.github.jaiimageio.*
             <version>${imageio.version}</version>
             <scope>compile</scope>
         </dependency>
-
-
     </dependencies>
 </project>

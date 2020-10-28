@@ -1,20 +1,23 @@
 package design.aem.models.v2.widgets;
 
 import com.adobe.cq.sightly.SightlyWCMMode;
-import com.adobe.cq.sightly.WCMUsePojo;
-import com.adobe.granite.ui.components.AttrBuilder;
+import com.day.cq.commons.Externalizer;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.wcm.api.NameConstants;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import design.aem.components.ComponentProperties;
+import design.aem.components.AttrBuilder;
+import design.aem.models.ModelProxy;
 import design.aem.utils.components.ComponentsUtil;
 import design.aem.utils.components.TagUtil;
 import design.aem.utils.components.TenantUtil;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceNotFoundException;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,74 +26,126 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
-import static design.aem.utils.components.ComponentsUtil.*;
+import static design.aem.utils.components.ComponentsUtil.DEFAULT_VARIANT;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_ANALYTICS_LABEL;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_ANALYTICS_LOCATION;
+import static design.aem.utils.components.ComponentsUtil.FIELD_VARIANT;
+import static design.aem.utils.components.ComponentsUtil.getCloudConfigProperty;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAP;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAP_API_KEY;
 
-public class Vue extends WCMUsePojo {
+public class Vue extends ModelProxy {
     private static final Logger LOGGER = LoggerFactory.getLogger(Vue.class);
 
-    public ComponentProperties componentProperties = null;
+    private static final String FIELD_ANALYTICS_NAME = "analyticsName";
+    private static final String FIELD_ANALYTICS_LOCATION = "analyticsLocation";
+    private static final String FIELD_VUE_COMPONENT = "vueComponentName";
 
     private AttrBuilder attrs = null;
-    private StringBuilder componentHTML = new StringBuilder();
-    private Map<String, String> configOutput = new HashMap<>();
-    private Map<String, String> slots = new HashMap<>();
+    private String componentName = StringUtils.EMPTY;
 
-    @Override
-    public void activate() {
+    private final StringBuilder componentHTML = new StringBuilder();
+    private final Map<String, String> configOutput = new HashMap<>();
+    private final Map<String, String> slots = new HashMap<>();
+    private final Map<String, String> fieldToConfigMap = new HashMap<>();
 
-        Object[][] componentFields = {
+    private JsonArray config;
+    private Externalizer externalizer;
+    private ResourceResolver resourceResolver;
+
+    public void ready() {
+        setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
-            {"vueComponentName", StringUtils.EMPTY},
-            {"analyticsName", StringUtils.EMPTY},
-            {"analyticsLocation", StringUtils.EMPTY},
-        };
+            {FIELD_ANALYTICS_NAME, StringUtils.EMPTY},
+            {FIELD_ANALYTICS_LOCATION, StringUtils.EMPTY},
+            {FIELD_VUE_COMPONENT, StringUtils.EMPTY},
+        });
 
-        attrs = new AttrBuilder(getRequest(), getXSSAPI());
         componentProperties = ComponentsUtil.getComponentProperties(this, componentFields);
 
-        String componentName = componentProperties.get("vueComponentName", StringUtils.EMPTY);
+        try {
+            attrs = new AttrBuilder(xssAPI);
+            componentName = componentProperties.get(FIELD_VUE_COMPONENT, StringUtils.EMPTY);
+            resourceResolver = getResourceResolver();
+            externalizer = resourceResolver.adaptTo(Externalizer.class);
+        } catch (Exception ex) {
+            LOGGER.error("Vue component activation failed!");
+            LOGGER.error(ex.getLocalizedMessage());
+        }
+
+        // Don't go on any further if the component hasn't been configured yet
+        if (!StringUtils.isNotEmpty(componentName)) {
+            return;
+        }
+
+        // Retrieve and process the component config
+        retrieveComponentConfig();
 
         // Retrieve the dynamic configuration for the component
-        retrieveComponentConfigurationAndSlots(componentName);
-
-        String googleMapApiKey = getCloudConfigProperty((InheritanceValueMap)getPageProperties(),DEFAULT_CLOUDCONFIG_GOOGLEMAP,DEFAULT_CLOUDCONFIG_GOOGLEMAP_API_KEY,getSlingScriptHelper());
-        attrs.add("google-maps-key", googleMapApiKey);
+        retrieveComponentConfigurationAndSlots();
 
         // Add any analytics attributes to the Vue component
         setAnalyticsAttributes();
 
-        // Construct the component HTML
-        constructComponentHTML(componentName);
+        // Configuration via attributes
+        setConfigurationAttributes();
 
-        // Debugging output for authors & devs
+        // Construct the component HTML
+        constructComponentHTML();
+
+        // Debugging output for authors & developers
         componentProperties.put("configOutput", configOutput);
     }
 
-    /***
-     * set component analytics attributes
+    /**
+     * Define the configurations map that enables Vue components to link with the authored values.
+     *
+     * @return {@code Map<String, String>}
      */
-    private void setAnalyticsAttributes() {
-        Map<String, String> analyticsAttrs = new HashMap<>();
-        analyticsAttrs.put("analytics-name", "analyticsName");
-        analyticsAttrs.put("analytics-location", "analyticsLocation");
+    protected Map<String, String> getConfigurationsMap() {
+        Map<String, String> storedConfig = new HashMap<>();
 
-        for (Map.Entry<String, String> attr : analyticsAttrs.entrySet()) {
-            String value = componentProperties.get(attr.getValue(), StringUtils.EMPTY);
+        storedConfig.put(DEFAULT_CLOUDCONFIG_GOOGLEMAP, getCloudConfiguration(
+            DEFAULT_CLOUDCONFIG_GOOGLEMAP,
+            DEFAULT_CLOUDCONFIG_GOOGLEMAP_API_KEY
+        ));
 
-            if (StringUtils.isNotEmpty(value)) {
-                attrs.add(attr.getKey(), value);
-            }
+        return storedConfig;
+    }
+
+    /**
+     * Gets the cloud configuration value configured for the given {@code configName} and {@code configProperty}.
+     *
+     * @param configName     Cloud configuration name
+     * @param configProperty JCR property name for the config
+     * @return {@link String} representation of the config value
+     */
+    protected String getCloudConfiguration(String configName, String configProperty) {
+        return getCloudConfigProperty(
+            (InheritanceValueMap) getPageProperties(),
+            configName,
+            configProperty,
+            getSlingScriptHelper()
+        );
+    }
+
+    /**
+     * Attempts to retrieve the component configuration from pre-stored JSON structures that have
+     * been defined within content tags.
+     */
+    private void retrieveComponentConfig() {
+        try {
+            config = getComponentDataByKey("config").getAsJsonArray(); // NOSONAR
+        } catch (Exception ex) {
+            LOGGER.warn("Unable to retrieve the component configuration, this could mean it doesn't exist or is invalid.");
         }
     }
 
-    /***
-     * returns a attributes from given component node.
-     * @param componentName component node to read attributes from
+    /**
+     * Retrieves the authored configuration and hands off the required values to {@link #handleComponentField}.
      */
-    @SuppressWarnings("squid:S3776")
-    private void retrieveComponentConfigurationAndSlots(String componentName) {
+    @SuppressWarnings("Duplicates")
+    private void retrieveComponentConfigurationAndSlots() { // NOSONAR
         Resource resource = getResource();
 
         if (resource != null) {
@@ -105,6 +160,7 @@ public class Vue extends WCMUsePojo {
                         PropertyIterator properties = componentNode.getProperties();
                         NodeIterator nodes = componentNode.getNodes();
 
+                        // Handle the nodes for the component configuration
                         while (nodes.hasNext()) {
                             Node node = (Node) nodes.next();
 
@@ -112,9 +168,10 @@ public class Vue extends WCMUsePojo {
                                 continue;
                             }
 
-                            handleComponentValue(componentName, node.getName(), StringUtils.EMPTY, node.getProperties());
+                            handleComponentField(node.getName(), StringUtils.EMPTY, node.getProperties());
                         }
 
+                        // Handle the properties for the component configuration
                         while (properties.hasNext()) {
                             Property property = properties.nextProperty();
                             String name = property.getName();
@@ -123,88 +180,210 @@ public class Vue extends WCMUsePojo {
                                 continue;
                             }
 
-                            handleComponentValue(componentName, name, property.getValue().getString(), null);
+                            handleComponentField(name, property.getValue().getString(), null);
                         }
                     }
                 }
-            } catch (Exception ex) {
-                LOGGER.error("[Vue Component] Unable to load all or part of the dynamic configuration for: {}", resource.getPath());
-                LOGGER.error(ex.getMessage());
+            } catch (ValueFormatException ex) {
+                LOGGER.error("ValueFormatException occurred for: {}", resource.getPath());
+                LOGGER.error(ex.getLocalizedMessage());
+            } catch (PathNotFoundException ex) {
+                LOGGER.error("PathNotFoundException occurred for: {}", resource.getPath());
+                LOGGER.error(ex.getLocalizedMessage());
+            } catch (RepositoryException ex) {
+                LOGGER.error("RepositoryException occurred for: {}", resource.getPath());
+                LOGGER.error(ex.getLocalizedMessage());
             }
         }
     }
 
-    /***
-     * evaluate component config and its specified fields with types
-     * @param componentName component node to read config from
-     * @param fieldName name of field to read from tag config
-     * @param fieldValue field value to use or lookup
-     * @param fieldProperties all field properties
+    /**
+     * Binds the given {@code field} to either a slot or HTML attribute based on the fields configuration
+     * set for the current component.
+     *
+     * @param field      Name of the component field
+     * @param value      Value of the component field
+     * @param properties Any properties that require additional parsing
      */
-    @SuppressWarnings("squid:S3776")
-    private void handleComponentValue(String componentName, String fieldName, String fieldValue, PropertyIterator fieldProperties) {
-        JsonObject fieldConfig = getFieldTagConfig(componentName, fieldName);
-        SightlyWCMMode wcmMode = getWcmMode();
+    @SuppressWarnings("Duplicates")
+    private void handleComponentField(final String field, final String value, final PropertyIterator properties) { // NOSONAR
+        try {
+            JsonObject fieldElement = getComponentDataByKey(String.format("fields/%s", field)).getAsJsonObject(); // NOSONAR
+            JsonObject fieldConfig;
+            SightlyWCMMode wcmMode = getWcmMode();
 
-        boolean isSlot = false;
-        String slotName = StringUtils.EMPTY;
+            String newValue = value;
+            Map<String, Object> processedField = new HashMap<>();
 
-        if (fieldConfig != null && fieldConfig.has("field")) {
-            String fieldType = fieldConfig.get("field").getAsString();
-
-            // Autocompletion
-            if (fieldType.equals("autocomplete")) {
-                fieldValue = TagUtil.getTagValueAsAdmin(fieldValue, getSlingScriptHelper());
+            if (fieldElement.has("value") && fieldElement.get("value").isJsonObject()) { // NOSONAR
+                fieldConfig = fieldElement.get("value").getAsJsonObject();
+            } else {
+                throw new InvalidItemStateException("Unable to handle field as the JSON object is either invalid or is missing the 'value' property");
             }
 
-            // Image/File upload
-            if (fieldType.equals("fileUpload") && fieldProperties != null) {
-                while (fieldProperties.hasNext()) {
-                    Property property = fieldProperties.nextProperty();
+            // Does the field have a custom configuration map for the attribute map?
+            if (fieldElement.has("mapToConfig")) {
+                fieldToConfigMap.put(fieldElement.get("mapToConfig").getAsString(), newValue);
+            }
 
-                    try {
-                        if (property.getName().equals("fileReference")) {
-                            fieldValue = property.getString();
-                            break;
-                        }
-                    } catch (RepositoryException ex) {
-                        LOGGER.error("Unable to handle property iterator step!, {}", property);
-                        LOGGER.error(ex.getLocalizedMessage());
+            if (fieldConfig != null && fieldConfig.has("field")) {
+                processComponentField(field, newValue, fieldConfig, properties, processedField);
+
+                newValue = (String) processedField.getOrDefault("value", newValue);
+
+                // Does the field need to run through externalizer?
+                if (fieldConfig.has("externalizer") && fieldConfig.get("externalizer").getAsBoolean()) {
+                    if (slingSettingsService.getRunModes().contains(Externalizer.AUTHOR)) {
+                        newValue = externalizer.authorLink(resourceResolver, newValue) + ".html?wcmmode=disabled";
+                    } else {
+                        newValue = externalizer.externalLink(resourceResolver, Externalizer.LOCAL, newValue);
                     }
                 }
             }
 
-            // Is this field a slot?
-            isSlot = fieldConfig.has("slot");
-            slotName = isSlot ? fieldConfig.get("slot").getAsString() : slotName;
-        }
+            if (Boolean.TRUE.equals(processedField.getOrDefault("skipSlotAndAttribute", Boolean.FALSE))) {
+                if (Boolean.TRUE.equals(processedField.getOrDefault("isSlot", Boolean.FALSE))) {
+                    slots.put((String) processedField.get("slotName"), newValue);
+                } else {
+                    attrs.add(field, newValue);
+                }
+            }
 
-        if (isSlot) {
-            slots.put(slotName, fieldValue);
-        } else {
-            attrs.add(fieldName, fieldValue);
-        }
+            // Add the config to some additional output when in the correct WCM Mode
+            if (wcmMode.isEdit() || wcmMode.isPreview()) {
+                String debugValue = (String) processedField.getOrDefault("debugValue", null);
 
-        // Add the config to some additional output when in the correct WCM Mode
-        if (wcmMode.isEdit() || wcmMode.isPreview()) {
-            configOutput.put(StringUtils.capitalize(fieldName), fieldValue);
+                configOutput.put(
+                    WordUtils.capitalize(StringUtils.join(field.split("-"), " ")),
+                    debugValue != null ? debugValue : value
+                );
+            }
+        } catch (Exception ex) {
+            LOGGER.error("Unable to parse field: {}", field);
+            LOGGER.error(ex.getLocalizedMessage());
         }
     }
 
-    /***
-     * get field config from tags
-     * @param componentName component name
-     * @param fieldName field name
-     * @return returns json config object
+    /**
+     * Process the incoming field using the {@code fieldConfig} configuration given.
+     *
+     * @param field          name of the component field
+     * @param value          value of the component field
+     * @param fieldConfig    configuration used to determine the field outcomes
+     * @param properties     JCR properties stored with the field
+     * @param processedField {@link Map} containing the processed inputs
      */
-    private JsonObject getFieldTagConfig(String componentName, String fieldName) {
+    @SuppressWarnings("Duplicates")
+    protected void processComponentField(
+        final String field,
+        final String value,
+        final JsonObject fieldConfig,
+        final PropertyIterator properties,
+        final Map<String, Object> processedField
+    ) {
+        String fieldType = fieldConfig.get("field").getAsString();
+        boolean isSlot = fieldConfig.has("slot");
+        String newValue = value;
+
+        // Autocompletion
+        if (fieldType.equals("autocomplete")) {
+            newValue = TagUtil.getTagValueAsAdmin(value, getSlingScriptHelper());
+        }
+
+        // Checkboxes
+        if (fieldType.equals("checkbox")) {
+            boolean isChecked = value.equals("true");
+
+            processedField.put("debugValue", isChecked ? "Yes" : "No");
+            processedField.put("skipSlotAndAttribute", true);
+
+            attrs.addBoolean(field, isChecked);
+        }
+
+        // Image/File upload
+        if (fieldType.equals("fileUpload") && properties != null) {
+            while (properties.hasNext()) {
+                Property property = properties.nextProperty();
+
+                try { // NOSONAR
+                    if (property.getName().equals("fileReference")) {
+                        newValue = property.getString();
+                        break;
+                    }
+                } catch (RepositoryException ex) {
+                    LOGGER.error("Unable to handle property iterator step!, {}", property);
+                    LOGGER.error(ex.getLocalizedMessage());
+                }
+            }
+        }
+
+        processedField.put("isSlot", isSlot);
+        processedField.put("slotName", isSlot ? fieldConfig.get("slot").getAsString() : null);
+        processedField.put("value", newValue);
+    }
+
+    /**
+     * Sets any analytics attributes that are required by the component.
+     */
+    protected void setAnalyticsAttributes() {
+        Map<String, String> analyticsAttrs = new HashMap<>();
+
+        analyticsAttrs.put("analytics-label", DETAILS_ANALYTICS_LABEL);
+        analyticsAttrs.put("analytics-location", DETAILS_ANALYTICS_LOCATION);
+
+        for (Map.Entry<String, String> attr : analyticsAttrs.entrySet()) {
+            String value = componentProperties.get(attr.getValue(), StringUtils.EMPTY);
+
+            if (StringUtils.isNotEmpty(value)) {
+                attrs.add(attr.getKey(), value);
+            }
+        }
+    }
+
+    /**
+     * Binds the cloud configuration values to their respective attributes for use in the component.
+     */
+    @SuppressWarnings("Duplicates")
+    private void setConfigurationAttributes() { // NOSONAR
+        if (config != null) {
+            Map<String, String> configuration = getConfigurationsMap();
+
+            for (JsonElement jsonElement : config) {
+                String[] configMap = jsonElement.getAsString().split(":");
+
+                String configKey = configMap[0];
+                String customKey = configMap.length >= 2 ? configMap[1] : null;
+
+                boolean hasCustomKeyMap = StringUtils.isNotEmpty(customKey);
+
+                // Loop over any field-to-config mapped keys and process the correct configuration value using it
+                // instead of what was supplied.
+                for (Map.Entry<String, String> item : fieldToConfigMap.entrySet()) {
+                    if (item.getKey().equals(configKey)) {
+                        configKey = item.getValue();
+                    }
+                }
+
+                // When the configuration key has a custom attribute map, use that over the default
+                attrs.set(hasCustomKeyMap ? customKey : configKey, configuration.getOrDefault(configKey, StringUtils.EMPTY));
+            }
+        }
+    }
+
+    /**
+     * Retrieves the Base64 encoded JSON string from JCR storage and parses it.
+     *
+     * @param pathPart Path part of our encoded JSON string
+     * @return Parsed {@link JsonElement} instance
+     */
+    private JsonElement getComponentDataByKey(String pathPart) {
         JsonParser parser = new JsonParser();
-        JsonObject jsonObject = null;
+        JsonElement jsonElement = null;
 
         try {
-            String componentPath = "/content/%s/%s/component-dialog/vue-widgets/%s/%s";
+            String componentPath = "/content/%s/%s/component-dialog/vue-widgets/%s/%s";  // NOSONAR
             String tenantName = TenantUtil.resolveTenantIdFromPath(getResource().getPath());
-            String resourcePath = String.format(componentPath, NameConstants.PN_TAGS, tenantName, componentName, fieldName);
+            String resourcePath = String.format(componentPath, NameConstants.PN_TAGS, tenantName, componentName, pathPart);
 
             Resource fieldResource = getResourceResolver().getResource(resourcePath);
 
@@ -214,24 +393,21 @@ public class Vue extends WCMUsePojo {
 
             String fieldValue = fieldResource.getValueMap().get("value", StringUtils.EMPTY);
             String json = new String(Base64.getDecoder().decode(fieldValue));
-            JsonElement parsedJson = parser.parse(json);
 
-            if (parsedJson.isJsonObject()) {
-                jsonObject = parsedJson.getAsJsonObject();
-            }
+            jsonElement = parser.parse(json);
         } catch (Exception ex) {
-            LOGGER.error("[Vue Component] Unable to parse JSON value for '{}' on component: '{}'", fieldName, componentName);
+            LOGGER.error("Unable to parse JSON value for '{}' on component: '{}'", pathPart, componentName);
             LOGGER.error(ex.getMessage());
         }
 
-        return jsonObject;
+        return jsonElement;
     }
 
-    /***
-     * create component HTML template
-     * @param componentName component name to use
+    /**
+     * Builds the HTML structure needed for our front-end JavaScript code.
      */
-    private void constructComponentHTML(String componentName) {
+    @SuppressWarnings("Duplicates")
+    private void constructComponentHTML() {
         componentHTML.append(String.format("<%s %s>", componentName, attrs.build()));
 
         if (slots.size() > 0) {
@@ -243,9 +419,10 @@ public class Vue extends WCMUsePojo {
         componentHTML.append(String.format("</%s>", componentName));
     }
 
-    /***
-     * return component html
-     * @return component html string
+    /**
+     * Retrieves the {@link StringBuilder} structure and converts it into a usable string.
+     *
+     * @return {@link String} version of the component template.
      */
     public String getComponentHTML() {
         return componentHTML.toString();

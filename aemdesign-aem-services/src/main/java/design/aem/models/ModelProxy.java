@@ -1,9 +1,12 @@
 package design.aem.models;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import design.aem.components.ComponentProperties;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.sling.settings.SlingSettingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.sling.xss.XSSAPI;
 
 import java.lang.reflect.Field;
 
@@ -16,10 +19,17 @@ public abstract class ModelProxy extends WCMUsePojo {
     private static final String ANALYTICS_FIELDS = "analyticsFields";
     private static final String COMPONENT_FIELDS = "componentFields";
 
+    protected ComponentProperties componentProperties = null;
+    protected SlingSettingsService slingSettingsService;
+    protected XSSAPI xssAPI;
+
     protected abstract void ready() throws Exception; //NOSONAR generic exception is fine
 
     @Override
-    public void activate() throws Exception {
+    public final void activate() throws Exception {
+        slingSettingsService = getSlingScriptHelper().getService(SlingSettingsService.class);
+        xssAPI = getSlingScriptHelper().getService(XSSAPI.class);
+
         ready();
     }
 

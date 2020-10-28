@@ -1,6 +1,5 @@
 package design.aem.components;
 
-import com.adobe.granite.ui.components.AttrBuilder;
 import org.apache.commons.jexl3.*;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
