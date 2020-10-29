@@ -68,6 +68,8 @@ public class ComponentsUtil {
 
     public static final String DEFAULT_PATH_TAGS = "/content/cq:tags";
 
+    public static final String DEFAULT_TENANT = "aemdesign";
+
     public static final String FIELD_VARIANT = "variant";
     public static final String FIELD_VARIANT_LEGACY = "legacyVariant"; // specify that variant field is derived from config / tag
     public static final String DEFAULT_VARIANT = "default";

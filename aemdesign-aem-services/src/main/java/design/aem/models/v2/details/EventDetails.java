@@ -1,154 +1,107 @@
 package design.aem.models.v2.details;
 
-import com.day.cq.i18n.I18n;
-import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.NameConstants;
-import design.aem.components.ComponentProperties;
-import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.jackrabbit.vault.util.JcrConstants;
-import org.apache.sling.api.scripting.SlingScriptHelper;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
-import static design.aem.utils.components.CommonUtil.*;
-import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.*;
-import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_CARD_ADDITIONAL;
+import static design.aem.utils.components.ComponentsUtil.compileComponentMessage;
 import static design.aem.utils.components.TagUtil.getTagValueAsAdmin;
-import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 
 public class EventDetails extends GenericDetails {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(EventDetails.class);
 
-    // default values for the component
-    static final String EVENT_DISPLAY_DATE_FORMAT = "EEE d MMMMM";
-    static final String EVENT_DISPLAY_DATE_FORMAT_ISO = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-    static final String EVENT_TIME_DEFAULT_FORMAT = "h:mm a";
-    static final String HOURS_TIME_FORMAT = "h a";
-    static final String MINUTES_TIME_FORMAT = "mm";
-    static final String TIME_ZERO_FORMAT = "00";
-    static final String DEFAULT_FORMAT_TITLE = "${title}";
-    static final String FIELD_FORMAT_TITLE = "titleFormat";
-    static final String FIELD_FORMATTED_TITLE = "titleFormatted";
-    static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
-    static final String DEFAULT_FORMAT_SUBTITLE = "${eventStartDateText} to ${eventEndDateText}";
-    static final String DEFAULT_FORMAT_DISPLAYDATE = "${eventStartDateText} to ${eventEndDateText}";
-    static final String DEFAULT_FORMAT_DISPLAYTIME = "${eventStartTimeText} to ${eventEndTimeText}";
+    protected static final String FIELD_FORMAT_TITLE = "titleFormat";
+    protected static final String FIELD_FORMATTED_TITLE = "titleFormatted";
+    protected static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
+    protected static final String FIELD_EVENT_START_DATE = "eventStartDate";
+    protected static final String FIELD_EVENT_END_DATE = "eventEndDate";
 
-    static final String FIELD_EVENT_START_DATE = "eventStartDate";
-    static final String FIELD_EVENT_END_DATE = "eventEndDate";
-
+    protected static final String EVENT_DISPLAY_DATE_FORMAT = "EEE d MMMMM";
+    protected static final String EVENT_DISPLAY_DATE_FORMAT_ISO = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    protected static final String EVENT_TIME_DEFAULT_FORMAT = "h:mm a";
+    protected static final String HOURS_TIME_FORMAT = "h a";
+    protected static final String MINUTES_TIME_FORMAT = "mm";
+    protected static final String TIME_ZERO_FORMAT = "00";
+    protected static final String DEFAULT_FORMAT_TITLE = "${title}";
+    protected static final String DEFAULT_FORMAT_SUBTITLE = "${eventStartDateText} to ${eventEndDateText}";
+    protected static final String DEFAULT_FORMAT_DISPLAYDATE = "${eventStartDateText} to ${eventEndDateText}";
+    protected static final String DEFAULT_FORMAT_DISPLAYTIME = "${eventStartTimeText} to ${eventEndTimeText}";
 
     @Override
-    @SuppressWarnings("Duplicates")
     protected void ready() {
-        I18n i18n = new I18n(getRequest());
-
-        final String DEFAULT_TITLE_TAG_TYPE = "h1";
-        final String DEFAULT_I18N_CATEGORY = "event-detail";
-        final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
-
-        // default values for the component
-        final String DEFAULT_TITLE = getPageTitle(getResourcePage(), getResource());
-        final String DEFAULT_DESCRIPTION = getResourcePage().getDescription();
-        final Boolean DEFAULT_SHOW_BREADCRUMB = true;
-        final Boolean DEFAULT_SHOW_TOOLBAR = true;
-
-        setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"title", DEFAULT_TITLE},
-                {"description", DEFAULT_DESCRIPTION},
-                {FIELD_EVENT_START_DATE, getResourcePage().getProperties().get(NameConstants.PN_ON_TIME, getResourcePage().getProperties().get(JcrConstants.JCR_CREATED,Calendar.getInstance()))},
-                {FIELD_EVENT_END_DATE, getResourcePage().getProperties().get(NameConstants.PN_OFF_TIME, getResourcePage().getProperties().get(JcrConstants.JCR_CREATED,Calendar.getInstance()))},
-                {"eventLoc", ""},
-                {"eventRefLabel", ""},
-                {"eventRefLink", ""},
-                {"eventRefLabel2", ""},
-                {"eventRefLink2", ""},
-                {"useParentPageTitle", false},
-                {"showBreadcrumb", DEFAULT_SHOW_BREADCRUMB},
-                {"showToolbar", DEFAULT_SHOW_TOOLBAR},
-                {FIELD_FORMAT_TITLE,""},
-                {"subTitleFormat",""},
-                {"eventDisplayDateFormat",""},
-                {"eventDisplayTimeFormat", ""},
-                {"eventTimeFormat", EVENT_TIME_DEFAULT_FORMAT},
-                {TagConstants.PN_TAGS, new String[]{}},
-                {"menuColor", StringUtils.EMPTY},
-                {"showTags", false},
-                {"subCategory", StringUtils.EMPTY},
-                {FIELD_PAGE_URL, getPageUrl(getResourcePage())},
-                {FIELD_PAGE_TITLE, DEFAULT_TITLE},
-                {FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage())},
-                {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
-                {"variantHiddenLabel", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
-        });
-
-        componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_ANALYTICS,
-                DEFAULT_FIELDS_DETAILS_OPTIONS);
-
-        String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
-        componentProperties.put("category",getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
-
-        componentProperties.putAll(processComponentFields(componentProperties,i18n,getSlingScriptHelper()), false);
+        super.ready();
 
         if (Boolean.TRUE.equals(componentProperties.get("isPastEventDate", false))) {
             componentProperties.put(DETAILS_CARD_ADDITIONAL, "finished");
         }
-
-        processCommonFields();
     }
 
-    /***
-     * substitute formatted field template with fields from component.
-     * @param componentProperties source map with fields
-     * @param i18n i18n instance
-     * @param sling sling instance
-     * @return returns map with new values
-     */
     @Override
-    @SuppressWarnings("Duplicates")
-    public Map<String, Object> processComponentFields(ComponentProperties componentProperties, I18n i18n, SlingScriptHelper sling) {
-        Map<String, Object> newFields = new HashMap<>();
+    protected void setFields() {
+        super.setFields();
 
-        String formattedTitle = compileComponentMessage(FIELD_FORMAT_TITLE, DEFAULT_FORMAT_TITLE, componentProperties, sling);
-        Document fragment = Jsoup.parse(formattedTitle);
-        String formattedTitleText = fragment.text();
+        setComponentFields(new Object[][]{
+            {FIELD_EVENT_START_DATE, componentDefaults.get(FIELD_EVENT_END_DATE)},
+            {FIELD_EVENT_END_DATE, componentDefaults.get(FIELD_EVENT_END_DATE)},
+            {"eventLoc", StringUtils.EMPTY},
+            {"eventRefLabel", StringUtils.EMPTY},
+            {"eventRefLink", StringUtils.EMPTY},
+            {"eventRefLabel2", StringUtils.EMPTY},
+            {"eventRefLink2", StringUtils.EMPTY},
+            {"useParentPageTitle", false},
+            {"subTitleFormat", StringUtils.EMPTY},
+            {"eventDisplayDateFormat", StringUtils.EMPTY},
+            {"eventDisplayTimeFormat", StringUtils.EMPTY},
+            {"eventTimeFormat", EVENT_TIME_DEFAULT_FORMAT},
+        });
+    }
 
-        newFields.put(FIELD_FORMATTED_TITLE,
-                formattedTitle.trim()
-        );
-        newFields.put(FIELD_FORMATTED_TITLE_TEXT,
-                formattedTitleText.trim()
-        );
+    @Override
+    protected void setFieldDefaults() {
+        super.setFieldDefaults();
 
-        Calendar eventStartDate = componentProperties.get(FIELD_EVENT_START_DATE,Calendar.getInstance());
-        Calendar eventEndDate = componentProperties.get(FIELD_EVENT_END_DATE,Calendar.getInstance());
+        componentDefaults.put(FIELD_EVENT_START_DATE, getResourcePage().getProperties().get(
+            NameConstants.PN_ON_TIME,
+            getResourcePage().getProperties().get(JcrConstants.JCR_CREATED, Calendar.getInstance())));
+
+        componentDefaults.put(FIELD_EVENT_END_DATE, getResourcePage().getProperties().get(
+            NameConstants.PN_OFF_TIME,
+            getResourcePage().getProperties().get(JcrConstants.JCR_CREATED, Calendar.getInstance())));
+    }
+
+    @Override
+    protected String getComponentCategory() {
+        return "event-detail";
+    }
+
+    @Override
+    protected Map<String, Object> processComponentFields() {
+        Map<String, Object> newFields = super.processComponentFields();
+
+        Calendar eventStartDate = componentProperties.get(FIELD_EVENT_START_DATE, Calendar.getInstance());
+        Calendar eventEndDate = componentProperties.get(FIELD_EVENT_END_DATE, Calendar.getInstance());
         String selectedEventTimeFormat = componentProperties.get("eventTimeFormat", StringUtils.EMPTY);
 
         newFields.put("isPastEventDate", eventEndDate.before(Calendar.getInstance()));
 
-        newFields.put(FIELD_EVENT_START_DATE,eventStartDate);
-        newFields.put(FIELD_EVENT_END_DATE,eventEndDate);
+        newFields.put(FIELD_EVENT_START_DATE, eventStartDate);
+        newFields.put(FIELD_EVENT_END_DATE, eventEndDate);
 
         FastDateFormat dateFormatString = FastDateFormat.getInstance(EVENT_DISPLAY_DATE_FORMAT_ISO);
 
         Date startDateTime = eventStartDate.getTime();
         Date endDateTime = eventEndDate.getTime();
 
-        newFields.put("eventStartDateISO",dateFormatString.format(startDateTime));
-        newFields.put("eventEndDateISO",dateFormatString.format(endDateTime));
+        newFields.put("eventStartDateISO", dateFormatString.format(startDateTime));
+        newFields.put("eventEndDateISO", dateFormatString.format(endDateTime));
 
         FastDateFormat dateFormat = FastDateFormat.getInstance(EVENT_DISPLAY_DATE_FORMAT);
         String eventStartDateText = dateFormat.format(startDateTime);
@@ -160,17 +113,17 @@ public class EventDetails extends GenericDetails {
         String eventStartDateLowercase = dateFormat.format(startDateTime).toLowerCase();
         String eventEndDateLowercase = dateFormat.format(endDateTime).toLowerCase();
 
-        newFields.put("eventStartDateText",eventStartDateText);
-        newFields.put("eventEndDateText",eventEndDateText);
+        newFields.put("eventStartDateText", eventStartDateText);
+        newFields.put("eventEndDateText", eventEndDateText);
 
-        newFields.put("eventStartDateUppercase",eventStartDateUppercase);
-        newFields.put("eventEndDateUppercase",eventEndDateUppercase);
+        newFields.put("eventStartDateUppercase", eventStartDateUppercase);
+        newFields.put("eventEndDateUppercase", eventEndDateUppercase);
 
-        newFields.put("eventStartDateLowercase",eventStartDateLowercase);
-        newFields.put("eventEndDateLowercase",eventEndDateLowercase);
+        newFields.put("eventStartDateLowercase", eventStartDateLowercase);
+        newFields.put("eventEndDateLowercase", eventEndDateLowercase);
 
-        if(!selectedEventTimeFormat.equals(EVENT_TIME_DEFAULT_FORMAT)){
-            selectedEventTimeFormat = getTagValueAsAdmin(selectedEventTimeFormat,sling);
+        if (!selectedEventTimeFormat.equals(EVENT_TIME_DEFAULT_FORMAT)) {
+            selectedEventTimeFormat = getTagValueAsAdmin(selectedEventTimeFormat, slingScriptHelper);
         }
 
         FastDateFormat timeFormat = FastDateFormat.getInstance(selectedEventTimeFormat);
@@ -194,30 +147,47 @@ public class EventDetails extends GenericDetails {
             eventEndTimeMinFormatted = hourTimeFormat.format(endDateTime);
         }
 
-        newFields.put("eventStartTimeText",eventStartTimeText);
-        newFields.put("eventEndTimeText",eventEndTimeText);
+        newFields.put("eventStartTimeText", eventStartTimeText);
+        newFields.put("eventEndTimeText", eventEndTimeText);
 
-        newFields.put("eventStartTimeUppercase",eventStartTimeText.toUpperCase());
-        newFields.put("eventEndTimeUppercase",eventEndTimeText.toUpperCase());
+        newFields.put("eventStartTimeUppercase", eventStartTimeText.toUpperCase());
+        newFields.put("eventEndTimeUppercase", eventEndTimeText.toUpperCase());
 
-        newFields.put("eventStartTimeLowercase",eventStartTimeText.toLowerCase());
-        newFields.put("eventEndTimeLowercase",eventEndTimeText.toLowerCase());
+        newFields.put("eventStartTimeLowercase", eventStartTimeText.toLowerCase());
+        newFields.put("eventEndTimeLowercase", eventEndTimeText.toLowerCase());
 
-        newFields.put("eventStartTimeMinFormatted",eventStartTimeMinFormatted);
-        newFields.put("eventEndTimeMinFormatted",eventEndTimeMinFormatted);
+        newFields.put("eventStartTimeMinFormatted", eventStartTimeMinFormatted);
+        newFields.put("eventEndTimeMinFormatted", eventEndTimeMinFormatted);
 
-        newFields.put("eventStartTimeMinLowerFormatted",eventStartTimeMinFormatted.toLowerCase());
-        newFields.put("eventEndTimeMinLowerFormatted",eventEndTimeMinFormatted.toLowerCase());
+        newFields.put("eventStartTimeMinLowerFormatted", eventStartTimeMinFormatted.toLowerCase());
+        newFields.put("eventEndTimeMinLowerFormatted", eventEndTimeMinFormatted.toLowerCase());
 
-        newFields.put("eventStartTimeMinUpperFormatted",eventStartTimeMinFormatted.toUpperCase());
-        newFields.put("eventEndTimeMinUpperFormatted",eventEndTimeMinFormatted.toUpperCase());
+        newFields.put("eventStartTimeMinUpperFormatted", eventStartTimeMinFormatted.toUpperCase());
+        newFields.put("eventEndTimeMinUpperFormatted", eventEndTimeMinFormatted.toUpperCase());
 
-        componentProperties.putAll(newFields);
+        newFields.put(FIELD_FORMATTED_TITLE, compileComponentMessage(
+            FIELD_FORMAT_TITLE,
+            DEFAULT_FORMAT_TITLE,
+            componentProperties,
+            slingScriptHelper));
 
-        newFields.put(FIELD_FORMATTED_TITLE,compileComponentMessage(FIELD_FORMAT_TITLE,DEFAULT_FORMAT_TITLE,componentProperties,sling));
-        newFields.put("subTitleFormatted",compileComponentMessage("subTitleFormat",DEFAULT_FORMAT_SUBTITLE,componentProperties,sling));
-        newFields.put("eventDisplayDateFormatted",compileComponentMessage("eventDisplayDateFormat",DEFAULT_FORMAT_DISPLAYDATE,componentProperties,sling));
-        newFields.put("eventDisplayTimeFormatted",compileComponentMessage("eventDisplayTimeFormat",DEFAULT_FORMAT_DISPLAYTIME,componentProperties,sling));
+        newFields.put("subTitleFormatted", compileComponentMessage(
+            "subTitleFormat",
+            DEFAULT_FORMAT_SUBTITLE,
+            componentProperties,
+            slingScriptHelper));
+
+        newFields.put("eventDisplayDateFormatted", compileComponentMessage(
+            "eventDisplayDateFormat",
+            DEFAULT_FORMAT_DISPLAYDATE,
+            componentProperties,
+            slingScriptHelper));
+
+        newFields.put("eventDisplayTimeFormatted", compileComponentMessage(
+            "eventDisplayTimeFormat",
+            DEFAULT_FORMAT_DISPLAYTIME,
+            componentProperties,
+            slingScriptHelper));
 
         return newFields;
     }

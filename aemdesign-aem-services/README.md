@@ -23,13 +23,12 @@ Use following template when creating new WCMUsePojo models
 package design.aem.models.v2.details;
 
 import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
-import design.aem.utils.components.TagUtil;
+import design.aem.models.BaseComponent;
 import com.day.cq.i18n.I18n;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PageDetails extends ModelProxy {
+public class PageDetails extends BaseComponent {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(PageDetails.class);
 

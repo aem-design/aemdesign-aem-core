@@ -9,7 +9,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import design.aem.components.AttrBuilder;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import design.aem.utils.components.TagUtil;
 import design.aem.utils.components.TenantUtil;
@@ -26,41 +26,30 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
-import static design.aem.utils.components.ComponentsUtil.DEFAULT_VARIANT;
-import static design.aem.utils.components.ComponentsUtil.DETAILS_ANALYTICS_LABEL;
-import static design.aem.utils.components.ComponentsUtil.DETAILS_ANALYTICS_LOCATION;
-import static design.aem.utils.components.ComponentsUtil.FIELD_VARIANT;
-import static design.aem.utils.components.ComponentsUtil.getCloudConfigProperty;
+import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAP;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_CLOUDCONFIG_GOOGLEMAP_API_KEY;
 
-public class Vue extends ModelProxy {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Vue.class);
+public class Vue extends BaseComponent {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Vue.class);
 
-    private static final String FIELD_ANALYTICS_NAME = "analyticsName";
-    private static final String FIELD_ANALYTICS_LOCATION = "analyticsLocation";
-    private static final String FIELD_VUE_COMPONENT = "vueComponentName";
+    protected static final String FIELD_ANALYTICS_NAME = "analyticsName";
+    protected static final String FIELD_ANALYTICS_LOCATION = "analyticsLocation";
+    protected static final String FIELD_VUE_COMPONENT = "vueComponentName";
 
-    private AttrBuilder attrs = null;
-    private String componentName = StringUtils.EMPTY;
+    protected AttrBuilder attrs = null;
+    protected String componentName = StringUtils.EMPTY;
 
-    private final StringBuilder componentHTML = new StringBuilder();
-    private final Map<String, String> configOutput = new HashMap<>();
-    private final Map<String, String> slots = new HashMap<>();
-    private final Map<String, String> fieldToConfigMap = new HashMap<>();
+    protected final StringBuilder componentHTML = new StringBuilder();
+    protected final Map<String, String> configOutput = new HashMap<>();
+    protected final Map<String, String> slots = new HashMap<>();
+    protected final Map<String, String> fieldToConfigMap = new HashMap<>();
 
-    private JsonArray config;
-    private Externalizer externalizer;
-    private ResourceResolver resourceResolver;
+    protected JsonArray config;
+    protected Externalizer externalizer;
+    protected ResourceResolver resourceResolver;
 
     public void ready() {
-        setComponentFields(new Object[][]{
-            {FIELD_VARIANT, DEFAULT_VARIANT},
-            {FIELD_ANALYTICS_NAME, StringUtils.EMPTY},
-            {FIELD_ANALYTICS_LOCATION, StringUtils.EMPTY},
-            {FIELD_VUE_COMPONENT, StringUtils.EMPTY},
-        });
-
         componentProperties = ComponentsUtil.getComponentProperties(this, componentFields);
 
         try {
@@ -95,6 +84,16 @@ public class Vue extends ModelProxy {
 
         // Debugging output for authors & developers
         componentProperties.put("configOutput", configOutput);
+    }
+
+    @Override
+    protected void setFields() {
+        setComponentFields(new Object[][]{
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_ANALYTICS_NAME, StringUtils.EMPTY},
+            {FIELD_ANALYTICS_LOCATION, StringUtils.EMPTY},
+            {FIELD_VUE_COMPONENT, StringUtils.EMPTY},
+        });
     }
 
     /**

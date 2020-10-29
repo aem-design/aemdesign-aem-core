@@ -2,7 +2,7 @@ package design.aem.models.v2.common;
 
 import com.google.gson.Gson;
 import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.sling.api.request.RequestProgressTracker;
 import org.slf4j.Logger;
@@ -17,11 +17,10 @@ import java.util.zip.GZIPOutputStream;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 
-public class Timing extends ModelProxy {
+public class Timing extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(Timing.class);
 
     private static final String TIMER_END = "TIMER_END";
-    protected ComponentProperties componentProperties = null;
 
     private static String basename(String path) {
         String result = path;
@@ -71,20 +70,12 @@ public class Timing extends ModelProxy {
         return output.toString();
     }
 
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
     @SuppressWarnings("squid:S1604")
     protected void ready() {
-        setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-        });
-
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE);
 
         // Convert RequestProgressTracker TIMER_END messages to timings and operation names
         RequestProgressTracker t = getRequest().getRequestProgressTracker();
@@ -172,10 +163,15 @@ public class Timing extends ModelProxy {
             componentProperties.put("jsonString", jsonString);
 
         } catch (Exception ex) {
-            LOGGER.error("ready {}",ex);
+            LOGGER.error("ready {}", ex);
         }
+    }
 
-
+    @Override
+    protected void setFields() {
+        setComponentFields(new Object[][]{
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+        });
     }
 
     static class ChartBar {
@@ -220,6 +216,7 @@ public class Timing extends ModelProxy {
 
         /**
          * Remove chars up to separator in this.input, and return result.
+         *
          * @param separator separator to stop at
          * @return string up to separator
          */
