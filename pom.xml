@@ -136,6 +136,7 @@
                 <version>6.0.0</version>
                 <scope>provided</scope>
             </dependency>
+
             <!-- Logging Dependencies -->
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -143,6 +144,7 @@
                 <version>${slf4j.version}</version>
                 <scope>provided</scope>
             </dependency>
+
             <!-- Apache Sling Dependencies -->
             <dependency>
                 <groupId>org.apache.sling</groupId>
@@ -178,6 +180,7 @@
                 <version>2.1</version>
                 <scope>provided</scope>
             </dependency>
+
             <!-- JCR -->
             <dependency>
                 <groupId>javax.jcr</groupId>
@@ -205,14 +208,12 @@
                 <version>2.5</version>
                 <scope>provided</scope>
             </dependency>
-
             <dependency>
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>3.2.2</version>
                 <scope>provided</scope>
             </dependency>
-
             <dependency>
                 <groupId>com.google.code.findbugs</groupId>
                 <artifactId>jsr305</artifactId>
@@ -236,7 +237,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.12</version>
+                <version>4.13.1</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -300,22 +301,18 @@
                 <scope>test</scope>
             </dependency>
 
-
             <!--other-->
-
             <dependency>
                 <groupId>org.osgi</groupId>
                 <artifactId>org.osgi.core</artifactId>
                 <version>6.0.0</version>
                 <scope>provided</scope>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.sling</groupId>
                 <artifactId>org.apache.sling.bnd.models</artifactId>
                 <version>1.0.0</version>
             </dependency>
-
             <dependency>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
@@ -326,7 +323,6 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.4</version>
             </dependency>
-
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
@@ -391,6 +387,7 @@
                 <version>1.18</version>
                 <scope>test</scope>
             </dependency>
+
             <!-- Apache  Dependencies -->
             <dependency>
                 <groupId>org.apache.sling</groupId>
@@ -404,10 +401,8 @@
                 <version>2.1.0</version>
                 <scope>provided</scope>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
-
 
     <!--
         Inclusion of repositories in POMs is controversial, to say the least.
@@ -665,7 +660,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.10.4</version>
+                        <version>3.1.1</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -692,7 +687,6 @@
                         </executions>
                     </plugin>
                 </plugins>
-
             </build>
         </profile>
     </profiles>
