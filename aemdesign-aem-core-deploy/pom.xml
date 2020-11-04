@@ -19,9 +19,9 @@
     <artifactId>aemdesign-aem-core-deploy</artifactId>
     <packaging>content-package</packaging>
     <name>AEM Design - Core - Deployment Package</name>
-    <description>AEM package for deploying all packages as one</description>
+    <description>AEM.Design deployment package for all packages</description>
     <version>2.1.0-SNAPSHOT</version>
-    <url>http://aem.design</url>
+    <url>https://aem.design</url>
 
     <developers>
         <developer>

@@ -20,8 +20,8 @@
     <version>2.1.0-SNAPSHOT</version>
     <packaging>content-package</packaging>
     <name>AEM Design - Core - AEM Common</name>
-    <description>AEM Design package with all common components</description>
-    <url>http://aem.design</url>
+    <description>AEM.Design components and base templates</description>
+    <url>https://aem.design</url>
 
     <developers>
         <developer>
@@ -40,7 +40,7 @@
     </scm>
 
     <issueManagement>
-        <system>Github</system>
+        <system>GitHub</system>
         <url>https://github.com/aem-design/aemdesign-aem-core/issues</url>
     </issueManagement>
 

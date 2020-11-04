@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    cq:actions="[edit,-,delete,insert]"
-    cq:layout="editbar"
-    cq:isContainer="{Boolean}true"
-    jcr:primaryType="cq:Component"
-    jcr:title="Aside"
-    cq:icon="mBox"
-    sling:resourceSuperType="aemdesign/components/layout/aside/v2/aside"
-    componentGroup="AEM.Design - Layout"/>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          cq:actions="[edit,-,delete,insert]"
+          cq:layout="editbar"
+          cq:isContainer="{Boolean}true"
+          jcr:primaryType="cq:Component"
+          jcr:title="Aside"
+          cq:icon="mBox"
+          sling:resourceSuperType="aemdesign/components/layout/aside/v2/aside"
+          componentGroup="AEM.Design - Layout"/>

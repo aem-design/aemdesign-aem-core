@@ -12,8 +12,8 @@
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
-    <description>Core project for all AEM server dependencies</description>
-    <url>http://aem.design</url>
+    <description>Core project for all AEM.Design server dependencies</description>
+    <url>https://aem.design</url>
 
     <modules>
         <module>aemdesign-aem-author</module>
@@ -85,7 +85,7 @@
     </scm>
 
     <issueManagement>
-        <system>Github</system>
+        <system>GitHub</system>
         <url>https://github.com/aem-design/aemdesign-aem-core/issues</url>
     </issueManagement>
 

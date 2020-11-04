@@ -42,12 +42,8 @@ elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" && "$(uname -a | grep -q Mic
     fi
 elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
     OS=windows
-    echo "Please use Ubuntu Bash"
-    exit 1
 elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]; then
     OS=windows
-    echo "Please use Ubuntu Bash"
-    exit 1
 fi
 
 #check current routable network interface
