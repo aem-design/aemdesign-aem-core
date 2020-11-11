@@ -530,9 +530,8 @@ public class List extends BaseComponent {
      * @return boolean if page should be included in the list, excludes hidden, invalid, deleted and deactivated pages.
      */
     public static boolean includePageInList(Page page, boolean includeInvalid, boolean includeHidden) {
-        boolean pageIsDeactivated = false;
-
         if (page != null && page.hasContent()) {
+            boolean pageIsDeactivated = false;
             Resource pageContent = page.getContentResource();
 
             if (pageContent != null) {
@@ -542,12 +541,14 @@ public class List extends BaseComponent {
                     pageIsDeactivated = replicationStatus.isDeactivated();
                 }
             }
+
+            return (includeHidden || !page.isHideInNav())
+                && (includeInvalid || page.isValid())
+                && !pageIsDeactivated
+                && page.getDeleted() == null;
         }
 
-        return (includeHidden || !page.isHideInNav())
-            && (includeInvalid || page.isValid())
-            && !pageIsDeactivated
-            && page.getDeleted() == null;
+        return false;
     }
 
     /**

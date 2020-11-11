@@ -11,10 +11,7 @@ import com.adobe.granite.workflow.exec.WorkflowProcess;
 import com.adobe.granite.workflow.metadata.MetaDataMap;
 import com.day.cq.commons.LanguageUtil;
 import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.Rendition;
-import com.day.cq.dam.api.renditions.RenditionMaker;
-import com.day.cq.dam.commons.util.AssetUpdateMonitor;
 import com.day.cq.dam.commons.util.DamUtil;
 import com.day.cq.dam.scene7.api.constants.Scene7Constants;
 import com.luciad.imageio.webp.WebPWriteParam;
@@ -41,9 +38,7 @@ import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
-import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
-import javax.imageio.stream.MemoryCacheImageInputStream;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
 import javax.jcr.Session;
 import java.awt.*;
@@ -60,10 +55,9 @@ import java.io.InputStream;
 import static design.aem.utils.components.CommonUtil.tryParseInt;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
-
 @Component(
-        immediate = true,
-        service = WorkflowProcess.class
+    immediate = true,
+    service = WorkflowProcess.class
 )
 @Designate(ocd = WebpImageGenerator.Config.class)
 @ServiceDescription("Workflow step for generating webp images")
@@ -72,15 +66,15 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 public class WebpImageGenerator implements WorkflowProcess {
 
     @ObjectClassDefinition(
-            name = "AEM Design - Workflow - WebP Image Generator",
-            description = "Workflow step for generating WebP images for an image."
+        name = "AEM Design - Workflow - WebP Image Generator",
+        description = "Workflow step for generating WebP images for an image."
     )
     public @interface Config {
 
         @AttributeDefinition(
-                name = "Lossless",
-                description = "Encode image losslessly, default: lossless",
-                type = AttributeType.BOOLEAN
+            name = "Lossless",
+            description = "Encode image losslessly, default: lossless",
+            type = AttributeType.BOOLEAN
         )
         boolean lossless() default true;
 
@@ -88,7 +82,7 @@ public class WebpImageGenerator implements WorkflowProcess {
             name = "Skip mimetypes",
             description = "Which mimetype to ski["
         )
-        String[] skip_mimetypes() default { };
+        String[] skip_mimetypes() default {};
 
         @AttributeDefinition(
             name = "Rendition Prefix",
@@ -120,11 +114,10 @@ public class WebpImageGenerator implements WorkflowProcess {
     protected static final String ARG_WIDTH = "width";
     protected static final String ARG_HEIGHT = "height";
     protected static final String ARG_QUALITY = "quality";
-    protected static final String ARG_EMULATEJPEG = "emulatejpeg";
+    protected static final String ARG_EMULATE_JPEG = "emulatejpeg";
     protected static final String ARG_RENDITION_PREFIX = "rendition_prefix";
     protected static final String ARG_RENDITION_MIMETYPE = "rendition_mimetype";
     protected static final String ARG_RENDITION_EXTENSION = "rendition_extension";
-    public static final int IMAGE_UNKNOWN = -1;
     public static final int IMAGE_JPEG = 0;
     public static final int IMAGE_PNG = 1;
     public static final int IMAGE_GIF = 2;
@@ -142,9 +135,13 @@ public class WebpImageGenerator implements WorkflowProcess {
     @Modified
     protected void activate(Config config) {
         LOGGER.warn("activate: WebpImageGenerator, config: {}", config);
+
         ImageIO.scanForPlugins();
         String[] imageWrites = ImageIO.getWriterFileSuffixes();
-        LOGGER.warn("activate: WebpImageGenerator, registered image writers: {}", StringUtils.join(imageWrites,","));
+
+        LOGGER.warn("activate: WebpImageGenerator, registered image writers: {}",
+            StringUtils.join(imageWrites, ","));
+
         this.config = config;
     }
 
@@ -160,8 +157,8 @@ public class WebpImageGenerator implements WorkflowProcess {
 
         try {
             final Session session = workflowSession.adaptTo(Session.class);
-            final ResourceResolver resourceResolver = workflowSession.adaptTo(ResourceResolver.class);
-            final String originalPayload = (String) workItem.getWorkflowData().getPayload();
+            @SuppressWarnings("DuplicatedCode") final ResourceResolver resourceResolver = workflowSession.adaptTo(ResourceResolver.class);
+            @SuppressWarnings("DuplicatedCode") final String originalPayload = (String) workItem.getWorkflowData().getPayload();
             final List<String> payloads = workflowPackageManager.getPaths(resourceResolver, originalPayload);
             final ProcessArgs processArgs = new ProcessArgs(metaDataMap, config);
             final AtomicInteger count = new AtomicInteger(0);
@@ -228,7 +225,7 @@ public class WebpImageGenerator implements WorkflowProcess {
                                         } else {
                                             writeParam.setCompressionType(writeParam.getCompressionTypes()[WebPWriteParam.LOSSY_COMPRESSION]);
                                             //set compression quality after setting type
-                                            writeParam.setCompressionQuality((float)processArgs.getQuality() / 100);
+                                            writeParam.setCompressionQuality((float) processArgs.getQuality() / 100);
                                             writeParam.setAlphaCompression(processArgs.getQuality());
                                         }
 
@@ -254,7 +251,7 @@ public class WebpImageGenerator implements WorkflowProcess {
 
                                         String mimeType = processArgs.rendition_mimetype;
 
-                                        InputStream inputStream =  new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+                                        InputStream inputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
 
                                         asset.addRendition(renditionName, inputStream, mimeType);
 
@@ -273,26 +270,30 @@ public class WebpImageGenerator implements WorkflowProcess {
                         }
 
                     } catch (Exception e) {
-                        failed("Error occurred creating a new rendition, error: {}", e);
+                        failed(e);
                     }
 
                     count.incrementAndGet();
 
                 }
 
-                private void failed(String message, Object... error) {
+                private void failed(Object... error) {
                     failCount.incrementAndGet();
-                    LOGGER.error(message, error);
+
+                    LOGGER.error("Error occurred creating a new rendition, error: {}", error);
                 }
             };
 
             final ContentVisitor visitor = new ContentVisitor(generatorRunnable);
 
+            if (resourceResolver == null) {
+                throw new Error("Unable to execute workflow due to ResourceResolver been 'null'.");
+            }
+
             for (final String payload : payloads) {
-
                 final Resource resource = resourceResolver.getResource(payload);
-                if (!ResourceUtil.isNonExistingResource(resource)) {
 
+                if (resource != null && !ResourceUtil.isNonExistingResource(resource)) {
                     visitor.accept(resource);
                 } else {
                     LOGGER.warn("Asset does not exist: {}", payload);
@@ -300,7 +301,11 @@ public class WebpImageGenerator implements WorkflowProcess {
             }
 
             if (failCount.get() == 0) {
-                session.save();
+                if (session != null) {
+                    session.save();
+                } else {
+                    LOGGER.info("Unable to save workflow session state as Session is 'null'.");
+                }
             } else {
                 LOGGER.warn("There were failures total of {} not saving", failCount.get());
             }
@@ -310,10 +315,7 @@ public class WebpImageGenerator implements WorkflowProcess {
             LOGGER.error("Error occurred Asset renditions were not saved.");
             throw new WorkflowException(e);
         }
-
     }
-
-
 
 
     /**
@@ -331,9 +333,7 @@ public class WebpImageGenerator implements WorkflowProcess {
         private final int quality;
         private final String[] skipMimeTypes;
 
-        ProcessArgs(MetaDataMap map, Config config) throws WorkflowException {
-
-            // basic config
+        ProcessArgs(MetaDataMap map, Config config) {
             if (map.get(ARG_LOSSLESS, Boolean.class) == null) {
                 LOGGER.warn("Lossless not specified defaulting to disabled.");
             }
@@ -342,22 +342,22 @@ public class WebpImageGenerator implements WorkflowProcess {
             if (map.get(ARG_WIDTH, String.class) == null) {
                 LOGGER.warn("Width not specified, using default:" + 512);
             }
-            width = tryParseInt(map.get(ARG_WIDTH, String.class),512);
+            width = tryParseInt(map.get(ARG_WIDTH, String.class), 512);
 
             if (map.get(ARG_HEIGHT, String.class) == null) {
                 LOGGER.warn("Height not specified, using default:" + 512);
             }
-            height = tryParseInt(map.get(ARG_HEIGHT, String.class),512);
+            height = tryParseInt(map.get(ARG_HEIGHT, String.class), 512);
 
             if (map.get(ARG_QUALITY, String.class) == null) {
                 LOGGER.warn("Quality not specified, using default:" + 60);
             }
-            quality = tryParseInt(map.get(ARG_QUALITY, String.class),60);
+            quality = tryParseInt(map.get(ARG_QUALITY, String.class), 60);
 
-            if (map.get(ARG_EMULATEJPEG, Boolean.class) == null) {
+            if (map.get(ARG_EMULATE_JPEG, Boolean.class) == null) {
                 LOGGER.warn("Emulate Jpeg not specified defaulting to disabled.");
             }
-            emulate_jpeg = Boolean.parseBoolean(map.get(ARG_EMULATEJPEG, String.class));
+            emulate_jpeg = Boolean.parseBoolean(map.get(ARG_EMULATE_JPEG, String.class));
 
             if (map.get(ARG_SKIP_MIMETYPES, String[].class) == null) {
                 LOGGER.warn("Skip mimetypes not specified.");
@@ -388,15 +388,41 @@ public class WebpImageGenerator implements WorkflowProcess {
 
         }
 
-        public Boolean getLossless() { return lossless; }
-        public String getRenditionPrefix() { return rendition_prefix; }
-        public String getRenditionExtension() { return rendition_extension; }
-        public String getRenditionMimetype() { return rendition_mimetype; }
-        public int getWidth() { return width; }
-        public int getHeight() { return height; }
-        public int getQuality() { return quality; }
-        public boolean getEmulateJpeg() { return emulate_jpeg; }
-        public String[] getSkipMimeTypes() { return skipMimeTypes; }
+        public Boolean getLossless() {
+            return lossless;
+        }
+
+        public String getRenditionPrefix() {
+            return rendition_prefix;
+        }
+
+        public String getRenditionExtension() {
+            return rendition_extension;
+        }
+
+        public String getRenditionMimetype() {
+            return rendition_mimetype;
+        }
+
+        public int getWidth() {
+            return width;
+        }
+
+        public int getHeight() {
+            return height;
+        }
+
+        public int getQuality() {
+            return quality;
+        }
+
+        public boolean getEmulateJpeg() {
+            return emulate_jpeg;
+        }
+
+        public String[] getSkipMimeTypes() {
+            return skipMimeTypes;
+        }
 
         public boolean isThrottle() {
             return throttle;
@@ -424,18 +450,13 @@ public class WebpImageGenerator implements WorkflowProcess {
     /**
      * Resizes an image.
      *
-     * @param image
-     *            The image to resize
-     * @param maxWidth
-     *            The image's max width
-     * @param maxHeight
-     *            The image's max height
+     * @param image     The image to resize
+     * @param maxWidth  The image's max width
+     * @param maxHeight The image's max height
+     * @param type      int
      * @return A resized <code>BufferedImage</code>
-     * @param type
-     *            int
      */
-    public static BufferedImage resizeImage(BufferedImage image, int type, int maxWidth, int maxHeight)
-    {
+    public static BufferedImage resizeImage(BufferedImage image, int type, int maxWidth, int maxHeight) {
         Dimension largestDimension = new Dimension(maxWidth, maxHeight);
 
         // Original size
@@ -447,8 +468,7 @@ public class WebpImageGenerator implements WorkflowProcess {
         if (imageWidth > maxWidth || imageHeight > maxHeight) {
             if ((float) largestDimension.width / largestDimension.height > aspectRatio) {
                 largestDimension.width = (int) Math.ceil(largestDimension.height * aspectRatio);
-            }
-            else {
+            } else {
                 largestDimension.height = (int) Math.ceil(largestDimension.width / aspectRatio);
             }
 
@@ -464,53 +484,18 @@ public class WebpImageGenerator implements WorkflowProcess {
      * Creates a <code>BufferedImage</code> from an <code>Image</code>. This method can
      * function on a completely headless system. This especially includes Linux and Unix systems
      * that do not have the X11 libraries installed, which are required for the AWT subsystem to
-     * operate. This method uses nearest neighbor approximation, so it's quite fast. Unfortunately,
-     * the result is nowhere near as nice looking as the createHeadlessSmoothBufferedImage method.
-     *
-     * @param image  The image to convert
-     * @param width The desired image width
-     * @param height The desired image height
-     * @return The converted image
-     * @param type int
-     */
-    public static BufferedImage createHeadlessBufferedImage(BufferedImage image, int type, int width, int height)
-    {
-        if (type == IMAGE_PNG && hasAlpha(image)) {
-            type = BufferedImage.TYPE_INT_ARGB;
-        }
-        else {
-            type = BufferedImage.TYPE_INT_RGB;
-        }
-
-        BufferedImage bi = new BufferedImage(width, height, type);
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                bi.setRGB(x, y, image.getRGB(x * image.getWidth() / width, y * image.getHeight() / height));
-            }
-        }
-
-        return bi;
-    }
-
-    /**
-     * Creates a <code>BufferedImage</code> from an <code>Image</code>. This method can
-     * function on a completely headless system. This especially includes Linux and Unix systems
-     * that do not have the X11 libraries installed, which are required for the AWT subsystem to
      * operate. The resulting image will be smoothly scaled using bilinear filtering.
      *
      * @param source The image to convert
-     * @param width The desired image width
+     * @param width  The desired image width
      * @param height The desired image height
+     * @param type   int
      * @return The converted image
-     * @param type  int
      */
-    public static BufferedImage createHeadlessSmoothBufferedImage(BufferedImage source, int type, int width, int height)
-    {
+    public static BufferedImage createHeadlessSmoothBufferedImage(BufferedImage source, int type, int width, int height) {
         if (type == IMAGE_PNG && hasAlpha(source)) {
             type = BufferedImage.TYPE_INT_ARGB;
-        }
-        else {
+        } else {
             type = BufferedImage.TYPE_INT_RGB;
         }
 
@@ -555,13 +540,11 @@ public class WebpImageGenerator implements WorkflowProcess {
         return dest;
     }
 
-    private static double scale(int point, double scale)
-    {
+    private static double scale(int point, double scale) {
         return point / scale;
     }
 
-    private static int getRGBInterpolation(int value1, int value2, double distance)
-    {
+    private static int getRGBInterpolation(int value1, int value2, double distance) {
         int alpha1 = (value1 & 0xFF000000) >>> 24;
         int red1 = (value1 & 0x00FF0000) >> 16;
         int green1 = (value1 & 0x0000FF00) >> 8;
@@ -572,12 +555,10 @@ public class WebpImageGenerator implements WorkflowProcess {
         int green2 = (value2 & 0x0000FF00) >> 8;
         int blue2 = (value2 & 0x000000FF);
 
-        int rgb = ((int) (alpha1 * (1.0 - distance) + alpha2 * distance) << 24)
+        return ((int) (alpha1 * (1.0 - distance) + alpha2 * distance) << 24)
             | ((int) (red1 * (1.0 - distance) + red2 * distance) << 16)
             | ((int) (green1 * (1.0 - distance) + green2 * distance) << 8)
             | (int) (blue1 * (1.0 - distance) + blue2 * distance);
-
-        return rgb;
     }
 
     /**
@@ -586,15 +567,15 @@ public class WebpImageGenerator implements WorkflowProcess {
      * @param image The image to check for transparent pixel.s
      * @return <code>true</code> of <code>false</code>, according to the result
      */
-    public static boolean hasAlpha(Image image)
-    {
+    public static boolean hasAlpha(Image image) {
         try {
             PixelGrabber pg = new PixelGrabber(image, 0, 0, 1, 1, false);
             pg.grabPixels();
 
             return pg.getColorModel().hasAlpha();
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+
             return false;
         }
     }

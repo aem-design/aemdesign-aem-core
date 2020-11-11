@@ -1889,9 +1889,10 @@ public class ComponentsUtil {
 
                                 if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
                                     for (Resource resource : localresource.getChildren()) {
+                                        String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
+
                                         //add only newly found resources
-                                        if (!subResources.containsValue(resource.getName())) {
-                                            String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
+                                        if (!subResources.containsKey(name)) {
                                             subResources.put(name, resource);
                                         }
                                     }
