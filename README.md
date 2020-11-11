@@ -229,23 +229,13 @@ inside the configuration of the `content-package-maven-plugin`.
 
 Following section describes some of the development topics
 
-## Release Versions
-
-Release versions are automated and based on Tags and Commit count from Tag using the `git describe` command
-
-To see what the new version will be run:
-
-`mvn help:evaluate -q -DforceStdout -Dexpression=project.version`
-
 ## Version Convention
 
 Version numbers for Git Tags should follow semver format:
 
- * MAJOR version when you make incompatible API changes,
- * MINOR version when you add functionality in a backwards-compatible manner, and
- * PATCH version is automatically generated based on git commit count from last Tag
-
-Please use MAJOR and MINOR version in Tags, PATCH version will be automatically added as a commit count since the last tag using the git describe.
+ * **MAJOR** version when you make incompatible API changes,
+ * **MINOR** version when you add functionality in a backwards-compatible manner, and
+ * **PATCH** version when you make small incremental changes
 
 ## Minimal core artifacts required for providing overridable AEM components.
  
@@ -280,7 +270,7 @@ In preparation for a release, create a new git release branch from the current m
     * `git checkout release/<version>`
  3. Update the maven `version` parameter.
     * `mvn versions:set -DnewVersion=<version>`
- 4. Check the version number was correctly applied and confirm.
+ 4. Check the version number was applied correctly and confirm.
     * `mvn versions:commit`
  5. Commit the updated version numbers to the release branch.
     * `mvn scm:checkin -Dmessage="updating version numbers"`
@@ -288,7 +278,7 @@ In preparation for a release, create a new git release branch from the current m
 #### Release new version
 Once the testing cycle has been completed and all code fixes have been applied to the remote release branch, we create a git tag of our version and deploy the maven `aemdesign-aem-core` artifact to the remote maven repository and merge our release to master branch.
  1. Ensure we are on the release branch for [aemdesign-aem-core](https://github.com/aem-design/aemdesign-aem-core).
- 2. Raise a Merge Request from the relase branch to master branch, adding the necessary reviewers.
+ 2. Raise a Merge Request from the release branch to master branch, adding the necessary reviewers.
  3. Create the git tag.
     * `mvn scm:tag -Dtag="<version>"`
  4. Deploy the maven release artifacts to the remote maven repository
@@ -299,9 +289,8 @@ Once the testing cycle has been completed and all code fixes have been applied t
  
 ## Release history
 
-Please review [Versions](VERSIONS.md) for all version history
+Please review the [change log](CHANGELOG.md) for all version history.
 
 ## Commit Signatures
 
 Please ensure you have GPG setup and you sign all of your commits.
-
