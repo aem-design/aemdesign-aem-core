@@ -54,7 +54,7 @@ jobs:
 
       - name: set eval variables
         run: |
-          echo ::set-env name=DOCKER_COMMAND::docker run --user $(id -u):$(id -g) -v ${GITHUB_WORKSPACE}:/build ${DOCKER_IMAGE}
+          echo "DOCKER_COMMAND=docker run --user $(id -u):$(id -g) -v ${GITHUB_WORKSPACE}:/build ${DOCKER_IMAGE}" >> $GITHUB_ENV
           $DOCKER_COMMAND java -version
           $DOCKER_COMMAND node -v
           git config --global user.email "${GITHUB_EMAIL}"
