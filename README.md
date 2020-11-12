@@ -1,6 +1,6 @@
 # AEM.Design Core 
 
-[![build_status](https://github.com/aem-design/aemdesign-aem-core/workflows/ci/badge.svg)](https://github.com/aem-design/aemdesign-aem-core/actions?workflow=ci)
+[![build_status](https://github.com/aem-design/aemdesign-aem-core/workflows/ci/badge.svg?branch=develop)](https://github.com/aem-design/aemdesign-aem-core/actions?workflow=ci)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=design.aem%3Aaemdesign-aem-core&metric=alert_status)](https://sonarcloud.io/dashboard?id=design.aem%3Aaemdesign-aem-core)
 [![codecov](https://codecov.io/gh/aem-design/aemdesign-aem-core/branch/master/graph/badge.svg?magic)](https://codecov.io/gh/aem-design/aemdesign-aem-core)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/design.aem/aemdesign-aem-common/badge.svg?magic)](https://maven-badges.herokuapp.com/maven-central/design.aem/aemdesign-aem-common)
