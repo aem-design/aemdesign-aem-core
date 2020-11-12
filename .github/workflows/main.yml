@@ -56,7 +56,6 @@ jobs:
         id: config
         run: |
           source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/latest/download/github_get_version.sh)
-          echo CURRENT_VERSION=$CURRENT_VERSION
 
       - name: release notes
         run: |
