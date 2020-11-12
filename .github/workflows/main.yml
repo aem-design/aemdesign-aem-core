@@ -34,7 +34,7 @@ jobs:
       GPG_PUBID_KEYGRIP: "020E615868703482DC2CD110B98D2702B6ABF89C"
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
         with:
           submodules: true
           lfs: true
