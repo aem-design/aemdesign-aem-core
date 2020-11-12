@@ -19,28 +19,11 @@ A set of standardized components for AEM 6.4+ that can be used to speed up devel
 * [AEM.Design Blog](https://aem.design)
 * [AEM.Design SonarCloud](https://sonarcloud.io/project/issues?id=design.aem%3Aaemdesign-aem-core)
 
-You will require a latest version of [aemdesign-aem-compose](https://github.com/aem-design/aemdesign-aem-support/releases) that has the base dialogs configuration content. 
-
-## Sonar Quality Gate
-
-After completing your commits and before PUSHING please run following command to push your updates to sonar.
-Please cleanup your updates do not add items to Reliability, Security and Maintainability measures, please dont be a 💩 and cleanup your code 🙏😍
-
-On Master branch run this
-
-```bash
-mvn sonar:sonar "-Dsonar.branch.name=master" "-Dsonar.host.url=https://sonarcloud.io" "-Dsonar.login=e565f767e9723a7e1b27e1c339cc24dc8ee87aaf" "-Dsonar.organization=aemdesign-github"
-```
-
-On other branches run this, change ``sonar.branch.name`` to your branch name
-
-```bash
-mvn sonar:sonar "-Dsonar.branch.name=develop" "-Dsonar.branch.target=master" "-Dsonar.host.url=https://sonarcloud.io" "-Dsonar.login=e565f767e9723a7e1b27e1c339cc24dc8ee87aaf" "-Dsonar.organization=aemdesign-github"
-```
+You will require a latest version of [aemdesign-aem-compose](https://github.com/aem-design/aemdesign-aem-support/releases) that has the base dialog's configuration content. 
 
 ## Development
 If you're curious about how the next generation of components looks like, a tech preview is made available in the
-[`development`](https://github.com/aem-design/aemdesign-aem-core/tree/development) branch.
+[`develop`](https://github.com/aem-design/aemdesign-aem-core/tree/develop) branch.
 
 ## Contributing
 
