@@ -1,11 +1,18 @@
 name: ci
 
-on: [ push ]
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    types: [ opened, synchronize, reopened ]
 
 jobs:
   build:
     if: "!contains(github.event.head_commit.message, 'skip ci')"
     runs-on: ubuntu-latest
+
     strategy:
       max-parallel: 4
       matrix:
@@ -13,18 +20,8 @@ jobs:
 
     env:
       DOCKER_IMAGE: "aemdesign/centos-java-buildpack"
-      SONAR_ORGANISATION: "aemdesign-github"
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      SONAR_URL: "https://sonarcloud.io"
-      SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-      SONATYPE_USERNAME: "aemdesign"
-      GITHUB_USER: aemdesign
-      TRAVIS_TOKEN: ${{ secrets.TRAVIS_TOKEN }}
       GITHUB_EMAIL: ${{ secrets.GITHUB_EMAIL }}
       GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
-      GITHUB_TOKEN_ADMIN: ${{ secrets.GITHUB_TOKEN_ADMIN }}
-      AEM_NAME: ${{ secrets.AEM_NAME }}
-      AEM_KEY: ${{ secrets.AEM_KEY }}
       GPG_SECRET_KEYS: ${{ secrets.GPG_SECRET_KEYS }}
       GPG_OWNERTRUST: ${{ secrets.GPG_OWNERTRUST }}
       GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
@@ -38,14 +35,6 @@ jobs:
         with:
           submodules: true
           lfs: true
-
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
-          registry-url: https://npm.pkg.github.com/
-          scope: "@aem-design"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN_ADMIN }}
 
       - name: set up python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
@@ -72,26 +61,28 @@ jobs:
         run: |
           source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/latest/download/setup-gpg.sh)
 
-      - name: cache local maven repository
-        uses: actions/cache@v2
+      - name: cache sonarcloud packages
+        uses: actions/cache@v1
         with:
-          path: ${{ github.workspace }}/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
 
-      - name: docker - mvn package
+      - name: cache maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: mvn package
         run: $DOCKER_COMMAND mvn package -B -Dmaven.repo.local=./build/.m2/repository
 
-      # SonarQube for master
-      - name: docker - sonar qube on master
-        if: github.ref == 'refs/heads/master'
-        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
-
-      # SonarQube for branches
-      - name: docker - sonar qube on branches
-        if: github.ref != 'refs/heads/master'
-        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+      - name: sonarcloud analysis
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_GLOBAL }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
       - name: run unit tests with coverage reports
         run: mvn test -q && bash <(curl -s https://codecov.io/bash)
