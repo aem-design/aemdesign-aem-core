@@ -41,14 +41,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: get release notes
-        run: |
-          source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/latest/download/github_get_version.sh)
-          echo "===START==="
-          echo $GIT_RELEASE_NOTES
-          echo "====END===="
-          echo CURRENT_VERSION=$CURRENT_VERSION
-
       - name: set eval variables
         run: |
           echo ::set-env name=DOCKER_COMMAND::docker run --user $(id -u):$(id -g) -v ${GITHUB_WORKSPACE}:/build ${DOCKER_IMAGE}
@@ -90,6 +82,15 @@ jobs:
       - name: deploy to maven cental
         if: github.ref == 'refs/heads/master'
         run: $DOCKER_COMMAND echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import && echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust && mvn deploy --settings default.xml -B -P release
+
+      - name: get release notes
+        if: github.ref == 'refs/heads/master'
+        run: |
+          source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/latest/download/github_get_version.sh)
+          echo "===START==="
+          echo $GIT_RELEASE_NOTES
+          echo "====END===="
+          echo CURRENT_VERSION=$CURRENT_VERSION
 
       - name: create release ${{ env.GITHUB_TAG }}
         if: github.ref == 'refs/heads/master'
