@@ -261,32 +261,36 @@ Releases are managed via the maven plugins `versions-maven-plugin` and `maven-sc
 
 Version numbers should follow the [SemVer](https://semver.org/) convention.
 
-### The release process
-#### Prepare release branch
-In preparation for a release, create a new git release branch from the current master snapshot branch:
- 1. Create a new release branch.
-    * `mvn scm:branch -Dbranch=release/<version> -Dmessage="creating release branch <version>"`
- 2. Ensure you are on the new release branch.
-    * `git checkout release/<version>`
- 3. Update the maven `version` parameter.
-    * `mvn versions:set -DnewVersion=<version>`
- 4. Check the version number was applied correctly and confirm.
-    * `mvn versions:commit`
- 5. Commit the updated version numbers to the release branch.
-    * `mvn scm:checkin -Dmessage="updating version numbers"`
+## Release Versions
 
-#### Release new version
-Once the testing cycle has been completed and all code fixes have been applied to the remote release branch, we create a git tag of our version and deploy the maven `aemdesign-aem-core` artifact to the remote maven repository and merge our release to master branch.
- 1. Ensure we are on the release branch for [aemdesign-aem-core](https://github.com/aem-design/aemdesign-aem-core).
- 2. Raise a Merge Request from the release branch to master branch, adding the necessary reviewers.
- 3. Create the git tag.
-    * `mvn scm:tag -Dtag="<version>"`
- 4. Deploy the maven release artifacts to the remote maven repository
-    * `<ToDo>`
- 5. Accept the [aemdesign-aem-core](https://github.com/aem-design/aemdesign-aem-core) Merge Request and delete the release branch.
- 6. Update the `Release history` section in this readme with details of the new release.
-  
- 
+Release versions are automated and based on Tags in format MAJOR.MINOR and Commit count from Tag using the `git describe` command.
+
+To test git versioning run
+
+`git describe`
+
+this will show you generated version message with latest tag and how many commits since tag.
+
+If you get an error:
+
+`fatal: No annotated tags can describe`
+
+create a new tag for your current version MAJOR.MINOR, the rest will be automated:
+
+`git tag 2.1 -f -m "2.1"`
+
+To create a release all you need to do is create a tag MAJOR.MINOR on master branch and push it.
+
+## Version Convention
+
+Version numbers for Git Tags should follow semver format:
+
+ * MAJOR version when you make incompatible API changes,
+ * MINOR version when you add functionality in a backwards-compatible manner, and
+ * PATCH version is automatically generated based on git commit count from last Tag
+
+Please use MAJOR and MINOR version in Tags, PATCH version will be automatically added as a commit count since the last tag using the git describe.
+
 ## Release history
 
 Please review the [change log](CHANGELOG.md) for all version history.
