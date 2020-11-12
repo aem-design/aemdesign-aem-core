@@ -16,10 +16,16 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
+        java-version: [ 11 ]
         python-version: [ 3.6 ]
 
     env:
       DOCKER_IMAGE: "aemdesign/centos-java-buildpack"
+      SONAR_ORGANISATION: "aemdesign-github"
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_URL: "https://sonarcloud.io"
+      SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+      SONATYPE_USERNAME: "aemdesign"
       GITHUB_EMAIL: ${{ secrets.GITHUB_EMAIL }}
       GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
       GPG_SECRET_KEYS: ${{ secrets.GPG_SECRET_KEYS }}
@@ -35,6 +41,11 @@ jobs:
         with:
           submodules: true
           lfs: true
+
+      - name: set up jdk ${{ matrix.java-version }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java-version }}
 
       - name: set up python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
@@ -70,11 +81,15 @@ jobs:
       - name: mvn package
         run: $DOCKER_COMMAND mvn package -B -Dmaven.repo.local=./build/.m2/repository
 
-      - name: sonarcloud analysis
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_GLOBAL }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+      # SonarQube for master
+      - name: docker - sonar qube on master
+        if: github.ref == 'refs/heads/master'
+        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+
+      # SonarQube for branches
+      - name: docker - sonar qube on branches
+        if: github.ref != 'refs/heads/master'
+        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
 
       - name: run unit tests with coverage reports
         run: mvn test -q && bash <(curl -s https://codecov.io/bash)
