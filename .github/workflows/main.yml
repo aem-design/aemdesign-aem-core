@@ -59,8 +59,8 @@ jobs:
 
       - name: release notes
         run: |
-          echo ${{ steps.config.outputs.GIT_RELEASE_NOTES }}
-          echo CURRENT_VERSION=${{ steps.config.outputs.CURRENT_VERSION }}
+          echo "${{ steps.config.outputs.GIT_RELEASE_NOTES }}"
+          echo CURRENT_VERSION="${{ steps.config.outputs.CURRENT_VERSION }}"
 
       - name: set eval variables
         run: |
