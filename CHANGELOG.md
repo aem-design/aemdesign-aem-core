@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.1.0] - 2020-11-12
 
 ### Added
-- `ComponentProperties` is now managed via `BaseComponent`
 - Components that extend `BaseComponent` now have access to:
     - `setFields` - _Allows `setComponentFields` and `setAnalyticsFields` to be used and overridden without needing to override `ready`_
     - `setFieldDefaults` - _Allows defaults to be set via the `componentDefaults` property_
@@ -17,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - AEM 6.5 stability improvements
 
 ### Changed
+- The `ComponentProperties` model property/getter is now managed globaly for all models via `BaseComponent`
 - Switched from the Adobe managed `AttrBuilder` class to a custom in-house managed version that uses the OGSi `XSSAPI`
 - The Vue model property handler has been rewritten to be more extensible
 - `ModelProxy` class has been renamed to `BaseComponent`
