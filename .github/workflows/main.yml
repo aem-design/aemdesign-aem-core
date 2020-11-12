@@ -16,7 +16,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        java-version: [ 11 ]
+        java-version: [ 8 ]
         python-version: [ 3.6 ]
 
     env:
