@@ -51,7 +51,7 @@ jobs:
 
       - name: setup gpg
         run: |
-          source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/latest/download/setup-gpg.sh)
+          source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/download/1.0.201/setup-gpg.sh)
 
       - name: cache sonarcloud packages
         uses: actions/cache@v1
