@@ -53,12 +53,15 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: get release notes
+        id: config
         run: |
           source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/latest/download/github_get_version.sh)
-          echo "===START==="
-          echo $GIT_RELEASE_NOTES
-          echo "====END===="
           echo CURRENT_VERSION=$CURRENT_VERSION
+
+      - name: release notes
+        run: |
+          echo ${{ steps.config.outputs.GIT_RELEASE_NOTES }}
+          echo CURRENT_VERSION=${{ steps.config.outputs.CURRENT_VERSION }}
 
       - name: set eval variables
         run: |
@@ -107,9 +110,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.GITHUB_TAG }}
-          release_name: ${{ env.GITHUB_TAG }}
-          body: ${{ env.GIT_RELEASE_NOTES }}
+          tag_name: ${{ steps.config.outputs.CURRENT_VERSION }}
+          release_name: ${{ steps.config.outputs.CURRENT_VERSION }}
+          body: ${{ steps.config.outputs.GIT_RELEASE_NOTES }}
           draft: false
           prerelease: false
 
