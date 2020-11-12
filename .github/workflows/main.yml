@@ -3,6 +3,7 @@ name: ci
 on: [ push ]
 
 jobs:
+  if: "!contains(github.event.head_commit.message, 'skip ci')"
   build:
     runs-on: ubuntu-latest
     strategy:
