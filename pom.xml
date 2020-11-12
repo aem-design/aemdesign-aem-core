@@ -8,7 +8,7 @@
 
     <groupId>design.aem</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>2.1.0-SNAPSHOT</version>
+    <version>2.1.0</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -68,6 +68,8 @@
         <core.wcm.components.version>2.8.0</core.wcm.components.version>
         <sonar.organization>aem-design</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <gitClosestTagName>${git.closest.tag.name}</gitClosestTagName>
+        <gitClosestTagCommitCount>${git.closest.tag.commit.count}</gitClosestTagCommitCount>
     </properties>
 
     <developers>
@@ -471,33 +473,190 @@
 
     <build>
         <plugins>
+            <!-- get git information to update artifacts version -->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.1.0</version>
-                <configuration>
-                    <flattenedPomFilename>.flattened-pom.xml</flattenedPomFilename>
-                    <outputDirectory>${project.build.directory}</outputDirectory>
-                    <updatePomFile>true</updatePomFile>
-                    <flattenMode>ossrh</flattenMode>
-                </configuration>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>3.0.1</version>
                 <executions>
                     <execution>
-                        <id>flatten</id>
-                        <phase>process-resources</phase>
+                        <phase>validate</phase>
+                        <id>get-the-git-infos</id>
                         <goals>
-                            <goal>flatten</goal>
+                            <goal>revision</goal>
                         </goals>
+                        <!-- *NOTE*: The default phase of revision is initialize, but in case you want to change it, you can do so by adding the phase here -->
+                        <!--<phase>initialize</phase>-->
                     </execution>
                     <execution>
-                        <id>flatten.clean</id>
-                        <phase>clean</phase>
+                        <phase>validate</phase>
+                        <id>validate-the-git-infos</id>
                         <goals>
-                            <goal>clean</goal>
+                            <goal>validateRevision</goal>
                         </goals>
+                        <!-- *NOTE*: The default phase of validateRevision is verify, but in case you want to change it, you can do so by adding the phase here -->
+                        <!--<phase>package</phase>-->
+                    </execution>
+                </executions>
+                <configuration>
+                    <skipPoms>false</skipPoms>
+                    <injectAllReactorProjects>true</injectAllReactorProjects>
+                    <dateFormat>yyyy.MM.dd</dateFormat>
+                    <gitDescribe>
+                        <!--<always>true</always>-->
+                        <dirty>-SNAPSHOT</dirty>
+                        <!--<match>__null__</match>-->
+                        <!--<tags>true</tags>-->
+                    </gitDescribe>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <version>2.0</version>
+                <executions>
+                    <execution>
+                        <id>update-finalname</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>
+                                project.build.finalName="${project.artifactId}-${gitClosestTagName}.${gitClosestTagCommitCount}";
+                                project.properties['gitClosestTagName']="${git.closest.tag.name}";
+                                project.properties['gitClosestTagCommitCount']="${git.closest.tag.commit.count}";
+                                println("project.build.finalName=${project.build.finalName}");
+                            </source>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- update versions for all submodules -->
+            <plugin>
+                <!-- sets the version for each pom including children pom -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>set</goal>
+                        </goals>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <!-- comes from the git-commit-id-plugin -->
+                            <newVersion>${git.closest.tag.name}.${git.closest.tag.commit.count}</newVersion>
+                            <generateBackupPoms>false</generateBackupPoms>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <!-- ensure all version variables names are set to updated version -->
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>change-version</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <scripts>
+                                <script><![CDATA[
+                            import org.apache.maven.artifact.versioning.VersionRange;
+
+                            git_revision = '${git.closest.tag.name}.${git.closest.tag.commit.count}'
+                            if (! project.properties['revision']?.trim()) {
+                            println 'Change `version` to ' + git_revision
+                            System.properties['revision'] = git_revision
+                            project.properties['revision'] = git_revision
+                            project.properties['project.version'] = git_revision
+                            project.properties['git.build.version'] = git_revision
+                            project.version = git_revision
+                            project.artifact.version = git_revision
+                            project.artifact.versionRange = VersionRange.createFromVersion(git_revision)
+                            project.build.finalName = '${project.artifactId}-${gitClosestTagName}.${gitClosestTagCommitCount}'
+                            }
+                            ]]></script>
+                            </scripts>
+                        </configuration>
+                    </execution>
+
+                    <!-- for debug: -->
+                    <!--
+                    <execution>
+                    <id>dump-version</id>
+                    <phase>package</phase>
+                    <goals>
+                    <goal>execute</goal>
+                    </goals>
+                    <configuration>
+                    <scripts>
+                    <script><![CDATA[
+                    println System.properties['revision']
+                    println '${revision}'
+                    println '${project.version}'
+                    println '${git.build.version}'
+                    println project.version
+                    println project.artifact
+                    println project.artifact.version
+                    println project.artifact.versionRange
+                    ]]></script>
+                    </scripts>
+                    </configuration>
+                    </execution>
+                    -->
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-all</artifactId>
+                        <version>2.4.14</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+<!--            &lt;!&ndash; ensure all variables are set &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.codehaus.mojo</groupId>-->
+<!--                <artifactId>flatten-maven-plugin</artifactId>-->
+<!--                <version>1.1.0</version>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash; <flattenMode>ossrh</flattenMode> &ndash;&gt;-->
+<!--                    <flattenedPomFilename>.flattened-pom.xml</flattenedPomFilename>-->
+<!--                    <outputDirectory>${project.build.directory}</outputDirectory>-->
+<!--                    <updatePomFile>true</updatePomFile>-->
+<!--                    <flattenMode>resolveCiFriendliesOnly</flattenMode>-->
+<!--					<embedBuildProfileDependencies>true</embedBuildProfileDependencies>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>flatten</id>-->
+<!--                        <phase>process-resources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>flatten</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                    <execution>-->
+<!--                        <id>flatten.clean</id>-->
+<!--                        <phase>clean</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>clean</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -508,6 +667,8 @@
                 </configuration>
             </plugin>
         </plugins>
+        <!-- ensure all artifact names are set to updated version -->
+        <finalName>${project.artifactId}-${gitClosestTagName}.${gitClosestTagCommitCount}</finalName>
 
         <pluginManagement>
             <plugins>
@@ -526,6 +687,7 @@
                     <artifactId>maven-scr-plugin</artifactId>
                     <version>1.7.4</version>
                 </plugin>
+                <!-- Maven Plugins -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -564,6 +726,7 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>2.9</version>
                 </plugin>
+                <!-- Apache Sling Plugin -->
                 <plugin>
                     <groupId>org.apache.sling</groupId>
                     <artifactId>maven-sling-plugin</artifactId>
@@ -573,6 +736,7 @@
                         <password>${crx.password}</password>
                     </configuration>
                 </plugin>
+                <!-- Content Package Plugin -->
                 <plugin>
                     <groupId>com.day.jcr.vault</groupId>
                     <artifactId>content-package-maven-plugin</artifactId>
@@ -644,8 +808,7 @@
                             <serverId>ossrh</serverId>
                             <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                             <stagingProfileId>c4011210992a35</stagingProfileId>
-                            <stagingDescription>travis pipeline https://travis-ci.org/aem-design/aemdesign-aem-core
-                            </stagingDescription>
+                            <stagingDescription>travis pipeline https://travis-ci.org/aem-design/aemdesign-aem-core</stagingDescription>
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                             <autoDropAfterRelease>true</autoDropAfterRelease>
                         </configuration>
