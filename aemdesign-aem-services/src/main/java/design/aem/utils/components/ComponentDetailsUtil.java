@@ -409,6 +409,9 @@ public class ComponentDetailsUtil {
                 componentProperties.putAll(getAssetInfo(resourceResolver,
                         getPageImgReferencePath(page),
                         FIELD_PAGE_IMAGE));
+                if(page.getProperties().get("mmalFragmentPath", String.class) != null)    {
+                    componentProperties.put("mmalFragmentPath", page.getProperties().get("mmalFragmentPath", String.class));
+                }
 
                 String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
                 componentProperties.put("category", getTagsAsValuesAsAdmin((SlingScriptHelper) pageContext.get(PAGECONTEXTMAP_OBJECT_SLING), ",", tags));
