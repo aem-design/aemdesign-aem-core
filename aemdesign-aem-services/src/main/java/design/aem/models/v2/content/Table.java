@@ -1,49 +1,36 @@
 package design.aem.models.v2.content;
 
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_ACCESSIBILITY;
 import static design.aem.utils.components.ComponentsUtil.DEFAULT_FIELDS_STYLE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class Table extends ModelProxy {
-
-    protected ComponentProperties componentProperties = null;
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
+public class Table extends BaseComponent {
     protected void ready() {
-
-        /*
-          Component Fields Helper
-
-          Structure:
-          1 required - property name,
-          2 required - default value,
-          3 optional - name of component attribute to add value into
-          4 optional - canonical name of class for handling multivalues, String or Tag
-         */
-        setComponentFields(new Object[][]{
-                {"text",""},
-                {"tableData",""}
-        });
-
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
         //backwards compatibility for components that use textData
-        String tableData = componentProperties.get("tableData","");
-        String text = componentProperties.get("text","");
+        String tableData = componentProperties.get("tableData", StringUtils.EMPTY);
+        String text = componentProperties.get("text", StringUtils.EMPTY);
 
         if (isEmpty(text) && isNotEmpty(tableData)) {
-            componentProperties.put("text",tableData);
+            componentProperties.put("text", tableData);
         }
+    }
+
+    @Override
+    protected void setFields() {
+        setComponentFields(new Object[][]{
+            {"text", StringUtils.EMPTY},
+            {"tableData", StringUtils.EMPTY},
+        });
     }
 }

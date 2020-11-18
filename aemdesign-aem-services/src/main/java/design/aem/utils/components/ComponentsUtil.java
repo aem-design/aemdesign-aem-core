@@ -1,8 +1,7 @@
 package design.aem.utils.components;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.adobe.granite.ui.components.AttrBuilder;
-import com.adobe.granite.xss.XSSAPI;
+import design.aem.components.AttrBuilder;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import org.apache.jackrabbit.vault.util.JcrConstants;
 import com.day.cq.dam.api.DamConstants;
@@ -40,6 +39,7 @@ import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.apache.sling.api.wrappers.ValueMapDecorator;
+import org.apache.sling.xss.XSSAPI;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -47,6 +47,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.lang.reflect.Array;
 
+import javax.annotation.Nonnull;
 import javax.jcr.Node;
 import javax.servlet.jsp.PageContext;
 import java.io.*;
@@ -66,6 +67,8 @@ public class ComponentsUtil {
     public static final Logger LOGGER = LoggerFactory.getLogger(ComponentsUtil.class);
 
     public static final String DEFAULT_PATH_TAGS = "/content/cq:tags";
+
+    public static final String DEFAULT_TENANT = "aemdesign";
 
     public static final String FIELD_VARIANT = "variant";
     public static final String FIELD_VARIANT_LEGACY = "legacyVariant"; // specify that variant field is derived from config / tag
@@ -809,9 +812,10 @@ public class ComponentsUtil {
     public static ComponentProperties getNewComponentProperties(Map<String, Object> pageContext) {
         ComponentProperties componentProperties = new ComponentProperties();
         try {
-            SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) pageContext.get("slingRequest");
-            com.adobe.granite.xss.XSSAPI oldXssAPI = slingRequest.adaptTo(com.adobe.granite.xss.XSSAPI.class);
-            componentProperties.attr = new AttrBuilder(slingRequest, oldXssAPI);
+            SlingScriptHelper sling = (SlingScriptHelper) pageContext.get(PAGECONTEXTMAP_OBJECT_SLING);
+            XSSAPI xss = Objects.requireNonNull(sling.getService(XSSAPI.class));
+
+            componentProperties.attr = new AttrBuilder(xss);
 
         } catch (Exception ex) {
             LOGGER.error("getNewComponentProperties: could not configure componentProperties with attributeBuilder");
@@ -1070,8 +1074,9 @@ public class ComponentsUtil {
 
         ComponentContext componentContext = (ComponentContext) pageContext.get("componentContext");
         Component component = componentContext.getComponent();
+        XSSAPI xssAPI = Objects.requireNonNull(sling.getService(XSSAPI.class));
 
-        componentProperties.attr = new AttrBuilder(slingRequest, oldXssAPI);
+        componentProperties.attr = new AttrBuilder(xssAPI);
         if (addMoreAttributes) {
             componentProperties.attr.add("component", "true");
         }
@@ -1382,7 +1387,7 @@ public class ComponentsUtil {
                         if (isNotEmpty(variant) && !variant.equals(DEFAULT_VARIANT)) {
                             componentProperties.attr.add(COMPONENT_ATTRIBUTE_CLASS, variant);
                         }
-                        componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), oldXssAPI));
+                        componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), xssAPI));
                     }
 
                 }
@@ -1485,62 +1490,34 @@ public class ComponentsUtil {
      * @return attributes string
      */
     @SuppressWarnings("Depreciated")
-    public static String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI) {
-        return buildAttributesString(data, xssAPI, null);
+    public static String buildAttributesString(Map<String, String> data, XSSAPI xssAPI) {
+        return buildAttributesString(data, xssAPI, new HashMap<>());
     }
 
     /***
      * build attributes from attributes data.
-     * @param data map of data attributes and values
-     * @param xssAPI old xssi api
+     * @param attributes map of data attributes and values
+     * @param xssAPI xss api
      * @param encodings map of encoding per data attribute
      * @return attributes string
      */
     @SuppressWarnings({"Depreciated", "squid:S3776"})
-    public static String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI, Map<String, String> encodings) {
-        try {
-            StringWriter out = new StringWriter();
-            String key;
-            String value;
+    public static String buildAttributesString(
+        Map<String, String> attributes,
+        XSSAPI xssAPI,
+        @Nonnull Map<String, AttrBuilder.EncodingType> encodings
+    ) {
+        AttrBuilder attr = new AttrBuilder(xssAPI);
 
-            Iterator items = data.entrySet().iterator();
-            while (items.hasNext()) {
-                Map.Entry<String, String> e = (Map.Entry) items.next();
-                key = e.getKey();
-                value = e.getValue();
-
-                if (value != null) {
-
-                    //encode values if encoding is specified
-                    if (encodings != null) {
-                        String encoding = encodings.get(e.getKey());
-                        if (encoding != null && value.length() > 0) {
-                            switch (encoding) {
-                                case "HREF":
-                                    value = xssAPI.getValidHref(value);
-                                    break;
-                                case "HTML_ATTR":
-                                    value = xssAPI.encodeForHTMLAttr(value);
-                                    break;
-                            }
-                        }
-                    }
-
-                    out.append(" ");
-                    if (value.length() > 0) {
-                        out.append(key).append("=\"").append(value).append("\"");
-                    } else {
-                        out.append(key);
-                    }
-
-                }
+        attributes.forEach((attribute, value) -> {
+            if (value == null) {
+                return;
             }
 
-            //return string without invalid characters
-            return out.toString().replaceAll("&#x20;", " ");
-        } catch (Exception ex) {
-            return StringUtils.EMPTY;
-        }
+            attr.add(attribute, value, encodings.get(attribute));
+        });
+
+        return attr.build().replace("&#x20;", " ");
     }
 
     /***
@@ -1912,9 +1889,10 @@ public class ComponentsUtil {
 
                                 if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
                                     for (Resource resource : localresource.getChildren()) {
+                                        String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
+
                                         //add only newly found resources
-                                        if (!subResources.containsValue(resource.getName())) {
-                                            String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
+                                        if (!subResources.containsKey(name)) {
                                             subResources.put(name, resource);
                                         }
                                     }

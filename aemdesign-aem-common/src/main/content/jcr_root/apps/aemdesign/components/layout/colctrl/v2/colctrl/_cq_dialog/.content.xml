@@ -1,127 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
+          xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Column Control"
           helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/layout/colctrl/v2/colctrl"
           sling:resourceType="cq/gui/components/authoring/dialog"
           extraClientlibs="[]">
     <content
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/foundation/container">
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
         <layout
-                jcr:primaryType="nt:unstructured"
-                type="nav"
-                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+            jcr:primaryType="nt:unstructured"
+            type="nav"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
 
 
             <layoutTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Layout"
-                    sling:resourceType="granite/ui/components/foundation/section">
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Layout"
+                sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <layout
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Layout"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Layout"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <layout
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldLabel="Column Layout"
-                                            name="./layout"
-                                            emptyOption="{Boolean}true"
-                                            value="">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldLabel="Column Layout"
+                                        name="./layout"
+                                        emptyOption="{Boolean}true"
+                                        value="">
                                         <datasource
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="aemdesign/components/coral/datasources/tags"
-                                                variant="valuelist"
-                                                path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/layout"/>
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="valuelist"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/layout"/>
                                     </layout>
                                 </items>
                             </layout>
                             <attributes
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Attributes"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Attributes"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <layoutColumnClassSmall
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                            fieldLabel="Column Class - Small"
-                                            fieldDescription="class for small view port"
-                                            multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/column/small"
-                                            name="./layoutColumnClassSmall"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/coral/common/form/tagfield"
+                                        fieldLabel="Column Class - Small"
+                                        fieldDescription="class for small view port"
+                                        multiple="{Boolean}true"
+                                        rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/column/small"
+                                        name="./layoutColumnClassSmall"/>
                                     <layoutColumnClassSmallHint
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
-                                            name="./layoutColumnClassSmall@TypeHint"
-                                            value="String[]"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                        name="./layoutColumnClassSmall@TypeHint"
+                                        value="String[]"/>
 
                                     <layoutColumnClassMedium
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                            fieldLabel="Column Class - Medium"
-                                            fieldDescription="class for medium view port"
-                                            multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/column/medium"
-                                            name="./layoutColumnClassMedium"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/coral/common/form/tagfield"
+                                        fieldLabel="Column Class - Medium"
+                                        fieldDescription="class for medium view port"
+                                        multiple="{Boolean}true"
+                                        rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/column/medium"
+                                        name="./layoutColumnClassMedium"/>
                                     <layoutColumnClassMediumHint
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
-                                            name="./layoutColumnClassMedium@TypeHint"
-                                            value="String[]"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                        name="./layoutColumnClassMedium@TypeHint"
+                                        value="String[]"/>
 
                                     <layoutColumnClassLarge
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                            fieldLabel="Column Class - Large"
-                                            fieldDescription="class for large view port"
-                                            multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/column/large"
-                                            name="./layoutColumnClassLarge"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/coral/common/form/tagfield"
+                                        fieldLabel="Column Class - Large"
+                                        fieldDescription="class for large view port"
+                                        multiple="{Boolean}true"
+                                        rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/column/large"
+                                        name="./layoutColumnClassLarge"/>
                                     <layoutColumnClassLargeHint
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
-                                            name="./layoutColumnClassLarge@TypeHint"
-                                            value="String[]"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                        name="./layoutColumnClassLarge@TypeHint"
+                                        value="String[]"/>
 
                                     <layoutColumnClassExtraLarge
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                            fieldLabel="Column Class - Extra Large"
-                                            fieldDescription="class for extra large view port"
-                                            multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/column/xlarge"
-                                            name="./layoutColumnClassExtraLarge"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/coral/common/form/tagfield"
+                                        fieldLabel="Column Class - Extra Large"
+                                        fieldDescription="class for extra large view port"
+                                        multiple="{Boolean}true"
+                                        rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/column/xlarge"
+                                        name="./layoutColumnClassExtraLarge"/>
                                     <layoutColumnClassExtraLargeHint
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
-                                            name="./layoutColumnClassExtraLarge@TypeHint"
-                                            value="String[]"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                        name="./layoutColumnClassExtraLarge@TypeHint"
+                                        value="String[]"/>
 
                                     <layoutRowClass
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="aemdesign/components/coral/common/form/tagfield"
-                                            fieldLabel="Row Class"
-                                            fieldDescription="class for large view port"
-                                            multiple="{Boolean}true"
-                                            rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/row"
-                                            name="./layoutRowClass"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/coral/common/form/tagfield"
+                                        fieldLabel="Row Class"
+                                        fieldDescription="class for large view port"
+                                        multiple="{Boolean}true"
+                                        rootPath="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/layout/colctrl/row"
+                                        name="./layoutRowClass"/>
                                     <layoutRowClassHint
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/hidden"
-                                            name="./layoutRowClass@TypeHint"
-                                            value="String[]"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                        name="./layoutRowClass@TypeHint"
+                                        value="String[]"/>
 
                                 </items>
                             </attributes>
@@ -132,19 +134,18 @@
             </layoutTab>
 
 
-
             <styleTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Style"
-                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Style"
+                path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
             <accessibilityTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Accessibility"
-                    path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Accessibility"
+                path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
         </items>
     </content>
 </jcr:root>

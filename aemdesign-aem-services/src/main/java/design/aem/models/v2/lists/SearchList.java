@@ -2,7 +2,6 @@ package design.aem.models.v2.lists;
 
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
-import com.day.cq.i18n.I18n;
 import com.day.cq.search.*;
 import com.day.cq.search.facets.Bucket;
 import com.day.cq.search.result.SearchResult;
@@ -10,8 +9,7 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import design.aem.CustomSearchResult;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.vault.util.JcrConstants;
@@ -44,25 +42,18 @@ import static design.aem.utils.components.ImagesUtil.*;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class SearchList extends ModelProxy {
+public class SearchList extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(SearchList.class);
-
-    protected ComponentProperties componentProperties = null;
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
 
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     @Default(intValues = 0)
     protected int listSplitEvery;
 
     private static final String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
-    private static final String RESULT_STATIC_TEXT= "statisticsText";
+    private static final String RESULT_STATIC_TEXT = "statisticsText";
 
-    @SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates", "squid:S3776"})
     protected void ready() {
-        com.day.cq.i18n.I18n i18n = new I18n(getRequest());
-
         final String DEFAULT_I18N_CATEGORY = "searchlist";
         final String DEFAULT_ARIA_ROLE = "search";
 
@@ -88,59 +79,49 @@ public class SearchList extends ModelProxy {
         final String escapedQueryForAttr = getXSSAPI().encodeForHTMLAttr(queryText);
         final String escapedQueryForHref = getXSSAPI().getValidHref(queryText);
 
-        /*
-          Component Fields Helper
-
-          Structure:
-          1 required - property name,
-          2 required - default value,
-          3 optional - name of component attribute to add value into
-          4 optional - canonical name of class for handling multivalues, String or Tag
-         */
         setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"emptyQueryText", getDefaultLabelIfEmpty("emptyQueryText", DEFAULT_I18N_CATEGORY, "Invalid query given!", i18n)},
-                {"searchButtonText", getDefaultLabelIfEmpty("searchButtonText", DEFAULT_I18N_CATEGORY, "Search", i18n)},
-                {"searchQueryInformation", getDefaultLabelIfEmpty("searchQueryInformation", DEFAULT_I18N_CATEGORY, "Search query information", i18n)},
-                {RESULT_STATIC_TEXT, getDefaultLabelIfEmpty(RESULT_STATIC_TEXT, DEFAULT_I18N_CATEGORY, "<div class='content'> <h2>Results {0} for <b>{1}</b></h2></div>", i18n)},
-                {"noResultsText", getDefaultLabelIfEmpty("noResultsText", DEFAULT_I18N_CATEGORY, "Your search - <b>{0}</b> - did not match any documents.", i18n)},
-                {"spellcheckText", getDefaultLabelIfEmpty("spellcheckText", DEFAULT_I18N_CATEGORY, "Did you mean:", i18n)},
-                {"similarPagesText", getDefaultLabelIfEmpty("similarPagesText", DEFAULT_I18N_CATEGORY, "Similar Pages", i18n)},
-                {"relatedSearchesText", getDefaultLabelIfEmpty("relatedSearchesText", DEFAULT_I18N_CATEGORY, "Related searches:", i18n)},
-                {"searchTrendsText", getDefaultLabelIfEmpty("searchTrendsText", DEFAULT_I18N_CATEGORY, "Search Trends", i18n)},
-                {"resultPagesText", getDefaultLabelIfEmpty("resultPagesText", DEFAULT_I18N_CATEGORY, "Results", i18n)},
-                {"previousText", getDefaultLabelIfEmpty("previousText", DEFAULT_I18N_CATEGORY, "Previous", i18n)},
-                {"nextText", getDefaultLabelIfEmpty("nextText", DEFAULT_I18N_CATEGORY, "Next", i18n)},
-                {"assetActionText", getDefaultLabelIfEmpty("assetActionText", DEFAULT_I18N_CATEGORY, "Download", i18n)},
-                {"pageActionText", getDefaultLabelIfEmpty("pageActionText", DEFAULT_I18N_CATEGORY, "Read More", i18n)},
-                {"otherActionText", getDefaultLabelIfEmpty("otherActionText", DEFAULT_I18N_CATEGORY, "Find Out More", i18n)},
-                {"componentPath", getResource().getResourceType()},
-                {"escapedQuery", escapedQuery},
-                {"escapedQueryForAttr", escapedQueryForAttr},
-                {"escapedQueryForHref", escapedQueryForHref},
-                {"printStructure", true},
-                {"listTag", "ul"},
-                {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, DEFAULT_ARIA_ROLE_ATTRIBUTE},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"emptyQueryText", getDefaultLabelIfEmpty("emptyQueryText", DEFAULT_I18N_CATEGORY, "Invalid query given!", i18n)},
+            {"searchButtonText", getDefaultLabelIfEmpty("searchButtonText", DEFAULT_I18N_CATEGORY, "Search", i18n)},
+            {"searchQueryInformation", getDefaultLabelIfEmpty("searchQueryInformation", DEFAULT_I18N_CATEGORY, "Search query information", i18n)},
+            {RESULT_STATIC_TEXT, getDefaultLabelIfEmpty(RESULT_STATIC_TEXT, DEFAULT_I18N_CATEGORY, "<div class='content'> <h2>Results {0} for <b>{1}</b></h2></div>", i18n)},
+            {"noResultsText", getDefaultLabelIfEmpty("noResultsText", DEFAULT_I18N_CATEGORY, "Your search - <b>{0}</b> - did not match any documents.", i18n)},
+            {"spellcheckText", getDefaultLabelIfEmpty("spellcheckText", DEFAULT_I18N_CATEGORY, "Did you mean:", i18n)},
+            {"similarPagesText", getDefaultLabelIfEmpty("similarPagesText", DEFAULT_I18N_CATEGORY, "Similar Pages", i18n)},
+            {"relatedSearchesText", getDefaultLabelIfEmpty("relatedSearchesText", DEFAULT_I18N_CATEGORY, "Related searches:", i18n)},
+            {"searchTrendsText", getDefaultLabelIfEmpty("searchTrendsText", DEFAULT_I18N_CATEGORY, "Search Trends", i18n)},
+            {"resultPagesText", getDefaultLabelIfEmpty("resultPagesText", DEFAULT_I18N_CATEGORY, "Results", i18n)},
+            {"previousText", getDefaultLabelIfEmpty("previousText", DEFAULT_I18N_CATEGORY, "Previous", i18n)},
+            {"nextText", getDefaultLabelIfEmpty("nextText", DEFAULT_I18N_CATEGORY, "Next", i18n)},
+            {"assetActionText", getDefaultLabelIfEmpty("assetActionText", DEFAULT_I18N_CATEGORY, "Download", i18n)},
+            {"pageActionText", getDefaultLabelIfEmpty("pageActionText", DEFAULT_I18N_CATEGORY, "Read More", i18n)},
+            {"otherActionText", getDefaultLabelIfEmpty("otherActionText", DEFAULT_I18N_CATEGORY, "Find Out More", i18n)},
+            {"componentPath", getResource().getResourceType()},
+            {"escapedQuery", escapedQuery},
+            {"escapedQueryForAttr", escapedQueryForAttr},
+            {"escapedQueryForHref", escapedQueryForHref},
+            {"printStructure", true},
+            {"listTag", "ul"},
+            {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, DEFAULT_ARIA_ROLE_ATTRIBUTE},
         });
 
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_DETAILS_OPTIONS);
-
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_DETAILS_OPTIONS);
 
         String pageUrl = getCurrentPage().getPath().concat(DEFAULT_EXTENTION);
 
         componentProperties.putAll(
-                getAssetInfo(getResourceResolver(), getResourceImagePath(getResource(), DEFAULT_BACKGROUND_IMAGE_NODE_NAME), FIELD_PAGE_BACKGROUND_IMAGE));
+            getAssetInfo(getResourceResolver(), getResourceImagePath(getResource(), DEFAULT_BACKGROUND_IMAGE_NODE_NAME), FIELD_PAGE_BACKGROUND_IMAGE));
 
         componentProperties.attr.add("data-component-id", componentProperties.get(FIELD_STYLE_COMPONENT_ID, getResource().getName()));
 
         if (result != null) {
             if (!isEmpty(componentProperties.get(RESULT_STATIC_TEXT, ""))) {
-                componentProperties.put(RESULT_STATIC_TEXT, MessageFormat.format(componentProperties.get(RESULT_STATIC_TEXT, ""),result.getTotalMatches(),escapedQuery));
+                componentProperties.put(RESULT_STATIC_TEXT, MessageFormat.format(componentProperties.get(RESULT_STATIC_TEXT, ""), result.getTotalMatches(), escapedQuery));
             }
 
             // Normalise the results tree
@@ -241,14 +222,13 @@ public class SearchList extends ModelProxy {
 
         //override properties
         componentProperties.put("listItemLinkText",
-                getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LIST_ITEM_LINK_TEXT, DEFAULT_I18N_CATEGORY, i18n));
+            getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LIST_ITEM_LINK_TEXT, DEFAULT_I18N_CATEGORY, i18n));
 
         componentProperties.put("listItemLinkTitle",
-                getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LIST_ITEM_LINK_TITLE, DEFAULT_I18N_CATEGORY, i18n));
+            getDefaultLabelIfEmpty("", DEFAULT_I18N_CATEGORY, DEFAULT_I18N_LIST_ITEM_LINK_TITLE, DEFAULT_I18N_CATEGORY, i18n));
 
 
         componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
-
 
 
     }
@@ -262,8 +242,8 @@ public class SearchList extends ModelProxy {
      * @return formed query object
      */
     public Query composeQueryBuilder(
-            SlingHttpServletRequest slingRequest,
-            ResourceResolver resourceResolver
+        SlingHttpServletRequest slingRequest,
+        ResourceResolver resourceResolver
     ) {
         Query query = null;
         final String queryFormat = "UTF-8";
@@ -311,14 +291,14 @@ public class SearchList extends ModelProxy {
      * @param searchResults Array to store the normalised dataset in
      * @param sling         `SlingScriptHelper` instance
      * @param slingRequest  `SlingHttpServletRequest` instance
-     * @param result search result instance
+     * @param result        search result instance
      */
     @SuppressWarnings("squid:S3776")
     public void normaliseContentTree(
-            java.util.List<CustomSearchResult> searchResults,
-            SlingScriptHelper sling,
-            SlingHttpServletRequest slingRequest,
-            SearchResult result
+        java.util.List<CustomSearchResult> searchResults,
+        SlingScriptHelper sling,
+        SlingHttpServletRequest slingRequest,
+        SearchResult result
     ) {
         try {
             if (!result.getHits().isEmpty()) {
@@ -349,7 +329,7 @@ public class SearchList extends ModelProxy {
 
                                 String detailsNodePath = findComponentInPage(hitPage, DEFAULT_LIST_DETAILS_SUFFIX);
 
-                                Resource detailsResource  = getResourceResolver().resolve(detailsNodePath);
+                                Resource detailsResource = getResourceResolver().resolve(detailsNodePath);
 
                                 if (!ResourceUtil.isNonExistingResource(detailsResource)) {
 
@@ -410,7 +390,7 @@ public class SearchList extends ModelProxy {
                             }
 
                         } else {
-                            LOGGER.error("normaliseContentTree: could not get asset from assetResource={}",assetResource);
+                            LOGGER.error("normaliseContentTree: could not get asset from assetResource={}", assetResource);
                         }
 
                     }
@@ -419,7 +399,7 @@ public class SearchList extends ModelProxy {
                 }
             }
         } catch (Exception ex) {
-            LOGGER.warn("Repository exception thrown: ex={}",ex);
+            LOGGER.warn("Repository exception thrown: ex={}", ex);
         }
     }
 
