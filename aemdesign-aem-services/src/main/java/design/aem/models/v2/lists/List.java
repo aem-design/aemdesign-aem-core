@@ -54,7 +54,6 @@ public class List extends BaseComponent {
     protected static final String PN_SOURCE = "listFrom"; //SOURCE_PROPERTY_NAME
     protected static final String PN_PAGES = "pages"; //PAGES_PROPERTY_NAME
     protected static final String PN_PARENT_PAGE = "parentPage"; //PARENT_PAGE_PROPERTY_NAME
-    protected static final String DESCENDANT_TAG = "ancestorTag";
     protected static final String PN_PARENT_PAGE_DEFAULT = "/content";
     protected static final String PN_TAGS_PARENT_PAGE = "tagsSearchRoot";
     protected static final String PN_TAGS = "tags"; //TAGS_PROPERTY_NAME
@@ -600,7 +599,7 @@ public class List extends BaseComponent {
      * populate list items from descendants of a root page.
      */
     protected void populateDescendantsListItems() {
-        String path = componentProperties.get(DESCENDANT_TAG, PN_PARENT_PAGE_DEFAULT);
+        String path = componentProperties.get(ANCESTOR_PAGE_PROPERTY_NAME, PN_PARENT_PAGE_DEFAULT);
 
         populateChildListItems(path, false);
     }
