@@ -3,10 +3,14 @@
         <div data-sly-test="${componentProperties.previousPageLink}" class="previous">
             <a href="${componentProperties.previousPageLink}">Previous</a>
         </div>
-        <div class="label">
-            <span class="current">${componentProperties.resultInfo.currentPage}</span>
-            <span class="separator"></span>
-            <span class="total">${componentProperties.resultInfo.totalPages}</span>
+        <div data-sly-test="${componentProperties.paginationPageLinks}" class="pages">
+          <ul>
+            <sly data-sly-list.page="${componentProperties.paginationPageLinks}">
+              <li class="${page.pageCurrent ? 'current' : ''}">
+                <a href="${page.pageHref}" data-sly-unwrap="${page.pageCurrent}">${page.pageLabel}</a>
+              </li>
+            </sly>
+          </ul>
         </div>
         <div data-sly-test="${componentProperties.nextPageLink}" class="next">
             <a href="${componentProperties.nextPageLink}">Next</a>
