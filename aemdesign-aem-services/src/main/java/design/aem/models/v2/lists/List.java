@@ -61,6 +61,7 @@ public class List extends BaseComponent {
     protected static final String LIMIT_PROPERTY_NAME = "limit"; //TAGS_MATCH_PROPERTY_NAME
     protected static final String PAGE_MAX_PROPERTY_NAME = "pageMax";
     protected static final String PAGE_START_PROPERTY_NAME = "pageStart";
+    protected static final String PAGE_SORT_PROPERTY_NAME = "pageSort";
     protected static final String ANCESTOR_PAGE_PROPERTY_NAME = "ancestorPage";
     protected static final String SEARCH_IN_PROPERTY_NAME = "searchIn";
     protected static final String SAVEDQUERY_PROPERTY_NAME = "savedquery";
@@ -69,10 +70,12 @@ public class List extends BaseComponent {
     protected static final String SHOW_INVALID = "showInvalid";
     protected static final String DETAILS_BADGE = "detailsBadge";
     protected static final String PAGINATION_TYPE = "paginationType";
+    protected static final String PAGINATION_PAGE_LINKS = "paginationPageLinks";
 
     protected static final String REQUEST_PARAM_MARKER_START = "start";
     protected static final String REQUEST_PARAM_MARKER_MAX = "max";
     protected static final String REQUEST_PARAM_QUERY = "q";
+    protected static final String REQUEST_PARAM_SORT = "sort";
     protected static final String QUERY_ENCODING = "UTF-8";
 
     public static final String LIST_TAG_ORDERED = "ol";
@@ -185,6 +188,29 @@ public class List extends BaseComponent {
             pageMax = tryParseLong(requestPageMax, pageMax);
             componentProperties.put(PAGE_MAX_PROPERTY_NAME, pageStart);
         }
+
+
+        if (getRequest().getRequestParameter(REQUEST_PARAM_SORT) != null) {
+            try {
+                RequestParameter requestParameter = getRequest().getRequestParameter(REQUEST_PARAM_SORT);
+
+                if (requestParameter != null) {
+                    sortOrder = SortOrder.fromString(requestParameter.toString());
+                    componentProperties.put(PAGE_SORT_PROPERTY_NAME, sortOrder);
+                }
+            } catch (Exception ex) {
+                LOGGER.error("could not read query param {}", ex);
+            }
+        }
+
+        //this will take precidence over global param
+        String requestSort = getParameter(REQUEST_PARAM_SORT);
+        if (isNotEmpty(requestSort)) {
+            sortOrder = SortOrder.fromString(requestSort);
+            componentProperties.put(PAGE_SORT_PROPERTY_NAME, sortOrder);
+        }
+
+
 
         if (getRequest().getRequestParameter(REQUEST_PARAM_QUERY) != null) {
             try {
@@ -376,6 +402,54 @@ public class List extends BaseComponent {
     }
 
     /**
+     * generate list of links pages available.
+     *
+     * @return previous page url
+     */
+    public Collection<Map<String, Object>> getPageLinks() {
+        long pagesToShow = 10;
+        java.util.List<Map<String, Object>> pageLinks = new ArrayList<>();
+        if (isPaginating && pageMax > 0 && resultPages.size() > 0) {
+            ResultPage resultPageFirst = resultPages.get(0);
+            ResultPage resultPageLast = resultPages.get(resultPages.size() - 1);
+            int currentIndex = 0; //get current page index
+            int resultPageIndex = 0; //cont pages
+            for (ResultPage resultPage : resultPages) {
+                Map<String, Object> pageLink = new HashMap<>();
+                List.PageLink link = new List.PageLink(getRequest());
+                link.setParameter(REQUEST_PARAM_MARKER_START, resultPage.getStart());
+                pageLink.put("pageHref", link.toString());
+                pageLink.put("pageIndex", resultPage.getIndex());
+                pageLink.put("pageStart", resultPage.getStart());
+                pageLink.put("pagePosition", resultPageIndex);
+                pageLink.put("pageLabel", resultPageIndex + 1);
+                if (resultPage.isCurrentPage()) {
+                    pageLink.put("pageCurrent", true);
+                    currentIndex = resultPageIndex;
+                }
+                pageLinks.add(pageLink);
+                resultPageIndex++;
+            }
+            //trim the tail of the list, tail is which ever side of the list is longer on the left or right of current page
+            if (pageLinks.size() > pagesToShow) {
+                long midIndex = pagesToShow / 2;
+                long maxShow = pageLinks.size() - 1;
+                long startShow = currentIndex + midIndex > maxShow ? maxShow - midIndex * 2 : currentIndex - midIndex;
+                long endShow = Math.min(currentIndex + midIndex, maxShow) + (startShow < 0 ? -startShow : 0);
+                for (int i = pageLinks.size() - 1; i >= 0; i--) {
+                    int pagePosition = (int)pageLinks.get(i).get("pagePosition");
+                    if (pagePosition < startShow || pagePosition >= endShow) {
+                        pageLinks.remove(i);
+                    }
+                }
+            }
+        }
+
+        return pageLinks;
+    }
+
+
+    /**
      * get page badge info from a page.
      *
      * @param page page to use
@@ -492,8 +566,10 @@ public class List extends BaseComponent {
 
         updateListSplit();
 
+        componentProperties.put(PAGINATION_PAGE_LINKS, getPageLinks());
         componentProperties.put("nextPageLink", getNextPageLink());
         componentProperties.put("previousPageLink", getPreviousPageLink());
+
     }
 
     /**
@@ -506,7 +582,9 @@ public class List extends BaseComponent {
             componentProperties.attr.add("data-total-pages", String.valueOf(totalPages));
             componentProperties.attr.add("data-content-url", getResource().getPath().concat(DEFAULT_EXTENTION));
             componentProperties.attr.add("data-content-start", id.concat("_start"));
+
         }
+
     }
 
     /**
