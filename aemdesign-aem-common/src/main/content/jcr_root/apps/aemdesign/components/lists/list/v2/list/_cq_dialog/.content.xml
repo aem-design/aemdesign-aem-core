@@ -352,6 +352,10 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 text="Previous and Next Pages"
                                                 value="default"/>
+                                            <pages
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Pages"
+                                                value="pages"/>
                                         </items>
                                     </paginationType>
                                 </items>
