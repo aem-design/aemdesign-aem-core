@@ -754,25 +754,57 @@ public class List extends BaseComponent {
      */
     protected void populateSearchListItems() {
         listItems = new ArrayList<>();
+        Map<String, String> map = new HashMap<>();
+        try {
 
-        if (!StringUtils.isBlank(query)) {
-            SimpleSearch search = getResource().adaptTo(SimpleSearch.class);
+            if (!StringUtils.isBlank(query)) {
+                QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
 
-            if (search != null) {
-                search.setQuery(query);
-                search.setSearchIn(startIn);
+                if (builder != null) {
+                    Session session = getResourceResolver().adaptTo(Session.class);
+                    Query fullTextSearch = null;
+                    map.put("fulltext", query);
+                    map.put("path", startIn);
+                    map.put("type", NameConstants.NT_PAGE);
 
-                if (limit > 0) {
-                    search.setHitsPerPage(pageMax);
-                }
+                    if (pageMax > 0) {
+                        map.put("p.limit", String.valueOf(pageMax));
+                    } else if (limit > 0) {
+                        map.put("p.limit", String.valueOf(limit));
+                    }
 
-                try {
-                    collectSearchResults(search.getResult());
-                } catch (RepositoryException e) {
-                    LOGGER.error("Unable to retrieve search results for query.", e);
+                    if (pageStart > 0) {
+                        map.put("p.offset", String.valueOf(pageStart));
+                    }
+
+                    String orderBy = componentProperties.get(PN_ORDER_BY, PN_ORDER_BY_DEFAULT);
+
+                    if (isNotEmpty(orderBy)) {
+                        map.put("orderby", orderBy);
+                    } else {
+                        map.put("orderby", PN_ORDER_BY_DEFAULT);
+                    }
+
+                    map.put("orderby.sort", sortOrder.getValue());
+
+                    PredicateGroup root = PredicateGroup.create(map);
+
+                    // avoid slow //* queries
+                    if (!root.isEmpty()) {
+                        fullTextSearch = builder.createQuery(root, session);
+                    }
+
+                    if (fullTextSearch != null) {
+                        collectSearchResults(fullTextSearch.getResult());
+                    }
+                } else {
+                    LOGGER.error("populateSearchListItems: could not get query builder object for fulltext query, map=[{}]", map);
                 }
             }
+        } catch (Exception ex) {
+            LOGGER.error("populateSearchListItems: could not execute fulltext query map=[{}], ex={}", map, ex);
         }
+
     }
 
     /**
