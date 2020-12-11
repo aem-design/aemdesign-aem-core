@@ -1,4 +1,4 @@
-<template data-sly-template.variant="${@ componentProperties}">
+<template data-sly-template.variant="${@ componentProperties, component}">
     <div class="pagination" data-sly-test="${componentProperties.isPaginating}">
         <div data-sly-test="${componentProperties.previousPageLink}" class="previous">
             <a href="${componentProperties.previousPageLink}">Previous</a>
