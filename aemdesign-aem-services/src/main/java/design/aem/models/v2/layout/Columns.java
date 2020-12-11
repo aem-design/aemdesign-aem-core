@@ -148,6 +148,7 @@ public class Columns extends BaseComponent {
                     //remove first number which is the number of columns
                     componentProperties.put(FIELD_LAYOUT, currentLayout.substring(currentLayout.indexOf(';') + 1));
                     String numColsString = currentLayout.split(";")[0];
+                    numColsString = numColsString.replaceAll("\\D+","");
                     numCols = tryParseInt(numColsString, 0);
                 }
 
