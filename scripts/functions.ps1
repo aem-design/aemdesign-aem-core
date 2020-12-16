@@ -294,11 +294,11 @@ Function Main
     printSectionLine "POM_FILE: ${POM_FILE}"
     printSectionLine "SCRIPT_PARAMS: ${SCRIPT_PARAMS}"
 
-    $script:AEM_USER = $( getParamOrDefault "${AEM_USER}" "aem.password" "${POM_FILE}" )
-    $script:AEM_PASS = $( getParamOrDefault "${AEM_PASS}" "aem.username" "${POM_FILE}" )
-    $script:AEM_SCHEME = $( getParamOrDefault "${AEM_SCHEME}" "aem.scheme" "${POM_FILE}" )
-    $script:AEM_HOST = $( getParamOrDefault "${AEM_HOST}" "aem.host" "${POM_FILE}" )
-    $script:AEM_PORT = $( getParamOrDefault "${AEM_PORT}" "aem.port" "${POM_FILE}" )
+    $script:AEM_USER = $( getParamOrDefault "${AEM_USER}" "crx.password" "${POM_FILE}" )
+    $script:AEM_PASS = $( getParamOrDefault "${AEM_PASS}" "crx.username" "${POM_FILE}" )
+    $script:AEM_SCHEME = $( getParamOrDefault "${AEM_SCHEME}" "crx.scheme" "${POM_FILE}" )
+    $script:AEM_HOST = $( getParamOrDefault "${AEM_HOST}" "crx.host" "${POM_FILE}" )
+    $script:AEM_PORT = $( getParamOrDefault "${AEM_PORT}" "crx.port" "${POM_FILE}" )
     $script:AEM_SCHEMA = $( getParamOrDefault "${AEM_SCHEMA}" "package.uploadProtocol" "${POM_FILE}" )
     $script:SELENIUMHUB_HOST = $( getParamOrDefault "${SELENIUMHUB_HOST}" "seleniumhubhost.host" "${POM_FILE}" )
     $script:SELENIUMHUB_PORT = $( getParamOrDefault "${SELENIUMHUB_PORT}" "seleniumhubhost.port" "${POM_FILE}" )
