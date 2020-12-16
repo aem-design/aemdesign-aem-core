@@ -8,18 +8,16 @@ Param(
   [string]$AEM_PORT = "4502",
   [string]$AEM_USERNAME = "admin",
   [string]$AEM_PASSWORD = "admin",
-  [string]$MVN_COMMAND = "mvn -Dvault.useProxy=false -DskipTests -e -U -P installdeploymentpackage clean install "
+  [string]$MVN_COMMAND = "mvn -Dvault.useProxy=false -DskipTests clean deploy -P autoInstallBundle -Dmaven.deploy.skip=true -DskipNexusStagingDeployMojo=true"
 
 )
-
-$PARENT_PROJECT_PATH = "."
 
 . ".\scripts\functions.ps1"
 
 $script:LOG_PATH = $LOG_PATH
 $script:TEST_SELENIUM_URL = $TEST_SELENIUM_URL
 
-printSectionBanner "Deploying Monolith Package:" "warn"
+printSectionBanner "Deploying:" "warn"
 printSectionLine ("$MVN_COMMAND" -replace "$AEM_PASSWORD", "***")
 
 
