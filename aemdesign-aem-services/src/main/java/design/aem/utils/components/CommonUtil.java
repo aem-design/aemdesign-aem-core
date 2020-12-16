@@ -51,10 +51,11 @@ public class CommonUtil {
 
     public static final String COMPONENT_DETAILS_SUFFIX = "-details";
     public static final String PATH_DEFAULT_CONTENT = "article/par";
+    public static final String PATH_DEFAULT_CONTENT_BASIC = "root/responsivegrid";
     public static final String DEFAULT_PAR_NAME = "par";
 
     public static final String[] DEFAULT_LIST_DETAILS_SUFFIX = new String[]{COMPONENT_DETAILS_SUFFIX}; //NOSONAR used by models
-    public static final String[] DEFAULT_LIST_PAGE_CONTENT = new String[]{DEFAULT_PAR_NAME, PATH_DEFAULT_CONTENT}; //NOSONAR used by models
+    public static final String[] DEFAULT_LIST_PAGE_CONTENT = new String[]{DEFAULT_PAR_NAME, PATH_DEFAULT_CONTENT, PATH_DEFAULT_CONTENT_BASIC}; //NOSONAR used by models
 
 
     public static final String DAM_LICENSE_FORMAT = "© {4} {0} {1} {2} {3}";
@@ -461,7 +462,7 @@ public class CommonUtil {
      * @return path to component
      */
     public static String findComponentInPage(Page inputPage, String[] resourceTypeTail) {
-        return findComponentInPage(inputPage, resourceTypeTail, new String[]{PATH_DEFAULT_CONTENT});
+        return findComponentInPage(inputPage, resourceTypeTail, DEFAULT_LIST_PAGE_CONTENT);
     }
 
     /**
