@@ -230,4 +230,15 @@ public class ComponentProperties extends ValueMapDecorator {
             }
         }
     }
+
+    /***
+     * get ordered list of items
+     */
+    public TreeMap<String, Object> ordered() {
+        TreeMap<String, Object> treeMap = new TreeMap<>();
+        for (Entry<? extends String, Object> entry : super.entrySet()) {
+            treeMap.put(entry.getKey(), entry.getValue());
+        }
+        return treeMap;
+    }
 }
