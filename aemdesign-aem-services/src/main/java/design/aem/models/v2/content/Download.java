@@ -3,18 +3,25 @@ package design.aem.models.v2.content;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.Rendition;
+import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
+import design.aem.components.ComponentProperties;
 import design.aem.models.BaseComponent;
+import design.aem.utils.components.CommonUtil;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.DEFAULT_IMAGE_BLANK;
@@ -31,6 +38,7 @@ public class Download extends BaseComponent {
 
     protected static final String DEFAULT_I18N_CATEGORY = "download";
     protected static final String DEFAULT_I18N_LABEL = "downloadlabel";
+    protected static final String DEFAULT_I18N_LABEL_LICENSEINFO = "licenseinfo";
     protected static final String DEFAULT_TITLE_TAG_TYPE = "h4";
 
     protected static final String EMPTY_FILE = "empty file";
@@ -63,17 +71,19 @@ public class Download extends BaseComponent {
                 Asset asset = assetRes.adaptTo(Asset.class);
                 Node assetN = asset.adaptTo(Node.class);
 
+                componentProperties.putAll(processComponentFields(asset),false);
+
                 String href = mappedUrl(getResourceResolver(), dld.getHref());
                 String assetDescription = asset.getMetadataValue(DamConstants.DC_DESCRIPTION);
                 String assetTitle = asset.getMetadataValue(DamConstants.DC_TITLE);
                 String assetTags = getMetadataStringForKey(assetN, TagConstants.PN_TAGS, StringUtils.EMPTY);
 
-                String licenseInfo = getAssetCopyrightInfo(asset, i18n.get("licenseinfo", DEFAULT_I18N_CATEGORY));
+                String licenseInfo = getAssetCopyrightInfo(asset, i18n.get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
 
                 //override title and description if image has rights
                 String title = componentProperties.get(FIELD_TITLE, StringUtils.EMPTY);
 
-                if (isNotEmpty(licenseInfo)) {
+                if (isNotEmpty(licenseInfo.trim())) {
                     componentProperties.put("isLicensed", true);
                     if (isNotEmpty(assetTitle)) {
                         componentProperties.put("hasAssetTitle", true);
@@ -100,7 +110,7 @@ public class Download extends BaseComponent {
                     componentProperties.put(FIELD_DESCRIPTION, assetDescription);
                 }
 
-                componentProperties.put("licenseInfo", licenseInfo);
+                componentProperties.put(FIELD_LICENSE_INFO, licenseInfo);
                 componentProperties.put("mimeTypeLabel", mimeTypeLabel);
                 componentProperties.put("assetTitle", assetTitle);
                 componentProperties.put("assetDescription", assetDescription);
@@ -154,6 +164,7 @@ public class Download extends BaseComponent {
                 componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
 
                 componentProperties.put("info", MessageFormat.format("({0}, {1})", getFormattedDownloadSize(dld), mimeTypeLabel));
+
             } else {
                 variant = "empty";
             }
@@ -179,6 +190,7 @@ public class Download extends BaseComponent {
             {FIELD_TITLE, StringUtils.EMPTY},
             {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
             {FIELD_DESCRIPTION, StringUtils.EMPTY},
+            {FIELD_LICENSE_FORMAT, StringUtils.EMPTY, StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {"fileReference", StringUtils.EMPTY},
             {FIELD_THUMBNAIL, DEFAULT_IMAGE_BLANK},
         });
@@ -264,5 +276,32 @@ public class Download extends BaseComponent {
         }
 
         return fileSizeReturn;
+    }
+
+    /***
+     * substitute formatted field template with fields from component or asset.
+     * @return returns map with new values
+     */
+    protected Map<String, Object> processComponentFields(Asset asset) {
+        Map<String, Object> newFields = new HashMap<>();
+
+        try {
+
+            //get license format from tags and create result html and text
+            String licenseFormat = componentProperties.get(FIELD_LICENSE_FORMAT, DEFAULT_FIELD_LICENSE_FORMAT);
+            String formattedTitle = CommonUtil.compileMapMessage(licenseFormat, asset.getMetadata());
+            newFields.put(FIELD_FORMATTED_LICENSE, formattedTitle.trim());
+            //convert html to plain text
+            Document fragment = Jsoup.parse(formattedTitle);
+            String formattedTitleText = fragment.text();
+            newFields.put(FIELD_FORMATTED_LICENSE_TEXT,
+                formattedTitleText.trim()
+            );
+
+        } catch (Exception ex) {
+            LOGGER.error("Could not process component fields in Download component.");
+        }
+
+        return newFields;
     }
 }
