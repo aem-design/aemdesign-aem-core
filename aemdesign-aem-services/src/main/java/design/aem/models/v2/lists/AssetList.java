@@ -46,6 +46,8 @@ public class AssetList extends BaseComponent {
     @Default(intValues = LIMIT_DEFAULT)
     protected int limit;
 
+    protected static final String DEFAULT_I18N_CATEGORY = "assetlist";
+
     protected static final String PN_SOURCE = "listFrom"; //SOURCE_PROPERTY_NAME
     protected static final String PN_SOURCE_DEFAULT = Source.STATIC.getValue(); //SOURCE_PROPERTY_NAME
     protected static final String PARENT_PATH = "parentPath";
@@ -374,7 +376,7 @@ public class AssetList extends BaseComponent {
                             assetProperties.put("assetUsageTerms", assetUsageTerms);
                         }
 
-                        String licenseInfo = getAssetCopyrightInfo(assetBasic, ASSET_LICENSEINFO);
+                        String licenseInfo = getAssetCopyrightInfo(assetBasic, i18n.get("licenseinfo", DEFAULT_I18N_CATEGORY));
 
                         assetProperties.put(FIELD_LICENSE_INFO, licenseInfo);
                         assetProperties.attr.add("data-license", licenseInfo);
