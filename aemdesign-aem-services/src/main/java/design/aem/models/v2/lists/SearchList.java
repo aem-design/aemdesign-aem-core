@@ -50,6 +50,7 @@ public class SearchList extends BaseComponent {
     protected int listSplitEvery;
 
     protected static final String DEFAULT_I18N_CATEGORY = "searchlist";
+    protected static final String DEFAULT_I18N_LABEL_LICENSEINFO = "licenseinfo";
     private static final String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
     private static final String RESULT_STATIC_TEXT = "statisticsText";
 
@@ -373,9 +374,9 @@ public class SearchList extends BaseComponent {
                             newResult.setThumbnailUrl(assetBasic.getPath());
 
 
-                            String licenseInfo = getAssetCopyrightInfo(assetBasic, i18n.get("licenseinfo", DEFAULT_I18N_CATEGORY));
+                            String licenseInfo = getAssetCopyrightInfo(assetBasic, i18n.get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
 
-                            if (isNotEmpty(licenseInfo)) {
+                            if (isNotEmpty(licenseInfo.trim())) {
                                 newResult.setSubTitle(licenseInfo);
                             }
 
