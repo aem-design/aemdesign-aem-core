@@ -58,7 +58,7 @@ public class CommonUtil {
     public static final String[] DEFAULT_LIST_PAGE_CONTENT = new String[]{DEFAULT_PAR_NAME, PATH_DEFAULT_CONTENT, PATH_DEFAULT_CONTENT_BASIC}; //NOSONAR used by models
 
 
-    public static final String DAM_LICENSE_FORMAT = "© {4} {0} {1} {2} {3}";
+    public static final String DAM_LICENSE_FORMAT = "{4} {0} {1} {2} {3}";
 
     //http://www.photometadata.org/META-Resources-Field-Guide-to-Metadata
     public static final String DAM_TITLE = com.day.cq.dam.api.DamConstants.DC_TITLE;
