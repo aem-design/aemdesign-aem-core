@@ -36,5 +36,7 @@
   "nextText ((searchlist))": "Next",
   "assetActionText ((searchlist))": "Download",
   "pageActionText ((searchlist))": "Read More",
-  "otherActionText ((searchlist))": "Find Out More"
+  "otherActionText ((searchlist))": "Find Out More",
+  "licenseinfo ((assetlist))": "{4} {0} {1} {2} {3}",
+  "licenseinfo ((searchlist))": "{4} {0} {1} {2} {3}"
 }
