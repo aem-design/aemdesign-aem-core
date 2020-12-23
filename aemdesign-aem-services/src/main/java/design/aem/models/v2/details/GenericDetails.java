@@ -108,7 +108,9 @@ public class GenericDetails extends BaseComponent {
         "badge.default",
         "badge.icon",
         "badge.image",
-        "badge.metadata"
+        "badge.metadata",
+        "badge.cardTitleDescriptionFormatted",
+        "badge.cardTitleDateDescriptionAction"
     };
 
     @SuppressWarnings("squid:S1192")
@@ -150,6 +152,8 @@ public class GenericDetails extends BaseComponent {
         new String[]{"simple-icon"},
         new String[]{"simple-image"},
         new String[]{"simple-metadata"},
+        new String[]{"card", "titleformatted", "descriptionformatted"},
+        new String[]{"card", "title", "date", "description", "action"},
     };
 
     protected void ready() {
@@ -202,8 +206,8 @@ public class GenericDetails extends BaseComponent {
             {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
             {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
             {FIELD_VARIANT_HIDDEN_LABEL, componentDefaults.get(FIELD_VARIANT_HIDDEN_LABEL)},
-            {FIELD_LEGACY_BADGE_LIST, legacyBadgeList},
-            {FIELD_LEGACY_BADGE_LIST_MAPPING, legacyBadgeListMapping},
+//            {FIELD_LEGACY_BADGE_LIST, legacyBadgeList},
+//            {FIELD_LEGACY_BADGE_LIST_MAPPING, legacyBadgeListMapping},
             {FIELD_LEGACY_BADGE_CONFIG_TAGS, componentDefaults.get(FIELD_LEGACY_BADGE_CONFIG_TAGS)},
             {FIELD_VARIANT_FIELDS, new String[]{}},
             {FIELD_VARIANT_FIELDS_TEMPLATE, new String[]{}},
@@ -324,7 +328,8 @@ public class GenericDetails extends BaseComponent {
 
             //check if component has the badge and reset if it does not
             if (isEmpty(badgePath)) {
-                if (Boolean.TRUE.equals(badgeWasRequested) && !ArrayUtils.contains(legacyBadgeList, componentBadge)) {
+                LinkedHashMap<String, Map> legacyBadgeConfig = componentProperties.get(FIELD_LEGACY_BADGE_CONFIG, LinkedHashMap.class);
+                if (Boolean.TRUE.equals(badgeWasRequested) && !ArrayUtils.contains(legacyBadgeConfig.keySet().toArray(), componentBadge)) {
                     LOGGER.error("LEGACY BADGE WAS REQUESTED BUT NOT FOUND IN COMPONENT AND LEGACY MAPPING NOT FOUND requestedBadgeTemplate={}", requestedBadgeTemplate);
                 }
                 componentBadge = DEFAULT_BADGE;
@@ -476,13 +481,9 @@ public class GenericDetails extends BaseComponent {
 
 
             } else {
-                String[][] legacyBadgeMapping = this.componentProperties.get(FIELD_LEGACY_BADGE_LIST_MAPPING, legacyBadgeListMapping);
-                String[] legacyBadges = this.componentProperties.get(FIELD_LEGACY_BADGE, legacyBadgeList);
-                int badgeMapIndex = ArrayUtils.indexOf(legacyBadges, legacyComponentBadge);
-                if (legacyBadgeMapping.length > badgeMapIndex) {
-                    this.componentProperties.put(FIELD_LEGACY_BADGE_SELECTED, true);
-                    return legacyBadgeMapping[badgeMapIndex];
-                }
+                this.componentProperties.put(FIELD_LEGACY_BADGE_SELECTED, true);
+                Object fields = legacyBadgeConfig.get(legacyComponentBadge);
+                return (String[])fields;
             }
 
         }
