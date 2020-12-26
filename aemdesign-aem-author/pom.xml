@@ -248,7 +248,7 @@
                 <configuration>
                     <group>${package.group}</group>
                     <filterSource>src/main/content/META-INF/vault/filter.xml</filterSource>
-                    <targetURL>${package.uploadProtocol}://${crx.host}:${crx.port}/crx/packmgr/service.jsp</targetURL>
+                    <targetURL>${package.uploadProtocol}://${aem.host}:${aem.port}/crx/packmgr/service.jsp</targetURL>
                 </configuration>
             </plugin>
         </plugins>
@@ -277,10 +277,10 @@
                                 </goals>
                                 <configuration>
                                     <targetURL>
-                                        ${package.uploadProtocol}://${crx.host}:${crx.port}/crx/packmgr/service.jsp
+                                        ${package.uploadProtocol}://${aem.host}:${aem.port}/crx/packmgr/service.jsp
                                     </targetURL>
-                                    <userId>${crx.username}</userId>
-                                    <password>${crx.password}</password>
+                                    <userId>${aem.username}</userId>
+                                    <password>${aem.password}</password>
                                 </configuration>
                             </execution>
                         </executions>

@@ -363,7 +363,7 @@ com.github.jaiimageio.*
                         <artifactId>maven-sling-plugin</artifactId>
                         <configuration>
                             <slingUrl>
-                                ${package.uploadProtocol}://${crx.host}:${crx.port}/apps/${package.appFolder}/install
+                                ${package.uploadProtocol}://${aem.host}:${aem.port}/apps/${package.appFolder}/install
                             </slingUrl>
                             <usePut>true</usePut>
                         </configuration>

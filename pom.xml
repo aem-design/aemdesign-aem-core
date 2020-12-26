@@ -26,18 +26,18 @@
     <!-- P R O P E R T I E S                                                    -->
     <!-- ====================================================================== -->
     <properties>
-        <crx.host>localhost</crx.host>
-        <crx.port>4502</crx.port>
-        <crx.username>admin</crx.username>
-        <crx.password>admin</crx.password>
-        <crx.package.path>/etc/packages</crx.package.path>
-        <crx.scheme>http</crx.scheme>
+        <aem.host>localhost</aem.host>
+        <aem.port>4502</aem.port>
+        <aem.username>admin</aem.username>
+        <aem.password>admin</aem.password>
+        <aem.package.path>/etc/packages</aem.package.path>
+        <aem.scheme>http</aem.scheme>
         <nexus.host>localhost</nexus.host>
         <nexus.port>8081</nexus.port>
-        <publish.crx.host>localhost</publish.crx.host>
-        <publish.crx.port>4503</publish.crx.port>
-        <publish.crx.username>admin</publish.crx.username>
-        <publish.crx.password>admin</publish.crx.password>
+        <publish.aem.host>localhost</publish.aem.host>
+        <publish.aem.port>4503</publish.aem.port>
+        <publish.aem.username>admin</publish.aem.username>
+        <publish.aem.password>admin</publish.aem.password>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <package.group>${project.parent.groupId}</package.group>
@@ -733,8 +733,8 @@
                     <artifactId>maven-sling-plugin</artifactId>
                     <version>2.1.0</version>
                     <configuration>
-                        <user>${crx.username}</user>
-                        <password>${crx.password}</password>
+                        <user>${aem.username}</user>
+                        <password>${aem.password}</password>
                     </configuration>
                 </plugin>
                 <!-- Content Package Plugin -->
@@ -745,8 +745,8 @@
                     <extensions>true</extensions>
                     <configuration>
                         <failOnError>true</failOnError>
-                        <userId>${crx.username}</userId>
-                        <password>${crx.password}</password>
+                        <userId>${aem.username}</userId>
+                        <password>${aem.password}</password>
                     </configuration>
                 </plugin>
                 <!-- This plugin's configuration is to access the parsed components of a project version. -->
