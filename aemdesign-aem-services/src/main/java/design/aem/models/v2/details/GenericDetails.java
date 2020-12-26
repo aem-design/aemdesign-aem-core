@@ -55,9 +55,6 @@ public class GenericDetails extends BaseComponent {
     protected static final String FIELD_CATEGORY = "category";
     protected static final String FIELD_LEGACY_BADGE_CONFIG = "legacyBadgeConfig";
     protected static final String FIELD_LEGACY_BADGE_SELECTED = "legacyBadgeSelected";
-    protected static final String FIELD_LEGACY_BADGE = "legacyBadge";
-    protected static final String FIELD_LEGACY_BADGE_LIST = "legacyBadgeList";
-    protected static final String FIELD_LEGACY_BADGE_LIST_MAPPING = "legacyBadgeListMapping";
     protected static final String FIELD_LEGACY_BADGE_CONFIG_TAGS = "legacyBadgeConfigTags";
 
     protected static final String FIELD_CONTENTFRAGMENT_VARIATION = "variationName";
@@ -70,91 +67,6 @@ public class GenericDetails extends BaseComponent {
     protected static final String DEFAULT_TAG_LEGACY_BADGE_CONFIG = ":component-dialog/components/details/generic-details/legacy";
     protected static final String DEFAULT_TITLE_TAG_TYPE = "h1";
     protected static final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
-
-    //used for backwards compatibility of details components
-    private static final String[] legacyBadgeList = new String[]{
-        "badge.cardActionIconDescription",
-        "badge.cardActionIconTitleCategoryDescription",
-        "badge.cardActionIconTitleDescription",
-        "badge.cardActionImageTitle",
-        "badge.cardActionImageTitleCategoryDescription",
-        "badge.cardActionImageTitleDescription",
-        "badge.cardHorizontalIconTitleCategoryDescriptionAction",
-        "badge.cardIcon",
-        "badge.cardIconDescription",
-        "badge.cardIconTitle",
-        "badge.cardIconTitleAction",
-        "badge.cardIconTitleCategoryDescription",
-        "badge.cardIconTitleCategoryDescriptionAction",
-        "badge.cardIconTitleDateAction",
-        "badge.cardIconTitleDateDescriptionAction",
-        "badge.cardIconTitleDescription",
-        "badge.cardIconTitleDescriptionAction",
-        "badge.cardIconTitleSubtitleDate",
-        "badge.cardIconTitleSubtitleDateDescriptionAction",
-        "badge.cardIconTitleSubtitleDescriptionAction",
-        "badge.cardImageSubtitleTitleCategoryDescriptionAction",
-        "badge.cardImageSubtitleTitleDescriptionAction",
-        "badge.cardImageTagTitleAction",
-        "badge.cardImageTitleAction",
-        "badge.cardImageTitleCategoryActionDate",
-        "badge.cardImageTitleCategoryDescription",
-        "badge.cardImageTitleCategoryDescriptionAction",
-        "badge.cardImageTitleDescription",
-        "badge.cardImageTitleDescriptionAction",
-        "badge.cardImageTitleSubtitleDescriptionAction",
-        "badge.cardTitleDescriptionAction",
-        "badge.data",
-        "badge.default",
-        "badge.icon",
-        "badge.image",
-        "badge.metadata",
-        "badge.cardTitleDescriptionFormatted",
-        "badge.cardTitleDateDescriptionAction"
-    };
-
-    @SuppressWarnings("squid:S1192")
-    //used for backwards compatibility of details components
-    private static final String[][] legacyBadgeListMapping = new String[][]{
-        new String[]{"action-icon", "description"},
-        new String[]{"action-icon", "title", "taglist", "description"},
-        new String[]{"action-icon", "title", "description"},
-        new String[]{"action-image", "title"},
-        new String[]{"action-image", "title", "taglist", "description"},
-        new String[]{"action-image", "title", "description"},
-        new String[]{"horizontal-icon", "title", "taglist", "description", "action"},
-        new String[]{"card-icon"},
-        new String[]{"card-icon", "description"},
-        new String[]{"card-icon", "title"},
-        new String[]{"card-icon", "title", "action"},
-        new String[]{"card-icon", "title", "taglist", "description"},
-        new String[]{"card-icon", "title", "taglist", "description", "action"},
-        new String[]{"card-icon", "title", "startdate", "action"},
-        new String[]{"card-icon", "title", "startdate", "description"},
-        new String[]{"card-icon", "title", "description"},
-        new String[]{"card-icon", "title", "description", "action"},
-        new String[]{"card-icon", "title", "subtitle", "startdate"},
-        new String[]{"card-icon", "title", "subtitle", "startdate", "description", "action"},
-        new String[]{"card-icon", "title", "subtitle", "description", "action"},
-        new String[]{"card-image", "subtitle", "title", "taglist", "description", "action"},
-        new String[]{"card-image", "subtitle", "title", "description", "action"},
-        new String[]{"card-image", "taglist", "title", "action"},
-        new String[]{"card-image", "title", "action"},
-        new String[]{"card-image", "title", "taglist", "action", "startdate"},
-        new String[]{"card-image", "title", "taglist", "description"},
-        new String[]{"card-image", "title", "taglist", "description", "action"},
-        new String[]{"card-image", "title", "description"},
-        new String[]{"card-image", "title", "description", "action"},
-        new String[]{"card-image", "title", "subtitle", "description", "action"},
-        new String[]{"card", "title", "description", "action"},
-        new String[]{"simple-data"},
-        new String[]{"default"},
-        new String[]{"simple-icon"},
-        new String[]{"simple-image"},
-        new String[]{"simple-metadata"},
-        new String[]{"card", "titleformatted", "descriptionformatted"},
-        new String[]{"card", "title", "date", "description", "action"},
-    };
 
     protected void ready() {
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -206,8 +118,6 @@ public class GenericDetails extends BaseComponent {
             {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
             {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
             {FIELD_VARIANT_HIDDEN_LABEL, componentDefaults.get(FIELD_VARIANT_HIDDEN_LABEL)},
-//            {FIELD_LEGACY_BADGE_LIST, legacyBadgeList},
-//            {FIELD_LEGACY_BADGE_LIST_MAPPING, legacyBadgeListMapping},
             {FIELD_LEGACY_BADGE_CONFIG_TAGS, componentDefaults.get(FIELD_LEGACY_BADGE_CONFIG_TAGS)},
             {FIELD_VARIANT_FIELDS, new String[]{}},
             {FIELD_VARIANT_FIELDS_TEMPLATE, new String[]{}},
