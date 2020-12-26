@@ -171,31 +171,31 @@ Function Do-Debug
 
   If ($MyInvocation.Line -like "*debug*")
   {
-    Write-Host "${TEXT}" -ForegroundColor $TEXT_COLOR
+    Write-Output "${TEXT}" -ForegroundColor $TEXT_COLOR
   } elseif ($MyInvocation.Line -like "*printSectionLine *") {
-    Write-Host $TEXT -ForegroundColor $TEXT_COLOR
+    Write-Output $TEXT -ForegroundColor $TEXT_COLOR
   } elseif ($MyInvocation.Line -like "*printSectionStart *") {
-    Write-Host "$("=" * 100)" -ForegroundColor $TEXT_COLOR
-    Write-Host $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}","||"," ",$TEXT)) -ForegroundColor $TEXT_COLOR
-    Write-Host "$("=" * 100)" -ForegroundColor $TEXT_COLOR
+    Write-Output "$("=" * 100)" -ForegroundColor $TEXT_COLOR
+    Write-Output $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}","||"," ",$TEXT)) -ForegroundColor $TEXT_COLOR
+    Write-Output "$("=" * 100)" -ForegroundColor $TEXT_COLOR
   } elseif ($MyInvocation.Line -like "*printSectionEnd *") {
-    Write-Host "$("^" * 100)" -ForegroundColor $TEXT_COLOR
-    Write-Host $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}","||"," ",$TEXT)) -ForegroundColor $TEXT_COLOR
-    Write-Host "$("=" * 100)" -ForegroundColor $TEXT_COLOR
+    Write-Output "$("^" * 100)" -ForegroundColor $TEXT_COLOR
+    Write-Output $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}","||"," ",$TEXT)) -ForegroundColor $TEXT_COLOR
+    Write-Output "$("=" * 100)" -ForegroundColor $TEXT_COLOR
   } elseif ($MyInvocation.Line -like "*printSectionBanner *") {
-    Write-Host "$("@" * 100)" -ForegroundColor $TEXT_COLOR
-    Write-Host $([string]::Format("{0}{1,15}{2,-75}{1,8}{0}","@"," ",$TEXT)) -ForegroundColor $TEXT_COLOR
-    Write-Host "$("@" * 100)" -ForegroundColor $TEXT_COLOR
+    Write-Output "$("@" * 100)" -ForegroundColor $TEXT_COLOR
+    Write-Output $([string]::Format("{0}{1,15}{2,-75}{1,8}{0}","@"," ",$TEXT)) -ForegroundColor $TEXT_COLOR
+    Write-Output "$("@" * 100)" -ForegroundColor $TEXT_COLOR
   } elseif ($MyInvocation.Line -like "*printSubSectionStart *") {
-    Write-Host "$("~" * 100)" -ForegroundColor $TEXT_COLOR
-    Write-Host $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}"," ~"," ",$TEXT)) -ForegroundColor $TEXT_COLOR
-    Write-Host "$("~" * 100)" -ForegroundColor $TEXT_COLOR
+    Write-Output "$("~" * 100)" -ForegroundColor $TEXT_COLOR
+    Write-Output $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}"," ~"," ",$TEXT)) -ForegroundColor $TEXT_COLOR
+    Write-Output "$("~" * 100)" -ForegroundColor $TEXT_COLOR
   } elseif ($MyInvocation.Line -like "*printSubSectionEnd *") {
-    Write-Host "$("^" * 100)" -ForegroundColor $TEXT_COLOR
-    Write-Host $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}"," ~"," ",$TEXT)) -ForegroundColor $TEXT_COLOR
-    Write-Host "$("~" * 100)" -ForegroundColor $TEXT_COLOR
+    Write-Output "$("^" * 100)" -ForegroundColor $TEXT_COLOR
+    Write-Output $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}"," ~"," ",$TEXT)) -ForegroundColor $TEXT_COLOR
+    Write-Output "$("~" * 100)" -ForegroundColor $TEXT_COLOR
   } else {
-    Write-Host "${TEXT}" -ForegroundColor $TEXT_COLOR
+    Write-Output "${TEXT}" -ForegroundColor $TEXT_COLOR
   }
 
 }
