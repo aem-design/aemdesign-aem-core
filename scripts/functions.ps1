@@ -44,9 +44,11 @@ Function Get-LocalIP
     [Parameter(ValueFromPipeline)]
     [string]$ITERFACE_NAME = "(Default Switch)",
     [string]$CONFIG_NAME = "IPv4 Address",
+    [string]$LOG_PATH = "${PWD}\logs",
     [string]$IPCONFIG_COMMAND = "ipconfig",
-    [string]$IPCONFIG_COMMAND_OUTPUT = ".\logs\ipconfig.log"
+    [string]$IPCONFIG_COMMAND_OUTPUT = "${LOG_PATH}\ipconfig.log"
   )
+
   Invoke-Expression -Command ${IPCONFIG_COMMAND} | Set-Content ${IPCONFIG_COMMAND_OUTPUT}
 
   # GET SECTION LINES
@@ -150,12 +152,16 @@ Function Do-Debug
     [string]$TYPE = $args[1]
   )
 
+  # Save previous colors
+  $previousForegroundColor = $host.UI.RawUI.ForegroundColor
+  $previousBackgroundColor = $host.UI.RawUI.BackgroundColor
+
   if ( -not ([string]::IsNullOrEmpty(${LOG_FILENAME})) )
   {
     Write-Output "${TEXT}" | Add-Content -Path "${LOG_FILENAME}"
   }
 
-  $TEXT_COLOR = (get-host).ui.rawui.ForegroundColor
+  $TEXT_COLOR = $host.ui.rawui.ForegroundColor
   If ($TYPE -eq "error")
   {
     $TEXT_COLOR = "red"
@@ -167,35 +173,39 @@ Function Do-Debug
   elseif ($TYPE -eq "warn")
   {
     $TEXT_COLOR = "yellow"
+  } else {
+    $TEXT_COLOR = "gray"
   }
+
+  $host.UI.RawUI.ForegroundColor = $TEXT_COLOR
 
   If ($MyInvocation.Line -like "*debug*")
   {
-    Write-Output "${TEXT}" -ForegroundColor $TEXT_COLOR
+    Write-Output "${TEXT}"
   } elseif ($MyInvocation.Line -like "*printSectionLine *") {
-    Write-Output $TEXT -ForegroundColor $TEXT_COLOR
+    Write-Output $TEXT
   } elseif ($MyInvocation.Line -like "*printSectionStart *") {
-    Write-Output "$("=" * 100)" -ForegroundColor $TEXT_COLOR
-    Write-Output $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}","||"," ",$TEXT)) -ForegroundColor $TEXT_COLOR
-    Write-Output "$("=" * 100)" -ForegroundColor $TEXT_COLOR
+    Write-Output "$("=" * 100)"
+    Write-Output $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}","||"," ",$TEXT))
+    Write-Output "$("=" * 100)"
   } elseif ($MyInvocation.Line -like "*printSectionEnd *") {
-    Write-Output "$("^" * 100)" -ForegroundColor $TEXT_COLOR
-    Write-Output $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}","||"," ",$TEXT)) -ForegroundColor $TEXT_COLOR
-    Write-Output "$("=" * 100)" -ForegroundColor $TEXT_COLOR
+    Write-Output "$("^" * 100)"
+    Write-Output $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}","||"," ",$TEXT))
+    Write-Output "$("=" * 100)"
   } elseif ($MyInvocation.Line -like "*printSectionBanner *") {
-    Write-Output "$("@" * 100)" -ForegroundColor $TEXT_COLOR
-    Write-Output $([string]::Format("{0}{1,15}{2,-75}{1,8}{0}","@"," ",$TEXT)) -ForegroundColor $TEXT_COLOR
-    Write-Output "$("@" * 100)" -ForegroundColor $TEXT_COLOR
+    Write-Output "$("@" * 100)"
+    Write-Output $([string]::Format("{0}{1,15}{2,-75}{1,8}{0}","@"," ",$TEXT))
+    Write-Output "$("@" * 100)"
   } elseif ($MyInvocation.Line -like "*printSubSectionStart *") {
-    Write-Output "$("~" * 100)" -ForegroundColor $TEXT_COLOR
-    Write-Output $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}"," ~"," ",$TEXT)) -ForegroundColor $TEXT_COLOR
-    Write-Output "$("~" * 100)" -ForegroundColor $TEXT_COLOR
+    Write-Output "$("~" * 100)"
+    Write-Output $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}"," ~"," ",$TEXT))
+    Write-Output "$("~" * 100)"
   } elseif ($MyInvocation.Line -like "*printSubSectionEnd *") {
-    Write-Output "$("^" * 100)" -ForegroundColor $TEXT_COLOR
-    Write-Output $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}"," ~"," ",$TEXT)) -ForegroundColor $TEXT_COLOR
-    Write-Output "$("~" * 100)" -ForegroundColor $TEXT_COLOR
+    Write-Output "$("^" * 100)"
+    Write-Output $([string]::Format("{0}{1,15}{2,-75}{1,6}{0}"," ~"," ",$TEXT))
+    Write-Output "$("~" * 100)"
   } else {
-    Write-Output "${TEXT}" -ForegroundColor $TEXT_COLOR
+    Write-Output "${TEXT}"
   }
 
 }
@@ -271,9 +281,14 @@ Function Main
   #  printSubSectionStart "printSubSectionStart"
   #  printSubSectionEnd "printSubSectionEnd"
 
-  $LOG_PATH = (createDir $LOG_PATH)
-  $DOCKER_LOGS_FOLDER = (createDir $DOCKER_LOGS_FOLDER)
-  $DRIVER_FOLDER = (createDir $DRIVER_FOLDER)
+  # ensure default log path
+  if ( [string]::IsNullOrEmpty(${LOG_PATH}) ) {
+   $script:LOG_PATH = "${PWD}\logs"
+  }
+
+  $script:LOG_PATH = (createDir $LOG_PATH)
+  $script:DOCKER_LOGS_FOLDER = (createDir $DOCKER_LOGS_FOLDER)
+  $script:DRIVER_FOLDER = (createDir $DRIVER_FOLDER)
 
   # set logfile name
   $script:LOG_FILENAME_DATE = "$(DateStamp)"
@@ -336,6 +351,136 @@ Function Main
   }
 
 }
+
+### SLING POST - WORKFLOW
+
+[HashTable]$script:BODY_SERVICE_TO_DISABLE = @{
+    "action"="stop"
+}
+[HashTable]$script:BODY_SERVICE_TO_DISABLE_ENABLE = @{
+    "action"="start"
+}
+[HashTable]$script:WORKFLOW_ASSET_ENABLE_UPDATE = @{
+    "jcr:primaryType"= "cq:WorkflowLauncher"
+    "description"= "Update Asset - Modification"
+    "enabled"= "true"
+    "conditions"= "jcr:content/jcr:mimeType!=video/.*"
+    "glob"= "/content/dam(/((?!/subassets).)*/)renditions/original"
+    "eventType"= "16"
+    "workflow"= "/var/workflow/models/dam/update_asset"
+    "runModes"= "author"
+    "nodetype"= "nt:file"
+    "excludeList"= "event-user-data:changedByWorkflowProcess"
+    "enabled@TypeHint"="Boolean"
+    "eventType@TypeHint"="Long"
+    "conditions@TypeHint"="String[]"
+}
+
+[HashTable]$script:WORKFLOW_ASSET_DISABLE_UPDATE = @{
+    "jcr:primaryType"= "cq:WorkflowLauncher"
+    "description"= "Update Asset - Modification"
+    "enabled"= "false"
+    "conditions"= "jcr:content/jcr:mimeType!=video/.*"
+    "glob"= "/content/dam(/((?!/subassets).)*/)renditions/original"
+    "eventType"= "16"
+    "workflow"= "/var/workflow/models/dam/update_asset"
+    "runModes"= "author"
+    "nodetype"= "nt:file"
+    "excludeList"= "event-user-data:changedByWorkflowProcess"
+    "enabled@TypeHint"="Boolean"
+    "eventType@TypeHint"="Long"
+    "conditions@TypeHint"="String[]"
+}
+
+[HashTable]$script:WORKFLOW_ASSET_ENABLE_CREATE = @{
+    "jcr:primaryType"= "cq:WorkflowLauncher"
+    "description"= "Update Asset - Create"
+    "enabled"= "true"
+    "conditions"= "jcr:content/jcr:mimeType!=video/.*"
+    "glob"= "/content/dam(/((?!/subassets).)*/)renditions/original"
+    "eventType"= "1"
+    "workflow"= "/var/workflow/models/dam/update_asset"
+    "runModes"= "author"
+    "nodetype"= "nt:file"
+    "excludeList"= "event-user-data:changedByWorkflowProcess"
+    "enabled@TypeHint"="Boolean"
+    "eventType@TypeHint"="Long"
+    "conditions@TypeHint"="String[]"
+}
+
+[HashTable]$script:WORKFLOW_ASSET_DISABLE_CREATE = @{
+    "jcr:primaryType"= "cq:WorkflowLauncher"
+    "description"= "Update Asset - Create"
+    "enabled"= "false"
+    "conditions"= "jcr:content/jcr:mimeType!=video/.*"
+    "glob"= "/content/dam(/((?!/subassets).)*/)renditions/original"
+    "eventType"= "16"
+    "workflow"= "/var/workflow/models/dam/update_asset"
+    "runModes"= "author"
+    "nodetype"= "nt:file"
+    "excludeList"= "event-user-data:changedByWorkflowProcess"
+    "enabled@TypeHint"="Boolean"
+    "eventType@TypeHint"="Long"
+    "conditions@TypeHint"="String[]"
+}
+
+
+function doSlingPost {
+    [CmdletBinding()]
+    Param (
+
+        [Parameter(Mandatory=$true)]
+        [string]$Url="http://localhost:4502",
+
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [ValidateSet('Post','Delete')]
+        [string]$Method,
+
+        [Parameter(Mandatory=$false)]
+        [HashTable]$Body,
+
+        [Parameter(Mandatory=$false,
+                HelpMessage="Provide Basic Auth Credentials in following format: <user>:<pass>")]
+        [string]$BasicAuthCreds="",
+
+        [Parameter(Mandatory=$false)]
+        [string]$UserAgent="",
+
+        [Parameter(Mandatory=$false)]
+        [string]$Referer="",
+
+        [Parameter(Mandatory=$false)]
+        [string]$Timeout="5"
+
+    )
+
+
+
+    $HEADERS = @{
+    }
+
+    if (-not([string]::IsNullOrEmpty($UserAgent))) {
+        $HEADERS.add("User-Agent",$UserAgent)
+    }
+
+    if (-not([string]::IsNullOrEmpty($Referer))) {
+        $HEADERS.add("Referer",$Referer)
+    }
+
+
+    if (-not([string]::IsNullOrEmpty($BasicAuthCreds))) {
+        $BASICAUTH = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes($BasicAuthCreds))
+        $HEADERS.add("Authorization","Basic $BASICAUTH")
+    }
+
+
+    Write-Output "Performing action $Method on $Url."
+
+    $Response = Invoke-WebRequest -Method Post -Headers $HEADERS -TimeoutSec $Timeout -Uri "$Url" -Form $Body -ContentType "application/x-www-form-urlencoded"
+
+}
+
 
 #run main
 Main
