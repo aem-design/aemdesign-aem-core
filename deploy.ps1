@@ -8,7 +8,7 @@ Param(
   [string]$AEM_PORT = "4502",
   [string]$AEM_USERNAME = "admin",
   [string]$AEM_PASSWORD = "admin",
-  [string]$MVN_COMMAND = "mvn -D""vault.useProxy=false"" -DskipTests -e -U -P installdeploymentpackage clean install "
+  [string]$MVN_COMMAND = "mvn -D""vault.useProxy=false"" -DskipTests -e -U -P installdeploymentpackage clean install -D""aem.port=$AEM_PORT"" -D""aem.host=$AEM_HOST"" -D""aem.username=$AEM_USERNAME"" -D""aem.password=$AEM_PASSWORD"" -D""aem.scheme=$AEM_SCHEME"" "
 
 )
 
