@@ -8,7 +8,7 @@
 
     <groupId>design.aem</groupId>
     <artifactId>aemdesign-aem-core</artifactId>
-    <version>2.1.52</version>
+    <version>2.1.54</version>
     <packaging>pom</packaging>
 
     <name>AEM Design - Core Project</name>
@@ -509,6 +509,10 @@
                         <!--<match>__null__</match>-->
                         <!--<tags>true</tags>-->
                     </gitDescribe>
+                    <includeOnlyProperties>
+                        <includeOnlyProperty>^git.closest.tag.name$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.closest.tag.commit.count$</includeOnlyProperty>
+                    </includeOnlyProperties>
                 </configuration>
             </plugin>
 
