@@ -217,6 +217,18 @@ public class GenericDetails extends BaseComponent {
                 )
             );
 
+            //get legacy badge configs from tags
+            String legacyBadgeConfigTags = componentProperties.get(FIELD_LEGACY_BADGE_CONFIG_TAGS, StringUtils.EMPTY);
+            if (isNotEmpty(legacyBadgeConfigTags)) {
+                Map<String, Map> legacyBadgeConfig = getTagsAsAdmin(
+                    getSlingScriptHelper(),
+                    new String[]{legacyBadgeConfigTags},
+                    getRequest().getLocale(),
+                    new String[]{FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES, FIELD_TAG_TEMPLATE_CONFIG_FIELDS},
+                    true);
+                componentProperties.put(FIELD_LEGACY_BADGE_CONFIG, legacyBadgeConfig);
+            }
+
             //process badge selection
             String componentBadge = getBadgeFromSelectors(getRequest().getRequestPathInfo().getSelectorString());
             Boolean badgeWasRequested = isNotEmpty(componentBadge);
@@ -239,7 +251,7 @@ public class GenericDetails extends BaseComponent {
             //check if component has the badge and reset if it does not
             if (isEmpty(badgePath)) {
                 LinkedHashMap<String, Map> legacyBadgeConfig = componentProperties.get(FIELD_LEGACY_BADGE_CONFIG, LinkedHashMap.class);
-                if (Boolean.TRUE.equals(badgeWasRequested) && !ArrayUtils.contains(legacyBadgeConfig.keySet().toArray(), componentBadge)) {
+                if (isNotNull(legacyBadgeConfig) && Boolean.TRUE.equals(badgeWasRequested) && !ArrayUtils.contains(legacyBadgeConfig.keySet().toArray(), componentBadge)) {
                     LOGGER.error("LEGACY BADGE WAS REQUESTED BUT NOT FOUND IN COMPONENT AND LEGACY MAPPING NOT FOUND requestedBadgeTemplate={}", requestedBadgeTemplate);
                 }
                 componentBadge = DEFAULT_BADGE;
@@ -315,17 +327,6 @@ public class GenericDetails extends BaseComponent {
             //set canonical url
             componentProperties.put(FIELD_CANONICAL_URL, mappedUrl(getResourceResolver(), getRequest(), getResourcePage().getPath()).concat(DEFAULT_EXTENTION));
 
-            //get legacy badge configs from tags
-            String legacyBadgeConfigTags = componentProperties.get(FIELD_LEGACY_BADGE_CONFIG_TAGS, StringUtils.EMPTY);
-            if (isNotEmpty(legacyBadgeConfigTags)) {
-                Map<String, Map> legacyBadgeConfig = getTagsAsAdmin(
-                    getSlingScriptHelper(),
-                    new String[]{legacyBadgeConfigTags},
-                    getRequest().getLocale(),
-                    new String[]{FIELD_TAG_TEMPLATE_CONFIG_TEMPLATES, FIELD_TAG_TEMPLATE_CONFIG_FIELDS},
-                    true);
-                componentProperties.put(FIELD_LEGACY_BADGE_CONFIG, legacyBadgeConfig);
-            }
 
 
         } catch (Exception ex) {
