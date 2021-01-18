@@ -225,7 +225,7 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
                                 if (contentNode != null) {
 
                                     if (!contentNode.hasProperty("cq:template")) {
-                                        failed("Page was created but its not complete, cq:template is missing.");
+                                        failed("Page was created but its not complete, cq:template is missing, should be pointing to {}", processArgs.getTemplatePath());
                                     }
 
                                     if (!contentNode.hasNodes()) {
