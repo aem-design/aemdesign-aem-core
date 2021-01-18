@@ -10,6 +10,7 @@ import com.adobe.granite.workflow.WorkflowSession;
 import com.adobe.granite.workflow.exec.WorkItem;
 import com.adobe.granite.workflow.exec.WorkflowProcess;
 import com.adobe.granite.workflow.metadata.MetaDataMap;
+import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import design.aem.utils.components.CommonUtil;
@@ -224,7 +225,7 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
 
                                 if (contentNode != null) {
 
-                                    if (!contentNode.hasProperty("cq:template")) {
+                                    if (!contentNode.hasProperty(NameConstants.NN_TEMPLATE)) {
                                         failed("Page was created but its not complete, cq:template is missing, should be pointing to {}", processArgs.getTemplatePath());
                                     }
 
