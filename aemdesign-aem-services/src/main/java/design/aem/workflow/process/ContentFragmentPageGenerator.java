@@ -52,10 +52,10 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
  * <p>
  * At minimum following arguments should be provided:
  * <p>
- *     outputLocation=<path where to create new pages>
- *     templatePage=<path to template to use for new pages>
+ *     outputLocation=path where to create new pages
+ *     templatePage=path to template to use for new pages
  *     updateExistingComponent=true
- *     updateComponentResourceType=<jcr:content relative path to the component to update>
+ *     updateComponentResourceType=jcr:content relative path to the component to update
  * (eg: aemdesign/components/details/generic-details>
  * <p>
  * Default parameter values are defined in the dialog help.

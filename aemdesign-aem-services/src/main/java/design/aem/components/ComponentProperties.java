@@ -233,6 +233,7 @@ public class ComponentProperties extends ValueMapDecorator {
 
     /***
      * get ordered list of items
+     * @return tree map with ordered
      */
     public TreeMap<String, Object> ordered() {
         TreeMap<String, Object> treeMap = new TreeMap<>();
