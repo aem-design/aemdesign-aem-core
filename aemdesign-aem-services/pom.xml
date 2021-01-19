@@ -9,7 +9,7 @@
     <parent>
         <groupId>design.aem</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>2.1.0</version>
+        <version>2.1.65</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -18,7 +18,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-services</artifactId>
-    <version>2.1.0</version>
+    <version>2.1.65</version>
     <packaging>jar</packaging>
     <name>AEM Design - Core - AEM Services</name>
     <description>Project for all AEM and OSGI Services</description>
@@ -363,7 +363,7 @@ com.github.jaiimageio.*
                         <artifactId>maven-sling-plugin</artifactId>
                         <configuration>
                             <slingUrl>
-                                ${package.uploadProtocol}://${crx.host}:${crx.port}/apps/${package.appFolder}/install
+                                ${package.uploadProtocol}://${aem.host}:${aem.port}/apps/${package.appFolder}/install
                             </slingUrl>
                             <usePut>true</usePut>
                         </configuration>

@@ -9,7 +9,7 @@
                  data-sly-call="${body.variant @ componentProperties=componentProperties, component=component}"></sly>
         </div>
 
-        <sly data-sly-use.pagination="${componentProperties.paginationTemplate}" data-sly-call="${pagination.variant @ componentProperties=componentProperties}"></sly>
+        <sly data-sly-use.pagination="${componentProperties.paginationTemplate}" data-sly-call="${pagination.variant @ componentProperties=componentProperties, component=component}"></sly>
 
     </div>
 </template>

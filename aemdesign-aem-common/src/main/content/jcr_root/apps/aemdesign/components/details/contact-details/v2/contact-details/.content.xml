@@ -6,4 +6,5 @@
           jcr:title="Contact Details (v2)"
           jcr:primaryType="cq:Component"
           cq:icon="viewDetail"
-          componentGroup="hidden"/>
+          componentGroup="hidden"
+          sling:resourceSuperType="aemdesign/components/details/generic-details"/>

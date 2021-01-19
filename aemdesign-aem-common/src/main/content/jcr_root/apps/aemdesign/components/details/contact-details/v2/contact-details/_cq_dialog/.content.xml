@@ -119,6 +119,13 @@
                                         name="./contactNumber"
                                         required="{Boolean}false"/>
 
+                                    <contactNumberMobile
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldLabel="Contact Mobile"
+                                        name="./contactNumberMobile"
+                                        required="{Boolean}false"/>
+
                                     <email
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"

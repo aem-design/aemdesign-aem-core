@@ -18,6 +18,7 @@ import com.luciad.imageio.webp.WebPWriteParam;
 import com.luciad.imageio.webp.WebPImageWriterSpi;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -55,10 +56,16 @@ import java.io.InputStream;
 import static design.aem.utils.components.CommonUtil.tryParseInt;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
+/**
+ * This workflow steps creates Webp thumbnails.
+ * Default parameter values are defined in the dialog help.
+ */
 @Component(
     immediate = true,
-    service = WorkflowProcess.class
+    service = WorkflowProcess.class,
+    property = { "process.label=Workflow step for generating webp images" }
 )
+@Service
 @Designate(ocd = WebpImageGenerator.Config.class)
 @ServiceDescription("Workflow step for generating webp images")
 @ServiceRanking(1001)

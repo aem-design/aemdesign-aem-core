@@ -37,10 +37,10 @@ function evalMaven() {
 
 
 
-AEM_USER=$(getParamOrDefault "$SCRIPT_PARAMS" "crx.password" "$POM_FILE")
-AEM_PASS=$(getParamOrDefault "$SCRIPT_PARAMS" "crx.username" "$POM_FILE")
-AEM_HOST=$(getParamOrDefault "$SCRIPT_PARAMS" "crx.host" "$POM_FILE")
-AEM_PORT=$(getParamOrDefault "$SCRIPT_PARAMS" "crx.port" "$POM_FILE")
+AEM_USER=$(getParamOrDefault "$SCRIPT_PARAMS" "aem.password" "$POM_FILE")
+AEM_PASS=$(getParamOrDefault "$SCRIPT_PARAMS" "aem.username" "$POM_FILE")
+AEM_HOST=$(getParamOrDefault "$SCRIPT_PARAMS" "aem.host" "$POM_FILE")
+AEM_PORT=$(getParamOrDefault "$SCRIPT_PARAMS" "aem.port" "$POM_FILE")
 AEM_SCHEMA=$(getParamOrDefault "$SCRIPT_PARAMS" "package.uploadProtocol" "$POM_FILE")
 
 AEM_APP_FOLDER=$(getParamOrDefault "$SCRIPT_PARAMS" "package.appFolder" "$POM_FILE")

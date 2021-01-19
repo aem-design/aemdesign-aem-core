@@ -10,9 +10,11 @@ import com.adobe.granite.workflow.WorkflowSession;
 import com.adobe.granite.workflow.exec.WorkItem;
 import com.adobe.granite.workflow.exec.WorkflowProcess;
 import com.adobe.granite.workflow.metadata.MetaDataMap;
+import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import design.aem.utils.components.CommonUtil;
+import org.apache.felix.scr.annotations.Service;
 import org.apache.jackrabbit.JcrConstants;
 import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.sling.api.resource.Resource;
@@ -38,10 +40,33 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
+/**
+ * This workflow steps creates a page and links content fragment to that page.
+ * <p>
+ * A specified template is used to create a new page.
+ * <p>
+ * A new content fragment component then can be create in the given page content path.
+ * <p>
+ * OR
+ * An existing components by resource type can be updated with reference to the fragment.
+ * <p>
+ * At minimum following arguments should be provided:
+ * <p>
+ *     outputLocation=<path where to create new pages>
+ *     templatePage=<path to template to use for new pages>
+ *     updateExistingComponent=true
+ *     updateComponentResourceType=<jcr:content relative path to the component to update>
+ * (eg: aemdesign/components/details/generic-details>
+ * <p>
+ * Default parameter values are defined in the dialog help.
+ */
+
 @Component(
     immediate = true,
-    service = WorkflowProcess.class
-)
+    service = WorkflowProcess.class,
+    property = { "process.label=Content Fragment Page Generator" }
+    )
+@Service
 @Designate(ocd = ContentFragmentPageGenerator.Config.class)
 @ServiceDescription("Workflow step for generating pages for Content Fragments")
 @ServiceRanking(1001)
@@ -200,6 +225,14 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
 
                                 if (contentNode != null) {
 
+                                    if (!contentNode.hasProperty(NameConstants.NN_TEMPLATE)) {
+                                        failed("Page was created but its not complete, cq:template is missing, should be pointing to {}", processArgs.getTemplatePath());
+                                    }
+
+                                    if (!contentNode.hasNodes()) {
+                                        failed("Page was created but its not complete, page has no content to update");
+                                    }
+
                                     if (processArgs.isUpdateComponent()) {
 
                                         String containerPath = CommonUtil.findComponentInPage(newPage, processArgs.getUpdateComponentResourceType(), processArgs.getUpdateExistingRootPaths());
@@ -214,7 +247,7 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
                                             }
 
                                         } else {
-                                            failed("Could not find component int root paths {} with resource type {}", processArgs.getUpdateExistingRootPaths(), processArgs.getUpdateComponentResourceType());
+                                            failed("Could not find component in root paths {} with resource type {}", processArgs.getUpdateExistingRootPaths(), processArgs.getUpdateComponentResourceType());
                                         }
                                     }
 

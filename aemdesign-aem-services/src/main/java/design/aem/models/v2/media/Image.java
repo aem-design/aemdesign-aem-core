@@ -2,16 +2,21 @@ package design.aem.models.v2.media;
 
 import com.adobe.granite.asset.api.AssetManager;
 import com.day.cq.dam.api.Asset;
+import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.Page;
 import design.aem.components.ComponentProperties;
 import design.aem.models.BaseComponent;
+import design.aem.utils.components.CommonUtil;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -64,6 +69,8 @@ public class Image extends BaseComponent {
                         String licenseInfo = getAssetCopyrightInfo(
                             assetBasic,
                             i18n.get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
+
+                        componentProperties.putAll(processComponentFields(assetBasic),false);
 
                         componentProperties.put(FIELD_LICENSE_INFO, licenseInfo);
                         componentProperties.put(FIELD_ASSETID, assetUID);
@@ -171,7 +178,35 @@ public class Image extends BaseComponent {
             {FIELD_LINKURL, StringUtils.EMPTY},
             {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
             {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
+            {FIELD_LICENSE_FORMAT, StringUtils.EMPTY, StringUtils.EMPTY, Tag.class.getCanonicalName()},
         });
 
+    }
+
+    /***
+     * substitute formatted field template with fields from component or asset.
+     * @return returns map with new values
+     */
+    protected Map<String, Object> processComponentFields(Asset asset) {
+        Map<String, Object> newFields = new HashMap<>();
+
+        try {
+
+            //get license format from tags and create result html and text
+            String licenseFormat = componentProperties.get(FIELD_LICENSE_FORMAT, DEFAULT_FIELD_LICENSE_FORMAT);
+            String formattedTitle = CommonUtil.compileMapMessage(licenseFormat, asset.getMetadata());
+            newFields.put(FIELD_FORMATTED_LICENSE, formattedTitle.trim());
+            //convert html to plain text
+            Document fragment = Jsoup.parse(formattedTitle);
+            String formattedTitleText = fragment.text();
+            newFields.put(FIELD_FORMATTED_LICENSE_TEXT,
+                formattedTitleText.trim()
+            );
+
+        } catch (Exception ex) {
+            LOGGER.error("Could not process component fields in Download component.");
+        }
+
+        return newFields;
     }
 }

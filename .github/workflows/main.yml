@@ -1,14 +1,22 @@
 name: ci
 
-on: [ push ]
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    types: [ opened, synchronize, reopened ]
 
 jobs:
   build:
     if: "!contains(github.event.head_commit.message, 'skip ci')"
     runs-on: ubuntu-latest
+
     strategy:
       max-parallel: 4
       matrix:
+        java-version: [ 8 ]
         python-version: [ 3.6 ]
 
     env:
@@ -19,7 +27,6 @@ jobs:
       SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
       SONATYPE_USERNAME: "aemdesign"
       GITHUB_USER: aemdesign
-      TRAVIS_TOKEN: ${{ secrets.TRAVIS_TOKEN }}
       GITHUB_EMAIL: ${{ secrets.GITHUB_EMAIL }}
       GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
       GITHUB_TOKEN_ADMIN: ${{ secrets.GITHUB_TOKEN_ADMIN }}
@@ -39,13 +46,10 @@ jobs:
           submodules: true
           lfs: true
 
-      - uses: actions/setup-node@v1
+      - name: set up jdk ${{ matrix.java-version }}
+        uses: actions/setup-java@v1
         with:
-          node-version: '10.x'
-          registry-url: https://npm.pkg.github.com/
-          scope: "@aem-design"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN_ADMIN }}
+          java-version: ${{ matrix.java-version }}
 
       - name: set up python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
@@ -64,7 +68,7 @@ jobs:
 
       - name: set eval variables
         run: |
-          echo ::set-env name=DOCKER_COMMAND::docker run --user $(id -u):$(id -g) -v ${GITHUB_WORKSPACE}:/build ${DOCKER_IMAGE}
+          echo "DOCKER_COMMAND=docker run --user $(id -u):$(id -g) -v ${GITHUB_WORKSPACE}:/build ${DOCKER_IMAGE}" >> $GITHUB_ENV
           $DOCKER_COMMAND java -version
           $DOCKER_COMMAND node -v
           git config --global user.email "${GITHUB_EMAIL}"
@@ -74,15 +78,21 @@ jobs:
         run: |
           source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/latest/download/setup-gpg.sh)
 
-      - name: cache local maven repository
-        uses: actions/cache@v2
+      - name: cache sonarcloud packages
+        uses: actions/cache@v1
         with:
-          path: ${{ github.workspace }}/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
 
-      - name: docker - mvn package
+      - name: cache maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: mvn package
         run: $DOCKER_COMMAND mvn package -B -Dmaven.repo.local=./build/.m2/repository
 
       # SonarQube for master

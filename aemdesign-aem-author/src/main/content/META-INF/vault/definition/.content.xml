@@ -9,7 +9,7 @@
     groupTitle="${package.groupTitle}"
     builtWith="${package.builtWith}"
     name="${name}"
-    path="${crx.package.path}/${package.group}/${artifactId}-${version}"
+    path="${aem.package.path}/${package.group}/${artifactId}-${version}"
     version="${version}"
     providerName="${package.providerName}"
     providerUrl="${package.providerUrl}"
