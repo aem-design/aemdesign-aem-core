@@ -185,6 +185,7 @@ public class Image extends BaseComponent {
 
     /***
      * substitute formatted field template with fields from component or asset.
+     * @param asset asset to use as source
      * @return returns map with new values
      */
     protected Map<String, Object> processComponentFields(Asset asset) {
