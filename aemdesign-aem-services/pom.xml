@@ -212,6 +212,7 @@ Bundle-DocURL: https://aem.design
 Bundle-License: Apache License, Version 2.0
 Bundle-Vendor: AEM.Design
 Embed-Transitive: true
+Sling-Model-Packages: design.aem
 Export-Service: design.aem.workflow.process.*
 Export-Package: design.aem.*,\
 org.jsoup,\
