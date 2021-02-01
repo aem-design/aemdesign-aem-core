@@ -159,7 +159,7 @@ public class ComponentProperties extends ValueMapDecorator {
                         if (!field.getValue().getClass().isArray()) {
 
                             //get current field value
-                            Object fieldValue = this.get(field.getFieldName(), null);
+                            Object fieldValue = this.get(field.getFieldName(), Object.class);
 
                             //use default expression if item does not have expression
                             String valueExpression = defaultValueExpression;
