@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static design.aem.components.ComponentField.FIELD_VALUES_ARE_ATTRIBUTES;
 import static design.aem.utils.components.ComponentsUtil.*;
@@ -130,6 +131,43 @@ public class ComponentProperties extends ValueMapDecorator {
                 }
                 super.put(entry.getKey(), (updatedValue == null ? entry.getValue() : updatedValue));
             }
+        }
+    }
+
+    /**
+     * evaluate expression values in component properties that have value as expression
+     */
+    @SuppressWarnings({"squid:S3776"})
+    public void evaluateAllExpressionValues() {
+        JexlEngine jexl = new JexlBuilder().create();
+        JxltEngine jxlt = jexl.createJxltEngine();
+        JexlContext jc = new MapContext(this);
+
+        //get all entries that have an expression as value
+        Map<String, Object> expressionValues = super.entrySet()
+            .stream()
+            .filter(entry -> isStringRegex(entry.getValue()))
+            .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+
+        //evaluate and add values back into map
+        expressionValues.forEach((key, value) -> this.putExpression(jxlt, jc, key, value));
+
+    }
+
+    /**
+     * add a new value to map using expression.
+     * @param jxlt instance of JxltEngine
+     * @param jc instance of JexlContext
+     * @param key name of the entry
+     * @param expressionValue expression statement
+     */
+    public void putExpression(JxltEngine jxlt, JexlContext jc, String key, Object expressionValue) {
+        try {
+            this.put(key, evaluateExpressionWithValue(jxlt, jc, expressionValue, ""));
+        } catch (JexlException jex) {
+            LOGGER.error("putExpression: key={},value={},JexlException={}", key, expressionValue, jex);
+        } catch (Exception ex) {
+            LOGGER.error("putExpression: key={},value={},Exception={}", key, expressionValue, ex);
         }
     }
 
