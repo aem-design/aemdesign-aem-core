@@ -77,24 +77,51 @@ public class GenericDetails extends BaseComponent {
             DEFAULT_FIELDS_ANALYTICS,
             DEFAULT_FIELDS_DETAILS_OPTIONS);
 
-        // Process content fragment content if its used
-        String fragmentPath = componentProperties.get(FIELD_CONTENTFRAGMENT_FRAGMENTPATH, StringUtils.EMPTY);
-
-        if (isNotEmpty(fragmentPath)) {
-            String variationName = componentProperties.get(FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION);
-            componentProperties.putAll(ContentFragmentUtil.getComponentFragmentMap(fragmentPath, variationName, getResourceResolver()));
-        }
-
-        String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
-        componentProperties.put(FIELD_CATEGORY, getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
-
-        String[] subCategory = componentProperties.get(FIELD_SUBCATEGORY, new String[]{});
-        componentProperties.put(FIELD_SUBCATEGORY, getTagsAsAdmin(getSlingScriptHelper(), subCategory, getRequest().getLocale()));
-
+        //process all common fields across details components
         processCommonFields();
 
-        // Format fields
+        // load details specific data, this is overridden by each component model
         componentProperties.putAll(processComponentFields(), false);
+
+        //process badge config set by component
+        componentProperties.putAll(processBadgeConfig(getResourcePage(), componentProperties));
+
+        //process badge config set by list component
+        if (isComponentRenderedByList(getRequest())) {
+            //update component properties overrides possibly from list component
+            ComponentProperties badgeOverrides = processBadgeRequestConfig(componentProperties, getResourceResolver(), getRequest());
+            //if override badgeCustom is set to false remove related fields from overrides
+            if (Boolean.FALSE.equals(badgeOverrides.get(DETAILS_BADGE_CUSTOM, false))) {
+                badgeOverrides.remove(DETAILS_BADGE_CUSTOM);
+                badgeOverrides.remove(DETAILS_BADGE_FIELDS);
+                badgeOverrides.remove(DETAILS_BADGE_FIELDS_TEMPLATE);
+                badgeOverrides.remove(DETAILS_BADGE_TEMPLATE);
+            }
+            //add updated overrides
+            componentProperties.putAll(badgeOverrides, true);
+
+            //update badge action attributes
+            Map<String, String> badgeLinkAttr = new HashMap<>();
+            badgeLinkAttr.put(FIELD_TARGET, componentProperties.get(FIELD_LINK_TARGET, StringUtils.EMPTY));
+            badgeLinkAttr.put(FIELD_EXTERNAL, componentProperties.get(FIELD_EXTERNAL, StringUtils.EMPTY));
+            badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_TRACK, componentProperties.get(DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY));
+            badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LOCATION, componentProperties.get(DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY));
+            badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LABEL, componentProperties.get(DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY));
+            badgeLinkAttr.put(COMPONENT_ATTRIBUTE_INPAGEPATH, componentProperties.get(COMPONENT_INPAGEPATH, StringUtils.EMPTY));
+
+            componentProperties.put(DETAILS_BADGE_LINK_ATTR, badgeLinkAttr);
+
+        }
+
+        //re-evaluate expression fields after all data is ready
+        componentProperties.evaluateAllExpressionValues();
+
+        //re-evaluate expression fields after all data is ready
+        componentProperties.evaluateExpressionFields();
+
+        //update component attributes after evaluation of fields
+        componentProperties.put(COMPONENT_ATTRIBUTES,
+            buildAttributesString(componentProperties.attr.getData(), null));
 
         // Set properties into request to allow ContentTemplate to use it for presentation
         getRequest().setAttribute(ContentTemplate.REQUEST_COMPONENT_PROPERTIES, componentProperties);
@@ -103,8 +130,10 @@ public class GenericDetails extends BaseComponent {
     @Override
     protected void setFields() {
         setComponentFields(new Object[][]{
+            {FIELD_DESCRIPTION, "${value ? value : " + FIELD_FORMATTED_TITLE_TEXT + " }"},
+            {FIELD_FORMATTED_TITLE, "${value ? value : " + FIELD_TITLE +"}"},
+            {FIELD_FORMATTED_TITLE_TEXT, "${value ? value : " + FIELD_TITLE +"}"},
             {FIELD_VARIANT, DEFAULT_VARIANT},
-            {FIELD_DESCRIPTION, componentDefaults.get(FIELD_DESCRIPTION)},
             {FIELD_FORMAT_DESCRIPTION, StringUtils.EMPTY},
             {FIELD_TITLE, componentDefaults.get(FIELD_TITLE)},
             {FIELD_FORMAT_TITLE, StringUtils.EMPTY},
@@ -168,6 +197,21 @@ public class GenericDetails extends BaseComponent {
             if (componentProperties == null) {
                 componentProperties = getNewComponentProperties(this);
             }
+
+            // Process content fragment content if its used
+            String fragmentPath = componentProperties.get(FIELD_CONTENTFRAGMENT_FRAGMENTPATH, StringUtils.EMPTY);
+
+            if (isNotEmpty(fragmentPath)) {
+                String variationName = componentProperties.get(FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION);
+                componentProperties.putAll(ContentFragmentUtil.getComponentFragmentMap(fragmentPath, variationName, getResourceResolver()));
+            }
+
+            String[] tags = componentProperties.get(TagConstants.PN_TAGS, new String[]{});
+            componentProperties.put(FIELD_CATEGORY, getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
+
+            String[] subCategory = componentProperties.get(FIELD_SUBCATEGORY, new String[]{});
+            componentProperties.put(FIELD_SUBCATEGORY, getTagsAsAdmin(getSlingScriptHelper(), subCategory, getRequest().getLocale()));
+
             //read the image node
             componentProperties.putAll(getAssetInfo(getResourceResolver(),
                 getPageImgReferencePath(getResourcePage()),
@@ -265,26 +309,6 @@ public class GenericDetails extends BaseComponent {
 
             //get background image
             componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME, getBackgroundImageRenditions(this));
-
-            if (isComponentRenderedByList(getRequest())) {
-                //update component properties overrides possibly from list component
-                ComponentProperties badgeOverrides = processBadgeRequestConfig(componentProperties, getResourceResolver(), getRequest());
-                //if override badgeCustom is set to false remove related fields from overrides
-                if (Boolean.FALSE.equals(badgeOverrides.get(DETAILS_BADGE_CUSTOM, false))) {
-                    badgeOverrides.remove(DETAILS_BADGE_CUSTOM);
-                    badgeOverrides.remove(DETAILS_BADGE_FIELDS);
-                    badgeOverrides.remove(DETAILS_BADGE_FIELDS_TEMPLATE);
-                    badgeOverrides.remove(DETAILS_BADGE_TEMPLATE);
-                }
-                //add updated overrides
-                componentProperties.putAll(badgeOverrides, true);
-            }
-
-            //evaluate fields after badge overrides have been applied
-            componentProperties.evaluateExpressionFields();
-
-            //process badge config
-            componentProperties.putAll(processBadgeConfig(getResourcePage(), componentProperties));
 
             //if custom badge being used process its config
             if (Boolean.TRUE.equals(componentProperties.get(DETAILS_BADGE_CUSTOM, false))) {
