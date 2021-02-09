@@ -9,7 +9,7 @@
     <parent>
         <groupId>design.aem</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>2.1.65</version>
+        <version>2.1.71</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -18,7 +18,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-services</artifactId>
-    <version>2.1.65</version>
+    <version>2.1.71</version>
     <packaging>jar</packaging>
     <name>AEM Design - Core - AEM Services</name>
     <description>Project for all AEM and OSGI Services</description>
@@ -212,6 +212,7 @@ Bundle-DocURL: https://aem.design
 Bundle-License: Apache License, Version 2.0
 Bundle-Vendor: AEM.Design
 Embed-Transitive: true
+Sling-Model-Packages: design.aem
 Export-Service: design.aem.workflow.process.*
 Export-Package: design.aem.*,\
 org.jsoup,\

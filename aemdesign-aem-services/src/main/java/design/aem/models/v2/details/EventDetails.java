@@ -18,9 +18,6 @@ import static design.aem.utils.components.TagUtil.getTagValueAsAdmin;
 public class EventDetails extends GenericDetails {
     protected static final Logger LOGGER = LoggerFactory.getLogger(EventDetails.class);
 
-    protected static final String FIELD_FORMAT_TITLE = "titleFormat";
-    protected static final String FIELD_FORMATTED_TITLE = "titleFormatted";
-    protected static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
     protected static final String FIELD_EVENT_START_DATE = "eventStartDate";
     protected static final String FIELD_EVENT_END_DATE = "eventEndDate";
 

@@ -1,9 +1,7 @@
 package design.aem.utils.components;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import design.aem.components.AttrBuilder;
 import com.day.cq.commons.inherit.InheritanceValueMap;
-import org.apache.jackrabbit.vault.util.JcrConstants;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
@@ -21,6 +19,7 @@ import com.day.cq.wcm.webservicesupport.Configuration;
 import com.day.cq.wcm.webservicesupport.ConfigurationConstants;
 import com.day.cq.wcm.webservicesupport.ConfigurationManager;
 import com.google.common.base.Throwables;
+import design.aem.components.AttrBuilder;
 import design.aem.components.ComponentField;
 import design.aem.components.ComponentProperties;
 import design.aem.models.GenericModel;
@@ -32,6 +31,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.jackrabbit.core.fs.FileSystem;
+import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -45,12 +45,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.lang.reflect.Array;
 
 import javax.annotation.Nonnull;
 import javax.jcr.Node;
 import javax.servlet.jsp.PageContext;
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -417,9 +418,9 @@ public class ComponentsUtil {
             {DETAILS_THUMBNAIL_ID, StringUtils.EMPTY},
             {DETAILS_THUMBNAIL_LICENSE_INFO, StringUtils.EMPTY},
             {DETAILS_THUMBNAIL, StringUtils.EMPTY},
-            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK},
-            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION},
-            {DETAILS_BADGE_ANALYTICS_LABEL, "${value ?  value : " + DETAILS_LINK_TEXT + "}",DETAILS_DATA_ANALYTICS_LABEL},
+            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY},
+            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY},
+            {DETAILS_BADGE_ANALYTICS_LABEL, "${value ?  value : " + DETAILS_LINK_TEXT + "}"},
             {DETAILS_PAGE_METADATA_PROPERTY, new String[]{}},
             {DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[]{}},
             {DETAILS_BADGE_CUSTOM, false},
@@ -469,9 +470,9 @@ public class ComponentsUtil {
             {DETAILS_THUMBNAIL_ID, StringUtils.EMPTY},
             {DETAILS_THUMBNAIL_LICENSE_INFO, StringUtils.EMPTY},
             {DETAILS_THUMBNAIL, StringUtils.EMPTY},
-            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK}, //basic
-            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION}, //basic
-            {DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LABEL}, //basic
+            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY}, //basic
             {DETAILS_BADGE_CUSTOM, false},
             {DETAILS_BADGE_FIELDS_TEMPLATE, new String[]{}},
             {DETAILS_BADGE_FIELDS, new String[]{}},
@@ -491,7 +492,7 @@ public class ComponentsUtil {
     public static final Object[][] DEFAULT_FIELDS_ANALYTICS = { //NOSONAR used by classes
             {DETAILS_ANALYTICS_TRACK, false, DETAILS_DATA_ANALYTICS_TRACK}, //basic
             {DETAILS_ANALYTICS_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LOCATION}, //basic
-            {DETAILS_ANALYTICS_LABEL, "${ value ? value : label }", DETAILS_DATA_ANALYTICS_LABEL}, //basic
+            {DETAILS_ANALYTICS_LABEL, "${ value ? value : " + FIELD_PAGE_TITLE + " }", DETAILS_DATA_ANALYTICS_LABEL}, //basic
             {"analyticsEventType", StringUtils.EMPTY, "data-analytics-event"}, //advanced
             {"analyticsHitType", StringUtils.EMPTY, "data-analytics-hit-type"}, //advanced
             {"analyticsEventCategory", StringUtils.EMPTY, "data-analytics-event-category"}, //advanced
@@ -1203,8 +1204,6 @@ public class ComponentsUtil {
                                 fieldValueType = String.class.getCanonicalName();
                             }
 
-                            boolean fieldValueHasExpressions = false;
-
                             if (componentProperties.containsKey(fieldName)) {
                                 //skip entries that already exist
                                 //first Object in fieldLists will set a field value
@@ -1216,39 +1215,11 @@ public class ComponentsUtil {
 
                             Object fieldValue = null;
 
-                            //only do this if fieldValueType is string
-                            //if default value has expressions read component property value and evaluate default value expression and set it into value if value is null
-                            if (fieldDefaultValue instanceof String && StringUtils.isNotEmpty(fieldDefaultValue.toString()) && fieldValueType.equals(String.class.getCanonicalName()) && isStringRegex(fieldDefaultValue.toString())) {
+                            //read component value or return default value, result could be a expression
+                            // that need to be processed using @ComponentProperties.evaluateExpressionFields()
+                            fieldValue = getComponentProperty(properties, currentPolicy, fieldName, fieldDefaultValue, true);
 
-                                //get the value without default to determine if value exist
-                                fieldValue = getComponentProperty(properties, currentPolicy, fieldName, null, true);
-
-                                boolean expressionValid = false;
-                                //try to evaluate default value expression
-                                try {
-                                    Object expressonResult = evaluateExpressionWithValue(jxlt,jc,fieldDefaultValue.toString(),fieldValue);
-                                    if (expressonResult != null) {
-                                        expressionValid = true;
-                                        //evaluate the expression
-                                        fieldDefaultValue = expressonResult;
-                                    }
-                                } catch (JexlException jex) {
-                                    LOGGER.warn("could not evaluate default value expression component={}, contentResource={}, currentNode={}, field={}, value={}, default value={}, componentProperties.keys={}, jex.info={}", (component == null ? component : component.getPath()), (contentResource == null ? contentResource : contentResource.getPath()), (currentNode == null ? currentNode : currentNode.getPath()), fieldName, fieldValue, fieldDefaultValue, componentProperties.keySet(), jex.getInfo());
-                                } catch (Exception ex) {
-                                    LOGGER.error("could not evaluate default value expression component={}, contentResource={}, currentNode={}, field={}, value={}, default value={}, componentProperties.keys={}, ex.cause={}, ex.message={}, ex={}", (component == null ? component : component.getPath()), (contentResource == null ? contentResource : contentResource.getPath()), (currentNode == null ? currentNode : currentNode.getPath()), fieldName, fieldValue, fieldDefaultValue, componentProperties.keySet(), ex.getCause(), ex.getMessage(), ex);
-                                }
-
-                                if (!expressionValid) {
-                                    //remove left over expressions from string
-                                    fieldDefaultValue = removeRegexFromString((String) fieldDefaultValue);
-                                }
-
-                                fieldValue = fieldDefaultValue;
-
-                            } else {
-                                //default value is not regex read value from component and use default value as default
-                                fieldValue = getComponentProperty(properties, currentPolicy, fieldName, fieldDefaultValue, true);
-                            }
+                            boolean fieldValueHasExpressions = isStringRegex(fieldDefaultValue.toString());
 
                             //check if field value has expressions
                             if (fieldValue instanceof String && StringUtils.isNotEmpty(fieldValue.toString()) && isStringRegex(fieldValue.toString())) {
@@ -1272,9 +1243,11 @@ public class ComponentsUtil {
                                 fieldValue = newArray;
                             }
 
+                            //field has more field than name and default value
                             if (field.length > 2) {
                                 String fieldValueString = StringUtils.EMPTY;
 
+                                //test field value type
                                 if (fieldValue.getClass().isArray()) {
                                     if (ArrayUtils.isNotEmpty((String[]) fieldValue)) {
                                         //handle tags as values
@@ -1309,7 +1282,12 @@ public class ComponentsUtil {
                                     fieldValueString = fieldValue.toString();
                                 }
 
-                                if (isNotEmpty(fieldValueString) && isNotEmpty(fieldDataName) && !fieldDataName.equals(FIELD_VALUES_ARE_ATTRIBUTES)) {
+                                //set data attribute if data attribute has been specified and value is not an expression
+                                if (isNotEmpty(fieldValueString)
+                                    && isNotEmpty(fieldDataName)
+                                    && !fieldDataName.equals(FIELD_VALUES_ARE_ATTRIBUTES)
+                                    && !fieldValueHasExpressions
+                                ) {
                                     componentProperties.attr.add(fieldDataName, fieldValueString);
                                 } else if (isNotEmpty(fieldValueString) && fieldDataName.equals(FIELD_VALUES_ARE_ATTRIBUTES)) {
                                     //process possible Key-Value pairs that are in the values output
@@ -1337,7 +1315,7 @@ public class ComponentsUtil {
                             }
 
                             if (fieldValueHasExpressions) {
-                                //store expression field into array for processing by ComponentProperties.evaluateExpressionFields
+                                //add current field to expression fields list to allow re-evaluation
                                 ComponentField expField = new ComponentField(field);
                                 expField.setValue(fieldValue);
                                 componentProperties.expressionFields.add(expField);
@@ -2130,6 +2108,17 @@ public class ComponentsUtil {
         return contentPolicyProperties;
     }
 
+    /**
+     * check if string value a regex
+     * @param value string to check if its a regex
+     * @return does string match regex check
+     */
+    public static boolean isStringRegex(Object value) {
+        if (value == null) {
+            return false;
+        }
+        return isStringRegex(value.toString());
+    }
 
     /**
      * check if string value a regex
@@ -2167,13 +2156,33 @@ public class ComponentsUtil {
      * @throws JexlException throes Jexl errors with regex expression
      *
      */
+    public static Object evaluateExpressionWithValue(JxltEngine jxlt, JexlContext jc, Object expression, Object value) {
+       return evaluateExpressionWithValue(jxlt,jc, expression != null ? expression.toString() : "", value);
+    }
+
+    /**
+     * evaluate expression in a context with value
+     * reference https://commons.apache.org/proper/commons-jexl/reference/syntax.html
+     * @param jxlt JXTL Engine
+     * @param jc JXTL Context
+     * @param expression regex expression
+     * @param value value to add into JXTL context
+     * @return returns evaluated value
+     * @throws JexlException throes Jexl errors with regex expression
+     *
+     */
     public static Object evaluateExpressionWithValue(JxltEngine jxlt, JexlContext jc, String expression, Object value) {
         JxltEngine.Expression expr = jxlt.createExpression(expression);
 
         //add current value to the map
         jc.set("value", value);
 
-        return expr.evaluate(jc);
+        Object returnValue = expr.evaluate(jc);
+
+        //clean up
+        jc.set("value", "");
+
+        return returnValue;
     }
 
     /**

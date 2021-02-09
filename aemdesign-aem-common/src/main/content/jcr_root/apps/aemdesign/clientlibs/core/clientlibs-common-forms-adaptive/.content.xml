@@ -3,7 +3,7 @@
     jcr:primaryType="cq:ClientLibraryFolder"
 	jcr:description="auto loaded into forms"
     allowProxy="{Boolean}true"
-    jsProcessor="[default:none]"
-    cssProcessor="[default:none]"
+    jsProcessor="[default:none,min:none]"
+    cssProcessor="[default:none,min:none]"
     categories="[af.customwidgets]"
 	embed="[aemdesign.core.vendorlib.jqueryui]"/>
