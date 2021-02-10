@@ -1083,7 +1083,7 @@ public class ComponentsUtil {
 
         componentProperties.attr = new AttrBuilder(xssAPI);
         if (addMoreAttributes) {
-            //all component have a boolean attribute component
+            //all component have a boolean attribute component, sling does not print attributes with blank values
             componentProperties.attr.add("component", "component");
         }
 
