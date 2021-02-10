@@ -4,7 +4,7 @@
           cq:isContainer="{Boolean}false"
           jcr:description="Event Details component"
           jcr:primaryType="cq:Component"
-          jcr:title="Event Details"
+          jcr:title="Event Details (v3)"
           cq:icon="viewDetail"
-          sling:resourceSuperType="aemdesign/components/details/event-details/v3/event-details"
-          componentGroup="AEM.Design - Details"/>
+          sling:resourceSuperType="aemdesign/components/details/generic-details"
+          componentGroup="hidden"/>
