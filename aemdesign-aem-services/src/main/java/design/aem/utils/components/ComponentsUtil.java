@@ -1083,6 +1083,7 @@ public class ComponentsUtil {
 
         componentProperties.attr = new AttrBuilder(xssAPI);
         if (addMoreAttributes) {
+            //all component have a boolean attribute component
             componentProperties.attr.add("component", "component");
         }
 
