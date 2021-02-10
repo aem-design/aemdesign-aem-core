@@ -166,6 +166,10 @@ public class ComponentsUtil {
     public static final String DETAILS_DATA_ANALYTICS_LOCATION = "data-layer-location";
     public static final String DETAILS_DATA_ANALYTICS_LABEL = "data-layer-label";
 
+    //schema data
+    public static final String DETAILS_DATA_SCHEMA_ITEMSCOPE = "itemscope";
+    public static final String DETAILS_DATA_SCHEMA_ITEMTYPE = "itemtype";
+    public static final String DETAILS_DATA_SCHEMA_ITEMTYPE_DEFAULT = "https://schema.org/Thing";
 
     public static final String FIELD_HIDEINMENU = "hideInMenu";
 
