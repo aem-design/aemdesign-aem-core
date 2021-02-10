@@ -42,7 +42,7 @@ public class ContactDetails extends GenericDetails {
             {"email", StringUtils.EMPTY},
             {"contactNumber", StringUtils.EMPTY},
             {"contactNumberMobile", StringUtils.EMPTY},
-            {DETAILS_DATA_SCHEMA_ITEMSCOPE, "true", DETAILS_DATA_SCHEMA_ITEMSCOPE},
+            {DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE},
             {DETAILS_DATA_SCHEMA_ITEMTYPE, "http://schema.org/Person", DETAILS_DATA_SCHEMA_ITEMTYPE},
         });
     }

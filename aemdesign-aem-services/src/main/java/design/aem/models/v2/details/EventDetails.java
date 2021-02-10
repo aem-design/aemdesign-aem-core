@@ -59,7 +59,7 @@ public class EventDetails extends GenericDetails {
             {"eventDisplayDateFormat", StringUtils.EMPTY},
             {"eventDisplayTimeFormat", StringUtils.EMPTY},
             {"eventTimeFormat", EVENT_TIME_DEFAULT_FORMAT},
-            {DETAILS_DATA_SCHEMA_ITEMSCOPE, "true", DETAILS_DATA_SCHEMA_ITEMSCOPE},
+            {DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE},
             {DETAILS_DATA_SCHEMA_ITEMTYPE, "http://schema.org/Event", DETAILS_DATA_SCHEMA_ITEMTYPE},
         });
     }

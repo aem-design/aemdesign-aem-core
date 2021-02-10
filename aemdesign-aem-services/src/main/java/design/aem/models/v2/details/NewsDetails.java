@@ -35,7 +35,7 @@ public class NewsDetails extends GenericDetails {
         setComponentFields(new Object[][]{
             {FIELD_AUTHOR, StringUtils.EMPTY},
             {FIELD_PUBLISH_DATE, componentDefaults.get(FIELD_PUBLISH_DATE)},
-            {DETAILS_DATA_SCHEMA_ITEMSCOPE, "true", DETAILS_DATA_SCHEMA_ITEMSCOPE},
+            {DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE},
             {DETAILS_DATA_SCHEMA_ITEMTYPE, "http://schema.org/NewsArticle", DETAILS_DATA_SCHEMA_ITEMTYPE},
         });
     }

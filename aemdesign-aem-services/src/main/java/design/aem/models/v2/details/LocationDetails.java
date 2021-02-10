@@ -86,7 +86,7 @@ public class LocationDetails extends GenericDetails {
             {"latitude", 0.0, "data-latitude"},
             {"longitude", 0.0, "data-longitude"},
             {"pages", new String[0]},
-            {DETAILS_DATA_SCHEMA_ITEMSCOPE, "true", DETAILS_DATA_SCHEMA_ITEMSCOPE},
+            {DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE},
             {DETAILS_DATA_SCHEMA_ITEMTYPE, "http://schema.org/Place", DETAILS_DATA_SCHEMA_ITEMTYPE},
         });
     }

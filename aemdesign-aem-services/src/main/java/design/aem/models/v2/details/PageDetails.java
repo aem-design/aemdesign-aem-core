@@ -21,7 +21,7 @@ public class PageDetails extends GenericDetails {
         super.setFields();
 
         setComponentFields(new Object[][]{
-            {DETAILS_DATA_SCHEMA_ITEMSCOPE, "true", DETAILS_DATA_SCHEMA_ITEMSCOPE},
+            {DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE},
             {DETAILS_DATA_SCHEMA_ITEMTYPE, "http://schema.org/WebPage"},
         });
     }
