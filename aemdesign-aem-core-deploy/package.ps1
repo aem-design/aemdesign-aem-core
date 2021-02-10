@@ -11,7 +11,7 @@ Param(
   [string]$MVN_COMMAND = "mvn -D""vault.useProxy=false"" -DskipTests clean package "
 )
 
-. ".\scripts\functions.ps1"
+. "..\scripts\functions.ps1"
 
 $script:LOG_PATH = $LOG_PATH
 $script:TEST_SELENIUM_URL = $TEST_SELENIUM_URL
