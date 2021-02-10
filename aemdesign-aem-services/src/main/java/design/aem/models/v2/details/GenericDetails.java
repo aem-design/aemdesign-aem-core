@@ -109,6 +109,11 @@ public class GenericDetails extends BaseComponent {
             badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LABEL, componentProperties.get(DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY));
             badgeLinkAttr.put(COMPONENT_ATTRIBUTE_INPAGEPATH, componentProperties.get(COMPONENT_INPAGEPATH, StringUtils.EMPTY));
 
+            if (DETAILS_DATA_SCHEMA_ITEMSCOPE.equals(componentProperties.get(DETAILS_DATA_SCHEMA_ITEMSCOPE, ""))) {
+                badgeLinkAttr.put(DETAILS_DATA_SCHEMA_ITEMSCOPE,DETAILS_DATA_SCHEMA_ITEMSCOPE);
+                badgeLinkAttr.put(DETAILS_DATA_SCHEMA_ITEMTYPE,componentProperties.get(DETAILS_DATA_SCHEMA_ITEMTYPE, DETAILS_DATA_SCHEMA_ITEMTYPE_DEFAULT));
+            }
+
             componentProperties.put(DETAILS_BADGE_LINK_ATTR, badgeLinkAttr);
 
         }
@@ -312,6 +317,7 @@ public class GenericDetails extends BaseComponent {
 
             //if custom badge being used process its config
             if (Boolean.TRUE.equals(componentProperties.get(DETAILS_BADGE_CUSTOM, false))) {
+                //get the preconfigured badge config from tags
                 String badge = componentProperties.get(DETAILS_BADGE_TEMPLATE, StringUtils.EMPTY);
 
                 //get badge config
