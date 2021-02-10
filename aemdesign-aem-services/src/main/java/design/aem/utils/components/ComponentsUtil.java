@@ -1083,7 +1083,7 @@ public class ComponentsUtil {
 
         componentProperties.attr = new AttrBuilder(xssAPI);
         if (addMoreAttributes) {
-            componentProperties.attr.add("component", "true");
+            componentProperties.attr.add("component", "component");
         }
 
         componentProperties.expressionFields = new ArrayList();
