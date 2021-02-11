@@ -118,18 +118,16 @@ public class GenericDetails extends BaseComponent {
 
         }
 
-        //re-evaluate expression fields after all data is ready
-        componentProperties.evaluateAllExpressionValues();
+    }
 
-        //re-evaluate expression fields after all data is ready
-        componentProperties.evaluateExpressionFields();
+    @Override
+    protected void done() throws Exception {
 
-        //update component attributes after evaluation of fields
-        componentProperties.put(COMPONENT_ATTRIBUTES,
-            buildAttributesString(componentProperties.attr.getData(), null));
+        super.done();
 
         // Set properties into request to allow ContentTemplate to use it for presentation
         getRequest().setAttribute(ContentTemplate.REQUEST_COMPONENT_PROPERTIES, componentProperties);
+
     }
 
     @Override
