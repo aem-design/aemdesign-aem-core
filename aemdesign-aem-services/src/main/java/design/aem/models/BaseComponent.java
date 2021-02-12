@@ -50,10 +50,16 @@ public abstract class BaseComponent extends WCMUsePojo {
             //re-evaluate expression fields after all data is ready
             componentProperties.evaluateExpressionFields();
 
-            //update component attributes after evaluation of fields
-            componentProperties.put(COMPONENT_ATTRIBUTES,
-                buildAttributesString(componentProperties.attr.getData(), null));
+            if (componentProperties.attr != null) {
+                //update component attributes after evaluation of fields
+                componentProperties.put(COMPONENT_ATTRIBUTES,
+                    buildAttributesString(componentProperties.attr.getData(), null));
+            } else {
+                LOGGER.error("component properties was not initialised properly it does not have attribute builder.");
+            }
 
+        } else {
+            LOGGER.error("component was not initialised properly it does not have componentProperties.");
         }
 
     }; // NOSONAR generic exception is fine
@@ -64,6 +70,8 @@ public abstract class BaseComponent extends WCMUsePojo {
         slingScriptHelper = getSlingScriptHelper();
         slingSettingsService = slingScriptHelper.getService(SlingSettingsService.class);
         xssAPI = getSlingScriptHelper().getService(XSSAPI.class);
+
+        componentProperties = getNewComponentProperties(this);
 
         //let component set its field defaults
         setFieldDefaults();
