@@ -85,6 +85,9 @@ public class GenericDetails extends BaseComponent {
         // load details specific data, this is overridden by each component model
         componentProperties.putAll(processComponentFields(), false);
 
+        //process badge config set by component
+        componentProperties.putAll(processBadgeConfig(getResourcePage(), componentProperties));
+
         //process badge config set by list component
         if (isComponentRenderedByList(getRequest())) {
             //update component properties overrides possibly from list component
@@ -117,8 +120,6 @@ public class GenericDetails extends BaseComponent {
 
         }
 
-        //process badge config set by component
-        componentProperties.putAll(processBadgeConfig(getResourcePage(), componentProperties));
 
 
 
