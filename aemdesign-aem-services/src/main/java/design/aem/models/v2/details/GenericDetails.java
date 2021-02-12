@@ -15,6 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.api.wrappers.ValueMapDecorator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
@@ -83,9 +85,6 @@ public class GenericDetails extends BaseComponent {
         // load details specific data, this is overridden by each component model
         componentProperties.putAll(processComponentFields(), false);
 
-        //process badge config set by component
-        componentProperties.putAll(processBadgeConfig(getResourcePage(), componentProperties));
-
         //process badge config set by list component
         if (isComponentRenderedByList(getRequest())) {
             //update component properties overrides possibly from list component
@@ -117,6 +116,11 @@ public class GenericDetails extends BaseComponent {
             componentProperties.put(DETAILS_BADGE_LINK_ATTR, badgeLinkAttr);
 
         }
+
+        //process badge config set by component
+        componentProperties.putAll(processBadgeConfig(getResourcePage(), componentProperties));
+
+
 
     }
 
