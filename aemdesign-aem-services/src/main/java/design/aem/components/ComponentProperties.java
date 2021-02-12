@@ -199,6 +199,11 @@ public class ComponentProperties extends ValueMapDecorator {
                             //get current field value
                             Object fieldValue = this.get(field.getFieldName(), Object.class);
 
+                            //if current field value is null set it to empty so that expressions don't die
+                            if (fieldValue == null) {
+                                fieldValue = StringUtils.EMPTY;
+                            }
+
                             //use default expression if item does not have expression
                             String valueExpression = defaultValueExpression;
                             //if field value is expression use it
