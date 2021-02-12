@@ -2132,7 +2132,7 @@ public class ComponentsUtil {
      * @return does string match regex check
      */
     public static boolean isStringRegex(Object value) {
-        if (value == null) {
+        if (value == null || !(value instanceof String)) {
             return false;
         }
         return isStringRegex(value.toString());
