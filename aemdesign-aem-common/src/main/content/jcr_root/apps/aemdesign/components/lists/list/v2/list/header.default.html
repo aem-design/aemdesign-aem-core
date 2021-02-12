@@ -1,0 +1,10 @@
+<template data-sly-template.variant="${@ componentProperties, component}">
+
+    <sly data-sly-test="${componentProperties.resultInfo.result.nextPage.start}"
+        data-sly-set.pageEnd="${componentProperties.resultInfo.result.nextPage.start}"></sly>
+    <sly data-sly-test="${!componentProperties.resultInfo.result.nextPage.start}"
+        data-sly-set.pageEnd="${componentProperties.resultInfo.result.totalMatches}"></sly>
+
+    <div class="header">${componentProperties.headerPrefix} ${componentProperties.resultInfo.result.startIndex}-${pageEnd} ${componentProperties.headerResultsPrefix} ${componentProperties.resultInfo.result.totalMatches} ${componentProperties.headerResultSuffix}</div>
+
+</template>
