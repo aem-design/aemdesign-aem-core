@@ -134,6 +134,29 @@ public class ComponentProperties extends ValueMapDecorator {
         }
     }
 
+
+    /**
+     * evaluate expression values in a map and return all that were evaluated as expressions
+     */
+    @SuppressWarnings({"squid:S3776"})
+    public static Map<String, String> mapEvaluateAllExpressionValues(Map<String, String> source, Map<String, Object> contextMap) {
+
+        JexlEngine jexl = new JexlBuilder().create();
+        JxltEngine jxlt = jexl.createJxltEngine();
+        JexlContext jc = new MapContext(contextMap);
+
+        //get all entries that have an expression as value
+        return source.entrySet()
+            .stream()
+            .filter(entry -> isStringRegex(entry.getValue()))
+            .collect(
+                Collectors.toMap(
+                    Entry::getKey,
+                    e -> (String)evaluateExpressionWithValue(jxlt, jc, e.getValue(), "")
+                )
+            );
+
+    }
     /**
      * evaluate expression values in component properties that have value as expression
      */
