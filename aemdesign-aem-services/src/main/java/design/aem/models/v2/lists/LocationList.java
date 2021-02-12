@@ -51,7 +51,7 @@ public class LocationList extends List {
         componentProperties.attr.add("wcmmode", getWcmMode().toString().toLowerCase());
 
         String googleApiKey = getCloudConfigProperty(
-            (InheritanceValueMap) getPageProperties(),
+            (InheritanceValueMap) getResourcePage().getProperties(),
             DEFAULT_CLOUDCONFIG_GOOGLEMAP,
             DEFAULT_CLOUDCONFIG_GOOGLEMAP_API_KEY,
             getSlingScriptHelper());

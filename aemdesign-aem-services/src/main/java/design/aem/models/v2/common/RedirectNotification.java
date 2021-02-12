@@ -67,7 +67,7 @@ public class RedirectNotification extends BaseComponent {
             {FIELD_VARIANT, DEFAULT_VARIANT},
             {FIELD_REDIRECT_TITLE, StringUtils.EMPTY},
             {FIELD_REDIRECT_URL, "#"},
-            {FIELD_REDIRECT_TARGET, getPageProperties().get(PN_REDIRECT_TARGET, StringUtils.EMPTY)},
+            {FIELD_REDIRECT_TARGET, getResourcePage().getProperties().get(PN_REDIRECT_TARGET, StringUtils.EMPTY)},
         });
     }
 }

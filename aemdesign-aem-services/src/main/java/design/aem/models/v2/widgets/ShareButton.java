@@ -37,7 +37,7 @@ public class ShareButton extends BaseComponent {
     @Override
     protected void setFieldDefaults() {
         componentDefaults.put(DEFAULT_TOOLID, getCloudConfigProperty(
-            (InheritanceValueMap) getPageProperties(),
+            (InheritanceValueMap) getResourcePage().getProperties(),
             DEFAULT_CLOUDCONFIG_ADDTHIS,
             DEFAULT_CLOUDCONFIG_ADDTHIS_ID,
             getSlingScriptHelper()));

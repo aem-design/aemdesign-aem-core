@@ -91,6 +91,6 @@ public class PageDate extends BaseComponent {
 
     @Override
     protected void setFieldDefaults() {
-        componentDefaults.put(FIELD_PUBLISH_DATE, getPageCreated(getPageProperties()));
+        componentDefaults.put(FIELD_PUBLISH_DATE, getPageCreated(getResourcePage().getProperties()));
     }
 }

@@ -20,7 +20,7 @@ public class PageTags extends BaseComponent {
 
         componentProperties.put("pagetags", getTagsAsAdmin(
             getSlingScriptHelper(),
-            getPageProperties().get(TagConstants.PN_TAGS, new String[]{}),
+            getResourcePage().getProperties().get(TagConstants.PN_TAGS, new String[]{}),
             getRequest().getLocale()));
     }
 
