@@ -16,6 +16,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
+import static design.aem.components.ComponentProperties.mapEvaluateAllExpressionValues;
 import static design.aem.utils.components.ComponentsUtil.*;
 
 public abstract class BaseComponent extends WCMUsePojo {
@@ -56,6 +57,15 @@ public abstract class BaseComponent extends WCMUsePojo {
                     buildAttributesString(componentProperties.attr.getData(), null));
             } else {
                 LOGGER.error("component properties was not initialised properly it does not have attribute builder.");
+            }
+
+            //evaluate all badge values
+            if (componentProperties.containsKey(DETAILS_BADGE_LINK_ATTR)) {
+                Map<String, String> badgeLinkAttr = componentProperties.get(DETAILS_BADGE_LINK_ATTR,new HashMap<>());
+
+                badgeLinkAttr.putAll(mapEvaluateAllExpressionValues(badgeLinkAttr,componentProperties));
+
+                componentProperties.put(DETAILS_BADGE_LINK_ATTR, badgeLinkAttr);
             }
 
         } else {
