@@ -97,7 +97,7 @@ public class List extends BaseComponent {
     protected static final Boolean DEFAULT_PRINT_STRUCTURE = true;
     protected static final String DEFAULT_I18N_CATEGORY = "list";
     protected static final String DEFAULT_PAGINATION = "default";
-    protected static final String DEFAULT_HEADER = "default";
+    protected static final String DEFAULT_HEADER = "hidden";
 
     public static final String LISTITEM_LINK_TEXT = "listItemLinkText";
     public static final String LISTITEM_LINK_TITLE = "listItemLinkTitle";
@@ -689,6 +689,8 @@ public class List extends BaseComponent {
                 }
             }
         }
+
+        totalMatches = listItems.size();
     }
 
     /**
