@@ -311,6 +311,7 @@ public class ComponentsUtil {
     public static final String PAGECONTEXTMAP_OBJECT_CURRENTPAGE = "currentPage";
     public static final String PAGECONTEXTMAP_OBJECT_RESOURCEPAGE = "resourcePage";
     public static final String PAGECONTEXTMAP_OBJECT_RESOURCEDESIGN = "resourceDesign";
+    public static final String PAGECONTEXTMAP_OBJECT_XSSAPI = "xssAPI";
 
 
     public static final String DETAILS_SELECTOR_BADGE = "badge";
@@ -799,11 +800,16 @@ public class ComponentsUtil {
      */
     public static ComponentProperties getNewComponentProperties(WCMUsePojo wcmUsePojoModel) {
 
-        SlingHttpServletRequest slingRequest = wcmUsePojoModel.getRequest();
-
         Map<String, Object> pageContextMap = new HashMap<>();
-        pageContextMap.put("slingRequest", slingRequest);
 
+        SlingHttpServletRequest slingRequest = wcmUsePojoModel.getRequest();
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_SLINGREQUEST, slingRequest);
+
+        SlingScriptHelper sling = wcmUsePojoModel.getSlingScriptHelper();
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_SLING , sling);
+
+        XSSAPI xssAPI = wcmUsePojoModel.getSlingScriptHelper().getService(XSSAPI.class);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_XSSAPI, xssAPI);
 
         return getNewComponentProperties(pageContextMap);
     }
@@ -817,10 +823,19 @@ public class ComponentsUtil {
     public static ComponentProperties getNewComponentProperties(Map<String, Object> pageContext) {
         ComponentProperties componentProperties = new ComponentProperties();
         try {
-            SlingScriptHelper sling = (SlingScriptHelper) pageContext.get(PAGECONTEXTMAP_OBJECT_SLING);
-            XSSAPI xss = Objects.requireNonNull(sling.getService(XSSAPI.class));
+            XSSAPI xss = null;
+            if (pageContext.containsKey(PAGECONTEXTMAP_OBJECT_XSSAPI)) {
+                xss = (XSSAPI)pageContext.get(PAGECONTEXTMAP_OBJECT_XSSAPI);
+            } else {
+                SlingScriptHelper sling = (SlingScriptHelper) pageContext.get(PAGECONTEXTMAP_OBJECT_SLING);
+                xss = Objects.requireNonNull(sling.getService(XSSAPI.class));
+            }
 
-            componentProperties.attr = new AttrBuilder(xss);
+            if (xss != null) {
+                componentProperties.attr = new AttrBuilder(xss);
+            } else {
+                LOGGER.error("getNewComponentProperties: could not configure componentProperties with attributeBuilder as xss is missing");
+            }
 
         } catch (Exception ex) {
             LOGGER.error("getNewComponentProperties: could not configure componentProperties with attributeBuilder");
@@ -1593,10 +1608,8 @@ public class ComponentsUtil {
 
                 Resource detailsResource = resourceResolver.resolve(detailsPath);
                 if (!ResourceUtil.isNonExistingResource(detailsResource)) {
-                    Node detailsNode = detailsResource.adaptTo(Node.class);
-                    if (detailsNode != null && detailsNode.hasProperty(DETAILS_DESCRIPTION)) {
-                        return detailsNode.getProperty(DETAILS_DESCRIPTION).getString();
-                    }
+                    ValueMap vm = detailsResource.getValueMap();
+                    return vm.get(DETAILS_DESCRIPTION,"");
                 }
 
 
