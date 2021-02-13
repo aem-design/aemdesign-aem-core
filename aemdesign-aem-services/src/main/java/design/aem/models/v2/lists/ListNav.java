@@ -57,7 +57,6 @@ public class ListNav extends BaseComponent {
     protected static final boolean LIST_LOOP_DEFAULT = false;
 
     protected static final String DETAILS_BADGE = "detailsBadge";
-    protected static final String DETAILS_BADGE_DEFAULT = "action";
 
     protected String PARENT_PATH_DEFAULT = "/content";
 
@@ -86,7 +85,7 @@ public class ListNav extends BaseComponent {
         sortOrder = SortOrder.fromString(componentProperties.get(PN_SORT_ORDER, SortOrder.ASC.getValue()));
         limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
         listLoop = componentProperties.get(LIST_LOOP, LIST_LOOP_DEFAULT);
-        detailsBadge = componentProperties.get(DETAILS_BADGE, DETAILS_BADGE_DEFAULT);
+        detailsBadge = componentProperties.get(DETAILS_BADGE, DEFAULT_BADGE);
 
         String filterPagePage = componentProperties.get("filterPage", StringUtils.EMPTY);
 
@@ -111,7 +110,7 @@ public class ListNav extends BaseComponent {
             {FIELD_IMAGE_OPTION, FIELD_IMAGE_OPTION_DEFAULT},
             {LIST_LOOP, LIST_LOOP_DEFAULT},
             {"filterPage", StringUtils.EMPTY},
-            {DETAILS_BADGE, DETAILS_BADGE_DEFAULT, "data-badge"},
+            {DETAILS_BADGE, DEFAULT_BADGE, "data-badge"},
         });
     }
 
