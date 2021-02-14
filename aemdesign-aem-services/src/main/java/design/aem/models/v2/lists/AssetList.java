@@ -403,6 +403,12 @@ public class AssetList extends BaseComponent {
                             assetProperties.put(FIELD_IMAGEURL, responsiveImageSet.values().toArray()[responsiveImageSet.values().size() - 1]);
                         }
 
+                        //re-evaluate expression fields after all data is ready
+                        assetProperties.evaluateAllExpressionValues();
+
+                        //re-evaluate expression fields after all data is ready
+                        assetProperties.evaluateExpressionFields();
+
                         assetProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(assetProperties.attr.getData(), null));
 
                         return assetProperties;
