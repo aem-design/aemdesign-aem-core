@@ -17,7 +17,7 @@
             sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
 
-            <pageDetails
+            <detailsTab
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Page Details"
                 path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab"
