@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentDetailsUtil.isComponentRenderedByList;
@@ -150,7 +151,7 @@ public class GenericDetails extends BaseComponent {
             {FIELD_PAGE_TITLE, componentDefaults.get(FIELD_PAGE_TITLE)},
             {FIELD_PAGE_TITLE_NAV, componentDefaults.get(FIELD_PAGE_TITLE_NAV)},
             {FIELD_PAGE_TITLE_SUBTITLE, componentDefaults.get(FIELD_PAGE_TITLE_SUBTITLE)},
-            {TagConstants.PN_TAGS, new String[]{}},
+            {TagConstants.PN_TAGS, componentDefaults.get(TagConstants.PN_TAGS)},
             {FIELD_SUBCATEGORY, new String[]{}},
             {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
             {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
@@ -171,6 +172,7 @@ public class GenericDetails extends BaseComponent {
 
     @Override
     protected void setFieldDefaults() {
+        componentDefaults.put(TagConstants.PN_TAGS, getResourcePage().getTags());
         componentDefaults.put(FIELD_DESCRIPTION, getResourcePage().getDescription());
         componentDefaults.put(FIELD_TITLE, getPageTitle(getResourcePage(), getResource()));
 
@@ -303,11 +305,30 @@ public class GenericDetails extends BaseComponent {
             //check if component has the badge and reset if it does not
             if (isEmpty(badgePath)) {
                 LinkedHashMap<String, Map> legacyBadgeConfig = componentProperties.get(FIELD_LEGACY_BADGE_CONFIG, LinkedHashMap.class);
-                if (isNotNull(legacyBadgeConfig) && Boolean.TRUE.equals(badgeWasRequested) && !ArrayUtils.contains(legacyBadgeConfig.keySet().toArray(), componentBadge)) {
-                    LOGGER.error("LEGACY BADGE WAS REQUESTED BUT NOT FOUND IN COMPONENT AND LEGACY MAPPING NOT FOUND requestedBadgeTemplate={}", requestedBadgeTemplate);
-                }
+
                 componentBadge = DEFAULT_BADGE;
                 requestedBadgeTemplate = defaultBadgeTemplate;
+
+                Map<String, Map> lagacyBadge = new HashMap<>();
+
+                if (badgeWasRequested) {
+                    //try finding first badge
+                    for (Map.Entry<String, Map> entry : legacyBadgeConfig.entrySet()) {
+                        if (entry.getValue().get("value").equals(componentBadge)) {
+                            lagacyBadge.putAll(entry.getValue());
+                            break;
+                        }
+                    }
+                    if (lagacyBadge.size() > 0) {
+                        componentBadge = lagacyBadge.get("value").toString();
+                        requestedBadgeTemplate = format(COMPONENT_BADGE_DEFAULT_TEMPLATE_FORMAT, componentBadge);
+                    }
+
+                }
+
+                if (isNotNull(legacyBadgeConfig) && Boolean.TRUE.equals(badgeWasRequested) && lagacyBadge.size() == 0) {
+                    LOGGER.error("LEGACY BADGE WAS REQUESTED BUT NOT FOUND IN COMPONENT AND LEGACY MAPPING NOT FOUND requestedBadgeTemplate={}", requestedBadgeTemplate);
+                }
             }
 
             componentProperties.put(COMPONENT_BADGE, componentBadge);
