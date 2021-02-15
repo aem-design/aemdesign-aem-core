@@ -354,7 +354,7 @@
                                                 value="pages"/>
                                         </items>
                                     </paginationType>
-                                    <paginationType
+                                    <headerType
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldLabel="Header Type"
@@ -370,7 +370,7 @@
                                                 text="Hidden"
                                                 value="hidden"/>
                                         </items>
-                                    </paginationType>
+                                    </headerType>
                                 </items>
                             </basic>
                         </items>
