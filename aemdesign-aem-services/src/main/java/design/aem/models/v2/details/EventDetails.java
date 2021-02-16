@@ -1,5 +1,6 @@
 package design.aem.models.v2.details;
 
+import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.NameConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -75,7 +76,7 @@ public class EventDetails extends GenericDetails {
         componentDefaults.put(FIELD_EVENT_END_DATE, getResourcePage().getProperties().get(
             NameConstants.PN_OFF_TIME,
             getResourcePage().getProperties().get(JcrConstants.JCR_CREATED, Calendar.getInstance())));
-    }
+            }
 
     @Override
     protected String getComponentCategory() {

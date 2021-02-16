@@ -1,5 +1,6 @@
 package design.aem.models.v2.details;
 
+import com.day.cq.tagging.TagConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,8 @@ public class NewsDetails extends GenericDetails {
         super.setFieldDefaults();
 
         componentDefaults.put(FIELD_PUBLISH_DATE, getPageCreated(getResourcePage().getProperties()));
+        //this component has category field
+        componentDefaults.put(TagConstants.PN_TAGS, new String[]{});
     }
 
     @Override

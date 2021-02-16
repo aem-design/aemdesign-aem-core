@@ -1,5 +1,6 @@
 package design.aem.models.v2.details;
 
+import com.day.cq.tagging.TagConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
+import static design.aem.utils.components.CommonUtil.getPageCreated;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE;
 import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE_NAV;
@@ -46,6 +48,15 @@ public class ContactDetails extends GenericDetails {
             {DETAILS_DATA_SCHEMA_ITEMTYPE, "http://schema.org/Person", DETAILS_DATA_SCHEMA_ITEMTYPE},
         });
     }
+
+    @Override
+    protected void setFieldDefaults() {
+        super.setFieldDefaults();
+
+        //this component has category field
+        componentDefaults.put(TagConstants.PN_TAGS, new String[]{});
+    }
+
 
     @Override
     protected String getComponentCategory() {
