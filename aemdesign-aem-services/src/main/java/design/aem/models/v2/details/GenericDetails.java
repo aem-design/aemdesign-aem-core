@@ -47,10 +47,8 @@ public class GenericDetails extends BaseComponent {
 
     protected static final String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
 
-    protected static final String FIELD_DESCRIPTION = "description";
     protected static final String FIELD_FORMAT_DESCRIPTION = "descriptionFormat";
     protected static final String FIELD_FORMATTED_DESCRIPTION = "descriptionFormatted";
-    protected static final String FIELD_TITLE = "title";
     protected static final String FIELD_FORMAT_TITLE = "titleFormat";
     protected static final String FIELD_FORMATTED_TITLE = "titleFormatted";
     protected static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
@@ -181,7 +179,7 @@ public class GenericDetails extends BaseComponent {
 
         componentDefaults.put(FIELD_PAGE_URL, getPageUrl(getResourcePage()));
         componentDefaults.put(FIELD_PAGE_TITLE, getPageTitle(getResourcePage(), getResource()));
-        componentDefaults.put(FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage()));
+        componentDefaults.put(FIELD_PAGE_TITLE_NAV, "${value ? value : " + FIELD_PAGE_TITLE + "}");
 
         componentDefaults.put(FIELD_VARIANT_HIDDEN_LABEL, getDefaultLabelIfEmpty(
             StringUtils.EMPTY,
@@ -306,28 +304,32 @@ public class GenericDetails extends BaseComponent {
             if (isEmpty(badgePath)) {
                 LinkedHashMap<String, Map> legacyBadgeConfig = componentProperties.get(FIELD_LEGACY_BADGE_CONFIG, LinkedHashMap.class);
 
-                componentBadge = DEFAULT_BADGE;
-                requestedBadgeTemplate = defaultBadgeTemplate;
+                if (legacyBadgeConfig.size() > 0 ) {
 
-                Map<String, Map> lagacyBadge = new HashMap<>();
+                    Map<String, String> legacyBadge = new HashMap<>();
 
-                if (badgeWasRequested) {
                     //try finding first badge
                     for (Map.Entry<String, Map> entry : legacyBadgeConfig.entrySet()) {
                         if (entry.getValue().get("value").equals(componentBadge)) {
-                            lagacyBadge.putAll(entry.getValue());
+                            legacyBadge.putAll(entry.getValue());
                             break;
                         }
                     }
-                    if (lagacyBadge.size() > 0) {
-                        componentBadge = lagacyBadge.get("value").toString();
-                        requestedBadgeTemplate = format(COMPONENT_BADGE_DEFAULT_TEMPLATE_FORMAT, componentBadge);
+                    if (legacyBadge.size() > 0) {
+                        componentBadge = legacyBadge.get("value");
+                        requestedBadgeTemplate = format(COMPONENT_BADGE_TEMPLATE_FORMAT, componentBadge);
                     }
 
-                }
 
-                if (isNotNull(legacyBadgeConfig) && Boolean.TRUE.equals(badgeWasRequested) && lagacyBadge.size() == 0) {
-                    LOGGER.error("LEGACY BADGE WAS REQUESTED BUT NOT FOUND IN COMPONENT AND LEGACY MAPPING NOT FOUND requestedBadgeTemplate={}", requestedBadgeTemplate);
+                    if (Boolean.TRUE.equals(badgeWasRequested) && legacyBadge.size() == 0) {
+                        LOGGER.error("LEGACY BADGE WAS REQUESTED BUT NOT FOUND IN COMPONENT AND LEGACY MAPPING NOT FOUND requestedBadgeTemplate={}", requestedBadgeTemplate);
+                        componentBadge = DEFAULT_BADGE;
+                        requestedBadgeTemplate = defaultBadgeTemplate;
+                    }
+                } else {
+                    LOGGER.error("LEGACY BADGE WAS REQUESTED BUT LEGACY CONFIG IS EMPTY requestedBadgeTemplate={}", requestedBadgeTemplate);
+                    componentBadge = DEFAULT_BADGE;
+                    requestedBadgeTemplate = defaultBadgeTemplate;
                 }
             }
 
