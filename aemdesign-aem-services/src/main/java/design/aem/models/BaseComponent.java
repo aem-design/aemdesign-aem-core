@@ -83,6 +83,9 @@ public abstract class BaseComponent extends WCMUsePojo {
 
         componentProperties = getNewComponentProperties(this);
 
+        //get name of current resource
+        componentProperties.put("resourceName",getResource().getName());
+
         //let component set its field defaults
         setFieldDefaults();
 
