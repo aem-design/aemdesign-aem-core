@@ -1,6 +1,5 @@
 package design.aem.models.v2.widgets;
 
-import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.tagging.Tag;
 import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
@@ -37,7 +36,7 @@ public class ShareButton extends BaseComponent {
     @Override
     protected void setFieldDefaults() {
         componentDefaults.put(DEFAULT_TOOLID, getCloudConfigProperty(
-            (InheritanceValueMap) getResourcePage().getProperties(),
+            getInheritedPageProperties(),
             DEFAULT_CLOUDCONFIG_ADDTHIS,
             DEFAULT_CLOUDCONFIG_ADDTHIS_ID,
             getSlingScriptHelper()));

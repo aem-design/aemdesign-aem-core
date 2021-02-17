@@ -1,7 +1,6 @@
 package design.aem.models.v2.lists;
 
 import com.adobe.granite.asset.api.AssetManager;
-import com.day.cq.commons.inherit.InheritanceValueMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +50,7 @@ public class LocationList extends List {
         componentProperties.attr.add("wcmmode", getWcmMode().toString().toLowerCase());
 
         String googleApiKey = getCloudConfigProperty(
-            (InheritanceValueMap) getResourcePage().getProperties(),
+            getInheritedPageProperties(),
             DEFAULT_CLOUDCONFIG_GOOGLEMAP,
             DEFAULT_CLOUDCONFIG_GOOGLEMAP_API_KEY,
             getSlingScriptHelper());
