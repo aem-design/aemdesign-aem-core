@@ -399,7 +399,11 @@ public class TagUtil {
 
         if (!ResourceUtil.isNonExistingResource(detailsComponent)) {
             Page dcpage = detailsComponent.adaptTo(Page.class);
-            tags = dcpage.getTags();
+            try {
+                return dcpage.getTags();
+            } catch (Exception ex) {
+                return new Tag[]{};
+            }
         } else {
             tags = getPageTags(page,tags);
         }
