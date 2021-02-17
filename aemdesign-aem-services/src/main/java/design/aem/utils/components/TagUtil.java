@@ -8,6 +8,7 @@ import com.day.cq.wcm.api.Page;
 import design.aem.services.ContentAccess;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.slf4j.Logger;
@@ -386,6 +387,26 @@ public class TagUtil {
         return tagsRoot + TagConstants.SEPARATOR + namespace + TagConstants.SEPARATOR + localID;
     }
 
+
+    /***
+     * return page tags and don't error.
+     * @param page page to use
+     * @param detailsComponent details component resource
+     * @return list of tags
+     */
+    public static com.day.cq.tagging.Tag[] getPageTags(Page page, Resource detailsComponent) {
+        com.day.cq.tagging.Tag[] tags = new Tag[]{};
+
+        if (!ResourceUtil.isNonExistingResource(detailsComponent)) {
+            Page dcpage = detailsComponent.adaptTo(Page.class);
+            tags = dcpage.getTags();
+        } else {
+            tags = getPageTags(page,tags);
+        }
+
+        return tags;
+
+    }
 
     /***
      * return page tags and don't error.
