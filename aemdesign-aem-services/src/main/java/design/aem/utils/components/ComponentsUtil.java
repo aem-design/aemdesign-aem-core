@@ -2214,7 +2214,13 @@ public class ComponentsUtil {
         //add current value to the map
         jc.set("value", value);
 
-        Object returnValue = expr.evaluate(jc);
+        Object returnValue = "";
+
+        try {
+            returnValue = expr.evaluate(jc);
+        } catch (Exception ex) {
+            returnValue = "";
+        }
 
         //clean up
         jc.set("value", "");
