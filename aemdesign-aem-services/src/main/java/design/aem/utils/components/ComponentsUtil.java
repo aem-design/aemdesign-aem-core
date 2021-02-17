@@ -400,8 +400,8 @@ public class ComponentsUtil {
             {DETAILS_CARD_ICONSHOW, false},
             {DETAILS_CARD_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_LINK_TARGET, "_blank"},
-            {DETAILS_LINK_TEXT, "${value ? value : (" + FIELD_PAGE_TITLE_NAV + " ? " + FIELD_PAGE_TITLE_NAV + " : '')}"},
-            {DETAILS_LINK_TITLE, "${value ? value : (" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " : '')}"},
+            {DETAILS_LINK_TEXT, "${value ? value : (" + FIELD_PAGE_TITLE_NAV + " ? " + FIELD_PAGE_TITLE_NAV + " : " + FIELD_PAGE_TITLE + ")}"},
+            {DETAILS_LINK_TITLE, "${value ? value : (" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " : "+ FIELD_RESOURCE_NAME + ")}"},
             {DETAILS_LINK_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_LINK_FORMATTED, "${value ? value : pageUrl}", StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, false},
@@ -1689,8 +1689,27 @@ public class ComponentsUtil {
         return componentId;
     }
 
-
+    /***
+     * get cloud config setting from inherited value map
+     * @param pageProperties inherited value map with values
+     * @param configurationName config name
+     * @param propertyName property to get
+     * @param sling sling instance
+     * @return
+     */
     public static String getCloudConfigProperty(InheritanceValueMap pageProperties, String configurationName, String propertyName, SlingScriptHelper sling) {
+        return getCloudConfigProperty(pageProperties,configurationName,propertyName, sling);
+    }
+
+    /***
+     * get cloud config setting from inherited value map
+     * @param pageProperties value map with values
+     * @param configurationName config name
+     * @param propertyName property to get
+     * @param sling sling instance
+     * @return
+     */
+    public static String getCloudConfigProperty(ValueMap pageProperties, String configurationName, String propertyName, SlingScriptHelper sling) {
         String returnValue = StringUtils.EMPTY;
 
         ContentAccess contentAccess = sling.getService(ContentAccess.class);
@@ -1700,7 +1719,7 @@ public class ComponentsUtil {
                 // Getting attached facebook cloud service config in order to fetch appID
                 ConfigurationManager cfgMgr = adminResourceResolver.adaptTo(ConfigurationManager.class);
                 Configuration addthisConfiguration = null;
-                String[] services = pageProperties.getInherited(ConfigurationConstants.PN_CONFIGURATIONS, new String[]{});
+                String[] services = pageProperties.get(ConfigurationConstants.PN_CONFIGURATIONS, new String[]{});
                 if (cfgMgr != null) {
                     addthisConfiguration = cfgMgr.getConfiguration(configurationName, services);
                     if (addthisConfiguration != null) {
