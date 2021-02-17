@@ -11,9 +11,9 @@ import java.util.Map;
 
 import static design.aem.utils.components.CommonUtil.getPageCreated;
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE;
-import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE_NAV;
+import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.TagUtil.getTagValueAsAdmin;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class ContactDetails extends GenericDetails {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ContactDetails.class);
@@ -75,24 +75,29 @@ public class ContactDetails extends GenericDetails {
                 getSlingScriptHelper()));
 
             String formattedTitle = compileComponentMessage(FIELD_FORMAT_TITLE, DEFAULT_FORMAT_TITLE, componentProperties, slingScriptHelper);
-            Document fragment = Jsoup.parse(formattedTitle);
-            String formattedTitleText = fragment.text();
+            if (isNotEmpty(formattedTitle.trim())) {
 
-            newFields.put(FIELD_FORMATTED_TITLE,
-                formattedTitle.trim()
-            );
-            newFields.put(FIELD_FORMATTED_TITLE_TEXT,
-                formattedTitleText.trim()
-            );
+                newFields.put(FIELD_FORMATTED_TITLE,
+                    formattedTitle.trim()
+                );
 
-            newFields.put(FIELD_TITLE, formattedTitleText.trim());
-            newFields.put(FIELD_PAGE_TITLE, formattedTitleText.trim());
-            newFields.put(FIELD_PAGE_TITLE_NAV, formattedTitleText.trim());
-            newFields.put(DETAILS_LINK_TEXT, formattedTitleText.trim());
-            newFields.put(DETAILS_BADGE_TITLE, formattedTitleText.trim());
-            newFields.put(DETAILS_LINK_TITLE, formattedTitleText.trim());
-            newFields.put(DETAILS_ANALYTICS_LABEL, formattedTitleText.trim());
-            newFields.put(DETAILS_BADGE_ANALYTICS_LABEL, formattedTitleText.trim());
+                Document fragment = Jsoup.parse(formattedTitle);
+                String formattedTitleText = fragment.text();
+
+                if (isNotEmpty(formattedTitleText.trim())) {
+                    newFields.put(FIELD_FORMATTED_TITLE_TEXT,
+                        formattedTitleText.trim()
+                    );
+                    newFields.put(FIELD_TITLE, formattedTitleText.trim());
+                    newFields.put(FIELD_PAGE_TITLE, formattedTitleText.trim());
+                    newFields.put(FIELD_PAGE_TITLE_NAV, formattedTitleText.trim());
+                    newFields.put(DETAILS_LINK_TEXT, formattedTitleText.trim());
+                    newFields.put(DETAILS_BADGE_TITLE, formattedTitleText.trim());
+                    newFields.put(DETAILS_LINK_TITLE, formattedTitleText.trim());
+                    newFields.put(DETAILS_ANALYTICS_LABEL, formattedTitleText.trim());
+                    newFields.put(DETAILS_BADGE_ANALYTICS_LABEL, formattedTitleText.trim());
+                }
+            }
 
             newFields.put(FIELD_FORMATTED_DESCRIPTION, compileComponentMessage(
                 FIELD_FORMAT_DESCRIPTION,
