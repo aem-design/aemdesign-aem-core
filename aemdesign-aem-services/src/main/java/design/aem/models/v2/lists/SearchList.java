@@ -51,7 +51,7 @@ public class SearchList extends BaseComponent {
 
     protected static final String DEFAULT_I18N_CATEGORY = "searchlist";
     protected static final String DEFAULT_I18N_LABEL_LICENSEINFO = "licenseinfo";
-    private static final String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
+    private static final String ASSET_LICENSEINFO = "{4} {0} {1} {2} {3}";
     private static final String RESULT_STATIC_TEXT = "statisticsText";
 
     @SuppressWarnings({"Duplicates", "squid:S3776"})

@@ -68,7 +68,7 @@ public class AssetList extends BaseComponent {
     protected static final String FIELD_IMAGE_OPTION_DEFAULT = "responsive";
     protected static final String ASSET_TYPE = "assetType";
 
-    protected static final String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
+    protected static final String ASSET_LICENSEINFO = "{4} {0} {1} {2} {3}";
 
     protected long totalMatches;
     protected SortOrder sortOrder;
