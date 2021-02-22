@@ -450,6 +450,7 @@ public class List extends BaseComponent {
                 pageLink.put("pageStart", resultPage.getStart());
                 pageLink.put("pagePosition", resultPageIndex);
                 pageLink.put("pageLabel", resultPageIndex + 1);
+                pageLink.put("pageLabelEstimated", (int)(resultPage.getStart() / pageMax));
                 if (resultPage.isCurrentPage()) {
                     pageLink.put("pageCurrent", true);
                     currentIndex = resultPageIndex;
@@ -465,7 +466,7 @@ public class List extends BaseComponent {
                 long endShow = Math.min(currentIndex + midIndex, maxShow) + (startShow < 0 ? -startShow : 0);
                 for (int i = pageLinks.size() - 1; i >= 0; i--) {
                     int pagePosition = (int)pageLinks.get(i).get("pagePosition");
-                    if (pagePosition < startShow || pagePosition >= endShow) {
+                    if (pagePosition < startShow || pagePosition > endShow) {
                         pageLinks.remove(i);
                     }
                 }
