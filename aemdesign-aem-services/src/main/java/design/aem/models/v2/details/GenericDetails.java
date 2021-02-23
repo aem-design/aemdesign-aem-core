@@ -65,6 +65,7 @@ public class GenericDetails extends BaseComponent {
 
     protected static final String DEFAULT_ARIA_ROLE = "banner";
     protected static final String DEFAULT_FORMAT_TITLE = "${title}";
+    protected static final String DEFAULT_FORMAT_DESCRIPTION = "${description}";
     protected static final String DEFAULT_TAG_LEGACY_BADGE_CONFIG = ":component-dialog/components/details/generic-details/legacy";
     protected static final String DEFAULT_TITLE_TAG_TYPE = "h1";
     protected static final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
@@ -137,7 +138,7 @@ public class GenericDetails extends BaseComponent {
     @Override
     protected void setFields() {
         setComponentFields(new Object[][]{
-            {FIELD_DESCRIPTION, "${value ? value : " + FIELD_FORMATTED_TITLE_TEXT + " }"},
+            {FIELD_DESCRIPTION, componentDefaults.get(FIELD_DESCRIPTION)},
             {FIELD_FORMATTED_TITLE, "${value ? value : " + FIELD_TITLE +"}"},
             {FIELD_FORMATTED_TITLE_TEXT, "${value ? value : " + FIELD_TITLE +"}"},
             {FIELD_VARIANT, DEFAULT_VARIANT},
@@ -640,6 +641,14 @@ public class GenericDetails extends BaseComponent {
             newFields.put(FIELD_FORMATTED_TITLE_TEXT,
                 formattedTitleText.trim()
             );
+
+            newFields.put(FIELD_FORMATTED_DESCRIPTION, compileComponentMessage(
+                FIELD_FORMAT_DESCRIPTION,
+                DEFAULT_FORMAT_DESCRIPTION,
+                componentProperties,
+                slingScriptHelper
+            ).trim());
+
         } catch (Exception ex) {
             LOGGER.error("Could not process component fields in {}", COMPONENT_DETAILS_NAME);
         }
