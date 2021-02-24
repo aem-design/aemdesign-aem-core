@@ -3,8 +3,8 @@
          data-sly-attribute.itemscope="${componentProperties.itemscope}"
          data-sly-attribute.itemtype="${componentProperties.itemtype @ context = 'uri'}">
         <sly data-sly-test="${'icon' in componentFields}">
-            <sly data-sly-use.image="${componentFields['image'].path}"
-                 data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>
+            <sly data-sly-use.icon="${componentFields['icon'].path}"
+                 data-sly-call="${icon.field @ componentProperties=componentProperties}"></sly>
         </sly>
 
         <div class="card-body">
