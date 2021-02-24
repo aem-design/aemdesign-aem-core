@@ -4,8 +4,8 @@ $script:DEFAULT_POM_FILE = (&{If($DEFAULT_POM_FILE -eq $null) {"${PARENT_PROJECT
 $script:POM_FILE = (&{If($POM_FILE -eq $null) {"${DEFAULT_POM_FILE}"} else {$POM_FILE}})
 $script:SKIP_PRINT_CONFIG = (&{If($SKIP_PRINT_CONFIG -eq $null) {$false} else {$SKIP_PRINT_CONFIG}})
 $script:SKIP_CONFIG = (&{If($SKIP_CONFIG -eq $null) {$false} else {$SKIP_CONFIG}})
-
-
+$script:LOG_PATH = (&{If($LOG_PATH -eq $null) {"${PWD}\logs"} else {$LOG_PATH}})
+$script:TEST_SELENIUM_URL = (&{If($TEST_SELENIUM_URL -eq $null) {""} else {$TEST_SELENIUM_URL}})
 
 Function Get-DateStamp
 {
@@ -44,7 +44,6 @@ Function Get-LocalIP
     [Parameter(ValueFromPipeline)]
     [string]$ITERFACE_NAME = "(Default Switch)",
     [string]$CONFIG_NAME = "IPv4 Address",
-    [string]$LOG_PATH = "${PWD}\logs",
     [string]$IPCONFIG_COMMAND = "ipconfig",
     [string]$IPCONFIG_COMMAND_OUTPUT = "${LOG_PATH}\ipconfig.log"
   )

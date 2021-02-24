@@ -15,9 +15,6 @@ $PARENT_PROJECT_PATH = "."
 
 . ".\scripts\functions.ps1"
 
-$script:LOG_PATH = $LOG_PATH
-$script:TEST_SELENIUM_URL = $TEST_SELENIUM_URL
-
 printSectionBanner "Creating Package"
 printSectionLine ("$MVN_COMMAND" -replace "$AEM_PASSWORD", "***")
 
