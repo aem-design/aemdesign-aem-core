@@ -195,13 +195,14 @@ public class Image extends BaseComponent {
 
             //get license format from tags and create result html and text
             String licenseFormat = componentProperties.get(FIELD_LICENSE_FORMAT, DEFAULT_FIELD_LICENSE_FORMAT);
-            String formattedTitle = CommonUtil.compileMapMessage(licenseFormat, asset.getMetadata());
-            newFields.put(FIELD_FORMATTED_LICENSE, formattedTitle.trim());
+            String formattedLicense = CommonUtil.compileMapMessage(licenseFormat, asset.getMetadata());
+            formattedLicense = removeRegexFromString(formattedLicense);
+            newFields.put(FIELD_FORMATTED_LICENSE, formattedLicense.trim());
             //convert html to plain text
-            Document fragment = Jsoup.parse(formattedTitle);
-            String formattedTitleText = fragment.text();
+            Document fragment = Jsoup.parse(formattedLicense);
+            String formattedLicenseText = fragment.text();
             newFields.put(FIELD_FORMATTED_LICENSE_TEXT,
-                formattedTitleText.trim()
+                formattedLicenseText.trim()
             );
 
         } catch (Exception ex) {
