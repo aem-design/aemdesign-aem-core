@@ -33,7 +33,7 @@ if ( $AEM_AVAILABLE )
 {
   printSectionLine "AEM host is available!" "info"
   printSectionLine "Deploying:" "info"
-  Invoke-Expression -Command "$MVN_COMMAND" | Tee-Object -Append -FilePath "${LOG_FILENAME}"
+  Invoke-Expression -Command "$MVN_COMMAND" | Tee-Object -Append -FilePath "${LOG_FILE}"
 
 } else {
   printSectionLine "AEM is not currently available!" "error"

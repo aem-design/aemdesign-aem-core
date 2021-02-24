@@ -155,9 +155,9 @@ Function Do-Debug
   $previousForegroundColor = $host.UI.RawUI.ForegroundColor
   $previousBackgroundColor = $host.UI.RawUI.BackgroundColor
 
-  if ( -not ([string]::IsNullOrEmpty(${LOG_FILENAME})) )
+  if ( -not ([string]::IsNullOrEmpty(${LOG_FILE})) )
   {
-    Write-Output "${TEXT}" | Add-Content -Path "${LOG_FILENAME}"
+    Write-Output "${TEXT}" | Add-Content -Path "${LOG_FILE}"
   }
 
   $TEXT_COLOR = $host.ui.rawui.ForegroundColor
@@ -291,7 +291,8 @@ Function Main
 
   # set logfile name
   $script:LOG_FILENAME_DATE = "$(DateStamp)"
-  $script:LOG_FILENAME = "${LOG_PEFIX}-${DOCKER_NETWORK_NAME}-${LOG_FILENAME_DATE}${LOG_SUFFIX}"
+  $script:LOG_FILENAME = "${LOG_PATH}\${LOG_PEFIX}-${DOCKER_NETWORK_NAME}-${LOG_FILENAME_DATE}${LOG_SUFFIX}"
+  $script:LOG_FILE = "${LOG_PATH}\${LOG_FILENAME}"
 
   $script:LOCAL_IP = (Get-LocalIP)
 
@@ -302,7 +303,7 @@ Function Main
     # load pom file
     [xml]$POM_FILE_XML = (Get-Content $POM_FILE)
 
-    printSectionLine "LOG_FILENAME: ${LOG_FILENAME}"
+    printSectionLine "LOG_PATH: ${LOG_PATH}"
     printSectionLine "PARENT_PROJECT_PATH: ${PARENT_PROJECT_PATH}"
     printSectionLine "DEFAULT_POM_FILE: ${DEFAULT_POM_FILE}"
     printSectionLine "POM_FILE: ${POM_FILE}"

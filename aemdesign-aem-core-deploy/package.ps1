@@ -16,5 +16,5 @@ Param(
 printSectionBanner "Creating Package"
 printSectionLine ("$MVN_COMMAND" -replace "$AEM_PASSWORD", "***")
 
-Invoke-Expression -Command "$MVN_COMMAND" | Tee-Object -Append -FilePath "${LOG_FILENAME}"
+Invoke-Expression -Command "$MVN_COMMAND" | Tee-Object -Append -FilePath "${LOG_FILE}"
 
