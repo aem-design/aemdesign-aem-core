@@ -749,7 +749,8 @@ public class List extends BaseComponent {
             Page rootPage = getPageManager().getPage(componentProperties.get(PN_TAGS_PARENT_PAGE, StringUtils.EMPTY));
 
             if (rootPage != null) {
-                Map<String, String> childMap = new HashMap<>();
+                Map<String, String> childMap = new LinkedHashMap<>();
+                childMap.put("type", NameConstants.NT_PAGE);
                 childMap.put("path", rootPage.getPath());
 
                 String operator = matchAny ? "or" : "and";
