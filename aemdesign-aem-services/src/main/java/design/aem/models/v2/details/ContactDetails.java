@@ -56,11 +56,6 @@ public class ContactDetails extends GenericDetails {
         }
 
     }
-    @Override
-    protected void done() {
-
-
-    }
 
     @Override
     protected void setFields() {
