@@ -369,6 +369,7 @@ public class ComponentDetailsUtil {
                         //get page properties and any if have been overridden by Details component
                         Object[][] componentFields = {
                                 {TagConstants.PN_TAGS, new String[]{}},
+                                {FIELD_TITLE, getPageTitle(page, detailsNodeResource)},
                                 {FIELD_PAGE_TITLE, getPageTitle(page, detailsNodeResource)},
                                 {FIELD_PAGE_TITLE_NAV, getPageNavTitle(page, detailsNodeResource)},
                                 {FIELD_DESCRIPTION, getPageDescription(page, detailsNodeResource)},
