@@ -289,10 +289,14 @@ Function Main
   $script:DOCKER_LOGS_FOLDER = (createDir $DOCKER_LOGS_FOLDER)
   $script:DRIVER_FOLDER = (createDir $DRIVER_FOLDER)
 
+  Write-Output "${LOG_PATH}"
+
   # set logfile name
   $script:LOG_FILENAME_DATE = "$(DateStamp)"
-  $script:LOG_FILENAME = "${LOG_PATH}\${LOG_PEFIX}-${DOCKER_NETWORK_NAME}-${LOG_FILENAME_DATE}${LOG_SUFFIX}"
+  $script:LOG_FILENAME = "${LOG_PEFIX}-${DOCKER_NETWORK_NAME}-${LOG_FILENAME_DATE}${LOG_SUFFIX}"
   $script:LOG_FILE = "${LOG_PATH}\${LOG_FILENAME}"
+
+  Write-Output "${LOG_FILE}"
 
   $script:LOCAL_IP = (Get-LocalIP)
 
@@ -303,7 +307,7 @@ Function Main
     # load pom file
     [xml]$POM_FILE_XML = (Get-Content $POM_FILE)
 
-    printSectionLine "LOG_PATH: ${LOG_PATH}"
+    printSectionLine "LOG_FILE: ${LOG_FILE}"
     printSectionLine "PARENT_PROJECT_PATH: ${PARENT_PROJECT_PATH}"
     printSectionLine "DEFAULT_POM_FILE: ${DEFAULT_POM_FILE}"
     printSectionLine "POM_FILE: ${POM_FILE}"

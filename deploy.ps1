@@ -1,6 +1,6 @@
 Param(
   [string]$LOG_PATH = "${PWD}\logs",
-  [string]$LOG_PEFIX = "${LOG_PATH}\deploy",
+  [string]$LOG_PEFIX = "deploy",
   [string]$LOG_SUFFIX = ".log",
   [string]$DOCKER_LOGS_FOLDER = "${PWD}\logs\docker",
   [string]$AEM_SCHEME = "http",
