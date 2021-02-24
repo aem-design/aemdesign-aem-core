@@ -28,14 +28,14 @@ public class ShareButton extends BaseComponent {
             {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
             {FIELD_STYLE_COMPONENT_MODULES, new String[]{DEFAULT_MODULE_TAG}, "data-modules", Tag.class.getCanonicalName()},
             {FIELD_STYLE_COMPONENT_THEME, new String[]{}, "class", Tag.class.getCanonicalName()},
-            {DEFAULT_TOOLID, componentDefaults.get(DEFAULT_TOOLID), "data-toolid"},
-            {DEFAULT_CLOUDCONFIG_ADDTHIS_ID, componentDefaults, "data-pubid"},
+            {DEFAULT_TOOLID, "", "data-toolid"},
+            {DEFAULT_CLOUDCONFIG_ADDTHIS_ID, componentDefaults.get(DEFAULT_CLOUDCONFIG_ADDTHIS_ID), "data-pubid"},
         });
     }
 
     @Override
     protected void setFieldDefaults() {
-        componentDefaults.put(DEFAULT_TOOLID, getCloudConfigProperty(
+        componentDefaults.put(DEFAULT_CLOUDCONFIG_ADDTHIS_ID, getCloudConfigProperty(
             getInheritedPageProperties(),
             DEFAULT_CLOUDCONFIG_ADDTHIS,
             DEFAULT_CLOUDCONFIG_ADDTHIS_ID,
