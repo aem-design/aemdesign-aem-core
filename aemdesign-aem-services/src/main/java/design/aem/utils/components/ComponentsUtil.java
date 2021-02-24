@@ -1192,9 +1192,6 @@ public class ComponentsUtil {
                 }
 
                 if (fieldLists != null) {
-                    JexlEngine jexl = new JexlBuilder().create();
-                    JxltEngine jxlt = jexl.createJxltEngine();
-                    JexlContext jc = new MapContext(componentProperties);
 
                     for (Object[][] fieldDefaults : fieldLists) {
                         for (Object[] field : fieldDefaults) {
