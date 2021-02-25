@@ -1,0 +1,19 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+        <div class="container">
+            <sly data-sly-use.header="./page-details.header.html"
+                 data-sly-call="${header.variant @ componentProperties=componentProperties}"></sly>
+            <header>
+                <title class="title"
+                       data-sly-test="${!componentProperties.hideTitle}"
+                       data-sly-element="${componentProperties.titleType}"
+                       data-sly-attribute.id="${componentProperties.ariaLabelledBy}">${componentProperties.titleFormatted @ context = 'unsafe'}</title>
+                <div class="description"
+                     data-sly-test="${!componentProperties.hideDescription}">${componentProperties.description @ context = 'unsafe'}</div>
+            </header>
+            <sly data-sly-use.footer="./page-details.footer.html"
+                 data-sly-call="${footer.variant @ componentProperties=componentProperties}"></sly>
+        </div>
+    </div>
+</template>

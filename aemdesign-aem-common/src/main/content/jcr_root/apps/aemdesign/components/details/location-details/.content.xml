@@ -6,5 +6,5 @@
           jcr:primaryType="cq:Component"
           jcr:title="Location Details"
           cq:icon="viewDetail"
-          sling:resourceSuperType="aemdesign/components/details/location-details/v2/location-details"
+          sling:resourceSuperType="aemdesign/components/details/location-details/v3/location-details"
           componentGroup="AEM.Design - Details"/>

@@ -1,26 +1,17 @@
 package design.aem.models.v2.details;
 
-import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.TagConstants;
-import design.aem.components.ComponentProperties;
-import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.scripting.SlingScriptHelper;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
 
-import static design.aem.utils.components.CommonUtil.*;
-import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.*;
-import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
-import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
+import static design.aem.utils.components.CommonUtil.getPageCreated;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_DATA_SCHEMA_ITEMSCOPE;
+import static design.aem.utils.components.ComponentsUtil.DETAILS_DATA_SCHEMA_ITEMTYPE;
 
 public class NewsDetails extends GenericDetails {
     protected static final Logger LOGGER = LoggerFactory.getLogger(NewsDetails.class);
@@ -36,34 +27,6 @@ public class NewsDetails extends GenericDetails {
     protected void ready() {
         super.ready();
 
-        long publishDateLong = componentProperties.get(FIELD_PUBLISH_DATE, 0L);
-
-        Calendar publishDate = Calendar.getInstance();
-        publishDate.setTimeInMillis(publishDateLong);
-
-        // Get format strings from dictionary
-        String dateFormatString = i18n.get("publishDateFormat", DEFAULT_I18N_CATEGORY);
-        String dateDisplayFormatString = i18n.get("publishDateDisplayFormat", DEFAULT_I18N_CATEGORY);
-
-        // Format date into formatted date
-        SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString);
-        String publishDateText = dateFormat.format(publishDate.getTime());
-
-        // Format date into display date
-        dateFormat = new SimpleDateFormat(dateDisplayFormatString);
-        String publishDisplayDateText = dateFormat.format(publishDate.getTime());
-
-        componentProperties.put("publishDateText", publishDateText);
-        componentProperties.put("publishDisplayDateText", publishDisplayDateText);
-
-        // Get full published date display text
-        String newsDateStatusText = i18n.get(
-            "newsDateStatusText",
-            DEFAULT_I18N_CATEGORY,
-            publishDateText,
-            publishDisplayDateText);
-
-        componentProperties.put("newsDateStatusText", newsDateStatusText);
     }
 
     @Override
@@ -73,6 +36,8 @@ public class NewsDetails extends GenericDetails {
         setComponentFields(new Object[][]{
             {FIELD_AUTHOR, StringUtils.EMPTY},
             {FIELD_PUBLISH_DATE, componentDefaults.get(FIELD_PUBLISH_DATE)},
+            {DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE},
+            {DETAILS_DATA_SCHEMA_ITEMTYPE, "http://schema.org/NewsArticle", DETAILS_DATA_SCHEMA_ITEMTYPE},
         });
     }
 
@@ -80,11 +45,52 @@ public class NewsDetails extends GenericDetails {
     protected void setFieldDefaults() {
         super.setFieldDefaults();
 
-        componentDefaults.put(FIELD_PUBLISH_DATE, getPageCreated(getPageProperties()));
+        componentDefaults.put(FIELD_PUBLISH_DATE, getPageCreated(getResourcePage().getProperties()));
+        //this component has category field
+        componentDefaults.put(TagConstants.PN_TAGS, new String[]{});
     }
 
     @Override
     protected String getComponentCategory() {
         return DEFAULT_I18N_CATEGORY;
+    }
+
+    @Override
+    protected Map<String, Object> processComponentFields() {
+        Map<String, Object> newFields = super.processComponentFields();
+        try {
+            long publishDateLong = componentProperties.get(FIELD_PUBLISH_DATE, 0L);
+
+            Calendar publishDate = Calendar.getInstance();
+            publishDate.setTimeInMillis(publishDateLong);
+
+            // Get format strings from dictionary
+            String dateFormatString = i18n.get("publishDateFormat", DEFAULT_I18N_CATEGORY);
+            String dateDisplayFormatString = i18n.get("publishDateDisplayFormat", DEFAULT_I18N_CATEGORY);
+
+            // Format date into formatted date
+            SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString);
+            String publishDateText = dateFormat.format(publishDate.getTime());
+
+            // Format date into display date
+            dateFormat = new SimpleDateFormat(dateDisplayFormatString);
+            String publishDisplayDateText = dateFormat.format(publishDate.getTime());
+
+            newFields.put("publishDateText", publishDateText);
+            newFields.put("publishDisplayDateText", publishDisplayDateText);
+
+            // Get full published date display text
+            String newsDateStatusText = i18n.get(
+                "newsDateStatusText",
+                DEFAULT_I18N_CATEGORY,
+                publishDateText,
+                publishDisplayDateText);
+
+            newFields.put("newsDateStatusText", newsDateStatusText);
+        } catch (Exception ex) {
+            LOGGER.error("Could not process component fields in {}", COMPONENT_DETAILS_NAME);
+        }
+
+        return newFields;
     }
 }

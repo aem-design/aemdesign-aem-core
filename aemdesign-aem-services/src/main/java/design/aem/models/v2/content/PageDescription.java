@@ -16,7 +16,7 @@ public class PageDescription extends BaseComponent {
             DEFAULT_FIELDS_ACCESSIBILITY,
             DEFAULT_FIELDS_DETAILS_OPTIONS);
 
-        String jcrDescription = getPageProperties().get(JcrConstants.JCR_DESCRIPTION, StringUtils.EMPTY);
+        String jcrDescription = getResourcePage().getProperties().get(JcrConstants.JCR_DESCRIPTION, StringUtils.EMPTY);
         String overrideDescription = componentProperties.get(JcrConstants.JCR_DESCRIPTION, StringUtils.EMPTY);
 
         componentProperties.put("pagedescription",

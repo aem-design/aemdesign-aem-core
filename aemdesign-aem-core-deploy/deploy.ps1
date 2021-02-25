@@ -1,6 +1,6 @@
 Param(
   [string]$LOG_PATH = "${PWD}\logs",
-  [string]$LOG_PEFIX = "${LOG_PATH}\deploy",
+  [string]$LOG_PEFIX = "deploy",
   [string]$LOG_SUFFIX = ".log",
   [string]$DOCKER_LOGS_FOLDER = "${PWD}\logs\docker",
   [string]$AEM_SCHEME = "http",
@@ -12,10 +12,7 @@ Param(
 
 )
 
-. ".\scripts\functions.ps1"
-
-$script:LOG_PATH = $LOG_PATH
-$script:TEST_SELENIUM_URL = $TEST_SELENIUM_URL
+. "..\scripts\functions.ps1"
 
 printSectionBanner "Deploying:" "warn"
 printSectionLine ("$MVN_COMMAND" -replace "$AEM_PASSWORD", "***")
@@ -36,7 +33,7 @@ if ( $AEM_AVAILABLE )
 {
   printSectionLine "AEM host is available!" "info"
   printSectionLine "Deploying:" "info"
-  Invoke-Expression -Command "$MVN_COMMAND" | Tee-Object -Append -FilePath "${LOG_FILENAME}"
+  Invoke-Expression -Command "$MVN_COMMAND" | Tee-Object -Append -FilePath "${LOG_FILE}"
 
 } else {
   printSectionLine "AEM is not currently available!" "error"

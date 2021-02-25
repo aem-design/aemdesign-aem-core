@@ -55,7 +55,7 @@
                                             name="./variationName">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="core/wcm/extension/components/contentfragment/v1/datasource/variations"
+                                                sling:resourceType="core/wcm/components/contentfragment/v1/datasource/variations"
                                                 componentPath="${requestPathInfo.suffix}"
                                                 fragmentPath="${param.fragmentPath}"/>
                                         <granite:data

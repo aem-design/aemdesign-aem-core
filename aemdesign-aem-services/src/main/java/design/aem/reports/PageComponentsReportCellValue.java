@@ -5,6 +5,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.components.Component;
 import com.day.cq.wcm.api.components.ComponentManager;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.SlingConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
@@ -137,7 +138,18 @@ public class PageComponentsReportCellValue {
         List<TreeNode> components = new LinkedList();
         List<TreeNode> childComponents = new LinkedList();
 
-        if (resource != null && !ResourceUtil.isNonExistingResource(resource) && resource.hasChildren()) {
+        //skip me if
+        // resource is null
+        // resource does not exist
+        // resource does not have sling:resourceType resource type
+        if (resource == null
+            || ResourceUtil.isNonExistingResource(resource)
+            || !resource.getValueMap().containsKey(RESOURCE_TYPE)) {
+            return components;
+        }
+
+        if (resource.hasChildren()) {
+
             //return my children
             for (Resource child : resource.getChildren()) {
 
@@ -152,21 +164,16 @@ public class PageComponentsReportCellValue {
                     }
                 }
             }
-            //return self
-            if (isNotEmpty(attribute)) {
-                components.add(new TreeNode(getComponentAttribute(resource, attribute, allComponents), childComponents));
-            } else {
-                components.add(new TreeNode(resource.getName(), childComponents));
-            }
-        } else {
-            //return self
-            if (isNotEmpty(attribute)) {
-                components.add(new TreeNode(getComponentAttribute(resource, attribute, allComponents), childComponents));
-            } else {
-                components.add(new TreeNode(resource.getName(), childComponents));
-            }
 
         }
+
+        //return self
+        if (isNotEmpty(attribute)) {
+            components.add(new TreeNode(getComponentAttribute(resource, attribute, allComponents), childComponents));
+        } else {
+            components.add(new TreeNode(resource.getName(), childComponents));
+        }
+
         return components;
     }
 

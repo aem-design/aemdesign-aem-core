@@ -68,7 +68,7 @@ public class AssetList extends BaseComponent {
     protected static final String FIELD_IMAGE_OPTION_DEFAULT = "responsive";
     protected static final String ASSET_TYPE = "assetType";
 
-    protected static final String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
+    protected static final String ASSET_LICENSEINFO = "{4} {0} {1} {2} {3}";
 
     protected long totalMatches;
     protected SortOrder sortOrder;
@@ -402,6 +402,12 @@ public class AssetList extends BaseComponent {
                         if (!responsiveImageSet.values().isEmpty()) {
                             assetProperties.put(FIELD_IMAGEURL, responsiveImageSet.values().toArray()[responsiveImageSet.values().size() - 1]);
                         }
+
+                        //re-evaluate expression fields after all data is ready
+                        assetProperties.evaluateAllExpressionValues();
+
+                        //re-evaluate expression fields after all data is ready
+                        assetProperties.evaluateExpressionFields();
 
                         assetProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(assetProperties.attr.getData(), null));
 

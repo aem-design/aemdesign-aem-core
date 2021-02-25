@@ -71,6 +71,10 @@ public class List extends BaseComponent {
     protected static final String DETAILS_BADGE = "detailsBadge";
     protected static final String PAGINATION_TYPE = "paginationType";
     protected static final String PAGINATION_PAGE_LINKS = "paginationPageLinks";
+    protected static final String HEADER_TYPE = "headerType";
+    protected static final String HEADER_PREFIX = "headerPrefix";
+    protected static final String HEADER_RESULTS_PREFIX = "headerResultsPrefix";
+    protected static final String HEADER_RESULTS_SUFFIX = "headerResultsSuffix";
 
     protected static final String REQUEST_PARAM_MARKER_START = "start";
     protected static final String REQUEST_PARAM_MARKER_MAX = "max";
@@ -93,6 +97,7 @@ public class List extends BaseComponent {
     protected static final Boolean DEFAULT_PRINT_STRUCTURE = true;
     protected static final String DEFAULT_I18N_CATEGORY = "list";
     protected static final String DEFAULT_PAGINATION = "default";
+    protected static final String DEFAULT_HEADER = "hidden";
 
     public static final String LISTITEM_LINK_TEXT = "listItemLinkText";
     public static final String LISTITEM_LINK_TITLE = "listItemLinkTitle";
@@ -282,6 +287,9 @@ public class List extends BaseComponent {
         String paginationTemplate = String.format("pagination.%s.html", componentProperties.get(PAGINATION_TYPE, DEFAULT_PAGINATION));
         componentProperties.put("paginationTemplate", paginationTemplate);
 
+        String headerTemplate = String.format("header.%s.html", componentProperties.get(HEADER_TYPE, DEFAULT_HEADER));
+        componentProperties.put("headerTemplate", headerTemplate);
+
         componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
     }
 
@@ -299,6 +307,25 @@ public class List extends BaseComponent {
             {SHOW_HIDDEN, false},
             {SHOW_INVALID, false},
             {PAGINATION_TYPE, DEFAULT_PAGINATION},
+            {HEADER_TYPE, DEFAULT_HEADER},
+            {HEADER_PREFIX, getDefaultLabelIfEmpty(
+                StringUtils.EMPTY,
+                getComponentCategory(),
+                HEADER_PREFIX,
+                getComponentCategory(),
+                i18n)},
+            {HEADER_RESULTS_PREFIX, getDefaultLabelIfEmpty(
+                StringUtils.EMPTY,
+                getComponentCategory(),
+                HEADER_RESULTS_PREFIX,
+                getComponentCategory(),
+                i18n)},
+            {HEADER_RESULTS_SUFFIX, getDefaultLabelIfEmpty(
+                StringUtils.EMPTY,
+                getComponentCategory(),
+                HEADER_RESULTS_SUFFIX,
+                getComponentCategory(),
+                i18n)},
             {LIMIT_PROPERTY_NAME, LIMIT_DEFAULT},
             {PAGE_MAX_PROPERTY_NAME, PAGEMAX_DEFAULT},
             {ANCESTOR_PAGE_PROPERTY_NAME, StringUtils.EMPTY},
@@ -423,6 +450,7 @@ public class List extends BaseComponent {
                 pageLink.put("pageStart", resultPage.getStart());
                 pageLink.put("pagePosition", resultPageIndex);
                 pageLink.put("pageLabel", resultPageIndex + 1);
+                pageLink.put("pageLabelEstimated", (int)(resultPage.getStart() / pageMax));
                 if (resultPage.isCurrentPage()) {
                     pageLink.put("pageCurrent", true);
                     currentIndex = resultPageIndex;
@@ -438,7 +466,7 @@ public class List extends BaseComponent {
                 long endShow = Math.min(currentIndex + midIndex, maxShow) + (startShow < 0 ? -startShow : 0);
                 for (int i = pageLinks.size() - 1; i >= 0; i--) {
                     int pagePosition = (int)pageLinks.get(i).get("pagePosition");
-                    if (pagePosition < startShow || pagePosition >= endShow) {
+                    if (pagePosition < startShow || pagePosition > endShow) {
                         pageLinks.remove(i);
                     }
                 }
@@ -662,6 +690,8 @@ public class List extends BaseComponent {
                 }
             }
         }
+
+        totalMatches = listItems.size();
     }
 
     /**
@@ -719,7 +749,8 @@ public class List extends BaseComponent {
             Page rootPage = getPageManager().getPage(componentProperties.get(PN_TAGS_PARENT_PAGE, StringUtils.EMPTY));
 
             if (rootPage != null) {
-                Map<String, String> childMap = new HashMap<>();
+                Map<String, String> childMap = new LinkedHashMap<>();
+                childMap.put("type", NameConstants.NT_PAGE);
                 childMap.put("path", rootPage.getPath());
 
                 String operator = matchAny ? "or" : "and";

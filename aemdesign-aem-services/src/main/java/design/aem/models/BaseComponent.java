@@ -16,7 +16,8 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import static design.aem.utils.components.ComponentsUtil.DEFAULT_TENANT;
+import static design.aem.components.ComponentProperties.mapEvaluateAllExpressionValues;
+import static design.aem.utils.components.ComponentsUtil.*;
 
 public abstract class BaseComponent extends WCMUsePojo {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BaseComponent.class);
@@ -36,6 +37,43 @@ public abstract class BaseComponent extends WCMUsePojo {
 
     protected abstract void ready() throws Exception; // NOSONAR generic exception is fine
 
+    /***
+     * runs as a final step after all activate steps have finished
+     * @throws Exception
+     */
+    protected void done() throws Exception {
+
+        if (componentProperties != null) {
+
+            //re-evaluate expression fields after all data is ready
+            componentProperties.evaluateAllExpressionValues();
+
+            //re-evaluate expression fields after all data is ready
+            componentProperties.evaluateExpressionFields();
+
+            if (componentProperties.attr != null) {
+                //update component attributes after evaluation of fields
+                componentProperties.put(COMPONENT_ATTRIBUTES,
+                    buildAttributesString(componentProperties.attr.getData(), null));
+            } else {
+                LOGGER.error("component properties was not initialised properly it does not have attribute builder.");
+            }
+
+            //evaluate all badge values
+            if (componentProperties.containsKey(DETAILS_BADGE_LINK_ATTR)) {
+                Map<String, String> badgeLinkAttr = componentProperties.get(DETAILS_BADGE_LINK_ATTR,new HashMap<>());
+
+                badgeLinkAttr.putAll(mapEvaluateAllExpressionValues(badgeLinkAttr,componentProperties));
+
+                componentProperties.put(DETAILS_BADGE_LINK_ATTR, badgeLinkAttr);
+            }
+
+        } else {
+            LOGGER.error("component was not initialised properly it does not have componentProperties.");
+        }
+
+    }; // NOSONAR generic exception is fine
+
     @Override
     public final void activate() throws Exception {
         i18n = new I18n(getRequest());
@@ -43,11 +81,22 @@ public abstract class BaseComponent extends WCMUsePojo {
         slingSettingsService = slingScriptHelper.getService(SlingSettingsService.class);
         xssAPI = getSlingScriptHelper().getService(XSSAPI.class);
 
+        componentProperties = getNewComponentProperties(this);
+
+        //get name of current resource
+        componentProperties.put("resourceName",getResource().getName());
+
+        //let component set its field defaults
         setFieldDefaults();
 
+        //let component set its fields
         setFields();
 
+        //let component to process its data
         ready();
+
+        //let component to override last step
+        done();
     }
 
     protected void setFields() {

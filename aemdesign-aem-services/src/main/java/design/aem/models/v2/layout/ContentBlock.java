@@ -14,6 +14,11 @@ import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import static design.aem.utils.components.CommonUtil.DEFAULT_PAR_NAME;
 import static design.aem.utils.components.ComponentDetailsUtil.getPageListInfo;
 import static design.aem.utils.components.ComponentsUtil.*;
@@ -28,6 +33,7 @@ public class ContentBlock extends BaseComponent {
     protected static final String DEFAULT_I18N_CATEGORY = "contentblock";
     protected static final String DEFAULT_I18N_BACKTOTOP_LABEL = "backtotoplabel";
     protected static final String DEFAULT_I18N_BACKTOTOP_TITLE = "backtotoptitle";
+    protected static final String DEFAULT_BACKGROUND_ATTRIBUTES_VIDEO = "videoBooleanAttrs";
     protected static final String DEFAULT_TITLE_TAG_TYPE = "h2";
 
     protected void ready() throws Exception {
@@ -120,6 +126,14 @@ public class ContentBlock extends BaseComponent {
                 }
             }
         }
+
+        componentProperties.put(DEFAULT_BACKGROUND_ATTRIBUTES_VIDEO,
+            Stream.of(new String[][] {
+                { "autoplay", "autoplay" },
+                { "muted", "muted" },
+                { "loop", "loop" },
+            }).collect(Collectors.toMap(data -> data[0], data -> data[1]))
+        );
     }
 
     @Override

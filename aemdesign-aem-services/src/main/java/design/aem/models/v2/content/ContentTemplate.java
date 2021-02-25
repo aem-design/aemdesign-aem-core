@@ -27,6 +27,10 @@ public class ContentTemplate extends BaseComponent {
 
         requestComponentProperties = (ComponentProperties) getRequest().getAttribute(REQUEST_COMPONENT_PROPERTIES);
 
+        if (requestComponentProperties == null) {
+            LOGGER.warn("request component properties not present for content template to work, please add use this in details component.");
+        }
+
         if (isNotEmpty(customTemplate) && requestComponentProperties != null) {
             JexlEngine jexl = new JexlBuilder().create();
             JxltEngine jxlt = jexl.createJxltEngine();

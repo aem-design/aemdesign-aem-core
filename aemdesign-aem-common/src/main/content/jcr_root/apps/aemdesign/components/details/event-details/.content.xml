@@ -6,5 +6,5 @@
           jcr:primaryType="cq:Component"
           jcr:title="Event Details"
           cq:icon="viewDetail"
-          sling:resourceSuperType="aemdesign/components/details/event-details/v2/event-details"
+          sling:resourceSuperType="aemdesign/components/details/event-details/v3/event-details"
           componentGroup="AEM.Design - Details"/>

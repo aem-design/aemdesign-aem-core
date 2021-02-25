@@ -166,6 +166,10 @@ public class ComponentsUtil {
     public static final String DETAILS_DATA_ANALYTICS_LOCATION = "data-layer-location";
     public static final String DETAILS_DATA_ANALYTICS_LABEL = "data-layer-label";
 
+    //schema data
+    public static final String DETAILS_DATA_SCHEMA_ITEMSCOPE = "itemscope";
+    public static final String DETAILS_DATA_SCHEMA_ITEMTYPE = "itemtype";
+    public static final String DETAILS_DATA_SCHEMA_ITEMTYPE_DEFAULT = "https://schema.org/Thing";
 
     public static final String FIELD_HIDEINMENU = "hideInMenu";
 
@@ -307,6 +311,7 @@ public class ComponentsUtil {
     public static final String PAGECONTEXTMAP_OBJECT_CURRENTPAGE = "currentPage";
     public static final String PAGECONTEXTMAP_OBJECT_RESOURCEPAGE = "resourcePage";
     public static final String PAGECONTEXTMAP_OBJECT_RESOURCEDESIGN = "resourceDesign";
+    public static final String PAGECONTEXTMAP_OBJECT_XSSAPI = "xssAPI";
 
 
     public static final String DETAILS_SELECTOR_BADGE = "badge";
@@ -395,8 +400,8 @@ public class ComponentsUtil {
             {DETAILS_CARD_ICONSHOW, false},
             {DETAILS_CARD_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_LINK_TARGET, "_blank"},
-            {DETAILS_LINK_TEXT, "${value ? value : (" + FIELD_PAGE_TITLE_NAV + " ? " + FIELD_PAGE_TITLE_NAV + " : '')}"},
-            {DETAILS_LINK_TITLE, "${value ? value : (" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " : '')}"},
+            {DETAILS_LINK_TEXT, "${value ? value : (" + FIELD_PAGE_TITLE_NAV + " ? " + FIELD_PAGE_TITLE_NAV + " : " + FIELD_PAGE_TITLE + ")}"},
+            {DETAILS_LINK_TITLE, "${value ? value : (" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " : "+ FIELD_RESOURCE_NAME + ")}"},
             {DETAILS_LINK_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_LINK_FORMATTED, "${value ? value : pageUrl}", StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, false},
@@ -795,11 +800,16 @@ public class ComponentsUtil {
      */
     public static ComponentProperties getNewComponentProperties(WCMUsePojo wcmUsePojoModel) {
 
-        SlingHttpServletRequest slingRequest = wcmUsePojoModel.getRequest();
-
         Map<String, Object> pageContextMap = new HashMap<>();
-        pageContextMap.put("slingRequest", slingRequest);
 
+        SlingHttpServletRequest slingRequest = wcmUsePojoModel.getRequest();
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_SLINGREQUEST, slingRequest);
+
+        SlingScriptHelper sling = wcmUsePojoModel.getSlingScriptHelper();
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_SLING , sling);
+
+        XSSAPI xssAPI = wcmUsePojoModel.getSlingScriptHelper().getService(XSSAPI.class);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_XSSAPI, xssAPI);
 
         return getNewComponentProperties(pageContextMap);
     }
@@ -813,10 +823,19 @@ public class ComponentsUtil {
     public static ComponentProperties getNewComponentProperties(Map<String, Object> pageContext) {
         ComponentProperties componentProperties = new ComponentProperties();
         try {
-            SlingScriptHelper sling = (SlingScriptHelper) pageContext.get(PAGECONTEXTMAP_OBJECT_SLING);
-            XSSAPI xss = Objects.requireNonNull(sling.getService(XSSAPI.class));
+            XSSAPI xss = null;
+            if (pageContext.containsKey(PAGECONTEXTMAP_OBJECT_XSSAPI)) {
+                xss = (XSSAPI)pageContext.get(PAGECONTEXTMAP_OBJECT_XSSAPI);
+            } else {
+                SlingScriptHelper sling = (SlingScriptHelper) pageContext.get(PAGECONTEXTMAP_OBJECT_SLING);
+                xss = Objects.requireNonNull(sling.getService(XSSAPI.class));
+            }
 
-            componentProperties.attr = new AttrBuilder(xss);
+            if (xss != null) {
+                componentProperties.attr = new AttrBuilder(xss);
+            } else {
+                LOGGER.error("getNewComponentProperties: could not configure componentProperties with attributeBuilder as xss is missing");
+            }
 
         } catch (Exception ex) {
             LOGGER.error("getNewComponentProperties: could not configure componentProperties with attributeBuilder");
@@ -1079,7 +1098,8 @@ public class ComponentsUtil {
 
         componentProperties.attr = new AttrBuilder(xssAPI);
         if (addMoreAttributes) {
-            componentProperties.attr.add("component", "true");
+            //all component have a boolean attribute component, sling does not print attributes with blank values
+            componentProperties.attr.add("component", "component");
         }
 
         componentProperties.expressionFields = new ArrayList();
@@ -1172,9 +1192,6 @@ public class ComponentsUtil {
                 }
 
                 if (fieldLists != null) {
-                    JexlEngine jexl = new JexlBuilder().create();
-                    JxltEngine jxlt = jexl.createJxltEngine();
-                    JexlContext jc = new MapContext(componentProperties);
 
                     for (Object[][] fieldDefaults : fieldLists) {
                         for (Object[] field : fieldDefaults) {
@@ -1588,10 +1605,8 @@ public class ComponentsUtil {
 
                 Resource detailsResource = resourceResolver.resolve(detailsPath);
                 if (!ResourceUtil.isNonExistingResource(detailsResource)) {
-                    Node detailsNode = detailsResource.adaptTo(Node.class);
-                    if (detailsNode != null && detailsNode.hasProperty(DETAILS_DESCRIPTION)) {
-                        return detailsNode.getProperty(DETAILS_DESCRIPTION).getString();
-                    }
+                    ValueMap vm = detailsResource.getValueMap();
+                    return vm.get(DETAILS_DESCRIPTION,"");
                 }
 
 
@@ -1671,8 +1686,27 @@ public class ComponentsUtil {
         return componentId;
     }
 
-
+    /***
+     * get cloud config setting from inherited value map
+     * @param pageProperties inherited value map with values
+     * @param configurationName config name
+     * @param propertyName property to get
+     * @param sling sling instance
+     * @return
+     */
     public static String getCloudConfigProperty(InheritanceValueMap pageProperties, String configurationName, String propertyName, SlingScriptHelper sling) {
+        return getCloudConfigProperty(pageProperties,configurationName,propertyName, sling);
+    }
+
+    /***
+     * get cloud config setting from inherited value map
+     * @param pageProperties value map with values
+     * @param configurationName config name
+     * @param propertyName property to get
+     * @param sling sling instance
+     * @return
+     */
+    public static String getCloudConfigProperty(ValueMap pageProperties, String configurationName, String propertyName, SlingScriptHelper sling) {
         String returnValue = StringUtils.EMPTY;
 
         ContentAccess contentAccess = sling.getService(ContentAccess.class);
@@ -1682,7 +1716,7 @@ public class ComponentsUtil {
                 // Getting attached facebook cloud service config in order to fetch appID
                 ConfigurationManager cfgMgr = adminResourceResolver.adaptTo(ConfigurationManager.class);
                 Configuration addthisConfiguration = null;
-                String[] services = pageProperties.getInherited(ConfigurationConstants.PN_CONFIGURATIONS, new String[]{});
+                String[] services = pageProperties.get(ConfigurationConstants.PN_CONFIGURATIONS, new String[]{});
                 if (cfgMgr != null) {
                     addthisConfiguration = cfgMgr.getConfiguration(configurationName, services);
                     if (addthisConfiguration != null) {
@@ -2114,7 +2148,7 @@ public class ComponentsUtil {
      * @return does string match regex check
      */
     public static boolean isStringRegex(Object value) {
-        if (value == null) {
+        if (value == null || !(value instanceof String)) {
             return false;
         }
         return isStringRegex(value.toString());
@@ -2177,7 +2211,13 @@ public class ComponentsUtil {
         //add current value to the map
         jc.set("value", value);
 
-        Object returnValue = expr.evaluate(jc);
+        Object returnValue = "";
+
+        try {
+            returnValue = expr.evaluate(jc);
+        } catch (Exception ex) {
+            returnValue = "";
+        }
 
         //clean up
         jc.set("value", "");

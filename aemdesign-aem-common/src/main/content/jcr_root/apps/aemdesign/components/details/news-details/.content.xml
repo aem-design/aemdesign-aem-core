@@ -6,5 +6,5 @@
           jcr:description="News Details is to save additional info for the Page Properties"
           jcr:title="News Details"
           cq:icon="viewDetail"
-          sling:resourceSuperType="aemdesign/components/details/news-details/v2/news-details"
+          sling:resourceSuperType="aemdesign/components/details/news-details/v3/news-details"
           componentGroup="AEM.Design - Details"/>

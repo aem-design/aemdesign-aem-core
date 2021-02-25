@@ -2,7 +2,6 @@ package design.aem.models.v2.widgets;
 
 import com.adobe.cq.sightly.SightlyWCMMode;
 import com.day.cq.commons.Externalizer;
-import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.wcm.api.NameConstants;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -121,7 +120,7 @@ public class Vue extends BaseComponent {
      */
     protected String getCloudConfiguration(String configName, String configProperty) {
         return getCloudConfigProperty(
-            (InheritanceValueMap) getPageProperties(),
+            getInheritedPageProperties(),
             configName,
             configProperty,
             getSlingScriptHelper()

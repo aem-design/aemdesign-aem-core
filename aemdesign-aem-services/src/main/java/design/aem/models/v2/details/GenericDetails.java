@@ -15,12 +15,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.api.wrappers.ValueMapDecorator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentDetailsUtil.isComponentRenderedByList;
@@ -44,10 +47,8 @@ public class GenericDetails extends BaseComponent {
 
     protected static final String PAGE_META_PROPERTY_FIELDS = "metaPropertyFields";
 
-    protected static final String FIELD_DESCRIPTION = "description";
     protected static final String FIELD_FORMAT_DESCRIPTION = "descriptionFormat";
     protected static final String FIELD_FORMATTED_DESCRIPTION = "descriptionFormatted";
-    protected static final String FIELD_TITLE = "title";
     protected static final String FIELD_FORMAT_TITLE = "titleFormat";
     protected static final String FIELD_FORMATTED_TITLE = "titleFormatted";
     protected static final String FIELD_FORMATTED_TITLE_TEXT = "titleFormattedText";
@@ -64,6 +65,7 @@ public class GenericDetails extends BaseComponent {
 
     protected static final String DEFAULT_ARIA_ROLE = "banner";
     protected static final String DEFAULT_FORMAT_TITLE = "${title}";
+    protected static final String DEFAULT_FORMAT_DESCRIPTION = "${description}";
     protected static final String DEFAULT_TAG_LEGACY_BADGE_CONFIG = ":component-dialog/components/details/generic-details/legacy";
     protected static final String DEFAULT_TITLE_TAG_TYPE = "h1";
     protected static final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
@@ -82,9 +84,6 @@ public class GenericDetails extends BaseComponent {
 
         // load details specific data, this is overridden by each component model
         componentProperties.putAll(processComponentFields(), false);
-
-        //process badge config set by component
-        componentProperties.putAll(processBadgeConfig(getResourcePage(), componentProperties));
 
         //process badge config set by list component
         if (isComponentRenderedByList(getRequest())) {
@@ -109,28 +108,37 @@ public class GenericDetails extends BaseComponent {
             badgeLinkAttr.put(DETAILS_DATA_ANALYTICS_LABEL, componentProperties.get(DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY));
             badgeLinkAttr.put(COMPONENT_ATTRIBUTE_INPAGEPATH, componentProperties.get(COMPONENT_INPAGEPATH, StringUtils.EMPTY));
 
+            if (DETAILS_DATA_SCHEMA_ITEMSCOPE.equals(componentProperties.get(DETAILS_DATA_SCHEMA_ITEMSCOPE, ""))) {
+                badgeLinkAttr.put(DETAILS_DATA_SCHEMA_ITEMSCOPE,DETAILS_DATA_SCHEMA_ITEMSCOPE);
+                badgeLinkAttr.put(DETAILS_DATA_SCHEMA_ITEMTYPE,componentProperties.get(DETAILS_DATA_SCHEMA_ITEMTYPE, DETAILS_DATA_SCHEMA_ITEMTYPE_DEFAULT));
+            }
+
             componentProperties.put(DETAILS_BADGE_LINK_ATTR, badgeLinkAttr);
 
         }
 
-        //re-evaluate expression fields after all data is ready
-        componentProperties.evaluateAllExpressionValues();
 
-        //re-evaluate expression fields after all data is ready
-        componentProperties.evaluateExpressionFields();
+        //process badge config
+        componentProperties.putAll(processBadgeConfig(getResourcePage(), componentProperties));
 
-        //update component attributes after evaluation of fields
-        componentProperties.put(COMPONENT_ATTRIBUTES,
-            buildAttributesString(componentProperties.attr.getData(), null));
+
+
+    }
+
+    @Override
+    protected void done() throws Exception {
+
+        super.done();
 
         // Set properties into request to allow ContentTemplate to use it for presentation
         getRequest().setAttribute(ContentTemplate.REQUEST_COMPONENT_PROPERTIES, componentProperties);
+
     }
 
     @Override
     protected void setFields() {
         setComponentFields(new Object[][]{
-            {FIELD_DESCRIPTION, "${value ? value : " + FIELD_FORMATTED_TITLE_TEXT + " }"},
+            {FIELD_DESCRIPTION, componentDefaults.get(FIELD_DESCRIPTION)},
             {FIELD_FORMATTED_TITLE, "${value ? value : " + FIELD_TITLE +"}"},
             {FIELD_FORMATTED_TITLE_TEXT, "${value ? value : " + FIELD_TITLE +"}"},
             {FIELD_VARIANT, DEFAULT_VARIANT},
@@ -142,7 +150,7 @@ public class GenericDetails extends BaseComponent {
             {FIELD_PAGE_TITLE, componentDefaults.get(FIELD_PAGE_TITLE)},
             {FIELD_PAGE_TITLE_NAV, componentDefaults.get(FIELD_PAGE_TITLE_NAV)},
             {FIELD_PAGE_TITLE_SUBTITLE, componentDefaults.get(FIELD_PAGE_TITLE_SUBTITLE)},
-            {TagConstants.PN_TAGS, new String[]{}},
+            {TagConstants.PN_TAGS, componentDefaults.get(TagConstants.PN_TAGS)},
             {FIELD_SUBCATEGORY, new String[]{}},
             {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
             {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
@@ -163,6 +171,7 @@ public class GenericDetails extends BaseComponent {
 
     @Override
     protected void setFieldDefaults() {
+        componentDefaults.put(TagConstants.PN_TAGS, getResourcePage().getTags());
         componentDefaults.put(FIELD_DESCRIPTION, getResourcePage().getDescription());
         componentDefaults.put(FIELD_TITLE, getPageTitle(getResourcePage(), getResource()));
 
@@ -171,7 +180,7 @@ public class GenericDetails extends BaseComponent {
 
         componentDefaults.put(FIELD_PAGE_URL, getPageUrl(getResourcePage()));
         componentDefaults.put(FIELD_PAGE_TITLE, getPageTitle(getResourcePage(), getResource()));
-        componentDefaults.put(FIELD_PAGE_TITLE_NAV, getPageNavTitle(getResourcePage()));
+        componentDefaults.put(FIELD_PAGE_TITLE_NAV, "${value ? value : " + FIELD_PAGE_TITLE + "}");
 
         componentDefaults.put(FIELD_VARIANT_HIDDEN_LABEL, getDefaultLabelIfEmpty(
             StringUtils.EMPTY,
@@ -295,11 +304,34 @@ public class GenericDetails extends BaseComponent {
             //check if component has the badge and reset if it does not
             if (isEmpty(badgePath)) {
                 LinkedHashMap<String, Map> legacyBadgeConfig = componentProperties.get(FIELD_LEGACY_BADGE_CONFIG, LinkedHashMap.class);
-                if (isNotNull(legacyBadgeConfig) && Boolean.TRUE.equals(badgeWasRequested) && !ArrayUtils.contains(legacyBadgeConfig.keySet().toArray(), componentBadge)) {
-                    LOGGER.error("LEGACY BADGE WAS REQUESTED BUT NOT FOUND IN COMPONENT AND LEGACY MAPPING NOT FOUND requestedBadgeTemplate={}", requestedBadgeTemplate);
+
+                if (legacyBadgeConfig.size() > 0 ) {
+
+                    Map<String, String> legacyBadge = new HashMap<>();
+
+                    //try finding first badge
+                    for (Map.Entry<String, Map> entry : legacyBadgeConfig.entrySet()) {
+                        if (entry.getValue().get("value").equals(componentBadge)) {
+                            legacyBadge.putAll(entry.getValue());
+                            break;
+                        }
+                    }
+                    if (legacyBadge.size() > 0) {
+                        componentBadge = legacyBadge.get("value");
+                        requestedBadgeTemplate = format(COMPONENT_BADGE_TEMPLATE_FORMAT, componentBadge);
+                    }
+
+
+                    if (Boolean.TRUE.equals(badgeWasRequested) && legacyBadge.size() == 0) {
+                        LOGGER.error("LEGACY BADGE WAS REQUESTED BUT NOT FOUND IN COMPONENT AND LEGACY MAPPING NOT FOUND requestedBadgeTemplate={}", requestedBadgeTemplate);
+                        componentBadge = DEFAULT_BADGE;
+                        requestedBadgeTemplate = defaultBadgeTemplate;
+                    }
+                } else {
+                    LOGGER.error("LEGACY BADGE WAS REQUESTED BUT LEGACY CONFIG IS EMPTY requestedBadgeTemplate={}", requestedBadgeTemplate);
+                    componentBadge = DEFAULT_BADGE;
+                    requestedBadgeTemplate = defaultBadgeTemplate;
                 }
-                componentBadge = DEFAULT_BADGE;
-                requestedBadgeTemplate = defaultBadgeTemplate;
             }
 
             componentProperties.put(COMPONENT_BADGE, componentBadge);
@@ -312,6 +344,7 @@ public class GenericDetails extends BaseComponent {
 
             //if custom badge being used process its config
             if (Boolean.TRUE.equals(componentProperties.get(DETAILS_BADGE_CUSTOM, false))) {
+                //get the preconfigured badge config from tags
                 String badge = componentProperties.get(DETAILS_BADGE_TEMPLATE, StringUtils.EMPTY);
 
                 //get badge config
@@ -608,6 +641,14 @@ public class GenericDetails extends BaseComponent {
             newFields.put(FIELD_FORMATTED_TITLE_TEXT,
                 formattedTitleText.trim()
             );
+
+            newFields.put(FIELD_FORMATTED_DESCRIPTION, compileComponentMessage(
+                FIELD_FORMAT_DESCRIPTION,
+                DEFAULT_FORMAT_DESCRIPTION,
+                componentProperties,
+                slingScriptHelper
+            ).trim());
+
         } catch (Exception ex) {
             LOGGER.error("Could not process component fields in {}", COMPONENT_DETAILS_NAME);
         }

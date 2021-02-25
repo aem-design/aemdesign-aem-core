@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_DETAILS_SUFFIX;
 import static design.aem.utils.components.CommonUtil.DEFAULT_LIST_PAGE_CONTENT;
 import static design.aem.utils.components.ComponentDetailsUtil.getPageListInfo;
-import static design.aem.utils.components.ComponentsUtil.getContextObjects;
+import static design.aem.utils.components.ComponentsUtil.*;
 
 public class LocationDetails extends GenericDetails {
     protected static final Logger LOGGER = LoggerFactory.getLogger(LocationDetails.class);
@@ -86,6 +86,8 @@ public class LocationDetails extends GenericDetails {
             {"latitude", 0.0, "data-latitude"},
             {"longitude", 0.0, "data-longitude"},
             {"pages", new String[0]},
+            {DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE},
+            {DETAILS_DATA_SCHEMA_ITEMTYPE, "http://schema.org/Place", DETAILS_DATA_SCHEMA_ITEMTYPE},
         });
     }
 

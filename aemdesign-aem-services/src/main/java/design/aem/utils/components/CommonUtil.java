@@ -41,6 +41,7 @@ import java.util.regex.Pattern;
 
 import static design.aem.utils.components.ComponentsUtil.DETAILS_DESCRIPTION;
 import static design.aem.utils.components.ComponentsUtil.DETAILS_TITLE;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE_NAV;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -219,6 +220,29 @@ public class CommonUtil {
     }
 
     /**
+     * Get a page's description from Details component on the page with failover to page properties.
+     * @param page is the page to get the title for
+     * @param detailsComponent details component resource
+     * @return a string with title from details component or from page
+     */
+    public static String getPageDescription(Page page, Resource detailsComponent) {
+        String pageDescription = "";
+
+        if (!ResourceUtil.isNonExistingResource(detailsComponent)) {
+            ValueMap dcvm = detailsComponent.adaptTo(ValueMap.class);
+            if (dcvm != null) {
+                pageDescription = getPageDescription(page, dcvm);
+            }
+        }
+
+        if (isEmpty(pageDescription)) {
+            pageDescription = page.getDescription();
+        }
+
+        return pageDescription;
+    }
+
+    /**
      * Get a page's title from Details component on the page with failover to page properties.
      * @param page is the page to get the title for
      * @param detailsComponent details component resource
@@ -268,6 +292,32 @@ public class CommonUtil {
     }
 
 
+    /**
+     * Get a page's navigation title, or normal title.
+     * @param page is the page to get the title for
+     * @param detailsComponent details component resource
+     * @return a string with the page title
+     */
+    public static String getPageNavTitle(Page page, Resource detailsComponent) {
+
+        String pageNavTitle = "";
+
+        if (detailsComponent != null) {
+
+            if (!ResourceUtil.isNonExistingResource(detailsComponent)) {
+                ValueMap dcvm = detailsComponent.adaptTo(ValueMap.class);
+                if (dcvm != null) {
+                    pageNavTitle = dcvm.get(FIELD_PAGE_TITLE_NAV, "");
+                }
+            }
+        }
+
+        if (isEmpty(pageNavTitle)) {
+            return getPageNavTitle(page);
+        }
+
+        return pageNavTitle;
+    }
     /**
      * Get a page's navigation title, or normal title.
      * @param page is the page to get the title for

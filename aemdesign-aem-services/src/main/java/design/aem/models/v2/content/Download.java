@@ -24,8 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static design.aem.utils.components.ComponentsUtil.*;
-import static design.aem.utils.components.ConstantsUtil.DEFAULT_IMAGE_BLANK;
-import static design.aem.utils.components.ConstantsUtil.DEFAULT_THUMB_WIDTH_SM;
+import static design.aem.utils.components.ConstantsUtil.*;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.ImagesUtil.*;
 import static design.aem.utils.components.ResolverUtil.mappedUrl;
@@ -42,8 +41,6 @@ public class Download extends BaseComponent {
     protected static final String DEFAULT_TITLE_TAG_TYPE = "h4";
 
     protected static final String EMPTY_FILE = "empty file";
-    protected static final String FIELD_TITLE = "title";
-    protected static final String FIELD_DESCRIPTION = "description";
     protected static final String FIELD_THUMBNAIL = DEFAULT_THUMBNAIL_IMAGE_NODE_NAME;
 
     @SuppressWarnings({"uncheked", "squid:S3776"})
@@ -290,13 +287,14 @@ public class Download extends BaseComponent {
 
             //get license format from tags and create result html and text
             String licenseFormat = componentProperties.get(FIELD_LICENSE_FORMAT, DEFAULT_FIELD_LICENSE_FORMAT);
-            String formattedTitle = CommonUtil.compileMapMessage(licenseFormat, asset.getMetadata());
-            newFields.put(FIELD_FORMATTED_LICENSE, formattedTitle.trim());
+            String formattedLicense = CommonUtil.compileMapMessage(licenseFormat, asset.getMetadata());
+            formattedLicense = removeRegexFromString(formattedLicense);
+            newFields.put(FIELD_FORMATTED_LICENSE, formattedLicense.trim());
             //convert html to plain text
-            Document fragment = Jsoup.parse(formattedTitle);
-            String formattedTitleText = fragment.text();
+            Document fragment = Jsoup.parse(formattedLicense);
+            String formattedLicenseText = fragment.text();
             newFields.put(FIELD_FORMATTED_LICENSE_TEXT,
-                formattedTitleText.trim()
+                formattedLicenseText.trim()
             );
 
         } catch (Exception ex) {

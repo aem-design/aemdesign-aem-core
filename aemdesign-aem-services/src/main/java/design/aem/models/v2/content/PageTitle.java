@@ -19,7 +19,7 @@ public class PageTitle extends BaseComponent {
             DEFAULT_FIELDS_ACCESSIBILITY,
             DEFAULT_FIELDS_DETAILS_OPTIONS);
 
-        String jcrTitle = getPageProperties().get(JcrConstants.JCR_TITLE, StringUtils.EMPTY);
+        String jcrTitle = getResourcePage().getProperties().get(JcrConstants.JCR_TITLE, StringUtils.EMPTY);
         String overrideTitle = componentProperties.get(JcrConstants.JCR_TITLE, StringUtils.EMPTY);
 
         componentProperties.put("pagetitle", StringUtils.isEmpty(overrideTitle) ? jcrTitle : overrideTitle);
