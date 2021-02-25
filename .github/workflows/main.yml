@@ -96,14 +96,14 @@ jobs:
         run: $DOCKER_COMMAND mvn package -B -Dmaven.repo.local=./build/.m2/repository
 
       # SonarQube for master
-      - name: docker - sonar qube on master
-        if: github.ref == 'refs/heads/master'
-        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+      #- name: docker - sonar qube on master
+      #  if: github.ref == 'refs/heads/master'
+      #  run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
 
       # SonarQube for branches
-      - name: docker - sonar qube on branches
-        if: github.ref != 'refs/heads/master'
-        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+      #- name: docker - sonar qube on branches
+      #  if: github.ref != 'refs/heads/master'
+      #  run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
 
       - name: run unit tests with coverage reports
         run: mvn test -q && bash <(curl -s https://codecov.io/bash)
