@@ -450,7 +450,7 @@ public class List extends BaseComponent {
                 pageLink.put("pageStart", resultPage.getStart());
                 pageLink.put("pagePosition", resultPageIndex);
                 pageLink.put("pageLabel", resultPageIndex + 1);
-                pageLink.put("pageLabelEstimated", (int)(resultPage.getStart() / pageMax));
+                pageLink.put("pageLabelEstimated", (int)(resultPage.getStart() / pageMax) + 1);
                 if (resultPage.isCurrentPage()) {
                     pageLink.put("pageCurrent", true);
                     currentIndex = resultPageIndex;

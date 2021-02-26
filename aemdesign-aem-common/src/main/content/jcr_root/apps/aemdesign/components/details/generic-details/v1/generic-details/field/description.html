@@ -1,5 +1,5 @@
 <template data-sly-template.field="${@ componentProperties}">
-    <sly data-sly-test="${(componentProperties.badgeCustom || componentProperties.legacyVariant || 'default' in componentProperties.variant) ? !componentProperties.hideDescription : true}">
+    <sly data-sly-test="${componentProperties.badgeCustom || (( componentProperties.legacyVariant || 'default' in componentProperties.variant) ? !componentProperties.hideDescription : true)}">
         <div class="card-text">${componentProperties.badgeDescription @ context = 'html'}</div>
     </sly>
 </template>
