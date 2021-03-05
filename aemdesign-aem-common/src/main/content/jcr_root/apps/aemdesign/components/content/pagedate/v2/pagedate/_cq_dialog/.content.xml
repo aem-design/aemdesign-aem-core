@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
           xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Page Date"
           helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/content/pagedate/v2/pagedate"
@@ -19,7 +20,14 @@
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Page Date"
                 sling:resourceType="granite/ui/components/foundation/section">
-
+                <granite:rendercondition
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                    <granite:rendercondition
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                        groups="[content-authors-advanced]"/>
+                </granite:rendercondition>
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>

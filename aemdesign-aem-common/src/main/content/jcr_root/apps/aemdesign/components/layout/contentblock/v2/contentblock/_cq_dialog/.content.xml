@@ -57,6 +57,21 @@
                                             path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/heading"/>
                                     </titleType>
 
+                                </items>
+                            </basic>
+                            <advanced
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <granite:rendercondition
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                                    <granite:rendercondition
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                                        groups="[content-authors-advanced]"/>
+                                </granite:rendercondition>
+                                <items jcr:primaryType="nt:unstructured">
+
                                     <hideTitle
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/select"
@@ -99,7 +114,7 @@
                                             path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/common/true-false"/>
                                     </hideInContentMenu>
                                 </items>
-                            </basic>
+                            </advanced>
                         </items>
                     </column>
                 </items>
@@ -110,7 +125,14 @@
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Layout"
                 sling:resourceType="granite/ui/components/foundation/section">
-
+                <granite:rendercondition
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                    <granite:rendercondition
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                        groups="[content-authors-advanced]"/>
+                </granite:rendercondition>
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
@@ -189,7 +211,14 @@
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Left Links"
                 sling:resourceType="granite/ui/components/foundation/section">
-
+                <granite:rendercondition
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                    <granite:rendercondition
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                        groups="[content-authors-advanced]"/>
+                </granite:rendercondition>
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
@@ -232,7 +261,14 @@
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Right Links"
                 sling:resourceType="granite/ui/components/foundation/section">
-
+                <granite:rendercondition
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                    <granite:rendercondition
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                        groups="[content-authors-advanced]"/>
+                </granite:rendercondition>
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>

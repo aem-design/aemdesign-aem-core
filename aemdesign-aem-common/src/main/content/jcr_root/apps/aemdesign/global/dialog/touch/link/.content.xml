@@ -21,7 +21,7 @@
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
-                    <column
+                    <column1
                             granite:class="coral-RichText-FixedColumn-column"
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/container">
@@ -41,6 +41,22 @@
                                             fieldDescription="dataTarget attribute"
                                             name="./label"
                                             required="{Boolean}false"/>
+
+                                </items>
+                            </basic>
+                            <advanced
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <granite:rendercondition
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                                    <granite:rendercondition
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                                        groups="[content-authors-advanced]"/>
+                                </granite:rendercondition>
+                                <items jcr:primaryType="nt:unstructured">
+
 
                                     <linkUrl
                                             jcr:primaryType="nt:unstructured"
@@ -91,8 +107,24 @@
                                     </linkIconPosition>
 
                                 </items>
-                            </basic>
+                            </advanced>
 
+
+                        </items>
+                    </column1>
+                    <column2
+                            granite:class="coral-RichText-FixedColumn-column"
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <granite:rendercondition
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                            <granite:rendercondition
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                                groups="[content-authors-advanced]"/>
+                        </granite:rendercondition>
+                        <items jcr:primaryType="nt:unstructured">
 
                             <attributes
                                     jcr:primaryType="nt:unstructured"
@@ -144,7 +176,7 @@
 
 
                         </items>
-                    </column>
+                    </column2>
                 </items>
 
             </linkTab>
