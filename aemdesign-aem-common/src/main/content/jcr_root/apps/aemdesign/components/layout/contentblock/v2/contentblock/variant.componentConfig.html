@@ -2,7 +2,7 @@
     <section style="${componentProperties.attr.data.style @ context = 'unsafe'}"
              data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
         <div class="content">
-            <a name="${componentProperties.instanceName}"></a>
+            <a name="${componentProperties.componentId || componentProperties.instanceName}"></a>
             <div data-sly-test="${!componentProperties.hideTitle}" class="title">
                 <ul class="linksleft float-left"
                     data-sly-test="${componentProperties.listLinksLeft && !componentProperties.linksLeftTitle}">
