@@ -20,7 +20,5 @@
   "PLAIN ((download))": "txt file",
   "downloadlabel ((download))": "Download",
   "licenseinfo ((download))": "{4} {0} {1} {2} {3}",
-  "linklabel ((link))": "Link",
-  "publishDateDisplayFormat ((pagedate))": "MMMM d, yyyy",
-  "publishDateFormat ((pagedate))": "yyyy-MM-dd"
+  "linklabel ((link))": "Link"
 }
