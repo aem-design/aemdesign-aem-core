@@ -66,7 +66,7 @@ public class ContactDetails extends GenericDetails {
             {"givenName", StringUtils.EMPTY},
             {"familyName", StringUtils.EMPTY},
             {"jobTitle", StringUtils.EMPTY},
-            {"employee", StringUtils.EMPTY},
+            {"employer", StringUtils.EMPTY},
             {"email", StringUtils.EMPTY},
             {"contactNumber", StringUtils.EMPTY},
             {"contactNumberMobile", StringUtils.EMPTY},
