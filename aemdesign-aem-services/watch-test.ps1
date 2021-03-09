@@ -29,7 +29,7 @@ function Invoke-ChangeAction
   )
 
   Write-Warning 'Change detected:'
-  $Change | Out-String | Write-Host -ForegroundColor DarkYellow
+  $Change | Out-String | Write-Warning
 
   Invoke-Expression -Command "$MVN_COMMAND ${MAVEN_EXTRAS}" | Tee-Object -Append -FilePath "${LOG_FILE}"
 
