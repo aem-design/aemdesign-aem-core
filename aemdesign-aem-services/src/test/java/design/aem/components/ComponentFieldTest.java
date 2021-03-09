@@ -1,8 +1,7 @@
 package design.aem.components;
 
-import org.junit.Test;
 
-
+import org.junit.jupiter.api.Test;
 
 public class ComponentFieldTest {
 
@@ -23,7 +22,7 @@ public class ComponentFieldTest {
     @Test
     public void ComponentFieldAdvancedTest() {
 
-        ComponentField expField = new ComponentField("text","test1","data-text", "Tags","${ value ? value : label }","test2");
+        ComponentField expField = new ComponentField("text", "test1", "data-text", "Tags", "${ value ? value : label }", "test2");
         assert expField.getValue().equals("test2");
         assert expField.getExpression().equals("${ value ? value : label }");
         assert expField.getDataAttributeName().equals("data-text");

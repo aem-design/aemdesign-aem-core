@@ -1,13 +1,19 @@
 package design.aem;
 
-import design.aem.utils.components.I18nUtilTest;
-import org.junit.Before;
-import org.junit.Test;
+import design.aem.context.CoreComponentTestContext;
+import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletRequest;
+import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletResponse;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.MockitoAnnotations.openMocks;
+
 
 public class CustomSearchResultTest {
 
@@ -15,16 +21,21 @@ public class CustomSearchResultTest {
 
     private CustomSearchResult customSearchResultUnderTest;
 
-    final String path = "path";
-    final String excerpt = "excerpt";
-    final String title = "title";
-    final String subtitle = "subtitle";
-    final String detailspath = "/content";
-    final String thumbnalurl = "/content/thumbnailurl";
-    final String pathurl = "/content/pathurl";
+    final static String path = "path";
+    final static String excerpt = "excerpt";
+    final static String title = "title";
+    final static String subtitle = "subtitle";
+    final static String detailspath = "/content";
+    final static String thumbnalurl = "/content/thumbnailurl";
+    final static String pathurl = "/content/pathurl";
 
-    @Before
-    public void setUp() {
+
+    private AutoCloseable closeable;
+
+    @BeforeEach
+    void setup() {
+        closeable = openMocks(this);
+
         customSearchResultUnderTest = new CustomSearchResult(path);
         customSearchResultUnderTest.setIsPage(true);
         customSearchResultUnderTest.setIsAsset(true);
@@ -37,18 +48,23 @@ public class CustomSearchResultTest {
         customSearchResultUnderTest.setPath(path);
     }
 
+    @AfterEach
+    void close() throws Exception {
+        closeable.close();
+    }
+
     @Test
-    public void testClass() {
+    void testClass() {
         // Run the test
         assertTrue(customSearchResultUnderTest.getIsPage());
         assertTrue(customSearchResultUnderTest.getIsAsset());
-        assertEquals(customSearchResultUnderTest.getExcerpt(),excerpt);
-        assertEquals(customSearchResultUnderTest.getTitle(),title);
-        assertEquals(customSearchResultUnderTest.getSubTitle(),subtitle);
-        assertEquals(customSearchResultUnderTest.getDetailsPath(),detailspath);
-        assertEquals(customSearchResultUnderTest.getThumbnailUrl(),thumbnalurl);
-        assertEquals(customSearchResultUnderTest.getPathUrl(),pathurl);
-        assertEquals(customSearchResultUnderTest.getPath(),path);
+        assertEquals(customSearchResultUnderTest.getExcerpt(), excerpt);
+        assertEquals(customSearchResultUnderTest.getTitle(), title);
+        assertEquals(customSearchResultUnderTest.getSubTitle(), subtitle);
+        assertEquals(customSearchResultUnderTest.getDetailsPath(), detailspath);
+        assertEquals(customSearchResultUnderTest.getThumbnailUrl(), thumbnalurl);
+        assertEquals(customSearchResultUnderTest.getPathUrl(), pathurl);
+        assertEquals(customSearchResultUnderTest.getPath(), path);
     }
 
 }

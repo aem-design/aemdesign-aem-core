@@ -1,43 +1,26 @@
 package design.aem.utils;
 
-import com.adobe.granite.asset.api.Rendition;
+import design.aem.CustomSearchResult;
 import design.aem.context.CoreComponentTestContext;
-import design.aem.utils.components.SecurityUtil;
 import design.aem.utils.components.SecurityUtilTest;
-import com.adobe.granite.asset.api.Asset;
-import io.wcm.testing.mock.aem.junit.AemContext;
+import io.wcm.testing.mock.aem.junit5.AemContext;
+import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.testing.resourceresolver.MockResourceResolver;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
-import javax.jcr.Property;
+import static org.mockito.MockitoAnnotations.openMocks;
 
-import static design.aem.utils.components.CommonUtilTest.getTestBase;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-@RunWith(MockitoJUnitRunner.class)
 public class WidthBasedRenditionComparatorTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityUtilTest.class);
 
-    private WidthBasedRenditionComparator widthBasedRenditionComparatorUnderTest;
+    private static WidthBasedRenditionComparator widthBasedRenditionComparatorUnderTest;
     protected static final String ROOT = "/content";
-
-
-    @ClassRule
-    public static final AemContext CONTEXT = CoreComponentTestContext.createContext(getTestBase(), ROOT);
-
 
     @Mock
     MockResourceResolver resourceResolver;
@@ -45,9 +28,18 @@ public class WidthBasedRenditionComparatorTest {
     @Mock
     ResourceUtil resourceUtil;
 
-    @Before
-    public void setUp() {
+    private AutoCloseable closeable;
+
+    @BeforeEach
+    void setup() {
+        closeable = openMocks(this);
+
         widthBasedRenditionComparatorUnderTest = new WidthBasedRenditionComparator();
+    }
+
+    @AfterEach
+    void close() throws Exception {
+        closeable.close();
     }
 
     @Test
@@ -56,7 +48,7 @@ public class WidthBasedRenditionComparatorTest {
         WidthBasedRenditionComparator test = new WidthBasedRenditionComparator();
 
         // Verify the results
-        assertNotNull(test);
+        Assertions.assertNotNull(test);
     }
 
 }

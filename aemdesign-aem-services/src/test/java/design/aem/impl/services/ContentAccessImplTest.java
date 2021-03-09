@@ -8,35 +8,48 @@ import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceNotFoundException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
-import org.apache.sling.testing.resourceresolver.MockResourceResolver;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.openMocks;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ContentAccessImplTest {
 
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(ContentAccessImplTest.class);
 
     @Mock
-    ResourceResolverFactory resourceResolverFactory;
+    private ResourceResolverFactory resourceResolverFactory;
 
     @InjectMocks
-    ContentAccessImpl contentAccess;
+    private ContentAccessImpl contentAccess;
 
     @Mock
-    MockResourceResolver adminResourceResolver;
+    private ResourceResolver adminResourceResolver;
+
+    static String SERVICE_NAME = "content-services";
+    static Map<String, Object> AUTH_INFO = Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, SERVICE_NAME);
+
+    private AutoCloseable closeable;
+
+    @BeforeEach
+    void setup() throws IllegalAccessException {
+        closeable = openMocks(this);
+
+    }
+
+    @AfterEach
+    void close() throws Exception {
+        closeable.close();
+    }
 
     @Test
     public void testClass() {
@@ -44,7 +57,7 @@ public class ContentAccessImplTest {
         ContentAccessImpl test = new ContentAccessImpl();
 
         // Verify the results
-        assertNotNull(test);
+        Assertions.assertNotNull(test);
     }
 
     @Test
@@ -69,13 +82,13 @@ public class ContentAccessImplTest {
 
         List<ILoggingEvent> logsList = listAppender.list;
 
-        assertTrue(logsList.get(0).getMessage().startsWith("activate: resourceResolverFactory="));
-        assertEquals(Level.INFO, logsList.get(0).getLevel());
+        Assertions.assertTrue(logsList.get(0).getMessage().startsWith("activate: resourceResolverFactory="));
+        Assertions.assertEquals(Level.INFO, logsList.get(0).getLevel());
 
         test.deactivate();
 
-        assertTrue(logsList.get(1).getMessage().startsWith("deactivate: resourceResolverFactory="));
-        assertEquals(Level.INFO, logsList.get(1).getLevel());
+        Assertions.assertTrue(logsList.get(1).getMessage().startsWith("deactivate: resourceResolverFactory="));
+        Assertions.assertEquals(Level.INFO, logsList.get(1).getLevel());
 
     }
 
@@ -84,11 +97,11 @@ public class ContentAccessImplTest {
         String SERVICE_NAME = "content-services";
         Map<String, Object> AUTH_INFO = Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, SERVICE_NAME);
 
-        when(resourceResolverFactory.getServiceResourceResolver(AUTH_INFO)).thenReturn(adminResourceResolver);
+        lenient().when(resourceResolverFactory.getServiceResourceResolver(AUTH_INFO)).thenReturn(adminResourceResolver);
 
         ResourceResolver test = contentAccess.getAdminResourceResolver();
 
-        assertNotNull(test);
+        Assertions.assertNotNull(test);
 
         when(resourceResolverFactory.getServiceResourceResolver(AUTH_INFO)).thenThrow(new LoginException());
 
@@ -108,11 +121,11 @@ public class ContentAccessImplTest {
 
         List<ILoggingEvent> logsList = listAppender.list;
 
-        assertTrue(logsList.get(0).getMessage().startsWith("openAdminResourceResolver: Login Exception when getting admin resource resolver, ex="));
-        assertEquals(Level.ERROR, logsList.get(0).getLevel());
+        Assertions.assertTrue(logsList.get(0).getMessage().startsWith("openAdminResourceResolver: Login Exception when getting admin resource resolver, ex="));
+        Assertions.assertEquals(Level.ERROR, logsList.get(0).getLevel());
 
 
-        assertNull(test);
+        Assertions.assertNull(test);
 
 
     }
@@ -122,7 +135,7 @@ public class ContentAccessImplTest {
         String SERVICE_NAME = "content-services";
         Map<String, Object> AUTH_INFO = Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, SERVICE_NAME);
 
-        when(resourceResolverFactory.getServiceResourceResolver(AUTH_INFO)).thenThrow(new ResourceNotFoundException(""));
+        lenient().when(resourceResolverFactory.getServiceResourceResolver(AUTH_INFO)).thenThrow(new ResourceNotFoundException(""));
 
         //TEST IF FUNCTION OUTPUTS ERROR TO LOG
 
@@ -140,27 +153,23 @@ public class ContentAccessImplTest {
 
         List<ILoggingEvent> logsList = listAppender.list;
 
-        assertTrue(logsList.get(0).getMessage().startsWith("openAdminResourceResolver: could not get elevated resource resolver, returning non elevated resource resolver. ex="));
-        assertEquals(Level.ERROR, logsList.get(0).getLevel());
+        Assertions.assertTrue(logsList.get(0).getMessage().startsWith("openAdminResourceResolver: could not get elevated resource resolver, returning non elevated resource resolver. ex="));
+        Assertions.assertEquals(Level.ERROR, logsList.get(0).getLevel());
 
 
-        assertNull(test);
+        Assertions.assertNull(test);
 
     }
 
-
     @Test
     public void testGetSubServiceUser() throws Exception {
-        String SERVICE_NAME = "content-services";
-        Map<String, Object> AUTH_INFO = Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, SERVICE_NAME);
 
         when(resourceResolverFactory.getServiceResourceResolver(AUTH_INFO)).thenReturn(adminResourceResolver);
         when(adminResourceResolver.getUserID()).thenReturn("admin");
 
         String test = contentAccess.getSubServiceUser();
 
-        assertEquals("admin",test);
-
+        Assertions.assertEquals("admin", test);
 
         when(resourceResolverFactory.getServiceResourceResolver(AUTH_INFO)).thenThrow(new LoginException());
 
@@ -180,12 +189,11 @@ public class ContentAccessImplTest {
 
         List<ILoggingEvent> logsList = listAppender.list;
 
-        assertTrue(logsList.get(0).getMessage().startsWith("getSubServiceUser: Login Exception when obtaining a User for the Bundle Service"));
-        assertEquals(Level.ERROR, logsList.get(0).getLevel());
+        Assertions.assertTrue(logsList.get(0).getMessage().startsWith("getSubServiceUser: Login Exception when obtaining a User for the Bundle Service"));
+        Assertions.assertEquals(Level.ERROR, logsList.get(0).getLevel());
 
 
-        assertEquals("", test);
-
+        Assertions.assertEquals("", test);
 
 
     }
@@ -199,7 +207,7 @@ public class ContentAccessImplTest {
 
         String test = contentAccess.getBundleServiceUser();
 
-        assertEquals("admin",test);
+        Assertions.assertEquals("admin", test);
 
 
         when(resourceResolverFactory.getServiceResourceResolver(null)).thenThrow(new LoginException());
@@ -218,12 +226,11 @@ public class ContentAccessImplTest {
 
         List<ILoggingEvent> logsList = listAppender.list;
 
-        assertTrue(logsList.get(0).getMessage().startsWith("getBundleServiceUser: Login Exception when obtaining a User for the Bundle Service"));
-        assertEquals(Level.ERROR, logsList.get(0).getLevel());
+        Assertions.assertTrue(logsList.get(0).getMessage().startsWith("getBundleServiceUser: Login Exception when obtaining a User for the Bundle Service"));
+        Assertions.assertEquals(Level.ERROR, logsList.get(0).getLevel());
 
 
-        assertEquals("", test);
-
+        Assertions.assertEquals("", test);
 
 
     }

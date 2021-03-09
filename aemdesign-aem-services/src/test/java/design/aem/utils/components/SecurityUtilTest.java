@@ -3,21 +3,17 @@ package design.aem.utils.components;
 import org.apache.jackrabbit.api.security.user.Authorizable;
 import org.apache.jackrabbit.api.security.user.Group;
 import org.apache.jackrabbit.api.security.user.User;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
 public class SecurityUtilTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityUtilTest.class);
@@ -40,7 +36,7 @@ public class SecurityUtilTest {
         SecurityUtil test = new SecurityUtil();
 
         // Verify the results
-        assertNotNull(test);
+        Assertions.assertNotNull(test);
     }
 
     @Test
@@ -53,9 +49,10 @@ public class SecurityUtilTest {
         final List<Group> memberOf = new ArrayList<Group>();
 
 
-        Authorizable adminUserAuth = mock(Authorizable.class, withSettings().extraInterfaces(User.class)); mock(Authorizable.class);
+        Authorizable adminUserAuth = mock(Authorizable.class, withSettings().extraInterfaces(User.class));
+        mock(Authorizable.class);
 
-        User adminUser = (User)adminUserAuth;
+        User adminUser = (User) adminUserAuth;
 
         when(adminUser.isAdmin()).thenReturn(true);
 
@@ -77,7 +74,7 @@ public class SecurityUtilTest {
         LOGGER.error("result={}", result);
 
         // Verify the results
-        assertTrue(result);
+        Assertions.assertTrue(result);
     }
 
     @Test
@@ -90,9 +87,10 @@ public class SecurityUtilTest {
         final List<Group> memberOf = new ArrayList<Group>();
 
 
-        Authorizable adminUserAuth = mock(Authorizable.class, withSettings().extraInterfaces(User.class)); mock(Authorizable.class);
+        Authorizable adminUserAuth = mock(Authorizable.class, withSettings().extraInterfaces(User.class));
+        mock(Authorizable.class);
 
-        User adminUser = (User)adminUserAuth;
+        User adminUser = (User) adminUserAuth;
 
         when(adminUser.isAdmin()).thenReturn(false);
 
@@ -119,7 +117,7 @@ public class SecurityUtilTest {
         LOGGER.error("result={}", result);
 
         // Verify the results
-        assertTrue(result);
+        Assertions.assertTrue(result);
     }
 
     @Test
@@ -132,9 +130,10 @@ public class SecurityUtilTest {
         final List<Group> memberOf = new ArrayList<Group>();
 
 
-        Authorizable adminUserAuth = mock(Authorizable.class, withSettings().extraInterfaces(User.class)); mock(Authorizable.class);
+        Authorizable adminUserAuth = mock(Authorizable.class, withSettings().extraInterfaces(User.class));
+        mock(Authorizable.class);
 
-        User adminUser = (User)adminUserAuth;
+        User adminUser = (User) adminUserAuth;
 
         when(adminUser.isAdmin()).thenReturn(false);
 
@@ -147,7 +146,7 @@ public class SecurityUtilTest {
         LOGGER.error("result={}", result);
 
         // Verify the results
-        assertFalse(result);
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -160,9 +159,10 @@ public class SecurityUtilTest {
         final List<Group> memberOf = new ArrayList<Group>();
 
 
-        Authorizable adminUserAuth = mock(Authorizable.class, withSettings().extraInterfaces(User.class)); mock(Authorizable.class);
+        Authorizable adminUserAuth = mock(Authorizable.class, withSettings().extraInterfaces(User.class));
+        mock(Authorizable.class);
 
-        User adminUser = (User)adminUserAuth;
+        User adminUser = (User) adminUserAuth;
 
         when(adminUser.isAdmin()).thenReturn(false);
 
@@ -185,7 +185,7 @@ public class SecurityUtilTest {
         LOGGER.error("result={}", result);
 
         // Verify the results
-        assertFalse(result);
+        Assertions.assertFalse(result);
     }
 
 
