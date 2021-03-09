@@ -81,7 +81,7 @@ public class NewsDetails extends GenericDetails {
                 getSlingScriptHelper());
             String dateDisplayFormatString = getTagValueAsAdmin(
                 componentProperties.get(FIELD_FORMAT_DATE_DISPLAY, StringUtils.EMPTY),
-                getSlingScriptHelper());;
+                getSlingScriptHelper());
 
             //could not read dictionary
             if (StringUtils.isEmpty(dateFormatString)) {
