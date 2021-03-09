@@ -1041,6 +1041,7 @@ public class List extends BaseComponent {
         resultInfo.put("startIndex", result.getStartIndex());
         resultInfo.put("hasMore", result.hasMore());
         resultInfo.put("result", result);
+        resultInfo.put("currentPageStart", result.getStartIndex() + 1);
 
         totalMatches = result.getTotalMatches();
         resultPages = result.getResultPages();

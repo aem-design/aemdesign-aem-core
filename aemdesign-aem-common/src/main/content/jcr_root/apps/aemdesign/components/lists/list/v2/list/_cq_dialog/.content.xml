@@ -351,10 +351,14 @@
                                         name="./headerType"
                                         value="">
                                         <items jcr:primaryType="nt:unstructured">
+                                            <none
+                                                jcr:primaryType="nt:unstructured"
+                                                text="None"
+                                                value=""/>
                                             <default
                                                 jcr:primaryType="nt:unstructured"
-                                                text="Default"
-                                                value=""/>
+                                                text="Showing S-C of X results"
+                                                value="default"/>
                                             <hidden
                                                 jcr:primaryType="nt:unstructured"
                                                 text="Hidden"
