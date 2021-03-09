@@ -85,8 +85,8 @@ These fields are available for input by the authors. These fields are used in te
         </tr>
         <tr>
             <td>Details / Description</td>
-            <td>Employee</td>
-            <td>employee</td>
+            <td>Employer</td>
+            <td>employer</td>
             <td></td>
             <td></td>
         </tr>
