@@ -1,11 +1,10 @@
 package design.aem.utils.components;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class TenantUtilTest {
 
@@ -17,7 +16,7 @@ public class TenantUtilTest {
         TenantUtil test = new TenantUtil();
 
         // Verify the results
-        assertNotNull(test);
+        Assertions.assertNotNull(test);
     }
 
 
@@ -31,7 +30,7 @@ public class TenantUtilTest {
         final String result = TenantUtil.resolveTenantIdFromPath(path);
 
         // Verify the results
-        assertEquals(expectedResult, result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -44,7 +43,7 @@ public class TenantUtilTest {
         final String result = TenantUtil.resolveTenantIdFromPath(path);
 
         // Verify the results
-        assertEquals(expectedResult, result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
 
@@ -57,7 +56,7 @@ public class TenantUtilTest {
         final String result = TenantUtil.resolveTenantIdFromPath(path);
 
         // Verify the results
-        assertEquals(null, result);
+        Assertions.assertEquals(null, result);
     }
 
     @Test
@@ -66,6 +65,6 @@ public class TenantUtilTest {
         final String result = TenantUtil.resolveTenantIdFromPath("");
 
         // Verify the results
-        assertEquals(null, result);
+        Assertions.assertEquals(null, result);
     }
 }

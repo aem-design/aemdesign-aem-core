@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
     jcr:primaryType="nt:unstructured"
     jcr:title="List"
     sling:resourceType="cq/gui/components/authoring/dialog"
@@ -30,6 +31,7 @@
                                 jcr:title="List"
                                 sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
+
                                     <listFrom
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/select"
@@ -37,34 +39,14 @@
                                         cq-dialog-dropdown-showhide-target=".list-option-listfrom-showhide-target"
                                         emptyOption="{Boolean}true"
                                         fieldLabel="Build list using"
-                                        name="./listFrom">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <children
-                                                jcr:primaryType="nt:unstructured"
-                                                text="Child pages"
-                                                value="children"/>
-                                            <descendants
-                                                jcr:primaryType="nt:unstructured"
-                                                text="Descendant pages"
-                                                value="descendants"/>
-                                            <static
-                                                jcr:primaryType="nt:unstructured"
-                                                text="Fixed list"
-                                                value="static"/>
-                                            <search
-                                                jcr:primaryType="nt:unstructured"
-                                                text="Search"
-                                                value="search"/>
-                                            <querybuilder
-                                                jcr:primaryType="nt:unstructured"
-                                                text="Advanced Search"
-                                                value="querybuilder"/>
-                                            <tags
-                                                jcr:primaryType="nt:unstructured"
-                                                text="Tags"
-                                                value="tags"/>
-                                        </items>
+                                        name="./listFrom">>
+                                        <datasource
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="valuelist"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/lists/list/listfrom"/>
                                     </listFrom>
+
                                     <setChildren
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/container"
@@ -281,6 +263,14 @@
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/foundation/container"
                         class="u-coral-padding u-coral-noMargin">
+                        <granite:rendercondition
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                            <granite:rendercondition
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                                groups="[content-authors-advanced]"/>
+                        </granite:rendercondition>
                         <items jcr:primaryType="nt:unstructured">
                             <basic
                                 jcr:primaryType="nt:unstructured"
@@ -361,10 +351,14 @@
                                         name="./headerType"
                                         value="">
                                         <items jcr:primaryType="nt:unstructured">
+                                            <none
+                                                jcr:primaryType="nt:unstructured"
+                                                text="None"
+                                                value=""/>
                                             <default
                                                 jcr:primaryType="nt:unstructured"
-                                                text="Default"
-                                                value=""/>
+                                                text="Showing S-C of X results"
+                                                value="default"/>
                                             <hidden
                                                 jcr:primaryType="nt:unstructured"
                                                 text="Hidden"
@@ -381,6 +375,14 @@
                 jcr:primaryType="nt:unstructured"
                 jcr:title="List Config"
                 sling:resourceType="granite/ui/components/foundation/section">
+                <granite:rendercondition
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                    <granite:rendercondition
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                        groups="[content-authors-advanced]"/>
+                </granite:rendercondition>
                 <layout
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"

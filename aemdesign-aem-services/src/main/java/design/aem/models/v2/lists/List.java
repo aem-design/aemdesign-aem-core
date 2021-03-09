@@ -466,7 +466,7 @@ public class List extends BaseComponent {
                 long endShow = Math.min(currentIndex + midIndex, maxShow) + (startShow < 0 ? -startShow : 0);
                 for (int i = pageLinks.size() - 1; i >= 0; i--) {
                     int pagePosition = (int)pageLinks.get(i).get("pagePosition");
-                    if (pagePosition < startShow || pagePosition > endShow) {
+                    if (pagePosition < startShow || pagePosition >= endShow) {
                         pageLinks.remove(i);
                     }
                 }
@@ -1041,6 +1041,7 @@ public class List extends BaseComponent {
         resultInfo.put("startIndex", result.getStartIndex());
         resultInfo.put("hasMore", result.hasMore());
         resultInfo.put("result", result);
+        resultInfo.put("currentPageStart", result.getStartIndex() + 1);
 
         totalMatches = result.getTotalMatches();
         resultPages = result.getResultPages();

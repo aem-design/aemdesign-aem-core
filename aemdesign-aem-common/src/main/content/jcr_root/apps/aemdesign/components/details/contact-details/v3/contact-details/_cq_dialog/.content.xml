@@ -31,10 +31,8 @@
                         sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
 
-
-                            <title
+                            <basic
                                 jcr:primaryType="nt:unstructured"
-                                jcr:title="Title"
                                 sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
 
@@ -67,53 +65,6 @@
                                         name="./familyName"
                                         required="{Boolean}false"/>
 
-                                </items>
-                            </title>
-
-
-                            <other
-                                jcr:primaryType="nt:unstructured"
-                                jcr:title="Other"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                <items jcr:primaryType="nt:unstructured">
-
-                                    <category
-                                        jcr:primaryType="nt:unstructured"
-                                        jcr:title="Contact Tags"
-                                        path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/basic/items/category"
-                                        resourceType="aemdesign/components/coral/common/form/tagfield"
-                                        sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-                                    <mixinTypes
-                                        jcr:primaryType="nt:unstructured"
-                                        jcr:title="mixinTypes"
-                                        path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/basic/items/mixinTypes"
-                                        resourceType="granite/ui/components/foundation/form/hidden"
-                                        sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-                                    <mixinTypesHint
-                                        jcr:primaryType="nt:unstructured"
-                                        jcr:title="mixinTypesHint"
-                                        path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/basic/items/mixinTypesHint"
-                                        resourceType="granite/ui/components/foundation/form/hidden"
-                                        sling:resourceType="granite/ui/components/coral/foundation/include"/>
-
-
-                                </items>
-                            </other>
-                        </items>
-                    </column1>
-                    <column2
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
-
-
-                                <description
-                                        jcr:primaryType="nt:unstructured"
-                                        jcr:title="Description"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                <items jcr:primaryType="nt:unstructured">
 
                                     <jobTitle
                                         jcr:primaryType="nt:unstructured"
@@ -142,16 +93,61 @@
                                         fieldLabel="Email"
                                         name="./email"
                                         required="{Boolean}false"/>
+                                </items>
+                            </basic>
 
-                                    <employee
+
+                        </items>
+                    </column1>
+                    <column2
+                        jcr:primaryType="nt:unstructured"
+                        class="u-coral-padding u-coral-noMargin"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <granite:rendercondition
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                            <granite:rendercondition
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                                groups="[content-authors-advanced]"/>
+                        </granite:rendercondition>
+                        <items jcr:primaryType="nt:unstructured">
+                            <advanced
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+
+
+                                    <employer
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                        fieldLabel="Employee"
-                                        name="./employee"
+                                        fieldLabel="Employer"
+                                        name="./employer"
                                         required="{Boolean}false"/>
 
+                                    <category
+                                        jcr:primaryType="nt:unstructured"
+                                        jcr:title="Contact Tags"
+                                        path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/basic/items/category"
+                                        resourceType="aemdesign/components/coral/common/form/tagfield"
+                                        sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                                    <mixinTypes
+                                        jcr:primaryType="nt:unstructured"
+                                        jcr:title="mixinTypes"
+                                        path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/basic/items/mixinTypes"
+                                        resourceType="granite/ui/components/foundation/form/hidden"
+                                        sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                                    <mixinTypesHint
+                                        jcr:primaryType="nt:unstructured"
+                                        jcr:title="mixinTypesHint"
+                                        path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/basic/items/mixinTypesHint"
+                                        resourceType="granite/ui/components/foundation/form/hidden"
+                                        sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
                                 </items>
-                            </description>
+                            </advanced>
 
                         </items>
                     </column2>
@@ -163,7 +159,14 @@
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Layout"
                 sling:resourceType="granite/ui/components/foundation/section">
-
+                <granite:rendercondition
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                    <granite:rendercondition
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                        groups="[content-authors-advanced]"/>
+                </granite:rendercondition>
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>

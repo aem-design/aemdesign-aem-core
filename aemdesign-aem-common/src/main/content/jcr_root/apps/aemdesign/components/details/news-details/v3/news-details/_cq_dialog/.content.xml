@@ -26,7 +26,7 @@
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
-                    <column
+                    <column1
                         granite:class="coral-RichText-FixedColumn-column"
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/foundation/container">
@@ -44,6 +44,23 @@
                                 path="/apps/aemdesign/global/dialog/touch/description/content/items/descriptionTab/items/column/items/description"
                                 resourceType="cq/gui/components/authoring/dialog/richtext"
                                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+
+                        </items>
+                    </column1>
+                    <column2
+                        jcr:primaryType="nt:unstructured"
+                        class="u-coral-padding u-coral-noMargin"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <granite:rendercondition
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                            <granite:rendercondition
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                                groups="[content-authors-advanced]"/>
+                        </granite:rendercondition>
+                        <items jcr:primaryType="nt:unstructured">
 
                             <author
                                 jcr:primaryType="nt:unstructured"
@@ -88,9 +105,8 @@
                                 resourceType="granite/ui/components/foundation/form/hidden"
                                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
-
                         </items>
-                    </column>
+                    </column2>
                 </items>
             </detailsTab>
 
@@ -98,7 +114,14 @@
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Layout"
                 sling:resourceType="granite/ui/components/foundation/section">
-
+                <granite:rendercondition
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                    <granite:rendercondition
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                        groups="[content-authors-advanced]"/>
+                </granite:rendercondition>
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
@@ -174,6 +197,46 @@
 
                                 </items>
                             </descriptionFormat>
+
+                            <dateFormat
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Date"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+
+                                    <dateDisplayFormat
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Format of Date that will appear for display"
+                                        fieldLabel="Display Format"
+                                        name="./dateDisplayFormat"
+                                        emptyOption="{Boolean}true"
+                                        value="">
+                                        <datasource
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="tagidvalue"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/news-details/format/datedisplay"/>
+                                    </dateDisplayFormat>
+
+                                    <dateFormat
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Format of Date in machine-readable format so that browsers can offer to add date reminders through the user's calendar, and search engines can produce smarter search results"
+                                        fieldLabel="Format"
+                                        name="./dateFormat"
+                                        emptyOption="{Boolean}true"
+                                        value="">
+                                        <datasource
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="tagidvalue"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/news-details/format/date"/>
+                                    </dateFormat>
+
+                                </items>
+                            </dateFormat>
+
                         </items>
                     </column2>
 

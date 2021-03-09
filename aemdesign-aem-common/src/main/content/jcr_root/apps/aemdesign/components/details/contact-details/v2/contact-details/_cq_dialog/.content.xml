@@ -133,11 +133,11 @@
                                         name="./email"
                                         required="{Boolean}false"/>
 
-                                    <employee
+                                    <employer
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                        fieldLabel="Employee"
-                                        name="./employee"
+                                        fieldLabel="Employer"
+                                        name="./employer"
                                         required="{Boolean}false"/>
 
 

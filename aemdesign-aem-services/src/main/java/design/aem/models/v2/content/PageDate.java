@@ -12,11 +12,14 @@ import java.util.Calendar;
 
 import static design.aem.utils.components.CommonUtil.getPageCreated;
 import static design.aem.utils.components.ComponentsUtil.*;
+import static design.aem.utils.components.TagUtil.getTagValueAsAdmin;
 
 public class PageDate extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(PageDate.class);
 
     protected static final String FIELD_PUBLISH_DATE = "publishDate";
+    private static final String FIELD_FORMAT_DATE = "dateFormat";
+    private static final String FIELD_FORMAT_DATE_DISPLAY = "dateDisplayFormat";
 
     @SuppressWarnings({"squid:S3008"})
     protected static String PUBLISH_DATE_FORMAT = "yyyy-MM-dd";
@@ -39,16 +42,20 @@ public class PageDate extends BaseComponent {
         publishDate.setTimeInMillis(publishDateLong);
 
         //get format strings from dictionary
-        String dateFormatString = i18n.get("publishDateFormat", DEFAULT_I18N_CATEGORY);
-        String dateDisplayFormatString = i18n.get("publishDateDisplayFormat", DEFAULT_I18N_CATEGORY);
+        String dateFormatString = getTagValueAsAdmin(
+            componentProperties.get(FIELD_FORMAT_DATE, StringUtils.EMPTY),
+            getSlingScriptHelper());
+        String dateDisplayFormatString = getTagValueAsAdmin(
+            componentProperties.get(FIELD_FORMAT_DATE_DISPLAY, StringUtils.EMPTY),
+            getSlingScriptHelper());
 
         //could not read dictionary
-        if (dateFormatString.equals("publishDateFormat")) {
+        if (StringUtils.isEmpty(dateFormatString)) {
             dateFormatString = PUBLISH_DATE_FORMAT;
         }
 
         //could not read dictionary
-        if (dateDisplayFormatString.equals("publishDateDisplayFormat")) {
+        if (StringUtils.isEmpty(dateDisplayFormatString)) {
             dateDisplayFormatString = PUBLISH_DATE_DISPLAY_FORMAT;
         }
 
@@ -84,6 +91,8 @@ public class PageDate extends BaseComponent {
     protected void setFields() {
         setComponentFields(new Object[][]{
             {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_FORMAT_DATE, StringUtils.EMPTY},
+            {FIELD_FORMAT_DATE_DISPLAY, StringUtils.EMPTY},
             {FIELD_PUBLISH_DATE, componentDefaults.get(FIELD_PUBLISH_DATE)},
             {JcrConstants.JCR_CREATED, StringUtils.EMPTY},
         });

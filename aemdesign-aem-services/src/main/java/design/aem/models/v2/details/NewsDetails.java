@@ -12,6 +12,7 @@ import java.util.Map;
 import static design.aem.utils.components.CommonUtil.getPageCreated;
 import static design.aem.utils.components.ComponentsUtil.DETAILS_DATA_SCHEMA_ITEMSCOPE;
 import static design.aem.utils.components.ComponentsUtil.DETAILS_DATA_SCHEMA_ITEMTYPE;
+import static design.aem.utils.components.TagUtil.getTagValueAsAdmin;
 
 public class NewsDetails extends GenericDetails {
     protected static final Logger LOGGER = LoggerFactory.getLogger(NewsDetails.class);
@@ -20,6 +21,13 @@ public class NewsDetails extends GenericDetails {
 
     private static final String FIELD_AUTHOR = "author";
     private static final String FIELD_PUBLISH_DATE = "publishDate";
+    private static final String FIELD_FORMAT_DATE = "dateFormat";
+    private static final String FIELD_FORMAT_DATE_DISPLAY = "dateDisplayFormat";
+
+    @SuppressWarnings({"squid:S3008"})
+    protected static String PUBLISH_DATE_FORMAT = "yyyy-MM-dd";
+    @SuppressWarnings({"squid:S3008"})
+    protected static String PUBLISH_DATE_DISPLAY_FORMAT = "EEEE dd MMMM YYYY";
 
     protected static final String DEFAULT_I18N_CATEGORY = "news-detail";
 
@@ -35,6 +43,8 @@ public class NewsDetails extends GenericDetails {
 
         setComponentFields(new Object[][]{
             {FIELD_AUTHOR, StringUtils.EMPTY},
+            {FIELD_FORMAT_DATE, StringUtils.EMPTY},
+            {FIELD_FORMAT_DATE_DISPLAY, StringUtils.EMPTY},
             {FIELD_PUBLISH_DATE, componentDefaults.get(FIELD_PUBLISH_DATE)},
             {DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE, DETAILS_DATA_SCHEMA_ITEMSCOPE},
             {DETAILS_DATA_SCHEMA_ITEMTYPE, "http://schema.org/NewsArticle", DETAILS_DATA_SCHEMA_ITEMTYPE},
@@ -65,8 +75,23 @@ public class NewsDetails extends GenericDetails {
             publishDate.setTimeInMillis(publishDateLong);
 
             // Get format strings from dictionary
-            String dateFormatString = i18n.get("publishDateFormat", DEFAULT_I18N_CATEGORY);
-            String dateDisplayFormatString = i18n.get("publishDateDisplayFormat", DEFAULT_I18N_CATEGORY);
+            //get format strings from dictionary
+            String dateFormatString = getTagValueAsAdmin(
+                componentProperties.get(FIELD_FORMAT_DATE, StringUtils.EMPTY),
+                getSlingScriptHelper());
+            String dateDisplayFormatString = getTagValueAsAdmin(
+                componentProperties.get(FIELD_FORMAT_DATE_DISPLAY, StringUtils.EMPTY),
+                getSlingScriptHelper());
+
+            //could not read dictionary
+            if (StringUtils.isEmpty(dateFormatString)) {
+                dateFormatString = PUBLISH_DATE_FORMAT;
+            }
+
+            //could not read dictionary
+            if (StringUtils.isEmpty(dateDisplayFormatString)) {
+                dateDisplayFormatString = PUBLISH_DATE_DISPLAY_FORMAT;
+            }
 
             // Format date into formatted date
             SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString);
