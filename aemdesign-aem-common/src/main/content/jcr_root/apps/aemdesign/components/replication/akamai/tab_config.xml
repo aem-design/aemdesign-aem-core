@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Panel"
+    title="Config">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <domain
+            jcr:primaryType="cq:Widget"
+            fieldDescription="Akamai domain string"
+            fieldLabel="Domain"
+            name="./domain"
+            xtype="textfield"/>
+        <baseurl
+            jcr:primaryType="cq:Widget"
+            fieldDescription="Akamai Base Url to make post request."
+            fieldLabel="Base URL"
+            name="./baseurl"
+            xtype="textfield"/>
+        <purgeurlpath
+            jcr:primaryType="cq:Widget"
+            fieldDescription="Akamai cache URL path for akamai purge request. i.e /ccu/v3/delete/url/production"
+            fieldLabel="PurgeUrlPath"
+            name="./purgeurlpath"
+            xtype="textfield"/>
+        <additionaltrimpath
+            jcr:primaryType="cq:Widget"
+            fieldDescription="Include additional shortened path, use everything after this string."
+            fieldLabel="Additional Trimmed Path"
+            name="./additionaltrimpath"
+            xtype="textfield"/>
+
+        <excludepaths
+            jcr:primaryType="cq:Widget"
+            fieldDescription="Exclude paths from request that that start with these."
+            fieldLabel="Exclude Paths"
+            name="./excludepaths"
+            xtype="multifield">
+            <fieldConfig
+                jcr:primaryType="nt:unstructured"
+                xtype="textfield"/>
+        </excludepaths>
+
+        <token
+            jcr:primaryType="cq:Widget"
+            fieldDescription="Client token to be used while doing the post method."
+            fieldLabel="Token"
+            name="./token"
+            xtype="password"/>
+        <accesstoken
+            jcr:primaryType="cq:Widget"
+            fieldDescription="Client access token to be used while doing the post method"
+            fieldLabel="Access Token"
+            name="./accesstoken"
+            xtype="password"/>
+        <secret
+            jcr:primaryType="cq:Widget"
+            fieldDescription="Client access token to be used while doing the post method"
+            fieldLabel="Secret"
+            name="./secret"
+            xtype="password"/>
+
+        <protocol
+            jcr:primaryType="cq:Widget"
+            fieldDescription="Protocol to use for posts."
+            fieldLabel="Protocol"
+            name="./protocol"
+            defaultValue="https"
+            value="https"
+            type="select"
+            xtype="selection">
+            <options jcr:primaryType="cq:WidgetCollection">
+                <default
+                    jcr:primaryType="nt:unstructured"
+                    qtip="Select to use default settings."
+                    text="HTTPS"
+                    value="https/"/>
+            </options>
+        </protocol>
+
+        <transportUri
+            jcr:primaryType="cq:Widget"
+            fieldDescription="URI to use for post."
+            fieldLabel="Transport Uri"
+            name="./transportUri"
+            defaultValue="akamai:///"
+            value="akamai:///"
+            type="select"
+            xtype="selection">
+            <options jcr:primaryType="cq:WidgetCollection">
+                <default
+                    jcr:primaryType="nt:unstructured"
+                    qtip="Select to use default settings."
+                    text="Default"
+                    value="akamai:///"/>
+            </options>
+        </transportUri>
+
+
+    </items>
+</jcr:root>
