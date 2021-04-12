@@ -34,7 +34,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Details"
                                                 granite:class="js-cq-IPEPlugin-group"
-                                                path="/apps/aemdesign/components/details/contact-details/v2/contact-details/cq:dialog/content/items/detailsTab"
+                                                path="/apps/aemdesign/components/details/contact-details/v3/contact-details/cq:dialog/content/items/detailsTab"
                                                 resourceType="granite/ui/components/coral/foundation/container"
                                                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>
@@ -64,7 +64,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Layout"
                                                 granite:class="js-cq-IPEPlugin-group"
-                                                path="/apps/aemdesign/components/details/contact-details/v2/contact-details/cq:dialog/content/items/layoutTab"
+                                                path="/apps/aemdesign/components/details/contact-details/v3/contact-details/cq:dialog/content/items/layoutTab"
                                                 resourceType="granite/ui/components/coral/foundation/container"
                                                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>

@@ -4,7 +4,7 @@
           xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Contact Details"
-          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/contact-details/v2/contact-details"
+          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/contact-details/v3/contact-details"
           extraClientlibs="[aem.design.components.author.contactdetails,aem.design.components.coral.widgets.form.assetoptions]"
           sling:resourceType="cq/gui/components/authoring/dialog">
     <content
