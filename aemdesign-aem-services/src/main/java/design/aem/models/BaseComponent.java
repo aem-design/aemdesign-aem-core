@@ -39,7 +39,7 @@ public abstract class BaseComponent extends WCMUsePojo {
 
     /***
      * runs as a final step after all activate steps have finished
-     * @throws Exception
+     * @throws Exception when evaluating expressions
      */
     protected void done() throws Exception {
 

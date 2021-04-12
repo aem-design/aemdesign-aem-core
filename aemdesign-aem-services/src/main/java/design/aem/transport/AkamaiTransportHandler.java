@@ -104,9 +104,9 @@ public class AkamaiTransportHandler implements TransportHandler {
     /**
      * reads the string from given input stream and returns it.
      *
-     * @param inputStream
-     * @return
-     * @throws IOException
+     * @param inputStream steram to convert to string
+     * @return return string of input stream
+     * @throws IOException steam io error
      */
     private static String read(InputStream inputStream) throws IOException {
         if (inputStream == null) {
@@ -124,8 +124,8 @@ public class AkamaiTransportHandler implements TransportHandler {
     /***
      * returns the timestamp in requested format.
      *
-     * @param date
-     * @return
+     * @param date date object to use
+     * @return date object formatted in timestamp format
      */
     private static String getTimeStamp(Date date) {
         DateFormat dateFormat = new SimpleDateFormat(TIME_STAMP_FORMAT);
@@ -164,7 +164,7 @@ public class AkamaiTransportHandler implements TransportHandler {
      *
      * @param tx Replication Transaction
      * @return ReplicationResult OK if 201 response from Akamai
-     * @throws ReplicationException
+     * @throws ReplicationException aborts replication in params not set
      */
     private ReplicationResult handleRequest(ReplicationTransaction tx) throws ReplicationException {
 
@@ -230,6 +230,7 @@ public class AkamaiTransportHandler implements TransportHandler {
      * @param protocol           Protocol to use
      * @param additionalTrimPath Include short paths for each path.
      * @param excludepaths       path list to be excluded.
+     * @return StringEntity with objects of paths
      * @throws ReplicationException if errors building the request body
      */
     private StringEntity createPostBody(ReplicationTransaction tx, String domain, String protocol, String additionalTrimPath, String[] excludepaths) throws ReplicationException {
@@ -249,13 +250,13 @@ public class AkamaiTransportHandler implements TransportHandler {
     /**
      * returns the requested urls for purging the akamai cache
      *
-     * @param tx
-     * @param domain
-     * @param protocol
-     * @param additionalTrimPath
-     * @param excludepaths
-     * @return json array with generated urls
-     * @throws ReplicationException
+     * @param tx                 ReplicationTransaction
+     * @param domain             target Domain
+     * @param protocol           Protocol to use
+     * @param additionalTrimPath Include short paths for each path.
+     * @param excludepaths       path list to be excluded.
+     * @return JsonArray with generated urls
+     * @throws ReplicationException if cant process paths
      */
     private JsonArray getPathsList(ReplicationTransaction tx, String domain, String protocol, String additionalTrimPath, String[] excludepaths) throws ReplicationException {
 
@@ -300,15 +301,15 @@ public class AkamaiTransportHandler implements TransportHandler {
     }
 
     /**
-     * @param request
-     * @param baseurl
-     * @param purgeurlpath
-     * @param token
-     * @param accesstoken
-     * @param secret
-     * @param protocol
-     * @return
-     * @throws ReplicationException
+     * @param request request to use
+     * @param baseurl akamai base url
+     * @param purgeurlpath akamai api path
+     * @param token akamai token
+     * @param accesstoken akamai access token
+     * @param secret akamai secret
+     * @param protocol https/http schema
+     * @return HttpResponse with akamai config
+     * @throws ReplicationException if can't send request
      */
     private HttpResponse sendRequest(HttpPost request, String baseurl, String purgeurlpath, String token, String accesstoken, String secret, String protocol) throws ReplicationException {
         if (baseurl != null &&
@@ -376,8 +377,8 @@ public class AkamaiTransportHandler implements TransportHandler {
     /**
      * prepare the authentication header with the values from configs
      *
-     * @param clientAccessToken
-     * @param clientToken
+     * @param clientAccessToken akamai access token
+     * @param clientToken akamai token
      * @return auth header
      */
     private String generateAuthHeader(String clientToken, String clientAccessToken) {
@@ -396,10 +397,10 @@ public class AkamaiTransportHandler implements TransportHandler {
     /**
      * creates ClientCredential object with Akamai configs which is required for POST and returns it.
      *
-     * @param clientAccessToken
-     * @param clientSecret
-     * @param baseUrl
-     * @param clientToken
+     * @param clientAccessToken akamai access token
+     * @param clientSecret akamai secret
+     * @param baseUrl base url
+     * @param clientToken akamai token
      * @return ClientCredential
      */
     private ClientCredential getClientCredential(String clientAccessToken, String clientToken, String clientSecret, String baseUrl) {
@@ -414,9 +415,9 @@ public class AkamaiTransportHandler implements TransportHandler {
     /**
      * encrypts the secret values using hashHMacSha256 by encoding them.
      *
-     * @param message
-     * @param secret
-     * @return
+     * @param message string to sign
+     * @param secret sign secret
+     * @return signed string
      */
     private String crypto(String message, String secret) {
         String hmacString = hashHMACSHA256(secret, message);
@@ -429,9 +430,9 @@ public class AkamaiTransportHandler implements TransportHandler {
     /**
      * encrypts the secret values using hashHMacSha256 by encoding them.
      *
-     * @param key
-     * @param data
-     * @return
+     * @param key secret
+     * @param data string to encode
+     * @return data encoded
      */
     private String hashHMACSHA256(String key, String data) {
         try {
@@ -451,14 +452,14 @@ public class AkamaiTransportHandler implements TransportHandler {
     /**
      * prepare the list with configured values and returns it.
      *
-     * @param request
-     * @param authHeader
-     * @param bodyHash
-     * @param baseUrl
-     * @param protocol
-     * @param PurgeUrl
-     * @param <T>
-     * @return
+     * @param request http request
+     * @param authHeader auth header
+     * @param bodyHash body hash
+     * @param baseUrl base url
+     * @param protocol https
+     * @param PurgeUrl path to delete
+     * @param <T> http request
+     * @return list of data
      */
     private <T extends HttpRequestBase> List<String> getDataToSign(T request, String authHeader, String bodyHash, String baseUrl, String PurgeUrl, String protocol) {
         List<String> dataToSign = new ArrayList<>();

@@ -135,8 +135,11 @@ public class ComponentProperties extends ValueMapDecorator {
     }
 
 
-    /**
-     * evaluate expression values in a map and return all that were evaluated as expressions
+    /***
+     * evaluate expression values in a map and return all that were evaluated as expressions.
+     * @param source map to evaluate
+     * @param contextMap map with values
+     * @return updated map
      */
     @SuppressWarnings({"squid:S3776"})
     public static Map<String, String> mapEvaluateAllExpressionValues(Map<String, String> source, Map<String, Object> contextMap) {
