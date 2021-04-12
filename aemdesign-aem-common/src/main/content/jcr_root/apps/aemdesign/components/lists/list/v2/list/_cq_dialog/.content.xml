@@ -39,7 +39,7 @@
                                         cq-dialog-dropdown-showhide-target=".list-option-listfrom-showhide-target"
                                         emptyOption="{Boolean}true"
                                         fieldLabel="Build list using"
-                                        name="./listFrom">>
+                                        name="./listFrom">
                                         <datasource
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="aemdesign/components/coral/datasources/tags"

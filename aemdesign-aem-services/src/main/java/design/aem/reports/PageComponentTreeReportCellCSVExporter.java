@@ -1,34 +1,30 @@
 package design.aem.reports;
 
-import com.adobe.acs.commons.reports.api.ReportCellCSVExporter;
-import com.day.cq.commons.jcr.JcrConstants;
+
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.components.Component;
 import com.day.cq.wcm.api.components.ComponentManager;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
-import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.apache.sling.models.annotations.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 import static design.aem.reports.PageComponentsReportCellValue.getResourceChildrenComponentsTreeList;
-import static design.aem.utils.components.CommonUtil.RESOURCE_TYPE;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import org.apache.sling.models.annotations.Optional;
 
 /**
  * Model for rendering component paths in a page when exporting content to csv
  */
 @Model(adaptables = Resource.class)
-public class PageComponentTreeReportCellCSVExporter implements ReportCellCSVExporter {
+public class PageComponentTreeReportCellCSVExporter {
 
     private static final Logger log = LoggerFactory.getLogger(PageComponentTreeReportCellCSVExporter.class);
 
@@ -37,7 +33,6 @@ public class PageComponentTreeReportCellCSVExporter implements ReportCellCSVExpo
     @Default(values = "")
     private String componentattribute;
 
-    @Override
     public String getValue(Object result) {
 
         Resource resource = (Resource)result;

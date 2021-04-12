@@ -64,7 +64,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Layout"
                                                 granite:class="js-cq-IPEPlugin-group"
-                                                path="/apps/aemdesign/components/details/page-details/v2/page-details/cq:dialog/content/items/layoutTab"
+                                                path="/apps/aemdesign/components/details/page-details/v3/page-details/cq:dialog/content/items/layoutTab"
                                                 resourceType="granite/ui/components/coral/foundation/container"
                                                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
                                         </items>

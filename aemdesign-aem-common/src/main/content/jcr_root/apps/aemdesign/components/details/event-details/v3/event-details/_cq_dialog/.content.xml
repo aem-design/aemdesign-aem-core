@@ -4,7 +4,7 @@
           xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Event Details"
-          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/event-details/v2/event-details"
+          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/event-details/v3/event-details"
           extraClientlibs="[aem.design.components.author.eventdetails,aem.design.components.coral.widgets.form.assetoptions]"
           sling:resourceType="cq/gui/components/authoring/dialog">
     <content
