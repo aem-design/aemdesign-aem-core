@@ -74,8 +74,6 @@ public class AkamaiTransportHandler implements TransportHandler {
     @Reference
     private CryptoSupport cryptoSupport;
 
-    private HttpClient client;
-
     public boolean canHandle(AgentConfig config) {
         agentConfig = config;
         String transportURI = config.getTransportURI();
@@ -329,13 +327,12 @@ public class AkamaiTransportHandler implements TransportHandler {
 
             HttpResponse response;
 
-            if(client == null) {
-                client = HttpClientBuilder.create()
-                    .addInterceptorFirst(new ApacheHttpClientEdgeGridInterceptor(getClientCredential(clientAccessToken,clientToken,clientSecret,baseurl)))
-                    .setRoutePlanner(new ApacheHttpClientEdgeGridRoutePlanner(getClientCredential(clientAccessToken,clientToken,clientSecret,baseurl)))
-                    .setConnectionTimeToLive(1000, TimeUnit.MILLISECONDS)
-                    .build();
-            }
+            HttpClient client = HttpClientBuilder.create()
+                .addInterceptorFirst(new ApacheHttpClientEdgeGridInterceptor(getClientCredential(clientAccessToken,clientToken,clientSecret,baseurl)))
+                .setRoutePlanner(new ApacheHttpClientEdgeGridRoutePlanner(getClientCredential(clientAccessToken,clientToken,clientSecret,baseurl)))
+                .setConnectionTimeToLive(1000, TimeUnit.MILLISECONDS)
+                .build();
+
             try {
                 response = client.execute(request);
             } catch (IOException e) {
