@@ -281,7 +281,7 @@ public class AkamaiTransportHandler implements TransportHandler {
                         jsonArray.add(MessageFormat.format("{0}://{1}{2}", protocol, domain, path));
 
                         //add trimmed path
-                        if (StringUtils.isNotEmpty(additionalTrimPath) && !path.endsWith("/content")) {
+                        if (StringUtils.isNotEmpty(additionalTrimPath) && path.contains(additionalTrimPath)) {
                             String pathAfter = path.substring(path.indexOf(additionalTrimPath) + additionalTrimPath.length());
                             jsonArray.add(MessageFormat.format("{0}://{1}{2}", protocol, domain, pathAfter));
                         }
