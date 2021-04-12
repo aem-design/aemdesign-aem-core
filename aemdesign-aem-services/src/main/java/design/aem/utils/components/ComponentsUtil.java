@@ -1692,7 +1692,7 @@ public class ComponentsUtil {
      * @param configurationName config name
      * @param propertyName property to get
      * @param sling sling instance
-     * @return
+     * @return return cloud config property
      */
     public static String getCloudConfigProperty(InheritanceValueMap pageProperties, String configurationName, String propertyName, SlingScriptHelper sling) {
         return getCloudConfigProperty(pageProperties,configurationName,propertyName, sling);
@@ -1704,7 +1704,7 @@ public class ComponentsUtil {
      * @param configurationName config name
      * @param propertyName property to get
      * @param sling sling instance
-     * @return
+     * @return return cloud config property
      */
     public static String getCloudConfigProperty(ValueMap pageProperties, String configurationName, String propertyName, SlingScriptHelper sling) {
         String returnValue = StringUtils.EMPTY;
