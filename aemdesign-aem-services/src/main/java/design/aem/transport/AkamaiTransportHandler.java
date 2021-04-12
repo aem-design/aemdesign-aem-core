@@ -240,7 +240,7 @@ public class AkamaiTransportHandler implements TransportHandler {
         if (requestedJson.size() > 0) {
             json.add("objects", requestedJson);
         } else {
-            currentReplicationLog.info("No paths to purge");
+            logReplicationEventInfoStatement("No paths to purge");
         }
         return new StringEntity(json.toString(), CharEncoding.ISO_8859_1);
     }
