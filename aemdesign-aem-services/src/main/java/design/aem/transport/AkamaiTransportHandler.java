@@ -75,9 +75,12 @@ public class AkamaiTransportHandler implements TransportHandler {
     private CryptoSupport cryptoSupport;
 
     public boolean canHandle(AgentConfig config) {
-        agentConfig = config;
         String transportURI = config.getTransportURI();
-        return (transportURI != null) ? transportURI.toLowerCase().startsWith(AKAMAI_PROTOCOL) : false;
+        if(transportURI.toLowerCase().startsWith(AKAMAI_PROTOCOL)) {
+            agentConfig = config;
+            return true;
+        }
+        return false;
     }
 
     public ReplicationResult deliver(TransportContext ctx, ReplicationTransaction tx) throws ReplicationException {
