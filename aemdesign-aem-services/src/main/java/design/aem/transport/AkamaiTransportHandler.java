@@ -3,12 +3,9 @@ package design.aem.transport;
 import com.adobe.granite.crypto.CryptoException;
 import com.adobe.granite.crypto.CryptoSupport;
 import com.day.cq.replication.*;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Service;
@@ -46,37 +43,98 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import static com.adobe.cq.social.enablement.constants.EnablementConstants.HTTPS_PREFIX;
 import static org.apache.commons.codec.digest.HmacAlgorithms.HMAC_SHA_256;
 
 
+/**
+ * The type Akamai transport handler.
+ */
 @Component(
-    immediate = true,
-    service = TransportHandler.class,
-    property = { "label=Akamai Replication Agent" }
+        immediate = true,
+        service = TransportHandler.class,
+        property = {"label=Akamai Replication Agent"}
 )
 @Service
 @ServiceDescription("Akamai Replication Agent for clearing cache after publish event.")
 @ServiceRanking(1001)
 @ServiceVendor("AEM.Design")
 public class AkamaiTransportHandler implements TransportHandler {
-    private static ReplicationLog currentReplicationLog = null;
-
-    private static AgentConfig agentConfig = null;
-
     public static final String AKAMAI_PROTOCOL = "akamai:///";
     public static final String HTTPS = "https";
     public static final String COLON = ":";
     public static final String SEMICOLON = ";";
     public static final String TIME_STAMP_FORMAT = "yyyyMMdd'T'HH:mm:ss+0000";
     public final static String EG_1_HMAC_SHA_256 = "EG1-HMAC-SHA256";
+    private static ReplicationLog currentReplicationLog = null;
+    private static AgentConfig agentConfig = null;
 
     @Reference
     private CryptoSupport cryptoSupport;
 
+    /***
+     * log error to console based on log level selected in agent dialog.
+     *
+     * @param message the message
+     */
+    public static void logReplicationEventInfoStatement(String message) {
+        logReplicationEvent((Enum) ReplicationLog.Level.INFO, message);
+    }
+
+    /**
+     * Log replication event boolean.
+     *
+     * @param level   the level
+     * @param message the message
+     * @return the boolean
+     */
+    public static boolean logReplicationEvent(Enum level, String message) {
+        if (null != currentReplicationLog) {
+            if (level == ReplicationLog.Level.INFO) {
+                currentReplicationLog.info(message);
+            } else if (level == ReplicationLog.Level.ERROR) {
+                currentReplicationLog.error(message);
+            } else if (level == ReplicationLog.Level.WARN) {
+                currentReplicationLog.warn(message);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * reads the string from given input stream and returns it.
+     *
+     * @param inputStream
+     * @return
+     * @throws IOException
+     */
+    private static String read(InputStream inputStream) throws IOException {
+        if (inputStream == null) {
+            throw new IllegalArgumentException("Please provide a valid input stream");
+        }
+        BufferedReader br = new BufferedReader(new java.io.InputStreamReader(inputStream));
+        String output;
+        StringBuilder outputString = new StringBuilder();
+        while ((output = br.readLine()) != null) {
+            outputString.append(output);
+        }
+        return outputString.toString();
+    }
+
+    /***
+     * returns the timestamp in requested format.
+     *
+     * @param date
+     * @return
+     */
+    private static String getTimeStamp(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat(TIME_STAMP_FORMAT);
+        return dateFormat.format(date);
+    }
+
     public boolean canHandle(AgentConfig config) {
         String transportURI = config.getTransportURI();
-        if(transportURI.toLowerCase().startsWith(AKAMAI_PROTOCOL)) {
+        if (transportURI.toLowerCase().startsWith(AKAMAI_PROTOCOL)) {
             agentConfig = config;
             return true;
         }
@@ -98,7 +156,6 @@ public class AkamaiTransportHandler implements TransportHandler {
 
     }
 
-
     /**
      * Send purge request to Akamai via a POST request
      * <p>
@@ -115,19 +172,19 @@ public class AkamaiTransportHandler implements TransportHandler {
 
             ValueMap props = agentConfig.getProperties();
 
-            String domain = props.get("domain","");
-            String baseurl = props.get("baseurl","");
-            String purgeurlpath = props.get("purgeurlpath","");
-            String token = props.get("token","");
-            String accesstoken = props.get("accesstoken","");
-            String secret = props.get("secret","");
-            String protocol = props.get("protocol","https");
-            String additionalTrimPath = props.get("additionaltrimpath","");
-            String[] excludepaths = props.get("excludepaths",new String[]{});
+            String domain = props.get("domain", "");
+            String baseurl = props.get("baseurl", "");
+            String purgeurlpath = props.get("purgeurlpath", "");
+            String token = props.get("token", "");
+            String accesstoken = props.get("accesstoken", "");
+            String secret = props.get("secret", "");
+            String protocol = props.get("protocol", "https");
+            String additionalTrimPath = props.get("additionaltrimpath", "");
+            String[] excludepaths = props.get("excludepaths", new String[]{});
 
             if (StringUtils.isNotEmpty(protocol) &&
-                StringUtils.isNotEmpty(baseurl) &&
-                StringUtils.isNotEmpty(purgeurlpath)) {
+                    StringUtils.isNotEmpty(baseurl) &&
+                    StringUtils.isNotEmpty(purgeurlpath)) {
                 HttpPost request = new HttpPost(MessageFormat.format("{0}://{1}{2}", protocol, baseurl, purgeurlpath));
 
                 request.setEntity(createPostBody(tx, domain, protocol, additionalTrimPath, excludepaths));
@@ -164,44 +221,18 @@ public class AkamaiTransportHandler implements TransportHandler {
         return new ReplicationResult(false, 0, "Replication failed, agent does not have any config.");
     }
 
-
-    /***
-     * log error to console based on log level selected in agent dialog.
-     * @param message
-     */
-    public static void logReplicationEventInfoStatement(String message) {
-        logReplicationEvent((Enum)ReplicationLog.Level.INFO, message);
-    }
-
-
-    public static boolean logReplicationEvent(Enum level, String message) {
-        if (null != currentReplicationLog) {
-            if (level == ReplicationLog.Level.INFO) {
-                currentReplicationLog.info(message);
-            } else if (level == ReplicationLog.Level.ERROR) {
-                currentReplicationLog.error(message);
-            } else if (level == ReplicationLog.Level.WARN) {
-                currentReplicationLog.warn(message);
-            }
-            return true;
-        }
-        return false;
-    }
-
-
-
-
     /**
      * Build the Akamai purge request body based on the replication agent
      * settings and append it to the POST request.
      *
-     * @param tx      ReplicationTransaction
-     * @param domain      target Domain
-     * @param protocol      Protocol to use
-     * @param additionalTrimPath      Include short paths for each path.
+     * @param tx                 ReplicationTransaction
+     * @param domain             target Domain
+     * @param protocol           Protocol to use
+     * @param additionalTrimPath Include short paths for each path.
+     * @param excludepaths       path list to be excluded.
      * @throws ReplicationException if errors building the request body
      */
-    private StringEntity createPostBody(ReplicationTransaction tx, String domain, String  protocol, String additionalTrimPath, String[] excludepaths) throws ReplicationException {
+    private StringEntity createPostBody(ReplicationTransaction tx, String domain, String protocol, String additionalTrimPath, String[] excludepaths) throws ReplicationException {
 
         JsonArray requestedJson = getPathsList(tx, domain, protocol, additionalTrimPath, excludepaths);
 
@@ -217,18 +248,20 @@ public class AkamaiTransportHandler implements TransportHandler {
 
     /**
      * returns the requested urls for purging the akamai cache
-     * these values are set from the content builders.
      *
      * @param tx
-     * @return
+     * @param domain
+     * @param protocol
+     * @param additionalTrimPath
+     * @param excludepaths
+     * @return json array with generated urls
      * @throws ReplicationException
      */
     private JsonArray getPathsList(ReplicationTransaction tx, String domain, String protocol, String additionalTrimPath, String[] excludepaths) throws ReplicationException {
 
         JsonArray jsonArray = new JsonArray();
 
-        if (StringUtils.isNotEmpty(domain) &&
-            StringUtils.isNotEmpty(protocol)) {
+        if (StringUtils.isNotEmpty(domain) && StringUtils.isNotEmpty(protocol)) {
             String[] paths = tx.getAction().getPaths();
 
             try {
@@ -238,16 +271,16 @@ public class AkamaiTransportHandler implements TransportHandler {
                 for (String path : paths) {
                     //check if path matches exclude
                     List<String> matching = excludepathsList.stream()
-                        .filter(path::startsWith)
-                        .collect(Collectors.toList());
+                            .filter(path::startsWith)
+                            .collect(Collectors.toList());
 
                     //if not excluded continue
-                    if (matching.size() == 0) {
+                    if (matching.isEmpty()) {
                         // adding full path of the page or replicated content path
                         jsonArray.add(MessageFormat.format("{0}://{1}{2}", protocol, domain, path));
 
                         //add trimmed path
-                        if (StringUtils.isNotEmpty(additionalTrimPath)) {
+                        if (StringUtils.isNotEmpty(additionalTrimPath) && !path.endsWith("/content")) {
                             String pathAfter = path.substring(path.indexOf(additionalTrimPath) + additionalTrimPath.length());
                             jsonArray.add(MessageFormat.format("{0}://{1}{2}", protocol, domain, pathAfter));
                         }
@@ -267,31 +300,24 @@ public class AkamaiTransportHandler implements TransportHandler {
     }
 
     /**
-     * @param inputStream
+     * @param request
+     * @param baseurl
+     * @param purgeurlpath
+     * @param token
+     * @param accesstoken
+     * @param secret
+     * @param protocol
      * @return
-     * @throws IOException
+     * @throws ReplicationException
      */
-    private static String read(InputStream inputStream) throws IOException {
-        if (inputStream == null) {
-            throw new IllegalArgumentException("Please provide a valid input stream");
-        }
-        BufferedReader br = new BufferedReader(new java.io.InputStreamReader(inputStream));
-        String output;
-        StringBuilder outputString = new StringBuilder();
-        while ((output = br.readLine()) != null) {
-            outputString.append(output);
-        }
-        return outputString.toString();
-    }
-
     private HttpResponse sendRequest(HttpPost request, String baseurl, String purgeurlpath, String token, String accesstoken, String secret, String protocol) throws ReplicationException {
         if (baseurl != null &&
-            purgeurlpath != null &&
-            token != null &&
-            accesstoken != null &&
-            secret != null &&
-            protocol != null &&
-            request != null) {
+                purgeurlpath != null &&
+                token != null &&
+                accesstoken != null &&
+                secret != null &&
+                protocol != null &&
+                request != null) {
             String body = null;
 
             try {
@@ -302,19 +328,19 @@ public class AkamaiTransportHandler implements TransportHandler {
 
             String clientToken = "";
             try {
-                clientToken = cryptoSupport.isProtected(token) ? cryptoSupport.unprotect(token): token;
+                clientToken = cryptoSupport.isProtected(token) ? cryptoSupport.unprotect(token) : token;
             } catch (CryptoException e) {
                 throw new ReplicationException("Could not unprotect token.", e);
             }
             String clientAccessToken = "";
             try {
-                clientAccessToken = cryptoSupport.isProtected(accesstoken) ? cryptoSupport.unprotect(accesstoken): accesstoken;
+                clientAccessToken = cryptoSupport.isProtected(accesstoken) ? cryptoSupport.unprotect(accesstoken) : accesstoken;
             } catch (CryptoException e) {
                 throw new ReplicationException("Could not unprotect accesstoken.", e);
             }
             String clientSecret = "";
             try {
-                clientSecret = cryptoSupport.isProtected(secret) ? cryptoSupport.unprotect(secret): secret;
+                clientSecret = cryptoSupport.isProtected(secret) ? cryptoSupport.unprotect(secret) : secret;
             } catch (CryptoException e) {
                 throw new ReplicationException("Could not unprotect secret.", e);
             }
@@ -331,10 +357,10 @@ public class AkamaiTransportHandler implements TransportHandler {
             HttpResponse response;
 
             HttpClient client = HttpClientBuilder.create()
-                .addInterceptorFirst(new ApacheHttpClientEdgeGridInterceptor(getClientCredential(clientAccessToken,clientToken,clientSecret,baseurl)))
-                .setRoutePlanner(new ApacheHttpClientEdgeGridRoutePlanner(getClientCredential(clientAccessToken,clientToken,clientSecret,baseurl)))
-                .setConnectionTimeToLive(1000, TimeUnit.MILLISECONDS)
-                .build();
+                    .addInterceptorFirst(new ApacheHttpClientEdgeGridInterceptor(getClientCredential(clientAccessToken, clientToken, clientSecret, baseurl)))
+                    .setRoutePlanner(new ApacheHttpClientEdgeGridRoutePlanner(getClientCredential(clientAccessToken, clientToken, clientSecret, baseurl)))
+                    .setConnectionTimeToLive(1000, TimeUnit.MILLISECONDS)
+                    .build();
 
             try {
                 response = client.execute(request);
@@ -350,6 +376,8 @@ public class AkamaiTransportHandler implements TransportHandler {
     /**
      * prepare the authentication header with the values from configs
      *
+     * @param clientAccessToken
+     * @param clientToken
      * @return auth header
      */
     private String generateAuthHeader(String clientToken, String clientAccessToken) {
@@ -365,28 +393,22 @@ public class AkamaiTransportHandler implements TransportHandler {
         return authHeader;
     }
 
-    /***
-     *
-     * @param date
-     * @return
-     */
-    private static String getTimeStamp(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat(TIME_STAMP_FORMAT);
-        return dateFormat.format(date);
-    }
-
     /**
      * creates ClientCredential object with Akamai configs which is required for POST and returns it.
      *
+     * @param clientAccessToken
+     * @param clientSecret
+     * @param baseUrl
+     * @param clientToken
      * @return ClientCredential
      */
     private ClientCredential getClientCredential(String clientAccessToken, String clientToken, String clientSecret, String baseUrl) {
         return ClientCredential.builder()
-            .accessToken(clientAccessToken)
-            .clientToken(clientToken)
-            .clientSecret(clientSecret)
-            .host(baseUrl)
-            .build();
+                .accessToken(clientAccessToken)
+                .clientToken(clientToken)
+                .clientSecret(clientSecret)
+                .host(baseUrl)
+                .build();
     }
 
     /**
@@ -407,12 +429,14 @@ public class AkamaiTransportHandler implements TransportHandler {
     /**
      * encrypts the secret values using hashHMacSha256 by encoding them.
      *
+     * @param key
+     * @param data
      * @return
      */
     private String hashHMACSHA256(String key, String data) {
         try {
-            Mac sha256Hmac = Mac.getInstance(HMAC_SHA_256.name());
-            SecretKeySpec secretkey = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), HMAC_SHA_256.name());
+            Mac sha256Hmac = Mac.getInstance(HMAC_SHA_256.getName());
+            SecretKeySpec secretkey = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), HMAC_SHA_256.getName());
             sha256Hmac.init(secretkey);
 
             return new String(Hex.encodeHex(sha256Hmac.doFinal(data.getBytes(StandardCharsets.UTF_8))));
@@ -430,6 +454,9 @@ public class AkamaiTransportHandler implements TransportHandler {
      * @param request
      * @param authHeader
      * @param bodyHash
+     * @param baseUrl
+     * @param protocol
+     * @param PurgeUrl
      * @param <T>
      * @return
      */
