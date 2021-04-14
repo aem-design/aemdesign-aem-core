@@ -236,15 +236,13 @@ public class AkamaiTransportHandler implements TransportHandler {
     private StringEntity createPostBody(ReplicationTransaction tx, String domain, String protocol, String additionalTrimPath, String[] excludepaths) throws ReplicationException {
 
         JsonArray requestedJson = getPathsList(tx, domain, protocol, additionalTrimPath, excludepaths);
-
+        JsonObject json = new JsonObject();
         if (requestedJson.size() > 0) {
-            JsonObject json = new JsonObject();
             json.add("objects", requestedJson);
-            return new StringEntity(json.toString(), CharEncoding.ISO_8859_1);
         } else {
-            throw new ReplicationException("No paths to purge");
+            logReplicationEventInfoStatement("No paths to purge");
         }
-
+        return new StringEntity(json.toString(), CharEncoding.ISO_8859_1);
     }
 
     /**
@@ -285,6 +283,11 @@ public class AkamaiTransportHandler implements TransportHandler {
                             String pathAfter = path.substring(path.indexOf(additionalTrimPath) + additionalTrimPath.length());
                             jsonArray.add(MessageFormat.format("{0}://{1}{2}", protocol, domain, pathAfter));
                         }
+                    }
+
+                    // checks for empty ulr list and adds the akamai home page url.
+                    if(jsonArray.size() == 0) {
+                        jsonArray.add(MessageFormat.format("{0}://{1}{2}", protocol, domain, StringUtils.EMPTY));
                     }
                 }
 
