@@ -8,7 +8,7 @@
             <button class="btn btn-link title">${componentProperties.title}</button>
         </div>
         <div id="${componentProperties.componentId}-content"
-             class="${componentProperties.dataToggle}"
+             class="${componentProperties.dataToggle}${wcmmode.edit ? ' show' : ''}"
              aria-labelledby="${componentProperties.componentId}-heading"
              data-parent="#${componentProperties.dataParent}">
             <div class="body">
