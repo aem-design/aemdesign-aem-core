@@ -148,7 +148,10 @@ public class AkamaiTransportHandler implements TransportHandler {
         ReplicationActionType replicationType = tx.getAction().getType();
 
         // only runs the code if ReplicationAction type matches any of the following
-        if (replicationType == ReplicationActionType.TEST || replicationType == ReplicationActionType.ACTIVATE || replicationType == ReplicationActionType.DEACTIVATE) {
+        if (replicationType == ReplicationActionType.TEST ||
+                replicationType == ReplicationActionType.ACTIVATE ||
+                replicationType == ReplicationActionType.DEACTIVATE ||
+                replicationType == ReplicationActionType.DELETE ) {
             return handleRequest(tx);
         } else {
             throw new ReplicationException("Replication action type " + replicationType + " not supported.");
