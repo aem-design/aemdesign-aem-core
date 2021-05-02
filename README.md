@@ -114,6 +114,7 @@ Detailed table of component can be found here [Component List](https://github.co
 | Coral / Datasources / Tags                                      	| [Tags](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/coral/datasources/tags)                                                  	|
 | Coral / Foundation / Accordion                                  	| [Accordion](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/coral/foundation/accordion)                                         	|
 | Coral / Widgets/Form / Asset Options                            	| [Asset Options](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/coral/widgets/form/assetoptions)                                	|
+| Replication / Akamai Cache Flush                                  | [Akamai Cache Flush](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/replication/akamai)                                	|
 
 ## Component Versioning
 
