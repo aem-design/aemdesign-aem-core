@@ -46,7 +46,7 @@ public class ResolverUtil {
      * @return path for a local domain
      */
     public static String mappedUrl(ResourceResolver resolver, SlingHttpServletRequest slingRequest, String path) {
-        return mappedUrl(resolver, slingRequest, "local", path, false);
+        return mappedUrl(resolver, slingRequest, "local", path, slingRequest.isSecure());
     }
 
     /**
@@ -59,7 +59,7 @@ public class ResolverUtil {
      * @return path for a specific domain
      */
     public static String mappedUrl(ResourceResolver resolver, SlingHttpServletRequest slingRequest, String domain, String path) {
-        return mappedUrl(resolver, slingRequest, domain, path, false);
+        return mappedUrl(resolver, slingRequest, domain, path, slingRequest.isSecure());
     }
 
 
