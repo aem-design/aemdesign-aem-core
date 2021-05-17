@@ -1606,7 +1606,10 @@ public class ComponentsUtil {
                 Resource detailsResource = resourceResolver.resolve(detailsPath);
                 if (!ResourceUtil.isNonExistingResource(detailsResource)) {
                     ValueMap vm = detailsResource.getValueMap();
-                    return vm.get(DETAILS_DESCRIPTION,"");
+                    String detailsDescription = vm.get(DETAILS_DESCRIPTION, "");
+                    if (StringUtils.isEmpty(detailsDescription)) {
+                        return detailsDescription;
+                    }
                 }
 
 
