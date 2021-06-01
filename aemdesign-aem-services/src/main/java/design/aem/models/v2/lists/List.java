@@ -698,7 +698,7 @@ public class List extends BaseComponent {
      * populate list items from only children of a root page.
      */
     protected void populateChildListItems() {
-        String path = componentProperties.get(PN_PARENT_PAGE, PN_PARENT_PAGE_DEFAULT);
+        String path = componentProperties.get(PN_PARENT_PAGE, getCurrentPage().getPath());
 
         populateChildListItems(path, true);
     }
@@ -707,7 +707,7 @@ public class List extends BaseComponent {
      * populate list items from descendants of a root page.
      */
     protected void populateDescendantsListItems() {
-        String path = componentProperties.get(ANCESTOR_PAGE_PROPERTY_NAME, PN_PARENT_PAGE_DEFAULT);
+        String path = componentProperties.get(ANCESTOR_PAGE_PROPERTY_NAME, getCurrentPage().getPath());
 
         populateChildListItems(path, false);
     }

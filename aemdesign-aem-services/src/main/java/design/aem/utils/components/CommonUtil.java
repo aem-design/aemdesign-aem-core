@@ -53,10 +53,16 @@ public class CommonUtil {
     public static final String COMPONENT_DETAILS_SUFFIX = "-details";
     public static final String PATH_DEFAULT_CONTENT = "article/par";
     public static final String PATH_DEFAULT_CONTENT_BASIC = "root/responsivegrid";
+    public static final String PATH_DEFAULT_CONTENT_ROOT_ARTICLE = "root/article/par";
     public static final String DEFAULT_PAR_NAME = "par";
 
     public static final String[] DEFAULT_LIST_DETAILS_SUFFIX = new String[]{COMPONENT_DETAILS_SUFFIX}; //NOSONAR used by models
-    public static final String[] DEFAULT_LIST_PAGE_CONTENT = new String[]{DEFAULT_PAR_NAME, PATH_DEFAULT_CONTENT, PATH_DEFAULT_CONTENT_BASIC}; //NOSONAR used by models
+    public static final String[] DEFAULT_LIST_PAGE_CONTENT = new String[]{
+        DEFAULT_PAR_NAME,
+        PATH_DEFAULT_CONTENT,
+        PATH_DEFAULT_CONTENT_BASIC,
+        PATH_DEFAULT_CONTENT_ROOT_ARTICLE
+    }; //NOSONAR used by models
 
 
     public static final String DAM_LICENSE_FORMAT = "{4} {0} {1} {2} {3}";
