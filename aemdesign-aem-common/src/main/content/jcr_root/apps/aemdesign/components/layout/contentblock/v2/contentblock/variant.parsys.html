@@ -1,7 +1,8 @@
 <template data-sly-template.variant="${@ componentProperties}">
     <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
          data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <sly data-sly-test="${wcmmode.edit}" data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/parsys'}"></sly>
-        <sly data-sly-test="${!wcmmode.edit}" data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/parsys'}"></sly>
+        <!--/* template path is this relative to aemdesign/components/layout/contentblock */-->
+        <sly data-sly-use.container="../container/par.html"
+             data-sly-call="${container.container @ componentProperties=componentProperties}"></sly>
     </div>
 </template>
