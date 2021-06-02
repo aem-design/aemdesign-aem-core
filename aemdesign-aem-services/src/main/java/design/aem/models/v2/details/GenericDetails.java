@@ -15,15 +15,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.api.wrappers.ValueMapDecorator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentDetailsUtil.isComponentRenderedByList;
@@ -69,6 +66,10 @@ public class GenericDetails extends BaseComponent {
     protected static final String DEFAULT_TAG_LEGACY_BADGE_CONFIG = ":component-dialog/components/details/generic-details/legacy";
     protected static final String DEFAULT_TITLE_TAG_TYPE = "h1";
     protected static final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
+
+    protected static final String FIELD_TIME_REQUIRED = "timeRequired";
+    protected static final String FIELD_TIME_REQUIRED_TEXT = "timeRequiredText";
+
 
     protected void ready() {
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -166,6 +167,8 @@ public class GenericDetails extends BaseComponent {
             {"showParsys", true},
             {FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION},
             {FIELD_CONTENTFRAGMENT_FRAGMENTPATH, StringUtils.EMPTY},
+            {FIELD_TIME_REQUIRED, StringUtils.EMPTY},
+            {FIELD_TIME_REQUIRED_TEXT, StringUtils.EMPTY},
         });
     }
 
