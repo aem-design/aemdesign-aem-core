@@ -161,7 +161,7 @@ public class TagUtil {
                                 }
 
                                 if (tagVM.containsKey(TAG_URL)) {
-                                    tagValues.put(TAG_URL, EMPTY);
+                                    tagValues.put(TAG_URL, tagVM.get(TAG_URL, ""));
                                 }
 
                                 if (locale != null) {
