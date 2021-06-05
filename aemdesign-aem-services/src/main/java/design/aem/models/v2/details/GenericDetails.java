@@ -31,6 +31,7 @@ import static design.aem.utils.components.ContentFragmentUtil.DEFAULT_CONTENTFRA
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.ImagesUtil.*;
 import static design.aem.utils.components.ResolverUtil.mappedUrl;
+import static design.aem.utils.components.TagUtil.getTagIds;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static design.aem.utils.components.TenantUtil.resolveTenantIdFromPath;
 import static java.text.MessageFormat.format;
@@ -174,7 +175,7 @@ public class GenericDetails extends BaseComponent {
 
     @Override
     protected void setFieldDefaults() {
-        componentDefaults.put(TagConstants.PN_TAGS, getResourcePage().getTags());
+        componentDefaults.put(TagConstants.PN_TAGS, getTagIds(getResourcePage().getTags()));
         componentDefaults.put(FIELD_DESCRIPTION, getResourcePage().getDescription());
         componentDefaults.put(FIELD_TITLE, getPageTitle(getResourcePage(), getResource()));
 
@@ -276,7 +277,7 @@ public class GenericDetails extends BaseComponent {
             //get legacy badge configs from tags
             String legacyBadgeConfigTags = componentProperties.get(FIELD_LEGACY_BADGE_CONFIG_TAGS, StringUtils.EMPTY);
             if (isNotEmpty(legacyBadgeConfigTags)) {
-                Map<String, Map> legacyBadgeConfig = getTagsAsAdmin(
+                LinkedHashMap<String, Map<String, String>> legacyBadgeConfig = getTagsAsAdmin(
                     getSlingScriptHelper(),
                     new String[]{legacyBadgeConfigTags},
                     getRequest().getLocale(),
