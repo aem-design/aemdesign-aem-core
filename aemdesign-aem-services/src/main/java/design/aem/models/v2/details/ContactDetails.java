@@ -78,9 +78,6 @@ public class ContactDetails extends GenericDetails {
     @Override
     protected void setFieldDefaults() {
         super.setFieldDefaults();
-
-        //this component has category field
-        componentDefaults.put(TagConstants.PN_TAGS, new String[]{});
     }
 
 

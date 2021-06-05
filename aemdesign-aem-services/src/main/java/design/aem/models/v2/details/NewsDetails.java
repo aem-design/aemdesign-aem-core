@@ -56,7 +56,6 @@ public class NewsDetails extends GenericDetails {
         super.setFieldDefaults();
 
         componentDefaults.put(FIELD_PUBLISH_DATE, getPageCreated(getResourcePage().getProperties()));
-
     }
 
     @Override
