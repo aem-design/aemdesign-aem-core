@@ -16,8 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static org.apache.commons.lang3.StringUtils.isEmpty;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static org.apache.commons.lang3.StringUtils.*;
 
 public class TagUtil {
 
@@ -26,6 +25,7 @@ public class TagUtil {
     public static final String TAG_VALUE = "value";
     static final String TAG_ISDEFAULT = "isdefault";
     static final String TAG_ISDEFAULT_VALUE = "false";
+    static final String TAG_URL = "url";
 
 
     /***
@@ -90,7 +90,7 @@ public class TagUtil {
      * @param locale locale to yse
      * @return map of tag values
      */
-    public static LinkedHashMap<String, Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale) {
+    public static LinkedHashMap<String, Map<String, String>> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale) {
         return getTagsAsAdmin(sling, tagPaths, locale, new String[0], false);
     }
 
@@ -103,8 +103,8 @@ public class TagUtil {
      * @param getTagChildren for given paths get children
      * @return map of tag values
      */
-    public static LinkedHashMap<String, Map> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale, String[] attributesToRead, boolean getTagChildren) {
-        LinkedHashMap<String, Map> tags = new LinkedHashMap<>();
+    public static LinkedHashMap<String, Map<String, String>> getTagsAsAdmin(SlingScriptHelper sling, String[] tagPaths, Locale locale, String[] attributesToRead, boolean getTagChildren) {
+        LinkedHashMap<String, Map<String, String>> tags = new LinkedHashMap<>();
 
         if (sling == null || tagPaths == null || tagPaths.length == 0) {
             return tags;
@@ -158,6 +158,10 @@ public class TagUtil {
 
                                 if (tagVM.containsKey(TAG_ISDEFAULT)) {
                                     tagValue = tagVM.get(TAG_ISDEFAULT, TAG_ISDEFAULT_VALUE);
+                                }
+
+                                if (tagVM.containsKey(TAG_URL)) {
+                                    tagValues.put(TAG_URL, EMPTY);
                                 }
 
                                 if (locale != null) {
@@ -440,5 +444,28 @@ public class TagUtil {
         }
 
         return new Tag[]{};
+    }
+
+    /***
+     * get tag ids array from tags
+     * @param tags
+     * @return
+     */
+    public static String[] getTagIds(com.day.cq.tagging.Tag[] tags) {
+        ArrayList<String> tagids = new ArrayList<>();
+        if (tags == null) {
+            return (String[])tagids.toArray();
+        }
+
+        try {
+            for (Tag tag: tags) {
+                tagids.add(tag.getTagID());
+            }
+            return  (String[])tagids.toArray();
+        } catch (Exception ex) {
+            LOGGER.error("could not read tag id's from tags {}", tags);
+        }
+
+        return new String[]{};
     }
 }
