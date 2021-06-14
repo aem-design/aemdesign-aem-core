@@ -12,6 +12,12 @@
       <sly data-sly-call="${elements @ fragment=fragment, wcmmode=wcmmode}"></sly>
     </sly>
   </article>
+
+  <!--/* print component info in edit mode */-->
+  <sly data-sly-use.info="aemdesign/global/templates/component-info-simple.html"
+       data-sly-call="${info.variant @ title='Content Fragment'}"></sly>
+
+
 </template>
 
 <!-- This template should not be used/called by the content fragment list component -->
@@ -23,6 +29,11 @@
       <div data-sly-resource="${'par{0}' @ format=itemList.count, resourceType=fragment.gridResourceType}"></div>
     </div>
   </div>
+
+  <!--/* print component info in edit mode */-->
+  <sly data-sly-use.info="aemdesign/global/templates/component-info-simple.html"
+       data-sly-call="${info.variant @ title='Content Fragment'}"></sly>
+
 </template>
 
 <template data-sly-template.elements="${@ fragment='The content fragment', wcmmode='WCM mode'}">
@@ -31,4 +42,9 @@
       data-sly-use.elementTemplate="core/wcm/components/contentfragment/v1/contentfragment/element.html">
     <sly data-sly-call="${elementTemplate.element @ element=element}"></sly>
   </dl>
+
+  <!--/* print component info in edit mode */-->
+  <sly data-sly-use.info="aemdesign/global/templates/component-info-simple.html"
+       data-sly-call="${info.variant @ title='Content Fragment'}"></sly>
+
 </template>
