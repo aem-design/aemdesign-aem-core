@@ -136,6 +136,11 @@
                                                             name="./pages"
                                                             rootPath="/content"/>
                                                     </pages>
+                                                    <pagesHint
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                        name="./languageSet@TypeHint"
+                                                        value="String[]"/>
                                                 </items>
                                             </well>
                                         </items>
