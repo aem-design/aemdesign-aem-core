@@ -97,8 +97,33 @@
                                             sling:resourceType="granite/ui/components/coral/foundation/form/hidden"
                                             name="./jcr:mixinTypes@TypeHint"
                                             value="jcr:mixinTypes"/>
+
                                 </items>
                             </basic>
+                            <metadata
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Metadata"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+
+                                    <timeRequired
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldLabel="Time Required / Time To Read Value"
+                                        fieldDescription="Approximate or typical time it takes to read though this for the typical intended target audience in ISO 8601 duration format, e.g. 'PT1M', 'PT1H'."
+                                        name="./timeRequired"
+                                        required="{Boolean}false"/>
+
+                                    <timeRequiredText
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldLabel="Time Required / Time To Read Text"
+                                        fieldDescription="Average reading time."
+                                        name="./timeRequiredText"
+                                        required="{Boolean}false"/>
+
+                                </items>
+                            </metadata>
 
 
 

@@ -723,7 +723,12 @@ public class List extends BaseComponent {
 
         Map<String, String> childMap = new HashMap<>();
         Page rootPage = getPageManager().getPage(path);
-        childMap.put("path", rootPage.getPath());
+        if (rootPage != null) {
+            childMap.put("path", rootPage.getPath());
+        } else {
+            LOGGER.error("populateChildListItems: could not find path {}", path);
+            childMap.put("path", path);
+        }
 
         if (flat) {
             childMap.put("path.flat", "true");

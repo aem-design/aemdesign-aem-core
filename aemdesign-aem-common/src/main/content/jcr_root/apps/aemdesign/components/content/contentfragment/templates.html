@@ -1,0 +1,50 @@
+<template data-sly-template.contentFragment="${@ fragment='The content fragment', fragmentPath='', wcmmode='WCM mode'}">
+  <article id="${fragment.id}"
+           class="cmp-contentfragment cmp-contentfragment--${fragment.name}"
+           data-cmp-contentfragment-model="${fragment.type}"
+           data-sly-attribute.data-cmp-contentfragment-path="${fragmentPath}"
+           data-json="${!wcmmode.disabled && fragment.editorJSON}"
+           data-cmp-data-layer="${fragment.data.json}">
+    <sly data-sly-test.isParagraphMode="${fragment.elements.size == 1 && fragment.elements[0].isMultiLine && properties.displayMode == 'singleText'}">
+      <sly data-sly-call="${paragraphs @ fragment=fragment}"></sly>
+    </sly>
+    <sly data-sly-test="${!isParagraphMode}">
+      <sly data-sly-call="${elements @ fragment=fragment, wcmmode=wcmmode}"></sly>
+    </sly>
+  </article>
+
+  <!--/* print component info in edit mode */-->
+  <sly data-sly-use.info="aemdesign/global/templates/component-info-simple.html"
+       data-sly-call="${info.variant @ title='Content Fragment'}"></sly>
+
+
+</template>
+
+<!-- This template should not be used/called by the content fragment list component -->
+<template data-sly-template.paragraphs="${@ fragment='The content fragment'}">
+  <div class="cmp-contentfragment__elements">
+    <div data-sly-resource="${'par0' @ resourceType=fragment.gridResourceType}"></div>
+    <div data-sly-list="${fragment.paragraphs}">
+      ${item @ context="html"}
+      <div data-sly-resource="${'par{0}' @ format=itemList.count, resourceType=fragment.gridResourceType}"></div>
+    </div>
+  </div>
+
+  <!--/* print component info in edit mode */-->
+  <sly data-sly-use.info="aemdesign/global/templates/component-info-simple.html"
+       data-sly-call="${info.variant @ title='Content Fragment'}"></sly>
+
+</template>
+
+<template data-sly-template.elements="${@ fragment='The content fragment', wcmmode='WCM mode'}">
+  <dl class="cmp-contentfragment__elements${!wcmmode.disabled ? ' cq-dd-contentfragment' : ''}"
+      data-sly-list.element="${fragment.elements}"
+      data-sly-use.elementTemplate="core/wcm/components/contentfragment/v1/contentfragment/element.html">
+    <sly data-sly-call="${elementTemplate.element @ element=element}"></sly>
+  </dl>
+
+  <!--/* print component info in edit mode */-->
+  <sly data-sly-use.info="aemdesign/global/templates/component-info-simple.html"
+       data-sly-call="${info.variant @ title='Content Fragment'}"></sly>
+
+</template>

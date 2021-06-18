@@ -169,7 +169,7 @@ public class TagUtilTest {
         when(tagVM1.get("description", null)).thenReturn("description");
         when(tagVM1.containsKey("title")).thenReturn(true);
         when(tagVM1.containsKey("description")).thenReturn(true);
-        LinkedHashMap<String, Map> actualTagsMap = TagUtil.getTagsAsAdmin(sling, tagPaths, Locale.getDefault(), attributesToRead, true);
+        LinkedHashMap<String, Map<String, String>> actualTagsMap = TagUtil.getTagsAsAdmin(sling, tagPaths, Locale.getDefault(), attributesToRead, true);
         Assertions.assertEquals("/content/cq:tags/gender/male", actualTagsMap.get("tagId").get("path"));
         Assertions.assertEquals("localId", actualTagsMap.get("tagId").get("tagid"));
         Assertions.assertEquals("description", actualTagsMap.get("tagId").get("description"));
@@ -193,7 +193,7 @@ public class TagUtilTest {
         when(resource1.getValueMap()).thenReturn(tagVM1);
         when(tagVM1.containsKey("value")).thenReturn(true);
         when(tagVM1.get("value", "Male")).thenReturn("tagValue");
-        LinkedHashMap<String, Map> actualTagsMap = TagUtil.getTagsAsAdmin(sling, tagPaths, Locale.getDefault());
+        LinkedHashMap<String, Map<String, String>> actualTagsMap = TagUtil.getTagsAsAdmin(sling, tagPaths, Locale.getDefault());
         Assertions.assertEquals("/content/cq:tags/gender/male", actualTagsMap.get("tagId").get("path"));
         Assertions.assertEquals("localId", actualTagsMap.get("tagId").get("tagid"));
         Assertions.assertEquals("Male Clothing", actualTagsMap.get("tagId").get("description"));
