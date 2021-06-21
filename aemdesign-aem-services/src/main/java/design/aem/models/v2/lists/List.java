@@ -773,11 +773,15 @@ public class List extends BaseComponent {
                     childMap.put(groupPrefix + offset + tagIdSuffix, tag);
                     childMap.put(groupPrefix + offset + tagIdSuffix + ".property", JcrConstants.JCR_CONTENT.concat("/cq:tags"));
 
-                    // Offset the Page Details group by one so we don't conflict with the page properties query
-                    offset++;
+                    //add search criteria for all tags in known components.
+                    for (String path : DEFAULT_LIST_PAGE_CONTENT) {
+                        // Offset the any details group by one so we don't conflict with the page properties query
+                        offset++;
 
-                    childMap.put(groupPrefix + offset + tagIdSuffix, tag);
-                    childMap.put(groupPrefix + offset + tagIdSuffix + "property", JcrConstants.JCR_CONTENT.concat("/article/par/page_details/cq:tags"));
+                        childMap.put(groupPrefix + offset + tagIdSuffix, tag);
+                        childMap.put(groupPrefix + offset + tagIdSuffix + ".property", JcrConstants.JCR_CONTENT.concat(path).concat("/*/cq:tags"));
+
+                    }
                 }
 
                 populateListItemsFromMap(childMap);
