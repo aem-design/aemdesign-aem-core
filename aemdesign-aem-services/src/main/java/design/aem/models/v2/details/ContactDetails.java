@@ -13,7 +13,7 @@ import java.util.Map;
 import static design.aem.utils.components.CommonUtil.getPageCreated;
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.*;
-import static design.aem.utils.components.TagUtil.getTagValueAsAdmin;
+import static design.aem.utils.components.TagUtil.*;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class ContactDetails extends GenericDetails {
@@ -105,6 +105,10 @@ public class ContactDetails extends GenericDetails {
                 componentProperties,
                 slingScriptHelper
             ).trim());
+
+            //convert links tags to tag content map
+            String[] tags = componentProperties.get("linksType", new String[]{});
+            componentProperties.put("linksType", getTagsAsAdmin(getSlingScriptHelper(), tags, getRequest().getLocale()));
 
         } catch (Exception ex) {
             LOGGER.error("Could not process component fields in {}", COMPONENT_DETAILS_NAME);
