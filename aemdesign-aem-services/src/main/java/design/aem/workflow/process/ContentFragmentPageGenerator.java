@@ -304,7 +304,6 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
     private ThrottledTaskRunner throttledTaskRunner;
 
     @Activate
-    @Modified
     protected void activate(Config config) {
         LOGGER.info("activate: resourceResolverFactory={}", resourceResolverFactory);
         this.config = config;
