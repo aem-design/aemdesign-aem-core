@@ -7,7 +7,7 @@
           sling:resourceType="cq/gui/components/authoring/dialog"
           extraClientlibs="[cq.workflow-util]">
     <content
-        granite:id="worfklow-processpayload"
+        granite:id="worfklow-contentfragmentpagegen"
         jcr:primaryType="nt:unstructured"
         sling:resourceType="granite/ui/components/coral/foundation/tabs">
         <items jcr:primaryType="nt:unstructured">
@@ -61,63 +61,112 @@
                                         name="./metaData/PROCESS_AUTO_ADVANCE"
                                         text="Handler Advance"
                                         value="true"/>
+
                                 </items>
                             </advanced>
+
                         </items>
                     </column>
                 </items>
             </processcommon>
-            <processargs
+
+            <segmentation
                 jcr:primaryType="nt:unstructured"
-                jcr:title="Config"
+                jcr:title="Segmentation"
                 sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
                 <items jcr:primaryType="nt:unstructured">
                     <column
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/coral/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
-                            <arguments
+                            <segmentation
                                 jcr:primaryType="nt:unstructured"
-                                jcr:title="Basic"
+                                jcr:title="Segmentation"
                                 sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <info
                                         granite:class="fieldDescription"
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/text"
-                                        text="When you define a field and its relevant path in payload, it will be collected from playload and saved into the workflow for processing and usage in other steps, such as Email."/>
-                                    <templatePage
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                                        fieldDescription="Please select template to use when generating pages."
-                                        fieldLabel="Page Template"
-                                        filter="hierarchyNotFile"
-                                        name="./metaData/templatePage"
-                                        required="{Boolean}true"
-                                        rootPath="/"/>
-                                    <outputLocation
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                                        fieldDescription="Please select output location for generated pages."
-                                        fieldLabel="Output Location"
-                                        filter="hierarchyNotFile"
-                                        name="./metaData/outputLocation"
-                                        required="{Boolean}true"
-                                        rootPath="/"/>
+                                        text="Do you want to segment pages to match content fragment hierarchy?&#xa;"/>
 
+                                    <segmentationUsingPaths
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Create content component in page root, default: false"
+                                        fieldLabel="Create Content Fragment Component"
+                                        name="./metaData/segmentationUsingPaths"
+                                        emptyOption="{Boolean}true"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <true
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Yes"
+                                                value="true"/>
+                                            <false
+                                                jcr:primaryType="nt:unstructured"
+                                                text="No"
+                                                value="false"/>
+                                        </items>
+                                    </segmentationUsingPaths>
+
+                                    <contentFragmentRootPath
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                        fieldDescription="Select root path of content fragments."
+                                        fieldLabel="Content Fragments Root Path"
+                                        filter="hierarchyNotFile"
+                                        name="./metaData/contentFragmentRootPath"
+                                        required="{Boolean}true"
+                                        rootPath="/content/dam"/>
+                                    <contentFragmentRootPathInfo
+                                        granite:class="fieldDescription"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                                        text="Select root path of content fragments.&#xa; - Hierarchy leading up to the content fragment will be used as segmentation when making new pages.&#xa; - This should be the path that workflow will be watching using launcher.&#xa;"/>
+
+                                    <segmentationTemplatePage
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                        fieldDescription="Select template to use when creating intermediate pages."
+                                        fieldLabel="Segmentation Page Template"
+                                        filter="hierarchyNotFile"
+                                        name="./metaData/segmentationTemplatePage"
+                                        required="{Boolean}true"
+                                        rootPath="/conf"/>
+                                    <segmentationTemplatePageInfo
+                                        granite:class="fieldDescription"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                                        text="Select template to use when creating intermediate pages."/>
 
                                 </items>
-                            </arguments>
+                            </segmentation>
+                        </items>
+                    </column>
+                </items>
+            </segmentation>
+
+            <config
+                jcr:primaryType="nt:unstructured"
+                jcr:title="CF Config"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
                             <common
                                 jcr:primaryType="nt:unstructured"
-                                jcr:title="Common"
+                                jcr:title="Content Fragment Config"
                                 sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <info
                                         granite:class="fieldDescription"
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/text"
-                                        text="Defaults for this items are configured by system administrator."/>
+                                        text="What attribute should be used when adding reference to content fragment being used.&#xa;"/>
+
 
                                     <contentFragmentAttributeName
                                         jcr:primaryType="nt:unstructured"
@@ -125,21 +174,113 @@
                                         fieldDescription="Attribute Name for path to content fragment, default: fragmentPath"
                                         fieldLabel="Content Fragment Attribute Name"
                                         default=""
+                                        emptyText="fragmentPath"
                                         name="./metaData/contentFragmentAttributeName"/>
+
+                                    <info2
+                                        granite:class="fieldDescription"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                                        text="Do you want to segment pages to match content fragment hierarchy?&#xa;"/>
+
+                                    <arguments
+                                        jcr:primaryType="nt:unstructured"
+                                        jcr:title="Template"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <templatePage
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                                fieldDescription="Select template to use when generating pages."
+                                                fieldLabel="Page Template"
+                                                filter="hierarchyNotFile"
+                                                name="./metaData/templatePage"
+                                                required="{Boolean}true"
+                                                rootPath="/conf"/>
+                                            <templatePageInfo
+                                                granite:class="fieldDescription"
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/text"
+                                                text="Select template to use for creating new pages."/>
+
+                                            <outputLocation
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                                fieldDescription="Select output location for generated pages."
+                                                fieldLabel="Output Location"
+                                                filter="hierarchyNotFile"
+                                                name="./metaData/outputLocation"
+                                                required="{Boolean}true"
+                                                rootPath="/content"/>
+                                            <outputLocationInfo
+                                                granite:class="fieldDescription"
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/text"
+                                                text="Select location where you would like to create new pages."/>
+
+                                        </items>
+                                    </arguments>
+
+                                    <throttle
+                                        jcr:primaryType="nt:unstructured"
+                                        jcr:title="Throttle"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                        <items jcr:primaryType="nt:unstructured">
+
+                                            <throttle
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                fieldDescription="Process will throttle it self depending on system resources."
+                                                fieldLabel="Throttle execution of page generation."
+                                                name="./metaData/throttle"
+                                                emptyOption="{Boolean}true"
+                                                value="">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <true
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="Yes"
+                                                        value="true"/>
+                                                    <false
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="No"
+                                                        value="false"/>
+                                                </items>
+                                            </throttle>
+                                        </items>
+                                    </throttle>
+
 
                                 </items>
                             </common>
+                        </items>
+                    </column>
+                </items>
+            </config>
+            <create
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Create"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
                             <create
                                 jcr:primaryType="nt:unstructured"
                                 jcr:title="Create"
                                 sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
+                                    <info
+                                        granite:class="fieldDescription"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                                        text="Create a new content fragment in the new page?&#xa;"/>
 
                                     <contentFragmentComponentCreate
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/select"
                                         fieldDescription="Create content component in page root, default: false"
-                                        fieldLabel="Create Content Fragment Component"
+                                        fieldLabel="Create new Content Fragment Component"
                                         name="./metaData/contentFragmentComponentCreate"
                                         emptyOption="{Boolean}true"
                                         value="">
@@ -166,14 +307,16 @@
                                         fieldDescription="Resource type for Content Fragment component, default: aemdesign/components/content/contentfragment"
                                         fieldLabel="Content Fragment Component Resource Type"
                                         default=""
+                                        emptyText="aemdesign/components/content/contentfragment"
                                         name="./metaData/contentFragmentComponentResourceType"/>
 
                                     <contentFragmentComponentPageRootPath
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                        fieldDescription="Resource type for Content Fragment component, default: aemdesign/components/content/contentfragment"
+                                        fieldDescription="Path for the new Content Fragment component, default: root/article/par"
                                         fieldLabel="Content Fragment Component Resource Type"
                                         default=""
+                                        emptyText="root/article/par"
                                         name="./metaData/contentFragmentComponentPageRootPath"/>
 
                                     <contentFragmentComponentNodeName
@@ -182,33 +325,36 @@
                                         fieldDescription="Name of new content fragment component node, default: contentfragment"
                                         fieldLabel="Content Fragment Component Node Name"
                                         default=""
+                                        emptyText="contentfragment"
                                         name="./metaData/contentFragmentComponentNodeName"/>
 
 
                                 </items>
                             </create>
+                        </items>
+                    </column>
+                </items>
+            </create>
+            <update
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Update"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
                             <update
                                 jcr:primaryType="nt:unstructured"
                                 jcr:title="Update"
                                 sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
 
-
-                                    <updateExistingRootPath
+                                    <info
+                                        granite:class="fieldDescription"
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
-                                        fieldDescription="Page root paths that will be used to check for components to update, default: article/par"
-                                        fieldLabel="Page Root Paths to check for components">
-                                        <field
-                                            jcr:primaryType="nt:unstructured"
-                                            name="./metaData/updateExistingRootPath"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
-                                    </updateExistingRootPath>
-                                    <updateExistingRootPathTypeHint
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
-                                        name="./updateExistingRootPath@TypeHint"
-                                        value="String[]"/>
+                                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                                        text="Update existing component in the new page."/>
 
                                     <updateExistingComponent
                                         jcr:primaryType="nt:unstructured"
@@ -235,6 +381,24 @@
                                         name="./updateExistingComponent@TypeHint"
                                         value="Boolean"/>
 
+                                    <updateExistingRootPath
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                        fieldDescription="Page root paths that will be used to check for components to update, default: root/article/par"
+                                        fieldLabel="Page Root Paths to check for components">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            name="./metaData/updateExistingRootPath"
+                                            emptyText="root/article/par"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
+                                    </updateExistingRootPath>
+                                    <updateExistingRootPathTypeHint
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                        name="./updateExistingRootPath@TypeHint"
+                                        value="String[]"/>
+
+
                                     <updateComponentResourceType
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
@@ -243,6 +407,7 @@
                                         <field
                                             jcr:primaryType="nt:unstructured"
                                             name="./metaData/updateComponentResourceType"
+                                            emptyText="aemdesign/components/details/generic-details"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"/>
                                     </updateComponentResourceType>
                                     <updateComponentResourceTypeTypeHint
@@ -254,18 +419,36 @@
 
                                 </items>
                             </update>
-                            <advanced
+                        </items>
+                    </column>
+                </items>
+            </update>
+            <generate
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Generate"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <generate
                                 jcr:primaryType="nt:unstructured"
-                                jcr:title="Advanced"
+                                jcr:title="Generate Rich Text Paragraphs"
                                 sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
+                                    <info
+                                        granite:class="fieldDescription"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                                        text="Create paragraphs entries for the content fragment from following fields."/>
 
-                                    <throttle
+                                    <generateContentFragmentParagraphContent
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="Process will throttle it self depending on system resources."
-                                        fieldLabel="Throttle execution of page generation."
-                                        name="./metaData/throttle"
+                                        fieldDescription="Add content fragment sub paragraphs with components, default: false"
+                                        fieldLabel="Generate Paragraphs for Content Fragment"
+                                        name="./metaData/generateContentFragmentParagraphContent"
                                         emptyOption="{Boolean}true"
                                         value="">
                                         <items jcr:primaryType="nt:unstructured">
@@ -278,13 +461,105 @@
                                                 text="No"
                                                 value="false"/>
                                         </items>
-                                    </throttle>
+                                    </generateContentFragmentParagraphContent>
+
+                                    <generateContentFragmentComponentPath
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Path of content fragment component where to generate paragraph entries, default: root/article/par/contentfragment"
+                                        fieldLabel="Content Fragment Component Path"
+                                        default=""
+                                        emptyText="root/article/par/contentfragment"
+                                        name="./metaData/generateContentFragmentComponentPath"/>
+
+                                    <generateFromField
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Name of field that has the rich text that will be used, default: text"
+                                        fieldLabel="Field to use"
+                                        default=""
+                                        emptyText="text"
+                                        name="./metaData/generateFromField"/>
+
+                                    <generateFieldConfig
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/container">
+                                        <layout
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <generateFromFieldAssets
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldDescription="Name of field that has the rich text that will be used, default: text__assets"
+                                                fieldLabel="Model Content"
+                                                default=""
+                                                emptyText="text__assets"
+                                                name="./metaData/generateFromFieldAssets"/>
+
+                                            <generateFromFieldAssetsIndex
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldDescription="Name of field that has the rich text asset list index, default: text__assetsindex"
+                                                fieldLabel="Paragraph Asset Index"
+                                                default=""
+                                                emptyText="text__assetsindex"
+                                                name="./metaData/generateFromFieldAssetsIndex"/>
+
+                                            <generateFromFieldAssetsType
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldDescription="Name of field that has the rich text asset list index, default: text__assetstype"
+                                                fieldLabel="Paragraph Content Index"
+                                                default=""
+                                                emptyText="text__assetstype"
+                                                name="./metaData/generateFromFieldAssetsType"/>
+
+                                        </items>
+                                    </generateFieldConfig>
+
+                                    <generateParagraphNodeIndexPrefix
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Prefix to use when creating nodes {prefix}{0..n}, default: par"
+                                        fieldLabel="Paragraph Node Index Prefix"
+                                        default=""
+                                        emptyText="par"
+                                        name="./metaData/generateParagraphNodeIndexPrefix"/>
+
+                                    <generateParagraphNodeResourceType
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Paragraph Node to use when creating sub nodes, default: dam/cfm/components/grid"
+                                        fieldLabel="Paragraph Node Resource Type"
+                                        default=""
+                                        emptyText="dam/cfm/components/grid"
+                                        name="./metaData/generateParagraphNodeResourceType"/>
+
+                                    <generateParagraphSubComponentResourceType
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Add a component into paragraph with following resource type, default: aemdesign/components/media/image"
+                                        fieldLabel="Default Paragraph Sub Component Resource Type"
+                                        default=""
+                                        emptyText="aemdesign/components/media/image"
+                                        name="./metaData/generateParagraphSubComponentResourceType"/>
+
+                                    <generateParagraphSubComponentAttributeName
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Set path to content into following attribute, default: fileReference"
+                                        fieldLabel="Default Paragraph Sub Component Attribute Name"
+                                        default=""
+                                        emptyText="fileReference"
+                                        name="./metaData/generateParagraphSubComponentAttributeName"/>
+
                                 </items>
-                            </advanced>
+                            </generate>
                         </items>
                     </column>
                 </items>
-            </processargs>
+            </generate>
         </items>
     </content>
 </jcr:root>
