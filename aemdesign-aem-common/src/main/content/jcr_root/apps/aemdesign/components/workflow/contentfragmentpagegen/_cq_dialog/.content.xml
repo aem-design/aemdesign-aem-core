@@ -70,83 +70,6 @@
                 </items>
             </processcommon>
 
-            <segmentation
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Segmentation"
-                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
-                <items jcr:primaryType="nt:unstructured">
-                    <column
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
-                            <segmentation
-                                jcr:primaryType="nt:unstructured"
-                                jcr:title="Segmentation"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <info
-                                        granite:class="fieldDescription"
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/text"
-                                        text="Do you want to segment pages to match content fragment hierarchy?&#xa;"/>
-
-                                    <segmentationUsingPaths
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/select"
-                                        fieldDescription="Create content component in page root, default: false"
-                                        fieldLabel="Create Content Fragment Component"
-                                        name="./metaData/segmentationUsingPaths"
-                                        emptyOption="{Boolean}true"
-                                        value="">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <true
-                                                jcr:primaryType="nt:unstructured"
-                                                text="Yes"
-                                                value="true"/>
-                                            <false
-                                                jcr:primaryType="nt:unstructured"
-                                                text="No"
-                                                value="false"/>
-                                        </items>
-                                    </segmentationUsingPaths>
-
-                                    <contentFragmentRootPath
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                                        fieldDescription="Select root path of content fragments."
-                                        fieldLabel="Content Fragments Root Path"
-                                        filter="hierarchyNotFile"
-                                        name="./metaData/contentFragmentRootPath"
-                                        required="{Boolean}true"
-                                        rootPath="/content/dam"/>
-                                    <contentFragmentRootPathInfo
-                                        granite:class="fieldDescription"
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/text"
-                                        text="Select root path of content fragments.&#xa; - Hierarchy leading up to the content fragment will be used as segmentation when making new pages.&#xa; - This should be the path that workflow will be watching using launcher.&#xa;"/>
-
-                                    <segmentationTemplatePage
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                                        fieldDescription="Select template to use when creating intermediate pages."
-                                        fieldLabel="Segmentation Page Template"
-                                        filter="hierarchyNotFile"
-                                        name="./metaData/segmentationTemplatePage"
-                                        required="{Boolean}true"
-                                        rootPath="/conf"/>
-                                    <segmentationTemplatePageInfo
-                                        granite:class="fieldDescription"
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/text"
-                                        text="Select template to use when creating intermediate pages."/>
-
-                                </items>
-                            </segmentation>
-                        </items>
-                    </column>
-                </items>
-            </segmentation>
-
             <config
                 jcr:primaryType="nt:unstructured"
                 jcr:title="CF Config"
@@ -256,6 +179,83 @@
                     </column>
                 </items>
             </config>
+
+
+            <segmentation
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Segmentation"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <segmentation
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Segmentation"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <info
+                                        granite:class="fieldDescription"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                                        text="Do you want to segment pages to match content fragment hierarchy?&#xa;"/>
+
+                                    <segmentationUsingPaths
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Create intermediate pages based on the hierarchy that leading up to the content fragment, default: false"
+                                        fieldLabel="Create Segmentation Pages "
+                                        name="./metaData/segmentationUsingPaths"
+                                        emptyOption="{Boolean}true"
+                                        value="">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <true
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Yes"
+                                                value="true"/>
+                                            <false
+                                                jcr:primaryType="nt:unstructured"
+                                                text="No"
+                                                value="false"/>
+                                        </items>
+                                    </segmentationUsingPaths>
+
+                                    <contentFragmentRootPath
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                        fieldDescription="Select root path of content fragments from which to calculate segmentation, structure leading up to the content Fragment will be replicated in Output Location."
+                                        fieldLabel="Content Fragments Root Path"
+                                        name="./metaData/segmentationContentFragmentRootPath"
+                                        required="{Boolean}true"
+                                        rootPath="/content/dam"/>
+                                    <contentFragmentRootPathInfo
+                                        granite:class="fieldDescription"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                                        text="Select root path of content fragments.&#xa; - Hierarchy leading up to the content fragment will be used as segmentation when making new pages.&#xa; - This should be the path that workflow will be watching using launcher.&#xa;"/>
+
+                                    <segmentationTemplatePage
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                        fieldDescription="Select template to use when creating intermediate pages."
+                                        fieldLabel="Intermediate Page Template"
+                                        name="./metaData/segmentationTemplatePage"
+                                        required="{Boolean}true"
+                                        rootPath="/conf"/>
+                                    <segmentationTemplatePageInfo
+                                        granite:class="fieldDescription"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                                        text="This template will be used to create intermediate pages from start of Content Fragments Root Path to the content fragment."/>
+                                </items>
+                            </segmentation>
+                        </items>
+                    </column>
+                </items>
+            </segmentation>
+
+
             <create
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Create"
