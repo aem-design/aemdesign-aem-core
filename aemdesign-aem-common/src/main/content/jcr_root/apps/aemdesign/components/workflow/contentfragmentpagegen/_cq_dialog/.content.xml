@@ -497,7 +497,7 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                 fieldDescription="Name of field that has the rich text that will be used, default: text__asset"
-                                                fieldLabel="Model Content"
+                                                fieldLabel="Paragraph Asset"
                                                 default=""
                                                 emptyText="text__asset"
                                                 name="./metaData/generateFromFieldAssets"/>
@@ -514,7 +514,7 @@
                                             <generateFromFieldAssetsType
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                fieldDescription="Name of field that has the rich text asset list index, default: text__assettype"
+                                                fieldDescription="Array of field templates. Path to tag template with fields and fieldsValues arrays for fields to use when creating sub components in par, can have asset[Paragraph Asset] and cfpath[Path to CF] expression variable. , default: text__assettype"
                                                 fieldLabel="Paragraph Content Index"
                                                 default=""
                                                 emptyText="text__assettype"
