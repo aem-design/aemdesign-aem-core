@@ -5,16 +5,15 @@ import com.adobe.acs.commons.util.visitors.ContentVisitor;
 import com.adobe.acs.commons.util.visitors.ResourceRunnable;
 import com.adobe.acs.commons.workflow.WorkflowPackageManager;
 import com.adobe.cq.dam.cfm.ContentFragment;
+import com.adobe.cq.dam.cfm.ContentVariation;
 import com.adobe.granite.workflow.WorkflowException;
 import com.adobe.granite.workflow.WorkflowSession;
 import com.adobe.granite.workflow.exec.WorkItem;
 import com.adobe.granite.workflow.exec.WorkflowProcess;
 import com.adobe.granite.workflow.metadata.MetaDataMap;
-import com.adobe.xfa.Bool;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.google.common.collect.Iterables;
 import design.aem.utils.components.CommonUtil;
 import org.apache.commons.jexl3.*;
 import org.apache.commons.lang3.ArrayUtils;
@@ -215,23 +214,23 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
         //dialog field: ./metaData/generateFromFieldAssets
         @AttributeDefinition(
             name = "Generate Paragraph Node Index Prefix",
-            description = "Name of field that has the rich text that will be used, default: text__assets"
+            description = "Name of field that has the rich text that will be used, default: text__asset"
         )
-        String generate_from_field_assets() default "text__assets";
+        String generate_from_field_asset() default "text__asset";
 
         //dialog field: ./metaData/generateFromFieldAssetsIndex
         @AttributeDefinition(
             name = "Generate - Paragraph Asset Index",
-            description = "Name of field that has the rich text asset list index, default: text__assetsindex"
+            description = "Name of field that has the rich text asset list index, default: text__assetindex"
         )
-        String generate_from_field_assets_index() default "text__assetsindex";
+        String generate_from_field_asset_index() default "text__assetindex";
 
         //dialog field: ./metaData/generateFromFieldAssetsType
         @AttributeDefinition(
             name = "Generate - Paragraph Asset Type",
-            description = "Name of field that has the rich text asset list index, default: text__assetstype"
+            description = "Name of field that has the rich text asset list index, default: text__assettype"
         )
-        String generate_from_field_assets_type() default "text__assetstype";
+        String generate_from_field_asset_type() default "text__assettype";
 
         //dialog field: ./metaData/generateParagraphNodeIndexPrefix
         @AttributeDefinition(
@@ -357,7 +356,12 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
                         //segementation
                         if (processArgs.isSegmentationUsingPaths()) {
                             if (StringUtils.isNotEmpty(processArgs.getSegmentationContentFragmentRootPath()) && resource.getPath().startsWith(processArgs.getSegmentationContentFragmentRootPath())) {
-                                String segmentPath = resource.getPath().replace(processArgs.getSegmentationContentFragmentRootPath(),"");
+                                Resource parentResource = resource.getParent();
+                                String parentPath = resource.getPath();
+                                if (parentResource != null && !ResourceUtil.isNonExistingResource(parentResource)) {
+                                    parentPath = parentResource.getPath();
+                                }
+                                String segmentPath = parentPath.replace(processArgs.getSegmentationContentFragmentRootPath(),"");
                                 String[] segmentPaths = segmentPath.split("/");
 
                                 //ensure segmentation path existing in output location
@@ -403,14 +407,22 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
                             }
                         }
 
-                        //create new page
-                        Page newPage = pageManager.create(
-                            parentPage == null ? processArgs.getOutputLocation() : parentPage.getPath(),
-                            contentFragment.getName(),
-                            processArgs.getTemplatePath(),
-                            contentFragment.getTitle(),
-                            false
-                        );
+                        //get or create new page
+                        Page newPage = null;
+                        String contentFragmentPagePath = parentPage == null ? processArgs.getOutputLocation() : parentPage.getPath() + "/" + resource.getName();
+                        Resource contentFragmentPage = resource.getResourceResolver().getResource(contentFragmentPagePath);
+                        if (contentFragmentPage == null || ResourceUtil.isNonExistingResource(contentFragmentPage)) {
+                            //create new page
+                            newPage = pageManager.create(
+                                parentPage == null ? processArgs.getOutputLocation() : parentPage.getPath(),
+                                contentFragment.getName(),
+                                processArgs.getTemplatePath(),
+                                contentFragment.getTitle(),
+                                false
+                            );
+                        } else {
+                            newPage = contentFragmentPage.adaptTo(Page.class);
+                        }
 
                         if (newPage != null) {
                             Resource contentResource = newPage.getContentResource();
@@ -429,20 +441,43 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
                                     }
 
                                     if (processArgs.isUpdateComponent()) {
+                                        //for each processArgs.getUpdateExistingRootPaths() and processArgs.getUpdateComponentResourceType()
+                                        String[] rootPaths = processArgs.getUpdateExistingRootPaths();
+                                        String[] resourceTypes = processArgs.getUpdateComponentResourceType();
 
-                                        String containerPath = CommonUtil.findComponentInPage(newPage, processArgs.getUpdateComponentResourceType(), processArgs.getUpdateExistingRootPaths());
+                                        if (rootPaths.length == resourceTypes.length) {
+                                            for (int i = 0; i < resourceTypes.length; i++) {
 
-                                        if (isNotEmpty(containerPath)) {
+                                                String containerPath = CommonUtil.findComponentInPage(newPage, new String[] {resourceTypes[i]} , new String[] {rootPaths[i]});
+                                                if (isNotEmpty(containerPath)) {
 
-                                            Node componentNode = JcrUtils.getNodeIfExists(containerPath, session);
-                                            if (componentNode != null) {
-                                                componentNode.setProperty(processArgs.getContentFragmentAttributeName(), resource.getPath());
-                                            } else {
-                                                failed("Update - Could not get component node to update at path {}", containerPath);
+                                                    Node componentNode = JcrUtils.getNodeIfExists(containerPath, session);
+                                                    if (componentNode != null) {
+                                                        componentNode.setProperty(processArgs.getContentFragmentAttributeName(), resource.getPath());
+                                                    } else {
+                                                        failed("Update - Could not get component node to update at path {}", containerPath);
+                                                    }
+
+                                                } else {
+                                                    failed("Update - Could not find component in root path {} with resource type {}", rootPaths[i], resourceTypes[i]);
+                                                }
                                             }
 
                                         } else {
-                                            failed("Update - Could not find component in root paths {} with resource type {}", processArgs.getUpdateExistingRootPaths(), processArgs.getUpdateComponentResourceType());
+                                            String containerPath = CommonUtil.findComponentInPage(newPage, processArgs.getUpdateComponentResourceType(), processArgs.getUpdateExistingRootPaths());
+
+                                            if (isNotEmpty(containerPath)) {
+
+                                                Node componentNode = JcrUtils.getNodeIfExists(containerPath, session);
+                                                if (componentNode != null) {
+                                                    componentNode.setProperty(processArgs.getContentFragmentAttributeName(), resource.getPath());
+                                                } else {
+                                                    failed("Update - Could not get component node to update at path {}", containerPath);
+                                                }
+
+                                            } else {
+                                                failed("Update - Could not find component in root paths {} with resource type {}", processArgs.getUpdateExistingRootPaths(), processArgs.getUpdateComponentResourceType());
+                                            }
                                         }
                                     }
 
@@ -474,29 +509,30 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
                                             if (contentFragmentNode != null) {
 
                                                 //get content from model
-                                                Map contentFragmentData = contentFragment.getMetaData();
+//                                                Map contentFragmentData = contentFragment.getMetaData();
 
-                                                //get the
-                                                String generateFromField = (String)contentFragmentData.get(processArgs.getGenerateFromField());
-                                                if (StringUtils.isEmpty(generateFromField)) {
+                                                //get the fields
+                                                if (!contentFragment.hasElement(processArgs.getGenerateFromField())) {
                                                     failed("Generate - Content fragment does not have this field {}", (Object) processArgs.getGenerateFromField());
                                                 }
+                                                String generateFromField =  (String)contentFragment.getElement(processArgs.getGenerateFromField()).getContent();
 
-                                                String[] generateFromFieldAssets = (String[])contentFragmentData.get(processArgs.getGenerateFromFieldAssets());
-                                                if (ArrayUtils.isEmpty(generateFromFieldAssets)) {
+                                                if (!contentFragment.hasElement(processArgs.getGenerateFromFieldAssets())) {
                                                     failed("Generate - Content fragment does not have this field {}", (Object) processArgs.getGenerateFromFieldAssets());
                                                 }
+                                                String[] generateFromFieldAssets = (String[])contentFragment.getElement(processArgs.getGenerateFromFieldAssets()).getValue().getValue(String[].class);
 
-                                                String[] generateFromFieldAssetsIndex = (String[])contentFragmentData.get(processArgs.getGenerateFromFieldAssetsIndex());
-                                                if (ArrayUtils.isEmpty(generateFromFieldAssetsIndex)) {
+                                                if (!contentFragment.hasElement(processArgs.getGenerateFromFieldAssetsIndex())) {
                                                     failed("Generate - Content fragment does not have this field {}", (Object) processArgs.getGenerateFromFieldAssetsIndex());
                                                 }
+                                                String[] generateFromFieldAssetsIndex = (String[]) contentFragment.getElement(processArgs.getGenerateFromFieldAssetsIndex()).getValue().getValue(String[].class);
 
-                                                String[] generateFromFieldAssetsType = (String[])contentFragmentData.get(processArgs.getGenerateFromFieldAssetsType());
-                                                if (ArrayUtils.isEmpty(generateFromFieldAssetsType)) {
+                                                if (!contentFragment.hasElement(processArgs.getGenerateFromFieldAssetsType())) {
                                                     failed("Generate - Content fragment does not have this field {}", (Object) processArgs.getGenerateFromFieldAssetsType());
                                                 }
-                                                if (generateFromFieldAssets.length == generateFromFieldAssetsIndex.length && generateFromFieldAssetsIndex.length == generateFromFieldAssetsType.length) {
+                                                String[] generateFromFieldAssetsType = (String[])contentFragment.getElement(processArgs.getGenerateFromFieldAssetsType()).getValue().getValue(String[].class);
+
+                                                if (generateFromFieldAssets.length != generateFromFieldAssetsIndex.length && generateFromFieldAssetsIndex.length != generateFromFieldAssetsType.length) {
                                                     failed("Generate - Assets[{}], Index[{}] and Types[{}] need to be of the same size.", (Object) generateFromFieldAssets.length, (Object) generateFromFieldAssetsIndex.length, (Object) generateFromFieldAssetsType.length);
                                                 }
 
@@ -506,9 +542,6 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
 
                                                 JexlEngine jexl = new JexlBuilder().create();
                                                 JxltEngine jxlt = jexl.createJxltEngine();
-                                                Map<String,Object> values = new HashMap<>();
-                                                values.put("asset",resource.getPath());
-                                                JexlContext jc = new MapContext(values);
 
                                                 int assetIndex = 0;
                                                 for (String asset: generateFromFieldAssets) {
@@ -537,18 +570,6 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
                                                         String assetNodeName = type.substring(type.lastIndexOf("/"));
                                                         Node assetNode = JcrUtils.getOrCreateUniqueByPath(fragmentNode, assetNodeName, JcrConstants.NT_UNSTRUCTURED);
                                                         if (assetNode != null) {
-                                                            //set type if does not exist
-                                                            if (!assetNode.hasProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY)) {
-                                                                assetNode.setProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY, type);
-                                                            } else {
-                                                                warn("Generate - Node with name {} already exists with type {}", (Object) assetNodeName, (Object) type);
-                                                            }
-                                                            //set attribute if does not exist
-                                                            if (!assetNode.hasProperty(attributeName)) {
-                                                                assetNode.setProperty(attributeName, asset);
-                                                            } else {
-                                                                warn("Generate - Node already has attribute {}", (Object) attributeName);
-                                                            }
 
                                                             //copy fields from template into resource
                                                             if (ArrayUtils.isNotEmpty(generateFromFieldAssetsType) && generateFromFieldAssetsType.length == generateFromFieldAssets.length) {
@@ -557,14 +578,19 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
                                                                 if (!ResourceUtil.isNonExistingResource(assetTypeTemplateResource)) {
                                                                     Node assetTypeTemplateResourceNode = assetTypeTemplateResource.adaptTo(Node.class);
                                                                     if (assetTypeTemplateResourceNode.hasProperty("fields") && assetTypeTemplateResourceNode.hasProperty("fieldsValues")) {
-                                                                        String[] fields = Arrays.stream(assetTypeTemplateResourceNode.getProperty("fields").getValues()).toArray(String[]::new);
-                                                                        String[] fieldsValues = Arrays.stream(assetTypeTemplateResourceNode.getProperty("fieldsValues").getValues()).toArray(String[]::new);
+                                                                        String[] fields = Arrays.stream(assetTypeTemplateResourceNode.getProperty("fields").getValues()).map(Object::toString).toArray(String[]::new);
+                                                                        String[] fieldsValues = Arrays.stream(assetTypeTemplateResourceNode.getProperty("fieldsValues").getValues()).map(Object::toString).toArray(String[]::new);
                                                                         if (fields.length == fieldsValues.length) {
                                                                             for (int i = 0; i < fields.length; i++) {
                                                                                 String fieldValue = fieldsValues[i];
                                                                                 //if field has regex parse it
                                                                                 if (isStringRegex(fieldValue) ) {
-                                                                                    fieldValue = (String)evaluateExpressionWithValue(jxlt, jc, fieldValue, resource.getPath());
+                                                                                    Map<String,Object> values = new HashMap<>();
+                                                                                    values.put("asset",asset);
+                                                                                    values.put("cfpath",resource.getPath());
+                                                                                    JexlContext jc = new MapContext(values);
+
+                                                                                    fieldValue = (String)evaluateExpressionWithValue(jxlt, jc, fieldValue, "");
                                                                                 }
                                                                                 assetNode.setProperty(fields[i],fieldValue);
                                                                             }
@@ -576,6 +602,20 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
                                                                         warn("Need to have fields and fieldsValues in template {}.", (Object)assetTypeTemplateResource.getPath());
                                                                     }
 
+                                                                }
+
+                                                            } else {
+                                                                //set type if does not exist
+                                                                if (!assetNode.hasProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY)) {
+                                                                    assetNode.setProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY, type);
+                                                                } else {
+                                                                    warn("Generate - Node with name {} already exists with type {}", (Object) assetNodeName, (Object) type);
+                                                                }
+                                                                //set attribute if does not exist
+                                                                if (!assetNode.hasProperty(attributeName)) {
+                                                                    assetNode.setProperty(attributeName, asset);
+                                                                } else {
+                                                                    warn("Generate - Node already has attribute {}", (Object) attributeName);
                                                                 }
 
                                                             }
@@ -755,21 +795,21 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
             generateFromFieldAssets = (String)getConfigItem(map,config,
                 "Generate From Field Assets field",
                 ARG_GENERATE_FROM_FIELD_ASSETS,
-                config.generate_from_field_assets(),
+                config.generate_from_field_asset(),
                 String.class
             );
 
             generateFromFieldAssetsIndex = (String)getConfigItem(map,config,
                 "Generate From Field Assets Index field",
                 ARG_GENERATE_FROM_FIELD_ASSETS_INDEX,
-                config.generate_from_field_assets_index(),
+                config.generate_from_field_asset_index(),
                 String.class
             );
 
             generateFromFieldAssetsType = (String)getConfigItem(map,config,
                 "Generate From Field Assets Type field",
                 ARG_GENERATE_FROM_FIELD_ASSETS_TYPE,
-                config.generate_from_field_assets_type(),
+                config.generate_from_field_asset_type(),
                 String.class
             );
 
@@ -843,6 +883,34 @@ public class ContentFragmentPageGenerator implements WorkflowProcess {
             }
             throttle = Boolean.parseBoolean(map.get(ARG_THROTTLE, "true"));
 
+        }
+
+        /***
+         * return value of a field for a particular variation.
+         * @param contentFragment fragment to use
+         * @param variationName name of variant
+         * @param fieldName name of field
+         * @param returnType what type to return
+         * @return object with value or a null
+         */
+        public static Object getContentFragmentVariationValue(ContentFragment contentFragment, String variationName, String fieldName, Class<?> returnType) {
+
+            Object returnValue = null;
+
+            if (contentFragment.hasElement(fieldName)) {
+                ContentVariation contentVariation = contentFragment.getElement(fieldName).getVariation(variationName);
+                if (contentVariation != null) {
+                    returnValue = contentVariation.getValue().getValue(returnType);
+                } else {
+                    LOGGER.warn("Content Fragment field [{}] does not have the variation {}.", fieldName, variationName);
+                }
+
+
+            } else {
+                LOGGER.warn("Content Fragment does not have the field {}.", fieldName);
+            }
+
+            return returnValue;
         }
 
         /***
