@@ -415,6 +415,11 @@
                                         sling:resourceType="granite/ui/components/foundation/form/hidden"
                                         name="./updateComponentResourceType@TypeHint"
                                         value="String[]"/>
+                                    <updateComponentResourceTypeInfo
+                                        granite:class="fieldDescription"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                                        text="If count of entries in field [Update Component Resource Type] and [Page Root Paths to check for components] are the same, each root path will be checked for corresponding resource type."/>
 
 
                                 </items>
@@ -491,28 +496,28 @@
                                             <generateFromFieldAssets
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                fieldDescription="Name of field that has the rich text that will be used, default: text__assets"
+                                                fieldDescription="Name of field that has the rich text that will be used, default: text__asset"
                                                 fieldLabel="Model Content"
                                                 default=""
-                                                emptyText="text__assets"
+                                                emptyText="text__asset"
                                                 name="./metaData/generateFromFieldAssets"/>
 
                                             <generateFromFieldAssetsIndex
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                fieldDescription="Name of field that has the rich text asset list index, default: text__assetsindex"
+                                                fieldDescription="Name of field that has the rich text asset list index, default: text__assetindex"
                                                 fieldLabel="Paragraph Asset Index"
                                                 default=""
-                                                emptyText="text__assetsindex"
+                                                emptyText="text__assetindex"
                                                 name="./metaData/generateFromFieldAssetsIndex"/>
 
                                             <generateFromFieldAssetsType
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                fieldDescription="Name of field that has the rich text asset list index, default: text__assetstype"
+                                                fieldDescription="Name of field that has the rich text asset list index, default: text__assettype"
                                                 fieldLabel="Paragraph Content Index"
                                                 default=""
-                                                emptyText="text__assetstype"
+                                                emptyText="text__assettype"
                                                 name="./metaData/generateFromFieldAssetsType"/>
 
                                         </items>
