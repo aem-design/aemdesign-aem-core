@@ -727,7 +727,11 @@ public class List extends BaseComponent {
             childMap.put("path", rootPage.getPath());
         } else {
             LOGGER.error("populateChildListItems: could not find path {}", path);
-            childMap.put("path", path);
+        }
+
+        //if no path specified use current page as root or current resource
+        if (isEmpty(path)) {
+            childMap.put("path", getCurrentPage() != null ? getCurrentPage().getPath() : getResource().getPath());
         }
 
         if (flat) {
