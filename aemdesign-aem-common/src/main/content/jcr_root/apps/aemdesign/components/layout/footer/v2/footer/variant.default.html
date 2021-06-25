@@ -1,6 +1,8 @@
 <template data-sly-template.variant="${@ componentProperties}">
     <footer style="${componentProperties.attr.data.style @ context = 'unsafe'}"
             data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
-        <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container', decorationTagName='div'}"></sly>
+        <!--/* template path is this relative to aemdesign/components/layout/footer */-->
+        <sly data-sly-use.container="../container/par.html"
+             data-sly-call="${container.container @ componentProperties=componentProperties}"></sly>
     </footer>
 </template>

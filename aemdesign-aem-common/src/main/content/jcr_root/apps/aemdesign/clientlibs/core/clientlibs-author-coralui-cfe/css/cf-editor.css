@@ -1,0 +1,29 @@
+/*cf-editor.css - additional styles for content fragment editor*/
+
+/* start counter for every text area */
+.paragraphcounter {
+  counter-reset: cf-rte-par-counter;
+}
+
+/* increment counter every par block and add counter */
+.paragraphcounter > p:before {
+
+  	counter-increment: cf-rte-par-counter;
+	content: "#" counter(cf-rte-par-counter) "";
+	float: right;
+    color: black;
+    background-color: lightgray;
+    width: 40px;
+    text-align: center;
+    border-radius: 100%;
+    vertical-align: middle;
+    opacity: .5;
+
+}
+
+/* highlight every par block */
+.paragraphcounter > p {
+
+	border: 1px dashed rgba(0, 0, 0, .5);
+
+}

@@ -1,5 +1,5 @@
 <template data-sly-template.variant="${@ componentProperties, componentFields, requestedFields}">
-    <div class="container">
+    <div class="container ${componentProperties.badgeClassAttr}">
         <sly data-sly-use.printFields="template/default.html"
              data-sly-call="${printFields.variant @ componentProperties=componentProperties, componentFields=componentFields, requestedFields=requestedFields}">
         </sly>

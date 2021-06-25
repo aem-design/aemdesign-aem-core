@@ -40,7 +40,7 @@ public class LanguageNavigation extends BaseComponent {
         boolean isShowRoot = ("showRoot").equals(appearanceOption);
         boolean isShowNothing = ("showNothing").equals(appearanceOption);
 
-        LinkedHashMap<String, Map> languageMap = getTagsAsAdmin(
+        LinkedHashMap<String, Map<String, String>> languageMap = getTagsAsAdmin(
             getSlingScriptHelper(),
             tagsFilterList,
             getRequest().getLocale());

@@ -105,6 +105,20 @@
                                 resourceType="granite/ui/components/foundation/form/hidden"
                                 sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
+                            <timeRequired
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Time Required / Time To Read Value"
+                                path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/metadata/items/timeRequired"
+                                resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                            <timeRequiredText
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Time Required / Time To Read Text"
+                                path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/metadata/items/timeRequiredText"
+                                resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
                         </items>
                     </column2>
                 </items>

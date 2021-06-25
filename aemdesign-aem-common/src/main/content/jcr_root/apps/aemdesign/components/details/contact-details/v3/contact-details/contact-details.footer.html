@@ -1,5 +1,7 @@
 <template data-sly-template.variant="${@ componentProperties}">
     <sly data-sly-test="${componentProperties.showParsys}">
-        <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container', decorationTagName='div'}"></sly>
+        <!--/* template path is this relative to aemdesign/components/details/contact-details */-->
+        <sly data-sly-use.container="../../layout/container/par.html"
+             data-sly-call="${container.container @ componentProperties=componentProperties}"></sly>
     </sly>
 </template>

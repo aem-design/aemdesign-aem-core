@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
-          xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-          jcr:primaryType="nt:unstructured"
-          jcr:title="Content Block (Design)"
-          sling:resourceType="cq/gui/components/authoring/dialog">
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Content Block (Design)"
+    sling:resourceType="cq/gui/components/authoring/dialog">
     <content
         jcr:primaryType="nt:unstructured"
         sling:resourceType="granite/ui/components/coral/foundation/container">
@@ -13,7 +11,6 @@
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="granite/ui/components/coral/foundation/accordion">
                 <items jcr:primaryType="nt:unstructured">
-
                     <basic
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Basic"
@@ -26,25 +23,23 @@
                                 maximized="{Boolean}true">
                                 <items jcr:primaryType="nt:unstructured">
                                     <col1
-                                        jcr:primaryType="nt:unstructured"
                                         granite:class="foundation-layout-util-maximized-alt"
+                                        jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/container">
                                         <items jcr:primaryType="nt:unstructured">
                                             <basic
+                                                granite:class="js-cq-IPEPlugin-group"
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Basic"
-                                                granite:class="js-cq-IPEPlugin-group"
+                                                sling:resourceType="granite/ui/components/coral/foundation/include"
                                                 path="/apps/aemdesign/components/layout/contentblock/v2/contentblock/cq:dialog/content/items/basicTab"
-                                                resourceType="granite/ui/components/coral/foundation/container"
-                                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                                                resourceType="granite/ui/components/coral/foundation/container"/>
                                         </items>
                                     </col1>
                                 </items>
                             </fixedcol>
                         </items>
                     </basic>
-
-
                     <layout
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Layout"
@@ -57,25 +52,23 @@
                                 maximized="{Boolean}true">
                                 <items jcr:primaryType="nt:unstructured">
                                     <col1
-                                        jcr:primaryType="nt:unstructured"
                                         granite:class="foundation-layout-util-maximized-alt"
+                                        jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/container">
                                         <items jcr:primaryType="nt:unstructured">
                                             <layout
+                                                granite:class="js-cq-IPEPlugin-group"
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Layout"
-                                                granite:class="js-cq-IPEPlugin-group"
+                                                sling:resourceType="granite/ui/components/coral/foundation/include"
                                                 path="/apps/aemdesign/components/layout/contentblock/v2/contentblock/cq:dialog/content/items/layoutTab"
-                                                resourceType="granite/ui/components/coral/foundation/container"
-                                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                                                resourceType="granite/ui/components/coral/foundation/container"/>
                                         </items>
                                     </col1>
                                 </items>
                             </fixedcol>
                         </items>
                     </layout>
-
-
                     <linkLeft
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Left Links"
@@ -88,24 +81,23 @@
                                 maximized="{Boolean}true">
                                 <items jcr:primaryType="nt:unstructured">
                                     <col1
-                                        jcr:primaryType="nt:unstructured"
                                         granite:class="foundation-layout-util-maximized-alt"
+                                        jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/container">
                                         <items jcr:primaryType="nt:unstructured">
                                             <linkLeftTab
+                                                granite:class="js-cq-IPEPlugin-group"
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Left Links"
-                                                granite:class="js-cq-IPEPlugin-group"
+                                                sling:resourceType="granite/ui/components/coral/foundation/include"
                                                 path="/apps/aemdesign/components/layout/contentblock/v2/contentblock/cq:dialog/content/items/linkLeftTab"
-                                                resourceType="granite/ui/components/coral/foundation/container"
-                                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                                                resourceType="granite/ui/components/coral/foundation/container"/>
                                         </items>
                                     </col1>
                                 </items>
                             </fixedcol>
                         </items>
                     </linkLeft>
-
                     <linkRight
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Right Links"
@@ -118,25 +110,23 @@
                                 maximized="{Boolean}true">
                                 <items jcr:primaryType="nt:unstructured">
                                     <col1
-                                        jcr:primaryType="nt:unstructured"
                                         granite:class="foundation-layout-util-maximized-alt"
+                                        jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/container">
                                         <items jcr:primaryType="nt:unstructured">
                                             <linkRightTab
+                                                granite:class="js-cq-IPEPlugin-group"
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Right Links"
-                                                granite:class="js-cq-IPEPlugin-group"
+                                                sling:resourceType="granite/ui/components/coral/foundation/include"
                                                 path="/apps/aemdesign/components/layout/contentblock/v2/contentblock/cq:dialog/content/items/linkRightTab"
-                                                resourceType="granite/ui/components/coral/foundation/container"
-                                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                                                resourceType="granite/ui/components/coral/foundation/container"/>
                                         </items>
                                     </col1>
                                 </items>
                             </fixedcol>
                         </items>
                     </linkRight>
-
-
                     <imageBackgroundTab
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Background Image"
@@ -149,25 +139,23 @@
                                 maximized="{Boolean}true">
                                 <items jcr:primaryType="nt:unstructured">
                                     <col1
-                                        jcr:primaryType="nt:unstructured"
                                         granite:class="foundation-layout-util-maximized-alt"
+                                        jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/container">
                                         <items jcr:primaryType="nt:unstructured">
                                             <imageBackgroundTab
+                                                granite:class="js-cq-IPEPlugin-group"
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Background Image"
-                                                granite:class="js-cq-IPEPlugin-group"
+                                                sling:resourceType="granite/ui/components/coral/foundation/include"
                                                 path="/apps/aemdesign/global/dialog/touch/asset_design/content/items/fixedcol/items/col1/items/imageBackgroundTab"
-                                                resourceType="granite/ui/components/coral/foundation/form/fieldset"
-                                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                                                resourceType="granite/ui/components/coral/foundation/form/fieldset"/>
                                         </items>
                                     </col1>
                                 </items>
                             </fixedcol>
                         </items>
                     </imageBackgroundTab>
-
-
                     <videoBackgroundTab
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Background Video"
@@ -180,42 +168,41 @@
                                 maximized="{Boolean}true">
                                 <items jcr:primaryType="nt:unstructured">
                                     <col1
-                                        jcr:primaryType="nt:unstructured"
                                         granite:class="foundation-layout-util-maximized-alt"
+                                        jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/container">
                                         <items jcr:primaryType="nt:unstructured">
                                             <videoBackgroundTab
+                                                granite:class="js-cq-IPEPlugin-group"
                                                 jcr:primaryType="nt:unstructured"
                                                 jcr:title="Background Video"
-                                                granite:class="js-cq-IPEPlugin-group"
+                                                sling:resourceType="granite/ui/components/coral/foundation/include"
                                                 path="/apps/aemdesign/global/dialog/touch/asset_design/content/items/fixedcol/items/col1/items/videoBackgroundTab"
-                                                resourceType="granite/ui/components/coral/foundation/form/fieldset"
-                                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                                                resourceType="granite/ui/components/coral/foundation/form/fieldset"/>
                                         </items>
                                     </col1>
                                 </items>
                             </fixedcol>
                         </items>
                     </videoBackgroundTab>
-
                     <style
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Style"
+                        sling:resourceType="granite/ui/components/coral/foundation/include"
                         path="/apps/aemdesign/global/dialog/touch/style_design/content"
-                        resourceType="granite/ui/components/coral/foundation/container"
-                        sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                        resourceType="granite/ui/components/coral/foundation/container"/>
                     <accessibility
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Accessibility"
+                        sling:resourceType="granite/ui/components/coral/foundation/include"
                         path="/apps/aemdesign/global/dialog/touch/accessibility_design/content"
-                        resourceType="granite/ui/components/coral/foundation/container"
-                        sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                        resourceType="granite/ui/components/coral/foundation/container"/>
                     <analytics
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Analytics"
+                        sling:resourceType="granite/ui/components/coral/foundation/include"
                         path="/apps/aemdesign/global/dialog/touch/analytics_design/content"
-                        resourceType="granite/ui/components/coral/foundation/container"
-                        sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                        resourceType="granite/ui/components/coral/foundation/container"/>
                 </items>
             </plugins>
         </items>

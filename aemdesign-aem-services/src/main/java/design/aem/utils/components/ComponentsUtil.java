@@ -1232,9 +1232,24 @@ public class ComponentsUtil {
 
                             Object fieldValue = null;
 
-                            //read component value or return default value, result could be a expression
-                            // that need to be processed using @ComponentProperties.evaluateExpressionFields()
-                            fieldValue = getComponentProperty(properties, currentPolicy, fieldName, fieldDefaultValue, true);
+                            //handle Tag[] value expectation.
+                            if (fieldDefaultValue.getClass() == Tag[].class) {
+                                Resource currentResource = (Resource)pageContext.get("resource");
+                                //get value from policy
+                                fieldValue = currentPolicy.get(fieldName, Tag[].class);
+                                //try resourcee
+                                if (fieldValue == null) {
+                                    fieldValue = tagManager.getTags(currentResource);
+                                }
+                                //use default
+                                if (fieldValue == null) {
+                                    fieldValue = fieldDefaultValue;
+                                }
+                            } else {
+                                //read component value or return default value, result could be a expression
+                                // that need to be processed using @ComponentProperties.evaluateExpressionFields()
+                                fieldValue = getComponentProperty(properties, currentPolicy, fieldName, fieldDefaultValue, true);
+                            }
 
                             boolean fieldValueHasExpressions = isStringRegex(fieldDefaultValue.toString());
 
@@ -1606,7 +1621,10 @@ public class ComponentsUtil {
                 Resource detailsResource = resourceResolver.resolve(detailsPath);
                 if (!ResourceUtil.isNonExistingResource(detailsResource)) {
                     ValueMap vm = detailsResource.getValueMap();
-                    return vm.get(DETAILS_DESCRIPTION,"");
+                    String detailsDescription = vm.get(DETAILS_DESCRIPTION, "");
+                    if (StringUtils.isNotEmpty(detailsDescription)) {
+                        return detailsDescription;
+                    }
                 }
 
 

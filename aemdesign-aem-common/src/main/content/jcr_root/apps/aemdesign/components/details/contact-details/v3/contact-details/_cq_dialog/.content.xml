@@ -146,6 +146,69 @@
                                         resourceType="granite/ui/components/foundation/form/hidden"
                                         sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
+
+                                    <fieldlinksmultifield
+                                        granite:class="pagedetails-sociallink"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                        composite="{Boolean}false"
+                                        fieldLabel="Links">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <linksType
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                    fieldLabel="Field"
+                                                    name="./linksType"
+                                                    emptyOption="{Boolean}true"
+                                                    required="{Boolean}true">
+                                                    <datasource
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                                        variant="tagidvalue"
+                                                        path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/sociallink/type"/>
+                                                </linksType>
+                                                <linksTypeHint
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                    name="./linksType@TypeHint"
+                                                    value="String[]"/>
+
+                                                <linksContent
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                    fieldLabel="Content"
+                                                    name="./linksContent"
+                                                    required="{Boolean}true"/>
+                                                <linksContentHint
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                    name="./linksContent@TypeHint"
+                                                    value="String[]"/>
+
+                                            </items>
+                                        </field>
+                                    </fieldlinksmultifield>
+                                    <fieldlinksDelete
+                                        granite:hidden="{Boolean}true"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <pageMetaProperty
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                name="./linksType@Delete"
+                                                value="{Boolean}true"/>
+                                            <pageMetaPropertyContent
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                name="./linksContent@Delete"
+                                                value="{Boolean}true"/>
+                                        </items>
+                                    </fieldlinksDelete>
+
                                 </items>
                             </advanced>
 

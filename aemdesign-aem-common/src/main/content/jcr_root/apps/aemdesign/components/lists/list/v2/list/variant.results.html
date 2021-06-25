@@ -1,0 +1,26 @@
+<template data-sly-template.variant="${@ componentProperties, component}">
+  <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}"
+       data-sly-unwrap="${!componentProperties.printStructure}">
+
+    <sly data-sly-use.feed="list.feedurl.html" data-sly-call="${feed.variant @ componentProperties=componentProperties}"></sly>
+
+    <sly data-sly-test="${componentProperties.resultInfo.result.nextPage.start}"
+         data-sly-set.pageEnd="${componentProperties.resultInfo.result.nextPage.start}"></sly>
+
+    <sly data-sly-test="${!componentProperties.resultInfo.result.nextPage.start}"
+         data-sly-set.pageEnd="${componentProperties.resultInfo.result.totalMatches}"></sly>
+
+    <div class="header" data-sly-set.listItems="${component.ListItems}">
+      <div>Showing ${componentProperties.resultInfo.result.startIndex}-${pageEnd} of ${componentProperties.resultInfo.result.totalMatches} results</div>
+    </div>
+
+    <div class="content" data-sly-unwrap="${!componentProperties.printStructure}">
+      <sly data-sly-use.body="list.body.html"
+           data-sly-call="${body.variant @ componentProperties=componentProperties, component=component}"></sly>
+    </div>
+
+    <sly data-sly-use.pagination="${componentProperties.paginationTemplate}" data-sly-call="${pagination.variant @ componentProperties=componentProperties, component=component}"></sly>
+
+  </div>
+</template>

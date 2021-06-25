@@ -56,8 +56,6 @@ public class NewsDetails extends GenericDetails {
         super.setFieldDefaults();
 
         componentDefaults.put(FIELD_PUBLISH_DATE, getPageCreated(getResourcePage().getProperties()));
-        //this component has category field
-        componentDefaults.put(TagConstants.PN_TAGS, new String[]{});
     }
 
     @Override

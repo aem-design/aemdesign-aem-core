@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <general
+            jcr:primaryType="nt:unstructured"
+            title="Generic Snippet Settings"
+            xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <snippet
+                    jcr:primaryType="cq:Widget"
+                    fieldDescription="This text will be added as-is to the bottom of the page."
+                    fieldLabel="Snippet Code"
+                    name="./snippetcode"
+                    xtype="textarea"/>
+            </items>
+        </general>
+    </items>
+</jcr:root>
