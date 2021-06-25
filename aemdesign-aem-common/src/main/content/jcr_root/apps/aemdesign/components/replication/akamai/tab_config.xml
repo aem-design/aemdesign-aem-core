@@ -45,19 +45,30 @@
             fieldLabel="Token"
             name="./token"
             xtype="password"/>
+        <tokenencrypted
+            jcr:primaryType="cq:Widget"
+            name="./token@Encrypted"
+            xtype="hidden"/>
         <accesstoken
             jcr:primaryType="cq:Widget"
             fieldDescription="Client access token to be used while doing the post method"
             fieldLabel="Access Token"
             name="./accesstoken"
             xtype="password"/>
+        <accesstokenencrypted
+            jcr:primaryType="cq:Widget"
+            name="./accesstoken@Encrypted"
+            xtype="hidden"/>
         <secret
             jcr:primaryType="cq:Widget"
             fieldDescription="Client access token to be used while doing the post method"
             fieldLabel="Secret"
             name="./secret"
             xtype="password"/>
-
+        <secretencrypted
+            jcr:primaryType="cq:Widget"
+            name="./secret@Encrypted"
+            xtype="hidden"/>
         <protocol
             jcr:primaryType="cq:Widget"
             fieldDescription="Protocol to use for posts."

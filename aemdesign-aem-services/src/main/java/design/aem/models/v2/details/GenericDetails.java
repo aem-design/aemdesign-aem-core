@@ -15,15 +15,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.api.wrappers.ValueMapDecorator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentDetailsUtil.isComponentRenderedByList;
@@ -34,6 +31,7 @@ import static design.aem.utils.components.ContentFragmentUtil.DEFAULT_CONTENTFRA
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static design.aem.utils.components.ImagesUtil.*;
 import static design.aem.utils.components.ResolverUtil.mappedUrl;
+import static design.aem.utils.components.TagUtil.getTagIds;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static design.aem.utils.components.TenantUtil.resolveTenantIdFromPath;
 import static java.text.MessageFormat.format;
@@ -69,6 +67,10 @@ public class GenericDetails extends BaseComponent {
     protected static final String DEFAULT_TAG_LEGACY_BADGE_CONFIG = ":component-dialog/components/details/generic-details/legacy";
     protected static final String DEFAULT_TITLE_TAG_TYPE = "h1";
     protected static final String DEFAULT_I18N_LABEL = "variantHiddenLabel";
+
+    protected static final String FIELD_TIME_REQUIRED = "timeRequired";
+    protected static final String FIELD_TIME_REQUIRED_TEXT = "timeRequiredText";
+
 
     protected void ready() {
         componentProperties = ComponentsUtil.getComponentProperties(
@@ -166,12 +168,14 @@ public class GenericDetails extends BaseComponent {
             {"showParsys", true},
             {FIELD_CONTENTFRAGMENT_VARIATION, DEFAULT_CONTENTFRAGMENT_VARIATION},
             {FIELD_CONTENTFRAGMENT_FRAGMENTPATH, StringUtils.EMPTY},
+            {FIELD_TIME_REQUIRED, StringUtils.EMPTY},
+            {FIELD_TIME_REQUIRED_TEXT, StringUtils.EMPTY},
         });
     }
 
     @Override
     protected void setFieldDefaults() {
-        componentDefaults.put(TagConstants.PN_TAGS, getResourcePage().getTags());
+        componentDefaults.put(TagConstants.PN_TAGS, getTagIds(getResourcePage().getTags()));
         componentDefaults.put(FIELD_DESCRIPTION, getResourcePage().getDescription());
         componentDefaults.put(FIELD_TITLE, getPageTitle(getResourcePage(), getResource()));
 
@@ -273,7 +277,7 @@ public class GenericDetails extends BaseComponent {
             //get legacy badge configs from tags
             String legacyBadgeConfigTags = componentProperties.get(FIELD_LEGACY_BADGE_CONFIG_TAGS, StringUtils.EMPTY);
             if (isNotEmpty(legacyBadgeConfigTags)) {
-                Map<String, Map> legacyBadgeConfig = getTagsAsAdmin(
+                LinkedHashMap<String, Map<String, String>> legacyBadgeConfig = getTagsAsAdmin(
                     getSlingScriptHelper(),
                     new String[]{legacyBadgeConfigTags},
                     getRequest().getLocale(),
