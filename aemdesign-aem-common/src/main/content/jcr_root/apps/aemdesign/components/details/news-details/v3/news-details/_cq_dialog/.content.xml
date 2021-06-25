@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
+          xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="News Details"
+          helpPath="/mnt/overlay/wcm/core/content/sites/components/details.html/apps/aemdesign/components/details/news-details/v3/news-details"
+          extraClientlibs="[aem.design.components.author.newsdetails,aem.design.components.coral.widgets.form.assetoptions]"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        granite:id="dialog-newsdetails"
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            type="nav"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+        <items jcr:primaryType="nt:unstructured">
+
+            <detailsTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Details"
+                sling:resourceType="granite/ui/components/foundation/section">
+
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column1
+                        granite:class="coral-RichText-FixedColumn-column"
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <title
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Title"
+                                path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/basic/items/title"
+                                resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                            <description
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Description"
+                                path="/apps/aemdesign/global/dialog/touch/description/content/items/descriptionTab/items/column/items/description"
+                                resourceType="cq/gui/components/authoring/dialog/richtext"
+                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+
+                        </items>
+                    </column1>
+                    <column2
+                        jcr:primaryType="nt:unstructured"
+                        class="u-coral-padding u-coral-noMargin"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <granite:rendercondition
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                            <granite:rendercondition
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                                groups="[content-authors-advanced]"/>
+                        </granite:rendercondition>
+                        <items jcr:primaryType="nt:unstructured">
+
+                            <author
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Author"
+                                path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/basic/items/author"
+                                resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                            <publishDate
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/datepicker"
+                                fieldDescription=""
+                                fieldLabel="Publish Date"
+                                name="./publishDate"
+                                required="{Boolean}false"
+                                valueFormat="YYYY-MM-DD[T]HH:mm:ss.000Z"
+                                type="datetime"/>
+                            <publishDateHint
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                name="./publishDate@TypeHint"
+                                value="Date"/>
+
+                            <category
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Category"
+                                path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/basic/items/category"
+                                resourceType="aemdesign/components/coral/common/form/tagfield"
+                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                            <mixinTypes
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="mixinTypes"
+                                path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/basic/items/mixinTypes"
+                                resourceType="granite/ui/components/foundation/form/hidden"
+                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                            <mixinTypesHint
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="mixinTypesHint"
+                                path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/basic/items/mixinTypesHint"
+                                resourceType="granite/ui/components/foundation/form/hidden"
+                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                            <timeRequired
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Time Required / Time To Read Value"
+                                path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/metadata/items/timeRequired"
+                                resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                            <timeRequiredText
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Time Required / Time To Read Text"
+                                path="/apps/aemdesign/global/dialog/touch/page/content/items/pageBasicTab/items/column/items/metadata/items/timeRequiredText"
+                                resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                        </items>
+                    </column2>
+                </items>
+            </detailsTab>
+
+            <layoutTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Layout"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <granite:rendercondition
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                    <granite:rendercondition
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                        groups="[content-authors-advanced]"/>
+                </granite:rendercondition>
+                <layout jcr:primaryType="nt:unstructured"
+                        margin="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column1
+                        jcr:primaryType="nt:unstructured"
+                        path="/apps/aemdesign/components/details/generic-details/v1/generic-details/cq:dialog/content/items/layoutTab/items/column1"
+                        resourceType="granite/ui/components/foundation/section"
+                        sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+                    <column2
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+
+                            <titleFormat
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Title"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <titleType
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="which paragraph tag to use for Title display"
+                                        fieldLabel="Type"
+                                        name="./titleType"
+                                        emptyOption="{Boolean}true"
+                                        value="">
+                                        <datasource
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="valuelist"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/heading"/>
+                                    </titleType>
+
+                                    <titleFormat
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Format of Title to be used for display"
+                                        fieldLabel="Format"
+                                        name="./titleFormat"
+                                        emptyOption="{Boolean}true"
+                                        value="">
+                                        <datasource
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="tagidvalue"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/news-details/format/title"/>
+                                    </titleFormat>
+                                </items>
+                            </titleFormat>
+
+                            <descriptionFormat
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Description"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+
+                                    <descriptionFormat
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Format of Description to be used for display"
+                                        fieldLabel="Format"
+                                        name="./descriptionFormat"
+                                        emptyOption="{Boolean}true"
+                                        value="">
+                                        <datasource
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="tagidvalue"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/news-details/format/description"/>
+                                    </descriptionFormat>
+
+                                </items>
+                            </descriptionFormat>
+
+                            <dateFormat
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Date"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+
+                                    <dateDisplayFormat
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Format of Date that will appear for display"
+                                        fieldLabel="Display Format"
+                                        name="./dateDisplayFormat"
+                                        emptyOption="{Boolean}true"
+                                        value="">
+                                        <datasource
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="tagidvalue"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/news-details/format/datedisplay"/>
+                                    </dateDisplayFormat>
+
+                                    <dateFormat
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Format of Date in machine-readable format so that browsers can offer to add date reminders through the user's calendar, and search engines can produce smarter search results"
+                                        fieldLabel="Format"
+                                        name="./dateFormat"
+                                        emptyOption="{Boolean}true"
+                                        value="">
+                                        <datasource
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="tagidvalue"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-style-theme/details/news-details/format/date"/>
+                                    </dateFormat>
+
+                                </items>
+                            </dateFormat>
+
+                        </items>
+                    </column2>
+
+                </items>
+            </layoutTab>
+
+            <badgeConfigTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Badge Config"
+                path="/apps/aemdesign/global/dialog/touch/badge/content/items/badgeConfigTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+            <imageBackgroundTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Background Image"
+                path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageBackgroundTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+            <thumbnailImageTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Thumbnail"
+                path="/apps/aemdesign/global/dialog/touch/asset/content/items/thumbnailImageTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+            <secondaryImageTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Secondary Thumbnail"
+                path="/apps/aemdesign/global/dialog/touch/asset/content/items/secondaryImageTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+
+
+            <styleTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Style"
+                path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <accessibilityTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Accessibility"
+                path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <analyticsTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Analytics"
+                path="/apps/aemdesign/global/dialog/touch/analytics/content/items/analyticsTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <pageAnalyticsTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Page Analytics"
+                path="/apps/aemdesign/global/dialog/touch/pageAnalytics/content/items/pageAnalyticsTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+            <pageMetadataTab
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Page Metadata"
+                path="/apps/aemdesign/global/dialog/touch/pageMetadata/content/items/pageMetadataTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
+        </items>
+    </content>
+
+</jcr:root>

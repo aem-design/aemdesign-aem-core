@@ -1,6 +1,5 @@
 package design.aem.components;
 
-import com.adobe.granite.ui.components.AttrBuilder;
 import org.apache.commons.jexl3.*;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -9,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static design.aem.components.ComponentField.FIELD_VALUES_ARE_ATTRIBUTES;
 import static design.aem.utils.components.ComponentsUtil.*;
@@ -134,6 +134,69 @@ public class ComponentProperties extends ValueMapDecorator {
         }
     }
 
+
+    /***
+     * evaluate expression values in a map and return all that were evaluated as expressions.
+     * @param source map to evaluate
+     * @param contextMap map with values
+     * @return updated map
+     */
+    @SuppressWarnings({"squid:S3776"})
+    public static Map<String, String> mapEvaluateAllExpressionValues(Map<String, String> source, Map<String, Object> contextMap) {
+
+        JexlEngine jexl = new JexlBuilder().create();
+        JxltEngine jxlt = jexl.createJxltEngine();
+        JexlContext jc = new MapContext(contextMap);
+
+        //get all entries that have an expression as value
+        return source.entrySet()
+            .stream()
+            .filter(entry -> isStringRegex(entry.getValue()))
+            .collect(
+                Collectors.toMap(
+                    Entry::getKey,
+                    e -> (String)evaluateExpressionWithValue(jxlt, jc, e.getValue(), "")
+                )
+            );
+
+    }
+    /**
+     * evaluate expression values in component properties that have value as expression
+     */
+    @SuppressWarnings({"squid:S3776"})
+    public void evaluateAllExpressionValues() {
+        JexlEngine jexl = new JexlBuilder().create();
+        JxltEngine jxlt = jexl.createJxltEngine();
+        JexlContext jc = new MapContext(this);
+
+        //get all entries that have an expression as value
+        Map<String, Object> expressionValues = super.entrySet()
+            .stream()
+            .filter(entry -> isStringRegex(entry.getValue()))
+            .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+
+        //evaluate and add values back into map
+        expressionValues.forEach((key, value) -> this.putExpression(jxlt, jc, key, value));
+
+    }
+
+    /**
+     * add a new value to map using expression.
+     * @param jxlt instance of JxltEngine
+     * @param jc instance of JexlContext
+     * @param key name of the entry
+     * @param expressionValue expression statement
+     */
+    public void putExpression(JxltEngine jxlt, JexlContext jc, String key, Object expressionValue) {
+        try {
+            this.put(key, evaluateExpressionWithValue(jxlt, jc, expressionValue, ""));
+        } catch (JexlException jex) {
+            LOGGER.error("putExpression: key={},value={},JexlException={}", key, expressionValue, jex);
+        } catch (Exception ex) {
+            LOGGER.error("putExpression: key={},value={},Exception={}", key, expressionValue, ex);
+        }
+    }
+
     /**
      * evaluate expression fields in component properties that have default value as expression
      */
@@ -160,7 +223,12 @@ public class ComponentProperties extends ValueMapDecorator {
                         if (!field.getValue().getClass().isArray()) {
 
                             //get current field value
-                            Object fieldValue = this.get(field.getFieldName(), null);
+                            Object fieldValue = this.get(field.getFieldName(), Object.class);
+
+                            //if current field value is null set it to empty so that expressions don't die
+                            if (fieldValue == null) {
+                                fieldValue = StringUtils.EMPTY;
+                            }
 
                             //use default expression if item does not have expression
                             String valueExpression = defaultValueExpression;
@@ -230,5 +298,17 @@ public class ComponentProperties extends ValueMapDecorator {
 
             }
         }
+    }
+
+    /***
+     * get ordered list of items
+     * @return tree map with ordered
+     */
+    public TreeMap<String, Object> ordered() {
+        TreeMap<String, Object> treeMap = new TreeMap<>();
+        for (Entry<? extends String, Object> entry : super.entrySet()) {
+            treeMap.put(entry.getKey(), entry.getValue());
+        }
+        return treeMap;
     }
 }

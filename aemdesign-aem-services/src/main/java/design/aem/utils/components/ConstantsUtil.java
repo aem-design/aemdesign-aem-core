@@ -91,8 +91,13 @@ public class ConstantsUtil {
     public static final String FIELD_PAGE_TITLE = "pageTitle";
     public static final String FIELD_PAGE_TITLE_NAV = "pageNavTitle";
     public static final String FIELD_PAGE_TITLE_SUBTITLE = "subtitle";
+    public static final String FIELD_PAGE_TAGS = "pageTags";
     public static final String FIELD_VIDEO_BACKGROUND = "backgroundVideo";
     public static final String FIELD_IMAGE_BACKGROUND = "backgroundImage";
+    public static final String FIELD_TITLE = "title";
+    public static final String FIELD_DESCRIPTION = "description";
+    public static final String FIELD_RESOURCE_NAME = "resourceName";
+
 
     public static final String FIELD_MEDIA_PROVIDER = "mediaProvider";
     public static final String FIELD_MEDIA_TITLE = "mediaTitle";

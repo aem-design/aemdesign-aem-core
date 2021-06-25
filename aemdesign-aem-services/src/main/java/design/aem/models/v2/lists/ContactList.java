@@ -1,23 +1,18 @@
 package design.aem.models.v2.lists;
 
-import com.day.cq.i18n.I18n;
-
-import static design.aem.utils.components.I18nUtil.*;
-
 public class ContactList extends List {
-
-    private final String DEFAULT_I18N_CATEGORY = "contactlist";
-
     @Override
     protected void ready() {
-        I18n i18n = new I18n(getRequest());
+        detailsNameSuffix = new String[]{
+            "contact-details",
+            "generic-details",
+        };
 
-        detailsNameSuffix = new String[]{"contact-details", "generic-details"};
+        super.ready();
+    }
 
-        loadConfig();
-
-        //override properties
-        getComponentProperties().put(LISTITEM_LINK_TEXT, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TEXT,DEFAULT_I18N_CATEGORY,i18n));
-        getComponentProperties().put(LISTITEM_LINK_TITLE, getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LIST_ITEM_LINK_TITLE,DEFAULT_I18N_CATEGORY,i18n));
+    @Override
+    protected String getComponentCategory() {
+        return "contactlist";
     }
 }

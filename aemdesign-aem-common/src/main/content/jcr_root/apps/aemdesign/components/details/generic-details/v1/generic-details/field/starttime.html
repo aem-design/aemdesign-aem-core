@@ -1,0 +1,5 @@
+<template data-sly-template.field="${@ componentProperties}">
+    <div class="card-date" itemprop="startDate" content="${componentProperties.startDate}">
+        ${componentProperties.startTimeFormatted || componentProperties.startTimeFormattedText || componentProperties.startDate @ context='unsafe'}
+    </div>
+</template>

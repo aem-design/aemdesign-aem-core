@@ -6,7 +6,7 @@
              data-sly-call="${tabs.variant @ componentProperties=componentProperties}"></sly>
         <div class="tab-content" data-sly-list.tab="${componentProperties.tabPagesInfo}">
             <div class="tab-pane ${tabList.first ? 'active' : ''}" id="${componentProperties.componentId}_${tab.name}" role="tabpanel">
-                <sly data-sly-resource="${tab.pageContent}"></sly>
+                <sly data-sly-resource="${tab.pageContent @ wcmmode='disabled'}"></sly>
 
             </div>
         </div>

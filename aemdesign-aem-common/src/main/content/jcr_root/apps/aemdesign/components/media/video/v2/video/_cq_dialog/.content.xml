@@ -8,92 +8,92 @@
           sling:resourceType="cq/gui/components/authoring/dialog"
           extraClientlibs="[]">
     <content
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/foundation/container">
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
         <layout
-                jcr:primaryType="nt:unstructured"
-                type="nav"
-                sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
+            jcr:primaryType="nt:unstructured"
+            type="nav"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"/>
         <items jcr:primaryType="nt:unstructured">
 
             <imageTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Asset"
-                    path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Asset"
+                path="/apps/aemdesign/global/dialog/touch/asset/content/items/imageTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
 
 
             <layoutTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Layout"
-                    sling:resourceType="granite/ui/components/foundation/section">
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Layout"
+                sling:resourceType="granite/ui/components/foundation/section">
 
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <variant
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Layout"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Layout"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <variant
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/select"
-                                            fieldLabel="Variant"
-                                            name="./variant"
-                                            emptyOption="{Boolean}true"
-                                            value="">
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldLabel="Variant"
+                                        name="./variant"
+                                        emptyOption="{Boolean}true"
+                                        value="">
                                         <items jcr:primaryType="nt:unstructured">
                                             <default
-                                                    jcr:primaryType="nt:unstructured"
-                                                    text="Default"
-                                                    value=""/>
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Default"
+                                                value=""/>
                                         </items>
                                     </variant>
 
                                     <!--<lightbox_size-->
-                                            <!--jcr:primaryType="nt:unstructured"-->
-                                            <!--sling:resourceType="cq/gui/components/authoring/dialog/sizefield"-->
-                                            <!--fieldDescription="Note: Max width and height will be crop at 90%. If these fields have no value then it will use 70% as default. The content display size in lightbox of a page, which it is determined by the the first video or media gallery from the page."-->
-                                            <!--fieldLabel="Lightbox Media Display Area">-->
-                                        <!--<width-->
-                                                <!--jcr:primaryType="nt:unstructured"-->
-                                                <!--sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"-->
-                                                <!--name="./lightboxWidth"-->
-                                                <!--unit=""/>-->
-                                        <!--<height-->
-                                                <!--jcr:primaryType="nt:unstructured"-->
-                                                <!--sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"-->
-                                                <!--name="./lightboxHeight"-->
-                                                <!--unit=""/>-->
+                                    <!--jcr:primaryType="nt:unstructured"-->
+                                    <!--sling:resourceType="cq/gui/components/authoring/dialog/sizefield"-->
+                                    <!--fieldDescription="Note: Max width and height will be crop at 90%. If these fields have no value then it will use 70% as default. The content display size in lightbox of a page, which it is determined by the the first video or media gallery from the page."-->
+                                    <!--fieldLabel="Lightbox Media Display Area">-->
+                                    <!--<width-->
+                                    <!--jcr:primaryType="nt:unstructured"-->
+                                    <!--sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"-->
+                                    <!--name="./lightboxWidth"-->
+                                    <!--unit=""/>-->
+                                    <!--<height-->
+                                    <!--jcr:primaryType="nt:unstructured"-->
+                                    <!--sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"-->
+                                    <!--name="./lightboxHeight"-->
+                                    <!--unit=""/>-->
                                     <!--</lightbox_size>-->
                                     <!--<thumbnail_size-->
-                                            <!--jcr:primaryType="nt:unstructured"-->
-                                            <!--sling:resourceType="cq/gui/components/authoring/dialog/sizefield"-->
-                                            <!--fieldDescription="Note: If these fields has no value then it will use original image size."-->
-                                            <!--fieldLabel="Video Thumbnail Size">-->
-                                        <!--<width-->
-                                                <!--jcr:primaryType="nt:unstructured"-->
-                                                <!--sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"-->
-                                                <!--name="./thumbnailWidth"-->
-                                                <!--unit=""/>-->
-                                        <!--<height-->
-                                                <!--jcr:primaryType="nt:unstructured"-->
-                                                <!--sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"-->
-                                                <!--name="./thumbnailHeight"-->
-                                                <!--unit=""/>-->
+                                    <!--jcr:primaryType="nt:unstructured"-->
+                                    <!--sling:resourceType="cq/gui/components/authoring/dialog/sizefield"-->
+                                    <!--fieldDescription="Note: If these fields has no value then it will use original image size."-->
+                                    <!--fieldLabel="Video Thumbnail Size">-->
+                                    <!--<width-->
+                                    <!--jcr:primaryType="nt:unstructured"-->
+                                    <!--sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"-->
+                                    <!--name="./thumbnailWidth"-->
+                                    <!--unit=""/>-->
+                                    <!--<height-->
+                                    <!--jcr:primaryType="nt:unstructured"-->
+                                    <!--sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"-->
+                                    <!--name="./thumbnailHeight"-->
+                                    <!--unit=""/>-->
                                     <!--</thumbnail_size>-->
                                     <!--<assetTitlePrefix-->
-                                            <!--jcr:primaryType="nt:unstructured"-->
-                                            <!--sling:resourceType="granite/ui/components/coral/foundation/form/textfield"-->
-                                            <!--fieldLabel="Prefix text for hover"-->
-                                            <!--name="./assetTitlePrefix"/>-->
+                                    <!--jcr:primaryType="nt:unstructured"-->
+                                    <!--sling:resourceType="granite/ui/components/coral/foundation/form/textfield"-->
+                                    <!--fieldLabel="Prefix text for hover"-->
+                                    <!--name="./assetTitlePrefix"/>-->
 
                                 </items>
                             </variant>
@@ -103,23 +103,23 @@
             </layoutTab>
 
             <styleTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Style"
-                    path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Style"
+                path="/apps/aemdesign/global/dialog/touch/style/content/items/styleTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
             <accessibilityTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Accessibility"
-                    path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Accessibility"
+                path="/apps/aemdesign/global/dialog/touch/accessibility/content/items/accessibilityTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
             <analyticsTab
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Analytics"
-                    path="/apps/aemdesign/global/dialog/touch/analytics/content/items/analyticsTab"
-                    resourceType="granite/ui/components/foundation/section"
-                    sling:resourceType="granite/ui/components/coral/foundation/include"/>
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Analytics"
+                path="/apps/aemdesign/global/dialog/touch/analytics/content/items/analyticsTab"
+                resourceType="granite/ui/components/foundation/section"
+                sling:resourceType="granite/ui/components/coral/foundation/include"/>
         </items>
     </content>
 </jcr:root>

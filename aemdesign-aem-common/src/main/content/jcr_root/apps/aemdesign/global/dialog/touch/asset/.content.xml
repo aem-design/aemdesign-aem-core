@@ -103,6 +103,20 @@
                                             fieldDescription="Asset source destination, pick asset or enter external url)"
                                             fieldLabel="Asset URL"
                                             name="./sourceAsset"/>
+                                    <licenseFormat
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Format of license description for the asset"
+                                        fieldLabel="License Format"
+                                        name="./licenseFormat"
+                                        emptyOption="{Boolean}true"
+                                        value="">
+                                        <datasource
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="tagidvalue"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/asset/license/format"/>
+                                    </licenseFormat>
                                 </items>
                             </assetAttributes>
                         </items>
@@ -177,6 +191,22 @@
                                             fieldDescription="Set image description, does not apply to Licensed Assets"
                                             fieldLabel="Description"
                                             name="./description"/>
+
+                                    <licenseFormat
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Format of license description for the asset"
+                                        fieldLabel="License Format"
+                                        name="./licenseFormat"
+                                        emptyOption="{Boolean}true"
+                                        value="">
+                                        <datasource
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="aemdesign/components/coral/datasources/tags"
+                                            variant="tagidvalue"
+                                            path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/asset/license/format"/>
+                                    </licenseFormat>
+
                                 </items>
                             </info>
 
@@ -289,7 +319,14 @@
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Thumbnail"
                     sling:resourceType="granite/ui/components/foundation/section">
-
+                <granite:rendercondition
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                    <granite:rendercondition
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                        groups="[content-authors-advanced]"/>
+                </granite:rendercondition>
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
@@ -337,7 +374,14 @@
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Background Image"
                     sling:resourceType="granite/ui/components/foundation/section">
-
+                <granite:rendercondition
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                    <granite:rendercondition
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                        groups="[content-authors-advanced]"/>
+                </granite:rendercondition>
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
@@ -702,7 +746,14 @@
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Background Video"
                     sling:resourceType="granite/ui/components/foundation/section">
-
+                <granite:rendercondition
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                    <granite:rendercondition
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                        groups="[content-authors-advanced]"/>
+                </granite:rendercondition>
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
@@ -751,7 +802,14 @@
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Badge Thumbnail"
                     sling:resourceType="granite/ui/components/foundation/section">
-
+                <granite:rendercondition
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                    <granite:rendercondition
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                        groups="[content-authors-advanced]"/>
+                </granite:rendercondition>
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
@@ -799,7 +857,14 @@
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Secondary Thumbnail"
                     sling:resourceType="granite/ui/components/foundation/section">
-
+                <granite:rendercondition
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                    <granite:rendercondition
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                        groups="[content-authors-advanced]"/>
+                </granite:rendercondition>
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>

@@ -1,0 +1,11 @@
+<template data-sly-template.variant="${@ componentProperties}">
+    <div style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+         data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+        <h1>Title: ${componentProperties.title}</h1>
+        <h2>Latitude : ${componentProperties.latitude}</h2>
+        <h2>Longitude : ${componentProperties.longitude}</h2>
+        <sly data-sly-list.page="${componentProperties.pageList}">
+            Page : <b><a href="${page.path}">${page.title}</a></b> <br/>
+        </sly>
+    </div>
+</template>

@@ -5,18 +5,16 @@ import com.day.cq.wcm.api.PageManager;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import static design.aem.utils.components.CommonUtil.PN_REDIRECT_TARGET;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
+import static org.mockito.MockitoAnnotations.openMocks;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ComponentDetailsUtilTest {
 
     @Mock
@@ -34,17 +32,27 @@ public class ComponentDetailsUtilTest {
     @Mock
     PageManager pageManager;
 
-    @Before
-    public void before() {
-        initMocks(this);
+
+    private AutoCloseable closeable;
+
+    @BeforeEach
+    void setup() {
+        closeable = openMocks(this);
+
     }
+
+    @AfterEach
+    void close() throws Exception {
+        closeable.close();
+    }
+
 
     @Test
     public void testCheckSelected() {
         when(currentPage.getPath()).thenReturn("/content/aem-design/en/home");
         when(page.getPath()).thenReturn("/content/aem-design/en");
         boolean isSelected = ComponentDetailsUtil.checkSelected(page, currentPage, resolver);
-        Assert.assertTrue(isSelected);
+        assertTrue(isSelected);
     }
 
     @Test
@@ -56,7 +64,7 @@ public class ComponentDetailsUtilTest {
         when(resolver.adaptTo(PageManager.class)).thenReturn(pageManager);
         when(pageManager.getPage(REDIRECT_TARGET)).thenReturn(currentPage);
         boolean isCurrentPageIsRedirectTarget = ComponentDetailsUtil.currentPageIsRedirectTarget(page, currentPage, resolver);
-        Assert.assertTrue(isCurrentPageIsRedirectTarget);
+        assertTrue(isCurrentPageIsRedirectTarget);
     }
 
 }

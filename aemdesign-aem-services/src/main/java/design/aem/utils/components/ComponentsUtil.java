@@ -1,10 +1,7 @@
 package design.aem.utils.components;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.adobe.granite.ui.components.AttrBuilder;
-import com.adobe.granite.xss.XSSAPI;
 import com.day.cq.commons.inherit.InheritanceValueMap;
-import org.apache.jackrabbit.vault.util.JcrConstants;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
@@ -22,6 +19,7 @@ import com.day.cq.wcm.webservicesupport.Configuration;
 import com.day.cq.wcm.webservicesupport.ConfigurationConstants;
 import com.day.cq.wcm.webservicesupport.ConfigurationManager;
 import com.google.common.base.Throwables;
+import design.aem.components.AttrBuilder;
 import design.aem.components.ComponentField;
 import design.aem.components.ComponentProperties;
 import design.aem.models.GenericModel;
@@ -33,6 +31,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.jackrabbit.core.fs.FileSystem;
+import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -40,16 +39,19 @@ import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.apache.sling.api.wrappers.ValueMapDecorator;
+import org.apache.sling.xss.XSSAPI;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.lang.reflect.Array;
 
+import javax.annotation.Nonnull;
 import javax.jcr.Node;
 import javax.servlet.jsp.PageContext;
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -66,6 +68,8 @@ public class ComponentsUtil {
     public static final Logger LOGGER = LoggerFactory.getLogger(ComponentsUtil.class);
 
     public static final String DEFAULT_PATH_TAGS = "/content/cq:tags";
+
+    public static final String DEFAULT_TENANT = "aemdesign";
 
     public static final String FIELD_VARIANT = "variant";
     public static final String FIELD_VARIANT_LEGACY = "legacyVariant"; // specify that variant field is derived from config / tag
@@ -162,6 +166,10 @@ public class ComponentsUtil {
     public static final String DETAILS_DATA_ANALYTICS_LOCATION = "data-layer-location";
     public static final String DETAILS_DATA_ANALYTICS_LABEL = "data-layer-label";
 
+    //schema data
+    public static final String DETAILS_DATA_SCHEMA_ITEMSCOPE = "itemscope";
+    public static final String DETAILS_DATA_SCHEMA_ITEMTYPE = "itemtype";
+    public static final String DETAILS_DATA_SCHEMA_ITEMTYPE_DEFAULT = "https://schema.org/Thing";
 
     public static final String FIELD_HIDEINMENU = "hideInMenu";
 
@@ -303,6 +311,7 @@ public class ComponentsUtil {
     public static final String PAGECONTEXTMAP_OBJECT_CURRENTPAGE = "currentPage";
     public static final String PAGECONTEXTMAP_OBJECT_RESOURCEPAGE = "resourcePage";
     public static final String PAGECONTEXTMAP_OBJECT_RESOURCEDESIGN = "resourceDesign";
+    public static final String PAGECONTEXTMAP_OBJECT_XSSAPI = "xssAPI";
 
 
     public static final String DETAILS_SELECTOR_BADGE = "badge";
@@ -391,8 +400,8 @@ public class ComponentsUtil {
             {DETAILS_CARD_ICONSHOW, false},
             {DETAILS_CARD_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_LINK_TARGET, "_blank"},
-            {DETAILS_LINK_TEXT, "${value ? value : (" + FIELD_PAGE_TITLE_NAV + " ? " + FIELD_PAGE_TITLE_NAV + " : '')}"},
-            {DETAILS_LINK_TITLE, "${value ? value : (" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " : '')}"},
+            {DETAILS_LINK_TEXT, "${value ? value : (" + FIELD_PAGE_TITLE_NAV + " ? " + FIELD_PAGE_TITLE_NAV + " : " + FIELD_PAGE_TITLE + ")}"},
+            {DETAILS_LINK_TITLE, "${value ? value : (" + FIELD_PAGE_TITLE + " ? " + FIELD_PAGE_TITLE + " : "+ FIELD_RESOURCE_NAME + ")}"},
             {DETAILS_LINK_STYLE, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_LINK_FORMATTED, "${value ? value : pageUrl}", StringUtils.EMPTY, Tag.class.getCanonicalName()},
             {DETAILS_TITLE_TRIM, false},
@@ -414,9 +423,9 @@ public class ComponentsUtil {
             {DETAILS_THUMBNAIL_ID, StringUtils.EMPTY},
             {DETAILS_THUMBNAIL_LICENSE_INFO, StringUtils.EMPTY},
             {DETAILS_THUMBNAIL, StringUtils.EMPTY},
-            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK},
-            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION},
-            {DETAILS_BADGE_ANALYTICS_LABEL, "${value ?  value : " + DETAILS_LINK_TEXT + "}",DETAILS_DATA_ANALYTICS_LABEL},
+            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY},
+            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY},
+            {DETAILS_BADGE_ANALYTICS_LABEL, "${value ?  value : " + DETAILS_LINK_TEXT + "}"},
             {DETAILS_PAGE_METADATA_PROPERTY, new String[]{}},
             {DETAILS_PAGE_METADATA_PROPERTY_CONTENT, new String[]{}},
             {DETAILS_BADGE_CUSTOM, false},
@@ -466,9 +475,9 @@ public class ComponentsUtil {
             {DETAILS_THUMBNAIL_ID, StringUtils.EMPTY},
             {DETAILS_THUMBNAIL_LICENSE_INFO, StringUtils.EMPTY},
             {DETAILS_THUMBNAIL, StringUtils.EMPTY},
-            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_TRACK}, //basic
-            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LOCATION}, //basic
-            {DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY,DETAILS_DATA_ANALYTICS_LABEL}, //basic
+            {DETAILS_BADGE_ANALYTICS_TRACK, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LOCATION, StringUtils.EMPTY}, //basic
+            {DETAILS_BADGE_ANALYTICS_LABEL, StringUtils.EMPTY}, //basic
             {DETAILS_BADGE_CUSTOM, false},
             {DETAILS_BADGE_FIELDS_TEMPLATE, new String[]{}},
             {DETAILS_BADGE_FIELDS, new String[]{}},
@@ -488,7 +497,7 @@ public class ComponentsUtil {
     public static final Object[][] DEFAULT_FIELDS_ANALYTICS = { //NOSONAR used by classes
             {DETAILS_ANALYTICS_TRACK, false, DETAILS_DATA_ANALYTICS_TRACK}, //basic
             {DETAILS_ANALYTICS_LOCATION, StringUtils.EMPTY, DETAILS_DATA_ANALYTICS_LOCATION}, //basic
-            {DETAILS_ANALYTICS_LABEL, "${ value ? value : label }", DETAILS_DATA_ANALYTICS_LABEL}, //basic
+            {DETAILS_ANALYTICS_LABEL, "${ value ? value : " + FIELD_PAGE_TITLE + " }", DETAILS_DATA_ANALYTICS_LABEL}, //basic
             {"analyticsEventType", StringUtils.EMPTY, "data-analytics-event"}, //advanced
             {"analyticsHitType", StringUtils.EMPTY, "data-analytics-hit-type"}, //advanced
             {"analyticsEventCategory", StringUtils.EMPTY, "data-analytics-event-category"}, //advanced
@@ -791,11 +800,16 @@ public class ComponentsUtil {
      */
     public static ComponentProperties getNewComponentProperties(WCMUsePojo wcmUsePojoModel) {
 
-        SlingHttpServletRequest slingRequest = wcmUsePojoModel.getRequest();
-
         Map<String, Object> pageContextMap = new HashMap<>();
-        pageContextMap.put("slingRequest", slingRequest);
 
+        SlingHttpServletRequest slingRequest = wcmUsePojoModel.getRequest();
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_SLINGREQUEST, slingRequest);
+
+        SlingScriptHelper sling = wcmUsePojoModel.getSlingScriptHelper();
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_SLING , sling);
+
+        XSSAPI xssAPI = wcmUsePojoModel.getSlingScriptHelper().getService(XSSAPI.class);
+        pageContextMap.put(PAGECONTEXTMAP_OBJECT_XSSAPI, xssAPI);
 
         return getNewComponentProperties(pageContextMap);
     }
@@ -809,9 +823,19 @@ public class ComponentsUtil {
     public static ComponentProperties getNewComponentProperties(Map<String, Object> pageContext) {
         ComponentProperties componentProperties = new ComponentProperties();
         try {
-            SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) pageContext.get("slingRequest");
-            com.adobe.granite.xss.XSSAPI oldXssAPI = slingRequest.adaptTo(com.adobe.granite.xss.XSSAPI.class);
-            componentProperties.attr = new AttrBuilder(slingRequest, oldXssAPI);
+            XSSAPI xss = null;
+            if (pageContext.containsKey(PAGECONTEXTMAP_OBJECT_XSSAPI)) {
+                xss = (XSSAPI)pageContext.get(PAGECONTEXTMAP_OBJECT_XSSAPI);
+            } else {
+                SlingScriptHelper sling = (SlingScriptHelper) pageContext.get(PAGECONTEXTMAP_OBJECT_SLING);
+                xss = Objects.requireNonNull(sling.getService(XSSAPI.class));
+            }
+
+            if (xss != null) {
+                componentProperties.attr = new AttrBuilder(xss);
+            } else {
+                LOGGER.error("getNewComponentProperties: could not configure componentProperties with attributeBuilder as xss is missing");
+            }
 
         } catch (Exception ex) {
             LOGGER.error("getNewComponentProperties: could not configure componentProperties with attributeBuilder");
@@ -1070,10 +1094,12 @@ public class ComponentsUtil {
 
         ComponentContext componentContext = (ComponentContext) pageContext.get("componentContext");
         Component component = componentContext.getComponent();
+        XSSAPI xssAPI = Objects.requireNonNull(sling.getService(XSSAPI.class));
 
-        componentProperties.attr = new AttrBuilder(slingRequest, oldXssAPI);
+        componentProperties.attr = new AttrBuilder(xssAPI);
         if (addMoreAttributes) {
-            componentProperties.attr.add("component", "true");
+            //all component have a boolean attribute component, sling does not print attributes with blank values
+            componentProperties.attr.add("component", "component");
         }
 
         componentProperties.expressionFields = new ArrayList();
@@ -1166,9 +1192,6 @@ public class ComponentsUtil {
                 }
 
                 if (fieldLists != null) {
-                    JexlEngine jexl = new JexlBuilder().create();
-                    JxltEngine jxlt = jexl.createJxltEngine();
-                    JexlContext jc = new MapContext(componentProperties);
 
                     for (Object[][] fieldDefaults : fieldLists) {
                         for (Object[] field : fieldDefaults) {
@@ -1198,8 +1221,6 @@ public class ComponentsUtil {
                                 fieldValueType = String.class.getCanonicalName();
                             }
 
-                            boolean fieldValueHasExpressions = false;
-
                             if (componentProperties.containsKey(fieldName)) {
                                 //skip entries that already exist
                                 //first Object in fieldLists will set a field value
@@ -1211,39 +1232,26 @@ public class ComponentsUtil {
 
                             Object fieldValue = null;
 
-                            //only do this if fieldValueType is string
-                            //if default value has expressions read component property value and evaluate default value expression and set it into value if value is null
-                            if (fieldDefaultValue instanceof String && StringUtils.isNotEmpty(fieldDefaultValue.toString()) && fieldValueType.equals(String.class.getCanonicalName()) && isStringRegex(fieldDefaultValue.toString())) {
-
-                                //get the value without default to determine if value exist
-                                fieldValue = getComponentProperty(properties, currentPolicy, fieldName, null, true);
-
-                                boolean expressionValid = false;
-                                //try to evaluate default value expression
-                                try {
-                                    Object expressonResult = evaluateExpressionWithValue(jxlt,jc,fieldDefaultValue.toString(),fieldValue);
-                                    if (expressonResult != null) {
-                                        expressionValid = true;
-                                        //evaluate the expression
-                                        fieldDefaultValue = expressonResult;
-                                    }
-                                } catch (JexlException jex) {
-                                    LOGGER.warn("could not evaluate default value expression component={}, contentResource={}, currentNode={}, field={}, value={}, default value={}, componentProperties.keys={}, jex.info={}", (component == null ? component : component.getPath()), (contentResource == null ? contentResource : contentResource.getPath()), (currentNode == null ? currentNode : currentNode.getPath()), fieldName, fieldValue, fieldDefaultValue, componentProperties.keySet(), jex.getInfo());
-                                } catch (Exception ex) {
-                                    LOGGER.error("could not evaluate default value expression component={}, contentResource={}, currentNode={}, field={}, value={}, default value={}, componentProperties.keys={}, ex.cause={}, ex.message={}, ex={}", (component == null ? component : component.getPath()), (contentResource == null ? contentResource : contentResource.getPath()), (currentNode == null ? currentNode : currentNode.getPath()), fieldName, fieldValue, fieldDefaultValue, componentProperties.keySet(), ex.getCause(), ex.getMessage(), ex);
+                            //handle Tag[] value expectation.
+                            if (fieldDefaultValue.getClass() == Tag[].class) {
+                                Resource currentResource = (Resource)pageContext.get("resource");
+                                //get value from policy
+                                fieldValue = currentPolicy.get(fieldName, Tag[].class);
+                                //try resourcee
+                                if (fieldValue == null) {
+                                    fieldValue = tagManager.getTags(currentResource);
                                 }
-
-                                if (!expressionValid) {
-                                    //remove left over expressions from string
-                                    fieldDefaultValue = removeRegexFromString((String) fieldDefaultValue);
+                                //use default
+                                if (fieldValue == null) {
+                                    fieldValue = fieldDefaultValue;
                                 }
-
-                                fieldValue = fieldDefaultValue;
-
                             } else {
-                                //default value is not regex read value from component and use default value as default
+                                //read component value or return default value, result could be a expression
+                                // that need to be processed using @ComponentProperties.evaluateExpressionFields()
                                 fieldValue = getComponentProperty(properties, currentPolicy, fieldName, fieldDefaultValue, true);
                             }
+
+                            boolean fieldValueHasExpressions = isStringRegex(fieldDefaultValue.toString());
 
                             //check if field value has expressions
                             if (fieldValue instanceof String && StringUtils.isNotEmpty(fieldValue.toString()) && isStringRegex(fieldValue.toString())) {
@@ -1267,9 +1275,11 @@ public class ComponentsUtil {
                                 fieldValue = newArray;
                             }
 
+                            //field has more field than name and default value
                             if (field.length > 2) {
                                 String fieldValueString = StringUtils.EMPTY;
 
+                                //test field value type
                                 if (fieldValue.getClass().isArray()) {
                                     if (ArrayUtils.isNotEmpty((String[]) fieldValue)) {
                                         //handle tags as values
@@ -1304,7 +1314,12 @@ public class ComponentsUtil {
                                     fieldValueString = fieldValue.toString();
                                 }
 
-                                if (isNotEmpty(fieldValueString) && isNotEmpty(fieldDataName) && !fieldDataName.equals(FIELD_VALUES_ARE_ATTRIBUTES)) {
+                                //set data attribute if data attribute has been specified and value is not an expression
+                                if (isNotEmpty(fieldValueString)
+                                    && isNotEmpty(fieldDataName)
+                                    && !fieldDataName.equals(FIELD_VALUES_ARE_ATTRIBUTES)
+                                    && !fieldValueHasExpressions
+                                ) {
                                     componentProperties.attr.add(fieldDataName, fieldValueString);
                                 } else if (isNotEmpty(fieldValueString) && fieldDataName.equals(FIELD_VALUES_ARE_ATTRIBUTES)) {
                                     //process possible Key-Value pairs that are in the values output
@@ -1332,7 +1347,7 @@ public class ComponentsUtil {
                             }
 
                             if (fieldValueHasExpressions) {
-                                //store expression field into array for processing by ComponentProperties.evaluateExpressionFields
+                                //add current field to expression fields list to allow re-evaluation
                                 ComponentField expField = new ComponentField(field);
                                 expField.setValue(fieldValue);
                                 componentProperties.expressionFields.add(expField);
@@ -1382,7 +1397,7 @@ public class ComponentsUtil {
                         if (isNotEmpty(variant) && !variant.equals(DEFAULT_VARIANT)) {
                             componentProperties.attr.add(COMPONENT_ATTRIBUTE_CLASS, variant);
                         }
-                        componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), oldXssAPI));
+                        componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), xssAPI));
                     }
 
                 }
@@ -1485,62 +1500,34 @@ public class ComponentsUtil {
      * @return attributes string
      */
     @SuppressWarnings("Depreciated")
-    public static String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI) {
-        return buildAttributesString(data, xssAPI, null);
+    public static String buildAttributesString(Map<String, String> data, XSSAPI xssAPI) {
+        return buildAttributesString(data, xssAPI, new HashMap<>());
     }
 
     /***
      * build attributes from attributes data.
-     * @param data map of data attributes and values
-     * @param xssAPI old xssi api
+     * @param attributes map of data attributes and values
+     * @param xssAPI xss api
      * @param encodings map of encoding per data attribute
      * @return attributes string
      */
     @SuppressWarnings({"Depreciated", "squid:S3776"})
-    public static String buildAttributesString(Map<String, String> data, com.adobe.granite.xss.XSSAPI xssAPI, Map<String, String> encodings) {
-        try {
-            StringWriter out = new StringWriter();
-            String key;
-            String value;
+    public static String buildAttributesString(
+        Map<String, String> attributes,
+        XSSAPI xssAPI,
+        @Nonnull Map<String, AttrBuilder.EncodingType> encodings
+    ) {
+        AttrBuilder attr = new AttrBuilder(xssAPI);
 
-            Iterator items = data.entrySet().iterator();
-            while (items.hasNext()) {
-                Map.Entry<String, String> e = (Map.Entry) items.next();
-                key = e.getKey();
-                value = e.getValue();
-
-                if (value != null) {
-
-                    //encode values if encoding is specified
-                    if (encodings != null) {
-                        String encoding = encodings.get(e.getKey());
-                        if (encoding != null && value.length() > 0) {
-                            switch (encoding) {
-                                case "HREF":
-                                    value = xssAPI.getValidHref(value);
-                                    break;
-                                case "HTML_ATTR":
-                                    value = xssAPI.encodeForHTMLAttr(value);
-                                    break;
-                            }
-                        }
-                    }
-
-                    out.append(" ");
-                    if (value.length() > 0) {
-                        out.append(key).append("=\"").append(value).append("\"");
-                    } else {
-                        out.append(key);
-                    }
-
-                }
+        attributes.forEach((attribute, value) -> {
+            if (value == null) {
+                return;
             }
 
-            //return string without invalid characters
-            return out.toString().replaceAll("&#x20;", " ");
-        } catch (Exception ex) {
-            return StringUtils.EMPTY;
-        }
+            attr.add(attribute, value, encodings.get(attribute));
+        });
+
+        return attr.build().replace("&#x20;", " ");
     }
 
     /***
@@ -1633,9 +1620,10 @@ public class ComponentsUtil {
 
                 Resource detailsResource = resourceResolver.resolve(detailsPath);
                 if (!ResourceUtil.isNonExistingResource(detailsResource)) {
-                    Node detailsNode = detailsResource.adaptTo(Node.class);
-                    if (detailsNode != null && detailsNode.hasProperty(DETAILS_DESCRIPTION)) {
-                        return detailsNode.getProperty(DETAILS_DESCRIPTION).getString();
+                    ValueMap vm = detailsResource.getValueMap();
+                    String detailsDescription = vm.get(DETAILS_DESCRIPTION, "");
+                    if (StringUtils.isNotEmpty(detailsDescription)) {
+                        return detailsDescription;
                     }
                 }
 
@@ -1716,8 +1704,27 @@ public class ComponentsUtil {
         return componentId;
     }
 
-
+    /***
+     * get cloud config setting from inherited value map
+     * @param pageProperties inherited value map with values
+     * @param configurationName config name
+     * @param propertyName property to get
+     * @param sling sling instance
+     * @return return cloud config property
+     */
     public static String getCloudConfigProperty(InheritanceValueMap pageProperties, String configurationName, String propertyName, SlingScriptHelper sling) {
+        return getCloudConfigProperty(pageProperties,configurationName,propertyName, sling);
+    }
+
+    /***
+     * get cloud config setting from inherited value map
+     * @param pageProperties value map with values
+     * @param configurationName config name
+     * @param propertyName property to get
+     * @param sling sling instance
+     * @return return cloud config property
+     */
+    public static String getCloudConfigProperty(ValueMap pageProperties, String configurationName, String propertyName, SlingScriptHelper sling) {
         String returnValue = StringUtils.EMPTY;
 
         ContentAccess contentAccess = sling.getService(ContentAccess.class);
@@ -1727,7 +1734,7 @@ public class ComponentsUtil {
                 // Getting attached facebook cloud service config in order to fetch appID
                 ConfigurationManager cfgMgr = adminResourceResolver.adaptTo(ConfigurationManager.class);
                 Configuration addthisConfiguration = null;
-                String[] services = pageProperties.getInherited(ConfigurationConstants.PN_CONFIGURATIONS, new String[]{});
+                String[] services = pageProperties.get(ConfigurationConstants.PN_CONFIGURATIONS, new String[]{});
                 if (cfgMgr != null) {
                     addthisConfiguration = cfgMgr.getConfiguration(configurationName, services);
                     if (addthisConfiguration != null) {
@@ -1912,9 +1919,10 @@ public class ComponentsUtil {
 
                                 if (localresource != null && !ResourceUtil.isNonExistingResource(localresource)) {
                                     for (Resource resource : localresource.getChildren()) {
+                                        String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
+
                                         //add only newly found resources
-                                        if (!subResources.containsValue(resource.getName())) {
-                                            String name = resource.getName().replace(DEFAULT_EXTENTION, EMPTY);
+                                        if (!subResources.containsKey(name)) {
                                             subResources.put(name, resource);
                                         }
                                     }
@@ -2152,6 +2160,17 @@ public class ComponentsUtil {
         return contentPolicyProperties;
     }
 
+    /**
+     * check if string value a regex
+     * @param value string to check if its a regex
+     * @return does string match regex check
+     */
+    public static boolean isStringRegex(Object value) {
+        if (value == null || !(value instanceof String)) {
+            return false;
+        }
+        return isStringRegex(value.toString());
+    }
 
     /**
      * check if string value a regex
@@ -2189,13 +2208,39 @@ public class ComponentsUtil {
      * @throws JexlException throes Jexl errors with regex expression
      *
      */
+    public static Object evaluateExpressionWithValue(JxltEngine jxlt, JexlContext jc, Object expression, Object value) {
+       return evaluateExpressionWithValue(jxlt,jc, expression != null ? expression.toString() : "", value);
+    }
+
+    /**
+     * evaluate expression in a context with value
+     * reference https://commons.apache.org/proper/commons-jexl/reference/syntax.html
+     * @param jxlt JXTL Engine
+     * @param jc JXTL Context
+     * @param expression regex expression
+     * @param value value to add into JXTL context
+     * @return returns evaluated value
+     * @throws JexlException throes Jexl errors with regex expression
+     *
+     */
     public static Object evaluateExpressionWithValue(JxltEngine jxlt, JexlContext jc, String expression, Object value) {
         JxltEngine.Expression expr = jxlt.createExpression(expression);
 
         //add current value to the map
         jc.set("value", value);
 
-        return expr.evaluate(jc);
+        Object returnValue = "";
+
+        try {
+            returnValue = expr.evaluate(jc);
+        } catch (Exception ex) {
+            returnValue = "";
+        }
+
+        //clean up
+        jc.set("value", "");
+
+        return returnValue;
     }
 
     /**

@@ -1,10 +1,8 @@
 package design.aem.models.v2.content;
 
-import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.NameConstants;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -15,63 +13,67 @@ import static design.aem.utils.components.ConstantsUtil.DEFAULT_EXTENTION;
 import static design.aem.utils.components.I18nUtil.getDefaultLabelIfEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class Link extends ModelProxy {
+public class Link extends BaseComponent {
+    protected static final String FIELD_LINK_URL = "linkUrl";
+    protected static final String FIELD_LINK_TARGET = "linkTarget";
+    protected static final String FIELD_LINK_ID = "linkId";
+    protected static final String FIELD_LINK_ICON = "linkIcon";
+    protected static final String FIELD_LINK_ICON_POSITION = "linkIconPosition";
+    protected static final String FIELD_LABEL = "label";
 
-    protected ComponentProperties componentProperties = null;
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
+    protected static final String DEFAULT_LINK_URL = "#";
+    protected static final String DEFAULT_LINK_ICON_POSITION = "left";
+    protected static final String DEFAULT_I18N_CATEGORY = "link";
+    protected static final String DEFAULT_I18N_LABEL = "linklabel";
 
     protected void ready() {
-        I18n i18n = new I18n(getRequest());
-
-        final String FIELD_LINKURL = "linkUrl";
-        final String DEFAULT_LINKURL = "#";
-        final String DEFAULT_LINK_ICON_POSITION = "left";
-        final String DEFAULT_I18N_CATEGORY = "link";
-        final String DEFAULT_I18N_LABEL = "linklabel";
-
-        /*
-          Component Fields Helper
-
-          Structure:
-          1 required - property name,
-          2 required - default value,
-          3 optional - name of component attribute to add value into
-          4 optional - canonical name of class for handling multivalues, String or Tag
-         */
-        setComponentFields(new Object[][]{
-                {"linkTarget", StringUtils.EMPTY, "target"},
-                {FIELD_LINKURL, StringUtils.EMPTY},
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"linkId", getResource().getPath()},
-                {"linkIcon", new String[]{}, "", Tag.class.getCanonicalName()},
-                {"linkIconPosition", DEFAULT_LINK_ICON_POSITION},
-                {"label", getDefaultLabelIfEmpty("",DEFAULT_I18N_CATEGORY,DEFAULT_I18N_LABEL,DEFAULT_I18N_CATEGORY,i18n)},
-        });
-
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_ANALYTICS,
-                DEFAULT_FIELDS_ATTRIBUTES);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS,
+            DEFAULT_FIELDS_ATTRIBUTES);
 
-        String linkUrl = componentProperties.get(FIELD_LINKURL, StringUtils.EMPTY);
+        String linkUrl = componentProperties.get(FIELD_LINK_URL, StringUtils.EMPTY);
 
         if (isNotEmpty(linkUrl)) {
             Resource linkResource = getResourceResolver().resolve(linkUrl);
+
             if (!ResourceUtil.isNonExistingResource(linkResource)
                 && linkResource.isResourceType(NameConstants.NT_PAGE)
                 && !linkUrl.endsWith(DEFAULT_EXTENTION)
-                && !linkUrl.contains(DEFAULT_LINKURL)) {
-                    linkUrl = linkUrl.concat(DEFAULT_EXTENTION);
+                && !linkUrl.contains(DEFAULT_LINK_URL)) {
+                linkUrl = linkUrl.concat(DEFAULT_EXTENTION);
             }
 
             componentProperties.attr.add("href", linkUrl);
 
-            componentProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(componentProperties.attr.getData(), null));
+            componentProperties.put(COMPONENT_ATTRIBUTES,
+                buildAttributesString(componentProperties.attr.getData(), null));
         }
+    }
+
+    @Override
+    protected void setFields() {
+        setComponentFields(new Object[][]{
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_LINK_URL, StringUtils.EMPTY},
+            {FIELD_LINK_TARGET, StringUtils.EMPTY, "target"},
+            {FIELD_LINK_ID, getResource().getPath()},
+            {FIELD_LINK_ICON, new String[]{}, StringUtils.EMPTY, Tag.class.getCanonicalName()},
+            {FIELD_LINK_ICON_POSITION, DEFAULT_LINK_ICON_POSITION},
+            {FIELD_LABEL, componentDefaults.get(FIELD_LABEL)},
+        });
+    }
+
+    @Override
+    protected void setFieldDefaults() {
+        componentDefaults.put(FIELD_LABEL, getDefaultLabelIfEmpty(
+            StringUtils.EMPTY,
+            DEFAULT_I18N_CATEGORY,
+            DEFAULT_I18N_LABEL,
+            DEFAULT_I18N_CATEGORY,
+            i18n));
     }
 }

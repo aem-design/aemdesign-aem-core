@@ -3,8 +3,8 @@
     jcr:primaryType="cq:ClientLibraryFolder"
 	jcr:description="used to load all component functionality in components/templates"
     allowProxy="{Boolean}true"
-    jsProcessor="[default:none]"
-    cssProcessor="[default:none]"
+    jsProcessor="[default:none,min:none]"
+    cssProcessor="[default:none,min:none]"
     categories="[aemdesign.common.components]"
     embed="[aemdesign.common.components.author,aemdesign.components.publish]"/>
 

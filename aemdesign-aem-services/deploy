@@ -6,16 +6,9 @@ SCRIPT_PARAMS="$@"
 
 source "../scripts/functions.sh"
 
-#try to delete existing jar
-delete_current_jar
-
 echo "- Deploy"
 mvn -Dvault.useProxy=false -DskipTests clean deploy -P autoInstallBundle -Dmaven.deploy.skip=true -DskipNexusStagingDeployMojo=true "$@"
 echo "- Deployed"
-
-#restart aem container
-restart_aem_docker
-
 
 set_term_title "Deploy Done"
 

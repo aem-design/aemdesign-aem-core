@@ -1,5 +1,7 @@
 <template data-sly-template.variant="${@ componentProperties, componentFields, requestedFields}">
-    <div class="card ${componentProperties.badgeClassAttr @ context='attribute'}">
+    <div class="card ${componentProperties.badgeClassAttr @ context='attribute'}"
+         data-sly-attribute.itemscope="${componentProperties.itemscope}"
+         data-sly-attribute.itemtype="${componentProperties.itemtype @ context = 'uri'}">
         <sly data-sly-test="${'image' in componentFields}">
             <sly data-sly-use.image="${componentFields['image'].path}"
                  data-sly-call="${image.field @ componentProperties=componentProperties}"></sly>

@@ -1,0 +1,12 @@
+<template data-sly-template.field="${@ componentProperties}">
+  <div data-sly-test="${componentProperties.linksType && componentProperties.linksContent}"
+       class="card-links">
+    <ul data-sly-list="${componentProperties.linksType}" class="list">
+      <li class="list__item ${componentProperties.linksType[item].value}">
+        <a href="${componentProperties.linksContent[itemList.index] @ context='attribute'}"
+           title="${componentProperties.linksType[item].title @ context='attribute'}"
+        >${componentProperties.linksType[item].title @ context='text'}</a>
+      </li>
+    </ul>
+  </div>
+</template>

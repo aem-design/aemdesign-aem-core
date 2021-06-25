@@ -2,7 +2,7 @@
     <section style="${componentProperties.attr.data.style @ context = 'unsafe'}"
              data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
         <div class="content">
-            <a name="${componentProperties.instanceName}"></a>
+            <a name="${componentProperties.componentId || componentProperties.instanceName}"></a>
             <div data-sly-test="${!componentProperties.hideTitle}" class="title">
                 <ul class="linksleft float-left"
                     data-sly-test="${componentProperties.listLinksLeft && !componentProperties.linksLeftTitle}">
@@ -42,7 +42,9 @@
                        data-sly-element="${componentProperties.titleType}">${componentProperties.title}</title>
             </div>
             <div class="contents">
-                <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>
+                <!--/* template path is this relative to aemdesign/components/layout/contentblock */-->
+                <sly data-sly-use.container="../container/par.html"
+                     data-sly-call="${container.container @ componentProperties=componentProperties}"></sly>
                 <div data-sly-test="${componentProperties.firstComponentConfig}" class="firstComponentConfig">
                     <table>
                         <thead>

@@ -1,10 +1,32 @@
 <sly data-sly-use.component="design.aem.models.v2.widgets.Vue"
-     data-sly-use.variant="${component.componentProperties.variantTemplate}"
-     data-sly-use.info="aemdesign/global/templates/component-info.html">
+     data-sly-set.componentProperties="${component.componentProperties}"
+     data-sly-set.componentName="${componentProperties.vueComponentName}">
+  <div data-sly-attribute="${componentProperties.attr.data @ context='unsafe'}"
+       component>
+    <div data-sly-test="${componentName && wcmmode.disabled}"
+         vue-component="${componentName}">
+      ${component.componentHTML @ context='unsafe'}
+      <noscript>Please enable JavaScript to get the full experience of this website.</noscript>
+    </div>
 
-  <!--/* print component variant */-->
-  <sly data-sly-call="${variant.variant @ componentProperties=component.componentProperties, componentHTML=component.componentHTML}"></sly>
+    <div data-sly-test="${componentName && (wcmmode.edit || wcmmode.preview)}">
+      <h4>Vue Component Configuration</h4>
+      <table>
+        <tr>
+          <td width="150px">Name:</td>
+          <td>${componentProperties.vueComponentName}</td>
+        </tr>
+        <sly data-sly-list="${componentProperties.configOutput}">
+          <tr>
+            <td>${item}:</td>
+            <td>${componentProperties.configOutput[item]}</td>
+          </tr>
+        </sly>
+      </table>
+    </div>
 
-  <!--/* print component info in edit mode */-->
-  <sly data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></sly>
+    <div data-sly-test="${!componentName && wcmmode.edit}">
+      <p>Invalid component state, no Vue component has been configured yet!</p>
+    </div>
+  </div>
 </sly>

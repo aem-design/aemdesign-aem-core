@@ -1,6 +1,6 @@
-# aemdesign-aem-core
+# AEM.Design Core 
 
-[![build_status](https://github.com/aem-design/aemdesign-aem-core/workflows/ci/badge.svg)](https://github.com/aem-design/aemdesign-aem-core/actions?workflow=ci)
+[![build_status](https://github.com/aem-design/aemdesign-aem-core/workflows/ci/badge.svg?branch=develop)](https://github.com/aem-design/aemdesign-aem-core/actions?workflow=ci)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=design.aem%3Aaemdesign-aem-core&metric=alert_status)](https://sonarcloud.io/dashboard?id=design.aem%3Aaemdesign-aem-core)
 [![codecov](https://codecov.io/gh/aem-design/aemdesign-aem-core/branch/master/graph/badge.svg?magic)](https://codecov.io/gh/aem-design/aemdesign-aem-core)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/design.aem/aemdesign-aem-common/badge.svg?magic)](https://maven-badges.herokuapp.com/maven-central/design.aem/aemdesign-aem-common)
@@ -11,6 +11,8 @@
 [![github repo size](https://img.shields.io/github/languages/code-size/aem-design/aemdesign-aem-core)](https://github.com/aem-design/aemdesign-aem-core) 
 [![github release](https://img.shields.io/github/release/aem-design/aemdesign-aem-core)](https://github.com/aem-design/aemdesign-aem-core)
 [![CodeFactor](https://www.codefactor.io/repository/github/aem-design/aemdesign-aem-core/badge)](https://www.codefactor.io/repository/github/aem-design/aemdesign-aem-core)
+[![Visit AEM.Design](https://img.shields.io/badge/visit-aem.design-brightgreen)](https://aem.design/)
+[![Gitter](https://img.shields.io/gitter/room/aem-design/Lobby)](https://gitter.im/aem-design/Lobby)
 
 A set of standardized components for AEM 6.4+ that can be used to speed up development of websites.
 
@@ -19,28 +21,11 @@ A set of standardized components for AEM 6.4+ that can be used to speed up devel
 * [AEM.Design Blog](https://aem.design)
 * [AEM.Design SonarCloud](https://sonarcloud.io/project/issues?id=design.aem%3Aaemdesign-aem-core)
 
-You will require a latest version of [aemdesign-aem-compose](https://github.com/aem-design/aemdesign-aem-support/releases) that has the base dialogs configuration content. 
-
-## Sonar Quality Gate
-
-After completing your commits and before PUSHING please run following command to push your updates to sonar.
-Please cleanup your updates do not add items to Reliability, Security and Maintainability measures, please dont be a 💩 and cleanup your code 🙏😍
-
-On Master branch run this
-
-```bash
-mvn sonar:sonar "-Dsonar.branch.name=master" "-Dsonar.host.url=https://sonarcloud.io" "-Dsonar.login=e565f767e9723a7e1b27e1c339cc24dc8ee87aaf" "-Dsonar.organization=aemdesign-github"
-```
-
-On other branches run this, change ``sonar.branch.name`` to your branch name
-
-```bash
-mvn sonar:sonar "-Dsonar.branch.name=develop" "-Dsonar.branch.target=master" "-Dsonar.host.url=https://sonarcloud.io" "-Dsonar.login=e565f767e9723a7e1b27e1c339cc24dc8ee87aaf" "-Dsonar.organization=aemdesign-github"
-```
+You will require a latest version of [aemdesign-aem-compose](https://github.com/aem-design/aemdesign-aem-support/releases) that has the base dialog's configuration content. 
 
 ## Development
 If you're curious about how the next generation of components looks like, a tech preview is made available in the
-[`development`](https://github.com/aem-design/aemdesign-aem-core/tree/development) branch.
+[`develop`](https://github.com/aem-design/aemdesign-aem-core/tree/develop) branch.
 
 ## Contributing
 
@@ -129,6 +114,7 @@ Detailed table of component can be found here [Component List](https://github.co
 | Coral / Datasources / Tags                                      	| [Tags](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/coral/datasources/tags)                                                  	|
 | Coral / Foundation / Accordion                                  	| [Accordion](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/coral/foundation/accordion)                                         	|
 | Coral / Widgets/Form / Asset Options                            	| [Asset Options](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/coral/widgets/form/assetoptions)                                	|
+| Replication / Akamai Cache Flush                                  | [Akamai Cache Flush](https://github.com/aem-design/aemdesign-aem-core/tree/master/aemdesign-aem-common/src/main/content/jcr_root/apps/aemdesign/components/replication/akamai)                                	|
 
 ## Component Versioning
 
@@ -229,23 +215,13 @@ inside the configuration of the `content-package-maven-plugin`.
 
 Following section describes some of the development topics
 
-## Release Versions
-
-Release versions are automated and based on Tags and Commit count from Tag using the `git describe` command
-
-To see what the new version will be run:
-
-`mvn help:evaluate -q -DforceStdout -Dexpression=project.version`
-
 ## Version Convention
 
 Version numbers for Git Tags should follow semver format:
 
- * MAJOR version when you make incompatible API changes,
- * MINOR version when you add functionality in a backwards-compatible manner, and
- * PATCH version is automatically generated based on git commit count from last Tag
-
-Please use MAJOR and MINOR version in Tags, PATCH version will be automatically added as a commit count since the last tag using the git describe.
+ * **MAJOR** version when you make incompatible API changes,
+ * **MINOR** version when you add functionality in a backwards-compatible manner, and
+ * **PATCH** version when you make small incremental changes
 
 ## Minimal core artifacts required for providing overridable AEM components.
  
@@ -271,37 +247,40 @@ Releases are managed via the maven plugins `versions-maven-plugin` and `maven-sc
 
 Version numbers should follow the [SemVer](https://semver.org/) convention.
 
-### The release process
-#### Prepare release branch
-In preparation for a release, create a new git release branch from the current master snapshot branch:
- 1. Create a new release branch.
-    * `mvn scm:branch -Dbranch=release/<version> -Dmessage="creating release branch <version>"`
- 2. Ensure you are on the new release branch.
-    * `git checkout release/<version>`
- 3. Update the maven `version` parameter.
-    * `mvn versions:set -DnewVersion=<version>`
- 4. Check the version number was correctly applied and confirm.
-    * `mvn versions:commit`
- 5. Commit the updated version numbers to the release branch.
-    * `mvn scm:checkin -Dmessage="updating version numbers"`
+## Release Versions
 
-#### Release new version
-Once the testing cycle has been completed and all code fixes have been applied to the remote release branch, we create a git tag of our version and deploy the maven `aemdesign-aem-core` artifact to the remote maven repository and merge our release to master branch.
- 1. Ensure we are on the release branch for [aemdesign-aem-core](https://github.com/aem-design/aemdesign-aem-core).
- 2. Raise a Merge Request from the relase branch to master branch, adding the necessary reviewers.
- 3. Create the git tag.
-    * `mvn scm:tag -Dtag="<version>"`
- 4. Deploy the maven release artifacts to the remote maven repository
-    * `<ToDo>`
- 5. Accept the [aemdesign-aem-core](https://github.com/aem-design/aemdesign-aem-core) Merge Request and delete the release branch.
- 6. Update the `Release history` section in this readme with details of the new release.
-  
- 
+Release versions are automated and based on Tags in format MAJOR.MINOR and Commit count from Tag using the `git describe` command.
+
+To test git versioning run
+
+`git describe`
+
+this will show you generated version message with latest tag and how many commits since tag.
+
+If you get an error:
+
+`fatal: No annotated tags can describe`
+
+create a new tag for your current version MAJOR.MINOR, the rest will be automated:
+
+`git tag 2.1 -f -m "2.1"`
+
+To create a release all you need to do is create a tag MAJOR.MINOR on master branch and push it.
+
+## Version Convention
+
+Version numbers for Git Tags should follow semver format:
+
+ * MAJOR version when you make incompatible API changes,
+ * MINOR version when you add functionality in a backwards-compatible manner, and
+ * PATCH version is automatically generated based on git commit count from last Tag
+
+Please use MAJOR and MINOR version in Tags, PATCH version will be automatically added as a commit count since the last tag using the git describe.
+
 ## Release history
 
-Please review [Versions](VERSIONS.md) for all version history
+Please review the [change log](CHANGELOG.md) for all version history.
 
 ## Commit Signatures
 
 Please ensure you have GPG setup and you sign all of your commits.
-

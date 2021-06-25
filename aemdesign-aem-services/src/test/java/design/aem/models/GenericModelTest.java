@@ -3,16 +3,12 @@ package design.aem.models;
 import ch.qos.logback.classic.Logger;
 import design.aem.components.ComponentProperties;
 import design.aem.impl.services.ContentAccessImplTest;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
 public class GenericModelTest {
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(ContentAccessImplTest.class);
@@ -122,7 +118,7 @@ public class GenericModelTest {
         ComponentProperties output = ((GenericComponent) genericModel).getComponentProperties();
 
         // Verify the results
-        assertEquals(componentProperties, output);
+        Assertions.assertEquals(componentProperties, output);
     }
 
 //    @Test

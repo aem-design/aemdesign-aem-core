@@ -2,8 +2,7 @@ package design.aem.models.v2.lists;
 
 import com.day.cq.commons.LanguageUtil;
 import com.day.cq.wcm.api.Page;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import design.aem.utils.components.ConstantsUtil;
 import design.aem.utils.components.ResolverUtil;
@@ -20,98 +19,73 @@ import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
-public class LanguageNavigation extends ModelProxy {
-
-    protected ComponentProperties componentProperties = null;
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
+public class LanguageNavigation extends BaseComponent {
     private static final String SEARCH_LOGIC = "searchlogic";
-    private static final String SEARCH_LOGIC_DEFAULT = "";
+    private static final String SEARCH_LOGIC_DEFAULT = StringUtils.EMPTY;
     private static final String FIELD_DESCRIPTION = "description";
 
-    @SuppressWarnings({"Duplicates","squid:S3776"})
+    @SuppressWarnings({"Duplicates", "squid:S3776"})
     protected void ready() {
-        /*
-          Component Fields Helper
-
-          Structure:
-          1 required - property name,
-          2 required - default value,
-          3 optional - name of component attribute to add value into
-          4 optional - canonical name of class for handling multivalues, String or Tag
-         */
-        setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {"languageSet", new String[]{}},
-                {SEARCH_LOGIC, SEARCH_LOGIC_DEFAULT}
-        });
-
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
 
         Map<String, Map<String, String>> languageToggleMap = new LinkedHashMap<>();
 
         String appearanceOption = componentProperties.get(SEARCH_LOGIC, String.class);
-
-        boolean isShowRoot =  ("showRoot").equals(appearanceOption);
-
-        boolean isShowNothing =  ("showNothing").equals(appearanceOption);
-
         String[] tagsFilterList = componentProperties.get("languageSet", new String[]{});
 
-        LinkedHashMap<String, Map> languageMap = getTagsAsAdmin(getSlingScriptHelper(), tagsFilterList, getRequest().getLocale());
+        boolean isShowRoot = ("showRoot").equals(appearanceOption);
+        boolean isShowNothing = ("showNothing").equals(appearanceOption);
 
-        if (!isShowNothing && languageMap != null || !languageMap.isEmpty()){
+        LinkedHashMap<String, Map<String, String>> languageMap = getTagsAsAdmin(
+            getSlingScriptHelper(),
+            tagsFilterList,
+            getRequest().getLocale());
 
-            //get info on current page
+        if (!isShowNothing || !languageMap.isEmpty()) {
             Page currentPage = getResourcePage();
-            String languageRoot = "";
-            String pagePath = "";
+            String languageRoot = StringUtils.EMPTY;
+            String pagePath = StringUtils.EMPTY;
+
             if (currentPage != null) {
                 pagePath = currentPage.getPath();
                 languageRoot = LanguageUtil.getLanguageRoot(getResourcePage().getPath());
-
-                //get language sub path
                 pagePath = pagePath.substring(languageRoot.length());
-
             }
 
-
             String languageSiteParentPath = StringUtils.EMPTY;
-            Resource languageSiteRootPage = null;
-            //for each configuref language
-            for (String key : languageMap.keySet()){
+            Resource languageSiteRootPage;
 
-                //get language tag info
+            for (String key : languageMap.keySet()) {
                 Map<String, String> langTag = languageMap.get(key);
+
                 String tagValue = langTag.get("value");
                 String tagTitle = langTag.get("title");
                 String tagDescription = langTag.get(FIELD_DESCRIPTION);
 
                 if (isEmpty(languageSiteParentPath)) {
-                    //remove country and language from end
                     languageRoot = languageRoot.substring(0, languageRoot.indexOf(tagValue));
-
-                    //get new path
                     languageSiteRootPage = getResourceResolver().resolve(languageRoot);
 
-                    //if valid path
                     if (!ResourceUtil.isNonExistingResource(languageSiteRootPage)) {
                         languageSiteParentPath = languageSiteRootPage.getPath();
                     }
                 }
 
+                String langPageRootPath = MessageFormat.format(
+                    "{0}/{1}",
+                    languageSiteParentPath,
+                    tagValue);
 
-                String langPageRootPath = MessageFormat.format("{0}/{1}", languageSiteParentPath, tagValue);
-                String langPagePath = MessageFormat.format("{0}/{1}{2}", languageSiteParentPath, tagValue,pagePath);
+                String langPagePath = MessageFormat.format(
+                    "{0}/{1}{2}",
+                    languageSiteParentPath,
+                    tagValue,
+                    pagePath);
 
-
-                //get language root and matching language page
                 Resource langPageRoot = getResourceResolver().resolve(langPageRootPath);
                 Resource langPage = getResourceResolver().resolve(langPagePath);
 
@@ -123,13 +97,13 @@ public class LanguageNavigation extends ModelProxy {
                     langPage = null;
                 }
 
-
-                //if page and root is found
-                if (langPage != null && langPageRoot !=null) {
-
-
+                if (langPage != null && langPageRoot != null) {
                     Map<String, String> pageInfo = new HashMap<>();
-                    pageInfo.put("path", ResolverUtil.mappedUrl(getResourceResolver(), langPage.getPath()).concat(ConstantsUtil.DEFAULT_EXTENTION));
+
+                    pageInfo.put("path", ResolverUtil.mappedUrl(
+                        getResourceResolver(),
+                        langPage.getPath()).concat(ConstantsUtil.DEFAULT_EXTENTION));
+
                     pageInfo.put(FIELD_DESCRIPTION, tagDescription);
                     pageInfo.put("displayTitle", tagTitle);
 
@@ -138,6 +112,7 @@ public class LanguageNavigation extends ModelProxy {
                     }
 
                     Page langPageRootPage = langPageRoot.adaptTo(Page.class);
+
                     if (langPageRootPage != null) {
                         String hrefLang = langPageRootPage.getLanguage().toLanguageTag();
                         String language = langPageRootPage.getLanguage().toString();
@@ -146,10 +121,9 @@ public class LanguageNavigation extends ModelProxy {
                     }
 
                     languageToggleMap.put(tagValue, pageInfo);
-
                 } else if (isShowRoot && langPageRoot != null) {
-                    //if page is not found and root is found and showroot is set
                     Page langPageRootPage = langPageRoot.adaptTo(Page.class);
+
                     if (langPageRootPage != null) {
                         String hrefLang = langPageRootPage.getLanguage().toLanguageTag();
                         String language = langPageRootPage.getLanguage().toString();
@@ -165,17 +139,21 @@ public class LanguageNavigation extends ModelProxy {
                             pageInfo.put("current", "true");
                         }
 
-                        languageToggleMap.put(langPageRootPage.getName(),pageInfo);
+                        languageToggleMap.put(langPageRootPage.getName(), pageInfo);
                     }
                 }
-
-
             }
-
         }
 
         componentProperties.put("languageMap", languageToggleMap);
-
     }
 
+    @Override
+    protected void setFields() {
+        setComponentFields(new Object[][]{
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {"languageSet", new String[]{}},
+            {SEARCH_LOGIC, SEARCH_LOGIC_DEFAULT}
+        });
+    }
 }

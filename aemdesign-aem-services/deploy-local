@@ -1,4 +1,4 @@
 #!/bin/bash
 
-./deploy -Dcrx.host=localhost
+./deploy -Daem.host=localhost "$@"
 

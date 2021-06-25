@@ -1,14 +1,24 @@
 name: ci
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    types: [ opened, synchronize, reopened ]
 
 jobs:
   build:
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
     runs-on: ubuntu-latest
+
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.6]
+        java-version: [ 8 ]
+        python-version: [ 3.6 ]
+
     env:
       DOCKER_IMAGE: "aemdesign/centos-java-buildpack"
       SONAR_ORGANISATION: "aemdesign-github"
@@ -17,7 +27,6 @@ jobs:
       SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
       SONATYPE_USERNAME: "aemdesign"
       GITHUB_USER: aemdesign
-      TRAVIS_TOKEN: ${{ secrets.TRAVIS_TOKEN }}
       GITHUB_EMAIL: ${{ secrets.GITHUB_EMAIL }}
       GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
       GITHUB_TOKEN_ADMIN: ${{ secrets.GITHUB_TOKEN_ADMIN }}
@@ -31,51 +40,70 @@ jobs:
       GPG_PUBID: "50A036956AAC64C13EF47B10D1E96A30ECFC7DFF"
       GPG_PUBID_KEYGRIP: "020E615868703482DC2CD110B98D2702B6ABF89C"
 
-      
-
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
         with:
           submodules: true
           lfs: true
-      - uses: actions/setup-node@v1
+
+      - name: set up jdk ${{ matrix.java-version }}
+        uses: actions/setup-java@v1
         with:
-          node-version: '10.x'
-          registry-url: https://npm.pkg.github.com/
-          scope: "@aem-design"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN_ADMIN }}
+          java-version: ${{ matrix.java-version }}
+
       - name: set up python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python-version }}
+
       - name: get release notes
+        id: config
         run: |
           source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/latest/download/github_get_version.sh)
-          echo "===START==="
-          echo $GIT_RELEASE_NOTES
-          echo "====END===="
-          echo CURRENT_VERSION=$CURRENT_VERSION
+
+      - name: release notes
+        run: |
+          echo "${{ steps.config.outputs.GIT_RELEASE_NOTES }}"
+          echo CURRENT_VERSION="${{ steps.config.outputs.CURRENT_VERSION }}"
+
       - name: set eval variables
         run: |
-          echo ::set-env name=DOCKER_COMMAND::docker run --user $(id -u):$(id -g) -v ${GITHUB_WORKSPACE}:/build ${DOCKER_IMAGE}
+          echo "DOCKER_COMMAND=docker run --user $(id -u):$(id -g) -v ${GITHUB_WORKSPACE}:/build ${DOCKER_IMAGE}" >> $GITHUB_ENV
           $DOCKER_COMMAND java -version
           $DOCKER_COMMAND node -v
           git config --global user.email "${GITHUB_EMAIL}"
           git config --global user.name "${GITHUB_USERNAME}"
+
       - name: setup gpg
         run: |
           source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/latest/download/setup-gpg.sh)
 
-      - name: docker - mvn package
+      - name: cache sonarcloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: cache maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: mvn package
         run: $DOCKER_COMMAND mvn package -B -Dmaven.repo.local=./build/.m2/repository
 
-      - name: docker - sonar qube on master
-        if: github.ref == 'refs/heads/master'
-        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
-      - name: docker - sonar qube on branches
-        if: github.ref != 'refs/heads/master'
-        run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+      # SonarQube for master
+      #- name: docker - sonar qube on master
+      #  if: github.ref == 'refs/heads/master'
+      #  run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+
+      # SonarQube for branches
+      #- name: docker - sonar qube on branches
+      #  if: github.ref != 'refs/heads/master'
+      #  run: mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
 
       - name: run unit tests with coverage reports
         run: mvn test -q && bash <(curl -s https://codecov.io/bash)
@@ -91,9 +119,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.GITHUB_TAG }}
-          release_name: ${{ env.GITHUB_TAG }}
-          body: ${{ env.GIT_RELEASE_NOTES }}
+          tag_name: ${{ steps.config.outputs.CURRENT_VERSION }}
+          release_name: ${{ steps.config.outputs.CURRENT_VERSION }}
+          body: ${{ steps.config.outputs.GIT_RELEASE_NOTES }}
           draft: false
           prerelease: false
 
