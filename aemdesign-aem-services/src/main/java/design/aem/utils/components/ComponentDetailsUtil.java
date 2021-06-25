@@ -366,11 +366,14 @@ public class ComponentDetailsUtil {
                                 return componentProperties;
                         }
 
+                        //get page properties and any if have been overridden by Details component
                         Object[][] componentFields = {
                                 {TagConstants.PN_TAGS, new String[]{}},
+                                {FIELD_TITLE, getPageTitle(page, detailsNodeResource)},
                                 {FIELD_PAGE_TITLE, getPageTitle(page, detailsNodeResource)},
-                                {FIELD_PAGE_TITLE_NAV, getPageNavTitle(page)},
-
+                                {FIELD_PAGE_TITLE_NAV, getPageNavTitle(page, detailsNodeResource)},
+                                {FIELD_DESCRIPTION, getPageDescription(page, detailsNodeResource)},
+                                {FIELD_PAGE_TAGS, getPageTags(page, detailsNodeResource)},
                         };
 
                         componentProperties = getComponentProperties(
@@ -395,11 +398,8 @@ public class ComponentDetailsUtil {
 
                 }
 
-                componentProperties.put("title", page.getTitle());
-                componentProperties.put("pageTags", getPageTags(page));
-                componentProperties.put("description", page.getDescription());
+                componentProperties.put(FIELD_DESCRIPTION, page.getDescription());
                 componentProperties.put("hideInNav", page.isHideInNav());
-                componentProperties.put("pageNavTitle", getPageNavTitle(page));
                 componentProperties.put("name", page.getName());
                 componentProperties.put("href", getPageUrl(page));
                 componentProperties.put("authHref", page.getPath().concat(DEFAULT_EXTENTION));

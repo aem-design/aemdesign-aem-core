@@ -1,18 +1,20 @@
 package design.aem.utils.components;
 
 import com.day.cq.i18n.I18n;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.when;
+import java.util.ResourceBundle;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.openMocks;
+
 public class I18nUtilTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(I18nUtilTest.class);
@@ -20,13 +22,25 @@ public class I18nUtilTest {
     @Mock
     I18n i18n;
 
+    private AutoCloseable closeable;
+
+    @BeforeEach
+    void setup() {
+        closeable = openMocks(this);
+    }
+
+    @AfterEach
+    void close() throws Exception {
+        closeable.close();
+    }
+
     @Test
     public void testClass() {
         // Run the test
         I18nUtil test = new I18nUtil();
 
         // Verify the results
-        assertNotNull(test);
+        Assertions.assertNotNull(test);
     }
 
     @Test
@@ -40,16 +54,15 @@ public class I18nUtilTest {
         final String params = "params";
         final String expectedResult = "result";
 
-
         when(i18n.get(defaultCode, defaultCategory, params)).thenReturn(expectedResult);
         when(i18n.get(currentLabel, currentCategory, params)).thenReturn(expectedResult);
 
         // Run the test
-        final String result = I18nUtil.getDefaultLabelIfEmpty(currentLabel,currentCategory, defaultCode, defaultCategory, i18n, params);
+        final String result = I18nUtil.getDefaultLabelIfEmpty(currentLabel, currentCategory, defaultCode, defaultCategory, i18n, params);
 
 
         // Verify the results
-        assertEquals(expectedResult, result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -68,11 +81,11 @@ public class I18nUtilTest {
         when(i18n.get(currentLabel, currentCategory, params)).thenReturn(expectedResult);
 
         // Run the test
-        final String result = I18nUtil.getDefaultLabelIfEmpty(currentLabel,currentCategory, defaultCode, defaultCategory, i18n, params);
+        final String result = I18nUtil.getDefaultLabelIfEmpty(currentLabel, currentCategory, defaultCode, defaultCategory, i18n, params);
 
 
         // Verify the results
-        assertEquals(expectedResult, result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -91,11 +104,11 @@ public class I18nUtilTest {
         when(i18n.get(currentLabel, currentCategory, params)).thenReturn("");
 
         // Run the test
-        final String result = I18nUtil.getDefaultLabelIfEmpty(currentLabel,currentCategory, defaultCode, defaultCategory, i18n, params);
+        final String result = I18nUtil.getDefaultLabelIfEmpty(currentLabel, currentCategory, defaultCode, defaultCategory, i18n, params);
 
 
         // Verify the results
-        assertEquals(expectedResult, result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
 
@@ -113,11 +126,11 @@ public class I18nUtilTest {
         when(i18n.get(defaultCode, defaultCategory, params)).thenReturn(expectedResult);
 
         // Run the test
-        final String result = I18nUtil.getDefaultLabelIfEmpty(defaultCode, defaultCategory, defaultLabel,  i18n, params);
+        final String result = I18nUtil.getDefaultLabelIfEmpty(defaultCode, defaultCategory, defaultLabel, i18n, params);
 
 
         // Verify the results
-        assertEquals(expectedResult, result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -133,10 +146,10 @@ public class I18nUtilTest {
         when(i18n.get(defaultCode, defaultCategory, params)).thenReturn("");
 
         // Run the test
-        final String result = I18nUtil.getDefaultLabelIfEmpty(defaultCode, defaultCategory, defaultLabel,  i18n, params);
+        final String result = I18nUtil.getDefaultLabelIfEmpty(defaultCode, defaultCategory, defaultLabel, i18n, params);
 
 
         // Verify the results
-        assertEquals(defaultLabel, result);
+        Assertions.assertEquals(defaultLabel, result);
     }
 }

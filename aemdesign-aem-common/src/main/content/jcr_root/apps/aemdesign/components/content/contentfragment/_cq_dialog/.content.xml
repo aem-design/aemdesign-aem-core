@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Content Fragment"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    extraClientlibs="[core.wcm.components.contentfragment.v1.dialog]"
+    helpPath="https://www.adobe.com/go/aem_cmp_contentfragment_v1"
+    trackingFeature="core-components:contentfragment:v1">
+    <content
+        granite:class="cmp-contentfragment__editor"
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/container">
+        <items jcr:primaryType="nt:unstructured">
+            <tabs
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/tabs"
+                maximized="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <paragraphcontentimport
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Paragraph Content Import"
+                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                        margin="{Boolean}true"
+                        granite:hidden="{Boolean}true">
+                        <granite:rendercondition
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/renderconditions/simple"
+                            expression="false">
+                        </granite:rendercondition>
+                        <items jcr:primaryType="nt:unstructured">
+                            <paragraphcontentimport
+                                granite:class="cmp-contentfragment__editor-paragraph-content-import"
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                <granite:data
+                                    jcr:primaryType="nt:unstructured"
+                                    field-path="${requestPathInfo.resourcePath}"/>
+                                <items jcr:primaryType="nt:unstructured">
+                                    <content
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <paragraphcontentimport
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/button"
+                                                granite:class="js-contentfragment-importassets"
+                                                text="Import Paragraph Content"
+                                                formId="./paragraphContentImportAction"/>
+                                            <paragraphcontentimportinfo
+                                                granite:class="paragraphcontentimportinfo"
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/text"
+                                                text="Import paragraph assets content into page."/>
+                                        </items>
+                                    </content>
+                                </items>
+                            </paragraphcontentimport>
+                        </items>
+                    </paragraphcontentimport>
+                </items>
+            </tabs>
+        </items>
+    </content>
+</jcr:root>

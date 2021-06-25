@@ -1,6 +1,10 @@
 <template data-sly-template.variant="${@ componentProperties}">
-    <time style="${componentProperties.attr.data.style @ context = 'unsafe'}"
-          data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+  <div itemprop="datePublished"
+       content="${componentProperties.publishDateText}"
+       style="${componentProperties.attr.data.style @ context = 'unsafe'}"
+       data-sly-attribute="${componentProperties.attr.data @ context = 'unsafe'}">
+    <time datetime="${componentProperties.publishDateText}">
         ${componentProperties.publishDisplayDateText}
     </time>
+  </div>
 </template>

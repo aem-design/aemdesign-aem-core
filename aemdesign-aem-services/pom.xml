@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
     <modelVersion>4.0.0</modelVersion>
 
     <!-- ====================================================================== -->
@@ -8,7 +9,7 @@
     <parent>
         <groupId>design.aem</groupId>
         <artifactId>aemdesign-aem-core</artifactId>
-        <version>2.0.643</version>
+        <version>2.1.306</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +18,7 @@
     <!-- ====================================================================== -->
 
     <artifactId>aemdesign-aem-services</artifactId>
-    <version>2.0.643</version>
+    <version>2.1.306</version>
     <packaging>jar</packaging>
     <name>AEM Design - Core - AEM Services</name>
     <description>Project for all AEM and OSGI Services</description>
@@ -29,12 +30,18 @@
         <maven.enforcer.version>3.0.0-M2</maven.enforcer.version>
         <gson.version>2.8.5</gson.version>
         <jsoup.version>1.11.2</jsoup.version>
+        <webp.version>0.1.0</webp.version>
+        <imageio.version>1.4.0</imageio.version>
     </properties>
 
     <developers>
         <developer>
             <email>max@aem.design</email>
             <name>Max Barrass</name>
+        </developer>
+        <developer>
+            <email>me@cshaw.xyz</email>
+            <name>Chris Shaw</name>
         </developer>
     </developers>
 
@@ -44,7 +51,7 @@
     </scm>
 
     <issueManagement>
-        <system>Github</system>
+        <system>GitHub</system>
         <url>https://github.com/aem-design/aemdesign-aem-core/issues</url>
     </issueManagement>
 
@@ -86,7 +93,7 @@
         </repository>
         <repository>
             <id>central maven</id>
-            <url>http://central.maven.org/maven2/</url>
+            <url>https://repo1.maven.org/maven2/</url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
@@ -96,6 +103,7 @@
             </snapshots>
         </repository>
     </repositories>
+
     <pluginRepositories>
         <pluginRepository>
             <id>adobe-public-releases</id>
@@ -105,7 +113,7 @@
         </pluginRepository>
         <pluginRepository>
             <id>central maven</id>
-            <url>http://central.maven.org/maven2/</url>
+            <url>https://repo1.maven.org/maven2/</url>
             <layout>default</layout>
         </pluginRepository>
     </pluginRepositories>
@@ -114,9 +122,7 @@
     <!-- B U I L D D E F I N I T I O N -->
     <!-- ====================================================================== -->
     <build>
-
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -133,8 +139,10 @@
                                     <excludes>
                                         <exclude>org.apache.felix:maven-scr-plugin</exclude>
                                     </excludes>
-                                    <message>Felix SCR annotations and the maven-scr-plugin are no longer supported - please migrate to OSGi
-                                        annotations or stick with Sling Parent 29.</message>
+                                    <message>Felix SCR annotations and the maven-scr-plugin are no longer supported -
+                                        please migrate to OSGi
+                                        annotations or stick with Sling Parent 29.
+                                    </message>
                                 </bannedPlugins>
                             </rules>
                         </configuration>
@@ -150,8 +158,10 @@
                                     <excludes>
                                         <exclude>org.apache.felix:maven-bundle-plugin</exclude>
                                     </excludes>
-                                    <message>The maven-bundle-plugin is no longer supported - please migrate to bnd-maven-plugin or stick
-                                        with Sling Parent 34.</message>
+                                    <message>The maven-bundle-plugin is no longer supported - please migrate to
+                                        bnd-maven-plugin or stick
+                                        with Sling Parent 34.
+                                    </message>
                                 </bannedPlugins>
                             </rules>
                         </configuration>
@@ -166,7 +176,8 @@
                                 <!-- Require Java 8 or higher for building (as bnd since version 4.0 only supports Java 8, https://github.com/bndtools/bnd/wiki/Changes-in-4.0.0) -->
                                 <requireJavaVersion>
                                     <message>
-                                        Apache Sling must be compiled with Java 8 or higher as the bnd-maven-plugin requires that.
+                                        Apache Sling must be compiled with Java 8 or higher as the bnd-maven-plugin
+                                        requires that.
                                     </message>
                                     <version>1.8.0</version>
                                 </requireJavaVersion>
@@ -200,6 +211,8 @@ Bundle-Description: ${project.description}
 Bundle-DocURL: https://aem.design
 Bundle-License: Apache License, Version 2.0
 Bundle-Vendor: AEM.Design
+Embed-Transitive: true
+Sling-Model-Packages: design.aem
 Export-Service: design.aem.workflow.process.*
 Export-Package: design.aem.*,\
 org.jsoup,\
@@ -213,12 +226,17 @@ org.apache.commons.jexl3.*,\
 org.apache.sling.installer.api.info,\
 org.apache.sling.installer.api.tasks,\
 com.adobe.acs.commons.fam,\
-com.adobe.acs.commons.util,\
 com.adobe.acs.commons.workflow,\
-com.adobe.acs.commons.util.visitors
+com.adobe.acs.commons.util.visitors,\
+com.luciad.imageio.webp.*,\
+com.github.jai-imageio.*,\
+com.github.jaiimageio.*,\
+com.akamai.edgegrid.signer.*
 -includeresource:\
 lib/jsoup-${jsoup.version}.jar=jsoup-${jsoup.version}.jar;lib:=true,\
-lib/gson-${gson.version}.jar=gson-${gson.version}.jar;lib:=true
+lib/gson-${gson.version}.jar=gson-${gson.version}.jar;lib:=true,\
+lib/webp-imageio-sejda-${webp.version}.jar=webp-imageio-sejda-${webp.version}.jar;lib:=true,\
+lib/jai-imageio-core-${imageio.version}.jar=jai-imageio-core-${imageio.version}.jar;lib:=true
 # export all versioned packages by default
 -exportcontents: design.aem.*,\
 org.jsoup,\
@@ -232,30 +250,25 @@ org.apache.commons.jexl3.*,\
 org.apache.sling.installer.api.info,\
 org.apache.sling.installer.api.tasks,\
 com.adobe.acs.commons.fam,\
-com.adobe.acs.commons.util,\
 com.adobe.acs.commons.workflow,\
-com.adobe.acs.commons.util.visitors
+com.adobe.acs.commons.util.visitors,\
+com.luciad.imageio.webp.*,\
+com.github.jai-imageio.*,\
+com.github.jaiimageio.*,\
+com.akamai.edgegrid.signer.*
 #-sources: false
                                 ]]></bnd>
                         </configuration>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.sling</groupId>
+                        <artifactId>org.apache.sling.bnd.models</artifactId>
+                        <version>1.0.0</version>
+                    </dependency>
+                </dependencies>
             </plugin>
-<!--
-            <plugin>
-                <groupId>biz.aQute.bnd</groupId>
-                <artifactId>bnd-baseline-maven-plugin</artifactId>
-                <version>${bnd.version}</version>
-                <executions>
-                    <execution>
-                        <id>bnd-baseline</id>
-                        <goals>
-                            <goal>baseline</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
--->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -319,33 +332,25 @@ com.adobe.acs.commons.util.visitors
                     <linkXRef>false</linkXRef>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>3.0.5</version>
             </plugin>
 
-<!--            <plugin>-->
-<!--                <groupId>org.jacoco</groupId>-->
-<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--                <version>0.8.4</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>prepare-agent</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    &lt;!&ndash; attached to Maven test phase &ndash;&gt;-->
-<!--                    <execution>-->
-<!--                        <id>report</id>-->
-<!--                        <phase>test</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>report</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
         </plugins>
     </build>
 
@@ -367,7 +372,6 @@ com.adobe.acs.commons.util.visitors
     </reporting>
 
     <profiles>
-
         <profile>
             <id>autoInstallBundle</id>
             <activation>
@@ -379,7 +383,9 @@ com.adobe.acs.commons.util.visitors
                         <groupId>org.apache.sling</groupId>
                         <artifactId>maven-sling-plugin</artifactId>
                         <configuration>
-                            <slingUrl>${package.uploadProtocol}://${crx.host}:${crx.port}/apps/${package.appFolder}/install</slingUrl>
+                            <slingUrl>
+                                ${package.uploadProtocol}://${aem.host}:${aem.port}/apps/${package.appFolder}/install
+                            </slingUrl>
                             <usePut>true</usePut>
                         </configuration>
                         <executions>
@@ -430,16 +436,12 @@ com.adobe.acs.commons.util.visitors
                 </plugins>
             </build>
         </profile>
-
-
     </profiles>
-
 
     <!-- ====================================================================== -->
     <!-- D E P E N D E N C I E S                                                -->
     <!-- ====================================================================== -->
     <dependencies>
-
         <!-- Aggregates (rather use individual artifacts referenced below) -->
         <!-- Core R6 -->
         <dependency>
@@ -448,6 +450,7 @@ com.adobe.acs.commons.util.visitors
             <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Compendium R6 -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -455,6 +458,7 @@ com.adobe.acs.commons.util.visitors
             <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- individual OSGi spec API artifacts (preferred) -->
         <!-- OSGi framework 1.8, Core R6 (https://osgi.org/javadoc/r6/core/org/osgi/framework/package-summary.html) -->
         <dependency>
@@ -463,6 +467,7 @@ com.adobe.acs.commons.util.visitors
             <version>1.8.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Configuration Admin 1.6, Compendium R7 (https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/cm/package-frame.html) -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -470,6 +475,7 @@ com.adobe.acs.commons.util.visitors
             <version>1.6.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Service Component 1.4, Compendium R7 (https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/component/package-frame.html) -->
         <!-- and component property types (https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/component/propertytypes/package-frame.html) -->
         <dependency>
@@ -478,6 +484,7 @@ com.adobe.acs.commons.util.visitors
             <version>1.4.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Event Admin 1.3.1, Compendium R6 (https://osgi.org/javadoc/r6/cmpn/org/osgi/service/event/package-summary.html) -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -485,6 +492,7 @@ com.adobe.acs.commons.util.visitors
             <version>1.3.1</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- OSGi annotations (OSGi R7) -->
         <!-- https://osgi.org/javadoc/osgi.annotation/7.0.0/org/osgi/annotation/versioning/package-frame.html -->
         <dependency>
@@ -493,6 +501,7 @@ com.adobe.acs.commons.util.visitors
             <version>1.1.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- https://osgi.org/javadoc/osgi.annotation/7.0.0/org/osgi/annotation/bundle/package-frame.html -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -500,6 +509,7 @@ com.adobe.acs.commons.util.visitors
             <version>1.0.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/component/annotations/package-frame.html -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -507,6 +517,7 @@ com.adobe.acs.commons.util.visitors
             <version>1.4.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- https://osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/metatype/annotations/package-frame.html -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -514,6 +525,7 @@ com.adobe.acs.commons.util.visitors
             <version>1.4.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- https://sling.apache.org/apidocs/sling11/org/apache/sling/servlets/annotations/package-summary.html -->
         <dependency>
             <groupId>org.apache.sling</groupId>
@@ -521,7 +533,6 @@ com.adobe.acs.commons.util.visitors
             <version>1.2.4</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -538,6 +549,7 @@ com.adobe.acs.commons.util.visitors
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
         </dependency>
+
         <!-- javax.inject 1 -->
         <dependency>
             <artifactId>geronimo-atinject_1.0_spec</artifactId>
@@ -546,6 +558,12 @@ com.adobe.acs.commons.util.visitors
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.8</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -582,23 +600,58 @@ com.adobe.acs.commons.util.visitors
             <artifactId>org.apache.sling.commons.johnzon</artifactId>
         </dependency>
 
+
+        <!-- Testing -->
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.7.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.7.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit-addons</groupId>
+            <artifactId>junit-addons</artifactId>
+            <version>1.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>3.8.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.bnd.models</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- Testing dependencies -->
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.api</artifactId>
-            <version>2.11.0</version>
             <scope>test</scope>
         </dependency>
+
         <!-- for testing we need the new ResourceTypeBasedResourcePicker -->
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.models.impl</artifactId>
-            <version>1.4.4</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.wcm</groupId>
-            <artifactId>io.wcm.testing.aem-mock.junit4</artifactId>
+            <artifactId>io.wcm.testing.aem-mock.junit5</artifactId>
+            <version>2.4.4</version>
+            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.sling</groupId>
@@ -608,7 +661,8 @@ com.adobe.acs.commons.util.visitors
         </dependency>
         <dependency>
             <groupId>org.apache.sling</groupId>
-            <artifactId>org.apache.sling.testing.sling-mock.junit4</artifactId>
+            <artifactId>org.apache.sling.testing.sling-mock.junit5</artifactId>
+            <scope>test</scope>
             <exclusions>
                 <!-- Exclude the older version of the API and use the one from the uber-jar -->
                 <exclusion>
@@ -617,63 +671,26 @@ com.adobe.acs.commons.util.visitors
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.apache.sling</groupId>
-            <artifactId>org.apache.sling.servlet-helpers</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.sling</groupId>
-            <artifactId>org.apache.sling.i18n</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-imaging</artifactId>
-            <version>1.0-R1534292</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-collections4</artifactId>
-            <version>4.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>20.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-junit4</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.18.2-GA</version>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.testing.caconfig-mock-plugin</artifactId>
+            <version>1.3.2</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-imaging</artifactId>
+            <version>1.0-alpha2</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- AEM JAR -->
         <dependency>
             <groupId>com.adobe.aem</groupId>
             <artifactId>uber-jar</artifactId>
@@ -690,7 +707,7 @@ com.adobe.acs.commons.util.visitors
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.xss</artifactId>
-            <version>1.0.16</version>
+            <version>2.2.6</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -699,7 +716,6 @@ com.adobe.acs.commons.util.visitors
             <version>5.9.4</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -739,27 +755,11 @@ com.adobe.acs.commons.util.visitors
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>junit-addons</groupId>
-            <artifactId>junit-addons</artifactId>
-            <version>1.4</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>xercesImpl</artifactId>
-                    <groupId>xerces</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>xmlParserAPIs</artifactId>
-                    <groupId>xerces</groupId>
-                </exclusion>
-            </exclusions>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.13</version>
         </dependency>
-        <dependency>
-            <groupId>org.jmockit</groupId>
-            <artifactId>jmockit</artifactId>
-            <version>1.18</version>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.jcr.api</artifactId>
@@ -796,7 +796,6 @@ com.adobe.acs.commons.util.visitors
             <version>1.11.2</version>
             <scope>compile</scope>
         </dependency>
-
         <dependency>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>findbugs-maven-plugin</artifactId>
@@ -806,31 +805,18 @@ com.adobe.acs.commons.util.visitors
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.8.4</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-jexl3</artifactId>
             <version>3.1</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.3.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-library</artifactId>
-            <version>1.3</version>
-            <scope>test</scope>
-        </dependency>
 
         <dependency>
             <groupId>com.adobe.cq</groupId>
             <artifactId>core.wcm.components.core</artifactId>
             <scope>provided</scope>
-            <version>2.5.0</version>
+            <version>2.15.0</version>
         </dependency>
         <dependency>
             <groupId>com.adobe.cq</groupId>
@@ -851,6 +837,7 @@ com.adobe.acs.commons.util.visitors
             <version>${adobe.acs.version}</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Maven Tools -->
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
@@ -859,7 +846,6 @@ com.adobe.acs.commons.util.visitors
             <type>maven-plugin</type>
         </dependency>
 
-
         <!-- health check around the OSGi installer, http://sling.apache.org/documentation/bundles/osgi-installer.html#health-check -->
         <dependency>
             <groupId>org.apache.sling</groupId>
@@ -867,5 +853,32 @@ com.adobe.acs.commons.util.visitors
             <version>2.0.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.sejda.webp-imageio/webp-imageio-sejda -->
+        <dependency>
+            <groupId>org.sejda.webp-imageio</groupId>
+            <artifactId>webp-imageio-sejda</artifactId>
+            <version>${webp.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jai-imageio</groupId>
+            <artifactId>jai-imageio-core</artifactId>
+            <version>${imageio.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- akamai -->
+        <dependency>
+            <groupId>com.akamai.edgegrid</groupId>
+            <artifactId>edgegrid-signer-apache-http-client</artifactId>
+            <version>4.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.akamai.edgegrid</groupId>
+            <artifactId>edgegrid-signer-core</artifactId>
+            <version>4.0.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

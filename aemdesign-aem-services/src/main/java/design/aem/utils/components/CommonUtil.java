@@ -41,6 +41,7 @@ import java.util.regex.Pattern;
 
 import static design.aem.utils.components.ComponentsUtil.DETAILS_DESCRIPTION;
 import static design.aem.utils.components.ComponentsUtil.DETAILS_TITLE;
+import static design.aem.utils.components.ConstantsUtil.FIELD_PAGE_TITLE_NAV;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -51,13 +52,20 @@ public class CommonUtil {
 
     public static final String COMPONENT_DETAILS_SUFFIX = "-details";
     public static final String PATH_DEFAULT_CONTENT = "article/par";
+    public static final String PATH_DEFAULT_CONTENT_BASIC = "root/responsivegrid";
+    public static final String PATH_DEFAULT_CONTENT_ROOT_ARTICLE = "root/article/par";
     public static final String DEFAULT_PAR_NAME = "par";
 
     public static final String[] DEFAULT_LIST_DETAILS_SUFFIX = new String[]{COMPONENT_DETAILS_SUFFIX}; //NOSONAR used by models
-    public static final String[] DEFAULT_LIST_PAGE_CONTENT = new String[]{DEFAULT_PAR_NAME, PATH_DEFAULT_CONTENT}; //NOSONAR used by models
+    public static final String[] DEFAULT_LIST_PAGE_CONTENT = new String[]{
+        DEFAULT_PAR_NAME,
+        PATH_DEFAULT_CONTENT,
+        PATH_DEFAULT_CONTENT_BASIC,
+        PATH_DEFAULT_CONTENT_ROOT_ARTICLE
+    }; //NOSONAR used by models
 
 
-    public static final String DAM_LICENSE_FORMAT = "© {4} {0} {1} {2} {3}";
+    public static final String DAM_LICENSE_FORMAT = "{4} {0} {1} {2} {3}";
 
     //http://www.photometadata.org/META-Resources-Field-Guide-to-Metadata
     public static final String DAM_TITLE = com.day.cq.dam.api.DamConstants.DC_TITLE;
@@ -218,6 +226,29 @@ public class CommonUtil {
     }
 
     /**
+     * Get a page's description from Details component on the page with failover to page properties.
+     * @param page is the page to get the title for
+     * @param detailsComponent details component resource
+     * @return a string with title from details component or from page
+     */
+    public static String getPageDescription(Page page, Resource detailsComponent) {
+        String pageDescription = "";
+
+        if (!ResourceUtil.isNonExistingResource(detailsComponent)) {
+            ValueMap dcvm = detailsComponent.adaptTo(ValueMap.class);
+            if (dcvm != null) {
+                pageDescription = getPageDescription(page, dcvm);
+            }
+        }
+
+        if (isEmpty(pageDescription)) {
+            pageDescription = page.getDescription();
+        }
+
+        return pageDescription;
+    }
+
+    /**
      * Get a page's title from Details component on the page with failover to page properties.
      * @param page is the page to get the title for
      * @param detailsComponent details component resource
@@ -267,6 +298,32 @@ public class CommonUtil {
     }
 
 
+    /**
+     * Get a page's navigation title, or normal title.
+     * @param page is the page to get the title for
+     * @param detailsComponent details component resource
+     * @return a string with the page title
+     */
+    public static String getPageNavTitle(Page page, Resource detailsComponent) {
+
+        String pageNavTitle = "";
+
+        if (detailsComponent != null) {
+
+            if (!ResourceUtil.isNonExistingResource(detailsComponent)) {
+                ValueMap dcvm = detailsComponent.adaptTo(ValueMap.class);
+                if (dcvm != null) {
+                    pageNavTitle = dcvm.get(FIELD_PAGE_TITLE_NAV, "");
+                }
+            }
+        }
+
+        if (isEmpty(pageNavTitle)) {
+            return getPageNavTitle(page);
+        }
+
+        return pageNavTitle;
+    }
     /**
      * Get a page's navigation title, or normal title.
      * @param page is the page to get the title for
@@ -461,7 +518,7 @@ public class CommonUtil {
      * @return path to component
      */
     public static String findComponentInPage(Page inputPage, String[] resourceTypeTail) {
-        return findComponentInPage(inputPage, resourceTypeTail, new String[]{PATH_DEFAULT_CONTENT});
+        return findComponentInPage(inputPage, resourceTypeTail, DEFAULT_LIST_PAGE_CONTENT);
     }
 
     /**

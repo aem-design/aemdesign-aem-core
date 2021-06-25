@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Panel"
+    title="Settings">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <text
+            jcr:primaryType="cq:Widget"
+            fieldDescription="informative name of this agent"
+            fieldLabel="Name"
+            name="./jcr:title"
+            xtype="textfield"/>
+        <description
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Description"
+            name="./jcr:description"
+            xtype="textarea"/>
+        <retryDelay
+            jcr:primaryType="cq:Widget"
+            fieldDescription="time in milliseconds"
+            fieldLabel="Retry Delay"
+            name="./retryDelay"
+            xtype="textfield"/>
+        <enabled
+            jcr:primaryType="cq:Widget"
+            defaultValue="true"
+            fieldLabel="Enabled"
+            name="./enabled"
+            type="checkbox"
+            xtype="selection"/>
+        <enabledClear
+            jcr:primaryType="cq:Widget"
+            inputValue="x"
+            name="./enabled@Delete"
+            xtype="hidden"/>
+        <logLevel
+            jcr:primaryType="cq:Widget"
+            defaultValue="error"
+            fieldLabel="Log Level"
+            name="./logLevel"
+            type="select"
+            xtype="selection">
+            <options jcr:primaryType="cq:WidgetCollection">
+                <error
+                    jcr:primaryType="nt:unstructured"
+                    text="Error"
+                    value="error"/>
+                <info
+                    jcr:primaryType="nt:unstructured"
+                    text="Info"
+                    value="info"/>
+                <debug
+                    jcr:primaryType="nt:unstructured"
+                    text="Debug"
+                    value="debug"/>
+            </options>
+        </logLevel>
+
+        <serializationType
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Serialization Type"
+            name="./serializationType"
+            defaultValue="flush"
+            value="flush"
+            type="select"
+            xtype="selection">
+            <options jcr:primaryType="cq:WidgetCollection">
+                <default
+                    jcr:primaryType="nt:unstructured"
+                    qtip="Select to use default settings."
+                    text="Flush"
+                    value="flush"/>
+            </options>
+        </serializationType>
+
+    </items>
+</jcr:root>

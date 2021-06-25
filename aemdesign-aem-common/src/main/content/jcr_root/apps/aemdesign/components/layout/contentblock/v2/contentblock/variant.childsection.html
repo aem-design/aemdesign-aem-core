@@ -8,11 +8,13 @@
             <button class="btn btn-link title">${componentProperties.title}</button>
         </div>
         <div id="${componentProperties.componentId}-content"
-             class="${componentProperties.dataToggle}"
+             class="${componentProperties.dataToggle}${wcmmode.edit ? ' show' : ''}"
              aria-labelledby="${componentProperties.componentId}-heading"
              data-parent="#${componentProperties.dataParent}">
             <div class="body">
-                <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container'}"></sly>
+                <!--/* template path is this relative to aemdesign/components/layout/contentblock */-->
+                <sly data-sly-use.container="../container/par.html"
+                     data-sly-call="${container.container @ componentProperties=componentProperties}"></sly>
             </div>
         </div>
     </div>

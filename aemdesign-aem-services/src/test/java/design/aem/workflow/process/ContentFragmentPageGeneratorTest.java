@@ -8,7 +8,6 @@ import com.adobe.acs.commons.fam.ThrottledTaskRunner;
 import com.adobe.acs.commons.util.WorkflowHelper;
 import com.adobe.acs.commons.workflow.WorkflowPackageManager;
 import com.adobe.cq.dam.cfm.ContentFragment;
-import com.adobe.cq.dam.mac.sync.api.DAMSyncService;
 import com.adobe.granite.workflow.WorkflowSession;
 import com.adobe.granite.workflow.exec.WorkItem;
 import com.adobe.granite.workflow.exec.WorkflowData;
@@ -18,51 +17,39 @@ import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.commons.util.DamUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import design.aem.impl.services.ContentAccessImpl;
+import design.aem.context.CoreComponentTestContext;
 import design.aem.utils.components.CommonUtil;
-import io.wcm.testing.mock.aem.junit.AemContext;
+import io.wcm.testing.mock.aem.junit5.AemContext;
+import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.apache.sling.api.resource.*;
-import org.apache.sling.testing.mock.osgi.junit.OsgiContext;
+import org.apache.sling.testing.mock.osgi.context.OsgiContextImpl;
 import org.apache.sling.testing.mock.sling.ResourceResolverType;
-import org.apache.sling.testing.mock.sling.junit.SlingContext;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Matchers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.slf4j.LoggerFactory;
 
+import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static design.aem.workflow.process.ContentFragmentPageGenerator.*;
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-import static org.mockito.AdditionalMatchers.*;
+import static org.mockito.MockitoAnnotations.openMocks;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(DamUtil.class)
-@Ignore
+
+@Disabled
+@ExtendWith(AemContextExtension.class)
 public class ContentFragmentPageGeneratorTest {
 
 
-    @Rule
-    public final AemContext context = new AemContext(ResourceResolverType.JCR_MOCK);
+    public final AemContext CONTEXT = new AemContext(ResourceResolverType.JCR_MOCK);
 
-    @Rule
-    public final OsgiContext osgiContext = new OsgiContext();
+    public final OsgiContextImpl osgiContext = new OsgiContextImpl();
 
 //    @Rule
 //    public final SlingContext context = new SlingContext(ResourceResolverType.RESOURCERESOLVER_MOCK);
@@ -89,7 +76,6 @@ public class ContentFragmentPageGeneratorTest {
     WorkflowSession workflowSession;
 
 
-
     @InjectMocks
     ContentFragmentPageGenerator workflowProcess = new ContentFragmentPageGenerator();
 
@@ -109,15 +95,15 @@ public class ContentFragmentPageGeneratorTest {
     Logger testLogger = (Logger) LoggerFactory.getLogger(ContentFragmentPageGenerator.class);
     List<ILoggingEvent> logsList;
 
-    @Before
-    public void setUp() throws Exception {
+    private final String TEST_BASE = "/contentfragment";
 
-        context.load().json(getClass().getResourceAsStream("ContentFragmentPageGeneratorTest.json"), "/content");
+    private AutoCloseable closeable;
 
+    @BeforeEach
+    void setup() throws RepositoryException {
+        closeable = openMocks(this);
 
-        PowerMockito.mockStatic(DamUtil.class);
-        PowerMockito.mockStatic(ResourceUtil.class);
-
+        CONTEXT.load().json(TEST_BASE + "/ContentFragmentPageGeneratorTest.json", "/content");
 
 
         paths = new ArrayList<>();
@@ -127,7 +113,7 @@ public class ContentFragmentPageGeneratorTest {
         when(workflowData.getPayload()).thenReturn(assetPath);
 
 
-        when(workflowPackageManager.getPaths(eq(context.resourceResolver()), anyString())).thenReturn(paths);
+        when(workflowPackageManager.getPaths(eq(CONTEXT.resourceResolver()), anyString())).thenReturn(paths);
         when(asset.getPath()).thenReturn(assetPath);
         when(DamUtil.resolveToAsset(any(Resource.class))).thenReturn(asset);
 
@@ -143,19 +129,24 @@ public class ContentFragmentPageGeneratorTest {
 
         logsList = listAppender.list;
 
-
     }
+
+    @AfterEach
+    void close() throws Exception {
+        closeable.close();
+    }
+
 
     @Test
     public void testExecuteActivateWithContentFragment() throws Exception {
 
-        String[] update_existing_component_resourcetype = new String[] {"aemdesign/components/details/generic-details"};
+        String[] update_existing_component_resourcetype = new String[]{"aemdesign/components/details/generic-details"};
 
         MetaDataMap metaDataMap = new SimpleMetaDataMap();
 
-        metaDataMap.put(ARG_TEMPLATE_PAGE,"/content/template");
-        metaDataMap.put(ARG_OUTPUT_LOCATION,"/content/page");
-        metaDataMap.put(ARG_THROTTLE,"true");
+        metaDataMap.put(ARG_TEMPLATE_PAGE, "/content/template");
+        metaDataMap.put(ARG_OUTPUT_LOCATION, "/content/page");
+        metaDataMap.put(ARG_THROTTLE, "true");
 //        metaDataMap.put(ARG_CONTENT_FRAGMENT_RESOURCETYPE,"aemdesign/components/content/contentfragment");
 //        metaDataMap.put(ARG_CONTENT_FRAGMENT_CREATE,false);
 //        metaDataMap.put(ARG_CONTENT_FRAGMENT_PAGE_ROOT_PATH,"article/par");
@@ -174,14 +165,14 @@ public class ContentFragmentPageGeneratorTest {
         when(config.content_fragment_component_node_name()).thenReturn("contentfragment");
         when(config.update_existing_component()).thenReturn(false);
         when(config.update_existing_component_resourcetype()).thenReturn(update_existing_component_resourcetype);
-        when(config.update_page_root_path()).thenReturn(new String[] { "article/par" });
+        when(config.update_page_root_path()).thenReturn(new String[]{"article/par"});
         when(config.content_fragment_attribute_name()).thenReturn("fragmentPath");
 
         Session session = mock(Session.class);
         PageManager pageManager = mock(PageManager.class);
         ResourceResolver resourceResolver = mock(ResourceResolver.class);
         when(workflowPackageManager.getPaths(resourceResolver, assetPath))
-                .thenReturn(Arrays.asList(assetPath));
+            .thenReturn(Arrays.asList(assetPath));
         when(workflowHelper.getResourceResolver(workflowSession)).thenReturn(resourceResolver);
         when(resourceResolver.adaptTo(Session.class)).thenReturn(session);
         when(resourceResolver.adaptTo(PageManager.class)).thenReturn(pageManager);
@@ -198,28 +189,26 @@ public class ContentFragmentPageGeneratorTest {
         when(contentFragment.getTitle()).thenReturn("test");
 
 
-        Resource newpageR = context.resourceResolver().getResource("/content/newpage");
+        Resource newpageR = CONTEXT.resourceResolver().getResource("/content/newpage");
         Page newpage = mock(Page.class);
 
         when(pageManager.create(
-                anyString(),
-                anyString(),
-                anyString(),
-                anyString(),
-                anyBoolean()
+            anyString(),
+            anyString(),
+            anyString(),
+            anyString(),
+            anyBoolean()
         )).thenReturn(newpage);
 
         when(newpage.getContentResource()).thenReturn(newpageR.getChild("jcr:content"));
 
-        PowerMockito.mockStatic(CommonUtil.class);
-        PowerMockito.when(CommonUtil.class, "findComponentInPage", Mockito.any(Page.class), Mockito.any(String [].class), Mockito.any(String [].class)).thenReturn("/content/newpage/article/par/generic_details");
-
+        lenient().when(CommonUtil.findComponentInPage(any(Page.class), any(String[].class), any(String[].class))).thenReturn("/content/newpage/article/par/generic_details");
 
         workflowProcess.activate(config);
         workflowProcess.execute(workItem, workflowSession, metaDataMap);
 
 
-        assertNotNull(workflowHelper.getResourceResolver(workflowSession).getResource(assetPath));
-        assert ResourceUtil.isNonExistingResource( workflowHelper.getResourceResolver(workflowSession).getResource(assetPath));
+        Assertions.assertNotNull(workflowHelper.getResourceResolver(workflowSession).getResource(assetPath));
+        assert ResourceUtil.isNonExistingResource(workflowHelper.getResourceResolver(workflowSession).getResource(assetPath));
     }
 }

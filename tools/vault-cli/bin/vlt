@@ -1,0 +1,151 @@
+#!/bin/sh
+#
+#  Licensed to the Apache Software Foundation (ASF) under one or more
+#  contributor license agreements.  See the NOTICE file distributed with
+#  this work for additional information regarding copyright ownership.
+#  The ASF licenses this file to You under the Apache License, Version 2.0
+#  (the "License"); you may not use this file except in compliance with
+#  the License.  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+#----------------------------------------------------------------------------
+#File Vault Start Up Batch script
+#
+#Required ENV vars:
+#------------------
+#  JAVA_HOME - location of a JDK home dir
+#
+#Optional ENV vars
+#-----------------
+#  VLT_OPTS - parameters passed to the Java VM when running Vault
+#    e.g. to debug vault itself, use
+#      set VLT_OPTS=-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000
+#
+# LINE SEPARATOR
+# Because it can be pretty tricky to shove a newline character into a batch or shell script and the text "\n" doesn't get
+# interpreted as what you might think by Java, vlt will instead look for LF | CRLF in a system property called vlt.line.separator
+# and if it exists, it will set the appropriate Java System property accordingly, e.g. -Dvlt.line.separator=LF
+#----------------------------------------------------------------------------
+
+if [ -f /etc/vaultrc ] ; then
+  . /etc/vaultrc
+fi
+
+if [ -f "$HOME/.vaultrc" ] ; then
+  . "$HOME/.vaultrc"
+fi
+
+# resolve links - $0 may be a softlink
+PRG="$0"
+
+while [ -h "$PRG" ]; do
+  ls=`ls -ld "$PRG"`
+  link=`expr "$ls" : '.*-> \(.*\)$'`
+  if expr "$link" : '/.*' > /dev/null; then
+    PRG="$link"
+  else
+    PRG=`dirname "$PRG"`/"$link"
+  fi
+done
+
+PRGDIR=`dirname "$PRG"`
+VLT_HOME=`cd "$PRGDIR/.." >/dev/null; pwd`
+
+
+
+# OS specific support.  $var _must_ be set to either true or false.
+cygwin=false;
+darwin=false;
+case "`uname`" in
+  CYGWIN*) cygwin=true ;;
+  Darwin*) darwin=true
+           if [ -z "$JAVA_VERSION" ] ; then
+             VERSION=""
+           else
+             VERSION="-v $JAVA_VERSION"
+             echo "Using Java version: $JAVA_VERSION"
+           fi
+           if [ -z "$JAVA_HOME" ] ; then
+             JAVA_HOME=`/usr/libexec/java_home $JAVA_VERSION`
+           fi
+           ;;
+esac
+
+if [ -z "$JAVA_HOME" ] ; then
+  if [ -r /etc/gentoo-release ] ; then
+    JAVA_HOME=`java-config --jre-home`
+  fi
+fi
+
+# For Cygwin, ensure paths are in UNIX format before anything is touched
+if $cygwin ; then
+  [ -n "$JAVA_HOME" ] && JAVA_HOME=`cygpath --unix "$JAVA_HOME"`
+  [ -n "$CLASSPATH" ] && CLASSPATH=`cygpath --path --unix "$CLASSPATH"`
+fi
+
+# If a specific java binary isn't specified search for the standard 'java' binary
+if [ -z "$JAVACMD" ] ; then
+  if [ -n "$JAVA_HOME"  ] ; then
+    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
+      # IBM's JDK on AIX uses strange locations for the executables
+      JAVACMD="$JAVA_HOME/jre/sh/java"
+    else
+      JAVACMD="$JAVA_HOME/bin/java"
+    fi
+  else
+    JAVACMD=`which java`
+  fi
+fi
+
+if [ ! -x "$JAVACMD" ] ; then
+  echo "Error: JAVA_HOME is not defined correctly." 1>&2
+  echo "  We cannot execute $JAVACMD" 1>&2
+  exit 1
+fi
+
+if [ -z "$REPO" ]
+then
+  REPO="$VLT_HOME"/lib
+fi
+
+CLASSPATH=$CLASSPATH_PREFIX:"$REPO"/org.apache.jackrabbit.vault-3.4.1-SNAPSHOT.jar:"$REPO"/vault-vlt-3.4.1-SNAPSHOT.jar:"$REPO"/jackrabbit-jcr-commons-2.19.6-SNAPSHOT.jar:"$REPO"/vault-diff-3.4.1-SNAPSHOT.jar:"$REPO"/diffutils-1.2.1.jar:"$REPO"/commons-io-2.5.jar:"$REPO"/vault-sync-3.4.1-SNAPSHOT.jar:"$REPO"/commons-jci-fam-1.0.jar:"$REPO"/commons-logging-api-1.1.jar:"$REPO"/org.apache.sling.jcr.api-2.0.6.jar:"$REPO"/org.apache.sling.commons.osgi-2.0.6.jar:"$REPO"/vault-davex-3.4.1-SNAPSHOT.jar:"$REPO"/jackrabbit-jcr-client-2.19.6-SNAPSHOT.jar:"$REPO"/jackrabbit-spi-2.19.6-SNAPSHOT.jar:"$REPO"/jackrabbit-spi-commons-2.19.6-SNAPSHOT.jar:"$REPO"/commons-collections-3.2.2.jar:"$REPO"/jackrabbit-jcr2spi-2.19.6-SNAPSHOT.jar:"$REPO"/oak-jackrabbit-api-1.18.0.jar:"$REPO"/jackrabbit-spi2dav-2.19.6-SNAPSHOT.jar:"$REPO"/httpmime-4.5.3.jar:"$REPO"/jackrabbit-webdav-2.19.6-SNAPSHOT.jar:"$REPO"/httpcore-4.4.12.jar:"$REPO"/httpclient-4.5.3.jar:"$REPO"/commons-logging-1.0.3.jar:"$REPO"/commons-codec-1.10.jar:"$REPO"/jcl-over-slf4j-1.7.26.jar:"$REPO"/commons-cli-2.0-mahout.jar:"$REPO"/jline-0.9.94.jar:"$REPO"/jcr-2.0.jar:"$REPO"/slf4j-api-1.7.6.jar:"$REPO"/slf4j-log4j12-1.7.6.jar:"$REPO"/log4j-1.2.12.jar:"$REPO"/vault-cli-3.4.1-SNAPSHOT.jar
+
+# For Cygwin, switch paths to Windows format before running java
+if $cygwin; then
+  [ -n "$CLASSPATH" ] && CLASSPATH=`cygpath --path --windows "$CLASSPATH"`
+  [ -n "$JAVA_HOME" ] && JAVA_HOME=`cygpath --path --windows "$JAVA_HOME"`
+  [ -n "$HOME" ] && HOME=`cygpath --path --windows "$HOME"`
+  [ -n "$VLT_HOME" ] && VLT_HOME=`cygpath --path --windows "$VLT_HOME"`
+  [ -n "$REPO" ] && REPO=`cygpath --path --windows "$REPO"`
+fi
+
+EXTRA_JVM_ARGUMENTS="-Xms500m -Xmx500m"
+
+# try to determine terminal width
+COLS=$COLUMNS
+if [ -x "/bin/stty" ]; then
+    TERM_SIZE=`/bin/stty size 2>/dev/null` 
+    for a in ${TERM_SIZE}; do
+        COLS=$a
+    done
+fi
+
+if [ -n "$COLS" ]; then
+    EXTRA_JVM_ARGUMENTS="$EXTRA_JVM_ARGUMENTS -Denv.term.width=${COLS}"
+fi
+
+exec "$JAVACMD" $VLT_OPTS $EXTRA_JVM_ARGUMENTS \
+  -classpath "$CLASSPATH" \
+  -Dapp.name="vlt" \
+  -Dapp.pid="$$" \
+  -Dapp.repo="$REPO" \
+  -Dvlt.home="$VLT_HOME" \
+  org.apache.jackrabbit.vault.cli.VaultFsApp \
+  "$@"

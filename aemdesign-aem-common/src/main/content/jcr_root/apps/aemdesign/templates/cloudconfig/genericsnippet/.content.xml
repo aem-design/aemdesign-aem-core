@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:description="Generic Snippet configuration"
+    jcr:primaryType="cq:Template"
+    jcr:title="Generic Snippet Configuration"
+    sling:resourceSuperType="cq/cloudserviceconfigs/templates/configpage"
+    allowedChildren="[/apps/aemdesign/templates/cloudconfig/genericsnippet]"
+    allowedPaths="[/etc/cloudservices/generic-snippet(/.*)?]"
+    ranking="{Long}90">
+    <jcr:content
+        cq:cloudservicename="genericsnippet"
+        jcr:primaryType="cq:PageContent"
+        sling:resourceType="aemdesign/components/cloudservices/genericsnippetpage"/>
+</jcr:root>

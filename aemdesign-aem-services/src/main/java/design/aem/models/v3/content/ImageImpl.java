@@ -3,6 +3,8 @@ package design.aem.models.v3.content;
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.granite.asset.api.AssetManager;
+import com.day.cq.tagging.Tag;
+import design.aem.utils.components.CommonUtil;
 import org.apache.jackrabbit.vault.util.JcrConstants;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.wcm.api.Page;
@@ -16,14 +18,13 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static design.aem.utils.components.CommonUtil.*;
 import static design.aem.utils.components.ComponentsUtil.*;
@@ -84,6 +85,7 @@ public class ImageImpl extends GenericModel implements GenericComponent {
                 {FIELD_LINKURL, StringUtils.EMPTY},
                 {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, FIELD_ARIA_DATA_ATTRIBUTE_ROLE},
                 {FIELD_TITLE_TAG_TYPE, DEFAULT_TITLE_TAG_TYPE},
+                {FIELD_LICENSE_FORMAT, StringUtils.EMPTY, StringUtils.EMPTY, Tag.class.getCanonicalName()},
         };
 
 
@@ -117,6 +119,9 @@ public class ImageImpl extends GenericModel implements GenericComponent {
                         //get asset metadata
                         String assetUID = asset.getIdentifier();
                         String licenseInfo = getAssetCopyrightInfo(assetBasic, getI18n().get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
+
+                        componentProperties.putAll(processComponentFields(assetBasic),false);
+
                         componentProperties.put(FIELD_LICENSE_INFO, licenseInfo);
                         componentProperties.put(FIELD_ASSETID, assetUID);
 
@@ -201,5 +206,32 @@ public class ImageImpl extends GenericModel implements GenericComponent {
 
     }
 
+    /***
+     * substitute formatted field template with fields from component or asset.
+     * @param asset asset to use as source
+     * @return returns map with new values
+     */
+    protected Map<String, Object> processComponentFields(Asset asset) {
+        Map<String, Object> newFields = new HashMap<>();
+
+        try {
+
+            //get license format from tags and create result html and text
+            String licenseFormat = componentProperties.get(FIELD_LICENSE_FORMAT, DEFAULT_FIELD_LICENSE_FORMAT);
+            String formattedTitle = CommonUtil.compileMapMessage(licenseFormat, asset.getMetadata());
+            newFields.put(FIELD_FORMATTED_LICENSE, formattedTitle.trim());
+            //convert html to plain text
+            Document fragment = Jsoup.parse(formattedTitle);
+            String formattedTitleText = fragment.text();
+            newFields.put(FIELD_FORMATTED_LICENSE_TEXT,
+                formattedTitleText.trim()
+            );
+
+        } catch (Exception ex) {
+            LOGGER.error("Could not process component fields in Download component.");
+        }
+
+        return newFields;
+    }
 
 }

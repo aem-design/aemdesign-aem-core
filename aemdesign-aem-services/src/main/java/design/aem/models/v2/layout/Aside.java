@@ -1,9 +1,8 @@
 package design.aem.models.v2.layout;
 
-import com.day.cq.i18n.I18n;
-import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import static design.aem.utils.components.ComponentsUtil.*;
 import static design.aem.utils.components.ConstantsUtil.INHERITED_RESOURCE;
@@ -11,44 +10,36 @@ import static design.aem.utils.components.I18nUtil.*;
 import static design.aem.utils.components.ImagesUtil.DEFAULT_BACKGROUND_IMAGE_NODE_NAME;
 import static design.aem.utils.components.ImagesUtil.getBackgroundImageRenditions;
 
-@SuppressWarnings("common-java:DuplicatedBlocks")
-public class Aside extends ModelProxy {
+public class Aside extends BaseComponent {
+    protected static final String DEFAULT_ARIA_ROLE = "complementary";
 
-    protected ComponentProperties componentProperties = null;
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
+    protected void ready() {
+        componentProperties = ComponentsUtil.getComponentProperties(
+            this,
+            componentFields,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY);
+
+        componentProperties.put(INHERITED_RESOURCE,
+            findInheritedResource(getResourcePage(), getComponentContext()));
+
+        componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND, getDefaultLabelIfEmpty(
+            StringUtils.EMPTY,
+            DEFAULT_I18N_INHERIT_CATEGORY,
+            DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,
+            DEFAULT_I18N_INHERIT_CATEGORY,
+            i18n));
+
+        componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME,
+            getBackgroundImageRenditions(this));
     }
 
-    @SuppressWarnings("Duplicates")
-    protected void ready() {
-        com.day.cq.i18n.I18n i18n = new I18n(getRequest());
-
-        final String DEFAULT_ARIA_ROLE = "complementary";
-
-        /*
-          Component Fields Helper
-
-          Structure:
-          1 required - property name,
-          2 required - default value,
-          3 optional - name of component attribute to add value into
-          4 optional - canonical name of class for handling multivalues, String or Tag
-         */
+    @Override
+    protected void setFields() {
         setComponentFields(new Object[][]{
-                {FIELD_ARIA_ROLE,DEFAULT_ARIA_ROLE, DEFAULT_ARIA_ROLE_ATTRIBUTE},
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {COMPONENT_CANCEL_INHERIT_PARENT, false},
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {FIELD_ARIA_ROLE, DEFAULT_ARIA_ROLE, DEFAULT_ARIA_ROLE_ATTRIBUTE},
+            {COMPONENT_CANCEL_INHERIT_PARENT, false},
         });
-
-        componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY);
-
-        componentProperties.put(INHERITED_RESOURCE,findInheritedResource(getResourcePage(),getComponentContext()));
-        componentProperties.put(DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,getDefaultLabelIfEmpty("",DEFAULT_I18N_INHERIT_CATEGORY,DEFAULT_I18N_INHERIT_LABEL_PARENTNOTFOUND,DEFAULT_I18N_INHERIT_CATEGORY,i18n));
-
-        componentProperties.put(DEFAULT_BACKGROUND_IMAGE_NODE_NAME,getBackgroundImageRenditions(this));
     }
 }

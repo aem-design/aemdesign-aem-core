@@ -1,44 +1,45 @@
 package design.aem.utils.components;
 
 import com.adobe.xmp.XMPException;
+import com.day.cq.commons.DiffInfo;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.Rendition;
 import com.day.cq.dam.commons.util.DamUtil;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.designer.Design;
 import com.day.cq.wcm.foundation.Image;
 import org.apache.jackrabbit.vault.util.JcrConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.apache.sling.api.wrappers.ValueMapDecorator;
+import org.apache.sling.xss.XSSAPI;
+import org.joda.time.DateTime;
+import org.junit.jupiter.api.*;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.MockSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import javax.jcr.Property;
 import javax.jcr.RepositoryException;
+import javax.jcr.Value;
 import java.text.MessageFormat;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import static design.aem.utils.components.CommonUtil.getLastModified;
 import static design.aem.utils.components.ComponentsUtil.DEFAULT_IMAGE_GENERATED_FORMAT;
 import static design.aem.utils.components.ComponentsUtil.DEFAULT_IMAGE_RESOURCETYPE;
 import static design.aem.utils.components.ConstantsUtil.IMAGE_FILEREFERENCE;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
-import static org.powermock.api.mockito.PowerMockito.whenNew;
+import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.openMocks;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({DamUtil.class, ImagesUtil.class, MessageFormat.class})
 public class ImagesUtilTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ImagesUtilTest.class);
@@ -76,14 +77,28 @@ public class ImagesUtilTest {
     @Mock
     Image image;
 
+    @Mock
+    MessageFormat messageFormat;
+
+    @Mock
+    ImagesUtil imagesUtil;
+
+    @Mock
+    DamUtil damUtil;
+
     private static final String PATH = "/content/aem.design/en/home";
 
 
-    @Before
-    public void before() {
-        initMocks(this);
-        PowerMockito.mockStatic(DamUtil.class);
-        PowerMockito.mockStatic(MessageFormat.class);
+    private AutoCloseable closeable;
+
+    @BeforeEach
+    void setup() {
+        closeable = openMocks(this);
+    }
+
+    @AfterEach
+    void close() throws Exception {
+        closeable.close();
     }
 
     @Test
@@ -92,39 +107,43 @@ public class ImagesUtilTest {
         ImagesUtil test = new ImagesUtil();
 
         // Verify the results
-        assertNotNull(test);
+        Assertions.assertNotNull(test);
     }
 
     @Test
     public void canRenderOnWeb() {
 
-        assertTrue(ImagesUtil.canRenderOnWeb("jpeg"));
-        assertTrue(ImagesUtil.canRenderOnWeb("jpg"));
-        assertTrue(ImagesUtil.canRenderOnWeb("gif"));
-        assertTrue(ImagesUtil.canRenderOnWeb("png"));
+        Assertions.assertTrue(ImagesUtil.canRenderOnWeb("jpeg"));
+        Assertions.assertTrue(ImagesUtil.canRenderOnWeb("jpg"));
+        Assertions.assertTrue(ImagesUtil.canRenderOnWeb("gif"));
+        Assertions.assertTrue(ImagesUtil.canRenderOnWeb("png"));
 
-        assertFalse(ImagesUtil.canRenderOnWeb("bmp"));
+        Assertions.assertFalse(ImagesUtil.canRenderOnWeb("bmp"));
     }
 
     @Test
     public void testGetMetadataStringForKey_Success() throws RepositoryException {
         when(node.hasNode(ImagesUtil.ASSET_METADATA_FOLDER)).thenReturn(true);
         when(node.getNode(ImagesUtil.ASSET_METADATA_FOLDER)).thenReturn(node);
-        when(DamUtil.getValue(node, "key", "defaultValue")).thenReturn("value");
+        when(property.isMultiple()).thenReturn(false);
+        when(node.getProperty("key")).thenReturn(property);
+
+        when(damUtil.getValue(node, "key", "defaultValue")).thenReturn("value");
+
         String actualValue = ImagesUtil.getMetadataStringForKey(node, "key", "defaultValue");
-        Assert.assertEquals("value", actualValue);
+        Assertions.assertEquals("value", actualValue);
     }
 
     @Test
     public void testGetMetadataStringForKey_NullNode() throws RepositoryException {
         String actualValue = ImagesUtil.getMetadataStringForKey(null, "key", "defaultValue");
-        Assert.assertNull(actualValue);
+        Assertions.assertNull(actualValue);
     }
 
     @Test
     public void testGetMetadataStringForKey_BlankKey() throws RepositoryException {
         String actualValue = ImagesUtil.getMetadataStringForKey(node, "", "defaultValue");
-        Assert.assertNull(actualValue);
+        Assertions.assertNull(actualValue);
     }
 
     @Test
@@ -137,47 +156,63 @@ public class ImagesUtilTest {
         when(valueMap.containsKey("key")).thenReturn(true);
         when(valueMap.get("key")).thenReturn("value");
         String actualValue = ImagesUtil.getMetadataStringForKey(graniteAsset, "key");
-        Assert.assertEquals("value", actualValue);
+        Assertions.assertEquals("value", actualValue);
     }
 
     @Test
     public void testGetMetadataStringForKey_FromGraniteAsset_NullAsset() throws RepositoryException {
         String actualValue = ImagesUtil.getMetadataStringForKey((com.adobe.granite.asset.api.Asset) null, "key");
-        Assert.assertNull(actualValue);
+        Assertions.assertNull(actualValue);
     }
 
     @Test
     public void testGetMetadataStringForKey_FromGraniteAsset_BlankKey() throws RepositoryException {
         String actualValue = ImagesUtil.getMetadataStringForKey(graniteAsset, "");
-        Assert.assertNull(actualValue);
+        Assertions.assertNull(actualValue);
     }
 
     @Test
     public void testGetMetadataStringForKey_FromDamAsset_Success() throws RepositoryException {
         when(damAsset.getMetadata("key")).thenReturn("value");
-        String actualValue = ImagesUtil.getMetadataStringForKey(damAsset, "key");
-        Assert.assertEquals("value", actualValue);
+        String actualValue = imagesUtil.getMetadataStringForKey(damAsset, "key");
+        Assertions.assertEquals("value", actualValue);
     }
 
     @Test
     public void testGetMetadataStringForKey_FromDamAsset_NullAsset() throws RepositoryException {
-        String actualValue = ImagesUtil.getMetadataStringForKey((com.day.cq.dam.api.Asset) null, "key");
-        Assert.assertNull(actualValue);
+        String actualValue = imagesUtil.getMetadataStringForKey((com.day.cq.dam.api.Asset) null, "key");
+        Assertions.assertNull(actualValue);
     }
 
     @Test
     public void testGetMetadataStringForKey_FromDamAsset_BlankKey() throws RepositoryException {
         String actualValue = ImagesUtil.getMetadataStringForKey(damAsset, "");
-        Assert.assertNull(actualValue);
+        Assertions.assertNull(actualValue);
     }
 
     @Test
     public void testGetThumbnail_Success() {
-        List<Rendition> renditionList = new ArrayList<>();
-        when(damAsset.getRenditions()).thenReturn(renditionList);
-        when(DamUtil.getBestFitRendition(300, renditionList)).thenReturn(rendition);
-        Rendition actualRendition = ImagesUtil.getThumbnail(damAsset, 300);
-        Assert.assertEquals(rendition, actualRendition);
+
+        int width = 300;
+
+        Rendition customRendition = mock(Rendition.class, "cq5dam.thumbnail." + width);
+        when(customRendition.getName()).thenReturn("cq5dam.thumbnail." + width);
+
+        List<Rendition> renditions = new ArrayList<>();
+        renditions.add(customRendition);
+
+        com.day.cq.dam.api.Asset asset = mock(com.day.cq.dam.api.Asset.class);
+        when(asset.getRenditions()).thenReturn(renditions);
+
+        LOGGER.error("rendition.getName(): {}", customRendition.getName());
+        LOGGER.error("renditionList: {}", renditions);
+
+//        when(damAsset.getRenditions()).thenReturn(renditionList);
+//        LOGGER.error("damAsset.getRenditions(): {}", damAsset.getRenditions());
+//
+//        when(damUtil.getBestFitRendition(width, renditionList)).thenReturn(rendition);
+        Rendition actualRendition = ImagesUtil.getThumbnail(asset, 300);
+        Assertions.assertEquals(customRendition, actualRendition);
     }
 
     @Test
@@ -185,58 +220,135 @@ public class ImagesUtilTest {
         when(page.getPath()).thenReturn(PATH);
         when(resolver.map(PATH.concat(ImagesUtil.DEFAULT_THUMB_SELECTOR_MD))).thenReturn("/content/aem.design/en/home/jcr:content/image/file.sftmp");
         String actualUrl = ImagesUtil.getThumbnailUrl(page, resolver);
-        Assert.assertEquals("/content/aem.design/en/home/jcr:content/image/file.sftmp", actualUrl);
+        Assertions.assertEquals("/content/aem.design/en/home/jcr:content/image/file.sftmp", actualUrl);
     }
 
     @Test
     public void testGetWidth_Success() throws RepositoryException {
         when(node.hasNode(ImagesUtil.ASSET_METADATA_FOLDER)).thenReturn(true);
         when(node.getNode(ImagesUtil.ASSET_METADATA_FOLDER)).thenReturn(node);
+        Property a1 = mock(Property.class);
+        when(a1.isMultiple()).thenReturn(false);
+        a1.setValue(300);
+        Property a2 = mock(Property.class);
+        when(a2.isMultiple()).thenReturn(false);
+        a2.setValue(320);
+        when(node.getProperty("exif:PixelXDimension")).thenReturn(a1);
+        when(node.getProperty("tiff:ImageWidth")).thenReturn(a2);
         when(DamUtil.getValue(node, "exif:PixelXDimension", "")).thenReturn("300");
         when(DamUtil.getValue(node, "tiff:ImageWidth", "300")).thenReturn("320");
         int actualWidth = ImagesUtil.getWidth(node);
-        Assert.assertEquals(320, actualWidth);
+        Assertions.assertEquals(320, actualWidth);
     }
 
     @Test
     public void testGetProcessedImage_Success() throws Exception {
-        whenNew(Image.class).withArguments(resource, "/data/image").thenReturn(image);
-        Image actualImage = ImagesUtil.getProcessedImage(resource, "/data/image");
-        Assert.assertEquals(image, actualImage);
+        Map<String, Object> resourceProps = new HashMap();
+        resourceProps.put("","");
+        resourceProps.put("jcr:lastModified",DateTime.now().toDate().getTime());
+        resourceProps.put("jcr:created",DateTime.now().toDate().getTime());
+        ValueMap resourceVM = new ValueMapDecorator(resourceProps);
+        Resource customResource = mock(Resource.class);
+        Design designMock = mock(Design.class);
+        Node resourceNode = mock(Node.class);
+//        when(resourceNode.hasProperty(anyString())).thenReturn(true);
+
+        Property timestamp = mock(Property.class);
+        when(resourceNode.getProperty("jcr:lastModified")).thenReturn(timestamp);
+
+        when(customResource.getValueMap()).thenReturn(resourceVM);
+        when(customResource.adaptTo(DiffInfo.class)).thenReturn(null);
+
+        XSSAPI xxsmock = mock(XSSAPI.class);
+
+        when(resolver.adaptTo(Design.class)).thenReturn(designMock);
+        when(resolver.adaptTo(XSSAPI.class)).thenReturn(xxsmock);
+
+        when(customResource.getResourceResolver()).thenReturn(resolver);
+
+        when(customResource.adaptTo(Node.class)).thenReturn(resourceNode);
+        when(customResource.getPath()).thenReturn("/data/image");
+
+
+        Image actualImage = ImagesUtil.getProcessedImage(customResource, "relativepath");
+
+        Assertions.assertEquals("/data/image/relativepath", actualImage.getPath());
+
     }
 
     @Test
     public void testGetProcessedImage_Success_NullPath() throws Exception {
-        whenNew(Image.class).withArguments(resource).thenReturn(image);
-        Image actualImage = ImagesUtil.getProcessedImage(resource, null);
-        Assert.assertEquals(image, actualImage);
+        Map<String, Object> resourceProps = new HashMap();
+        resourceProps.put("","");
+        resourceProps.put("jcr:lastModified",DateTime.now().toDate().getTime());
+        resourceProps.put("jcr:created",DateTime.now().toDate().getTime());
+        ValueMap resourceVM = new ValueMapDecorator(resourceProps);
+        Resource customResource = mock(Resource.class);
+        Design designMock = mock(Design.class);
+        Node resourceNode = mock(Node.class);
+//        when(resourceNode.hasProperty(anyString())).thenReturn(true);
+
+        Property timestamp = mock(Property.class);
+        when(resourceNode.getProperty("jcr:lastModified")).thenReturn(timestamp);
+
+        when(customResource.getValueMap()).thenReturn(resourceVM);
+        when(customResource.adaptTo(DiffInfo.class)).thenReturn(null);
+
+        XSSAPI xxsmock = mock(XSSAPI.class);
+
+        when(resolver.adaptTo(Design.class)).thenReturn(designMock);
+        when(resolver.adaptTo(XSSAPI.class)).thenReturn(xxsmock);
+
+        when(customResource.getResourceResolver()).thenReturn(resolver);
+
+        when(customResource.adaptTo(Node.class)).thenReturn(resourceNode);
+        when(customResource.getPath()).thenReturn("/test");
+
+        Image testImage = new Image(customResource);
+
+        Image actualImage = ImagesUtil.getProcessedImage(customResource, null);
+
+        Assertions.assertEquals(testImage.getPath(), actualImage.getPath());
     }
 
     @Test
     public void testGetResourceImageCustomHref_Success() {
-        when(resource.getChild("file")).thenReturn(resource);
-        when(resource.getChild(IMAGE_FILEREFERENCE)).thenReturn(resource);
-        when(resource.getResourceType()).thenReturn(DEFAULT_IMAGE_RESOURCETYPE);
-        when(resource.adaptTo(ValueMap.class)).thenReturn(valueMap);
-        when(valueMap.get(JcrConstants.JCR_LASTMODIFIED, Long.class)).thenReturn(1346524199000L);
-        when(resource.getPath()).thenReturn(PATH);
-        when(MessageFormat.format(DEFAULT_IMAGE_GENERATED_FORMAT, PATH, "1346524199000")).thenReturn("/content/url");
+        Resource imageResource = mock(Resource.class);
+//        ResourceResolver resolver = mock(ResourceResolver.class);
+
+        when(resource.getChild("file")).thenReturn(imageResource);
         when(resource.getResourceResolver()).thenReturn(resolver);
-        when(resolver.map("/content/url")).thenReturn("href");
+        when(resource.getPath()).thenReturn(PATH);
+        when(resource.getResourceResolver()).thenReturn(resolver);
+        when(resolver.map(anyString())).thenReturn("href");
+
+        when(imageResource.getResourceType()).thenReturn(DEFAULT_IMAGE_RESOURCETYPE);
+        Map<String, Object> resourceProps = new HashMap();
+        resourceProps.put("jcr:lastModified",1346524199000L);
+        resourceProps.put("jcr:created",1346524199000L);
+        ValueMap resourceVM = new ValueMapDecorator(resourceProps);
+
+        when(imageResource.adaptTo(ValueMap.class)).thenReturn(resourceVM);
+        when(imageResource.getPath()).thenReturn(PATH);
+
+        Resource fileReference = mock(Resource.class);
+        when(imageResource.getChild(IMAGE_FILEREFERENCE)).thenReturn(fileReference);
+
         String actualHref = ImagesUtil.getResourceImageCustomHref(resource, "file");
-        Assert.assertEquals("href", actualHref);
+
+        Assertions.assertEquals("href", actualHref);
     }
 
     @Test
     public void testGetResourceImageCustomHref_NullResource() {
         String actualHref = ImagesUtil.getResourceImageCustomHref(null, "file");
-        Assert.assertEquals(0, actualHref.length());
+        Assertions.assertEquals(0, actualHref.length());
     }
 
     @Test
     public void testGetResourceImageCustomHref_BlankResourceName() {
         String actualHref = ImagesUtil.getResourceImageCustomHref(resource, "");
-        Assert.assertEquals(0, actualHref.length());
+        Assertions.assertEquals(0, actualHref.length());
     }
 
     @Test
@@ -248,33 +360,33 @@ public class ImagesUtilTest {
         when(node.getProperty(IMAGE_FILEREFERENCE)).thenReturn(property);
         when(property.getString()).thenReturn("/content/aem.design/home/image");
         String actualPath = ImagesUtil.getPageImgReferencePath(page);
-        Assert.assertEquals("/content/aem.design/home/image", actualPath);
+        Assertions.assertEquals("/content/aem.design/home/image", actualPath);
     }
 
     @Test
     public void testGetResourceImagePath_NullResource() throws RepositoryException {
         String actualPath = ImagesUtil.getResourceImagePath(null, ImagesUtil.DEFAULT_IMAGE_NODE_NAME);
-        Assert.assertEquals(0, actualPath.length());
+        Assertions.assertEquals(0, actualPath.length());
     }
 
     @Test
     public void testGetAssetPropertyValueWithDefault_Success() {
         when(damAsset.getMetadataValue("name")).thenReturn("value");
         String actualValue = ImagesUtil.getAssetPropertyValueWithDefault(damAsset, "name", "defaultValue");
-        Assert.assertEquals("value", actualValue);
+        Assertions.assertEquals("value", actualValue);
     }
 
     @Test
     public void testGetAssetPropertyValueWithDefault_NullAsset() {
         String actualValue = ImagesUtil.getAssetPropertyValueWithDefault(null, "name", "defaultValue");
-        Assert.assertEquals("defaultValue", actualValue);
+        Assertions.assertEquals("defaultValue", actualValue);
     }
 
     @Test
     public void testGetAssetPropertyValueWithDefault_NullValue() {
         when(damAsset.getMetadataValue("name")).thenReturn(null);
         String actualValue = ImagesUtil.getAssetPropertyValueWithDefault(damAsset, "name", "defaultValue");
-        Assert.assertEquals("defaultValue", actualValue);
+        Assertions.assertEquals("defaultValue", actualValue);
     }
 
     @Test
@@ -285,9 +397,8 @@ public class ImagesUtilTest {
         when(damAsset.getMetadataValue(CommonUtil.DAM_FIELD_LICENSE_COPYRIGHT_OWNER)).thenReturn("assetCopyrightOwner");
         when(damAsset.getMetadataValue(CommonUtil.DAM_FIELD_LICENSE_USAGETERMS)).thenReturn("terms");
         when(damAsset.getMetadataValue(CommonUtil.DAM_FIELD_LICENSE_EXPIRY)).thenReturn(null);
-        when(MessageFormat.format("format", "assetCreator", "assetContributor", "assetLicense", "assetCopyrightOwner", "")).thenReturn("info");
-        String actualInfo = ImagesUtil.getAssetCopyrightInfo(damAsset, "format");
-        Assert.assertEquals("info", actualInfo);
+        String actualInfo = ImagesUtil.getAssetCopyrightInfo(damAsset, "{4} {0} {1} {2} {3}");
+        Assertions.assertEquals(" assetCreator assetContributor assetLicense assetCopyrightOwner", actualInfo);
     }
 
     @Test
@@ -301,29 +412,29 @@ public class ImagesUtilTest {
         when(node.getProperty("tiff:ImageLength")).thenReturn(property);
         when(property.getString()).thenReturn("1000");
         int actualDimension = ImagesUtil.getDimension(graniteRendition, "tiff:ImageLength");
-        Assert.assertEquals(1000, actualDimension);
+        Assertions.assertEquals(1000, actualDimension);
     }
 
     @Test
     public void testGetWidth_Success_Rendition() throws RepositoryException {
         when(graniteRendition.getName()).thenReturn("cq5dam.thumbnail.48.48.png");
         int actualDimension = ImagesUtil.getWidth(graniteRendition);
-        Assert.assertEquals(48, actualDimension);
+        Assertions.assertEquals(48, actualDimension);
     }
 
     @Test
-    public void testGetAssetDuration_Success_NumericDMScale(){
+    public void testGetAssetDuration_Success_NumericDMScale() {
         when(valueMap.get("xmpDM:scale", "")).thenReturn("31");
         when(valueMap.get("xmpDM:value", "")).thenReturn("123");
         Duration duration = ImagesUtil.getAssetDuration(valueMap);
-        Assert.assertEquals(123,duration.getSeconds());
+        Assertions.assertEquals(123, duration.getSeconds());
     }
 
     @Test
-    public void testGetAssetDuration_Success_NonNumericDMScale(){
+    public void testGetAssetDuration_Success_NonNumericDMScale() {
         when(valueMap.get("xmpDM:scale", "")).thenReturn("1/44100");
         when(valueMap.get("xmpDM:value", "")).thenReturn("123");
         Duration duration = ImagesUtil.getAssetDuration(valueMap);
-        Assert.assertEquals(0,duration.getSeconds());
+        Assertions.assertEquals(0, duration.getSeconds());
     }
 }

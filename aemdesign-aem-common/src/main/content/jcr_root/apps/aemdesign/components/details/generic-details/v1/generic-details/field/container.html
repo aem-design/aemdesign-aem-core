@@ -1,5 +1,7 @@
 <template data-sly-template.field="${@ componentProperties}">
-    <sly data-sly-test="${(componentProperties.legacyVariant || 'default' in componentProperties.variant) ? componentProperties.showParsys : true}">
-        <sly data-sly-resource="${'./par' @ resourceType='aemdesign/components/layout/container', decorationTagName='div'}"></sly>
+    <sly data-sly-test="${componentProperties.badgeCustom || 'custom' in componentProperties.variant || componentProperties.legacyBadgeSelected || (( componentProperties.legacyVariant || 'default' in componentProperties.variant) ? !componentProperties.showParsys : true)}">
+        <!--/* template path is this relative to aemdesign/components/details/generic-details */-->
+        <sly data-sly-use.container="../../layout/container/par.html"
+             data-sly-call="${container.container @ componentProperties=componentProperties}"></sly>
     </sly>
 </template>

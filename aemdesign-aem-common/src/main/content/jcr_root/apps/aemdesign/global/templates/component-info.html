@@ -46,7 +46,7 @@
                                 <td>${componentProperties.inheritedResource.path}</td>
                             </tr>
 
-                            <sly data-sly-list.myitem="${componentProperties}" data-sly-unwrap>
+                            <sly data-sly-list.myitem="${componentProperties.ordered}" data-sly-unwrap>
                                 <sly data-sly-test="${componentProperties[myitem]}">
                                     <tr>
                                         <th scope="row">${myitem}</th>

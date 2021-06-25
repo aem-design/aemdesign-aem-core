@@ -1,5 +1,5 @@
 <template data-sly-template.field="${@ componentProperties}">
-    <sly data-sly-test="${(componentProperties.legacyVariant || 'default' in componentProperties.variant) ? componentProperties.showToolbar : true}">
+    <sly data-sly-test="${componentProperties.badgeCustom || (( componentProperties.legacyVariant || 'default' in componentProperties.variant) ? !componentProperties.showToolbar : true)}">
         <sly data-sly-resource="${'./toolbar' @ resourceType='aemdesign/components/layout/navbar', decorationTagName='div'}"></sly>
     </sly>
 </template>

@@ -11,7 +11,7 @@ import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.TagConstants;
 import design.aem.components.ComponentProperties;
-import design.aem.models.ModelProxy;
+import design.aem.models.BaseComponent;
 import design.aem.utils.components.ComponentsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.vault.util.JcrConstants;
@@ -37,85 +37,75 @@ import static design.aem.utils.components.ImagesUtil.*;
 import static design.aem.utils.components.TagUtil.getTagsAsAdmin;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class AssetList extends ModelProxy {
+public class AssetList extends BaseComponent {
     protected static final Logger LOGGER = LoggerFactory.getLogger(AssetList.class);
 
-    protected ComponentProperties componentProperties = null;
-    public ComponentProperties getComponentProperties() {
-        return this.componentProperties;
-    }
-
-    private List<Map<String,Object>> listItems;
+    protected List<Map<String, Object>> listItems;
 
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     @Default(intValues = LIMIT_DEFAULT)
-    private int limit;
+    protected int limit;
 
-    private static final String PN_SOURCE = "listFrom"; //SOURCE_PROPERTY_NAME
-    private static final String PN_SOURCE_DEFAULT = Source.STATIC.getValue(); //SOURCE_PROPERTY_NAME
-    private static final String PARENT_PATH = "parentPath";
-    private static final String STATIC_ITEMS = "assets";
-    private static final String DESCENDANT_PATH = "ancestorPath";
-    private static final String PARENT_PATH_DEFAULT = "/content/dam";
-    private static final String LIMIT_PROPERTY_NAME = "limit";
-    private static final int LIMIT_DEFAULT = 100;
-    private static final String PN_SORT_ORDER = "sortOrder";
-    private static final String PN_ORDER_BY = "orderBy";
-    private static final String PN_ORDER_BY_DEFAULT = "path";
-    private static final String LIST_ISEMPTY = "isEmpty";
+    protected static final String DEFAULT_I18N_CATEGORY = "assetlist";
+    protected static final String DEFAULT_I18N_LABEL_LICENSEINFO = "licenseinfo";
 
-    private static final String FIELD_IMAGEURL = "imageURL";
-    private static final String FIELD_RENDITIONS = "renditions";
-    private static final String FIELD_TITLE_TAG_TYPE_DEFAULT = "div";
-    private static final String FIELD_IMAGE_OPTION_DEFAULT = "responsive";
-    private static final String ASSET_TYPE = "assetType";
+    protected static final String PN_SOURCE = "listFrom"; //SOURCE_PROPERTY_NAME
+    protected static final String PN_SOURCE_DEFAULT = Source.STATIC.getValue(); //SOURCE_PROPERTY_NAME
+    protected static final String PARENT_PATH = "parentPath";
+    protected static final String STATIC_ITEMS = "assets";
+    protected static final String DESCENDANT_PATH = "ancestorPath";
+    protected static final String PARENT_PATH_DEFAULT = "/content/dam";
+    protected static final String LIMIT_PROPERTY_NAME = "limit";
+    protected static final int LIMIT_DEFAULT = 100;
+    protected static final String PN_SORT_ORDER = "sortOrder";
+    protected static final String PN_ORDER_BY = "orderBy";
+    protected static final String PN_ORDER_BY_DEFAULT = "path";
+    protected static final String LIST_ISEMPTY = "isEmpty";
 
+    protected static final String FIELD_IMAGEURL = "imageURL";
+    protected static final String FIELD_RENDITIONS = "renditions";
+    protected static final String FIELD_TITLE_TAG_TYPE_DEFAULT = "div";
+    protected static final String FIELD_IMAGE_OPTION_DEFAULT = "responsive";
+    protected static final String ASSET_TYPE = "assetType";
 
-    private static final String ASSET_LICENSEINFO = "© {4} {0} {1} {2} {3}";
+    protected static final String ASSET_LICENSEINFO = "{4} {0} {1} {2} {3}";
 
-    private long totalMatches;
-    private SortOrder sortOrder;
+    protected long totalMatches;
+    protected SortOrder sortOrder;
 
-    @SuppressWarnings("Duplicates")
     protected void ready() {
-        /*
-          Component Fields Helper
-
-          Structure:
-          1 required - property name,
-          2 required - default value,
-          3 optional - name of component attribute to add value into
-          4 optional - canonical name of class for handling multivalues, String or Tag
-         */
-        setComponentFields(new Object[][]{
-                {FIELD_VARIANT, DEFAULT_VARIANT},
-                {STATIC_ITEMS, new String[0]},
-                {DESCENDANT_PATH, PARENT_PATH_DEFAULT},
-                {PN_SOURCE, PN_SOURCE_DEFAULT},
-                {PARENT_PATH, PARENT_PATH_DEFAULT},
-                {PN_ORDER_BY, StringUtils.EMPTY},
-                {LIMIT_PROPERTY_NAME, LIMIT_DEFAULT},
-                {PN_SORT_ORDER, SortOrder.ASC.getValue()},
-                {FIELD_IMAGE_OPTION, FIELD_IMAGE_OPTION_DEFAULT},
-                {FIELD_TITLE_TAG_TYPE, FIELD_TITLE_TAG_TYPE_DEFAULT},
-        });
-
         componentProperties = ComponentsUtil.getComponentProperties(
-                this,
-                componentFields,
-                DEFAULT_FIELDS_IMAGE_OPTIONS,
-                DEFAULT_FIELDS_STYLE,
-                DEFAULT_FIELDS_ACCESSIBILITY,
-                DEFAULT_FIELDS_ANALYTICS
+            this,
+            componentFields,
+            DEFAULT_FIELDS_IMAGE_OPTIONS,
+            DEFAULT_FIELDS_STYLE,
+            DEFAULT_FIELDS_ACCESSIBILITY,
+            DEFAULT_FIELDS_ANALYTICS
         );
 
         sortOrder = SortOrder.fromString(componentProperties.get(PN_SORT_ORDER, SortOrder.ASC.getValue()));
         limit = componentProperties.get(LIMIT_PROPERTY_NAME, LIMIT_DEFAULT);
     }
 
+    @Override
+    protected void setFields() {
+        setComponentFields(new Object[][]{
+            {FIELD_VARIANT, DEFAULT_VARIANT},
+            {STATIC_ITEMS, new String[0]},
+            {DESCENDANT_PATH, PARENT_PATH_DEFAULT},
+            {PN_SOURCE, PN_SOURCE_DEFAULT},
+            {PARENT_PATH, PARENT_PATH_DEFAULT},
+            {PN_ORDER_BY, StringUtils.EMPTY},
+            {LIMIT_PROPERTY_NAME, LIMIT_DEFAULT},
+            {PN_SORT_ORDER, SortOrder.ASC.getValue()},
+            {FIELD_IMAGE_OPTION, FIELD_IMAGE_OPTION_DEFAULT},
+            {FIELD_TITLE_TAG_TYPE, FIELD_TITLE_TAG_TYPE_DEFAULT},
+        });
+    }
 
     /**
      * get list options type.
+     *
      * @return list type
      */
     protected Source getListType() {
@@ -128,10 +118,10 @@ public class AssetList extends ModelProxy {
 
     /**
      * get list items, used by HTL templates.
+     *
      * @return list of items
      */
-    public Collection<Map<String,Object>> getListItems() {
-
+    public Collection<Map<String, Object>> getListItems() {
         if (listItems == null) {
             Source listType = getListType();
 
@@ -143,11 +133,11 @@ public class AssetList extends ModelProxy {
 
     /**
      * populate list items.
+     *
      * @param listType list type to execute
      */
     @SuppressWarnings("Duplicates")
     protected void populateListItems(Source listType) {
-
         switch (listType) {
             case STATIC: //SOURCE_STATIC
                 populateStaticListItems();
@@ -162,14 +152,16 @@ public class AssetList extends ModelProxy {
                 listItems = new ArrayList<>();
                 break;
         }
+
         componentProperties.put(LIST_ISEMPTY, totalMatches == 0);
     }
 
     /**
      * populate list items from only children of a root page.
      */
-    private void populateChildListItems() {
-        String path = componentProperties.get(PARENT_PATH,PARENT_PATH_DEFAULT);
+    protected void populateChildListItems() {
+        String path = componentProperties.get(PARENT_PATH, PARENT_PATH_DEFAULT);
+
         populateChildListItems(path, true);
     }
 
@@ -177,28 +169,32 @@ public class AssetList extends ModelProxy {
     /**
      * populate list items from descendants of a root page.
      */
-    private void populateDescendantsListItems() {
-        String path = componentProperties.get(DESCENDANT_PATH,PARENT_PATH_DEFAULT);
+    protected void populateDescendantsListItems() {
+        String path = componentProperties.get(DESCENDANT_PATH, PARENT_PATH_DEFAULT);
+
         populateChildListItems(path, false);
     }
 
 
     /**
      * populate list items from children of a root page.
+     *
      * @param path path to use
      * @param flat only select children on root page
      */
     @SuppressWarnings("Duplicates")
-    private void populateChildListItems(String path, Boolean flat) {
+    protected void populateChildListItems(String path, Boolean flat) {
         listItems = new ArrayList<>();
 
         Map<String, String> childMap = new HashMap<>();
         childMap.put("path", path);
+
         if (flat) {
             childMap.put("path.flat", "true");
         } else {
             childMap.put("path.flat", "false");
         }
+
         childMap.put("type", DamConstants.NT_DAM_ASSET);
 
         populateListItemsFromMap(childMap);
@@ -206,22 +202,23 @@ public class AssetList extends ModelProxy {
 
     /**
      * doa query using a predicate map.
+     *
      * @param map predicate map
      */
     @SuppressWarnings("Duplicates")
-    private void populateListItemsFromMap(Map<String,String> map) {
+    protected void populateListItemsFromMap(Map<String, String> map) {
         try {
-
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
+
             if (builder != null) {
                 Session session = getResourceResolver().adaptTo(Session.class);
-
                 Query query = null;
 
                 //limit is set
                 map.put("p.limit", String.valueOf(limit));
 
                 String orderBy = componentProperties.get(PN_ORDER_BY, PN_ORDER_BY_DEFAULT);
+
                 if (isNotEmpty(orderBy)) {
                     map.put("orderby", orderBy);
                 } else {
@@ -231,6 +228,7 @@ public class AssetList extends ModelProxy {
                 map.put("orderby.sort", sortOrder.getValue());
 
                 PredicateGroup root = PredicateGroup.create(map);
+
                 // avoid slow //* queries
                 if (!root.isEmpty()) {
                     query = builder.createQuery(root, session);
@@ -240,10 +238,10 @@ public class AssetList extends ModelProxy {
                     collectSearchResults(query.getResult());
                 }
             } else {
-                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]",map);
+                LOGGER.error("populateListItemsFromMap: could not get query builder object, map=[{}]", map);
             }
         } catch (Exception ex) {
-            LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}",map,ex);
+            LOGGER.error("populateListItemsFromMap: could not execute query map=[{}], ex={}", map, ex);
         }
     }
 
@@ -251,29 +249,26 @@ public class AssetList extends ModelProxy {
      * populates listItems with resources from pages list.
      * page object is also resolved and returned if available
      */
-    @SuppressWarnings({"Duplicates","squid:S3776"})
-    private void populateStaticListItems() {
+    @SuppressWarnings({"Duplicates", "squid:S3776"})
+    protected void populateStaticListItems() {
         listItems = new ArrayList<>();
+
         String[] items = componentProperties.get(STATIC_ITEMS, new String[0]);
         AssetManager assetManager = getResourceResolver().adaptTo(AssetManager.class);
 
         if (assetManager != null) {
             for (String item : items) {
-
                 Resource assetResource = getResourceResolver().resolve(item);
 
                 if (!ResourceUtil.isNonExistingResource(assetResource)) {
-
                     com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(item);
 
                     if (asset != null) {
-
                         ComponentProperties assetInfo = getAssetInfo(asset, assetResource, componentProperties, getSlingScriptHelper());
 
                         if (assetInfo != null) {
                             listItems.add(assetInfo);
                         }
-
                     }
                 }
             }
@@ -284,52 +279,62 @@ public class AssetList extends ModelProxy {
 
     /**
      * get required asset info
-     * @param asset asset to look into
-     * @param assetResource asset resource
+     *
+     * @param asset               asset to look into
+     * @param assetResource       asset resource
      * @param componentProperties component properties to use for settings
-     * @param sling sling instance
+     * @param sling               sling instance
      * @return asset metadata
      */
     @SuppressWarnings("squid:S3776")
-    private ComponentProperties getAssetInfo(com.adobe.granite.asset.api.Asset asset, Resource assetResource, ComponentProperties componentProperties, SlingScriptHelper sling) {
-
+    protected ComponentProperties getAssetInfo(
+        com.adobe.granite.asset.api.Asset asset,
+        Resource assetResource,
+        ComponentProperties componentProperties,
+        SlingScriptHelper sling
+    ) {
         final String PROPERTY_METADATA = JcrConstants.JCR_CONTENT + "/metadata";
         final String PROPERTY_METADATA_DURATION = JcrConstants.JCR_CONTENT + "/metadata/xmpDM:duration";
+
         try {
             if (asset != null && sling != null) {
-
                 if (!ResourceUtil.isNonExistingResource(assetResource)) {
                     Asset assetBasic = assetResource.adaptTo(Asset.class);
+
                     if (assetBasic == null) {
                         return getNewComponentProperties(this);
                     } else {
-
                         String assetPath = assetResource.getPath();
-
                         String imageOption = componentProperties.get(FIELD_IMAGE_OPTION, FIELD_IMAGE_OPTION_DEFAULT);
                         String titleType = componentProperties.get(FIELD_TITLE_TAG_TYPE, FIELD_TITLE_TAG_TYPE_DEFAULT);
 
-                    /*
-                      Component Fields Helper
-
-                      Structure:
-                      1 required - property name,
-                      2 required - default value,
-                      3 optional - name of component attribute to add value into
-                      4 optional - canonical name of class for handling multivalues, String or Tag
-                     */
-                        Object[][] assetField = {{"name", assetBasic.getName()}, {"id", assetBasic.getID(), FIELD_ASSETID}, {"path", assetBasic.getPath()}, {"originalPath", assetBasic.getOriginal()}, {"mimeType", assetBasic.getMimeType(), "data-mimetype"}, {"lastModified", assetBasic.getLastModified()}, {"isSubAsset", assetBasic.isSubAsset()}, {FIELD_RENDITIONS, assetBasic.listRenditions()}, {"linkURL", ""}, {"imageOption", imageOption}, {"titleType", titleType}, {"href", assetPath, "data-href"},
-
+                        Object[][] assetField = {
+                            {"name", assetBasic.getName()},
+                            {"id", assetBasic.getID(), FIELD_ASSETID},
+                            {"path", assetBasic.getPath()},
+                            {"originalPath", assetBasic.getOriginal()},
+                            {"mimeType", assetBasic.getMimeType(), "data-mimetype"},
+                            {"lastModified", assetBasic.getLastModified()},
+                            {"isSubAsset", assetBasic.isSubAsset()},
+                            {FIELD_RENDITIONS, assetBasic.listRenditions()},
+                            {"linkURL", StringUtils.EMPTY},
+                            {"imageOption", imageOption},
+                            {"titleType", titleType},
+                            {"href", assetPath, "data-href"},
                         };
 
                         //get asset properties
-                        ComponentProperties assetProperties = ComponentsUtil.getComponentProperties(this, asset, false, assetField, DEFAULT_FIELDS_ASSET);
+                        ComponentProperties assetProperties = ComponentsUtil.getComponentProperties(
+                            this,
+                            asset,
+                            false,
+                            assetField,
+                            DEFAULT_FIELDS_ASSET);
 
-                        String assetType = assetProperties.get(DamConstants.DC_FORMAT, "");
+                        String assetType = assetProperties.get(DamConstants.DC_FORMAT, StringUtils.EMPTY);
 
                         boolean checkDuration = false;
                         boolean getRenditions = false;
-
 
                         if (assetType.startsWith("video/")) {
                             assetProperties.put(ASSET_TYPE, "video");
@@ -347,43 +352,42 @@ public class AssetList extends ModelProxy {
                         }
 
                         if (checkDuration) {
-
                             Resource assetMetadataDurationResource = assetResource.getChild(PROPERTY_METADATA_DURATION);
-                            if (assetMetadataDurationResource != null) {
 
+                            if (assetMetadataDurationResource != null) {
                                 ValueMap assetMetadataDurationValueMap = assetMetadataDurationResource.getValueMap();
 
                                 assetProperties.put("duration", getAssetDuration(assetMetadataDurationValueMap).toString());
-
                             }
                         }
 
-
-                        //get license info
+                        // Get license info
                         Resource assetMetadataResource = assetResource.getChild(PROPERTY_METADATA);
 
                         if (assetMetadataResource != null) {
                             ValueMap assetMetadata = assetMetadataResource.getValueMap();
 
-                            assetProperties.put("assetTags", getTagsAsAdmin(sling, assetMetadata.get(TagConstants.PN_TAGS, new String[0]), getRequest().getLocale()));
+                            assetProperties.put("assetTags", getTagsAsAdmin(
+                                sling,
+                                assetMetadata.get(TagConstants.PN_TAGS, new String[0]),
+                                getRequest().getLocale()));
 
-                            String assetUsageTerms = assetMetadata.get(DAM_FIELD_LICENSE_USAGETERMS, "");
+                            String assetUsageTerms = assetMetadata.get(DAM_FIELD_LICENSE_USAGETERMS, StringUtils.EMPTY);
+
                             assetProperties.put("assetUsageTerms", assetUsageTerms);
-
                         }
 
-                        String licenseInfo = getAssetCopyrightInfo(assetBasic, ASSET_LICENSEINFO);
-                        assetProperties.put(FIELD_LICENSE_INFO, licenseInfo);
+                        String licenseInfo = getAssetCopyrightInfo(assetBasic, i18n.get(DEFAULT_I18N_LABEL_LICENSEINFO, DEFAULT_I18N_CATEGORY));
 
+                        assetProperties.put(FIELD_LICENSE_INFO, licenseInfo);
                         assetProperties.attr.add("data-license", licenseInfo);
 
                         //get list of renditions
                         Map<String, String> responsiveImageSet = new LinkedHashMap<>();
 
                         if (getRenditions) {
-
-                            // Check if the image suffix is '.svg' or '.gif', if it is skip any rendition checks and simply return
-                            // the path to it as no scaling or modifications should be applied.
+                            // Check if the image suffix is '.svg' or '.gif', if it is skip any rendition checks
+                            // and simply return the path to it as no scaling or modifications should be applied.
                             if (assetPath.endsWith(".svg") || assetPath.endsWith(".gif")) {
                                 assetProperties.put(FIELD_IMAGEURL, assetPath);
                                 assetProperties.put(FIELD_IMAGE_OPTION, "simple");
@@ -391,13 +395,19 @@ public class AssetList extends ModelProxy {
                                 responsiveImageSet = getImageSetForImageOptions(imageOption, asset, componentProperties, assetResource, getResourceResolver(), sling);
                             }
                         }
+
                         assetProperties.put(FIELD_RENDITIONS, responsiveImageSet);
 
-                        //pick last one from collection
+                        // Pick last one from collection
                         if (!responsiveImageSet.values().isEmpty()) {
                             assetProperties.put(FIELD_IMAGEURL, responsiveImageSet.values().toArray()[responsiveImageSet.values().size() - 1]);
                         }
 
+                        //re-evaluate expression fields after all data is ready
+                        assetProperties.evaluateAllExpressionValues();
+
+                        //re-evaluate expression fields after all data is ready
+                        assetProperties.evaluateExpressionFields();
 
                         assetProperties.put(COMPONENT_ATTRIBUTES, buildAttributesString(assetProperties.attr.getData(), null));
 
@@ -410,22 +420,25 @@ public class AssetList extends ModelProxy {
         } catch (Exception ex) {
             LOGGER.error("getAssetInfo: error processing asset asset={}, ex={}", asset, ex);
         }
+
         return null;
     }
 
     /**
      * process search results.
+     *
      * @param result search results
      * @throws RepositoryException when can't access content in repository
      */
     @SuppressWarnings("Duplicates")
-    private void collectSearchResults(SearchResult result) throws RepositoryException {
+    protected void collectSearchResults(SearchResult result) throws RepositoryException {
         Map<String, Object> resultInfo = new HashMap<>();
-        resultInfo.put("executionTime",result.getExecutionTime());
-        resultInfo.put("result",result);
+        resultInfo.put("executionTime", result.getExecutionTime());
+        resultInfo.put("result", result);
 
         totalMatches = result.getTotalMatches();
         List<ResultPage> resultPages = result.getResultPages();
+
         long hitsPerPage = result.getHitsPerPage();
         long totalPages = result.getResultPages().size();
         long pageStart = result.getStartIndex();
@@ -433,11 +446,11 @@ public class AssetList extends ModelProxy {
 
         resultInfo.put("hitsPerPage", hitsPerPage);
         resultInfo.put("currentPage", currentPage);
-        resultInfo.put("totalMatches",totalMatches);
+        resultInfo.put("totalMatches", totalMatches);
         resultInfo.put("resultPages", resultPages);
         resultInfo.put("totalPages", totalPages);
 
-        componentProperties.put("resultInfo",resultInfo);
+        componentProperties.put("resultInfo", resultInfo);
 
         AssetManager assetManager = getResourceResolver().adaptTo(AssetManager.class);
 
@@ -451,25 +464,19 @@ public class AssetList extends ModelProxy {
                 com.adobe.granite.asset.api.Asset asset = assetManager.getAsset(itemResource.getPath());
 
                 if (asset != null) {
-
                     ComponentProperties assetInfo = getAssetInfo(asset, itemResource, componentProperties, getSlingScriptHelper());
 
                     if (assetInfo != null) {
                         listItems.add(assetInfo);
                     }
-
                 } else {
                     LOGGER.error("populateStaticListItems: could not find asset {}", item);
-                    continue;
                 }
-
-
             }
         } else {
             LOGGER.error("ImageImpl: could not get AssetManager object");
         }
     }
-
 
     protected enum Source {
         CHILDREN("children"),
@@ -477,7 +484,7 @@ public class AssetList extends ModelProxy {
         DESCENDANTS("descendants"),
         EMPTY(StringUtils.EMPTY);
 
-        private String value;
+        protected String value;
 
         public String getValue() {
             return value;
@@ -488,13 +495,10 @@ public class AssetList extends ModelProxy {
         }
 
         public static Source fromString(String value) {
-            for (Source s : values()) {
-                if (StringUtils.equals(value, s.value)) {
-                    return s;
-                }
-            }
-            return null;
+            return Arrays.stream(values())
+                .filter(s -> StringUtils.equals(value, s.value))
+                .findFirst()
+                .orElse(null);
         }
     }
-
 }

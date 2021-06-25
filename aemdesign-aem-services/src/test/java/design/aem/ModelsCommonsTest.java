@@ -16,14 +16,16 @@
 package design.aem;
 
 import com.adobe.cq.wcm.core.components.testing.AbstractModelTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
+@Disabled
 public class ModelsCommonsTest extends AbstractModelTest {
 
     @Test
     public void testDefaultBehaviour() throws Exception {
-        testDefaultBehaviour(new String[] {
-                "design.aem.models.v3.content.ImageImplTest"
-       });
+        testDefaultBehaviour(new String[]{
+            "design.aem.models.v3.content.ImageImplTest"
+        });
     }
 }

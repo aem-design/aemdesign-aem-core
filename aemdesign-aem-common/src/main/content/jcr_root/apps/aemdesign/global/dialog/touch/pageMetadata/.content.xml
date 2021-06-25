@@ -19,7 +19,14 @@
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Page Metadata"
                     sling:resourceType="granite/ui/components/foundation/section">
-
+                <granite:rendercondition
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                    <granite:rendercondition
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                        groups="[content-authors-advanced]"/>
+                </granite:rendercondition>
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
@@ -61,6 +68,11 @@
                                                             variant="valuelist"
                                                             path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/html/metadata/properties"/>
                                                 </pageMetaProperty>
+                                                <pageMetaPropertyHint
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                    name="./pageMetaProperty@TypeHint"
+                                                    value="String[]"/>
 
                                                 <pageMetaPropertyContent
                                                         jcr:primaryType="nt:unstructured"
@@ -68,6 +80,11 @@
                                                         fieldLabel="Content"
                                                         name="./pageMetaPropertyContent"
                                                         required="{Boolean}true"/>
+                                                <pageMetaPropertyContentHint
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                    name="./pageMetaPropertyContent@TypeHint"
+                                                    value="String[]"/>
                                             </items>
                                         </field>
                                     </fieldconfigmultifield>

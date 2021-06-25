@@ -156,6 +156,15 @@ public class ImagesUtil {
             {IMAGE_FILEREFERENCE, ""},
     };
 
+    /***
+     * new shared fields for configurable license format
+     */
+    public static final String FIELD_LICENSE_FORMAT = "licenseFormat";
+    public static final String FIELD_FORMATTED_LICENSE = "licenseFormatted";
+    public static final String FIELD_FORMATTED_LICENSE_TEXT = "licenseFormattedText";
+    public static final String DEFAULT_FIELD_LICENSE_FORMAT = "<span itemprop=\"creator\" itemtype=\"https://schema.org/Person\">${dc:creator}</span><span itemprop=\"contributor\" itemtype=\"https://schema.org/Person\">${dc:contributor}</span><span itemprop=\"license\" itemtype=\"https://schema.org/CreativeWork\">${dc:rights}</span><span itemprop=\"copyrightHolder\" itemtype=\"https://schema.org/Person\">${xmpRights:Owner}</span><span itemprop=\"expires\" itemtype=\"https://schema.org/Date\">${prism:expirationDate}</span>";
+
+
     /**
      * Necessary to make sure some of the weird behavior CQ exhibits gets worked around. In
      * some cases (don't know when exactly), the asset dc:title and dc:description keys are

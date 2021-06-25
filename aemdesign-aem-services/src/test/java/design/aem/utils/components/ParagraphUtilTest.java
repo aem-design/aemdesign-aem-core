@@ -1,12 +1,8 @@
 package design.aem.utils.components;
 
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.*;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.jsp.JspWriter;
@@ -14,9 +10,8 @@ import java.io.IOException;
 
 import static design.aem.utils.components.ConstantsUtil.WCM_AUTHORING_MODE_COOKIE;
 import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
+import static org.mockito.MockitoAnnotations.openMocks;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ParagraphUtilTest {
 
     @Mock
@@ -28,9 +23,17 @@ public class ParagraphUtilTest {
     @Mock
     Cookie cookie;
 
-    @Before
-    public void before() {
-        initMocks(this);
+    private AutoCloseable closeable;
+
+    @BeforeEach
+    void setup() {
+        closeable = openMocks(this);
+
+    }
+
+    @AfterEach
+    void close() throws Exception {
+        closeable.close();
     }
 
     @Test
@@ -52,6 +55,6 @@ public class ParagraphUtilTest {
         when(slingHttpServletRequest.getCookie(WCM_AUTHORING_MODE_COOKIE)).thenReturn(cookie);
         when(cookie.getValue()).thenReturn("TOUCH");
         String actualValue = ParagraphUtil.uiMode(slingHttpServletRequest);
-        Assert.assertEquals("TOUCH", actualValue);
+        Assertions.assertEquals("TOUCH", actualValue);
     }
 }

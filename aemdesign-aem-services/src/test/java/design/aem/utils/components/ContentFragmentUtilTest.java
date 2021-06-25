@@ -5,20 +5,15 @@ import com.adobe.cq.dam.cfm.ContentFragment;
 import com.adobe.cq.dam.cfm.ContentVariation;
 import org.apache.sling.testing.resourceresolver.MockResource;
 import org.apache.sling.testing.resourceresolver.MockResourceResolver;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.*;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Iterator;
 import java.util.Map;
 
 import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
+import static org.mockito.MockitoAnnotations.openMocks;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ContentFragmentUtilTest {
 
     private static final String CONTENT_FRAGMENT_PATH = "/content/dam/aem-desigm/traditonals-shared";
@@ -42,21 +37,27 @@ public class ContentFragmentUtilTest {
     @Mock
     Iterator<ContentElement> contentElementIterator;
 
-    @Before
-    public void before() {
-        initMocks(this);
+    private AutoCloseable closeable;
+
+    @BeforeEach
+    void setup() {
+        closeable = openMocks(this);
     }
 
+    @AfterEach
+    void close() throws Exception {
+        closeable.close();
+    }
     @Test
     public void testGetComponentFragmentMap_EmptyFragmentPath() {
         Map<String, Object> fragmentMap = ContentFragmentUtil.getComponentFragmentMap("", VARIATION, resourceResolver);
-        Assert.assertTrue(fragmentMap.isEmpty());
+        Assertions.assertTrue(fragmentMap.isEmpty());
     }
 
     @Test
     public void testGetComponentFragmentMap_NullFragmentPath() {
         Map<String, Object> fragmentMap = ContentFragmentUtil.getComponentFragmentMap(null, VARIATION, resourceResolver);
-        Assert.assertTrue(fragmentMap.isEmpty());
+        Assertions.assertTrue(fragmentMap.isEmpty());
     }
 
     @Test
@@ -65,7 +66,7 @@ public class ContentFragmentUtilTest {
         when(resource.getResourceType()).thenReturn("/apps/valid");
         when(resource.adaptTo(ContentFragment.class)).thenReturn(null);
         Map<String, Object> fragmentMap = ContentFragmentUtil.getComponentFragmentMap(CONTENT_FRAGMENT_PATH, VARIATION, resourceResolver);
-        Assert.assertTrue(fragmentMap.isEmpty());
+        Assertions.assertTrue(fragmentMap.isEmpty());
     }
 
     @Test
@@ -79,7 +80,7 @@ public class ContentFragmentUtilTest {
         when(contentElement.getName()).thenReturn("name");
         when(contentElement.getVariation(VARIATION)).thenReturn(null);
         Map<String, Object> fragmentMap = ContentFragmentUtil.getComponentFragmentMap(CONTENT_FRAGMENT_PATH, VARIATION, resourceResolver);
-        Assert.assertNull(fragmentMap.get("name"));
+        Assertions.assertNull(fragmentMap.get("name"));
     }
 
     @Test
@@ -94,7 +95,7 @@ public class ContentFragmentUtilTest {
         when(contentElement.getVariation(VARIATION)).thenReturn(variation);
         when(variation.getContent()).thenReturn("content");
         Map<String, Object> fragmentMap = ContentFragmentUtil.getComponentFragmentMap(CONTENT_FRAGMENT_PATH, VARIATION, resourceResolver);
-        Assert.assertEquals("content", fragmentMap.get("name"));
+        Assertions.assertEquals("content", fragmentMap.get("name"));
     }
 
     @Test
@@ -108,14 +109,14 @@ public class ContentFragmentUtilTest {
         when(contentElement.getName()).thenReturn("name");
         when(contentElement.getContent()).thenReturn("content");
         Map<String, Object> fragmentMap = ContentFragmentUtil.getComponentFragmentMap(CONTENT_FRAGMENT_PATH, null, resourceResolver);
-        Assert.assertEquals("content", fragmentMap.get("name"));
+        Assertions.assertEquals("content", fragmentMap.get("name"));
         verify(contentElement, never()).getVariation(anyString());
     }
 
     @Test
     public void testGetComponentFragmentMap_Exception() {
         Map<String, Object> fragmentMap = ContentFragmentUtil.getComponentFragmentMap(CONTENT_FRAGMENT_PATH, VARIATION, null);
-        Assert.assertTrue(fragmentMap.isEmpty());
+        Assertions.assertTrue(fragmentMap.isEmpty());
     }
 
 }

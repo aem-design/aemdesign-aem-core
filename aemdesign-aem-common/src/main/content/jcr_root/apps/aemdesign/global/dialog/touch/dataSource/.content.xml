@@ -19,7 +19,14 @@
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Data Source"
                     sling:resourceType="granite/ui/components/foundation/section">
-
+                <granite:rendercondition
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/renderconditions/not">
+                    <granite:rendercondition
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="aemdesign/components/coral/renderconditions/iscurrentuseringroup"
+                        groups="[content-authors-advanced]"/>
+                </granite:rendercondition>
                 <layout jcr:primaryType="nt:unstructured"
                         margin="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
@@ -55,7 +62,7 @@
                                             name="./variationName">
                                         <datasource
                                                 jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="core/wcm/extension/components/contentfragment/v1/datasource/variations"
+                                                sling:resourceType="core/wcm/components/contentfragment/v1/datasource/variations"
                                                 componentPath="${requestPathInfo.suffix}"
                                                 fragmentPath="${param.fragmentPath}"/>
                                         <granite:data

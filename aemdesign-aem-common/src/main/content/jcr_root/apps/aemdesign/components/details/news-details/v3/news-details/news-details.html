@@ -1,0 +1,56 @@
+<sly data-sly-use.component="design.aem.models.v2.details.NewsDetails"
+     data-sly-use.legacyVariant="${component.componentProperties.variantTemplate}"
+     data-sly-use.dynamicVariant="variant.custom.html"
+     data-sly-set.requestedFields="${component.requestedFields}"
+     data-sly-set.fieldsTemplates="${component.templates}"
+     data-sly-use.background="aemdesign/global/templates/component-background.html"
+     data-sly-use.info="aemdesign/global/templates/component-info.html">
+
+    <!--/* check if dynamic component badge is being requested */-->
+    <sly data-sly-test="${requestedFields}"
+         data-sly-list.template="${fieldsTemplates}">
+        <sly data-sly-test="${template in requestedFields}">
+            <sly data-sly-set.componentBadgeSelected="true"></sly>
+            <sly data-sly-set.componentBadgeFields="${requestedFields}"></sly>
+            <sly data-sly-set.componentBadgeSelectedPath="${component.templates[template].path}"></sly>
+        </sly>
+    </sly>
+
+    <sly data-sly-test="${!componentBadgeSelected}">
+        <!--/* print component background if not badge being requested */-->
+        <sly data-sly-call="${background.variant @ componentId=component.componentProperties.componentId, assets=component.componentProperties.bgimage.componentBackgroundAssets}"></sly>
+
+        <!--/* print component variant if not badge being requested */-->
+        <sly data-sly-test="${component.componentProperties.legacyVariant || 'default' in component.componentProperties.variant}"
+                data-sly-call="${legacyVariant.variant @ componentProperties=component.componentProperties, componentTemplates=fieldsTemplates, requestedFieldsTemplate=component.componentProperties.variantFieldsTemplate, componentFields=component.fields, requestedFields=component.componentProperties.variantFields}"></sly>
+
+        <!--/* print component variant if not badge being requested */-->
+        <sly data-sly-test="${!component.componentProperties.legacyVariant && ('default' in component.componentProperties.variant ? false : true)}"
+                data-sly-call="${dynamicVariant.variant @ componentProperties=component.componentProperties, componentTemplates=fieldsTemplates, requestedFieldsTemplate=component.componentProperties.variantFieldsTemplate, componentFields=component.fields, requestedFields=component.componentProperties.variantFields}"></sly>
+
+        <!--/* print component info in edit mode if not badge being requested */-->
+        <sly data-sly-call="${info.variant @ componentProperties=component.componentProperties, component=component}"></sly>
+    </sly>
+
+    <!--/* print dynamic component badge if badge being requested */-->
+    <sly data-sly-test="${componentBadgeSelected}">
+        <!--/* if badge fields template has been selected get its path */-->
+        <sly data-sly-test="${component.componentProperties.badgeFieldsTemplate}"
+             data-sly-list.badgeTemplate="${component.componentProperties.badgeFieldsTemplate}">
+            <sly data-sly-test="${badgeTemplate in fieldsTemplates}">
+                <sly data-sly-test="${component.componentProperties.badgeFields}"
+                     data-sly-set.componentBadgeFields="${component.componentProperties.badgeFields}"></sly>
+                <sly data-sly-set.componentBadgeSelectedPath="${component.templates[badgeTemplate].path}"></sly>
+            </sly>
+        </sly>
+
+        <!--/* if badge field is just default set to something */-->
+        <sly data-sly-test="${'default' in componentBadgeFields}">
+            <sly data-sly-set.componentBadgeFields="title"></sly>
+        </sly>
+
+        <sly data-sly-use.child="${componentBadgeSelectedPath}"
+             data-sly-call="${child.variant @ componentProperties=component.componentProperties, componentFields=component.fields, requestedFields=componentBadgeFields}"></sly>
+    </sly>
+
+</sly>
