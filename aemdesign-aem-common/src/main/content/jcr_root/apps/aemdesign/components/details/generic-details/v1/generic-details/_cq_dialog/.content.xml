@@ -98,6 +98,11 @@
                                                     variant="valuelist"
                                                     path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/templates"/>
                                             </variantFieldsTemplate>
+                                            <variantFieldsTemplateHint
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                name="./variantFieldsTemplate@TypeHint"
+                                                value="String[]"/>
 
                                             <variantFields
                                                 jcr:primaryType="nt:unstructured"
@@ -118,6 +123,11 @@
                                                         path="/content/cq:tags/${(empty tenant.id and empty tenantId) ? 'aemdesign' : (empty tenant.id ? tenantId : tenant.id )}/component-dialog/components/details/generic-details/fields"/>
                                                 </field>
                                             </variantFields>
+                                            <variantFieldsHint
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/hidden"
+                                                name="./variantFields@TypeHint"
+                                                value="String[]"/>
                                         </items>
                                     </variantCustomConfig>
                                 </items>
