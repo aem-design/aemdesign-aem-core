@@ -53,15 +53,20 @@ public class CommonUtil {
     public static final String COMPONENT_DETAILS_SUFFIX = "-details";
     public static final String PATH_DEFAULT_CONTENT = "article/par";
     public static final String PATH_DEFAULT_CONTENT_BASIC = "root/responsivegrid";
+    public static final String PATH_DEFAULT_CONTENT_BASIC_CORE = "root/container";
     public static final String PATH_DEFAULT_CONTENT_ROOT_ARTICLE = "root/article/par";
     public static final String DEFAULT_PAR_NAME = "par";
+    public static final String DEFAULT_ROOT_NAME = "root";
 
     public static final String[] DEFAULT_LIST_DETAILS_SUFFIX = new String[]{COMPONENT_DETAILS_SUFFIX}; //NOSONAR used by models
+    //TODO: need to make this an OSGi Config same as aemdesign.components.media.image
     public static final String[] DEFAULT_LIST_PAGE_CONTENT = new String[]{
-        DEFAULT_PAR_NAME,
+        PATH_DEFAULT_CONTENT_BASIC_CORE, // vanila core on sdk
+        DEFAULT_ROOT_NAME,
+        DEFAULT_PAR_NAME, //legacy
         PATH_DEFAULT_CONTENT,
         PATH_DEFAULT_CONTENT_BASIC,
-        PATH_DEFAULT_CONTENT_ROOT_ARTICLE
+        PATH_DEFAULT_CONTENT_ROOT_ARTICLE //semantic
     }; //NOSONAR used by models
 
 
