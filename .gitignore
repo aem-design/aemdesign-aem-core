@@ -16,6 +16,7 @@ target
 .project
 .settings
 maven-eclipse.xml
+.factorypath
 *.iml
 *.ipr
 *.iws
