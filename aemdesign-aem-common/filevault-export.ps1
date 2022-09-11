@@ -18,9 +18,10 @@
     [string]$CONTENT_DESTINATION = (Resolve-Path -Path ".\src\main\content" -Relative),
     [string]$FILTER_FILE = "${CONTENT_DESTINATION}\META-INF\vault\filter.xml",
     [string]$FILTER_FILE_LOCATION = "${CONTENT_DESTINATION}\META-INF",
-    [string[]]$ROOT_PATHS,
     [switch]$Silent = $false,
-    [string]$LOG_PATH = "..\logs"
+    [string]$LOG_PATH = "..\logs",
+    [Parameter(Position=0)]
+    [string[]]$ROOT_PATHS
 )
 
 Function Format-XMLIndent
@@ -76,6 +77,10 @@ if (-not($ROOT_PATHS)) {
     $ROOT_PATHS = GetFilterList
 }
 
+Write-Output "---------------------------------------------------"
+Write-Output "------- EXPORT CONTENT FROM AN AEM INSTANCE ----------"
+Write-Output "---------------------------------------------------"
+Write-Output ""
 Write-Output "------- CONFIG ----------"
 Write-Output "AEM_SCHEMA: $AEM_SCHEMA"
 Write-Output "AEM_HOST: $AEM_HOST"

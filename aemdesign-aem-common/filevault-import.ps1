@@ -20,8 +20,6 @@
     [string]$CONTENT_DESTINATION = ".\src\main\content",
     [string]$FILTER_FILE = "${CONTENT_DESTINATION}\META-INF\vault\filter.xml",
     [string]$FILTER_FILE_LOCATION = "${CONTENT_DESTINATION}\META-INF",
-    #which filter paths to import
-    [string[]]$ROOT_PATHS,
     [string]$ROOT_PATH = "/",
     [string]$CONTENT_SOURCE = (Resolve-Path -Path "src\main\content\jcr_root" -Relative),
     # connection timeout
@@ -41,7 +39,10 @@
         "action"="start"
     },
     [switch]$Silent = $false,
-    [string]$LOG_PATH = "..\logs"
+    [string]$LOG_PATH = "..\logs",
+    #which filter paths to import
+    [Parameter(Position=0)]
+    [string[]]$ROOT_PATHS
 )
 
 
@@ -129,6 +130,10 @@ function doSlingPost {
 
 }
 
+Write-Output "---------------------------------------------------"
+Write-Output "------- IMPORT CONTENT TO AN AEM INSTANCE ----------"
+Write-Output "---------------------------------------------------"
+Write-Output ""
 Write-Output "------- CONFIG ----------"
 Write-Output "AEM_SCHEMA: $AEM_SCHEMA"
 Write-Output "AEM_HOST: $AEM_HOST"
